@@ -15,3 +15,4 @@ shot
 js (closePanel && closePanel(), closeModal && closeModal(), G.P.gold = 99999, G.P.pets = ['bufandin'], G.P.pet = 'bufandin', spawnPetEnt(), calcStats(G.P), [G.P.S.spd, G.P.S.crit])
 wait 600
 js (window._errs)
+js (()=>{ const A = petAtlas('bufandin'); return [A.fw, A.fh, A.hd.width === A.img.width * 2, A.hd.height === A.img.height * 2, hdEnsure(A, 2, 1)]; })()

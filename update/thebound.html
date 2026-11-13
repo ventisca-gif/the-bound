@@ -341,7 +341,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v4.7 · Boutique de Valentina · Bufandín · PvP equilibrado</div>
+  <div class="tfoot">v4.8 · Bufandín en HD</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -521,7 +521,7 @@ FrontEndError:1001,FrontEndConnectFailed:1002,FrontEndConnectClosed:1003,FrontEn
 </script>
 <script>
 const LANG_EN = (() => { try { if (/[?&]lang=en\b/.test(location.search)) return true; if (/[?&]lang=es\b/.test(location.search)) return false; return localStorage.getItem('thebound.lang') === 'en'; } catch (e) { return false; } })();
-const I18N_TPL = {"Cargando...":"Loading...","oro":"gold","Jugadores en línea":"Players online","Mapa":"Map","Menú":"Menu","Personaje":"Character","Poción rápida":"Quick potion","Inventario":"Inventory","Misiones":"Quests","Atacar":"Attack","Esquivar":"Dodge","Mantén el botón":"Hold the button","Escribe un mensaje":"Type a message","Enviar":"Send","Cerrar":"Close","EL VÍNCULO":"THE BOND","Nueva partida":"New game","Crea tu héroe":"Create your hero","Girar a la izquierda":"Turn left","Caminar":"Walk","Girar a la derecha":"Turn right","Nombre":"Name","Comenzar aventura":"Start adventure","Volver":"Back","v4.7 · Boutique de Valentina · Bufandín · PvP equilibrado":"v4.7 · Valentina's Boutique · Scarfy · Balanced PvP"};
+const I18N_TPL = {"Cargando...":"Loading...","oro":"gold","Jugadores en línea":"Players online","Mapa":"Map","Menú":"Menu","Personaje":"Character","Poción rápida":"Quick potion","Inventario":"Inventory","Misiones":"Quests","Atacar":"Attack","Esquivar":"Dodge","Mantén el botón":"Hold the button","Escribe un mensaje":"Type a message","Enviar":"Send","Cerrar":"Close","EL VÍNCULO":"THE BOND","Nueva partida":"New game","Crea tu héroe":"Create your hero","Girar a la izquierda":"Turn left","Caminar":"Walk","Girar a la derecha":"Turn right","Nombre":"Name","Comenzar aventura":"Start adventure","Volver":"Back","v4.8 · Bufandín en HD":"v4.8 · Scarfy in HD"};
 'use strict';
 // ================= CORE =================
 const TS = 16;
@@ -11732,13 +11732,16 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '4.7', GAME_BUILD = 28;
+const GAME_VER = '4.8', GAME_BUILD = 29;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
 const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/[
+  {"b": 29, "v": "4.8", "d": "2026-11-13",
+   "es": ["Bufandín redibujado en HD: el doble de resolución, ojos con brillo, orejas rosas, mejillas con mechones, luna en la frente, hocico, cola rizada y una bufanda carmesí con franja dorada y flecos que ondea al caminar."],
+   "en": ["Scarfy redrawn in HD: double resolution, shiny eyes, pink ears, fluffy cheeks, a crescent moon on its forehead, muzzle, curled tail and a crimson scarf with a gold stripe and fringe that flutters as it walks."]},
   {"b": 28, "v": "4.7", "d": "2026-11-13",
    "es": ["Nueva boutique en cada pueblo, con tejado morado: Valentina, la modista, vende la colección nueva.", "Ropa nueva: Suéter de Punto Medianoche (cuello de cuadrícula, franja carmesí, puños rosas), Pantalón Holgado Café, Zapatillas Carmesí, Tirita en la Mejilla, Vestido de Noche Carmesí y Chaqueta de Cuero. Se ajustan a las 8 estructuras.", "Nueva mascota: Bufandín, el Gato Viajero (+6% de velocidad y +4% de crítico).", "PvP equilibrado a nivel máximo: todas las clases pueden hacerse frente. En duelo las curas y escudos rinden menos, y cada clase tiene un ajuste de daño solo para PvP.", "Las invocaciones del Invocador ahora también atacan al rival en un duelo."],
    "en": ["New boutique in every town, with a purple roof: Valentina, the designer, sells the new collection.", "New clothes: Midnight Knit Sweater (grid collar, crimson stripe, pink cuffs), Baggy Brown Trousers, Crimson Sneakers, Cheek Bandage, Crimson Evening Dress and Leather Jacket. They fit all 8 builds.", "New pet: Scarfy, the Wandering Cat (+6% speed and +4% crit).", "PvP balanced at max level: every class can stand up to the others. In duels heals and shields are weaker, and each class has a PvP-only damage adjustment.", "Summoner spirits now also attack your opponent in a duel."]},
@@ -12330,34 +12333,75 @@ DLG_HOOKS.push((npc, opts) => { if (!npc || npc.id !== 'modista') return; const 
   opts.unshift({ label: L2('Ver la colección', 'Browse the collection'), icon: ['hanger'], fn: () => { closeDialog(); openShop('moda', tk); } }); });
 
 // ---------- mascota: Bufandín, gato viajero con bufanda (diseño original inspirado en el gato de Sergio) ----------
+// v4.8: dibujo HD propio. Se dibuja dos veces con el mismo código: a 1x (26x24) y a 2x (52x48, con detalles de medio
+// píxel); con los gráficos HD activados el juego usa la versión 2x.
 PETS.bufandin = { n: L2('Bufandín, el Gato Viajero', 'Scarfy, the Wandering Cat'), d: L2('+6% de velocidad y +4% de crítico. Su bufanda ondea al correr.', '+6% speed and +4% crit. Its scarf flutters as it runs.'), price: 5500, look: { kind: 'scarfcat', b: '#3a58c8', b2: '#7aa0f0', eye: '#58e0a0' } };
 { const _ps = petStats; petStats = function (P, S) { _ps(P, S); if (P.pet === 'bufandin') { S.spd *= 1.06; S.crit = Math.min(70, S.crit + 4); } }; }
+const BUFI = {
+  fur: pal(['#141a4a', '#22307a', '#3048a8', '#4466cc', '#6a8ae4', '#a4c0fa']), cream: pal(['#a89a8a', '#d4c8b8', '#efe6d8', '#fffaf2']),
+  pink: C('#f2a2c0'), pinkD: C('#c0607e'), eye: pal(['#0e3a2a', '#1e8a5a', '#3ad08a', '#9af0c8']), dark: C('#0c0c16'), white: C('#ffffff'),
+  scarf: pal(['#3a0610', '#6e0e1c', '#a4182a', '#d02c3c', '#f0606a', '#ffa0a4']), gold: pal(['#8a5a10', '#d0a030', '#ffe080']),
+};
+function drawBufi(p, dir, a, f, S) {
+  const side = dir === 'left', up = dir === 'up', F = BUFI.fur, Cr = BUFI.cream, Sc = BUFI.scarf, Go = BUFI.gold;
+  const step = a === 'walk' ? [0, 1, 0, 1][f] : 0, bob = a === 'idle' ? (f ? 0.5 : 0) : a === 'walk' ? [0, 1, 0, 1][f] * 0.8 : a === 'atk' ? [0, 1, 0][f] * 0.5 : 0;
+  const flap = a === 'walk' ? [0, 1.5, 0.8, 2][f] : a === 'idle' ? f * 0.6 : 1, lean = a === 'atk' ? [0, 1.2, 0.4][f] : 0;
+  const cx = 13 + (side ? -lean : 0), by = 21.5 - bob, hx = cx + (side ? -1.6 : 0), hy = by - 11.2;
+  const B = (x, y, rx, ry, cols) => p.ball(x * S, y * S, rx * S, ry * S, cols), E = (x, y, rx, ry, c) => p.ell(x * S, y * S, rx * S, ry * S, c);
+  const Q = (pts, c) => p.poly(pts.map(([x, y]) => [x * S, y * S]), c), D = (x, y, c) => p.set(Math.round(x * S), Math.round(y * S), c);
+  const R = (x, y, w, h, c) => p.rect(Math.round(x * S), Math.round(y * S), Math.max(1, Math.round(w * S)), Math.max(1, Math.round(h * S)), c);
+  const furB = [F[1], F[2], F[3], F[4]], furL = [F[2], F[3], F[4], F[5]];
+  // --- cola rizada con punta crema (detrás) ---
+  const tail = () => { const tx = side ? cx + 4.5 : cx + 4, ty = by - 3.5, w = flap * 0.5;
+    for (let k = 0; k <= 8; k++) { const t = k / 8, x = tx + t * 3.2 + Math.sin(t * 3.4) * 1.2, y = ty - t * 7.2 - Math.sin(t * 2.6 + w) * 0.8; E(x, y, 1.15 - t * 0.25, 1.15 - t * 0.25, t > 0.82 ? Cr[2] : (k % 3 ? F[2] : F[3])); } };
+  // --- cuerpo, patas y brazos ---
+  const body = () => {
+    for (const [lx, ph] of side ? [[-1.6, step], [1.4, 1 - step]] : [[-2.6, step], [2.6, 1 - step]]) { R(cx + lx - 1.1, by - 2.4 - ph * 0.6, 2.2, 2.4 + ph * 0.6, F[1]); E(cx + lx, by - 0.4, 1.4, 0.8, F[2]); if (!up) { D(cx + lx - 0.6, by - 0.3, Cr[2]); D(cx + lx + 0.4, by - 0.3, Cr[2]); } }
+    B(cx + (side ? -0.4 : 0), by - 4.6, 4.4, 3.6, furB);
+    if (!up) B(cx + (side ? -1.6 : 0), by - 4.2, side ? 1.9 : 2.5, 2.6, [Cr[1], Cr[2], Cr[2], Cr[3]]);
+    const paw = (x, y) => { E(x, y, 1.2, 1.1, F[3]); D(x - 0.4, y + 0.6, Cr[2]); };
+    if (side) paw(cx - 3.6 - lean * 1.5, by - 5.2 - lean * 1.6); else if (!up) { paw(cx - 4.4, by - 4.2 - (a === 'atk' && f === 1 ? 2.5 : 0)); paw(cx + 4.4, by - 4.2); }
+  };
+  // --- cabeza grande con mejillas ---
+  const head = () => {
+    for (const sg of side ? [1, -1] : [-1, 1]) { const ex = hx + sg * (side ? (sg > 0 ? 3.2 : -1.4) : 4.4), back = side && sg < 0;
+      Q([[ex - 2.6, hy - 3.4], [ex + sg * 1.0, hy - 9.6], [ex + 2.6, hy - 3.4]], back ? F[1] : F[2]); Q([[ex - 1.7, hy - 3.6], [ex + sg * 0.8, hy - 8.2], [ex + 1.7, hy - 3.6]], back ? F[2] : F[3]);
+      if (!up && !back) Q([[ex - 1.0, hy - 4.0], [ex + sg * 0.6, hy - 7.0], [ex + 1.0, hy - 4.0]], BUFI.pink); }
+    B(hx, hy, 7.3, 6.3, furL);
+    for (const sg of side ? [-1] : [-1, 1]) Q([[hx + sg * 6.6, hy + 0.4], [hx + sg * 8.0, hy + 2.0], [hx + sg * 6.4, hy + 2.6]], F[3]);   // mechones de las mejillas
+    if (up) { E(hx, hy - 2.5, 3.2, 1.6, F[4]); return; }
+    // luna creciente en la frente
+    const mx = hx + (side ? -1.8 : 0), my = hy - 3.4; E(mx, my, 1.7, 1.7, Cr[3]); E(mx + 0.7, my - 0.5, 1.4, 1.4, F[4]);
+    // hocico claro, nariz y boca
+    const nx = hx + (side ? -4.6 : 0), ny = hy + 2.4; B(nx, ny, side ? 2.6 : 3.4, 2.0, [Cr[1], Cr[2], Cr[3], Cr[3]]);
+    E(nx, ny - 0.8, 0.8, 0.5, BUFI.pink); D(nx - 0.6, ny + 0.6, BUFI.pinkD); D(nx + 0.6, ny + 0.6, BUFI.pinkD); D(nx, ny + 0.2, BUFI.pinkD);
+    // bigotes cortos fuera de la cara
+    if (!side) for (const sg of [-1, 1]) for (const dy of [0, 1]) { const x0 = hx + sg * 7.0; p.line(Math.round(x0 * S), Math.round((ny + dy - 0.4) * S), Math.round((x0 + sg * 1.6) * S), Math.round((ny + dy - 0.9) * S), F[1]); }
+    // ojos grandes verdes con brillo
+    const ey = hy - 0.6, eyes = side ? [hx - 3.4] : [hx - 3.1, hx + 3.1], blink = a === 'idle' && f === 1 && false;
+    for (const ex of eyes) { E(ex, ey, 1.75, 2.05, BUFI.dark); if (blink) continue; B(ex, ey + 0.2, 1.3, 1.6, BUFI.eye); E(ex + 0.1, ey + 0.3, 0.55, 0.9, BUFI.dark); D(ex - 0.6, ey - 0.8, BUFI.white); D(ex + 0.5, ey + 1.0, BUFI.eye[3]); }
+    if (!side) for (const sg of [-1, 1]) D(hx + sg * 5.2, hy + 1.6, uMix(F[4], BUFI.pink, 0.5));   // rubor
+  };
+  // --- bufanda carmesí voluminosa con franja dorada y flecos ---
+  const scarf = (front) => {
+    const sy = hy + 6.0;
+    if (front) { B(hx + (side ? 0.6 : 0), sy, 6.8, 2.5, [Sc[1], Sc[2], Sc[3], Sc[4]]); for (let x = -5; x <= 5; x += 2.5) D(hx + x + (side ? 0.6 : 0), sy + 1.4, Sc[1]); p.hl(Math.round((hx - 5.6 + (side ? 0.6 : 0)) * S), Math.round((sy - 1.0) * S), Math.round(11.2 * S), Sc[5]);
+      if (!up && !side) { B(hx + 3.2, sy + 1.6, 1.8, 1.5, [Sc[1], Sc[2], Sc[3], Sc[4]]); } }
+    else { // dos puntas anchas que caen como una capa corta, con franja dorada y flecos, ondeando al andar
+      const x0 = hx + (side ? 3.2 : 2.2), y0 = sy + 0.4;
+      for (const [k, len, w] of [[0, 7.2, 2.6], [1, 5.6, 2.1]]) { const sw = flap * (k ? 0.5 : 0.8), ang = (side ? 0.55 : 0.75) + k * 0.35, ex = x0 + Math.cos(ang) * len + sw, ey = y0 + Math.sin(ang) * len;
+        const nx = -Math.sin(ang), ny = Math.cos(ang), pts = [[x0 - nx * w * 0.5, y0 - ny * w * 0.5], [x0 + nx * w * 0.5, y0 + ny * w * 0.5], [ex + nx * w * 0.6, ey + ny * w * 0.6], [ex - nx * w * 0.6, ey - ny * w * 0.6]];
+        Q(pts, Sc[k ? 1 : 2]); const mx = x0 + (ex - x0) * 0.62, my = y0 + (ey - y0) * 0.62; p.line(Math.round((mx - nx * w * 0.5) * S), Math.round((my - ny * w * 0.5) * S), Math.round((mx + nx * w * 0.5) * S), Math.round((my + ny * w * 0.5) * S), Go[1]);
+        p.line(Math.round((x0 - nx * w * 0.4) * S), Math.round((y0 - ny * w * 0.4) * S), Math.round((ex - nx * w * 0.5) * S), Math.round((ey - ny * w * 0.5) * S), Sc[k ? 2 : 4]);
+        for (const o of [-0.5, 0, 0.5]) D(ex + nx * w * o + Math.cos(ang) * 0.8, ey + ny * w * o + Math.sin(ang) * 0.8, Sc[4]); } }
+  };
+  if (up) { body(); scarf(false); head(); scarf(true); tail(); return; }
+  tail(); scarf(false); body(); head(); scarf(true);
+}
 { const _gp = genPet; genPet = function (k) { const L = PETS[k] && PETS[k].look; if (!L || L.kind !== 'scarfcat') return _gp(k);
-  const body = C(L.b), hi = C(L.b2), dk = uMul(body, 0.5), mid = uMix(body, hi, 0.5), cream = C('#f4ecdc'), cream2 = C('#d8ccb8'), eye = C(L.eye), pink = C('#f0a0c0');
-  const sc = pal(['#4a0810', '#8a1420', '#c8283a', '#ec5a62']), gold = C('#ffd060'), B4 = [dk, body, mid, hi];
-  return mobAtlas(26, 24, (p, dir, a, f) => {
-    const side = dir === 'left', up = dir === 'up', step = a === 'walk' ? [0, 1, 0, 1][f] : 0, bob = a === 'idle' ? f : a === 'walk' ? step : a === 'atk' ? [0, 1, 0][f] : 0;
-    const by = 21 - bob, cx = 13, hy = by - 11, flap = a === 'walk' ? [0, 2, 1, 3][f] : f;
-    // cola curva con punta clara
-    const tx = side ? cx + 5 : cx + 5; if (up || side) { p.line(tx - 1, by - 3, tx + 2, by - 7, body); p.line(tx + 2, by - 7, tx + 1, by - 10 + (flap % 2), body); p.set(tx + 1, by - 11 + (flap % 2), cream); }
-    // patitas y cuerpo pequeño
-    for (const lx of side ? [-2, 1] : [-3, 2]) p.rect(cx + lx + (side && lx < 0 ? -step : 0), by - 2, 2, 2 + (lx < 0 ? step : 0), dk);
-    p.ball(cx + (side ? -1 : 0), by - 5, 4.6, 3.6, B4); if (!up) p.ball(cx + (side ? -2 : 0), by - 4.5, 2.2, 2.2, [cream2, cream, cream, cream]);
-    // cabeza grande
-    const hx = side ? cx - 2 : cx; p.ball(hx, hy, 6.6, 5.6, B4);
-    for (const s of side ? [1] : [-1, 1]) { const ex = hx + s * 4.2; p.poly([[ex - 2.2, hy - 3.5], [ex + s * 0.8, hy - 9], [ex + 2.2, hy - 3.5]], body); if (!up) { p.set(Math.round(ex + s * 0.4), hy - 6, pink); p.set(Math.round(ex + s * 0.4), hy - 5, pink); } }
-    if (!up) {
-      p.set(hx - 1, hy - 4, cream); p.set(hx, hy - 5, cream); p.set(hx + 1, hy - 4, cream); p.set(hx, hy - 3, uMix(cream, hi, 0.5));   // luna creciente en la frente
-      const eyes = side ? [hx - 4] : [hx - 3, hx + 2];
-      for (const ex of eyes) { p.set(ex, hy - 1, C('#101018')); p.set(ex + 1, hy - 1, C('#101018')); p.set(ex, hy, eye); p.set(ex + 1, hy, C('#ffffff')); p.set(ex, hy + 1, uMul(eye, 0.6)); p.set(ex + 1, hy + 1, eye); }
-      p.ball(hx + (side ? -2 : 0), hy + 3, 2.4, 1.3, [cream2, cream, cream, cream]); p.set(hx + (side ? -3 : 0), hy + 2, pink);
-    }
-    // bufanda carmesí con raya dorada y flecos al viento
-    for (let x = hx - 5; x <= hx + 5; x++) { p.set(x, hy + 5, sc[2]); p.set(x, hy + 6, sc[x % 2 ? 1 : 2]); } p.hl(hx - 4, hy + 5, 9, sc[3]); if (!up) p.hl(hx - 3, hy + 6, 7, sc[1]);
-    const tail = side ? 1 : 1, fx = hx + (side ? 4 : 3);
-    for (let k = 0; k < 5; k++) { const x = fx + tail * k + (k > 2 ? flap % 2 : 0), y = hy + 6 + Math.round(k * 0.6) - (a === 'walk' ? (k > 1 ? 1 : 0) : 0); p.set(x, y, sc[2]); p.set(x, y + 1, sc[1]); if (k === 2) p.set(x, y, gold); }
-    p.set(fx + 5 + (flap % 2), hy + 9, sc[3]); p.set(fx + 4 + (flap % 2), hy + 10, sc[3]);
-  });
+  const A = mobAtlas(26, 24, (p, d, a, f) => drawBufi(p, d, a, f, 1)), H = mobAtlas(52, 48, (p, d, a, f) => drawBufi(p, d, a, f, 2));
+  // versión HD lista de antemano: atlasBlit la usa cuando los gráficos HD están activados (HDS > 1)
+  A.hdL = { pet: 1 }; A.hd = H.img; A.hdDone = new Uint8Array((A.img.width / A.fw) * 4).fill(1); return A;
 }; }
 
 // ================= v4.7: EQUILIBRIO PVP A NIVEL MÁXIMO =================

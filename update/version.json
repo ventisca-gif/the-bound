@@ -1,26 +1,18 @@
 {
- "build": 28,
- "ver": "4.7",
+ "build": 29,
+ "ver": "4.8",
  "date": "2026-11-13",
  "file": "thebound.html",
- "size": 4521377,
- "sha256": "feb7aabb00795aaf2f855df52338fe7f16b264ae220cdf52650e2b2f3c2c80e5",
+ "size": 4525968,
+ "sha256": "1d32eb5cd36f1eed384942dee15406e8d801ca9153cb0bc352b26d3843af8631",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Nueva boutique en cada pueblo, con tejado morado: Valentina, la modista, vende la colección nueva.",
-   "Ropa nueva: Suéter de Punto Medianoche (cuello de cuadrícula, franja carmesí, puños rosas), Pantalón Holgado Café, Zapatillas Carmesí, Tirita en la Mejilla, Vestido de Noche Carmesí y Chaqueta de Cuero. Se ajustan a las 8 estructuras.",
-   "Nueva mascota: Bufandín, el Gato Viajero (+6% de velocidad y +4% de crítico).",
-   "PvP equilibrado a nivel máximo: todas las clases pueden hacerse frente. En duelo las curas y escudos rinden menos, y cada clase tiene un ajuste de daño solo para PvP.",
-   "Las invocaciones del Invocador ahora también atacan al rival en un duelo."
+   "Bufandín redibujado en HD: el doble de resolución, ojos con brillo, orejas rosas, mejillas con mechones, luna en la frente, hocico, cola rizada y una bufanda carmesí con franja dorada y flecos que ondea al caminar."
   ],
   "en": [
-   "New boutique in every town, with a purple roof: Valentina, the designer, sells the new collection.",
-   "New clothes: Midnight Knit Sweater (grid collar, crimson stripe, pink cuffs), Baggy Brown Trousers, Crimson Sneakers, Cheek Bandage, Crimson Evening Dress and Leather Jacket. They fit all 8 builds.",
-   "New pet: Scarfy, the Wandering Cat (+6% speed and +4% crit).",
-   "PvP balanced at max level: every class can stand up to the others. In duels heals and shields are weaker, and each class has a PvP-only damage adjustment.",
-   "Summoner spirits now also attack your opponent in a duel."
+   "Scarfy redrawn in HD: double resolution, shiny eyes, pink ears, fluffy cheeks, a crescent moon on its forehead, muzzle, curled tail and a crimson scarf with a gold stripe and fringe that flutters as it walks."
   ]
  }
 }
