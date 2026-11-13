@@ -1,0 +1,20 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), window.hurtPlayer=()=>{}, 1)
+js (()=>{ const P=G.P; P.lv=240; P.wings=1; calcStats(P); const S=makeSky(); const o=S.objs.find(o=>o.f==='cel_portal'); return o? 'portal en cielo '+o.tx+','+o.ty : 'sin portal'; })()
+js (goCeleste(), 1)
+wait 2500
+shot
+js (()=>{ const P=G.P, M=G.map; P.x=56*16; P.y=82*16; return M.id+' camps '+M.camps.length+' bosses '+M.bossAt.length+' estelas '+M.stelae.length+' tumbas '+M.tombs.length; })()
+wait 3500
+shot
+js (()=>{ const out=[]; for (const k of ['arpia','medusa','manta','centinela','chispa','sierpe']) { const A=mobAtlasFor(['cel',k]); out.push(k+':'+A.fw+'x'+A.fh); } return out.join(' ')+' mobs='+G.ents.filter(e=>e.type==='mob'&&e.map==='reino_celeste').map(e=>e.def.n).slice(0,6).join(','); })()
+js (()=>{ const P=G.P, M=G.map, st=M.stelae[0]; P.x=st.px; P.y=st.py+14; P.dir='up'; doInteract(); return celSt().g+' '+document.querySelector('#dialog .txt, #dtext, #dialog')?.textContent.slice(0,140); })()
+js (()=>{ const P=G.P; closeDialog&&closeDialog(); giveItem('frag_mapa',4); const M=G.map; const npc=G.ents.find(e=>e.id==='cel_archivista'); return 'frag='+countItem('frag_mapa')+' npc='+!!npc; })()
+js (()=>{ const P=G.P; takeItem('frag_mapa',4); giveItem('mapa_celeste',1); celSt().m++; const M=G.map, tb=M.tombs[0]; P.x=tb.px; P.y=tb.py+16; P.dir='up'; doInteract(); return 'tumbas='+celSt().t+' mapa='+countItem('mapa_celeste'); })()
+js (()=>{ closeDialog&&closeDialog(); PARTY.id='pt1'; G.remote.set('r1',{type:'remote',peer:'r1',pt:'pt1',cel:{g:0xFFFC,t:6,m:1},map:'x',x:0,y:0}); const U=celParty(); openCelInv(); return JSON.stringify({g:bits(U.g),t:bits(U.t),m:U.m,n:U.n,btns:$$('[data-inv]').length}); })()
+shot
+js (()=>{ $$('[data-inv]')[0].click(); return JSON.stringify(celSt().inv); })()
+js (()=>{ closeModal(); G.remote.delete('r1'); const P=G.P, M=G.map; P.x=156*16; P.y=78*16; M.storms.push({x:P.x,y:P.y,vx:0,vy:0,r:200,life:30,t:0,nx:0}); return 1; })()
+wait 1500
+shot
+js (window._errs)

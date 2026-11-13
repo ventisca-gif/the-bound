@@ -1,34 +1,28 @@
 {
- "build": 35,
- "ver": "4.14",
+ "build": 36,
+ "ver": "4.15",
  "date": "2026-11-13",
  "file": "thebound.html",
- "size": 5567382,
- "sha256": "5b4bfd08db176f8e5ccbac6163f04070e36ad563f969bfe5f2607cce46d0dc87",
+ "size": 5611769,
+ "sha256": "62441a60189fff844e1dd1f077af36b9ec0ea5f137ad596fedab6574f7c37a2c",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Online: ahora se ven los ataques y las habilidades de los demás jugadores (pose, cortes, anillos, rayos, proyectiles y partículas), por sala, WiFi e internet. Los saltos se ven en el aire.",
-   "Habilidades más fieles a su nombre: Salto Devastador salta de verdad, Voltereta y Paso de Baile dan un brinco, y Tsunami, Fauces del Megalodón, Cosecha Final y Juicio Final tienen efectos nuevos.",
-   "Modo optimizado en Ajustes (sin clima ni lluvia, efectos simples, sin HD, 30 imágenes por segundo). Se activa solo si el juego va con lag.",
-   "Menos consumo con el juego quieto y limpieza de memoria para que el juego no se cierre tras mucho rato.",
-   "Inventario: botón Seleccionar para tirar varios objetos de una vez, los objetos de misión que ya no necesitas se pueden tirar y una Tarjeta de Tren repetida se convierte en 100 de saldo.",
-   "Al equipar o comprar ropa, las listas ya no vuelven arriba.",
-   "Las armas de más de 20 niveles por debajo del tuyo pierden fuerza (hasta un 55 %): ya no sirve la espada de cobre hasta el final.",
-   "El Velo (mundo espiritual) es ahora un mundo de sueño blanco y acolchado, con árboles de algodón, lago de leche, tumbas y urnas de llama fría.",
-   "Arreglo: en el online, las armas y armaduras de tier 16 a 21 se veían como tier 15."
+   "Nuevo: Altavela, el Continente Celestial (nivel 220+). Puerta en la Isla de los Vientos de Celestia.",
+   "La capital de los Alados que sobrevivieron, las Llanuras de Nimbo, el Templo de Aeris, los Campos de Tormenta e islotes flotantes que se recorren volando.",
+   "Criaturas nuevas: Arpía Maligna, Medusa de Nube, Manta del Viento, Centinela de Aeris y Chispa Errante. Jefes: Kaelyra la Reina de las Arpías, el Coloso de Aeris y Vendaval la Sierpe de Tormenta (voladores).",
+   "Tormentas mágicas que cruzan el continente: el cielo se oscurece y caen rayos que avisan antes de caer.",
+   "Investigación en grupo con el Archivista Orelio: une fragmentos de mapa roto, descifra las estelas en la lengua de los Vientos y abre las tumbas de los Reyes del Aire. Lo que descubre cada miembro del grupo suma.",
+   "3 misiones de la Reina Lyssandra, capa nueva y 2 capítulos de las Crónicas en español e inglés."
   ],
   "en": [
-   "Online: you now see other players' attacks and skills (pose, slashes, rings, beams, projectiles and particles), over room, WiFi and internet. Jumps are seen in the air.",
-   "Skills closer to their names: Devastating Leap really jumps, Roll and Dance Step hop, and Tsunami, Megalodon Jaws, Final Harvest and Final Judgment have new effects.",
-   "Optimized mode in Settings (no weather or rain, simple effects, no HD, 30 frames per second). It turns on by itself if the game lags.",
-   "Lower usage while standing still and memory cleanup so the game doesn't close after a long session.",
-   "Inventory: Select button to drop several items at once, quest items you no longer need can be dropped and a duplicate Train Card becomes 100 credit.",
-   "When equipping or buying clothes, lists no longer jump back to the top.",
-   "Weapons more than 20 levels below yours lose strength (up to 55%): the copper sword no longer works until the end.",
-   "The Veil (spirit world) is now a white, quilted dream world with cotton trees, a milk lake, graves and cold-flame urns.",
-   "Fix: online, tier 16 to 21 weapons and armor showed as tier 15."
+   "New: Altavela, the Celestial Continent (level 220+). Gate on Celestia's Isle of Winds.",
+   "The capital of the surviving Winged, the Nimbus Plains, the Temple of Aeris, the Storm Fields and floating islets you reach by flying.",
+   "New creatures: Malign Harpy, Cloud Jellyfish, Wind Manta, Aeris Sentinel and Wandering Spark. Bosses: Kaelyra the Harpy Queen, the Colossus of Aeris and Vendaval the Storm Wyrm (flying).",
+   "Magic storms sweep across the continent: the sky darkens and lightning strikes after a warning.",
+   "Group research with Orelio the Archivist: join broken map fragments, decipher the stelae in the Wind tongue and open the tombs of the Sky Kings. What each group member discovers adds up.",
+   "3 quests from Queen Lyssandra, a new cape and 2 Chronicle chapters in Spanish and English."
   ]
  }
 }
