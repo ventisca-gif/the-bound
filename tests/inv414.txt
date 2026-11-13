@@ -1,0 +1,9 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{ const P=G.P; giveItem('tarjeta_tren',1); const c0=railCred().c; giveItem('tarjeta_tren',1); for(let i=0;i<60;i++) giveItem(i%2?'log1':'hongo_rojo',1); for(let i=0;i<40;i++) giveItem('w_guerrero_1',1); return 'tarjetas='+countItem('tarjeta_tren')+' saldo+'+(railCred().c-c0)+' inv='+P.inv.length; })()
+js (openPanel('inv'), 1)
+wait 300
+js (()=>{ const P=G.P; invSel=P.inv.findIndex(s=>s.id==='tarjeta_tren'); renderPanel(); const b=$('#idropq'); if(!b) return 'sin boton'; b.click(); $('#idropq').click(); return 'tarjetas='+countItem('tarjeta_tren'); })()
+js (()=>{ const g=$('.invL .grid'); g.scrollTop=200; const t0=g.scrollTop; $('#imsOn').click(); let s=$$('.slot[data-i]'); s[s.length-1].click(); s=$$('.slot[data-i]'); s[s.length-2].click(); const t1=$('.invL .grid').scrollTop; const n0=G.P.inv.length; $('#imsDrop').click(); $('#imsDrop').click(); return 'scroll '+t0+'->'+t1+' borrados '+(n0-G.P.inv.length); })()
+shot
+js (window._errs)

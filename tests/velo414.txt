@@ -1,0 +1,16 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (G.P.lv=30, enterVeil(true), 1)
+wait 2500
+shot
+js (()=>{ const P=G.P; P.x=55*16; P.y=24*16; return G.map.id; })()
+wait 900
+shot
+js (()=>{ const P=G.P; P.x=40*16; P.y=50*16; return 1; })()
+wait 900
+shot
+js (()=>{ const P=G.P; P.x=88*16; P.y=56*16; return 1; })()
+wait 900
+shot
+js (()=>{ const P=G.P; P.lv=49; giveItem('w_guerrero_2',1); const i=P.inv.findIndex(s=>s.id==='w_guerrero_2'); equipFromInv(i); calcStats(P); const a=P.S.atk, pen=P.S.wpen; return 'atk '+a+' pen '+pen; })()
+js (window._errs)

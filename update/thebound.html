@@ -341,7 +341,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v4.13 · Armas nuevas y los Vigías del Alba</div>
+  <div class="tfoot">v4.14 · Ataques en línea y el Velo de los sueños</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -521,7 +521,7 @@ FrontEndError:1001,FrontEndConnectFailed:1002,FrontEndConnectClosed:1003,FrontEn
 </script>
 <script>
 const LANG_EN = (() => { try { if (/[?&]lang=en\b/.test(location.search)) return true; if (/[?&]lang=es\b/.test(location.search)) return false; return localStorage.getItem('thebound.lang') === 'en'; } catch (e) { return false; } })();
-const I18N_TPL = {"Cargando...":"Loading...","oro":"gold","Jugadores en línea":"Players online","Mapa":"Map","Menú":"Menu","Personaje":"Character","Poción rápida":"Quick potion","Inventario":"Inventory","Misiones":"Quests","Atacar":"Attack","Esquivar":"Dodge","Mantén el botón":"Hold the button","Escribe un mensaje":"Type a message","Enviar":"Send","Cerrar":"Close","EL VÍNCULO":"THE BOND","Nueva partida":"New game","Crea tu héroe":"Create your hero","Girar a la izquierda":"Turn left","Caminar":"Walk","Girar a la derecha":"Turn right","Nombre":"Name","Comenzar aventura":"Start adventure","Volver":"Back","v4.13 · Armas nuevas y los Vigías del Alba":"v4.13 · New weapons and the Dawn Wardens"};
+const I18N_TPL = {"Cargando...":"Loading...","oro":"gold","Jugadores en línea":"Players online","Mapa":"Map","Menú":"Menu","Personaje":"Character","Poción rápida":"Quick potion","Inventario":"Inventory","Misiones":"Quests","Atacar":"Attack","Esquivar":"Dodge","Mantén el botón":"Hold the button","Escribe un mensaje":"Type a message","Enviar":"Send","Cerrar":"Close","EL VÍNCULO":"THE BOND","Nueva partida":"New game","Crea tu héroe":"Create your hero","Girar a la izquierda":"Turn left","Caminar":"Walk","Girar a la derecha":"Turn right","Nombre":"Name","Comenzar aventura":"Start adventure","Volver":"Back","v4.14 · Ataques en línea y el Velo de los sueños":"v4.14 · Online attacks and the dream Veil"};
 'use strict';
 // ================= CORE =================
 const TS = 16;
@@ -11736,13 +11736,16 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '4.13', GAME_BUILD = 34;
+const GAME_VER = '4.14', GAME_BUILD = 35;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
 const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/[
+  {"b": 35, "v": "4.14", "d": "2026-11-13",
+   "es": ["Online: ahora se ven los ataques y las habilidades de los demás jugadores (pose, cortes, anillos, rayos, proyectiles y partículas), por sala, WiFi e internet. Los saltos se ven en el aire.", "Habilidades más fieles a su nombre: Salto Devastador salta de verdad, Voltereta y Paso de Baile dan un brinco, y Tsunami, Fauces del Megalodón, Cosecha Final y Juicio Final tienen efectos nuevos.", "Modo optimizado en Ajustes (sin clima ni lluvia, efectos simples, sin HD, 30 imágenes por segundo). Se activa solo si el juego va con lag.", "Menos consumo con el juego quieto y limpieza de memoria para que el juego no se cierre tras mucho rato.", "Inventario: botón Seleccionar para tirar varios objetos de una vez, los objetos de misión que ya no necesitas se pueden tirar y una Tarjeta de Tren repetida se convierte en 100 de saldo.", "Al equipar o comprar ropa, las listas ya no vuelven arriba.", "Las armas de más de 20 niveles por debajo del tuyo pierden fuerza (hasta un 55 %): ya no sirve la espada de cobre hasta el final.", "El Velo (mundo espiritual) es ahora un mundo de sueño blanco y acolchado, con árboles de algodón, lago de leche, tumbas y urnas de llama fría.", "Arreglo: en el online, las armas y armaduras de tier 16 a 21 se veían como tier 15."],
+   "en": ["Online: you now see other players' attacks and skills (pose, slashes, rings, beams, projectiles and particles), over room, WiFi and internet. Jumps are seen in the air.", "Skills closer to their names: Devastating Leap really jumps, Roll and Dance Step hop, and Tsunami, Megalodon Jaws, Final Harvest and Final Judgment have new effects.", "Optimized mode in Settings (no weather or rain, simple effects, no HD, 30 frames per second). It turns on by itself if the game lags.", "Lower usage while standing still and memory cleanup so the game doesn't close after a long session.", "Inventory: Select button to drop several items at once, quest items you no longer need can be dropped and a duplicate Train Card becomes 100 credit.", "When equipping or buying clothes, lists no longer jump back to the top.", "Weapons more than 20 levels below yours lose strength (up to 55%): the copper sword no longer works until the end.", "The Veil (spirit world) is now a white, quilted dream world with cotton trees, a milk lake, graves and cold-flame urns.", "Fix: online, tier 16 to 21 weapons and armor showed as tier 15."]},
   {"b": 34, "v": "4.13", "d": "2026-11-13",
    "es": ["Armas nuevas de madera, cobre, hierro, acero, plata y oro para todas las clases, con el dibujo de cobre de Sergio: más detalle en la mano (en HD se dibujan al doble) y ataques nuevos en 5 tiempos con su impacto.", "Las dagas van una en cada mano, el arco apunta bien y el pez lleva sus aletas en las manos.", "Campamento de los Vigías del Alba al este de Albor, en la Costa Coral: 8 miembros con su propio estilo y 5 misiones para ayudar y rescatar gente.", "Al unirte te dan su uniforme (abrigo, pantalón y botas) como cosmético; te lo puedes quitar cuando quieras.", "Lore nuevo: Edrin Valcorde, el pescador que hace mil años cuidó al primer portador del hilo vacío. Capítulo y pista nuevos en el Libro del Vínculo."],
    "en": ["New wood, copper, iron, steel, silver and gold weapons for every class, based on Sergio's copper drawing: more detail in hand (drawn at double size in HD) and new 5-step attacks with their impact.", "Daggers go one in each hand, the bow aims properly and the Fish class holds its fins in its hands.", "Dawn Wardens camp east of Albor, on the Coral Coast: 8 members with their own style and 5 quests to help and rescue people.", "Joining gives you their uniform (coat, trousers and boots) as a cosmetic; take it off whenever you like.", "New lore: Edrin Valcorde, the fisherman who cared for the first bearer of the empty thread a thousand years ago. New chapter and clue in the Book of the Bond."]},
@@ -12835,6 +12838,277 @@ DLG_HOOKS.push((npc, opts) => {
   if (npc.id === 'vig_bram' && G.P.vig && !VIG_COS.every(c => (G.P.wardrobe || []).includes(c))) opts.push({ label: L2('Pedir otro uniforme', 'Ask for another uniform'), icon: ['bag'], fn: () => { for (const c of VIG_COS) giveCosmetic(c, true); typeText(L2('Toma, vigía. Y esta vez no lo pierdas.', 'Here, warden. And don\'t lose it this time.')); } });
   if (npc.id === 'vig_nina' && G.P.quests && G.P.quests.done && G.P.quests.done.vig4) opts.unshift({ label: L2('¿Sabes volver?', 'Can you get back?'), icon: ['talk'], fn: () => typeText(L2('¡Sí! Sigo el humo de la hoguera de los Vigías. Doran me lo enseñó.', 'Yes! I follow the smoke of the Wardens\' campfire. Doran taught me.')) });
 });
+
+// ================= v4.14: ATAQUES Y HABILIDADES VISIBLES PARA LOS DEMÁS JUGADORES =================
+// Antes solo viajaba el nombre de la animación cada pocos instantes: un ataque dura 0,3 s y se perdía, y los efectos
+// (cortes, anillos, rayos, proyectiles, partículas) nunca salían del teléfono. Ahora todo lo que dibuja tu ataque o tu
+// habilidad se guarda como evento numerado y viaja en la presencia (sala, WiFi y Photon). Los demás lo repiten en
+// su pantalla, con la pose y un salto si la habilidad lo tiene. Es solo visual: el daño sigue siendo de cada uno.
+let NFX_ON = 0, NFX_SEQ = Math.floor(Date.now() / 100) % 1e9; const NFX_OUT = [];   // el número crece aunque se reinicie el juego
+const NFX_KEYS_SKIP = new Set(['t', 'id', 'hit', 'e', 'm', 'tg', 'owner', 'follow', 'src', 'draw', 'remove']);
+function nfxNum(v) { return Math.round(v * 10) / 10; }
+function nfxPick(o) {
+  const r = {}; let n = 0;
+  for (const k in o) { if (NFX_KEYS_SKIP.has(k) || n > 24) continue; const v = o[k];
+    if (typeof v === 'number') { if (isFinite(v)) { r[k] = nfxNum(v); n++; } }
+    else if (typeof v === 'string') { if (v.length <= 40) { r[k] = v; n++; } }
+    else if (typeof v === 'boolean') { r[k] = v ? 1 : 0; n++; }
+    else if (Array.isArray(v) && v.length <= 8 && v.every(x => typeof x === 'string' || typeof x === 'number')) { r[k] = v.map(x => typeof x === 'number' ? nfxNum(x) : String(x).slice(0, 24)); n++; }
+    else if (k === 'set' && v && typeof v.img !== 'undefined') { r.set = { img: String(v.img), row: v.row | 0, bow: v.bow ? 1 : 0, cw: v.cw | 0, ch: v.ch | 0, s: v.s | 0 }; n++; } }
+  return r;
+}
+function nfxPush(e) { if (!netOnline() || !G.P) return; e.i = ++NFX_SEQ; e.m = G.P.map; NFX_OUT.push({ t: G.t, e }); while (NFX_OUT.length > 30) NFX_OUT.shift(); }
+const nfxWrap = fn => function () { NFX_ON++; try { return fn.apply(this, arguments); } finally { NFX_ON--; } };
+{ const _af = addFx; addFx = function (o) { _af(o); if (NFX_ON && o && o.type && o.type !== 'custom' && !o.net) nfxPush({ k: 'f', o: nfxPick(o) }); }; }
+{ const _bu = burst; burst = function (x, y, n, o) { _bu(x, y, n, o); if (NFX_ON && n > 0 && !(o && o.net)) nfxPush({ k: 'b', x: nfxNum(x), y: nfxNum(y), n: Math.min(24, n | 0), o: nfxPick(o || {}) }); }; }
+{ const _sp = spawnProj; spawnProj = function (owner, x, y, ang, o) { const e = _sp(owner, x, y, ang, o); if (NFX_ON && owner === 'p' && e) nfxPush({ k: 'p', x: nfxNum(x), y: nfxNum(y), a: nfxNum(ang), v: nfxNum(Math.hypot(e.vx, e.vy)), l: nfxNum(e.life), art: e.art || '', z: nfxNum(e.z || 12), set: e.wspr ? nfxPick({ set: e.wspr }).set : null }); return e; }; }
+{ const _sa = setAnim; setAnim = function (e, a, ...r) { const res = _sa(e, a, ...r); if (NFX_ON && e === G.P && NET_ANIMS.includes(a) && a !== 'walk') nfxPush({ k: 'a', a }); return res; }; }
+{ const _da = delayAct; delayAct = function (t, fn) { return _da(t, NFX_ON ? nfxWrap(fn) : fn); }; }
+basicAttack = nfxWrap(basicAttack); useSkill = nfxWrap(useSkill); dodgeRoll = nfxWrap(dodgeRoll);
+for (const nm of ['castRune', 'runeCast', 'castRuneCombo', 'parryCounter']) if (typeof window[nm] === 'function') window[nm] = nfxWrap(window[nm]);
+// ---- envío: los eventos del último segundo y medio (cabe aunque Photon envíe 5 veces por segundo) ----
+{ const _spz = socialPresence; socialPresence = function (o) { _spz(o); const P = G.P; if (!P) return;
+  const now = NFX_OUT.filter(x => G.t - x.t < 1.6).map(x => x.e); let s = JSON.stringify(now); while (now.length && s.length > 2400) { now.shift(); s = JSON.stringify(now); }
+  if (now.length) o.fx = now; if (P.z > 0.5) o.z = Math.round(P.z); }; }
+// ---- recepción ----
+const NFX_TYPES = new Set(['slash', 'ring', 'field', 'fall', 'bolt', 'beam', 'boom', 'line', 'note', 'tele', 'wspr']);
+const nfxColor = s => typeof s === 'string' && /^[#a-z0-9(),.%\s]{1,40}$/i.test(s) ? s : undefined;
+function nfxSafe(o, M) {
+  const r = {}; for (const k in o) { const v = o[k];
+    if (typeof v === 'number') r[k] = clamp(v, -99999, 99999);
+    else if (typeof v === 'string') { const c = nfxColor(v); if (c !== undefined) r[k] = c; }
+    else if (Array.isArray(v)) r[k] = v.filter(x => typeof x === 'number' || nfxColor(x) !== undefined).slice(0, 8); }
+  if (M) { r.x = clamp(+r.x || 0, 0, M.w * 16); r.y = clamp(+r.y || 0, 0, M.h * 16); }
+  return r;
+}
+function nfxSet(s) { if (!s || typeof s.img !== 'string' || !WSPR_IMG[s.img]) return null; return { img: s.img, row: clamp(s.row | 0, 0, 10), bow: s.bow ? 1 : 0, cw: s.cw ? clamp(s.cw | 0, 8, 200) : 0, ch: s.ch ? clamp(s.ch | 0, 8, 200) : 0, s: s.s ? clamp(s.s | 0, 1, 4) : 0 }; }
+function nfxPlay(r, ev) {
+  const M = G.map; if (!M || !ev || typeof ev !== 'object') return;
+  if (ev.k === 'a') { if (ANIMS[ev.a] && NET_ANIMS.includes(ev.a)) { r.anim = ev.a; r.af = 0; r.at = 0; r.holdA = ev.a; r.holdT = G.t + (ev.a === 'cast' ? 0.5 : ev.a === 'slam' ? 0.55 : 0.35); } return; }
+  if (ev.k === 'f' && ev.o && NFX_TYPES.has(ev.o.type)) { const o = nfxSafe(ev.o, M); o.type = ev.o.type; o.dur = clamp(+o.dur || 0.3, 0.05, 4); if (ev.o.set) { const s = nfxSet(ev.o.set); if (!s) return; o.set = s; } o.net = 1; addFx(o); return; }
+  if (ev.k === 'b' && ev.o) { const o = nfxSafe(ev.o); o.net = 1; if (o.c && !o.c.length) delete o.c; burst(clamp(+ev.x || 0, 0, M.w * 16), clamp(+ev.y || 0, 0, M.h * 16), clamp(ev.n | 0, 1, 24), o); return; }
+  if (ev.k === 'p') { const x = clamp(+ev.x || 0, 0, M.w * 16), y = clamp(+ev.y || 0, 0, M.h * 16), a = +ev.a || 0, v = clamp(+ev.v || 200, 20, 900), l = clamp(+ev.l || 0.9, 0.1, 3), art = typeof ev.art === 'string' && /^[a-z_]{0,16}$/.test(ev.art) ? ev.art : '', z = clamp(+ev.z || 12, 0, 40), set = ev.set ? nfxSet(ev.set) : null;
+    addFx({ type: 'custom', net: 1, x, y, dur: l, draw(f, sx, sy) { const cx = f.x - sx, cy = f.y - sy, t = f.t; const e = { x: x + Math.cos(a) * v * t, y: y + Math.sin(a) * v * t, z, ang: a, art, t, vx: Math.cos(a) * v, vy: Math.sin(a) * v, wspr: set }; drawProj(e, cx, cy); } }); }
+}
+{ const _sr = socialRecv; socialRecv = function (r, pr) { _sr(r, pr);
+  r.z = clamp(+pr.z || 0, 0, 40);
+  if (!Array.isArray(pr.fx)) { if (r.nfxLast === undefined) r.nfxLast = 0; return; } const evs = pr.fx.filter(e => e && typeof e.i === 'number').sort((a, b) => a.i - b.i); if (!evs.length) return;
+  const last = evs[evs.length - 1].i;
+  if (r.nfxLast === undefined) { r.nfxLast = last; return; }   // al conocerlo a mitad de un ataque no repite lo viejo
+  const P = G.P; for (const e of evs) { if (e.i <= r.nfxLast) continue; r.nfxLast = e.i; if (P && r.map === P.map && e.m === P.map) { try { nfxPlay(r, e); } catch (err) { } } }
+}; }
+{ const _ur = upsertRemote; upsertRemote = function (p) { _ur(p); const r = G.remote.get(p.peer); if (r && r.holdT > G.t && (r.anim === 'idle' || r.anim === 'walk')) r.anim = r.holdA; }; }
+{ const _df = drawFx; drawFx = function (f, cx, cy) { if (!f.net) return _df(f, cx, cy); try { _df(f, cx, cy); } catch (e) { f.t = f.dur; } }; }
+
+// ---------- poses según el nombre de la habilidad: saltos, volteretas y bailes (se ven en red por la altura z) ----------
+const SK_HOP = { g17: [0.42, 20, 'slam'], a9: [0.3, 9, null], d9: [0.36, 7, 'dance'], z17: [0.3, 6, null], s17: [0.25, 5, null], g9: [0.22, 4, null] };
+for (const id in SKILLS_LEAP_EXTRA()) SK_HOP[id] = SKILLS_LEAP_EXTRA()[id];
+function SKILLS_LEAP_EXTRA() { const o = {}; for (const k in SK) { const e = SK[k].eff; if (e && e.k === 'leap' && !SK_HOP[k]) o[k] = [0.42, 18, 'slam']; } return o; }
+// efectos extra para que cada habilidad se parezca a su nombre (se envían igual que los demás)
+const SK_EXTRA = {
+  z15: (P, a) => { for (let i = 0; i < 3; i++) delayAct(0.1 + i * 0.12, () => { addFx({ type: 'ring', x: P.x, y: P.y, r: 30 + i * 22, dur: 0.5, col: '#3ad8ff' }); burst(P.x + Math.cos(a) * (20 + i * 18), P.y + Math.sin(a) * (14 + i * 12), 14, { sp: 70, up: 60, g: 160, life: 0.7, c: ['#e8fbff', '#5ad0ff', '#1a7ab0'] }); }); },
+  z13: (P, a) => { for (const s of [-1, 1]) addFx({ type: 'slash', x: P.x + Math.cos(a) * 8, y: P.y + Math.sin(a) * 6, ang: a + s * 0.9, arc: 1.6, r: 30, dur: 0.28, col: 'rgba(230,250,255,0.95)' }); delayAct(0.14, () => burst(P.x + Math.cos(a) * 24, P.y + Math.sin(a) * 16, 16, { sp: 60, up: 20, g: 60, life: 0.5, c: ['#ffffff', '#9ae8ff', '#c03040'] })); },
+  i16: (P, a) => { addFx({ type: 'slash', x: P.x, y: P.y, ang: a, arc: 3.6, r: 52, dur: 0.3, col: 'rgba(170,90,255,0.95)' }); delayAct(0.2, () => burst(P.x, P.y - 6, 22, { sp: 90, up: 40, g: 80, life: 0.7, c: ['#e0c0ff', '#9a50ff', '#3a1060'] })); },
+  g4: (P, a) => { const x = P.x + Math.cos(a) * 26, y = P.y + Math.sin(a) * 18; addFx({ type: 'beam', x, y, dur: 0.4, col: '#fff2b0' }); delayAct(0.16, () => burst(x, y, 22, { sp: 80, up: 70, g: 120, life: 0.7, c: ['#ffffff', '#ffe080', '#d8a020'] })); },
+  d9: (P) => { for (let i = 0; i < 6; i++) delayAct(i * 0.06, () => burst(P.x, P.y - 8, 3, { sp: 30, up: 40, g: -20, life: 0.6, c: ['#ffd040', '#ff80c0', '#80e0ff'] })); },
+  a9: (P) => burst(P.x, P.y, 10, { sp: 50, up: 20, g: 80, life: 0.4, c: ['#c8b090', '#8a7a6a'] }),
+};
+{ const _us = useSkill; useSkill = nfxWrap(function (slot) {
+  const P = G.P, id = P && P.slots[slot], cd0 = id ? (P.cds[id] || 0) : 0; const r = _us.apply(this, arguments);
+  if (!id || !P || (P.cds[id] || 0) <= cd0) return r;   // no se lanzó
+  const h = SK_HOP[id]; if (h) { P.hopT = 0; P.hopD = h[0]; P.hopH = h[1]; if (h[2]) setAnim(P, h[2]); }
+  const ex = SK_EXTRA[id]; if (ex) { const a = Math.atan2(DIRV[P.dir][1], DIRV[P.dir][0]); try { ex(P, a); } catch (e) { } }
+  return r; }); }
+{ const _up = updatePlayer; updatePlayer = function (dt) { _up(dt); const P = G.P; if (!P || P.hopD === undefined) return; P.hopT += dt; const k = P.hopT / P.hopD; if (k >= 1) { P.z = 0; P.hopD = undefined; if (P.hopH >= 15) { addFx({ type: 'ring', x: P.x, y: P.y, r: 26, dur: 0.35, col: '#e0d0b0' }); } return; } P.z = Math.sin(k * Math.PI) * P.hopH; }; }
+// arreglo: el online cortaba las armas y armaduras de tier 16-21 al tier 15 (los demás te veían con otro equipo)
+cleanGear = function (g) { const o = {}; for (const k of ['weapon', 'head', 'body', 'legs', 'feet']) { const v = g && +g[k]; o[k] = isFinite(v) ? clamp(v | 0, 0, 21) : 0; } if (!o.weapon) o.weapon = 1; if (g && typeof g.ws === 'string' && typeof WS !== 'undefined' && WS[g.ws]) o.ws = g.ws; return o; };
+
+// ================= v4.14: MODO OPTIMIZADO, LAG AUTOMÁTICO Y MEMORIA =================
+// - Modo optimizado (Ajustes): sin lluvia ni clima, efectos simples, sin HD, como mucho 30 imágenes por segundo y
+//   menos partículas. Se activa solo si el juego detecta lag seguido (y se puede quitar en Ajustes).
+// - Ahorro en reposo: si no tocas la pantalla en 90 s y no estás en combate, el juego dibuja a 15 imágenes por segundo.
+// - Memoria: los dibujos de personajes (atlas) ya no se acumulan toda la sesión: se borran los que nadie usa.
+//   Antes, tras horas de juego (ropa probada, jugadores, atuendos de aldeanos), el celular podía cerrar el juego.
+const OPT = { on: false, auto: false, lastIn: performance.now(), ema: 16, lagT: 0, bootT: performance.now(), prev: null };
+try { OPT.on = localStorage.getItem('thebound.opt') === '1'; } catch (e) { }
+const OPT_LOWMEM = (navigator.deviceMemory && navigator.deviceMemory <= 4) || /Android [4-8]\b/.test(navigator.userAgent);
+function optApply(on, auto) {
+  OPT.on = !!on; OPT.auto = !!auto; try { localStorage.setItem('thebound.opt', on ? '1' : '0'); } catch (e) { }
+  if (on) { OPT.prev = OPT.prev || { q: SETTINGS.quality, w: SETTINGS.weather, hd: HDS > 1 }; SETTINGS.quality = 0; SETTINGS.weather = false; saveSettings(); if (HDS > 1) setHD(false); }
+  else if (OPT.prev) { SETTINGS.quality = OPT.prev.q; SETTINGS.weather = OPT.prev.w; saveSettings(); if (OPT.prev.hd) setHD(true); OPT.prev = null; }
+}
+['pointerdown', 'keydown', 'touchstart', 'wheel'].forEach(ev => window.addEventListener(ev, () => { OPT.lastIn = performance.now(); }, { passive: true, capture: true }));
+function optFpsCap(now) {
+  const P = G.P, idle = now - OPT.lastIn > 90000 && !(P && P.combatT && G.t - P.combatT < 10) && !(typeof titleMode !== 'undefined' && titleMode);
+  if (idle) return 15; if (OPT.on) return 30; return 0;
+}
+{ const _lp = loop; loop = function (ts) {
+  const cap = optFpsCap(ts);
+  if (cap && lastT && ts - lastT < 1000 / cap - 2) { requestAnimationFrame(loop); return; }
+  if (lastT && !cap) { const d = ts - lastT; if (d < 250) OPT.ema = OPT.ema * 0.95 + d * 0.05;   // lag: media de los últimos fotogramas
+    if (!OPT.on && ts - OPT.bootT > 20000 && !document.hidden) { OPT.lagT = OPT.ema > 45 ? OPT.lagT + d : 0; if (OPT.lagT > 8000) { optApply(true, true); OPT.lagT = 0; try { toast(L2('Se activó el modo optimizado porque el juego iba lento. Puedes quitarlo en Ajustes.', 'Optimized mode turned on because the game was lagging. You can turn it off in Settings.'), 'info', 6); } catch (e) { } } } }
+  _lp(ts);
+}; }
+// menos partículas en modo optimizado
+{ const _pt = part; part = function (x, y, o) { if (OPT.on && G.parts.length > 70) return; return _pt(x, y, o); }; }
+// ---- memoria: atlas que nadie usa ----
+{ const _ga = getAtlas; getAtlas = function (key, fn) { const a = _ga(key, fn); if (a && typeof a === 'object') a.lu = G.t; return a; }; }
+let OPT_GCT = 0;
+function optGC(force) {
+  const lim = OPT.on || OPT_LOWMEM ? 90 : 160; if (!force && ATL.size <= lim) return 0;
+  const use = new Set(); for (const e of G.ents) if (e.atlas) use.add(e.atlas); for (const r of G.remote.values()) if (r.atlas) use.add(r.atlas); if (G.P && G.P.atlas) use.add(G.P.atlas);
+  const old = []; for (const [k, a] of ATL) if (!use.has(a)) old.push([k, a]); old.sort((p, q) => (p[1].lu || 0) - (q[1].lu || 0));
+  let n = 0; const keep = Math.round(lim * 0.7);
+  for (const [k, a] of old) { if (ATL.size <= keep) break; ATL.delete(k); const i = HD_LIVE.indexOf(a); if (i >= 0) HD_LIVE.splice(i, 1); a.hd = null; a.hdX = null; a.hdDone = null; n++; }
+  return n;
+}
+// límite de dibujos HD más bajo en celulares con poca memoria (cada uno puede ocupar varios MB)
+{ const _he = hdEnsure; hdEnsure = function (A, col, row, force) { const r = _he(A, col, row, force); const lim = OPT_LOWMEM ? 14 : 26;
+  while (HD_LIVE.length > lim) { let k = 0; for (let j = 1; j < HD_LIVE.length; j++) if ((HD_LIVE[j].hdT || 0) < (HD_LIVE[k].hdT || 0)) k = j; const o = HD_LIVE.splice(k, 1)[0]; if (o === A) { HD_LIVE.push(o); break; } o.hd = null; o.hdX = null; o.hdDone = null; }
+  return r; }; }
+V33_TICKS.push(dt => { OPT_GCT += dt; if (OPT_GCT > 25) { OPT_GCT = 0; optGC(false); } });
+// ---- Ajustes: casilla del modo optimizado ----
+{ const _ro = renderOpts; renderOpts = function (B) { _ro(B); const q = $('#oQ'); if (!q || $('#oOpt')) return; const lb = q.closest('label');
+  lb.insertAdjacentHTML('beforebegin', `<label class="tg"><input type="checkbox" id="oOpt" ${OPT.on ? 'checked' : ''}> ${L2('Modo optimizado: para celulares de pocos recursos o con lag (sin clima ni lluvia, efectos simples, sin HD, 30 imágenes por segundo)', 'Optimized mode: for low-end phones or lag (no weather or rain, simple effects, no HD, 30 frames per second)')}</label>`);
+  $('#oOpt').onchange = e => { optApply(e.target.checked, false); renderPanel(); }; }; }
+if (OPT.on) { try { SETTINGS.quality = 0; SETTINGS.weather = false; } catch (e) { } }
+{ const _ls = loadSettings; loadSettings = function () { _ls(); if (OPT.on) { SETTINGS.quality = 0; SETTINGS.weather = false; G.quality = 0; } }; }
+{ const _sh = setHD; setHD = function (on) { if (on && OPT.on) on = false; return _sh(on); }; }
+if (OPT.on && typeof HDS !== 'undefined' && HDS > 1) { try { setHD(false); } catch (e) { } }
+
+// ================= v4.14: INVENTARIO MÁS CÓMODO =================
+// - Objetos de misión que ya no pide ninguna misión activa (p. ej. tarjetas de tren de más) se pueden tirar.
+// - Tarjeta de tren repetida: se convierte en 100 de saldo en lugar de ocupar otra casilla.
+// - Botón «Seleccionar»: marca varios objetos y tíralos todos de una vez (pide confirmación).
+// - Al equipar, comprar o tocar algo, las listas (inventario, armario, tiendas) ya no vuelven arriba.
+function invNeeded(id) { const P = G.P; for (const q in (P.quests && P.quests.active) || {}) { const Q = QD(q); if (Q && Q.obj && Q.obj.some(o => (o.it === id) || (o.item === id))) return true; } return false; }
+function invCanDrop(id) { const it = ITEMS[id]; if (!it) return false; if (it.t !== 'quest') return true; return !invNeeded(id); }
+// tarjetas de tren repetidas → saldo
+{ const _gi = giveItem; giveItem = function (id, q = 1, silent) { if (id === 'tarjeta_tren' && G.P && countItem('tarjeta_tren') > 0) { railCred().c += 100 * (q || 1); if (!silent) toast(L2('Ya tenías Tarjeta de Tren: +' + 100 * (q || 1) + ' de saldo', 'You already had a Train Card: +' + 100 * (q || 1) + ' credit'), 'loot'); return true; } return _gi(id, q, silent); }; }
+V33_TICKS.push(() => { const P = G.P; if (!P || P._cardFix) return; P._cardFix = 1; let n = 0; for (let i = P.inv.length - 1; i >= 0; i--) { const s = P.inv[i]; if (s && s.id === 'tarjeta_tren') { n++; if (n > 1) { P.inv.splice(i, 1); railCred().c += 100; } } } });
+// ---- selección múltiple ----
+const INV_MS = { on: false, sel: new Set(), confirm: false };
+{ const _ri = renderInv; renderInv = function (B) {
+  _ri(B); const P = G.P;
+  // tirar objetos de misión que ya no se necesitan
+  const s = P.inv[invSel], it = s ? ITEMS[s.id] : null;
+  if (it && it.t === 'quest' && !$('#idrop', B)) { const row = $('.invR .row', B) || $('.invR', B); const can = !invNeeded(s.id);
+    row.insertAdjacentHTML('beforeend', can ? `<button class="btn danger" id="idropq">${dropConfirm === invSel ? L2('¿Seguro? Tirar', 'Sure? Drop') : L2('Tirar', 'Drop')}</button>` : `<small class="hint">${L2('Lo pide una misión activa', 'An active quest needs it')}</small>`);
+    const d = $('#idropq', B); if (d) d.onclick = () => { if (dropConfirm !== invSel) { dropConfirm = invSel; renderPanel(); return; } P.inv.splice(invSel, 1); invSel = -1; dropConfirm = -1; renderPanel(); }; }
+  // barra de selección
+  const chips = $('.invL .chips', B); if (!chips) return;
+  for (const i of [...INV_MS.sel]) if (!P.inv[i] || !invCanDrop(P.inv[i].id)) INV_MS.sel.delete(i);
+  const n = INV_MS.sel.size;
+  chips.insertAdjacentHTML('beforeend', INV_MS.on ? `<button class="chip on" id="imsOff">${L2('Cancelar', 'Cancel')}</button><button class="chip" id="imsAll">${L2('Todo lo visible', 'All visible')}</button><button class="chip ${n ? 'danger' : ''}" id="imsDrop" ${n ? '' : 'disabled'}>${INV_MS.confirm ? L2('¿Seguro? Tirar ', 'Sure? Drop ') + n : L2('Tirar ', 'Drop ') + n}</button>` : `<button class="chip" id="imsOn">☑ ${L2('Seleccionar', 'Select')}</button>`);
+  const on = $('#imsOn', B); if (on) on.onclick = () => { INV_MS.on = true; INV_MS.sel.clear(); INV_MS.confirm = false; renderPanel(); };
+  const off = $('#imsOff', B); if (off) off.onclick = () => { INV_MS.on = false; INV_MS.sel.clear(); INV_MS.confirm = false; renderPanel(); };
+  const all = $('#imsAll', B); if (all) all.onclick = () => { $$('.slot[data-i]', B).forEach(b => { const i = +b.dataset.i; if (P.inv[i] && invCanDrop(P.inv[i].id)) INV_MS.sel.add(i); }); INV_MS.confirm = false; renderPanel(); };
+  const dr = $('#imsDrop', B); if (dr) dr.onclick = () => { if (!INV_MS.sel.size) return; if (!INV_MS.confirm) { INV_MS.confirm = true; renderPanel(); return; }
+    const idx = [...INV_MS.sel].sort((a, b) => b - a); for (const i of idx) P.inv.splice(i, 1); toast(L2('Tirados: ', 'Dropped: ') + idx.length, 'info'); INV_MS.sel.clear(); INV_MS.confirm = false; INV_MS.on = false; invSel = -1; markDirty && markDirty(); renderPanel(); };
+  if (INV_MS.on) $$('.slot[data-i]', B).forEach(b => { const i = +b.dataset.i; if (INV_MS.sel.has(i)) b.classList.add('msel'); if (!invCanDrop(P.inv[i].id)) b.classList.add('mlock');
+    b.onclick = () => { if (!invCanDrop(P.inv[i].id)) { toast(L2('Lo pide una misión activa', 'An active quest needs it'), 'warn'); return; } if (INV_MS.sel.has(i)) INV_MS.sel.delete(i); else INV_MS.sel.add(i); INV_MS.confirm = false; renderPanel(); sfx('ui'); }; });
+}; }
+{ const st = document.createElement('style'); st.textContent = '.slot.msel{outline:3px solid #ff5a5a;background:rgba(255,80,80,.18)}.slot.mlock{opacity:.45}.chip.danger{background:#7a1a1a;color:#fff}'; document.head.appendChild(st); }
+// ---- las listas no vuelven arriba al volver a dibujarse ----
+function scrollSnap(root) { const out = []; if (!root) return out; const cnt = {}; for (const el of root.querySelectorAll('*')) { if (el.scrollHeight <= el.clientHeight + 2) continue; const k = el.tagName + '.' + el.className; const n = cnt[k] = (cnt[k] || 0) + 1; if (el.scrollTop > 0) out.push([k, n, el.scrollTop]); } if (root.scrollTop > 0) out.push(['ROOT', 0, root.scrollTop]); return out; }
+function scrollRestore(root, snap) { if (!root || !snap.length) return; const cnt = {}, map = {}; for (const el of root.querySelectorAll('*')) { const k = el.tagName + '.' + el.className; const n = cnt[k] = (cnt[k] || 0) + 1; map[k + '#' + n] = el; } for (const [k, n, t] of snap) { const el = k === 'ROOT' ? root : map[k + '#' + n]; if (el) el.scrollTop = t; } }
+function scrollKeep(sel, fn, ctx) { return function () { const root = document.querySelector(sel), snap = scrollSnap(root), c0 = ctx ? ctx() : ''; const r = fn.apply(this, arguments); if (!ctx || ctx() === c0) { try { scrollRestore(document.querySelector(sel), snap); } catch (e) { } } return r; }; }
+// solo si sigues en la misma pestaña (al cambiar de pestaña se empieza arriba)
+renderPanel = scrollKeep('#panel', renderPanel, () => panelTab + '|' + (typeof invFilter !== 'undefined' ? invFilter : '') + '|' + (typeof wdSlot !== 'undefined' ? wdSlot : ''));
+renderShop = scrollKeep('#modal', renderShop, () => (shopState && shopState.kind) + '|' + (shopState && shopState.town));
+
+// ================= v4.14: ARMAS SUPERADAS Y EL VELO ONÍRICO =================
+
+// ---------- armas superadas ----------
+// El ataque era arma + atributo×2,2 + nivel×1,6: el arma pesaba poco y una espada de cobre servía hasta el final.
+// Ahora un arma más de 20 niveles por debajo del tuyo pierde fuerza (1,2 % por nivel, como mucho 55 %).
+// Con el equipo de tu nivel no cambia nada (el equilibrio contra monstruos y en PvP sigue igual).
+function wOutgrown(P) { const e = P && P.equip && P.equip.weapon, it = e && ITEMS[e.id]; if (!it || !it.lv || it.t !== 'weapon') return 0; const gap = P.lv - it.lv - 20; return gap > 0 ? Math.min(0.55, gap * 0.012) : 0; }
+{ const _cs = calcStats; calcStats = function (P, ...a) { const r = _cs(P, ...a); if (!P || !P.S) return r; const pen = wOutgrown(P); P.S.wpen = pen;
+  if (pen) { P.S.atk = Math.round(P.S.atk * (1 - pen)); const id = P.equip.weapon.id; if (P === G.P && pen >= 0.1 && P._wpenW !== id) { P._wpenW = id; try { toast(L2(`Tu arma se ha quedado atrás: −${Math.round(pen * 100)} % de daño. Busca una de tu nivel.`, `Your weapon has fallen behind: −${Math.round(pen * 100)}% damage. Find one for your level.`), 'warn', 5); } catch (e) { } } }
+  return r; }; }
+{ const _ri = renderInv; renderInv = function (B) { _ri(B); const P = G.P, s = P.inv[invSel], it = s && ITEMS[s.id]; if (!it || it.t !== 'weapon' || !it.lv) return; const gap = P.lv - it.lv - 20; if (gap <= 0) return;
+  const st = $('.invR .stats', B); if (st) st.insertAdjacentHTML('afterend', `<div class="req bad">${L2(`Arma superada a tu nivel: −${Math.round(Math.min(0.55, gap * 0.012) * 100)} % de daño`, `Outgrown at your level: −${Math.round(Math.min(0.55, gap * 0.012) * 100)}% damage`)}</div>`); }; }
+
+// ---------- el Velo: un mundo de sueño blanco y acolchado ----------
+// Antes eran cinco manchas de barro, hierba y ceniza sobre negro. Ahora es una sola isla de sueño: suelo de cojines
+// cosidos, bordes inflados como almohadas, bruma pastel con estrellas, árboles de algodón, lago de leche, un archivo
+// de almohadas y la grieta de Nihil como un desgarrón oscuro en la tela. Las zonas siguen en el mismo sitio.
+const DREAM = { base: pal(['#bdb2d6', '#d8cfe9', '#ece6f6', '#f8f5fd', '#ffffff']), pink: pal(['#c9a8c4', '#e6c8de', '#f4e2ee', '#fcf2f8', '#ffffff']), blue: pal(['#a8b8d8', '#c8d4ec', '#e2eaf8', '#f2f6fd', '#ffffff']), velvet: pal(['#140a1e', '#22122e', '#331c44', '#4a2a60', '#7a4aa0']), flame: pal(['#1a6a8a', '#2aa8c8', '#5ad8f0', '#a8f4ff', '#ffffff']) };
+function genDreamTile(v, kind) {   // un cojín de 2x2 casillas: centro claro, bordes suaves y una costura apenas marcada
+  const p = new Pix(32, 32), P = kind === 'velvet' ? DREAM.velvet : v === 1 ? DREAM.pink : v === 2 ? DREAM.blue : DREAM.base;
+  for (let y = 0; y < 32; y++) for (let x = 0; x < 32; x++) { const dx = Math.min(x, 31 - x), dy = Math.min(y, 31 - y), d = Math.min(dx, dy);
+    p.set(x, y, d === 0 ? uMix(P[2], P[3], 0.35) : d < 4 ? (x + y < 32 ? P[3] : uMix(P[2], P[3], 0.6)) : (Math.hypot(x - 13, y - 13) < 9 ? P[4] : P[3])); }
+  p.set(15, 15, P[2]); p.set(16, 16, P[2]); p.set(16, 15, uMix(P[2], P[3], 0.5)); p.set(15, 16, uMix(P[2], P[3], 0.5));   // botón del acolchado
+  return p.canvas();
+}
+const DREAM_T = {}; function dreamTile(v, k) { const key = k + v; return DREAM_T[key] || (DREAM_T[key] = genDreamTile(v, k)); }
+// objetos de sueño
+function genDream(k, v) {
+  let p, ax, ay; const B = DREAM.base;
+  if (k === 'tree') { p = new Pix(30, 40); const L = v % 2 ? DREAM.pink : B; p.rect(14, 24, 3, 14, pal(['#7a6a8a'])[0]); p.vl(15, 24, 14, C('#a898b8')); for (const [x, y, r] of [[15, 14, 10], [8, 19, 7], [22, 19, 7], [12, 9, 6], [19, 9, 6]]) p.ball(x, y, r, r * 0.85, [L[1], L[2], L[3], L[4]]); ax = 15; ay = 38; }
+  else if (k === 'grave') { p = new Pix(14, 18); p.rect(2, 5, 10, 12, B[3]); p.ell(7, 5, 5, 4, B[3]); p.vl(2, 4, 13, B[4]); p.vl(11, 4, 13, B[1]); p.hl(4, 9, 6, B[2]); p.vl(7, 7, 6, B[2]); p.hl(2, 14, 10, DREAM.pink[2]); p.set(7, 14, DREAM.pink[0]); ax = 7; ay = 17; }
+  else if (k === 'urn') { p = new Pix(14, 26); const F = DREAM.flame, f = v % 3; p.ball(7, 18, 5, 5, [B[0], B[1], B[2], B[3]]); p.hl(4, 18, 7, F[2]); p.hl(3, 13, 9, B[1]); p.rect(4, 22, 7, 3, B[1]);
+    for (let i = 0; i < 9; i++) { const y = 12 - i, w = Math.max(0, 3 - Math.floor(i / 3)) + (i + f) % 2; for (let x = 7 - w; x <= 7 + w - 1; x++) p.set(x + (i > 5 ? (f - 1) : 0), y, F[i < 2 ? 2 : i < 5 ? 3 : 4]); } ax = 7; ay = 25; }
+  else if (k === 'statue') { p = new Pix(36, 52); const S = B; p.rect(6, 40, 24, 11, S[1]); p.hl(6, 40, 24, S[3]); p.rect(9, 36, 18, 5, S[2]);
+    p.ball(18, 26, 9, 12, [S[1], S[2], S[3], S[4]]); p.ball(18, 13, 8, 7, [S[1], S[2], S[3], S[4]]);   // durmiente encapuchado
+    p.line(13, 14, 16, 14, S[0]); p.line(20, 14, 23, 14, S[0]); p.set(18, 17, S[1]);   // ojos cerrados
+    p.ball(26, 30, 3, 3, [DREAM.flame[1], DREAM.flame[2], DREAM.flame[3], DREAM.flame[4]]); p.vl(26, 24, 4, S[1]);   // farol
+    p.ball(10, 6, 2, 3, [S[1], S[2], S[3], S[4]]); p.ball(26, 6, 2, 3, [S[1], S[2], S[3], S[4]]); ax = 18; ay = 50; }
+  else if (k === 'pillow') { p = new Pix(26, 18); const L = v % 2 ? DREAM.blue : DREAM.pink; p.ball(9, 12, 8, 5, [L[0], L[1], L[2], L[3]]); p.ball(17, 11, 8, 5, [B[1], B[2], B[3], B[4]]); p.ball(13, 6, 7, 4, [L[1], L[2], L[3], L[4]]); p.set(13, 6, L[0]); ax = 13; ay = 16; }
+  else { p = new Pix(14, 22); const M = pal(['#c8a020', '#e8c840', '#fff0a0', '#fffbe0', '#ffffff']); p.ball(7, 6, 5, 5, [M[1], M[2], M[3], M[4]]); p.ball(9, 5, 4, 4, [B[3], B[3], B[3], B[3]]); p.vl(7, 11, 9, B[1]); ax = 7; ay = 21; }
+  p.outline(C('#6a5a8a')); return { c: p.canvas(), ax, ay };
+}
+{ const _os = objSprite; objSprite = function (o) { if (o.k && o.k.startsWith('dr_')) { const k = o.k.slice(3), f = k === 'urn' ? Math.floor(G.t * 6) % 3 : (o.v | 0) % 2; return spr('dr_' + k + f, () => genDream(k, f)); } return _os(o); }; }
+Object.assign(OBJSH, { dr_tree: [10, 3], dr_grave: [6, 2], dr_urn: [6, 2], dr_statue: [14, 4], dr_pillow: [10, 3], dr_moon: [4, 1] });
+{ const _mk = makeSpirit; makeSpirit = function () {
+  if (G.maps.espiritual && G.maps.espiritual.dream) return G.maps.espiritual;
+  const M = _mk(); if (M.dream) return M; const w = M.w, h = M.h, I = M.I; M.dream = 1;
+  const ter = M.ter; ter.fill(T.VOID);
+  const set = (x, y, t) => { if (x > 0 && y > 0 && x < w - 1 && y < h - 1) ter[I(x, y)] = t; };
+  const blob = (cx, cy, rx, ry, t) => { for (let y = cy - ry - 3; y <= cy + ry + 3; y++) for (let x = cx - rx - 3; x <= cx + rx + 3; x++) { const d = Math.hypot((x - cx) / rx, (y - cy) / ry) + (hash2(x, y, 77) - 0.5) * 0.12; if (d < 1) set(x, y, t); } };
+  const road = (x0, y0, x1, y1, r) => { const n = Math.max(Math.abs(x1 - x0), Math.abs(y1 - y0)); for (let k = 0; k <= n; k++) { const x = x0 + (x1 - x0) * k / n, y = y0 + (y1 - y0) * k / n, rr = r + Math.sin(k * 0.5) * 0.8; for (let dy = -4; dy <= 4; dy++) for (let dx = -4; dx <= 4; dx++) if (Math.hypot(dx, dy) <= rr) set(Math.round(x + dx), Math.round(y + dy), T.SNOW); } };
+  blob(23, 18, 20, 14, T.SNOW); blob(55, 22, 18, 15, T.SNOW); blob(40, 57, 20, 14, T.SNOW); blob(88, 26, 17, 14, T.SNOW); blob(90, 62, 16, 13, T.SNOW);
+  road(38, 18, 46, 21, 3.4); road(58, 34, 46, 46, 3.4); road(70, 22, 76, 25, 3.4); road(88, 38, 90, 50, 3.4); road(26, 30, 34, 45, 3.4); road(72, 30, 80, 52, 2.6);
+  blob(40, 60, 9, 6, T.WATER);       // Lago del Recuerdo: leche quieta
+  blob(91, 63, 9, 7, T.DUSK);        // Grieta de Nihil: terciopelo oscuro
+  // nada importante queda en el aire
+  for (const o of M.objs) for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) if (ter[I(o.tx + dx, o.ty + dy)] === T.VOID) set(o.tx + dx, o.ty + dy, T.SNOW);
+  for (const e of G.ents) if (e.map === 'espiritual') { const tx = Math.floor(e.x / 16), ty = Math.floor(e.y / 16); for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) if (ter[I(tx + dx, ty + dy)] === T.VOID || ter[I(tx + dx, ty + dy)] === T.WATER) set(tx + dx, ty + dy, T.SNOW); }
+  for (const t of M.threads || []) set(Math.floor(t.x / 16), Math.floor(t.y / 16), T.SNOW);
+  for (const [x, y] of [[23, 22], [23, 17], [23, 15]]) set(x, y, T.SNOW);
+  M.chunks = new Map(); M.wdist = null; prepPalettes(M); M.dark = 0; M.music = M.music || 'cave';
+  // decoración (fuera las setas y macetas antiguas, que no pegaban con el sueño)
+  for (const o of M.objs) if (o.k === 'furn' && (o.f === 'plant' || o.f === 'lamp_espora')) { o.hidden = true; o.solid = false; const i = I(o.tx, o.ty); M.solidO[i] = 0; M.objAt[i] = -1; }
+  const free = (x, y) => { const i = I(x, y); return ter[i] === T.SNOW && M.objAt[i] < 0 && !G.ents.some(e => e.map === 'espiritual' && Math.abs(e.x / 16 - x) < 1.5 && Math.abs(e.y / 16 - y) < 1.5); };
+  const D = (k, x, y, o) => { if (free(x, y)) addObj(M, 'dr_' + k, x, y, Object.assign({ fp: [[0, 0]] }, o || {})); };
+  D('statue', 23, 11, { fp: [[0, 0], [-1, 0], [1, 0]] }); D('urn', 20, 12); D('urn', 26, 12);
+  for (const x of [16, 19, 27, 30]) for (const y of [15, 18, 21]) D('grave', x, y, { v: x + y });
+  for (const [x, y] of [[12, 14], [34, 14], [12, 24], [34, 24], [44, 19], [52, 40], [74, 24], [89, 44], [30, 38]]) D('moon', x, y, { solid: false });
+  for (let k = 0; k < 34; k++) { const x = 40 + Math.floor(hash2(k, 11, 3) * 34), y = 9 + Math.floor(hash2(k, 12, 3) * 28); D('tree', x, y, { v: k }); }
+  for (let k = 0; k < 10; k++) { const x = 25 + Math.floor(hash2(k, 13, 3) * 32), y = 46 + Math.floor(hash2(k, 14, 3) * 22); D('tree', x, y, { v: k + 1 }); }
+  for (let k = 0; k < 14; k++) { const x = 76 + Math.floor(hash2(k, 15, 3) * 24), y = 15 + Math.floor(hash2(k, 16, 3) * 22); D('pillow', x, y, { v: k }); }
+  // dibujo del suelo, la bruma y los bordes inflados
+  M.drawExtra = (cx, cy) => {
+    const g = ctx.createLinearGradient(0, 0, 0, VH); g.addColorStop(0, '#e6def4'); g.addColorStop(1, '#f6eef6');
+    const x0 = Math.max(0, Math.floor(cx / 16)), y0 = Math.max(0, Math.floor(cy / 16)), x1 = Math.min(w - 1, Math.ceil((cx + VW) / 16)), y1 = Math.min(h - 1, Math.ceil((cy + VH) / 16));
+    ctx.fillStyle = g; for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) if (ter[I(x, y)] === T.VOID) ctx.fillRect(x * 16 - cx, y * 16 - cy, 16, 16);
+    for (let k = 0; k < 24; k++) { const sx = ((hash2(k, 1, 99) * 900 - cx * 0.3) % VW + VW) % VW, sy = ((hash2(k, 2, 99) * 600 - cy * 0.3) % VH + VH) % VH, tx = Math.floor((sx + cx) / 16), ty = Math.floor((sy + cy) / 16); if (ter[I(clamp(tx, 0, w - 1), clamp(ty, 0, h - 1))] !== T.VOID) continue; ctx.globalAlpha = 0.4 + 0.4 * Math.sin(G.t * 2 + k); ctx.fillStyle = k % 3 ? '#ffffff' : '#ffd8f0'; ctx.fillRect(Math.round(sx), Math.round(sy), 2, 2); ctx.fillRect(Math.round(sx) - 1, Math.round(sy) + 0.5, 4, 1); }
+    ctx.globalAlpha = 1;
+    for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) { const t = ter[I(x, y)], X = x * 16 - cx, Y = y * 16 - cy;
+      if (t === T.VOID) { if (y > 0 && ter[I(x, y - 1)] !== T.VOID) { ctx.fillStyle = 'rgba(150,130,190,0.28)'; ctx.fillRect(X, Y, 16, 6); ctx.fillStyle = '#ebe4f6'; for (let i = 0; i < 16; i += 4) { ctx.beginPath(); ctx.arc(X + i + 2, Y, 3.2, 0, Math.PI); ctx.fill(); } } continue; }
+      if (t === T.WATER) { ctx.fillStyle = 'rgba(244,240,252,0.9)'; ctx.fillRect(X, Y, 16, 16); ctx.fillStyle = 'rgba(200,190,235,0.6)'; if ((x * 7 + y * 3 + Math.floor(G.t * 2)) % 9 === 0) ctx.fillRect(X + 3, Y + 7, 8, 1); continue; }
+      { const bx = x >> 1, by = y >> 1, hv = hash2(bx, by, 5), v = t === T.DUSK ? 0 : hv < 0.06 ? 1 : hv > 0.95 ? 2 : 0; ctx.drawImage(dreamTile(v, t === T.DUSK ? 'velvet' : 'q'), (x & 1) * 16, (y & 1) * 16, 16, 16, X, Y, 16, 16); }
+      if (t === T.DUSK && hash2(x, y, 8) < 0.15) { ctx.fillStyle = `rgba(190,130,255,${(0.4 + 0.4 * Math.sin(G.t * 3 + x)).toFixed(2)})`; ctx.fillRect(X + 6, Y + 6, 2, 2); }
+      if (ter[I(x, y - 1)] === T.VOID) { ctx.fillStyle = '#ffffff'; for (let i = 0; i < 16; i += 4) { ctx.beginPath(); ctx.arc(X + i + 2, Y + 1, 2.6, Math.PI, 0); ctx.fill(); } } }
+  };
+  M.drawPost = (cx, cy) => {
+    const g = ctx.createRadialGradient(VW / 2, VH / 2, VH * 0.35, VW / 2, VH / 2, VW * 0.7); g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(1, 'rgba(225,210,245,0.45)'); ctx.fillStyle = g; ctx.fillRect(0, 0, VW, VH);
+    if (Math.random() < (OPT.on ? 0.15 : 0.45)) part(cx + Math.random() * VW, cy + VH * Math.random(), { vy: -12, vx: (Math.random() - 0.5) * 10, vz: 0, life: 4, c: Math.random() < 0.5 ? 'rgba(255,255,255,0.8)' : 'rgba(255,214,240,0.7)', s: 2 });
+    if (G.P.veilQ === 2) for (const t of M.threads) if (!t.got) { const x = t.x - cx, y = t.y - cy - 12 + Math.sin(G.t * 3 + t.x) * 3; ctx.strokeStyle = '#e8b830'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x - 6, y); ctx.quadraticCurveTo(x, y - 10, x + 6, y); ctx.stroke(); }
+  };
+  return M;
+}; }
 
 // ================= v3.6: IDIOMA (Español / English) =================
 // Los textos del código se traducen al compilar (tools/i18n/tr.js + en.json): cada uno es (LANG_EN ? "inglés" : "español").
