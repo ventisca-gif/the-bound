@@ -1,0 +1,24 @@
+{
+ "build": 24,
+ "ver": "4.3",
+ "date": "2026-11-13",
+ "file": "thebound.html",
+ "size": 4471932,
+ "sha256": "3cdd32b8f0e5e4c360bc7efa478297dcc3a3ded15ec1a68fd34ccaf7ca9961ec",
+ "minApk": 24,
+ "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
+ "notes": {
+  "es": [
+   "Actualizador interno: el juego busca versiones nuevas en GitHub, te avisa y se reinicia con el contenido nuevo sin reinstalar el APK.",
+   "Botón «Buscar actualización» en el título y en Ajustes › Actualizaciones.",
+   "Sección de Novedades con los cambios de cada versión; se abre sola la primera vez tras actualizar.",
+   "Si una versión descargada falla al arrancar, el juego vuelve solo a la versión instalada."
+  ],
+  "en": [
+   "Built-in updater: the game checks GitHub for new versions, lets you know and restarts with the new content without reinstalling the APK.",
+   "\"Check for updates\" button on the title screen and in Settings › Updates.",
+   "What's New section with the changes of every version; it opens by itself the first time after an update.",
+   "If a downloaded version fails to start, the game goes back to the installed version on its own."
+  ]
+ }
+}

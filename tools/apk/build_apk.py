@@ -8,7 +8,12 @@ TOOLS = os.path.dirname(os.path.abspath(__file__))
 PKG = 'com.thebound.game'
 KS = os.environ.get('THEBOUND_KEYSTORE', os.path.join(TOOLS, 'thebound.jks'))
 ALIAS = 'thebound'
-VERSION = (23, '4.2')
+# versión del APK = versión del juego (GAME_BUILD/GAME_VER en src/6zv_update.js)
+def _game_version():
+    import re
+    src = open(os.path.join(ROOT, 'src', '6zv_update.js'), encoding='utf-8').read()
+    return int(re.search(r"GAME_BUILD\s*=\s*(\d+)", src).group(1)), re.search(r"GAME_VER\s*=\s*'([^']+)'", src).group(1)
+VERSION = _game_version()
 
 
 def aligned_zip(entries, out):

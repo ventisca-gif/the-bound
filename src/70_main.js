@@ -68,4 +68,4 @@ document.addEventListener('visibilitychange', () => { if (document.hidden && G.P
 window.onAndroidBack = () => { if (!$('#modal').hidden && G.P) { closeModal(); return; } if (!$('#panel').hidden) { closePanel(); return; } if (!$('#dialog').hidden) { closeDialog(); return; } if (!$('#chatbox').hidden) { $('#chatbox').hidden = true; return; } if (G.P && !G.P.dead) openPanel('opts'); };
 addEventListener('pagehide', () => { if (G.P && !G.P.ghost) saveGame(true); });
 window.addEventListener('error', e => { const el = document.getElementById('errlog'); if (el) { el.hidden = false; el.textContent = 'Error: ' + (e.message || e.error); } });
-(function start() { const h = window.claude && window.claude.hot; if (h && h.ready) { try { h.ready(d => boot(d || {})); return; } catch (e) { } } boot((h && h.data) || {}); })();
+(function start() { const go = () => { const h = window.claude && window.claude.hot; if (h && h.ready) { try { h.ready(d => boot(d || {})); return; } catch (e) { } } boot((h && h.data) || {}); }; if (typeof tbStart === 'function') tbStart(go); else go(); })();

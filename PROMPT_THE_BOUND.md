@@ -1,16 +1,16 @@
 # PROMPT: continuar el desarrollo de "The Bound" (El Vínculo)
 
-> Copia todo este texto en ChatGPT y adjunta también el archivo `thebound-codigo-v4.2.zip`. El prompt explica el juego, pero el juego real está en el código: sin el zip, ninguna IA puede rehacerlo igual.
+> Copia todo este texto en ChatGPT y adjunta también el archivo `thebound-codigo-v4.3.zip`. El prompt explica el juego, pero el juego real está en el código: sin el zip, ninguna IA puede rehacerlo igual.
 
 ---
 
 ## 1. Tu papel
 
-Eres el programador principal de **The Bound**, un MMORPG 2.5D de mundo abierto en pixel art para móvil (Android), creado por Sergio. El juego ya existe y va por la **versión 4.2**. Tu trabajo es **seguir ampliándolo sin rehacerlo desde cero** y sin romper las partidas guardadas.
+Eres el programador principal de **The Bound**, un MMORPG 2.5D de mundo abierto en pixel art para móvil (Android), creado por Sergio. El juego ya existe y va por la **versión 4.3**. Tu trabajo es **seguir ampliándolo sin rehacerlo desde cero** y sin romper las partidas guardadas.
 
 Reglas:
 1. Lee el zip antes de tocar nada. Respeta la arquitectura descrita aquí.
-2. **Nunca reescribas archivos enteros.** Cada función nueva va en un archivo nuevo `src/6zu_*.js`, luego `6zv_*.js`, etc. Ese archivo "engancha" (hook) las funciones existentes; no las reemplaza.
+2. **Nunca reescribas archivos enteros.** Cada función nueva va en un archivo nuevo `src/6zw_*.js`, luego `6zx_*.js`, etc. Ese archivo "engancha" (hook) las funciones existentes; no las reemplaza.
 3. Todo texto nuevo va en español e inglés con `L2('español', 'English')`.
 4. Si añades un dato nuevo al jugador, regístralo con `SAVEKEYS.push('nombre')` para que se guarde.
 5. Todo lo que se dibuja es pixel art hecho con código. No añadas imágenes pesadas.
@@ -114,6 +114,15 @@ Reglas:
 
 ---
 
+## 6c. Actualizador interno (v4.3, `src/6zv_update.js`)
+
+- El juego busca `update/version.json` en GitHub (`raw.githubusercontent.com/ventisca-gif/the-bound/main/update/`). Si hay una versión más nueva, avisa en el título (y con un aviso durante la partida), la descarga, comprueba tamaño, SHA-256 y número de versión, la guarda en IndexedDB y reinicia el juego con ella.
+- La versión descargada corre en un `iframe srcdoc` encima de la página del APK: comparte la partida (mismo origen) y el APK no cambia, así que la firma tampoco.
+- Si la versión descargada no llega al título (dos arranques o 60 s), se marca como mala y vuelve la versión del APK. En Ajustes hay un botón para volver a la versión del APK.
+- Novedades: `CHANGELOG` (la más nueva primero, en español e inglés). Se abre sola la primera vez tras actualizar; también desde el título y Ajustes.
+- Publicar: `python3 tools/dev/release.py` escribe `update/thebound.html` y `update/version.json`; luego se sube `update/` a `main`. Si cambia la parte Android, sube `UPD_MIN_APK` y el juego pedirá instalar el APK nuevo.
+- Importante: el repositorio debe poder leerse sin contraseña (público) o hay que publicar `update/` en otro repositorio público y cambiar `UPD_REPO`.
+
 ## 6. Cómo construir y probar
 
 ```bash
@@ -124,7 +133,7 @@ python3 tools/apk/build_apk.py                      # genera dist/TheBound.apk (
 python3 tools/apk/check.py dist/TheBound.apk        # debe decir ALL CHECKS PASSED
 ```
 - Las pruebas son scripts de texto con pasos: `click #id`, `type #id|texto`, `wait ms`, `js expresión`, `shot` (captura de pantalla). Cada prueba termina comprobando que no hubo errores de JavaScript.
-- Cada versión nueva debe subir el número de versión del APK (ahora `(23, '4.2')`; la siguiente es `(24, '4.3')`) y el texto de versión en `template.html` (`tfoot`).
+- Cada versión nueva sube `GAME_VER` y `GAME_BUILD` en `src/6zv_update.js` (ahora `'4.3'`, `24`; la siguiente es `'4.4'`, `25`), añade su entrada a `CHANGELOG` y cambia el texto de versión en `template.html` (`tfoot`). `tools/apk/build_apk.py` toma la versión de ahí.
 
 ---
 

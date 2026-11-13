@@ -15,3 +15,18 @@ The Bound es un RPG 2D de mundo abierto con movimiento en cuatro direcciones.
 - Alterna el apoyo de los pies y acompaña cada paso con el movimiento de los brazos. Adapta la ropa, el pelo y los accesorios a la pose de cada fotograma. Si el personaje lleva un arma, mantenla alineada con la mano que la sostiene.
 - Conserva el tamaño de celda y el punto de anclaje del sprite original. Revisa en bucle las cuatro caminatas y su transición a reposo para detectar saltos de posición o cambios de ropa entre fotogramas.
 - Toma como referencia la caminata del juego: pasos cortos, poco rebote vertical y cambios de dirección ágiles. Al crear un atuendo, adapta la ropa a los fotogramas originales de cada dirección para conservar ese movimiento.
+
+## Estilo HD de referencia (desde v4.0–4.2)
+
+- Toma siempre como base los sprites HD actuales del juego (personajes chibi de v4.2 dibujados con `drawHero`/`drawHumanoid` y el detalle HD de `src/6zu_hd.js`) para crear sprites, ropa, NPCs y criaturas nuevas. No partas de estilos anteriores a la v4.0.
+- Respeta `FACE` en `src/32_art_chars.js` (cabeza 2 px más alta, ojos 2×3 bajo el flequillo, boca de 2 px, pelo con volumen y cintura en las mujeres) y las etiquetas de capa `TG(n)` para que el detalle HD se aplique.
+- Mantén el detalle HD suave y continuo: sin puntadas punteadas ni líneas claras en cada cambio de sombra (nada de "cuadrículas blancas").
+- Antes de un cambio visual grande, haz una muestra dibujada con el propio motor y compárala con la referencia.
+
+## Versiones y actualizador interno
+
+- La versión del juego y del APK está en `src/6zv_update.js` (`GAME_VER`, `GAME_BUILD`). `tools/apk/build_apk.py` la lee de ahí.
+- Para publicar una versión: sube `GAME_VER`/`GAME_BUILD`, añade su entrada al principio de `CHANGELOG` (español e inglés), actualiza el pie `tfoot` de `template.html` y ejecuta `python3 tools/dev/release.py`. Sube `update/` a la rama `main`: los teléfonos leen `update/version.json` en raw.githubusercontent.com.
+- Sube `UPD_MIN_APK` solo si cambia la parte Android (`tools/apk/`). Entonces hay que instalar el APK nuevo a mano.
+- Firma el APK siempre con la clave de siempre (`THEBOUND_KEYSTORE` y `THEBOUND_SIGNING_PASSWORD`). Nunca la subas al repositorio ni generes otra.
+- Prueba del actualizador: `python3 tests/upd.py file://$PWD/dist/test.html out.png`.
