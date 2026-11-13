@@ -1,0 +1,26 @@
+{
+ "build": 26,
+ "ver": "4.5",
+ "date": "2026-11-13",
+ "file": "thebound.html",
+ "size": 4497106,
+ "sha256": "728771f3b24a8c179d1d79632d8e4ecd5041a3e5b980c300de6a89d84c7ba271",
+ "minApk": 24,
+ "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
+ "notes": {
+  "es": [
+   "Ajuste automático: cascos, sombreros, coronas, orejas y cuernos se adaptan solos a la cabeza de cada estructura; los sombreros muy altos se encogen para no salirse.",
+   "Las prendas nuevas que se añadan al juego se colocarán solas en las 8 estructuras.",
+   "Arreglo: el casco del guerrero tapaba un poco el ojo derecho.",
+   "Arreglo: las capuchas del asesino y el invocador tapaban el borde del ojo en la estructura Robusto.",
+   "Los sombreros de los NPCs también se ajustan a su cabeza."
+  ],
+  "en": [
+   "Automatic fit: helmets, hats, crowns, ears and horns adapt to the head of every build; very tall hats shrink so they stay on screen.",
+   "New gear added to the game will fit all 8 builds on its own.",
+   "Fix: the warrior helmet slightly covered the right eye.",
+   "Fix: assassin and summoner hoods covered the edge of the eye on the Sturdy build.",
+   "NPC hats also fit their heads."
+  ]
+ }
+}

@@ -20,6 +20,8 @@ function animN(e, a) { if (e.hum) return ANIMS[a] ? ANIMS[a][1] : 1; return MOBA
 function setAnim(e, a, keep) { if (e.anim === a && keep) return; e.anim = a; e.af = 0; e.at = 0; }
 function stepAnim(e, dt, fps) { e.at += dt; const n = animN(e, e.anim); const per = 1 / (fps || 6); while (e.at >= per) { e.at -= per; e.af++; if (e.af >= n) e.af = e.loopAnim === false ? n - 1 : 0; } }
 // ---------- drawing ----------
+// v4.0: dibuja un cuadro del atlas, en HD (ropa con píxeles finos) si el atlas lo tiene
+function atlasBlit(c, A, col, row, x, y, w, h) { if (HDS > 1 && A.hdL && typeof hdEnsure === 'function' && hdEnsure(A, col, row)) { c.drawImage(A.hd, col * A.fw * 2, row * A.fh * 2, A.fw * 2, A.fh * 2, x, y, w, h); return; } c.drawImage(A.img, col * A.fw, row * A.fh, A.fw, A.fh, x, y, w, h); }
 function drawEnt(e, cx, cy) {
   if (e.type === 'proj') return drawProj(e, cx, cy);
   if (e.type === 'deco') return drawDeco(e, cx, cy);
@@ -36,8 +38,8 @@ function drawEnt(e, cx, cy) {
   if (e.dying) { ctx.globalAlpha = clamp(1 - e.dying / 0.6, 0, 1); }
   if (e.type === 'summon' || e.type === 'rsum') { const g = ctx.createRadialGradient(e.x - cx, e.y - cy - 4, 1, e.x - cx, e.y - cy - 4, 14 * (e.scale || 1)); g.addColorStop(0, 'rgba(90,176,255,0.35)'); g.addColorStop(1, 'rgba(90,176,255,0)'); ctx.fillStyle = g; ctx.fillRect(e.x - cx - 16 * (e.scale || 1), e.y - cy - 20 * (e.scale || 1), 32 * (e.scale || 1), 28 * (e.scale || 1)); ctx.globalAlpha = (e.t !== undefined && e.t < 1.5 ? e.t / 1.5 : 1) * (0.72 + Math.sin(G.t * 5) * 0.08); }
   if (e.type === 'rcomp') drawRemoteHand(e, cx, cy);
-  if (e.scale) { const sc = e.scale; ctx.drawImage(A.img, col * A.fw, row * A.fh, A.fw, A.fh, Math.round(e.x - A.ax * sc - cx), Math.round(e.y - A.ay * sc - cy), Math.round(A.fw * sc), Math.round(A.fh * sc)); ctx.globalAlpha = 1; return; }
-  ctx.drawImage(A.img, col * A.fw, row * A.fh, A.fw, A.fh, x, y, A.fw, A.fh);
+  if (e.scale) { const sc = e.scale; atlasBlit(ctx, A, col, row, Math.round(e.x - A.ax * sc - cx), Math.round(e.y - A.ay * sc - cy), Math.round(A.fw * sc), Math.round(A.fh * sc)); ctx.globalAlpha = 1; return; }
+  atlasBlit(ctx, A, col, row, x, y, A.fw, A.fh);
   if (e.flash > 0) { ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = Math.min(1, e.flash * 6) * 0.8; ctx.drawImage(A.img, col * A.fw, row * A.fh, A.fw, A.fh, x, y, A.fw, A.fh); ctx.globalCompositeOperation = 'source-over'; }
   if (e.freeze > 0) { ctx.globalAlpha = 0.45; ctx.fillStyle = '#9ae0ff'; ctx.fillRect(x + A.fw * 0.25, y + A.fh * 0.35, A.fw * 0.5, A.fh * 0.6); }
   ctx.globalAlpha = 1;

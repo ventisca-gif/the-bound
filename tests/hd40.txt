@@ -1,0 +1,16 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), 1)
+js (()=>{ const P=G.P; P.wardrobe=(P.wardrobe||[]).concat(['c_rey_torso','c_rey_grebas','c_rey_capa','c_rey_botas']); P.cos={body:'c_rey_torso',legs:'c_rey_grebas',back:'c_rey_capa',feet:'c_rey_botas'}; P.atlas=playerAtlas(P); return [HDS, cv.width, VW, !!P.atlas.hdL]; })()
+wait 1500
+shot
+js ([HD_LIVE.length, HD_LIVE.map(a=>a.hdDone.reduce((s,v)=>s+v,0))])
+down ArrowRight
+wait 700
+up ArrowRight
+shot
+js (setHD(false), [HDS, cv.width])
+wait 400
+shot
+js (setHD(true), [HDS, cv.width])
+wait 300
+js (window._errs)

@@ -1,0 +1,17 @@
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), 1)
+click #tNew;;wait 500
+js ([...document.querySelectorAll('[data-ek="bt"]')].map(b=>b.textContent))
+click [data-ek="g"][data-ev="m"];;wait 200
+click [data-ek="bt"][data-ev="1"];;wait 300
+js ([CC.app.g, CC.app.bt, document.querySelector('[data-ek="bt"].on').textContent])
+shot
+type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js ([G.P.app.bt, normApp(G.P.app).bt, !!heroLook(G.P.cls, G.P.app, {weapon:1}, {}, {}).btS, socialPresence ? (()=>{ const o={}; try { socialPresence(o); } catch(e) { return "err "+e.message; } return JSON.stringify(o.app||o.a||Object.keys(o)); })() : 0])
+js (saveGame(true), JSON.parse(localStorage.getItem(slotKey(SLOT))).app.bt)
+down ArrowRight;;wait 600;;up ArrowRight;;down ArrowUp;;wait 500;;up ArrowUp
+shot
+js (window._errs)
+js (()=>{ for (const [peer, bt, g] of [['phn:7', 1, 'm'], ['rtc:abc', 3, 'f'], ['room:z', 2, 'm']]) upsertRemote({ peer, presence: { n: 'Amigo'+bt, c: 'mago', a: { g, bt, hs: 1, hair: 'blanco' }, g: { weapon: 3, body: 3 }, l: 9, m: G.P.map, x: Math.round(G.P.x) + 24 * bt, y: Math.round(G.P.y), d: 'down', s: 'idle' } }); return [...G.remote.values()].map(r => [r.name, r.app.bt, (remoteAtlas(r).hdL || {}).btS ? remoteAtlas(r).hdL.btS.n[0] : null]); })()
+wait 600
+shot
+js (window._errs)

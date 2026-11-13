@@ -1,16 +1,16 @@
 # PROMPT: continuar el desarrollo de "The Bound" (El Vínculo)
 
-> Copia todo este texto en ChatGPT y adjunta también el archivo `thebound-codigo-v3.9.zip`. El prompt explica el juego, pero el juego real está en el código: sin el zip, ninguna IA puede rehacerlo igual.
+> Copia todo este texto en ChatGPT y adjunta también el archivo `thebound-codigo-v4.5.zip`. El prompt explica el juego, pero el juego real está en el código: sin el zip, ninguna IA puede rehacerlo igual.
 
 ---
 
 ## 1. Tu papel
 
-Eres el programador principal de **The Bound**, un MMORPG 2.5D de mundo abierto en pixel art para móvil (Android), creado por Sergio. El juego ya existe y va por la **versión 3.9**. Tu trabajo es **seguir ampliándolo sin rehacerlo desde cero** y sin romper las partidas guardadas.
+Eres el programador principal de **The Bound**, un MMORPG 2.5D de mundo abierto en pixel art para móvil (Android), creado por Sergio. El juego ya existe y va por la **versión 4.5**. Tu trabajo es **seguir ampliándolo sin rehacerlo desde cero** y sin romper las partidas guardadas.
 
 Reglas:
 1. Lee el zip antes de tocar nada. Respeta la arquitectura descrita aquí.
-2. **Nunca reescribas archivos enteros.** Cada función nueva va en un archivo nuevo `src/6zu_*.js`, luego `6zv_*.js`, etc. Ese archivo "engancha" (hook) las funciones existentes; no las reemplaza.
+2. **Nunca reescribas archivos enteros.** Cada función nueva va en un archivo nuevo `src/6zy_*.js`, luego `6zya_*.js`, etc. Ese archivo "engancha" (hook) las funciones existentes; no las reemplaza.
 3. Todo texto nuevo va en español e inglés con `L2('español', 'English')`.
 4. Si añades un dato nuevo al jugador, regístralo con `SAVEKEYS.push('nombre')` para que se guarde.
 5. Todo lo que se dibuja es pixel art hecho con código. No añadas imágenes pesadas.
@@ -104,6 +104,37 @@ Reglas:
 
 ---
 
+## 6b. Lo nuevo de v4.0 a v4.2 (estilo de personajes)
+
+- **v4.0 HD** (`src/6zu_hd.js`): el lienzo se dibuja al doble (`HDS = 2`, opción "HD" en Ajustes). Cada capa del personaje lleva una etiqueta (1 piernas, 2 torso, 3 brazo, 4 espalda, 5 cabeza, 6 pelo, 7 sombrero, 8 arma, 9 bufanda) y `hdDetail`/`hdOrn` añaden biseles suaves por material (metal, tela, cuero, plumas, ribetes), emblemas, hebillas, botones y cordones. Los cuadros HD se generan solo cuando se ven (4 por frame, máximo 40 atlas).
+- **v4.1**: detalle suavizado. No quiero "cuadrículas blancas": nada de puntadas punteadas ni líneas claras en cada cambio de sombra. Tu pareja te atiende en su tienda aunque seas Criminal.
+- **v4.2 estilo chibi** (`FACE` en `src/32_art_chars.js` = { ey: 2, mouth: 4, bang: 2.5, vol: 1.1, lift: 2 }): cabeza 2 px más alta, cuello corto, barbilla redonda, ojos 2×3 bajo el flequillo con brillo y reflejo, boca de 2 px, rubor, pelo con volumen, ondas y mechones claros, y **cintura en las mujeres**. Vale para héroes y NPCs.
+- **Trajes originales**: Heraldo Nocturno (pintura de guerra blanca, hombreras y capa negras), Dama Esmeralda (vestido verde con corsé), Danzarina del Ocaso, Rey del Cielo Blanco. Se venden en las tiendas de cosméticos de Puerto Coral y Sahrim.
+- Antes de un cambio visual grande, haz primero un ejemplo dibujado con el propio motor y compáralo con mi referencia.
+
+---
+
+## 6d. Estructuras de cuerpo (v4.4, `src/6zw_bodies.js`)
+
+- `app.bt` (0–3) elige la estructura: hombre Clásico, Héroe, Atlético y Robusto; mujer Clásica, Esbelta, Curvas y Menuda. Cada una cambia medidas (torso, piernas, brazos, cabeza), mandíbula, ojos, boca y silueta; el resto del dibujo se adapta solo.
+- Mientras se dibuja un fotograma se cambian `BODYP.normal` y `FACE` y luego se restauran (`bodyWith`). Los NPCs y enemigos humanos reciben una estructura fija según su aspecto (`npcBodyFor`).
+- La estructura va en `normApp`, así que se guarda y viaja en multijugador local y online.
+
+## 6e. Ajuste automático de prendas (v4.5, `src/6zx_fit.js`)
+
+- Cabeza: cascos, sombreros, coronas y orejas se dibujan para la cabeza clásica y se escalan solos a cada estructura; un sombrero que no cabe se encoge. Las gafas siguen la línea de los ojos.
+- Tipos nuevos: `fitKind(ranura, k, (p, A, spec) => ...)` con los anclajes de `A` (cabeza, ojos, hombros, torso, cintura, piernas, espalda). Luego `cosm(id, nombre, ranura, () => ({ k, ... }))`.
+- Revisor: `python3 tools/dev/fitcheck.py URL out` prueba todas las prendas en las 8 estructuras, 4 direcciones y la caminata, y avisa si algo tapa los ojos, se sale del cuadro, flota, deja piel al aire, no escala o cambia de golpe.
+
+## 6c. Actualizador interno (v4.3, `src/6zv_update.js`)
+
+- El juego busca `update/version.json` en GitHub (`raw.githubusercontent.com/ventisca-gif/the-bound/main/update/`). Si hay una versión más nueva, avisa en el título (y con un aviso durante la partida), la descarga, comprueba tamaño, SHA-256 y número de versión, la guarda en IndexedDB y reinicia el juego con ella.
+- La versión descargada corre en un `iframe srcdoc` encima de la página del APK: comparte la partida (mismo origen) y el APK no cambia, así que la firma tampoco.
+- Si la versión descargada no llega al título (dos arranques o 60 s), se marca como mala y vuelve la versión del APK. En Ajustes hay un botón para volver a la versión del APK.
+- Novedades: `CHANGELOG` (la más nueva primero, en español e inglés). Se abre sola la primera vez tras actualizar; también desde el título y Ajustes.
+- Publicar: `python3 tools/dev/release.py` escribe `update/thebound.html` y `update/version.json`; luego se sube `update/` a `main`. Si cambia la parte Android, sube `UPD_MIN_APK` y el juego pedirá instalar el APK nuevo.
+- Importante: el repositorio debe poder leerse sin contraseña (público) o hay que publicar `update/` en otro repositorio público y cambiar `UPD_REPO`.
+
 ## 6. Cómo construir y probar
 
 ```bash
@@ -114,7 +145,7 @@ python3 tools/apk/build_apk.py                      # genera dist/TheBound.apk (
 python3 tools/apk/check.py dist/TheBound.apk        # debe decir ALL CHECKS PASSED
 ```
 - Las pruebas son scripts de texto con pasos: `click #id`, `type #id|texto`, `wait ms`, `js expresión`, `shot` (captura de pantalla). Cada prueba termina comprobando que no hubo errores de JavaScript.
-- Cada versión nueva debe subir el número de versión del APK (ahora `(20, '3.9')`; la siguiente es `(21, '4.0')`) y el texto de versión en `template.html` (`tfoot`).
+- Cada versión nueva sube `GAME_VER` y `GAME_BUILD` en `src/6zv_update.js` (ahora `'4.5'`, `26`; la siguiente es `'4.6'`, `27`), añade su entrada a `CHANGELOG` y cambia el texto de versión en `template.html` (`tfoot`). `tools/apk/build_apk.py` toma la versión de ahí.
 
 ---
 

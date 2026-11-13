@@ -1,0 +1,16 @@
+<!doctype html><html><body style="margin:0;background:#4a8e34">
+<canvas id="c" style="image-rendering:pixelated"></canvas>
+<script src="../src/00_core.js"></script><script src="../src/10_world.js"></script><script src="../src/20_terrain.js"></script>
+<script src="../src/30_art_env.js"></script><script src="../src/31_art_build.js"></script><script src="../src/32_art_chars.js"></script><script src="../src/33_art_mobs.js"></script>
+<script>
+const Z=2, c=document.getElementById('c'); c.width=950; c.height=1000; c.style.width=c.width*Z+'px'; c.style.height=c.height*Z+'px'; const x=c.getContext('2d');
+let cx=2, cy=2, rh=0;
+function show(a, frames){ frames=frames||[0,2,3,6,7,9]; const w=a.fw*frames.length*2; if(cx+w>c.width){cx=2;cy+=rh+4;rh=0;} let k=0; for(const d of [0,1]) for(const f of frames){ x.drawImage(a.img,f*a.fw,d*a.fh,a.fw,a.fh,cx+k*a.fw,cy,a.fw,a.fh); k++; } cx+=w+6; rh=Math.max(rh,a.fh); }
+['green','blue','red','purple','ice','gold'].forEach(k=>show(genSlime(k),[0,2,3,6,7]));
+show(genSlime('green',2.6,true),[0,3,7]);
+['lobo','jabali','oso','lobohielo','sombra'].forEach(k=>show(genQuad(k),[0,2,3,7,9]));
+show(genBat(''),[0,2,3]); show(genBat('fuego'),[0,2,3]); show(genGhost(''),[0,2,7]); show(genMushroomMob(''),[0,3,7]); show(genMushroomMob('veneno'),[0,3]); show(genCrab(),[0,2,7]);
+['goblin','orco','esqueleto','bruja','yeti','golem','caballero','bandido'].forEach(k=>show(humanoidMobAtlas(HLOOKS[k]),[0,2,3,7,8]));
+['gruk','morgana','vael','golemhielo','desatado'].forEach(k=>show(humanoidMobAtlas(bossLook(k)),[0,7]));
+show(genTreant(),[0,7]); show(genDragon(),[0,8]);
+</script></body></html>

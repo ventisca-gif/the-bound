@@ -1,0 +1,5 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), 1)
+js (()=>{ const P=G.P; addRep('albor', -900, true); return repStatus('albor').n; })()
+js (()=>{ window._t=[]; const _to=toast; toast=function(m){ window._t.push(m); return _to.apply(this,arguments); }; const e={id:'lia', def:NPCS.lia, atlas:npcAtlas('lia'), x:G.P.x, y:G.P.y}; G.P.partner=null; openDialog(e); openShop('store','albor'); const blocked=window._t.some(m=>/criminales|criminals/.test(m)); window._t=[]; closeDialog(); closePanel&&closePanel(); G.P.partner='lia'; openDialog(e); openShop('store','albor'); const ok=!window._t.some(m=>/criminales|criminals/.test(m)); return [blocked, ok, repStatus('albor').n]; })()
+js (window._errs)

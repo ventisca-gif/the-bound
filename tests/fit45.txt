@@ -1,0 +1,7 @@
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), 1)
+js (fitKind('head', 't_diadema', (p, A, s) => { const y = Math.round(A.headTop + A.hry * 0.45); p.hl(Math.round(A.hx - A.hrx), y, Math.round(A.hrx * 2) + 1, s.m[3]); if (!A.up && !A.side) p.set(Math.round(A.hx) - 1, y - 1, s.m[4]); }), cosm('c_t_diadema', 'Diadema', 'head', () => ({ k: 't_diadema', m: GOLD })), 1)
+js (fitKind('body', 't_faja', (p, A, s) => { for (let y = A.waistY - 1; y <= A.waistY; y++) p.hl(A.tx0, y, A.tw, s.s[y === A.waistY ? 1 : 3]); }), cosm('c_t_faja', 'Túnica con faja', 'body', () => ({ k: 't_faja', m: CLOTH.azul, s: CLOTH.rojo })), 1)
+js (fitKind('back', 't_mochila', (p, A, s) => { if (A.side) { const x = A.d > 0 ? A.tx0 - 3 : A.tx0 + A.tw; p.rect(x, A.shY + 1, 3, A.th - 2, s.o[2]); } else if (A.up) { p.rect(A.cx - 3, A.shY + 1, 6, A.th - 1, s.o[2]); p.hl(A.cx - 3, A.shY + 1, 6, s.o[3]); } }), cosm('c_t_mochila', 'Mochila', 'back', () => ({ k: 't_mochila', o: LEATHER })), 1)
+js (()=>{ const r = fitCheck('c_t_'); return [r.stats.items, r.issues.length, r.issues.slice(0,4).map(i=>i.id+' '+i.issue+' '+i.tag)]; })()
+js (()=>{ const out=[]; for (const [g,b] of FIT_BODIES) { const L = fitLook({id:'c_t_faja',kind:'cos',slot:'body'}, g, b, true); const p = fitDraw(L,'down','idle',0); const M=p.meta; out.push([g+b, M.tw, M.waistY, p.get(M.tx0 + 1, M.waistY) === CLOTH.rojo[1]]); } return out; })()
+js (window._errs)

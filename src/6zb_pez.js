@@ -39,7 +39,7 @@ function pezStage(lv) { return lv >= 100 ? 2 : lv >= 70 ? 1 : 0; }
 function pezDecor(p, L, dir, anim, f) {
   const B = BODYP.normal, ps = heroPose(dir, anim, f, L), fem = L.g === 'f';
   const side = dir === 'left' || dir === 'right', up = dir === 'up', d = dir === 'left' ? -1 : 1;
-  const cx = p.w >> 1, base = p.h - 4 - (ps.jump || 0), legTop = base - B.lh + ps.crouch, torsoTop = legTop - B.th + ps.bob, hy = Math.round(torsoTop - B.hry + 1);
+  const cx = p.w >> 1, base = p.h - 4 - (ps.jump || 0), legTop = base - B.lh + ps.crouch, torsoTop = legTop - B.th + ps.bob, hy = Math.round(torsoTop - B.hry + 1 - (B === BODYP.normal ? FACE.lift : 0));
   const hx = cx + (side ? -1 : 0) + (side ? d * (ps.lean || 0) : 0), SK = L.skin, Z = L.pez, FN = Z.fin, empty = (x, y) => !p.get(x, y);
   // escamas en la piel y en la ropa de escamas
   for (let y = hy + 4; y < p.h; y++) for (let x = 0; x < p.w; x++) { const c = p.get(x, y); if (!c) continue;

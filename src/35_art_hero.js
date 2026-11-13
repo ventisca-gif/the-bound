@@ -92,19 +92,21 @@ function heroPose(dir, anim, f, L) {
 }
 function heroStrand(p, pts, w, HP, flow) { for (let k = 0; k + 1 < pts.length; k++) { const [x0, y0] = pts[k], [x1, y1] = pts[k + 1]; const n = Math.max(1, Math.ceil(Math.hypot(x1 - x0, y1 - y0) * 1.5)); for (let s = 0; s <= n; s++) { const t = s / n, x = lerp(x0, x1, t), y = lerp(y0, y1, t), ww = w * (flow ? (1 - (k + t) / pts.length * 0.45) : 1); for (let o = -ww / 2; o < ww / 2; o += 1) p.set(Math.round(x + o), Math.round(y), HP[o < -ww / 2 + 1 ? 3 : o >= ww / 2 - 1 ? 1 : 2]); } } }
 function drawHero(p, L, dir, anim, f) {
-  const B = BODYP.normal, ps = heroPose(dir, anim, f, L), fem = L.g === 'f';
+  const B = BODYP.normal, ps = heroPose(dir, anim, f, L), fem = L.g === 'f', BTS = L.btS || {};   // v4.4 BTS: estructura de cuerpo (6zw_bodies)
   const side = dir === 'left' || dir === 'right', up = dir === 'up', d = dir === 'left' ? -1 : 1;
   const SK = L.skin || SKINS[0], HP = L.hair, HS = L.hs || HS_F[0];
   const TOP = L.top, BOT = L.bot, FT = L.feet, HD = L.head, BK = L.back;
   const cx = p.w >> 1, base = p.h - 4 - (ps.jump || 0);
-  const legTop = base - B.lh + ps.crouch, torsoTop = legTop - B.th + ps.bob + (ps.sit ? 0 : 0), hy = torsoTop - B.hry + 1;
+  const legTop = base - B.lh + ps.crouch, torsoTop = legTop - B.th + ps.bob + (ps.sit ? 0 : 0), hy = torsoTop - B.hry + 1 - (B === BODYP.normal ? FACE.lift : 0);
   const hx = cx + (side ? -1 : 0) + (side ? d * ps.lean : 0);
-  const tw = side ? 8 : (fem ? 9 : 10), tx0 = side ? cx - 4 : cx - (fem ? 4 : 5), th = B.th;
+  const tw = side ? (BTS.sw || 8) : (BTS.tw || (fem ? 9 : 10)), tx0 = cx - (tw >> 1), th = B.th;
   const W = ps.noWeapon ? null : (anim === 'chop' || anim === 'mine' || anim === 'fish' || anim === 'dig') ? { k: ps.toolK, tier: L.toolTier || 2 } : L.weapon;
   const hideHair = HD && HD.cover === 'full', hood = HD && HD.cover === 'hood';
   const robeLong = TOP.k === 'robe', dressLen = TOP.k === 'dress' ? 6 : 0;
+  const TG = p.t ? (k => { p.tg = k; }) : (() => { });   // v4.0 capas para el detalle HD
+  p.meta = { cx, torsoTop, tx0, tw, th, legTop, base, dir, side, up, fem, d, hx, hy, anim, f };
   // ---------- legs & feet ----------
-  const drawLegs = () => {
+  const drawLegs = () => { TG(1);
     const lw = BOT.k === 'baggy' ? 4 : B.lw;
     const legs = side ? [[cx - 1 + d * ps.rfx, ps.rfy, true], [cx - 1 + d * ps.lfx, ps.lfy, false]] : [[cx - Math.ceil(tw / 2) + 1 - (lw > 3 ? 1 : 0), ps.lfy, false], [cx + Math.floor(tw / 2) - lw + (lw > 3 ? 1 : 0), ps.rfy, false]];
     const footRows = FT.k === 'boots' || FT.k === 'sabatons' ? 4 : 2;
@@ -118,16 +120,17 @@ function drawHero(p, L, dir, anim, f) {
       }
       if (side) { p.set(xx + (dir === 'left' ? -1 : lw), bot - 1, FT.m[1]); }
     });
+    if (typeof FITK !== 'undefined') { if (FITK.legs[BOT.k]) FITK.legs[BOT.k].draw(p, p.meta, BOT); if (FITK.feet[FT.k]) FITK.feet[FT.k].draw(p, p.meta, FT); }   // v4.5 tipos nuevos (6zx_fit)
   };
   // ---------- torso ----------
   const drawSkirt = (pal_, hem, flare) => { for (let y = legTop - 1; y <= hem; y++) { const t = (y - legTop + 1) / Math.max(1, hem - legTop + 1), ex = Math.round(flare * t); for (let x = tx0 - ex; x < tx0 + tw + ex; x++) p.set(x, y, pal_[x === tx0 - ex ? 3 : x === tx0 + tw + ex - 1 ? 1 : ((x + y) % 4 === 0 ? 1 : 2)]); } p.hl(tx0 - flare, hem, tw + flare * 2, pal_[0]); };
-  const drawTorso = () => {
+  const drawTorso = () => { TG(2);
     const ty = torsoTop, k = TOP.k, m = k === 'warpaint' ? [SK[0], SK[0], SK[1], SK[2], SK[3]] : TOP.m, s = TOP.s || m;
     if (k === 'robe') { const hem = base - 1, flare = side ? 1 : 2; for (let y = ty + th - 1; y <= hem; y++) { const t = (y - (ty + th)) / (hem - ty - th + 1), ex = Math.round(flare * t); for (let x = tx0 - ex; x < tx0 + tw + ex; x++) p.set(x, y, m[x === tx0 - ex ? 3 : x === tx0 + tw + ex - 1 ? 1 : 2 + ((x + (anim === 'walk' ? f : 0)) % 4 === 0 ? -1 : 0)]); } p.hl(tx0 - flare, hem, tw + flare * 2, s[2]); p.hl(tx0 - flare, hem - 1, tw + flare * 2, s[3]); if (!up) p.vl(cx - (side ? 1 : 0), ty + 1, hem - ty - 1, s[3]); if ((TOP.t || 0) >= 6 && !up) for (let y = ty + th + 2; y < hem - 2; y += 3) { p.set(tx0 + 1, y, s[4]); p.set(tx0 + tw - 2, y + 1, s[4]); } }
     if (dressLen) drawSkirt(m, legTop + dressLen, side ? 1 : 3);
     else if (BOT.k === 'skirt' && k !== 'robe') drawSkirt(BOT.m, legTop + 4, side ? 1 : 2);
     srect(p, tx0, ty, tw, th, m);
-    if (fem && !side && k !== 'plate') { p.set(tx0, ty + th - 3, m[1]); p.set(tx0 + tw - 1, ty + th - 3, m[1]); }
+    if (fem && !side && BTS.waist !== 0) { for (const yy of [ty + th - 4, ty + th - 3]) { p.set(tx0, yy, 0); p.set(tx0 + tw - 1, yy, 0); } p.set(tx0 + 1, ty + th - 4, m[1]); p.set(tx0 + tw - 2, ty + th - 4, m[1]); }   // v4.2 cintura
     if (k === 'plate') {
       if (!up) { p.hl(tx0 + 1, ty + 1, tw - 2, m[4]); p.vl(cx - (side ? 1 : 0), ty + 2, th - 3, m[3]); if (fem && !side) { p.set(cx - 3, ty + 3, m[4]); p.set(cx + 2, ty + 3, m[4]); } }
       p.hl(tx0, ty + th - 3, tw, s[2]); p.hl(tx0, ty + th - 2, tw, s[1]); if (!up && !side) p.set(cx, ty + th - 3, (TOP.t || 0) >= 12 ? C('#7af0ff') : GOLD[4]);
@@ -141,7 +144,7 @@ function drawHero(p, L, dir, anim, f) {
       const Lc = TOP.l || [C('#b8b8c4'), C('#f4f4fa')], top2 = fem ? ty + 4 : ty + 1;
       if (fem && !up) for (let y = ty + 1; y <= ty + 3; y++) for (let x = tx0; x < tx0 + tw; x++) p.set(x, y, s[y === ty + 1 ? 3 : ((x + y) % 5 ? 2 : 1)]);
       if (fem && up) p.hl(tx0, ty + 2, tw, s[2]);
-      if (!up && !side) { for (let i = 0; i < 3; i++) { p.set(cx - 3 + i, top2 + i, Lc[1]); p.set(cx + 2 - i, top2 + i, Lc[1]); } p.set(cx - 1, top2 + 3, Lc[0]); p.set(cx, top2 + 3, Lc[0]); for (let y = top2 + 5; y < ty + th - 3; y += 2) { p.set(cx - 3, y, Lc[0]); p.set(cx + 2, y, Lc[0]); } }
+      if (TOP.nopaint) { } else if (!up && !side) { for (let i = 0; i < 3; i++) { p.set(cx - 3 + i, top2 + i, Lc[1]); p.set(cx + 2 - i, top2 + i, Lc[1]); } p.set(cx - 1, top2 + 3, Lc[0]); p.set(cx, top2 + 3, Lc[0]); for (let y = top2 + 5; y < ty + th - 3; y += 2) { p.set(cx - 3, y, Lc[0]); p.set(cx + 2, y, Lc[0]); } }
       else if (side) { for (let y = top2 + 1; y < ty + th - 3; y += 2) p.set(cx + d, y, Lc[0]); }
       else { p.vl(cx - 1, ty + 1, th - 4, Lc[0]); for (let i = 0; i < 2; i++) { p.set(cx - 3 - i, ty + 2 + i, Lc[0]); p.set(cx + 1 + i, ty + 2 + i, Lc[0]); } }
       p.hl(tx0, ty + th - 3, tw, s[3]); p.hl(tx0, ty + th - 2, tw, s[2]); p.hl(tx0, ty + th - 1, tw, s[1]); if (!up && !side) { p.set(cx - 1, ty + th - 2, Lc[1]); p.set(cx, ty + th - 2, Lc[1]); }
@@ -174,12 +177,14 @@ function drawHero(p, L, dir, anim, f) {
       if (!up && !side && k !== 'kimono' && k !== 'coat') p.set(cx, ty + th - 2, GOLD[3]);
       if (!up && !side && (k === 'tunic' || k === 'dress')) { p.set(cx - 1, ty, SK[2]); p.set(cx, ty, SK[2]); p.set(cx, ty + 1, SK[1]); }
     }
+    if (typeof FITK !== 'undefined' && FITK.body[k]) FITK.body[k].draw(p, p.meta, TOP);   // v4.5 tipos nuevos (6zx_fit)
+    if (L.btS) bodyTorsoShape(p, BTS, { tx0, ty, tw, th, side, up, fem, d, m, legTop });
   };
   // ---------- arms ----------
   const plateArm = TOP.k === 'plate', robeArm = TOP.k === 'robe' || TOP.k === 'kimono';
   const sleeve = TOP.k === 'vest' ? CLOTH.blanco : (TOP.k === 'swim' || TOP.k === 'warpaint') ? [SK[0], SK[0], SK[1], SK[2], SK[3]] : TOP.m, handC = plateArm ? TOP.m[3] : SK[2];
   const shortSleeve = TOP.k === 'tunic' || TOP.k === 'dress' || TOP.k === 'hawaii' || TOP.k === 'swim';
-  const drawArm = (sx, sy, dx, dy, back) => {
+  const drawArm = (sx, sy, dx, dy, back) => { TG(3);
     const hx2 = sx + dx, hy2 = sy + B.al + dy, aw = B.aw;
     for (let k = 0; k < aw; k++) { const x0 = sx + k, y0 = sy, x1 = hx2 + k, y1 = hy2 - 1; const n = Math.max(1, Math.ceil(Math.hypot(x1 - x0, y1 - y0))); for (let s = 0; s <= n; s++) { const t = s / n, x = Math.round(lerp(x0, x1, t)), y = Math.round(lerp(y0, y1, t)); const P = shortSleeve && t > 0.4 ? SK : sleeve; p.set(x, y, back ? P[1] : P[k === 0 ? 3 : 2]); } }
     if (robeArm && !back) p.rect(Math.round(hx2) - 1, Math.round(hy2) - 2, aw + 1, 1, TOP.m[3]);
@@ -189,7 +194,7 @@ function drawHero(p, L, dir, anim, f) {
     return [hx2 + aw / 2, hy2];
   };
   // ---------- back items ----------
-  const drawBack = () => {
+  const drawBack = () => { TG(4);
     if (!BK) return;
     if (BK.k === 'cape') { const co = BK.o, ci = BK.i || BK.o, trim = BK.tr, top = torsoTop + 1, bot = base - 1 - (anim === 'walk' ? (f % 2) : 0);
       if (up) { for (let y = top; y <= bot; y++) { const t = (y - top) / (bot - top), half = Math.round(lerp(tw / 2, tw / 2 + 3, t)); for (let x = cx - half; x < cx + half; x++) { let c = co[3]; if (x <= cx - half + 1) c = co[4]; if (x >= cx + half - 2) c = co[1]; if ((x - cx + 40 + (ps.sway || 0)) % 4 === 0 && t > 0.2) c = co[2]; if (trim && (x === cx - half || x === cx + half - 1 || y >= bot - 1)) c = trim[y >= bot - 1 ? 2 : 1]; if (y === bot && (x + f) % 3 === 0) continue; p.set(x, y, c); } } p.hl(cx - tw / 2 - 1, top, tw + 2, (trim || co)[2]); if (BK.emb) p.ball(cx, top + 6, 1.6, 1.6, BK.emb); }
@@ -202,33 +207,41 @@ function drawHero(p, L, dir, anim, f) {
     } else if (BK.k === 'quiver') {
       const qx = up ? cx + 2 : side ? cx + (-d) * 3 : cx + 4, qy = torsoTop - 3; if (!up && !side) return;
       for (let y = qy; y < qy + 10; y++) { p.set(qx, y, LEATHER[2]); p.set(qx + 1, y, LEATHER[1]); } for (let k = 0; k < 3; k++) { p.set(qx - 1 + k, qy - 1 - (k % 2), C('#e8e0d0')); p.set(qx - 1 + k, qy - 2 - (k % 2), BK.o ? BK.o[3] : C('#c03a2a')); }
+    } else if (typeof FITK !== 'undefined' && FITK.back[BK.k]) { FITK.back[BK.k].draw(p, p.meta, BK);   // v4.5 tipos nuevos (6zx_fit)
     }
   };
-  const drawScarf = () => {
+  const drawScarf = () => { TG(9);
     if (!L.scarf) return; const sc = L.scarf, y0 = torsoTop;
     if (up) { for (let y = y0; y < y0 + 12; y++) { const xx = cx + 2 + Math.round(Math.sin((y + f * 2) * 0.6) * 1); p.set(xx, y, sc[2]); p.set(xx + 1, y, sc[1]); p.set(xx - 1, y, sc[3]); } p.hl(cx - 5, y0, 10, sc[2]); }
     else if (side) { for (let k = 0; k < 9; k++) { const xx = cx + (-d) * (3 + k), yy = y0 + 1 + Math.round(k * 0.4 + Math.sin(k * 0.9 + f * 1.5) * 1); p.set(xx, yy, sc[2]); p.set(xx, yy + 1, sc[1]); } }
     else { p.hl(cx - 5, y0, 10, sc[2]); p.hl(cx - 4, y0 + 1, 8, sc[1]); }
   };
   // ---------- head / face ----------
-  const drawHead = () => {
+  const drawHead = () => { TG(5);
     const rx = B.hrx, ry = B.hry;
-    for (let y = Math.floor(hy - ry); y <= Math.ceil(hy + ry); y++) for (let x = Math.floor(hx - rx); x <= Math.ceil(hx + rx); x++) { const dx = (x + 0.5 - hx) / rx, dy = (y + 0.5 - hy) / ry; if (dx * dx + dy * dy > 1) continue; let v = 2; if (dx > 0.45 || dy > 0.6) v = 1; if (dx < -0.4 && dy < 0) v = 3; p.set(x, y, SK[v]); }
+    for (let y = Math.floor(hy - ry); y <= Math.ceil(hy + ry); y++) for (let x = Math.floor(hx - rx); x <= Math.ceil(hx + rx); x++) { const dx = (x + 0.5 - hx) / rx, dy = (y + 0.5 - hy) / ry; if (BTS.jaw && dy > 0 ? Math.pow(Math.abs(dx), BTS.jaw) + Math.pow(dy, BTS.jaw) > 1 : dx * dx + dy * dy > 1) continue; let v = 2; if (dx > 0.6 || dy > 0.86) v = 1; if (dx < -0.45 && dy < 0) v = 3; p.set(x, y, SK[v]); }
     if (up) return;
-    const ey = Math.round(hy), ec = C(EYEC[L.eyes] || EYEC.azul), ed = uMul(ec, 0.55), dark = C('#1a1220'), brow = HP ? HP[0] : dark;
-    const eyes = side ? [dir === 'left' ? hx - 5 : hx + 3] : [hx - 4, hx + 3];
+    // v4.2 cara estilo chibi: ojos 2x3 justo bajo el flequillo (brillo arriba, pupila oscura, reflejo abajo), boquita de 2 px
+    const ey = Math.round(hy) + FACE.ey, ec = C(EYEC[L.eyes] || EYEC.azul), ed = uMul(ec, 0.5), dark = C('#1a1220'), brow = HP ? HP[0] : dark;
+    const eyes = side ? [dir === 'left' ? hx - 5 : hx + 3] : [hx - 4 - (BTS.eg || 0), hx + 3 + (BTS.eg || 0)];
     for (const ex of eyes) {
       if (ps.eyes === 'hurt') { p.set(ex, ey, dark); p.set(ex + 1, ey + 1, dark); p.set(ex, ey + 2, dark); continue; }
-      if (ps.eyes === 'closed') { p.set(ex, ey + 2, dark); p.set(ex + 1, ey + 2, dark); p.set(ex - 1, ey + 1, dark); continue; }
-      const outer = side ? (dir === 'left' ? ex - 1 : ex + 2) : (ex === hx - 4 ? ex - 1 : ex + 2);
-      if (fem) { p.set(ex, ey - 1, dark); p.set(ex + 1, ey - 1, dark); p.set(outer, ey - 1, dark); p.set(outer + (outer < ex ? -0 : 0), ey - 2, side ? undefined : dark); }
-      else { p.set(ex, ey - 2, brow); p.set(ex + 1, ey - 2, brow); if (!side) p.set(outer, ey - 2, brow); p.set(ex, ey - 1, uMul(SK[1], 0.85)); p.set(ex + 1, ey - 1, uMul(SK[1], 0.85)); }
-      const e2 = L.eyes2 && EYEC[L.eyes2] && ((!side && ex !== eyes[0]) || (side && dir === 'right')), ec_ = e2 ? C(EYEC[L.eyes2]) : ec, ed_ = e2 ? uMul(ec_, 0.55) : ed;
-      p.set(ex, ey, side && dir === 'right' ? ec_ : C('#ffffff')); p.set(ex + 1, ey, side && dir === 'right' ? C('#ffffff') : ec_);
-      p.set(ex, ey + 1, ec_); p.set(ex + 1, ey + 1, ed_);
+      if (ps.eyes === 'closed') { p.set(ex, ey + 1, dark); p.set(ex + 1, ey + 1, dark); p.set(ex - 1, ey, dark); p.set(ex + 2, ey, dark); continue; }
+      const outer = side ? (dir === 'left' ? ex - 1 : ex + 2) : (ex === eyes[0] ? ex - 1 : ex + 2);
+      if (BTS.eye) { const e2b = L.eyes2 && EYEC[L.eyes2] && ((!side && ex !== eyes[0]) || (side && dir === 'right')); bodyEye(p, BTS.eye, ex, ey, outer, e2b ? C(EYEC[L.eyes2]) : ec, brow, dark); continue; }
+      p.set(ex, ey - 1, dark); p.set(ex + 1, ey - 1, dark); if (fem) p.set(outer, ey - 1, dark);
+      const e2 = L.eyes2 && EYEC[L.eyes2] && ((!side && ex !== eyes[0]) || (side && dir === 'right')), ec_ = e2 ? C(EYEC[L.eyes2]) : ec, ed_ = e2 ? uMul(ec_, 0.5) : ed;
+      const pup = uMix(ed_, dark, 0.5), ref = uMix(ec_, C('#ffffff'), 0.4);
+      p.set(ex, ey, C('#ffffff')); p.set(ex + 1, ey, ed_);
+      p.set(ex, ey + 1, ec_); p.set(ex + 1, ey + 1, pup);
+      p.set(ex, ey + 2, ref); p.set(ex + 1, ey + 2, ec_);
     }
-    if (!side) { p.set(hx, ey + 3, uMul(SK[1], 0.8)); if (fem || L.blush) { p.set(hx - 5, ey + 2, C('#ef8a8a')); p.set(hx + 5, ey + 2, C('#ef8a8a')); } }
-    else p.set(dir === 'left' ? hx - 6 : hx + 5, ey + 3, uMul(SK[1], 0.8));
+    const mo = FACE.mouth, mc = uMix(SK[1], C('#d06a6a'), 0.55);
+    if (BTS.lip) { const lc = uMix(SK[1], C('#d0485e'), 0.7); if (!side) { p.set(hx - 1, ey + mo, lc); p.set(hx, ey + mo, lc); } else p.set(dir === 'left' ? hx - 6 : hx + 5, ey + mo, lc); }
+    else if (BTS.mw === 1) { const m1 = BTS.mtone ? uMix(SK[1], SK[0], 0.45) : mc; if (!side) p.set(hx - 1, ey + mo, m1); else p.set(dir === 'left' ? hx - 6 : hx + 5, ey + mo, m1); }
+    if (BTS.lip || BTS.mw === 1) { if (!side && (BTS.blush !== 0 && (fem || L.blush))) { p.set(hx - 6 - (BTS.eg || 0), ey + mo - 1, uMix(SK[2], C('#ef8a8a'), 0.6)); p.set(hx + 5 + (BTS.eg || 0), ey + mo - 1, uMix(SK[2], C('#ef8a8a'), 0.6)); } }
+    else if (!side) { p.set(hx - 1, ey + mo, mc); p.set(hx, ey + mo, uMix(mc, SK[2], 0.35)); if (fem || L.blush) { p.set(hx - 6, ey + mo - 1, uMix(SK[2], C('#ef8a8a'), 0.6)); p.set(hx + 5, ey + mo - 1, uMix(SK[2], C('#ef8a8a'), 0.6)); } }
+    else p.set(dir === 'left' ? hx - 6 : hx + 5, ey + mo, mc);
     if (L.mask && !up) { const mw = side ? 8 : 13, mx = side ? (dir === 'left' ? hx - 7 : hx) : hx - 6; for (let y = ey + 3; y < ey + 7; y++) for (let x = mx; x < mx + mw; x++) { const dx = (x + 0.5 - hx) / B.hrx, dy = (y + 0.5 - hy) / B.hry; if (dx * dx + dy * dy > 1.05) continue; p.set(x, y, L.mask[y === ey + 3 ? 2 : 1]); } }
   };
   // ---------- hair ----------
@@ -246,10 +259,10 @@ function drawHero(p, L, dir, anim, f) {
     }
     return hy - 1.5;
   };
-  const hairPix = (x, y, dx, ny) => { let v = dx < 0.15 ? 2 : 1; if (ny > 0.1 && ny < 0.22 && dx < 0.45 && dx > -0.8) v = 3; if (ny > 0.22 && ny < 0.3 && dx < 0 && dx > -0.6) v = 2; if (dx > 0.6) v = 0; if (HS.curl && ((x * 3 + y * 5) % 7 === 0)) v = Math.max(0, v - 1); else if (y > hy && (x % 3 === 0)) v = Math.max(0, v - 1); p.set(x, y, HP[v]); };
-  const drawCap = () => {
+  const hairPix = (x, y, dx, ny) => { let v = dx < 0.15 ? 2 : 1; if (ny < 0.55 && (x * 7 + y * 3) % 11 === 0 && dx < 0.5) { p.set(x, y, HP[3]); return; } if (ny > 0.1 && ny < 0.22 && dx < 0.45 && dx > -0.8) v = 3; if (ny > 0.22 && ny < 0.3 && dx < 0 && dx > -0.6) v = 2; if (dx > 0.6) v = 0; if (HS.curl && ((x * 3 + y * 5) % 7 === 0)) v = Math.max(0, v - 1); else if (y > hy && (x % 3 === 0)) v = Math.max(0, v - 1); p.set(x, y, HP[v]); };
+  const drawCap = () => { TG(6);
     if (!HP || HS.cap === 'bald' || hideHair || hood) return;
-    const cap = HS.cap, vol = cap === 'volume', rx = B.hrx + (vol ? 2.6 : cap === 'flat' || cap === 'buzz' ? 0.4 : 1), ry = B.hry + (vol ? 2 : cap === 'flat' || cap === 'buzz' ? 0.2 : 0.6), cyH = hy - (vol ? 2.2 : 1.4);
+    const cap = HS.cap, vol = cap === 'volume', short_ = cap === 'flat' || cap === 'buzz', rx = B.hrx + (vol ? 2.6 : short_ ? 0.4 : 1) + (short_ ? 0 : FACE.vol), ry = B.hry + (vol ? 2 : short_ ? 0.2 : 0.6) + (short_ ? 0 : FACE.vol * 0.8), cyH = hy - (vol ? 2.2 : 1.4) - (short_ ? 0 : 0.5);
     if (cap === 'mohawk') {
       if (up) { for (let y = Math.round(hy - B.hry - 3); y < hy + 5; y++) for (let x = hx - 1; x <= hx + 1; x++) p.set(x, y, HP[x === hx - 1 ? 3 : x === hx ? 2 : 1]); }
       else if (side) { for (let k = 0; k < 11; k++) { const ang = Math.PI * (0.95 - k / 12), x = Math.round(hx + Math.cos(ang) * (B.hrx + 1) * (dir === 'left' ? -1 : 1) * -1), y0 = Math.round(hy - 1.4 - Math.sin(ang) * (B.hry + 1)); for (let h = 0; h < 3; h++) p.set(x, y0 - h, HP[h === 2 ? 3 : 2]); } }
@@ -257,31 +270,31 @@ function drawHero(p, L, dir, anim, f) {
       return;
     }
     for (let y = Math.floor(cyH - ry - 1); y <= Math.ceil(hy + ry + 2); y++) for (let x = Math.floor(hx - rx - 1); x <= Math.ceil(hx + rx + 1); x++) {
-      const dx = (x + 0.5 - hx) / rx, dy = (y + 0.5 - cyH) / ry; let r2 = dx * dx + dy * dy; if (vol) r2 += Math.sin(Math.atan2(dy, dx) * 9) * 0.06;
+      const dx = (x + 0.5 - hx) / rx, dy = (y + 0.5 - cyH) / ry; let r2 = dx * dx + dy * dy; if (vol) r2 += Math.sin(Math.atan2(dy, dx) * 9) * 0.06; else if (cap !== 'flat' && cap !== 'buzz') r2 += Math.sin(Math.atan2(dy, dx) * 7 + 1.3) * 0.045;
       if (r2 > 1) continue;
       if (cap === 'buzz' || HS.under) { const top = y < hy - 3 || (up && y < hy + 2) || (side && (dir === 'left' ? x > hx + 2 : x < hx - 3) && y < hy + 1); if (HS.under && !top) continue; if (cap === 'buzz') { if (!top && !up) continue; if ((x + y) % 2 && !(side && (dir === 'left' ? x > hx : x < hx))) { p.set(x, y, HP[1]); continue; } } }
       if (!up) {
-        const by = bangY(x); let face = false;
-        if (side) { const fx = dir === 'left' ? x < hx - 1 : x > hx; if (fx && y >= by) face = true; if ((dir === 'left' ? x < hx - 4 : x > hx + 3) && y >= by - 1) face = true; if (HS.side <= 2 && y >= hy + 1 && (dir === 'left' ? x < hx + 2 : x > hx - 3)) face = true; }
-        else { if (y >= by && Math.abs(x + 0.5 - hx) < B.hrx - 0.6) face = true; if (HS.side <= 2 && y >= hy + 1) face = true; if (cap === 'swept' && y >= hy - 4 && Math.abs(x + 0.5 - hx) < B.hrx - 0.6) face = true; }
+        const by = bangY(x) + FACE.bang; let face = false;
+        if (side) { const fx = dir === 'left' ? x < hx - 1 : x > hx; if (fx && y >= by) face = true; if ((dir === 'left' ? x < hx - 4 : x > hx + 3) && y >= by - 1) face = true; if (HS.side <= 2 && y >= hy + 1 + FACE.ey && (dir === 'left' ? x < hx + 2 : x > hx - 3)) face = true; }
+        else { if (y >= by && Math.abs(x + 0.5 - hx) < B.hrx - 0.6) face = true; if (HS.side <= 2 && y >= hy + 1 + FACE.ey) face = true; if (cap === 'swept' && y >= hy - 4 && Math.abs(x + 0.5 - hx) < B.hrx - 0.6) face = true; }
         if (face) continue;
       }
       const ny = (y + 0.5 - (cyH - ry)) / (ry * 2); hairPix(x, y, dx, ny);
     }
     // side locks
-    if (!up && HS.side > 2) { const inner = HS.hime ? B.hrx - 2.6 : B.hrx - 1.5; for (let y = Math.round(hy - 2); y <= hy + HS.side; y++) for (let x = Math.floor(hx - B.hrx - 2); x <= Math.ceil(hx + B.hrx + 2); x++) { const ax = Math.abs(x + 0.5 - hx); if (ax <= inner || ax >= B.hrx + 1.2 + (HS.wave ? Math.sin(y * 0.9) * 0.8 : 0) + (HS.curl === 2 ? Math.abs(Math.sin(y * 1.9)) * 1.4 : 0)) continue; if (HS.layer && (y - Math.round(hy)) % 4 === 3 && ax > B.hrx + 0.2 && x % 2) continue; if (side && (dir === 'left' ? x <= hx : x >= hx)) continue; if (HS.jag && y === Math.round(hy + HS.side) && x % 2) continue; p.set(x, y, HP[x < hx ? 2 : 1]); } }
+    if (!up && HS.side > 2) { const inner = HS.hime ? B.hrx - 2.6 : B.hrx - 1.5; for (let y = Math.round(hy - 2); y <= hy + HS.side; y++) for (let x = Math.floor(hx - B.hrx - 2); x <= Math.ceil(hx + B.hrx + 2); x++) { const ax = Math.abs(x + 0.5 - hx); if (ax <= inner || ax >= B.hrx + 1.2 + FACE.vol * 0.6 + (HS.wave ? Math.sin(y * 0.9) * 0.8 : Math.sin(y * 0.8) * 0.5) + (HS.curl === 2 ? Math.abs(Math.sin(y * 1.9)) * 1.4 : 0)) continue; if (HS.layer && (y - Math.round(hy)) % 4 === 3 && ax > B.hrx + 0.2 && x % 2) continue; if (side && (dir === 'left' ? x <= hx : x >= hx)) continue; if (HS.jag && y === Math.round(hy + HS.side) && x % 2) continue; p.set(x, y, HP[x < hx ? 2 : 1]); } }
     // spikes
     if (cap === 'spiky') { const top = cyH - ry; if (side) { for (let k = 0; k < 4; k++) { const bx = hx + (dir === 'left' ? 1 : -1) * (-2 + k * 2.4), by0 = top + 1 + k * 1.6; const tipx = bx + (dir === 'left' ? 1 : -1) * 4, tipy = by0 - 2.5 + k * 0.6; p.poly([[bx - 1.4, by0 + 1.2], [bx + 1.4, by0 + 1.6], [tipx, tipy]], HP[k % 2 ? 2 : 1]); } } else { for (let k = -2; k <= 2; k++) { const bx = hx + k * 3, tipx = bx + k * 0.9, tipy = top - 2.5 + Math.abs(k) * 0.9; p.poly([[bx - 1.6, top + 2], [bx + 1.6, top + 2], [tipx, tipy]], HP[k < 0 ? 3 : k === 0 ? 2 : 1]); } } }
   };
-  const drawBackHair = () => {
+  const drawBackHair = () => { TG(6);
     if (!HP || HS.cap === 'bald' || hood) return;
     if (HS.back > 0) { const top = hy - 3, bot = hy + HS.back, bw = HS.bw || 1;
-      for (let y = top; y <= bot; y++) { const t = (y - top) / Math.max(1, bot - top); const half = (up ? lerp(7, 4.5, t) : lerp(8.5, 7, t)) * bw + (HS.wave ? Math.sin(y * 0.7) * 0.7 : 0) + (HS.curl === 2 ? Math.sin(y * 1.9) * 1.2 : 0) - (HS.layer ? Math.floor(t * 3) * 0.9 : 0); for (let x = Math.round(hx - half); x <= Math.round(hx + half) - (side ? 0 : 1); x++) { if (side && (dir === 'left' ? x < hx - 1 : x > hx + 1)) continue; if (y === bot && (x + y) % 2) continue; if (HS.jag && y >= bot - 1 && (x % 3 === 0)) continue; let c = x < hx ? HP[2] : HP[1]; if ((x - hx + 30) % 3 === 0) c = HP[x < hx ? 1 : 0]; if (HS.curl === 2 && (x * 5 + y * 3) % 6 === 0) c = HP[3]; else if (HS.curl === 2 && (x * 5 + y * 3) % 6 === 3) c = HP[0]; if (x === Math.round(hx - half)) c = HP[3]; if (up && y > top + 2 && y < top + 5 && x < hx + 2) c = HP[3]; p.set(x, y, c); } } }
+      for (let y = top; y <= bot; y++) { const t = (y - top) / Math.max(1, bot - top); const half = (up ? lerp(7.6, 5, t) : lerp(9.4, 7.8, t)) * bw + (HS.wave ? Math.sin(y * 0.7) * 0.7 : 0) + (HS.curl === 2 ? Math.sin(y * 1.9) * 1.2 : 0) - (HS.layer ? Math.floor(t * 3) * 0.9 : 0); for (let x = Math.round(hx - half); x <= Math.round(hx + half) - (side ? 0 : 1); x++) { if (side && (dir === 'left' ? x < hx - 1 : x > hx + 1)) continue; if (y === bot && (x + y) % 2) continue; if (HS.jag && y >= bot - 1 && (x % 3 === 0)) continue; let c = x < hx ? HP[2] : HP[1]; if ((x - hx + 30) % 3 === 0) c = HP[x < hx ? 1 : 0]; if (HS.curl === 2 && (x * 5 + y * 3) % 6 === 0) c = HP[3]; else if (HS.curl === 2 && (x * 5 + y * 3) % 6 === 3) c = HP[0]; if (x === Math.round(hx - half)) c = HP[3]; if (up && y > top + 2 && y < top + 5 && x < hx + 2) c = HP[3]; p.set(x, y, c); } } }
   };
   const ribbon = (x, y) => { const rc = L.ribbonC || pal(['#5a0a14', '#9a1424', '#d02a3a', '#f05a64']); p.rect(x - 1, y, 3, 2, rc[2]); p.set(x - 2, y - 1, rc[3]); p.set(x + 2, y - 1, rc[3]); p.set(x - 2, y + 2, rc[1]); p.set(x + 2, y + 2, rc[1]); p.set(x, y, rc[3]); };
   const sway = (anim === 'walk' || anim === 'dance') ? (f % 2 ? 1 : -1) : (anim === 'idle' ? (f ? 0.5 : 0) : 0);
   // tails: drawn in 'back' layer (behind head) or 'front' layer
-  const drawTails = layer => {
+  const drawTails = layer => { TG(6);
     if (!HP || !HS.tail || hood) return; const t = HS.tail;
     if (t === 'high') {
       if (up) { if (layer !== 'front') return; heroStrand(p, [[hx, hy - 6], [hx + sway * 0.5, hy + 2], [hx + sway, hy + 10], [hx + sway * 1.5, hy + 15]], 4, HP, 1); if (HS.ribbon) ribbon(hx, hy - 7); return; }
@@ -306,10 +319,10 @@ function drawHero(p, L, dir, anim, f) {
     if (t === 'topknot') { if (layer !== (up ? 'front' : 'back')) return; p.ball(hx + (side ? -d * 1 : 0), hy - B.hry - 2, 2.2, 2, HP); p.rect(hx - 1 + (side ? -d : 0), hy - B.hry - 0.5, 2, 1, C('#c02030')); return; }
   };
   // ---------- headgear ----------
-  const drawHeadgear = () => {
+  const drawHeadgear = () => { TG(7);
     if (!HD) return; const k = HD.k, m = HD.m || IRON, s = HD.s || GOLD.slice(1), top = hy - B.hry - 1;
     if (k === 'helm' || k === 'winged' || k === 'crownhelm' || k === 'horned') {
-      for (let y = Math.floor(top); y <= hy + 2; y++) for (let x = hx - 8; x <= hx + 8; x++) { const dx = (x + 0.5 - hx) / 7.8, dy = (y + 0.5 - (hy - 1)) / 7.2; if (dx * dx + dy * dy > 1) continue; const face = !up && y > hy - 2 && (side ? (dir === 'left' ? x < hx : x > hx - 1) : Math.abs(x + 0.5 - hx) < 4.5); if (face) continue; p.set(x, y, m[dx < -0.4 && dy < 0 ? 4 : dx > 0.5 ? 1 : 2]); }
+      for (let y = Math.floor(top); y <= hy + 2; y++) for (let x = hx - 8; x <= hx + 8; x++) { const dx = (x + 0.5 - hx) / 7.8, dy = (y + 0.5 - (hy - 1)) / 7.2; if (dx * dx + dy * dy > 1) continue; const face = !up && y > hy - 2 && (side ? (dir === 'left' ? x < hx : x > hx - 1) : Math.abs(x + 0.5 - hx) < 5.1); if (face) continue; p.set(x, y, m[dx < -0.4 && dy < 0 ? 4 : dx > 0.5 ? 1 : 2]); }
       p.hl(hx - 7, Math.round(hy - 2), 15, m[3]); if (!up && !side) { p.vl(hx, Math.round(top) + 1, 5, m[4]); if ((HD.t || 0) >= 3) p.vl(hx, Math.round(hy - 2), 3, m[3]); }
       if (k === 'winged') for (const sg of side ? [-d] : [-1, 1]) for (let r = 0; r < 4; r++) for (let i = 0; i < 5 - r; i++) p.set(hx + sg * (7 + i), Math.round(top) + 2 + r - Math.round(i * 0.6), s[r === 0 ? 3 : 2]);
       if (k === 'crownhelm') { const y0 = Math.round(top) - 1; for (const x of [-5, -2, 1, 4]) { p.set(hx + x, y0, GOLD[4]); p.set(hx + x, y0 + 1, GOLD[3]); } p.hl(hx - 5, y0 + 2, 11, GOLD[3]); if (!up) p.set(hx, y0 + 3, C('#e02040')); }
@@ -319,7 +332,12 @@ function drawHero(p, L, dir, anim, f) {
     else if (k === 'hood') { for (let y = Math.floor(top); y <= hy + 3; y++) for (let x = hx - 8; x <= hx + 8; x++) { const dx = (x + 0.5 - hx) / 8, dy = (y + 0.5 - (hy - 1)) / 7.5; if (dx * dx + dy * dy > 1) continue; let face = false; if (!up) { if (side) face = (dir === 'left' ? x < hx - 1 : x > hx) && y > hy - 3; else face = Math.abs(x + 0.5 - hx) < 5 && y > hy - 3; } if (face) continue; p.set(x, y, m[dx < -0.5 ? 3 : dx > 0.5 ? 1 : 2]); } if (!up) p.hl(hx - 4, Math.round(hy - 3), side ? 4 : 9, s[2] || m[0]); }
     else if (k === 'ranger') { const y0 = Math.round(hy - 4); for (let y = y0 - 3; y <= y0; y++) for (let x = hx - 7; x <= hx + 7; x++) { const dx = (x + 0.5 - hx) / 7.5, dy = (y + 0.5 - y0) / 4; if (dx * dx + dy * dy > 1) continue; p.set(x, y, m[dx < -0.3 ? 3 : dx > 0.5 ? 1 : 2]); } p.hl(hx - 8, y0 + 1, 17, m[1]); const fx = side ? hx - d * 5 : hx + 5; for (let k2 = 0; k2 < 7; k2++) { p.set(fx + Math.round(k2 * 0.5) * (side ? -d : 1), y0 - k2, s[k2 < 2 ? 2 : 3]); if (k2 > 1) p.set(fx + Math.round(k2 * 0.5) * (side ? -d : 1) + 1, y0 - k2, s[4]); } }
     else if (k === 'sunhat') { const y0 = Math.round(hy - 4); for (let x = hx - 11; x <= hx + 11; x++) { const e = Math.abs(x - hx) > 8 ? 1 : 0; p.set(x, y0 + e, m[2]); if (Math.abs(x - hx) < 10) p.set(x, y0 + 1 + e, m[1]); } for (let y = y0 - 5; y < y0; y++) for (let x = hx - 6; x <= hx + 6; x++) { const dx = (x + 0.5 - hx) / 6.5, dy = (y + 0.5 - y0) / 5.5; if (dx * dx + dy * dy > 1) continue; p.set(x, y, m[(x + y) % 3 ? 3 : 2]); } p.hl(hx - 6, y0 - 1, 13, s[2]); if (!up) p.set(hx + (side ? -d * 4 : 4), y0 - 1, C('#ff5a7a')); }
-    else if (k === 'shades') { if (up) { p.hl(hx - 7, Math.round(hy) - 1, 15, C('#141018')); } else if (side) { const ex = dir === 'left' ? hx - 6 : hx + 2; p.rect(ex, Math.round(hy) - 1, 4, 2, C('#141018')); p.set(ex + (dir === 'left' ? 0 : 3), Math.round(hy) - 1, m[3]); p.hl(dir === 'left' ? ex + 4 : hx - 6, Math.round(hy) - 1, 4, C('#141018')); } else { for (const ex of [hx - 5, hx + 2]) { p.rect(ex, Math.round(hy) - 1, 4, 2, C('#141018')); p.set(ex, Math.round(hy) - 1, m[3]); } p.hl(hx - 1, Math.round(hy) - 1, 3, C('#141018')); } }
+    else if (k === 'shades') {   // v4.4: a la altura de los ojos de la cara chibi (ey..ey+2), no sobre la frente
+      const gy = Math.round(hy) + FACE.ey, fr = C('#141018');
+      if (up) { p.hl(hx - 8, gy, 2, fr); p.hl(hx + 7, gy, 2, fr); }
+      else if (side) { const ex = dir === 'left' ? hx - 6 : hx + 2; p.hl(ex, gy - 1, 4, fr); p.rect(ex, gy, 4, 2, fr); p.hl(ex + 1, gy + 2, 2, fr); p.set(ex + (dir === 'left' ? 1 : 2), gy, m[3]); p.hl(dir === 'left' ? ex + 4 : hx - 6, gy, 4, fr); }
+      else { p.hl(hx - 5, gy - 1, 11, fr); for (const ex of [hx - 5, hx + 2]) { p.rect(ex, gy, 4, 2, fr); p.hl(ex + 1, gy + 2, 2, fr); p.set(ex + 1, gy, m[3]); p.set(ex, gy, m[4]); } p.set(hx - 6, gy, fr); p.set(hx + 6, gy, fr); }
+    }
     else if (k === 'circlet') { const y0 = Math.round(hy - 4); p.hl(hx - 7, y0, 15, GOLD[3]); p.hl(hx - 6, y0 - 1, 13, GOLD[4]); if (!up && !side) p.ball(hx, y0, 1.5, 1.5, s.slice(1)); }
     else if (k === 'crown') { const y0 = Math.round(top) + 1; p.rect(hx - 5, y0, 11, 3, GOLD[3]); p.hl(hx - 5, y0, 11, GOLD[5]); for (const x of [-5, -2, 1, 4]) { p.set(hx + x, y0 - 1, GOLD[4]); p.set(hx + x + 1, y0 - 2, GOLD[4]); } p.set(hx, y0 + 1, C('#e02040')); }
     else if (k === 'catears') { const ec = HD.m || HP; for (const sg of side ? [-d * 0.3, 1] : [-1, 1]) { const ex = hx + sg * 5; for (let r = 0; r < 4; r++) for (let i = -2 + Math.ceil(r / 2); i <= 2 - Math.ceil(r / 2); i++) p.set(Math.round(ex + i), Math.round(top) + 1 - r, ec[r === 0 ? 1 : i === 0 && r < 3 ? 3 : 2]); if (!side) p.set(Math.round(ex), Math.round(top), C('#f0a0b0')); } }
@@ -329,21 +347,24 @@ function drawHero(p, L, dir, anim, f) {
     else if (k === 'halo') { const y0 = Math.round(top) - 4; for (let i = -5; i <= 5; i++) { p.set(hx + i, y0 - (Math.abs(i) < 4 ? 1 : 0), C('#fff6b0')); p.set(hx + i, y0 + (Math.abs(i) < 4 ? 1 : 0), C('#f0c040')); } }
     else if (k === 'demonhorns') { for (const sg of side ? [-d] : [-1, 1]) for (let k2 = 0; k2 < 6; k2++) { const x = hx + sg * (4 + Math.round(k2 * 0.4)), y = Math.round(top) + 2 - k2; p.set(x, y, C(k2 > 3 ? '#e8d8c0' : '#3a1a24')); p.set(x + sg, y, C('#1a0a10')); } }
     else if (k === 'bandana') { const y0 = Math.round(hy - 5); for (let x = hx - 7; x <= hx + 7; x++) for (let y = y0; y < y0 + 3; y++) p.set(x, y, m[y === y0 ? 3 : 2]); if (side || up) { p.set(hx + (side ? -d * 8 : 2), y0 + 3, m[2]); p.set(hx + (side ? -d * 9 : 3), y0 + 4, m[1]); } }
+    else if (typeof FITK !== 'undefined' && FITK.head[k]) FITK.head[k].draw(p, p.meta, HD);   // v4.5 tipos nuevos (6zx_fit)
   };
-  const drawEars = () => { if (L.ears !== 'pointy') return; for (const s of side ? [-d] : [-1, 1]) { for (let k = 0; k < 4; k++) p.set(hx + s * (B.hrx + k), Math.round(hy) - k + 1, SK[k === 3 ? 3 : 2]); } };
+  const drawEars = () => { TG(5); if (L.ears !== 'pointy') return; for (const s of side ? [-d] : [-1, 1]) { for (let k = 0; k < 4; k++) p.set(hx + s * (B.hrx + k), Math.round(hy) - k + 1, SK[k === 3 ? 3 : 2]); } };
   // ---------- compose ----------
   const shY = torsoTop + 1, shL = side ? cx - 1 : tx0 - B.aw, shR = side ? cx - 1 : tx0 + tw; const hands = {};
-  const drawWeaponNow = () => { if (!W || !W.k || ps.wang == null) return; const hh = hands.r || [cx, torsoTop + B.al]; drawWeapon(p, W, hh[0], hh[1], ps.wang, ps.wph); if ((W.k === 'dagger' || W.dual) && hands.l) drawWeapon(p, W, hands.l[0], hands.l[1], ps.dual ? ps.wang : { down: 1.9, up: -1.9, left: 2.4, right: 0.7 }[dir], 0); };
+  if (typeof fitMeta === 'function') fitMeta(p, L, B, BTS);   // v4.5 puntos de anclaje para prendas nuevas (6zx_fit)
+  const drawHG = typeof fitHeadLayer === 'function' ? () => fitHeadLayer(p, B, hx, hy, HD, drawHeadgear) : drawHeadgear;
+  const drawWeaponNow = () => { TG(8); if (!W || !W.k || ps.wang == null) return; const hh = hands.r || [cx, torsoTop + B.al]; drawWeapon(p, W, hh[0], hh[1], ps.wang, ps.wph); if ((W.k === 'dagger' || W.dual) && hands.l) drawWeapon(p, W, hands.l[0], hands.l[1], ps.dual ? ps.wang : { down: 1.9, up: -1.9, left: 2.4, right: 0.7 }[dir], 0); };
   const headAll = () => { drawEars(); drawHead(); drawCap(); };
   if (up) {
     hands.r = [shR + B.aw / 2 + ps.rax, shY + B.al + ps.ray]; hands.l = [shL + B.aw / 2 + ps.lax, shY + B.al + ps.lay];
-    drawWeaponNow(); drawLegs(); drawTorso(); drawArm(shL, shY, ps.lax, ps.lay); drawArm(shR, shY, ps.rax, ps.ray); drawBack(); headAll(); drawBackHair(); drawTails('front'); drawHeadgear(); drawScarf();
+    drawWeaponNow(); drawLegs(); drawTorso(); drawArm(shL, shY, ps.lax, ps.lay); drawArm(shR, shY, ps.rax, ps.ray); drawBack(); headAll(); drawBackHair(); drawTails('front'); drawHG(); drawScarf();
   } else if (side) {
     hands.l = drawArm(cx - 1 - d, shY, ps.lax, ps.lay, true);
-    drawBack(); drawScarf(); drawBackHair(); drawTails('back'); drawLegs(); drawTorso(); headAll(); drawTails('front'); drawHeadgear();
+    drawBack(); drawScarf(); drawBackHair(); drawTails('back'); drawLegs(); drawTorso(); headAll(); drawTails('front'); drawHG();
     hands.r = drawArm(cx - 2, shY, ps.rax, ps.ray, false); drawWeaponNow();
   } else {
-    drawBackHair(); drawTails('back'); drawBack(); drawLegs(); drawTorso(); hands.r = drawArm(shL, shY, ps.rax, ps.ray); hands.l = drawArm(shR, shY, ps.lax, ps.lay); drawScarf(); headAll(); drawTails('front'); drawHeadgear(); drawWeaponNow();
+    drawBackHair(); drawTails('back'); drawBack(); drawLegs(); drawTorso(); hands.r = drawArm(shL, shY, ps.rax, ps.ray); hands.l = drawArm(shR, shY, ps.lax, ps.lay); drawScarf(); headAll(); drawTails('front'); drawHG(); drawWeaponNow();
   }
 }
 // ---------- appearance model ----------

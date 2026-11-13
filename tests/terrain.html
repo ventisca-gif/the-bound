@@ -1,0 +1,16 @@
+<!doctype html><html><body style="margin:0;background:#111;color:#fff;font:12px sans-serif">
+<div id="o"></div>
+<script src="../src/00_core.js"></script>
+<script src="../src/10_world.js"></script>
+<script src="../src/20_terrain.js"></script>
+<script>
+const W=genWorld(); genTextures(); prepPalettes(W);
+const spots=(new URLSearchParams(location.search).get('s')||'118,150;150,146;128,80;200,40;40,92;222,130').split(';').map(s=>s.split(',').map(Number));
+const VW=480,VH=270;
+for(const [tx,ty] of spots){
+  const c=document.createElement('canvas'); c.width=VW; c.height=VH; c.style.width=(VW*2)+'px'; c.style.height=(VH*2)+'px'; c.style.imageRendering='pixelated'; c.style.display='block'; c.style.margin='4px';
+  const x=c.getContext('2d'); const cx0=tx*16-VW/2, cy0=ty*16-VH/2; const t0=performance.now(); let n=0;
+  for(let cy=Math.floor(cy0/CHP);cy<=Math.floor((cy0+VH)/CHP);cy++)for(let cx=Math.floor(cx0/CHP);cx<=Math.floor((cx0+VW)/CHP);cx++){ if(cx<0||cy<0||cx>=WW/CH||cy>=WH/CH) continue; const ch=renderChunk(W,cx,cy); n++; x.drawImage(ch,cx*CHP-cx0,cy*CHP-cy0); }
+  const lab=document.createElement('div'); lab.textContent=tx+','+ty+' chunks '+n+' in '+(performance.now()-t0).toFixed(0)+'ms'; document.body.appendChild(lab); document.body.appendChild(c);
+}
+</script></body></html>

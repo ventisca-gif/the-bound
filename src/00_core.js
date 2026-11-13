@@ -46,7 +46,7 @@ function mkCanvas(w, h) { const c = document.createElement('canvas'); c.width = 
 // ---------- pixel buffer ----------
 class Pix {
   constructor(w, h) { this.w = w; this.h = h; this.d = new Uint32Array(w * h); }
-  set(x, y, c) { x |= 0; y |= 0; if (x < 0 || y < 0 || x >= this.w || y >= this.h || c === undefined) return; this.d[y * this.w + x] = c; }
+  set(x, y, c) { x |= 0; y |= 0; if (x < 0 || y < 0 || x >= this.w || y >= this.h || c === undefined) return; const i = y * this.w + x; this.d[i] = c; if (this.t) this.t[i] = this.tg; }
   blend(x, y, c, a) { x |= 0; y |= 0; if (x < 0 || y < 0 || x >= this.w || y >= this.h) return; const i = y * this.w + x, o = this.d[i]; if (!uA(o)) { this.d[i] = (c & 0xffffff) | (Math.round(a * 255) << 24) >>> 0; return; } this.d[i] = uMix(o, c | 0xff000000, a) | 0xff000000; }
   get(x, y) { if (x < 0 || y < 0 || x >= this.w || y >= this.h) return 0; return this.d[y * this.w + x]; }
   rect(x, y, w, h, c) { for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) this.set(x + i, y + j, c); }
@@ -94,7 +94,7 @@ class Pix {
     }
     this.d = o;
   }
-  flipX() { const w = this.w, h = this.h, d = this.d, o = new Uint32Array(w * h); for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) o[y * w + x] = d[y * w + (w - 1 - x)]; this.d = o; return this; }
+  flipX() { const w = this.w, h = this.h, d = this.d, o = new Uint32Array(w * h), t = this.t, ot = t ? new Uint8Array(w * h) : null; for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { o[y * w + x] = d[y * w + (w - 1 - x)]; if (t) ot[y * w + x] = t[y * w + (w - 1 - x)]; } this.d = o; if (t) this.t = ot; return this; }
   blit(src, dx, dy) { for (let y = 0; y < src.h; y++) for (let x = 0; x < src.w; x++) { const c = src.d[y * src.w + x]; if (uA(c) > 0) this.set(dx + x, dy + y, c); } }
   canvas() { const c = mkCanvas(this.w, this.h); const x = c.getContext('2d'); const id = x.createImageData(this.w, this.h); new Uint32Array(id.data.buffer).set(this.d); x.putImageData(id, 0, 0); return c; }
   toCtx(ctx, dx, dy) { const id = ctx.createImageData(this.w, this.h); new Uint32Array(id.data.buffer).set(this.d); ctx.putImageData(id, dx, dy); }

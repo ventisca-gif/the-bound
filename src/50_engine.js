@@ -2,11 +2,13 @@
 const G = { maps: {}, map: null, world: null, P: null, ents: [], fx: [], parts: [], texts: [], cam: { x: 0, y: 0 }, time: 8 * 60, t: 0, frame: 0, shake: 0, hitstop: 0, paused: false, fade: 0, fadeTarget: 0, remote: new Map(), quality: 1 };
 const cv = document.getElementById('game'), ctx = cv.getContext('2d', { alpha: false });
 let VW = 400, VH = 225;
+// v4.0: la pantalla se dibuja al doble por dentro (HDS = 2) para que la ropa tenga píxeles finos; se puede apagar en Ajustes
+let HDS = (() => { try { return localStorage.getItem('thebound.hd') === '0' ? 1 : 2; } catch (e) { return 2; } })();
 const lightCv = mkCanvas(64, 64), lctx = lightCv.getContext('2d');
 function resize() {
   const w = innerWidth, h = innerHeight; let s;
   if (w >= h) s = Math.min(h / 216, w / 380); else s = Math.min(w / 240, h / 300);
-  s = Math.max(1, s); VW = Math.round(w / s); VH = Math.round(h / s); cv.width = VW; cv.height = VH; ctx.imageSmoothingEnabled = false;
+  s = Math.max(1, s); VW = Math.round(w / s); VH = Math.round(h / s); cv.width = VW * HDS; cv.height = VH * HDS; ctx.setTransform(HDS, 0, 0, HDS, 0, 0); ctx.imageSmoothingEnabled = false;
   lightCv.width = VW; lightCv.height = VH;
 }
 addEventListener('resize', resize);
