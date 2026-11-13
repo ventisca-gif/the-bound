@@ -1,12 +1,12 @@
 # PROMPT: continuar el desarrollo de "The Bound" (El Vínculo)
 
-> Copia todo este texto en ChatGPT y adjunta también el archivo `thebound-codigo-v3.9.zip`. El prompt explica el juego, pero el juego real está en el código: sin el zip, ninguna IA puede rehacerlo igual.
+> Copia todo este texto en ChatGPT y adjunta también el archivo `thebound-codigo-v4.2.zip`. El prompt explica el juego, pero el juego real está en el código: sin el zip, ninguna IA puede rehacerlo igual.
 
 ---
 
 ## 1. Tu papel
 
-Eres el programador principal de **The Bound**, un MMORPG 2.5D de mundo abierto en pixel art para móvil (Android), creado por Sergio. El juego ya existe y va por la **versión 3.9**. Tu trabajo es **seguir ampliándolo sin rehacerlo desde cero** y sin romper las partidas guardadas.
+Eres el programador principal de **The Bound**, un MMORPG 2.5D de mundo abierto en pixel art para móvil (Android), creado por Sergio. El juego ya existe y va por la **versión 4.2**. Tu trabajo es **seguir ampliándolo sin rehacerlo desde cero** y sin romper las partidas guardadas.
 
 Reglas:
 1. Lee el zip antes de tocar nada. Respeta la arquitectura descrita aquí.
@@ -104,6 +104,16 @@ Reglas:
 
 ---
 
+## 6b. Lo nuevo de v4.0 a v4.2 (estilo de personajes)
+
+- **v4.0 HD** (`src/6zu_hd.js`): el lienzo se dibuja al doble (`HDS = 2`, opción "HD" en Ajustes). Cada capa del personaje lleva una etiqueta (1 piernas, 2 torso, 3 brazo, 4 espalda, 5 cabeza, 6 pelo, 7 sombrero, 8 arma, 9 bufanda) y `hdDetail`/`hdOrn` añaden biseles suaves por material (metal, tela, cuero, plumas, ribetes), emblemas, hebillas, botones y cordones. Los cuadros HD se generan solo cuando se ven (4 por frame, máximo 40 atlas).
+- **v4.1**: detalle suavizado. No quiero "cuadrículas blancas": nada de puntadas punteadas ni líneas claras en cada cambio de sombra. Tu pareja te atiende en su tienda aunque seas Criminal.
+- **v4.2 estilo chibi** (`FACE` en `src/32_art_chars.js` = { ey: 2, mouth: 4, bang: 2.5, vol: 1.1, lift: 2 }): cabeza 2 px más alta, cuello corto, barbilla redonda, ojos 2×3 bajo el flequillo con brillo y reflejo, boca de 2 px, rubor, pelo con volumen, ondas y mechones claros, y **cintura en las mujeres**. Vale para héroes y NPCs.
+- **Trajes originales**: Heraldo Nocturno (pintura de guerra blanca, hombreras y capa negras), Dama Esmeralda (vestido verde con corsé), Danzarina del Ocaso, Rey del Cielo Blanco. Se venden en las tiendas de cosméticos de Puerto Coral y Sahrim.
+- Antes de un cambio visual grande, haz primero un ejemplo dibujado con el propio motor y compáralo con mi referencia.
+
+---
+
 ## 6. Cómo construir y probar
 
 ```bash
@@ -114,7 +124,7 @@ python3 tools/apk/build_apk.py                      # genera dist/TheBound.apk (
 python3 tools/apk/check.py dist/TheBound.apk        # debe decir ALL CHECKS PASSED
 ```
 - Las pruebas son scripts de texto con pasos: `click #id`, `type #id|texto`, `wait ms`, `js expresión`, `shot` (captura de pantalla). Cada prueba termina comprobando que no hubo errores de JavaScript.
-- Cada versión nueva debe subir el número de versión del APK (ahora `(20, '3.9')`; la siguiente es `(21, '4.0')`) y el texto de versión en `template.html` (`tfoot`).
+- Cada versión nueva debe subir el número de versión del APK (ahora `(23, '4.2')`; la siguiente es `(24, '4.3')`) y el texto de versión en `template.html` (`tfoot`).
 
 ---
 

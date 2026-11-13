@@ -1,0 +1,13 @@
+<!doctype html><html><body style="margin:0;background:#4a8e34;color:#fff;font:11px sans-serif">
+<canvas id="c" style="image-rendering:pixelated"></canvas>
+<script src="../src/00_core.js"></script><script src="../src/10_world.js"></script><script src="../src/20_terrain.js"></script>
+<script src="../src/30_art_env.js"></script><script src="../src/31_art_build.js"></script><script src="../src/32_art_chars.js"></script>
+<script>
+const Z=3, c=document.getElementById('c');
+const q=new URLSearchParams(location.search); const which=(q.get('cls')||'guerrero,mago,arquero,asesino').split(',');
+const atl=which.map(k=>buildAtlas(classLook(k,{skin:+(q.get('skin')||0),hair:q.get('hair')||'negro',style:q.get('style')||'long',eyes:'rojo'},+(q.get('tier')||1),+(q.get('wt')||3))));
+const cols=+(q.get('cols')||24);
+c.width=atl[0].fw*cols; c.height=atl.length*atl[0].fh*4; c.style.width=(c.width*Z)+'px'; c.style.height=(c.height*Z)+'px';
+const x=c.getContext('2d'); x.imageSmoothingEnabled=false;
+atl.forEach((a,i)=>{ x.drawImage(a.img,0,0,a.fw*cols,a.fh*4,0,i*a.fh*4,a.fw*cols,a.fh*4); });
+</script></body></html>

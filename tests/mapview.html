@@ -1,0 +1,16 @@
+<!doctype html><html><body style="margin:0;background:#111">
+<canvas id="c"></canvas>
+<script src="../src/00_core.js"></script>
+<script src="../src/10_world.js"></script>
+<script>
+const t0=performance.now();
+const W=genWorld();
+const t1=performance.now();
+const S=4, c=document.getElementById('c'); c.width=WW*S; c.height=WH*S; const x=c.getContext('2d');
+const col={[T.DEEP]:'#1a3a6a',[T.WATER]:'#3a7ab8',[T.SAND]:'#e0c890',[T.GRASS]:'#5a9a3a',[T.DIRT]:'#a07a4a',[T.COBBLE]:'#999',[T.SNOW]:'#eef',[T.MUD]:'#5a4a30',[T.ASH]:'#4a4040',[T.STONE]:'#777',[T.LAVA]:'#f40',[T.FACE]:'#5a4a3a',[T.STAIRS]:'#c8b080',[T.FALL]:'#9cf',[T.BRIDGE]:'#a0622e',[T.PLANK]:'#a0622e'};
+const rc=['#5a9a3a','#7a9a3a','#2a6a2a','#b0a040','#7a8a3a','#4a5a3a','#5aa04a','#3a7a5a','#aab','#555','#000'];
+for(let y=0;y<WH;y++)for(let xx=0;xx<WW;xx++){const i=W.I(xx,y);let k=col[W.ter[i]]||'#f0f'; if(W.ter[i]===T.GRASS) k=rc[W.reg[i]]; x.fillStyle=k; x.fillRect(xx*S,y*S,S,S); if(W.lvl[i]) {x.fillStyle='rgba(255,255,255,'+(0.12*W.lvl[i])+')'; x.fillRect(xx*S,y*S,S,S);} if(W.flags[i]&1){x.fillStyle='rgba(255,220,120,0.6)';x.fillRect(xx*S+1,y*S+1,S-2,S-2);} }
+x.font='12px sans-serif'; x.fillStyle='#fff'; REGIONS.forEach(r=>{x.fillText(r.n,r.c[0]*S,r.c[1]*S)});
+TOWNS.forEach(t=>{x.strokeStyle='#f0f';x.strokeRect(t.x0*S,t.y0*S,(t.x1-t.x0+1)*S,(t.y1-t.y0+1)*S)});
+x.fillText('gen '+(t1-t0).toFixed(0)+'ms',4,14);
+</script></body></html>

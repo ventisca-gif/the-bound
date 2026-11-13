@@ -1,0 +1,10 @@
+<!doctype html><html><body style="margin:0;background:#5a8e44"><canvas id="c" style="image-rendering:pixelated"></canvas>
+<script src="../src/00_core.js"></script><script src="../src/10_world.js"></script><script src="../src/20_terrain.js"></script><script src="../src/30_art_env.js"></script><script src="../src/31_art_build.js"></script><script src="../src/32_art_chars.js"></script><script src="../src/33_art_mobs.js"></script><script src="../src/34_art_icons.js"></script><script src="../src/35_art_hero.js"></script><script src="../src/36_art_mobs2.js"></script><script src="../src/11_place.js"></script><script src="../src/40_data.js"></script><script src="../src/41_story.js"></script><script src="../src/42_expansion.js"></script>
+<script>
+const atl={}; function getAtlas(k,f){return atl[k]||(atl[k]=f());}
+function mobAtlasFor(art){ return getAtlas('M'+art.join(','),()=>{ switch(art[0]){ case 'slime': return genSlime(art[1],art[2]||1,art[3]); case 'quad': return genQuad(art[1]); case 'bat': return genBat(art[1]); case 'ghost': return genGhost(art[1]); case 'mush': return genMushroomMob(art[1]); case 'crab': return genCrab(art[1]||1); case 'treant': return genTreant(); case 'dragon': return genDragon(); case 'scorp': return genScorpion(art[1],art[2]||1); case 'snake': return genSnake(art[1]); case 'plant': return genPlant(art[1]); case 'spider': return genSpider(art[1]); case 'hum': return humanoidMobAtlas(HLOOKS[art[1]]||bossLook(art[1])); }}); }
+const qq=new URLSearchParams(location.search); const ids=(qq.get('ids')||'').split(',');
+const list=ids.map(id=>MOBS[id]?MOBS[id].art:BOSSES[id].art).map(mobAtlasFor);
+const Z=3,c=document.getElementById('c'); let W=0,H=0; for(const A of list){W+=A.fw*2+4;H=Math.max(H,A.fh*2);} c.width=W;c.height=H;c.style.width=W*Z+'px';c.style.height=H*Z+'px'; const x=c.getContext('2d'); let ox=0;
+for(const A of list){ for(let d=0;d<4;d++){ x.drawImage(A.img,(A.idx.walk+1)*A.fw,[0,1,3,2][d]*A.fh,A.fw,A.fh,ox+(d%2)*A.fw,Math.floor(d/2)*A.fh,A.fw,A.fh);} ox+=A.fw*2+4; }
+</script></body></html>

@@ -8,7 +8,7 @@ TOOLS = os.path.dirname(os.path.abspath(__file__))
 PKG = 'com.thebound.game'
 KS = os.environ.get('THEBOUND_KEYSTORE', os.path.join(TOOLS, 'thebound.jks'))
 ALIAS = 'thebound'
-VERSION = (20, '3.9')
+VERSION = (23, '4.2')
 
 
 def aligned_zip(entries, out):

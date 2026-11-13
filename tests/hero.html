@@ -1,0 +1,17 @@
+<!doctype html><html><body style="margin:0;background:#5a8e44;color:#fff;font:11px sans-serif">
+<canvas id="c" style="image-rendering:pixelated"></canvas>
+<script src="../src/00_core.js"></script><script src="../src/10_world.js"></script><script src="../src/20_terrain.js"></script>
+<script src="../src/30_art_env.js"></script><script src="../src/31_art_build.js"></script><script src="../src/32_art_chars.js"></script><script src="../src/33_art_mobs.js"></script><script src="../src/34_art_icons.js"></script><script src="../src/35_art_hero.js"></script><script src="../src/40_data.js"></script>
+<script>
+const Z=+(new URLSearchParams(location.search).get('z')||3), c=document.getElementById('c'), q=new URLSearchParams(location.search);
+const mode=q.get('m')||'hair';
+let rows=[];
+if(mode==='hair'){ for(const g of ['f','m']) { const row=[]; for(let i=0;i<15;i++){ const app=normApp({g,hs:i,hair:['negro','castano','rubio','rojo','rosa','azul','platino','morado','cobre','verde','naranja','blanco','turquesa','gris','negro'][i],eyes:EYE_ORDER[i%11],skin:SKIN_ORDER[i%6],top:[i%6,CLOTH_ORDER[i]],bot:[i%4,CLOTH_ORDER[(i+5)%16]],shoe:[i%3,'marron']}); row.push(buildHeroAtlas(heroLook('guerrero',app,{weapon:3},{},{}))); } rows.push(row);} }
+if(mode==='gear'){ const cls=['guerrero','mago','arquero','asesino']; for(const cl of cls){ const row=[]; for(const t of [1,3,5,7,9,11,12,13,14,15]){ row.push(buildHeroAtlas(heroLook(cl,normApp({g:t%2?'f':'m',hs:t%15}),{weapon:t,head:t,body:t,legs:t,feet:t},{},{}))); } rows.push(row);} }
+if(mode==='cos'){ const ids=Object.keys(COSM); const row=[],row2=[]; ids.forEach((id,i)=>{ const cos={}; cos[COSM[id].slot]=id; (i<16?row:row2).push(buildHeroAtlas(heroLook('mago',normApp({g:i%2?'m':'f',hs:i%15,hair:'castano'}),{weapon:2},cos,{}))); }); rows.push(row,row2); }
+if(mode==='anim'){ const A=buildHeroAtlas(heroLook(q.get('cls')||'guerrero',normApp({g:q.get('g')||'f',hs:+(q.get('hs')||0)}),{weapon:5,head:5,body:5,legs:5,feet:5},{},{})); rows=[[A]]; }
+const fw=48, fh=48;
+if(mode==='anim'){ const A=rows[0][0]; c.width=A.img.width; c.height=A.img.height; c.style.width=c.width*Z+'px'; c.style.height=c.height*Z+'px'; const x=c.getContext('2d'); x.drawImage(A.img,0,0); }
+else { const cols=Math.max(...rows.map(r=>r.length)); c.width=cols*fw*2; c.height=rows.length*fh*2; c.style.width=c.width*Z+'px'; c.style.height=c.height*Z+'px'; const x=c.getContext('2d'); x.imageSmoothingEnabled=false;
+rows.forEach((r,ri)=>r.forEach((A,i)=>{ for(let d=0;d<4;d++){ const dx=i*fw*2+(d%2)*fw, dy=ri*fh*2+Math.floor(d/2)*fh; x.drawImage(A.img,A.idx.idle*fw,[0,1,3,2][d]*fh,fw,fh,dx,dy,fw,fh);} })); }
+</script></body></html>

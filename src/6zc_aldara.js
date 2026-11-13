@@ -17,8 +17,8 @@ function aldaraLook(wed) {
 { const _wa = wedAtlas; wedAtlas = function (id) { if (relKey(id) !== 'aldara') return _wa(id); return getAtlas('WEDaldara', () => buildHeroAtlas(aldaraLook(true))); }; }
 // cicatriz en la mejilla (solo personajes con L.scar dibujados con el motor de héroes)
 { const _dh = drawHero; drawHero = function (p, L, dir, anim, f) { _dh(p, L, dir, anim, f); if (!L.scar || dir === 'up') return; const B = BODYP.normal, ps = heroPose(dir, anim, f, L), side = dir === 'left' || dir === 'right', d = dir === 'left' ? -1 : 1;
-  const cx = p.w >> 1, base = p.h - 4 - (ps.jump || 0), legTop = base - B.lh + ps.crouch, torsoTop = legTop - B.th + ps.bob, hy = Math.round(torsoTop - B.hry + 1), hx = cx + (side ? -1 : 0) + (side ? d * (ps.lean || 0) : 0);
-  const sx = side ? hx + d * 2 : hx - 3; p.set(sx, hy + 1, L.skin[0]); p.set(sx + 1, hy + 2, L.skin[0]); }; }
+  const cx = p.w >> 1, base = p.h - 4 - (ps.jump || 0), legTop = base - B.lh + ps.crouch, torsoTop = legTop - B.th + ps.bob, hy = Math.round(torsoTop - B.hry + 1 - (B === BODYP.normal ? FACE.lift : 0)), hx = cx + (side ? -1 : 0) + (side ? d * (ps.lean || 0) : 0);
+  const sx = side ? hx + d * 2 : hx - 5; p.set(sx, hy + 5, L.skin[0]); p.set(sx + 1, hy + 6, L.skin[0]); }; }
 // vive en la plaza de la Ciudadela de Arxar
 { const _pd = placeDiveSpots; placeDiveSpots = function (W) { _pd(W); const t = TOWNS.find(t => t.k === 'arxar'); if (t) { const [x, y] = freeTileNear(W, (t.x0 + t.x1) / 2 - 6, (t.y0 + t.y1) / 2 + 3); W.npcDefs.push({ id: 'aldara', x, y, face: 'down' }); } }; }
 // su historia: el honor de los Aldric (después de derrotar a su padre)

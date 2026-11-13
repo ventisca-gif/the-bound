@@ -1,0 +1,29 @@
+<!doctype html><html><body style="margin:0;background:#3a5a2a;color:#fff;font:11px sans-serif">
+<canvas id="c" style="image-rendering:pixelated"></canvas>
+<script src="../src/00_core.js"></script><script src="../src/10_world.js"></script><script src="../src/20_terrain.js"></script>
+<script src="../src/30_art_env.js"></script><script src="../src/31_art_build.js"></script>
+<script>
+const Z=3, c=document.getElementById('c'); c.width=1300/Z*1|0; c.height=2600/Z|0; c.style.width=(c.width*Z)+'px'; c.style.height=(c.height*Z)+'px'; const x=c.getContext('2d'); x.imageSmoothingEnabled=false;
+let cx=4, cy=4, rowH=0;
+function put(img, label){ const w=img.width,h=img.height; if(cx+w>c.width-4){cx=4;cy+=rowH+6;rowH=0;} x.drawImage(img,cx,cy); cx+=w+4; rowH=Math.max(rowH,h); }
+function tree(sp,v){ const t=genTree(sp,v); const cv=mkCanvas(t.w,t.h), cc=cv.getContext('2d'); const sh=shadowSprite(t.sh[0],t.sh[1]); cc.drawImage(sh,t.ax-t.sh[0]-1+3,t.ay-t.sh[1]-1); cc.drawImage(t.trunk,0,0); cc.drawImage(t.canopy,0,0); return cv; }
+if(!location.search.includes('b')){['roble','roble','pino','pinonev','abedul','sauce','ebano','cerezo','palma','muerto','ceniza'].forEach((s,i)=>put(tree(s,i)));
+put(tree('ancestral',0));
+put(genStump('roble').c);
+['s','m','l'].forEach(s=>put(genRock(s,1,'').c)); put(genRock('m',2,'moss').c); put(genRock('m',3,'snow').c); put(genRock('m',4,'obs').c);
+for(let t=1;t<=7;t++) put(genRock('m',t,t).c);
+for(let t=1;t<=7;t++) put(genHerb(t).c);
+put(genBush(1,'').c); put(genBush(2,'berry').c); put(genBush(3,'snow').c);
+put(genLantern('wood').c); put(genLantern('iron').c); put(genBanner('#8a1626',0).c); put(genBanner('#1e3a8a',1).c); put(genFence('h').c); put(genFence('v').c);
+put(genBarrel().c); put(genCrate().c); put(genSack().c); put(genSign().c); put(genWaystone(0).c); put(genFountain(0).c); put(genWell().c); put(genStall('#c0302a').c); put(genCart().c); put(genHay().c); put(genBench().c); put(genPot('#ff6080').c); put(genStatue().c);
+put(genRail('h').c); put(genRail('v').c); put(genCampfire(0).c); put(genTent('#7a4a2a').c); put(genTotem().c); put(genBones().c); put(genPillar(false,true,1).c); put(genPillar(true,true,2).c); put(genArch(1).c); put(genRuinWall(1).c); put(genGrave(1).c); put(genCrystal(1).c); put(genObsidian(1).c); put(genPortal(0).c); put(genAnvil().c); put(genForge(0).c); put(genNets().c); put(genMineEntrance().c); put(genReeds().c); put(genMushroom(1).c); put(genWitchHut().c); put(genBoat().c); put(genLighthouse(0).c);
+}
+put(genBuilding({w:6,h:4,style:'albor',roof:'red',gable:true,chimney:true,box:true}).c);
+put(genBuilding({w:7,h:5,style:'smith',roof:'slate',sign:'smith',chimney:true}).c);
+put(genBuilding({w:6,h:5,style:'albor',roof:'red',sign:'store',awning:'#2a7a3a'}).c);
+put(genBuilding({w:8,h:6,style:'albor',roof:'brown',sign:'inn',chimney:true,big:true}).c);
+put(genBuilding({w:6,h:5,style:'puerto',roof:'blue',sign:'alchemy',box:true}).c);
+put(genBuilding({w:9,h:6,style:'arxar',roof:'slate',sign:'guild',banner:true,big:true}).c);
+put(genCastle().c); put(genMageTower().c); put(genGateTower().c);
+['counter','shelf','potshelf','bookshelf','weaprack','table','chair','bed','fireplace','cauldron','throne','chest','pillar','rug','board','armorstand'].forEach(k=>put(genFurn(k).c));
+</script></body></html>
