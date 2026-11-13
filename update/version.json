@@ -1,18 +1,18 @@
 {
- "build": 30,
- "ver": "4.9",
+ "build": 31,
+ "ver": "4.10",
  "date": "2026-11-13",
  "file": "thebound.html",
- "size": 4657248,
- "sha256": "3b0f02d056433f471cfbc2ad96793a2697cb4f4bd51a4867e633743fd5e80a2d",
+ "size": 4663472,
+ "sha256": "5b0b09afb3c89b9f48092455024fc61df45725bd160cc487d8eea9be883b8d66",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Bufandín estrena el sprite del gatito azul con bufanda roja y cuatro fotogramas de caminata por dirección."
+   "Valentina vende tres trajes por oro: Plata y Azul, Carmesí y Oro, y Marcas Rojas y Oro. Se ajustan a las ocho estructuras en las cuatro direcciones."
   ],
   "en": [
-   "Scarfy gets a new blue cat sprite with a red scarf and four walking frames per direction."
+   "Valentina sells three outfits for gold: Silver and Blue, Crimson and Gold, and Red Markings and Gold. They fit all eight builds in all four directions."
   ]
  }
 }

@@ -45,7 +45,133 @@ cosm('c_zapatillas_carmesi', L2('Zapatillas Carmesí', 'Crimson Sneakers'), 'fee
 cosm('c_tirita', L2('Tirita en la Mejilla', 'Cheek Bandage'), 'head', () => ({ k: 'bandage', m: MODA_PAL.tirita }), { src: MODA_SRC });
 cosm('c_vestido_noche', L2('Vestido de Noche Carmesí', 'Crimson Evening Dress'), 'body', () => ({ k: 'dress', m: MODA_PAL.noche, s: GOLD.slice(1) }), { src: MODA_SRC });
 cosm('c_chaqueta_cuero', L2('Chaqueta de Cuero', 'Leather Jacket'), 'body', () => ({ k: 'coat', m: MODA_PAL.cuero, s: MODA_PAL.franja }), { src: MODA_SRC });
+const modaSilver = ['#393440','#726b78','#aaa6ae','#e5e0e3','#fff7ee'].map(hex => C(hex));
+const modaGold = ['#463017','#795019','#b6852e','#e6bd51','#fff099'].map(hex => C(hex));
+const modaBlue = ['#131944','#162a57','#204489','#295cab','#497bc0'].map(hex => C(hex));
+const modaRed = ['#2d111a','#521522','#8b222d','#b42b34','#e84a43'].map(hex => C(hex));
+const modaInk = C('#211923');
+function modaDressplate(q, A, style, L) {
+  const {tx0,tw,torsoTop,th,side,up,d,base,legTop,cx,f,anim} = A;
+  const x = 2*tx0, y = 2*torsoTop, w = 2*tw, h = 2*th, mid = 2*cx;
+  const face = side ? mid + d*3 : mid;
+  const waist = Math.min(y+h-2, 2*legTop-1);
+  const step = anim === 'walk' ? [0, 1, 0, -1][f] : 0;
+  q.tg = 2;
+  const tags = q.t.slice();
+  const visible = (i,j) => tags[j*q.w+i]===2 && uA(q.get(i,j));
+  const cloth = (i,j,c) => { if(visible(i,j)) q.set(i,j,c); };
+  const stroke = (points,c) => {
+    for(let k=1;k<points.length;k++){
+      const [a,b]=points[k-1], [e,g]=points[k], n=Math.max(1,Math.abs(e-a),Math.abs(g-b));
+      for(let t=0;t<=n;t++) cloth(Math.round(lerp(a,e,t/n)),Math.round(lerp(b,g,t/n)),c);
+    }
+  };
+  const skin = L.skin;
+  for(let j=y;j<y+h;j++) for(let i=x-2;i<x+w+2;i++){
+    if(!visible(i,j)) continue;
+    const u=(i-x+.5)/w, v=(j-y+.5)/h, edge=Math.abs(u-.5);
+    const light = u<.36 ? 1 : u>.72 ? -1 : 0;
+    let c;
+    if(style===0){
+      const panel = edge < (side?.27:.31) && v>.16 && v<.82;
+      c = panel ? modaSilver[3+light] : modaBlue[2+light];
+      if(panel && (v<.23 || v>.74 || edge>.25)) c=modaSilver[1+Math.max(light,0)];
+      if(v>.82) c=v>.9?modaGold[2]:modaInk;
+      if(v<.16 && (edge>.31 || (!up&&Math.abs(i-face)<1))) c=modaGold[3];
+    }else{
+      c=skin[2+(light>0?1:0)]; if(light<0)c=skin[1];
+      if(style===1 && (v<.15 || (v<.49 && (A.fem || up || side || edge>.11)))) {
+        c=v<.15?modaGold[3+Math.max(light,0)]:modaRed[3+light];
+        if(v>.4 || edge>.38)c=modaGold[2+Math.max(light,0)];
+      }
+      if(v>.84) c=modaGold[v>.93?3:1];
+    }
+    cloth(i,j,c);
+  }
+  if(style===0){
+    const k=y+Math.round(h*.45), m=side?face:mid;
+    stroke([[m,k-4],[m,k+4]],modaBlue[1]);
+    stroke([[m-4,k-2],[m-2,k],[m,k+2],[m+2,k],[m+4,k-2]],modaBlue[2]);
+    stroke([[m-3,k+2],[m,k+3],[m+3,k+2]],modaBlue[1]);
+    cloth(m,k-4,modaGold[3]);
+  }else{
+    const k=y+Math.round(h*(style===1?.57:.28)), s=side?d:1;
+    stroke([[face-4*s,k],[face-6*s,k+2],[face-3*s,k+3],[face-4*s,k+6]],modaRed[2]);
+    stroke([[face+4*s,k],[face+2*s,k+2],[face+5*s,k+3],[face+4*s,k+5]],modaRed[2]);
+    if(style===2) stroke([[face-5*s,k-3],[face-1*s,k+2],[face-6*s,k+1],[face-2*s,k-3]],modaRed[1]);
+    if(!up) cloth(face,waist-1,modaGold[4]);
+  }
+  q.tg = 1;
+  for(let j=2*legTop;j<2*base+3;j++) for(let i=x-6;i<x+w+6;i++){
+    if(tags[j*q.w+i]!==1 || !uA(q.get(i,j)))continue;
+    if(j>=2*base-5){
+      const sheen=(i+j)%5<2?1:0, seam=(i+j)%7===0;
+      q.set(i,j, j>=2*base-1 ? modaInk : style===0 ? modaSilver[2+sheen] : seam?modaBlue[1]:modaGold[2+sheen]);
+    }else q.set(i,j, style===0?modaSilver[1+(i%3)]:skin[1+(i%2)]);
+  }
+  q.tg = 2;
+  for(let j=waist+1;j<2*base-3;j++){
+    const t=(j-waist)/(2*base-3-waist), drift=Math.round(step*t*2);
+    const spread=Math.round(t*(side?2:4));
+    const l=x-spread+drift,r=x+w+spread+drift;
+    for(let i=l;i<r;i++){
+      const tag=tags[j*q.w+i];
+      if((tag===3||tag>=5)&&uA(q.get(i,j)))continue;
+      const z=(i-l)/(r-l-1), edge=Math.abs(z-.5), hem=j>=2*base-5;
+      if(style!==0 && edge>.16 && edge<.33 && t>.51 && !up)continue;
+      let c;
+      if(style===0){
+        c=edge<.25?modaBlue[1+(i%3)]:modaBlue[2+(i%2)];
+        if(t<.57&&edge>.22)c=modaSilver[(i%4===0)?4:3];
+        if(t<.57&&edge>.22&&(j-waist)%5===0)c=modaSilver[1];
+        if(edge>.46||Math.abs(edge-.24)<.04)c=modaGold[2];
+        if(hem)c=j===2*base-5?modaGold[3]:modaSilver[i%4===0?2:4];
+      }else{
+        c=edge<.13&&!up?modaGold[(i%3)+2]:modaRed[(i%3)+1];
+        if(t<.31)c=modaGold[(i%3)+2];
+        if(edge<.07&&t>.34&&!up&&(j-waist)%4===0)c=modaBlue[1];
+        if(t>.83&&edge<.12)continue;
+      }
+      if(i===l||i===r-1)c=uMul(c,.66);
+      q.set(i,j,c);
+    }
+  }
+  q.tg = 3;
+  for(let j=y;j<y+2*A.al+5;j++) for(let i=x-9;i<x+w+9;i++){
+    if(tags[j*q.w+i]!==3||!uA(q.get(i,j)))continue;
+    const rel=(j-y)/Math.max(1,2*A.al);
+    if(rel<.27)q.set(i,j,style===0?modaBlue[i%2+2]:modaGold[i%2+2]);
+    else if(rel<.4)q.set(i,j,style===0?modaGold[3]:modaRed[2]);
+    else if(rel>.56&&rel<.95)q.set(i,j,(style===0?modaSilver:modaGold)[(j%4===0?1:3)+(i%2)]);
+  }
+}
+
+const MODA_SETS = [
+  ['c_traje_plata_azul', L2('Traje de Plata y Azul', 'Silver and Blue Outfit'), 18000],
+  ['c_traje_carmesi_oro', L2('Traje Carmesí y Oro', 'Crimson and Gold Outfit'), 20000],
+  ['c_traje_marcas_oro', L2('Traje de Marcas Rojas y Oro', 'Red Markings and Gold Outfit'), 19000],
+];
+MODA_SETS.forEach(([id, name], style) => {
+  const k = 'moda_set_' + style;
+  if (style !== 0) FIT_SKIN.add(k);
+  cosm(id, name, 'body', () => ({ k, m: modaSilver, s: modaBlue, modaStyle: style }), { src: MODA_SRC });
+});
+{ const original = drawHero; drawHero = function (p, L, dir, anim, f) {
+  const style = L.top?.modaStyle;
+  if (style === undefined) return original(p, L, dir, anim, f);
+  const look = { ...L, bot: { k: 'pants', m: modaSilver, s: modaSilver }, feet: { k: 'boots', m: modaSilver } };
+  if (p.t) return original(p, look, dir, anim, f);
+  p.t = new Uint8Array(p.w * p.h);
+  try {
+    original(p, look, dir, anim, f);
+    const q = hdDetail(p, {});
+    modaDressplate(q, p.meta, style, look);
+    for (let y = 0; y < p.h; y++) for (let x = 0; x < p.w; x++) p.set(x, y, q.get(x * 2 + 1, y * 2));
+  } finally { p.t = null; }
+}; }
+
 const MODA_ITEMS = { c_sueter_medianoche: 9000, c_pantalon_holgado: 5000, c_zapatillas_carmesi: 3500, c_tirita: 800, c_vestido_noche: 14000, c_chaqueta_cuero: 11000 };
+for (const [id, , price] of MODA_SETS) MODA_ITEMS[id] = price;
 for (const id in MODA_ITEMS) { it('cosi_' + id, { n: COSM[id].n, t: 'cos', cos: id, price: MODA_ITEMS[id], icon: ['hanger'], rar: 3 }); COS_SHOP.push(id); }
 
 // ---------- la modista y su boutique en cada pueblo ----------

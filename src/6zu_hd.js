@@ -143,7 +143,9 @@ function hdBuild(A, col, row) {
   if (a === 'dead') { X.imageSmoothingEnabled = false; X.drawImage(A.img, col * FW, row * FH, FW, FH, col * FW * 2, row * FH * 2, FW * 2, FH * 2); return; }
   const mirror = dir === 'right' && L.mirror !== false, p = new Pix(FW, FH); p.t = new Uint8Array(FW * FH); p.tg = 0;
   A.hdDraw(p, L, mirror ? 'left' : dir, a, f); p.outline(OUTL, false);
-  const q = hdDetail(p, A.hdMats); hdOrn(q, p, L); if (mirror) q.flipX();
+  const q = hdDetail(p, A.hdMats); hdOrn(q, p, L);
+  if (L.top?.modaStyle !== undefined) modaDressplate(q, p.meta, L.top.modaStyle, L);
+  if (mirror) q.flipX();
   q.toCtx(X, col * FW * 2, row * FH * 2);
 }
 // vistas previas del menú (perfil, armario, peluquería): siempre en HD
