@@ -15,7 +15,8 @@ else:
     print('AVISO: sin tools/i18n/en.json o sin node -> el juego se compila solo en español'); tpl_en = '{}'
 pre = ("const LANG_EN = (() => { try { if (/[?&]lang=en\\b/.test(location.search)) return true; if (/[?&]lang=es\\b/.test(location.search)) return false; return localStorage.getItem('thebound.lang') === 'en'; } catch (e) { return false; } })();\n"
        "const I18N_TPL = " + tpl_en + ";\n")
-bufandin = ''.join(open('assets/bufandin.b64', encoding='ascii').read().split())
+bufandin = ''.join(open('assets/bufandin.b64', encoding='ascii').read().split()) if os.path.exists('assets/bufandin.b64') else ''
+if not bufandin: print('AVISO: falta assets/bufandin.b64 (está en el repositorio de GitHub)')
 js = pre + js.replace('__BUFANDIN_PNG__', bufandin)
 assert '</script' not in js.lower(), 'script close tag inside js'
 tpl = open('template.html', encoding='utf-8').read()
