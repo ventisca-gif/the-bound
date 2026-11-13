@@ -32,6 +32,7 @@ The Bound es un RPG 2D de mundo abierto con movimiento en cuatro direcciones.
 
 - La versión del juego y del APK está en `src/6zv_update.js` (`GAME_VER`, `GAME_BUILD`). `tools/apk/build_apk.py` la lee de ahí.
 - Para publicar una versión: sube `GAME_VER`/`GAME_BUILD`, añade su entrada al principio de `CHANGELOG` (español e inglés), actualiza el pie `tfoot` de `template.html` y ejecuta `python3 tools/dev/release.py`. Sube `update/` a la rama `main`: los teléfonos leen `update/version.json` en raw.githubusercontent.com.
+- Sergio autoriza fusionar siempre: al terminar una versión, abre el pull request a `main` y fusiónalo tú mismo sin preguntar.
 - Sube `UPD_MIN_APK` solo si cambia la parte Android (`tools/apk/`). Entonces hay que instalar el APK nuevo a mano.
 - Firma el APK siempre con la clave de siempre (`THEBOUND_KEYSTORE` y `THEBOUND_SIGNING_PASSWORD`). Nunca la subas al repositorio ni generes otra.
 - Prueba del actualizador: `python3 tests/upd.py file://$PWD/dist/test.html out.png`.
