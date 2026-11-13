@@ -1,0 +1,19 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (giveItem('sem_trigo',3,true), (()=>{const W=G.world; const o=W.objs.filter(o=>o.k==='plot').sort((a,b)=>dist(a.tx,a.ty,118,150)-dist(b.tx,b.ty,118,150))[0]; G.P.x=o.px; G.P.y=o.py+14; G.P.dir='up'; window._p=o; return [o.tx,o.ty,o.pid];})())
+wait 400;;js (interactTarget() && interactTarget().k, doInteract(), JSON.stringify(G.P.farm))
+wait 800;;shot
+js (G.P.farm[window._p.pid].t -= 200000, 1)
+wait 600;;shot
+js (doInteract(), {inv:G.P.inv.map(s=>s.id+':'+(s.q||1)).join(' '), agr:G.P.jobs.agricultura, farm:JSON.stringify(G.P.farm)})
+js ((()=>{const W=G.world; const o=W.objs.filter(o=>o.k==='mound'&&!o.hidden).sort((a,b)=>dist(a.tx,a.ty,118,150)-dist(b.tx,b.ty,118,150))[0]; G.P.x=o.px; G.P.y=o.py+14; G.P.dir='up'; window._m=o; return [o.tx,o.ty,o.tier, missingTools()];})())
+wait 400;;js (doInteract(), G.P.job&&G.P.job.kind)
+wait 1200;;shot;;wait 5000
+js ({inv:G.P.inv.map(s=>s.id+':'+(s.q||1)).join(' '), exc:G.P.jobs.excavacion, hidden:window._m.hidden})
+js (giveItem('piedra1',10,true), G.P.gold=5000, openUpgrade(), 1)
+wait 500;;shot
+js (document.querySelector('#doUp').click(), document.querySelector('#doUp').click(), document.querySelector('#doUp').click(), {w:JSON.stringify(G.P.equip.weapon), gold:G.P.gold, atk:G.P.S.atk})
+shot
+js (closeModal(), G.P.lv=60, calcStats(G.P), G.P.spts=40, openPanel('skills'), 1)
+wait 600;;shot
+js (closeModal && closeModal(), openPanel('best'), 1)
+wait 500;;shot

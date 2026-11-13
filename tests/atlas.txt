@@ -1,0 +1,2 @@
+wait 1500
+js (()=>{ const r={}; let tot=0; for (const k in MOBS){ const t=performance.now(); mobAtlasFor(MOBS[k].art); const d=performance.now()-t; tot+=d; if(d>5) r[k]=d.toFixed(1);} r.total=tot.toFixed(0); const t2=performance.now(); buildAtlas(classLook('guerrero',{hair:0,hc:0,skin:0,eye:0},3,3)); r.player=(performance.now()-t2).toFixed(1); return r; })()

@@ -1,0 +1,37 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), window.hurtPlayer=()=>{}, G.P.gold=500000, G.P.partner='lia', G.P.rel={lia:{t:1000,a:1000}}, G.P.homes={casa_a3:{floor:0,f:{bed:'bigbed',table:'table',deco1:'plant',crib:'crib'}, lv:1}}, (()=>{ const d=G.world.doors.find(d=>d.to==='casa_a3'); G.P.x=d.x*16+8; G.P.y=(d.y+1)*16+8; enterInterior(d); return 1; })())
+wait 1500
+js (()=>{ const e=G.ents.find(e=>e.type==='npc'&&e.id==='lia'&&e.map==='casa_a3'); openDialog(e); romanceMenu(e); familyTalk(e); return !!e; })()
+wait 500
+js (document.querySelector('#famYes').click(), 1)
+wait 1500
+js (document.querySelector('#famNext').click(), 1)
+wait 600
+shot
+js (document.querySelector('#kName').value='Luna', document.querySelector('#kOk').click(), {kids:G.P.kids.length})
+wait 1200
+shot
+js (G.P.cal.d+=3, newDay(), rebuildHome(), 1)
+wait 1200
+shot
+js (G.P.cal.d+=6, newDay(), rebuildHome(), G.P.lv=40, calcStats(G.P), 1)
+wait 1000
+js (()=>{ const e=G.ents.find(e=>e.type==='kid'); openKid(e); return [kidStage(e.kid), !!e]; })()
+wait 400
+js (document.querySelector('[data-kcls="mago"]').click(), 1)
+wait 400
+shot
+js (giveItem('w_mago_4',1,true), openKid(G.ents.find(e=>e.type==='kid')), document.querySelector('[data-keq]').click(), 1)
+wait 400
+js (document.querySelector('#kFol').click(), 1)
+wait 400
+js (openDecor(), document.querySelector('#hUp').click(), closeModal(), 1)
+wait 1500
+shot
+js (()=>{ const d=G.world.doors.find(d=>d.to==='casa_a3'); setMap(G.world, d.x*16+8, (d.y+2)*16+8, 'down'); G.P.inside=null; G.P.map='world'; return 1; })()
+wait 1500
+js (()=>{ const P=G.P; const c=G.world.camps.find(c=>c.lv>30&&c.lv<45); P.x=c.x*16+30; P.y=c.y*16; return [c.mob]; })()
+wait 4000
+js ({kid: G.ents.filter(e=>e.type==='kid').map(e=>[e.map, Math.round(e.x-G.P.x), Math.round(e.y-G.P.y), e.anim]), kills: G.P.best})
+shot
+js (window._errs)

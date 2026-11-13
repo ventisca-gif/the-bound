@@ -1,0 +1,22 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), window.hurtPlayer=()=>{}, G.P.lv=60, calcStats(G.P), G.P.gold=500000, giveItem('log1',99), G.P.partner='greta', 1)
+wait 2500
+js (G.world.plots.map(p=>p.id+'@'+p.x+','+p.y))
+js (()=>{ const s=G.ents.find(e=>e.plotSign==='lote_albor_0')||G.ents.find(e=>e.plotSign); G.P.x=s.x; G.P.y=s.y+14; const t=interactTarget(); doInteract(); return [t&&t.label, s.plotSign]; })()
+wait 400
+js (()=>{ document.querySelector('[data-hm="dospisos"]').click(); return 1; })()
+wait 2500
+shot
+js (()=>{ const pid=Object.keys(G.P.plots)[0]; const d=G.world.doors.find(d=>d.to===pid); G.P.x=d.x*16+8; G.P.y=(d.y+1)*16+8; enterInterior(d); return pid; })()
+wait 2000
+js ({map:G.map.id, objs:G.map.objs.filter(o=>o.stair).map(o=>o.stair)})
+shot
+js (()=>{ const o=G.map.objs.find(o=>o.stair); G.P.x=o.px; G.P.y=o.py+10; const t=interactTarget(); doInteract(); return t&&t.label; })()
+wait 2000
+js ({map:G.map.id})
+shot
+js (()=>{ G.P.inside=null; G.time=10*60; const pid=Object.keys(G.P.plots)[0]; const p=G.world.plots.find(p=>p.id===pid); const [px,py]=townPlaza(p.town); setMap(G.world, px*16, py*16+40, 'down'); return 1; })()
+wait 4500
+js (FAM_W.map(e=>e.id))
+shot
+js (window._errs)

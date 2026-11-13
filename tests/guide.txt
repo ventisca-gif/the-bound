@@ -1,0 +1,16 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 3200
+shot
+js (()=>{ const P=G.P; P.x=130*16; P.y=160*16; return 1; })()
+wait 600
+shot
+js (openDialog(G.ents.find(e=>e.id==='mira')), 1)
+wait 400
+js (()=>{ const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/Despertar|Awakening/.test(b.textContent)); b.click(); return 1; })()
+wait 200
+js (()=>{ for(let k=0;k<8;k++){ const m=document.querySelector('#dmsg'); if(m.onclick) m.onclick(); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/Continuar|Continue/.test(b.textContent)); if(b) b.click(); } return document.querySelector('#dmsg').innerText.slice(0,200); })()
+wait 300
+shot
+js (()=>{ const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/Aceptar|Accept/.test(b.textContent)); b.click(); return G.P.inv.map(s=>s.id); })()
+js (closeDialog(), openPanel('quest'), 1)
+wait 400
+shot

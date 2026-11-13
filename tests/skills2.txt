@@ -1,0 +1,7 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.x=60*16, G.P.y=150*16, 1)
+wait 1500
+js (()=>{ const out=[]; const P=G.P; for (const cls of ['guerrero','mago','arquero','asesino']) { P.cls=cls; P.lv=150; calcStats(P); const ids=Object.keys(SK).filter(k=>SK[k].cls===cls||k[0]===cls[0]).filter(k=>/1[3-8]$/.test(k)); for (const id of ids) { P.skills[id]=5; P.slots[0]=id; P.cds={}; P.mp=99999; P.busy=0; try { useSkill(0); for (let k=0;k<30;k++) update(1/30); out.push(id+':'+SK[id].eff.k+':ok'); } catch(e) { out.push(id+':ERR '+e.message); } } } return out.join(' '); })()
+wait 800
+shot
+js (window._errs)

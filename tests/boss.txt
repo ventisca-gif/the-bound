@@ -1,0 +1,7 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click .ccls[data-c=mago];;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (gainXp(9000), G.P.spts=20, learnSkill('m1'),learnSkill('m1'),learnSkill('m5'),learnSkill('m9'),learnSkill('m10'), (()=>{G.P.x=96*16+8; G.P.y=180*16; G.time=21*60; return G.P.lv;})())
+wait 1500
+js (G.ents.filter(e=>e.boss).map(b=>[b.name,b.lv,b.hp,Math.round(dist(b.x,b.y,G.P.x,G.P.y))]))
+js (window._iv=setInterval(()=>{const P=G.P; if(P.dead) return; const m=G.ents.find(e=>e.boss&&!e.dying)||nearestMob(P.x,P.y,200); if(!m){inp.jx=inp.jy=0;return;} const d=dist(m.x,m.y,P.x,P.y); const a=Math.atan2(m.y-P.y,m.x-P.x); if(d>110){inp.jx=Math.cos(a);inp.jy=Math.sin(a);} else if(d<60){inp.jx=-Math.cos(a);inp.jy=-Math.sin(a);} else {inp.jx=0;inp.jy=0;} basicAttack(); useSkill(0); useSkill(1); if(P.hp<P.S.maxhp*0.4) quickPotion();},60),1)
+wait 3000;;shot;;wait 6000;;shot;;wait 12000;;shot
+js (clearInterval(window._iv), inp.jx=inp.jy=0, {lv:G.P.lv, hp:Math.round(G.P.hp), dead:G.P.dead, boss:G.ents.filter(e=>e.boss).map(b=>[b.hp,b.maxhp,b.state]), kills:G.P.bossKills})

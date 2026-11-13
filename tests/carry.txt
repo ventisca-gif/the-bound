@@ -1,0 +1,22 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{ const P=G.P; const e=G.ents.find(q=>q.type==='npc'&&q.id==='greta'); P.partner='greta'; rel('greta').a=1000; rel('greta').t=1000; e.x=P.x+14; e.y=P.y; e.map=P.map; startComp(e,true); return !!COMP; })()
+wait 500
+js (()=>{ const P=G.P; const o=[]; DLG_HOOKS.forEach(h=>h(COMP.e,o)); return o.map(x=>x.label); })()
+js (startCarry(), [carryActive(), !document.querySelector('#carryBar').hidden])
+wait 300
+js (G.P.dir='down', 1)
+wait 200
+shot
+down ArrowRight
+wait 400
+shot
+up ArrowRight
+js (G.P.dir='up', 1)
+wait 200
+shot
+js (G.P.dir='down', carryKiss(), 1)
+wait 300
+shot
+js (stopCarry(), [carryActive(), G.P.anim])
+js (window._errs)

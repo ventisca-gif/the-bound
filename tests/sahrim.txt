@@ -1,0 +1,31 @@
+click #tNew;;wait 400;;type #ccName|Kira;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (()=>{ const P=G.P; P.lv=100; P.godT=1; calcStats(P); P.hp=P.S.maxhp; P.quests.done.q14=1; travelTo('puerto'); return 1; })()
+wait 1500
+js (openDialog(G.ents.find(e=>e.id==='marina')), [...document.querySelectorAll('#dialog .dopts button')].map(b=>b.textContent))
+js (()=>{ const o=[...document.querySelectorAll('#dialog .dopts button')].find(b=>/Sahrim/.test(b.textContent)); if(o) o.click(); return !!o; })()
+wait 3500
+js ({x:G.P.x/16|0, y:G.P.y/16|0, region: regionAt(G.P.x/16|0, G.P.y/16|0), safe:G.pSafe, npcs:G.ents.filter(e=>e.type==='npc').map(e=>e.id).join(',')})
+shot
+js (G.P.x=296*16, G.P.y=146*16, G.camX=G.P.x, G.camY=G.P.y, 1)
+wait 1500
+shot
+js (G.P.x=342*16, G.P.y=161*16, 1)
+wait 1800
+js ({region: regionAt(G.P.x/16|0, G.P.y/16|0), npcs:G.ents.filter(e=>e.type==='npc').map(e=>e.id).join(','), mobs:G.ents.filter(e=>e.type==='mob').map(e=>e.id).join(',')})
+shot
+js (G.P.x=310*16, G.P.y=170*16, 1)
+wait 1800
+js ({region: regionAt(G.P.x/16|0, G.P.y/16|0), mobs:G.ents.filter(e=>e.type==='mob').map(e=>e.id+':'+e.lv).join(',')})
+shot
+js (G.P.x=290*16, G.P.y=40*16, 1)
+wait 1800
+js ({region: regionAt(G.P.x/16|0, G.P.y/16|0), mobs:G.ents.filter(e=>e.type==='mob').map(e=>e.id+':'+e.lv).join(',')})
+shot
+js (G.P.x=350*16, G.P.y=40*16, 1)
+wait 1800
+js ({region: regionAt(G.P.x/16|0, G.P.y/16|0), mobs:G.ents.filter(e=>e.type==='mob').map(e=>e.id+':'+e.lv).join(',')})
+shot
+js (G.P.x=362*16, G.P.y=110*16, 1)
+wait 1800
+js ({region: regionAt(G.P.x/16|0, G.P.y/16|0), mobs:G.ents.filter(e=>e.type==='mob').map(e=>e.id+':'+e.lv).join(',')})
+shot

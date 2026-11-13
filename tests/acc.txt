@@ -1,0 +1,38 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), G.P.lv=77, G.P.gold=12345, saveGame(true), 1)
+js (packCode({v:2,kind:'hero',hero:serializeP(G.P)}).then(c=>{window._code=c; return c.slice(0,10)+' len '+c.length}))
+js (G.P.lv=1, G.P.gold=0, unpackCode(' '+window._code.slice(0,40)+'\n'+window._code.slice(40)+' ').then(d=>{ const o=d.hero; o.savedAt=Date.now(); G.noSave=true; storage.set(slotKey(SLOT), JSON.stringify(o)); return [o.lv,o.gold]; }))
+js (dispatchEvent(new Event('pagehide')), JSON.parse(storage.get(slotKey(SLOT))).lv)
+js (location.reload(), 1)
+wait 3000
+js ([...document.querySelectorAll('#tslots .tbtn')].map(b=>b.innerText), document.querySelector('#accBox').innerText)
+click #accNew
+wait 300
+type #accN|Sergio
+type #accP|1234
+type #accP2|1234
+click #accGo
+wait 500
+js ([ACC, [...document.querySelectorAll('#tslots .tbtn')].map(b=>b.innerText), document.querySelector('#accBox').innerText])
+shot
+click #accExp
+wait 800
+js (window._acode=document.querySelector('#accC').value, window._acode.slice(0,8)+' '+window._acode.length)
+click #accX
+wait 200
+click #accOut
+wait 300
+js ([ACC, [...document.querySelectorAll('#tslots .tbtn')].map(b=>b.innerText)])
+js (Object.keys(localStorage).filter(k=>k.includes('acc.')).forEach(k=>localStorage.removeItem(k)), localStorage.removeItem('thebound.accounts'), refreshTitle(), 1)
+click #accImp
+wait 300
+js (document.querySelector('#accC').value=window._acode, document.querySelector('#accP').value='999', 1)
+click #accGo
+wait 600
+js (document.querySelector('#accMsg')&&document.querySelector('#accMsg').innerText)
+js (document.querySelector('#accP').value='1234', 1)
+click #accGo
+wait 800
+js ([ACC, [...document.querySelectorAll('#tslots .tbtn')].map(b=>b.innerText)])
+shot
+js (window._errs)

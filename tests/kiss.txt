@@ -1,0 +1,4 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (()=>{ const n=G.ents.find(e=>e.id==='greta'); G.P.x=n.x+20; G.P.y=n.y; n.wander=0; romScene(n,'kiss',null); return [n.x,n.y]; })()
+wait 900
+shot

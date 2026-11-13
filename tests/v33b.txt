@@ -1,0 +1,29 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+shot
+js (()=>{ const a=G.ents.find(e=>e.id==='aldara'), o=G.ents.find(e=>e.id==='oraculo'), b=G.ents.find(e=>e.id==='peluquera'); return {ald: !!a && Math.round(a.x/16)+','+Math.round(a.y/16), ora: !!o, pel: !!b, inv: INV_MAX, party: PARTY_MAX}; })()
+js (()=>{ const w=G.world.npcDefs.filter(d=>['aldara','oraculo','peluquera'].includes(d.id)).map(d=>d.id+'@'+d.x+','+d.y); return w; })()
+js (()=>{ const P=G.P; for(let i=0;i<60;i++) giveItem('pocion1',1); for (const id of ['b_3','h_3','l_3','f_3','w_mago_2','w_arquero_2']) giveItem(id,1); openPanel('inv'); return P.inv.length; })()
+wait 400
+shot
+js (closePanel && closePanel(), 1)
+js (()=>{ const t=TOWNS.find(t=>t.k==='arxar'); const d=G.world.npcDefs.find(d=>d.id==='aldara'); G.P.x=d.x*16+8; G.P.y=(d.y+1)*16+8; G.P.dir='up'; return 1; })()
+wait 1500
+js (()=>{ const a=G.ents.find(e=>e.id==='aldara'&&!e.remove); return a ? [Math.round(a.x),Math.round(a.y), Math.round(G.P.x), Math.round(G.P.y)] : 'none'; })()
+shot
+js (()=>{ const a=G.ents.find(e=>e.id==='aldara'&&!e.remove); openDialog(a); return [...document.querySelectorAll('#dialog button')].map(b=>b.textContent).join(' | '); })()
+wait 300
+shot
+js (closeDialog(), openBarber(), 1)
+wait 600
+shot
+js (document.querySelector('[data-ek="hs"][data-ev="3"]').click(), 1)
+wait 300
+js (G.P.gold=1000, document.querySelector('#barbOk').click(), [G.P.gold, G.P.app.hs])
+js (G.P.lv=199, G.P.app.asc=0, calcStats(G.P), G.P.S.atk)
+js (ascend(), [G.P.app.asc, G.P.S.atk])
+wait 1500
+js (closeModal(), 1)
+wait 500
+shot
+js (window._errs)

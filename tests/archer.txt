@@ -1,0 +1,20 @@
+click #tNew;;wait 400;;click [data-c="arquero"];;wait 300
+shot
+type #ccName|Lyra;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (()=>{ const P=G.P; P.lv=12; P.spts=20; calcStats(P); P.hp=P.S.maxhp; P.mp=P.S.maxmp; const ids=Object.keys(SK).filter(k=>SK[k].cls==='arquero'&&SK[k].type==='act'&&SK[k].req<=12); for(const id of ids){ if(!canLearn(id)) learnSkill(id);} const c=G.world.camps.filter(c=>c.lv<=6).sort((a,b)=>dist(a.x*16,a.y*16,P.x,P.y)-dist(b.x*16,b.y*16,P.x,P.y))[0]; P.x=c.x*16-70; P.y=c.y*16+8; P.dir='right'; return {ids, slots:P.slots, mob:c.mob, at:[c.x,c.y]}; })()
+wait 1500
+js (inp.attack=true, 1)
+wait 700
+shot
+js (useSkill(0), 1)
+wait 300
+shot
+js (useSkill(1), 1)
+wait 400
+shot
+js (useSkill(2), 1)
+wait 400
+shot
+wait 2500
+js (inp.attack=false, {hp:G.P.hp, kills:G.P.stats.kills, xp:G.P.xp, lv:G.P.lv, mobsNear:G.ents.filter(e=>e.type==='mob'&&!e.dying&&dist(e.x,e.y,G.P.x,G.P.y)<200).length})
+shot

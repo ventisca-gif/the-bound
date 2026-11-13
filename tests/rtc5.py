@@ -1,0 +1,40 @@
+import sys, json
+from playwright.sync_api import sync_playwright
+url=sys.argv[1]; out=sys.argv[2]
+with sync_playwright() as p:
+    b=p.chromium.launch(executable_path='/usr/bin/google-chrome',args=['--allow-file-access-from-files','--autoplay-policy=no-user-gesture-required'])
+    pages=[]; logs=[]
+    for i,(nm,cl) in enumerate([('Ana','invocador'),('Beto','bardo')]):
+        ctx=b.new_context(viewport={'width':844,'height':390},device_scale_factor=1,has_touch=True)
+        pg=ctx.new_page(); pg.on('pageerror',lambda e,i=i: logs.append(f'{i} PAGEERROR: {e}')); pg.on('console',lambda m,i=i: logs.append(f'{i} {m.type}: {m.text}') if m.type in('error',) else None)
+        pg.goto(url); pg.wait_for_timeout(2500)
+        pg.click('#tNew'); pg.wait_for_timeout(400); pg.click(f'[data-c="{cl}"]'); pg.wait_for_timeout(200); pg.fill('#ccName',nm); pg.click('#ccGo'); pg.wait_for_timeout(1300); pg.click('#introOk'); pg.wait_for_timeout(300)
+        pages.append(pg)
+    A,B=pages
+    A.evaluate("openParty()"); A.wait_for_timeout(300); A.click('#rtcHost'); A.wait_for_timeout(5000)
+    code=A.evaluate("rtcUI.code")
+    B.evaluate("openParty()"); B.wait_for_timeout(300); B.click('#rtcJoin'); B.wait_for_timeout(300); B.fill('#rtcIn', code); B.click('#rtcGo'); B.wait_for_timeout(5000)
+    ans=B.evaluate("rtcUI.code")
+    A.fill('#rtcIn', ans); A.click('#rtcGo'); A.wait_for_timeout(4000)
+    for pg in (A,B): pg.evaluate("closeModal()")
+    A.wait_for_timeout(1500)
+    for pg in (A,B): pg.evaluate("(window.hurtPlayer=()=>{}, G.P.lv=155, calcStats(G.P), giveItem('tarjeta_tren',1), railCred().c=1000, 1)")
+    A.evaluate("(()=>{ const tr=RAIL.trains[0]; const S=RAIL.stations.find(s=>s.stops[tr.line]); boardTrainInterior(S,tr,null); return 1; })()")
+    B.evaluate("(()=>{ const tr=RAIL.trains[0]; const S=RAIL.stations.find(s=>s.stops[tr.line]); boardTrainInterior(S,tr,null); return 1; })()")
+    A.wait_for_timeout(3000)
+    print('train A sees', A.evaluate("[G.P.map, [...G.remote.values()].map(r=>r.map+':'+Math.round(r.x)+','+Math.round(r.y))]"))
+    A.screenshot(path=out.replace('.png','_train.png'))
+    for pg in (A,B): pg.evaluate("(diveGear().tank=2, diveGear().harp=1, G.P.x=G.world.w*8, enterSub(), 1)")
+    A.wait_for_timeout(3000)
+    B.evaluate("(G.P.x+=30, G.P.anim='walk', 1)"); A.wait_for_timeout(1500)
+    print('sub A sees', A.evaluate("[G.P.map, [...G.remote.values()].map(r=>r.map+':'+r.anim)]"))
+    A.screenshot(path=out.replace('.png','_sub.png'))
+    for pg in (A,B): pg.evaluate("(leaveSub(), 1)")
+    A.wait_for_timeout(1500)
+    for pg in (A,B): pg.evaluate("(boardYacht('puerto'), 1)")
+    A.wait_for_timeout(2500)
+    B.evaluate("(goDeck(2), 1)"); A.evaluate("(goDeck(2), 1)"); A.wait_for_timeout(2500)
+    print('yacht A sees', A.evaluate("[G.P.map, [...G.remote.values()].map(r=>r.map)]"))
+    A.screenshot(path=out.replace('.png','_A.png')); B.screenshot(path=out.replace('.png','_B.png'))
+    for l in logs[:30]: print(l)
+    b.close()

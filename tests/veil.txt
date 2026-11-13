@@ -1,0 +1,19 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), G.P.lv=60, calcStats(G.P), 1)
+wait 500
+js (()=>{ const o=G.world.objs.find(o=>o.veilAltar); G.P.x=o.px; G.P.y=o.py+18; const t=interactTarget(); return t&&t.kind; })()
+js (doInteract(), G.P.veil)
+js (G.P.veil=1, enterVeil(true), 1)
+wait 1500
+js ([G.map.id, G.map.w, G.ents.filter(e=>e.map==='espiritual'&&e.type==='npc').length])
+shot
+js (()=>{ const e=G.ents.find(e=>e.soul==='s_alado'); G.P.x=e.x; G.P.y=e.y+16; openDialog(e); const b=[...document.querySelectorAll('#dopts button')].find(b=>/recuerdo|memory/i.test(b.textContent)); b.click(); return G.P.clues; })()
+js (closeDialog(), G.P.loreU=[...Array(20).keys()], veilQuiz(ok=>{window._q=ok}), 1)
+js ([...document.querySelectorAll('#modal [data-vq]')].length)
+js (document.querySelector('#modal [data-vq="0"]').click(), document.querySelector('#modal [data-vq="1"]').click(), document.querySelector('#modal [data-vq="2"]').click(), window._q)
+js (()=>{ G.P.veilQ=2; const M=G.map; for(const t of M.threads){ G.P.x=t.x; G.P.y=t.y; doInteract(); } return G.P.veilQ; })()
+js (()=>{ G.P.veilQ=4; const e=G.ents.find(e=>e.id==='guard_silencio'); G.P.x=e.x; G.P.y=e.y+16; openDialog(e); [...document.querySelectorAll('#dopts button')].find(b=>/Silencio|Silence/.test(b.textContent)).click(); const m=G.ents.find(m=>m.mid==='eco_nihil'); return !!m; })()
+wait 800
+shot
+js (()=>{ const m=G.ents.find(m=>m.mid==='eco_nihil'); killMob(m); return [G.P.veilQ, (G.P.wardrobe||[]).includes('c_aura_velo')]; })()
+js (window._errs)

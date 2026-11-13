@@ -1,0 +1,13 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (acceptQuest('q1'),acceptQuest('q2'), (()=>{const W=G.world; const t=W.objs.filter(o=>o.k==='tree'&&o.sp==='roble'&&!o.deco).sort((a,b)=>dist(a.tx,a.ty,118,150)-dist(b.tx,b.ty,118,150))[0]; G.P.x=t.px; G.P.y=t.py+14; G.P.dir='up'; window._t=t; return [t.tx,t.ty];})())
+wait 500;;js (doInteract(), G.P.job&&G.P.job.kind)
+wait 1500;;shot;;wait 3000
+js ({inv:G.P.inv.map(s=>s.id+':'+(s.q||1)), tala:G.P.jobs.tala, st:window._t.st})
+js ((()=>{const W=G.world; const o=W.objs.filter(o=>o.k==='ore'&&o.tier===1).sort((a,b)=>dist(a.tx,a.ty,118,150)-dist(b.tx,b.ty,118,150))[0]; G.P.x=o.px; G.P.y=o.py+14; G.P.dir='up'; return [o.tx,o.ty];})())
+wait 300;;js (doInteract(), G.P.job&&G.P.job.kind);;wait 1200;;shot;;wait 4000
+js ({inv:G.P.inv.map(s=>s.id+':'+(s.q||1)), min:G.P.jobs.mineria})
+js ((()=>{const W=G.world; let best=null,bd=1e9; for(let y=120;y<170;y++)for(let x=80;x<150;x++){const i=W.I(x,y); if(W.ter[i]===T.WATER && !SOLID_T[W.ter[i+W.w]] && W.ter[i+W.w]!==T.WATER && !W.solidO[i+W.w] && W.lvl[i+W.w]===0){const d=dist(x,y,118,150); if(d<bd){bd=d;best=[x,y];}}} G.P.x=best[0]*16+8; G.P.y=(best[1]+1)*16+10; G.P.dir='up'; return best;})())
+wait 400;;js (doInteract(), G.P.fishing&&G.P.fishing.state)
+js (window._fi=setInterval(()=>{const F=G.P.fishing; if(F&&F.state==='bite') fishAction(); if(reel.on){ reel.hold = reel.fish > reel.zone + reel.zh*0.5; }},40),1)
+wait 4500;;shot;;wait 5000
+js (clearInterval(window._fi), {inv:G.P.inv.map(s=>s.id+':'+(s.q||1)), pesca:G.P.jobs.pesca, f:!!G.P.fishing, q2:G.P.quests.active.q2})

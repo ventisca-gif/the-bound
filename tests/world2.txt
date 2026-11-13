@@ -1,0 +1,42 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), window.hurtPlayer=()=>{}, G.P.wstate.wx='rain', wxIntensity=1, G.P.x=115*16, G.P.y=152*16, 1)
+wait 1500
+shot
+js (G.P.wstate.wx='snow', G.P.cal.d=70, wxParts.length=0, 1)
+wait 1500
+shot
+js (G.P.wstate.wx='storm', G.P.cal.d=40, wxParts.length=0, wxFlash=1, 1)
+wait 200
+shot
+js (G.P.wstate.wx='wind', G.P.cal.d=60, wxParts.length=0, 1)
+wait 1200
+shot
+js (G.P.lv=20, calcStats(G.P), startEvent('asalto','albor'), 1)
+wait 2500
+js ({ev:G.P.wstate.ev.map(e=>e.type+':'+e.town+':'+e.left), mobs:G.ents.filter(e=>e.ev).length, safe:G.pSafe})
+shot
+js (()=>{ for (const m of G.ents.filter(e=>e.ev)) hitMob(m, 1e7); return 1; })()
+wait 1500
+js ({ev:G.P.wstate.ev.map(e=>e.type+':'+e.town), towns:JSON.stringify(G.P.wstate.towns)})
+js (startEvent('asalto','albor'), G.P.wstate.ev.find(e=>e.type==='asalto').end=G.P.cal.d, newDay(), 1)
+wait 3000
+js ({towns:JSON.stringify(G.P.wstate.towns), regime:G.ents.filter(e=>e.regime).length, mul:townPriceMul('albor')})
+shot
+js (()=>{ const b=G.ents.find(e=>e.chief); hitMob(b, 1e9); return 1; })()
+wait 1500
+js ({towns:JSON.stringify(G.P.wstate.towns), ev:G.P.wstate.ev.map(e=>e.type+':'+e.town), mul:townPriceMul('albor')})
+js (openPanel('world'), 1)
+wait 500
+shot
+js (encTab='armor', openPanel('best'), 1)
+wait 500
+shot
+js (encTab='npcs', renderPanel(), 1)
+wait 400
+shot
+js (closePanel(), G.P.lv=150, calcStats(G.P), G.P.equip.weapon={id:'lw_guerrero'}, G.P.playerAtlasDirty=1, refreshLook && refreshLook(), calcStats(G.P), 1)
+wait 300
+js (()=>{ for(let i=0;i<6;i++) setTimeout(()=>{G.P.atkCd=0;G.P.busy=0;basicAttack();}, i*350); return 1; })()
+wait 1200
+shot
+js (window._errs)

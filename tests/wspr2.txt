@@ -1,0 +1,40 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), window.hurtPlayer=()=>{}, 1)
+js (window.eq=(id,cls)=>{ const P=G.P; P.lv=200; if(cls) P.cls=cls; giveItem(id,1); const i=P.inv.findIndex(s=>s.id===id); equipFromInv(i); calcStats(P); refreshLook(); P.atkCd=0; P.busy=0; return P.equip.weapon.id; }, 1)
+js (()=>{ const P=G.P; const r=eq('ws_lava'); const m=spawnMob('lobo', 5, P.x+26, P.y, P.L, null, false); m.hp=m.maxhp=1e7; P.dir='right'; basicAttack(); return r; })()
+wait 90
+shot
+js (eq('lw_guerrero'), basicAttack(), 1)
+wait 120
+shot
+js (eq('lw_mago','mago'), basicAttack(), 1)
+wait 120
+shot
+js (eq('w_arquero_13','arquero'), G.ents.filter(e=>e.type==='mob').forEach(m=>{m.x=G.P.x+90;}), basicAttack(), 1)
+wait 160
+shot
+js (eq('w_bardo_11','bardo'), G.ents.filter(e=>e.type==='mob').forEach(m=>{m.x=G.P.x+26;}), basicAttack(), 1)
+wait 100
+shot
+js (eq('w_invocador_14','invocador'), basicAttack(), 1)
+wait 100
+shot
+js (eq('w_guerrero_18','guerrero'), G.ents.filter(e=>e.type==='mob').forEach(m=>{m.x=G.P.x+26;}), basicAttack(), 1)
+wait 100
+shot
+js (eq('lw_arquero','arquero'), G.ents.filter(e=>e.type==='mob').forEach(m=>{m.x=G.P.x+90;}), basicAttack(), 1)
+wait 160
+shot
+js (eq('w_mago_16','mago'), basicAttack(), 1)
+wait 120
+shot
+js (openPanel('inv'), 1)
+wait 400
+shot
+js (closePanel&&closePanel(), encTab='weapons', encSel='ws_rosa', openPanel('best'), 1)
+wait 500
+shot
+js (encSel='lw_mago', renderPanel(), 1)
+wait 700
+shot
+js (window._errs)

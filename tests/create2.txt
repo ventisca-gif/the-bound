@@ -1,0 +1,13 @@
+click #tNew;;wait 500
+shot
+click [data-edtab="pelo"];;wait 200
+shot
+click [data-edtab="ropa"];;wait 200;;click [data-ek="top0"][data-ev="3"];;click [data-ek="top1"][data-ev="rosa"];;wait 200
+shot
+click [data-edtab="cuerpo"];;click [data-ek="g"][data-ev="m"];;wait 200;;click [data-edtab="pelo"];;click [data-ek="hs"][data-ev="1"];;wait 300
+shot
+type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 1000
+shot
+js (openPanel('wardrobe'), giveCosmetic('c_capa_real'), 1)
+wait 500
+shot

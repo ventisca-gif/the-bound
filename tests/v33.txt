@@ -1,0 +1,19 @@
+click #tNew;;wait 400;;click [data-c="pez"];;wait 300;;type #ccName|Nerito;;wait 200
+shot
+click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js ({cls:G.P.cls, app:G.P.app, w:G.P.equip.weapon.id, atk:G.P.S.atk, sk:Object.keys(SK).filter(k=>SK[k].cls==='pez').length})
+js (basicAttack(), 1)
+wait 400
+js (G.P.lv=75, gainXp(1), G.P.app.pz)
+wait 2000
+shot
+js (G.P.lv=120, gainXp(1), G.P.app.pz)
+wait 2000
+js (G.P.dir='left', 1)
+shot
+js (toggleEmoPop(true), 1)
+wait 300
+shot
+js (toggleEmoPop(false), doDance('clasico'), 1)
+js (window._errs)

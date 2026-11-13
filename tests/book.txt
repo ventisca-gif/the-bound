@@ -1,0 +1,12 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), 1)
+wait 600
+js (!!document.querySelector('#bBook'), G.world.objs.filter(o=>o.estela!==undefined).length)
+js (()=>{ const o=G.world.objs.find(o=>o.estela===0); G.P.x=o.px; G.P.y=o.py+18; const t=interactTarget(); return t&&t.kind; })()
+js (doInteract(), closeModal(), clueUnlock('b_desatado'), clueUnlock('n_guia'), G.P.clues)
+js (document.querySelector('#bBook').click(), document.querySelectorAll('#modal details').length)
+wait 300
+shot
+js (openBook('pistas'), document.querySelectorAll('#modal details').length)
+shot
+js (window._errs)

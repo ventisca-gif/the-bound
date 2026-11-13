@@ -1,0 +1,37 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), window.hurtPlayer=()=>{}, G.P.lv=170, calcStats(G.P), G.P.gold=900000, 1)
+wait 800
+js (['gruta_helada','caverna_fungica','cripta_ambar'].map(id=>{ const c=G.world.caves.find(c=>c.id===id); return id+':'+(c?c.x+','+c.y:'NONE'); }))
+js (()=>{ const d=G.world.doors.find(d=>d.to==='gruta_helada'); enterInterior(d); return 1; })()
+wait 1800
+js (()=>{ const M=G.map; const cs=M.camps.map(c=>c.mob+'@'+c.x+','+c.y); const c=M.camps.find(c=>c.mob.startsWith('muneco'))||M.camps[0]; G.P.x=c.x*16+8; G.P.y=c.y*16+40; return [M.id, cs]; })()
+wait 1500
+shot
+js (()=>{ const ms=G.ents.filter(e=>e.type==='mob'&&e.map===G.map.id); const m=ms[0]; const need=xpToNext?xpToNext(G.P.lv):0; return ms.slice(0,5).map(m=>m.name+' lv'+m.lv+' xp'+m.xp+' hp'+Math.round(m.hp)).concat(['need '+need]); })()
+js (()=>{ const M=G.map; G.P.x=M.bossAt[0]*16+8; G.P.y=M.bossAt[1]*16+60; return 1; })()
+wait 1500
+shot
+js (exitInterior(), 1)
+wait 1500
+js (()=>{ const e=G.ents.find(e=>e.id==='maestra_tala'); if(!e) return 'no npc'; G.P.x=e.x; G.P.y=e.y+18; G.P.jobs.tala.lv=75; G.P.jobs.tala.xp=0; giveItem('log4',20); openDialog(e); return [...document.querySelectorAll('#dopts button')].map(b=>b.textContent).join('|'); })()
+js (closeDialog(), openMastery('tala'), document.querySelector('#mUp').disabled)
+js (document.querySelector('#mUp').click(), [G.P.mast.tala, G.P.gold])
+js (closeModal(), gainJobXp('tala', 999999), G.P.jobs.tala.lv)
+js (()=>{ G.P.partner='greta'; ROM.greta && (rel('greta').a=1000); const e=G.ents.find(e=>e.id==='greta'); if(!e) return 'no greta'; startComp(e, true); return !!COMP; })()
+wait 600
+js (document.querySelector('#bPtW').hidden)
+js (openPartnerWardrobe(), document.querySelectorAll('#modal [data-pt]').length)
+wait 300
+shot
+js (document.querySelector('#modal [data-pt=negro]').click(), G.P.pOut)
+js (closeModal(), 1)
+wait 500
+shot
+js (()=>{ const tf=G.ents.find(e=>e.def&&e.def.tf); openDialog(tf); const b=[...document.querySelectorAll('#dopts button')].find(b=>/cuenta hoy/.test(b.textContent)); b && b.click(); return [tf.id, (G.P.loreU||[]).length]; })()
+js (closeDialog(), openChronicles(), document.querySelectorAll('#modal details').length)
+js (closeModal(), 1)
+js (()=>{ G.time = (24*60)*Math.floor(G.time/1440) + 24*60 + 40; const d=G.world.doors.find(d=>d.to&&d.to.startsWith('posada_albor')); enterInterior(d); return d&&d.to; })()
+wait 4000
+js (G.ents.filter(e=>e.tav===G.map.id).map(e=>e.id+'@'+Math.floor(e.x/16)+','+Math.floor(e.y/16)))
+shot
+js (window._errs)

@@ -1,0 +1,18 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window.hurtPlayer=()=>{}, G.P.lv=155, calcStats(G.P), diveGear().tank=1, enterSub(), 1)
+wait 1500
+js (G.ents.filter(e=>e.type==='mob').forEach(m=>m.remove=true), G.P.y+=40, 1)
+down ArrowRight
+wait 600
+shot
+up ArrowRight
+down ArrowDown
+wait 500
+shot
+up ArrowDown
+down ArrowLeft
+wait 400
+shot
+up ArrowLeft
+wait 500
+shot

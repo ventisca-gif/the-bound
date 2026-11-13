@@ -1,0 +1,23 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), window.hurtPlayer=()=>{}, G.P.lv=30, calcStats(G.P), G.P.gold=5000, 1)
+js (()=>{ const ev=startEvent('ladrones','albor'); spawnEventMobs(ev); return [ev.town, G.ents.filter(m=>m.thief).length, townShops('albor').map(d=>d.to)]; })()
+wait 2000
+shot
+js (()=>{ const th=G.ents.filter(m=>m.thief); G.P.x=th[0].x+60; G.P.y=th[0].y; return th.map(m=>Math.round(m.x/16)+','+Math.round(m.y/16)); })()
+wait 1500
+shot
+js (()=>{ G.P.x=10*16; G.P.y=10*16; return 1; })()
+wait 14000
+js (JSON.stringify(G.P.wstate.looted))
+js (()=>{ G.P.homes={casa_a3:{f:{},lv:1}}; G.P.store=[{id:'ore1',q:5},{id:'log1',q:3}]; const ev=G.P.wstate.ev.find(e=>e.type==='ladrones'); endEvent(ev,false); return [G.P.store.length, G.P.wstate.stolen.length]; })()
+js (()=>{ G.time=23*60; const M=makeInterior('tienda_albor'); G.maps.tienda_albor=M; G.P.inside='tienda_albor'; setMap(M, 7*16, 8*16, 'up'); return 1; })()
+wait 2000
+js ({npcs:G.ents.filter(e=>e.map===G.map.id).map(e=>e.id)})
+js (()=>{ openShop('store','albor'); return document.querySelector('#modal h2')&&document.querySelector('#modal h2').innerText; })()
+js (()=>{ closeModal(); const M=makeInterior('posada_albor'); G.maps.posada_albor=M; G.P.inside='posada_albor'; setMap(M, 7*16, 8*16, 'up'); return 1; })()
+wait 2500
+js ({npcs:G.ents.filter(e=>e.map===G.map.id).map(e=>e.id)})
+shot
+js (()=>{ const n=G.ents.find(e=>e.map===G.map.id&&e.id==='nora'); openDialog(n); return [...document.querySelectorAll('#dopts button')].map(b=>b.innerText).slice(0,4); })()
+js (()=>{ closeDialog(); openDrinks(); for(let i=0;i<3;i++) document.querySelector('[data-dr="0"]').click(); return [G.P.tipsy, G.P.buffs.map(b=>b.id)]; })()
+js (window._errs)

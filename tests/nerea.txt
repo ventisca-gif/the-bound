@@ -1,0 +1,14 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), window.hurtPlayer=()=>{}, G.P.lv=155, calcStats(G.P), diveGear().tank=2, enterSub(), 1)
+wait 1500
+js (()=>{ const M=G.map; G.ents.filter(e=>e.type==='mob').forEach(m=>m.remove=true); G.P.x=M.nereaGate[0]*16+8; G.P.y=(M.nereaGate[1]+1)*16+8; const t=interactTarget(); return [t&&t.label, M.currents.length]; })()
+shot
+js (doInteract(), 1)
+wait 2500
+js ({map:G.map.id, npcs:G.ents.filter(e=>e.map==='nerea').map(e=>e.id).length})
+shot
+js (()=>{ const n=G.ents.find(e=>e.id==='reina_nerea'); G.P.x=n.x; G.P.y=n.y+24; openDialog(n); return [...document.querySelectorAll('#dopts button')].map(b=>b.innerText).slice(0,3); })()
+wait 600
+shot
+js (()=>{ closeDialog(); G.P.pet=G.P.pet||'perro'; G.P.pets=[G.P.pet]; addBond(120); return [petEvo(G.P.pet), PETE&&PETE.scale]; })()
+js (window._errs)

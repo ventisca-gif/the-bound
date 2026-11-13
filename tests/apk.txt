@@ -1,0 +1,9 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js ({rtc: rtcSupported(), online: !$('#bOnline').hidden, back: typeof window.onAndroidBack})
+js (window.onAndroidBack(), {panel: !$('#panel').hidden})
+wait 400
+shot
+js (window.onAndroidBack(), {panel: !$('#panel').hidden})
+js (openParty(), 1)
+wait 300
+shot

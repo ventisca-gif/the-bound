@@ -1,0 +1,13 @@
+click #tNew;;wait 400;;type #ccName|Kira;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (()=>{ const P=G.P; P.lv=90; calcStats(P); P.hp=P.S.maxhp; P.quests.done.q12=1; travelTo('puerto'); return 1; })()
+wait 1500
+js (openDialog(G.ents.find(e=>e.id==='marina')), 1)
+wait 800
+js (()=>{ const o=[...document.querySelectorAll('#dialog .dopts button')].find(b=>/Nhar/.test(b.textContent)); if(o) o.click(); return !!o; })()
+wait 4000
+js ({hp:Math.round(G.P.hp), max:G.P.S.maxhp, safe:G.pSafe, chasing:G.ents.filter(e=>e.type==='mob'&&e.state==='chase').length, near:G.ents.filter(e=>e.type==='mob'&&!e.dying&&dist(e.x,e.y,G.P.x,G.P.y)<250).map(e=>[e.id,e.lv,Math.round(dist(e.x,e.y,G.P.x,G.P.y))])})
+shot
+js (G.P.x+=16*7, 1)
+wait 2500
+js ({hp:Math.round(G.P.hp), safe:G.pSafe, chasing:G.ents.filter(e=>e.type==='mob'&&e.state==='chase').length})
+shot

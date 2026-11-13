@@ -1,0 +1,37 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), window.hurtPlayer=()=>{}, G.P.lv=150, calcStats(G.P), giveItem('tarjeta_tren',1), railCred().c=1000, G.P.gold=5000, 1)
+js (()=>{ const tr=RAIL.trains[0]; window.OFF=0; const _c=trainClock; trainClock=()=>_c()+window.OFF; const S=tr.stopAt||RAIL.stations[0]; boardTrainInterior(S,tr,null); return 1; })()
+wait 1200
+js (()=>{ const tr=vehicleTrain(); if(tr.state==='stop') window.OFF+=tr.left+0.5; return 1; })()
+wait 1000
+js (()=>{ const tr=vehicleTrain(); window.OFF+=tr.left-1.5; return [tr.state, tr.next.n]; })()
+wait 2500
+js (()=>{ const tr=vehicleTrain(); return [tr.state, tr.stopAt&&tr.stopAt.n, G.ents.filter(e=>e.map===G.P.map&&e.goal).length]; })()
+wait 1500
+shot
+js (()=>{ G.P.x=G.map.doors[1]*16+8; G.P.y=8*16+4; return 1; })()
+wait 1500
+js ({map:G.P.map, x:G.P.x/16|0, y:G.P.y/16|0, bar:document.getElementById('rideBar').hidden})
+shot
+js (()=>{ const S=RAIL.stations[0]; const tr=RAIL.trains.find(t=>t.state==='stop'&&t.stopAt===S); return [S.n, !!tr]; })()
+js (()=>{ const tr=RAIL.trains[0]; const S=RAIL.stations.find(s=>s.stops[tr.line]); G.P.x=S.plat.x*16+8; G.P.y=S.plat.y*16+8; const st=trainState(tr, trainClock()); return [S.n, tr.state]; })()
+wait 1000
+js (()=>{ const S=RAIL.stations.find(s=>s.stops.A); const tr=RAIL.trains[0]; stationArrive(S, tr); return G.ents.filter(e=>e.paxSt===S.k).map(e=>!!e.goal); })()
+wait 1500
+shot
+js (()=>{ G.P.x=(yachtPath().pts[0][0])*16; G.P.y=yachtPath().pts[0][1]*16+60; return [yachtPath().pts.length, yachtPath().L, JSON.stringify(YPORT.puerto.berth), JSON.stringify(YPORT.brasa.berth), JSON.stringify(yachtState())]; })()
+wait 1500
+shot
+js (()=>{ boardYacht('puerto'); return 1; })()
+wait 1500
+shot
+js (()=>{ goDeck(2); return 1; })()
+wait 1500
+shot
+js (()=>{ goDeck(3); return 1; })()
+wait 1500
+shot
+js (()=>{ goDeck(4); return 1; })()
+wait 1500
+shot
+js (window._errs)

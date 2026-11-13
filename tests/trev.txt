@@ -1,0 +1,8 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), window.hurtPlayer=()=>{}, G.P.lv=60, calcStats(G.P), giveItem('tarjeta_tren',1), railCred().c=500, boardTrainInterior(RAIL.stations[0],RAIL.trains[0],null), 1)
+wait 1500
+js (()=>{ trainAssault(G.map, vehicleTrain(), true); const e=spawnNPC('misterioso',(G.map.cars[1]+4)*16, 5*16, G.map.id,{}); e.riddle=RIDDLES[0]; G.P.x=(G.map.cars[1]+2)*16; G.P.y=5*16; return G.ents.filter(m=>m.map===G.map.id&&m.type==='mob').length; })()
+wait 2500
+shot
+js (()=>{ const e=G.ents.find(e=>e.id==='misterioso'); openDialog(e); return [...document.querySelectorAll('#dopts button')].map(b=>b.innerText); })()
+js (window._errs)

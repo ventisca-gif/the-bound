@@ -1,0 +1,32 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), G.P.lv=248, calcStats(G.P), G.P.hp=G.P.S.maxhp, G.P.gold=5000000, G.P.quests.done.q32=1, 1)
+wait 400
+js ([canOffer('q33'), MAXLV, xpToNext(249)])
+js (()=>{ const e=G.ents.find(e=>e.id==='ingeniera'); if(!e) return 'no ing'; G.P.quests.active.q34={p:[]}; giveItem('log1',99); giveItem('piedra',60); giveItem('ore10',12); G.P.x=e.x; G.P.y=e.y+16; openDialog(e); const b=[...document.querySelectorAll('#dopts button')].find(b=>/Entregar|Hand over/.test(b.textContent)); b.click(); return questReady('q34'); })()
+js (closeDialog(), completeQuest('q34'), G.P.skyMount)
+js (skyAscend(), 1)
+wait 2500
+shot
+wait 4000
+js ([G.map.id, G.map.w, Math.floor(G.P.x/16), Math.floor(G.P.y/16), G.ents.filter(e=>e.map==='cielo'&&e.type==='npc').length])
+js (()=>{ G.P.x=150*16; G.P.y=190*16; return onAir(G.map,G.P.x,G.P.y); })()
+wait 800
+shot
+js (()=>{ const S=SKY_ISLES[0]; G.P.x=(S.c[0]+12)*16; G.P.y=(S.c[1]+2)*16; return 1; })()
+wait 2500
+shot
+js (G.ents.filter(e=>e.type==='mob'&&e.map==='cielo').map(e=>e.mid+':'+e.lv).slice(0,6))
+js (()=>{ const M=G.map; let n=0; for(const o of M.halos.filter(o=>Math.floor(o.haloK/3)===0)){ G.P.x=o.px; G.P.y=o.py+14; const t=interactTarget(); if(t&&t.kind==='skyh'){ doInteract(); n++; } } const T=M.temples[0]; return [n, T.seal.hidden]; })()
+js (()=>{ const T=G.map.temples[0]; G.P.x=T.ch.px; G.P.y=T.ch.py+16; G.P.quests.active.q37={p:[]}; const t=interactTarget(); doInteract(); return [t&&t.kind, questReady('q37'), G.P.sky.temples]; })()
+js (()=>{ const e=G.ents.find(e=>e.id==='forjador_alado'); G.P.x=e.x; G.P.y=e.y+16; giveItem('pluma_alba',20); giveItem('nucleo_viento',10); openDialog(e); [...document.querySelectorAll('#dopts button')].find(b=>/Forjar Alas|Forge Seraph/.test(b.textContent)).click(); return [G.P.wings, G.P.cos.back]; })()
+js (closeDialog(), G.P.x=150*16, G.P.y=190*16, 1)
+wait 800
+shot
+js (()=>{ const P=G.P; const b=spawnMob('nihil', 250, P.x, P.y-40, 0, null, true); b.map='cielo'; const s=spawnMob('seraviel',230,P.x+80,P.y-10,0,null,true); s.map='cielo'; s.scale=2.2; G.P.x=SKY_ISLES[4].c[0]*16; G.P.y=SKY_ISLES[4].c[1]*16; b.x=P.x; b.y=P.y-50; s.x=P.x+70; s.y=P.y; return [b.atlas.fw, b.maxhp]; })()
+wait 800
+shot
+js (()=>{ const P=G.P; P.quests.active.evo_guerrero_3={p:[]}; completeQuest('evo_guerrero_3'); return [P.evo, canLearn('ev_g1'), canLearn('ev_m1')]; })()
+js (()=>{ const P=G.P; P.equip.body={id:'b_21'}; calcStats(P); P.atlas=playerAtlas(P); return 1; })()
+wait 500
+shot
+js (window._errs)

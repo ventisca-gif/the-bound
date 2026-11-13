@@ -1,0 +1,4 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{const P=G.P; P.lv=150; for(let i=0;i<20;i++){ const L=boardQuests(P.lv,i+1); for(const q of L){ q.turnin='kael'; acceptQuest(q.id,q); } } const act=Object.keys(P.quests.active).filter(k=>QD(k).board); const L=boardQuests(150,7); return JSON.stringify([act.length, act.map(k=>QD(k).obj[0].t+':'+(QD(k).obj[0].m||QD(k).obj[0].job||QD(k).obj[0].it)), L.map(q=>[q.obj[0].t,q.obj[0].n,Math.round(100*q.rew.xp/xpToNext(150))+'%'])]); })()
+js (window._errs)

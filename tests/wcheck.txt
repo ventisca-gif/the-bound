@@ -1,0 +1,2 @@
+wait 2500
+js new Promise(res=>{ const W=G.world, D=mapData(W), list=[[3,18],[13,18],[20,5],[28,10],[8,8],[25,20],[16,12],[30,3],[2,2],[12,22]]; let i=0, bad=[]; const om=CW.w.onmessage; CW.w.onmessage=e=>{ const m=e.data; const a=new Uint32Array(m.buf), b=chunkPixels(D,m.cx,m.cy); let diff=0; for(let k=0;k<a.length;k++) if(a[k]!==b[k]) diff++; if(diff) bad.push([m.cx,m.cy,diff]); i++; if(i===list.length){ CW.w.onmessage=om; res({checked:i,bad}); } }; for(const [cx,cy] of list) CW.w.postMessage({cmd:'chunk',id:'world',cx,cy}); })

@@ -1,0 +1,7 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (PARTY.id=NET.myId, upsertRemote({peer:'t1', presence:{id:'zz1', pt:PARTY.id, n:'Lucía', c:'mago', a:DEF_APP, g:{weapon:3,body:3}, l:12, m:'world', x:G.P.x+30, y:G.P.y+10, d:'down', s:'wave', hp:70}}), upsertRemote({peer:'t2', presence:{id:'zz2', pt:PARTY.id, n:'Marcos', c:'arquero', a:Object.assign({},DEF_APP,{g:'m'}), l:15, m:'world', x:G.P.x-40, y:G.P.y+20, d:'down', s:'dance', hp:35}}), upsertRemote({peer:'t3', presence:{id:'zz3', n:'Pedro', c:'asesino', a:DEF_APP, l:9, m:'world', x:G.P.x, y:G.P.y+60, d:'down', iv:{to:NET.myId, pt:'abc'}}}), uiParty(), uiOnline(), 1)
+wait 800
+shot
+js (openParty(), 1)
+wait 400
+shot

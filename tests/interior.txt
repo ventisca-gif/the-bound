@@ -1,0 +1,14 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (()=>{ const W=G.world; const d=W.doors.find(d=>/herr|smith|forja/.test(d.to))||W.doors[0]; G.P.x=d.x*16+8; G.P.y=(d.y+1)*16+6; G.P.dir='up'; window._d=d; return [d.to, d.x, d.y, W.doors.length]; })()
+wait 600
+js (inp.jy=-1, 1)
+wait 700
+js (inp.jy=0, 1)
+wait 900
+js ({inside:G.P.inside, map:G.P.map})
+shot
+js (inp.jy=1, 1)
+wait 2500
+js (inp.jy=0, {inside:G.P.inside, map:G.P.map, x:Math.round(G.P.x/16), y:Math.round(G.P.y/16)})
+wait 800
+shot

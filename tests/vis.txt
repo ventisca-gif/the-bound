@@ -1,0 +1,8 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 1500
+shot
+js (G.P.x=196*16, G.P.y=40*16, 1)
+wait 1500
+shot
+js (G.P.x=70*16, G.P.y=60*16, 1)
+wait 1500
+shot

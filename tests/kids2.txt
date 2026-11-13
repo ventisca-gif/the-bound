@@ -1,0 +1,19 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{ const P=G.P; P.lv=40; calcStats(P); P.partner='greta'; P.kids=[{id:'a1',name:'Luz',g:'f',app:normApp({g:'f',hair:'rosa',hs:3}),born:calDay()-60,cls:'bardo',parent:'greta',equip:{},follow:true}]; familyOnMap(G.map,P.x,P.y); return [KID_MAX, FOLLOW_KIDS.length]; })()
+wait 400
+js (()=>{ const e=FOLLOW_KIDS[0]; const m=spawnMob('lobo', 40, e.x+10, e.y, G.P.L, null, false); let n=0; for (let i=0;i<60 && !e.down;i++){ G.P.hp=G.P.S.maxhp; G.P.dead=false; hurtPlayer(500, m); n++; } return [e.down, e.kid.hp, n]; })()
+wait 300
+shot
+js (()=>{ const e=FOLLOW_KIDS[0]; openKid(e); return [e.down, Math.round(e.kid.hp)]; })()
+js (()=>{ const e=FOLLOW_KIDS[0]; e.down=1; e.downT=11; return e.down; })()
+wait 500
+js ([G.P.kids[0].follow, kidResting(G.P.kids[0]), FOLLOW_KIDS.length])
+js (()=>{ const P=G.P; P.pets=['perro']; setPet('perro'); petStayHome(); return [P.pet, P.petHome]; })()
+js (()=>{ const P=G.P; const id='home'; const M=G.maps.home||makeHome(id); G.maps[M.id]=M; P.inside=M.id; P.retX=P.x; P.retY=P.y; setMap(M, 10*16, 9*16, 'up'); return [M.id, G.ents.filter(e=>e.type==='hpet'&&e.map===M.id).length]; })()
+wait 1500
+js (()=>{ const P=G.P, e=G.ents.find(q=>q.type==='hpet'); P.x=e.x; P.y=e.y+14; const it=interactTarget(); return it && it.kind; })()
+js (doInteract(), document.querySelector('#hpPlay').click(), 1)
+wait 400
+shot
+js (window._errs)

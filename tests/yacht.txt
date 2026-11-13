@@ -1,0 +1,13 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), window.hurtPlayer=()=>{}, G.P.lv=150, G.P.gold=9000, calcStats(G.P), 1)
+js (()=>{ window._ys=yachtState; yachtState=()=>({dock:'puerto', left:20, u:0, to:'brasa'}); G.P.x=229*16; G.P.y=130*16; return JSON.stringify(YPORT.puerto.berth||yachtPath()&&YPORT.puerto.berth); })()
+wait 2500
+shot
+js (()=>{ yachtState=()=>({dock:null, from:'puerto', to:'brasa', u:0.5, left:40}); const p=yachtPos(); G.P.x=p.x; G.P.y=p.y+60; return [p.x/16|0,p.y/16|0]; })()
+wait 2500
+shot
+js (()=>{ yachtState=()=>({dock:'brasa', left:20, u:1, to:'puerto'}); G.P.x=BRASA.pier[0]*16; G.P.y=BRASA.pier[1]*16+30; return 1; })()
+wait 2500
+shot
+js (()=>{ const n=G.ents.find(e=>e.id==='capitana'); openDialog(n); return [...document.querySelectorAll('#dopts button')].map(b=>b.innerText); })()
+js (window._errs)

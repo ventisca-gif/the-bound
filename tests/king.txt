@@ -1,0 +1,27 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), window.hurtPlayer=()=>{}, G.P.lv=60, calcStats(G.P), G.P.gold=50000, giveItem('log1',30), 1)
+js (G.ents.filter(e=>e.id&&e.id.startsWith('heraldo')).map(e=>e.id+'@'+Math.round(e.x/16)+','+Math.round(e.y/16)))
+js (()=>{ const n=G.ents.find(e=>e.id==='heraldo_corona'); G.P.x=n.x+20; G.P.y=n.y; openDialog(n); const b=[...document.querySelectorAll('#dopts button')]; const t=b.map(x=>x.innerText); b[0].click(); return t.slice(0,3); })()
+js (()=>{ closeDialog(); const n=G.ents.find(e=>e.id==='heraldo_corona'); openDialog(n); const b=[...document.querySelectorAll('#dopts button')]; const t=b.map(x=>x.innerText); b.find(x=>x.innerText.includes('encargo')).click(); return [t.slice(0,3), G.P.fac.task]; })()
+js (()=>{ closeDialog(); G.P.fac.task={k:'caza',n:2,got:2}; const n=G.ents.find(e=>e.id==='heraldo_corona'); openDialog(n); [...document.querySelectorAll('#dopts button')].find(x=>x.innerText.includes('Informar')).click(); return [G.P.fac.xp, G.P.rep]; })()
+js (()=>{ closeDialog(); G.P.fac.xp=95; addFacXp(10); return rankOf(G.P.fac.xp); })()
+js (()=>{ const M=makeInterior('tienda_albor'); G.maps.tienda_albor=M; G.P.inside='tienda_albor'; G.P.retX=124*16; G.P.retY=150*16; setMap(M, 7*16, 6*16, 'up'); return 1; })()
+wait 1200
+js (()=>{ const n=G.ents.find(e=>e.map===G.map.id&&e.id==='lia'); const _r=Math.random; Math.random=()=>0.99; openDialog(n); [...document.querySelectorAll('#dopts button')].find(x=>x.innerText.includes('Robar')).click(); Math.random=_r; return [G.P.bounty, repStatus('albor')]; })()
+js (()=>{ G.P.inside=null; setMap(G.world, 124*16, 152*16, 'down'); return 1; })()
+wait 3500
+js (G.ents.filter(m=>m.lawOf).map(m=>m.name+':'+m.lv))
+shot
+js (()=>{ const ev=startEvent('invasion','puerto'); spawnEventMobs(ev); const t=TOWNS.find(t=>t.k==='puerto'); G.P.x=(t.x0+t.x1)*8; G.P.y=(t.y0+t.y1)*8; return [ev.wave, ev.left, G.ents.filter(b=>b.barrOf).length]; })()
+wait 2500
+shot
+js (()=>{ const b=G.ents.find(b=>b.barrOf); b.bhp=30; G.P.x=b.x; G.P.y=b.y+16; const t=interactTarget(); doInteract(); return [t&&t.label, b.bhp]; })()
+js (()=>{ const ev=G.P.wstate.ev.find(e=>e.type==='invasion'); endEvent(ev,false); ruinFlags(); return townRuined('puerto'); })()
+wait 1500
+shot
+js (()=>{ G.P.lv=60; giveItem('tarjeta_tren',1); railCred().c=500; const tr=RAIL.trains[0]; boardTrainInterior(RAIL.stations[0],tr,null); return 1; })()
+wait 1500
+js (()=>{ const M=G.map; M.tev={lastState:'stop'}; G.P.cargo={on:1}; trainEventTick(0.1); return G.ents.filter(m=>m.map===M.id&&m.type==='mob').length; })()
+wait 2000
+shot
+js (window._errs)

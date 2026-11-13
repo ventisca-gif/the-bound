@@ -1,0 +1,8 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (()=>{ const P=G.P; while(P.lv<8) gainXp(50); P.spts=10; for(const id of ['g1','g1','g5','g9']) learnSkill(id); giveItem('w_guerrero_2',1); giveItem('pocion1',3); for (const it of P.inv) if (it && ITEMS[it.id] && ITEMS[it.id].slot && canEquip && !canEquip(it.id)) {} ; P.x=96*16+8; P.y=181*16; G.time=12*60; return {lv:P.lv, slots:P.slots, inv:P.inv.filter(Boolean).map(i=>i.id)}; })()
+js (()=>{ const P=G.P; for (let i=0;i<P.inv.length;i++){ const it=P.inv[i]; if(it && ITEMS[it.id].slot && (ITEMS[it.id].tier||1)===2) equipFromInv(i); } calcStats(P); P.hp=P.S.maxhp; return {atk:P.S.atk, def:P.S.def, hp:P.S.maxhp, eq:Object.values(P.equip).filter(Boolean).map(e=>e.id)}; })()
+wait 1200
+js (G.ents.filter(e=>e.boss).map(b=>[b.name,b.lv,b.hp]))
+js (window._t0=performance.now(), window._iv=setInterval(()=>{const P=G.P; if(P.dead) return; const m=G.ents.find(e=>e.boss&&!e.dying)||nearestMob(P.x,P.y,200); if(!m){inp.jx=inp.jy=0;return;} const d=dist(m.x,m.y,P.x,P.y); const a=Math.atan2(m.y-P.y,m.x-P.x); if(d>40){inp.jx=Math.cos(a);inp.jy=Math.sin(a);} else {inp.jx=0;inp.jy=0;} basicAttack(); useSkill(0); useSkill(1); useSkill(2); if(P.hp<P.S.maxhp*0.35) quickPotion(); if(!window._done && !G.ents.some(e=>e.boss&&!e.dying)) window._done=(performance.now()-window._t0)/1000;},60),1)
+wait 15000;;shot;;wait 25000;;shot
+js (clearInterval(window._iv), inp.jx=inp.jy=0, {lv:G.P.lv, hp:Math.round(G.P.hp), dead:G.P.dead, deaths:G.P.stats.deaths, boss:G.ents.filter(e=>e.boss).map(b=>[Math.round(b.hp),b.maxhp,b.state]), kills:G.P.bossKills, ttk:window._done, pots:G.P.inv.filter(Boolean).filter(i=>i.id==='pot1').map(i=>i.n)})

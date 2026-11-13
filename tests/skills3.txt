@@ -1,0 +1,7 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.x=60*16, G.P.y=150*16, 1)
+wait 1500
+js (()=>{ const out=[]; const P=G.P; P.souls=[{id:'a',mid:'lobo',lv:140,el:1,b:0},{id:'b',mid:'gruk',lv:34,el:0,b:1}]; for (const cls of ['guerrero','mago','arquero','asesino','bardo','invocador']) { P.cls=cls; P.lv=150; calcStats(P); const m=spawnMob('lobo',20,P.x+30,P.y,P.L); const ids=Object.keys(SK).filter(k=>SK[k].cls===cls&&SK[k].type==='act').filter(k=>cls==='bardo'||cls==='invocador'||/19$/.test(k)); for (const id of ids) { P.skills[id]=10; P.slots[0]=id; P.cds={}; P.mp=99999; P.busy=0; m.hp=m.maxhp=1e9; try { useSkill(0); for (let k=0;k<40;k++) update(1/30); out.push(id+':'+SK[id].eff.k+':ok'); } catch(e) { out.push(id+':ERR '+e.message+' '+(e.stack||'').split('\n')[1]); } } m.remove=true; for (let i=0;i<20;i++) { P.atkCd=0; P.busy=0; basicAttack(); update(1/30); } } return out.join(' ')+' summons:'+SUMMONS.length; })()
+wait 800
+shot
+js (window._errs)

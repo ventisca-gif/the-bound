@@ -1,0 +1,17 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js ({photon: typeof Photon, ver: Photon.Version, avail: phnAvailable(), online: netOnline()})
+js (openParty(), 1)
+wait 300
+shot
+click #phnJoinB
+wait 200
+type #phnIn|k7p2qx
+shot
+click #phnLook
+wait 1500
+js ({st: PHN.st, busy: PHN.busy, msg: PHN.msg, cstate: phnState()})
+wait 16000
+js ({st: PHN.st, busy: PHN.busy, msg: PHN.msg, c: !!PHN.c})
+shot
+js (window._errs)

@@ -1,0 +1,26 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), G.P.lv=230, calcStats(G.P), 1)
+js (openPanel('map'), [worldPOI().length, [...new Set(worldPOI().map(q=>q.c))].join(',')])
+wait 500
+shot
+js ($('#mwNext').click(), 1)
+wait 600
+shot
+js ($('#mwNext').click(), 1)
+wait 600
+shot
+js ($('#mwNext').click(), 1)
+wait 600
+shot
+js ($('#mwNext').click(), 1)
+wait 800
+shot
+js ($('#mwNext').click(), 1)
+wait 800
+shot
+js ($('#mwNext').click(), [MAPW, document.querySelectorAll('.mchip').length])
+js (document.querySelector('[data-mc="smith"]').click(), 1)
+wait 400
+shot
+js ([ITEMS.acc_ambar.hpB, ITEMS.acc_ambar.atk, ITEMS.acc_cielo_guerrero.hpB, ITEMS.col_cielo_mago.mpB, ITEMS.wc_guerrero.ws, ITEMS.ws_eclipse.icon.join(), wsprForWeapon({k:'sword',tier:20})!=null, BOSSES.nihil.cos.length])
+js (window._errs)

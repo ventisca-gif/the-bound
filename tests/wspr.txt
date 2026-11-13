@@ -1,0 +1,20 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), window.hurtPlayer=()=>{}, 1)
+js (()=>{ const P=G.P; P.lv=45; giveItem('w_guerrero_6',1); const i=P.inv.findIndex(s=>s.id==='w_guerrero_6'); equipFromInv(i); calcStats(P); const m=spawnMob('lobo', 5, P.x+26, P.y, P.L, null, false); m.hp=m.maxhp=1e6; P.dir='right'; return P.equip.weapon.id; })()
+js (G.P.atkCd=0, G.P.busy=0, basicAttack(), 1)
+wait 90
+shot
+wait 90
+shot
+js (()=>{ const P=G.P; giveItem('w_arquero_4',1); P.cls='arquero'; const i=P.inv.findIndex(s=>s.id==='w_arquero_4'); equipFromInv(i); calcStats(P); refreshLook(); P.atkCd=0; P.busy=0; G.ents.filter(e=>e.type==='mob').forEach(m=>{m.x=P.x+90;}); basicAttack(); return P.equip.weapon.id; })()
+wait 150
+shot
+wait 200
+shot
+js (()=>{ const P=G.P; giveItem('w_pez_2',1); P.cls='pez'; const i=P.inv.findIndex(s=>s.id==='w_pez_2'); equipFromInv(i); calcStats(P); refreshLook(); P.atkCd=0; P.busy=0; G.ents.filter(e=>e.type==='mob').forEach(m=>{m.x=P.x+24;}); basicAttack(); return 1; })()
+wait 120
+shot
+js (openPanel('inv'), 1)
+wait 400
+shot
+js (window._errs)

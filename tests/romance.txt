@@ -1,0 +1,47 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.gold=200000, G.P.rel={greta:{t:950,a:950}}, giveItem('ramo',3,true), giveItem('colgante_amor',1,true), giveItem('rubi',2,true), (()=>{const g=G.ents.find(e=>e.id==='greta'); G.P.x=g.x+30; G.P.y=g.y; window._g=g; return [g.x/16|0,g.y/16|0];})())
+wait 800
+js (openDialog(window._g), romanceMenu(window._g), 1)
+wait 900
+shot
+js (romHug(window._g), 1)
+wait 900
+shot
+wait 1600
+js (romKiss(window._g), 1)
+wait 1200
+shot
+wait 2000
+js (openDialog(window._g), romPropose(window._g), 1)
+wait 3500
+js ({partner:G.P.partner, rel:G.P.rel.greta})
+js (startComp(window._g, true), inp.jx=-1, inp.jy=0, 1)
+wait 1500
+js (inp.jx=0, 1)
+wait 300
+shot
+js (inp.jy=1, 1)
+wait 1200
+js (inp.jy=0, 1)
+wait 300
+shot
+js (openPanel('rel'), 1)
+wait 500
+shot
+js (closePanel(), (()=>{ const d=G.world.doors.find(d=>d.to==='casa_a3'); G.P.x=d.x*16+8; G.P.y=(d.y+1)*16+8; enterInterior(d); return [d.x,d.y]; })())
+wait 1500
+shot
+js (openBuyHouse('casa_a3'), document.querySelector('#hbuy').click(), 1)
+wait 1200
+js (Object.assign(G.P.homes.casa_a3.f, {bed:'bigbed', ward:'wardrobe', mirror:'mirror', fire:'fireplace', paint:'painting', table:'sofa', rug:'rugb', deco2:'lamp', deco3:'flowers'}), G.P.homes.casa_a3.floor=2, rebuildHome(), 1)
+wait 1200
+shot
+js (endComp(), rebuildHome(), 1)
+wait 800
+js (openDecor(), 1)
+wait 400
+shot
+js (closeModal(), openStorage(), 1)
+wait 400
+shot
+js (window._errs)

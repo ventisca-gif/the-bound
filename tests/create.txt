@@ -1,0 +1,4 @@
+click #tNew;;wait 500
+shot
+click [data-c="asesino"];;wait 300
+shot

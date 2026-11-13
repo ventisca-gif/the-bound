@@ -1,0 +1,20 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), window.hurtPlayer=()=>{}, G.P.lv=60, calcStats(G.P), G.P.gold=500000, giveItem('log1',99), giveItem('piedra',99), giveItem('ore1',20), 1)
+wait 1500
+js (()=>{ const wb=G.world.objs.filter(o=>o.f==='workbench'); const o=wb[0]; G.P.x=o.px; G.P.y=o.py+18; const t=interactTarget(); return [wb.length, t&&t.kind, t&&t.label]; })()
+js (doInteract(), !!document.querySelector('#modal [data-wb]'))
+js (bkCraft('w_wood',10), bkCraft('w_woodwin',2), bkCraft('door_wood',1), bkCraft('fl_wood',10), bkCraft('bed',1), bkCraft('table',1), bkCraft('soil',3), bkCraft('torch',2), closeModal(), [bkCount('w_wood'), bkCount('fl_wood'), logCount()])
+wait 300
+js (()=>{ const W=G.world, t=TOWNS[0]; for(let y=t.y0-12;y<t.y1+12;y++) for(let x=t.x0-12;x<t.x1+12;x++){ let ok=true; for(let dy=-1;dy<=4&&ok;dy++) for(let dx=0;dx<=7&&ok;dx++) if(!bldCanPlace(W,'fl_wood',x+dx,y+dy)||!bldTileFree(W,x+dx,y+dy)) ok=false; if(ok){ G.P.x=x*16+8; G.P.y=y*16+8; return [x,y]; } } return 'none'; })()
+wait 400
+js (()=>{ const P=G.P, tx=Math.floor(P.x/16), ty=Math.floor(P.y/16); let n=0, res=[]; for(let dx=2;dx<=7;dx++){ res.push(bldPlace(dx===4?'door_wood':dx===6?'w_woodwin':'w_wood', tx+dx, ty+2)); } for(let dy=-1;dy<=1;dy++){ res.push(bldPlace('w_wood', tx+2, ty+dy)); res.push(bldPlace('w_wood', tx+7, ty+dy)); } for(let dx=3;dx<=6;dx++) for(let dy=-1;dy<=1;dy++) res.push(bldPlace('fl_wood', tx+dx, ty+dy)); res.push(bldPlace('bed', tx+3, ty-1)); res.push(bldPlace('table', tx+5, ty)); res.push(bldPlace('torch', tx+6, ty-1)); res.push(bldPlace('soil', tx+3, ty+4)); return [res.join(''), G.P.builds.length]; })()
+wait 600
+shot
+js (()=>{ const P=G.P, tx=Math.floor(P.x/16), ty=Math.floor(P.y/16); const o=G.map.objs[G.map.objAt[tileAt(G.map,tx+3,ty-1)]]; const ok=bldMove(o, tx+4, ty-1); return [o&&o.bk, ok, o.tx]; })()
+js (()=>{ const P=G.P, tx=Math.floor(P.x/16), ty=Math.floor(P.y/16); bldRemoveAt(tx+7, ty+2); return [bkCount('w_woodwin'), G.P.builds.length]; })()
+js (()=>{ const W=G.world, P=G.P; const tr=W.objs.find(o=>o.k==='tree'&&!o.hidden&&bldZone(W,o.tx,o.ty)); P.x=tr.px; P.y=tr.py+20; giveItem('hacha5',1); bldRemoveAt(tr.tx,tr.ty); return [tr.hidden, countItem('log'+Math.min(11,WOODT[tr.sp]||1)), W.objAt[tileAt(W,tr.tx,tr.ty)]]; })()
+js (()=>{ const s=JSON.stringify(G.P.builds).length; saveGame && saveGame(); return s; })()
+js (bldToggle(true), document.querySelector('#bldBar').hidden, document.querySelectorAll('#bldBar .bbi').length)
+wait 300
+shot
+js (window._errs)

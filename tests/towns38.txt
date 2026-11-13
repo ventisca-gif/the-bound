@@ -1,0 +1,42 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), window.hurtPlayer=()=>{}, G.P.lv=80, calcStats(G.P), G.P.gold=900000, giveItem('log1',99), giveItem('piedra',99), 1)
+wait 600
+js (()=>{ const [px,py]=townPlaza('albor'); G.P.x=px*16; G.P.y=(py+3)*16; window.bloodMoon=()=>true; siegeStart('albor'); return 1; })()
+wait 3600
+js ([SIEGE.round, SIEGE.left])
+js (()=>{ for(let r=0;r<3;r++){ for(const m of G.ents.filter(m=>m.siege&&!m.dying)) killMob(m); } return 1; })()
+wait 7000
+js ([SIEGE.round])
+js (()=>{ for(const m of G.ents.filter(m=>m.siege&&!m.dying)) killMob(m); return 1; })()
+wait 7000
+js ([SIEGE.round])
+js (()=>{ for(const m of G.ents.filter(m=>m.siege&&!m.dying)) killMob(m); return 1; })()
+wait 7000
+js ([SIEGE.round, !!SIEGE.boss, SIEGE.boss&&SIEGE.boss.atlas&&SIEGE.boss.atlas.fw])
+js (()=>{ const b=SIEGE.boss; G.P.x=b.x; G.P.y=b.y+30; b.stompT=0; return 1; })()
+wait 2000
+shot
+js ([G.world.objs.filter(o=>o.ruin).length, DOWNED.size])
+js (()=>{ const e=[...DOWNED][0]; if(!e) return 'none'; G.P.x=e.x; G.P.y=e.y+14; const t=interactTarget(); return t&&t.kind; })()
+shot
+js (()=>{ for(const m of G.ents.filter(m=>m.siege&&!m.dying)) killMob(m); return 1; })()
+wait 7000
+js (()=>{ for(const m of G.ents.filter(m=>m.siege&&!m.dying)) killMob(m); return SIEGE&&SIEGE.round; })()
+wait 1500
+js (window.bloodMoon=()=>false, [SIEGE, (G.P.wardrobe||[]).includes('c_capa_carmesi')])
+js (()=>{ for(let i=0;i<10;i++){ devDonate('albor','log'); devDonate('albor','piedra'); devDonate('albor','gold'); } return [townDev('albor'), DEV_D.length]; })()
+js (()=>{ for(let i=0;i<30;i++){ devDonate('albor','log'); devDonate('albor','piedra'); devDonate('albor','gold'); } giveItem('log1',99); giveItem('piedra',99); for(let i=0;i<30;i++){ devDonate('albor','log'); devDonate('albor','piedra'); devDonate('albor','gold'); } return [townDev('albor'), DEV_D.length, DEV_FLOOR.length, canOffer('dv_albor_1'), canOffer('dv_albor_4')]; })()
+js (()=>{ const [px,py]=townPlaza('albor'); G.P.x=px*16; G.P.y=py*16; return 1; })()
+wait 1200
+shot
+js (()=>{ const e=G.ents.find(e=>e.id==='ceremonias'); G.P.x=e.x; G.P.y=e.y+16; festStart('carrera'); return FEST&&FEST.pts.length; })()
+wait 500
+shot
+js (()=>{ for(const p of FEST.pts){ G.P.x=p.x; G.P.y=p.y; festTick(); } return [FEST, countItem('ficha_festival')]; })()
+js (festStart('linternas'), FEST.L.length)
+js (()=>{ for(const l of FEST.L){ G.P.x=l.x; G.P.y=l.y; festTick(); } return [FEST, countItem('ficha_festival')]; })()
+js (openFestShop(), document.querySelectorAll('#modal [data-fb]').length)
+js (closeModal(), festStart('baile'), !!document.querySelector('#dcv'))
+wait 800
+shot
+js (window._errs)

@@ -1,0 +1,15 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (()=>{ window.hurtPlayer=()=>{}; const P=G.P; P.lv=30; calcStats(P); P.hp=P.S.maxhp; const b=G.world.bosses.find(b=>b.id==='reyslime'); P.x=b.x*16+8+120; P.y=b.y*16+8; window._b=b; return [b.x,b.y]; })()
+wait 1500
+js (()=>{ const P=G.P, m=window._b.ent; P.x=m.x+60; P.y=m.y; return {st:m.state, hp:m.hp, max:m.maxhp}; })()
+wait 1500
+js (()=>{ const m=window._b.ent; hitMob(m, 400); hitMob(m, 400); const P=G.P; P.x=m.home.x+380; P.y=m.home.y; return {st:m.state, hp:m.hp}; })()
+wait 3000
+js (()=>{ const m=window._b.ent; return {st:m.state, hp:m.hp, d:Math.round(Math.hypot(m.x-m.home.x,m.y-m.home.y))}; })()
+js (()=>{ const P=G.P; P.godT=99; P.x=window._b.ent.home.x+700; return 1; })()
+wait 9000
+js (()=>{ const m=window._b.ent; return {st:m && m.state, hp:m && m.hp, max: m&&m.maxhp, d:m && Math.round(Math.hypot(m.x-m.home.x,m.y-m.home.y))}; })()
+js (()=>{ const P=G.P, b=window._b; P.x=b.x*16+8+200; P.y=b.y*16+8; return b.hpLeft; })()
+wait 1500
+js (()=>{ const m=window._b.ent; return {st:m && m.state, hp:m && m.hp, max: m&&m.maxhp}; })()
+js ({dead:G.P.dead, t:G.t, resp:window._b.respawn, ent:!!window._b.ent, px:G.P.x/16|0, py:G.P.y/16|0, paused:G.paused, map:G.P.map})

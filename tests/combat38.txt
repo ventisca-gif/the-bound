@@ -1,0 +1,26 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), G.P.lv=160, G.P.cls='mago', calcStats(G.P), G.P.hp=G.P.S.maxhp, G.P.mp=99999, G.P.S.maxmp=99999, 1)
+wait 600
+js (()=>{ const P=G.P; const m=spawnMob('slime_v', 60, P.x+40, P.y, 0, null, false); m.map=P.map; window._m=m; doBlock(); const h0=P.hp; hurtPlayer(500); return [P.hp===h0, m.guardBrk>G.t, m.hp<m.maxhp]; })()
+wait 3200
+js (()=>{ const P=G.P; doBlock(); const h0=P.hp; setTimeout(()=>{ hurtPlayer(500); window._r=[h0-P.hp]; }, 300); return 1; })()
+wait 500
+js (window._r)
+js (()=>{ const P=G.P; const b=spawnMob('reyslime', 120, P.x+60, P.y, 0, null, true); b.map=P.map; b.hp=b.maxhp=1e9; window._b=b; let dodged=0; for(let i=0;i<40;i++){ ATK_ID++; P.lastAtk='g1'; P.lastAtkT=G.t; const d=hitMob(b, 10, {}); if(d===0) dodged++; } return [dodged, Math.round(b.learn.g1.n)]; })()
+js (()=>{ const b=window._b; b.hp=b.maxhp*0.5; hitMob(b, 10, {noLearn:1}); return [b.phase, (b.extraMv||[]).length]; })()
+wait 1500
+shot
+js (()=>{ const b=window._b; b.remove=true; return 1; })()
+js (()=>{ const P=G.P; Object.keys(RUNES2).forEach(k=>giveRune(k,true)); for(let i=0;i<5;i++){ const m=spawnMob('slime_v', 60, P.x+30+i*14, P.y+10, 0, null, false); m.map=P.map; } const out=[]; for(const k in RUNE_COMBO){ P.runeSpell=k; runeCdT=0; P.busy=0; try{ castRune(); out.push(k); }catch(e){ out.push('ERR '+k+' '+e.message); } } return out.length + ' ' + out.filter(x=>x.startsWith('ERR')).join(';'); })()
+wait 300
+shot
+wait 1500
+js (openRunes(), document.querySelectorAll('#modal .rune').length)
+shot
+js (closeModal(), giveItem('wc_mago',1), equipFromInv(G.P.inv.findIndex(s=>s.id==='wc_mago')), 1)
+wait 500
+js (document.querySelectorAll('#modal [data-pact]').length)
+js (()=>{ const a0=G.P.S.atk; document.querySelector('#modal [data-pact=def]').click(); return [a0, G.P.S.atk, G.P.equip.weapon.pact]; })()
+js (()=>{ const w=G.P.equip.weapon; w.wx=400; wtT=0; weaponTalkTick(0.1); return [w.soul, G.P.chat]; })()
+js (!document.querySelector('#bBlk').hidden, !document.querySelector('#bRune').hidden)
+js (window._errs)

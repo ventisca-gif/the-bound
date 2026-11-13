@@ -1,0 +1,24 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), window.hurtPlayer=()=>{}, G.P.lv=150, calcStats(G.P), giveItem('tarjeta_tren',1), railCred().c=1000, 1)
+js (()=>{ const tr=RAIL.trains[0]; const S=RAIL.stations.find(s=>s.stops[tr.line]); window.OFF=0; const _c=trainClock; trainClock=()=>_c()+window.OFF; boardTrainInterior(S,tr,RAIL.stations.filter(x=>x!==S&&x.stops[tr.line])[1]); return [S.n, tr.state, tr.kind]; })()
+wait 1500
+js ({map:G.P.map, x:G.P.x, y:G.P.y, npcs:G.ents.filter(e=>e.map===G.P.map).length, bar:document.getElementById('rideBar').innerText})
+shot
+js (G.P.x=G.map.cars[0]*16+40, G.P.y=4*16+8, 1)
+wait 800
+shot
+js (()=>{ const o=G.map.objs.find(o=>o.seat&&!o.taken); G.P.x=o.px; G.P.y=o.py+10; const it=interactTarget(); doInteract(); return [it&&it.label, G.P.anim]; })()
+wait 800
+shot
+js (G.P.x=5*16, G.P.y=5*16+8, 1)
+wait 600
+shot
+js (()=>{ window.OFF+=40; return 1; })()
+wait 2500
+js ({st:vehicleTrain().state, at:vehicleTrain().stopAt&&vehicleTrain().stopAt.n, bar:document.getElementById('rideBar').innerText, n:G.ents.filter(e=>e.map===G.P.map&&e.goal).length})
+shot
+js (()=>{ const tr=vehicleTrain(); if(tr.state!=='stop'){ return 'nostop'; } G.P.x=G.map.doors[1]*16+8; G.P.y=8*16+4; return 1; })()
+wait 1500
+js ({map:G.P.map, x:G.P.x/16|0, y:G.P.y/16|0, bar:document.getElementById('rideBar').hidden})
+shot
+js (window._errs)

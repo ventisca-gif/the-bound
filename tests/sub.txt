@@ -1,0 +1,39 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), G.P.lv=155, G.P.gold=500000, calcStats(G.P), window.hurtPlayer=()=>{}, 1)
+js (()=>{ const n=G.ents.find(e=>e.id==='instructora'); return n?[n.x/16|0,n.y/16|0, n.map]:'none'; })()
+js (()=>{ const n=G.ents.find(e=>e.id==='instructora'); G.P.x=n.x; G.P.y=n.y+20; return 1; })()
+wait 1200
+shot
+js (openDiveShop(), 1)
+wait 500
+shot
+js (()=>{ const g=diveGear(); g.tank=2; g.fins=1; g.lamp=1; g.harp=2; closeModal(); enterSub(); return 1; })()
+wait 2000
+js ({map:G.P.map, o2:G.P.o2, spd:G.P.S.spd, mobs:G.ents.filter(e=>e.type==='mob'&&e.map==='submarino').length})
+shot
+js (()=>{ G.P.anim='walk'; return 1; })()
+wait 3000
+js ({mobs:G.ents.filter(e=>e.type==='mob'&&e.map==='submarino').map(e=>e.mid+':'+e.lv).slice(0,8)})
+shot
+js (()=>{ const M=G.map; const c=M.camps.find(c=>c.y>36&&c.y<62); G.P.x=c.x*16+8; G.P.y=c.y*16+40; return [c.mob]; })()
+wait 3500
+shot
+js (()=>{ const M=G.map; const c=M.camps.find(c=>c.y>66); G.P.x=c.x*16+8; G.P.y=c.y*16+40; return [c.mob, M.camps.length]; })()
+wait 3500
+shot
+js (()=>{ const m=G.ents.find(e=>e.type==='mob'&&e.map==='submarino'&&!e.dying); if(m){ G.P.x=m.x+30; G.P.y=m.y; } for(let i=0;i<5;i++) setTimeout(()=>{G.P.atkCd=0;G.P.busy=0;basicAttack();}, i*300); return m&&m.mid; })()
+wait 600
+shot
+wait 1200
+js (()=>{ const M=G.map; G.P.x=M.bossAt[0]*16+8; G.P.y=M.bossAt[1]*16+90; return 1; })()
+wait 3000
+shot
+js (()=>{ const s=G.map.schools[0]; G.P.x=s.x+20; G.P.y=s.y; const t=interactTarget(); doInteract(); return t&&t.label; })()
+wait 1000
+js (()=>{ const o=G.map.objs.find(o=>o.schest!==undefined); G.P.x=o.px; G.P.y=o.py+14; const t=interactTarget(); doInteract(); return [t&&t.label, G.P.gold]; })()
+wait 500
+js (()=>{ G.P.o2=1; return 1; })()
+wait 4000
+js ({map:G.P.map, hp:G.P.hp, dead:G.P.dead})
+shot
+js (window._errs)

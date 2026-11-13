@@ -1,0 +1,14 @@
+click #tNew;;wait 400;;type #ccName|Primero;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (saveGame(true), 1)
+js (location.reload(), 1)
+wait 3000
+shot
+click #tNew;;wait 400;;type #ccName|Segunda;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js ({name:G.P.name, slot:SLOT})
+js (saveGame(true), location.reload(), 1)
+wait 3000
+shot
+js (document.querySelector('[data-slot="0"]').click(), 1)
+wait 1500
+wait 3000
+js ({name:G.P.name, slot:SLOT})

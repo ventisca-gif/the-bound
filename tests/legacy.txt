@@ -1,0 +1,26 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), window.hurtPlayer=()=>{}, G.P.lv=190, calcStats(G.P), giveItem('pico3',1), giveItem('fragmento_mapa',4), 1)
+js (()=>{ const a0=G.P.S.atk; G.P.equip.weapon.wx=200; calcStats(G.P); return [a0, G.P.S.atk, wlvOf(G.P.equip.weapon)]; })()
+js (()=>{ const n=G.ents.find(e=>e.id==='capataz_mina'); G.P.x=n.x+20; G.P.y=n.y; openDialog(n); [...document.querySelectorAll('#dopts button')][0].click(); return 1; })()
+wait 2000
+js (()=>{ G.P.dir='down'; G.P.x=32*16; G.P.y=6*16+8; for (let k=0;k<6;k++){ const t=interactTarget(); if(t&&t.kind==='deepdig'){ G.P.busy=0; doInteract(); G.P.y+=16; } } return [G.map.id, G.map.dug.size]; })()
+wait 800
+shot
+js (()=>{ _quakeT=0; deepTick(0.1); return G.map.dug.size; })()
+wait 1500
+shot
+js (()=>{ G.P.inside=null; setMap(G.world, 124*16, 150*16, 'down'); const M=makeSpirit(); G.P.inside='espiritual'; setMap(M, 23*16, 22*16, 'up'); return 1; })()
+wait 1500
+js (()=>{ for (const b of G.map.braz){ G.P.x=b.x; G.P.y=b.y+10; doInteract(); } G.P.x=23*16; G.P.y=17*16+10; const t=interactTarget(); return [t&&t.label]; })()
+shot
+js (()=>{ doInteract(); return 1; })()
+wait 2000
+js (()=>{ const n=G.ents.find(e=>e.id==='caravanero'); G.P.x=n.x+20; G.P.y=n.y; openDialog(n); const b=[...document.querySelectorAll('#dopts button')]; const t=b.map(x=>x.innerText); b.find(x=>x.innerText.includes('Escoltar')).click(); return t.slice(0,3); })()
+wait 3000
+js ({car:!!CARAVAN, x:CARAVAN&&Math.round(CARAVAN.w.x)})
+shot
+js (()=>{ const n=G.ents.find(e=>e.id==='arqueologa'); return !!n; })()
+js (()=>{ G.P.arch={tomb:1}; const T_=makeTomb(); setMap(T_, 19.5*16, (T_.h-3)*16, 'up'); return 1; })()
+wait 2500
+shot
+js (window._errs)

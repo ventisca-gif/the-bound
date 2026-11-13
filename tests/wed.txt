@@ -1,0 +1,20 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), window.hurtPlayer=()=>{}, G.P.lv=60, calcStats(G.P), G.P.partner='greta', rel('greta').a=900, rel('greta').t=900, giveItem('anillo_boda',1), 1)
+js (()=>{ const n=G.ents.find(e=>e.id==='greta'); G.P.x=n.x+20; G.P.y=n.y; openDialog(n); return [...document.querySelectorAll('#dopts button')].map(b=>b.innerText).slice(0,4); })()
+js (()=>{ const b=[...document.querySelectorAll('#dopts button')].find(b=>b.innerText.includes('casamos')); b.click(); return 1; })()
+wait 3000
+shot
+wait 3500
+shot
+wait 5000
+shot
+wait 4500
+shot
+wait 3000
+shot
+wait 5000
+shot
+wait 6000
+js ({sp:G.P.spouse, wed:!!WED, furn:G.P.furn})
+js (()=>{ const n=G.ents.find(e=>e.id==='greta'&&!e.wedTmp); G.P.x=n.x+20; G.P.y=n.y; openDialog(n); return [...document.querySelectorAll('#dopts button')].map(b=>b.innerText).slice(0,5); })()
+js (window._errs)

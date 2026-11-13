@@ -1,0 +1,27 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), window.hurtPlayer=()=>{}, G.P.lv=120, calcStats(G.P), G.P.gold=500000, 1)
+js (()=>{ const n=G.ents.find(e=>e.id==='establo'); G.P.x=n.x+20; G.P.y=n.y; openDialog(n); [...document.querySelectorAll('#dopts button')][0].click(); document.querySelector('[data-mt="caballo"]').click(); const s0=G.P.S.spd; toggleMount(); return [G.P.mounts, s0, G.P.S.spd]; })()
+down ArrowRight
+wait 700
+shot
+up ArrowRight
+js (()=>{ G.P.mounts.push('dragon'); G.P.mount=null; G.P.lastMount='dragon'; toggleMount(); return G.P.mount; })()
+down ArrowUp
+wait 600
+shot
+up ArrowUp
+js (()=>{ toggleMount(); const n=G.ents.find(e=>e.id==='lanista'); G.P.x=n.x+20; G.P.y=n.y; openDialog(n); [...document.querySelectorAll('#dopts button')][0].click(); return 1; })()
+wait 2500
+js ({map:G.map.id, pvp:PVP.on, atk:G.P.S.atk, hp:G.P.S.maxhp, crowd:G.map.crowd.length})
+js (()=>{ startArenaRun('solo'); return 1; })()
+wait 3500
+js (G.ents.filter(e=>e.arenaMob).map(m=>m.mid+':'+m.maxhp+'/'+m.atk))
+shot
+js (()=>{ for(let i=0;i<5;i++){ for (const m of G.ents.filter(e=>e.arenaMob&&!e.dying)) killMob(m); ARENA.run.wait=0; arenaTick(0.1);} for (const m of G.ents.filter(e=>e.arenaMob&&!e.dying)) killMob(m); arenaTick(0.1); ARENA.run&&(ARENA.run.wait=0); arenaTick(0.1); return [arenaSt(), countItem('ficha_coliseo')]; })()
+js (()=>{ exitInterior(); return 1; })()
+wait 2000
+js (()=>{ G.time=21*60; startEvent('aurora'); startEvent('meteoros'); _metT=0; return G.P.wstate.ev.map(e=>e.type); })()
+wait 5000
+js (PHEN_D.map(e=>e.gath))
+shot
+js (window._errs)

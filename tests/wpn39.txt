@@ -1,0 +1,14 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), 1)
+js (()=>{ const P=G.P; P.lv=240; P.equip.weapon={id:'w_guerrero_20'}; P.cos={body:'c_heraldo_torso',legs:'c_heraldo_grebas',feet:'c_heraldo_botas',back:'c_heraldo_capa'}; calcStats(P); P.atlas=playerAtlas(P); return [P.equip.weapon.id]; })()
+wait 300
+js ((basicAttack(), 1))
+wait 120
+shot
+js (()=>{ const P=G.P; P.equip.weapon={id:'wc_guerrero'}; calcStats(P); P.atlas=playerAtlas(P); basicAttack(); return 1; })()
+wait 140
+shot
+js (()=>{ const P=G.P; P.equip.weapon={id:'ws_eclipse'}; calcStats(P); P.atlas=playerAtlas(P); basicAttack(); return 1; })()
+wait 140
+shot
+js (window._errs)

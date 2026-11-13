@@ -1,0 +1,6 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._rc=renderChunk, window._ct=[], renderChunk=function(M,cx,cy){const t=performance.now(); const r=window._rc(M,cx,cy); window._ct.push(performance.now()-t); return r;}, window._u=update, window._r=render, window._ft=[], update=function(dt){const t=performance.now(); window._u(dt); window._ft.push(['u',performance.now()-t]);}, render=function(){const t=performance.now(); window._r(); window._ft.push(['r',performance.now()-t]);}, 1)
+js (G.P.x=280*16, G.P.y=150*16, inp.jx=1, inp.jy=0.3, 1)
+wait 6000
+js (inp.jx=0, {chunks: window._ct.length, chunkAvg: (window._ct.reduce((a,b)=>a+b,0)/window._ct.length).toFixed(2), chunkMax: Math.max(...window._ct).toFixed(1), uAvg: (window._ft.filter(f=>f[0]==='u').reduce((a,b)=>a+b[1],0)/window._ft.filter(f=>f[0]==='u').length).toFixed(2), rAvg:(window._ft.filter(f=>f[0]==='r').reduce((a,b)=>a+b[1],0)/window._ft.filter(f=>f[0]==='r').length).toFixed(2), rMax: Math.max(...window._ft.filter(f=>f[0]==='r').map(f=>f[1])).toFixed(1), frames: window._ft.length/2, ents: G.ents.length, objsDrawn: drawList.length})
+shot

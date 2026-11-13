@@ -1,0 +1,21 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), window.hurtPlayer=()=>{}, G.P.lv=185, calcStats(G.P), 1)
+js (()=>{ const M=makeArchi(); G.P.retX=G.P.x; G.P.retY=G.P.y; G.P.inside='archipielago'; setMap(M, M.port[0]*16+8, M.port[1]*16+8, 'down'); return [M.port, M.camps.length]; })()
+wait 2000
+shot
+down ArrowDown
+wait 1500
+up ArrowDown
+js ({x:G.P.x/16|0, y:G.P.y/16|0, water:onWater(G.map,G.P.x,G.P.y)})
+shot
+js (()=>{ G.P.x=30*16; G.P.y=28*16+40; return 1; })()
+wait 4000
+js (G.ents.filter(e=>e.type==='mob'&&e.map==='archipielago').map(m=>m.mid))
+shot
+js (()=>{ G.P.x=122*16; G.P.y=32*16+120; return 1; })()
+wait 4000
+shot
+js (()=>{ G.P.x=112*16; G.P.y=82*16+100; G.P.equip=G.P.equip||{}; return 1; })()
+wait 4000
+shot
+js (window._errs)

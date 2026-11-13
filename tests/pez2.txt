@@ -1,0 +1,13 @@
+click #tNew;;wait 400;;click [data-c="pez"];;wait 300;;type #ccName|Nerito;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), window.hurtPlayer=()=>{}, 1)
+js (()=>{ const P=G.P; P.lv=150; P.app.pz=2; for (const id in SK) if (SK[id].cls==='pez') P.skills[id]=5; P.mp=99999; calcStats(P); P.S.maxmp=99999; P.mp=99999; refreshLook(); const out=[]; const ids=Object.keys(SK).filter(k=>SK[k].cls==='pez'&&SK[k].type==='act'); for (let i=0;i<5;i++) { const m=spawnMob('lobo', 30, P.x+30+i*6, P.y+10, P.L, null, false); m.hp=m.maxhp=1e6; } window._ids=ids; return ids.length; })()
+js (()=>{ const P=G.P, r=[]; for (const id of window._ids) { P.slots[0]=id; P.cds={}; P.busy=0; P.mp=99999; try { useSkill(0); r.push(id+':ok'); } catch(e) { r.push(id+':'+e.message); } } return r.join(' '); })()
+wait 2500
+js (()=>{ const P=G.P; for(let i=0;i<6;i++){ P.atkCd=0; P.busy=0; basicAttack(); } return G.ents.filter(e=>e.type==='mob'&&e.hp<e.maxhp).length; })()
+wait 1000
+shot
+js (()=>{ const P=G.P; P.lv=199; P.quests.done.q30=1; const o=G.ents.find(e=>e.id==='oraculo'); return o ? 'oraculo ok' : 'no'; })()
+js (()=>{ const o=G.ents.find(e=>e.id==='oraculo'); G.P.x=o.x; G.P.y=o.y+20; openDialog(o); return [...document.querySelectorAll('#dialog button')].map(b=>b.textContent).join(' | '); })()
+wait 300
+shot
+js (window._errs)

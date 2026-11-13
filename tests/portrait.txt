@@ -1,0 +1,8 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 1500
+shot
+js (openPanel('map'), 1)
+wait 600
+shot
+js (closePanel(), openPanel('inv'), 1)
+wait 500
+shot

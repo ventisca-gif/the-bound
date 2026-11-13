@@ -1,0 +1,24 @@
+wait 300
+shot
+click #tNew;;wait 400;;type #ccName|Sergio;;wait 200
+shot
+click #ccGo;;wait 1500
+shot
+click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (openDialog(G.ents.find(e=>e.type==='npc'&&e.id==='mira')), 1)
+wait 400
+shot
+js (closeDialog&&closeDialog(), openPanel('quest'), 1)
+wait 400
+shot
+js (openPanel('inv'), 1)
+wait 300
+shot
+js (openPanel('opts'), 1)
+wait 300
+shot
+js (openPanel('skills'), 1)
+wait 300
+shot
+js (window._errs)

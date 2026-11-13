@@ -1,0 +1,23 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), window.hurtPlayer=()=>{}, G.P.lv=60, calcStats(G.P), G.P.gold=500000, G.P.partner='greta', G.P.homes={casa_a3:{floor:0,lv:2,f:{bed:'bigbed',table:'table',deco1:'plant',ward:'wardrobe',mirror:'mirror',fire:'fireplace',paint:'painting',rug:'rug',crib:'crib',kid1:'kidbed',deco4:'toybox'}}}, 1)
+wait 800
+js (()=>{ const d=G.world.doors.find(d=>d.to==='casa_a3'); enterInterior(d); return !!d; })()
+wait 1500
+js (()=>{ const M=G.map; return [M.id, M.w, M.h, M.bnew, M.objs.filter(o=>o.bk&&!o.hidden).length, G.P.builds.length, G.ents.filter(e=>e.map===M.id).map(e=>e.type+':'+Math.floor(e.x/16)+','+Math.floor(e.y/16))]; })()
+js (G.cam.x=G.P.x-VW/2, 1)
+shot
+js (()=>{ G.P.x=14*16+8; G.P.y=9*16+8; return 1; })()
+wait 600
+shot
+js (()=>{ G.P.x=23*16+8; G.P.y=5*16+10; const t=interactTarget(); return t&&t.kind+':'+t.label; })()
+js (doInteract(), 1)
+wait 1500
+js (()=>{ const M=G.map; return [M.id, G.P.inside, M.objs.filter(o=>o.bk&&!o.hidden).length, isHome(M.id), Math.floor(G.P.x/16), Math.floor(G.P.y/16)]; })()
+js (()=>{ G.P.x=16*16+8; G.P.y=9*16+8; return 1; })()
+wait 600
+shot
+js (()=>{ G.P.x=23*16+8; G.P.y=5*16+10; doInteract(); return 1; })()
+wait 1500
+js ([G.map.id, G.P.inside])
+js (()=>{ const M=G.map; const o=M.objs.find(o=>o.f==='bigbed'&&!o.hidden); bldToggle(true); const ok=bldMove(o, 6, 6); return [o.tx,o.ty,ok]; })()
+js (window._errs)
