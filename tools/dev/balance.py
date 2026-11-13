@@ -4,7 +4,7 @@ import sys, json
 from playwright.sync_api import sync_playwright
 url = sys.argv[1]; up = int(sys.argv[2]) if len(sys.argv) > 2 else 0
 JS = r"""(UP => {
-const out = [], LVS = [10, 30, 60, 100, 140, 170, 200, 230, 250];
+const out = [], LVS = [10, 30, 60, 100, 140, 170, 200, 230, 250, 280, 310, 350];
 const best = (pred, L, score) => Object.values(ITEMS).filter(i => pred(i) && (i.lv || 0) <= L).sort((a, b) => score(b) - score(a))[0];
 const mobAt = L => { const ms = Object.values(MOBS).filter(m => Array.isArray(m.lv) ? m.lv[0] <= L && m.lv[1] >= L : Math.abs((m.lv || 0) - L) <= 5); const n = ms.length || 1; const avg = k => ms.reduce((a, m) => a + (m[k] || 1), 0) / n; return { hp: avg('hp'), atk: avg('atk'), def: avg('def'), n: ms.length }; };
 const bossAt = L => Object.values(BOSSES).filter(b => Math.abs(b.lv - L) <= 15).sort((a, b) => Math.abs(a.lv - L) - Math.abs(b.lv - L))[0];

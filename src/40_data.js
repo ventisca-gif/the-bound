@@ -1,5 +1,5 @@
 // ================= GAME DATA =================
-const MAXLV = 250;
+const MAXLV = 350;   // v4.18: el Continente del Velo Roto sube el máximo a 350
 const xpToNext = L => Math.floor(40 * Math.pow(L, 1.5) + 60);
 const jobXpToNext = L => Math.floor(26 * Math.pow(L, 1.45) + 24);
 const JOBS = {

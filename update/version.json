@@ -1,20 +1,32 @@
 {
- "build": 38,
- "ver": "4.17",
+ "build": 39,
+ "ver": "4.18",
  "date": "2026-11-13",
  "file": "thebound.html",
- "size": 5819156,
- "sha256": "c25abc4767d9f229b159c8899e817a970cfa5d270b64eda57b95cc7c3fa346e4",
+ "size": 6448834,
+ "sha256": "7be3958ac3a75a9829efc4ceab2b66c2696761cd834270cc5ac8f4e3cc162ce7",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Los jefes del mundo tienen mecánicas nuevas, siempre avisadas en el suelo: el Rey Slime escupe slime que te deja pegado (rueda para soltarte), el Ent hace brotar raíces, Gruk toca su tambor de guerra (rueda cuando llegue la onda) y se enfurece, Morgana te lanza un maleficio que invierte tus pasos, el Gólem de Hielo congela el suelo, Volcanus hace erupciones de lava y Vael llama a sus soldados y, a mitad de vida, se vuelve inmune hasta que actives 3 sellos dorados.",
-   "Mapa: acércalo o aléjalo con dos dedos, arrástralo con uno, o usa los botones + − ⟲."
+   "Nuevo: el Continente del Velo Roto, dark fantasy, niveles 255 a 350. Por primera vez se ve el cielo: noche, nubes magenta, niebla y la Luna Sonriente.",
+   "Para abrir el portal antiguo (al oeste de la Ciudadela de Arxar) habla con Fenrik, el Lobo Viejo, en el Bosque Susurrante y con la bruja Malvia, cerca del Pantano Gris.",
+   "Cinco regiones: Pantano de las Almas Perdidas (agua luminosa), Aldea de las Campanas Muertas, Bosque de los Susurros, Catedral del Eclipse y Castillo de la Luna Sonriente.",
+   "Enemigos nuevos: Brujo Sapo, Alce Velado, Hechicera Violeta, Hechicera Carmesí, Demonio Cornudo, Soldado Hueco, Diácono del Eclipse y Heraldo Lunar.",
+   "Jefes con mecánicas: el Obispo Hueco reza y levanta a sus muertos; los soldados de Varkhul, el Rey Esqueleto, lo cubren hasta que caen; el Rey de las Campanas avisa cada ataque con campanadas, apaga la catedral y se encierra tras tres sellos; la Luna Sonriente lanza rayos, abre los ojos y enfurece a todos.",
+   "Nivel máximo 350. Tiers 22 a 26 con las armas dark fantasy de Sergio: mandoble y Espada de la Dama para el guerrero, violín para el bardo, guadaña lunar para el invocador, y armaduras del Lobo Nocturno, Sepulcrales, del Velo Roto, Eclipsadas y de la Luna Sonriente.",
+   "Capucha y manto del Lobo Nocturno, materiales nuevos (salen en la lupa 🔎) y un capítulo nuevo de las Crónicas.",
+   "PvP reequilibrado para el nivel 350."
   ],
   "en": [
-   "World bosses have new mechanics, always warned on the ground: the Slime King spits slime that sticks you in place (roll to break free), the Ent makes roots burst out, Gruk beats his war drum (roll when the wave arrives) and enrages, Morgana casts a hex that reverses your steps, the Ice Golem freezes the ground, Volcanus erupts lava and Vael calls his soldiers and, at half health, becomes immune until you activate 3 golden seals.",
-   "Map: zoom in or out with two fingers, drag it with one, or use the + − ⟲ buttons."
+   "New: the Broken Veil Continent, dark fantasy, levels 255 to 350. For the first time you see the sky: night, magenta clouds, fog and the Smiling Moon.",
+   "To open the ancient portal (west of the Arxar Citadel), talk to Fenrik, the Old Wolf, in the Whispering Forest and to the witch Malvia, near the Gray Swamp.",
+   "Five regions: Swamp of Lost Souls (glowing water), Village of the Dead Bells, Forest of Whispers, Cathedral of the Eclipse and Castle of the Smiling Moon.",
+   "New enemies: Toad Warlock, Veiled Elk, Violet Sorceress, Crimson Sorceress, Horned Fiend, Hollow Soldier, Eclipse Deacon and Lunar Herald.",
+   "Bosses with mechanics: the Hollow Bishop prays and raises his dead; the soldiers of Varkhul, the Skeleton King, shield him until they fall; the King of Bells announces each attack with tolls, darkens the cathedral and locks himself behind three seals; the Smiling Moon fires beams, opens its eyes and enrages everyone.",
+   "Max level 350. Tiers 22 to 26 with Sergio's dark fantasy weapons: greatsword and Lady's Sword for the warrior, violin for the bard, lunar scythe for the summoner, and Night Wolf, Sepulchral, Broken Veil, Eclipsed and Smiling Moon armor.",
+   "Night Wolf hood and mantle, new materials (shown in the 🔎 guide) and a new Chronicles chapter.",
+   "PvP rebalanced for level 350."
   ]
  }
 }

@@ -80,4 +80,4 @@ const SK_EXTRA = {
   return r; }); }
 { const _up = updatePlayer; updatePlayer = function (dt) { _up(dt); const P = G.P; if (!P || P.hopD === undefined) return; P.hopT += dt; const k = P.hopT / P.hopD; if (k >= 1) { P.z = 0; P.hopD = undefined; if (P.hopH >= 15) { addFx({ type: 'ring', x: P.x, y: P.y, r: 26, dur: 0.35, col: '#e0d0b0' }); } return; } P.z = Math.sin(k * Math.PI) * P.hopH; }; }
 // arreglo: el online cortaba las armas y armaduras de tier 16-21 al tier 15 (los demás te veían con otro equipo)
-cleanGear = function (g) { const o = {}; for (const k of ['weapon', 'head', 'body', 'legs', 'feet']) { const v = g && +g[k]; o[k] = isFinite(v) ? clamp(v | 0, 0, 21) : 0; } if (!o.weapon) o.weapon = 1; if (g && typeof g.ws === 'string' && typeof WS !== 'undefined' && WS[g.ws]) o.ws = g.ws; return o; };
+cleanGear = function (g) { const o = {}; for (const k of ['weapon', 'head', 'body', 'legs', 'feet']) { const v = g && +g[k]; o[k] = isFinite(v) ? clamp(v | 0, 0, 26) : 0; } if (!o.weapon) o.weapon = 1; if (g && typeof g.ws === 'string' && typeof WS !== 'undefined' && WS[g.ws]) o.ws = g.ws; return o; };

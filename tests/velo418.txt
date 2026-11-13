@@ -1,0 +1,26 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), window.hurtPlayer=()=>{}, 1)
+js (()=>{ const P=G.P; P.lv=300; calcStats(P); const w=G.world.objs.find(o=>o.f==='vr_portal'); const n=G.world.npcDefs.filter(d=>d.id==='lobo_viejo'||d.id==='malvia').length; return 'portal '+(w?w.tx+','+w.ty:'NO')+' npcs '+n+' MAXLV '+MAXLV+' items '+['w_guerrero_24','w_bardo_23','w_pez_26','b_22','h_26'].map(i=>!!ITEMS[i]).join(','); })()
+js (()=>{ const P=G.P; acceptQuest('vr1'); questEvent('talk',{npc:'malvia'}); completeQuest('vr1'); acceptQuest('vr2'); giveItem('esencia_nihil',3); completeQuest('vr2'); return 'portal='+P.vrPortal+' wardrobe='+P.wardrobe.filter(c=>/lobo/.test(c)).join(','); })()
+js (goVelo(), 1)
+wait 2600
+shot
+js (()=>{ const M=G.map; return M.id+' camps '+M.camps.length+' bosses '+M.bossAt.map(b=>b.id).join(','); })()
+js (()=>{ const P=G.P; P.x=60*16; P.y=60*16; return 1; })()
+wait 3500
+shot
+js (()=>{ const P=G.P; P.x=58*16; P.y=128*16; return 1; })()
+wait 3000
+shot
+js (()=>{ const P=G.P; P.x=196*16; P.y=74*16; return 1; })()
+wait 3000
+js (()=>{ const m=G.ents.find(e=>e.mid==='rey_campanas'); if(!m) return 'sin jefe'; m.mech=5.9; m.state='chase'; return m.name+' '+m.lv; })()
+wait 1500
+shot
+js (()=>{ const P=G.P; P.x=190*16; P.y=146*16; return 1; })()
+wait 3000
+shot
+js (()=>{ const P=G.P; for (const c of ['guerrero','bardo','invocador']) { P.cls=c; giveItem('w_'+c+'_24',1); const i=P.inv.findIndex(s=>s.id==='w_'+c+'_24'); equipFromInv(i); } calcStats(P); refreshLook(); P.atkCd=0; P.busy=0; basicAttack(); return P.equip.weapon.id+' atk '+P.S.atk; })()
+wait 150
+shot
+js (window._errs)
