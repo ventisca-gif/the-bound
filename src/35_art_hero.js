@@ -92,14 +92,14 @@ function heroPose(dir, anim, f, L) {
 }
 function heroStrand(p, pts, w, HP, flow) { for (let k = 0; k + 1 < pts.length; k++) { const [x0, y0] = pts[k], [x1, y1] = pts[k + 1]; const n = Math.max(1, Math.ceil(Math.hypot(x1 - x0, y1 - y0) * 1.5)); for (let s = 0; s <= n; s++) { const t = s / n, x = lerp(x0, x1, t), y = lerp(y0, y1, t), ww = w * (flow ? (1 - (k + t) / pts.length * 0.45) : 1); for (let o = -ww / 2; o < ww / 2; o += 1) p.set(Math.round(x + o), Math.round(y), HP[o < -ww / 2 + 1 ? 3 : o >= ww / 2 - 1 ? 1 : 2]); } } }
 function drawHero(p, L, dir, anim, f) {
-  const B = BODYP.normal, ps = heroPose(dir, anim, f, L), fem = L.g === 'f';
+  const B = BODYP.normal, ps = heroPose(dir, anim, f, L), fem = L.g === 'f', BTS = L.btS || {};   // v4.4 BTS: estructura de cuerpo (6zw_bodies)
   const side = dir === 'left' || dir === 'right', up = dir === 'up', d = dir === 'left' ? -1 : 1;
   const SK = L.skin || SKINS[0], HP = L.hair, HS = L.hs || HS_F[0];
   const TOP = L.top, BOT = L.bot, FT = L.feet, HD = L.head, BK = L.back;
   const cx = p.w >> 1, base = p.h - 4 - (ps.jump || 0);
   const legTop = base - B.lh + ps.crouch, torsoTop = legTop - B.th + ps.bob + (ps.sit ? 0 : 0), hy = torsoTop - B.hry + 1 - (B === BODYP.normal ? FACE.lift : 0);
   const hx = cx + (side ? -1 : 0) + (side ? d * ps.lean : 0);
-  const tw = side ? 8 : (fem ? 9 : 10), tx0 = side ? cx - 4 : cx - (fem ? 4 : 5), th = B.th;
+  const tw = side ? (BTS.sw || 8) : (BTS.tw || (fem ? 9 : 10)), tx0 = cx - (tw >> 1), th = B.th;
   const W = ps.noWeapon ? null : (anim === 'chop' || anim === 'mine' || anim === 'fish' || anim === 'dig') ? { k: ps.toolK, tier: L.toolTier || 2 } : L.weapon;
   const hideHair = HD && HD.cover === 'full', hood = HD && HD.cover === 'hood';
   const robeLong = TOP.k === 'robe', dressLen = TOP.k === 'dress' ? 6 : 0;
@@ -129,7 +129,7 @@ function drawHero(p, L, dir, anim, f) {
     if (dressLen) drawSkirt(m, legTop + dressLen, side ? 1 : 3);
     else if (BOT.k === 'skirt' && k !== 'robe') drawSkirt(BOT.m, legTop + 4, side ? 1 : 2);
     srect(p, tx0, ty, tw, th, m);
-    if (fem && !side) { for (const yy of [ty + th - 4, ty + th - 3]) { p.set(tx0, yy, 0); p.set(tx0 + tw - 1, yy, 0); } p.set(tx0 + 1, ty + th - 4, m[1]); p.set(tx0 + tw - 2, ty + th - 4, m[1]); }   // v4.2 cintura
+    if (fem && !side && BTS.waist !== 0) { for (const yy of [ty + th - 4, ty + th - 3]) { p.set(tx0, yy, 0); p.set(tx0 + tw - 1, yy, 0); } p.set(tx0 + 1, ty + th - 4, m[1]); p.set(tx0 + tw - 2, ty + th - 4, m[1]); }   // v4.2 cintura
     if (k === 'plate') {
       if (!up) { p.hl(tx0 + 1, ty + 1, tw - 2, m[4]); p.vl(cx - (side ? 1 : 0), ty + 2, th - 3, m[3]); if (fem && !side) { p.set(cx - 3, ty + 3, m[4]); p.set(cx + 2, ty + 3, m[4]); } }
       p.hl(tx0, ty + th - 3, tw, s[2]); p.hl(tx0, ty + th - 2, tw, s[1]); if (!up && !side) p.set(cx, ty + th - 3, (TOP.t || 0) >= 12 ? C('#7af0ff') : GOLD[4]);
@@ -176,6 +176,7 @@ function drawHero(p, L, dir, anim, f) {
       if (!up && !side && k !== 'kimono' && k !== 'coat') p.set(cx, ty + th - 2, GOLD[3]);
       if (!up && !side && (k === 'tunic' || k === 'dress')) { p.set(cx - 1, ty, SK[2]); p.set(cx, ty, SK[2]); p.set(cx, ty + 1, SK[1]); }
     }
+    if (L.btS) bodyTorsoShape(p, BTS, { tx0, ty, tw, th, side, up, fem, d, m, legTop });
   };
   // ---------- arms ----------
   const plateArm = TOP.k === 'plate', robeArm = TOP.k === 'robe' || TOP.k === 'kimono';
@@ -215,15 +216,16 @@ function drawHero(p, L, dir, anim, f) {
   // ---------- head / face ----------
   const drawHead = () => { TG(5);
     const rx = B.hrx, ry = B.hry;
-    for (let y = Math.floor(hy - ry); y <= Math.ceil(hy + ry); y++) for (let x = Math.floor(hx - rx); x <= Math.ceil(hx + rx); x++) { const dx = (x + 0.5 - hx) / rx, dy = (y + 0.5 - hy) / ry; if (dx * dx + dy * dy > 1) continue; let v = 2; if (dx > 0.6 || dy > 0.86) v = 1; if (dx < -0.45 && dy < 0) v = 3; p.set(x, y, SK[v]); }
+    for (let y = Math.floor(hy - ry); y <= Math.ceil(hy + ry); y++) for (let x = Math.floor(hx - rx); x <= Math.ceil(hx + rx); x++) { const dx = (x + 0.5 - hx) / rx, dy = (y + 0.5 - hy) / ry; if (BTS.jaw && dy > 0 ? Math.pow(Math.abs(dx), BTS.jaw) + Math.pow(dy, BTS.jaw) > 1 : dx * dx + dy * dy > 1) continue; let v = 2; if (dx > 0.6 || dy > 0.86) v = 1; if (dx < -0.45 && dy < 0) v = 3; p.set(x, y, SK[v]); }
     if (up) return;
     // v4.2 cara estilo chibi: ojos 2x3 justo bajo el flequillo (brillo arriba, pupila oscura, reflejo abajo), boquita de 2 px
     const ey = Math.round(hy) + FACE.ey, ec = C(EYEC[L.eyes] || EYEC.azul), ed = uMul(ec, 0.5), dark = C('#1a1220'), brow = HP ? HP[0] : dark;
-    const eyes = side ? [dir === 'left' ? hx - 5 : hx + 3] : [hx - 4, hx + 3];
+    const eyes = side ? [dir === 'left' ? hx - 5 : hx + 3] : [hx - 4 - (BTS.eg || 0), hx + 3 + (BTS.eg || 0)];
     for (const ex of eyes) {
       if (ps.eyes === 'hurt') { p.set(ex, ey, dark); p.set(ex + 1, ey + 1, dark); p.set(ex, ey + 2, dark); continue; }
       if (ps.eyes === 'closed') { p.set(ex, ey + 1, dark); p.set(ex + 1, ey + 1, dark); p.set(ex - 1, ey, dark); p.set(ex + 2, ey, dark); continue; }
-      const outer = side ? (dir === 'left' ? ex - 1 : ex + 2) : (ex === hx - 4 ? ex - 1 : ex + 2);
+      const outer = side ? (dir === 'left' ? ex - 1 : ex + 2) : (ex === eyes[0] ? ex - 1 : ex + 2);
+      if (BTS.eye) { const e2b = L.eyes2 && EYEC[L.eyes2] && ((!side && ex !== eyes[0]) || (side && dir === 'right')); bodyEye(p, BTS.eye, ex, ey, outer, e2b ? C(EYEC[L.eyes2]) : ec, brow, dark); continue; }
       p.set(ex, ey - 1, dark); p.set(ex + 1, ey - 1, dark); if (fem) p.set(outer, ey - 1, dark);
       const e2 = L.eyes2 && EYEC[L.eyes2] && ((!side && ex !== eyes[0]) || (side && dir === 'right')), ec_ = e2 ? C(EYEC[L.eyes2]) : ec, ed_ = e2 ? uMul(ec_, 0.5) : ed;
       const pup = uMix(ed_, dark, 0.5), ref = uMix(ec_, C('#ffffff'), 0.4);
@@ -232,7 +234,10 @@ function drawHero(p, L, dir, anim, f) {
       p.set(ex, ey + 2, ref); p.set(ex + 1, ey + 2, ec_);
     }
     const mo = FACE.mouth, mc = uMix(SK[1], C('#d06a6a'), 0.55);
-    if (!side) { p.set(hx - 1, ey + mo, mc); p.set(hx, ey + mo, uMix(mc, SK[2], 0.35)); if (fem || L.blush) { p.set(hx - 6, ey + mo - 1, uMix(SK[2], C('#ef8a8a'), 0.6)); p.set(hx + 5, ey + mo - 1, uMix(SK[2], C('#ef8a8a'), 0.6)); } }
+    if (BTS.lip) { const lc = uMix(SK[1], C('#d0485e'), 0.7); if (!side) { p.set(hx - 1, ey + mo, lc); p.set(hx, ey + mo, lc); } else p.set(dir === 'left' ? hx - 6 : hx + 5, ey + mo, lc); }
+    else if (BTS.mw === 1) { if (!side) p.set(hx - 1 + (hx % 1 ? 1 : 0), ey + mo, mc); else p.set(dir === 'left' ? hx - 6 : hx + 5, ey + mo, mc); }
+    if (BTS.lip || BTS.mw === 1) { if (!side && (BTS.blush !== 0 && (fem || L.blush))) { p.set(hx - 6 - (BTS.eg || 0), ey + mo - 1, uMix(SK[2], C('#ef8a8a'), 0.6)); p.set(hx + 5 + (BTS.eg || 0), ey + mo - 1, uMix(SK[2], C('#ef8a8a'), 0.6)); } }
+    else if (!side) { p.set(hx - 1, ey + mo, mc); p.set(hx, ey + mo, uMix(mc, SK[2], 0.35)); if (fem || L.blush) { p.set(hx - 6, ey + mo - 1, uMix(SK[2], C('#ef8a8a'), 0.6)); p.set(hx + 5, ey + mo - 1, uMix(SK[2], C('#ef8a8a'), 0.6)); } }
     else p.set(dir === 'left' ? hx - 6 : hx + 5, ey + mo, mc);
     if (L.mask && !up) { const mw = side ? 8 : 13, mx = side ? (dir === 'left' ? hx - 7 : hx) : hx - 6; for (let y = ey + 3; y < ey + 7; y++) for (let x = mx; x < mx + mw; x++) { const dx = (x + 0.5 - hx) / B.hrx, dy = (y + 0.5 - hy) / B.hry; if (dx * dx + dy * dy > 1.05) continue; p.set(x, y, L.mask[y === ey + 3 ? 2 : 1]); } }
   };
@@ -324,7 +329,12 @@ function drawHero(p, L, dir, anim, f) {
     else if (k === 'hood') { for (let y = Math.floor(top); y <= hy + 3; y++) for (let x = hx - 8; x <= hx + 8; x++) { const dx = (x + 0.5 - hx) / 8, dy = (y + 0.5 - (hy - 1)) / 7.5; if (dx * dx + dy * dy > 1) continue; let face = false; if (!up) { if (side) face = (dir === 'left' ? x < hx - 1 : x > hx) && y > hy - 3; else face = Math.abs(x + 0.5 - hx) < 5 && y > hy - 3; } if (face) continue; p.set(x, y, m[dx < -0.5 ? 3 : dx > 0.5 ? 1 : 2]); } if (!up) p.hl(hx - 4, Math.round(hy - 3), side ? 4 : 9, s[2] || m[0]); }
     else if (k === 'ranger') { const y0 = Math.round(hy - 4); for (let y = y0 - 3; y <= y0; y++) for (let x = hx - 7; x <= hx + 7; x++) { const dx = (x + 0.5 - hx) / 7.5, dy = (y + 0.5 - y0) / 4; if (dx * dx + dy * dy > 1) continue; p.set(x, y, m[dx < -0.3 ? 3 : dx > 0.5 ? 1 : 2]); } p.hl(hx - 8, y0 + 1, 17, m[1]); const fx = side ? hx - d * 5 : hx + 5; for (let k2 = 0; k2 < 7; k2++) { p.set(fx + Math.round(k2 * 0.5) * (side ? -d : 1), y0 - k2, s[k2 < 2 ? 2 : 3]); if (k2 > 1) p.set(fx + Math.round(k2 * 0.5) * (side ? -d : 1) + 1, y0 - k2, s[4]); } }
     else if (k === 'sunhat') { const y0 = Math.round(hy - 4); for (let x = hx - 11; x <= hx + 11; x++) { const e = Math.abs(x - hx) > 8 ? 1 : 0; p.set(x, y0 + e, m[2]); if (Math.abs(x - hx) < 10) p.set(x, y0 + 1 + e, m[1]); } for (let y = y0 - 5; y < y0; y++) for (let x = hx - 6; x <= hx + 6; x++) { const dx = (x + 0.5 - hx) / 6.5, dy = (y + 0.5 - y0) / 5.5; if (dx * dx + dy * dy > 1) continue; p.set(x, y, m[(x + y) % 3 ? 3 : 2]); } p.hl(hx - 6, y0 - 1, 13, s[2]); if (!up) p.set(hx + (side ? -d * 4 : 4), y0 - 1, C('#ff5a7a')); }
-    else if (k === 'shades') { if (up) { p.hl(hx - 7, Math.round(hy) - 1, 15, C('#141018')); } else if (side) { const ex = dir === 'left' ? hx - 6 : hx + 2; p.rect(ex, Math.round(hy) - 1, 4, 2, C('#141018')); p.set(ex + (dir === 'left' ? 0 : 3), Math.round(hy) - 1, m[3]); p.hl(dir === 'left' ? ex + 4 : hx - 6, Math.round(hy) - 1, 4, C('#141018')); } else { for (const ex of [hx - 5, hx + 2]) { p.rect(ex, Math.round(hy) - 1, 4, 2, C('#141018')); p.set(ex, Math.round(hy) - 1, m[3]); } p.hl(hx - 1, Math.round(hy) - 1, 3, C('#141018')); } }
+    else if (k === 'shades') {   // v4.4: a la altura de los ojos de la cara chibi (ey..ey+2), no sobre la frente
+      const gy = Math.round(hy) + FACE.ey, fr = C('#141018');
+      if (up) { p.hl(hx - 8, gy, 2, fr); p.hl(hx + 7, gy, 2, fr); }
+      else if (side) { const ex = dir === 'left' ? hx - 6 : hx + 2; p.hl(ex, gy - 1, 4, fr); p.rect(ex, gy, 4, 2, fr); p.hl(ex + 1, gy + 2, 2, fr); p.set(ex + (dir === 'left' ? 1 : 2), gy, m[3]); p.hl(dir === 'left' ? ex + 4 : hx - 6, gy, 4, fr); }
+      else { p.hl(hx - 5, gy - 1, 11, fr); for (const ex of [hx - 5, hx + 2]) { p.rect(ex, gy, 4, 2, fr); p.hl(ex + 1, gy + 2, 2, fr); p.set(ex + 1, gy, m[3]); p.set(ex, gy, m[4]); } p.set(hx - 6, gy, fr); p.set(hx + 6, gy, fr); }
+    }
     else if (k === 'circlet') { const y0 = Math.round(hy - 4); p.hl(hx - 7, y0, 15, GOLD[3]); p.hl(hx - 6, y0 - 1, 13, GOLD[4]); if (!up && !side) p.ball(hx, y0, 1.5, 1.5, s.slice(1)); }
     else if (k === 'crown') { const y0 = Math.round(top) + 1; p.rect(hx - 5, y0, 11, 3, GOLD[3]); p.hl(hx - 5, y0, 11, GOLD[5]); for (const x of [-5, -2, 1, 4]) { p.set(hx + x, y0 - 1, GOLD[4]); p.set(hx + x + 1, y0 - 2, GOLD[4]); } p.set(hx, y0 + 1, C('#e02040')); }
     else if (k === 'catears') { const ec = HD.m || HP; for (const sg of side ? [-d * 0.3, 1] : [-1, 1]) { const ex = hx + sg * 5; for (let r = 0; r < 4; r++) for (let i = -2 + Math.ceil(r / 2); i <= 2 - Math.ceil(r / 2); i++) p.set(Math.round(ex + i), Math.round(top) + 1 - r, ec[r === 0 ? 1 : i === 0 && r < 3 ? 3 : 2]); if (!side) p.set(Math.round(ex), Math.round(top), C('#f0a0b0')); } }

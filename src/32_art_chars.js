@@ -177,6 +177,7 @@ function drawHumanoid(p, L, dir, anim, f) {
       p.hl(tx0, ty + th - 3, tw, cloth[1]); p.hl(tx0, ty + th - 2, tw, cloth[2]); for (let i = 0; i < tw; i += 2) p.vl(tx0 + i, ty + th - 1, 3, cloth[i % 4 ? 1 : 2]);
       if (OF === 'orc' && L.armor) { srect(p, tx0 + 1, ty, tw - 2, 5, L.armor); p.ball(tx0, ty + 1, 3, 2.5, L.armor.slice(1)); p.ball(tx0 + tw - 1, ty + 1, 3, 2.5, L.armor.slice(1)); }
     }
+    if (L.btS && OF !== 'skeleton') bodyTorsoShape(p, L.btS, { tx0, ty: torsoTop, tw, th: B.th, side, up, fem: L.g === 'f' || OF === 'dress', d: dir === 'left' ? -1 : 1, m: OF === 'goblin' || OF === 'orc' && L.bare ? SK : main, legTop });
   };
   const handC = (OF === 'knight' || OF === 'darkknight' || OF === 'guard') ? main[3] : OF === 'skeleton' ? SK[2] : SK[2];
   const sleeve = OF === 'robe' || OF === 'witch' ? main : OF === 'knight' || OF === 'guard' || OF === 'darkknight' ? main : OF === 'ranger' ? cloth : OF === 'smith' || OF === 'goblin' || OF === 'orc' ? SK : OF === 'skeleton' ? SK : main;
@@ -206,22 +207,25 @@ function drawHumanoid(p, L, dir, anim, f) {
     if (up && L.ponytail) { for (let y = hy - 5; y < hy + 15; y++) { const w2 = y < hy ? 3 : 2; for (let x = hx - 1; x < hx - 1 + w2; x++) p.set(x + (y > hy + 8 ? (f % 2) : 0), y, x === hx - 1 ? HP[2] : HP[1]); } p.rect(hx - 2, hy - 6, 4, 2, sec[3] || C('#c02030')); p.set(hx - 3, hy - 7, sec[2]); p.set(hx + 2, hy - 7, sec[2]); }
   };
   const drawHead = () => { TG(5);
-    const rx = B.hrx, ry = B.hry, sk = OF === 'skeleton' ? MSKIN.bone : SK;
+    const rx = B.hrx, ry = B.hry, sk = OF === 'skeleton' ? MSKIN.bone : SK, BTS = L.btS || {};   // v4.4 estructura de cuerpo (6zw_bodies)
     // skin
-    for (let y = Math.floor(hy - ry); y <= Math.ceil(hy + ry); y++) for (let x = Math.floor(hx - rx); x <= Math.ceil(hx + rx); x++) { const dx = (x + 0.5 - hx) / rx, dy = (y + 0.5 - hy) / ry; if (dx * dx + dy * dy > 1) continue; let v = 2; if (dx > 0.45 || dy > 0.6) v = 1; if (dx < -0.4 && dy < 0) v = 3; p.set(x, y, sk[v]); }
+    for (let y = Math.floor(hy - ry); y <= Math.ceil(hy + ry); y++) for (let x = Math.floor(hx - rx); x <= Math.ceil(hx + rx); x++) { const dx = (x + 0.5 - hx) / rx, dy = (y + 0.5 - hy) / ry; if (BTS.jaw && dy > 0 ? Math.pow(Math.abs(dx), BTS.jaw) + Math.pow(dy, BTS.jaw) > 1 : dx * dx + dy * dy > 1) continue; let v = 2; if (dx > 0.45 || dy > 0.6) v = 1; if (dx < -0.4 && dy < 0) v = 3; p.set(x, y, sk[v]); }
     if (up) return;
     const ey = Math.round(hy) + (L.body === 'big' || L.body === 'huge' || L.body === 'small' ? 0 : FACE.ey), ec = C(EYEC[L.eyes] || EYEC.azul), ed = uMul(ec, 0.5), dark = C('#1a1220');
     if (OF === 'skeleton') { const sx = side ? [hx - 4] : [hx - 4, hx + 2]; for (const x of sx) { p.rect(x, ey - 1, 3, 3, C('#1a0e14')); p.set(x + 1, ey, C(EYEC[L.eyes] || '#ff3030')); } p.hl(hx - 3, ey + 3, side ? 3 : 6, C('#3a3028')); for (let i = 0; i < (side ? 3 : 6); i += 2) p.set(hx - 3 + i, ey + 4, C('#e0d8c2')); return; }
-    const eyes = side ? [[dir === 'left' ? hx - 5 : hx + 3, 0]] : [[hx - 4, 0], [hx + 3, 1]];
+    const eyes = side ? [[dir === 'left' ? hx - 5 : hx + 3, 0]] : [[hx - 4 - (BTS.eg || 0), 0], [hx + 3 + (BTS.eg || 0), 1]];
     for (const [ex] of eyes) {   // v4.2 ojos 2x3 como los héroes
       if (ps.eyes === 'hurt') { p.set(ex, ey, dark); p.set(ex + 1, ey + 1, dark); p.set(ex, ey + 2, dark); continue; }
       if (ps.eyes === 'closed') { p.set(ex, ey + 1, dark); p.set(ex + 1, ey + 1, dark); continue; }
       if (L.mono) { p.rect(ex, ey, 2, 2, ec); continue; }
+      if (BTS.eye) { bodyEye(p, BTS.eye, ex, ey, side ? (dir === 'left' ? ex - 1 : ex + 2) : (ex === eyes[0][0] ? ex - 1 : ex + 2), ec, HP ? HP[0] : dark, dark); continue; }
       p.set(ex, ey - 1, dark); p.set(ex + 1, ey - 1, dark); if (!side && (L.g === 'f' || OF === 'dress')) p.set(ex === hx - 4 ? ex - 1 : ex + 2, ey - 1, dark);
       p.set(ex, ey, C('#ffffff')); p.set(ex + 1, ey, ed); p.set(ex, ey + 1, ec); p.set(ex + 1, ey + 1, uMix(ed, dark, 0.5)); p.set(ex, ey + 2, uMix(ec, C('#ffffff'), 0.4)); p.set(ex + 1, ey + 2, ec);
     }
     const mo = FACE.mouth, mc = uMix(sk[1], C('#d06a6a'), 0.5);
-    if (!side) { p.set(hx - 1, ey + mo, mc); p.set(hx, ey + mo, uMix(mc, sk[2], 0.35)); if (L.blush !== false) { p.set(hx - 6, ey + mo - 1, uMix(sk[2], C('#ef8a8a'), 0.55)); p.set(hx + 5, ey + mo - 1, uMix(sk[2], C('#ef8a8a'), 0.55)); } }
+    if (BTS.mw === 1 && !side) p.set(hx - 1, ey + mo, mc);
+    else if (BTS.lip && !side) { const lc = uMix(sk[1], C('#d0485e'), 0.7); p.set(hx - 1, ey + mo, lc); p.set(hx, ey + mo, lc); }
+    else if (!side) { p.set(hx - 1, ey + mo, mc); p.set(hx, ey + mo, uMix(mc, sk[2], 0.35)); if (L.blush !== false && BTS.blush !== 0) { p.set(hx - 6, ey + mo - 1, uMix(sk[2], C('#ef8a8a'), 0.55)); p.set(hx + 5, ey + mo - 1, uMix(sk[2], C('#ef8a8a'), 0.55)); } }
     else p.set(dir === 'left' ? hx - 6 : hx + 5, ey + mo, mc);
     if (L.tusks && !up) { p.set(hx - 2, ey + 3, C('#f0ead0')); p.set(hx + 2, ey + 3, C('#f0ead0')); p.set(hx - 2, ey + 2, C('#f0ead0')); p.set(hx + 2, ey + 2, C('#f0ead0')); }
     if (L.beard) { const bc = L.beard; for (let y = ey + 3; y < ey + 7; y++) for (let x = hx - 4 + (y - ey - 3) * 0.7; x <= hx + 4 - (y - ey - 3) * 0.7; x++) if (!side || (dir === 'left' ? x < hx + 1 : x > hx - 2)) p.set(Math.round(x), y, bc[(x + y) % 3 === 0 ? 1 : 2]); }
