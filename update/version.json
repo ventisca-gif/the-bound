@@ -1,32 +1,34 @@
 {
- "build": 39,
- "ver": "4.18",
+ "build": 40,
+ "ver": "4.19",
  "date": "2026-11-13",
  "file": "thebound.html",
- "size": 6448834,
- "sha256": "7be3958ac3a75a9829efc4ceab2b66c2696761cd834270cc5ac8f4e3cc162ce7",
+ "size": 6486527,
+ "sha256": "6c24853b16abd936e92f04de16e1c02bb3f0bae1bb9d277fd35422d6a462ac55",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Nuevo: el Continente del Velo Roto, dark fantasy, niveles 255 a 350. Por primera vez se ve el cielo: noche, nubes magenta, niebla y la Luna Sonriente.",
-   "Para abrir el portal antiguo (al oeste de la Ciudadela de Arxar) habla con Fenrik, el Lobo Viejo, en el Bosque Susurrante y con la bruja Malvia, cerca del Pantano Gris.",
-   "Cinco regiones: Pantano de las Almas Perdidas (agua luminosa), Aldea de las Campanas Muertas, Bosque de los Susurros, Catedral del Eclipse y Castillo de la Luna Sonriente.",
-   "Enemigos nuevos: Brujo Sapo, Alce Velado, Hechicera Violeta, Hechicera Carmesí, Demonio Cornudo, Soldado Hueco, Diácono del Eclipse y Heraldo Lunar.",
-   "Jefes con mecánicas: el Obispo Hueco reza y levanta a sus muertos; los soldados de Varkhul, el Rey Esqueleto, lo cubren hasta que caen; el Rey de las Campanas avisa cada ataque con campanadas, apaga la catedral y se encierra tras tres sellos; la Luna Sonriente lanza rayos, abre los ojos y enfurece a todos.",
-   "Nivel máximo 350. Tiers 22 a 26 con las armas dark fantasy de Sergio: mandoble y Espada de la Dama para el guerrero, violín para el bardo, guadaña lunar para el invocador, y armaduras del Lobo Nocturno, Sepulcrales, del Velo Roto, Eclipsadas y de la Luna Sonriente.",
-   "Capucha y manto del Lobo Nocturno, materiales nuevos (salen en la lupa 🔎) y un capítulo nuevo de las Crónicas.",
-   "PvP reequilibrado para el nivel 350."
+   "Armaduras dark fantasy propias para los tiers 22 a 26, adaptadas a todos los cuerpos: Lobo Nocturno (cuello de pelo y capucha de lobo), Sepulcrales (placas con vidriera de luz y corona), Velo Roto (corsé carmesí, gorguera y velo), Eclipsadas (sol eclipsado, hombreras doradas y casco de cuernos) y Luna Sonriente (traje de bufón con la sonrisa de la luna y cascabeles).",
+   "Poder del Velo: desde el nivel 251, cada nivel da +0,5 % de ataque y vida (hasta +50 % a nivel 350). Igual para todas las clases.",
+   "Pantano de las Almas Perdidas: nuevo botón de linterna. Apagada, aparecen puentes espectrales hacia un islote con cofres de Esencia Espectral.",
+   "Aldea de las Campanas Muertas: Nocturna, la Mercader del Eclipse, solo vende de noche (Elixir del Eclipse y más). Oren te pide decidir: tocar o romper la última campana, y la aldea lo recuerda.",
+   "Bosque de los Susurros: lee las 3 estelas y toca los pedestales en orden para disipar las ilusiones que protegen a Varkhul. Si te equivocas, aparece un Imitador con tu propio aspecto.",
+   "Catedral del Eclipse: enciende los 3 altares para abrir la reja del Rey de las Campanas.",
+   "Castillo de la Luna Sonriente: la Luna te mira y, si te ve, los enemigos se vuelven más rápidos. Al vencerla eliges entre dos finales, cada uno con su recompensa.",
+   "Enemigos nuevos: Lancero Sepulcral y Acólito del Velo. Nuevas mecánicas: la cruz de luz del Obispo Hueco y los lanceros de Varkhul.",
+   "La guía 🔎 muestra todo lo del Velo Roto: en qué región sale cada material y cómo llegar."
   ],
   "en": [
-   "New: the Broken Veil Continent, dark fantasy, levels 255 to 350. For the first time you see the sky: night, magenta clouds, fog and the Smiling Moon.",
-   "To open the ancient portal (west of the Arxar Citadel), talk to Fenrik, the Old Wolf, in the Whispering Forest and to the witch Malvia, near the Gray Swamp.",
-   "Five regions: Swamp of Lost Souls (glowing water), Village of the Dead Bells, Forest of Whispers, Cathedral of the Eclipse and Castle of the Smiling Moon.",
-   "New enemies: Toad Warlock, Veiled Elk, Violet Sorceress, Crimson Sorceress, Horned Fiend, Hollow Soldier, Eclipse Deacon and Lunar Herald.",
-   "Bosses with mechanics: the Hollow Bishop prays and raises his dead; the soldiers of Varkhul, the Skeleton King, shield him until they fall; the King of Bells announces each attack with tolls, darkens the cathedral and locks himself behind three seals; the Smiling Moon fires beams, opens its eyes and enrages everyone.",
-   "Max level 350. Tiers 22 to 26 with Sergio's dark fantasy weapons: greatsword and Lady's Sword for the warrior, violin for the bard, lunar scythe for the summoner, and Night Wolf, Sepulchral, Broken Veil, Eclipsed and Smiling Moon armor.",
-   "Night Wolf hood and mantle, new materials (shown in the 🔎 guide) and a new Chronicles chapter.",
-   "PvP rebalanced for level 350."
+   "Unique dark fantasy armor for tiers 22 to 26, fitted to every body: Night Wolf (fur collar and wolf hood), Sepulchral (plates with a stained-glass glow and crown), Broken Veil (crimson corset, ruff and veil), Eclipsed (eclipsed sun, gold pauldrons and horned helm) and Smiling Moon (jester suit with the moon's grin and bells).",
+   "Veil Power: from level 251, each level gives +0.5% attack and health (up to +50% at level 350). Same for every class.",
+   "Swamp of Lost Souls: new lantern button. With it off, spectral bridges appear leading to an islet with Spectral Essence chests.",
+   "Village of the Dead Bells: Nocturna, the Eclipse Merchant, only sells at night (Eclipse Elixir and more). Oren asks you to choose: ring or break the last bell, and the village remembers.",
+   "Forest of Whispers: read the 3 stelae and touch the pedestals in order to dispel the illusions guarding Varkhul. If you get it wrong, a Mimic with your own look appears.",
+   "Cathedral of the Eclipse: light the 3 altars to open the King of Bells' gate.",
+   "Castle of the Smiling Moon: the Moon watches you and, if it sees you, enemies get faster. After defeating it you choose between two endings, each with its own reward.",
+   "New enemies: Sepulchral Lancer and Veil Acolyte. New mechanics: the Hollow Bishop's cross of light and Varkhul's lancers.",
+   "The 🔎 guide shows everything in the Broken Veil: which region drops each material and how to get there."
   ]
  }
 }
