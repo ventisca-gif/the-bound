@@ -186,9 +186,10 @@ function drawHero(p, L, dir, anim, f) {
   const shortSleeve = TOP.k === 'tunic' || TOP.k === 'dress' || TOP.k === 'hawaii' || TOP.k === 'swim';
   const drawArm = (sx, sy, dx, dy, back) => { TG(3);
     const hx2 = sx + dx, hy2 = sy + B.al + dy, aw = B.aw;
-    for (let k = 0; k < aw; k++) { const x0 = sx + k, y0 = sy, x1 = hx2 + k, y1 = hy2 - 1; const n = Math.max(1, Math.ceil(Math.hypot(x1 - x0, y1 - y0))); for (let s = 0; s <= n; s++) { const t = s / n, x = Math.round(lerp(x0, x1, t)), y = Math.round(lerp(y0, y1, t)); const P = shortSleeve && t > 0.4 ? SK : sleeve; p.set(x, y, back ? P[1] : P[k === 0 ? 3 : 2]); } }
+    for (let k = 0; k < aw; k++) { const x0 = sx + k, y0 = sy, x1 = hx2 + k, y1 = hy2 - 1; const n = Math.max(1, Math.ceil(Math.hypot(x1 - x0, y1 - y0))); for (let s = 0; s <= n; s++) { const t = s / n, x = Math.round(lerp(x0, x1, t)), y = Math.round(lerp(y0, y1, t)); const P = shortSleeve && t > 0.4 ? SK : (TOP.band && y >= torsoTop + Math.max(3, Math.round(th * 0.5)) && y <= torsoTop + Math.max(3, Math.round(th * 0.5)) + 1 ? TOP.band : sleeve); p.set(x, y, back ? P[1] : P[k === 0 ? 3 : 2]); } }
     if (robeArm && !back) p.rect(Math.round(hx2) - 1, Math.round(hy2) - 2, aw + 1, 1, TOP.m[3]);
     if (TOP.k === 'leather' && !back) p.rect(Math.round(hx2), Math.round(hy2) - 2, aw, 1, TOP.s[2]);
+    if (TOP.cuff) p.rect(Math.round(hx2), Math.round(hy2) - 2, aw, 1, TOP.cuff[back ? 1 : 3]);   // v4.7 puños de color (suéter)
     if (TOP.k === 'warpaint') { p.rect(Math.round(hx2), Math.round(hy2) - 3, aw, 2, TOP.s[back ? 1 : 2]); if (!back) p.set(Math.round(hx2), Math.round(hy2) - 3, (TOP.l || [C('#b8b8c4')])[0]); }
     p.rect(Math.round(hx2), Math.round(hy2) - 1, aw, 2, back ? uMul(handC, 0.75) : handC);
     return [hx2 + aw / 2, hy2];

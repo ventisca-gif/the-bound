@@ -1,26 +1,26 @@
 {
- "build": 27,
- "ver": "4.6",
+ "build": 28,
+ "ver": "4.7",
  "date": "2026-11-13",
  "file": "thebound.html",
- "size": 4504252,
- "sha256": "334d1c67f83a08639eff9770845d145208290ecf90e7e7f53509e9b0900f7939",
+ "size": 4521377,
+ "sha256": "feb7aabb00795aaf2f855df52338fe7f16b264ae220cdf52650e2b2f3c2c80e5",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Multas: todos los guardias cobran, también el Guardia Rolf en Albor y el Capitán Darius en Arxar, y cualquiera acepta las multas de cualquier pueblo (así se pagan las de Yarakai y Puerto Brasa).",
-   "Nuevo panel «Multas y antecedentes» al hablar con un guardia: lo que debes en cada pueblo, pagar una o todas.",
-   "Si eres Criminal en un pueblo sin multa registrada, puedes pagar para limpiar tu nombre.",
-   "Si no debes nada, el guardia te lo dice.",
-   "El Colgante de Promesa ya no pide nivel de Joyería."
+   "Nueva boutique en cada pueblo, con tejado morado: Valentina, la modista, vende la colección nueva.",
+   "Ropa nueva: Suéter de Punto Medianoche (cuello de cuadrícula, franja carmesí, puños rosas), Pantalón Holgado Café, Zapatillas Carmesí, Tirita en la Mejilla, Vestido de Noche Carmesí y Chaqueta de Cuero. Se ajustan a las 8 estructuras.",
+   "Nueva mascota: Bufandín, el Gato Viajero (+6% de velocidad y +4% de crítico).",
+   "PvP equilibrado a nivel máximo: todas las clases pueden hacerse frente. En duelo las curas y escudos rinden menos, y cada clase tiene un ajuste de daño solo para PvP.",
+   "Las invocaciones del Invocador ahora también atacan al rival en un duelo."
   ],
   "en": [
-   "Fines: every guard collects them, including Guard Rolf in Albor and Captain Darius in Arxar, and any guard accepts fines from any town (so Yarakai and Puerto Brasa fines can be paid).",
-   "New \"Fines and record\" panel when talking to a guard: what you owe in each town, pay one or all.",
-   "If you are a Criminal in a town with no recorded fine, you can pay to clear your name.",
-   "If you owe nothing, the guard tells you.",
-   "The Promise Pendant no longer needs a Jewelry level."
+   "New boutique in every town, with a purple roof: Valentina, the designer, sells the new collection.",
+   "New clothes: Midnight Knit Sweater (grid collar, crimson stripe, pink cuffs), Baggy Brown Trousers, Crimson Sneakers, Cheek Bandage, Crimson Evening Dress and Leather Jacket. They fit all 8 builds.",
+   "New pet: Scarfy, the Wandering Cat (+6% speed and +4% crit).",
+   "PvP balanced at max level: every class can stand up to the others. In duels heals and shields are weaker, and each class has a PvP-only damage adjustment.",
+   "Summoner spirits now also attack your opponent in a duel."
   ]
  }
 }
