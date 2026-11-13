@@ -4,7 +4,7 @@
 // animación de ataque en 5 tiempos (preparación, 3 golpes e impacto) en un atlas al doble para que se vea fino en HD.
 // Las dagas y las aletas del pez van una en cada mano. El daño no cambia.
 const ARM_K = { sword: 'guerrero', staff: 'mago', bow: 'arquero', dagger: 'asesino', lute: 'bardo', scythe: 'invocador', fin: 'pez' };
-const ARM_PIX = {}, ARM_HPIX = {}, ARM_HDP = {};
+const ARM_PIX = {}, ARM_HPIX = {}, ARM_HDP = {}, ARM_PIVK16 = {}, ARM_PIVK32 = {};   // agarre propio por arma (tiers 22+)
 for (const k in ARM_ICON) ARM_PIX[k] = wsprPix(ARM_ICON[k]);
 for (const k in ARM_HAND) ARM_HPIX[k] = wsprPix(ARM_HAND[k]);
 function armPixFromImg(im) { const c = mkCanvas(im.width, im.height), x = c.getContext('2d'); x.drawImage(im, 0, 0); const d = x.getImageData(0, 0, im.width, im.height); const p = new Pix(im.width, im.height); p.d = new Uint32Array(d.data.buffer.slice(0)); return p; }
@@ -18,7 +18,7 @@ function armRecolorPix(src, ramp) {
   for (let i = 0; i < src.d.length; i++) { const c = src.d[i]; if (!cu(c)) { p.d[i] = c; continue; } const k = Math.max(0, Math.min(1, (L(c) - lo) / Math.max(1, hi - lo))) * 4, j = Math.min(3, k | 0); p.d[i] = uMix(ramp[j], ramp[j + 1], k - j); }
   return p;
 }
-function armKey(W) { if (!W || !W.k || W.ws || W.leg) return null; const cls = ARM_K[W.k], t = W.tier | 0; if (!cls || t < 1) return null; if (t <= 6) return ARM_HPIX[cls + '_' + t] ? cls + '_' + t : null; return cls === 'pez' && TIERP[t] ? 'pez_' + t : null; }
+function armKey(W) { if (!W || !W.k || W.ws || W.leg) return null; const cls = ARM_K[W.k], t = W.tier | 0; if (!cls || t < 1) return null; if (t <= 6 || t >= 22) return ARM_HPIX[cls + '_' + t] ? cls + '_' + t : null; return cls === 'pez' && TIERP[t] ? 'pez_' + t : null; }
 function armHand(key) { if (!ARM_HPIX[key] && key.startsWith('pez_')) ARM_HPIX[key] = armRecolorPix(ARM_HPIX.pez_2, TIERP[+key.slice(4)]); return ARM_HPIX[key]; }
 function armHD(key) { if (!ARM_HDP[key] && key.startsWith('pez_') && ARM_HDP.pez_2) ARM_HDP[key] = armRecolorPix(ARM_HDP.pez_2, TIERP[+key.slice(4)]); return ARM_HDP[key]; }
 // iconos del inventario
@@ -39,8 +39,8 @@ let ARM_REC = null;   // mientras se construye un fotograma HD: armas que se dib
 { const _dw = drawWeapon; drawWeapon = function (p, W, hx, hy, ang, phase) {
   const key = armKey(W); if (!key) return _dw(p, W, hx, hy, ang, phase);
   const cls = key.split('_')[0], src = armHand(key); if (!src) return _dw(p, W, hx, hy, ang, phase);
-  if (ARM_REC && p.t && armHD(key)) { const tg = p.tg; p.tg = 10; armRot(p, src, ARM_PIV16[cls], hx, hy, ang); p.tg = tg; ARM_REC.push({ key, cls, hx, hy, ang }); return; }
-  armRot(p, src, ARM_PIV16[cls], hx, hy, ang);
+  if (ARM_REC && p.t && armHD(key)) { const tg = p.tg; p.tg = 10; armRot(p, src, ARM_PIVK16[key] || ARM_PIV16[cls], hx, hy, ang); p.tg = tg; ARM_REC.push({ key, cls, hx, hy, ang }); return; }
+  armRot(p, src, ARM_PIVK16[key] || ARM_PIV16[cls], hx, hy, ang);
 }; }
 // fotograma HD: igual que antes, y al final el arma a 32 px solo donde el arma de 16 px se veía (o en el aire / el contorno)
 hdBuild = function (A, col, row) {
@@ -51,7 +51,7 @@ hdBuild = function (A, col, row) {
   p.outline(OUTL, false);
   const q = hdDetail(p, A.hdMats); hdOrn(q, p, L);
   if (L.top?.modaStyle !== undefined) modaDressplate(q, p.meta, L.top.modaStyle, L);
-  for (const r of rec) { const src = armHD(r.key); if (!src) continue; armRot(q, src, ARM_PIV32[r.cls], r.hx * 2, r.hy * 2, r.ang, i => !uA(q.d[i]) || q.t[i] === 10 || q.t[i] === 0); }
+  for (const r of rec) { const src = armHD(r.key); if (!src) continue; armRot(q, src, ARM_PIVK32[r.key] || ARM_PIV32[r.cls], r.hx * 2, r.hy * 2, r.ang, i => !uA(q.d[i]) || q.t[i] === 10 || q.t[i] === 0); }
   if (mirror) q.flipX();
   q.toCtx(X, col * FW * 2, row * FH * 2);
 };
@@ -59,7 +59,7 @@ hdBuild = function (A, col, row) {
 { const _hl = heroLook; heroLook = function (cls, app, gear, ...a) { const L = _hl(cls, app, gear, ...a); if (cls === 'pez' && !L.weapon) { const t = (gear && gear.weapon) | 0; if (t > 0) L.weapon = { k: 'fin', tier: t, dual: 1 }; } return L; }; }
 // ---- efectos de ataque: atlas nuevo (celdas de ARM_CW x ARM_CH al doble) ----
 { const _ws = wsprSetItem; wsprSetItem = function (it) {
-  if (it && !it.ws && !it.leg && it.id !== WSPR_SOLAR_ID) { const t = it.tier | 0, row = WSPR_ROW[it.cls]; if (t >= 1 && t <= 6 && row !== undefined && WSPR_IMG['arm' + t]) return { img: 'arm' + t, row, bow: row === 2, cw: ARM_CW, ch: ARM_CH, s: 2 }; }
+  if (it && !it.ws && !it.leg && it.id !== WSPR_SOLAR_ID) { const t = it.tier | 0, row = WSPR_ROW[it.cls]; if (t >= 1 && (t <= 6 || t >= 22) && row !== undefined && WSPR_IMG['arm' + t]) return { img: 'arm' + t, row, bow: row === 2, cw: ARM_CW, ch: ARM_CH, s: 2 }; }
   return _ws(it); }; }
 { const _wc = wsprCell; wsprCell = function (set, col, cx, cy, sc, alpha, ang, flip, X) {
   if (!set || !set.cw) return _wc(set, col, cx, cy, sc, alpha, ang, flip, X);
