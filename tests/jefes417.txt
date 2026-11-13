@@ -1,0 +1,20 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{ const P=G.P; P.lv=20; calcStats(P); P.hp=P.S.maxhp=99999; const m=spawnMob('reyslime',8,P.x+60,P.y,P.L,null,true); m.hp=m.maxhp=1e6; m.state='chase'; m.mech=6.9; window._m=m; return m.mid; })()
+wait 2200
+js (()=>{ const P=G.P; return JSON.stringify({hz:HZ.length, root:P.rootT, mv:moveInput()}); })()
+shot
+js (()=>{ const P=G.P; P.rootT=1; dodgeRoll(); return 'root tras rodar '+P.rootT; })()
+js (()=>{ const P=G.P; _m.remove=true; const v=spawnMob('vael',30,P.x+70,P.y,P.L,null,true); v.hp=v.maxhp*0.4; v.state='chase'; window._v=v; return 1; })()
+wait 400
+js (()=>{ const v=_v; const h0=v.hp; hitMob(v,1000,{}); v.seals.forEach(s=>s.prog=1.45); G.P.x=v.seals[0].x; G.P.y=v.seals[0].y; return 'inmune '+(v.hp===h0)+' sellos '+v.seals.length; })()
+wait 200
+js (G.P.x=_v.seals[1].x, G.P.y=_v.seals[1].y, 1)
+wait 200
+js (G.P.x=_v.seals[2].x, G.P.y=_v.seals[2].y, 1)
+wait 200
+js (()=>{ const v=_v; return 'inmune tras sellos '+!!v.invuln; })()
+js (()=>{ _v.remove=true; openPanel('map'); return !!$('.mzoom')+' '+!!$('.mzbtns'); })()
+js (()=>{ $('[data-mz="1"]').click(); $('[data-mz="1"]').click(); return MAPZ.s.toFixed(2)+' '+$('#wm').style.transform; })()
+shot
+js (window._errs)

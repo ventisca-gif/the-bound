@@ -7,13 +7,16 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '4.16', GAME_BUILD = 37;
+const GAME_VER = '4.17', GAME_BUILD = 38;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
 const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/[
+  {"b": 38, "v": "4.17", "d": "2026-11-13",
+   "es": ["Los jefes del mundo tienen mecánicas nuevas, siempre avisadas en el suelo: el Rey Slime escupe slime que te deja pegado (rueda para soltarte), el Ent hace brotar raíces, Gruk toca su tambor de guerra (rueda cuando llegue la onda) y se enfurece, Morgana te lanza un maleficio que invierte tus pasos, el Gólem de Hielo congela el suelo, Volcanus hace erupciones de lava y Vael llama a sus soldados y, a mitad de vida, se vuelve inmune hasta que actives 3 sellos dorados.", "Mapa: acércalo o aléjalo con dos dedos, arrástralo con uno, o usa los botones + − ⟲."],
+   "en": ["World bosses have new mechanics, always warned on the ground: the Slime King spits slime that sticks you in place (roll to break free), the Ent makes roots burst out, Gruk beats his war drum (roll when the wave arrives) and enrages, Morgana casts a hex that reverses your steps, the Ice Golem freezes the ground, Volcanus erupts lava and Vael calls his soldiers and, at half health, becomes immune until you activate 3 golden seals.", "Map: zoom in or out with two fingers, drag it with one, or use the + − ⟲ buttons."]},
   {"b": 37, "v": "4.16", "d": "2026-11-13",
    "es": ["Nuevo botón 🔎 «Dónde conseguir» junto al Libro: cada material, arma, armadura, cosmético y jefe con dónde se consigue (monstruos, jefes, minería, tala, tiendas y recetas con sus materiales). «Seguir» enciende la flecha dorada hasta el sitio; vuelve a tocar para apagarla.", "Las habilidades de mejora pintan a tu personaje del color de su nombre mientras duran (Furia en rojo, Escarcha en hielo, Invisibilidad en sombra, Fortaleza en oro…) y los escudos muestran una burbuja. Cada habilidad lanza un destello del color de su elemento. Funciona con todos los cuerpos y se ve en el online.", "Las criaturas de Altavela usan el dibujo de Sergio, con el mismo detalle que en su imagen.", "Las armas superadas pierden como mucho un 30 % de daño (antes 55 %)."],
    "en": ["New 🔎 \"Where to get it\" button next to the Book: every material, weapon, armor, cosmetic and boss with where to get it (monsters, bosses, mining, woodcutting, shops and recipes with their materials). \"Follow\" turns on the golden arrow to the place; tap again to turn it off.", "Buff skills paint your character in the color of their name while they last (Fury red, Frost icy, Invisibility shadow, Fortress gold…) and shields show a bubble. Every skill casts a flash in its element color. Works with every body and is seen online.", "Altavela's creatures use Sergio's drawing, with the same detail as his image.", "Outgrown weapons lose at most 30% damage (was 55%)."]},
