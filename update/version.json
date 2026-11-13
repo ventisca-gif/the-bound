@@ -1,20 +1,26 @@
 {
- "build": 33,
- "ver": "4.12",
+ "build": 34,
+ "ver": "4.13",
  "date": "2026-11-13",
  "file": "thebound.html",
- "size": 4671450,
- "sha256": "752d8933cc0df059acf49c83d76de8fce291261a50f39af4c2cb435901280c90",
+ "size": 5530228,
+ "sha256": "3602e6fddfd28905359374b0cbce0d2ea973b8b996b7f50200bd2b02367970da",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Los cuerpos femeninos tienen busto: Esbelta y Menuda pequeño, Clásica mediano y Curvas grande.",
-   "Se ve con cualquier ropa, armadura o cosmético, de frente y de perfil, y también en las NPCs femeninas."
+   "Armas nuevas de madera, cobre, hierro, acero, plata y oro para todas las clases, con el dibujo de cobre de Sergio: más detalle en la mano (en HD se dibujan al doble) y ataques nuevos en 5 tiempos con su impacto.",
+   "Las dagas van una en cada mano, el arco apunta bien y el pez lleva sus aletas en las manos.",
+   "Campamento de los Vigías del Alba al este de Albor, en la Costa Coral: 8 miembros con su propio estilo y 5 misiones para ayudar y rescatar gente.",
+   "Al unirte te dan su uniforme (abrigo, pantalón y botas) como cosmético; te lo puedes quitar cuando quieras.",
+   "Lore nuevo: Edrin Valcorde, el pescador que hace mil años cuidó al primer portador del hilo vacío. Capítulo y pista nuevos en el Libro del Vínculo."
   ],
   "en": [
-   "Female bodies now have a bust: small for Slender and Petite, medium for Classic and large for Curvy.",
-   "It shows with any clothes, armor or cosmetic, from the front and in profile, and on female NPCs too."
+   "New wood, copper, iron, steel, silver and gold weapons for every class, based on Sergio's copper drawing: more detail in hand (drawn at double size in HD) and new 5-step attacks with their impact.",
+   "Daggers go one in each hand, the bow aims properly and the Fish class holds its fins in its hands.",
+   "Dawn Wardens camp east of Albor, on the Coral Coast: 8 members with their own style and 5 quests to help and rescue people.",
+   "Joining gives you their uniform (coat, trousers and boots) as a cosmetic; take it off whenever you like.",
+   "New lore: Edrin Valcorde, the fisherman who cared for the first bearer of the empty thread a thousand years ago. New chapter and clue in the Book of the Bond."
   ]
  }
 }
