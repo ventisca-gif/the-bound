@@ -70,7 +70,7 @@ function fitItems(only) {
   const out = [];
   for (const id in COSM) out.push({ id, kind: 'cos', slot: COSM[id].slot });
   const cls = ['guerrero', 'mago', 'arquero', 'asesino', 'bardo', 'invocador', 'pez'];
-  for (const c of cls) for (const t of [1, 3, 6, 9, 12, 15, 18, 21]) for (const slot of ['head', 'body', 'legs', 'feet']) out.push({ id: `${c}:${slot}:${t}`, kind: 'gear', cls: c, slot, t });
+  for (const c of cls) for (const t of [1, 3, 6, 9, 12, 15, 18, 21, 22, 23, 24, 25, 26]) for (const slot of ['head', 'body', 'legs', 'feet']) out.push({ id: `${c}:${slot}:${t}`, kind: 'gear', cls: c, slot, t });
   return only ? out.filter(it => it.id.includes(only)) : out;
 }
 function fitLook(it, g, bt, withItem) {

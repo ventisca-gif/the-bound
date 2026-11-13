@@ -1,0 +1,21 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), window.hurtPlayer=()=>{}, 1)
+js (()=>{ const P=G.P; P.lv=300; calcStats(P); const a=P.S.atk; P.lv=250; calcStats(P); const b=P.S.atk; P.lv=300; calcStats(P); P.vrPortal=1; goVelo(); return 'poder '+(a/b).toFixed(3); })()
+wait 2500
+js (()=>{ const M=G.map; return 'ghost '+M.ghost.size+' ilus '+M.ilus.length+' alt '+M.alt.length+' reja '+M.reja.length+' btn '+!!$('#bLant'); })()
+js (()=>{ const M=G.map, P=G.P, i=[...M.ghost][0], tx=i%M.w, ty=Math.floor(i/M.w); const a=blockedFor(M,tx,ty,0); P.vrLant=1; const b=blockedFor(M,tx,ty,0); P.x=tx*16+8; P.y=ty*16+8; return 'bloqueado con linterna '+a+' sin linterna '+b; })()
+wait 800
+shot
+js (()=>{ const M=G.map, P=G.P, o=M.objs.find(o=>o.vrEss); P.x=o.px; P.y=o.py+16; P.dir='up'; doInteract(); return 'esencia '+countItem('esencia_espectral'); })()
+js (()=>{ const M=G.map, P=G.P; P.vrLant=0; const ped=M.objs.filter(o=>o.f==='vr_ped'); const go=s=>{ const o=ped.find(o=>o.sym===s); P.x=o.px; P.y=o.py+14; P.dir='up'; doInteract(); }; go(1); const mim=G.ents.filter(e=>e.mid==='imitador').length; for (const s of M.vrSeq) go(s); return 'imitador '+mim+' simbolos '+P.vrSym+' ilus ocultas '+M.ilus.every(o=>o.hidden); })()
+js (()=>{ const P=G.P; const Z=VR_ZONES[2]; P.x=(Z.c[0]+3)*16; P.y=(Z.c[1]+12)*16; return 1; })()
+wait 1500
+shot
+js (()=>{ const M=G.map, P=G.P; for (const o of M.alt) { P.x=o.px; P.y=o.py+16; P.dir='up'; doInteract(); } return 'altares '+P.vrAlt+' reja abierta '+M.reja.every(o=>o.hidden); })()
+js (()=>{ const P=G.P; G.time=22*60; const n=G.ents.find(e=>e.id==='mercader_eclipse'); return 'mercader '+!!n; })()
+js (()=>{ const P=G.P; P.x=190*16; P.y=146*16; VR_GAZE=15.9; return 1; })()
+wait 2000
+shot
+js (()=>{ vrEnding(); $('#vrE1').click(); return G.P.vrEnd+' '+G.P.wardrobe.includes('c_alba_capa'); })()
+js (()=>{ GUIA.tab='mat'; GUIA.sel='esencia_espectral'; renderGuia(); const a=$('.gdet').textContent.slice(0,140); GUIA.sel='hueso_coronado'; renderGuia(); const b=$('.gdet').textContent.slice(0,160); closeModal(); return a+' || '+b; })()
+js (window._errs)
