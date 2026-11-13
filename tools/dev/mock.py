@@ -7,7 +7,7 @@ url, out, spec = sys.argv[1], sys.argv[2], sys.argv[3]
 S = int(sys.argv[4]) if len(sys.argv) > 4 else 6
 ref = sys.argv[5] if len(sys.argv) > 5 and sys.argv[5] != '-' else None
 cols = sys.argv[6] if len(sys.argv) > 6 else "[['idle','down',0],['walk','down',1],['walk','left',1],['idle','up',0]]"
-JS = r"""(([LIST, S, COLS, REF]) => new Promise(done => { const CW = 34, CH = 40, X0 = 7, Y0 = 6;
+JS = r"""(([LIST, S, COLS, REF]) => new Promise(done => { const CW = 34, CH = 44, X0 = 7, Y0 = 3;
 const c = document.createElement('canvas'); c.id = 'sheet'; const rows = LIST.length, per = COLS.length; c.width = CW * S * per + 120; c.height = (CH * S + 22) * rows; const x = c.getContext('2d'); x.fillStyle = '#4a7a3a'; x.fillRect(0, 0, c.width, c.height); x.imageSmoothingEnabled = false;
 LIST.forEach(([lab, L], r) => { const A = buildHeroAtlas(L); COLS.forEach(([an, dir, f], k) => { x.drawImage(A.img, (A.idx[an] + f) * A.fw + X0, ['down','left','right','up'].indexOf(dir) * A.fh + Y0, CW, CH, k * CW * S, r * (CH * S + 22) + 22, CW * S, CH * S); }); x.font = 'bold 16px sans-serif'; x.fillStyle = '#fff'; x.fillText(lab, 6, r * (CH * S + 22) + 17); });
 document.body.innerHTML = ''; document.body.style.margin = 0; document.body.appendChild(c);

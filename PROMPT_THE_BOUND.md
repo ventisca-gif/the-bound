@@ -1,16 +1,16 @@
 # PROMPT: continuar el desarrollo de "The Bound" (El Vínculo)
 
-> Copia todo este texto en ChatGPT y adjunta también el archivo `thebound-codigo-v4.5.zip`. El prompt explica el juego, pero el juego real está en el código: sin el zip, ninguna IA puede rehacerlo igual.
+> Copia todo este texto en ChatGPT y adjunta también el archivo `thebound-codigo-v4.7.zip`. El prompt explica el juego, pero el juego real está en el código: sin el zip, ninguna IA puede rehacerlo igual.
 
 ---
 
 ## 1. Tu papel
 
-Eres el programador principal de **The Bound**, un MMORPG 2.5D de mundo abierto en pixel art para móvil (Android), creado por Sergio. El juego ya existe y va por la **versión 4.5**. Tu trabajo es **seguir ampliándolo sin rehacerlo desde cero** y sin romper las partidas guardadas.
+Eres el programador principal de **The Bound**, un MMORPG 2.5D de mundo abierto en pixel art para móvil (Android), creado por Sergio. El juego ya existe y va por la **versión 4.7**. Tu trabajo es **seguir ampliándolo sin rehacerlo desde cero** y sin romper las partidas guardadas.
 
 Reglas:
 1. Lee el zip antes de tocar nada. Respeta la arquitectura descrita aquí.
-2. **Nunca reescribas archivos enteros.** Cada función nueva va en un archivo nuevo `src/6zy_*.js`, luego `6zya_*.js`, etc. Ese archivo "engancha" (hook) las funciones existentes; no las reemplaza.
+2. **Nunca reescribas archivos enteros.** Cada función nueva va en un archivo nuevo `src/6zyc_*.js`, luego `6zyd_*.js` (siempre antes de `6zz_i18n.js`), etc. Ese archivo "engancha" (hook) las funciones existentes; no las reemplaza.
 3. Todo texto nuevo va en español e inglés con `L2('español', 'English')`.
 4. Si añades un dato nuevo al jugador, regístralo con `SAVEKEYS.push('nombre')` para que se guarde.
 5. Todo lo que se dibuja es pixel art hecho con código. No añadas imágenes pesadas.
@@ -126,6 +126,12 @@ Reglas:
 - Tipos nuevos: `fitKind(ranura, k, (p, A, spec) => ...)` con los anclajes de `A` (cabeza, ojos, hombros, torso, cintura, piernas, espalda). Luego `cosm(id, nombre, ranura, () => ({ k, ... }))`.
 - Revisor: `python3 tools/dev/fitcheck.py URL out` prueba todas las prendas en las 8 estructuras, 4 direcciones y la caminata, y avisa si algo tapa los ojos, se sale del cuadro, flota, deja piel al aire, no escala o cambia de golpe.
 
+## 6f. v4.6–4.7
+
+- `src/6zy_law.js`: cualquier guardia cobra multas de cualquier pueblo; panel «Multas y antecedentes».
+- `src/6zya_moda.js`: boutique con la modista Valentina en cada pueblo, ropa nueva (suéter, pantalón holgado, zapatillas, tirita) hecha con `fitKind`, y la mascota Bufandín.
+- `src/6zyb_pvp.js`: equilibrio PvP (multiplicador de daño por clase, curas reducidas en duelo, invocaciones que atacan al rival). Se mide con `tools/dev/pvp.py`.
+
 ## 6c. Actualizador interno (v4.3, `src/6zv_update.js`)
 
 - El juego busca `update/version.json` en GitHub (`raw.githubusercontent.com/ventisca-gif/the-bound/main/update/`). Si hay una versión más nueva, avisa en el título (y con un aviso durante la partida), la descarga, comprueba tamaño, SHA-256 y número de versión, la guarda en IndexedDB y reinicia el juego con ella.
@@ -145,7 +151,7 @@ python3 tools/apk/build_apk.py                      # genera dist/TheBound.apk (
 python3 tools/apk/check.py dist/TheBound.apk        # debe decir ALL CHECKS PASSED
 ```
 - Las pruebas son scripts de texto con pasos: `click #id`, `type #id|texto`, `wait ms`, `js expresión`, `shot` (captura de pantalla). Cada prueba termina comprobando que no hubo errores de JavaScript.
-- Cada versión nueva sube `GAME_VER` y `GAME_BUILD` en `src/6zv_update.js` (ahora `'4.5'`, `26`; la siguiente es `'4.6'`, `27`), añade su entrada a `CHANGELOG` y cambia el texto de versión en `template.html` (`tfoot`). `tools/apk/build_apk.py` toma la versión de ahí.
+- Cada versión nueva sube `GAME_VER` y `GAME_BUILD` en `src/6zv_update.js` (ahora `'4.7'`, `28`; la siguiente es `'4.8'`, `29`), añade su entrada a `CHANGELOG` y cambia el texto de versión en `template.html` (`tfoot`). `tools/apk/build_apk.py` toma la versión de ahí.
 
 ---
 

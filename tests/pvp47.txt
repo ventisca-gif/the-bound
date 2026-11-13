@@ -1,0 +1,6 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), 1)
+js (()=>{ G.P.cls = 'arquero'; const r = { id: 'phn:9', x: G.P.x + 20, y: G.P.y, pvp: 1, map: G.P.map, name: 'Rival' }; PVP.out.length = 0; pvpHit(r, 1000); const a = PVP.out[0].d; G.P.cls = 'bardo'; PVP.lastHit.clear(); pvpHit(r, 1000); return [a, PVP.out[1].d, pvpActive()]; })()
+js (()=>{ G.P.cls = 'bardo'; G.P.pvpT = G.t; const v1 = skillVal('d8', 10).p; G.P.pvpT = -99; const v2 = skillVal('d8', 10).p; return [v1, v2]; })()
+js (()=>{ G.P.pvpT = G.t; G.P.cls = 'guerrero'; const v = skillVal('g8', 10).p; G.P.pvpT = -99; return [v, skillVal('g8', 10).p]; })()
+js (window._errs)
