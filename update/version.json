@@ -1,28 +1,24 @@
 {
- "build": 36,
- "ver": "4.15",
+ "build": 37,
+ "ver": "4.16",
  "date": "2026-11-13",
  "file": "thebound.html",
- "size": 5611769,
- "sha256": "62441a60189fff844e1dd1f077af36b9ec0ea5f137ad596fedab6574f7c37a2c",
+ "size": 5806763,
+ "sha256": "9a76f57ee3162df5f9d2beeb9bd8f9ab83456edb572c89a30140a9b31d848fac",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Nuevo: Altavela, el Continente Celestial (nivel 220+). Puerta en la Isla de los Vientos de Celestia.",
-   "La capital de los Alados que sobrevivieron, las Llanuras de Nimbo, el Templo de Aeris, los Campos de Tormenta e islotes flotantes que se recorren volando.",
-   "Criaturas nuevas: Arpía Maligna, Medusa de Nube, Manta del Viento, Centinela de Aeris y Chispa Errante. Jefes: Kaelyra la Reina de las Arpías, el Coloso de Aeris y Vendaval la Sierpe de Tormenta (voladores).",
-   "Tormentas mágicas que cruzan el continente: el cielo se oscurece y caen rayos que avisan antes de caer.",
-   "Investigación en grupo con el Archivista Orelio: une fragmentos de mapa roto, descifra las estelas en la lengua de los Vientos y abre las tumbas de los Reyes del Aire. Lo que descubre cada miembro del grupo suma.",
-   "3 misiones de la Reina Lyssandra, capa nueva y 2 capítulos de las Crónicas en español e inglés."
+   "Nuevo botón 🔎 «Dónde conseguir» junto al Libro: cada material, arma, armadura, cosmético y jefe con dónde se consigue (monstruos, jefes, minería, tala, tiendas y recetas con sus materiales). «Seguir» enciende la flecha dorada hasta el sitio; vuelve a tocar para apagarla.",
+   "Las habilidades de mejora pintan a tu personaje del color de su nombre mientras duran (Furia en rojo, Escarcha en hielo, Invisibilidad en sombra, Fortaleza en oro…) y los escudos muestran una burbuja. Cada habilidad lanza un destello del color de su elemento. Funciona con todos los cuerpos y se ve en el online.",
+   "Las criaturas de Altavela usan el dibujo de Sergio, con el mismo detalle que en su imagen.",
+   "Las armas superadas pierden como mucho un 30 % de daño (antes 55 %)."
   ],
   "en": [
-   "New: Altavela, the Celestial Continent (level 220+). Gate on Celestia's Isle of Winds.",
-   "The capital of the surviving Winged, the Nimbus Plains, the Temple of Aeris, the Storm Fields and floating islets you reach by flying.",
-   "New creatures: Malign Harpy, Cloud Jellyfish, Wind Manta, Aeris Sentinel and Wandering Spark. Bosses: Kaelyra the Harpy Queen, the Colossus of Aeris and Vendaval the Storm Wyrm (flying).",
-   "Magic storms sweep across the continent: the sky darkens and lightning strikes after a warning.",
-   "Group research with Orelio the Archivist: join broken map fragments, decipher the stelae in the Wind tongue and open the tombs of the Sky Kings. What each group member discovers adds up.",
-   "3 quests from Queen Lyssandra, a new cape and 2 Chronicle chapters in Spanish and English."
+   "New 🔎 \"Where to get it\" button next to the Book: every material, weapon, armor, cosmetic and boss with where to get it (monsters, bosses, mining, woodcutting, shops and recipes with their materials). \"Follow\" turns on the golden arrow to the place; tap again to turn it off.",
+   "Buff skills paint your character in the color of their name while they last (Fury red, Frost icy, Invisibility shadow, Fortress gold…) and shields show a bubble. Every skill casts a flash in its element color. Works with every body and is seen online.",
+   "Altavela's creatures use Sergio's drawing, with the same detail as his image.",
+   "Outgrown weapons lose at most 30% damage (was 55%)."
   ]
  }
 }

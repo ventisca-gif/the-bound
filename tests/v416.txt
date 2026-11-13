@@ -1,0 +1,22 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), window.hurtPlayer=()=>{}, 1)
+wait 300
+js (()=>{ const b=$('#bGuia'); if(!b) return 'sin boton'; b.click(); return $$('.gitem').length; })()
+js (()=>{ GUIA.q='Cobre'; renderGuia(); const it=$$('.gitem').find(b=>/Mineral de Cobre/.test(b.textContent)); it.click(); return $('.gdet').textContent.slice(0,200); })()
+js (()=>{ const f=$('[data-wp]'); if(!f) return 'sin seguir'; f.click(); return JSON.stringify(G.P.wp)+' guia='+JSON.stringify(guideTarget()); })()
+shot
+js (()=>{ GUIA.tab='eq'; GUIA.q=''; GUIA.sel='w_guerrero_3'; renderGuia(); return $('.gdet').textContent.slice(0,220); })()
+js (()=>{ GUIA.tab='cos'; GUIA.sel='c_vig_abrigo'; renderGuia(); const a=$('.gdet').textContent.slice(0,120); GUIA.tab='boss'; GUIA.sel='gruk'; renderGuia(); return a+' | '+$('.gdet').textContent.slice(0,120); })()
+js (closeModal(), 1)
+js (()=>{ const P=G.P; P.lv=80; P.mp=99999; for (const id of ['g6','g12','g8']) { P.skills[id]=1; } P.slots=['g6','g12','g8',null]; P.cds={}; P.busy=0; useSkill(0); P.busy=0; useSkill(2); return JSON.stringify(P.auras); })()
+wait 600
+shot
+js (()=>{ const P=G.P; P.x=174*16; P.y=176*16; P.app.g='f'; P.app.bt=2; refreshLook(); return 1; })()
+wait 700
+shot
+js (()=>{ const P=G.P; P.lv=240; P.wings=1; calcStats(P); goCeleste(); return 1; })()
+wait 2500
+js (()=>{ const P=G.P; P.x=56*16; P.y=82*16; return 1; })()
+wait 4000
+shot
+js (window._errs)
