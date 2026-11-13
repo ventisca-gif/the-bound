@@ -2,14 +2,14 @@
 
 // ---------- armas superadas ----------
 // El ataque era arma + atributo×2,2 + nivel×1,6: el arma pesaba poco y una espada de cobre servía hasta el final.
-// Ahora un arma más de 20 niveles por debajo del tuyo pierde fuerza (1,2 % por nivel, como mucho 55 %).
+// Ahora un arma más de 20 niveles por debajo del tuyo pierde fuerza (1,2 % por nivel, como mucho 30 %).
 // Con el equipo de tu nivel no cambia nada (el equilibrio contra monstruos y en PvP sigue igual).
-function wOutgrown(P) { const e = P && P.equip && P.equip.weapon, it = e && ITEMS[e.id]; if (!it || !it.lv || it.t !== 'weapon') return 0; const gap = P.lv - it.lv - 20; return gap > 0 ? Math.min(0.55, gap * 0.012) : 0; }
+function wOutgrown(P) { const e = P && P.equip && P.equip.weapon, it = e && ITEMS[e.id]; if (!it || !it.lv || it.t !== 'weapon') return 0; const gap = P.lv - it.lv - 20; return gap > 0 ? Math.min(0.30, gap * 0.012) : 0; }
 { const _cs = calcStats; calcStats = function (P, ...a) { const r = _cs(P, ...a); if (!P || !P.S) return r; const pen = wOutgrown(P); P.S.wpen = pen;
   if (pen) { P.S.atk = Math.round(P.S.atk * (1 - pen)); const id = P.equip.weapon.id; if (P === G.P && pen >= 0.1 && P._wpenW !== id) { P._wpenW = id; try { toast(L2(`Tu arma se ha quedado atrás: −${Math.round(pen * 100)} % de daño. Busca una de tu nivel.`, `Your weapon has fallen behind: −${Math.round(pen * 100)}% damage. Find one for your level.`), 'warn', 5); } catch (e) { } } }
   return r; }; }
 { const _ri = renderInv; renderInv = function (B) { _ri(B); const P = G.P, s = P.inv[invSel], it = s && ITEMS[s.id]; if (!it || it.t !== 'weapon' || !it.lv) return; const gap = P.lv - it.lv - 20; if (gap <= 0) return;
-  const st = $('.invR .stats', B); if (st) st.insertAdjacentHTML('afterend', `<div class="req bad">${L2(`Arma superada a tu nivel: −${Math.round(Math.min(0.55, gap * 0.012) * 100)} % de daño`, `Outgrown at your level: −${Math.round(Math.min(0.55, gap * 0.012) * 100)}% damage`)}</div>`); }; }
+  const st = $('.invR .stats', B); if (st) st.insertAdjacentHTML('afterend', `<div class="req bad">${L2(`Arma superada a tu nivel: −${Math.round(Math.min(0.30, gap * 0.012) * 100)} % de daño`, `Outgrown at your level: −${Math.round(Math.min(0.30, gap * 0.012) * 100)}% damage`)}</div>`); }; }
 
 // ---------- el Velo: un mundo de sueño blanco y acolchado ----------
 // Antes eran cinco manchas de barro, hierba y ceniza sobre negro. Ahora es una sola isla de sueño: suelo de cojines
