@@ -208,7 +208,7 @@ function bldRemoveAt(x, y) {
     if (o.k !== 'herb' && o.k !== 'bush' && bestTool(tool) < Math.min(4, need)) { toast((tool === 'mineria' ? 'Necesitas un pico de nivel ' : 'Necesitas un hacha de nivel ') + Math.min(4, need) + ' o mejor', 'warn'); return; }
     bldPut({ m: M.id, x: o.tx, y: o.ty, L: 2, k: 'clr' }); bldSave(); bldApply(M);
     if (o.k === 'tree') giveItem('log' + Math.min(11, WOODT[o.sp] || 1), 2, true); else if (o.k === 'rock') giveItem('piedra', 3, true); else if (o.k === 'ore') { giveItem('piedra', 2, true); if (ITEMS['ore' + (o.tier || 1)]) giveItem('ore' + (o.tier || 1), 1, true); }
-    sfx(tool === 'mineria' ? 'mine' : 'chop'); burst(o.px, o.py - 8, 10, { sp: 50, up: 50, g: 90, life: 0.6, c: ['#8a6a4a', '#5a8a3a', '#c8c0b0'] }); toast('Quitado para siempre', 'job'); return;
+    sfx(tool === 'mineria' ? 'mine' : 'chop'); burst(o.px, o.py - 8, 10, { sp: 50, up: 50, g: 90, life: 0.6, c: ['#8a6a4a', '#5a8a3a', '#c8c0b0'] }); toast(o.k === 'tree' || o.k === 'bush' || o.k === 'herb' ? L2('Quitado. Si no construyes encima, volverá a crecer con el tiempo.', 'Removed. If you do not build on it, it will grow back in time.') : 'Quitado para siempre', 'job'); return;
   }
   const f = bldAt(M, x, y, 0); if (f && f.r && !f.remote) { if (!toolOk(BK[f.k])) return; bldDel(M.id, x, y, 0); giveItem('bk_' + f.k, 1, true); bldSave(); bldApply(M); sfx('hit'); return; }
   if (f && f.remote) { toast('Esto lo construyó otro jugador: no puedes romperlo', 'warn'); return; }

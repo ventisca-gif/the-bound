@@ -244,7 +244,7 @@ function interactTarget() {
   for (let ty = ty0; ty <= ty1; ty++) for (let tx = tx0; tx <= tx1; tx++) {
     const i = tileAt(M, tx, ty); if (i < 0) continue; const oi = M.objAt[i]; if (oi < 0) continue; const o = M.objs[oi]; const d = dist2(o.px, o.py - 4, fx, fy); if (d > bd) continue;
     let lab = null, icon = null;
-    if (o.k === 'tree' && !o.deco && o.st !== 'stump' && WOODT[o.sp]) { lab = 'Talar'; icon = 'axe'; }
+    if (o.k === 'tree' && !o.deco && o.st !== 'stump' && o.st !== 'sapling' && WOODT[o.sp]) { lab = 'Talar'; icon = 'axe'; }
     else if (o.k === 'ore' && o.st !== 'dep') { lab = 'Minar'; icon = 'pick'; }
     else if (o.k === 'herb' && !o.hidden) { lab = 'Recoger'; icon = 'herb'; }
     else if (o.k === 'mound' && !o.hidden) { lab = 'Excavar'; icon = 'shovel'; }

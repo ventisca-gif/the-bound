@@ -1,18 +1,22 @@
 {
- "build": 31,
- "ver": "4.10",
+ "build": 32,
+ "ver": "4.11",
  "date": "2026-11-13",
  "file": "thebound.html",
- "size": 4663472,
- "sha256": "5b0b09afb3c89b9f48092455024fc61df45725bd160cc487d8eea9be883b8d66",
+ "size": 4668261,
+ "sha256": "1a9b50a3710c8f89b44f6687cc52453d54b42315fbef32938b464a08899a71d1",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Valentina vende tres trajes por oro: Plata y Azul, Carmesí y Oro, y Marcas Rojas y Oro. Se ajustan a las ocho estructuras en las cuatro direcciones."
+   "Los árboles nunca se extinguen: al talarlos, el tocón se convierte en un retoño y luego vuelve a ser un árbol.",
+   "Árboles, arbustos y hierbas quitados con el martillo de construcción vuelven a crecer a los 15 minutos, salvo que hayas construido encima. Las rocas y menas quitadas no vuelven.",
+   "Los retoños no se pueden talar hasta que crecen."
   ],
   "en": [
-   "Valentina sells three outfits for gold: Silver and Blue, Crimson and Gold, and Red Markings and Gold. They fit all eight builds in all four directions."
+   "Trees never go extinct: after chopping, the stump becomes a sapling and then grows back into a tree.",
+   "Trees, bushes and herbs removed with the building hammer grow back after 15 minutes unless you built on that spot. Removed rocks and ores do not come back.",
+   "Saplings can't be chopped until they grow."
   ]
  }
 }

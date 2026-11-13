@@ -341,7 +341,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v4.10 · Tres trajes de Valentina</div>
+  <div class="tfoot">v4.11 · Los árboles vuelven a crecer</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -521,7 +521,7 @@ FrontEndError:1001,FrontEndConnectFailed:1002,FrontEndConnectClosed:1003,FrontEn
 </script>
 <script>
 const LANG_EN = (() => { try { if (/[?&]lang=en\b/.test(location.search)) return true; if (/[?&]lang=es\b/.test(location.search)) return false; return localStorage.getItem('thebound.lang') === 'en'; } catch (e) { return false; } })();
-const I18N_TPL = {"Cargando...":"Loading...","oro":"gold","Jugadores en línea":"Players online","Mapa":"Map","Menú":"Menu","Personaje":"Character","Poción rápida":"Quick potion","Inventario":"Inventory","Misiones":"Quests","Atacar":"Attack","Esquivar":"Dodge","Mantén el botón":"Hold the button","Escribe un mensaje":"Type a message","Enviar":"Send","Cerrar":"Close","EL VÍNCULO":"THE BOND","Nueva partida":"New game","Crea tu héroe":"Create your hero","Girar a la izquierda":"Turn left","Caminar":"Walk","Girar a la derecha":"Turn right","Nombre":"Name","Comenzar aventura":"Start adventure","Volver":"Back"};
+const I18N_TPL = {"Cargando...":"Loading...","oro":"gold","Jugadores en línea":"Players online","Mapa":"Map","Menú":"Menu","Personaje":"Character","Poción rápida":"Quick potion","Inventario":"Inventory","Misiones":"Quests","Atacar":"Attack","Esquivar":"Dodge","Mantén el botón":"Hold the button","Escribe un mensaje":"Type a message","Enviar":"Send","Cerrar":"Close","EL VÍNCULO":"THE BOND","Nueva partida":"New game","Crea tu héroe":"Create your hero","Girar a la izquierda":"Turn left","Caminar":"Walk","Girar a la derecha":"Turn right","Nombre":"Name","Comenzar aventura":"Start adventure","Volver":"Back","v4.11 · Los árboles vuelven a crecer":"v4.11 · Trees grow back"};
 'use strict';
 // ================= CORE =================
 const TS = 16;
@@ -4372,7 +4372,7 @@ function interactTarget() {
   for (let ty = ty0; ty <= ty1; ty++) for (let tx = tx0; tx <= tx1; tx++) {
     const i = tileAt(M, tx, ty); if (i < 0) continue; const oi = M.objAt[i]; if (oi < 0) continue; const o = M.objs[oi]; const d = dist2(o.px, o.py - 4, fx, fy); if (d > bd) continue;
     let lab = null, icon = null;
-    if (o.k === 'tree' && !o.deco && o.st !== 'stump' && WOODT[o.sp]) { lab = (LANG_EN ? "Chop" : 'Talar'); icon = 'axe'; }
+    if (o.k === 'tree' && !o.deco && o.st !== 'stump' && o.st !== 'sapling' && WOODT[o.sp]) { lab = (LANG_EN ? "Chop" : 'Talar'); icon = 'axe'; }
     else if (o.k === 'ore' && o.st !== 'dep') { lab = (LANG_EN ? "Mine" : 'Minar'); icon = 'pick'; }
     else if (o.k === 'herb' && !o.hidden) { lab = (LANG_EN ? "Gather" : 'Recoger'); icon = 'herb'; }
     else if (o.k === 'mound' && !o.hidden) { lab = (LANG_EN ? "Dig" : 'Excavar'); icon = 'shovel'; }
@@ -9985,7 +9985,7 @@ function bldRemoveAt(x, y) {
     if (o.k !== 'herb' && o.k !== 'bush' && bestTool(tool) < Math.min(4, need)) { toast((tool === 'mineria' ? (LANG_EN ? "You need a pickaxe of level " : 'Necesitas un pico de nivel ') : (LANG_EN ? "You need an axe of level " : 'Necesitas un hacha de nivel ')) + Math.min(4, need) + (LANG_EN ? " or better" : ' o mejor'), 'warn'); return; }
     bldPut({ m: M.id, x: o.tx, y: o.ty, L: 2, k: 'clr' }); bldSave(); bldApply(M);
     if (o.k === 'tree') giveItem('log' + Math.min(11, WOODT[o.sp] || 1), 2, true); else if (o.k === 'rock') giveItem('piedra', 3, true); else if (o.k === 'ore') { giveItem('piedra', 2, true); if (ITEMS['ore' + (o.tier || 1)]) giveItem('ore' + (o.tier || 1), 1, true); }
-    sfx(tool === 'mineria' ? 'mine' : 'chop'); burst(o.px, o.py - 8, 10, { sp: 50, up: 50, g: 90, life: 0.6, c: ['#8a6a4a', '#5a8a3a', '#c8c0b0'] }); toast((LANG_EN ? "Removed for good" : 'Quitado para siempre'), 'job'); return;
+    sfx(tool === 'mineria' ? 'mine' : 'chop'); burst(o.px, o.py - 8, 10, { sp: 50, up: 50, g: 90, life: 0.6, c: ['#8a6a4a', '#5a8a3a', '#c8c0b0'] }); toast(o.k === 'tree' || o.k === 'bush' || o.k === 'herb' ? L2('Quitado. Si no construyes encima, volverá a crecer con el tiempo.', 'Removed. If you do not build on it, it will grow back in time.') : (LANG_EN ? "Removed for good" : 'Quitado para siempre'), 'job'); return;
   }
   const f = bldAt(M, x, y, 0); if (f && f.r && !f.remote) { if (!toolOk(BK[f.k])) return; bldDel(M.id, x, y, 0); giveItem('bk_' + f.k, 1, true); bldSave(); bldApply(M); sfx('hit'); return; }
   if (f && f.remote) { toast((LANG_EN ? "Another player built this: you can't break it" : 'Esto lo construyó otro jugador: no puedes romperlo'), 'warn'); return; }
@@ -11734,13 +11734,16 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '4.10', GAME_BUILD = 31;
+const GAME_VER = '4.11', GAME_BUILD = 32;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
 const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/[
+  {"b": 32, "v": "4.11", "d": "2026-11-13",
+   "es": ["Los árboles nunca se extinguen: al talarlos, el tocón se convierte en un retoño y luego vuelve a ser un árbol.", "Árboles, arbustos y hierbas quitados con el martillo de construcción vuelven a crecer a los 15 minutos, salvo que hayas construido encima. Las rocas y menas quitadas no vuelven.", "Los retoños no se pueden talar hasta que crecen."],
+   "en": ["Trees never go extinct: after chopping, the stump becomes a sapling and then grows back into a tree.", "Trees, bushes and herbs removed with the building hammer grow back after 15 minutes unless you built on that spot. Removed rocks and ores do not come back.", "Saplings can't be chopped until they grow."]},
   {"b": 31, "v": "4.10", "d": "2026-11-13",
    "es": ["Valentina vende tres trajes por oro: Plata y Azul, Carmesí y Oro, y Marcas Rojas y Oro. Se ajustan a las ocho estructuras en las cuatro direcciones."],
    "en": ["Valentina sells three outfits for gold: Silver and Blue, Crimson and Gold, and Red Markings and Gold. They fit all eight builds in all four directions."]},
@@ -12527,6 +12530,52 @@ function pvpActive() { const P = G.P; return !!(P && P.pvpT && G.t - P.pvpT < PV
   e.dir = dirFromVec(dx, dy); e.pcd = (e.pcd || 0) - dt;
   if (e.pcd <= 0 && L < rng + 14) { e.pcd = e.rage > 0 ? 0.75 : 1.05; setAnim(e, e.atlas.idx.atk !== undefined ? 'atk' : 'idle'); pvpHit(r, P.S.atk * e.atkM * (1 + (e.rage > 0 ? e.rageP / 100 : 0))); addFx({ type: 'ring', x: r.x, y: r.y, r: 10, dur: 0.25, col: '#7ac8ff' }); }
 }; }
+
+// ================= v4.11: LOS ÁRBOLES NUNCA SE EXTINGUEN =================
+// - Árboles talados: el tocón se convierte en retoño y luego vuelve a ser árbol (no se puede talar el retoño).
+// - Árboles, arbustos y hierbas quitados con el martillo de construcción vuelven a crecer al cabo de un tiempo,
+//   salvo que hayas construido algo en esa casilla (suelo, pared, mueble o tierra de cultivo): así puedes despejar
+//   terreno para construir sin que el bosque desaparezca para siempre. Las rocas y menas quitadas no vuelven.
+// - El tiempo cuenta en horas reales (sigue contando con el juego cerrado) y se sincroniza en multijugador porque
+//   el registro de «quitado» desaparece para todos.
+const FOREST = { sapling: 40, regrowMs: 15 * 60 * 1000, plants: new Set(['tree', 'bush', 'herb']) };
+SAVEKEYS.push('clrT');
+// el tocón pasa a retoño y el retoño a árbol
+{ const _rr = respawnResources; respawnResources = function (M) {
+  if (M && M.objs) for (const o of M.objs) if (o.k === 'tree' && o.st === 'stump' && o.respawn && G.t > o.respawn) { o.st = 'sapling'; o.respawn = G.t + FOREST.sapling; }
+  return _rr(M);
+}; }
+// sprite del retoño: tronquito y copa pequeña con el color de hojas de su especie
+function genSapling(sp) {
+  const W = 18, H = 22, tp = new Pix(W, H), cp = new Pix(W, H), L = LEAF[sp] || (sp === 'pinonev' ? LEAF.pino : LEAF.roble), B = sp === 'abedul' ? BARK.birch : BARK.std;
+  tp.rect(8, 12, 2, 8, B[2]); tp.vl(8, 12, 8, B[3]); tp.ell(9, 20, 3, 1, B[1]);
+  const n = L.length; cp.ball(9, 10, 5.2, 4.6, [L[0], L[Math.min(1, n - 1)], L[Math.min(2, n - 1)], L[Math.min(3, n - 1)]]); cp.ball(6, 8, 2.6, 2.2, [L[1], L[2], L[Math.min(3, n - 1)], L[Math.min(4, n - 1)]]); cp.set(11, 6, L[n - 1]);
+  if (sp === 'pinonev') { cp.hl(6, 6, 6, C('#f0f6ff')); cp.hl(7, 5, 4, C('#ffffff')); }
+  tp.outline(OUTL); cp.outline(OUTL);
+  return { trunk: tp.canvas(), canopy: cp.canvas(), ax: 9, ay: 21, w: W, h: H, sh: [5, 2] };
+}
+{ const _os = objSprite; objSprite = function (o) { if (o && o.k === 'tree' && o.st === 'sapling') return spr('sapling' + o.sp, () => genSapling(o.sp)); return _os(o); }; }
+// lo quitado con el martillo vuelve a crecer si no construiste encima
+function forestBusy(m, x, y) { for (const L of [0, 1]) if (bldGet(m, x, y, L)) return true; const P = G.P; if (P && P.map === m && Math.abs(Math.floor(P.x / 16) - x) <= 1 && Math.abs(Math.floor(P.y / 16) - y) <= 1) return true;
+  for (const r of G.remote.values()) if (r.map === m && Math.abs(Math.floor(r.x / 16) - x) <= 1 && Math.abs(Math.floor(r.y / 16) - y) <= 1) return true; return false; }
+let forestT = 0;
+function forestTick(dt) {
+  forestT += dt; if (forestT < 10) return; forestT = 0; const P = G.P; if (!P || P.ghost || typeof bldMine !== 'function') return;
+  P.clrT = P.clrT || {}; const now = Date.now(); let changed = false;
+  for (const r of [...bldMine().values()]) {
+    if (r.k !== 'clr') continue; const key = bkey(r.m, r.x, r.y, r.L);
+    if (!P.clrT[key]) { P.clrT[key] = now; continue; }
+    const M = G.maps[r.m], ent = M && M.bobj && M.bobj.get(key), o = ent && ent.o && ent.o.clr; if (!o) continue;   // se revisa cuando ese mapa está cargado
+    if (!FOREST.plants.has(o.k)) { delete P.clrT[key]; continue; }   // rocas y menas: para siempre
+    if (now - P.clrT[key] < FOREST.regrowMs || forestBusy(r.m, r.x, r.y)) continue;
+    bldDel(r.m, r.x, r.y, r.L); delete P.clrT[key]; changed = true; bldApply(M);
+    if (o.k === 'tree') { o.st = 'sapling'; o.respawn = G.t + FOREST.sapling; }
+    if (M === G.map) burst(o.px, o.py - 6, 8, { sp: 25, up: 30, g: -10, life: 0.8, c: ['#8aff6a', '#5ac04a', '#ffffff'] });
+  }
+  for (const k in P.clrT) if (!bldMine().has(k)) delete P.clrT[k];
+  if (changed) bldSave();
+}
+V33_TICKS.push(forestTick);
 
 // ================= v3.6: IDIOMA (Español / English) =================
 // Los textos del código se traducen al compilar (tools/i18n/tr.js + en.json): cada uno es (LANG_EN ? "inglés" : "español").

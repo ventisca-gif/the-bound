@@ -1,0 +1,11 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), 1)
+js (()=>{ const W = G.world, P = G.P, near = W.objs.filter(o => o.k === 'tree' && !o.deco && WOODT[o.sp] && !o.hidden).sort((a,b)=>dist2(a.px,a.py,P.x,P.y)-dist2(b.px,b.py,P.x,P.y)); window._t = near.slice(0, 3); return near.slice(0,3).map(o=>[o.sp,o.tx,o.ty]); })()
+js (()=>{ const o = _t[0]; o.st = 'stump'; o.respawn = G.t - 1; respawnResources(G.world); const a = o.st; const s = objSprite(o); o.respawn = G.t - 1; respawnResources(G.world); return [a, !!s.canopy, o.st]; })()
+js (()=>{ const o = _t[0]; o.st = 'sapling'; G.P.x = o.px; G.P.y = o.py + 14; G.P.dir = 'up'; const it = interactTarget(); o.st = null; return it ? it.label || it.kind : null; })()
+js (()=>{ const P = G.P, o = _t[1], o2 = _t[2]; bldPut({ m: 'world', x: o.tx, y: o.ty, L: 2, k: 'clr' }); bldPut({ m: 'world', x: o2.tx, y: o2.ty, L: 2, k: 'clr' }); bldPut({ m: 'world', x: o2.tx, y: o2.ty, L: 0, k: BK_KEYS.find(k => BK[k].L === 0) }); bldSave(); bldApply(G.world); P.x = o.px + 200; P.y = o.py + 200; forestTick(10); const k1 = bkey('world', o.tx, o.ty, 2), k2 = bkey('world', o2.tx, o2.ty, 2); P.clrT[k1] -= 16 * 60 * 1000; P.clrT[k2] -= 16 * 60 * 1000; forestTick(10); return [o.hidden, o.st, bldGet('world', o.tx, o.ty, 2) ? 'clr' : 'none', o2.hidden, bldGet('world', o2.tx, o2.ty, 2) ? 'clr' : 'none']; })()
+js (()=>{ const r = [...bldMine().values()].find(r => r.k === 'clr'); return [!!r, JSON.stringify(G.P.clrT).length > 2, SAVEKEYS.includes('clrT')]; })()
+js (()=>{ const o = _t[1]; G.P.x = o.px; G.P.y = o.py + 30; updateCamera(0, true); return 1; })()
+wait 400
+shot
+js (window._errs)
