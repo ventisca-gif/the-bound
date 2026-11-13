@@ -1,0 +1,8 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (openPanel('opts'), 1)
+wait 300
+js (()=>{ const c=$('#oOpt'); if(!c) return 'sin casilla'; c.click(); return JSON.stringify({opt:OPT.on, wx:SETTINGS.weather, q:SETTINGS.quality, hd:HDS}); })()
+js (()=>{ for(let i=0;i<300;i++) getAtlas('test'+i, ()=>({img:null,lu:0})); const a=ATL.size; const n=optGC(true); return a+' -> '+ATL.size+' borrados '+n; })()
+js (()=>{ $('#oOpt').click(); return JSON.stringify({opt:OPT.on, wx:SETTINGS.weather, hd:HDS}); })()
+js (window._errs)

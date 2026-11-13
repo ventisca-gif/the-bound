@@ -1,0 +1,10 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), window.hurtPlayer=()=>{}, window.netOnline=()=>true, 1)
+js (()=>{ const P=G.P; P.lv=60; for (const k in SK) if (SK[k].cls===P.cls) P.skills[k]=1; P.mp=9999; const m=spawnMob('lobo',5,P.x+30,P.y,P.L,null,false); m.hp=m.maxhp=1e6; window._r={peer:'x',map:P.map,anim:'idle'}; const o0={}; socialPresence(o0); socialRecv(window._r,o0); return 'ok'; })()
+js (()=>{ const P=G.P; P.atkCd=0; P.busy=0; basicAttack(); P.slots[0]='g17'; P.skills.g17=1; P.cds.g17=0; P.busy=0; return 1; })()
+wait 300
+js (()=>{ const P=G.P; P.busy=0; P.atkCd=0; P.acts=[]; P.mp=99999; const b=[P.slots[0],P.skills.g17,P.cds.g17,P.busy,P.mp,P.dead,P.job,P.fishing]; useSkill(0); return JSON.stringify({b,cd:P.cds.g17,z:P.z,hop:P.hopD}); })()
+wait 150
+js (()=>{ const P=G.P; const o={}; socialPresence(o); const n0=G.fx.filter(f=>f.net).length; socialRecv(window._r,o); const n1=G.fx.filter(f=>f.net).length; return JSON.stringify({ev:(o.fx||[]).length, kinds:[...new Set((o.fx||[]).map(e=>e.k+(e.o?':'+e.o.type:'')))], z:o.z, len:JSON.stringify(o.fx||[]).length, netfx:n1-n0, anim:window._r.anim, rz:window._r.z}); })()
+shot
+js (window._errs)
