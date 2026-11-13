@@ -179,6 +179,7 @@ function drawHero(p, L, dir, anim, f) {
     }
     if (typeof FITK !== 'undefined' && FITK.body[k]) FITK.body[k].draw(p, p.meta, TOP);   // v4.5 tipos nuevos (6zx_fit)
     if (L.btS) bodyTorsoShape(p, BTS, { tx0, ty, tw, th, side, up, fem, d, m, legTop });
+    if (fem && typeof bodyBust === 'function') bodyBust(p, L.btS || BODY_T.f[0], { tx0, ty, tw, th, side, up, d });   // busto (6zw_bodies)
   };
   // ---------- arms ----------
   const plateArm = TOP.k === 'plate', robeArm = TOP.k === 'robe' || TOP.k === 'kimono';

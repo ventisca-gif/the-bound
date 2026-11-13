@@ -15,10 +15,10 @@ const BODY_T = {
     { n: ['Robusto', 'Sturdy'], tw: 12, sw: 10, th: 9, lh: 7, lw: 4, aw: 3, al: 6, hrx: 8.2, hry: 7.8, jaw: 2.6, eye: 'soft', ey: 3, mo: 4, blush: 0, belly: 1 },
   ],
   f: [
-    { n: ['Clásica', 'Classic'] },
-    { n: ['Esbelta', 'Slender'], tw: 8, sw: 7, th: 8, lh: 9, al: 7, hry: 7.8, eye: 'lash' },
-    { n: ['Curvas', 'Curvy'], tw: 10, sw: 8, th: 8, lh: 8, eye: 'lash', waist: 2, hips: 1, lip: 1 },
-    { n: ['Menuda', 'Petite'], tw: 8, sw: 7, th: 7, lh: 6, al: 5, hry: 8.4, eye: 'big', ey: 3, mo: 4, bang: 3 },
+    { n: ['Clásica', 'Classic'], bust: 2 },
+    { n: ['Esbelta', 'Slender'], bust: 1, tw: 8, sw: 7, th: 8, lh: 9, al: 7, hry: 7.8, eye: 'lash' },
+    { n: ['Curvas', 'Curvy'], tw: 10, sw: 8, th: 8, lh: 8, eye: 'lash', waist: 2, hips: 1, lip: 1, bust: 3 },
+    { n: ['Menuda', 'Petite'], tw: 8, sw: 7, th: 7, lh: 6, al: 5, hry: 8.4, eye: 'big', ey: 3, mo: 4, bang: 3, bust: 1 },
   ],
 };
 function bodySpec(g, bt) { const T = BODY_T[g === 'm' ? 'm' : 'f']; bt = bt | 0; return bt > 0 && T[bt] ? T[bt] : null; }
@@ -49,6 +49,36 @@ function bodyTorsoShape(p, S, o) {
   if (S.belly) { if (!side) { for (let y = ty + 3; y < ty + th - 1; y++) { p.set(tx0 - 1, y, m[3]); p.set(R + 1, y, m[1]); } } else { const x = d > 0 ? R + 1 : tx0 - 1; for (let y = ty + 3; y < ty + th - 1; y++) p.set(x, y, m[2]); } }
   if (S.hips) { if (!side) { for (let y = ty + th - 2; y < ty + th; y++) { p.set(tx0 - 1, y, m[3]); p.set(R + 1, y, m[1]); } } else { const x = d > 0 ? tx0 - 1 : R + 1; for (let y = ty + th - 2; y < ty + th; y++) p.set(x, y, m[1]); } }
   if (S.waist === 2 && fem && !side) { for (const yy of [ty + th - 5, ty + th - 4, ty + th - 3]) { p.set(tx0, yy, 0); p.set(R, yy, 0); } if (!up) { p.set(tx0 + 1, ty + th - 4, m[1]); p.set(R - 1, ty + th - 4, m[1]); } }
+}
+// ---- busto (solo cuerpos femeninos): se sombrea sobre lo que ya lleva puesto el torso, así sirve para cualquier prenda ----
+// bust 1 pequeño, 2 medio, 3 grande. De frente: brillo arriba, sombra debajo y escote; de lado: sale 1 px hacia delante.
+let BUST_ON = true;
+function bodyBust(p, S, o) {
+  const { tx0, ty, tw, th, side, up, d } = o, n = (S && S.bust) || 2; if (!BUST_ON || up || th < 6) return;
+  const K = C('#140c14'), Wt = C('#ffffff'), lit = (x, y, t) => { const c = p.get(x, y); if (c) p.set(x, y, uMix(c, Wt, t)); }, dk = (x, y, t) => { const c = p.get(x, y); if (c) p.set(x, y, uMix(c, K, t)); };
+  const y0 = ty + 2, yb = y0 + (n >= 2 ? 2 : 1);   // fila del brillo y fila de la sombra de abajo
+  if (side) {
+    const fx = d > 0 ? tx0 + tw : tx0 - 1, ex = d > 0 ? tx0 + tw - 1 : tx0, rows = n >= 2 ? 2 : 1;
+    for (let i = 0; i < rows; i++) { const y = y0 + i, c = p.get(ex, y); if (!c) continue; p.set(fx, y, i === 0 ? uMix(c, Wt, 0.12) : uMix(c, K, 0.12)); }
+    if (n >= 3) { const c = p.get(ex, y0 + 1); if (c) p.set(fx + d, y0 + 1, uMix(c, K, 0.18)); }
+    lit(ex, y0, 0.14); dk(ex, yb, 0.22); dk(ex - d, yb, 0.14); if (n >= 3) dk(fx, yb, 0.3);
+    return;
+  }
+  // copas de 3 px a cada lado del eje; con ancho impar la columna central es el escote
+  const odd = tw & 1, mid = tx0 + (tw >> 1), cw = n >= 2 ? 3 : 2;
+  const Lb = odd ? mid - 1 : mid - 1, Ra = odd ? mid + 1 : mid, cups = [[Lb - cw + 1, Lb], [Ra, Ra + cw - 1]];
+  const rows = n >= 3 ? 3 : 2, yu = y0 + rows - 1;   // fila de la curva de abajo
+  for (const [a, b] of cups) {
+    const inner = a === cups[0][0] ? b : a, outer = a === cups[0][0] ? a : b;
+    for (let x = a; x <= b; x++) {
+      lit(x, y0, x === outer ? 0.12 : 0.26);                     // brillo de la parte alta
+      if (rows >= 3) lit(x, y0 + 1, x === outer ? 0.04 : 0.12);
+      dk(x, yu + 1, x === outer ? 0.3 : 0.48);                   // sombra curva bajo cada copa
+    }
+    dk(outer, yu, 0.22); dk(inner, yu, 0.14);                    // laterales redondeados
+  }
+  if (odd) for (let y = y0; y <= yu; y++) dk(mid, y, y === y0 ? 0.3 : 0.42);   // escote
+  else { dk(cups[0][1], yu, 0.2); dk(cups[1][0], yu, 0.2); }
 }
 // ---- dibujo: las medidas de la estructura se aplican solo mientras se dibuja ese fotograma ----
 const BODY_KB = ['th', 'lh', 'lw', 'al', 'aw', 'hrx', 'hry'], BODY_KF = [['ey', 'ey'], ['mo', 'mouth'], ['bang', 'bang'], ['lift', 'lift'], ['vol', 'vol']];
