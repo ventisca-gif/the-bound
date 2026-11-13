@@ -11,3 +11,7 @@ js (saveGame(true), JSON.parse(localStorage.getItem(slotKey(SLOT))).app.bt)
 down ArrowRight;;wait 600;;up ArrowRight;;down ArrowUp;;wait 500;;up ArrowUp
 shot
 js (window._errs)
+js (()=>{ for (const [peer, bt, g] of [['phn:7', 1, 'm'], ['rtc:abc', 3, 'f'], ['room:z', 2, 'm']]) upsertRemote({ peer, presence: { n: 'Amigo'+bt, c: 'mago', a: { g, bt, hs: 1, hair: 'blanco' }, g: { weapon: 3, body: 3 }, l: 9, m: G.P.map, x: Math.round(G.P.x) + 24 * bt, y: Math.round(G.P.y), d: 'down', s: 'idle' } }); return [...G.remote.values()].map(r => [r.name, r.app.bt, (remoteAtlas(r).hdL || {}).btS ? remoteAtlas(r).hdL.btS.n[0] : null]); })()
+wait 600
+shot
+js (window._errs)

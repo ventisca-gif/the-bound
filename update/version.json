@@ -1,24 +1,28 @@
 {
- "build": 24,
- "ver": "4.3",
+ "build": 25,
+ "ver": "4.4",
  "date": "2026-11-13",
  "file": "thebound.html",
- "size": 4471932,
- "sha256": "3cdd32b8f0e5e4c360bc7efa478297dcc3a3ded15ec1a68fd34ccaf7ca9961ec",
+ "size": 4483604,
+ "sha256": "c2cdf58a0d4461bf9fb4d0082db289f5657243880d07e0f2cf04fcca3e844d8a",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Actualizador interno: el juego busca versiones nuevas en GitHub, te avisa y se reinicia con el contenido nuevo sin reinstalar el APK.",
-   "Botón «Buscar actualización» en el título y en Ajustes › Actualizaciones.",
-   "Sección de Novedades con los cambios de cada versión; se abre sola la primera vez tras actualizar.",
-   "Si una versión descargada falla al arrancar, el juego vuelve solo a la versión instalada."
+   "3 estructuras nuevas de cuerpo y cabeza por sexo, además de la clásica: Héroe, Atlético y Robusto; Esbelta, Curvas y Menuda. Se eligen en «Estructura» al crear el personaje o en la peluquería.",
+   "La estructura Héroe tiene los ojos de la referencia: ceja del color del pelo, ojo 2×2 con brillo y boca pequeña.",
+   "Ropa, armaduras, cosméticos, pelo y armas se ajustan a cada estructura en las cuatro direcciones.",
+   "Los NPCs y los enemigos humanos tienen estructuras variadas.",
+   "Los demás jugadores ven tu estructura por WiFi local y por internet.",
+   "Arreglo: las gafas de sol se ponían sobre la frente; ahora tapan los ojos."
   ],
   "en": [
-   "Built-in updater: the game checks GitHub for new versions, lets you know and restarts with the new content without reinstalling the APK.",
-   "\"Check for updates\" button on the title screen and in Settings › Updates.",
-   "What's New section with the changes of every version; it opens by itself the first time after an update.",
-   "If a downloaded version fails to start, the game goes back to the installed version on its own."
+   "3 new body and head builds per gender besides the classic one: Hero, Athletic and Sturdy; Slender, Curvy and Petite. Pick them under \"Build\" when creating your character or at the stylist.",
+   "The Hero build has the reference eyes: brows in the hair colour, 2×2 eyes with a highlight and a small mouth.",
+   "Clothes, armor, cosmetics, hair and weapons fit every build in all four directions.",
+   "NPCs and human enemies have varied builds.",
+   "Other players see your build over local WiFi and online.",
+   "Fix: sunglasses sat on the forehead; they now cover the eyes."
   ]
  }
 }

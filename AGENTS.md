@@ -22,6 +22,8 @@ The Bound es un RPG 2D de mundo abierto con movimiento en cuatro direcciones.
 - Respeta `FACE` en `src/32_art_chars.js` (cabeza 2 px más alta, ojos 2×3 bajo el flequillo, boca de 2 px, pelo con volumen y cintura en las mujeres) y las etiquetas de capa `TG(n)` para que el detalle HD se aplique.
 - Mantén el detalle HD suave y continuo: sin puntadas punteadas ni líneas claras en cada cambio de sombra (nada de "cuadrículas blancas").
 - Antes de un cambio visual grande, haz una muestra dibujada con el propio motor y compárala con la referencia.
+- Hay 4 estructuras de cuerpo por sexo (`BODY_T` en `src/6zw_bodies.js`; la 0 es la clásica). Ropa, armaduras, cosméticos, peinados y armas nuevos deben verse bien en todas: usa las medidas del dibujo (`tw`, `th`, `hx`, `hy`, `FACE.ey`, `B.*`), no números fijos. Revísalo con `tools/dev/grid.py` y `tools/dev/mock.py`.
+- No borres estructuras ni cambies la clásica. La estructura Héroe copia los ojos de la referencia de Sergio (ceja de 3 px del color del pelo, 1 fila de piel, ojo 2×2 con brillo arriba a la izquierda, boca de 1 px).
 
 ## Versiones y actualizador interno
 

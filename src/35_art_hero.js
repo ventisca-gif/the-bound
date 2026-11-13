@@ -235,7 +235,7 @@ function drawHero(p, L, dir, anim, f) {
     }
     const mo = FACE.mouth, mc = uMix(SK[1], C('#d06a6a'), 0.55);
     if (BTS.lip) { const lc = uMix(SK[1], C('#d0485e'), 0.7); if (!side) { p.set(hx - 1, ey + mo, lc); p.set(hx, ey + mo, lc); } else p.set(dir === 'left' ? hx - 6 : hx + 5, ey + mo, lc); }
-    else if (BTS.mw === 1) { if (!side) p.set(hx - 1 + (hx % 1 ? 1 : 0), ey + mo, mc); else p.set(dir === 'left' ? hx - 6 : hx + 5, ey + mo, mc); }
+    else if (BTS.mw === 1) { const m1 = BTS.mtone ? uMix(SK[1], SK[0], 0.45) : mc; if (!side) p.set(hx - 1, ey + mo, m1); else p.set(dir === 'left' ? hx - 6 : hx + 5, ey + mo, m1); }
     if (BTS.lip || BTS.mw === 1) { if (!side && (BTS.blush !== 0 && (fem || L.blush))) { p.set(hx - 6 - (BTS.eg || 0), ey + mo - 1, uMix(SK[2], C('#ef8a8a'), 0.6)); p.set(hx + 5 + (BTS.eg || 0), ey + mo - 1, uMix(SK[2], C('#ef8a8a'), 0.6)); } }
     else if (!side) { p.set(hx - 1, ey + mo, mc); p.set(hx, ey + mo, uMix(mc, SK[2], 0.35)); if (fem || L.blush) { p.set(hx - 6, ey + mo - 1, uMix(SK[2], C('#ef8a8a'), 0.6)); p.set(hx + 5, ey + mo - 1, uMix(SK[2], C('#ef8a8a'), 0.6)); } }
     else p.set(dir === 'left' ? hx - 6 : hx + 5, ey + mo, mc);

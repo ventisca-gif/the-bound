@@ -10,7 +10,7 @@
 const BODY_T = {
   m: [
     { n: ['Clásico', 'Classic'] },
-    { n: ['Héroe', 'Hero'], tw: 11, sw: 9, th: 9, lh: 6, hrx: 8, hry: 8, jaw: 3.2, eye: 'hero', eg: 1, ey: 3, mo: 4, bang: 3.2, mw: 1, blush: 0 },
+    { n: ['Héroe', 'Hero'], tw: 11, sw: 9, th: 9, lh: 6, hrx: 8, hry: 8, jaw: 2.8, eye: 'hero', eg: 0, ey: 2, mo: 3, bang: 0.6, mw: 1, mtone: 1, blush: 0 },   // idéntico a la referencia de Sergio
     { n: ['Atlético', 'Athletic'], tw: 12, sw: 9, th: 9, lh: 9, aw: 3, al: 7, hrx: 7.5, hry: 7.6, jaw: 2.8, eye: 'sharp', ey: 2, mo: 4, mw: 1, blush: 0, taper: 1 },
     { n: ['Robusto', 'Sturdy'], tw: 12, sw: 10, th: 9, lh: 7, lw: 4, aw: 3, al: 6, hrx: 8.2, hry: 7.8, jaw: 2.6, eye: 'soft', eg: 1, ey: 3, mo: 4, blush: 0, belly: 1 },
   ],
@@ -27,9 +27,9 @@ function bodyName(g, bt) { const S = BODY_T[g === 'm' ? 'm' : 'f'][bt | 0] || BO
 // ---- ojos de cada estructura (misma posición que los ojos chibi: ex..ex+1, filas ey-1..ey+2) ----
 function bodyEye(p, style, ex, ey, outer, ec, brow, dark) {
   const W = C('#ffffff'), ed = uMul(ec, 0.5), pup = uMix(ed, dark, 0.5), ref = uMix(ec, W, 0.4);
-  if (style === 'hero') {   // como la referencia: ceja recta, ojo 2x2 más abajo y separado
-    p.set(ex, ey - 1, dark); p.set(ex + 1, ey - 1, dark); p.set(outer, ey - 1, uMix(dark, brow, 0.5));
-    p.set(ex, ey, ed); p.set(ex + 1, ey, pup); p.set(ex, ey + 1, ec); p.set(ex + 1, ey + 1, ref);
+  if (style === 'hero') {   // igual que la referencia: ceja de 3 px color pelo (sale 1 px hacia fuera), 1 fila de piel, ojo 2x2 con brillo arriba a la izquierda
+    const bx = outer < ex ? ex - 1 : ex; p.hl(bx, ey - 2, 3, brow);
+    p.set(ex, ey, uMix(W, ec, 0.12)); p.set(ex + 1, ey, ec); p.set(ex, ey + 1, uMix(ec, dark, 0.18)); p.set(ex + 1, ey + 1, uMix(ec, dark, 0.32));
   } else if (style === 'sharp') {   // mirada afilada: párpado inclinado, ojo estrecho
     p.set(outer, ey - 2, dark); p.set(ex, ey - 1, dark); p.set(ex + 1, ey - 1, dark); p.set(outer, ey - 1, dark);
     p.set(ex, ey, ec); p.set(ex + 1, ey, pup); p.set(ex, ey + 1, ed); p.set(ex + 1, ey + 1, uMix(ed, ec, 0.5));

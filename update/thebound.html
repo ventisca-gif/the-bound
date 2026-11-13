@@ -341,7 +341,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v4.3 · Actualizador interno · Novedades</div>
+  <div class="tfoot">v4.4 · Estructuras de cuerpo nuevas · Gafas en su sitio</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -521,7 +521,7 @@ FrontEndError:1001,FrontEndConnectFailed:1002,FrontEndConnectClosed:1003,FrontEn
 </script>
 <script>
 const LANG_EN = (() => { try { if (/[?&]lang=en\b/.test(location.search)) return true; if (/[?&]lang=es\b/.test(location.search)) return false; return localStorage.getItem('thebound.lang') === 'en'; } catch (e) { return false; } })();
-const I18N_TPL = {"Cargando...":"Loading...","oro":"gold","Jugadores en línea":"Players online","Mapa":"Map","Menú":"Menu","Personaje":"Character","Poción rápida":"Quick potion","Inventario":"Inventory","Misiones":"Quests","Atacar":"Attack","Esquivar":"Dodge","Mantén el botón":"Hold the button","Escribe un mensaje":"Type a message","Enviar":"Send","Cerrar":"Close","EL VÍNCULO":"THE BOND","Nueva partida":"New game","Crea tu héroe":"Create your hero","Girar a la izquierda":"Turn left","Caminar":"Walk","Girar a la derecha":"Turn right","Nombre":"Name","Comenzar aventura":"Start adventure","Volver":"Back","v4.3 · Actualizador interno · Novedades":"v4.3 · Built-in updater · What's New"};
+const I18N_TPL = {"Cargando...":"Loading...","oro":"gold","Jugadores en línea":"Players online","Mapa":"Map","Menú":"Menu","Personaje":"Character","Poción rápida":"Quick potion","Inventario":"Inventory","Misiones":"Quests","Atacar":"Attack","Esquivar":"Dodge","Mantén el botón":"Hold the button","Escribe un mensaje":"Type a message","Enviar":"Send","Cerrar":"Close","EL VÍNCULO":"THE BOND","Nueva partida":"New game","Crea tu héroe":"Create your hero","Girar a la izquierda":"Turn left","Caminar":"Walk","Girar a la derecha":"Turn right","Nombre":"Name","Comenzar aventura":"Start adventure","Volver":"Back","v4.4 · Estructuras de cuerpo nuevas · Gafas en su sitio":"v4.4 · New body builds · Glasses fixed"};
 'use strict';
 // ================= CORE =================
 const TS = 16;
@@ -2066,6 +2066,7 @@ function drawHumanoid(p, L, dir, anim, f) {
       p.hl(tx0, ty + th - 3, tw, cloth[1]); p.hl(tx0, ty + th - 2, tw, cloth[2]); for (let i = 0; i < tw; i += 2) p.vl(tx0 + i, ty + th - 1, 3, cloth[i % 4 ? 1 : 2]);
       if (OF === 'orc' && L.armor) { srect(p, tx0 + 1, ty, tw - 2, 5, L.armor); p.ball(tx0, ty + 1, 3, 2.5, L.armor.slice(1)); p.ball(tx0 + tw - 1, ty + 1, 3, 2.5, L.armor.slice(1)); }
     }
+    if (L.btS && OF !== 'skeleton') bodyTorsoShape(p, L.btS, { tx0, ty: torsoTop, tw, th: B.th, side, up, fem: L.g === 'f' || OF === 'dress', d: dir === 'left' ? -1 : 1, m: OF === 'goblin' || OF === 'orc' && L.bare ? SK : main, legTop });
   };
   const handC = (OF === 'knight' || OF === 'darkknight' || OF === 'guard') ? main[3] : OF === 'skeleton' ? SK[2] : SK[2];
   const sleeve = OF === 'robe' || OF === 'witch' ? main : OF === 'knight' || OF === 'guard' || OF === 'darkknight' ? main : OF === 'ranger' ? cloth : OF === 'smith' || OF === 'goblin' || OF === 'orc' ? SK : OF === 'skeleton' ? SK : main;
@@ -2095,22 +2096,25 @@ function drawHumanoid(p, L, dir, anim, f) {
     if (up && L.ponytail) { for (let y = hy - 5; y < hy + 15; y++) { const w2 = y < hy ? 3 : 2; for (let x = hx - 1; x < hx - 1 + w2; x++) p.set(x + (y > hy + 8 ? (f % 2) : 0), y, x === hx - 1 ? HP[2] : HP[1]); } p.rect(hx - 2, hy - 6, 4, 2, sec[3] || C('#c02030')); p.set(hx - 3, hy - 7, sec[2]); p.set(hx + 2, hy - 7, sec[2]); }
   };
   const drawHead = () => { TG(5);
-    const rx = B.hrx, ry = B.hry, sk = OF === 'skeleton' ? MSKIN.bone : SK;
+    const rx = B.hrx, ry = B.hry, sk = OF === 'skeleton' ? MSKIN.bone : SK, BTS = L.btS || {};   // v4.4 estructura de cuerpo (6zw_bodies)
     // skin
-    for (let y = Math.floor(hy - ry); y <= Math.ceil(hy + ry); y++) for (let x = Math.floor(hx - rx); x <= Math.ceil(hx + rx); x++) { const dx = (x + 0.5 - hx) / rx, dy = (y + 0.5 - hy) / ry; if (dx * dx + dy * dy > 1) continue; let v = 2; if (dx > 0.45 || dy > 0.6) v = 1; if (dx < -0.4 && dy < 0) v = 3; p.set(x, y, sk[v]); }
+    for (let y = Math.floor(hy - ry); y <= Math.ceil(hy + ry); y++) for (let x = Math.floor(hx - rx); x <= Math.ceil(hx + rx); x++) { const dx = (x + 0.5 - hx) / rx, dy = (y + 0.5 - hy) / ry; if (BTS.jaw && dy > 0 ? Math.pow(Math.abs(dx), BTS.jaw) + Math.pow(dy, BTS.jaw) > 1 : dx * dx + dy * dy > 1) continue; let v = 2; if (dx > 0.45 || dy > 0.6) v = 1; if (dx < -0.4 && dy < 0) v = 3; p.set(x, y, sk[v]); }
     if (up) return;
     const ey = Math.round(hy) + (L.body === 'big' || L.body === 'huge' || L.body === 'small' ? 0 : FACE.ey), ec = C(EYEC[L.eyes] || EYEC.azul), ed = uMul(ec, 0.5), dark = C('#1a1220');
     if (OF === 'skeleton') { const sx = side ? [hx - 4] : [hx - 4, hx + 2]; for (const x of sx) { p.rect(x, ey - 1, 3, 3, C('#1a0e14')); p.set(x + 1, ey, C(EYEC[L.eyes] || '#ff3030')); } p.hl(hx - 3, ey + 3, side ? 3 : 6, C('#3a3028')); for (let i = 0; i < (side ? 3 : 6); i += 2) p.set(hx - 3 + i, ey + 4, C('#e0d8c2')); return; }
-    const eyes = side ? [[dir === 'left' ? hx - 5 : hx + 3, 0]] : [[hx - 4, 0], [hx + 3, 1]];
+    const eyes = side ? [[dir === 'left' ? hx - 5 : hx + 3, 0]] : [[hx - 4 - (BTS.eg || 0), 0], [hx + 3 + (BTS.eg || 0), 1]];
     for (const [ex] of eyes) {   // v4.2 ojos 2x3 como los héroes
       if (ps.eyes === 'hurt') { p.set(ex, ey, dark); p.set(ex + 1, ey + 1, dark); p.set(ex, ey + 2, dark); continue; }
       if (ps.eyes === 'closed') { p.set(ex, ey + 1, dark); p.set(ex + 1, ey + 1, dark); continue; }
       if (L.mono) { p.rect(ex, ey, 2, 2, ec); continue; }
+      if (BTS.eye) { bodyEye(p, BTS.eye, ex, ey, side ? (dir === 'left' ? ex - 1 : ex + 2) : (ex === eyes[0][0] ? ex - 1 : ex + 2), ec, HP ? HP[0] : dark, dark); continue; }
       p.set(ex, ey - 1, dark); p.set(ex + 1, ey - 1, dark); if (!side && (L.g === 'f' || OF === 'dress')) p.set(ex === hx - 4 ? ex - 1 : ex + 2, ey - 1, dark);
       p.set(ex, ey, C('#ffffff')); p.set(ex + 1, ey, ed); p.set(ex, ey + 1, ec); p.set(ex + 1, ey + 1, uMix(ed, dark, 0.5)); p.set(ex, ey + 2, uMix(ec, C('#ffffff'), 0.4)); p.set(ex + 1, ey + 2, ec);
     }
     const mo = FACE.mouth, mc = uMix(sk[1], C('#d06a6a'), 0.5);
-    if (!side) { p.set(hx - 1, ey + mo, mc); p.set(hx, ey + mo, uMix(mc, sk[2], 0.35)); if (L.blush !== false) { p.set(hx - 6, ey + mo - 1, uMix(sk[2], C('#ef8a8a'), 0.55)); p.set(hx + 5, ey + mo - 1, uMix(sk[2], C('#ef8a8a'), 0.55)); } }
+    if (BTS.mw === 1 && !side) p.set(hx - 1, ey + mo, mc);
+    else if (BTS.lip && !side) { const lc = uMix(sk[1], C('#d0485e'), 0.7); p.set(hx - 1, ey + mo, lc); p.set(hx, ey + mo, lc); }
+    else if (!side) { p.set(hx - 1, ey + mo, mc); p.set(hx, ey + mo, uMix(mc, sk[2], 0.35)); if (L.blush !== false && BTS.blush !== 0) { p.set(hx - 6, ey + mo - 1, uMix(sk[2], C('#ef8a8a'), 0.55)); p.set(hx + 5, ey + mo - 1, uMix(sk[2], C('#ef8a8a'), 0.55)); } }
     else p.set(dir === 'left' ? hx - 6 : hx + 5, ey + mo, mc);
     if (L.tusks && !up) { p.set(hx - 2, ey + 3, C('#f0ead0')); p.set(hx + 2, ey + 3, C('#f0ead0')); p.set(hx - 2, ey + 2, C('#f0ead0')); p.set(hx + 2, ey + 2, C('#f0ead0')); }
     if (L.beard) { const bc = L.beard; for (let y = ey + 3; y < ey + 7; y++) for (let x = hx - 4 + (y - ey - 3) * 0.7; x <= hx + 4 - (y - ey - 3) * 0.7; x++) if (!side || (dir === 'left' ? x < hx + 1 : x > hx - 2)) p.set(Math.round(x), y, bc[(x + y) % 3 === 0 ? 1 : 2]); }
@@ -2565,14 +2569,14 @@ function heroPose(dir, anim, f, L) {
 }
 function heroStrand(p, pts, w, HP, flow) { for (let k = 0; k + 1 < pts.length; k++) { const [x0, y0] = pts[k], [x1, y1] = pts[k + 1]; const n = Math.max(1, Math.ceil(Math.hypot(x1 - x0, y1 - y0) * 1.5)); for (let s = 0; s <= n; s++) { const t = s / n, x = lerp(x0, x1, t), y = lerp(y0, y1, t), ww = w * (flow ? (1 - (k + t) / pts.length * 0.45) : 1); for (let o = -ww / 2; o < ww / 2; o += 1) p.set(Math.round(x + o), Math.round(y), HP[o < -ww / 2 + 1 ? 3 : o >= ww / 2 - 1 ? 1 : 2]); } } }
 function drawHero(p, L, dir, anim, f) {
-  const B = BODYP.normal, ps = heroPose(dir, anim, f, L), fem = L.g === 'f';
+  const B = BODYP.normal, ps = heroPose(dir, anim, f, L), fem = L.g === 'f', BTS = L.btS || {};   // v4.4 BTS: estructura de cuerpo (6zw_bodies)
   const side = dir === 'left' || dir === 'right', up = dir === 'up', d = dir === 'left' ? -1 : 1;
   const SK = L.skin || SKINS[0], HP = L.hair, HS = L.hs || HS_F[0];
   const TOP = L.top, BOT = L.bot, FT = L.feet, HD = L.head, BK = L.back;
   const cx = p.w >> 1, base = p.h - 4 - (ps.jump || 0);
   const legTop = base - B.lh + ps.crouch, torsoTop = legTop - B.th + ps.bob + (ps.sit ? 0 : 0), hy = torsoTop - B.hry + 1 - (B === BODYP.normal ? FACE.lift : 0);
   const hx = cx + (side ? -1 : 0) + (side ? d * ps.lean : 0);
-  const tw = side ? 8 : (fem ? 9 : 10), tx0 = side ? cx - 4 : cx - (fem ? 4 : 5), th = B.th;
+  const tw = side ? (BTS.sw || 8) : (BTS.tw || (fem ? 9 : 10)), tx0 = cx - (tw >> 1), th = B.th;
   const W = ps.noWeapon ? null : (anim === 'chop' || anim === 'mine' || anim === 'fish' || anim === 'dig') ? { k: ps.toolK, tier: L.toolTier || 2 } : L.weapon;
   const hideHair = HD && HD.cover === 'full', hood = HD && HD.cover === 'hood';
   const robeLong = TOP.k === 'robe', dressLen = TOP.k === 'dress' ? 6 : 0;
@@ -2602,7 +2606,7 @@ function drawHero(p, L, dir, anim, f) {
     if (dressLen) drawSkirt(m, legTop + dressLen, side ? 1 : 3);
     else if (BOT.k === 'skirt' && k !== 'robe') drawSkirt(BOT.m, legTop + 4, side ? 1 : 2);
     srect(p, tx0, ty, tw, th, m);
-    if (fem && !side) { for (const yy of [ty + th - 4, ty + th - 3]) { p.set(tx0, yy, 0); p.set(tx0 + tw - 1, yy, 0); } p.set(tx0 + 1, ty + th - 4, m[1]); p.set(tx0 + tw - 2, ty + th - 4, m[1]); }   // v4.2 cintura
+    if (fem && !side && BTS.waist !== 0) { for (const yy of [ty + th - 4, ty + th - 3]) { p.set(tx0, yy, 0); p.set(tx0 + tw - 1, yy, 0); } p.set(tx0 + 1, ty + th - 4, m[1]); p.set(tx0 + tw - 2, ty + th - 4, m[1]); }   // v4.2 cintura
     if (k === 'plate') {
       if (!up) { p.hl(tx0 + 1, ty + 1, tw - 2, m[4]); p.vl(cx - (side ? 1 : 0), ty + 2, th - 3, m[3]); if (fem && !side) { p.set(cx - 3, ty + 3, m[4]); p.set(cx + 2, ty + 3, m[4]); } }
       p.hl(tx0, ty + th - 3, tw, s[2]); p.hl(tx0, ty + th - 2, tw, s[1]); if (!up && !side) p.set(cx, ty + th - 3, (TOP.t || 0) >= 12 ? C('#7af0ff') : GOLD[4]);
@@ -2649,6 +2653,7 @@ function drawHero(p, L, dir, anim, f) {
       if (!up && !side && k !== 'kimono' && k !== 'coat') p.set(cx, ty + th - 2, GOLD[3]);
       if (!up && !side && (k === 'tunic' || k === 'dress')) { p.set(cx - 1, ty, SK[2]); p.set(cx, ty, SK[2]); p.set(cx, ty + 1, SK[1]); }
     }
+    if (L.btS) bodyTorsoShape(p, BTS, { tx0, ty, tw, th, side, up, fem, d, m, legTop });
   };
   // ---------- arms ----------
   const plateArm = TOP.k === 'plate', robeArm = TOP.k === 'robe' || TOP.k === 'kimono';
@@ -2688,15 +2693,16 @@ function drawHero(p, L, dir, anim, f) {
   // ---------- head / face ----------
   const drawHead = () => { TG(5);
     const rx = B.hrx, ry = B.hry;
-    for (let y = Math.floor(hy - ry); y <= Math.ceil(hy + ry); y++) for (let x = Math.floor(hx - rx); x <= Math.ceil(hx + rx); x++) { const dx = (x + 0.5 - hx) / rx, dy = (y + 0.5 - hy) / ry; if (dx * dx + dy * dy > 1) continue; let v = 2; if (dx > 0.6 || dy > 0.86) v = 1; if (dx < -0.45 && dy < 0) v = 3; p.set(x, y, SK[v]); }
+    for (let y = Math.floor(hy - ry); y <= Math.ceil(hy + ry); y++) for (let x = Math.floor(hx - rx); x <= Math.ceil(hx + rx); x++) { const dx = (x + 0.5 - hx) / rx, dy = (y + 0.5 - hy) / ry; if (BTS.jaw && dy > 0 ? Math.pow(Math.abs(dx), BTS.jaw) + Math.pow(dy, BTS.jaw) > 1 : dx * dx + dy * dy > 1) continue; let v = 2; if (dx > 0.6 || dy > 0.86) v = 1; if (dx < -0.45 && dy < 0) v = 3; p.set(x, y, SK[v]); }
     if (up) return;
     // v4.2 cara estilo chibi: ojos 2x3 justo bajo el flequillo (brillo arriba, pupila oscura, reflejo abajo), boquita de 2 px
     const ey = Math.round(hy) + FACE.ey, ec = C(EYEC[L.eyes] || EYEC.azul), ed = uMul(ec, 0.5), dark = C('#1a1220'), brow = HP ? HP[0] : dark;
-    const eyes = side ? [dir === 'left' ? hx - 5 : hx + 3] : [hx - 4, hx + 3];
+    const eyes = side ? [dir === 'left' ? hx - 5 : hx + 3] : [hx - 4 - (BTS.eg || 0), hx + 3 + (BTS.eg || 0)];
     for (const ex of eyes) {
       if (ps.eyes === 'hurt') { p.set(ex, ey, dark); p.set(ex + 1, ey + 1, dark); p.set(ex, ey + 2, dark); continue; }
       if (ps.eyes === 'closed') { p.set(ex, ey + 1, dark); p.set(ex + 1, ey + 1, dark); p.set(ex - 1, ey, dark); p.set(ex + 2, ey, dark); continue; }
-      const outer = side ? (dir === 'left' ? ex - 1 : ex + 2) : (ex === hx - 4 ? ex - 1 : ex + 2);
+      const outer = side ? (dir === 'left' ? ex - 1 : ex + 2) : (ex === eyes[0] ? ex - 1 : ex + 2);
+      if (BTS.eye) { const e2b = L.eyes2 && EYEC[L.eyes2] && ((!side && ex !== eyes[0]) || (side && dir === 'right')); bodyEye(p, BTS.eye, ex, ey, outer, e2b ? C(EYEC[L.eyes2]) : ec, brow, dark); continue; }
       p.set(ex, ey - 1, dark); p.set(ex + 1, ey - 1, dark); if (fem) p.set(outer, ey - 1, dark);
       const e2 = L.eyes2 && EYEC[L.eyes2] && ((!side && ex !== eyes[0]) || (side && dir === 'right')), ec_ = e2 ? C(EYEC[L.eyes2]) : ec, ed_ = e2 ? uMul(ec_, 0.5) : ed;
       const pup = uMix(ed_, dark, 0.5), ref = uMix(ec_, C('#ffffff'), 0.4);
@@ -2705,7 +2711,10 @@ function drawHero(p, L, dir, anim, f) {
       p.set(ex, ey + 2, ref); p.set(ex + 1, ey + 2, ec_);
     }
     const mo = FACE.mouth, mc = uMix(SK[1], C('#d06a6a'), 0.55);
-    if (!side) { p.set(hx - 1, ey + mo, mc); p.set(hx, ey + mo, uMix(mc, SK[2], 0.35)); if (fem || L.blush) { p.set(hx - 6, ey + mo - 1, uMix(SK[2], C('#ef8a8a'), 0.6)); p.set(hx + 5, ey + mo - 1, uMix(SK[2], C('#ef8a8a'), 0.6)); } }
+    if (BTS.lip) { const lc = uMix(SK[1], C('#d0485e'), 0.7); if (!side) { p.set(hx - 1, ey + mo, lc); p.set(hx, ey + mo, lc); } else p.set(dir === 'left' ? hx - 6 : hx + 5, ey + mo, lc); }
+    else if (BTS.mw === 1) { const m1 = BTS.mtone ? uMix(SK[1], SK[0], 0.45) : mc; if (!side) p.set(hx - 1, ey + mo, m1); else p.set(dir === 'left' ? hx - 6 : hx + 5, ey + mo, m1); }
+    if (BTS.lip || BTS.mw === 1) { if (!side && (BTS.blush !== 0 && (fem || L.blush))) { p.set(hx - 6 - (BTS.eg || 0), ey + mo - 1, uMix(SK[2], C('#ef8a8a'), 0.6)); p.set(hx + 5 + (BTS.eg || 0), ey + mo - 1, uMix(SK[2], C('#ef8a8a'), 0.6)); } }
+    else if (!side) { p.set(hx - 1, ey + mo, mc); p.set(hx, ey + mo, uMix(mc, SK[2], 0.35)); if (fem || L.blush) { p.set(hx - 6, ey + mo - 1, uMix(SK[2], C('#ef8a8a'), 0.6)); p.set(hx + 5, ey + mo - 1, uMix(SK[2], C('#ef8a8a'), 0.6)); } }
     else p.set(dir === 'left' ? hx - 6 : hx + 5, ey + mo, mc);
     if (L.mask && !up) { const mw = side ? 8 : 13, mx = side ? (dir === 'left' ? hx - 7 : hx) : hx - 6; for (let y = ey + 3; y < ey + 7; y++) for (let x = mx; x < mx + mw; x++) { const dx = (x + 0.5 - hx) / B.hrx, dy = (y + 0.5 - hy) / B.hry; if (dx * dx + dy * dy > 1.05) continue; p.set(x, y, L.mask[y === ey + 3 ? 2 : 1]); } }
   };
@@ -2797,7 +2806,12 @@ function drawHero(p, L, dir, anim, f) {
     else if (k === 'hood') { for (let y = Math.floor(top); y <= hy + 3; y++) for (let x = hx - 8; x <= hx + 8; x++) { const dx = (x + 0.5 - hx) / 8, dy = (y + 0.5 - (hy - 1)) / 7.5; if (dx * dx + dy * dy > 1) continue; let face = false; if (!up) { if (side) face = (dir === 'left' ? x < hx - 1 : x > hx) && y > hy - 3; else face = Math.abs(x + 0.5 - hx) < 5 && y > hy - 3; } if (face) continue; p.set(x, y, m[dx < -0.5 ? 3 : dx > 0.5 ? 1 : 2]); } if (!up) p.hl(hx - 4, Math.round(hy - 3), side ? 4 : 9, s[2] || m[0]); }
     else if (k === 'ranger') { const y0 = Math.round(hy - 4); for (let y = y0 - 3; y <= y0; y++) for (let x = hx - 7; x <= hx + 7; x++) { const dx = (x + 0.5 - hx) / 7.5, dy = (y + 0.5 - y0) / 4; if (dx * dx + dy * dy > 1) continue; p.set(x, y, m[dx < -0.3 ? 3 : dx > 0.5 ? 1 : 2]); } p.hl(hx - 8, y0 + 1, 17, m[1]); const fx = side ? hx - d * 5 : hx + 5; for (let k2 = 0; k2 < 7; k2++) { p.set(fx + Math.round(k2 * 0.5) * (side ? -d : 1), y0 - k2, s[k2 < 2 ? 2 : 3]); if (k2 > 1) p.set(fx + Math.round(k2 * 0.5) * (side ? -d : 1) + 1, y0 - k2, s[4]); } }
     else if (k === 'sunhat') { const y0 = Math.round(hy - 4); for (let x = hx - 11; x <= hx + 11; x++) { const e = Math.abs(x - hx) > 8 ? 1 : 0; p.set(x, y0 + e, m[2]); if (Math.abs(x - hx) < 10) p.set(x, y0 + 1 + e, m[1]); } for (let y = y0 - 5; y < y0; y++) for (let x = hx - 6; x <= hx + 6; x++) { const dx = (x + 0.5 - hx) / 6.5, dy = (y + 0.5 - y0) / 5.5; if (dx * dx + dy * dy > 1) continue; p.set(x, y, m[(x + y) % 3 ? 3 : 2]); } p.hl(hx - 6, y0 - 1, 13, s[2]); if (!up) p.set(hx + (side ? -d * 4 : 4), y0 - 1, C('#ff5a7a')); }
-    else if (k === 'shades') { if (up) { p.hl(hx - 7, Math.round(hy) - 1, 15, C('#141018')); } else if (side) { const ex = dir === 'left' ? hx - 6 : hx + 2; p.rect(ex, Math.round(hy) - 1, 4, 2, C('#141018')); p.set(ex + (dir === 'left' ? 0 : 3), Math.round(hy) - 1, m[3]); p.hl(dir === 'left' ? ex + 4 : hx - 6, Math.round(hy) - 1, 4, C('#141018')); } else { for (const ex of [hx - 5, hx + 2]) { p.rect(ex, Math.round(hy) - 1, 4, 2, C('#141018')); p.set(ex, Math.round(hy) - 1, m[3]); } p.hl(hx - 1, Math.round(hy) - 1, 3, C('#141018')); } }
+    else if (k === 'shades') {   // v4.4: a la altura de los ojos de la cara chibi (ey..ey+2), no sobre la frente
+      const gy = Math.round(hy) + FACE.ey, fr = C('#141018');
+      if (up) { p.hl(hx - 8, gy, 2, fr); p.hl(hx + 7, gy, 2, fr); }
+      else if (side) { const ex = dir === 'left' ? hx - 6 : hx + 2; p.hl(ex, gy - 1, 4, fr); p.rect(ex, gy, 4, 2, fr); p.hl(ex + 1, gy + 2, 2, fr); p.set(ex + (dir === 'left' ? 1 : 2), gy, m[3]); p.hl(dir === 'left' ? ex + 4 : hx - 6, gy, 4, fr); }
+      else { p.hl(hx - 5, gy - 1, 11, fr); for (const ex of [hx - 5, hx + 2]) { p.rect(ex, gy, 4, 2, fr); p.hl(ex + 1, gy + 2, 2, fr); p.set(ex + 1, gy, m[3]); p.set(ex, gy, m[4]); } p.set(hx - 6, gy, fr); p.set(hx + 6, gy, fr); }
+    }
     else if (k === 'circlet') { const y0 = Math.round(hy - 4); p.hl(hx - 7, y0, 15, GOLD[3]); p.hl(hx - 6, y0 - 1, 13, GOLD[4]); if (!up && !side) p.ball(hx, y0, 1.5, 1.5, s.slice(1)); }
     else if (k === 'crown') { const y0 = Math.round(top) + 1; p.rect(hx - 5, y0, 11, 3, GOLD[3]); p.hl(hx - 5, y0, 11, GOLD[5]); for (const x of [-5, -2, 1, 4]) { p.set(hx + x, y0 - 1, GOLD[4]); p.set(hx + x + 1, y0 - 2, GOLD[4]); } p.set(hx, y0 + 1, C('#e02040')); }
     else if (k === 'catears') { const ec = HD.m || HP; for (const sg of side ? [-d * 0.3, 1] : [-1, 1]) { const ex = hx + sg * 5; for (let r = 0; r < 4; r++) for (let i = -2 + Math.ceil(r / 2); i <= 2 - Math.ceil(r / 2); i++) p.set(Math.round(ex + i), Math.round(top) + 1 - r, ec[r === 0 ? 1 : i === 0 && r < 3 ? 3 : 2]); if (!side) p.set(Math.round(ex), Math.round(top), C('#f0a0b0')); } }
@@ -11711,13 +11725,16 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '4.3', GAME_BUILD = 24;
+const GAME_VER = '4.4', GAME_BUILD = 25;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
 const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/[
+  {"b": 25, "v": "4.4", "d": "2026-11-13",
+   "es": ["3 estructuras nuevas de cuerpo y cabeza por sexo, además de la clásica: Héroe, Atlético y Robusto; Esbelta, Curvas y Menuda. Se eligen en «Estructura» al crear el personaje o en la peluquería.", "La estructura Héroe tiene los ojos de la referencia: ceja del color del pelo, ojo 2×2 con brillo y boca pequeña.", "Ropa, armaduras, cosméticos, pelo y armas se ajustan a cada estructura en las cuatro direcciones.", "Los NPCs y los enemigos humanos tienen estructuras variadas.", "Los demás jugadores ven tu estructura por WiFi local y por internet.", "Arreglo: las gafas de sol se ponían sobre la frente; ahora tapan los ojos."],
+   "en": ["3 new body and head builds per gender besides the classic one: Hero, Athletic and Sturdy; Slender, Curvy and Petite. Pick them under \"Build\" when creating your character or at the stylist.", "The Hero build has the reference eyes: brows in the hair colour, 2×2 eyes with a highlight and a small mouth.", "Clothes, armor, cosmetics, hair and weapons fit every build in all four directions.", "NPCs and human enemies have varied builds.", "Other players see your build over local WiFi and online.", "Fix: sunglasses sat on the forehead; they now cover the eyes."]},
   {"b": 24, "v": "4.3", "d": "2026-11-13",
    "es": ["Actualizador interno: el juego busca versiones nuevas en GitHub, te avisa y se reinicia con el contenido nuevo sin reinstalar el APK.", "Botón «Buscar actualización» en el título y en Ajustes › Actualizaciones.", "Sección de Novedades con los cambios de cada versión; se abre sola la primera vez tras actualizar.", "Si una versión descargada falla al arrancar, el juego vuelve solo a la versión instalada."],
    "en": ["Built-in updater: the game checks GitHub for new versions, lets you know and restarts with the new content without reinstalling the APK.", "\"Check for updates\" button on the title screen and in Settings › Updates.", "What's New section with the changes of every version; it opens by itself the first time after an update.", "If a downloaded version fails to start, the game goes back to the installed version on its own."]},
@@ -11934,6 +11951,92 @@ function updHasSaves() { try { for (let i = 0; i < NSLOTS; i++) if (loadLocal(i)
   const c = $('#oChk'); if (c) c.onclick = () => nw ? openUpdate(L) : updRun(true, true);
   const rb = $('#oRb'); if (rb) { let k = 0; rb.onclick = async () => { if (!k++) { rb.textContent = L2('Toca otra vez para confirmar', 'Tap again to confirm'); return; } const m = updMeta(); await updClear(); updSetMeta({ bad: m && m.b }); updRestart(); }; }
 }; }
+
+// ================= v4.4: ESTRUCTURAS DE CUERPO Y CABEZA =================
+// 4 estructuras por sexo (la 0 es la de siempre). Cada una cambia proporciones (torso, piernas, brazos, cabeza),
+// forma de la mandíbula, ojos, boca y silueta del torso. Todo lo demás (ropa, armaduras, cosméticos, pelo, armas)
+// se dibuja con las mismas medidas, así que se adapta solo. Los NPCs y los enemigos humanos reciben una estructura
+// fija según su aspecto, para que haya variedad.
+// Campos: tw/sw ancho del torso de frente/de lado, th alto del torso, lh piernas, lw ancho de pierna, al/aw brazos,
+// hrx/hry radios de la cabeza, jaw mandíbula (2 = redonda, más = cuadrada), eye estilo de ojos, eg separación extra,
+// ey/mo/bang/lift/vol cara (ver FACE), mw boca de 1 px, lip labios, blush 0 sin rubor, taper espalda en V,
+// belly barriga, hips caderas, waist 0 sin cintura / 2 cintura marcada.
+const BODY_T = {
+  m: [
+    { n: [(LANG_EN ? "Classic" : 'Clásico'), 'Classic'] },
+    { n: [(LANG_EN ? "Hero" : 'Héroe'), 'Hero'], tw: 11, sw: 9, th: 9, lh: 6, hrx: 8, hry: 8, jaw: 2.8, eye: 'hero', eg: 0, ey: 2, mo: 3, bang: 0.6, mw: 1, mtone: 1, blush: 0 },   // idéntico a la referencia de Sergio
+    { n: ['Atlético', 'Athletic'], tw: 12, sw: 9, th: 9, lh: 9, aw: 3, al: 7, hrx: 7.5, hry: 7.6, jaw: 2.8, eye: 'sharp', ey: 2, mo: 4, mw: 1, blush: 0, taper: 1 },
+    { n: ['Robusto', 'Sturdy'], tw: 12, sw: 10, th: 9, lh: 7, lw: 4, aw: 3, al: 6, hrx: 8.2, hry: 7.8, jaw: 2.6, eye: 'soft', eg: 1, ey: 3, mo: 4, blush: 0, belly: 1 },
+  ],
+  f: [
+    { n: ['Clásica', 'Classic'] },
+    { n: ['Esbelta', 'Slender'], tw: 8, sw: 7, th: 8, lh: 10, al: 7, eye: 'lash' },
+    { n: ['Curvas', 'Curvy'], tw: 10, sw: 8, th: 8, lh: 8, eye: 'lash', waist: 2, hips: 1, lip: 1 },
+    { n: ['Menuda', 'Petite'], tw: 8, sw: 7, th: 7, lh: 6, al: 5, hry: 8.4, eye: 'big', ey: 3, mo: 4, bang: 3 },
+  ],
+};
+function bodySpec(g, bt) { const T = BODY_T[g === 'm' ? 'm' : 'f']; bt = bt | 0; return bt > 0 && T[bt] ? T[bt] : null; }
+function bodyName(g, bt) { const S = BODY_T[g === 'm' ? 'm' : 'f'][bt | 0] || BODY_T.f[0]; return LANG_EN ? S.n[1] : S.n[0]; }
+
+// ---- ojos de cada estructura (misma posición que los ojos chibi: ex..ex+1, filas ey-1..ey+2) ----
+function bodyEye(p, style, ex, ey, outer, ec, brow, dark) {
+  const W = C('#ffffff'), ed = uMul(ec, 0.5), pup = uMix(ed, dark, 0.5), ref = uMix(ec, W, 0.4);
+  if (style === 'hero') {   // igual que la referencia: ceja de 3 px color pelo (sale 1 px hacia fuera), 1 fila de piel, ojo 2x2 con brillo arriba a la izquierda
+    const bx = outer < ex ? ex - 1 : ex; p.hl(bx, ey - 2, 3, brow);
+    p.set(ex, ey, uMix(W, ec, 0.12)); p.set(ex + 1, ey, ec); p.set(ex, ey + 1, uMix(ec, dark, 0.18)); p.set(ex + 1, ey + 1, uMix(ec, dark, 0.32));
+  } else if (style === 'sharp') {   // mirada afilada: párpado inclinado, ojo estrecho
+    p.set(outer, ey - 2, dark); p.set(ex, ey - 1, dark); p.set(ex + 1, ey - 1, dark); p.set(outer, ey - 1, dark);
+    p.set(ex, ey, ec); p.set(ex + 1, ey, pup); p.set(ex, ey + 1, ed); p.set(ex + 1, ey + 1, uMix(ed, ec, 0.5));
+  } else if (style === 'soft') {   // mirada amable: cejas gruesas arriba, ojo 2x2 con brillo
+    p.set(ex, ey - 2, brow); p.set(ex + 1, ey - 2, brow);
+    p.set(ex, ey, W); p.set(ex + 1, ey, pup); p.set(ex, ey + 1, ec); p.set(ex + 1, ey + 1, ed);
+  } else {   // 'lash' y 'big': ojos chibi 2x3 con pestañas largas
+    p.set(ex, ey - 1, dark); p.set(ex + 1, ey - 1, dark); p.set(outer, ey - 1, dark); p.set(outer, ey, dark);
+    p.set(ex, ey, W); p.set(ex + 1, ey, ed); p.set(ex, ey + 1, ec); p.set(ex + 1, ey + 1, pup); p.set(ex, ey + 2, ref); p.set(ex + 1, ey + 2, ec);
+    if (style === 'big') { p.set(outer, ey - 2, dark); p.set(ex + 1, ey + 1, uMix(pup, W, 0.25)); p.set(outer, ey + 2, uMix(ec, dark, 0.6)); }
+  }
+}
+// ---- silueta del torso: espalda en V, barriga, caderas, cintura marcada ----
+function bodyTorsoShape(p, S, o) {
+  const { tx0, ty, tw, th, side, up, fem, d, m } = o, R = tx0 + tw - 1;
+  if (S.taper && !side) for (let y = ty + 4; y < ty + th; y++) { p.set(tx0, y, 0); p.set(R, y, 0); }
+  if (S.belly) { if (!side) { for (let y = ty + 3; y < ty + th - 1; y++) { p.set(tx0 - 1, y, m[3]); p.set(R + 1, y, m[1]); } } else { const x = d > 0 ? R + 1 : tx0 - 1; for (let y = ty + 3; y < ty + th - 1; y++) p.set(x, y, m[2]); } }
+  if (S.hips) { if (!side) { for (let y = ty + th - 2; y < ty + th; y++) { p.set(tx0 - 1, y, m[3]); p.set(R + 1, y, m[1]); } } else { const x = d > 0 ? tx0 - 1 : R + 1; for (let y = ty + th - 2; y < ty + th; y++) p.set(x, y, m[1]); } }
+  if (S.waist === 2 && fem && !side) { for (const yy of [ty + th - 5, ty + th - 4, ty + th - 3]) { p.set(tx0, yy, 0); p.set(R, yy, 0); } if (!up) { p.set(tx0 + 1, ty + th - 4, m[1]); p.set(R - 1, ty + th - 4, m[1]); } }
+}
+// ---- dibujo: las medidas de la estructura se aplican solo mientras se dibuja ese fotograma ----
+const BODY_KB = ['th', 'lh', 'lw', 'al', 'aw', 'hrx', 'hry'], BODY_KF = [['ey', 'ey'], ['mo', 'mouth'], ['bang', 'bang'], ['lift', 'lift'], ['vol', 'vol']];
+function bodyWith(S, tw, fn) {
+  if (!S) return fn();
+  const B = BODYP.normal, sb = {}, sf = {};
+  for (const k of BODY_KB) if (S[k] != null) { sb[k] = B[k]; B[k] = S[k]; }
+  if (tw && S.tw != null) { sb.tw = B.tw; B.tw = S.tw; }
+  for (const [k, f] of BODY_KF) if (S[k] != null) { sf[f] = FACE[f]; FACE[f] = S[k]; }
+  try { return fn(); } finally { Object.assign(B, sb); Object.assign(FACE, sf); }
+}
+{ const _dh = drawHero; drawHero = function (p, L, ...a) { return bodyWith(L && L.btS, false, () => _dh(p, L, ...a)); }; }
+{ const _dm = drawHumanoid; drawHumanoid = function (p, L, ...a) { return bodyWith(L && (!L.body || L.body === 'normal') ? L.btS : null, true, () => _dm(p, L, ...a)); }; }
+// ---- apariencia del jugador: app.bt (0-3) viaja con la partida y en multijugador ----
+{ const _na = normApp; normApp = function (a) { const o = _na(a); const bt = a ? a.bt | 0 : 0; if (bt > 0 && bt < BODY_T.m.length) o.bt = bt; return o; }; }
+{ const _hl = heroLook; heroLook = function (cls, app, ...a) { const L = _hl(cls, app, ...a); const n = normApp(app), S = bodySpec(n.g, n.bt); if (S) { L.bt = n.bt; L.btS = S; } return L; }; }
+// ---- NPCs y enemigos humanos: estructura fija según su aspecto (no cambia al cambiarse de ropa) ----
+const BODY_NPC_OF = new Set(['tunic', 'ranger', 'apron', 'smith', 'sailor', 'rogue', 'knight', 'guard', 'darkknight', 'robe', 'royal', 'elder', 'dress', 'witch']);
+function bodyHash(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+function npcBodyFor(L) {
+  if (L.bt === 0 || (L.body && L.body !== 'normal') || !BODY_NPC_OF.has(L.outfit || 'tunic') || L.mono) return null;
+  const fem = L.g === 'f' || L.outfit === 'dress' || L.outfit === 'witch' || (L.g !== 'm' && L.hairStyle === 'long' && !L.beard);
+  const key = JSON.stringify([L.skin && L.skin[2], L.hair && L.hair[2], L.hairStyle, L.eyes, fem, L.beard ? 1 : 0, L.ponytail ? 1 : 0]);
+  return bodySpec(fem ? 'f' : 'm', bodyHash(key) % 4);
+}
+{ const _ba = buildAtlas; buildAtlas = function (L, set, draw) { if (L && (!draw || draw === drawHumanoid) && L.btS === undefined) { const S = npcBodyFor(L); if (S) L.btS = S; } return draw ? _ba(L, set, draw) : _ba(L, set); }; }
+// ---- editor (creación y peluquería): fila «Estructura» bajo el sexo ----
+{ const _ae = appEditorHTML; appEditorHTML = function (app, tabs) {
+  let h = _ae(app, tabs); if (edTab !== 'cuerpo') return h;
+  const n = normApp(app), T = BODY_T[n.g === 'm' ? 'm' : 'f'];
+  const row = `<h4>${L2('Estructura', 'Build')} <small>${esc(bodyName(n.g, n.bt))}</small></h4><div class="chips">${T.map((S, i) => `<button class="chip ${(n.bt | 0) === i ? 'on' : ''}" data-ek="bt" data-ev="${i}">${esc(LANG_EN ? S.n[1] : S.n[0])}</button>`).join('')}</div>`;
+  const i = h.indexOf('</div>', h.indexOf('data-ek="g"')); return i < 0 ? h : h.slice(0, i + 6) + row + h.slice(i + 6);
+}; }
+{ const _be = bindAppEditor; bindAppEditor = function (root, app, onChange) { _be(root, app, onChange); $$('[data-ek="bt"]', root).forEach(b => { const f = b.onclick; b.onclick = e => { f && f(e); const v = +b.dataset.ev; if (v > 0) app.bt = v; else delete app.bt; }; }); }; }
 
 // ================= v3.6: IDIOMA (Español / English) =================
 // Los textos del código se traducen al compilar (tools/i18n/tr.js + en.json): cada uno es (LANG_EN ? "inglés" : "español").
