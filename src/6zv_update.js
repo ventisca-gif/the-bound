@@ -7,13 +7,16 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '4.12', GAME_BUILD = 33;
+const GAME_VER = '4.13', GAME_BUILD = 34;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
 const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/[
+  {"b": 34, "v": "4.13", "d": "2026-11-13",
+   "es": ["Armas nuevas de madera, cobre, hierro, acero, plata y oro para todas las clases, con el dibujo de cobre de Sergio: más detalle en la mano (en HD se dibujan al doble) y ataques nuevos en 5 tiempos con su impacto.", "Las dagas van una en cada mano, el arco apunta bien y el pez lleva sus aletas en las manos.", "Campamento de los Vigías del Alba al este de Albor, en la Costa Coral: 8 miembros con su propio estilo y 5 misiones para ayudar y rescatar gente.", "Al unirte te dan su uniforme (abrigo, pantalón y botas) como cosmético; te lo puedes quitar cuando quieras.", "Lore nuevo: Edrin Valcorde, el pescador que hace mil años cuidó al primer portador del hilo vacío. Capítulo y pista nuevos en el Libro del Vínculo."],
+   "en": ["New wood, copper, iron, steel, silver and gold weapons for every class, based on Sergio's copper drawing: more detail in hand (drawn at double size in HD) and new 5-step attacks with their impact.", "Daggers go one in each hand, the bow aims properly and the Fish class holds its fins in its hands.", "Dawn Wardens camp east of Albor, on the Coral Coast: 8 members with their own style and 5 quests to help and rescue people.", "Joining gives you their uniform (coat, trousers and boots) as a cosmetic; take it off whenever you like.", "New lore: Edrin Valcorde, the fisherman who cared for the first bearer of the empty thread a thousand years ago. New chapter and clue in the Book of the Bond."]},
   {"b": 33, "v": "4.12", "d": "2026-11-13",
    "es": ["Los cuerpos femeninos tienen busto: Esbelta y Menuda pequeño, Clásica mediano y Curvas grande.", "Se ve con cualquier ropa, armadura o cosmético, de frente y de perfil, y también en las NPCs femeninas."],
    "en": ["Female bodies now have a bust: small for Slender and Petite, medium for Classic and large for Curvy.", "It shows with any clothes, armor or cosmetic, from the front and in profile, and on female NPCs too."]},

@@ -1,0 +1,10 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{ const P=G.P; P.x=174*16; P.y=175*16; G.cam&&(G.cam.x=P.x,G.cam.y=P.y); return G.ents.filter(e=>e.def&&e.def.vig).map(e=>e.id+'@'+Math.round(e.x/16)+','+Math.round(e.y/16)).join(' '); })()
+wait 1500
+shot
+js (()=>{ const P=G.P; P.lv=12; const ok=[]; for (const id of ['vig1','vig2','vig3','vig4','vig5']) { acceptQuest(id); const Q=QUESTS[id]; Q.obj.forEach((o,i)=>{ if(o.t==='kill') for(let k=0;k<o.n;k++) questEvent('kill',{m:o.m}); if(o.t==='talk') questEvent('talk',{npc:o.npc}); }); ok.push(id+':'+JSON.stringify(P.quests.active[id])); completeQuest(id); } return ok.join(' | ')+' vig='+P.vig+' wardrobe='+P.wardrobe.filter(c=>c.startsWith('c_vig')).join(',')+' clue='+P.clues.includes('n_vigias'); })()
+js (()=>{ const P=G.P; P.cos={body:'c_vig_abrigo',legs:'c_vig_pantalon',feet:'c_vig_botas'}; refreshLook(); return 1; })()
+wait 600
+shot
+js (window._errs)
