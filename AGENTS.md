@@ -23,6 +23,9 @@ The Bound es un RPG 2D de mundo abierto con movimiento en cuatro direcciones.
 - Mantén el detalle HD suave y continuo: sin puntadas punteadas ni líneas claras en cada cambio de sombra (nada de "cuadrículas blancas").
 - Antes de un cambio visual grande, haz una muestra dibujada con el propio motor y compárala con la referencia.
 - Hay 4 estructuras de cuerpo por sexo (`BODY_T` en `src/6zw_bodies.js`; la 0 es la clásica). Ropa, armaduras, cosméticos, peinados y armas nuevos deben verse bien en todas: usa las medidas del dibujo (`tw`, `th`, `hx`, `hy`, `FACE.ey`, `B.*`), no números fijos. Revísalo con `tools/dev/grid.py` y `tools/dev/mock.py`.
+- Ajuste automático (`src/6zx_fit.js`): lo que va en la cabeza se dibuja para la cabeza clásica y se escala solo a cada estructura (y se encoge si un sombrero alto no cabe en el cuadro); lo pegado a la cara (gafas) usa la línea de los ojos. Un cosmético nuevo que reutiliza un tipo existente (`k`) se adapta sin hacer nada.
+- Para un tipo de prenda nuevo usa `fitKind(ranura, k, (p, A, spec) => ...)` y dibuja solo con los anclajes de `A` (`hx`, `hy`, `hrx`, `hry`, `headTop`, `ey`, `eyes`, `tx0`, `tw`, `torsoTop`, `th`, `waistY`, `shL`, `shR`, `shY`, `legTop`, `base`, `side`, `up`, `d`). Opciones `{ face }`, `{ float }` y `{ skin }`.
+- Antes de publicar ropa, armaduras, cosméticos o alas nuevas, pasa `python3 tools/dev/fitcheck.py file://$PWD/dist/test.html out` (también corre en `tools/dev/reg.sh`). Debe decir 0 avisos en estructuras nuevas.
 - No borres estructuras ni cambies la clásica. La estructura Héroe copia los ojos de la referencia de Sergio (ceja de 3 px del color del pelo, 1 fila de piel, ojo 2×2 con brillo arriba a la izquierda, boca de 1 px).
 
 ## Versiones y actualizador interno

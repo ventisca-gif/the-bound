@@ -120,6 +120,7 @@ function drawHero(p, L, dir, anim, f) {
       }
       if (side) { p.set(xx + (dir === 'left' ? -1 : lw), bot - 1, FT.m[1]); }
     });
+    if (typeof FITK !== 'undefined') { if (FITK.legs[BOT.k]) FITK.legs[BOT.k].draw(p, p.meta, BOT); if (FITK.feet[FT.k]) FITK.feet[FT.k].draw(p, p.meta, FT); }   // v4.5 tipos nuevos (6zx_fit)
   };
   // ---------- torso ----------
   const drawSkirt = (pal_, hem, flare) => { for (let y = legTop - 1; y <= hem; y++) { const t = (y - legTop + 1) / Math.max(1, hem - legTop + 1), ex = Math.round(flare * t); for (let x = tx0 - ex; x < tx0 + tw + ex; x++) p.set(x, y, pal_[x === tx0 - ex ? 3 : x === tx0 + tw + ex - 1 ? 1 : ((x + y) % 4 === 0 ? 1 : 2)]); } p.hl(tx0 - flare, hem, tw + flare * 2, pal_[0]); };
@@ -176,6 +177,7 @@ function drawHero(p, L, dir, anim, f) {
       if (!up && !side && k !== 'kimono' && k !== 'coat') p.set(cx, ty + th - 2, GOLD[3]);
       if (!up && !side && (k === 'tunic' || k === 'dress')) { p.set(cx - 1, ty, SK[2]); p.set(cx, ty, SK[2]); p.set(cx, ty + 1, SK[1]); }
     }
+    if (typeof FITK !== 'undefined' && FITK.body[k]) FITK.body[k].draw(p, p.meta, TOP);   // v4.5 tipos nuevos (6zx_fit)
     if (L.btS) bodyTorsoShape(p, BTS, { tx0, ty, tw, th, side, up, fem, d, m, legTop });
   };
   // ---------- arms ----------
@@ -205,6 +207,7 @@ function drawHero(p, L, dir, anim, f) {
     } else if (BK.k === 'quiver') {
       const qx = up ? cx + 2 : side ? cx + (-d) * 3 : cx + 4, qy = torsoTop - 3; if (!up && !side) return;
       for (let y = qy; y < qy + 10; y++) { p.set(qx, y, LEATHER[2]); p.set(qx + 1, y, LEATHER[1]); } for (let k = 0; k < 3; k++) { p.set(qx - 1 + k, qy - 1 - (k % 2), C('#e8e0d0')); p.set(qx - 1 + k, qy - 2 - (k % 2), BK.o ? BK.o[3] : C('#c03a2a')); }
+    } else if (typeof FITK !== 'undefined' && FITK.back[BK.k]) { FITK.back[BK.k].draw(p, p.meta, BK);   // v4.5 tipos nuevos (6zx_fit)
     }
   };
   const drawScarf = () => { TG(9);
@@ -319,7 +322,7 @@ function drawHero(p, L, dir, anim, f) {
   const drawHeadgear = () => { TG(7);
     if (!HD) return; const k = HD.k, m = HD.m || IRON, s = HD.s || GOLD.slice(1), top = hy - B.hry - 1;
     if (k === 'helm' || k === 'winged' || k === 'crownhelm' || k === 'horned') {
-      for (let y = Math.floor(top); y <= hy + 2; y++) for (let x = hx - 8; x <= hx + 8; x++) { const dx = (x + 0.5 - hx) / 7.8, dy = (y + 0.5 - (hy - 1)) / 7.2; if (dx * dx + dy * dy > 1) continue; const face = !up && y > hy - 2 && (side ? (dir === 'left' ? x < hx : x > hx - 1) : Math.abs(x + 0.5 - hx) < 4.5); if (face) continue; p.set(x, y, m[dx < -0.4 && dy < 0 ? 4 : dx > 0.5 ? 1 : 2]); }
+      for (let y = Math.floor(top); y <= hy + 2; y++) for (let x = hx - 8; x <= hx + 8; x++) { const dx = (x + 0.5 - hx) / 7.8, dy = (y + 0.5 - (hy - 1)) / 7.2; if (dx * dx + dy * dy > 1) continue; const face = !up && y > hy - 2 && (side ? (dir === 'left' ? x < hx : x > hx - 1) : Math.abs(x + 0.5 - hx) < 5.1); if (face) continue; p.set(x, y, m[dx < -0.4 && dy < 0 ? 4 : dx > 0.5 ? 1 : 2]); }
       p.hl(hx - 7, Math.round(hy - 2), 15, m[3]); if (!up && !side) { p.vl(hx, Math.round(top) + 1, 5, m[4]); if ((HD.t || 0) >= 3) p.vl(hx, Math.round(hy - 2), 3, m[3]); }
       if (k === 'winged') for (const sg of side ? [-d] : [-1, 1]) for (let r = 0; r < 4; r++) for (let i = 0; i < 5 - r; i++) p.set(hx + sg * (7 + i), Math.round(top) + 2 + r - Math.round(i * 0.6), s[r === 0 ? 3 : 2]);
       if (k === 'crownhelm') { const y0 = Math.round(top) - 1; for (const x of [-5, -2, 1, 4]) { p.set(hx + x, y0, GOLD[4]); p.set(hx + x, y0 + 1, GOLD[3]); } p.hl(hx - 5, y0 + 2, 11, GOLD[3]); if (!up) p.set(hx, y0 + 3, C('#e02040')); }
@@ -344,21 +347,24 @@ function drawHero(p, L, dir, anim, f) {
     else if (k === 'halo') { const y0 = Math.round(top) - 4; for (let i = -5; i <= 5; i++) { p.set(hx + i, y0 - (Math.abs(i) < 4 ? 1 : 0), C('#fff6b0')); p.set(hx + i, y0 + (Math.abs(i) < 4 ? 1 : 0), C('#f0c040')); } }
     else if (k === 'demonhorns') { for (const sg of side ? [-d] : [-1, 1]) for (let k2 = 0; k2 < 6; k2++) { const x = hx + sg * (4 + Math.round(k2 * 0.4)), y = Math.round(top) + 2 - k2; p.set(x, y, C(k2 > 3 ? '#e8d8c0' : '#3a1a24')); p.set(x + sg, y, C('#1a0a10')); } }
     else if (k === 'bandana') { const y0 = Math.round(hy - 5); for (let x = hx - 7; x <= hx + 7; x++) for (let y = y0; y < y0 + 3; y++) p.set(x, y, m[y === y0 ? 3 : 2]); if (side || up) { p.set(hx + (side ? -d * 8 : 2), y0 + 3, m[2]); p.set(hx + (side ? -d * 9 : 3), y0 + 4, m[1]); } }
+    else if (typeof FITK !== 'undefined' && FITK.head[k]) FITK.head[k].draw(p, p.meta, HD);   // v4.5 tipos nuevos (6zx_fit)
   };
   const drawEars = () => { TG(5); if (L.ears !== 'pointy') return; for (const s of side ? [-d] : [-1, 1]) { for (let k = 0; k < 4; k++) p.set(hx + s * (B.hrx + k), Math.round(hy) - k + 1, SK[k === 3 ? 3 : 2]); } };
   // ---------- compose ----------
   const shY = torsoTop + 1, shL = side ? cx - 1 : tx0 - B.aw, shR = side ? cx - 1 : tx0 + tw; const hands = {};
+  if (typeof fitMeta === 'function') fitMeta(p, L, B, BTS);   // v4.5 puntos de anclaje para prendas nuevas (6zx_fit)
+  const drawHG = typeof fitHeadLayer === 'function' ? () => fitHeadLayer(p, B, hx, hy, HD, drawHeadgear) : drawHeadgear;
   const drawWeaponNow = () => { TG(8); if (!W || !W.k || ps.wang == null) return; const hh = hands.r || [cx, torsoTop + B.al]; drawWeapon(p, W, hh[0], hh[1], ps.wang, ps.wph); if ((W.k === 'dagger' || W.dual) && hands.l) drawWeapon(p, W, hands.l[0], hands.l[1], ps.dual ? ps.wang : { down: 1.9, up: -1.9, left: 2.4, right: 0.7 }[dir], 0); };
   const headAll = () => { drawEars(); drawHead(); drawCap(); };
   if (up) {
     hands.r = [shR + B.aw / 2 + ps.rax, shY + B.al + ps.ray]; hands.l = [shL + B.aw / 2 + ps.lax, shY + B.al + ps.lay];
-    drawWeaponNow(); drawLegs(); drawTorso(); drawArm(shL, shY, ps.lax, ps.lay); drawArm(shR, shY, ps.rax, ps.ray); drawBack(); headAll(); drawBackHair(); drawTails('front'); drawHeadgear(); drawScarf();
+    drawWeaponNow(); drawLegs(); drawTorso(); drawArm(shL, shY, ps.lax, ps.lay); drawArm(shR, shY, ps.rax, ps.ray); drawBack(); headAll(); drawBackHair(); drawTails('front'); drawHG(); drawScarf();
   } else if (side) {
     hands.l = drawArm(cx - 1 - d, shY, ps.lax, ps.lay, true);
-    drawBack(); drawScarf(); drawBackHair(); drawTails('back'); drawLegs(); drawTorso(); headAll(); drawTails('front'); drawHeadgear();
+    drawBack(); drawScarf(); drawBackHair(); drawTails('back'); drawLegs(); drawTorso(); headAll(); drawTails('front'); drawHG();
     hands.r = drawArm(cx - 2, shY, ps.rax, ps.ray, false); drawWeaponNow();
   } else {
-    drawBackHair(); drawTails('back'); drawBack(); drawLegs(); drawTorso(); hands.r = drawArm(shL, shY, ps.rax, ps.ray); hands.l = drawArm(shR, shY, ps.lax, ps.lay); drawScarf(); headAll(); drawTails('front'); drawHeadgear(); drawWeaponNow();
+    drawBackHair(); drawTails('back'); drawBack(); drawLegs(); drawTorso(); hands.r = drawArm(shL, shY, ps.rax, ps.ray); hands.l = drawArm(shR, shY, ps.lax, ps.lay); drawScarf(); headAll(); drawTails('front'); drawHG(); drawWeaponNow();
   }
 }
 // ---------- appearance model ----------

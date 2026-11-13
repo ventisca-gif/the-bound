@@ -7,13 +7,16 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '4.4', GAME_BUILD = 25;
+const GAME_VER = '4.5', GAME_BUILD = 26;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
 const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/[
+  {"b": 26, "v": "4.5", "d": "2026-11-13",
+   "es": ["Ajuste automático: cascos, sombreros, coronas, orejas y cuernos se adaptan solos a la cabeza de cada estructura; los sombreros muy altos se encogen para no salirse.", "Las prendas nuevas que se añadan al juego se colocarán solas en las 8 estructuras.", "Arreglo: el casco del guerrero tapaba un poco el ojo derecho.", "Arreglo: las capuchas del asesino y el invocador tapaban el borde del ojo en la estructura Robusto.", "Los sombreros de los NPCs también se ajustan a su cabeza."],
+   "en": ["Automatic fit: helmets, hats, crowns, ears and horns adapt to the head of every build; very tall hats shrink so they stay on screen.", "New gear added to the game will fit all 8 builds on its own.", "Fix: the warrior helmet slightly covered the right eye.", "Fix: assassin and summoner hoods covered the edge of the eye on the Sturdy build.", "NPC hats also fit their heads."]},
   {"b": 25, "v": "4.4", "d": "2026-11-13",
    "es": ["3 estructuras nuevas de cuerpo y cabeza por sexo, además de la clásica: Héroe, Atlético y Robusto; Esbelta, Curvas y Menuda. Se eligen en «Estructura» al crear el personaje o en la peluquería.", "La estructura Héroe tiene los ojos de la referencia: ceja del color del pelo, ojo 2×2 con brillo y boca pequeña.", "Ropa, armaduras, cosméticos, pelo y armas se ajustan a cada estructura en las cuatro direcciones.", "Los NPCs y los enemigos humanos tienen estructuras variadas.", "Los demás jugadores ven tu estructura por WiFi local y por internet.", "Arreglo: las gafas de sol se ponían sobre la frente; ahora tapan los ojos."],
    "en": ["3 new body and head builds per gender besides the classic one: Hero, Athletic and Sturdy; Slender, Curvy and Petite. Pick them under \"Build\" when creating your character or at the stylist.", "The Hero build has the reference eyes: brows in the hair colour, 2×2 eyes with a highlight and a small mouth.", "Clothes, armor, cosmetics, hair and weapons fit every build in all four directions.", "NPCs and human enemies have varied builds.", "Other players see your build over local WiFi and online.", "Fix: sunglasses sat on the forehead; they now cover the eyes."]},

@@ -12,11 +12,11 @@ const BODY_T = {
     { n: ['Clásico', 'Classic'] },
     { n: ['Héroe', 'Hero'], tw: 11, sw: 9, th: 9, lh: 6, hrx: 8, hry: 8, jaw: 2.8, eye: 'hero', eg: 0, ey: 2, mo: 3, bang: 0.6, mw: 1, mtone: 1, blush: 0 },   // idéntico a la referencia de Sergio
     { n: ['Atlético', 'Athletic'], tw: 12, sw: 9, th: 9, lh: 9, aw: 3, al: 7, hrx: 7.5, hry: 7.6, jaw: 2.8, eye: 'sharp', ey: 2, mo: 4, mw: 1, blush: 0, taper: 1 },
-    { n: ['Robusto', 'Sturdy'], tw: 12, sw: 10, th: 9, lh: 7, lw: 4, aw: 3, al: 6, hrx: 8.2, hry: 7.8, jaw: 2.6, eye: 'soft', eg: 1, ey: 3, mo: 4, blush: 0, belly: 1 },
+    { n: ['Robusto', 'Sturdy'], tw: 12, sw: 10, th: 9, lh: 7, lw: 4, aw: 3, al: 6, hrx: 8.2, hry: 7.8, jaw: 2.6, eye: 'soft', ey: 3, mo: 4, blush: 0, belly: 1 },
   ],
   f: [
     { n: ['Clásica', 'Classic'] },
-    { n: ['Esbelta', 'Slender'], tw: 8, sw: 7, th: 8, lh: 10, al: 7, eye: 'lash' },
+    { n: ['Esbelta', 'Slender'], tw: 8, sw: 7, th: 8, lh: 9, al: 7, hry: 7.8, eye: 'lash' },
     { n: ['Curvas', 'Curvy'], tw: 10, sw: 8, th: 8, lh: 8, eye: 'lash', waist: 2, hips: 1, lip: 1 },
     { n: ['Menuda', 'Petite'], tw: 8, sw: 7, th: 7, lh: 6, al: 5, hry: 8.4, eye: 'big', ey: 3, mo: 4, bang: 3 },
   ],
