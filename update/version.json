@@ -1,18 +1,18 @@
 {
- "build": 29,
- "ver": "4.8",
+ "build": 30,
+ "ver": "4.9",
  "date": "2026-11-13",
  "file": "thebound.html",
- "size": 4525968,
- "sha256": "1d32eb5cd36f1eed384942dee15406e8d801ca9153cb0bc352b26d3843af8631",
+ "size": 4657248,
+ "sha256": "3b0f02d056433f471cfbc2ad96793a2697cb4f4bd51a4867e633743fd5e80a2d",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Bufandín redibujado en HD: el doble de resolución, ojos con brillo, orejas rosas, mejillas con mechones, luna en la frente, hocico, cola rizada y una bufanda carmesí con franja dorada y flecos que ondea al caminar."
+   "Bufandín estrena el sprite del gatito azul con bufanda roja y cuatro fotogramas de caminata por dirección."
   ],
   "en": [
-   "Scarfy redrawn in HD: double resolution, shiny eyes, pink ears, fluffy cheeks, a crescent moon on its forehead, muzzle, curled tail and a crimson scarf with a gold stripe and fringe that flutters as it walks."
+   "Scarfy gets a new blue cat sprite with a red scarf and four walking frames per direction."
   ]
  }
 }

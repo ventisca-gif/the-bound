@@ -88,74 +88,41 @@ function modaSpot(W, t) {
 DLG_HOOKS.push((npc, opts) => { if (!npc || npc.id !== 'modista') return; const P = G.P, tk = P.inside && P.inside.startsWith('boutique_') ? P.inside.slice(9) : 'puerto';
   opts.unshift({ label: L2('Ver la colección', 'Browse the collection'), icon: ['hanger'], fn: () => { closeDialog(); openShop('moda', tk); } }); });
 
-// ---------- mascota: Bufandín, gato viajero con bufanda (diseño original inspirado en el gato de Sergio) ----------
-// v4.8: dibujo HD propio. Se dibuja dos veces con el mismo código: a 1x (26x24) y a 2x (52x48, con detalles de medio
-// píxel); con los gráficos HD activados el juego usa la versión 2x.
 PETS.bufandin = { n: L2('Bufandín, el Gato Viajero', 'Scarfy, the Wandering Cat'), d: L2('+6% de velocidad y +4% de crítico. Su bufanda ondea al correr.', '+6% speed and +4% crit. Its scarf flutters as it runs.'), price: 5500, look: { kind: 'scarfcat', b: '#3a58c8', b2: '#7aa0f0', eye: '#58e0a0' } };
 { const _ps = petStats; petStats = function (P, S) { _ps(P, S); if (P.pet === 'bufandin') { S.spd *= 1.06; S.crit = Math.min(70, S.crit + 4); } }; }
-const BUFI = {
-  fur: pal(['#141a4a', '#22307a', '#3048a8', '#4466cc', '#6a8ae4', '#a4c0fa']), cream: pal(['#a89a8a', '#d4c8b8', '#efe6d8', '#fffaf2']),
-  pink: C('#f2a2c0'), pinkD: C('#c0607e'), eye: pal(['#0e3a2a', '#1e8a5a', '#3ad08a', '#9af0c8']), dark: C('#0c0c16'), white: C('#ffffff'),
-  scarf: pal(['#3a0610', '#6e0e1c', '#a4182a', '#d02c3c', '#f0606a', '#ffa0a4']), gold: pal(['#8a5a10', '#d0a030', '#ffe080']),
-};
-function drawBufi(p, dir, a, f, S) {
-  const side = dir === 'left', up = dir === 'up', F = BUFI.fur, Cr = BUFI.cream, Sc = BUFI.scarf, Go = BUFI.gold;
-  const step = a === 'walk' ? [0, 1, 0, 1][f] : 0, bob = a === 'idle' ? (f ? 0.5 : 0) : a === 'walk' ? [0, 1, 0, 1][f] * 0.8 : a === 'atk' ? [0, 1, 0][f] * 0.5 : 0;
-  const flap = a === 'walk' ? [0, 1.5, 0.8, 2][f] : a === 'idle' ? f * 0.6 : 1, lean = a === 'atk' ? [0, 1.2, 0.4][f] : 0;
-  const cx = 13 + (side ? -lean : 0), by = 21.5 - bob, hx = cx + (side ? -1.6 : 0), hy = by - 11.2;
-  const B = (x, y, rx, ry, cols) => p.ball(x * S, y * S, rx * S, ry * S, cols), E = (x, y, rx, ry, c) => p.ell(x * S, y * S, rx * S, ry * S, c);
-  const Q = (pts, c) => p.poly(pts.map(([x, y]) => [x * S, y * S]), c), D = (x, y, c) => p.set(Math.round(x * S), Math.round(y * S), c);
-  const R = (x, y, w, h, c) => p.rect(Math.round(x * S), Math.round(y * S), Math.max(1, Math.round(w * S)), Math.max(1, Math.round(h * S)), c);
-  const furB = [F[1], F[2], F[3], F[4]], furL = [F[2], F[3], F[4], F[5]];
-  // --- cola rizada con punta crema (detrás) ---
-  const tail = () => { const tx = side ? cx + 4.5 : cx + 4, ty = by - 3.5, w = flap * 0.5;
-    for (let k = 0; k <= 8; k++) { const t = k / 8, x = tx + t * 3.2 + Math.sin(t * 3.4) * 1.2, y = ty - t * 7.2 - Math.sin(t * 2.6 + w) * 0.8; E(x, y, 1.15 - t * 0.25, 1.15 - t * 0.25, t > 0.82 ? Cr[2] : (k % 3 ? F[2] : F[3])); } };
-  // --- cuerpo, patas y brazos ---
-  const body = () => {
-    for (const [lx, ph] of side ? [[-1.6, step], [1.4, 1 - step]] : [[-2.6, step], [2.6, 1 - step]]) { R(cx + lx - 1.1, by - 2.4 - ph * 0.6, 2.2, 2.4 + ph * 0.6, F[1]); E(cx + lx, by - 0.4, 1.4, 0.8, F[2]); if (!up) { D(cx + lx - 0.6, by - 0.3, Cr[2]); D(cx + lx + 0.4, by - 0.3, Cr[2]); } }
-    B(cx + (side ? -0.4 : 0), by - 4.6, 4.4, 3.6, furB);
-    if (!up) B(cx + (side ? -1.6 : 0), by - 4.2, side ? 1.9 : 2.5, 2.6, [Cr[1], Cr[2], Cr[2], Cr[3]]);
-    const paw = (x, y) => { E(x, y, 1.2, 1.1, F[3]); D(x - 0.4, y + 0.6, Cr[2]); };
-    if (side) paw(cx - 3.6 - lean * 1.5, by - 5.2 - lean * 1.6); else if (!up) { paw(cx - 4.4, by - 4.2 - (a === 'atk' && f === 1 ? 2.5 : 0)); paw(cx + 4.4, by - 4.2); }
+// La hoja trae filas abajo, arriba, izquierda y derecha, con cuatro pasos por fila.
+const BUFI_ROWS = { down: 0, up: 1, left: 2, right: 3 };
+const BUFI_SHEET = new Image();
+BUFI_SHEET.src = 'data:image/png;base64,__BUFANDIN_PNG__';
+
+function bufandinAtlas() {
+  const fw = 26, fh = 24, columns = 10;
+  const A = {
+    img: mkCanvas(fw * columns, fh * 4),
+    hd: mkCanvas(fw * columns * 2, fh * 8),
+    fw, fh, ax: 13, ay: 21,
+    idx: { idle: 0, walk: 2, atk: 6, hurt: 9 },
+    hdL: { pet: 1 },
+    hdDone: new Uint8Array(columns * 4).fill(1)
   };
-  // --- cabeza grande con mejillas ---
-  const head = () => {
-    for (const sg of side ? [1, -1] : [-1, 1]) { const ex = hx + sg * (side ? (sg > 0 ? 3.2 : -1.4) : 4.4), back = side && sg < 0;
-      Q([[ex - 2.6, hy - 3.4], [ex + sg * 1.0, hy - 9.6], [ex + 2.6, hy - 3.4]], back ? F[1] : F[2]); Q([[ex - 1.7, hy - 3.6], [ex + sg * 0.8, hy - 8.2], [ex + 1.7, hy - 3.6]], back ? F[2] : F[3]);
-      if (!up && !back) Q([[ex - 1.0, hy - 4.0], [ex + sg * 0.6, hy - 7.0], [ex + 1.0, hy - 4.0]], BUFI.pink); }
-    B(hx, hy, 7.3, 6.3, furL);
-    for (const sg of side ? [-1] : [-1, 1]) Q([[hx + sg * 6.6, hy + 0.4], [hx + sg * 8.0, hy + 2.0], [hx + sg * 6.4, hy + 2.6]], F[3]);   // mechones de las mejillas
-    if (up) { E(hx, hy - 2.5, 3.2, 1.6, F[4]); return; }
-    // luna creciente en la frente
-    const mx = hx + (side ? -1.8 : 0), my = hy - 3.4; E(mx, my, 1.7, 1.7, Cr[3]); E(mx + 0.7, my - 0.5, 1.4, 1.4, F[4]);
-    // hocico claro, nariz y boca
-    const nx = hx + (side ? -4.6 : 0), ny = hy + 2.4; B(nx, ny, side ? 2.6 : 3.4, 2.0, [Cr[1], Cr[2], Cr[3], Cr[3]]);
-    E(nx, ny - 0.8, 0.8, 0.5, BUFI.pink); D(nx - 0.6, ny + 0.6, BUFI.pinkD); D(nx + 0.6, ny + 0.6, BUFI.pinkD); D(nx, ny + 0.2, BUFI.pinkD);
-    // bigotes cortos fuera de la cara
-    if (!side) for (const sg of [-1, 1]) for (const dy of [0, 1]) { const x0 = hx + sg * 7.0; p.line(Math.round(x0 * S), Math.round((ny + dy - 0.4) * S), Math.round((x0 + sg * 1.6) * S), Math.round((ny + dy - 0.9) * S), F[1]); }
-    // ojos grandes verdes con brillo
-    const ey = hy - 0.6, eyes = side ? [hx - 3.4] : [hx - 3.1, hx + 3.1], blink = a === 'idle' && f === 1 && false;
-    for (const ex of eyes) { E(ex, ey, 1.75, 2.05, BUFI.dark); if (blink) continue; B(ex, ey + 0.2, 1.3, 1.6, BUFI.eye); E(ex + 0.1, ey + 0.3, 0.55, 0.9, BUFI.dark); D(ex - 0.6, ey - 0.8, BUFI.white); D(ex + 0.5, ey + 1.0, BUFI.eye[3]); }
-    if (!side) for (const sg of [-1, 1]) D(hx + sg * 5.2, hy + 1.6, uMix(F[4], BUFI.pink, 0.5));   // rubor
-  };
-  // --- bufanda carmesí voluminosa con franja dorada y flecos ---
-  const scarf = (front) => {
-    const sy = hy + 6.0;
-    if (front) { B(hx + (side ? 0.6 : 0), sy, 6.8, 2.5, [Sc[1], Sc[2], Sc[3], Sc[4]]); for (let x = -5; x <= 5; x += 2.5) D(hx + x + (side ? 0.6 : 0), sy + 1.4, Sc[1]); p.hl(Math.round((hx - 5.6 + (side ? 0.6 : 0)) * S), Math.round((sy - 1.0) * S), Math.round(11.2 * S), Sc[5]);
-      if (!up && !side) { B(hx + 3.2, sy + 1.6, 1.8, 1.5, [Sc[1], Sc[2], Sc[3], Sc[4]]); } }
-    else { // dos puntas anchas que caen como una capa corta, con franja dorada y flecos, ondeando al andar
-      const x0 = hx + (side ? 3.2 : 2.2), y0 = sy + 0.4;
-      for (const [k, len, w] of [[0, 7.2, 2.6], [1, 5.6, 2.1]]) { const sw = flap * (k ? 0.5 : 0.8), ang = (side ? 0.55 : 0.75) + k * 0.35, ex = x0 + Math.cos(ang) * len + sw, ey = y0 + Math.sin(ang) * len;
-        const nx = -Math.sin(ang), ny = Math.cos(ang), pts = [[x0 - nx * w * 0.5, y0 - ny * w * 0.5], [x0 + nx * w * 0.5, y0 + ny * w * 0.5], [ex + nx * w * 0.6, ey + ny * w * 0.6], [ex - nx * w * 0.6, ey - ny * w * 0.6]];
-        Q(pts, Sc[k ? 1 : 2]); const mx = x0 + (ex - x0) * 0.62, my = y0 + (ey - y0) * 0.62; p.line(Math.round((mx - nx * w * 0.5) * S), Math.round((my - ny * w * 0.5) * S), Math.round((mx + nx * w * 0.5) * S), Math.round((my + ny * w * 0.5) * S), Go[1]);
-        p.line(Math.round((x0 - nx * w * 0.4) * S), Math.round((y0 - ny * w * 0.4) * S), Math.round((ex - nx * w * 0.5) * S), Math.round((ey - ny * w * 0.5) * S), Sc[k ? 2 : 4]);
-        for (const o of [-0.5, 0, 0.5]) D(ex + nx * w * o + Math.cos(ang) * 0.8, ey + ny * w * o + Math.sin(ang) * 0.8, Sc[4]); } }
-  };
-  if (up) { body(); scarf(false); head(); scarf(true); tail(); return; }
-  tail(); scarf(false); body(); head(); scarf(true);
+  function fillAtlas() {
+    for (const [canvas, scale] of [[A.img, 1], [A.hd, 2]]) {
+      const ctx = canvas.getContext('2d'), w = fw * scale, h = fh * scale;
+      ctx.imageSmoothingEnabled = false;
+      DIRS.forEach((dir, row) => {
+        for (let col = 0; col < columns; col++) {
+          // Bufandín es pasivo. Las celdas de reposo, ataque y daño usan la pose inicial.
+          const step = col >= A.idx.walk && col < A.idx.atk ? col - A.idx.walk : 0;
+          // Recorte fijo para mantener el mismo anclaje en los 16 fotogramas.
+          ctx.drawImage(BUFI_SHEET, step * 128 + 12, BUFI_ROWS[dir] * 128 + 33,
+            104, 96, col * w, row * h, w, h - scale);
+        }
+      });
+    }
+  }
+  if (BUFI_SHEET.complete && BUFI_SHEET.naturalWidth) fillAtlas();
+  else BUFI_SHEET.addEventListener('load', fillAtlas, { once: true });
+  return A;
 }
-{ const _gp = genPet; genPet = function (k) { const L = PETS[k] && PETS[k].look; if (!L || L.kind !== 'scarfcat') return _gp(k);
-  const A = mobAtlas(26, 24, (p, d, a, f) => drawBufi(p, d, a, f, 1)), H = mobAtlas(52, 48, (p, d, a, f) => drawBufi(p, d, a, f, 2));
-  // versión HD lista de antemano: atlasBlit la usa cuando los gráficos HD están activados (HDS > 1)
-  A.hdL = { pet: 1 }; A.hd = H.img; A.hdDone = new Uint8Array((A.img.width / A.fw) * 4).fill(1); return A;
-}; }
+
+{ const _gp = genPet; genPet = function (k) { return k === 'bufandin' ? bufandinAtlas() : _gp(k); }; }
