@@ -7,13 +7,16 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '4.5', GAME_BUILD = 26;
+const GAME_VER = '4.6', GAME_BUILD = 27;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
 const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/[
+  {"b": 27, "v": "4.6", "d": "2026-11-13",
+   "es": ["Multas: todos los guardias cobran, también el Guardia Rolf en Albor y el Capitán Darius en Arxar, y cualquiera acepta las multas de cualquier pueblo (así se pagan las de Yarakai y Puerto Brasa).", "Nuevo panel «Multas y antecedentes» al hablar con un guardia: lo que debes en cada pueblo, pagar una o todas.", "Si eres Criminal en un pueblo sin multa registrada, puedes pagar para limpiar tu nombre.", "Si no debes nada, el guardia te lo dice.", "El Colgante de Promesa ya no pide nivel de Joyería."],
+   "en": ["Fines: every guard collects them, including Guard Rolf in Albor and Captain Darius in Arxar, and any guard accepts fines from any town (so Yarakai and Puerto Brasa fines can be paid).", "New \"Fines and record\" panel when talking to a guard: what you owe in each town, pay one or all.", "If you are a Criminal in a town with no recorded fine, you can pay to clear your name.", "If you owe nothing, the guard tells you.", "The Promise Pendant no longer needs a Jewelry level."]},
   {"b": 26, "v": "4.5", "d": "2026-11-13",
    "es": ["Ajuste automático: cascos, sombreros, coronas, orejas y cuernos se adaptan solos a la cabeza de cada estructura; los sombreros muy altos se encogen para no salirse.", "Las prendas nuevas que se añadan al juego se colocarán solas en las 8 estructuras.", "Arreglo: el casco del guerrero tapaba un poco el ojo derecho.", "Arreglo: las capuchas del asesino y el invocador tapaban el borde del ojo en la estructura Robusto.", "Los sombreros de los NPCs también se ajustan a su cabeza."],
    "en": ["Automatic fit: helmets, hats, crowns, ears and horns adapt to the head of every build; very tall hats shrink so they stay on screen.", "New gear added to the game will fit all 8 builds on its own.", "Fix: the warrior helmet slightly covered the right eye.", "Fix: assassin and summoner hoods covered the edge of the eye on the Sturdy build.", "NPC hats also fit their heads."]},

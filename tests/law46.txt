@@ -1,0 +1,17 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), 1)
+js (()=>{ const r = RECIPES.find(r=>r.id==='r_colgante_amor'); G.P.jobs.joyeria.lv = 1; return [r.jlv, craftCheck(r)]; })()
+js (()=>{ const rolf = G.ents.find(e=>e.id==='rolf'); openDialog(rolf); return [...document.querySelectorAll('#dopts button')].map(b=>b.textContent.trim()).slice(0,4); })()
+js (closeDialog(), G.P.gold = 5000, G.P.bounty = { albor: 900, brasa: 700 }, G.P.rep = { yarakai: -400, albor: -200 }, 1)
+js (()=>{ const rolf = G.ents.find(e=>e.id==='rolf'); openDialog(rolf); return [...document.querySelectorAll('#dopts button')].map(b=>b.textContent.trim()).slice(0,4); })()
+js (document.querySelector('#dopts button').click(), [G.P.gold, JSON.stringify(G.P.bounty), repStatus('albor').n])
+wait 300
+js (()=>{ closeDialog(); const d = G.ents.find(e=>e.id==='darius'); openDialog(d); const b=[...document.querySelectorAll('#dopts button')]; const t=b.map(x=>x.textContent.trim()).slice(0,3); b.find(x=>/Multas y antecedentes/.test(x.textContent)).click(); return t; })()
+wait 300
+shot
+js ([...document.querySelectorAll('[data-lawpay]')].map(b=>b.dataset.lawpay+':'+b.textContent))
+js (document.getElementById('lawAll').click(), [G.P.gold, JSON.stringify(G.P.bounty), repStatus('yarakai').n, lawPending().length])
+wait 200
+shot
+js (()=>{ closeModal(); const g = G.ents.find(e=>e.id==='guardia_s'); openDialog(g); return [...document.querySelectorAll('#dopts button')].map(b=>b.textContent.trim()).slice(-2); })()
+js (window._errs)

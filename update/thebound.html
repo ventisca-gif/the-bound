@@ -341,7 +341,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v4.5 · Las prendas se ajustan solas a cada cuerpo</div>
+  <div class="tfoot">v4.6 · Multas en cualquier guardia · Colgante sin nivel de Joyería</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -521,7 +521,7 @@ FrontEndError:1001,FrontEndConnectFailed:1002,FrontEndConnectClosed:1003,FrontEn
 </script>
 <script>
 const LANG_EN = (() => { try { if (/[?&]lang=en\b/.test(location.search)) return true; if (/[?&]lang=es\b/.test(location.search)) return false; return localStorage.getItem('thebound.lang') === 'en'; } catch (e) { return false; } })();
-const I18N_TPL = {"Cargando...":"Loading...","oro":"gold","Jugadores en línea":"Players online","Mapa":"Map","Menú":"Menu","Personaje":"Character","Poción rápida":"Quick potion","Inventario":"Inventory","Misiones":"Quests","Atacar":"Attack","Esquivar":"Dodge","Mantén el botón":"Hold the button","Escribe un mensaje":"Type a message","Enviar":"Send","Cerrar":"Close","EL VÍNCULO":"THE BOND","Nueva partida":"New game","Crea tu héroe":"Create your hero","Girar a la izquierda":"Turn left","Caminar":"Walk","Girar a la derecha":"Turn right","Nombre":"Name","Comenzar aventura":"Start adventure","Volver":"Back","v4.5 · Las prendas se ajustan solas a cada cuerpo":"v4.5 · Gear fits every body on its own"};
+const I18N_TPL = {"Cargando...":"Loading...","oro":"gold","Jugadores en línea":"Players online","Mapa":"Map","Menú":"Menu","Personaje":"Character","Poción rápida":"Quick potion","Inventario":"Inventory","Misiones":"Quests","Atacar":"Attack","Esquivar":"Dodge","Mantén el botón":"Hold the button","Escribe un mensaje":"Type a message","Enviar":"Send","Cerrar":"Close","EL VÍNCULO":"THE BOND","Nueva partida":"New game","Crea tu héroe":"Create your hero","Girar a la izquierda":"Turn left","Caminar":"Walk","Girar a la derecha":"Turn right","Nombre":"Name","Comenzar aventura":"Start adventure","Volver":"Back","v4.6 · Multas en cualquier guardia · Colgante sin nivel de Joyería":"v4.6 · Fines at any guard · Pendant without Jewelry level"};
 'use strict';
 // ================= CORE =================
 const TS = 16;
@@ -11731,13 +11731,16 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '4.5', GAME_BUILD = 26;
+const GAME_VER = '4.6', GAME_BUILD = 27;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
 const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/[
+  {"b": 27, "v": "4.6", "d": "2026-11-13",
+   "es": ["Multas: todos los guardias cobran, también el Guardia Rolf en Albor y el Capitán Darius en Arxar, y cualquiera acepta las multas de cualquier pueblo (así se pagan las de Yarakai y Puerto Brasa).", "Nuevo panel «Multas y antecedentes» al hablar con un guardia: lo que debes en cada pueblo, pagar una o todas.", "Si eres Criminal en un pueblo sin multa registrada, puedes pagar para limpiar tu nombre.", "Si no debes nada, el guardia te lo dice.", "El Colgante de Promesa ya no pide nivel de Joyería."],
+   "en": ["Fines: every guard collects them, including Guard Rolf in Albor and Captain Darius in Arxar, and any guard accepts fines from any town (so Yarakai and Puerto Brasa fines can be paid).", "New \"Fines and record\" panel when talking to a guard: what you owe in each town, pay one or all.", "If you are a Criminal in a town with no recorded fine, you can pay to clear your name.", "If you owe nothing, the guard tells you.", "The Promise Pendant no longer needs a Jewelry level."]},
   {"b": 26, "v": "4.5", "d": "2026-11-13",
    "es": ["Ajuste automático: cascos, sombreros, coronas, orejas y cuernos se adaptan solos a la cabeza de cada estructura; los sombreros muy altos se encogen para no salirse.", "Las prendas nuevas que se añadan al juego se colocarán solas en las 8 estructuras.", "Arreglo: el casco del guerrero tapaba un poco el ojo derecho.", "Arreglo: las capuchas del asesino y el invocador tapaban el borde del ojo en la estructura Robusto.", "Los sombreros de los NPCs también se ajustan a su cabeza."],
    "en": ["Automatic fit: helmets, hats, crowns, ears and horns adapt to the head of every build; very tall hats shrink so they stay on screen.", "New gear added to the game will fit all 8 builds on its own.", "Fix: the warrior helmet slightly covered the right eye.", "Fix: assassin and summoner hoods covered the edge of the eye on the Sturdy build.", "NPC hats also fit their heads."]},
@@ -12182,6 +12185,55 @@ function fitCheck(only, limit) {
   for (const i of issues) i.base = i.body[1] === 0 || base.has(key(i));
   return { stats, issues };
 }
+
+// ================= v4.6: MULTAS Y ANTECEDENTES, COLGANTE DE PROMESA =================
+// Antes solo los NPCs con id «guardia…» cobraban multas y solo la de su pueblo: el Guardia Rolf (Albor) y el
+// Capitán Darius (Arxar) no ofrecían pagar, Yarakai y Puerto Brasa no tienen guardia, y si eras «Criminal» por
+// robos que salieron bien no había multa que pagar aunque los guardias te persiguieran.
+// Ahora cualquier guardia cobra las multas de cualquier pueblo, enseña tus antecedentes y te deja limpiar tu nombre.
+
+// el Colgante de Promesa ya no pide nivel de Joyería
+{ const r = RECIPES.find(r => r.id === 'r_colgante_amor'); if (r) r.jlv = 1; }
+
+const LAW_TOWNS = () => TOWNS.filter(t => t.lvl || t.lvl === 0);
+function isLawNpc(id) { return id === 'rolf' || id === 'darius' || /^guardia/.test(id || ''); }
+// multa de un pueblo: la registrada al pillarte robando, o el precio por limpiar tu nombre si te consideran Criminal
+function lawFine(tk) { const P = G.P, B = P.bounty || {}; if (B[tk] > 0) return B[tk]; if (repStatus(tk).n === 'Criminal') return 400 + P.lv * 30; return 0; }
+function lawPending() { return LAW_TOWNS().map(t => ({ k: t.k, n: t.n, fine: lawFine(t.k), st: repStatus(t.k), bounty: !!((G.P.bounty || {})[t.k] > 0) })).filter(x => x.fine > 0); }
+function lawPay(tk) {
+  const P = G.P, amt = lawFine(tk); if (!amt) return 'none'; if (P.gold < amt) return 'gold';
+  P.gold -= amt; if (P.bounty) delete P.bounty[tk]; P.rep = P.rep || {}; P.rep[tk] = Math.max(repOf(tk), -90);
+  for (const m of G.ents) if (m.lawOf === tk) m.remove = true;
+  if (!lawPending().length) P.lawCd = 0;
+  sfx('coin'); uiDirty.hud = true; markDirty(true); return 'ok';
+}
+function lawPayMsg(r, tk) {
+  if (r === 'ok') return L2(`Deuda con ${townName(tk)} saldada. Pórtate bien.`, `Your debt with ${townName(tk)} is settled. Behave.`);
+  if (r === 'gold') return L2('No tienes suficiente oro. Vuelve con el dinero.', "You don't have enough gold. Come back with the money.");
+  return L2('No tienes nada pendiente allí.', 'You owe nothing there.');
+}
+function openLawPanel() {
+  const P = G.P, pend = lawPending(), total = pend.reduce((s, x) => s + x.fine, 0);
+  const rows = LAW_TOWNS().map(t => { const st = repStatus(t.k), f = lawFine(t.k);
+    return `<div class="srow"><div class="sn"><b>${esc(t.n)}</b><small style="color:${st.c}">${esc(st.n)}${f ? ' · ' + (((P.bounty || {})[t.k] > 0) ? L2('multa por robo', 'theft fine') : L2('limpiar tu nombre', 'clear your name')) : ''}</small></div>${f ? `<button class="btn sm ${P.gold >= f ? 'gold' : ''}" data-lawpay="${t.k}">${L2('Pagar', 'Pay')} ${fmt(f)}</button>` : `<small class="hint">${L2('Sin multas', 'No fines')}</small>`}</div>`; }).join('');
+  openModal(`<div class="lawm"><h2>${L2('Multas y antecedentes', 'Fines and record')}</h2><p class="hint">${L2('Cualquier guardia cobra las multas de cualquier pueblo. Al pagar, los guardias dejan de perseguirte allí.', 'Any guard collects fines from any town. Once paid, the guards there stop chasing you.')} · ${L2('Tu oro', 'Your gold')}: ${fmt(P.gold)}</p><div class="lawlist">${rows}</div><p class="hint" id="lawMsg"></p><div class="row">${pend.length > 1 ? `<button class="btn gold" id="lawAll">${L2('Pagar todo', 'Pay all')} (${fmt(total)})</button>` : ''}<button class="btn" id="lawOk">${L2('Cerrar', 'Close')}</button></div></div>`, 'lawmodal');
+  $('#lawOk').onclick = () => closeModal();
+  $$('[data-lawpay]').forEach(b => b.onclick = () => { const tk = b.dataset.lawpay, r = lawPay(tk); if (r === 'ok') { openLawPanel(); toast(lawPayMsg(r, tk), 'info', 3); } else $('#lawMsg').textContent = lawPayMsg(r, tk); });
+  const all = $('#lawAll'); if (all) all.onclick = () => { if (P.gold < total) { $('#lawMsg').textContent = lawPayMsg('gold'); return; } for (const x of pend) lawPay(x.k); openLawPanel(); toast(L2('Todas tus multas están pagadas.', 'All your fines are paid.'), 'info', 3); };
+}
+(function () { const st = document.createElement('style'); st.textContent = '.lawm{max-width:30em;width:100%}.lawm h2{text-align:center;margin:.1em 0 .3em}.lawm .lawlist{max-height:min(52vh,22em);overflow:auto}.lawm .srow{display:flex;align-items:center;justify-content:space-between;gap:.6em;padding:.25em 0;border-bottom:1px solid rgba(217,178,90,.2)}.lawm .sn{display:flex;flex-direction:column}.lawm .row{display:flex;gap:.5em;justify-content:center;margin-top:.6em}'; document.head.appendChild(st); })();
+DLG_HOOKS.push((npc, opts) => {
+  if (!npc || !isLawNpc(npc.id) || !G.P) return;
+  // quita la opción antigua (solo servía para algunos guardias) y pone la nueva
+  for (let i = opts.length - 1; i >= 0; i--) if (/^(Pagar multa|Pay fine)/i.test(opts[i].label || '')) opts.splice(i, 1);
+  const here = npc.map === 'world' ? (wedTownOf(npc) || {}).k : null, pend = lawPending();
+  if (!pend.length) { opts.push({ label: L2('Preguntar por multas', 'Ask about fines'), icon: ['coin'], fn: () => typeText(L2('Estás limpio: no tienes multas en ningún pueblo.', "You're clean: no fines in any town.")) }); return; }
+  opts.unshift({ label: L2('Multas y antecedentes', 'Fines and record') + ` (${pend.length})`, icon: ['coin'], fn: () => { closeDialog(); openLawPanel(); } });
+  const loc = pend.find(x => x.k === here) || (pend.length === 1 ? pend[0] : null);
+  if (loc) opts.unshift({ label: L2(`Pagar multa de ${loc.n} (${fmt(loc.fine)} oro)`, `Pay ${loc.n} fine (${fmt(loc.fine)} gold)`), icon: ['coin'], fn: () => typeText(lawPayMsg(lawPay(loc.k), loc.k)) });
+});
+// al empezar la persecución, decir dónde pagar
+{ const _lt = lawTick; lawTick = function (dt) { const before = G.P && G.P.lawCd; const r = _lt(dt); if (G.P && G.P.lawCd !== before && G.P.lawCd) setTimeout(() => toast(L2('Cualquier guardia cobra tus multas: Rolf en Albor, Darius o los guardias en Arxar, y los de Puerto Coral y Sahrim (iconos rojos en el mapa).', 'Any guard collects your fines: Rolf in Albor, Darius or the guards in Arxar, and those in Puerto Coral and Sahrim (red icons on the map).'), 'info', 5), 2500); return r; }; }
 
 // ================= v3.6: IDIOMA (Español / English) =================
 // Los textos del código se traducen al compilar (tools/i18n/tr.js + en.json): cada uno es (LANG_EN ? "inglés" : "español").
