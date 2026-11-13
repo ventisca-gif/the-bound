@@ -178,6 +178,7 @@ function drawHumanoid(p, L, dir, anim, f) {
       if (OF === 'orc' && L.armor) { srect(p, tx0 + 1, ty, tw - 2, 5, L.armor); p.ball(tx0, ty + 1, 3, 2.5, L.armor.slice(1)); p.ball(tx0 + tw - 1, ty + 1, 3, 2.5, L.armor.slice(1)); }
     }
     if (L.btS && OF !== 'skeleton') bodyTorsoShape(p, L.btS, { tx0, ty: torsoTop, tw, th: B.th, side, up, fem: L.g === 'f' || OF === 'dress', d: dir === 'left' ? -1 : 1, m: OF === 'goblin' || OF === 'orc' && L.bare ? SK : main, legTop });
+    if (typeof bodyBust === 'function' && (!L.body || L.body === 'normal') && !['skeleton', 'goblin', 'orc'].includes(OF) && (p.meta.fem || (L.btS && BODY_T.f.includes(L.btS)))) bodyBust(p, L.btS && BODY_T.f.includes(L.btS) ? L.btS : BODY_T.f[0], { tx0: Math.round(tx0), ty: torsoTop, tw, th: B.th, side, up, d: dir === 'left' ? -1 : 1 });   // busto (6zw_bodies)
   };
   const handC = (OF === 'knight' || OF === 'darkknight' || OF === 'guard') ? main[3] : OF === 'skeleton' ? SK[2] : SK[2];
   const sleeve = OF === 'robe' || OF === 'witch' ? main : OF === 'knight' || OF === 'guard' || OF === 'darkknight' ? main : OF === 'ranger' ? cloth : OF === 'smith' || OF === 'goblin' || OF === 'orc' ? SK : OF === 'skeleton' ? SK : main;

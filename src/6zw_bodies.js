@@ -78,7 +78,7 @@ function bodyBust(p, S, o) {
     dk(outer, yu, 0.22); dk(inner, yu, 0.14);                    // laterales redondeados
   }
   if (odd) for (let y = y0; y <= yu; y++) dk(mid, y, y === y0 ? 0.3 : 0.42);   // escote
-  else { dk(cups[0][1], yu, 0.3); dk(cups[1][0], yu, 0.3); }
+  else { dk(cups[0][1], yu, 0.2); dk(cups[1][0], yu, 0.2); }
 }
 // ---- dibujo: las medidas de la estructura se aplican solo mientras se dibuja ese fotograma ----
 const BODY_KB = ['th', 'lh', 'lw', 'al', 'aw', 'hrx', 'hry'], BODY_KF = [['ey', 'ey'], ['mo', 'mouth'], ['bang', 'bang'], ['lift', 'lift'], ['vol', 'vol']];
