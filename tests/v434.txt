@@ -1,0 +1,29 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.gold=900000, G.P.lv=67, calcStats(G.P), [G.world.objs.filter(o=>o.xact==='ofi_fire').length, G.world.objs.filter(o=>o.xact==='ofi_arq').length, PL.length])
+js (()=>{ const o=G.world.objs.find(o=>o.xact==='ofi_fire'&&o.reg==='costa'); G.P.x=o.px; G.P.y=o.py+20; return o.reg; })()
+wait 1500
+shot
+js (giveItem('lubina',2), ['ig_limon','ig_cebolla','ig_aji','ig_camote'].forEach(i=>giveItem(i,5,true)), G.P.jobs.cocina.lv=30, plOpen(G.world.objs.find(o=>o.xact==='ofi_fire'&&o.reg==='costa'),'cook'), document.querySelectorAll('#modal [data-plc]:not([disabled])').length)
+shot
+js (document.querySelector('#modal [data-plc=ceviche]').click(), !!document.getElementById('plGo'))
+wait 400
+js (document.getElementById('plGo').click(), 1)
+wait 700
+js [countItem('pl_ceviche')+countItem('plp_ceviche'), ofi().cook.ceviche]
+js (()=>{ const i=G.P.inv.findIndex(s=>s&&/^plp?_ceviche/.test(s.id)); useItem(i); return [G.P.buff.pcrit, G.P.S.crit]; })()
+js (G.P.wstate.wx='storm', G.time=60*12, [legOk(LEGF[0],'mar'), legWhen(LEGF[2])])
+js (fishCaught(['leg_rey','Rey',9,['mar'],'#fff']), fishCaught(['sardina','Sardina',1,['mar'],'#fff']), Object.keys(ofi().fish))
+js (giveItem('herb1',3), giveItem('herb2',3), AX_SEL=['herb1','herb2'], axOpen(), document.querySelector('#axGo').click(), Object.values(ofi().alq))
+shot
+js (arqDig('vael'), document.querySelectorAll('#modal [data-aq]').length)
+js (()=>{ for(let i=0;i<25;i++){ const b=document.querySelector('#modal [data-aq="'+i+'"]:not([disabled])'); if(b) b.click(); } const ok=document.getElementById('aqOk'); if(ok) ok.click(); return [ofi().arq.vael||0, G.P.jobs.arqueologia]; })()
+shot
+js (G.P.equip.weapon={id:'w_'+G.P.cls+'_5'}, giveItem('ore5',5), fgOpen(), document.querySelectorAll('#modal [data-fgc]:not([disabled])').length)
+js (document.querySelector('#modal [data-fgc=ore5]').click(), 1)
+js (()=>{ for(let k=0;k<3;k++) document.getElementById('fgHit').click(); return G.P.equip.weapon.fg; })()
+wait 500
+js (giveItem('herb4',3), fgOpen(), document.querySelector('#modal [data-fgr=fuego]').click(), G.P.equip.weapon.fg)
+js (closeModal(), ['ofi','pl_lomo'], ITEMS.sardina.icon, ICON.keys[iconKey(['ofi','pl_lomo'])]!==undefined)
+js (encTab='fish', openPanel('best'), document.querySelectorAll('#encFish .srow').length)
+shot
+js (window._errs)
