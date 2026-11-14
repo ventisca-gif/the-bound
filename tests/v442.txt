@@ -1,0 +1,8 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.gold=900000, G.P.lv=120, calcStats(G.P), giveItem('esencia_portal',200), [DG_COS.length, RINGS.map((_,i)=>ITEMS['anillo_cazador_'+(i+1)].atk||ITEMS['anillo_cazador_'+(i+1)].def||0)])
+js (tpShop(), [document.querySelectorAll('#modal [data-tc]').length, document.querySelectorAll('#modal [data-twb]').length])
+js (document.querySelector('#modal [data-tc="c_chaq_cazador"]').click(), document.querySelector('#modal [data-twb="18"]').click(), [G.P.wardrobe.includes('c_chaq_cazador'), G.P.wskin, gearTiers(G.P).weapon])
+js (closeModal(), G.P.app.mk=2, refreshLook(), normApp(G.P.app).mk)
+js (edTab='pelo', openModal('<div id="edt">'+appEditorHTML(G.P.app,[['pelo','Pelo']])+'</div>'), document.querySelectorAll('[data-emk]').length)
+js (()=>{ const o={opened:0,team:1,lv:120,px:G.P.x,py:G.P.y}; Math.random=()=>0.01; XACT.dg_reward[2](o); return [G.P.inv.filter(s=>/anillo_cazador/.test(s.id)).length, (G.P.wskins||[]).length]; })()
+js (closeModal(), window._errs)

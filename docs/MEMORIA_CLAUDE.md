@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.41 (build 62)**.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.42 (build 63)**.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -50,7 +50,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.41 (bui
 - **4.39** arreglo del bloqueo al salir de casa en la fiesta; llamar a la familia que está de expedición.
 - **4.40** hijos con 4 habilidades elegibles, invocadores con almas e invocaciones, equipo propio (pueden superarte), jefes que atacan a los hijos, escalado de jefes por equipo, jefes 200+ con menos vida.
 - **4.41** Torre de los Portales: Selene, prueba de poder y rangos, ranking, 40 cazadores con poderes, retransmisiones, botón ⛩ con 8 mazmorras (solas o en equipo de 4 con cazadores), enemigos y jefes nuevos.
-- **Pendiente (4.42)**: chaquetas, ropa negra, capucha, anillos, peinados emo, maquillaje de ojos y aspectos de armas como recompensas.
+- **4.42** ropa de cazador (chaquetas, ropa negra, capuchas, capas), anillos de cazador, 6 peinados emo, maquillaje de ojos y 8 aspectos de arma.
 
 ## Pendiente o ideas abiertas
 

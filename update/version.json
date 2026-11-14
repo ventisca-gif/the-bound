@@ -1,28 +1,26 @@
 {
- "build": 62,
- "ver": "4.41",
+ "build": 63,
+ "ver": "4.42",
  "date": "2026-11-14",
  "file": "thebound.html",
- "size": 8627956,
- "sha256": "00bd7406fbc5aeb297f19369b37ee82ccd1bcd6dfe03d2aff4871b1d63e8d7f0",
+ "size": 8641954,
+ "sha256": "663af4319398c68efa137c66fa5f67f2afe7d06bc6a31682fc8374c630d681aa",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Torre de los Portales: un gran centro de cazadores blanco con Selene (la recepcionista de azul), el cristal que mide tu poder y te da rango (Cobre, Hierro, Plata, Oro, Platino y Astral), el ranking, pantallas para ver en directo a los cazadores dentro de los portales y la tienda de esencias.",
-   "40 cazadores vivos con nombre, aspecto, clase, poder (fuego, hielo, roca, aire, agua o mente), rango y nivel propios, algunos robustos y grandes. Entran solos en portales, suben de nivel y de rango y tienen sus diálogos.",
-   "Botón ⛩ Mazmorras (desde nivel 50): las mazmorras del mundo en el que estás. Mundo principal: nivel 50, 100, 150, 250 y 340. También en el Archipiélago (170), las Islas del Cielo (210) y el Velo Roto (300).",
-   "Mazmorras en solitario o en equipo de 4: vas con 3 cazadores (invítalos hablando con ellos). Luchan con sus poderes, los enemigos van a por todos y ves la vida del equipo arriba a la izquierda, como en el online.",
-   "Enemigos nuevos en el bestiario: Gólem Rojo, Elemental de Roca, Araña del Portal, Lobo Nocturno, Cazador Corrupto, Lagarto Ígneo, Elementales de Fuego y de Hielo, Escarabajo de Acero, Sapo Abisal, Espectro del Portal y Gólem del Vacío. Jefes: Titán Carmesí, Alfa Nocturno, Reina Arácnida, Rey Sapo Abisal, Señor de las Tormentas, Señor Elemental, El Cazador Caído y el Monarca del Vacío.",
-   "Al cerrar un portal sale un cofre con oro, experiencia, esencias de portal y equipo de tu nivel (más en equipo)."
+   "Ropa de cazador (cofres de los portales y Tienda del Portal): Chaqueta de Cazador, Chaqueta de Cuero Negra, Gabardina Nocturna, Chaqueta Astral, Ropa Negra, Sudadera Oscura, tres capuchas, pantalones y falda negros, botas y zapatillas negras y dos capas. Se ajustan a las 8 estructuras de cuerpo (con busto en mujer).",
+   "Anillos de Cazador (Hierro, Plata, Oro, Platino y Astral), tan buenos como los mejores accesorios de su nivel.",
+   "6 peinados emo nuevos (3 para chicas y 3 para chicos) con flequillo largo que tapa un ojo.",
+   "Maquillaje de ojos en la creación, la peluquería y el estilo de los hijos (pestaña Pelo): delineado negro, sombras morada, roja y azul, pestañas largas y ojos ahumados.",
+   "Aspectos de arma: 8 aspectos (Acero Pulido, Plata Lunar, Oro Real, Mithril Azur, Obsidiana, Cristal Celeste, Sombra Eclipsada y Luna Sonriente) que cambian solo el dibujo de tu arma, no el daño. Los demás jugadores también lo ven."
   ],
   "en": [
-   "Portal Tower: a large white hunters' hub with Selene (the receptionist in blue), the crystal that measures your power and gives you a rank (Copper, Iron, Silver, Gold, Platinum and Astral), the ranking, screens to watch hunters live inside portals and the essence shop.",
-   "40 living hunters with their own name, look, class, power (fire, ice, rock, air, water or mind), rank and level, some of them big and burly. They go into portals alone, level up, rank up and have their own dialogue.",
-   "⛩ Dungeons button (from level 50): the dungeons of the world you are in. Main world: level 50, 100, 150, 250 and 340. Also in the Archipelago (170), Sky Isles (210) and Broken Veil (300).",
-   "Dungeons solo or as a team of 4: you go with 3 hunters (invite them by talking to them). They fight with their powers, enemies go for everyone and you see the team's HP at the top left, like online.",
-   "New enemies in the bestiary: Red Golem, Rock Elemental, Portal Spider, Night Wolf, Corrupted Hunter, Igneous Lizard, Fire and Ice Elementals, Steel Beetle, Abyssal Toad, Portal Wraith and Void Golem. Bosses: Crimson Titan, Night Alpha, Portal Spider Queen, Abyssal Toad King, Lord of Storms, Elemental Lord, The Fallen Hunter and the Void Monarch.",
-   "Closing a portal drops a chest with gold, experience, portal essences and gear for your level (more as a team)."
+   "Hunter clothes (portal chests and Portal Shop): Hunter Jacket, Black Leather Jacket, Night Trench Coat, Astral Jacket, Black Clothes, Dark Hoodie, three hoods, black trousers and skirt, black boots and sneakers and two capes. They fit all 8 body builds (with bust on women).",
+   "Hunter Rings (Iron, Silver, Gold, Platinum and Astral), as good as the best accessories of their level.",
+   "6 new emo hairstyles (3 for girls and 3 for boys) with a long fringe covering one eye.",
+   "Eye makeup in character creation, the hairdresser and kids' style (Hair tab): black eyeliner, purple, red and blue shadow, long lashes and smoky eyes.",
+   "Weapon looks: 8 looks (Polished Steel, Lunar Silver, Royal Gold, Azure Mithril, Obsidian, Celestial Crystal, Eclipsed Shadow and Smiling Moon) that only change your weapon's art, not its damage. Other players see it too."
   ]
  }
 }
