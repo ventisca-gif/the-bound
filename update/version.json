@@ -1,24 +1,32 @@
 {
- "build": 44,
- "ver": "4.23",
+ "build": 45,
+ "ver": "4.24",
  "date": "2026-11-14",
  "file": "thebound.html",
- "size": 7236826,
- "sha256": "000ecea4bf6eed052a9bb6408d18ced2a058a6b6f9dc0eb4332301f2aca68706",
+ "size": 7265279,
+ "sha256": "ed8142f043c9a3d80d8553c8801f6589af3f58a1e98a08d228495f1122d0a8e9",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Subrazas en el PvP: en un duelo funcionan las 4 habilidades de cada subraza (zarpazo, aullido, salto, almas heladas, atravesar, poseer, lamento, agarre de sangre, murciélagos, sed de sangre…) y el rival ve tu transformación, tus efectos y tus proyectiles en su teléfono.",
-   "Las subrazas están igualadas entre sí y no importa tu clase: contra jugadores, el daño de una habilidad de subraza depende de tu nivel y de la habilidad, no del ataque de tu clase. Lobo, fantasma y vampiro hacen el mismo daño por segundo (el vampiro cuenta lo que se cura).",
-   "En duelo, Poseer se mete en el rival y le arranca el alma en 4 golpes; Vuelo Nocturno da esquiva.",
-   "Rocas de minería (todos los minerales), árboles, hierbas, montículos y puntos de buceo reaparecen a los 5 segundos en el mismo sitio."
+   "Herrería: las armas ya no piden nivel de Herrería en ninguna forja; solo tu nivel, oro y materiales.",
+   "Todos los oficios suben 2,5 veces más rápido.",
+   "Con tu pareja al lado ya puedes hablar con los demás: «Hablar» elige al otro personaje que tengas delante.",
+   "Puedes tener hasta dos parejas. La que tratas pasa a ser la principal, así que boda, casa, cambio de ropa, llevarla en brazos e hijos funcionan con las dos. Las dos viven en tu casa.",
+   "Ilvaine, la hechicera del Velo Roto, entra en todo el sistema de pareja: noviazgo, boda e hijos, que pueden heredar su piel lavanda.",
+   "Nueva forma de llevar a tu pareja: sobre los hombros (además de en brazos y besarla). Los demás jugadores lo ven.",
+   "Al decidir tener un hijo os metéis en la cama y salen corazones durante unos segundos (los demás jugadores ven los corazones).",
+   "Nochebruma: un pueblo dark fantasy nevado en el centro del Velo Roto, con nieve azul, luna pálida, faroles en espiral con coronas, árbol de luces, carrusel, trineo de regalos y el Vigilante de Piedra asomando tras la torre. Allí no atacan los monstruos y 6 vecinos te cuentan cómo es su mundo. El Vigilante te quita algo de corrupción."
   ],
   "en": [
-   "Subraces in PvP: in a duel all 4 skills of each subrace work (claw rake, howl, pounce, icy souls, phase through, possess, wail, blood grip, bats, bloodthirst…) and your opponent sees your transformation, effects and projectiles on their phone.",
-   "Subraces are balanced against each other regardless of your class: against players, a subrace skill's damage depends on your level and the skill, not your class's attack. Wolf, ghost and vampire deal the same damage per second (the vampire counts its healing).",
-   "In a duel, Possess slips into the opponent and tears out their soul in 4 hits; Night Flight gives dodge.",
-   "Mining rocks (every ore), trees, herbs, mounds and diving spots respawn after 5 seconds in the same place."
+   "Smithing: weapons no longer require a Smithing level at any forge; only your level, gold and materials.",
+   "Every profession levels up 2.5 times faster.",
+   "With your partner next to you, you can now talk to others: \"Talk\" picks the other character in front of you.",
+   "You can have up to two partners. The one you interact with becomes the main one, so wedding, home, outfits, carrying and children work with both. Both live in your house.",
+   "Ilvaine, the Broken Veil sorceress, joins the whole partner system: dating, wedding and children, who can inherit her lavender skin.",
+   "New way to carry your partner: on your shoulders (besides in your arms and kissing). Other players see it.",
+   "When you decide to have a child you both get into bed and hearts pop out for a few seconds (other players see the hearts).",
+   "Nochebruma: a snowy dark fantasy town in the middle of the Broken Veil, with blue snow, a pale moon, spiral lamps with wreaths, a tree of lights, a carousel, a sleigh full of gifts and the Stone Watcher peering from behind the tower. Monsters do not attack there and 6 villagers tell you about their world. The Watcher removes some corruption."
   ]
  }
 }

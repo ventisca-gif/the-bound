@@ -1,0 +1,22 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), 1)
+js (()=>{ const r=RECIPES.find(r=>r.out==='w_guerrero_3'); const P=G.P; const j=P.jobs.herreria.lv; gainJobXp('herreria',10); return 'jlv '+r.jlv+' check '+craftCheck(r)+' xp '+P.jobs.herreria.xp; })()
+js (()=>{ const P=G.P; P.lv=320; calcStats(P); P.ifr=1e9; P.vrPortal=1; for (const k of ['lia','ilvaine']) { const R=rel(k); R.a=1000; R.t=1000; } P.partner='lia'; giveItem('colgante_amor',1); romPropose({id:'ilvaine', x:P.x, y:P.y}); return 1; })()
+wait 4000
+js (()=>JSON.stringify({p:G.P.partner, p2:G.P.partner2}))
+js (()=>{ swapPartner('lia'); const a=G.P.partner; swapPartner('ilvaine'); return a+' -> '+G.P.partner+' / '+G.P.partner2+' skins '+SKINS.length+' app '+JSON.stringify(partnerApp('ilvaine')); })()
+js (()=>{ goVelo(); return 1; })()
+wait 1500
+js (()=>{ const P=G.P; P.x=(NB.c[0])*16+8; P.y=(NB.c[1]+5)*16+8; return inNieve(P); })()
+wait 1500
+shot
+js (()=>{ const P=G.P; P.x=(NB.c[0]-10)*16+8; P.y=(NB.c[1]+1)*16+8; P.dir='down'; return 1; })()
+wait 1200
+shot
+js (()=>{ const e=G.ents.find(e=>e.type==='npc'&&e.id==='ilvaine'); const P=G.P; startComp(e); return !!COMP; })()
+wait 500
+js (()=>{ startCarry(); COMP.carry=2; return carryActive(); })()
+wait 800
+shot
+js (()=>{ const t=interactTarget(); return t?t.kind+':'+(t.e&&t.e.id):'none'; })()
+js (window._errs)
