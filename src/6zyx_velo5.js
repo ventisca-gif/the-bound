@@ -141,8 +141,8 @@ V33_TICKS.push(dt => { const P = G.P, g = P && P.grab; if (!g) return; const T =
   if (P.dead || gone || G.t > g.end) { P.grab = null; return; }
   const a = Math.atan2(T.y - P.y, T.x - P.x), bx = T.x - Math.cos(a) * 12, by = T.y - Math.sin(a) * 8; if (!blockedFor(G.map, Math.floor(bx / 16), Math.floor(by / 16), P.L)) { P.x += (bx - P.x) * Math.min(1, dt * 10); P.y += (by - P.y) * Math.min(1, dt * 10); }
   P.dir = dirFromVec(T.x - P.x, T.y - P.y); if (P.anim !== 'atk') setAnim(P, 'cast', true);
-  if (G.t >= g.next) { g.next = G.t + 0.5; let d = 0; if (g.pl) { pvpHit(T, g.dmg); d = Math.max(1, Math.round(g.dmg * 0.3)); } else { d = hitMob(T, g.dmg, {}) || 0; if (!T.boss) T.stun = Math.max(T.stun || 0, 0.6); }
+  if (G.t >= g.next) { g.next = G.t + 0.5; let d = 0; if (g.pl) { SRK_ON++; NFX_ON++; try { pvpHit(T, g.dmg); } finally { SRK_ON--; NFX_ON--; } d = srPvpD(P, g.dmg); } else { d = hitMob(T, g.dmg, {}) || 0; if (!T.boss) T.stun = Math.max(T.stun || 0, 0.6); }
     if (d > 0) { const h = Math.round(d * 0.5); P.hp = Math.min(P.S.maxhp, P.hp + h); floatText(P.x, P.y - 40, '+' + h, '#ff5a7a'); }
-    addFx({ type: 'bolt', x: T.x, y: T.y - 14, x2: P.x, y2: P.y - 16, dur: 0.3, col: '#ff2040' }); burst(T.x, T.y - 14, 5, { sp: 30, up: 20, g: 60, life: 0.5, c: ['#c01030', '#ff5a7a'] }); } });
+    NFX_ON++; try { addFx({ type: 'bolt', x: T.x, y: T.y - 14, x2: P.x, y2: P.y - 16, dur: 0.3, col: '#ff2040' }); } finally { NFX_ON--; } burst(T.x, T.y - 14, 5, { sp: 30, up: 20, g: 60, life: 0.5, c: ['#c01030', '#ff5a7a'] }); } });
 { const _de = drawEnt; drawEnt = function (e, cx, cy) { _de(e, cx, cy); if (e.type === 'mob' && e.grabbed > G.t && !e.dying) { ctx.fillStyle = 'rgba(200,16,48,0.55)'; for (let k = 0; k < 3; k++) ctx.fillRect(Math.round(e.x - cx - 6 + k * 5), Math.round(e.y - cy - 20 + ((G.t * 30 + k * 7) % 14)), 1, 3); } }; }
 { const _om = openModal; openModal = function () { const b = $('#secChip'); if (b) b.hidden = true; return _om.apply(this, arguments); }; }
