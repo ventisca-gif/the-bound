@@ -1,32 +1,32 @@
 {
- "build": 55,
- "ver": "4.34",
+ "build": 56,
+ "ver": "4.35",
  "date": "2026-11-14",
  "file": "thebound.html",
- "size": 8419584,
- "sha256": "6d1edc115a656b7bce1189af0103cad7469a2c03a57c7058395484d771b2ff9c",
+ "size": 8464756,
+ "sha256": "6b809cbaf998266cd7c95fc44ab63801cccd4382cc4712813baba7d89a729526",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Cocina en hogueras: 14 hogueras (fuera de cada pueblo y junto a piedras de viaje) con despensa de ingredientes. 50 platos dibujados, cada uno con su efecto: ataque, defensa, velocidad, vel. de ataque, crítico, vida, regeneración, experiencia, oro u oficios.",
-   "Recetas de cada reino: solo se cocinan en las hogueras de su región. Incluye platos peruanos: ceviche, tiradito, causa limeña, lomo saltado, ají de gallina, anticuchos, picarones, pachamanca, rocoto relleno, juane, tacacho con cecina, papa a la huancaína, suspiro limeño, mazamorra y chicha morada, y más.",
-   "Plato perfecto: sirve el plato cuando la marca pase por la zona dorada y sale ★ con un 50 % más de efecto y más duración.",
-   "Pesca legendaria: 12 peces legendarios que solo pican con cierto clima, estación y hora (Rey de la Tormenta, Koi Lunar, Paiche Ancestral…). Sirven para recetas o se liberan para que su espíritu te bendiga 20 minutos.",
-   "Bestiario › Peces: todos los peces del juego tienen dibujo nuevo, con récord de tamaño y cuántos has pescado.",
-   "Alquimia experimental (con el alquimista): mezcla 2 o 3 ingredientes y descubre 16 pociones, algunas con efectos inesperados (gigante, pluma, explosiva, arcoíris…). Las recetas se guardan en tu grimorio.",
-   "Oficio nuevo Arqueología (en la lupa): 8 yacimientos con minijuego de pincel. Reúne las piezas y reconstruye 8 historias del mundo.",
-   "Forja artesanal (con el herrero): elige el núcleo de mineral de tu arma, témplalo (hasta 3 estrellas) y grábale una runa de fuego, hielo, rayo, vida, viento o tierra."
+   "Maestría de armas: cada tipo de arma (espada, lanza, hacha, maza, báculo, arco, dagas, laúd, guadaña y aletas) tiene su propia experiencia hasta 50, sin subir de nivel. Desbloquea posturas, contraataque maestro, una técnica especial y +5 % de daño como Gran Maestro.",
+   "Posturas ofensiva, defensiva y veloz con el botón ◇ (mantén pulsado para ver tu maestría). Se ven como un aro de color en el suelo, también en el online. Técnica especial con el botón ✦.",
+   "Campo de Entrenamiento al sur de Arxar: muñecos, dianas, armeros, escudos, la Maestra Brienne y dos aprendices que practican. Golpear muñecos y dianas sube la maestría.",
+   "Reacciones elementales: los enemigos se mojan con la lluvia, en el agua o con el pez. Rayo + mojado = Descarga en cadena; hielo + mojado = Congelado; fuego + hielo = Vapor; fuego + rayo = Sobrecarga; agua + fuego = Apagado. En las tormentas caen rayos.",
+   "Raíces espinosas junto a 6 piedras de viaje tapan cofres: quémalas con una habilidad de fuego, un arma con runa de fuego o una poción explosiva. Vuelven a crecer cada día.",
+   "Partes vulnerables en algunos jefes: cristal del Gólem de Escarcha (se regenera), escudo del Rey Vael (lo rompe un contraataque perfecto), tambor de Gruk (refuerzos), raíz corazón del Ent (solo el fuego) y corona del Rey Slime. Al romperlas cambian sus ataques.",
+   "Enemigos en equipo: guardianes (🛡, protegen a los de al lado: la mitad de daño) y curanderos (✚, curan a sus aliados y se alejan de ti). Los arqueros siguen alejándose. Decide a quién atacar primero.",
+   "Técnicas combinadas (online y WiFi local): si tú y otro jugador cercano usáis una habilidad casi a la vez, sale una técnica según vuestras clases (Espada Electrificada, Sinfonía de Almas, Lluvia Ígnea, Himno de Guerra, Tormenta Marina…)."
   ],
   "en": [
-   "Campfire cooking: 14 campfires (outside each town and next to waystones) with an ingredient pantry. 50 drawn dishes, each with its own effect: attack, defence, speed, attack speed, crit, HP, regeneration, experience, gold or jobs.",
-   "Kingdom recipes: they can only be cooked at campfires in their region. Includes Peruvian dishes: ceviche, tiradito, causa limeña, lomo saltado, ají de gallina, anticuchos, picarones, pachamanca, rocoto relleno, juane, tacacho, papa a la huancaína, suspiro limeño, mazamorra and chicha morada, and more.",
-   "Perfect dish: serve when the marker crosses the golden zone to get a ★ dish with 50% more effect and longer duration.",
-   "Legendary fishing: 12 legendary fish that only bite in certain weather, season and hour (Storm King, Moon Koi, Ancestral Paiche…). Use them in recipes or release them so their spirit blesses you for 20 minutes.",
-   "Bestiary › Fish: every fish in the game has a new drawing, with size record and how many you caught.",
-   "Experimental alchemy (at the alchemist): mix 2 or 3 ingredients and discover 16 potions, some with unexpected effects (giant, feather, explosive, rainbow…). Recipes are saved in your grimoire.",
-   "New Archaeology job (in the magnifier): 8 dig sites with a brushing minigame. Gather the pieces and rebuild 8 stories of the world.",
-   "Artisan forge (at the blacksmith): choose your weapon's ore core, temper it (up to 3 stars) and engrave a fire, ice, lightning, life, wind or earth rune."
+   "Weapon mastery: each weapon type (sword, spear, axe, mace, staff, bow, daggers, lute, scythe and fins) has its own experience up to 50, without levelling up. Unlocks stances, master counter, a special technique and +5% damage as Grand Master.",
+   "Offensive, defensive and swift stances with the ◇ button (hold to see your mastery). They show as a coloured ring on the ground, online too. Special technique with the ✦ button.",
+   "Training Grounds south of Arxar: dummies, targets, weapon racks, shields, Master Brienne and two apprentices practising. Hitting dummies and targets raises mastery.",
+   "Elemental reactions: enemies get wet in the rain, in water or from the fish. Lightning + wet = chain Discharge; ice + wet = Frozen; fire + ice = Steam; fire + lightning = Overload; water + fire = Doused. Lightning strikes during storms.",
+   "Thorny roots next to 6 waystones block chests: burn them with a fire skill, a fire-rune weapon or an explosive potion. They grow back every day.",
+   "Weak points on some bosses: the Frost Golem's crystal (regenerates), King Vael's shield (a perfect counter breaks it), Gruk's drum (reinforcements), the Ent's heart root (only fire) and the Slime King's crown. Breaking them changes their attacks.",
+   "Teamwork enemies: guardians (🛡, protect those next to them: half damage) and healers (✚, heal allies and keep away from you). Archers still keep their distance. Choose who to hit first.",
+   "Combined techniques (online and local WiFi): if you and a nearby player use a skill almost at the same time, a technique triggers based on your classes (Electrified Blade, Symphony of Souls, Fire Rain, War Hymn, Sea Storm…)."
   ]
  }
 }

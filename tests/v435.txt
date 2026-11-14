@@ -1,0 +1,20 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.gold=900000, G.P.lv=80, calcStats(G.P), [TR.ok, TR.x, TR.y, wmType(), !!document.getElementById('bPos')])
+js (()=>{ G.P.x=(TR.x+7)*16+8; G.P.y=(TR.y+4)*16+8; return 1; })()
+wait 1800
+shot
+js (G.P.wm={}, G.P.wm[wmType()]=wmCum(20)+5, calcStats(G.P), [wmLv(wmType()), wmPosList(), wmHas(wmType(),'tech')])
+js (wmCyclePos(), wmCyclePos(), G.P.wpos)
+js (()=>{ const o=G.map.objs.find(o=>o.xact==='tr_dum'); const a=G.P.wm[wmType()]; trLast=0; trHit(o,1); return G.P.wm[wmType()]-a; })()
+js (()=>{ const m=spawnMob('lobo',80,G.P.x+30,G.P.y,0,null,false); m.state='chase'; wmTechCd=0; wmTechUse(); return [m.hp<m.maxhp, wmTechCd>G.t]; })()
+js (()=>{ const m=spawnMob('lobo',80,G.P.x+40,G.P.y+10,0,null,false); elSet(m,'wet',5); G.P._el={k:'shock',t:G.t}; const h=m.hp; hitMob(m, 50, {}); return [h-m.hp, m.stun>0]; })()
+js (()=>{ const m=spawnMob('lobo',80,G.P.x+40,G.P.y+10,0,null,false); elSet(m,'wet',5); G.P._el={k:'ice',t:G.t}; hitMob(m, 50, {}); return m.freeze; })()
+js (()=>{ G.P._el=null; const b=spawnMob('golemhielo',74,G.P.x+60,G.P.y,0,null,true); const bh=b.bp.hp; hitMob(b, G.P.S.atk*20, {fire:1}); return [!!b.bp, bh, b.bp.hp, b.bp.on]; })()
+js (()=>{ const b=G.ents.find(e=>e.mid==='golemhielo'); for(let k=0;k<30 && b.bp.on;k++) hitMob(b, G.P.S.atk*30, {fire:1}); return [b.bp.on, b.bp.broken]; })()
+shot
+js (()=>{ const h=spawnMob('lobo',80,G.P.x+80,G.P.y,0,null,false); h.role='healer'; const g=spawnMob('lobo',80,G.P.x+90,G.P.y+10,0,null,false); g.role='guard'; const t=spawnMob('lobo',80,G.P.x+85,G.P.y-5,0,null,false); const before=t.hp; G.P._el=null; hitMob(t, 100, {}); return [tmGuarded(t)===g, before-t.hp]; })()
+js (()=>{ const o=G.world.objs.find(o=>o.xact==='rz_root'); G.P.x=o.px; G.P.y=o.py+40; elBurnRoots(o.px,o.py,60); return [G.world.objs.filter(o=>o.xact==='rz_root'&&o.hidden).length, G.world.objs.filter(o=>o.xact==='rz_chest').length]; })()
+js (()=>{ const P=G.P; G.remote.set('t1',{name:'Ana', cls:'mago', map:P.map, x:P.x+20, y:P.y, skT:G.t}); cmbCd=0; cmbMyT=G.t; cmbTry(G.remote.get('t1')); G.remote.delete('t1'); return [!!P.buffs.find(b=>b.id==='combo')]; })()
+js (wmOpen(), document.querySelectorAll('#modal .srow').length)
+shot
+js (closeModal(), window._errs)
