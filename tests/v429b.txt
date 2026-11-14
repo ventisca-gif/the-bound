@@ -1,0 +1,42 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), 1)
+js (()=>{ const P=G.P; P.lv=300; calcStats(P); P.hp=P.S.maxhp; P.ifr=1e9; const M=makeArchi(); P.inside='archipielago'; setMap(M, PE.c[0]*16+8, (PE.c[1]+2)*16+8, 'down'); return [M.v429, G.ents.filter(e=>e.type==='npc'&&e.map==='archipielago').length]; })()
+wait 1500
+shot
+js (()=>{ G.P.x=(PE.c[0]-8)*16+8; G.P.y=(PE.c[1]-1)*16+8; return 1; })()
+wait 1000
+shot
+js (surfStart(), !!SURF)
+wait 3200
+js ((()=>{ let n=0; for (let i=0;i<5;i++){ SURF.mk=0.5; surfTrick(); } return [SURF.score, SURF.combo]; })())
+wait 600
+shot
+js (SURF.t=SURF.dur, 1)
+wait 300
+js ([G.P.jobs.surf, G.P.surfBest])
+js ((()=>{ artEditor(); return !!document.querySelector('#artC'); })())
+js ((()=>{ const cv=document.querySelector('#artC'); const r=cv.getBoundingClientRect(); const ev=(t,x,y)=>cv.dispatchEvent(new PointerEvent(t,{clientX:r.left+x,clientY:r.top+y,pointerId:1,bubbles:true})); document.querySelector('[data-ac="4"]').click(); for(let i=0;i<40;i++){ ev('pointerdown', 20+i*5, 40+ (i%5)*20); ev('pointerup',0,0);} document.querySelector('[data-at="fill"]').click(); document.querySelector('[data-ac="9"]').click(); ev('pointerdown', 250, 250); ev('pointerup',0,0); document.querySelector('#artN').value='Mar rojo'; return 1; })())
+shot
+js (document.querySelector('#artOk').click(), [G.P.arts.length, G.P.arts[0].v, G.P.jobs.arte])
+js ((()=>{ artGallery(); document.querySelector('[data-asl="0"]').click(); G.P.arts[0].sale=Date.now()-3600000; return G.P.arts[0].sale>0; })())
+shot
+js ((()=>{ closeModal(); const t=G.map.objs.find(o=>o.xact==='ixtab'); G.P.x=t.px; G.P.y=t.py+12; const ss=G.map.objs.filter(o=>o.xact==='ixstat').sort((a,b)=>a.sk-b.sk); ss.forEach((s,i)=>{ for(let k=0;k<IX_SOL[i];k++) XACT.ixstat[2](s); }); return [G.P.ixOpen, ss.map(s=>s.v)]; })())
+wait 800
+shot
+js (XACT.ixdoor[2](), 1)
+wait 2500
+js ([G.map.id, G.map.camps.length])
+wait 4000
+shot
+js ([G.ents.filter(m=>m.type==='mob'&&m.map===G.map.id).map(m=>m.mid+':'+m.lv).slice(0,6)])
+js ((()=>{ const b=G.map.bossAt[0]; G.P.x=b.x*16+8; G.P.y=(b.y+4)*16; return 1; })())
+wait 1500
+js ((()=>{ const b=G.map.bossAt[0]; if (b.ent) hitMob(b.ent, 1e12); return !!b.ent; })())
+wait 1500
+js ([G.P.ixBoss1])
+js ((()=>{ const o=G.map.objs.find(o=>o.xact==='ixdown'); XACT.ixdown[2](o); return 1; })())
+wait 2500
+js ([G.map.id, G.map.bossAt[0].id])
+shot
+js ((()=>{ beachShop; const e=G.ents.find(e=>e.id==='ar_maile'); return [!!e, ROM.ar_maile.g]; })())
+js (window._errs)
