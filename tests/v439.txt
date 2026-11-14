@@ -1,0 +1,11 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.gold=900000, G.P.partner='lia', G.P.rel={lia:{t:1000,a:1000}}, G.P.homes={casa_a3:{floor:0,f:{bed:'bigbed'},lv:1}}, 1)
+js (()=>{ const P=G.P; const k={id:'k1',name:'Lizzy',g:'f',app:mixApps('f',1)[0],born:calDay()-12,parent:'lia',equip:{},cls:'bardo'}; const k2={id:'k2',name:'Eml',g:'m',app:mixApps('m',1)[0],born:calDay()-4,parent:'lia',equip:{},cls:'bardo'}; P.kids=[k,k2]; P.retX=undefined; P.retY=undefined; famParty(); return 1; })()
+wait 2500
+js [G.map.id, !!FIESTA, G.P.retX>0]
+js (G.P.retX=NaN, exitInterior(), 1)
+wait 2500
+js [G.map.id, isFinite(G.P.x), currentMusic()]
+js (()=>{ const k=G.P.kids[0]; k.explore=1; famOpen(); const n=document.querySelectorAll('#modal .pvBody button').length; closeModal(); famCall(k); return [n, k.explore, k.follow]; })()
+js (setMap(G.world, NaN, NaN), [isFinite(G.P.x), currentMusic()])
+js window._errs
