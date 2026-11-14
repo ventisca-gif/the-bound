@@ -1,0 +1,18 @@
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+wait 2500
+js [!!document.getElementById('tPlay'), document.getElementById('tPlayT').textContent, HRS.s>1]
+js (hrsMerge([['a:rival:x1','Kael',1830,312,'mago'],['a:luz:x2','Luz',95,350,'bardo'],['g:zz','Toro',4000,120,'guerrero'],['bad'],[1,2]]), Object.keys(hrsList()).length)
+click #tTop
+wait 600
+js [document.querySelectorAll('#hrsTop li').length, document.querySelector('#hrsTop li .val').textContent]
+shot
+js (document.querySelector('[data-ht=lv]').click(), document.querySelector('#hrsTop li span:nth-child(2)').textContent)
+shot
+js (closeModal(), 1)
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+wait 3500
+js [Math.round(G.P.playT), !!G.P.playT]
+js (upsertRemote({peer:'t1', presence:{c:'mago', a:G.P.app, x:10, y:10, n:'X', rkl:[['a:otro:q','Otro',600,200,'arquero']]}}), !!hrsList()['a:otro:q'])
+js (()=>{ const o={}; hrsPresT=-99; extraPresence(o); return [!!o.rk, (o.rkl||[]).length]; })()
+js (saveGame(true), JSON.parse(storage.get(slotKey(SLOT))).playT>0)
+js (window._errs)

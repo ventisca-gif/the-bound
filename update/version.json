@@ -1,30 +1,24 @@
 {
- "build": 51,
- "ver": "4.30",
+ "build": 52,
+ "ver": "4.31",
  "date": "2026-11-14",
  "file": "thebound.html",
- "size": 8292957,
- "sha256": "a863473212cfa4600d918fceaf8d376950e1d239277712e32918dd9890ea56dc",
+ "size": 8308252,
+ "sha256": "8ec510d6710fb3741a81978cbe3d37c9b0c080e849835be1c784d99920a7940c",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Luna de sangre y eventos: los monstruos ya te atacan dentro del pueblo (antes se quedaban quietos).",
-   "Asedio de la luna de sangre más justo: ya no se pierde cuando acaba la noche. Solo se pierde si cae el 60 % de las casas o si te alejas del pueblo. El Devorador Carmesí pisa cada 10-14 segundos y rompe una casa por pisotón.",
-   "Hijos más resistentes: tienen tu misma vida a su nivel y reciben un 40 % menos de daño. Si caen, descansan 2 minutos.",
-   "En un asedio o ataque a tu pueblo, tus hijos mayores vienen solos a ayudarte y vuelven a casa al terminar.",
-   "Los hijos hablan con globos de texto: al llegar, en combate, con poca vida, al ganar y de paseo.",
-   "Los enemigos atacan a quien tengan más cerca: a ti o a tus hijos.",
-   "Tus hijos salen en el minimapa (rosa si van contigo, naranja si están de expedición, con flecha en el borde si están lejos) y en el mapa grande."
+   "Tiempo jugado en el menú principal (arriba a la derecha): cuenta los minutos y las horas con el juego abierto, también en el menú. Va por cuenta y empieza a contar desde esta versión.",
+   "Cada héroe muestra en su botón cuánto tiempo lleva jugado.",
+   "Nuevo botón 🏆 Top jugadores: top de horas jugadas y de nivel máximo. Si inicias sesión sales con tu nombre de cuenta.",
+   "El top se comparte entre jugadores al conectarse: en los mundos online y unos segundos al abrir el menú."
   ],
   "en": [
-   "Blood moon and events: monsters now attack you inside towns.",
-   "Fairer blood moon siege: it is no longer lost when the night ends; only if 60% of houses fall or you leave town. The Devourer stomps every 10-14 s and breaks one house per stomp.",
-   "Tougher kids: same HP as you at their level and 40% less damage taken. They rest 2 minutes if they fall.",
-   "During a siege or town attack your grown kids come to help and go home afterwards.",
-   "Kids talk with speech bubbles.",
-   "Enemies attack whoever is closest: you or your kids.",
-   "Your kids show on the minimap and the big map."
+   "Time played on the main menu (top right): counts minutes and hours with the game open, menu included. It is per account and starts counting from this version.",
+   "Each hero shows its play time on its button.",
+   "New 🏆 Top players button: top hours played and highest level. Log in to appear with your account name.",
+   "The top is shared between players when they go online: in online worlds and for a few seconds when the menu opens."
   ]
  }
 }
