@@ -1,6 +1,6 @@
 # The Bound: notas para continuar en otro chat
 
-Versión actual: **4.27 (build 48)**, publicada en `main` el 2026-11-14. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.28 (build 49)**, publicada en `main` el 2026-11-14. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -32,6 +32,7 @@ Versión actual: **4.27 (build 48)**, publicada en `main` el 2026-11-14. La skil
 - **4.25** `6zyzb_v425.js` + `6zyza_musica_data.js` (`tools/dev/musica.py`, audio en `assets/music/velo1.mp3` y `velo2.mp3`, sacado de sus dos vídeos con ffmpeg): música propia en todo el Velo Roto (`currentMusic` → `'velo'`, se reproduce con `AudioBufferSource` por `mGain`: pista 1 → pista 2 → bucle). La pareja acompañante viaja online con su ropa (`o.cp[6]` = `P.pOut`). Hoja de todo lo nuevo de la 4.21-4.25 en `docs/sprites/novedades_421_425.png`.
 - **4.26** `6zyzc_v426.js`: Colgante de Promesa regalado al llegar a 1000/1000 (`colgMax`, `R.colg`), sin línea de manos al besar, globos de la pareja según contexto (`PT_TALK`, viajan online en `o.pc`) y la pareja montada detrás abrazando la cintura (`drawPassenger`, `drawWaistHands`; recorte de piernas para que vaya sentada).
 - **4.27** `6zyzd_v427.js`: escena de la cama siempre visible: `updateCamera` se centra en la cama sin límite de borde durante `BED_SC`, `drawList.sort` pone al jugador al final para que la pareja se dibuje sobre los muebles, `bedScene`/`drawBedPair` rehechos (centro real del dibujo, prefiere `bigbed`). Prueba `tests/v427.txt`.
+- **4.28** `6zyze_v428.js`: hijos con nivel propio (`k.lv`, `k.xp`, `kidGainXp`) y fuerza relativa a la tuya (`KID_POW` 0,5 del daño por segundo, 60 % de vida, defensa completa, `kidRatio` ≤ 1, `kidGearF`); los enemigos se fijan en ellos (`m.ktgt`; `updateMob`/`updateProj` se ejecutan con `G.P` cambiado por `kidProxy` y `KID_AGGRO` desvía `hurtPlayer` a `kidHurtRaw`); los `telegraph` de jefes también les dañan; esquivan (`kidDodge`); PvP con `kidPvp` (×`KID_PVP`) y golpes a hijos ajenos por `o.pvk`; máximo 2 acompañando (`KID_FOL_MAX`), 3 por pareja (`KID_PER_PARTNER`); expediciones (`k.explore`, `k.xc`, `kidSimStep` por minuto real con recuperación al volver, botín en `k.inv`, `kidAutoEquip`, el hijo aparece en su campamento con `kidExploreAI`); cama con la familia completa; Montar y armario de la pareja en `#tr .trbtns`; lupa ⚒ Oficios (`JOB_GUIDE` con `how`, `ben`, `perks` y `find`). Prueba `tests/v428.txt`.
 ## Pendiente o ideas que dejó abiertas
 
 - Lanzas, hachas y mazas solo las usa el guerrero; si las quiere para otras clases, hay que darles agarre y atlas por clase.

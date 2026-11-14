@@ -68,8 +68,9 @@ function kidHurt(e, d) {
 }; }
 // vida de los hijos sobre la cabeza
 { const _de = drawEnt; drawEnt = function (e, cx, cy) { const r = _de(e, cx, cy);
-  if ((e.type === 'kid' && e.kid && e.kid.follow) || (e.type === 'rkid' && e.hpp !== undefined)) { const k = e.kid, pct = e.type === 'kid' ? (k.hp === undefined ? 1 : k.hp / kidMaxHp(k)) : e.hpp / 100;
-    if (pct < 0.999 || e.down) { const x = Math.round(e.x - cx - 9), y = Math.round(e.y - cy - 36 * (e.scale || 1)); ctx.fillStyle = 'rgba(0,0,0,.6)'; ctx.fillRect(x - 1, y - 1, 20, 4); ctx.fillStyle = pct > 0.5 ? '#5ad05a' : pct > 0.25 ? '#e0c040' : '#e04040'; ctx.fillRect(x, y, Math.round(18 * Math.max(0, pct)), 2); } }
+  if ((e.type === 'kid' && e.kid && (e.kid.follow || e.explore) && kidStage(e.kid) >= 1) || (e.type === 'rkid' && e.hpp !== undefined)) { const k = e.kid, pct = e.type === 'kid' ? (k.hp === undefined ? 1 : k.hp / kidMaxHp(k)) : e.hpp / 100;
+    { // v4.28: siempre visible
+ const x = Math.round(e.x - cx - 9), y = Math.round(e.y - cy - 36 * (e.scale || 1)); ctx.fillStyle = 'rgba(0,0,0,.6)'; ctx.fillRect(x - 1, y - 1, 20, 4); ctx.fillStyle = pct > 0.5 ? '#5ad05a' : pct > 0.25 ? '#e0c040' : '#e04040'; ctx.fillRect(x, y, Math.round(18 * Math.max(0, pct)), 2); } }
   return r; }; }
 // los demás jugadores ven su vida y si han caído
 { const _sp = socialPresence; socialPresence = function (o) { _sp(o); if (o.kd) o.kd.forEach((a, i) => { const e = FOLLOW_KIDS.filter(q => q && !q.remove && q.map === G.P.map)[i]; if (e) { const k = e.kid; a[8] = k.hp === undefined ? 100 : Math.round(k.hp / kidMaxHp(k) * 100); a[9] = e.down ? 1 : 0; } }); }; }
