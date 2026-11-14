@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.35 (build 56)**.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.36 (build 57)**.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -33,7 +33,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.35 (bui
 - Nivel máximo 350. Clases: guerrero, mago, arquero, asesino, bardo, invocador, pez. Ascensión y evoluciones.
 - Romance con dos medidores (Confianza y Amor, 10 corazones), regalos, pasear de la mano, llevar en brazos o a hombros, besos (normal y francés), pareja (hasta dos), boda, casa, hijos (3 por pareja) y escena de la cama con corazones.
 
-## Lo último (4.27 – 4.31)
+## Lo último (4.27 – 4.36)
 
 - **4.27** escena de la cama siempre visible (la cámara se centra en la cama).
 - **4.28** hijos con nivel propio hasta 350 y fuerza relativa a la tuya (50 % de tu daño), barra de vida siempre visible, los enemigos los atacan, esquivan, PvP con hijos, máximo 2 acompañando, expediciones (exploran solos, mochila propia que solo se mira, se equipan solos), cama con la familia completa, botones de Montar y armario de la pareja en la fila de iconos de arriba, lupa 🔎 → ⚒ Oficios con flecha.
@@ -44,8 +44,12 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.35 (bui
 - **4.33** pueblos vivos: tablón en cada plaza (periódico, rumores, mercado, ayuntamiento, bazar), prosperidad, casas abandonadas, alcalde con impuestos, Día del Tributo, oficio Comercio y vecinos que te ayudan.
 - **4.34** oficios: hogueras con 50 platos (peruanos incluidos) y plato perfecto, 12 peces legendarios y colección de peces dibujados, alquimia experimental, arqueología (oficio nuevo) y forja artesanal con runas.
 - **4.35** combate: maestría por tipo de arma con posturas y técnica especial, Campo de Entrenamiento en Arxar, reacciones elementales, raíces que se queman, partes vulnerables en 5 jefes, guardianes y curanderos enemigos, técnicas combinadas entre clases en el online.
+- **4.36** Mundo de los Sueños (dormir de madrugada), escalada, puentes de hielo, Profundidades bajo cada cueva y legado familiar (hijos adultos con oficio, boda, casa propia en el mapa, nietos e historias).
 
 ## Pendiente o ideas abiertas
+
+- Las posturas de combate se ven como un aro en el suelo, sin poses nuevas del cuerpo.
+- Pueblos vivos solo en los 6 pueblos del mapa principal (no en cielo, archipiélago ni Velo Roto).
 
 - Lanzas, hachas y mazas solo las usa el guerrero.
 - Personajes dark fantasy del Velo dibujados en código: si Sergio manda imágenes, extraerlos.
