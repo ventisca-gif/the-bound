@@ -1,0 +1,12 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), window.hurtPlayer=()=>{}, G.P.gold=500000, G.P.partner='lia', G.P.rel={lia:{t:1000,a:1000}}, G.P.homes={casa_a3:{floor:0,f:{bed:'bigbed',table:'table',deco1:'plant',crib:'crib'}, lv:1}}, (()=>{ const d=G.world.doors.find(d=>d.to==='casa_a3'); G.P.x=d.x*16+8; G.P.y=(d.y+1)*16+8; enterInterior(d); return 1; })())
+wait 1500
+js (()=>{ const P=G.P, b=G.map.objs.find(o=>o.f==='bigbed'); P.x=b.px+60; P.y=b.py+70; const e=G.ents.find(e=>e.type==='npc'&&e.id==='lia'&&e.map==='casa_a3'); openDialog(e); romanceMenu(e); familyTalk(e); return [G.map.id, !!b]; })()
+wait 500
+js (document.querySelector('#famYes').click(), 1)
+wait 1500
+shot
+js (()=>{ const b=BED_SC; return b ? [Math.round(b.bed.px-G.cam.x), Math.round(b.top-G.cam.y), VW, VH] : 'none'; })()
+wait 3500
+js (document.querySelector('#famNext') ? 'modal ok' : 'no modal')
+js (window._errs)
