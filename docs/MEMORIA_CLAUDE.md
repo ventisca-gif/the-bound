@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.30 (build 51)**.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.31 (build 52)**.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -19,7 +19,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.30 (bui
 - Antes de crear un nombre global (`const X`), comprueba que no exista ya (`grep -n "^const X\b" src/*.js`): si se repite, `build.py` falla.
 - Textos nuevos con `L2('español', 'english')`.
 - En una sesión nueva falta `tools/i18n/vendor/acorn.js` (no está en git): `npm pack acorn@8.14.0`, descomprime y copia `package/dist/acorn.js` ahí.
-- Pruebas: `python3 tests/play.py file://$PWD/dist/test.html out.png 1000 452 @tests/<nombre>.txt` → debe terminar en `JS> []`. Pruebas de las últimas versiones: `tests/v427.txt`, `v428.txt`, `v429.txt`, `v429b.txt`, `v429c.txt`, `v430.txt`, `family.txt`, `v424.txt`.
+- Pruebas: `python3 tests/play.py file://$PWD/dist/test.html out.png 1000 452 @tests/<nombre>.txt` → debe terminar en `JS> []`. Pruebas de las últimas versiones: `tests/v427.txt`, `v428.txt`, `v429.txt`, `v429b.txt`, `v429c.txt`, `v430.txt`, `v431.txt`, `family.txt`, `v424.txt`.
 - Ropa, armaduras y cosméticos nuevos: `fitKind(...)` y `python3 tools/dev/fitcheck.py file://$PWD/dist/test.html out` con **0 avisos**. Hay 4 estructuras de cuerpo por sexo; nunca números fijos de píxel.
 - Si tocas daño, vida, curas, armas o accesorios: `python3 tools/dev/pvp.py file://$PWD/dist/test.html` (fuerza de cada clase entre 0,9 y 1,1). Si se sale, `--solve` y copia el `PVP_CLS sugerido` en `src/6zyb_pvp.js`. Ojo: un accesorio sin clase muy fuerte rompe el PvP (pasó en la 4.29).
 - Publicar una versión: sube `GAME_VER`/`GAME_BUILD` en `src/6zv_update.js`, añade la entrada al principio de `CHANGELOG` (es y en), cambia el pie `tfoot` en `template.html`, `python3 tools/dev/release.py`, commit, push a la rama de trabajo, PR a `main` y fusionar.
@@ -33,12 +33,13 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.30 (bui
 - Nivel máximo 350. Clases: guerrero, mago, arquero, asesino, bardo, invocador, pez. Ascensión y evoluciones.
 - Romance con dos medidores (Confianza y Amor, 10 corazones), regalos, pasear de la mano, llevar en brazos o a hombros, besos (normal y francés), pareja (hasta dos), boda, casa, hijos (3 por pareja) y escena de la cama con corazones.
 
-## Lo último (4.27 – 4.30)
+## Lo último (4.27 – 4.31)
 
 - **4.27** escena de la cama siempre visible (la cámara se centra en la cama).
 - **4.28** hijos con nivel propio hasta 350 y fuerza relativa a la tuya (50 % de tu daño), barra de vida siempre visible, los enemigos los atacan, esquivan, PvP con hijos, máximo 2 acompañando, expediciones (exploran solos, mochila propia que solo se mira, se equipan solos), cama con la familia completa, botones de Montar y armario de la pareja en la fila de iconos de arriba, lupa 🔎 → ⚒ Oficios con flecha.
 - **4.29** cielo: pueblos Céfira (arpías), Aurelia (ángeles) y Lumen (acertijos); romance con Aelis, Nimiel, Caelith y Kiri; beso francés; piedras de acertijos diarias; prueba de memoria; oficios Carrera de Ángeles y Olimpiadas Angelicales. Archipiélago: Puerto Esmeralda con isleños en bikini y ropa de verano, oficios Surf y Arte (pixel art que se vende solo), Ixtal con puzle de estatuas y dos mazmorras de nivel 300. XP de monstruos de nivel >250 ×1,4 (unos 50 enemigos por nivel en todo el juego; de 1 a 350 son unas 31 horas de combate). Fondo marino: almejas gigantes, perlas rosas/doradas/de luna, 30 perlas perdidas, sirena Perlina, tortugas y ballena.
 - **4.30** los monstruos de eventos (marcados `noSafe`) por fin atacan dentro de los pueblos; el asedio de la luna de sangre ya no se pierde cuando acaba la noche (se pierde si cae el 60 % de las casas o si te alejas del pueblo), el Devorador pisa cada 10-14 s y rompe una casa por pisotón; los hijos tienen tu misma vida a su nivel y reciben un 40 % menos de daño, descansan 2 min si caen, vienen solos a ayudarte en asedios y ataques al pueblo, hablan con globos (llegada, combate, poca vida, victoria, charla), y salen en el minimapa (rosa contigo, naranja de expedición, con flecha en el borde) y en el mapa grande. Los enemigos atacan a quien tengan más cerca (tú o tus hijos).
+- **4.31** tiempo jugado en el menú principal (por cuenta, cuenta también en el menú; cada héroe muestra el suyo) y botón 🏆 Top jugadores (horas y nivel máximo). No hay servidor con base de datos: el top se comparte entre jugadores al conectarse (mundos online y sala oculta de Photon al abrir el menú).
 
 ## Pendiente o ideas abiertas
 
