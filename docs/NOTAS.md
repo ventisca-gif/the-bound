@@ -1,6 +1,6 @@
 # The Bound: notas para continuar en otro chat
 
-Versión actual: **4.20 (build 41)**, publicada en `main` el 2026-11-14. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.21 (build 42)**, publicada en `main` el 2026-11-14. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -13,7 +13,7 @@ Versión actual: **4.20 (build 41)**, publicada en `main` el 2026-11-14. La skil
 - `tools/i18n/vendor/acorn.js` no está en git (está en `.git/info/exclude`): en una sesión nueva, `npm pack acorn@8.14.0` y copia `package/dist/acorn.js` ahí, o `build.py` falla al traducir. Textos nuevos con `L2('es', 'en')`.
 - Pruebas: `python3 tests/play.py file://$PWD/dist/test.html out.png 900 500 @tests/<nombre>.txt` (debe terminar en `JS> []`).
 
-## Qué se añadió de la 4.12 a la 4.20 (archivos `src/6zw…6zyu`)
+## Qué se añadió de la 4.12 a la 4.21 (archivos `src/6zw…6zyw`)
 
 - **4.12** busto en cuerpos femeninos y NPCs (`bodyBust` en `6zw_bodies.js`; Esbelta/Menuda 1, Clásica 2, Curvas 3).
 - **4.13** armas tier 1-6 de la hoja de cobre (`tools/dev/armas.py` → `6zyd_armas_data.js`, motor `6zye_armas.js`: icono 16, mano 16/32 HD, atlas de ataque HD; dagas en ambas manos, aletas del pez). Campamento de los **Vigías del Alba** en la Costa Coral (169-178, 168-177) con 8 NPCs de su dibujo (`tools/dev/campamento.py`), 5 misiones, uniforme cosmético y lore de Edrin Valcorde (`6zyg_vigias.js`).
@@ -24,11 +24,11 @@ Versión actual: **4.20 (build 41)**, publicada en `main` el 2026-11-14. La skil
 - **4.18** **Continente del Velo Roto** (`6zys_velo_roto.js`): nivel máximo 350, tiers 22-26 con las armas dark fantasy (`tools/dev/armas_vr.py`), portal antiguo al oeste de Arxar (Fenrik el lobo → Malvia la bruja → 3 Esencias de Nihil), 5 regiones, cielo visible con la Luna Sonriente. Personajes dark fantasy dibujados en código en `6zyr_velo_art.js` (`VR_ART`) y `VR_KIND` en `6zys`.
 - **4.19** `6zyt_velo2.js`: armaduras propias tiers 22-26 (Lobo Nocturno, Sepulcrales, Velo Roto, Eclipsadas, Luna Sonriente), Poder del Velo (+0,5 % ataque/vida por nivel desde 251), linterna y puentes espectrales, tienda del eclipse nocturna, decisión de la campana, símbolos + Imitador, altares de la catedral, mirada de la Luna y dos finales.
 - **4.20** `6zyu_velo3.js`: El Hombre sin Rostro y 7 jefes nuevos (12 en el continente), Corrupción del Velo (`P.vrCor`, Grito del Velo, muros), jefes con memoria (`P.vrMem`), lunas de sangre, Heredero del Eclipse, Jardín de la Sonrisa (0:00-3:00) con el Tendero Imposible y El Sin Nombre (nombre: **Velmira**), Arma Velada (`wv_<clase>`, Guardiana/Devoradora) y tres finales.
+- **4.21** `6zyw_velo4.js` (datos de imagen en `6zyv_velo4_data.js`, generados con `tools/dev/velo4.py` desde `tools/dev/velo4_ref/hoja.png`): 24 lanzas/hachas/mazas del guerrero (`av_<tipo>_<0-7>`, `gear.av`, atlas de ataque `WSPR_IMG.av`), 6 mascotas espectrales (`PETV`, las vende Corvel), región **Bosque de la Torre Hueca** (`VR_ZONES[VR4_ZI]`, torre, Biblioteca Anegada, caldera), jefe Ossaryn (`rey_rosas`, humanoide que camina), 6 enemigos con mecánicas (`VR4_MOBS`), +35 % de XP en el Velo, **subrazas** (`P.sr` lobo/fantasma/vampiro, `P.srF` transformado, `P.srC` pelaje; botón 🐺/👻/🦇; lobo a cuatro patas dibujado al doble en `drawWolf`; 4 habilidades `srl*/srf*/srv*` que sustituyen las ranuras; desactivadas en duelos; Poción de Sangre Limpia), NPCs Corvel, Ilvaine (romance, conjuros 🔮 `CJ`, marca `c_tercer_ojo`) y Grizzla, detalles de cara para NPCs (`L.xf`: tercer ojo, labios, nariz, aretes, dientes) y la pestaña 🗝 Secretos de la guía (`SECRETS`, pistas una a una en `P.secH`).
 
 ## Pendiente o ideas que dejó abiertas
 
-- Más tipos de arma: lanzas, hachas y mazas (su hoja «Armas Dark Fantasy - Set Completo»).
-- Mascotas espectrales del Pantano.
+- Lanzas, hachas y mazas solo las usa el guerrero; si las quiere para otras clases, hay que darles agarre y atlas por clase.
 - El demonio, el brujo sapo y los demás personajes dark fantasy siguen dibujados en código: si manda los personajes sobre fondo liso, extraerlos igual que las criaturas.
 - «Cooperativo local» de la propuesta del Velo Roto (la captura venía cortada).
 - Confirmar qué quiso decir con «que las razas puedan rivalizar» (se interpretó como clases igualadas en PvP).

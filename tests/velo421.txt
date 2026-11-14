@@ -1,0 +1,29 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), 1)
+js (()=>{ const P=G.P; P.lv=344; P.cls='guerrero'; calcStats(P); P.hp=P.S.maxhp; P.ifr=1e6; P.vrPortal=1; goVelo(); return 1; })()
+wait 1500
+js (()=>{ const P=G.P, M=G.map; const Z=VR_ZONES[VR4_ZI]; P.x=(VR4_POS.torre[0])*16+8; P.y=(VR4_POS.torre[1]+4)*16+8; return M.id+' camps '+M.camps.filter(c=>c.isl===VR4_ZI).length+' boss '+M.bossAt.map(b=>b.id).join(','); })()
+wait 1200
+shot
+js (()=>{ const P=G.P; giveItem('av_lanza_3',1); giveItem('av_hacha_7',1); giveItem('av_maza_2',1); const i=P.inv.findIndex(s=>s.id==='av_lanza_3'); equipFromInv(i); return JSON.stringify(gearTiers(P)); })()
+js (()=>{ const P=G.P; for (const e of G.ents) if (e.type==='mob'&&!e.boss) e.remove=true; P.sr='lobo'; P.srC='blanco'; srSet(true); return P.slots.join(',')+' '+JSON.stringify(gearTiers(P))+' fw '+P.atlas.fw; })()
+wait 600
+shot
+js (()=>{ const P=G.P; for (let i=0;i<4;i++){ P.cds={}; P.mp=9999; useSkill(i);} return 'ok'; })()
+wait 900
+shot
+js (()=>{ const P=G.P; srSet(false); P.sr='vampiro'; srSet(true); P.cds={}; P.mp=9999; useSkill(1); useSkill(2); return P.slots.join(','); })()
+wait 600
+shot
+js (()=>{ const P=G.P; srSet(false); P.sr='fantasma'; srSet(true); for (let i=0;i<4;i++){ P.cds={}; P.mp=9999; useSkill(i);} return P.slots.join(',')+' poseidos '+G.ents.filter(e=>e.possT).length; })()
+wait 800
+shot
+js (()=>{ const P=G.P; P.conjs=['ojo','velas','tinta','paginas']; for (const k of P.conjs){ P.conj=k; P.cjT=0; P.mp=9999; cjCast(); } return 'cj'; })()
+wait 900
+shot
+js (()=>{ const P=G.P; givePet('rape_espectral'); setPet('rape_espectral'); const m=spawnMob('rey_rosas',328,P.x+60,P.y,P.L,null,true); m.state='chase'; m.mech=6.9; return m.name; })()
+wait 1500
+shot
+js (()=>{ GUIA.tab='sec'; renderGuia(); GSEC='nombre'; renderSecrets(); $('#secH').click(); $('#secH').click(); return $('.guia .gdet').innerText.slice(0,300); })()
+shot
+js (window._errs)
