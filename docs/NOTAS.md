@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.39 (build 60)**, publicada en `main` el 2026-11-14. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.40 (build 61)**, publicada en `main` el 2026-11-14. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -46,6 +46,7 @@ Versión actual: **4.39 (build 60)**, publicada en `main` el 2026-11-14. La skil
 - **4.37** `6zyzp_v437.js`: poses de postura `st_of/st_de/st_ve` por `heroPose` (como los bailes, `stanceAtlasFor`, se dibujan en reposo también para remotos), pueblos vivos en otros mapas (`PV_XT`: cefira, aurelia, lumen, esmeralda, nochebruma; tableros al crear `makeSky/makeArchi/makeVelo`), familia (`famMigrate` pasa `k.gkids` a `P.kids` con `gparent`/`parent: 'gk:<id>'`, botón `#famBtn`, `famCall`), sincronía de grupo ampliada (`SYNC_MAPS`, papel y estado elemental en `o.mb[9..10]`, partes de jefe `o.bpk`). Prueba `tests/v437.txt`.
 - **4.38** `6zyzq_v438.js` (+ `WOG` en `6zyk_velo.js`): arma de tu nivel +10 % (`wAtLevel`), arma vieja −2,5 %/nivel desde 12 por debajo (máx 55 %); lupa › 📘 Sistemas (`GSIS`, `guiaSis`); segunda pareja `COMP2` (`comp2Start`, online `o.cp2` → `r.rcp2`); `famCall` une al equipo si hay hueco (`KID_FOL_MAX` 2 para toda la descendencia); pisos de casa `homeCfg(id).floors` hasta 4 (`makeFloor`, `hs_up`/`hs_down`, mapas `<casa>#f<n>`); fiesta familiar `FIESTA` (`famParty`). Prueba `tests/v438.txt`.
 - **4.39** `6zyzr_v439.js`: arreglo del bloqueo al salir de casa en la fiesta (`currentMusic` leía `REGIONS[undefined]` con `P.x` NaN por `P.retX` vacío; ahora `safeRet` pone la puerta de casa y `setMap`/`exitInterior`/`currentMusic` se protegen) y llamar a hijos de expedición desde ❤ (`kidRecall`). Prueba `tests/v439.txt`.
+- **4.40** `6zyzs_v440.js`: `wTopLv` (penalización de arma desde la mejor arma existente), habilidades de hijos (`kidSkills` 4 de `kidSkPool`, `kidCast` simplificado por `eff.k`), almas e invocaciones de hijos invocadores (`k.souls`, `k.soulSet`, entidad `ksum`), `kidForge` en expediciones, `kidRatio` hasta 1,5, jefes que eligen hijo (`m.bkt` con `kidProxy`), escalado por equipo (`teamSize`/`teamScale`: jefes +55 % vida y +15 % daño por miembro), jefes nv. 200+ −20 % vida. Informe de equilibrio (balance.py): jefes en solitario 1-6 min, te matan en 9-60 s si no esquivas; enemigos normales 2→15 golpes de nivel 10 a 350. Prueba `tests/v440.txt`.
 ## Pendiente o ideas que dejó abiertas
 
 - El top mundial depende de las reglas de Firebase (`docs/firebase_rules.json`) pegadas en la consola del proyecto `the-bound-3afef`.

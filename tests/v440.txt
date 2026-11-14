@@ -1,0 +1,17 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.gold=900000, G.P.lv=80, G.P.partner='lia', calcStats(G.P), [wTopLv(G.P.cls,280), wOutgrown({cls:G.P.cls,lv:280,equip:{weapon:{id:Object.keys(ITEMS).filter(k=>ITEMS[k].t==='weapon'&&ITEMS[k].cls===G.P.cls&&ITEMS[k].lv<=280).sort((a,b)=>ITEMS[b].lv-ITEMS[a].lv)[0]}}})])
+js (()=>{ const P=G.P; const k={id:'k1',name:'Blake',g:'m',app:mixApps('m',1)[0],born:calDay()-12,parent:'lia',equip:{},cls:'invocador',lv:80}; const k2={id:'k2',name:'Lizzy',g:'f',app:mixApps('f',1)[0],born:calDay()-12,parent:'lia',equip:{},cls:'bardo',lv:80}; P.kids=[k,k2]; famCall(k); famCall(k2); return [folCount(), kidSkills(k), kidSkills(k2)]; })()
+wait 800
+js (()=>{ const P=G.P; for (let i=0;i<4;i++){ const m=spawnMob('lobo',78,P.x+50+i*10,P.y+10,0,null,false); m.state='chase'; } return 1; })()
+wait 6000
+js (()=>{ const k=G.P.kids[0]; return [kidSouls(k).length, G.ents.filter(e=>e.type==='ksum'&&!e.remove).length]; })()
+js (()=>{ const e=FOLLOW_KIDS.find(q=>q.kid.id==='k1'); ksumCall(e,false); return G.ents.filter(q=>q.type==='ksum'&&!q.remove).length; })()
+shot
+js (()=>{ const P=G.P; const b=spawnMob('golemhielo',80,P.x+60,P.y,0,null,true); b.state='chase'; return [b.maxhp]; })()
+wait 9000
+js (()=>{ const b=G.ents.find(e=>e.boss&&e.mid==='golemhielo'); return [b.teamN, b.maxhp, !!b.bkt || b.btT>0]; })()
+shot
+js (()=>{ const e=FOLLOW_KIDS[0]; openKid(e); return [document.querySelectorAll('#modal [data-ksk]').length, document.querySelectorAll('#modal [data-ksd]').length]; })()
+shot
+js (()=>{ const k={id:'k9',cls:'guerrero',lv:120,born:calDay()-30,equip:{},inv:[],app:mixApps('m',1)[0],g:'m',name:'T'}; for(let i=0;i<20;i++) kidForge(k); return [k.equip.weapon&&ITEMS[k.equip.weapon.id].lv, Object.keys(k.equip).length]; })()
+js (closeModal(), window._errs)
