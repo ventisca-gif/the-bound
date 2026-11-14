@@ -1,0 +1,30 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.gold=900000, G.P.lv=120, calcStats(G.P), G.P.hp=G.P.S.maxhp, [!!document.getElementById('dgBtn'), Object.keys(DG_MOBS).length, DG.length])
+wait 1200
+js [!$('#dgBtn').hidden]
+js (dgOpen(), document.querySelectorAll('#modal [data-dge]').length)
+js (document.getElementById('dgTower').click(), 1)
+wait 1800
+js [G.map.id, G.ents.filter(e=>e.hn&&e.map==='torre_portales').length, G.map.objs.filter(o=>o.xact==='tp_portal').length]
+shot
+js (tpTest(), 1)
+wait 1800
+js [hunt().rank, hunt().score]
+shot
+js (closeModal(), tpInvite(HN[3]), huntPick().map(h=>h.name))
+js (dgEnter(DG[1], true), 1)
+wait 2000
+js [G.map.id, HUNT.allies.length, !!document.getElementById('huntBars'), G.map.camps.length]
+js (()=>{ const P=G.P; for (let i=0;i<3;i++){ const m=spawnMob('lobo_nocturno',100,P.x+40+i*12,P.y-30,0,null,false); m.state='chase'; m.map=G.map.id; } return 1; })()
+wait 5000
+shot
+js [HUNT.allies.map(a=>a.hp+'/'+a.maxhp), G.ents.filter(m=>m.type==='mob'&&m.map===G.map.id&&!m.dying).length]
+js (()=>{ const P=G.P; const b=spawnMob('alfa_nocturno',106,P.x+60,P.y,0,null,true); b.map=G.map.id; hitMob(b, b.maxhp*5, {}); return 1; })()
+wait 1500
+js [G.map.objs.filter(o=>o.xact==='dg_reward').length, hunt().cleared]
+js (()=>{ const o=G.map.objs.find(o=>o.xact==='dg_reward'); XACT.dg_reward[2](o); return countItem('esencia_portal'); })()
+js (dgLeave(), 1)
+wait 2000
+js [G.map.id, HUNT.allies.length]
+js (tpWatch(), closeModal(), tpRanking(), document.querySelectorAll('#modal .news').length)
+js (closeModal(), window._errs)

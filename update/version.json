@@ -1,30 +1,28 @@
 {
- "build": 61,
- "ver": "4.40",
+ "build": 62,
+ "ver": "4.41",
  "date": "2026-11-14",
  "file": "thebound.html",
- "size": 8578378,
- "sha256": "71ff9a6fafa73e01e443651f9e9282d2725eece7d8c0edf1984f4f8d2adbb18e",
+ "size": 8627956,
+ "sha256": "00bd7406fbc5aeb297f19369b37ee82ccd1bcd6dfe03d2aff4871b1d63e8d7f0",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Hijos, nietos y bisnietos usan 4 habilidades de su clase como tú (según su nivel). En su panel eliges cuáles y las cambias cuando quieras; las nuevas se añaden solas si hay hueco.",
-   "Hijos invocadores: capturan almas al derrotar enemigos (hasta 8), invocan espíritus que luchan por ellos (1, 2 desde nivel 60 y 3 desde nivel 150) y en su panel marcas con ★ las que quieres o borras las que no.",
-   "Se equipan lo mejor que encuentran o forjan en sus expediciones, aunque supere a tu equipo, y pueden llegar a ser más fuertes que tú (hasta 1,5 veces).",
-   "Los jefes también van a por tus hijos: cambian de objetivo cada pocos segundos entre tú y los que te acompañan.",
-   "Escalado por equipo: con más jugadores del grupo cerca o con hijos acompañándote, los jefes ganan vida (+55 % por miembro) y algo de daño, y los enemigos normales también un poco. Solo, todo queda igual.",
-   "Jefes de nivel 200 o más: un 20 % menos de vida (el informe de equilibrio daba de 2 a 6 minutos en solitario).",
-   "Armas: la penalización del arma vieja cuenta desde la mejor arma que existe para tu nivel (entre los niveles 250 y 300 no hay armas nuevas y antes perdías la mitad del ataque)."
+   "Torre de los Portales: un gran centro de cazadores blanco con Selene (la recepcionista de azul), el cristal que mide tu poder y te da rango (Cobre, Hierro, Plata, Oro, Platino y Astral), el ranking, pantallas para ver en directo a los cazadores dentro de los portales y la tienda de esencias.",
+   "40 cazadores vivos con nombre, aspecto, clase, poder (fuego, hielo, roca, aire, agua o mente), rango y nivel propios, algunos robustos y grandes. Entran solos en portales, suben de nivel y de rango y tienen sus diálogos.",
+   "Botón ⛩ Mazmorras (desde nivel 50): las mazmorras del mundo en el que estás. Mundo principal: nivel 50, 100, 150, 250 y 340. También en el Archipiélago (170), las Islas del Cielo (210) y el Velo Roto (300).",
+   "Mazmorras en solitario o en equipo de 4: vas con 3 cazadores (invítalos hablando con ellos). Luchan con sus poderes, los enemigos van a por todos y ves la vida del equipo arriba a la izquierda, como en el online.",
+   "Enemigos nuevos en el bestiario: Gólem Rojo, Elemental de Roca, Araña del Portal, Lobo Nocturno, Cazador Corrupto, Lagarto Ígneo, Elementales de Fuego y de Hielo, Escarabajo de Acero, Sapo Abisal, Espectro del Portal y Gólem del Vacío. Jefes: Titán Carmesí, Alfa Nocturno, Reina Arácnida, Rey Sapo Abisal, Señor de las Tormentas, Señor Elemental, El Cazador Caído y el Monarca del Vacío.",
+   "Al cerrar un portal sale un cofre con oro, experiencia, esencias de portal y equipo de tu nivel (más en equipo)."
   ],
   "en": [
-   "Kids, grandkids and great-grandkids use 4 skills of their class like you (by level). In their panel you choose which and change them anytime; new ones are added automatically if there is room.",
-   "Summoner kids: they capture souls when defeating enemies (up to 8), summon spirits that fight for them (1, 2 from level 60 and 3 from level 150) and in their panel you ★ the ones you want or delete the rest.",
-   "They equip the best they find or forge on expeditions, even if it beats your gear, and can become stronger than you (up to 1.5 times).",
-   "Bosses also go for your kids: they switch targets every few seconds between you and the kids with you.",
-   "Team scaling: with more party players nearby or kids following you, bosses gain HP (+55% per member) and some damage, and normal enemies a little. Solo, nothing changes.",
-   "Bosses of level 200+: 20% less HP (the balance report gave 2 to 6 minutes solo).",
-   "Weapons: the old-weapon penalty now counts from the best weapon that exists for your level (there are no new weapons between levels 250 and 300 and you used to lose half your attack)."
+   "Portal Tower: a large white hunters' hub with Selene (the receptionist in blue), the crystal that measures your power and gives you a rank (Copper, Iron, Silver, Gold, Platinum and Astral), the ranking, screens to watch hunters live inside portals and the essence shop.",
+   "40 living hunters with their own name, look, class, power (fire, ice, rock, air, water or mind), rank and level, some of them big and burly. They go into portals alone, level up, rank up and have their own dialogue.",
+   "⛩ Dungeons button (from level 50): the dungeons of the world you are in. Main world: level 50, 100, 150, 250 and 340. Also in the Archipelago (170), Sky Isles (210) and Broken Veil (300).",
+   "Dungeons solo or as a team of 4: you go with 3 hunters (invite them by talking to them). They fight with their powers, enemies go for everyone and you see the team's HP at the top left, like online.",
+   "New enemies in the bestiary: Red Golem, Rock Elemental, Portal Spider, Night Wolf, Corrupted Hunter, Igneous Lizard, Fire and Ice Elementals, Steel Beetle, Abyssal Toad, Portal Wraith and Void Golem. Bosses: Crimson Titan, Night Alpha, Portal Spider Queen, Abyssal Toad King, Lord of Storms, Elemental Lord, The Fallen Hunter and the Void Monarch.",
+   "Closing a portal drops a chest with gold, experience, portal essences and gear for your level (more as a team)."
   ]
  }
 }
