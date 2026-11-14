@@ -39,7 +39,7 @@ function siegeEnd(won) {
 function devourerStomp(b) {
   const r = 70; telegraph({ shape: 'circle', x: b.x, y: b.y, r, dur: 1.1, col: 'rgba(255,40,40,0.25)', cb: () => { G.shake = Math.max(G.shake, 10); sfx('boom'); burst(b.x, b.y, 30, { sp: 140, up: 60, g: 160, life: 0.8, c: ['#5a2a1a', '#8a6a4a', '#ff4a2a'] });
     const P = G.P; if (dist2(P.x, P.y, b.x, b.y) < r * r) hurtPlayer(b.atk * 1.8, { stun: 1 });
-    const W = G.world, tk = SIEGE && SIEGE.town, WT = G.P.wstate.towns, TS = tk ? (WT[tk] = WT[tk] || {}) : null; for (const o of W.objs) if (o.k === 'bld' && !o.ruin && dist2(o.px, o.py, b.x, b.y) < 175 * 175) { o.ruin = 1; if (TS) { TS.broken = TS.broken || []; if (!TS.broken.includes(o.id)) TS.broken.push(o.id); } for (let k = 0; k < 6; k++) setTimeout(() => part(o.px + (Math.random() - 0.5) * 40, o.py - 20, { z: 10, vz: 30, life: 1.5, c: pick(['#ff6a2a', '#ffd040', '#3a2a20']), s: 3 }), k * 120); }
+    const W = G.world, tk = SIEGE && SIEGE.town, WT = G.P.wstate.towns, TS = tk ? (WT[tk] = WT[tk] || {}) : null; for (const o of W.objs.filter(o => o.k === 'bld' && !o.ruin && dist2(o.px, o.py, b.x, b.y) < 130 * 130).sort((a, c) => dist2(a.px, a.py, b.x, b.y) - dist2(c.px, c.py, b.x, b.y)).slice(0, 1)) { o.ruin = 1; if (TS) { TS.broken = TS.broken || []; if (!TS.broken.includes(o.id)) TS.broken.push(o.id); } for (let k = 0; k < 6; k++) setTimeout(() => part(o.px + (Math.random() - 0.5) * 40, o.py - 20, { z: 10, vz: 30, life: 1.5, c: pick(['#ff6a2a', '#ffd040', '#3a2a20']), s: 3 }), k * 120); }
     for (const e of G.ents) if (e.type === 'npc' && e.map === 'world' && !e.follow && dist2(e.x, e.y, b.x, b.y) < 100 * 100) npcDown(e); } });
 }
 { const _rf = ruinFlags; ruinFlags = function () { _rf(); const W = G.world, WS = G.P && G.P.wstate; if (!W || !WS) return; for (const t of TOWNS) { const T_ = WS.towns[t.k]; if (!T_ || !T_.broken || !T_.broken.length) continue; for (const o of W.objs) if (T_.broken.includes(o.id)) o.ruin = 1; } }; }
@@ -47,11 +47,14 @@ let siegeT = 0;
 function siegeTick(dt) {
   const P = G.P, W = P && P.wstate; if (!P || !W || !G.world) return; siegeT += dt; if (siegeT < 0.5) return; siegeT = 0;
   if (!SIEGE) { if (bloodMoon() && G.map === G.world && P.lv >= 20 && W.bmSiege !== calDay()) { const t = TOWNS.find(t => P.x / 16 > t.x0 - 12 && P.x / 16 < t.x1 + 12 && P.y / 16 > t.y0 - 12 && P.y / 16 < t.y1 + 12); if (t && !townRuined(t.k)) siegeStart(t.k); } return; }
-  const S = SIEGE; if (!bloodMoon() && S.round < 5) { siegeEnd(S.round >= 5); return; }
+  // v4.30: el asedio ya no se pierde porque se acabe la noche; se pierde si cae el 60 % de las casas o si te vas del pueblo
+  const S = SIEGE, Tn = TOWNS.find(t => t.k === S.town), blds = Tn ? G.world.objs.filter(o => o.k === 'bld' && o.tx >= Tn.x0 - 2 && o.tx <= Tn.x1 + 2 && o.ty >= Tn.y0 - 2 && o.ty <= Tn.y1 + 2) : [], ruined = blds.filter(o => o.ruin).length;
+  S.ruinP = blds.length ? ruined / blds.length : 0; if (S.ruinP >= 0.6) { siegeEnd(false); return; }
+  const far = !Tn || G.map !== G.world || P.x / 16 < Tn.x0 - 30 || P.x / 16 > Tn.x1 + 30 || P.y / 16 < Tn.y0 - 30 || P.y / 16 > Tn.y1 + 30; S.farT = far ? (S.farT || 0) + 0.5 : 0; if (S.farT > 45) { siegeEnd(false); return; }
   const alive = G.ents.filter(m => m.siege && m.type === 'mob' && !m.dying && !m.remove); S.left = alive.length;
   if (!alive.length && !S.next && S.round > 0 && G.t > S.wait) { if (S.round >= SIEGE_R) { siegeEnd(true); return; } S.wait = G.t + 6; toast(L2('¡Ronda superada! Prepárate para la siguiente…', 'Round cleared! Get ready for the next one…'), 'quest', 3); S.next = 1; }
   if (S.next && G.t > S.wait) { S.next = 0; siegeRound(); } else if (S.round === 0 && G.t > S.wait) siegeRound();
-  if (S.boss && !S.boss.dying && G.t > S.boss.stompT) { S.boss.stompT = G.t + 5 + Math.random() * 2; devourerStomp(S.boss); }
+  if (S.boss && !S.boss.dying && G.t > S.boss.stompT) { S.boss.stompT = G.t + 10 + Math.random() * 4; devourerStomp(S.boss); }
   // los monstruos del asedio también derriban vecinos
   for (const m of alive) { if (Math.random() > 0.05) continue; const e = G.ents.find(e => e.type === 'npc' && e.map === 'world' && !e.downT && !e.follow && dist2(e.x, e.y, m.x, m.y) < 26 * 26); if (e) npcDown(e); }
 }

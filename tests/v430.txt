@@ -1,0 +1,19 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.gold=500000, G.P.partner='lia', G.P.rel={lia:{t:1000,a:1000}}, G.P.homes={casa_a3:{floor:0,f:{bed:'bigbed',table:'table',deco1:'plant',crib:'crib'}, lv:1}}, (()=>{ const d=G.world.doors.find(d=>d.to==='casa_a3'); G.P.x=d.x*16+8; G.P.y=(d.y+1)*16+8; enterInterior(d); return 1; })())
+wait 1200
+js (()=>{ const P=G.P; P.lv=80; calcStats(P); P.hp=P.S.maxhp; P.kids=[{id:'a',name:'Luna',g:'f',app:mixApps('f',1)[0],born:calDay()-20,parent:'lia',equip:{},cls:'guerrero'},{id:'b',name:'Sol',g:'m',app:mixApps('m',1)[0],born:calDay()-20,parent:'lia',equip:{},cls:'mago'}]; const t=TOWNS.find(t=>t.k==='albor')||TOWNS[0]; const c=townCenter(t.k); setMap(G.world, c.x*16+8, c.y*16+8, 'down'); P.inside=null; P.map='world'; return t.k; })()
+wait 1500
+js (siegeStart((TOWNS.find(t=>t.k==='albor')||TOWNS[0]).k), !!SIEGE)
+wait 6000
+js ([SIEGE&&SIEGE.round, FOLLOW_KIDS.map(e=>[e.kid.name, e.chat, Math.round(e.kid.hp)]), G.P.hp+'/'+G.P.S.maxhp, G.ents.filter(m=>m.siege&&!m.dying).map(m=>m.state).join(',')])
+shot
+wait 6000
+js ([SIEGE&&SIEGE.round, SIEGE&&SIEGE.ruinP, FOLLOW_KIDS.map(e=>[e.kid.name, Math.round(e.kid.hp), e.down]), G.P.hp, G.ents.filter(m=>m.siege&&!m.dying).map(m=>m.state+(m.ktgt?'K':'')).join(',')])
+js ((()=>{ for (const m of G.ents) if (m.siege) hitMob(m, 1e9); return 1; })())
+wait 8000
+js ([SIEGE&&SIEGE.round, kidSpots().length, worldPOI().filter(p=>p.c==='kid').map(p=>p.t)])
+shot
+js ((()=>{ SIEGE.round=5; for (const m of G.ents) if (m.siege) m.remove=true; return 1; })())
+wait 9000
+js ([!!SIEGE, FOLLOW_KIDS.length])
+js (window._errs)

@@ -1,38 +1,30 @@
 {
- "build": 50,
- "ver": "4.29",
+ "build": 51,
+ "ver": "4.30",
  "date": "2026-11-14",
  "file": "thebound.html",
- "size": 8282776,
- "sha256": "098d1253d961a193b004ebec6dc5abd67128ff1ed1b0ebbbcbb25a756caf03f4",
+ "size": 8292957,
+ "sha256": "a863473212cfa4600d918fceaf8d376950e1d239277712e32918dd9890ea56dc",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Islas del Cielo: tres pueblos nuevos. Céfira (arpías con alas de colores y nidos gigantes), Aurelia (la última ciudad de los ángeles) y Lumen (ciudad de los acertijos). Allí no entran los monstruos.",
-   "Romance con alas: Aelis (ángel guerrera), Nimiel (ángel sanadora), Caelith (lectora de estrellas) y Kiri (arpía cantora), con todo el sistema: corazones, regalos, pasear, besos, pareja, boda e hijos.",
-   "Beso francés (Amor 8 y Confianza 6): más largo y cercano; el más bajo se pone de puntillas para que las caras queden a la misma altura con cualquier cuerpo.",
-   "Piedras de acertijos en todas las islas del cielo (una pregunta distinta cada día) y la Prueba de la Memoria del Oráculo Vespera en Lumen.",
-   "Oficios nuevos: Carrera de Ángeles (vuela por los aros contra tres rivales) y Olimpiadas Angelicales (Tiro celeste y Lluvia de plumas, con medallas). 10 ventajas cada uno.",
-   "Archipiélago: Puerto Esmeralda, un gran pueblo en el centro con isleños en bikini y ropa de verano, palmeras, antorchas tiki y más historia. Ailani vende 5 bikinis, camisas hawaianas, bermudas y pareos.",
-   "Oficios nuevos: Surf (minijuego de trucos y combos con tabla) y Arte (pinta lo que quieras en pixel art y véndelo en tu galería: se vende solo mientras juegas). 10 ventajas cada uno.",
-   "Ixtal, la Ciudad Perdida: un templo al sur de Puerto Esmeralda con un puzle de cuatro estatuas. Dentro, dos mazmorras de nivel 300 (Templo Hundido y Cripta del Sol), 10 enemigos nuevos y 2 jefes con armas y armaduras de tier 23-24.",
-   "Experiencia revisada: del nivel 251 al 350 los enemigos dan un 40 % más (ahora hacen falta unos 50 por nivel en todo el juego, como antes del 250).",
-   "Fondo Marino: 12 almejas gigantes con minijuego, perlas rosas, doradas y de luna, 30 perlas perdidas escondidas (premio final: Lágrima de Luna), la sirena Perlina que compra perlas y ensarta el Collar de Perlas Doradas, tortugas marinas y la ballena del abismo.",
-   "Las ventajas de los oficios nuevos salen en el panel de oficios y en la lupa ⚒."
+   "Luna de sangre y eventos: los monstruos ya te atacan dentro del pueblo (antes se quedaban quietos).",
+   "Asedio de la luna de sangre más justo: ya no se pierde cuando acaba la noche. Solo se pierde si cae el 60 % de las casas o si te alejas del pueblo. El Devorador Carmesí pisa cada 10-14 segundos y rompe una casa por pisotón.",
+   "Hijos más resistentes: tienen tu misma vida a su nivel y reciben un 40 % menos de daño. Si caen, descansan 2 minutos.",
+   "En un asedio o ataque a tu pueblo, tus hijos mayores vienen solos a ayudarte y vuelven a casa al terminar.",
+   "Los hijos hablan con globos de texto: al llegar, en combate, con poca vida, al ganar y de paseo.",
+   "Los enemigos atacan a quien tengan más cerca: a ti o a tus hijos.",
+   "Tus hijos salen en el minimapa (rosa si van contigo, naranja si están de expedición, con flecha en el borde si están lejos) y en el mapa grande."
   ],
   "en": [
-   "Sky Isles: three new towns. Cefira (harpies), Aurelia (angels) and Lumen (riddles). No monsters there.",
-   "Winged romance: Aelis, Nimiel, Caelith and Kiri with the full system.",
-   "French kiss (Love 8, Trust 6): longer and closer; the shorter one goes on tiptoe so faces line up with any body.",
-   "Riddle stones on every sky island (new question each day) and Oracle Vespera's Memory Trial in Lumen.",
-   "New jobs: Angel Race and Angelic Olympics, 10 perks each.",
-   "Archipelago: Emerald Port, a big central town with islanders in bikinis and summer clothes. Ailani sells bikinis, Hawaiian shirts, shorts and sarongs.",
-   "New jobs: Surfing (trick and combo minigame) and Art (paint pixel art and sell it in your gallery). 10 perks each.",
-   "Ixtal, the Lost City: a statue puzzle and two level 300 dungeons with 10 new enemies and 2 bosses (tier 23-24 gear).",
-   "Experience: level 251-350 enemies give 40% more (about 50 kills per level across the game).",
-   "Seabed: giant clam minigame, pink, golden and moon pearls, 30 hidden lost pearls, Perlina the mermaid, sea turtles and the abyss whale.",
-   "New job perks show in the jobs panel and the ⚒ magnifier tab."
+   "Blood moon and events: monsters now attack you inside towns.",
+   "Fairer blood moon siege: it is no longer lost when the night ends; only if 60% of houses fall or you leave town. The Devourer stomps every 10-14 s and breaks one house per stomp.",
+   "Tougher kids: same HP as you at their level and 40% less damage taken. They rest 2 minutes if they fall.",
+   "During a siege or town attack your grown kids come to help and go home afterwards.",
+   "Kids talk with speech bubbles.",
+   "Enemies attack whoever is closest: you or your kids.",
+   "Your kids show on the minimap and the big map."
   ]
  }
 }
