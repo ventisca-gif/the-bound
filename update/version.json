@@ -1,30 +1,32 @@
 {
- "build": 54,
- "ver": "4.33",
+ "build": 55,
+ "ver": "4.34",
  "date": "2026-11-14",
  "file": "thebound.html",
- "size": 8346583,
- "sha256": "808d2119e07f58569497a9e0154db1693102573fd69fd476ebd1d1a045cd3658",
+ "size": 8419584,
+ "sha256": "6d1edc115a656b7bce1189af0103cad7469a2c03a57c7058395484d771b2ff9c",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Pueblos vivos: cada plaza (Albor, Puerto Coral, Arxar, Sahrim, Yarakai y Puerto Brasa) tiene un Tablón del pueblo con periódico, rumores, mercado, ayuntamiento y bazar.",
-   "El Pregonero: noticias generadas con lo que pasa en el juego (jefes derrotados, asedios, eventos, alcaldes, vecinos que salvaste) y un rumor nuevo cada día.",
-   "Prosperidad de cada pueblo: sube si haces encargos, defiendes el pueblo, donas o vendes lo que necesita; baja si ignoras asaltos y hordas. Por debajo de 25 hay casas abandonadas (tapiadas); desde 75 abre un bazar más barato.",
-   "Alcalde: si eres Héroe del pueblo puedes presentarte. Eliges impuestos bajos, normales o altos, cobras las arcas e inviertes en el pueblo. Si tu opinión baja de Neutral, te quitan el cargo.",
-   "Día del Tributo cada 7 días (no se puede desactivar): los vecinos pagan al alcalde y, si tienes casa en un pueblo donde no eres alcalde, pagas un pequeño impuesto.",
-   "Oficio nuevo Comercio (en la lupa): compra mercancías donde se producen y véndelas donde escasean. 8 mercancías con precios que cambian cada día, con la estación y con los eventos. Al entrar en un pueblo te avisa de lo que pagan bien.",
-   "Los vecinos que ayudaste a levantarse te recuerdan: una vez al día, si estás en apuros, uno te lanza una poción."
+   "Cocina en hogueras: 14 hogueras (fuera de cada pueblo y junto a piedras de viaje) con despensa de ingredientes. 50 platos dibujados, cada uno con su efecto: ataque, defensa, velocidad, vel. de ataque, crítico, vida, regeneración, experiencia, oro u oficios.",
+   "Recetas de cada reino: solo se cocinan en las hogueras de su región. Incluye platos peruanos: ceviche, tiradito, causa limeña, lomo saltado, ají de gallina, anticuchos, picarones, pachamanca, rocoto relleno, juane, tacacho con cecina, papa a la huancaína, suspiro limeño, mazamorra y chicha morada, y más.",
+   "Plato perfecto: sirve el plato cuando la marca pase por la zona dorada y sale ★ con un 50 % más de efecto y más duración.",
+   "Pesca legendaria: 12 peces legendarios que solo pican con cierto clima, estación y hora (Rey de la Tormenta, Koi Lunar, Paiche Ancestral…). Sirven para recetas o se liberan para que su espíritu te bendiga 20 minutos.",
+   "Bestiario › Peces: todos los peces del juego tienen dibujo nuevo, con récord de tamaño y cuántos has pescado.",
+   "Alquimia experimental (con el alquimista): mezcla 2 o 3 ingredientes y descubre 16 pociones, algunas con efectos inesperados (gigante, pluma, explosiva, arcoíris…). Las recetas se guardan en tu grimorio.",
+   "Oficio nuevo Arqueología (en la lupa): 8 yacimientos con minijuego de pincel. Reúne las piezas y reconstruye 8 historias del mundo.",
+   "Forja artesanal (con el herrero): elige el núcleo de mineral de tu arma, témplalo (hasta 3 estrellas) y grábale una runa de fuego, hielo, rayo, vida, viento o tierra."
   ],
   "en": [
-   "Living towns: every plaza (Albor, Coral Port, Arxar, Sahrim, Yarakai and Ember Port) has a Town board with newspaper, rumors, market, town hall and bazaar.",
-   "The Herald: news generated from what happens in the game (bosses defeated, sieges, events, mayors, villagers you saved) and a new rumor every day.",
-   "Town prosperity: rises if you do jobs, defend the town, donate or sell what it needs; drops if you ignore raids and hordes. Below 25 there are abandoned (boarded) houses; from 75 a cheaper bazaar opens.",
-   "Mayor: if you are a Hero of the town you can run. Choose low, normal or high taxes, collect the coffers and invest in the town. If your standing drops below Neutral, you lose the post.",
-   "Tribute Day every 7 days (can't be turned off): citizens pay the mayor and, if you own a house in a town where you aren't mayor, you pay a small tax.",
-   "New Trade job (in the magnifier): buy goods where they are made and sell them where they are scarce. 8 goods with prices that change daily, with the season and with events. Entering a town tells you what pays well.",
-   "Villagers you helped up remember you: once a day, if you are in trouble, one throws you a potion."
+   "Campfire cooking: 14 campfires (outside each town and next to waystones) with an ingredient pantry. 50 drawn dishes, each with its own effect: attack, defence, speed, attack speed, crit, HP, regeneration, experience, gold or jobs.",
+   "Kingdom recipes: they can only be cooked at campfires in their region. Includes Peruvian dishes: ceviche, tiradito, causa limeña, lomo saltado, ají de gallina, anticuchos, picarones, pachamanca, rocoto relleno, juane, tacacho, papa a la huancaína, suspiro limeño, mazamorra and chicha morada, and more.",
+   "Perfect dish: serve when the marker crosses the golden zone to get a ★ dish with 50% more effect and longer duration.",
+   "Legendary fishing: 12 legendary fish that only bite in certain weather, season and hour (Storm King, Moon Koi, Ancestral Paiche…). Use them in recipes or release them so their spirit blesses you for 20 minutes.",
+   "Bestiary › Fish: every fish in the game has a new drawing, with size record and how many you caught.",
+   "Experimental alchemy (at the alchemist): mix 2 or 3 ingredients and discover 16 potions, some with unexpected effects (giant, feather, explosive, rainbow…). Recipes are saved in your grimoire.",
+   "New Archaeology job (in the magnifier): 8 dig sites with a brushing minigame. Gather the pieces and rebuild 8 stories of the world.",
+   "Artisan forge (at the blacksmith): choose your weapon's ore core, temper it (up to 3 stars) and engrave a fire, ice, lightning, life, wind or earth rune."
   ]
  }
 }

@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.33 (build 54)**, publicada en `main` el 2026-11-14. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.34 (build 55)**, publicada en `main` el 2026-11-14. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -40,6 +40,7 @@ Versión actual: **4.33 (build 54)**, publicada en `main` el 2026-11-14. La skil
 - **4.31** `6zyzj_v431.js`: tiempo jugado (`HRS`, por cuenta en `thebound.pt.<cuenta>`, cuenta también en el menú; por héroe `P.playT` en `SAVEKEYS`), cuadro ⏱ y botón 🏆 en el título (`#tPlay`), top de horas y nivel (`thebound.rank`). No hay servidor: el top se comparte por chismorreo (`o.rk`/`o.rkl` en la presencia del online y sala oculta `tb_top` de Photon unos segundos en el menú, evento 7). Prueba `tests/v431.txt`.
 - **4.32** `6zyzk_v432.js`: top mundial en Firebase Realtime Database (plan gratis, proyecto `the-bound-3afef` de Sergio, `TOP_URL`). PUT `/top/<id>.json` cada 2 min y GET de los 50 primeros por `h` (minutos) y `lv`. Reglas en `docs/firebase_rules.json` (hay que pegarlas en la consola; sin ellas el servidor rechaza todo). Filas del servidor con prefijo `w:` en `thebound.rank`.
 - **4.33** `6zyzl_v433.js`: pueblos vivos en los 6 pueblos del mapa principal (`PV_TOWNS`). Tablón `pv_tablon` (XACT `pv_board`) con pestañas noticias/mercado/ayuntamiento/bazar; `P.pv` = { pros, mayor, tr (carga), saved, log }. Prosperidad (`pvAddPros`), casas tapiadas `PV_ABSET` (<25), bazar (≥75), alcalde e impuestos (`PV_TAX`, `pvDay` en `newDay`, Día del Tributo cada 7 días), oficio `comercio` (`PV_GOODS`, `PV_TRADE`, `pvPrice`), rescate de vecinos salvados (`pvRescueTick`). Prueba `tests/v433.txt`.
+- **4.34** `6zyzm_v434.js` (`P.ofi`): cocina en hogueras (`ofi_hoguera`, XACT `ofi_fire`, `PL` = 50 platos con plantillas `drawDish`, ingredientes `IG` → `ig_*`, platos `pl_*` y perfectos `plp_*`, mejora `plato`), pesca legendaria `LEGF` (12, `legOk` por clima/estación/hora; `LEG` ya existía en `69_weapons.js`), dibujo de todos los peces (`drawFish`, icono `['ofi','fx_<id>']`, sección Peces del bestiario), alquimia experimental `AX` (`axFor` determinista), oficio `arqueologia` (`ARQ`, `ofi_arq`), forja artesanal (`FG_CORE`, `FG_RUNE`, guardado en `equip.weapon.fg`, runas solo contra monstruos). Prueba `tests/v434.txt`.
 ## Pendiente o ideas que dejó abiertas
 
 - Lanzas, hachas y mazas solo las usa el guerrero; si las quiere para otras clases, hay que darles agarre y atlas por clase.
