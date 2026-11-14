@@ -1,0 +1,28 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.gold=900000, G.P.lv=67, calcStats(G.P), 1)
+js (()=>{ const P=G.P; P.equip.weapon={id:'w_'+P.cls+'_1'}; calcStats(P); const a=P.S.atk, pen=P.S.wpen; const best=Object.keys(ITEMS).filter(k=>ITEMS[k].t==='weapon'&&ITEMS[k].cls===P.cls&&ITEMS[k].lv<=67).sort((x,y)=>ITEMS[y].lv-ITEMS[x].lv)[0]; P.equip.weapon={id:best}; calcStats(P); return [a, pen, best, ITEMS[best].lv, P.S.atk, P.S.wlvl]; })()
+js (guiaSis(), document.querySelectorAll('[data-gsi]').length)
+js (document.querySelector('[data-gsi="maestria"]').click(), document.querySelectorAll('.gdet .gsrc').length)
+shot
+js (document.querySelector('[data-gx="job"]').click(), !!document.querySelector('[data-gx="sis"]'))
+js (closeModal(), 1)
+js (()=>{ const P=G.P; P.homes={casa_a3:{floor:0,f:{bed:'bigbed'},lv:1}}; const d=G.world.doors.find(d=>d.to==='casa_a3'); enterInterior(d); return 1; })()
+wait 1500
+js (()=>{ const o=G.map.objs.find(o=>o.xact==='hs_up'); return [!!o, XACT.hs_up[0](o)]; })()
+js (()=>{ const o=G.map.objs.find(o=>o.xact==='hs_up'); XACT.hs_up[2](o); return homeCfg('casa_a3').floors; })()
+wait 1500
+js [G.map.id, G.map.objs.filter(o=>o.xact).map(o=>o.xact)]
+js (()=>{ const o=G.map.objs.find(o=>o.xact==='hs_up'); XACT.hs_up[2](o); return homeCfg('casa_a3').floors; })()
+wait 1500
+js [G.map.id]
+shot
+js (()=>{ const k={id:'k1',name:'Luna',g:'f',app:mixApps('f',1)[0],born:calDay()-30,parent:null,equip:{},cls:'mago'}; const k2={id:'k2',name:'Sol',g:'m',app:mixApps('m',1)[0],born:calDay()-10,parent:null,equip:{},cls:'bardo'}; G.P.kids=[k,k2]; k.spouse={name:'Iker',g:'m',app:legRandApp('m'),id:'sp1'}; famCall(k2); return [k2.follow, folCount()]; })()
+js (G.P.fiestaD=-1, famParty(), 1)
+wait 2500
+js [G.map.id, !!FIESTA, FIESTA&&FIESTA.ents.length]
+shot
+js (FIESTA.t=FIESTA.dur*0.7, FIESTA.dur=FIESTA.t+0.1, 1)
+wait 800
+js [!!FIESTA, !!G.P.buffs.find(b=>b.id==='fiesta')]
+js (famOpen(), [document.querySelectorAll('#modal [data-fm]').length, !!document.getElementById('famParty')])
+js (closeModal(), window._errs)
