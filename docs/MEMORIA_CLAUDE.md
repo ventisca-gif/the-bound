@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.36 (build 57)**.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.37 (build 58)**.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -45,11 +45,11 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.36 (bui
 - **4.34** oficios: hogueras con 50 platos (peruanos incluidos) y plato perfecto, 12 peces legendarios y colección de peces dibujados, alquimia experimental, arqueología (oficio nuevo) y forja artesanal con runas.
 - **4.35** combate: maestría por tipo de arma con posturas y técnica especial, Campo de Entrenamiento en Arxar, reacciones elementales, raíces que se queman, partes vulnerables en 5 jefes, guardianes y curanderos enemigos, técnicas combinadas entre clases en el online.
 - **4.36** Mundo de los Sueños (dormir de madrugada), escalada, puentes de hielo, Profundidades bajo cada cueva y legado familiar (hijos adultos con oficio, boda, casa propia en el mapa, nietos e historias).
+- **4.37** posturas con pose del cuerpo, pueblos vivos en cielo/archipiélago/Velo Roto, botón ❤ Familia para llamar a hijos y nietos, nietos con todos los sistemas, grupo online sincronizado en más mapas.
 
 ## Pendiente o ideas abiertas
 
-- Las posturas de combate se ven como un aro en el suelo, sin poses nuevas del cuerpo.
-- Pueblos vivos solo en los 6 pueblos del mapa principal (no en cielo, archipiélago ni Velo Roto).
+- En grupo, cada jugador ve su propio jefe (con sus ataques); se comparten el daño y las partes vulnerables.
 
 - Lanzas, hachas y mazas solo las usa el guerrero.
 - Personajes dark fantasy del Velo dibujados en código: si Sergio manda imágenes, extraerlos.

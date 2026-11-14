@@ -1,0 +1,25 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.gold=900000, G.P.lv=220, calcStats(G.P), 1)
+js (()=>{ const P=G.P; P.wm={}; P.wm[wmType()]=wmCum(30); P.wpos='of'; P.x=(TR.x+7)*16+8; P.y=(TR.y+5)*16+8; return 1; })()
+wait 1200
+js (()=>{ const P=G.P, ctx0=ctx; const out=[]; for (const k of ['','of','de','ve']) { P.wpos=k; out.push(k); } P.wpos='de'; return out; })()
+shot
+js (G.P.wpos='ve', 1)
+wait 300
+shot
+js (()=>{ const M=makeSky(); return M.objs.filter(o=>o.xact==='pv_board').map(o=>o.tk); })()
+js (()=>{ const M=makeArchi(); const V=makeVelo(); return [M.objs.filter(o=>o.xact==='pv_board').map(o=>o.tk), V.objs.filter(o=>o.xact==='pv_board').map(o=>o.tk)]; })()
+js (()=>{ const M=makeSky(); const o=M.objs.find(o=>o.tk==='aurelia'); setMap(M,o.px,o.py+24,'up'); return [pvTownAt(G.P.x,G.P.y), townName('aurelia')]; })()
+wait 1500
+js (pvOpen('aurelia','market'), document.querySelectorAll('#modal [data-pvb]').length)
+shot
+js (closeModal(), setMap(G.world,G.P.retX||128*16,G.P.retY||150*16), 1)
+js (()=>{ const k={id:'k1',name:'Luna',g:'f',app:mixApps('f',1)[0],born:calDay()-30,parent:null,equip:{},cls:'mago'}; G.P.kids=[k]; k.spouse={name:'Iker',g:'m',app:legRandApp('m'),id:'sp1'}; k.house='casa_p2'; k.wedDay=calDay()-10; k.gkids=[{id:'g1',name:'Inti',g:'m',app:legMix(k.app,k.spouse.app,'m'),born:calDay()-12}]; famMigrate(); return [G.P.kids.length, G.P.kids[1].gparent, kidStage(G.P.kids[1]), kidFull()]; })()
+js (()=>{ for(let i=0;i<10;i++) legDay(); return [G.P.kids.length, (G.P.kids[0].gkids||[]).length]; })()
+wait 1500
+js (famOpen(), document.querySelectorAll('#modal [data-fm]').length)
+js (document.querySelector('#modal [data-fm="g1"]').click(), [!!G.ents.find(e=>e.type==='kid'&&e.kid.id==='g1'), !$('#modal').hidden])
+shot
+js (closeModal(), [SYNC_MAPS.has('cielo'), SYNC_MAPS.has(deepDef('cueva_eco',2))])
+js (()=>{ const o={mb:[]}; const m=spawnMob('lobo',80,G.P.x+40,G.P.y,0,null,false); m.nid=999; m.role='guard'; elSet(m,'wet',5); o.mb=[[999,'lobo',80,m.x,m.y,100,0,0,0]]; const _i=iAmLeader; iAmLeader=()=>true; syncPresence(o); iAmLeader=_i; return o.mb[0]; })()
+js (window._errs)
