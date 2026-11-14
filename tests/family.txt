@@ -4,7 +4,7 @@ wait 1500
 js (()=>{ const e=G.ents.find(e=>e.type==='npc'&&e.id==='lia'&&e.map==='casa_a3'); openDialog(e); romanceMenu(e); familyTalk(e); return !!e; })()
 wait 500
 js (document.querySelector('#famYes').click(), 1)
-wait 1500
+wait 5200
 js (document.querySelector('#famNext').click(), 1)
 wait 600
 shot
