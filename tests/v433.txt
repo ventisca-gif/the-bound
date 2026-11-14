@@ -1,0 +1,20 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.gold=900000, G.P.lv=67, calcStats(G.P), G.world.objs.filter(o=>o.xact==='pv_board').map(o=>o.tk))
+js (()=>{ const L=pvBoardLoc('albor'); G.P.x=L[0]*16+8; G.P.y=(L[1]+1)*16+8; return L; })()
+wait 1500
+js (pvOpen('albor','market'), document.querySelectorAll('#modal [data-pvb]').length)
+js (document.querySelector('#modal [data-pvb=vino]').click(), [pv().tr.vino, pvLoad()])
+shot
+js (pvOpen('albor','news'), document.querySelectorAll('#modal .news').length)
+shot
+js (G.P.rep={albor:700}, pvOpen('albor','town'), document.querySelector('#pvRun').click(), !!pv().mayor.albor)
+js (pvDay(), pvDay(), [pv().mayor.albor.coffer, pvIncome('albor')])
+js (pvOpen('albor','town'), document.querySelector('#pvCol').click(), pv().mayor.albor.coffer)
+shot
+js (pv().pros.albor=20, pvAbKey='', pvAbandon(), PV_AB.length, [...PV_ABSET])
+js (pv().pros.albor=80, pvOpen('albor','bazar'), document.querySelectorAll('#modal [data-pvz]').length)
+js (closeModal(), pv().saved=['Rosa'], G.P.hp=5, G.P.combatT=G.t, pvRescueTick(), G.P.hp>5)
+js (pvTrade('sahrim','vino',false,999), [pv().tr.vino||0, G.P.jobs.comercio])
+js (G.P.cal.d=13, newDay(), calDay())
+js (JOB_GUIDE.comercio.find())
+js (window._errs)

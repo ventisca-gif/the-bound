@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.32 (build 53)**.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.33 (build 54)**.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -41,6 +41,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.32 (bui
 - **4.30** los monstruos de eventos (marcados `noSafe`) por fin atacan dentro de los pueblos; el asedio de la luna de sangre ya no se pierde cuando acaba la noche (se pierde si cae el 60 % de las casas o si te alejas del pueblo), el Devorador pisa cada 10-14 s y rompe una casa por pisotón; los hijos tienen tu misma vida a su nivel y reciben un 40 % menos de daño, descansan 2 min si caen, vienen solos a ayudarte en asedios y ataques al pueblo, hablan con globos (llegada, combate, poca vida, victoria, charla), y salen en el minimapa (rosa contigo, naranja de expedición, con flecha en el borde) y en el mapa grande. Los enemigos atacan a quien tengan más cerca (tú o tus hijos).
 - **4.31** tiempo jugado en el menú principal (por cuenta, cuenta también en el menú; cada héroe muestra el suyo) y botón 🏆 Top jugadores (horas y nivel máximo). No hay servidor con base de datos: el top se comparte entre jugadores al conectarse (mundos online y sala oculta de Photon al abrir el menú).
 - **4.32** top mundial en Firebase (Realtime Database gratis del proyecto `the-bound-3afef` de Sergio; reglas en `docs/firebase_rules.json`).
+- **4.33** pueblos vivos: tablón en cada plaza (periódico, rumores, mercado, ayuntamiento, bazar), prosperidad, casas abandonadas, alcalde con impuestos, Día del Tributo, oficio Comercio y vecinos que te ayudan.
 
 ## Pendiente o ideas abiertas
 
