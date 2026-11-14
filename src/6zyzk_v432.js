@@ -3,7 +3,7 @@
 // horas y por nivel. Las reglas del servidor (docs/firebase_rules.json) validan los datos: las horas no pueden bajar
 // ni subir más rápido que el tiempo real, nivel 1-350 y nombre de hasta 20 letras. Si TOP_URL está vacío, solo se usa
 // el top compartido entre jugadores de la 4.31.
-const TOP_URL = '';
+const TOP_URL = 'https://the-bound-3afef-default-rtdb.firebaseio.com';
 const TOP = { pushAt: 0, getAt: 0, on: false, err: false, busy: false };
 
 function topOk() { return !!TOP_URL && typeof fetch === 'function'; }

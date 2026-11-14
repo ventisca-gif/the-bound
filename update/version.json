@@ -1,24 +1,24 @@
 {
- "build": 52,
- "ver": "4.31",
+ "build": 53,
+ "ver": "4.32",
  "date": "2026-11-14",
  "file": "thebound.html",
- "size": 8308252,
- "sha256": "8ec510d6710fb3741a81978cbe3d37c9b0c080e849835be1c784d99920a7940c",
+ "size": 8313166,
+ "sha256": "4fb69c5bc4ad329be973bfa6547fb9947f9d3b09a69199b700a049abb9f86754",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Tiempo jugado en el menú principal (arriba a la derecha): cuenta los minutos y las horas con el juego abierto, también en el menú. Va por cuenta y empieza a contar desde esta versión.",
-   "Cada héroe muestra en su botón cuánto tiempo lleva jugado.",
-   "Nuevo botón 🏆 Top jugadores: top de horas jugadas y de nivel máximo. Si inicias sesión sales con tu nombre de cuenta.",
-   "El top se comparte entre jugadores al conectarse: en los mundos online y unos segundos al abrir el menú."
+   "🌍 Top mundial: el botón del menú ahora muestra los 50 primeros de todo el mundo en horas jugadas y en nivel máximo, guardados en un servidor.",
+   "Tu fila se sube sola cada 2 minutos mientras juegas y al abrir el menú.",
+   "Protección contra trampas: las horas no pueden bajar ni subir más rápido que el tiempo real, y el nivel va de 1 a 350.",
+   "Sin internet se muestra la última lista guardada."
   ],
   "en": [
-   "Time played on the main menu (top right): counts minutes and hours with the game open, menu included. It is per account and starts counting from this version.",
-   "Each hero shows its play time on its button.",
-   "New 🏆 Top players button: top hours played and highest level. Log in to appear with your account name.",
-   "The top is shared between players when they go online: in online worlds and for a few seconds when the menu opens."
+   "🌍 World top: the menu button now shows the world's top 50 in hours played and highest level, stored on a server.",
+   "Your row uploads by itself every 2 minutes while you play and when the menu opens.",
+   "Anti-cheat: hours can't go down or rise faster than real time, and level goes from 1 to 350.",
+   "Offline, the last saved list is shown."
   ]
  }
 }
