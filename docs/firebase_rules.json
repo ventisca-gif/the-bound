@@ -1,0 +1,20 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "top": {
+      ".read": true,
+      ".indexOn": ["h", "lv"],
+      "$id": {
+        ".write": "newData.exists() && $id.length <= 48",
+        ".validate": "newData.hasChildren(['n', 'h', 'lv', 't'])",
+        "n": { ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 20" },
+        "h": { ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 576000 && (data.exists() ? (newData.val() >= data.val() && newData.val() <= data.val() + (now - data.parent().child('t').val()) / 60000 + 3) : newData.val() <= 6000)" },
+        "lv": { ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 350" },
+        "c": { ".validate": "newData.isString() && newData.val().length <= 12" },
+        "t": { ".validate": "newData.val() == now" },
+        "$other": { ".validate": false }
+      }
+    }
+  }
+}
