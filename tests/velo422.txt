@@ -1,0 +1,24 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), 1)
+js (()=>{ const P=G.P; P.lv=300; calcStats(P); P.hp=P.S.maxhp; P.ifr=1e6; return secNext() ? secNext().id : null; })()
+wait 1500
+shot
+js (()=>{ $('#secChip').click(); return JSON.stringify(G.P.wp); })()
+js (()=>{ GUIA.tab='ene'; renderGuia(); GENE='huargo_espectral'; guiaX('ene'); return $('.guia .gdet').innerText.slice(0,200); })()
+shot
+js (()=>{ $('.guia [data-wp]').click(); closeModal(); return JSON.stringify(G.P.wp)+' route '+JSON.stringify(wpRoute(G.P.wp)); })()
+js (()=>{ const P=G.P; P.vrPortal=1; goVelo(); return 1; })()
+wait 1500
+js (()=>{ const P=G.P; return 'route in VR '+JSON.stringify(guideTarget()); })()
+shot
+js (()=>{ GUIA.tab='sub'; GSUB='lobo'; renderGuia(); return $('.guia .gdet').innerText.slice(0,200); })()
+shot
+js (()=>{ closeModal(); const P=G.P; for (const e of G.ents) if (e.type==='mob') e.remove=true; P.sr='lobo'; P.srC='rojo'; srToggle(); return P.srF+' '+JSON.stringify(gearTiers(P)); })()
+wait 1500
+shot
+js (()=>{ const P=G.P; P.srTT=0; srToggle(); return P.srF+' fw'+P.atlas.fw; })()
+js (()=>{ const P=G.P; P.srTT=0; srToggle(); P.srTT=0; srSet(false); P.sr='vampiro'; srSet(1); const m=spawnMob('caballero_rosas',310,P.x+30,P.y,P.L,null,false); P.cds={}; P.mp=9999; useSkill(0); return 'grab '+!!P.grab; })()
+wait 1400
+js (()=>{ const P=G.P; return 'grab activo '+!!P.grab+' hp '+Math.round(P.hp); })()
+shot
+js (window._errs)
