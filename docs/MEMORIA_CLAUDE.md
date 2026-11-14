@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.40 (build 61)**.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.41 (build 62)**.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -49,7 +49,8 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.40 (bui
 - **4.38** armas: la de tu nivel +10 % y las viejas pierden hasta 55 %; lupa › Sistemas con todo explicado; las dos parejas te acompañan a la vez; llamar a la familia la une al equipo (visible online, máx. 2); casa de 4 pisos; fiesta familiar.
 - **4.39** arreglo del bloqueo al salir de casa en la fiesta; llamar a la familia que está de expedición.
 - **4.40** hijos con 4 habilidades elegibles, invocadores con almas e invocaciones, equipo propio (pueden superarte), jefes que atacan a los hijos, escalado de jefes por equipo, jefes 200+ con menos vida.
-- **Pedido de Sergio aún por hacer (4.41-4.42)**: Torre de los Portales (centro de mazmorras estilo cazadores, original), recepcionista de azul, cazadores NPC con clases, rangos, poderes (fuego, hielo, roca, aire, agua, mente) y niveles, prueba de poder, botón de mazmorras (nv. 50/100/150/250/340 y en cada mundo), mazmorras solas y de 4 con cazadores, enemigos y jefes nuevos (gólem rojo, lobo nocturno…), espectar cazadores; recompensas: chaquetas, ropa negra, con capucha, anillos, peinados emo (ambos sexos), maquillaje de ojos, aspectos de armas.
+- **4.41** Torre de los Portales: Selene, prueba de poder y rangos, ranking, 40 cazadores con poderes, retransmisiones, botón ⛩ con 8 mazmorras (solas o en equipo de 4 con cazadores), enemigos y jefes nuevos.
+- **Pendiente (4.42)**: chaquetas, ropa negra, capucha, anillos, peinados emo, maquillaje de ojos y aspectos de armas como recompensas.
 
 ## Pendiente o ideas abiertas
 
