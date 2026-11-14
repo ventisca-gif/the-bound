@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.37 (build 58)**, publicada en `main` el 2026-11-14. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.38 (build 59)**, publicada en `main` el 2026-11-14. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -44,6 +44,7 @@ Versión actual: **4.37 (build 58)**, publicada en `main` el 2026-11-14. La skil
 - **4.35** `6zyzn_v435.js`: maestría de armas (`P.wm` por tipo `wmType`, `WM_UNL`, posturas `P.wpos` con botón `#bPos`, técnica `#bTec`/`WM_TECH` solo contra monstruos), Campo de Entrenamiento al sur de Arxar (`TR`, `tr_*`, Maestra Brienne), reacciones elementales (`m.el` wet/shock, `elReact`, `P._el` de la habilidad), raíces quemables `rz_root`/`rz_chest`, partes de jefe `BP` (`m.bp`), roles de enemigos `m.role` guard/healer, combos online `CMB` (evento `{k:'sk'}` por `nfxPush`). Prueba `tests/v435.txt`.
 - **4.36** `6zyzo_v436.js`: Mundo de los Sueños (mapa `sueno` = copia espejada de Albor, `SUENO` estado, `sleepHome` envuelto, pruebas `dr_trial` mirror/echo/shadow, Oniria, `polvo_sueno`, `acc_sonador`; `DREAM` ya existía en `6zyk_velo.js`), escalada (`cl_up`/`cl_down`, `CLIMB`), puentes de hielo (`ICEB`, `blockedFor` envuelto, dibujo en `bldDrawFloors`), Profundidades (`deepDef` crea `CAVES[prof_<cueva>_<n>]`, pozo `deep_go`, cofre `deep_chest`), legado (`kidAdult` a los 20 días, `k.ljob`, `k.spouse`, `k.house` con marca `MAPC.kidhome`, `k.gkids`, buzón `P.leg.box`, historias `LEG_ST`). Prueba `tests/v436.txt`.
 - **4.37** `6zyzp_v437.js`: poses de postura `st_of/st_de/st_ve` por `heroPose` (como los bailes, `stanceAtlasFor`, se dibujan en reposo también para remotos), pueblos vivos en otros mapas (`PV_XT`: cefira, aurelia, lumen, esmeralda, nochebruma; tableros al crear `makeSky/makeArchi/makeVelo`), familia (`famMigrate` pasa `k.gkids` a `P.kids` con `gparent`/`parent: 'gk:<id>'`, botón `#famBtn`, `famCall`), sincronía de grupo ampliada (`SYNC_MAPS`, papel y estado elemental en `o.mb[9..10]`, partes de jefe `o.bpk`). Prueba `tests/v437.txt`.
+- **4.38** `6zyzq_v438.js` (+ `WOG` en `6zyk_velo.js`): arma de tu nivel +10 % (`wAtLevel`), arma vieja −2,5 %/nivel desde 12 por debajo (máx 55 %); lupa › 📘 Sistemas (`GSIS`, `guiaSis`); segunda pareja `COMP2` (`comp2Start`, online `o.cp2` → `r.rcp2`); `famCall` une al equipo si hay hueco (`KID_FOL_MAX` 2 para toda la descendencia); pisos de casa `homeCfg(id).floors` hasta 4 (`makeFloor`, `hs_up`/`hs_down`, mapas `<casa>#f<n>`); fiesta familiar `FIESTA` (`famParty`). Prueba `tests/v438.txt`.
 ## Pendiente o ideas que dejó abiertas
 
 - El top mundial depende de las reglas de Firebase (`docs/firebase_rules.json`) pegadas en la consola del proyecto `the-bound-3afef`.

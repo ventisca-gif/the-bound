@@ -1,26 +1,28 @@
 {
- "build": 58,
- "ver": "4.37",
+ "build": 59,
+ "ver": "4.38",
  "date": "2026-11-14",
  "file": "thebound.html",
- "size": 8523351,
- "sha256": "96c449277df496cdc057c10ba2951556a92dc358badb5347f4250bef14c0b212",
+ "size": 8555976,
+ "sha256": "fd8db04cfda810fce911823e62628da1d01c10705df5d36f8a0ad598ed9d5e2e",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Posturas con cuerpo: la postura ofensiva (agachado, arma alzada), la defensiva (arma cruzada en guardia) y la veloz (de puntillas, arma atrás) cambian la pose de tu personaje en las 4 direcciones, con todas las clases, armas y estructuras de cuerpo. Los demás jugadores también la ven.",
-   "Pueblos vivos también en Céfira, Aurelia y Lumen (cielo), Puerto Esmeralda (archipiélago) y Nochebruma (Velo Roto): tablón, periódico, mercado con sus propias mercancías, alcalde, impuestos, bazar y casas abandonadas.",
-   "Familia: nuevo botón ❤ arriba con toda tu familia. Llama a cualquier hijo o nieto desde cualquier sitio: viene a tu lado y puedes hacer que te acompañe, mandarle de expedición o equiparle, aunque ya viva en su casa con su pareja.",
-   "Los nietos ya tienen todo: crecen, eligen clase, suben de nivel, te acompañan, van de expedición, se casan y pueden tener sus propios hijos. No gastan los hijos que puedes tener con tu pareja.",
-   "Grupo online más sincronizado: los monstruos del líder se comparten también en el cielo, el Velo Roto, Altavela, el Jardín de la Sonrisa, Ixtal y las Profundidades; se ven sus papeles (guardián/curandero) y si están mojados, electrizados, quemados o congelados; y si alguien rompe la parte vulnerable de un jefe, se rompe para todos."
+   "Armas: un arma de tu nivel (hasta 10 niveles por debajo) da +10 % de ataque, y un arma vieja pierde más: desde 12 niveles por debajo, un 2,5 % por nivel (hasta −55 %). Ya no sirve llevar la espada de cobre todo el juego.",
+   "Lupa › 📘 Sistemas: explica paso a paso armas, maestría, posturas, elementos, puntos débiles de jefes, enemigos en equipo, combos, pueblos y alcalde, forja, alquimia, sueños, escalada y profundidades, familia y top, con flecha dorada cuando hay un sitio.",
+   "Tus dos parejas a la vez: con una acompañándote, pídele a la otra «Acompáñame tú también ♥». Te siguen las dos (la segunda da +5 % de ataque y defensa) y los demás jugadores las ven.",
+   "Al llamar a un hijo, nieto o bisnieto desde el botón ❤ se une a tu equipo si hay hueco (como mucho 2 a la vez), así que los demás jugadores también lo ven. Desde ese panel también llamas a tus parejas.",
+   "Casa de hasta 4 pisos: escaleras en el rincón de tu casa. Piso 2: dormitorios de la familia (ahí duermen tus hijos y nietos), piso 3: salón de fiestas y piso 4: terraza mirador.",
+   "Fiesta familiar (botón ❤): toda tu familia, las parejas de tus hijos y tus parejas en tu casa (en el salón si lo tienes), con baile, confeti y globos de diálogo. Da Alegría familiar: +10 % de experiencia y +5 % de ataque durante 30 minutos."
   ],
   "en": [
-   "Stances with body poses: offensive (crouched, weapon raised), defensive (weapon crossed on guard) and swift (on tiptoes, weapon back) change your character's pose in all 4 directions, with every class, weapon and body build. Other players see it too.",
-   "Living towns also in Cefira, Aurelia and Lumen (sky), Emerald Port (archipelago) and Nochebruma (Broken Veil): board, newspaper, market with their own goods, mayor, taxes, bazaar and abandoned houses.",
-   "Family: new ❤ button at the top with your whole family. Call any kid or grandkid from anywhere: they come to you and you can have them follow you, send them on an expedition or equip them, even if they already live at their own home with their partner.",
-   "Grandkids now have everything: they grow, choose a class, level up, follow you, go on expeditions, marry and can have their own kids. They don't use up the kids you can have with your partner.",
-   "More synced online party: the leader's monsters are now also shared in the sky, the Broken Veil, Altavela, the Smile Garden, Ixtal and the Depths; you see their roles (guardian/healer) and whether they are wet, electrified, burning or frozen; and if someone breaks a boss weak point, it breaks for everyone."
+   "Weapons: a weapon at your level (up to 10 levels below) gives +10% attack, and an old weapon loses more: from 12 levels below, 2.5% per level (up to −55%). Carrying the copper sword all game no longer works.",
+   "Magnifier › 📘 Systems: step-by-step explanations of weapons, mastery, stances, elements, boss weak points, teamwork enemies, combos, towns and mayor, forge, alchemy, dreams, climbing and depths, family and top, with the golden arrow when there is a place.",
+   "Both partners at once: with one following you, ask the other \"Come with me too ♥\". Both follow you (the second gives +5% attack and defence) and other players see them.",
+   "Calling a kid, grandkid or great-grandkid from the ❤ button makes them join your team if there is room (2 at most), so other players see them too. You can also call your partners from that panel.",
+   "Houses up to 4 floors: stairs in the corner of your house. Floor 2: family bedrooms (your kids and grandkids sleep there), floor 3: party hall and floor 4: lookout terrace.",
+   "Family party (❤ button): your whole family, your kids' partners and your partners at your home (in the hall if you have it), with dancing, confetti and chat bubbles. Gives Family joy: +10% experience and +5% attack for 30 minutes."
   ]
  }
 }

@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.37 (build 58)**.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.38 (build 59)**.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -46,6 +46,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.37 (bui
 - **4.35** combate: maestría por tipo de arma con posturas y técnica especial, Campo de Entrenamiento en Arxar, reacciones elementales, raíces que se queman, partes vulnerables en 5 jefes, guardianes y curanderos enemigos, técnicas combinadas entre clases en el online.
 - **4.36** Mundo de los Sueños (dormir de madrugada), escalada, puentes de hielo, Profundidades bajo cada cueva y legado familiar (hijos adultos con oficio, boda, casa propia en el mapa, nietos e historias).
 - **4.37** posturas con pose del cuerpo, pueblos vivos en cielo/archipiélago/Velo Roto, botón ❤ Familia para llamar a hijos y nietos, nietos con todos los sistemas, grupo online sincronizado en más mapas.
+- **4.38** armas: la de tu nivel +10 % y las viejas pierden hasta 55 %; lupa › Sistemas con todo explicado; las dos parejas te acompañan a la vez; llamar a la familia la une al equipo (visible online, máx. 2); casa de 4 pisos; fiesta familiar.
 
 ## Pendiente o ideas abiertas
 
