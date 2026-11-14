@@ -9,7 +9,7 @@ Versión actual: **4.29 (build 50)**, publicada en `main` el 2026-11-14. La skil
 - Antes de un cambio visual grande, haz una muestra con el propio motor y espera su visto bueno. Si ya dijo «sí a todo», sigue.
 - Cuando manda una imagen en pixel art, extrae los sprites de la imagen (no los redibujes): detecta la cuadrícula con FFT, muestrea el centro de cada celda y recorta el fondo. Así salieron idénticos las armas de cobre, el campamento, las criaturas de Altavela y las armas dark fantasy.
 - Ropa y armaduras nuevas: `fitKind` + `python3 tools/dev/fitcheck.py file://$PWD/dist/test.html out` con 0 avisos (cubre tiers hasta el 26). En mujer llevan busto solas.
-- Tras tocar daño, vida o curas: `python3 tools/dev/pvp.py file://$PWD/dist/test.html` (fuerza 0,9-1,1; hoy 0,99-1,01) y `tools/dev/balance.py` (niveles hasta 350). Si tocas habilidades de subraza, `tests/srpvp.txt` y ajusta `SR_PVPK`.
+- Tras tocar daño, vida o curas: `python3 tools/dev/pvp.py file://$PWD/dist/test.html` (fuerza 0,9-1,1; hoy 0,99-1,00 tras la 4.29) y `tools/dev/balance.py` (niveles hasta 350). Si tocas habilidades de subraza, `tests/srpvp.txt` y ajusta `SR_PVPK`.
 - `tools/i18n/vendor/acorn.js` no está en git (está en `.git/info/exclude`): en una sesión nueva, `npm pack acorn@8.14.0` y copia `package/dist/acorn.js` ahí, o `build.py` falla al traducir. Textos nuevos con `L2('es', 'en')`.
 - Pruebas: `python3 tests/play.py file://$PWD/dist/test.html out.png 900 500 @tests/<nombre>.txt` (debe terminar en `JS> []`).
 
