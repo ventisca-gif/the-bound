@@ -1,0 +1,27 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), window.hurtPlayer=()=>{}, 1)
+js (()=>{ const P=G.P; P.lv=340; calcStats(P); P.vrPortal=1; goVelo(); return 1; })()
+wait 2500
+js (()=>{ const M=G.map; return 'bosses '+M.bossAt.map(b=>b.id).join(',')+' corw '+M.corw.length+' rostro '+!!G.ents.find(e=>e.id==='sin_rostro'); })()
+js (()=>{ const P=G.P; P.vrCor=65; P.x=160*16; P.y=36*16; return 1; })()
+wait 1500
+js (()=>{ const M=G.map; return 'muros abiertos '+M.corw.every(o=>o.hidden)+' boton '+$('#bCor').textContent; })()
+shot
+js (()=>{ const P=G.P; const n0=G.ents.filter(e=>e.type==='mob').length; vrScream(); return 'grito ok cor '+Math.round(P.vrCor); })()
+js (()=>{ const P=G.P; const b=VB[2]; P.x=b[5][0]*16; P.y=(b[5][1]+6)*16; return 1; })()
+wait 2500
+js (()=>{ const m=G.ents.find(e=>e.mid==='dama_violeta'); if(!m) return 'sin dama'; m.state='chase'; m.mech=8.9; window._d=m; return m.name; })()
+wait 600
+js (()=>{ const c=G.ents.filter(e=>e.clone).length; const m=_d; m.dmgK=null; hitMob(m,5000,{}); m.hp=1; G.t; killMob(m); return 'clones '+c+' mem '+JSON.stringify(G.P.vrMem); })()
+shot
+js (()=>{ const P=G.P; G.time=60; const [cx,cy]=VR_ZONES[4].c; P.x=(cx+14)*16+8; P.y=(cy+7)*16+8; P.dir='up'; doInteract(); return 1; })()
+wait 2600
+js (()=>{ const P=G.P; P.x=40*16; P.y=36*16; return G.map.id; })()
+wait 2500
+shot
+js (()=>{ const P=G.P; P.vrFrag=15; const b=G.ents.find(e=>e.mid==='sin_nombre'); if(!b) { P.x=74*16; P.y=36*16; return 'sin jefe aun'; } return 'jefe '+b.name; })()
+wait 2000
+js (()=>{ const P=G.P; const b=G.ents.find(e=>e.mid==='sin_nombre'); P.x=b.x-40; P.y=b.y; acceptQuest('vh8'); doInteract(); const btn=[...$$('[data-nm]')].find(x=>x.dataset.nm==='Velmira'); btn.click(); return 'nombre '+P.vrName+' arma '+countItem('wv_'+P.cls)+' quest '+JSON.stringify(P.quests.active.vh8); })()
+js (()=>{ const P=G.P; G.time=12*60; giveItem('una_manana',1); return 'imposible ok'; })()
+js (()=>{ const P=G.P; P.vrCor=10; P.vrEnd=1; vrFinale(); const t=$('.frame h3').textContent; closeModal(); return t; })()
+js (window._errs)
