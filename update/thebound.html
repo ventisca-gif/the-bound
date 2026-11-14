@@ -341,7 +341,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v4.31 · Tiempo jugado y top de jugadores</div>
+  <div class="tfoot">v4.32 · Top mundial</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11740,13 +11740,14 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '4.31', GAME_BUILD = 52;
+const GAME_VER = '4.32', GAME_BUILD = 53;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
 const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/[
+  {"b": 53, "v": "4.32", "d": "2026-11-14", "es": ["🌍 Top mundial: el botón del menú ahora muestra los 50 primeros de todo el mundo en horas jugadas y en nivel máximo, guardados en un servidor.", "Tu fila se sube sola cada 2 minutos mientras juegas y al abrir el menú.", "Protección contra trampas: las horas no pueden bajar ni subir más rápido que el tiempo real, y el nivel va de 1 a 350.", "Sin internet se muestra la última lista guardada."], "en": ["🌍 World top: the menu button now shows the world's top 50 in hours played and highest level, stored on a server.", "Your row uploads by itself every 2 minutes while you play and when the menu opens.", "Anti-cheat: hours can't go down or rise faster than real time, and level goes from 1 to 350.", "Offline, the last saved list is shown."]},
   {"b": 52, "v": "4.31", "d": "2026-11-14", "es": ["Tiempo jugado en el menú principal (arriba a la derecha): cuenta los minutos y las horas con el juego abierto, también en el menú. Va por cuenta y empieza a contar desde esta versión.", "Cada héroe muestra en su botón cuánto tiempo lleva jugado.", "Nuevo botón 🏆 Top jugadores: top de horas jugadas y de nivel máximo. Si inicias sesión sales con tu nombre de cuenta.", "El top se comparte entre jugadores al conectarse: en los mundos online y unos segundos al abrir el menú."], "en": ["Time played on the main menu (top right): counts minutes and hours with the game open, menu included. It is per account and starts counting from this version.", "Each hero shows its play time on its button.", "New 🏆 Top players button: top hours played and highest level. Log in to appear with your account name.", "The top is shared between players when they go online: in online worlds and for a few seconds when the menu opens."]},
   {"b": 51, "v": "4.30", "d": "2026-11-14", "es": ["Luna de sangre y eventos: los monstruos ya te atacan dentro del pueblo (antes se quedaban quietos).", "Asedio de la luna de sangre más justo: ya no se pierde cuando acaba la noche. Solo se pierde si cae el 60 % de las casas o si te alejas del pueblo. El Devorador Carmesí pisa cada 10-14 segundos y rompe una casa por pisotón.", "Hijos más resistentes: tienen tu misma vida a su nivel y reciben un 40 % menos de daño. Si caen, descansan 2 minutos.", "En un asedio o ataque a tu pueblo, tus hijos mayores vienen solos a ayudarte y vuelven a casa al terminar.", "Los hijos hablan con globos de texto: al llegar, en combate, con poca vida, al ganar y de paseo.", "Los enemigos atacan a quien tengan más cerca: a ti o a tus hijos.", "Tus hijos salen en el minimapa (rosa si van contigo, naranja si están de expedición, con flecha en el borde si están lejos) y en el mapa grande."], "en": ["Blood moon and events: monsters now attack you inside towns.", "Fairer blood moon siege: it is no longer lost when the night ends; only if 60% of houses fall or you leave town. The Devourer stomps every 10-14 s and breaks one house per stomp.", "Tougher kids: same HP as you at their level and 40% less damage taken. They rest 2 minutes if they fall.", "During a siege or town attack your grown kids come to help and go home afterwards.", "Kids talk with speech bubbles.", "Enemies attack whoever is closest: you or your kids.", "Your kids show on the minimap and the big map."]},
   {"b": 50, "v": "4.29", "d": "2026-11-14", "es": ["Islas del Cielo: tres pueblos nuevos. Céfira (arpías con alas de colores y nidos gigantes), Aurelia (la última ciudad de los ángeles) y Lumen (ciudad de los acertijos). Allí no entran los monstruos.", "Romance con alas: Aelis (ángel guerrera), Nimiel (ángel sanadora), Caelith (lectora de estrellas) y Kiri (arpía cantora), con todo el sistema: corazones, regalos, pasear, besos, pareja, boda e hijos.", "Beso francés (Amor 8 y Confianza 6): más largo y cercano; el más bajo se pone de puntillas para que las caras queden a la misma altura con cualquier cuerpo.", "Piedras de acertijos en todas las islas del cielo (una pregunta distinta cada día) y la Prueba de la Memoria del Oráculo Vespera en Lumen.", "Oficios nuevos: Carrera de Ángeles (vuela por los aros contra tres rivales) y Olimpiadas Angelicales (Tiro celeste y Lluvia de plumas, con medallas). 10 ventajas cada uno.", "Archipiélago: Puerto Esmeralda, un gran pueblo en el centro con isleños en bikini y ropa de verano, palmeras, antorchas tiki y más historia. Ailani vende 5 bikinis, camisas hawaianas, bermudas y pareos.", "Oficios nuevos: Surf (minijuego de trucos y combos con tabla) y Arte (pinta lo que quieras en pixel art y véndelo en tu galería: se vende solo mientras juegas). 10 ventajas cada uno.", "Ixtal, la Ciudad Perdida: un templo al sur de Puerto Esmeralda con un puzle de cuatro estatuas. Dentro, dos mazmorras de nivel 300 (Templo Hundido y Cripta del Sol), 10 enemigos nuevos y 2 jefes con armas y armaduras de tier 23-24.", "Experiencia revisada: del nivel 251 al 350 los enemigos dan un 40 % más (ahora hacen falta unos 50 por nivel en todo el juego, como antes del 250).", "Fondo Marino: 12 almejas gigantes con minijuego, perlas rosas, doradas y de luna, 30 perlas perdidas escondidas (premio final: Lágrima de Luna), la sirena Perlina que compra perlas y ensarta el Collar de Perlas Doradas, tortugas marinas y la ballena del abismo.", "Las ventajas de los oficios nuevos salen en el panel de oficios y en la lupa ⚒."], "en": ["Sky Isles: three new towns. Cefira (harpies), Aurelia (angels) and Lumen (riddles). No monsters there.", "Winged romance: Aelis, Nimiel, Caelith and Kiri with the full system.", "French kiss (Love 8, Trust 6): longer and closer; the shorter one goes on tiptoe so faces line up with any body.", "Riddle stones on every sky island (new question each day) and Oracle Vespera's Memory Trial in Lumen.", "New jobs: Angel Race and Angelic Olympics, 10 perks each.", "Archipelago: Emerald Port, a big central town with islanders in bikinis and summer clothes. Ailani sells bikinis, Hawaiian shirts, shorts and sarongs.", "New jobs: Surfing (trick and combo minigame) and Art (paint pixel art and sell it in your gallery). 10 perks each.", "Ixtal, the Lost City: a statue puzzle and two level 300 dungeons with 10 new enemies and 2 bosses (tier 23-24 gear).", "Experience: level 251-350 enemies give 40% more (about 50 kills per level across the game).", "Seabed: giant clam minigame, pink, golden and moon pearls, 30 hidden lost pearls, Perlina the mermaid, sea turtles and the abyss whale.", "New job perks show in the jobs panel and the ⚒ magnifier tab."]},
@@ -16328,6 +16329,51 @@ function hrsTopRefresh() {
   $$('[data-ht]', box).forEach(b => b.onclick = () => { HRS.tab = b.dataset.ht; hrsTopRefresh(); });
   $('#hrsX').onclick = () => closeModal();
 }
+
+// ================= v4.32: TOP MUNDIAL (Firebase Realtime Database, plan gratis) =================
+// Cada jugador sube su fila (nombre, minutos jugados, nivel máximo, clase) a /top/<id> y descarga los 50 primeros por
+// horas y por nivel. Las reglas del servidor (docs/firebase_rules.json) validan los datos: las horas no pueden bajar
+// ni subir más rápido que el tiempo real, nivel 1-350 y nombre de hasta 20 letras. Si TOP_URL está vacío, solo se usa
+// el top compartido entre jugadores de la 4.31.
+const TOP_URL = 'https://the-bound-3afef-default-rtdb.firebaseio.com';
+const TOP = { pushAt: 0, getAt: 0, on: false, err: false, busy: false };
+
+function topOk() { return !!TOP_URL && typeof fetch === 'function'; }
+function topKey(id) { return String(id || '').replace(/[.#$\[\]\/]/g, '_').slice(0, 48); }
+function topPush(force) {
+  if (!topOk() || (!force && Date.now() - TOP.pushAt < 120000)) return; TOP.pushAt = Date.now();
+  hrsSelfAll(); const id = hrsCurrent(), e = hrsList()[id]; if (!e || e.h < 60) return;
+  const body = { n: cleanStr(e.n, 20) || '?', h: Math.floor(e.h / 60), lv: clamp(e.lv | 0, 1, 350), c: e.c || '', t: { '.sv': 'timestamp' } };
+  fetch(TOP_URL + '/top/' + encodeURIComponent(topKey(id)) + '.json', { method: 'PUT', body: JSON.stringify(body) }).then(r => { TOP.on = r.ok || TOP.on; }).catch(() => { });
+}
+function topGet(force) {
+  if (!topOk() || TOP.busy || (!force && Date.now() - TOP.getAt < 60000)) return; TOP.getAt = Date.now(); TOP.busy = true; hrsTopRefresh();
+  const q = k => fetch(TOP_URL + '/top.json?orderBy=' + encodeURIComponent('"' + k + '"') + '&limitToLast=50', { cache: 'no-store' }).then(r => r.ok ? r.json() : Promise.reject(r.status));
+  Promise.all([q('h'), q('lv')]).then(([a, b]) => {
+    const arr = [], mine = new Set(hrsMine().map(topKey));
+    for (const d of [a, b]) if (d && typeof d === 'object') for (const k in d) { const v = d[k]; if (!v || mine.has(k)) continue; arr.push(['w:' + k, v.n, v.h, v.lv, v.c]); }
+    TOP.on = true; TOP.err = false; TOP.busy = false; hrsMerge(arr); hrsTopRefresh();
+  }).catch(() => { TOP.err = true; TOP.busy = false; hrsTopRefresh(); });
+}
+// filas de la 4.31 (compartidas entre jugadores) pasan a usar la misma clave que el servidor
+function topMigrate() { if (TOP.mig) return; TOP.mig = true; const L = hrsList(), mine = new Set(hrsMine()); let ch = false;
+  for (const k of Object.keys(L)) if (!k.startsWith('w:') && !mine.has(k)) { const w = 'w:' + topKey(k), o = L[k]; delete L[k]; if (!L[w] || L[w].h < o.h) L[w] = o; ch = true; }
+  if (ch) hrsStore(); }
+// las filas del servidor llevan el prefijo w:; si ya teníamos a ese jugador por el online, no se repite
+{ const _f = hrsMerge; hrsMerge = function (arr) {
+    if (Array.isArray(arr) && topOk()) { const mine = new Set(hrsMine()); topMigrate();
+      arr = arr.filter(e => !(Array.isArray(e) && mine.has(e[0]))).map(e => Array.isArray(e) && typeof e[0] === 'string' && !e[0].startsWith('w:') ? ['w:' + topKey(e[0])].concat(e.slice(1)) : e); }
+    return _f.call(this, arr); }; }
+setInterval(() => { if (!document.hidden) topPush(false); }, 10000);
+{ const _f = showTitle; showTitle = function () { const r = _f.apply(this, arguments); setTimeout(() => { topPush(true); topGet(false); }, 2000); return r; }; }
+{ const _f = hrsOpenTop; hrsOpenTop = function () { const r = _f.apply(this, arguments); topPush(true); topGet(true); return r; }; }
+// texto de estado en la ventana del top
+{ const _f = hrsTopRefresh; hrsTopRefresh = function () { const r = _f.apply(this, arguments); const box = $('#hrsTop'); if (!box || !topOk()) return r;
+    const h = box.querySelector('h2'); if (h) h.textContent = '🌍 ' + L2('Top mundial', 'World top');
+    const p = document.createElement('p'); p.className = 'hint';
+    p.textContent = TOP.busy ? L2('Cargando el top mundial…', 'Loading the world top…') : TOP.err ? L2('Sin conexión con el servidor: se muestra la última lista guardada.', 'No connection to the server: showing the last saved list.') : '';
+    if (p.textContent) { const ol = box.querySelector('ol'); if (ol) ol.after(p); }
+    return r; }; }
 
 // ================= v3.6: IDIOMA (Español / English) =================
 // Los textos del código se traducen al compilar (tools/i18n/tr.js + en.json): cada uno es (LANG_EN ? "inglés" : "español").
