@@ -1,5 +1,7 @@
 # The Bound
 
+> **Al empezar un chat nuevo, lee `docs/NOTAS.md`**: estado actual (v4.20), qué se hizo en cada versión, pendientes y cómo trabajar con Sergio.
+
 The Bound es un RPG 2D de mundo abierto con movimiento en cuatro direcciones.
 
 ## Sprites, ropa y efectos de ataque
