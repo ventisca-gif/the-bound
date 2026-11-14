@@ -1,6 +1,6 @@
 # The Bound: notas para continuar en otro chat
 
-Versión actual: **4.25 (build 46)**, publicada en `main` el 2026-11-14. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.26 (build 47)**, publicada en `main` el 2026-11-14. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -13,7 +13,7 @@ Versión actual: **4.25 (build 46)**, publicada en `main` el 2026-11-14. La skil
 - `tools/i18n/vendor/acorn.js` no está en git (está en `.git/info/exclude`): en una sesión nueva, `npm pack acorn@8.14.0` y copia `package/dist/acorn.js` ahí, o `build.py` falla al traducir. Textos nuevos con `L2('es', 'en')`.
 - Pruebas: `python3 tests/play.py file://$PWD/dist/test.html out.png 900 500 @tests/<nombre>.txt` (debe terminar en `JS> []`).
 
-## Qué se añadió de la 4.12 a la 4.25 (archivos `src/6zw…6zyzb`)
+## Qué se añadió de la 4.12 a la 4.26 (archivos `src/6zw…6zyzc`)
 
 - **4.12** busto en cuerpos femeninos y NPCs (`bodyBust` en `6zw_bodies.js`; Esbelta/Menuda 1, Clásica 2, Curvas 3).
 - **4.13** armas tier 1-6 de la hoja de cobre (`tools/dev/armas.py` → `6zyd_armas_data.js`, motor `6zye_armas.js`: icono 16, mano 16/32 HD, atlas de ataque HD; dagas en ambas manos, aletas del pez). Campamento de los **Vigías del Alba** en la Costa Coral (169-178, 168-177) con 8 NPCs de su dibujo (`tools/dev/campamento.py`), 5 misiones, uniforme cosmético y lore de Edrin Valcorde (`6zyg_vigias.js`).
@@ -30,6 +30,7 @@ Versión actual: **4.25 (build 46)**, publicada en `main` el 2026-11-14. La skil
 - **4.23** `6zyy_v423.js`: subrazas en el PvP con todas sus habilidades y visibles online (`srCast`, `srToggle` y `cjCast` van por `nfxWrap`; tipos de efecto `claw/howl/bite/cj` en `NFX_TYPES`). Contra jugadores el daño de subraza sale de `srBase(P)` (nivel) × habilidad × `SR_PVPK`, no de la clase; se mide con `tests/srpvp.txt` (hoy 1123-1127 de daño por segundo). Recursos (rocas, árboles, hierbas, montículos y buceo) reaparecen a los 5 s (`RES_RESPAWN`).
 - **4.24** `6zyz_v424.js`: armas sin nivel de Herrería (`jlv = 1`), oficios ×2,5 (`JOB_XPMUL`), «Hablar» prefiere a otro NPC antes que a la pareja que te acompaña, dos parejas (`P.partner2`; `swapPartner` al abrir el diálogo hace principal a la que tratas), Ilvaine con piel propia en `SKINS` para los hijos, llevar a la pareja sobre los hombros (`COMP.carry = 2`, `o.cy = 2` online), escena de la cama con corazones antes de tener un hijo (`bedScene`) y el pueblo **Nochebruma** (`NB`, centro del Velo Roto, sin enemigos: `G.pSafe` para los monstruos; 6 vecinos `nb_*`; decorado `vr_casanieve/farolesp/arbolnav/carrusel/trineo/torrenieve/gigante`).
 - **4.25** `6zyzb_v425.js` + `6zyza_musica_data.js` (`tools/dev/musica.py`, audio en `assets/music/velo1.mp3` y `velo2.mp3`, sacado de sus dos vídeos con ffmpeg): música propia en todo el Velo Roto (`currentMusic` → `'velo'`, se reproduce con `AudioBufferSource` por `mGain`: pista 1 → pista 2 → bucle). La pareja acompañante viaja online con su ropa (`o.cp[6]` = `P.pOut`). Hoja de todo lo nuevo de la 4.21-4.25 en `docs/sprites/novedades_421_425.png`.
+- **4.26** `6zyzc_v426.js`: Colgante de Promesa regalado al llegar a 1000/1000 (`colgMax`, `R.colg`), sin línea de manos al besar, globos de la pareja según contexto (`PT_TALK`, viajan online en `o.pc`) y la pareja montada detrás abrazando la cintura (`drawPassenger`, `drawWaistHands`; recorte de piernas para que vaya sentada).
 ## Pendiente o ideas que dejó abiertas
 
 - Lanzas, hachas y mazas solo las usa el guerrero; si las quiere para otras clases, hay que darles agarre y atlas por clase.

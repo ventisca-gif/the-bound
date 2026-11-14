@@ -1,0 +1,16 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), 1)
+js (()=>{ const P=G.P; P.ifr=1e9; const R=rel('lia'); R.t=990; R.a=990; const n0=countItem('colgante_amor'); addRel('lia',20,20); return 'colgante '+n0+'->'+countItem('colgante_amor'); })()
+js (()=>{ const P=G.P; P.partner='lia'; let e=G.ents.find(e=>e.type==='npc'&&e.id==='lia'); if(!e) e=spawnNPC('lia',P.x+20,P.y,P.map,{}); startComp(e, true); P.mounts=['caballo']; P.mount='caballo'; calcStats(P); P.dir='left'; return mountOf(P); })()
+wait 800
+shot
+js (()=>{ G.P.dir='down'; PT_T=0; return 1; })()
+wait 700
+shot
+js (()=>{ G.P.dir='right'; return 1; })()
+wait 500
+shot
+js (()=>{ G.P.dir='up'; return COMP.e.chat; })()
+wait 500
+shot
+js (window._errs)
