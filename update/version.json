@@ -1,20 +1,24 @@
 {
- "build": 46,
- "ver": "4.25",
+ "build": 47,
+ "ver": "4.26",
  "date": "2026-11-14",
  "file": "thebound.html",
- "size": 8114347,
- "sha256": "fd8041464f7442b25dbfe2440bc591c9db0d2ffaf9ebb4459a568a83f57c5a18",
+ "size": 8125592,
+ "sha256": "a0a53bfe182064b9ac465cb93d9799310d090b6cd0686eca8f47da418c42ebd3",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Música nueva en todo el Velo Roto (y el Jardín de la Sonrisa): suenan las dos canciones de los vídeos de Sergio, una detrás de otra y en bucle. Sigue el volumen de música de Opciones.",
-   "La pareja que te acompaña se ve en el online con la ropa que le hayas puesto en su armario (antes los demás la veían con su ropa de siempre). También se ve en brazos o sobre tus hombros."
+   "El Colgante de Promesa ahora te lo regala la persona cuando llegáis a 10 corazones de Confianza y de Amor (una vez por persona). Con él ya puedes pedirle que sea tu pareja.",
+   "Al besaros o abrazaros ya no se ve la línea rara de las manos cogidas.",
+   "Tu pareja habla: de vez en cuando dice cosas en un globo de texto según lo que pasa (de noche, en combate, si tienes poca vida, a caballo, en el Velo Roto, en Nochebruma, en brazos, de la mano…). Los demás jugadores también ven sus globos.",
+   "Al montar, tu pareja sube detrás de ti y te agarra de la cintura, con cualquier montura (caballos, grifo y dragón) y cualquier cuerpo. Se baja a tu lado al desmontar y también se ve online."
   ],
   "en": [
-   "New music across the Broken Veil (and the Garden of the Smile): the two songs from Sergio's videos play one after the other, looping. It follows the music volume in Options.",
-   "The partner who travels with you is shown online wearing the outfit you chose in their wardrobe (others used to see their default clothes). Also when carried in your arms or on your shoulders."
+   "The Promise Pendant is now given to you when you reach 10 hearts of Trust and Love with someone (once per person). With it you can ask them to be your partner.",
+   "The odd line of held hands no longer shows while you kiss or hug.",
+   "Your partner talks: now and then they say something in a speech bubble depending on what is happening (night, combat, low health, riding, the Broken Veil, Nochebruma, being carried, holding hands…). Other players see the bubbles too.",
+   "When you ride, your partner climbs on behind you and holds your waist, on any mount (horses, griffin and dragon) and with any body. They get off beside you when you dismount, and it shows online too."
   ]
  }
 }
