@@ -1,32 +1,20 @@
 {
- "build": 45,
- "ver": "4.24",
+ "build": 46,
+ "ver": "4.25",
  "date": "2026-11-14",
  "file": "thebound.html",
- "size": 7265279,
- "sha256": "ed8142f043c9a3d80d8553c8801f6589af3f58a1e98a08d228495f1122d0a8e9",
+ "size": 8114347,
+ "sha256": "fd8041464f7442b25dbfe2440bc591c9db0d2ffaf9ebb4459a568a83f57c5a18",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Herrería: las armas ya no piden nivel de Herrería en ninguna forja; solo tu nivel, oro y materiales.",
-   "Todos los oficios suben 2,5 veces más rápido.",
-   "Con tu pareja al lado ya puedes hablar con los demás: «Hablar» elige al otro personaje que tengas delante.",
-   "Puedes tener hasta dos parejas. La que tratas pasa a ser la principal, así que boda, casa, cambio de ropa, llevarla en brazos e hijos funcionan con las dos. Las dos viven en tu casa.",
-   "Ilvaine, la hechicera del Velo Roto, entra en todo el sistema de pareja: noviazgo, boda e hijos, que pueden heredar su piel lavanda.",
-   "Nueva forma de llevar a tu pareja: sobre los hombros (además de en brazos y besarla). Los demás jugadores lo ven.",
-   "Al decidir tener un hijo os metéis en la cama y salen corazones durante unos segundos (los demás jugadores ven los corazones).",
-   "Nochebruma: un pueblo dark fantasy nevado en el centro del Velo Roto, con nieve azul, luna pálida, faroles en espiral con coronas, árbol de luces, carrusel, trineo de regalos y el Vigilante de Piedra asomando tras la torre. Allí no atacan los monstruos y 6 vecinos te cuentan cómo es su mundo. El Vigilante te quita algo de corrupción."
+   "Música nueva en todo el Velo Roto (y el Jardín de la Sonrisa): suenan las dos canciones de los vídeos de Sergio, una detrás de otra y en bucle. Sigue el volumen de música de Opciones.",
+   "La pareja que te acompaña se ve en el online con la ropa que le hayas puesto en su armario (antes los demás la veían con su ropa de siempre). También se ve en brazos o sobre tus hombros."
   ],
   "en": [
-   "Smithing: weapons no longer require a Smithing level at any forge; only your level, gold and materials.",
-   "Every profession levels up 2.5 times faster.",
-   "With your partner next to you, you can now talk to others: \"Talk\" picks the other character in front of you.",
-   "You can have up to two partners. The one you interact with becomes the main one, so wedding, home, outfits, carrying and children work with both. Both live in your house.",
-   "Ilvaine, the Broken Veil sorceress, joins the whole partner system: dating, wedding and children, who can inherit her lavender skin.",
-   "New way to carry your partner: on your shoulders (besides in your arms and kissing). Other players see it.",
-   "When you decide to have a child you both get into bed and hearts pop out for a few seconds (other players see the hearts).",
-   "Nochebruma: a snowy dark fantasy town in the middle of the Broken Veil, with blue snow, a pale moon, spiral lamps with wreaths, a tree of lights, a carousel, a sleigh full of gifts and the Stone Watcher peering from behind the tower. Monsters do not attack there and 6 villagers tell you about their world. The Watcher removes some corruption."
+   "New music across the Broken Veil (and the Garden of the Smile): the two songs from Sergio's videos play one after the other, looping. It follows the music volume in Options.",
+   "The partner who travels with you is shown online wearing the outfit you chose in their wardrobe (others used to see their default clothes). Also when carried in your arms or on your shoulders."
   ]
  }
 }
