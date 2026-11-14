@@ -1,24 +1,30 @@
 {
- "build": 53,
- "ver": "4.32",
+ "build": 54,
+ "ver": "4.33",
  "date": "2026-11-14",
  "file": "thebound.html",
- "size": 8313166,
- "sha256": "4fb69c5bc4ad329be973bfa6547fb9947f9d3b09a69199b700a049abb9f86754",
+ "size": 8346583,
+ "sha256": "808d2119e07f58569497a9e0154db1693102573fd69fd476ebd1d1a045cd3658",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🌍 Top mundial: el botón del menú ahora muestra los 50 primeros de todo el mundo en horas jugadas y en nivel máximo, guardados en un servidor.",
-   "Tu fila se sube sola cada 2 minutos mientras juegas y al abrir el menú.",
-   "Protección contra trampas: las horas no pueden bajar ni subir más rápido que el tiempo real, y el nivel va de 1 a 350.",
-   "Sin internet se muestra la última lista guardada."
+   "Pueblos vivos: cada plaza (Albor, Puerto Coral, Arxar, Sahrim, Yarakai y Puerto Brasa) tiene un Tablón del pueblo con periódico, rumores, mercado, ayuntamiento y bazar.",
+   "El Pregonero: noticias generadas con lo que pasa en el juego (jefes derrotados, asedios, eventos, alcaldes, vecinos que salvaste) y un rumor nuevo cada día.",
+   "Prosperidad de cada pueblo: sube si haces encargos, defiendes el pueblo, donas o vendes lo que necesita; baja si ignoras asaltos y hordas. Por debajo de 25 hay casas abandonadas (tapiadas); desde 75 abre un bazar más barato.",
+   "Alcalde: si eres Héroe del pueblo puedes presentarte. Eliges impuestos bajos, normales o altos, cobras las arcas e inviertes en el pueblo. Si tu opinión baja de Neutral, te quitan el cargo.",
+   "Día del Tributo cada 7 días (no se puede desactivar): los vecinos pagan al alcalde y, si tienes casa en un pueblo donde no eres alcalde, pagas un pequeño impuesto.",
+   "Oficio nuevo Comercio (en la lupa): compra mercancías donde se producen y véndelas donde escasean. 8 mercancías con precios que cambian cada día, con la estación y con los eventos. Al entrar en un pueblo te avisa de lo que pagan bien.",
+   "Los vecinos que ayudaste a levantarse te recuerdan: una vez al día, si estás en apuros, uno te lanza una poción."
   ],
   "en": [
-   "🌍 World top: the menu button now shows the world's top 50 in hours played and highest level, stored on a server.",
-   "Your row uploads by itself every 2 minutes while you play and when the menu opens.",
-   "Anti-cheat: hours can't go down or rise faster than real time, and level goes from 1 to 350.",
-   "Offline, the last saved list is shown."
+   "Living towns: every plaza (Albor, Coral Port, Arxar, Sahrim, Yarakai and Ember Port) has a Town board with newspaper, rumors, market, town hall and bazaar.",
+   "The Herald: news generated from what happens in the game (bosses defeated, sieges, events, mayors, villagers you saved) and a new rumor every day.",
+   "Town prosperity: rises if you do jobs, defend the town, donate or sell what it needs; drops if you ignore raids and hordes. Below 25 there are abandoned (boarded) houses; from 75 a cheaper bazaar opens.",
+   "Mayor: if you are a Hero of the town you can run. Choose low, normal or high taxes, collect the coffers and invest in the town. If your standing drops below Neutral, you lose the post.",
+   "Tribute Day every 7 days (can't be turned off): citizens pay the mayor and, if you own a house in a town where you aren't mayor, you pay a small tax.",
+   "New Trade job (in the magnifier): buy goods where they are made and sell them where they are scarce. 8 goods with prices that change daily, with the season and with events. Entering a town tells you what pays well.",
+   "Villagers you helped up remember you: once a day, if you are in trouble, one throws you a potion."
   ]
  }
 }
