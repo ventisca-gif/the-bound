@@ -1,0 +1,10 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), audioUnlock(), 1)
+js (()=>{ const P=G.P; P.lv=320; calcStats(P); P.ifr=1e9; P.vrPortal=1; goVelo(); return curMusic; })()
+wait 4000
+js (()=>JSON.stringify({cur:curMusic, want:VMUS&&VMUS.want, bufs:VMUS?VMUS.bufs.map(b=>b&&Math.round(b.duration)):null, playing:!!(VMUS&&VMUS.src)}))
+js (()=>{ backFromVelo(); return 1; })()
+wait 2500
+js (()=>JSON.stringify({cur:curMusic, want:VMUS&&VMUS.want, playing:!!(VMUS&&VMUS.src)}))
+js (()=>{ const P=G.P; P.partner='lia'; P.pOut='bruja'; const e=G.ents.find(e=>e.type==='npc'&&e.id==='lia') || spawnNPC('lia',P.x+20,P.y,P.map,{}); startComp(e); const o={}; extraPresence(o); const r={peer:'x',map:P.map,x:P.x,y:P.y}; extraRecv(r,{cp:o.cp}); return JSON.stringify({cp:o.cp, out:r.rcp&&r.rcp.pOut, same: r.rcp&&r.rcp.atlas===npcAtlas('lia')}); })()
+js (window._errs)
