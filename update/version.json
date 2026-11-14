@@ -1,34 +1,38 @@
 {
- "build": 49,
- "ver": "4.28",
+ "build": 50,
+ "ver": "4.29",
  "date": "2026-11-14",
  "file": "thebound.html",
- "size": 8170626,
- "sha256": "50dfd8f227ad722027200146d6a57dc5b41a19dca11896bcfab68bf0de0c061b",
+ "size": 8282771,
+ "sha256": "0c47308ac209b5e071ac1d78feeffe683617fb5d26384d648ea8d449f7a92d07",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Hijos equilibrados: a su mismo nivel hacen la mitad de tu daño (nunca más) y tienen el 60 % de tu vida y tu defensa (más con armadura). Tienen su propio nivel, hasta el 350, y ganan experiencia contigo.",
-   "Los enemigos también atacan a tus hijos (y los ataques de área de los jefes les alcanzan). Ellos esquivan las zonas rojas.",
-   "Barra de vida pequeña siempre visible sobre tus hijos, también en el online.",
-   "PvP: tus hijos luchan contra el otro jugador (con daño reducido para no romper el duelo) y él puede golpearlos.",
-   "Te acompañan como mucho 2 hijos a la vez. Puedes tener 3 hijos con cada pareja (6 con dos parejas).",
-   "Expediciones: manda a un hijo a explorar solo. Viaja en tren, yate, galeón o aeronave, lucha, sube de nivel, guarda lo que encuentra en su mochila (la puedes mirar) y se equipa solo. Si pasas cerca de su campamento, le verás luchando. Puedes formar equipo con él cuando quieras.",
-   "Con la familia completa puedes seguir yendo a la cama con tu pareja (escena de corazones).",
-   "Los botones de Montar y del armario de tu pareja ya no tapan nada: están en la fila de iconos de arriba (caballo y percha).",
-   "Lupa 🔎 → ⚒ Oficios: tu nivel en cada oficio, cómo se hace, para qué sirve y la flecha dorada al sitio más cercano para tu nivel."
+   "Islas del Cielo: tres pueblos nuevos. Céfira (arpías con alas de colores y nidos gigantes), Aurelia (la última ciudad de los ángeles) y Lumen (ciudad de los acertijos). Allí no entran los monstruos.",
+   "Romance con alas: Aelis (ángel guerrera), Nimiel (ángel sanadora), Caelith (lectora de estrellas) y Kiri (arpía cantora), con todo el sistema: corazones, regalos, pasear, besos, pareja, boda e hijos.",
+   "Beso francés (Amor 8 y Confianza 6): más largo y cercano; el más bajo se pone de puntillas para que las caras queden a la misma altura con cualquier cuerpo.",
+   "Piedras de acertijos en todas las islas del cielo (una pregunta distinta cada día) y la Prueba de la Memoria del Oráculo Vespera en Lumen.",
+   "Oficios nuevos: Carrera de Ángeles (vuela por los aros contra tres rivales) y Olimpiadas Angelicales (Tiro celeste y Lluvia de plumas, con medallas). 10 ventajas cada uno.",
+   "Archipiélago: Puerto Esmeralda, un gran pueblo en el centro con isleños en bikini y ropa de verano, palmeras, antorchas tiki y más historia. Ailani vende 5 bikinis, camisas hawaianas, bermudas y pareos.",
+   "Oficios nuevos: Surf (minijuego de trucos y combos con tabla) y Arte (pinta lo que quieras en pixel art y véndelo en tu galería: se vende solo mientras juegas). 10 ventajas cada uno.",
+   "Ixtal, la Ciudad Perdida: un templo al sur de Puerto Esmeralda con un puzle de cuatro estatuas. Dentro, dos mazmorras de nivel 300 (Templo Hundido y Cripta del Sol), 10 enemigos nuevos y 2 jefes con armas y armaduras de tier 23-24.",
+   "Experiencia revisada: del nivel 251 al 350 los enemigos dan un 40 % más (ahora hacen falta unos 50 por nivel en todo el juego, como antes del 250).",
+   "Fondo Marino: 12 almejas gigantes con minijuego, perlas rosas, doradas y de luna, 30 perlas perdidas escondidas (premio final: Lágrima de Luna), la sirena Perlina que compra perlas y ensarta el Collar de Perlas Doradas, tortugas marinas y la ballena del abismo.",
+   "Las ventajas de los oficios nuevos salen en el panel de oficios y en la lupa ⚒."
   ],
   "en": [
-   "Balanced kids: at the same level they deal half your damage (never more) and have 60% of your HP and defence (more with armour). They have their own level, up to 350.",
-   "Enemies also attack your kids (boss area attacks hit them too). Kids dodge red zones.",
-   "Small HP bar always visible over your kids, online too.",
-   "PvP: your kids fight the other player (reduced damage) and can be hit.",
-   "At most 2 kids follow you at once. 3 kids per partner (6 with two partners).",
-   "Expeditions: send a kid exploring alone. They travel, fight, level up, keep loot in their own bag (view only) and gear up. Pass by their camp to see them. Team up any time.",
-   "With a full family you can still go to bed with your partner (heart scene).",
-   "Mount and partner wardrobe buttons no longer cover anything: they are in the top icon row.",
-   "Magnifier 🔎 → ⚒ Jobs: your level, how it works, what it's for and the golden arrow to the nearest place."
+   "Sky Isles: three new towns. Cefira (harpies), Aurelia (angels) and Lumen (riddles). No monsters there.",
+   "Winged romance: Aelis, Nimiel, Caelith and Kiri with the full system.",
+   "French kiss (Love 8, Trust 6): longer and closer; the shorter one goes on tiptoe so faces line up with any body.",
+   "Riddle stones on every sky island (new question each day) and Oracle Vespera's Memory Trial in Lumen.",
+   "New jobs: Angel Race and Angelic Olympics, 10 perks each.",
+   "Archipelago: Emerald Port, a big central town with islanders in bikinis and summer clothes. Ailani sells bikinis, Hawaiian shirts, shorts and sarongs.",
+   "New jobs: Surfing (trick and combo minigame) and Art (paint pixel art and sell it in your gallery). 10 perks each.",
+   "Ixtal, the Lost City: a statue puzzle and two level 300 dungeons with 10 new enemies and 2 bosses (tier 23-24 gear).",
+   "Experience: level 251-350 enemies give 40% more (about 50 kills per level across the game).",
+   "Seabed: giant clam minigame, pink, golden and moon pearls, 30 hidden lost pearls, Perlina the mermaid, sea turtles and the abyss whale.",
+   "New job perks show in the jobs panel and the ⚒ magnifier tab."
   ]
  }
 }

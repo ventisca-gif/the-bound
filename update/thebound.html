@@ -341,7 +341,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v4.28 · Familia en marcha</div>
+  <div class="tfoot">v4.29 · Cielo, mar y perlas</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -2582,7 +2582,7 @@ function drawHero(p, L, dir, anim, f) {
   const hideHair = HD && HD.cover === 'full', hood = HD && HD.cover === 'hood';
   const robeLong = TOP.k === 'robe', dressLen = TOP.k === 'dress' ? 6 : 0;
   const TG = p.t ? (k => { p.tg = k; }) : (() => { });   // v4.0 capas para el detalle HD
-  p.meta = { cx, torsoTop, tx0, tw, th, legTop, base, dir, side, up, fem, d, hx, hy, anim, f };
+  p.meta = { cx, torsoTop, tx0, tw, th, legTop, base, dir, side, up, fem, d, hx, hy, anim, f, sk: SK };
   // ---------- legs & feet ----------
   const drawLegs = () => { TG(1);
     const lw = BOT.k === 'baggy' ? 4 : B.lw;
@@ -11737,13 +11737,14 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '4.28', GAME_BUILD = 49;
+const GAME_VER = '4.29', GAME_BUILD = 50;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
 const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/[
+  {"b": 50, "v": "4.29", "d": "2026-11-14", "es": ["Islas del Cielo: tres pueblos nuevos. Céfira (arpías con alas de colores y nidos gigantes), Aurelia (la última ciudad de los ángeles) y Lumen (ciudad de los acertijos). Allí no entran los monstruos.", "Romance con alas: Aelis (ángel guerrera), Nimiel (ángel sanadora), Caelith (lectora de estrellas) y Kiri (arpía cantora), con todo el sistema: corazones, regalos, pasear, besos, pareja, boda e hijos.", "Beso francés (Amor 8 y Confianza 6): más largo y cercano; el más bajo se pone de puntillas para que las caras queden a la misma altura con cualquier cuerpo.", "Piedras de acertijos en todas las islas del cielo (una pregunta distinta cada día) y la Prueba de la Memoria del Oráculo Vespera en Lumen.", "Oficios nuevos: Carrera de Ángeles (vuela por los aros contra tres rivales) y Olimpiadas Angelicales (Tiro celeste y Lluvia de plumas, con medallas). 10 ventajas cada uno.", "Archipiélago: Puerto Esmeralda, un gran pueblo en el centro con isleños en bikini y ropa de verano, palmeras, antorchas tiki y más historia. Ailani vende 5 bikinis, camisas hawaianas, bermudas y pareos.", "Oficios nuevos: Surf (minijuego de trucos y combos con tabla) y Arte (pinta lo que quieras en pixel art y véndelo en tu galería: se vende solo mientras juegas). 10 ventajas cada uno.", "Ixtal, la Ciudad Perdida: un templo al sur de Puerto Esmeralda con un puzle de cuatro estatuas. Dentro, dos mazmorras de nivel 300 (Templo Hundido y Cripta del Sol), 10 enemigos nuevos y 2 jefes con armas y armaduras de tier 23-24.", "Experiencia revisada: del nivel 251 al 350 los enemigos dan un 40 % más (ahora hacen falta unos 50 por nivel en todo el juego, como antes del 250).", "Fondo Marino: 12 almejas gigantes con minijuego, perlas rosas, doradas y de luna, 30 perlas perdidas escondidas (premio final: Lágrima de Luna), la sirena Perlina que compra perlas y ensarta el Collar de Perlas Doradas, tortugas marinas y la ballena del abismo.", "Las ventajas de los oficios nuevos salen en el panel de oficios y en la lupa ⚒."], "en": ["Sky Isles: three new towns. Cefira (harpies), Aurelia (angels) and Lumen (riddles). No monsters there.", "Winged romance: Aelis, Nimiel, Caelith and Kiri with the full system.", "French kiss (Love 8, Trust 6): longer and closer; the shorter one goes on tiptoe so faces line up with any body.", "Riddle stones on every sky island (new question each day) and Oracle Vespera's Memory Trial in Lumen.", "New jobs: Angel Race and Angelic Olympics, 10 perks each.", "Archipelago: Emerald Port, a big central town with islanders in bikinis and summer clothes. Ailani sells bikinis, Hawaiian shirts, shorts and sarongs.", "New jobs: Surfing (trick and combo minigame) and Art (paint pixel art and sell it in your gallery). 10 perks each.", "Ixtal, the Lost City: a statue puzzle and two level 300 dungeons with 10 new enemies and 2 bosses (tier 23-24 gear).", "Experience: level 251-350 enemies give 40% more (about 50 kills per level across the game).", "Seabed: giant clam minigame, pink, golden and moon pearls, 30 hidden lost pearls, Perlina the mermaid, sea turtles and the abyss whale.", "New job perks show in the jobs panel and the ⚒ magnifier tab."]},
   {"b": 49, "v": "4.28", "d": "2026-11-14", "es": ["Hijos equilibrados: a su mismo nivel hacen la mitad de tu daño (nunca más) y tienen el 60 % de tu vida y tu defensa (más con armadura). Tienen su propio nivel, hasta el 350, y ganan experiencia contigo.", "Los enemigos también atacan a tus hijos (y los ataques de área de los jefes les alcanzan). Ellos esquivan las zonas rojas.", "Barra de vida pequeña siempre visible sobre tus hijos, también en el online.", "PvP: tus hijos luchan contra el otro jugador (con daño reducido para no romper el duelo) y él puede golpearlos.", "Te acompañan como mucho 2 hijos a la vez. Puedes tener 3 hijos con cada pareja (6 con dos parejas).", "Expediciones: manda a un hijo a explorar solo. Viaja en tren, yate, galeón o aeronave, lucha, sube de nivel, guarda lo que encuentra en su mochila (la puedes mirar) y se equipa solo. Si pasas cerca de su campamento, le verás luchando. Puedes formar equipo con él cuando quieras.", "Con la familia completa puedes seguir yendo a la cama con tu pareja (escena de corazones).", "Los botones de Montar y del armario de tu pareja ya no tapan nada: están en la fila de iconos de arriba (caballo y percha).", "Lupa 🔎 → ⚒ Oficios: tu nivel en cada oficio, cómo se hace, para qué sirve y la flecha dorada al sitio más cercano para tu nivel."], "en": ["Balanced kids: at the same level they deal half your damage (never more) and have 60% of your HP and defence (more with armour). They have their own level, up to 350.", "Enemies also attack your kids (boss area attacks hit them too). Kids dodge red zones.", "Small HP bar always visible over your kids, online too.", "PvP: your kids fight the other player (reduced damage) and can be hit.", "At most 2 kids follow you at once. 3 kids per partner (6 with two partners).", "Expeditions: send a kid exploring alone. They travel, fight, level up, keep loot in their own bag (view only) and gear up. Pass by their camp to see them. Team up any time.", "With a full family you can still go to bed with your partner (heart scene).", "Mount and partner wardrobe buttons no longer cover anything: they are in the top icon row.", "Magnifier 🔎 → ⚒ Jobs: your level, how it works, what it's for and the golden arrow to the nearest place."]},
   {"b": 48, "v": "4.27", "d": "2026-11-14", "es": ["La escena de la cama al tener un hijo ya se ve siempre: la cámara se centra en la cama (antes quedaba tapada por el panel de misiones), la pareja se dibuja encima de los muebles y la cama matrimonial se elige primero."], "en": ["The bed scene when having a child is always visible now: the camera centres on the bed (it used to be hidden under the quest panel), the couple is drawn above the furniture and the double bed is picked first."]},
   {"b": 47, "v": "4.26", "d": "2026-11-14", "es": ["El Colgante de Promesa ahora te lo regala la persona cuando llegáis a 10 corazones de Confianza y de Amor (una vez por persona). Con él ya puedes pedirle que sea tu pareja.", "Al besaros o abrazaros ya no se ve la línea rara de las manos cogidas.", "Tu pareja habla: de vez en cuando dice cosas en un globo de texto según lo que pasa (de noche, en combate, si tienes poca vida, a caballo, en el Velo Roto, en Nochebruma, en brazos, de la mano…). Los demás jugadores también ven sus globos.", "Al montar, tu pareja sube detrás de ti y te agarra de la cintura, con cualquier montura (caballos, grifo y dragón) y cualquier cuerpo. Se baja a tu lado al desmontar y también se ve online."], "en": ["The Promise Pendant is now given to you when you reach 10 hearts of Trust and Love with someone (once per person). With it you can ask them to be your partner.", "The odd line of held hands no longer shows while you kiss or hug.", "Your partner talks: now and then they say something in a speech bubble depending on what is happening (night, combat, low health, riding, the Broken Veil, Nochebruma, being carried, holding hands…). Other players see the bubbles too.", "When you ride, your partner climbs on behind you and holds your waist, on any mount (horses, griffin and dragon) and with any body. They get off beside you when you dismount, and it shows online too."]},
@@ -15507,7 +15508,7 @@ function guiaJobs() { const P = G.P; GUIA.tab = 'job'; const ks = Object.keys(JO
   else { const J = P.jobs[GJOB] || { lv: 1, xp: 0 }, need = J.lv >= JOBMAX ? 0 : jobXpToNext(J.lv), pct = need ? Math.floor(J.xp / need * 100) : 100, w = Gd && Gd.find ? Gd.find() : null; if (w) WP_M[Math.round(w.loc[0] * 10) / 10 + ',' + Math.round(w.loc[1] * 10) / 10] = w.m || 'world';
     det = `<h4>${iconHTML(jobIc(GJOB), 22)} ${esc(D.n)} · ${L2('Nv. ', 'Lv. ')}${J.lv}/${JOBMAX}</h4><span class="dbar"><b style="width:${pct}%"></b></span><div class="gsrc"><span>${esc(D.desc || '')}</span></div>`
       + (Gd ? `<div class="gsrc"><span>🛠 <b>${L2('Cómo', 'How')}:</b> ${esc(L2(Gd.how[0], Gd.how[1]))}</span></div><div class="gsrc"><span>✨ <b>${L2('Para qué sirve', 'What for')}:</b> ${esc(L2(Gd.ben[0], Gd.ben[1]))}</span></div>` : '')
-      + (Gd && Gd.perks ? `<div class="gsrc"><span>🏅 <b>${L2('Ventajas por nivel', 'Level perks')}:</b><br>${Gd.perks.map(([lv, es, en]) => `${J.lv >= lv ? '✓' : '·'} ${L2('Nv. ', 'Lv. ')}${lv}: ${esc(L2(es, en))}`).join('<br>')}</span></div>` : '')
+      + ((JOB_PERKS[GJOB] || []).length ? `<div class="gsrc"><span>🏅 <b>${L2('Ventajas por nivel', 'Level perks')}:</b><br>${JOB_PERKS[GJOB].map(([lv, t]) => `${J.lv >= lv ? '✓' : '·'} ${L2('Nv. ', 'Lv. ')}${lv}: ${esc(t)}`).join('<br>')}</span></div>` : '')
       + (w ? `<div class="gsrc"><span>📍 ${L2('Lo más cercano: ', 'Nearest: ')}<b>${esc(w.t)}</b></span>${guiaFollowBtn(w, w.t)}</div>` : `<div class="gsrc"><span>${L2('No hay un sitio en el mundo principal para tu nivel.', 'No place in the main world for your level.')}</span></div>`); }
   openModal(`<div class="frame guia"><h3>🔎 ${L2('Dónde conseguir', 'Where to get it')}</h3><div class="chips">${guiaChipsHTML('job')}</div><div class="gcols"><div class="glist">${list}</div><div class="gdet">${det}</div></div><div class="row"><button class="btn" id="gClose">${L2('Cerrar', 'Close')}</button></div></div>`, 'guiamod');
   $('#gClose').onclick = closeModal; guiaBindChips();
@@ -15518,6 +15519,594 @@ function guiaBindChips() { $$('.guia [data-gx]').forEach(b => b.onclick = () => 
 function guiaAddJobChip() { const ch = $('.guia .chips'); if (!ch || ch.querySelector('[data-gx="job"]')) return; const b = document.createElement('button'); b.className = 'chip'; b.dataset.gx = 'job'; b.textContent = '⚒ ' + L2('Oficios', 'Jobs'); b.onclick = () => guiaJobs(); const ref = ch.querySelector('[data-gx="ene"]') || [...ch.children].find(c => /👹/.test(c.textContent)); ch.insertBefore(b, ref || ch.querySelector('#gOff')); }
 { const _gx = guiaX; guiaX = function (tab) { if (tab === 'job') return guiaJobs(); const r = _gx.apply(this, arguments); guiaAddJobChip(); return r; }; }
 { const _rg = renderGuia; renderGuia = function () { if (GUIA.tab === 'job') return guiaJobs(); const r = _rg.apply(this, arguments); guiaAddJobChip(); return r; }; }
+
+// ================= v4.29: CELESTIA VIVA — 3 pueblos, ángeles y arpías, romance alado, beso francés, acertijos,
+// prueba de memoria, Carrera de Ángeles y Olimpiadas Angelicales (dos oficios nuevos con 10 ventajas cada uno) =================
+
+// ---------- utilidades comunes de la 4.29 (también las usan el archipiélago y el fondo marino) ----------
+// Objetos con los que se interactúa en cualquier mapa: o.xact = clave de XACT → [etiqueta, icono, función(o)]
+const XACT = {};
+{ const _it = interactTarget; interactTarget = function () { const P = G.P, M = G.map; if (P && M && M.objs && !P.dead) { let b = null, bd = 30 * 30;
+    for (const o of M.objs) { if (!o.xact || o.hidden || !XACT[o.xact]) continue; const d = dist2(o.px, o.py, P.x, P.y); if (d < bd) { bd = d; b = o; } }
+    if (b) { const X = XACT[b.xact], lab = typeof X[0] === 'function' ? X[0](b) : X[0]; if (lab) return { kind: 'xact', label: lab, icon: X[1], o: b }; } }
+  return _it.apply(this, arguments); }; }
+{ const _di = doInteract; doInteract = function (it) { it = it || interactTarget(); if (it && it.kind === 'xact') { XACT[it.o.xact][2](it.o); return; } return _di.apply(this, arguments); }; }
+// coloca un mueble en la primera casilla libre cerca de (x, y) que cumpla `ok`
+function putNear(M, f, x, y, fp, o, ok) { fp = fp || [[0, 0]]; const okT = ok || (i => !SOLID_T[M.ter[i]] && M.ter[i] !== T.DEEP && M.ter[i] !== T.WATER);
+  for (let r = 0; r < 8; r++) for (let dy = -r; dy <= r; dy++) for (let dx = -r; dx <= r; dx++) { if (Math.max(Math.abs(dx), Math.abs(dy)) !== r) continue; const xx = x + dx, yy = y + dy;
+    if (fp.every(([a, b]) => { const i = M.I(xx + a, yy + b); return i >= 0 && i < M.w * M.h && M.objAt[i] < 0 && okT(i); })) return addObj(M, 'furn', xx, yy, Object.assign({ f, fp }, o || {})); }
+  return null; }
+// oficios nuevos: ventajas por nivel. JOBP2[job] = [[nivel, es, en, efectos]] (también se copian a JOB_PERKS para el panel de oficios)
+const JOBP2 = {};
+function jobPerkSum(k) { const P = G.P; let v = 0; if (!P || !P.jobs) return 0; for (const j in JOBP2) { const lv = (P.jobs[j] || { lv: 1 }).lv; for (const [n, , , ef] of JOBP2[j]) if (lv >= n && ef && ef[k]) v += ef[k]; } return v; }
+{ const _cs = calcStats; calcStats = function (P) { const r = _cs(P); if (P === G.P && P.S && P.jobs) { const S = P.S, f = k => jobPerkSum(k);
+    if (f('atkP')) S.atk = Math.round(S.atk * (1 + f('atkP') / 100)); if (f('defP')) S.def = Math.round(S.def * (1 + f('defP') / 100)); if (f('hpP')) { S.maxhp = Math.round(S.maxhp * (1 + f('hpP') / 100)); }
+    if (f('spdP')) S.spd *= 1 + f('spdP') / 100; if (f('dodge')) S.dodge = Math.min(45, (S.dodge || 0) + f('dodge')); if (f('crit')) S.crit = Math.min(70, S.crit + f('crit'));
+    if (f('skySpd') && G.map && G.map.sky) S.spd *= 1 + f('skySpd') / 100; if (f('seaSpd') && G.map && (G.map.archi || G.map.id === 'submarino')) S.spd *= 1 + f('seaSpd') / 100; } return r; }; }
+{ const _gx = gainXp; gainXp = function (n) { const k = jobPerkSum('xpP'); return _gx.call(this, k ? Math.round(n * (1 + k / 100)) : n); }; }
+{ const _km = killMob; killMob = function (m) { const g = jobPerkSum('goldP'); if (g && m && m.gold) m.gold = Math.round(m.gold * (1 + g / 100)); return _km.apply(this, arguments); }; }
+function addJob(k, n, icon, desc, guide, perks, ic) { JOBS[k] = { n, icon, desc }; JOBP2[k] = perks; JOB_PERKS[k] = perks.map(([lv, es, en]) => [lv, L2(es, en)]); JOB_GUIDE[k] = Object.assign({ perks: perks.map(([lv, es, en]) => [lv, es, en]) }, guide); if (ic) JOB_IC[k] = ic; if (G.P && G.P.jobs && !G.P.jobs[k]) G.P.jobs[k] = { lv: 1, xp: 0 }; }
+// marcador pequeño de minijuego (arriba, centrado)
+function mgHud(html) { let d = $('#mgHud'); if (!html) { if (d) d.remove(); return; } if (!d) { d = document.createElement('div'); d.id = 'mgHud'; d.style.cssText = 'position:absolute;left:50%;top:calc(4.2em + env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:12;background:rgba(20,12,24,.85);border:2px solid #ffd040;border-radius:.5em;padding:.25em .8em;color:#fff4d0;font-size:.85em;pointer-events:none;text-align:center'; document.getElementById('hud').appendChild(d); } d.innerHTML = html; }
+// dibujo extra encima del mundo (aros, plumas, destellos de los minijuegos)
+const WORLD_DRAW = [];
+{ const _r = render; render = function () { _r.apply(this, arguments); if (!G.map || !G.P || !WORLD_DRAW.length) return; const cx = Math.round(G.cam.x), cy = Math.round(G.cam.y); for (const f of WORLD_DRAW) try { f(cx, cy); } catch (e) { console.warn(e); } }; }
+
+// ---------- alas de colores para arpías y ángeles ----------
+{ const _dw = drawAngelWings; drawAngelWings = function (e, cx, cy, dark, sc) { const c = e.def && e.def.wingC; if (!c) return _dw.apply(this, arguments);
+  const x = e.x - cx, y = e.y - cy - (e.z || 0), s = sc || 1, fl = Math.sin(G.t * 6 + e.x) * 3 * s; ctx.fillStyle = c[0]; ctx.strokeStyle = c[1]; ctx.lineWidth = 1;
+  for (const sd of [-1, 1]) { ctx.beginPath(); ctx.moveTo(x + sd * 3 * s, y - 20 * s); ctx.quadraticCurveTo(x + sd * 22 * s, y - 38 * s - fl, x + sd * 26 * s, y - 14 * s); ctx.quadraticCurveTo(x + sd * 14 * s, y - 18 * s, x + sd * 3 * s, y - 12 * s); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = c[1]; for (let k = 0; k < 3; k++) ctx.fillRect(Math.round(x + sd * (10 + k * 5) * s), Math.round(y - (22 + k * 3) * s - fl * 0.5), 2, 2); ctx.fillStyle = c[0]; } }; }
+
+// ---------- los tres pueblos ----------
+const CEL_TOWNS = [
+  { k: 'cefira', n: L2('Céfira, ciudad de las Arpías', 'Cefira, city of the Harpies'), c: [165, 108], r: [16, 10], ter: 'GRASS', plaza: 'DIRT' },
+  { k: 'aurelia', n: L2('Aurelia, ciudad de los Ángeles', 'Aurelia, city of the Angels'), c: [270, 104], r: [15, 10], ter: 'GRASS', plaza: 'COBBLE' },
+  { k: 'lumen', n: L2('Lumen, ciudad de los Acertijos', 'Lumen, city of Riddles'), c: [32, 92], r: [15, 10], ter: 'GRASS', plaza: 'COBBLE' },
+];
+const HARPY = (hair, wing, extra) => LK(Object.assign({ hair, hairStyle: 'long', outfit: 'tunic', main: P5(wing), sec: GOLD.slice(0, 5), skin: SKINS[1] }, extra || {}));
+const CEL_NPC = [
+  // Céfira: arpías (alas de colores, cantan, viven en nidos enormes)
+  ['cf_reina', 'cefira', L2('Reina Aelo', 'Queen Aello'), L2('Matriarca de las Arpías', 'Harpy Matriarch'), HARPY(HAIRS.rojo, ['#4a1a0a', '#8a3a1a', '#c86a2a', '#f0a050', '#ffd8a0'], { g: 'f', outfit: 'royal', hat: 'crown' }), ['#c86a2a', '#ffd8a0'],
+    [L2('Las arpías no robamos: recogemos lo que el cielo deja caer. Que a veces caiga de tus bolsillos es mala suerte tuya.', 'Harpies do not steal: we gather what the sky lets fall. If it sometimes falls from your pockets, that is your bad luck.'), L2('Los ángeles de Aurelia nos llaman salvajes. Nosotras a ellos, aburridos. Los dos tenemos razón.', 'The angels of Aurelia call us wild. We call them boring. We are both right.')]],
+  ['cf_kiri', 'cefira', 'Kiri', L2('La arpía cantora', 'The singing harpy'), HARPY(HAIRS.turquesa, ['#0a3a3a', '#1a6a6a', '#2aa0a0', '#6ad8d0', '#c0fff4'], { g: 'f', outfit: 'dress' }), ['#2aa0a0', '#c0fff4'],
+    [L2('Canto para que el viento no se aburra. Si se aburre, se va… y entonces las islas se caen un poquito.', 'I sing so the wind does not get bored. If it gets bored it leaves… and then the islands fall a little.'), L2('¿Me traes cristales que brillen? Los guardo en mi nido. Bueno, en el de mi madre.', 'Will you bring me shiny crystals? I keep them in my nest. Well, my mother\'s.')]],
+  ['cf_tormo', 'cefira', 'Tormo', L2('Vigía de las nubes', 'Cloud lookout'), HARPY(HAIRS.negro, ['#1a1a2a', '#2a2a4a', '#4a4a7a', '#7a7ab0', '#c0c0f0'], { hairStyle: 'short', beard: HAIRS.negro }), ['#4a4a7a', '#c0c0f0'],
+    [L2('Desde aquí veo la aeronave llegar mucho antes que tú. Hiciste un aterrizaje horrible.', 'From here I see the airship long before you do. You made a horrible landing.'), L2('En la Corona del Cielo algo se mueve de noche. Las nubes de allí no tienen sombra.', 'Something moves at night on the Crown of the Sky. The clouds there have no shadow.')]],
+  ['cf_pluma', 'cefira', L2('Abuela Pluma', 'Granny Feather'), L2('Tejedora de nidos', 'Nest weaver'), HARPY(HAIRS.blanco, ['#3a3a3a', '#6a6a6a', '#9a9a9a', '#cacaca', '#ffffff'], { g: 'f', outfit: 'robe' }), ['#9a9a9a', '#ffffff'],
+    [L2('Un nido bien tejido aguanta una tormenta. Uno mal tejido, también, pero a ti no te deja dormir.', 'A well-woven nest withstands a storm. A badly woven one too, but it will not let you sleep.'), L2('Cuando el Telar funcionaba, nos daba hilos de luz para los nidos. Ahora tejemos con plumas viejas y recuerdos.', 'When the Loom worked it gave us threads of light for nests. Now we weave with old feathers and memories.')]],
+  ['cf_ruk', 'cefira', 'Ruk', L2('Mercader de plumas', 'Feather trader'), HARPY(HAIRS.castano, ['#3a2a0a', '#6a4a1a', '#a0782a', '#d8b060', '#fff0c0'], { hairStyle: 'short', hat: 'bandana' }), ['#a0782a', '#fff0c0'],
+    [L2('Plumas de grifo, de arpía, de ángel… Las de ángel son las más caras porque se quejan cuando se las quitas.', 'Griffin, harpy, angel feathers… Angel ones cost the most because they complain when you pull them.')]],
+  // Aurelia: ángeles (la ciudad blanca, la Carrera y las Olimpiadas)
+  ['au_aelis', 'aurelia', 'Aelis', L2('Ángel guerrera', 'Warrior angel'), ANGEL(HAIRS.rubio, CLOTH.blanco, { g: 'f', outfit: 'knight', eyes: 'azul' }), null,
+    [L2('Entreno al amanecer. El sol de aquí arriba pega distinto: te mira a los ojos.', 'I train at dawn. The sun up here hits differently: it looks you in the eye.'), L2('Gané tres veces la Carrera de Ángeles. La cuarta me la quitó un halcón. No preguntes.', 'I won the Angel Race three times. A hawk took the fourth from me. Don\'t ask.')]],
+  ['au_nimiel', 'aurelia', 'Nimiel', L2('Ángel sanadora', 'Healer angel'), ANGEL(HAIRS.blanco, P5(['#5a3a6a', '#8a6aa0', '#b8a0d8', '#e0d0f8', '#ffffff']), { g: 'f', outfit: 'dress', eyes: 'violeta' }), null,
+    [L2('Curo heridas, catarros y corazones rotos. Lo último me cuesta más: se curan solos, pero tarde.', 'I heal wounds, colds and broken hearts. The last is hardest: they heal on their own, but late.'), L2('Si vienes cansado, siéntate junto a la fuente. Su agua bajó de la primera nube.', 'If you come tired, sit by the fountain. Its water came down from the first cloud.')]],
+  ['au_caelith', 'aurelia', 'Caelith', L2('Lectora de estrellas', 'Star reader'), ANGEL(HAIRS.negro, P5(['#0a0a2a', '#1a1a4a', '#2a2a7a', '#4a4ab0', '#8a8ae0']), { g: 'f', outfit: 'robe', eyes: 'celeste' }), ['#1a1a4a', '#8a8ae0'],
+    [L2('Las estrellas no predicen nada. Solo recuerdan. Yo les pregunto qué pasó y a veces me lo cuentan.', 'Stars predict nothing. They only remember. I ask them what happened and sometimes they tell me.'), L2('Tengo alas oscuras porque nací de noche. Los demás dicen que da mala suerte. Las estrellas dicen que no.', 'I have dark wings because I was born at night. Others say it is bad luck. The stars say it is not.')]],
+  ['au_zefiro', 'aurelia', L2('Maestro Zéfiro', 'Master Zephyr'), L2('Juez de la Carrera de Ángeles', 'Angel Race judge'), ANGEL(HAIRS.gris, CLOTH.turquesa, { hairStyle: 'short', beard: HAIRS.gris }), null,
+    [L2('¿Sabes volar? Aquí todo el mundo sabe. Lo difícil es volar más rápido que los demás sin chocarse con un aro.', 'Can you fly? Everyone here can. The hard part is flying faster than the rest without hitting a ring.')]],
+  ['au_olimpia', 'aurelia', L2('Árbitra Olimpia', 'Referee Olympia'), L2('Olimpiadas Angelicales', 'Angelic Olympics'), ANGEL(HAIRS.rubio, P5(['#5a4a0a', '#a08a1a', '#d8c040', '#fff080', '#ffffff']), { g: 'f', outfit: 'tunic', hat: 'crown' }), null,
+    [L2('Las Olimpiadas se celebran cada día desde hace ocho mil años. Nunca nadie ha faltado. Bueno, los muertos.', 'The Olympics have been held every day for eight thousand years. No one has ever missed one. Well, the dead.')]],
+  ['au_orion', 'aurelia', 'Orión', L2('Guardián de la puerta', 'Gate guardian'), ANGEL(HAIRS.castano, CLOTH.gris, { hairStyle: 'short', outfit: 'knight' }), null,
+    [L2('Aurelia es la última ciudad de los ángeles. Antes eran doce. Las otras once se las tragó el Lienzo.', 'Aurelia is the last city of the angels. Once there were twelve. The Canvas swallowed the other eleven.')]],
+  // Lumen: ciudad de sabios, acertijos y la prueba de memoria
+  ['lu_vespera', 'lumen', L2('Oráculo Vespera', 'Oracle Vespera'), L2('Guardiana de los acertijos', 'Keeper of riddles'), ANGEL(HAIRS.blanco, P5(['#2a1a0a', '#5a3a1a', '#9a6a3a', '#d0a070', '#fff0d0']), { g: 'f', outfit: 'robe', hat: 'hood', hatC: P5(['#1a0a2a', '#3a1a5a', '#5a2a8a', '#8a5ac0', '#c0a0f0']) }), ['#5a2a8a', '#c0a0f0'],
+    [L2('Una respuesta es una puerta. Un acertijo es una puerta que te pregunta quién eres antes de abrirse.', 'An answer is a door. A riddle is a door that asks who you are before it opens.'), L2('Hay piedras de acertijos en todas las islas. Cada día cambian de pregunta. Las piedras también se aburren.', 'There are riddle stones on every island. Every day they change their question. Stones get bored too.')]],
+  ['lu_tales', 'lumen', L2('Sabio Tales', 'Sage Thales'), L2('Bibliotecario', 'Librarian'), ANGEL(HAIRS.gris, CLOTH.marron, { hairStyle: 'short', beard: HAIRS.gris, outfit: 'robe' }), null,
+    [L2('La biblioteca de Lumen tiene un libro por cada pregunta que alguien no se atrevió a hacer.', 'Lumen\'s library has a book for every question someone did not dare to ask.')]],
+  ['lu_ixa', 'lumen', 'Ixa', L2('Aprendiz de oráculo', 'Oracle apprentice'), HARPY(HAIRS.rosa, ['#5a0a3a', '#8a1a6a', '#c04aa0', '#f08ad0', '#ffd0f0'], { g: 'f', body: 'small', outfit: 'dress' }), ['#c04aa0', '#ffd0f0'],
+    [L2('Soy medio arpía y medio sabia. La mitad sabia dice que no toque nada. La otra mitad ya lo ha tocado.', 'I am half harpy, half sage. The sage half says not to touch anything. The other half already has.')]],
+];
+for (const [id, , n, title, look, wingC, lines] of CEL_NPC) NPCS[id] = { n, title, look, lines, quests: [], wings: 1, wingC: wingC || null };
+// rivales de la Carrera (no aparecen como vecinos)
+NPCS.au_rival1 = { n: 'Lirio', look: ANGEL(HAIRS.rubio, CLOTH.blanco, { hairStyle: 'short' }), wings: 1, lines: [] };
+NPCS.au_rival2 = { n: 'Sirah', look: ANGEL(HAIRS.rojo, CLOTH.turquesa, { g: 'f' }), wings: 1, wingC: ['#ffe8e0', '#ff8a6a'], lines: [] };
+NPCS.au_rival3 = { n: 'Garra', look: HARPY(HAIRS.negro, ['#1a1a1a', '#3a2a1a', '#6a4a2a', '#a07a4a', '#e0c090']), wings: 1, wingC: ['#6a4a2a', '#e0c090'], lines: [] };
+// romance: tres ángeles y una arpía, con todo el sistema (corazones, regalos, pasear, beso, pareja, boda e hijos)
+Object.assign(ROM, {
+  au_aelis: { g: 'f', loves: ['ring', 'gem', 'food'], likes: ['ore', 'cake'], hates: ['spore', 'bone'], taste: L2('los anillos, las gemas y la comida contundente', 'rings, gems and hearty food') },
+  au_nimiel: { g: 'f', loves: ['herb', 'bouquet', 'potion'], likes: ['cake', 'crystal'], hates: ['fang', 'bone'], taste: L2('las flores, las hierbas y las pociones', 'flowers, herbs and potions') },
+  au_caelith: { g: 'f', loves: ['crystal', 'relic', 'gem'], likes: ['potion', 'bouquet'], hates: ['fish', 'pelt'], taste: L2('los cristales, las reliquias y las noches claras', 'crystals, relics and clear nights') },
+  cf_kiri: { g: 'f', loves: ['crystal', 'gem', 'cake'], likes: ['bouquet', 'ring'], hates: ['ore', 'fish'], taste: L2('todo lo que brilla y los pasteles', 'everything shiny and cakes') },
+});
+Object.assign(ROM_WHERE, { au_aelis: L2('Aurelia (Islas del Cielo)', 'Aurelia (Sky Isles)'), au_nimiel: L2('Aurelia (Islas del Cielo)', 'Aurelia (Sky Isles)'), au_caelith: L2('Aurelia (Islas del Cielo)', 'Aurelia (Sky Isles)'), cf_kiri: L2('Céfira (Islas del Cielo)', 'Cefira (Sky Isles)') });
+for (const k of ['au_aelis', 'au_nimiel', 'au_caelith', 'cf_kiri']) if (NPCS[k].look.skin && !SKINS.includes(NPCS[k].look.skin)) SKINS.push(NPCS[k].look.skin);
+
+// ---------- dibujos: casas de mármol, nidos, fuente, estatua, piedra de acertijo, cristales, podio ----------
+{ const _ge = genFurn2; genFurn2 = function (kind) { const D = s => C(s);
+  if (kind === 'sk_casa') { const p = new Pix(50, 56), Mb = pal(['#8a8aa0', '#b8b8cc', '#dcdce8', '#f4f4fa', '#ffffff']), Gd = pal(['#7a5a0a', '#c8a020', '#ffd040', '#fff0a0']);
+    p.rect(6, 24, 38, 31, Mb[2]); for (let x = 8; x < 44; x += 6) { p.vl(x, 26, 28, Mb[3]); p.vl(x + 1, 26, 28, Mb[1]); } p.hl(4, 23, 42, Gd[1]); p.hl(4, 54, 42, Mb[1]);
+    p.ell(25, 22, 17, 13, Mb[3]); p.ell(25, 20, 15, 11, Mb[4]); p.rect(8, 21, 34, 3, Mb[3]); p.hl(10, 10, 30, Gd[2]); p.rect(24, 2, 2, 8, Gd[2]); p.ball(25, 2, 2, 2, [Gd[1], Gd[2], Gd[3], Gd[3]]);
+    p.rect(20, 38, 10, 16, D('#5a8ad0')); p.ell(25, 38, 5, 4, D('#5a8ad0')); p.vl(25, 36, 18, D('#3a5aa0')); for (const wx of [10, 34]) { p.rect(wx, 32, 6, 9, D('#8ad0ff')); p.ell(wx + 3, 32, 3, 2, D('#8ad0ff')); p.set(wx + 1, 33, D('#ffffff')); }
+    p.outline(D('#3a3a50')); return { c: p.canvas(), ax: 25, ay: 55, light: 1 }; }
+  if (kind === 'sk_nido') { const p = new Pix(54, 48), W = pal(['#3a2410', '#6a4420', '#9a6a3a', '#c89a5a', '#f0d090']);
+    for (const x of [10, 24, 40]) { p.rect(x, 28, 3, 19, W[1]); p.vl(x + 1, 28, 19, W[2]); }
+    p.ell(27, 22, 25, 11, W[1]); for (let k = 0; k < 90; k++) { const a = hash2(k, 1, 7) * 6.28, r = 0.5 + hash2(k, 2, 7) * 0.5, x = Math.round(27 + Math.cos(a) * 24 * r), y = Math.round(22 + Math.sin(a) * 10 * r); p.line(x - 3, y, x + 3, y + (k % 3) - 1, W[2 + (k % 3)]); }
+    p.ell(27, 16, 19, 5, W[0]); for (let k = 0; k < 7; k++) p.line(12 + k * 5, 14, 14 + k * 5, 6 - (k % 2) * 3, D(['#ff6a3a', '#2aa0a0', '#ffd040', '#c04aa0'][k % 4])); p.rect(23, 22, 9, 8, D('#2a1408')); p.ell(27, 22, 4, 3, D('#2a1408'));
+    p.outline(D('#1a0e06')); return { c: p.canvas(), ax: 27, ay: 47, light: 0 }; }
+  if (kind === 'sk_fuente') { const p = new Pix(40, 34), Mb = pal(['#8a8aa0', '#b8b8cc', '#dcdce8', '#f4f4fa']), Wt = pal(['#2a6ab0', '#4a9ae0', '#8ad0ff', '#e0f8ff']);
+    p.ell(20, 26, 18, 7, Mb[1]); p.ell(20, 25, 16, 5, Wt[1]); p.ell(20, 24, 14, 3, Wt[2]); p.rect(17, 10, 6, 15, Mb[2]); p.ell(20, 10, 8, 3, Mb[3]); p.ell(20, 9, 6, 2, Wt[2]);
+    for (const [x, y] of [[13, 13], [27, 13], [10, 18], [30, 18]]) p.set(x, y, Wt[3]); p.vl(20, 2, 7, Wt[3]); p.set(19, 3, Wt[2]); p.set(21, 4, Wt[2]); p.outline(D('#3a3a50')); return { c: p.canvas(), ax: 20, ay: 33, light: 1 }; }
+  if (kind === 'sk_estatua') { const p = new Pix(30, 52), Mb = pal(['#7a7a90', '#a8a8bc', '#d0d0dc', '#f0f0f8']);
+    p.rect(7, 42, 16, 9, Mb[1]); p.hl(7, 42, 16, Mb[3]); p.rect(12, 20, 6, 22, Mb[2]); p.ell(15, 16, 4, 4, Mb[2]); p.ell(15, 25, 5, 3, Mb[2]);
+    for (const s of [-1, 1]) p.poly([[15 + s * 2, 20], [15 + s * 14, 4], [15 + s * 12, 26]], Mb[3]); p.ell(15, 9, 5, 1.5, D('#ffd040')); p.outline(D('#3a3a50')); return { c: p.canvas(), ax: 15, ay: 51, light: 0 }; }
+  if (kind === 'sk_runa') { const p = new Pix(22, 30), S = pal(['#2a2a3a', '#4a4a6a', '#6a6a8a', '#9a9ac0']), g = D('#8af0ff');
+    p.poly([[3, 29], [5, 4], [11, 1], [17, 4], [19, 29]], S[1]); p.vl(5, 5, 23, S[2]); p.hl(5, 4, 12, S[3]); for (const [x, y] of [[9, 9], [12, 12], [8, 16], [13, 19], [10, 23]]) { p.set(x, y, g); p.set(x + 1, y, g); p.set(x, y + 1, D('#ffffff')); }
+    p.outline(D('#0a0a14')); return { c: p.canvas(), ax: 11, ay: 29, light: 1 }; }
+  if (kind.startsWith('sk_crist')) { const col = ['#ff4a6a', '#4ad06a', '#4a8aff', '#ffd040'][+kind.slice(8) || 0], p = new Pix(18, 30), c = pal(['#1a1a2a', col, '#ffffff']);
+    p.poly([[9, 0], [16, 12], [12, 26], [6, 26], [2, 12]], c[1]); p.line(9, 1, 9, 24, c[2]); p.set(6, 10, c[2]); p.rect(4, 26, 10, 3, D('#5a5a70')); p.outline(D('#0a0a14')); return { c: p.canvas(), ax: 9, ay: 29, light: 1 }; }
+  if (kind === 'sk_podio') { const p = new Pix(46, 26), Mb = pal(['#8a8aa0', '#b8b8cc', '#dcdce8', '#f4f4fa']);
+    p.rect(16, 4, 14, 21, Mb[2]); p.rect(2, 10, 14, 15, Mb[1]); p.rect(30, 13, 14, 12, Mb[1]); p.hl(16, 4, 14, Mb[3]); p.set(22, 12, D('#ffd040')); p.set(23, 12, D('#ffd040')); p.set(8, 16, D('#c0c0d0')); p.set(36, 18, D('#c8783a'));
+    p.outline(D('#3a3a50')); return { c: p.canvas(), ax: 23, ay: 25, light: 0 }; }
+  if (kind === 'sk_arco') { const p = new Pix(40, 46), Gd = pal(['#7a5a0a', '#c8a020', '#ffd040', '#fff0a0']);
+    for (let a = 0; a < 6.3; a += 0.05) { const x = Math.round(20 + Math.cos(a) * 17), y = Math.round(22 + Math.sin(a) * 19); p.set(x, y, Gd[2]); p.set(x + 1, y, Gd[1]); } p.rect(18, 40, 4, 6, Gd[0]);
+    p.outline(D('#3a2a00')); return { c: p.canvas(), ax: 20, ay: 45, light: 1 }; }
+  return _ge(kind); }; }
+
+// ---------- construir los pueblos al crear el mapa del cielo ----------
+{ const _mk = makeSky; makeSky = function () { const fresh = !G.maps.cielo, M = _mk(); if (!fresh || M.v429) return M; M.v429 = 1; const I = M.I;
+  for (const T_ of CEL_TOWNS) { const [cx, cy] = T_.c, [rx, ry] = T_.r;
+    for (let y = cy - ry - 2; y <= cy + ry + 2; y++) for (let x = cx - rx - 3; x <= cx + rx + 3; x++) { if (x < 2 || y < 2 || x >= M.w - 2 || y >= M.h - 2) continue; const d = Math.hypot((x - cx) / rx, (y - cy) / ry) + (hash2(x >> 1, y >> 1, 77) - 0.5) * 0.15; if (d < 1) M.ter[I(x, y)] = T[d < 0.42 ? T_.plaza : T_.ter]; }
+    const put = (f, x, y, fp, o) => putNear(M, f, x, y, fp, o);
+    if (T_.k === 'cefira') { for (const [x, y] of [[-11, -4], [-4, -6], [5, -6], [11, -3], [-10, 4], [10, 4]]) put('sk_nido', cx + x, cy + y, [[-1, 0], [0, 0], [1, 0]]); put('sk_fuente', cx, cy + 1, [[-1, 0], [0, 0], [1, 0]]); }
+    if (T_.k === 'aurelia') { for (const [x, y] of [[-11, -4], [-4, -6], [4, -6], [11, -4], [-12, 4]]) put('sk_casa', cx + x, cy + y, [[-1, 0], [0, 0], [1, 0]]); put('sk_fuente', cx - 3, cy + 1, [[-1, 0], [0, 0], [1, 0]]); put('sk_podio', cx + 8, cy + 5, [[-1, 0], [0, 0], [1, 0]]); put('sk_arco', cx + 4, cy + 1, [[0, 0]], { solid: false }); for (const x of [-7, 7]) put('sk_estatua', cx + x, cy - 1, [[0, 0]]); }
+    if (T_.k === 'lumen') { for (const [x, y] of [[-10, -4], [10, -4], [-11, 4], [11, 4]]) put('sk_casa', cx + x, cy + y, [[-1, 0], [0, 0], [1, 0]]); put('sk_estatua', cx, cy - 6, [[0, 0]]);
+      [[-4, -2], [4, -2], [4, 3], [-4, 3]].forEach(([x, y], i) => put('sk_crist' + i, cx + x, cy + y, [[0, 0]], { xact: 'memcrys', mi: i })); }
+    for (let k = 0; k < 8; k++) { const a = k / 8 * 6.28 + 0.3; put('skycrystal', Math.round(cx + Math.cos(a) * rx * 0.75), Math.round(cy + Math.sin(a) * ry * 0.75), [[0, 0]], { skyc: 900 + k }); }
+    put('sk_runa', cx - 2, cy + ry - 3, [[0, 0]], { xact: 'riddle', rid: 'r_' + T_.k });
+    CEL_NPC.filter(n => n[1] === T_.k).forEach(([id], k, arr) => { const a = k / arr.length * 6.28 + 0.5; spawnNPC(id, Math.round(cx + Math.cos(a) * rx * 0.45) * 16 + 8, Math.round(cy + Math.sin(a) * ry * 0.45) * 16 + 8, 'cielo', { wander: 2, face: 'down' }); }); }
+  SKY_ISLES.forEach((S, k) => putNear(M, 'sk_runa', S.c[0] + 4, S.c[1] + Math.round(S.r * 0.55), [[0, 0]], { xact: 'riddle', rid: 'r_isla' + k }));
+  M.chunks = new Map(); M.wdist = null; return M; }; }
+// cartel al entrar en un pueblo
+function celTown(P) { if (!G.map || G.map.id !== 'cielo') return null; for (const T_ of CEL_TOWNS) if (Math.hypot((P.x / 16 - T_.c[0]) / T_.r[0], (P.y / 16 - T_.c[1]) / T_.r[1]) < 1) return T_; return null; }
+V33_TICKS.push(() => { const P = G.P; if (!P || !G.map) return; const t = celTown(P), k = t ? t.k : null; if (k !== (P._celT || null)) { P._celT = k; if (t) banner(t.n, L2('Islas del Cielo', 'Sky Isles')); } });
+// los monstruos no entran en los pueblos
+{ const _um = updateMob; updateMob = function (m, dt) { if (G.map && G.map.id === 'cielo' && !m.boss && G.P && celTown(G.P) && m.state === 'chase') { m.state = 'return'; } return _um(m, dt); }; }
+
+// ---------- beso francés: más largo, cerca y con las caras a la misma altura en cualquier cuerpo ----------
+const FACE_TOP = {};
+function atlasHeadTop(A) { if (!A) return 0; const k = A.img && (A.img.src || A.key || A.fw + 'x' + A.fh + ':' + A.idx.idle); if (FACE_TOP[k] !== undefined) return FACE_TOP[k];
+  let top = 0; try { const c = document.createElement('canvas'); c.width = A.fw; c.height = A.fh; const x = c.getContext('2d'); x.drawImage(A.img, (A.idx.idle || 0) * A.fw, 0, A.fw, A.fh, 0, 0, A.fw, A.fh); const d = x.getImageData(0, 0, A.fw, A.fh).data;
+    outer: for (let y = 0; y < A.fh; y++) for (let xx = 0; xx < A.fw; xx++) if (d[(y * A.fw + xx) * 4 + 3] > 40) { top = A.ay - y; break outer; } } catch (e) { top = 0; }
+  FACE_TOP[k] = top; return top; }
+function romKiss2(npc) { const k = relKey(npc.id), R = rel(k), P = G.P;
+  romScene(npc, 'kiss', () => { const fresh = cdLeft(R, 'ck2', 180) <= 0; if (fresh) { R.ck2 = Date.now(); addRel(k, 8, 30, npc.x, npc.y - 40); } P.z = 0; npc.z = 0;
+    for (let i = 0; i < 3; i++) setTimeout(() => burst((G.P.x + npc.x) / 2, npc.y - 26, 14, { sp: 50, up: 60, g: 20, life: 1.2, c: ['#ff4a7a', '#ff9ac0', '#ffffff'] }), i * 200);
+    toast(nick(k) + ': ' + pick([L2('Me tiemblan las piernas… ♥', 'My knees are shaking… ♥'), L2('No pares nunca ♥', 'Never stop ♥'), L2('Eso ha sido… otra cosa ♥', 'That was… something else ♥')]), 'loot', 4); });
+  const S = SCENE; if (!S) return; S.deep = 1; S.dur = 4.2;
+  // se acercan más y el más bajo se pone de puntillas hasta igualar la altura de las caras
+  const side = P.x < npc.x ? -1 : 1, px = npc.x + side * 13; if (!blockedFor(G.map, Math.floor(px / 16), Math.floor(npc.y / 16), P.L)) P.x = px;
+  const hp = atlasHeadTop(P.atlas) * (P.scale || 1), hn = atlasHeadTop(npc.atlas) * (npc.scale || 1), dh = Math.round(clamp(hp - hn, -8, 8)); S.zP = dh < 0 ? -dh : 0; S.zN = dh > 0 ? dh : 0; }
+{ const _us = sceneUpdate; sceneUpdate = function (dt) { const S = SCENE; if (S && S.deep) { const P = G.P, e = S.e, k = Math.min(1, S.t / 0.6); P.z = S.zP * k + Math.sin(S.t * 3) * 0.4; e.z = S.zN * k; if (S.t > S.dur - 0.05) { P.z = 0; e.z = 0; }
+    if (Math.random() < 0.08) part((P.x + e.x) / 2 + (Math.random() - 0.5) * 6, Math.min(P.y, e.y) - 28, { vz: 18, life: 0.9, c: '#ff8ab0', s: 2 }); } return _us(dt); }; }
+{ const _rm = romanceMenu; romanceMenu = function (npc, msg) { const so = setOpts; setOpts = function (opts) { const k = relKey(npc.id), R = rel(k); const i = opts.findIndex(o => o && typeof o.label === 'string' && /Dar un beso|Give a kiss/.test(o.label));
+      if (i >= 0) opts.splice(i + 1, 0, R.a >= 800 && R.t >= 600 ? { label: L2('Beso francés ♥', 'French kiss ♥'), icon: ['heart', '#ff3a6a'], fn: () => romKiss2(npc) } : { label: '<i class="lk">🔒</i> ' + L2('Beso francés', 'French kiss') + ' <small>· ' + L2('Amor 8 y Confianza 6', 'Love 8 and Trust 6') + '</small>', cls: 'locked', fn: () => typeText(L2('Todavía no…', 'Not yet…')) });
+      return so.apply(this, arguments); };
+    try { return _rm.apply(this, arguments); } finally { setOpts = so; } }; }
+
+// ---------- piedras de acertijos (una pregunta distinta cada día) ----------
+const SKY_RIDDLES = [
+  [L2('Cuanto más quitas, más grande me hago. ¿Qué soy?', 'The more you take, the bigger I get. What am I?'), [L2('Un agujero', 'A hole'), L2('Una sombra', 'A shadow'), L2('Una nube', 'A cloud')], 0],
+  [L2('Tengo alas pero no soy pájaro; tengo plumas pero no vuelo. ¿Qué soy?', 'I have wings but am no bird; feathers but I do not fly. What am I?'), [L2('Una almohada', 'A pillow'), L2('Un molino', 'A windmill'), L2('Un ángel dormido', 'A sleeping angel')], 0],
+  [L2('Vuela sin alas, llora sin ojos. ¿Qué es?', 'It flies without wings, cries without eyes. What is it?'), [L2('El viento', 'The wind'), L2('Una nube', 'A cloud'), L2('Una arpía triste', 'A sad harpy')], 1],
+  [L2('Todos me pisan y yo a nadie. Todos preguntan por mí y yo por nadie.', 'Everyone treads on me, I tread on no one. Everyone asks for me, I ask for no one.'), [L2('El suelo', 'The floor'), L2('El camino', 'The road'), L2('La alfombra', 'The rug')], 1],
+  [L2('Si me nombras, desaparezco. ¿Qué soy?', 'Say my name and I disappear. What am I?'), [L2('El silencio', 'Silence'), L2('Un secreto', 'A secret'), L2('La niebla', 'Fog')], 0],
+  [L2('Tiene dientes y no come, tiene cabeza y no es hombre.', 'It has teeth but does not eat, a head but is no man.'), [L2('Un ajo', 'Garlic'), L2('Un peine', 'A comb'), L2('Una llave', 'A key')], 0],
+  [L2('Cuanto más seco, más moja. ¿Qué es?', 'The drier it is, the wetter it gets. What is it?'), [L2('Una toalla', 'A towel'), L2('La arena', 'Sand'), L2('Una esponja', 'A sponge')], 0],
+  [L2('Brilla de día y de noche se esconde; si lo buscas en el cielo, nunca responde.', 'It shines by day and hides at night; look for it in the sky, it never answers.'), [L2('El sol', 'The sun'), L2('La luna', 'The moon'), L2('Una estrella', 'A star')], 0],
+  [L2('Me rompes sin tocarme y sin verme. ¿Qué soy?', 'You break me without touching or seeing me. What am I?'), [L2('Una promesa', 'A promise'), L2('El hielo', 'Ice'), L2('Un espejo', 'A mirror')], 0],
+  [L2('Subo y bajo sin moverme del sitio.', 'I go up and down without moving.'), [L2('La escalera', 'The stairs'), L2('La marea', 'The tide'), L2('Un globo', 'A balloon')], 0],
+  [L2('Tiene ojos y no ve, tiene agua y no la bebe.', 'It has eyes but cannot see, water but does not drink.'), [L2('Una patata', 'A potato'), L2('Un pozo', 'A well'), L2('Un pez', 'A fish')], 0],
+  [L2('Cien hermanas en una casa, todas con la misma cara y ninguna habla.', 'A hundred sisters in one house, all with the same face, none speaks.'), [L2('Las páginas de un libro', 'A book\'s pages'), L2('Las semillas de una granada', 'Pomegranate seeds'), L2('Los dientes', 'Teeth')], 1],
+  [L2('Nace en el cielo, vive en la tierra y muere en el mar.', 'Born in the sky, lives on land, dies in the sea.'), [L2('La lluvia', 'Rain'), L2('Un río', 'A river'), L2('Una pluma', 'A feather')], 0],
+  [L2('¿Qué cosa cuanto más grande es, menos se ve?', 'What is it that the bigger it gets, the less you see?'), [L2('La oscuridad', 'Darkness'), L2('La niebla', 'Fog'), L2('Un muro', 'A wall')], 0],
+];
+function riddleOf(o) { const d = calDay(), h = (o.rid || '').split('').reduce((a, c) => a * 31 + c.charCodeAt(0) | 0, 7); return SKY_RIDDLES[Math.abs(h + d * 7) % SKY_RIDDLES.length]; }
+XACT.riddle = [o => { const P = G.P; return (P.ridD || {})[o.rid] === calDay() ? L2('Acertijo resuelto hoy', 'Riddle solved today') : L2('Piedra de acertijos', 'Riddle stone'); }, ['book'], o => {
+  const P = G.P; P.ridD = P.ridD || {}; if (P.ridD[o.rid] === calDay()) { toast(L2('Vuelve mañana: la piedra cambia de pregunta cada día', 'Come back tomorrow: the stone changes its question every day'), 'info'); return; }
+  const [q, opts, ok] = riddleOf(o), order = [0, 1, 2].sort(() => Math.random() - 0.5);
+  openModal(`<h2>${L2('Piedra de acertijos', 'Riddle stone')}</h2><p class="lorep">«${esc(q)}»</p><div class="row wrap">${order.map(i => `<button class="btn" data-rd="${i}">${esc(opts[i])}</button>`).join('')}</div><p class="hint">${L2('Si fallas, la piedra se calla hasta mañana.', 'If you fail, the stone goes quiet until tomorrow.')}</p>`, 'party');
+  $$('[data-rd]').forEach(b => b.onclick = () => { closeModal(); P.ridD[o.rid] = calDay(); if (+b.dataset.rd === ok) { const lv = P.lv; P.gold += 5000 + lv * 120; giveItem('celestita', 3); gainXp(Math.round(xpToNext(lv) * 0.04)); P.ridN = (P.ridN || 0) + 1; sfx('quest'); burst(o.px, o.py - 20, 20, { sp: 60, up: 50, g: 40, life: 0.9, c: ['#8af0ff', '#ffffff'] }); toast(L2('¡Correcto! La piedra brilla. +oro, +3 Celestita, +experiencia', 'Correct! The stone glows. +gold, +3 Celestite, +experience'), 'quest', 4); }
+    else { sfx('hurt'); toast(L2('La piedra se apaga. Mañana tendrá otra pregunta.', 'The stone dims. Tomorrow it will ask something else.'), 'warn'); } markDirty(); }); }];
+
+// ---------- prueba de la memoria del Oráculo (Lumen): repite el orden en que brillan los cristales ----------
+let MEM = null;
+function memStart() { closeDialog(); const P = G.P; if (P.memD !== undefined && P.memD === calDay()) { toast(L2('Ya superaste la prueba hoy', 'You already passed the trial today'), 'info'); return; } MEM = { seq: [Math.floor(Math.random() * 4)], pos: 0, show: 0, t: 0, round: 1, flash: [0, 0, 0, 0] }; memShow(); }
+function memShow() { MEM.show = 1; MEM.t = 0; MEM.pos = 0; mgHud(`🔮 ${L2('Memoriza', 'Memorize')} · ${L2('Ronda', 'Round')} ${MEM.round}/5`); }
+V33_TICKS.push(dt => { if (!MEM) return; dt = dt || 0.016; for (let i = 0; i < 4; i++) MEM.flash[i] = Math.max(0, MEM.flash[i] - dt);
+  if (MEM.show) { MEM.t += dt; const step = Math.floor(MEM.t / 0.8); if (MEM.t % 0.8 < dt && step < MEM.seq.length) { MEM.flash[MEM.seq[step]] = 0.55; sfx('cast'); } if (step >= MEM.seq.length) { MEM.show = 0; mgHud(`🔮 ${L2('Toca los cristales en el mismo orden', 'Touch the crystals in the same order')} · ${MEM.pos}/${MEM.seq.length}`); } }
+  if (!G.map || G.map.id !== 'cielo' || (G.P && G.P.dead)) { MEM = null; mgHud(null); } });
+XACT.memcrys = [() => MEM && !MEM.show ? L2('Tocar el cristal', 'Touch the crystal') : L2('Cristal de la memoria', 'Memory crystal'), ['gem', '#8af0ff'], o => {
+  if (!MEM) { toast(L2('Habla con el Oráculo Vespera para empezar la prueba', 'Talk to Oracle Vespera to start the trial'), 'info'); return; } if (MEM.show) return;
+  MEM.flash[o.mi] = 0.4; if (MEM.seq[MEM.pos] !== o.mi) { sfx('hurt'); toast(L2('Ese no era. El Oráculo suspira: «Otra vez será».', 'Not that one. The Oracle sighs: "Another time."'), 'warn'); MEM = null; mgHud(null); return; }
+  MEM.pos++; sfx('hit'); if (MEM.pos < MEM.seq.length) { mgHud(`🔮 ${MEM.pos}/${MEM.seq.length}`); return; }
+  if (MEM.round >= 5) { const P = G.P; P.memD = calDay(); MEM = null; mgHud(null); P.gold += 30000 + P.lv * 200; giveItem('celestita', 8); gainXp(Math.round(xpToNext(P.lv) * 0.12)); sfx('level'); banner(L2('¡Prueba superada!', 'Trial passed!'), L2('El Oráculo te sonríe', 'The Oracle smiles at you')); markDirty(); return; }
+  MEM.round++; MEM.seq.push(Math.floor(Math.random() * 4)); setTimeout(() => MEM && memShow(), 600); }];
+WORLD_DRAW.push((cx, cy) => { if (!MEM || G.map.id !== 'cielo') return; for (const o of G.map.objs) { if (o.xact !== 'memcrys') continue; const a = MEM.flash[o.mi]; if (a <= 0) continue; ctx.drawImage(glowSprite(26, ['#ff4a6a', '#4ad06a', '#4a8aff', '#ffd040'][o.mi]), Math.round(o.px - cx - 26), Math.round(o.py - cy - 40)); } });
+
+// ---------- Carrera de Ángeles (oficio) ----------
+addJob('carrera', L2('Carrera de Ángeles', 'Angel Race'), 'wing', L2('Compite volando por los aros de Aurelia contra los ángeles más rápidos del cielo.', 'Race through the rings of Aurelia against the fastest angels in the sky.'),
+  { how: [L2('Habla con el Maestro Zéfiro en Aurelia (Islas del Cielo) y elige «Carrera». Pasa por los aros dorados en orden, dos vueltas. Cuanto mejor quedes, más experiencia.', 'Talk to Master Zephyr in Aurelia (Sky Isles) and choose "Race". Fly through the golden rings in order, two laps. The better you place, the more experience.'), ''], ben: [L2('Más velocidad, esquiva y oro; alas de carreras y títulos.', 'More speed, dodge and gold; racing wings and titles.'), ''],
+    find: () => ({ loc: [CEL_TOWNS[1].c[0], CEL_TOWNS[1].c[1] + 2], t: L2('Maestro Zéfiro · Aurelia', 'Master Zephyr · Aurelia'), m: 'cielo' }) },
+  [[3, 'En el cielo te mueves un 4 % más rápido', 'Move 4% faster in the sky', { skySpd: 4 }], [6, '+4 % de velocidad en la carrera', '+4% race speed', { raceB: 4 }], [10, '+2 % de esquiva', '+2% dodge', { dodge: 2 }], [15, '+3 % de velocidad en todas partes', '+3% speed everywhere', { spdP: 3 }],
+    [20, '+6 % de velocidad en la carrera', '+6% race speed', { raceB: 6 }], [25, '+5 % de oro de los enemigos', '+5% gold from enemies', { goldP: 5 }], [30, 'En el cielo te mueves un 6 % más rápido', 'Move 6% faster in the sky', { skySpd: 6 }],
+    [40, '+3 % de esquiva', '+3% dodge', { dodge: 3 }], [50, '+8 % de velocidad en la carrera y premio doble', '+8% race speed and double prize', { raceB: 8, raceP: 1 }], [60, '+4 % de velocidad en todas partes', '+4% speed everywhere', { spdP: 4 }]], ['wing', '#30c070']);
+JOB_GUIDE.carrera.how[1] = 'Talk to Master Zephyr in Aurelia (Sky Isles) and choose "Race". Fly through the golden rings in order, two laps.'; JOB_GUIDE.carrera.ben[1] = 'More speed, dodge and gold.';
+let RACE = null;
+function raceRings() { const [cx, cy] = CEL_TOWNS[1].c, n = 10; return Array.from({ length: n }, (_, i) => { const a = i / n * 6.28 - 1.57; return [(cx + Math.cos(a) * 23 + Math.sin(i * 1.7) * 2) * 16 + 8, (cy + Math.sin(a) * 16) * 16 + 8]; }); }
+function raceStart() { closeDialog(); const P = G.P, lv = (P.jobs.carrera || { lv: 1 }).lv; if (RACE) return; const rings = raceRings();
+  const [sx, sy] = rings[rings.length - 1]; P.x = sx; P.y = sy + 10; P.mount = null; calcStats(P);
+  const racers = ['au_rival1', 'au_rival2', 'au_rival3'].map((id, i) => { const e = { type: 'racer', id, def: NPCS[id], atlas: npcAtlas(id), x: sx + (i - 1) * 16, y: sy - 8 - i * 4, L: 0, map: 'cielo', dir: 'up', anim: 'walk', af: 0, at: 0, z: 6, noShadow: false, name: NPCS[id].n, ri: 0, lap: 0, spd: (82 + lv * 0.9 + i * 4) * (0.95 + Math.random() * 0.1) }; G.ents.push(e); return e; });
+  RACE = { rings, ri: 0, lap: 0, racers, t: -3, fin: [], laps: 2 }; banner(L2('¡Carrera de Ángeles!', 'Angel Race!'), L2('Pasa por los aros dorados · 2 vueltas', 'Fly through the golden rings · 2 laps')); calcStats(P); }
+function raceEnd(place) { const P = G.P, R = RACE; RACE = null; for (const e of R.racers) e.remove = true; mgHud(null); calcStats(P); if (!place) { toast(L2('Carrera abandonada', 'Race abandoned'), 'warn'); return; }
+  const xp = [0, 70, 45, 28, 14][place], dbl = jobPerkSum('raceP') ? 2 : 1, gold = [0, 40000, 22000, 12000, 5000][place] * dbl; gainJobXp('carrera', xp); P.gold += gold; if (place === 1) { giveItem('celestita', 4 * dbl); P.raceW = (P.raceW || 0) + 1; }
+  sfx(place === 1 ? 'level' : 'quest'); banner(place === 1 ? L2('¡Primer puesto!', 'First place!') : L2(`Puesto ${place}º`, `Place ${place}`), `+${fmt(gold)} ${L2('oro', 'gold')}`); markDirty(); }
+{ const _cs = calcStats; calcStats = function (P) { const r = _cs(P); if (RACE && P === G.P && P.S) P.S.spd *= 1.45 * (1 + jobPerkSum('raceB') / 100); return r; }; }
+V33_TICKS.push(dt => { const R = RACE; if (!R) return; dt = dt || 0.016; const P = G.P; if (!G.map || G.map.id !== 'cielo' || P.dead) { raceEnd(0); return; } R.t += dt; const N = R.rings.length;
+  if (R.t < 0) { mgHud(`🏁 ${Math.ceil(-R.t)}…`); P.rootT = 0.1; return; }
+  if (R.t > 150) { raceEnd(0); return; }
+  const [rx, ry] = R.rings[R.ri]; if (dist2(P.x, P.y, rx, ry) < 24 * 24) { R.ri++; sfx('coin'); burst(rx, ry - 10, 10, { sp: 50, up: 30, g: 0, life: 0.5, c: ['#ffd040', '#ffffff'] }); if (R.ri >= N) { R.ri = 0; R.lap++; if (R.lap >= R.laps) { raceEnd(R.fin.length + 1); return; } } }
+  for (const e of R.racers) { if (e.done) continue; const [tx, ty] = R.rings[e.ri], dx = tx - e.x, dy = ty - e.y, L = Math.hypot(dx, dy); const sp = e.spd * (1 + Math.sin(R.t * 0.7 + e.spd) * 0.08);
+    if (L < 10) { e.ri++; if (e.ri >= N) { e.ri = 0; e.lap++; if (e.lap >= R.laps) { e.done = 1; R.fin.push(e); } } } else { e.x += dx / L * sp * dt; e.y += dy / L * sp * dt; e.dir = dirFromVec(dx, dy); } e.z = 6 + Math.sin(R.t * 4 + e.spd) * 2; stepAnim(e, dt, 10); }
+  const prog = e => (e.lap * N + e.ri) * 10000 - Math.hypot(R.rings[e.ri][0] - e.x, R.rings[e.ri][1] - e.y), me = prog({ lap: R.lap, ri: R.ri, x: P.x, y: P.y }), pos = 1 + R.racers.filter(e => e.done || prog(e) > me).length;
+  mgHud(`🏁 ${L2('Vuelta', 'Lap')} ${R.lap + 1}/${R.laps} · ${L2('Aro', 'Ring')} ${R.ri + 1}/${N} · <b>${pos}º</b> · ${Math.floor(R.t)} s`); });
+WORLD_DRAW.push((cx, cy) => { const R = RACE; if (!R) return; R.rings.forEach(([x, y], i) => { const next = i === R.ri, k = next ? 1 + Math.sin(G.t * 8) * 0.12 : 0.85; ctx.strokeStyle = next ? '#ffe070' : 'rgba(255,208,64,0.35)'; ctx.lineWidth = next ? 3 : 2; ctx.beginPath(); ctx.ellipse(Math.round(x - cx), Math.round(y - cy - 14), 9 * k, 15 * k, 0, 0, 7); ctx.stroke(); }); });
+{ const _de = drawEnt; drawEnt = function (e, cx, cy) { if (e.type === 'racer') { if (e.map !== G.map.id) return; drawAngelWings(e, cx, cy, false, 1); } return _de(e, cx, cy); }; }
+
+// ---------- Olimpiadas Angelicales (oficio): Tiro celeste y Lluvia de plumas ----------
+addJob('olimpiadas', L2('Olimpiadas Angelicales', 'Angelic Olympics'), 'ring', L2('Pruebas diarias de puntería y reflejos en el estadio de Aurelia. Medallas de oro, plata y bronce.', 'Daily aim and reflex events at the Aurelia stadium. Gold, silver and bronze medals.'),
+  { how: [L2('Habla con la Árbitra Olimpia en Aurelia. «Tiro celeste»: rompe las dianas que aparecen (30 s). «Lluvia de plumas»: ponte debajo de las plumas que caen (las doradas valen 3).', 'Talk to Referee Olympia in Aurelia. "Celestial Shot": break the targets that appear (30 s). "Feather Rain": stand under falling feathers (gold ones are worth 3).'), ''], ben: [L2('Ataque, crítico, vida y experiencia extra; medallas.', 'Attack, crit, HP and extra experience; medals.'), ''],
+    find: () => ({ loc: [CEL_TOWNS[1].c[0] + 6, CEL_TOWNS[1].c[1] + 4], t: L2('Árbitra Olimpia · Aurelia', 'Referee Olympia · Aurelia'), m: 'cielo' }) },
+  [[3, '+1 % de crítico', '+1% crit', { crit: 1 }], [6, '+2 % de ataque', '+2% attack', { atkP: 2 }], [10, '+3 % de experiencia', '+3% experience', { xpP: 3 }], [15, '+3 % de vida', '+3% HP', { hpP: 3 }], [20, '+2 s en cada prueba', '+2 s per event', { olyT: 2 }],
+    [25, '+2 % de crítico', '+2% crit', { crit: 2 }], [30, '+3 % de ataque', '+3% attack', { atkP: 3 }], [40, '+4 % de experiencia', '+4% experience', { xpP: 4 }], [50, '+4 % de vida y defensa', '+4% HP and defence', { hpP: 4, defP: 4 }], [60, 'Medallas con premio doble', 'Medals give double prize', { olyP: 1 }]], ['ring', 3]);
+JOB_GUIDE.olimpiadas.how[1] = 'Talk to Referee Olympia in Aurelia: "Celestial Shot" and "Feather Rain".'; JOB_GUIDE.olimpiadas.ben[1] = 'Attack, crit, HP and extra experience; medals.';
+MOBS.diana_celeste = { n: L2('Diana celeste', 'Celestial target'), art: ['bst', 'wisp', ['#7a5a0a', '#d8a820', '#ffe070', '#ffffff'], 0.8], reg: [], lv: [1, 1], hp: 0.05, atk: 0, def: 0, spd: 0, ai: 'passive', drops: [] };
+let OLY = null;
+function olyStart(ev) { closeDialog(); const P = G.P; if (OLY || RACE) return; P.olyD = P.olyD || {}; if (P.olyD[ev] === calDay()) { toast(L2('Esa prueba ya la hiciste hoy. ¡Vuelve mañana!', 'You already did that event today. Come back tomorrow!'), 'info'); return; }
+  const [cx, cy] = CEL_TOWNS[1].c; OLY = { ev, t: -3, dur: 30 + jobPerkSum('olyT'), score: 0, cx: (cx + 6) * 16, cy: (cy + 1) * 16, items: [], sp: 0 }; P.x = OLY.cx; P.y = OLY.cy + 30; banner(ev === 'tiro' ? L2('Tiro celeste', 'Celestial Shot') : L2('Lluvia de plumas', 'Feather Rain'), L2('¡Prepárate!', 'Get ready!')); }
+function olyEnd() { const O = OLY, P = G.P; OLY = null; mgHud(null); for (const m of G.ents) if (m.oly) m.remove = true; P.olyD[O.ev] = calDay();
+  const th = O.ev === 'tiro' ? [14, 9, 5] : [22, 15, 8], med = O.score >= th[0] ? 1 : O.score >= th[1] ? 2 : O.score >= th[2] ? 3 : 0, dbl = jobPerkSum('olyP') ? 2 : 1;
+  const xp = [8, 80, 50, 30][med]; gainJobXp('olimpiadas', xp); const gold = [2000, 35000, 20000, 10000][med] * dbl; P.gold += gold; if (med) { P.medals = P.medals || [0, 0, 0]; P.medals[med - 1]++; if (med === 1) giveItem('celestita', 3 * dbl); }
+  sfx(med ? 'level' : 'quest'); banner(med ? [L2('¡Medalla de oro!', 'Gold medal!'), L2('Medalla de plata', 'Silver medal'), L2('Medalla de bronce', 'Bronze medal')][med - 1] : L2('Sin medalla', 'No medal'), `${L2('Puntos', 'Points')}: ${O.score} · +${fmt(gold)} ${L2('oro', 'gold')}`); markDirty(); }
+{ const _km = killMob; killMob = function (m) { if (m && m.oly) { m.xp = 0; m.gold = 0; if (OLY) { OLY.score++; floatText(m.x, m.y - 30, '+1', '#ffe070', true); } m.dying = 0.001; m.hp = 0; setAnim(m, 'hurt'); sfx('coin'); burst(m.x, m.y - 10, 10, { sp: 60, up: 30, g: 60, life: 0.5, c: ['#ffe070', '#ffffff'] }); return; } return _km.apply(this, arguments); }; }
+V33_TICKS.push(dt => { const O = OLY; if (!O) return; dt = dt || 0.016; const P = G.P; if (!G.map || G.map.id !== 'cielo' || P.dead) { OLY = null; mgHud(null); return; } O.t += dt;
+  if (O.t < 0) { mgHud(`🏅 ${Math.ceil(-O.t)}…`); return; } if (O.t >= O.dur) { olyEnd(); return; } mgHud(`🏅 ${L2('Puntos', 'Points')}: <b>${O.score}</b> · ${Math.ceil(O.dur - O.t)} s`);
+  O.sp -= dt; if (O.ev === 'tiro') { if (O.sp <= 0) { O.sp = 1.1; const m = spawnMob('diana_celeste', 1, O.cx + (Math.random() - 0.5) * 150, O.cy + (Math.random() - 0.5) * 80, 0, null); if (m) { m.oly = 1; m.state = 'dummy'; m.life = 3; m.z = 8; } }
+    for (const m of G.ents) if (m.oly && !m.dying) { m.life -= dt; if (m.life <= 0) m.remove = true; } }
+  else { if (O.sp <= 0) { O.sp = 0.55; O.items.push({ x: O.cx + (Math.random() - 0.5) * 170, y: O.cy + (Math.random() - 0.5) * 90, z: 90, g: Math.random() < 0.15 }); }
+    for (const f of O.items) { f.z -= 38 * dt; if (f.z < 12 && !f.got && dist2(f.x, f.y, P.x, P.y) < 16 * 16) { f.got = 1; O.score += f.g ? 3 : 1; floatText(f.x, f.y - 20, f.g ? '+3' : '+1', '#ffe070'); sfx('coin'); } } O.items = O.items.filter(f => !f.got && f.z > 0); } });
+WORLD_DRAW.push((cx, cy) => { const O = OLY; if (!O || O.ev !== 'plumas') return; for (const f of O.items) { const x = Math.round(f.x - cx), y = Math.round(f.y - cy - f.z), sw = Math.round(Math.sin(G.t * 5 + f.x) * 3);
+  ctx.fillStyle = 'rgba(0,0,0,0.25)'; ctx.beginPath(); ctx.ellipse(Math.round(f.x - cx), Math.round(f.y - cy), 4, 2, 0, 0, 7); ctx.fill(); ctx.fillStyle = f.g ? '#ffd040' : '#ffffff'; ctx.beginPath(); ctx.ellipse(x + sw, y, 2.5, 6, 0.5, 0, 7); ctx.fill(); ctx.fillStyle = f.g ? '#a07a10' : '#a0b0c8'; ctx.fillRect(x + sw, y - 5, 1, 10); } });
+
+// ---------- diálogos de los vecinos de Celestia ----------
+DLG_HOOKS.push((npc, opts) => {
+  if (npc.id === 'au_zefiro') opts.unshift({ label: L2('Carrera de Ángeles', 'Angel Race') + ` (${L2('Nv.', 'Lv.')} ${(G.P.jobs.carrera || { lv: 1 }).lv})`, icon: ['wing', '#30c070'], fn: raceStart });
+  if (npc.id === 'au_olimpia') { opts.unshift({ label: L2('Olimpiadas: Lluvia de plumas', 'Olympics: Feather Rain'), icon: ['ring', 3], fn: () => olyStart('plumas') }); opts.unshift({ label: L2('Olimpiadas: Tiro celeste', 'Olympics: Celestial Shot'), icon: ['ring', 3], fn: () => olyStart('tiro') });
+    const m = G.P.medals; if (m) opts.push({ label: `🥇 ${m[0]} · 🥈 ${m[1]} · 🥉 ${m[2]}`, fn: () => typeText(L2('Tus medallas de las Olimpiadas Angelicales.', 'Your Angelic Olympics medals.')) }); }
+  if (npc.id === 'lu_vespera') opts.unshift({ label: L2('Prueba de la memoria', 'Memory trial'), icon: ['gem', '#8af0ff'], fn: memStart });
+});
+// en la lupa: los pueblos del cielo como lugar con flecha
+if (typeof SECRETS !== 'undefined') for (const T_ of CEL_TOWNS) SECRETS.push({ id: 'cel_' + T_.k, n: T_.n, done: P => (P.celSeen || []).includes(T_.k), steps: [L2('Un pueblo de las Islas del Cielo. Llega en la aeronave (ingeniera de Puerto Coral, nivel 200) y vuela hasta él.', 'A town on the Sky Isles. Take the airship (engineer in Puerto Coral, level 200) and fly there.')], hints: [], where: () => ({ loc: [T_.c[0], T_.c[1] + 2], m: 'cielo', t: T_.n }), avail: P => P.lv >= 200 });
+V33_TICKS.push(() => { const P = G.P; if (!P || !P._celT) return; P.celSeen = P.celSeen || []; if (!P.celSeen.includes(P._celT)) { P.celSeen.push(P._celT); markDirty(); } });
+SAVEKEYS.push('ridD', 'ridN', 'memD', 'raceW', 'olyD', 'medals', 'celSeen');
+
+// ================= v4.29: EL ARCHIPIÉLAGO VIVO — Puerto Esmeralda, isleños, bikinis, Surf y Arte (oficios nuevos),
+// la Ciudad Perdida de Ixtal (puzle de estatuas) con dos mazmorras de nivel 300 y experiencia revisada =================
+
+// ---------- experiencia: del 251 al 350 hacían falta ~70 enemigos por nivel (antes ~50); ahora ~50 en todo el juego ----------
+{ const _ms = mobStats; mobStats = function (def, lv, boss) { const s = _ms.apply(this, arguments); if (!boss && lv > 250) s.xp = Math.floor(s.xp * 1.4); return s; }; }
+
+// ---------- bikini: usa el tipo «swim» con bik: 1 (piel en el vientre, top y braguita del color) ----------
+fitKind('body', 'swim', (p, A, s) => { if (!s.bik || !A.sk) return; const { tx0, tw, torsoTop: ty, th, side, up, cx } = A, SKc = A.sk, R = tx0 + tw - 1, m = s.m, top0 = ty + 1, top1 = ty + Math.max(2, Math.round(th * 0.32)), bot0 = ty + th - 2;
+  for (let y = ty; y < ty + th; y++) for (let x = tx0; x <= R; x++) { if (!uA(p.get(x, y))) continue;
+    if (y >= bot0) p.set(x, y, m[y === bot0 ? 3 : 2]);
+    else if (y >= top0 && y <= top1 && (!up || y === top0 + 1)) p.set(x, y, m[y === top0 ? 3 : 2]);
+    else p.set(x, y, SKc[x === tx0 || x === R ? 1 : 2]); }
+  if (!up && !side) { p.set(cx - 1, top1, m[1]); p.set(cx, top1, SKc[1]); p.set(cx - 1, ty + Math.round(th * 0.62), SKc[1]); }
+  if (!up) for (let x = tx0 + 1; x < R; x += 3) p.set(x, bot0, m[4]); }, { skin: true });
+const BIKINIS = [['c_bikini_rojo', L2('Bikini Rojo', 'Red Bikini'), CLOTH.rojo], ['c_bikini_azul', L2('Bikini Azul', 'Blue Bikini'), CLOTH.azul], ['c_bikini_flores', L2('Bikini de Flores', 'Flower Bikini'), P5(['#8a1a4a', '#d0306a', '#ff6a9a', '#ffd040', '#fff4b0'])], ['c_bikini_negro', L2('Bikini Negro', 'Black Bikini'), CLOTH.negro], ['c_bikini_blanco', L2('Bikini Blanco', 'White Bikini'), CLOTH.blanco]];
+for (const [id, n, col] of BIKINIS) cosm(id, n, 'body', () => ({ k: 'swim', bik: 1, m: col, s: col }), { src: L2('Ailani · Puerto Esmeralda', 'Ailani · Emerald Port') });
+const BEACH_SHOP = [...BIKINIS.map(b => [b[0], 12000]), ['c_hawaiana', 9000], ['c_hawaiana_roja', 9000], ['c_bermuda', 7000], ['c_pareo', 7000], ['c_banador', 8000], ['c_banador_rojo', 8000]];
+
+// ---------- dibujos del archipiélago ----------
+{ const _ge = genFurn2; genFurn2 = function (kind) { const D = s => C(s);
+  if (kind === 'ar_cabana') { const p = new Pix(52, 48), W = pal(['#3a2410', '#6a4420', '#9a6a3a', '#c89a5a']), Th = pal(['#6a5a1a', '#a8902a', '#d8c050', '#f8e890']);
+    p.rect(8, 22, 36, 25, W[2]); for (let x = 9; x < 44; x += 4) p.vl(x, 22, 25, W[1]); p.rect(4, 44, 44, 3, W[1]);
+    p.poly([[0, 24], [26, 2], [52, 24]], Th[1]); for (let y = 6; y < 24; y += 3) for (let x = 26 - (y - 2); x < 26 + (y - 2); x += 2) p.set(x, y, Th[(x + y) % 3 + 1]); p.hl(0, 24, 52, Th[0]);
+    p.rect(21, 30, 10, 14, D('#2a1408')); p.rect(11, 29, 7, 6, D('#8ad0ff')); p.rect(34, 29, 7, 6, D('#8ad0ff')); for (const x of [6, 46]) { p.vl(x, 24, 22, W[0]); p.set(x, 30, D('#ff5a7a')); p.set(x, 34, D('#ffd040')); }
+    p.outline(D('#1a0e06')); return { c: p.canvas(), ax: 26, ay: 47, light: 0 }; }
+  if (kind === 'ar_palma') { const p = new Pix(40, 60), Tr = pal(['#4a2a10', '#7a4a20', '#a8703a']), L_ = pal(['#0a3a1a', '#1a6a2a', '#3a9a3a', '#7ad05a']);
+    for (let y = 18; y < 60; y++) { const x = Math.round(20 + Math.sin(y / 9) * 3); p.hl(x - 2, y, 4, Tr[(y % 4 === 0) ? 0 : 1]); p.set(x - 2, y, Tr[2]); }
+    for (let k = 0; k < 7; k++) { const a = k / 7 * 6.28 + 0.4; for (let r = 0; r < 17; r++) { const x = Math.round(21 + Math.cos(a) * r), y = Math.round(16 + Math.sin(a) * r * 0.55 + r * r * 0.025); p.set(x, y, L_[r < 4 ? 1 : 2]); p.set(x, y + 1, L_[1]); if (r % 3 === 0) p.set(x, y - 1, L_[3]); } }
+    p.ball(19, 19, 2, 2, [D('#3a2410'), D('#6a4420'), D('#8a5a2a'), D('#a8703a')]); p.ball(23, 20, 2, 2, [D('#3a2410'), D('#6a4420'), D('#8a5a2a'), D('#a8703a')]); p.outline(D('#0a1a0a')); return { c: p.canvas(), ax: 20, ay: 59, light: 0 }; }
+  if (kind === 'ar_tiki') { const p = new Pix(14, 40), W = pal(['#3a2410', '#6a4420', '#9a6a3a']); p.rect(5, 12, 4, 28, W[1]); p.vl(6, 12, 28, W[2]); p.rect(3, 8, 8, 5, W[0]);
+    p.ball(7, 5, 3, 4, [D('#c02a0a'), D('#ff6a1a'), D('#ffc040'), D('#fff0a0')]); p.outline(D('#1a0e06')); return { c: p.canvas(), ax: 7, ay: 39, light: 1 }; }
+  if (kind === 'ar_galeria') { const p = new Pix(62, 56), Wl = pal(['#8a6a4a', '#c8a07a', '#e8c8a0', '#fff0d8']);
+    p.rect(4, 18, 54, 37, Wl[2]); p.hl(4, 18, 54, Wl[3]); p.rect(2, 12, 58, 7, D('#c02a4a')); for (let x = 2; x < 60; x += 6) p.rect(x, 12, 3, 7, D('#ffffff'));
+    p.rect(26, 38, 10, 17, D('#3a2410')); for (const [x, c] of [[8, '#4a8aff'], [16, '#ffd040'], [40, '#ff5a7a'], [48, '#5ad06a']]) { p.rect(x, 24, 7, 9, D('#5a3a1a')); p.rect(x + 1, 25, 5, 7, D(c)); p.set(x + 2, 27, D('#ffffff')); }
+    p.rect(18, 4, 26, 8, D('#2a1a10')); for (let x = 20; x < 42; x += 3) p.set(x, 8, D(['#ff5a7a', '#ffd040', '#4a8aff', '#5ad06a'][x % 4])); p.outline(D('#1a0e06')); return { c: p.canvas(), ax: 31, ay: 55, light: 1 }; }
+  if (kind === 'ar_surf') { const p = new Pix(44, 40), W = pal(['#3a2410', '#6a4420', '#9a6a3a']); p.rect(2, 30, 40, 4, W[1]); for (const x of [4, 40]) p.rect(x - 1, 8, 3, 32, W[0]);
+    [['#ff5a3a', '#ffd040'], ['#3a8aff', '#ffffff'], ['#5ad06a', '#ffd040'], ['#ff8ad0', '#ffffff']].forEach(([a, b], k) => { const x = 9 + k * 8; p.ell(x, 18, 3, 14, D(a)); p.vl(x, 6, 24, D(b)); }); p.outline(D('#1a0e06')); return { c: p.canvas(), ax: 22, ay: 39, light: 0 }; }
+  if (kind === 'ar_puesto') { const p = new Pix(40, 38), W = pal(['#3a2410', '#6a4420', '#9a6a3a']); p.rect(4, 20, 32, 16, W[2]); p.hl(4, 20, 32, W[1]); for (const x of [5, 34]) p.rect(x, 6, 2, 16, W[0]);
+    p.rect(2, 2, 36, 6, D('#ffd040')); for (let x = 2; x < 38; x += 6) p.rect(x, 2, 3, 6, D('#ff5a3a')); for (let k = 0; k < 6; k++) p.ball(9 + k * 4, 18, 2, 2, [D('#7a0a0a'), D(['#ff3a2a', '#ffd040', '#5ad06a'][k % 3]), D('#ffffff'), D('#ffffff')]); p.outline(D('#1a0e06')); return { c: p.canvas(), ax: 20, ay: 37, light: 0 }; }
+  if (kind === 'ar_templo') { const p = new Pix(76, 70), S = pal(['#1a2a1a', '#2a4a2a', '#4a6a3a', '#7a9a5a', '#b0c890']);
+    for (let k = 0; k < 4; k++) { const w = 70 - k * 14, y = 66 - k * 12; p.rect(38 - w / 2, y - 12, w, 12, S[1 + (k % 2)]); p.hl(38 - w / 2, y - 12, w, S[3]); for (let x = 38 - w / 2 + 2; x < 38 + w / 2 - 2; x += 5) p.set(x, y - 6, S[0]); }
+    p.rect(30, 46, 16, 20, D('#0a0a0a')); p.ell(38, 46, 8, 5, D('#0a0a0a')); for (let k = 0; k < 6; k++) p.set(31 + k * 3, 45, D('#ffd040'));
+    for (let a = 0; a < 6.28; a += 0.4) p.set(Math.round(38 + Math.cos(a) * 6), Math.round(14 + Math.sin(a) * 5), D('#ffd040')); p.ball(38, 14, 3, 3, [D('#c07a0a'), D('#ffd040'), D('#fff0a0'), D('#ffffff')]);
+    for (let k = 0; k < 40; k++) p.set(4 + Math.floor(hash2(k, 3, 9) * 68), 20 + Math.floor(hash2(k, 4, 9) * 46), D(k % 2 ? '#2a6a2a' : '#4a9a3a')); p.outline(D('#050a05')); return { c: p.canvas(), ax: 38, ay: 69, light: 0 }; }
+  if (kind.startsWith('ar_estatua')) { const v = +kind.slice(10) || 0, p = new Pix(22, 40), S = pal(['#2a3a2a', '#4a6a4a', '#7a9a6a', '#a8c890']); p.rect(3, 30, 16, 9, S[1]); p.hl(3, 30, 16, S[3]);
+    p.rect(7, 10, 8, 20, S[2]); p.ball(11, 8, 5, 5, S.concat([S[3]]).slice(0, 4)); const g = D('#ffd040'), dx = [0, 1, 0, -1][v], dy = [-1, 0, 1, 0][v];
+    if (v === 2) { p.set(9, 8, g); p.set(13, 8, g); p.hl(10, 11, 3, D('#1a2a1a')); } else if (v === 0) { p.hl(8, 6, 7, S[0]); } else { p.set(11 + dx * 3, 8, g); p.set(11 + dx * 5, 9, S[3]); }
+    p.line(11, 30, 11 + dx * 8, 34 + dy * 3, g); p.set(11 + dx * 8, 34 + dy * 3, D('#ffffff')); p.outline(D('#050a05')); return { c: p.canvas(), ax: 11, ay: 39, light: 0 }; }
+  if (kind === 'ar_tablilla') { const p = new Pix(24, 26), S = pal(['#2a3a2a', '#4a6a4a', '#7a9a6a', '#a8c890']); p.rect(2, 2, 20, 22, S[1]); p.hl(2, 2, 20, S[3]); for (let y = 6; y < 22; y += 3) for (let x = 5; x < 20; x += 2) if (hash2(x, y, 5) < 0.6) p.set(x, y, D('#ffd040'));
+    p.outline(D('#050a05')); return { c: p.canvas(), ax: 12, ay: 25, light: 1 }; }
+  if (kind === 'ar_escalera') { const p = new Pix(34, 26); for (let k = 0; k < 5; k++) { p.rect(2 + k * 2, 4 + k * 4, 30 - k * 4, 4, D(['#7a6a4a', '#5a4a3a', '#3a2e24', '#241c16', '#120c08'][k])); } p.outline(D('#050505')); return { c: p.canvas(), ax: 17, ay: 25, light: 0 }; }
+  if (kind === 'ar_salida') { const p = new Pix(30, 40); p.ell(15, 22, 12, 17, D('#ffd040')); p.ell(15, 22, 10, 15, D('#fff4c0')); p.ell(15, 22, 7, 12, D('#ffffff')); p.outline(D('#5a3a00')); return { c: p.canvas(), ax: 15, ay: 39, light: 1 }; }
+  if (kind === 'ar_antorcha') { const p = new Pix(10, 30); p.rect(4, 10, 2, 20, D('#3a2410')); p.ball(5, 6, 3, 4, [D('#c02a0a'), D('#ff6a1a'), D('#ffc040'), D('#fff0a0')]); p.outline(D('#1a0e06')); return { c: p.canvas(), ax: 5, ay: 29, light: 1 }; }
+  return _ge(kind); }; }
+
+// ---------- isleños de Puerto Esmeralda (dibujados como héroes: bikinis, camisas hawaianas, bermudas) ----------
+const ISL_APP = {
+  ar_maile: [{ g: 'f', skin: 3, hair: 'negro', hs: 3, eyes: 'cafe' }, { body: 'c_bikini_rojo', legs: 'c_pareo' }],
+  ar_noa: [{ g: 'f', skin: 2, hair: 'castano', hs: 6, eyes: 'verde' }, { body: 'c_bikini_azul', legs: 'c_bermuda' }],
+  ar_ailani: [{ g: 'f', skin: 3, hair: 'rubio', hs: 1, eyes: 'azul' }, { body: 'c_bikini_flores', legs: 'c_pareo' }],
+  ar_leilani: [{ g: 'f', skin: 4, hair: 'negro', hs: 9, eyes: 'cafe' }, { body: 'c_bikini_blanco', legs: 'c_pareo' }],
+  ar_kai: [{ g: 'm', skin: 3, hair: 'rubio', hs: 2, eyes: 'azul' }, { body: 'c_hawaiana', legs: 'c_bermuda' }],
+  ar_keoni: [{ g: 'm', skin: 4, hair: 'negro', hs: 4, eyes: 'cafe' }, { body: 'c_hawaiana_roja', legs: 'c_bermuda' }],
+  ar_mano: [{ g: 'm', skin: 3, hair: 'blanco', hs: 1, eyes: 'cafe' }, { body: 'c_hawaiana', legs: 'c_bermuda' }],
+  ar_iolana: [{ g: 'f', skin: 2, hair: 'rosa', hs: 5, eyes: 'violeta' }, { body: 'c_bikini_negro', legs: 'c_bermuda' }],
+};
+{ const _na = npcAtlas; npcAtlas = function (id) { const D = ISL_APP[id]; if (D) return getAtlas('ISL' + id, () => { const L = heroLook('guerrero', D[0], { weapon: 0 }, D[1], {}); L.weapon = null; return buildHeroAtlas(L); }); return _na.apply(this, arguments); }; }
+const ISLV = (o) => LK(Object.assign({ outfit: 'tunic', skin: SKINS[3], main: P5(['#0a3a5a', '#165a8a', '#2a7ab8', '#4a9ad8', '#8ac8ff']) }, o));
+const ARCHI_NPC = [
+  ['ar_maile', 'Maile', L2('La surfista', 'The surfer'), ISLV({ g: 'f', hair: HAIRS.negro, hairStyle: 'long', skin: SKINS[3] }),
+    [L2('El mar de aquí no perdona, pero tampoco guarda rencor. Si te tira, mañana te vuelve a recibir.', 'The sea here does not forgive, but it does not hold grudges either. If it throws you, tomorrow it welcomes you back.'), L2('Kai dice que surfeo mejor que él. Kai miente fatal.', 'Kai says I surf better than him. Kai is a terrible liar.')]],
+  ['ar_noa', 'Noa', L2('Pintora del puerto', 'Port painter'), ISLV({ g: 'f', hair: HAIRS.castano, hairStyle: 'long', skin: SKINS[2] }),
+    [L2('Pinto lo que veo y lo que me cuentan. Lo que me cuentan se vende mejor.', 'I paint what I see and what I am told. What I am told sells better.'), L2('Los turistas del galeón compran cuadros de casi todo. Una vez vendí un cuadro de una piedra por mil monedas.', 'Galleon tourists buy paintings of almost anything. Once I sold a painting of a rock for a thousand coins.')]],
+  ['ar_ailani', 'Ailani', L2('Ropa de playa', 'Beachwear'), ISLV({ g: 'f', hair: HAIRS.rubio, hairStyle: 'long', skin: SKINS[3] }),
+    [L2('Con esa armadura te vas a cocer. Prueba algo con más… brisa.', 'You will boil in that armour. Try something with more… breeze.')]],
+  ['ar_leilani', 'Leilani', L2('Tejedora de collares', 'Necklace weaver'), ISLV({ g: 'f', hair: HAIRS.negro, hairStyle: 'long', skin: SKINS[4] }),
+    [L2('Las mejores perlas no están en las ostras de la orilla: están abajo, en el Fondo Marino, dentro de las almejas gigantes.', 'The best pearls are not in shore oysters: they are down on the Seabed, inside the giant clams.'), L2('Una perla dorada da suerte. Tres, te dan un collar. Mil, te dan problemas.', 'One golden pearl brings luck. Three make a necklace. A thousand bring trouble.')]],
+  ['ar_kai', 'Kai', L2('Maestro de surf', 'Surf master'), ISLV({ hair: HAIRS.rubio, skin: SKINS[3] }),
+    [L2('La ola no se doma. Se convence. Le enseñas que vas a ir a donde ella vaya, y te deja subir.', 'You do not tame a wave. You convince it. You show it you will go wherever it goes, and it lets you ride.')]],
+  ['ar_keoni', 'Keoni', L2('Cuentacuentos', 'Storyteller'), ISLV({ hair: HAIRS.negro, skin: SKINS[4] }),
+    [L2('Antes de las cinco islas hubo una sola: Ixtal, el Reino del Sol. Su rey quiso que nunca anocheciera… y el mar se lo tragó para darle sombra.', 'Before the five islands there was only one: Ixtal, the Kingdom of the Sun. Its king wanted night never to fall… and the sea swallowed it to give it shade.'), L2('Al sur del puerto asoma la punta del templo. Dicen que cuatro guardianes de piedra miran hacia donde no deben.', 'South of the port the tip of the temple peeks out. They say four stone guardians are looking where they should not.')]],
+  ['ar_mano', L2('Abuelo Mano', 'Grandpa Mano'), L2('El más viejo del puerto', 'Oldest in the port'), ISLV({ hair: HAIRS.blanco, skin: SKINS[3], beard: HAIRS.blanco }),
+    [L2('Mi abuelo bajó a Ixtal una vez. Volvió con oro en los bolsillos y sin ganas de hablar. Solo repetía: «el sol nace, el mar duerme, el día muere, la estrella no se mueve».', 'My grandfather went down to Ixtal once. He came back with gold in his pockets and no wish to talk. He only repeated: "the sun rises, the sea sleeps, the day dies, the star does not move".'), L2('Puerto Esmeralda era un pueblo de pescadores. Ahora vienen héroes, turistas y gente rara del cielo. A mí me gusta.', 'Emerald Port was a fishing village. Now heroes, tourists and odd sky folk come. I like it.')]],
+  ['ar_iolana', 'Iolana', L2('Socorrista', 'Lifeguard'), ISLV({ g: 'f', hair: HAIRS.rosa, hairStyle: 'long', skin: SKINS[2] }),
+    [L2('Si te ahogas, silba. Si no sabes silbar, ahógate más fuerte, que yo te oigo.', 'If you are drowning, whistle. If you cannot whistle, drown louder, I will hear you.')]],
+];
+for (const [id, n, title, look, lines] of ARCHI_NPC) NPCS[id] = { n, title, look, lines, quests: [] };
+ROM.ar_maile = { g: 'f', loves: ['fish', 'food', 'cake'], likes: ['bouquet', 'gem'], hates: ['spore', 'bone'], taste: L2('el pescado fresco, la comida casera y los pasteles', 'fresh fish, home cooking and cakes') };
+ROM.ar_noa = { g: 'f', loves: ['gem', 'bouquet', 'cloth'], likes: ['crystal', 'cake'], hates: ['fang', 'ore'], taste: L2('los colores: gemas, flores y telas', 'colours: gems, flowers and fabrics') };
+ROM_WHERE.ar_maile = L2('Puerto Esmeralda (Archipiélago)', 'Emerald Port (Archipelago)'); ROM_WHERE.ar_noa = L2('Puerto Esmeralda (Archipiélago)', 'Emerald Port (Archipelago)');
+for (const k in ISL_APP) { const s = SKINS[ISL_APP[k][0].skin]; NPCS[k].look.skin = s; }
+
+// ---------- Puerto Esmeralda y la islita del templo al crear el mapa ----------
+const PE = { c: [75, 58], r: [20, 10] }, IX = { c: [75, 98], r: [9, 5] };
+{ const _mk = makeArchi; makeArchi = function () { const fresh = !G.maps.archipielago, M = _mk(); if (!fresh || M.v429) return M; M.v429 = 1; const I = M.I;
+  const land = (C_, R_, inner, outer, plaza) => { const [cx, cy] = C_, [rx, ry] = R_; for (let y = cy - ry - 4; y <= cy + ry + 4; y++) for (let x = cx - rx - 5; x <= cx + rx + 5; x++) { if (x < 2 || y < 2 || x >= M.w - 2 || y >= M.h - 2) continue; const d = Math.hypot((x - cx) / rx, (y - cy) / ry) + (hash2(x, y, 31) - 0.5) * 0.08, i = I(x, y);
+      if (d < 0.42 && plaza) M.ter[i] = T[plaza]; else if (d < 0.8) M.ter[i] = T[inner]; else if (d < 1) M.ter[i] = T[outer]; else if (d < 1.25 && M.ter[i] === T.DEEP) M.ter[i] = T.WATER; } };
+  land(PE.c, PE.r, 'GRASS', 'SAND', 'COBBLE'); for (let x = PE.c[0] - 2; x <= PE.c[0] + 2; x++) for (let y = PE.c[1] + PE.r[1] - 1; y <= PE.c[1] + PE.r[1] + 3; y++) M.ter[I(x, y)] = T.PLANK;
+  land(IX.c, IX.r, 'STONE', 'SAND', null);
+  for (let y = 0; y < M.h; y++) for (let x = 0; x < M.w; x++) { const i = I(x, y); if (M.objAt[i] >= 0) { const o = M.objs[M.objAt[i]]; if (o.k === 'furn' && Math.hypot((x - PE.c[0]) / PE.r[0], (y - PE.c[1]) / PE.r[1]) < 1.1 && /^s_|^plant|^barrels/.test(o.f)) hideObj(M, o, true); } }
+  const [cx, cy] = PE.c, put = (f, x, y, fp, o) => putNear(M, f, x, y, fp, o);
+  for (const [x, y] of [[-15, -5], [-9, -7], [9, -7], [15, -5], [-16, 3], [16, 3]]) put('ar_cabana', cx + x, cy + y, [[-1, 0], [0, 0], [1, 0]]);
+  put('ar_galeria', cx - 5, cy - 6, [[-1, 0], [0, 0], [1, 0]], { xact: 'galeria' }); put('ar_surf', cx + 5, cy - 6, [[-1, 0], [0, 0], [1, 0]]); put('ar_puesto', cx - 10, cy + 4, [[-1, 0], [0, 0], [1, 0]]); put('ar_puesto', cx + 10, cy + 4, [[-1, 0], [0, 0], [1, 0]]);
+  for (let k = 0; k < 12; k++) { const a = k / 12 * 6.28; put('ar_palma', Math.round(cx + Math.cos(a) * PE.r[0] * 0.86), Math.round(cy + Math.sin(a) * PE.r[1] * 0.8), [[0, 0]]); }
+  for (let k = 0; k < 8; k++) { const a = k / 8 * 6.28 + 0.4; put('ar_tiki', Math.round(cx + Math.cos(a) * PE.r[0] * 0.48), Math.round(cy + Math.sin(a) * PE.r[1] * 0.5), [[0, 0]]); }
+  ARCHI_NPC.forEach(([id], k) => { const a = k / ARCHI_NPC.length * 6.28 + 0.2; spawnNPC(id, Math.round(cx + Math.cos(a) * 6) * 16 + 8, Math.round(cy + Math.sin(a) * 3) * 16 + 8, 'archipielago', { wander: 2, face: 'down' }); });
+  // Ixtal: el templo asoma en una islita al sur; cuatro estatuas y una tablilla
+  const [ix, iy] = IX.c; addObj(M, 'furn', ix, iy - 1, { f: 'ar_templo', fp: [[-2, 0], [-1, 0], [0, 0], [1, 0], [2, 0]], xact: 'ixdoor' });
+  [[-6, 2], [-3, 3], [3, 3], [6, 2]].forEach(([x, y], k) => putNear(M, 'ar_estatua0', ix + x, iy + y, [[0, 0]], { xact: 'ixstat', sk: k, v: 0 }));
+  putNear(M, 'ar_tablilla', ix, iy + 3, [[0, 0]], { xact: 'ixtab' });
+  M.chunks = new Map(); M.wdist = null; return M; }; }
+function inPE(P) { return P && G.map && G.map.id === 'archipielago' && Math.hypot((P.x / 16 - PE.c[0]) / PE.r[0], (P.y / 16 - PE.c[1]) / PE.r[1]) < 1; }
+V33_TICKS.push(() => { const P = G.P; if (!P || !G.map) return; const k = inPE(P); if (k !== !!P._peIn) { P._peIn = k; if (k) banner(L2('Puerto Esmeralda', 'Emerald Port'), L2('El corazón del Archipiélago', 'The heart of the Archipelago')); } });
+
+// ---------- tienda de playa de Ailani ----------
+function beachShop() { closeDialog(); const P = G.P; P.wardrobe = P.wardrobe || [];
+  const render = () => { openModal(`<h2>${L2('Ropa de playa', 'Beachwear')}</h2><p class="hint">${L2('Se guarda en tu armario de cosméticos (también puedes ponérsela a tu pareja si tiene ese conjunto).', 'Saved to your cosmetics wardrobe.')}</p><div class="slist">${BEACH_SHOP.map(([id, pr]) => { const c = COSM[id]; if (!c) return ''; const own = P.wardrobe.includes(id); return `<button class="srow" data-bs="${id}" ${own ? 'disabled' : ''}><div class="sn"><b>${esc(c.n)}</b><small>${own ? L2('Ya lo tienes', 'Owned') : fmt(pr) + ' ' + L2('oro', 'gold')}</small></div></button>`; }).join('')}</div><div class="row"><button class="btn" id="mclose">${L2('Cerrar', 'Close')}</button></div>`, 'party');
+    $('#mclose').onclick = closeModal; $$('[data-bs]').forEach(b => b.onclick = () => { const id = b.dataset.bs, pr = BEACH_SHOP.find(x => x[0] === id)[1]; if (P.gold < pr) { toast(L2('No tienes suficiente oro', 'Not enough gold'), 'warn'); return; } P.gold -= pr; giveCosmetic(id); sfx('coin'); markDirty(); render(); }); };
+  render(); }
+
+// ---------- SURF (oficio) ----------
+addJob('surf', L2('Surf', 'Surfing'), 'wave', L2('Cabalga las olas del Archipiélago con tu tabla: trucos, combos y buenas olas.', 'Ride the Archipelago waves on your board: tricks, combos and great waves.'),
+  { how: [L2('Habla con Kai en Puerto Esmeralda y elige «Surfear». Pulsa «¡Truco!» cuando la marca esté en la zona verde. Tres caídas y se acaba.', 'Talk to Kai in Emerald Port and choose "Surf". Press "Trick!" when the marker is in the green zone. Three wipeouts and it ends.'), 'Talk to Kai in Emerald Port and choose "Surf".'],
+    ben: [L2('Velocidad en el mar, vida, esquiva, oro y una zona verde más ancha.', 'Sea speed, HP, dodge, gold and a wider green zone.'), 'Sea speed, HP, dodge, gold.'], find: () => ({ loc: [PE.c[0] + 5, PE.c[1] - 4], t: L2('Kai · Puerto Esmeralda', 'Kai · Emerald Port'), m: 'archipielago' }) },
+  [[3, 'Navegas y nadas un 5 % más rápido', 'Sail and swim 5% faster', { seaSpd: 5 }], [6, 'Zona verde un 10 % más ancha', 'Green zone 10% wider', { surfB: 10 }], [10, '+3 % de vida', '+3% HP', { hpP: 3 }], [15, '+2 % de esquiva', '+2% dodge', { dodge: 2 }], [20, '+4 % de oro de los enemigos', '+4% gold from enemies', { goldP: 4 }],
+    [25, 'Zona verde un 15 % más ancha', 'Green zone 15% wider', { surfB: 15 }], [30, 'Navegas y nadas un 8 % más rápido', 'Sail and swim 8% faster', { seaSpd: 8 }], [40, '+4 % de vida', '+4% HP', { hpP: 4 }], [50, 'Una caída extra antes de acabar', 'One extra wipeout allowed', { surfL: 1 }], [60, '+3 % de experiencia', '+3% experience', { xpP: 3 }]], ['shell', 4]);
+let SURF = null;
+function surfStart() { closeDialog(); const P = G.P, M = G.map; if (SURF || !M || !M.archi) return; P.surfD = P.surfD || {};
+  const y0 = (PE.c[1] + PE.r[1] + 4) * 16 + 8, x0 = PE.c[0] * 16 + 8; P.x = x0; P.y = y0; P.mount = null;
+  SURF = { t: -2.5, dur: 45, score: 0, combo: 0, wipe: 0, lives: 3 + jobPerkSum('surfL'), mk: 0, dirm: 1, x0, y0, zone: 0.17 * (1 + jobPerkSum('surfB') / 100), trick: 0 };
+  let b = $('#surfBtn'); if (!b) { b = document.createElement('button'); b.id = 'surfBtn'; b.className = 'btn gold'; b.style.cssText = 'position:absolute;left:50%;bottom:calc(6.5em + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:13;font-size:1.1em;padding:.6em 1.6em'; document.getElementById('hud').appendChild(b); b.addEventListener('pointerdown', e => { e.preventDefault(); e.stopPropagation(); surfTrick(); }); }
+  b.textContent = L2('¡Truco!', 'Trick!'); b.hidden = false; banner(L2('¡Al agua!', 'Into the water!'), L2('Pulsa «¡Truco!» en la zona verde', 'Press "Trick!" in the green zone')); }
+function surfTrick() { const S = SURF, P = G.P; if (!S || S.t < 0) return; const c = 0.5, ok = Math.abs(S.mk - c) < S.zone / 2;
+  if (ok) { S.combo++; const pts = 1 + Math.min(9, S.combo); S.score += pts; S.trick = 0.6; floatText(P.x, P.y - 40, '+' + pts + (S.combo > 2 ? ' x' + S.combo : ''), '#8af0ff', S.combo > 4); sfx('coin'); S.zone = Math.max(0.07, S.zone * 0.97); }
+  else { S.combo = 0; S.wipe++; sfx('hurt'); floatText(P.x, P.y - 40, L2('¡Al agua!', 'Wipeout!'), '#ff8a8a'); for (let i = 0; i < 14; i++) part(P.x + (Math.random() - 0.5) * 20, P.y, { vz: 40 + Math.random() * 40, g: 120, vx: (Math.random() - 0.5) * 60, life: 0.7, c: '#e0f8ff', s: 2 }); if (S.wipe >= S.lives) surfEnd(); } }
+function surfEnd() { const S = SURF, P = G.P; SURF = null; mgHud(null); const b = $('#surfBtn'); if (b) b.hidden = true; P.z = 0; if (!S) return;
+  const xp = Math.min(120, Math.round(S.score * 1.6)), gold = S.score * 450; gainJobXp('surf', Math.max(3, xp)); P.gold += gold; P.surfBest = Math.max(P.surfBest || 0, S.score);
+  banner(L2('Sesión de surf', 'Surf session'), `${L2('Puntos', 'Points')}: ${S.score} · ${L2('Récord', 'Best')}: ${P.surfBest} · +${fmt(gold)} ${L2('oro', 'gold')}`); sfx('quest'); markDirty(); }
+V33_TICKS.push(dt => { const S = SURF; if (!S) return; dt = dt || 0.016; const P = G.P; if (!G.map || !G.map.archi || P.dead) { surfEnd(); return; } S.t += dt;
+  P.x = S.x0 + Math.sin(S.t * 0.55) * 70; P.y = S.y0 + Math.sin(S.t * 1.3) * 6; P.dir = Math.cos(S.t * 0.55) > 0 ? 'right' : 'left'; P.rootT = 0.1; S.trick = Math.max(0, S.trick - dt); P.z = S.trick > 0 ? Math.sin(S.trick / 0.6 * Math.PI) * 14 : 0;
+  if (S.t < 0) { mgHud(`🏄 ${Math.ceil(-S.t)}…`); return; } if (S.t >= S.dur) { surfEnd(); return; }
+  const sp = 0.9 + S.t / S.dur * 0.9; S.mk += S.dirm * sp * dt; if (S.mk > 1) { S.mk = 1; S.dirm = -1; } if (S.mk < 0) { S.mk = 0; S.dirm = 1; }
+  if (Math.random() < 0.4) part(P.x - (P.dir === 'right' ? 12 : -12), P.y + 2, { vz: 14, vx: (P.dir === 'right' ? -30 : 30), life: 0.5, c: '#e0f8ff', s: 2 });
+  const zw = Math.round(S.zone * 100), zl = 50 - zw / 2, ml = Math.round(S.mk * 100);
+  mgHud(`🏄 <b>${S.score}</b> ${S.combo > 1 ? '· combo x' + S.combo : ''} · ${'❤'.repeat(Math.max(0, S.lives - S.wipe))} · ${Math.ceil(S.dur - S.t)} s<div style="position:relative;width:14em;height:.9em;margin:.3em auto 0;background:#1a2a3a;border-radius:.4em;overflow:hidden"><div style="position:absolute;left:${zl}%;width:${zw}%;top:0;bottom:0;background:#3ad07a"></div><div style="position:absolute;left:calc(${ml}% - 2px);width:4px;top:0;bottom:0;background:#fff"></div></div>`); });
+// la tabla: en vez del bote se dibuja una tabla de surf bajo el jugador
+{ const _de = drawEnt; drawEnt = function (e, cx, cy) { if (SURF && e === G.P) { const x = Math.round(e.x - cx), y = Math.round(e.y - cy); ctx.fillStyle = 'rgba(224,248,255,0.55)'; ctx.beginPath(); ctx.ellipse(x, y + 2, 20, 5, 0, 0, 7); ctx.fill();
+    ctx.fillStyle = '#ff5a3a'; ctx.beginPath(); ctx.ellipse(x, y - 1 - (e.z || 0) * 0.4, 15, 3.5, 0, 0, 7); ctx.fill(); ctx.fillStyle = '#ffd040'; ctx.fillRect(x - 13, y - 2 - Math.round((e.z || 0) * 0.4), 26, 1);
+    const M = G.map, a0 = M.archi; M.archi = 0; const z0 = e.z; e.z = (z0 || 0) + 3; try { return _de(e, cx, cy); } finally { M.archi = a0; e.z = z0; } } return _de(e, cx, cy); }; }
+
+// ---------- ARTE (oficio): pinta pixel art y véndelo en tu galería de Puerto Esmeralda ----------
+addJob('arte', L2('Arte', 'Art'), 'paint', L2('Pinta cuadros en pixel art y véndelos en tu galería. Los turistas compran mientras juegas.', 'Paint pixel art and sell it in your gallery. Tourists buy while you play.'),
+  { how: [L2('En la galería de Puerto Esmeralda (o hablando con Noa) elige «Pintar un cuadro». Dibuja lo que quieras en la cuadrícula, ponle nombre y guárdalo. Después ponlo a la venta en «Mi galería»: se vende solo con el tiempo.', 'At the Emerald Port gallery (or talking to Noa) choose "Paint a picture". Draw anything on the grid, name it and save it. Then put it on sale in "My gallery": it sells over time.'), 'At the Emerald Port gallery choose "Paint a picture", then sell it in "My gallery".'],
+    ben: [L2('Oro pasivo, cuadros más caros, ventas más rápidas, experiencia y crítico.', 'Passive gold, pricier paintings, faster sales, experience and crit.'), 'Passive gold, pricier paintings, faster sales.'], find: () => ({ loc: [PE.c[0] - 5, PE.c[1] - 4], t: L2('Galería · Puerto Esmeralda', 'Gallery · Emerald Port'), m: 'archipielago' }) },
+  [[3, 'Cuadros un 10 % más caros', 'Paintings 10% pricier', { artV: 10 }], [6, 'Ventas un 15 % más rápidas', 'Sales 15% faster', { artS: 15 }], [10, '+1 % de crítico', '+1% crit', { crit: 1 }], [15, 'Cuadros un 15 % más caros', 'Paintings 15% pricier', { artV: 15 }], [20, '+3 % de experiencia', '+3% experience', { xpP: 3 }],
+    [25, 'Ventas un 20 % más rápidas', 'Sales 20% faster', { artS: 20 }], [30, '+5 % de oro de los enemigos', '+5% gold from enemies', { goldP: 5 }], [40, 'Cuadros un 25 % más caros', 'Paintings 25% pricier', { artV: 25 }], [50, '+2 % de crítico', '+2% crit', { crit: 2 }], [60, 'Puedes tener 10 cuadros más a la venta', '10 more paintings on sale', { artN: 10 }]], ['potion', '#ff8ad0']);
+const ART_PAL = ['#000000', '#ffffff', '#7a7a8a', '#c8c8d0', '#e02838', '#ff8a2a', '#ffd040', '#5ad06a', '#1a7a3a', '#3ad8ff', '#2a5ae0', '#8a3ad0', '#ff8ad0', '#8a5a2a', '#f0c8a0', '#2a1a10'], ART_N = 24, ART_SYM = '0123456789abcdef';
+function artValue(a) { const s = a.d.replace(/\./g, ''), cols = new Set(s).size, fill = s.length / (ART_N * ART_N), lv = (G.P.jobs.arte || { lv: 1 }).lv; return Math.round((800 + lv * 260) * (0.5 + fill) * (0.6 + Math.min(10, cols) * 0.12) * (1 + jobPerkSum('artV') / 100)); }
+function artCanvas(a, sc) { const c = document.createElement('canvas'); c.width = ART_N * sc; c.height = ART_N * sc; const x = c.getContext('2d'); x.fillStyle = '#f4ecd8'; x.fillRect(0, 0, c.width, c.height); for (let i = 0; i < a.d.length; i++) { const ch = a.d[i]; if (ch === '.') continue; x.fillStyle = ART_PAL[ART_SYM.indexOf(ch)]; x.fillRect((i % ART_N) * sc, Math.floor(i / ART_N) * sc, sc, sc); } return c; }
+function artEditor() { closeDialog(); const P = G.P; P.arts = P.arts || []; if (P.arts.length >= 40) { toast(L2('Tu galería está llena (40). Vende o tira alguno.', 'Your gallery is full (40). Sell or discard one.'), 'warn'); return; }
+  const g = new Array(ART_N * ART_N).fill('.'); let col = 0, tool = 'pen', down = false;
+  openModal(`<h2>🎨 ${L2('Pintar un cuadro', 'Paint a picture')}</h2><div class="artw"><canvas id="artC" width="${ART_N * 12}" height="${ART_N * 12}"></canvas><div class="artp">${ART_PAL.map((c, i) => `<button class="artc ${i === 0 ? 'on' : ''}" data-ac="${i}" style="background:${c}"></button>`).join('')}</div>
+    <div class="row wrap"><button class="btn sm on" data-at="pen">✏ ${L2('Lápiz', 'Pen')}</button><button class="btn sm" data-at="fill">🪣 ${L2('Rellenar', 'Fill')}</button><button class="btn sm" data-at="erase">🧽 ${L2('Borrar', 'Erase')}</button><button class="btn sm" id="artClr">${L2('Limpiar', 'Clear')}</button></div></div>
+    <label>${L2('Nombre del cuadro', 'Painting name')}</label><input id="artN" maxlength="24" placeholder="${L2('Atardecer en el puerto', 'Sunset at the port')}" autocomplete="off"><div class="row"><button class="btn gold" id="artOk">${L2('Guardar en mi galería', 'Save to my gallery')}</button><button class="btn" id="artNo">${L2('Cancelar', 'Cancel')}</button></div><p class="hint" id="artMsg"></p>`, 'party');
+  const cv = $('#artC'), x = cv.getContext('2d'), draw = () => { x.fillStyle = '#f4ecd8'; x.fillRect(0, 0, cv.width, cv.height); x.strokeStyle = 'rgba(0,0,0,0.06)'; for (let i = 0; i <= ART_N; i++) { x.beginPath(); x.moveTo(i * 12, 0); x.lineTo(i * 12, cv.height); x.moveTo(0, i * 12); x.lineTo(cv.width, i * 12); x.stroke(); } for (let i = 0; i < g.length; i++) if (g[i] !== '.') { x.fillStyle = ART_PAL[ART_SYM.indexOf(g[i])]; x.fillRect((i % ART_N) * 12, Math.floor(i / ART_N) * 12, 12, 12); } };
+  const cell = e => { const r = cv.getBoundingClientRect(), cx = Math.floor((e.clientX - r.left) / r.width * ART_N), cy = Math.floor((e.clientY - r.top) / r.height * ART_N); return cx >= 0 && cy >= 0 && cx < ART_N && cy < ART_N ? cy * ART_N + cx : -1; };
+  const paint = i => { if (i < 0) return; if (tool === 'fill') { const from = g[i], to = ART_SYM[col]; if (from === to) return; const st = [i]; while (st.length) { const j = st.pop(); if (g[j] !== from) continue; g[j] = to; const jx = j % ART_N; if (jx > 0) st.push(j - 1); if (jx < ART_N - 1) st.push(j + 1); if (j >= ART_N) st.push(j - ART_N); if (j < g.length - ART_N) st.push(j + ART_N); } } else g[i] = tool === 'erase' ? '.' : ART_SYM[col]; draw(); };
+  cv.addEventListener('pointerdown', e => { e.preventDefault(); down = true; cv.setPointerCapture(e.pointerId); paint(cell(e)); }); cv.addEventListener('pointermove', e => { if (down && tool !== 'fill') paint(cell(e)); }); cv.addEventListener('pointerup', () => { down = false; });
+  $$('[data-ac]').forEach(b => b.onclick = () => { col = +b.dataset.ac; if (tool === 'erase') tool = 'pen'; $$('[data-ac]').forEach(q => q.classList.toggle('on', q === b)); });
+  $$('[data-at]').forEach(b => b.onclick = () => { tool = b.dataset.at; $$('[data-at]').forEach(q => q.classList.toggle('on', q === b)); });
+  $('#artClr').onclick = () => { g.fill('.'); draw(); }; $('#artNo').onclick = closeModal;
+  $('#artOk').onclick = () => { const filled = g.filter(c => c !== '.').length; if (filled < 20) { $('#artMsg').textContent = L2('Pinta un poco más (al menos 20 casillas).', 'Paint a bit more (at least 20 cells).'); return; }
+    const n = ($('#artN').value || '').replace(/[<>]/g, '').trim().slice(0, 24) || L2('Sin título', 'Untitled'), a = { n, d: g.join(''), t: Date.now() }; a.v = artValue(a); P.arts.push(a);
+    const cols = new Set(g.filter(c => c !== '.')).size; gainJobXp('arte', Math.round(8 + cols * 2 + filled / 40)); closeModal(); sfx('quest'); toast(L2(`«${n}» guardado en tu galería · valor ${fmt(a.v)} oro`, `"${n}" saved to your gallery · value ${fmt(a.v)} gold`), 'quest', 5); markDirty(true); };
+  draw(); }
+function artGallery() { closeDialog(); const P = G.P; P.arts = P.arts || []; const maxSale = 10 + jobPerkSum('artN');
+  const render = () => { const onSale = P.arts.filter(a => a.sale).length;
+    openModal(`<h2>🖼 ${L2('Mi galería', 'My gallery')}</h2><p class="hint">${L2('Los cuadros a la venta se venden solos con el tiempo (aunque estés lejos). A la venta', 'Paintings on sale sell by themselves over time (even when you are away). On sale')}: ${onSale}/${maxSale} · ${L2('Vendidos', 'Sold')}: ${P.artSold || 0}</p>
+      <div class="artg">${P.arts.map((a, i) => `<div class="artit"><canvas data-art="${i}" width="72" height="72"></canvas><b>${esc(a.n)}</b><small>${fmt(a.v)} ${L2('oro', 'gold')}</small><div class="row"><button class="btn sm ${a.sale ? '' : 'gold'}" data-asl="${i}">${a.sale ? L2('Retirar', 'Withdraw') : L2('Vender', 'Sell')}</button><button class="btn sm" data-adel="${i}">✕</button></div></div>`).join('') || `<p class="hint">${L2('Aún no has pintado nada.', 'You have not painted anything yet.')}</p>`}</div>
+      <div class="row"><button class="btn gold" id="agNew">🎨 ${L2('Pintar un cuadro', 'Paint a picture')}</button><button class="btn" id="mclose">${L2('Cerrar', 'Close')}</button></div>`, 'party');
+    $$('[data-art]').forEach(c => { const a = P.arts[+c.dataset.art], s = artCanvas(a, 3), x = c.getContext('2d'); x.imageSmoothingEnabled = false; x.drawImage(s, 0, 0); });
+    $$('[data-asl]').forEach(b => b.onclick = () => { const a = P.arts[+b.dataset.asl]; if (!a.sale && P.arts.filter(q => q.sale).length >= maxSale) { toast(L2('No caben más cuadros a la venta', 'No more room on sale'), 'warn'); return; } a.sale = a.sale ? 0 : Date.now(); markDirty(); render(); });
+    $$('[data-adel]').forEach(b => b.onclick = () => { P.arts.splice(+b.dataset.adel, 1); markDirty(); render(); });
+    $('#agNew').onclick = artEditor; $('#mclose').onclick = closeModal; };
+  render(); }
+// ventas: cada minuto real, cada cuadro a la venta tiene una probabilidad de venderse (más con las ventajas)
+setInterval(() => { try { const P = G.P; if (!P || !P.arts || titleMode) return; const now = Date.now(), ch = 0.08 * (1 + jobPerkSum('artS') / 100);
+  for (const a of P.arts.slice()) { if (!a.sale) continue; const mins = Math.min(600, Math.floor((now - (a.sl || a.sale)) / 60000)); if (mins < 1) continue; a.sl = (a.sl || a.sale) + mins * 60000; let sold = false; for (let i = 0; i < mins && !sold; i++) if (Math.random() < ch) sold = true;
+    if (sold) { P.arts.splice(P.arts.indexOf(a), 1); P.gold += a.v; P.artSold = (P.artSold || 0) + 1; gainJobXp('arte', 12); toast(L2(`Un turista compró «${a.n}» por ${fmt(a.v)} oro 🖼`, `A tourist bought "${a.n}" for ${fmt(a.v)} gold 🖼`), 'loot', 5); sfx('coin'); markDirty(); } } } catch (e) { console.warn(e); } }, 15000);
+{ const st = document.createElement('style'); st.textContent = '.artw{display:flex;flex-direction:column;align-items:center;gap:.4em}#artC{width:min(68vw,52vh,288px);height:auto;image-rendering:pixelated;touch-action:none;border:2px solid #5a4320;background:#f4ecd8}.artp{display:grid;grid-template-columns:repeat(8,1fr);gap:3px}.artc{width:1.7em;height:1.7em;border:2px solid #2a1a10;border-radius:4px}.artc.on{outline:2px solid #ffd040}.artg{display:grid;grid-template-columns:repeat(auto-fill,minmax(7.5em,1fr));gap:.5em;max-height:50vh;overflow:auto}.artit{display:flex;flex-direction:column;align-items:center;gap:.15em;padding:.3em;border:1px solid #5a4320;border-radius:.4em;background:#1a110c}.artit canvas{width:72px;height:72px;image-rendering:pixelated}.artit b{font-size:.8em;text-align:center}.btn.sm.on{outline:2px solid #ffd040}'; document.head.appendChild(st); }
+XACT.galeria = [L2('Entrar en la galería', 'Enter the gallery'), ['potion', '#ff8ad0'], () => artGallery()];
+
+// ---------- diálogos de Puerto Esmeralda ----------
+DLG_HOOKS.push((npc, opts) => {
+  if (npc.id === 'ar_kai') opts.unshift({ label: L2('Surfear', 'Surf') + ` (${L2('Nv.', 'Lv.')} ${(G.P.jobs.surf || { lv: 1 }).lv})`, icon: ['shell', 4], fn: surfStart });
+  if (npc.id === 'ar_noa') { opts.unshift({ label: L2('Mi galería', 'My gallery'), icon: ['potion', '#ff8ad0'], fn: artGallery }); opts.unshift({ label: L2('Pintar un cuadro', 'Paint a picture'), icon: ['potion', '#ff8ad0'], fn: artEditor }); }
+  if (npc.id === 'ar_ailani') opts.unshift({ label: L2('Ropa de playa', 'Beachwear'), icon: ['hanger'], fn: beachShop });
+});
+
+// ---------- IXTAL, la Ciudad Perdida: puzle de las estatuas ----------
+const IX_SOL = [1, 2, 3, 0]; // el sol nace (este), el mar duerme (sur), el día muere (oeste), la estrella no se mueve (norte)
+XACT.ixstat = [L2('Girar la estatua', 'Turn the statue'), ['ways'], o => { const P = G.P; if (P.ixOpen) { toast(L2('Las estatuas ya miran donde deben', 'The statues already face the right way'), 'info'); return; } o.v = (o.v + 1) % 4; o.f = 'ar_estatua' + o.v; sfx('hit');
+  const ss = G.map.objs.filter(q => q.xact === 'ixstat').sort((a, b) => a.sk - b.sk); if (ss.length === 4 && ss.every((s, i) => s.v === IX_SOL[i])) { P.ixOpen = 1; sfx('level'); G.shake = 6; banner(L2('¡El templo se abre!', 'The temple opens!'), L2('Ixtal, la Ciudad Perdida', 'Ixtal, the Lost City')); markDirty(true); } }];
+XACT.ixtab = [L2('Leer la tablilla', 'Read the tablet'), ['book'], () => { openModal(`<h2>${L2('Tablilla de Ixtal', 'Tablet of Ixtal')}</h2><p class="lorep">${L2('«Cuatro guardianes custodian el sueño del Rey Sol. El primero mira donde el sol nace. El segundo, donde el mar duerme. El tercero, donde el día muere. El cuarto, a la estrella que no se mueve.»', '"Four guardians watch over the Sun King\'s sleep. The first looks where the sun rises. The second, where the sea sleeps. The third, where the day dies. The fourth, at the star that does not move."')}</p><p class="hint">${L2('Las estatuas se cuentan de izquierda a derecha. Tócalas para girarlas.', 'Statues are counted left to right. Touch them to turn them.')}</p><div class="row"><button class="btn" id="mclose">${L2('Cerrar', 'Close')}</button></div>`, 'party'); $('#mclose').onclick = closeModal; }];
+XACT.ixdoor = [() => G.P.ixOpen ? L2('Entrar en Ixtal', 'Enter Ixtal') : L2('Templo sellado', 'Sealed temple'), ['ways'], () => { const P = G.P; if (!P.ixOpen) { toast(L2('Una piedra enorme tapa la entrada. Quizá las estatuas tengan algo que ver…', 'A huge stone blocks the entrance. Perhaps the statues have something to do with it…'), 'info'); return; }
+  if (P.lv < 290) { toast(L2('Un calor terrible sale de dentro. Vuelve con nivel 290 o más.', 'Terrible heat comes from inside. Come back at level 290 or higher.'), 'warn'); return; } ixEnter(1); }];
+if (typeof SECRETS !== 'undefined') SECRETS.push({ id: 'ixtal', n: L2('Ixtal, la Ciudad Perdida', 'Ixtal, the Lost City'), done: P => !!P.ixBoss2, steps: [L2('Al sur de Puerto Esmeralda asoma un templo en una islita. Lee la tablilla.', 'South of Emerald Port a temple peeks out of an islet. Read the tablet.'), L2('Gira las cuatro estatuas para que miren donde dice la tablilla.', 'Turn the four statues to face where the tablet says.'), L2('Dentro hay dos mazmorras de nivel 300: el Templo Hundido y la Cripta del Sol.', 'Inside there are two level 300 dungeons: the Sunken Temple and the Crypt of the Sun.')],
+  hints: [L2('El sol nace por el este y muere por el oeste.', 'The sun rises in the east and dies in the west.'), L2('La estrella que no se mueve es la del norte.', 'The star that does not move is the north star.'), L2('Orden: este, sur, oeste, norte.', 'Order: east, south, west, north.')], where: () => ({ loc: [IX.c[0], IX.c[1] + 3], m: 'archipielago', t: L2('Templo de Ixtal', 'Temple of Ixtal') }), avail: P => P.lv >= 160 });
+
+// ---------- las dos mazmorras de nivel 300 ----------
+const IX_MATS = [['jade_ixtal', L2('Jade de Ixtal', 'Ixtal Jade'), '#3ad08a'], ['oro_solar', L2('Oro Solar', 'Solar Gold'), '#ffd040'], ['obsidiana_viva', L2('Obsidiana Viva', 'Living Obsidian'), '#5a3a8a']];
+for (const [id, n, c] of IX_MATS) it(id, { n, t: 'mat', stack: true, price: 4000, icon: ['gem', c], rar: 5 });
+const IX_FL = [
+  { k: 1, n: L2('Ixtal · Templo Hundido', 'Ixtal · Sunken Temple'), lv: [300, 312], boss: 'quetzal_obsidiana', mat: 'jade_ixtal', mobs: [
+    ['ix_jaguar', L2('Jaguar de Obsidiana', 'Obsidian Jaguar'), ['bst', 'lizard', ['#05000a', '#1a1028', '#3a2a5a', '#8a6ad0'], 1.2, { eye: '#ffd040' }], 'charge'], ['ix_guerrero', L2('Guerrero de Jade', 'Jade Warrior'), ['bst', 'golem', ['#0a2a1a', '#1a5a3a', '#3a9a6a', '#8ae0b0'], 1.2, { core: '#ffd040' }], 'aggro'],
+    ['ix_serpiente', L2('Serpiente Emplumada', 'Feathered Serpent'), ['bst', 'lizard', ['#0a3a3a', '#1a7a6a', '#3ad0a0', '#ffe070'], 1.15], 'ranged'], ['ix_escarabajo', L2('Escarabajo Solar', 'Solar Beetle'), ['bst', 'beetle', ['#5a3a00', '#a87a0a', '#ffd040', '#fff4b0'], 1.2], 'charge'], ['ix_alma', L2('Alma del Sacrificio', 'Sacrificial Soul'), ['bst', 'wisp', ['#5a0a0a', '#a02a1a', '#ff6a3a', '#ffe0a0'], 1.2], 'ranged']] },
+  { k: 2, n: L2('Ixtal · Cripta del Sol', 'Ixtal · Crypt of the Sun'), lv: [312, 325], boss: 'rey_sol_ixtal', mat: 'oro_solar', mobs: [
+    ['ix_momia', L2('Sacerdote Momificado', 'Mummified Priest'), ['bst', 'golem', ['#3a2a1a', '#7a6a4a', '#c8b890', '#fff0d0'], 1.15, { core: '#ff3a2a' }], 'aggro'], ['ix_arana', L2('Araña de Obsidiana', 'Obsidian Spider'), ['bst', 'spider2', ['#05000a', '#1a1028', '#3a2a5a', '#ffd040'], 1.25], 'charge'],
+    ['ix_espiritu', L2('Espíritu del Sol Negro', 'Black Sun Spirit'), ['bst', 'wisp', ['#000000', '#1a0a00', '#5a2a00', '#ffd040'], 1.3], 'ranged'], ['ix_sapo', L2('Sapo de Oro', 'Golden Toad'), ['bst', 'toad', ['#5a3a00', '#a87a0a', '#ffd040', '#fff4b0'], 1.3], 'aggro'], ['ix_coatl', L2('Cóatl Guardián', 'Coatl Guardian'), ['bst', 'harpy', ['#0a3a1a', '#1a7a3a', '#3ad06a', '#ffd040'], 1.3], 'charge']] },
+];
+for (const F of IX_FL) for (const [id, n, art, ai] of F.mobs) MOBS[id] = { n, art, reg: ['ixtal'], lv: F.lv, hp: 1.5 + (F.k - 1) * 0.08, atk: 1.9 + (F.k - 1) * 0.06, def: 1.75, spd: ai === 'charge' ? 70 : 56, ai, fam: 'ixtal', drops: [[F.mat, 0.2], ['obsidiana_viva', 0.05], ['diamante', 0.02]], where: F.n };
+Object.assign(BOSSES, {
+  quetzal_obsidiana: { n: L2('Quetzal de Obsidiana', 'Obsidian Quetzal'), lv: 315, art: ['bst', 'harpy', ['#05000a', '#1a1028', '#3ad0a0', '#ffe070'], 2.8], hp: 34, atk: 2.75, def: 2.7, spd: 52, moves: ['charge', 'volley', 'hop', 'nova', 'summon'], minion: 'ix_serpiente', drops: [['jade_ixtal', 1, 10], ['obsidiana_viva', 1, 3], ['diamante', 0.6, 3]], r: 40 },
+  rey_sol_ixtal: { n: L2('Tonatiuh, el Rey Sol de Ixtal', 'Tonatiuh, Sun King of Ixtal'), lv: 328, art: ['bst', 'golem', ['#5a3a00', '#c89a1a', '#ffd040', '#fff8c0'], 2.9, { core: '#ff3a1a' }], hp: 40, atk: 2.85, def: 2.8, spd: 42, moves: ['slam', 'rain', 'field', 'nova', 'summon', 'breath'], minion: 'ix_momia', drops: [['oro_solar', 1, 10], ['obsidiana_viva', 1, 5], ['diamante', 1, 4]], r: 42 },
+});
+for (const c in WBASE) { BOSSES.quetzal_obsidiana.drops.push(['w_' + c + '_23', 0.03, 1]); BOSSES.rey_sol_ixtal.drops.push(['w_' + c + '_24', 0.03, 1]); }
+for (const s of ['h', 'b', 'l', 'f']) { BOSSES.quetzal_obsidiana.drops.push([s + '_23', 0.05, 1]); BOSSES.rey_sol_ixtal.drops.push([s + '_24', 0.05, 1]); }
+function makeIxtal(k) { const id = 'ixtal' + k; if (G.maps[id]) return G.maps[id]; const F = IX_FL[k - 1], cols = 4, rows = 3, RW = 13, RH = 10, w = cols * (RW + 3) + 4, h = rows * (RH + 3) + 4, N = w * h, I = (x, y) => y * w + x, R = new RNG(SEED + 7300 + k);
+  const M = { id, w, h, ter: new Uint8Array(N).fill(T.CWALL), lvl: new Uint8Array(N), reg: new Uint8Array(N), flags: new Uint8Array(N), isWorld: false, chunks: new Map(), dark: 0.45, music: 'cave', I, ixtal: k, camps: [], bossAt: [] };
+  const rooms = []; for (let ry = 0; ry < rows; ry++) for (let rx = 0; rx < cols; rx++) { const x0 = 3 + rx * (RW + 3), y0 = 3 + ry * (RH + 3), rw = RW - R.int(0, 2), rh = RH - R.int(0, 2); for (let y = y0; y < y0 + rh; y++) for (let x = x0; x < x0 + rw; x++) M.ter[I(x, y)] = (x + y) % 7 === 0 ? T.COBBLE : T.FLOOR; rooms.push({ x0, y0, rw, rh, cx: x0 + (rw >> 1), cy: y0 + (rh >> 1) }); }
+  const dig = (a, b) => { let x = a.cx, y = a.cy; while (x !== b.cx) { for (let d = -1; d <= 1; d++) M.ter[I(x, y + d)] = T.FLOOR; x += Math.sign(b.cx - x); } while (y !== b.cy) { for (let d = -1; d <= 1; d++) M.ter[I(x + d, y)] = T.FLOOR; y += Math.sign(b.cy - y); } };
+  // camino en serpiente (izquierda→derecha, abajo, derecha→izquierda…) y algún atajo
+  const order = []; for (let ry = 0; ry < rows; ry++) for (let i = 0; i < cols; i++) order.push(ry * cols + (ry % 2 ? cols - 1 - i : i)); for (let i = 1; i < order.length; i++) dig(rooms[order[i - 1]], rooms[order[i]]); dig(rooms[1], rooms[5]); dig(rooms[6], rooms[10]);
+  prepPalettes(M); M.exit = { x: -9, y: -9 }; initMapObjs(M); const first = rooms[order[0]], last = rooms[order[order.length - 1]]; M.start = [first.cx, first.cy + 1];
+  for (const r of rooms) { for (const [x, y] of [[r.x0, r.y0], [r.x0 + r.rw - 1, r.y0], [r.x0, r.y0 + r.rh - 1], [r.x0 + r.rw - 1, r.y0 + r.rh - 1]]) putNear(M, 'ar_antorcha', x, y, [[0, 0]]); }
+  order.forEach((ri, i) => { const r = rooms[ri]; if (i === 0 || i === order.length - 1) return; M.camps.push({ x: r.cx, y: r.cy, mob: F.mobs[i % F.mobs.length][0], lv: R.int(F.lv[0], F.lv[1]), n: 3 + (i % 2), alive: [] }); });
+  M.bossAt.push({ x: last.cx, y: last.cy, id: F.boss });
+  putNear(M, 'ar_salida', first.cx - 3, first.cy, [[0, 0]], { xact: k === 1 ? 'ixout' : 'ixup', solid: false });
+  if (k === 1) putNear(M, 'ar_escalera', last.cx + 3, last.cy + 2, [[0, 0]], { xact: 'ixdown', solid: false });
+  G.maps[id] = M; return M; }
+function ixEnter(k) { const P = G.P, M = makeIxtal(k); transition(() => { P.inside = M.id; setMap(M, M.start[0] * 16 + 8, M.start[1] * 16 + 8, 'down'); banner(IX_FL[k - 1].n, L2('Nivel ', 'Level ') + IX_FL[k - 1].lv[0] + ' - ' + IX_FL[k - 1].lv[1]); }); }
+XACT.ixout = [L2('Salir al Archipiélago', 'Back to the Archipelago'), ['ways'], () => { const P = G.P, M = makeArchi(); transition(() => { P.inside = 'archipielago'; setMap(M, IX.c[0] * 16 + 8, (IX.c[1] + 1) * 16 + 8, 'down'); }); }];
+XACT.ixdown = [L2('Bajar a la Cripta del Sol', 'Go down to the Crypt of the Sun'), ['ways'], () => { const P = G.P; if (!P.ixBoss1) { toast(L2('Una barrera de luz solar te cierra el paso. Vence al Quetzal de Obsidiana.', 'A barrier of sunlight blocks the way. Defeat the Obsidian Quetzal.'), 'warn'); return; } ixEnter(2); }];
+XACT.ixup = [L2('Subir al Templo Hundido', 'Go up to the Sunken Temple'), ['ways'], () => ixEnter(1)];
+V33_TICKS.push(() => { const M = G.map, P = G.P; if (!M || !M.ixtal || !P) return;
+  for (const c of M.camps) { c.alive = c.alive.filter(m => !m.remove && m.hp > 0); const d = Math.abs(c.x - P.x / 16) + Math.abs(c.y - P.y / 16); if (d > 34) { for (const m of c.alive) m.remove = true; c.alive = []; continue; } if (d > 22 || c.alive.length >= c.n || Math.random() > 0.04) continue;
+    const x = (c.x + (Math.random() - 0.5) * 6) * 16, y = (c.y + (Math.random() - 0.5) * 4) * 16; if (blockedFor(M, Math.floor(x / 16), Math.floor(y / 16), 0)) continue; const m = spawnMob(c.mob, c.lv, x, y, 0, c); m.map = M.id; m.home = { x, y }; c.alive.push(m); }
+  for (const b of M.bossAt) { if (b.ent && (b.ent.remove || b.ent.dying)) { if (b.ent.dying) { b.respawn = G.t + 900; if (M.ixtal === 1 && !P.ixBoss1) { P.ixBoss1 = 1; toast(L2('La barrera de luz se apaga: ya puedes bajar a la Cripta del Sol', 'The light barrier fades: you can now go down to the Crypt of the Sun'), 'quest', 6); } if (M.ixtal === 2 && !P.ixBoss2) { P.ixBoss2 = 1; banner(L2('Ixtal descansa', 'Ixtal rests'), L2('El Rey Sol por fin duerme a la sombra', 'The Sun King finally sleeps in the shade')); } markDirty(true); } b.ent = null; }
+    if (!b.ent && G.t > (b.respawn || 0) && dist2(b.x * 16, b.y * 16, P.x, P.y) < 200 * 200) { b.ent = spawnMob(b.id, BOSSES[b.id].lv, b.x * 16 + 8, b.y * 16 + 8, 0, null, true); b.ent.map = M.id; } } });
+SAVEKEYS.push('arts', 'artSold', 'surfBest', 'ixOpen', 'ixBoss1', 'ixBoss2');
+
+// ================= v4.29: FONDO MARINO — almejas gigantes (minijuego), perlas rosas, doradas y de luna, 30 perlas perdidas,
+// la sirena Perlina (compra y cambia perlas), Collar de Perlas Doradas, tortugas y la ballena del abismo =================
+it('perla_rosa', { n: L2('Perla Rosa', 'Pink Pearl'), t: 'mat', stack: true, price: 2500, icon: ['pearl', '#ff9ac0'], rar: 3 });
+it('perla_dorada', { n: L2('Perla Dorada', 'Golden Pearl'), t: 'mat', stack: true, price: 9000, icon: ['pearl', '#ffd040'], rar: 4 });
+it('perla_luna', { n: L2('Perla de Luna', 'Moon Pearl'), t: 'mat', stack: true, price: 40000, icon: ['pearl', '#c8e8ff'], rar: 5 });
+it('collar_perlas_doradas', { n: L2('Collar de Perlas Doradas', 'Golden Pearl Necklace'), t: 'acc', slot: 'neck', lv: 200, price: 400000, icon: ['amulet', 5], rar: 5, hpB: 16000, def: 700, mpB: 1600, atk: 820, crit: 3 });
+it('lagrima_luna', { n: L2('Lágrima de Luna', 'Moon Tear'), t: 'acc', slot: 'acc', lv: 250, price: 900000, icon: ['ring', 5], rar: 5, hpB: 12000, def: 600, atk: 1100, crit: 5 });
+RECIPES.push({ id: 'r_collar_perlas_doradas', job: 'joyeria', out: 'collar_perlas_doradas', n: 1, lv: 200, jlv: 30, gold: 120000, mats: [['perla_dorada', 3], ['perla_rosa', 5], ['perla', 6]], cat: 'accesorio' });
+RECIPES.push({ id: 'r_lagrima_luna', job: 'joyeria', out: 'lagrima_luna', n: 1, lv: 250, jlv: 40, gold: 300000, mats: [['perla_luna', 2], ['perla_dorada', 3], ['diamante', 2]], cat: 'accesorio' });
+
+// ---------- dibujos ----------
+{ const _ge = genFurn2; genFurn2 = function (kind) { const D = s => C(s);
+  if (kind === 'mr_gigante') { const p = new Pix(34, 24), s = pal(['#3a2a5a', '#7a5aa8', '#b89ae0', '#f0e0ff']); p.ell(17, 16, 16, 7, s[1]); for (let k = 0; k < 7; k++) p.line(17, 22, 3 + k * 5, 10, s[0]); p.ell(17, 9, 15, 6, s[2]); for (let k = 0; k < 6; k++) p.line(17, 4, 4 + k * 5, 12, s[1]);
+    p.hl(4, 14, 26, s[3]); p.ball(17, 14, 3, 2, pal(['#c8a0b0', '#ffd0e0', '#ffffff', '#ffffff'])); p.outline(D('#140a20')); return { c: p.canvas(), ax: 17, ay: 23, light: 1 }; }
+  if (kind === 'mr_brillo') { const p = new Pix(10, 10); p.set(4, 1, D('#ffffff')); p.set(4, 7, D('#ffffff')); p.hl(1, 4, 7, D('#c8e8ff')); p.ball(4, 4, 2, 2, pal(['#c8a0b0', '#ffe0f0', '#ffffff', '#ffffff'])); return { c: p.canvas(), ax: 4, ay: 8, light: 1 }; }
+  return _ge(kind); }; }
+// sirena Perlina: dibujada con cola de pez sobre su figura
+NPCS.perlina = { n: 'Perlina', title: L2('La sirena de las perlas', 'The pearl mermaid'), look: LK({ g: 'f', outfit: 'dress', hairStyle: 'long', hair: HAIRS.turquesa, skin: SKINS[1], main: P5(['#0a3a4a', '#1a6a7a', '#2aa0a8', '#6ad8d0', '#c0fff4']), eyes: 'azul' }),
+  lines: [L2('Las almejas gigantes se abren cuando respiran. Si las abres a destiempo, muerden. Lo digo por experiencia: me faltan dos escamas.', 'Giant clams open when they breathe. Open them at the wrong time and they bite. I speak from experience: I am missing two scales.'),
+    L2('Hay treinta perlas perdidas por todo el fondo. Brillan un poquito. Las perdió una reina de Nerea que lloraba perlas en vez de lágrimas.', 'There are thirty lost pearls across the seabed. They shine a little. A queen of Nerea who cried pearls instead of tears lost them.'),
+    L2('La ballena del abismo pasa por la zona oscura. No muerde, solo canta. Si la oyes, es que vas por buen camino.', 'The abyss whale passes through the dark zone. It does not bite, it only sings. If you hear it, you are on the right path.')], quests: [] };
+{ const _de = drawEnt; drawEnt = function (e, cx, cy) { const r = _de(e, cx, cy); if (e.type === 'npc' && e.id === 'perlina') { const x = Math.round(e.x - cx), y = Math.round(e.y - cy - (e.z || 0)), sw = Math.round(Math.sin(G.t * 3) * 2);
+    ctx.fillStyle = '#1a8a8a'; ctx.beginPath(); ctx.ellipse(x, y - 6, 6, 8, 0, 0, 7); ctx.fill(); ctx.fillStyle = '#2ac0b0'; ctx.beginPath(); ctx.ellipse(x + 1, y - 7, 4, 6, 0, 0, 7); ctx.fill();
+    ctx.fillStyle = '#6ae0d0'; ctx.beginPath(); ctx.moveTo(x + sw, y + 1); ctx.lineTo(x - 7 + sw, y + 6); ctx.lineTo(x + sw, y + 3); ctx.lineTo(x + 7 + sw, y + 6); ctx.closePath(); ctx.fill(); } return r; }; }
+
+// ---------- colocar almejas, perlas perdidas y a Perlina al crear el mapa ----------
+const MR_FOUND = 30;
+{ const _mk = makeSub; makeSub = function () { const fresh = !G.maps.submarino, M = _mk(); if (!fresh || M.v429) return M; M.v429 = 1; const R = new RNG(SEED + 6161), ent = SUB.entry;
+  const free = (x, y) => { const i = M.I(x, y); return x > 2 && y > 2 && x < M.w - 3 && y < M.h - 3 && M.lvl[i] === 0 && !SOLID_T[M.ter[i]] && M.objAt[i] < 0 && Math.hypot(x - ent[0], y - ent[1]) > 5; };
+  const spot = (y0, y1) => { for (let t = 0; t < 500; t++) { const x = R.int(3, M.w - 4), y = R.int(y0, y1); if (free(x, y)) return [x, y]; } return null; };
+  const Z = [[6, 32], [33, 64], [65, 96]]; let gi = 0, pi = 0;
+  for (let z = 0; z < 3; z++) for (let k = 0; k < 4; k++) { const s = spot(...Z[z]); if (s) addObj(M, 'furn', s[0], s[1], { f: 'mr_gigante', fp: [[-1, 0], [0, 0], [1, 0]], xact: 'gclam', gid: gi++, gz: z }); }
+  for (let z = 0; z < 3; z++) for (let k = 0; k < 10; k++) { const s = spot(...Z[z]); if (s) addObj(M, 'furn', s[0], s[1], { f: 'mr_brillo', fp: [[0, 0]], solid: false, xact: 'lostpearl', pid: pi++ }); }
+  const s = spot(ent[1] + 3, ent[1] + 12) || [ent[0] + 3, ent[1] + 5]; spawnNPC('perlina', s[0] * 16 + 8, s[1] * 16 + 8, 'submarino', { face: 'down' });
+  M.turtles = Array.from({ length: 5 }, (_, i) => ({ x: R.int(10, M.w - 10) * 16, y: R.int(10, 60) * 16, a: R.f() * 6.28, v: 10 + R.f() * 8 })); const de = M.drawExtra; M.drawExtra = (cx, cy) => { de && de(cx, cy); mrFauna(M, cx, cy); }; M.chunks = new Map(); return M; }; }
+{ const _it = interactTarget; interactTarget = function () { const P = G.P; if (P && G.map && G.map.sub) for (const o of G.map.objs) if (o.xact === 'lostpearl' && (P.pearlF || []).includes(o.pid)) o.hidden = true; return _it.apply(this, arguments); }; }
+XACT.lostpearl = [L2('Coger la perla perdida', 'Take the lost pearl'), ['pearl', '#ffe0f0'], o => { const P = G.P; P.pearlF = P.pearlF || []; if (P.pearlF.includes(o.pid)) return; P.pearlF.push(o.pid); o.hidden = true; const n = P.pearlF.length;
+  giveItem(n % 10 === 0 ? 'perla_luna' : n % 3 === 0 ? 'perla_dorada' : 'perla_rosa', 1); sfx('coin'); burst(o.px, o.py - 6, 12, { sp: 40, up: 30, g: 20, life: 0.8, c: ['#ffe0f0', '#ffffff', '#c8e8ff'] });
+  toast(L2(`Perla perdida ${n}/${MR_FOUND}`, `Lost pearl ${n}/${MR_FOUND}`), 'loot', 4);
+  if (n === 10) { P.gold += 50000; toast(L2('Perlina te dará una recompensa: ¡10 perlas perdidas!', 'Perlina has a reward: 10 lost pearls!'), 'quest'); }
+  if (n === MR_FOUND) { giveItem('lagrima_luna', 1); banner(L2('¡Todas las perlas perdidas!', 'All the lost pearls!'), L2('Recibes la Lágrima de Luna', 'You receive the Moon Tear')); } markDirty(true); }];
+// almeja gigante: pulsa «Abrir» cuando esté abierta del todo (zona verde); si fallas, muerde
+XACT.gclam = [o => { const P = G.P; return ((P.gclD || {})[o.gid] === calDay()) ? L2('Almeja gigante (mañana)', 'Giant clam (tomorrow)') : L2('Abrir almeja gigante', 'Open giant clam'); }, ['pearl', '#ff9ac0'], o => {
+  const P = G.P; P.gclD = P.gclD || {}; if (P.gclD[o.gid] === calDay()) { toast(L2('Esta almeja ya está cerrada hasta mañana', 'This clam is shut until tomorrow'), 'info'); return; }
+  let t = 0, done = false, raf = 0; const sp = 1.6 + o.gz * 0.5, zone = 0.16 - o.gz * 0.025;
+  openModal(`<h2>${L2('Almeja gigante', 'Giant clam')}</h2><p class="hint">${L2('Se abre y se cierra al respirar. Pulsa «Abrir» cuando la marca esté en la zona verde.', 'It opens and closes as it breathes. Press "Open" when the marker is in the green zone.')}</p><div id="gcBar" style="position:relative;height:1.4em;background:#1a2a3a;border-radius:.5em;overflow:hidden;margin:.6em 0"><div style="position:absolute;left:${(1 - zone) * 100}%;right:0;top:0;bottom:0;background:#3ad07a"></div><div id="gcM" style="position:absolute;top:0;bottom:0;width:5px;background:#fff"></div></div><div class="row"><button class="btn gold" id="gcGo">${L2('Abrir', 'Open')}</button></div>`, 'party');
+  const tick = () => { if (done) return; t += 0.016; const v = (Math.sin(t * sp) + 1) / 2, m = $('#gcM'); if (!m) { done = true; return; } m.style.left = `calc(${(v * 100).toFixed(1)}% - 2px)`; m.dataset.v = v; raf = requestAnimationFrame(tick); }; tick();
+  $('#gcGo').onclick = () => { done = true; cancelAnimationFrame(raf); const v = +($('#gcM').dataset.v || 0); closeModal(); P.gclD[o.gid] = calDay(); markDirty();
+    if (v >= 1 - zone) { const r = Math.random(), id = o.gz === 2 && r < 0.12 ? 'perla_luna' : r < 0.25 + o.gz * 0.15 ? 'perla_dorada' : 'perla_rosa', n = id === 'perla_rosa' ? 2 + o.gz : 1; giveItem(id, n); giveItem('perla', 2); sfx('quest'); burst(o.px, o.py - 10, 18, { sp: 50, up: 40, g: 30, life: 1, c: ['#ffe0f0', '#ffffff'] }); toast(L2(`¡La almeja se abre! ${n}× ${ITEMS[id].n} y 2 perlas`, `The clam opens! ${n}× ${ITEMS[id].n} and 2 pearls`), 'loot', 5); }
+    else { hurtPlayer(Math.round(P.S.maxhp * 0.1), {}); G.shake = 5; toast(L2('¡Ay! La almeja muerde y se cierra hasta mañana.', 'Ouch! The clam bites and shuts until tomorrow.'), 'warn'); } }; }];
+// Perlina compra y cambia perlas
+function perlinaShop() { closeDialog(); const P = G.P, SELL = [['perla', 900], ['perla_negra', 6000], ['perla_rosa', 2500], ['perla_dorada', 9000], ['perla_luna', 40000]];
+  const render = () => { openModal(`<h2>${L2('Las perlas de Perlina', 'Perlina\'s pearls')}</h2><p class="hint">${L2('Perlas perdidas encontradas', 'Lost pearls found')}: ${(P.pearlF || []).length}/${MR_FOUND}</p><div class="slist">${SELL.map(([id, pr]) => `<button class="srow" data-ps="${id}" ${countItem(id) ? '' : 'disabled'}>${iconHTML(ITEMS[id].icon, 22)}<div class="sn"><b>${esc(ITEMS[id].n)} ×${countItem(id)}</b><small>${L2('Vender una por', 'Sell one for')} ${fmt(pr)} ${L2('oro', 'gold')}</small></div></button>`).join('')}
+    <button class="srow" id="psCollar">${iconHTML(ITEMS.collar_perlas_doradas.icon, 22)}<div class="sn"><b>${esc(ITEMS.collar_perlas_doradas.n)}</b><small>3 ${esc(ITEMS.perla_dorada.n)} + 5 ${esc(ITEMS.perla_rosa.n)} + 6 ${esc(ITEMS.perla.n)}</small></div></button></div><div class="row"><button class="btn" id="mclose">${L2('Cerrar', 'Close')}</button></div>`, 'party');
+    $('#mclose').onclick = closeModal; $$('[data-ps]').forEach(b => b.onclick = () => { const id = b.dataset.ps; if (!countItem(id)) return; takeItem(id, 1); P.gold += SELL.find(x => x[0] === id)[1]; sfx('coin'); markDirty(); render(); });
+    $('#psCollar').onclick = () => { const need = [['perla_dorada', 3], ['perla_rosa', 5], ['perla', 6]]; if (need.some(([id, n]) => countItem(id) < n)) { toast(L2('Te faltan perlas', 'Not enough pearls'), 'warn'); return; } for (const [id, n] of need) takeItem(id, n); giveItem('collar_perlas_doradas', 1); sfx('level'); toast(L2('Perlina te ensarta un Collar de Perlas Doradas ♥', 'Perlina strings you a Golden Pearl Necklace ♥'), 'quest', 5); markDirty(); render(); }; };
+  render(); }
+DLG_HOOKS.push((npc, opts) => { if (npc.id === 'perlina') opts.unshift({ label: L2('Perlas (vender y collares)', 'Pearls (sell and necklaces)'), icon: ['pearl', '#ffd040'], fn: perlinaShop }); });
+// fauna tranquila: tortugas marinas y la ballena del abismo que pasa por la zona oscura
+function mrFauna(M, cx, cy) { if (!M.turtles) return; const dt = 0.016;
+  for (const t of M.turtles) { t.a += (Math.sin(G.t * 0.3 + t.v) * 0.4) * dt; t.x += Math.cos(t.a) * t.v * dt; t.y += Math.sin(t.a) * t.v * 0.5 * dt; if (t.x < 64 || t.x > M.w * 16 - 64) t.a = Math.PI - t.a; if (t.y < 120 || t.y > 64 * 16) t.a = -t.a;
+    const x = Math.round(t.x - cx), y = Math.round(t.y - cy), f = Math.cos(t.a) < 0 ? -1 : 1, fl = Math.sin(G.t * 4 + t.v) * 2; if (x < -30 || x > VW + 30 || y < -30 || y > VH + 30) continue;
+    ctx.fillStyle = '#3a6a3a'; ctx.fillRect(x - 6 * f - 2, y - 2 + fl, 4, 2); ctx.fillRect(x + 3 * f - 2, y + 3 - fl, 4, 2); ctx.fillStyle = '#5a8a3a'; ctx.beginPath(); ctx.ellipse(x, y, 8, 5, 0, 0, 7); ctx.fill(); ctx.fillStyle = '#8ab05a'; ctx.beginPath(); ctx.ellipse(x - f, y - 1, 5, 3, 0, 0, 7); ctx.fill(); ctx.fillStyle = '#7aa05a'; ctx.beginPath(); ctx.ellipse(x + 9 * f, y, 3, 2.4, 0, 0, 7); ctx.fill(); }
+  const P = G.P; if (P.y / 16 > 66) { const k = (G.t * 0.02) % 1, x = Math.round(k * (VW + 400) - 200), y = 70 + Math.sin(G.t * 0.2) * 10; ctx.fillStyle = 'rgba(10,20,40,0.55)'; ctx.beginPath(); ctx.ellipse(x, y, 90, 26, 0, 0, 7); ctx.fill(); ctx.beginPath(); ctx.moveTo(x - 85, y); ctx.lineTo(x - 130, y - 22); ctx.lineTo(x - 122, y + 18); ctx.closePath(); ctx.fill(); ctx.fillStyle = 'rgba(200,232,255,0.5)'; ctx.fillRect(x + 50, y - 6, 3, 3); } }
+SAVEKEYS.push('pearlF', 'gclD');
 
 // ================= v3.6: IDIOMA (Español / English) =================
 // Los textos del código se traducen al compilar (tools/i18n/tr.js + en.json): cada uno es (LANG_EN ? "inglés" : "español").

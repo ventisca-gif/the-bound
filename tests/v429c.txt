@@ -1,0 +1,19 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), 1)
+js (()=>{ const P=G.P; P.lv=220; calcStats(P); P.hp=P.S.maxhp; P.ifr=1e9; const M=makeSub(); P.inside='submarino'; setMap(M, SUB.entry[0]*16+8, (SUB.entry[1]+3)*16+8, 'down'); return [M.v429, M.objs.filter(o=>o.xact==='gclam').length, M.objs.filter(o=>o.xact==='lostpearl').length, !!G.ents.find(e=>e.id==='perlina')]; })()
+wait 1500
+js ((()=>{ const e=G.ents.find(e=>e.id==='perlina'); G.P.x=e.x-20; G.P.y=e.y+10; return 1; })())
+wait 800
+shot
+js ((()=>{ const o=G.map.objs.find(o=>o.xact==='gclam'); G.P.x=o.px; G.P.y=o.py+14; return interactTarget().label; })())
+js ((()=>{ doInteract(); return !!document.querySelector('#gcGo'); })())
+wait 700
+shot
+js ((()=>{ document.querySelector('#gcM').dataset.v=0.99; document.querySelector('#gcGo').click(); return [countItem('perla_rosa'), countItem('perla_dorada'), countItem('perla_luna'), countItem('perla')]; })())
+js ((()=>{ const os=G.map.objs.filter(o=>o.xact==='lostpearl'); for (const o of os) XACT.lostpearl[2](o); return [G.P.pearlF.length, countItem('lagrima_luna')]; })())
+js ((()=>{ const e=G.ents.find(e=>e.id==='perlina'); openDialog(e); perlinaShop(); return document.querySelectorAll('[data-ps]').length; })())
+js ((()=>{ document.querySelector('#psCollar').click(); return countItem('collar_perlas_doradas'); })())
+js ((()=>{ closeModal(); G.P.y=80*16; return 1; })())
+wait 1200
+shot
+js (window._errs)

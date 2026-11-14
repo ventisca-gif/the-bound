@@ -104,7 +104,7 @@ function drawHero(p, L, dir, anim, f) {
   const hideHair = HD && HD.cover === 'full', hood = HD && HD.cover === 'hood';
   const robeLong = TOP.k === 'robe', dressLen = TOP.k === 'dress' ? 6 : 0;
   const TG = p.t ? (k => { p.tg = k; }) : (() => { });   // v4.0 capas para el detalle HD
-  p.meta = { cx, torsoTop, tx0, tw, th, legTop, base, dir, side, up, fem, d, hx, hy, anim, f };
+  p.meta = { cx, torsoTop, tx0, tw, th, legTop, base, dir, side, up, fem, d, hx, hy, anim, f, sk: SK };
   // ---------- legs & feet ----------
   const drawLegs = () => { TG(1);
     const lw = BOT.k === 'baggy' ? 4 : B.lw;
