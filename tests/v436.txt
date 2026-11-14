@@ -1,0 +1,40 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.gold=900000, G.P.lv=80, calcStats(G.P), [G.world.objs.filter(o=>o.xact==='cl_up').length, G.world.objs.filter(o=>o.xact==='cl_down').length])
+js (G.time=23*60, drm().day=-1, dreamEnter(), 1)
+wait 1500
+js [G.map.id, !!G.ents.find(e=>e.id==='oniria'), G.map.objs.filter(o=>o.xact==='dr_trial').length]
+shot
+js (()=>{ const o=G.map.objs.find(o=>o.tr==='echo'); drTrial(o); return SUENO.echo.left.length; })()
+js (()=>{ const E=SUENO&&SUENO.echo; if(E&&E.left[0]) { G.P.x=E.left[0].px; G.P.y=E.left[0].py-6; } return 1; })()
+wait 500
+js (()=>{ const E=SUENO&&SUENO.echo; if(E&&E.left[0]) { G.P.x=E.left[0].px; G.P.y=E.left[0].py-6; } return 1; })()
+wait 500
+js (()=>{ const E=SUENO&&SUENO.echo; if(E&&E.left[0]) { G.P.x=E.left[0].px; G.P.y=E.left[0].py-6; } return 1; })()
+wait 500
+js (()=>{ const E=SUENO&&SUENO.echo; if(E&&E.left[0]) { G.P.x=E.left[0].px; G.P.y=E.left[0].py-6; } return 1; })()
+wait 500
+js (()=>{ const E=SUENO&&SUENO.echo; if(E&&E.left[0]) { G.P.x=E.left[0].px; G.P.y=E.left[0].py-6; } return 1; })()
+wait 500
+js (()=>{ const E=SUENO&&SUENO.echo; if(E&&E.left[0]) { G.P.x=E.left[0].px; G.P.y=E.left[0].py-6; } return 1; })()
+wait 500
+js [SUENO&&SUENO.done, countItem('polvo_sueno')]
+js (()=>{ const o=G.map.objs.find(o=>o.tr==='shadow'); drTrial(o); const m=SUENO.shadow; hitMob(m, m.maxhp*3, {}); return !!m; })()
+wait 1500
+js [SUENO&&SUENO.done]
+js (drShop(), document.querySelectorAll('#modal [data-ds]').length)
+js (closeModal(), dreamWake(true), 1)
+wait 1500
+js [G.map.id, G.time]
+js (()=>{ const o=G.world.objs.find(o=>o.xact==='cl_up'); G.P.x=o.px; G.P.y=o.py+4; setMap(G.world,G.P.x,G.P.y); clClimb(o,-1); return o.to; })()
+wait 2500
+js [CLIMB, Math.floor(G.P.x/16), Math.floor(G.P.y/16), G.P.L]
+js (()=>{ const k={id:'k1',name:'Luna',g:'f',app:mixApps('f',1)[0],born:calDay()-30,parent:null,equip:{},cls:'mago'}; G.P.kids=[k]; return kidAdult(k); })()
+js (()=>{ const k=G.P.kids[0]; k.ljob='pesca'; legMatch(k); document.querySelector('#modal [data-lw="0"]').click(); return [!!k.spouse, k.house, legKidTown(k)]; })()
+js (worldPOI().filter(p=>p.c==='kidhome').map(p=>p.t))
+js (()=>{ const k=G.P.kids[0]; k.wedDay=calDay()-10; for(let i=0;i<20;i++) legDay(); return [(k.gkids||[]).length, G.P.leg.box.length, !!G.P.leg.story]; })()
+js (()=>{ const k=G.P.kids[0]; const d=G.world.doors.find(d=>d.to===k.house); enterInterior(d); return d.to; })()
+wait 1500
+js [G.map.id, G.ents.filter(e=>e.fam).length]
+shot
+js (()=>{ const id=deepDef('cueva_eco',1); const M=makeCave('cueva_eco'); return [id, M.objs.filter(o=>o.xact==='deep_go').length, makeCave(id).objs.filter(o=>o.xact==='deep_chest').length]; })()
+js (window._errs)

@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.35 (build 56)**, publicada en `main` el 2026-11-14. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.36 (build 57)**, publicada en `main` el 2026-11-14. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -42,7 +42,12 @@ Versión actual: **4.35 (build 56)**, publicada en `main` el 2026-11-14. La skil
 - **4.33** `6zyzl_v433.js`: pueblos vivos en los 6 pueblos del mapa principal (`PV_TOWNS`). Tablón `pv_tablon` (XACT `pv_board`) con pestañas noticias/mercado/ayuntamiento/bazar; `P.pv` = { pros, mayor, tr (carga), saved, log }. Prosperidad (`pvAddPros`), casas tapiadas `PV_ABSET` (<25), bazar (≥75), alcalde e impuestos (`PV_TAX`, `pvDay` en `newDay`, Día del Tributo cada 7 días), oficio `comercio` (`PV_GOODS`, `PV_TRADE`, `pvPrice`), rescate de vecinos salvados (`pvRescueTick`). Prueba `tests/v433.txt`.
 - **4.34** `6zyzm_v434.js` (`P.ofi`): cocina en hogueras (`ofi_hoguera`, XACT `ofi_fire`, `PL` = 50 platos con plantillas `drawDish`, ingredientes `IG` → `ig_*`, platos `pl_*` y perfectos `plp_*`, mejora `plato`), pesca legendaria `LEGF` (12, `legOk` por clima/estación/hora; `LEG` ya existía en `69_weapons.js`), dibujo de todos los peces (`drawFish`, icono `['ofi','fx_<id>']`, sección Peces del bestiario), alquimia experimental `AX` (`axFor` determinista), oficio `arqueologia` (`ARQ`, `ofi_arq`), forja artesanal (`FG_CORE`, `FG_RUNE`, guardado en `equip.weapon.fg`, runas solo contra monstruos). Prueba `tests/v434.txt`.
 - **4.35** `6zyzn_v435.js`: maestría de armas (`P.wm` por tipo `wmType`, `WM_UNL`, posturas `P.wpos` con botón `#bPos`, técnica `#bTec`/`WM_TECH` solo contra monstruos), Campo de Entrenamiento al sur de Arxar (`TR`, `tr_*`, Maestra Brienne), reacciones elementales (`m.el` wet/shock, `elReact`, `P._el` de la habilidad), raíces quemables `rz_root`/`rz_chest`, partes de jefe `BP` (`m.bp`), roles de enemigos `m.role` guard/healer, combos online `CMB` (evento `{k:'sk'}` por `nfxPush`). Prueba `tests/v435.txt`.
+- **4.36** `6zyzo_v436.js`: Mundo de los Sueños (mapa `sueno` = copia espejada de Albor, `SUENO` estado, `sleepHome` envuelto, pruebas `dr_trial` mirror/echo/shadow, Oniria, `polvo_sueno`, `acc_sonador`; `DREAM` ya existía en `6zyk_velo.js`), escalada (`cl_up`/`cl_down`, `CLIMB`), puentes de hielo (`ICEB`, `blockedFor` envuelto, dibujo en `bldDrawFloors`), Profundidades (`deepDef` crea `CAVES[prof_<cueva>_<n>]`, pozo `deep_go`, cofre `deep_chest`), legado (`kidAdult` a los 20 días, `k.ljob`, `k.spouse`, `k.house` con marca `MAPC.kidhome`, `k.gkids`, buzón `P.leg.box`, historias `LEG_ST`). Prueba `tests/v436.txt`.
 ## Pendiente o ideas que dejó abiertas
+
+- Las posturas de la maestría se ven como un aro de color en el suelo; no hay poses nuevas del cuerpo. Si Sergio quiere poses dibujadas, hay que hacerlas en `drawHero`.
+- El top mundial depende de las reglas de Firebase (`docs/firebase_rules.json`) pegadas en la consola del proyecto `the-bound-3afef`.
+- Los sistemas de pueblos vivos (4.33) solo están en los 6 pueblos del mapa principal.
 
 - Lanzas, hachas y mazas solo las usa el guerrero; si las quiere para otras clases, hay que darles agarre y atlas por clase.
 - El demonio, el brujo sapo y los demás personajes dark fantasy siguen dibujados en código: si manda los personajes sobre fondo liso, extraerlos igual que las criaturas.

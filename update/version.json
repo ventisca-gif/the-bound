@@ -1,32 +1,28 @@
 {
- "build": 56,
- "ver": "4.35",
+ "build": 57,
+ "ver": "4.36",
  "date": "2026-11-14",
  "file": "thebound.html",
- "size": 8464756,
- "sha256": "6b809cbaf998266cd7c95fc44ab63801cccd4382cc4712813baba7d89a729526",
+ "size": 8504956,
+ "sha256": "3ac06af0376555aa4dce9b6e9ffcd11833a5e1053aa513569efbb0cc3affb662",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Maestría de armas: cada tipo de arma (espada, lanza, hacha, maza, báculo, arco, dagas, laúd, guadaña y aletas) tiene su propia experiencia hasta 50, sin subir de nivel. Desbloquea posturas, contraataque maestro, una técnica especial y +5 % de daño como Gran Maestro.",
-   "Posturas ofensiva, defensiva y veloz con el botón ◇ (mantén pulsado para ver tu maestría). Se ven como un aro de color en el suelo, también en el online. Técnica especial con el botón ✦.",
-   "Campo de Entrenamiento al sur de Arxar: muñecos, dianas, armeros, escudos, la Maestra Brienne y dos aprendices que practican. Golpear muñecos y dianas sube la maestría.",
-   "Reacciones elementales: los enemigos se mojan con la lluvia, en el agua o con el pez. Rayo + mojado = Descarga en cadena; hielo + mojado = Congelado; fuego + hielo = Vapor; fuego + rayo = Sobrecarga; agua + fuego = Apagado. En las tormentas caen rayos.",
-   "Raíces espinosas junto a 6 piedras de viaje tapan cofres: quémalas con una habilidad de fuego, un arma con runa de fuego o una poción explosiva. Vuelven a crecer cada día.",
-   "Partes vulnerables en algunos jefes: cristal del Gólem de Escarcha (se regenera), escudo del Rey Vael (lo rompe un contraataque perfecto), tambor de Gruk (refuerzos), raíz corazón del Ent (solo el fuego) y corona del Rey Slime. Al romperlas cambian sus ataques.",
-   "Enemigos en equipo: guardianes (🛡, protegen a los de al lado: la mitad de daño) y curanderos (✚, curan a sus aliados y se alejan de ti). Los arqueros siguen alejándose. Decide a quién atacar primero.",
-   "Técnicas combinadas (online y WiFi local): si tú y otro jugador cercano usáis una habilidad casi a la vez, sale una técnica según vuestras clases (Espada Electrificada, Sinfonía de Almas, Lluvia Ígnea, Himno de Guerra, Tormenta Marina…)."
+   "Mundo de los Sueños: si duermes en tu cama de madrugada (22:00-4:00) a veces sueñas (con Hierba del sueño, siempre). Apareces en un Albor al revés, de noche y morado, con 3 pruebas: los Espejos, los Ecos (6 esquirlas en 45 s) y tu propia Sombra. Ganas polvo de sueño para la tienda de Oniria y, al superar las tres, el Amuleto del Soñador.",
+   "Escalada: 40 puntos de escalada con cuerda en los acantilados del mundo para subir y bajar sin dar la vuelta.",
+   "Puentes de hielo: una habilidad de hielo congela el agua que tienes delante durante 25 segundos y puedes cruzarla.",
+   "Las Profundidades: cada cueva tiene un pozo con cuerda junto al jefe que baja a 5 niveles más, cada uno más oscuro, con enemigos más fuertes, mejores minerales, un jefe más duro y un cofre diario.",
+   "Legado familiar: a los 20 días tus hijos son adultos. Pueden aprender un oficio (te dejan regalos cada día en el buzón de casa), casarse (eliges entre 3 pretendientes), vivir en su propia casa en un pueblo (marcada en el mapa) y tener hasta 2 nietos que mezclan sus rasgos.",
+   "Historias familiares: de vez en cuando un hijo te pide algo (pescar juntos, buscarle si se pierde, un plato por su cumpleaños o vencer al monstruo de debajo de su cama)."
   ],
   "en": [
-   "Weapon mastery: each weapon type (sword, spear, axe, mace, staff, bow, daggers, lute, scythe and fins) has its own experience up to 50, without levelling up. Unlocks stances, master counter, a special technique and +5% damage as Grand Master.",
-   "Offensive, defensive and swift stances with the ◇ button (hold to see your mastery). They show as a coloured ring on the ground, online too. Special technique with the ✦ button.",
-   "Training Grounds south of Arxar: dummies, targets, weapon racks, shields, Master Brienne and two apprentices practising. Hitting dummies and targets raises mastery.",
-   "Elemental reactions: enemies get wet in the rain, in water or from the fish. Lightning + wet = chain Discharge; ice + wet = Frozen; fire + ice = Steam; fire + lightning = Overload; water + fire = Doused. Lightning strikes during storms.",
-   "Thorny roots next to 6 waystones block chests: burn them with a fire skill, a fire-rune weapon or an explosive potion. They grow back every day.",
-   "Weak points on some bosses: the Frost Golem's crystal (regenerates), King Vael's shield (a perfect counter breaks it), Gruk's drum (reinforcements), the Ent's heart root (only fire) and the Slime King's crown. Breaking them changes their attacks.",
-   "Teamwork enemies: guardians (🛡, protect those next to them: half damage) and healers (✚, heal allies and keep away from you). Archers still keep their distance. Choose who to hit first.",
-   "Combined techniques (online and local WiFi): if you and a nearby player use a skill almost at the same time, a technique triggers based on your classes (Electrified Blade, Symphony of Souls, Fire Rain, War Hymn, Sea Storm…)."
+   "Dream World: if you sleep in your bed late at night (22:00-4:00) you sometimes dream (always with Dream herb). You appear in a backwards, purple, night-time Albor with 3 trials: the Mirrors, the Echoes (6 shards in 45 s) and your own Shadow. Earn dream dust for Oniria's shop and, after all three, the Dreamer's Amulet.",
+   "Climbing: 40 rope climbing spots on cliffs around the world to go up and down without going around.",
+   "Ice bridges: an ice skill freezes the water in front of you for 25 seconds so you can cross it.",
+   "The Depths: every cave has a rope pit next to the boss that goes down 5 more levels, each darker, with stronger enemies, better ore, a tougher boss and a daily chest.",
+   "Family legacy: after 20 days your kids are adults. They can learn a job (leaving gifts in your home mailbox every day), marry (choose among 3 suitors), live in their own house in a town (marked on the map) and have up to 2 grandchildren who mix their features.",
+   "Family stories: now and then a kid asks you for something (fishing together, finding them when lost, a dish for their birthday or beating the monster under their bed)."
   ]
  }
 }
