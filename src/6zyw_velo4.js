@@ -181,7 +181,7 @@ const SRD = [
   ['srf2', 'fantasma', L2('Atravesar', 'Phase Through'), 7, 15, ['dash', '#dff4ff'], { k: 'phase', m: 1.6, mr: 0.15 }, L2('Cruzas a los enemigos sin que te toquen: {m}% de daño y 1,2 s intocable.', 'You pass through enemies untouched: {m}% damage and 1.2 s untouchable.')],
   ['srf3', 'fantasma', L2('Poseer', 'Possess'), 20, 35, ['soul', '#9ae8ff'], { k: 'possess' }, L2('Te metes en un enemigo (no jefe): lucha a tu lado 12 s y al salir le arrancas el 30 % de la vida.', 'You slip into an enemy (not a boss): it fights for you for 12 s and when you leave you tear out 30% of its life.')],
   ['srf4', 'fantasma', L2('Lamento', 'Wail'), 16, 30, ['shout', '#9ae8ff'], { k: 'wail', m: 2.6, mr: 0.2 }, L2('Un grito del más allá: {m}% de daño alrededor y los enemigos huyen aterrados 2 s.', 'A cry from beyond: {m}% damage around you and enemies flee in terror for 2 s.')],
-  ['srv1', 'vampiro', L2('Mordisco', 'Bite'), 4, 12, ['fang', '#e04050'], { k: 'bite', m: 3, mr: 0.25 }, L2('Saltas al cuello: {m}% de daño y te curas el 40 % de lo que haces.', 'You go for the neck: {m}% damage and heal 40% of it.')],
+  ['srv1', 'vampiro', L2('Agarre de Sangre', 'Blood Grip'), 14, 20, ['fang', '#e04050'], { k: 'vgrab', m: 0.7, mr: 0.06 }, L2('Agarras a un enemigo (o a un jugador con el PvP activado) y le chupas la sangre 2,5 s: {m}% cada medio segundo y te curas la mitad. Los enemigos no se pueden mover mientras los sujetas.', 'You grab an enemy (or a player with PvP on) and drink their blood for 2.5 s: {m}% every half second and you heal half of it. Enemies cannot move while you hold them.')],
   ['srv2', 'vampiro', L2('Enjambre de Murciélagos', 'Bat Swarm'), 9, 22, ['wing', '#8a2050'], { k: 'bats', m: 0.9, mr: 0.08 }, L2('Te deshaces en murciélagos: 6 golpes de {m}% que roban vida.', 'You burst into bats: 6 hits of {m}% that steal life.')],
   ['srv3', 'vampiro', L2('Vuelo Nocturno', 'Night Flight'), 18, 25, ['dash', '#c040ff'], { k: 'fly' }, L2('Vuelas 6 s: +45 % de velocidad y +40 % de esquiva.', 'You fly for 6 s: +45% speed and +40% dodge.')],
   ['srv4', 'vampiro', L2('Sed de Sangre', 'Bloodthirst'), 24, 40, ['drop', '#ff2040'], { k: 'blood', m: 0.9, mr: 0.08 }, L2('Durante 3 s bebes de todo lo que te rodea: {m}% cada medio segundo y te curas la mitad.', 'For 3 s you drink from everything around you: {m}% every half second and heal half of it.')],
@@ -190,16 +190,15 @@ for (const [id, s, n, cd, mp, icon, eff, d] of SRD) sk(id, 'sr_' + s, 0, 0, n, '
 function srRank() { return Math.min(10, 1 + Math.floor((G.P.srX || 0) / 150)); }
 function srOk() { return !(typeof pvpOn === 'function' && pvpOn()); }
 function srSet(on) { const P = G.P; if (!P || !P.sr) return; const ids = SRSK[P.sr];
-  if (on) { if (!P.srF) P.srSlots = P.slots.slice(); P.srF = 1; P.slots = ids.slice(); for (const id of ids) P.skills[id] = srRank(); }
+  if (on) { if (!P.srF) P.srSlots = P.slots.slice(); P.srF = on === 2 ? 2 : 1; P.slots = ids.slice(); for (const id of ids) P.skills[id] = srRank(); }
   else { if (P.srF && P.srSlots) P.slots = P.srSlots.slice(); P.srF = 0; P.srSlots = null; for (const s in SRSK) for (const id of SRSK[s]) delete P.skills[id]; }
   calcStats(P); refreshLook(); uiDirty.hud = true; markDirty(); }
-function srToggle() { const P = G.P; if (!P || !P.sr || P.dead) return; if (!srOk()) { toast(L2('En un duelo no puedes transformarte', 'You cannot transform in a duel'), 'warn'); return; } if ((P.srTT || 0) > G.t) return; P.srTT = G.t + 2;
-  srSet(!P.srF); const D = SR[P.sr]; addFx({ type: 'ring', x: P.x, y: P.y, r: 40, dur: 0.6, col: D.col }); burst(P.x, P.y - 14, 30, { sp: 80, up: 60, g: 20, life: 0.8, c: [D.col, '#ffffff', P.sr === 'vampiro' ? '#5a0a1a' : P.sr === 'lobo' ? '#6a6a7a' : '#9ae8ff'] }); sfx(P.srF ? 'buff' : 'ui');
-  if (P.srF) banner(D.f, L2('Toca ', 'Tap ') + D.ic + L2(' otra vez para volver', ' again to change back')); }
+function srToggle() { const P = G.P; if (!P || !P.sr || P.dead) return; if ((P.srTT || 0) > G.t) return; P.srTT = G.t + 1.2;
+  const nx = P.sr === 'lobo' ? ((P.srF || 0) + 1) % 3 : (P.srF ? 0 : 1); srSet(nx); const D = SR[P.sr]; addFx({ type: 'ring', x: P.x, y: P.y, r: 40, dur: 0.6, col: D.col }); burst(P.x, P.y - 14, 30, { sp: 80, up: 60, g: 20, life: 0.8, c: [D.col, '#ffffff', P.sr === 'vampiro' ? '#5a0a1a' : P.sr === 'lobo' ? '#6a6a7a' : '#9ae8ff'] }); sfx(P.srF ? 'buff' : 'ui');
+  if (P.srF) banner(P.sr === 'lobo' ? (P.srF === 1 ? L2('Forma Híbrida', 'Hybrid Form') : L2('Forma de Lobo', 'Wolf Form')) : D.f, P.sr === 'lobo' && P.srF === 1 ? L2('Toca ', 'Tap ') + D.ic + L2(' otra vez: lobo a cuatro patas', ' again: four-legged wolf') : L2('Toca ', 'Tap ') + D.ic + L2(' otra vez para volver', ' again to change back')); }
 V33_TICKS.push(() => { const P = G.P; if (!P) return; const tr = $('#tr .trbtns'); let b = $('#bSr'); if (!tr) return; if (!P.sr) { if (b) b.remove(); return; } if (!b) { b = document.createElement('button'); b.className = 'mini'; b.id = 'bSr'; b.onclick = srToggle; tr.insertBefore(b, tr.firstChild); }
-  const t = SR[P.sr].ic + (P.srF ? '✓' : ''); if (b.textContent !== t) { b.textContent = t; b.title = P.srF ? L2('Volver a tu forma', 'Change back') : SR[P.sr].f; }
-  if (P.srF && !srOk()) srSet(false);   // en un duelo se pierde la forma
-  if (P.srF && P.slots[0] !== SRSK[P.sr][0]) srSet(true); if (!P.srF && (P.skills.srl1 || P.skills.srf1 || P.skills.srv1)) srSet(false); });
+  const t = SR[P.sr].ic + (P.srF === 2 ? '✓✓' : P.srF ? '✓' : ''); if (b.textContent !== t) { b.textContent = t; b.title = P.srF ? L2('Volver a tu forma', 'Change back') : SR[P.sr].f; }
+  if (P.srF && P.slots[0] !== SRSK[P.sr][0]) srSet(P.srF); if (!P.srF && (P.skills.srl1 || P.skills.srf1 || P.skills.srv1)) srSet(false); });
 { const _km = killMob; killMob = function (m, ...a) { const r = _km(m, ...a); const P = G.P; if (P && P.sr && P.srF && m) { const r0 = srRank(); P.srX = (P.srX || 0) + (m.boss ? 10 : 1); if (srRank() > r0) { for (const id of SRSK[P.sr]) P.skills[id] = srRank(); toast(SR[P.sr].f + L2(': habilidades a rango ', ': skills at rank ') + srRank(), 'quest', 3); } } return r; }; }
 // pasivas (no cuentan en los duelos)
 { const _cs = calcStats; calcStats = function (P, ...a) { const S = _cs(P, ...a); if (!P || !P.sr || !S || !srOk()) return S; const F = P.srF, night = typeof isNight === 'function' && isNight();
@@ -233,7 +232,7 @@ function srCast(id) { const P = G.P, s = SK[id], e = s.eff, r = P.skills[id] || 
     case 'fly': P.flyT = G.t + 6; calcStats(P); setTimeout(() => calcStats(G.P), 6100); burst(P.x, P.y - 10, 20, { sp: 60, up: 40, g: -20, life: 0.8, c: ['#2a0a1a', '#c040ff', '#000000'] }); sfx('dash'); break;
     case 'blood': setAnim(P, 'cast'); addFx({ type: 'field', ground: true, x: P.x, y: P.y, r: 75, dur: 3, col: '#c01030', follow: P }); for (let k = 0; k < 6; k++) delayAct(0.1 + k * 0.5, () => { let tot = 0; for (const m of G.ents) if (m.type === 'mob' && !m.dying && m.map === G.map.id && Math.hypot(m.x - P.x, m.y - P.y) < 75) { tot += hitMob(m, atk, {}) || 0; addFx({ type: 'bolt', x: m.x, y: m.y - 12, x2: P.x, y2: P.y - 12, dur: 0.25, col: '#ff2040' }); } if (tot) { const h = Math.round(tot * 0.5); P.hp = Math.min(P.S.maxhp, P.hp + h); floatText(P.x, P.y - 40, '+' + h, '#ff5a7a'); } }); sfx('buff'); break;
   } }
-{ const _us = useSkill; useSkill = function (slot) { const P = G.P, id = P && P.slots[slot], cd0 = id ? (P.cds[id] || 0) : 0; const r = _us.apply(this, arguments); if (id && SK[id] && SK[id].srk && P.srF && (P.cds[id] || 0) > cd0 && srOk()) srCast(id); return r; }; }
+{ const _us = useSkill; useSkill = function (slot) { const P = G.P, id = P && P.slots[slot], cd0 = id ? (P.cds[id] || 0) : 0; if (id && SK[id] && SK[id].srk && !srOk() && SK[id].srk !== 'vgrab') { toast(L2('En un duelo solo funciona el Agarre de Sangre', 'In a duel only Blood Grip works'), 'warn'); return; } const r = _us.apply(this, arguments); if (id && SK[id] && SK[id].srk && P.srF && (P.cds[id] || 0) > cd0) srCast(id); return r; }; }
 // el vuelo eleva al vampiro; el fantasma flota siempre
 V33_TICKS.push(dt => { const P = G.P; if (!P) return; const fly = P.flyT > G.t, gh = P.sr === 'fantasma' && P.srF; if (fly || gh) { P.z = (fly ? 12 : 4) + Math.sin(G.t * 3) * 2; P.srZ = 1; } else if (P.srZ) { P.z = 0; P.srZ = 0; } });
 // poseídos: luchan contra los demás enemigos
@@ -250,12 +249,12 @@ V33_TICKS.push(dt => { const P = G.P; if (!P) return; const fly = P.flyT > G.t, 
 { const _gt = gearTiers; gearTiers = function (P) { const g = _gt(P); const w = avItem(P); if (w) g.av = w.av; if (P && P.sr) { g.sr = P.sr; if (P.srF) g.sf = 1; if (P.srC) g.sc = P.srC; } return g; }; }
 { const _hl = heroLook; heroLook = function (cls, app, gear, ...a) { const L = _hl(cls, app, gear, ...a); if (!gear) return L;
   if (gear.av && L.weapon) L.weapon = Object.assign({}, L.weapon, { av: gear.av });
-  if (gear.sr && SR[gear.sr]) { L.sr = gear.sr; L.srF = gear.sf ? 1 : 0; const fur = HAIRS[gear.sc] || null;
+  if (gear.sr && SR[gear.sr]) { L.sr = gear.sr; L.srF = gear.sf | 0; if (gear.sr === 'lobo' && L.srF === 1) L.eyes = 'dorado'; const fur = HAIRS[gear.sc] || null;
     if (gear.sr === 'lobo') { if (fur) L.hair = fur; L.srFur = fur || L.hair || HAIRS.blanco; }
     if (gear.sr === 'vampiro') { L.eyes = 'brillo'; L.eyes2 = null; L.skin = Array.from(L.skin).map(c => uMix(c, C('#ece4f4'), 0.4)); L.back = { k: 'cape', o: P5(['#06020a', '#12060e', '#1e0a16', '#2c0e20', '#3e142c']), i: P5(['#3a0408', '#6a0c14', '#9a1a22', '#c02a34', '#e85a64']), tr: P5(['#3a0408', '#6a0c14', '#9a1a22', '#c02a34', '#e85a64']) }; }
     if (gear.sr === 'fantasma') { L.eyes = 'celeste'; L.eyes2 = null; } }
   return L; }; }
-{ const _bh = buildHeroAtlas; buildHeroAtlas = function (L) { if (L && L.sr === 'lobo' && L.srF) return wolfAtlas(L); return _bh(L); }; }
+{ const _bh = buildHeroAtlas; buildHeroAtlas = function (L) { if (L && L.sr === 'lobo' && L.srF === 2) return wolfAtlas(L); return _bh(L); }; }
 const SR_PALE = C('#e6f6ff');
 function srTintPix(p) { for (let i = 0; i < p.d.length; i++) { const c = p.d[i]; if (!uA(c)) continue; const l = (uR(c) * 0.3 + uG(c) * 0.59 + uB(c) * 0.11) / 255; p.d[i] = uMix(uMix(c, SR_PALE, 0.55), C(l > 0.45 ? '#ffffff' : '#7a9ac8'), 0.25) | 0xff000000; } }
 function srOverlay(p, L, dir, anim, f) { const m = p.meta; if (!m || m.hrx === undefined) return; const tg = p.tg; if (p.t) p.tg = 5; const hx = Math.round(m.hx), top = Math.round(m.headTop), side = m.side, up = m.up, d = m.d, empty = (x, y) => !uA(p.get(x, y));
