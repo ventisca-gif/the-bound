@@ -1,6 +1,6 @@
 # The Bound: notas para continuar en otro chat
 
-Versión actual: **4.22 (build 43)**, publicada en `main` el 2026-11-14. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.23 (build 44)**, publicada en `main` el 2026-11-14. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -9,11 +9,11 @@ Versión actual: **4.22 (build 43)**, publicada en `main` el 2026-11-14. La skil
 - Antes de un cambio visual grande, haz una muestra con el propio motor y espera su visto bueno. Si ya dijo «sí a todo», sigue.
 - Cuando manda una imagen en pixel art, extrae los sprites de la imagen (no los redibujes): detecta la cuadrícula con FFT, muestrea el centro de cada celda y recorta el fondo. Así salieron idénticos las armas de cobre, el campamento, las criaturas de Altavela y las armas dark fantasy.
 - Ropa y armaduras nuevas: `fitKind` + `python3 tools/dev/fitcheck.py file://$PWD/dist/test.html out` con 0 avisos (cubre tiers hasta el 26). En mujer llevan busto solas.
-- Tras tocar daño, vida o curas: `python3 tools/dev/pvp.py file://$PWD/dist/test.html` (fuerza 0,9-1,1; hoy 0,99-1,01) y `tools/dev/balance.py` (niveles hasta 350).
+- Tras tocar daño, vida o curas: `python3 tools/dev/pvp.py file://$PWD/dist/test.html` (fuerza 0,9-1,1; hoy 0,99-1,01) y `tools/dev/balance.py` (niveles hasta 350). Si tocas habilidades de subraza, `tests/srpvp.txt` y ajusta `SR_PVPK`.
 - `tools/i18n/vendor/acorn.js` no está en git (está en `.git/info/exclude`): en una sesión nueva, `npm pack acorn@8.14.0` y copia `package/dist/acorn.js` ahí, o `build.py` falla al traducir. Textos nuevos con `L2('es', 'en')`.
 - Pruebas: `python3 tests/play.py file://$PWD/dist/test.html out.png 900 500 @tests/<nombre>.txt` (debe terminar en `JS> []`).
 
-## Qué se añadió de la 4.12 a la 4.22 (archivos `src/6zw…6zyx`)
+## Qué se añadió de la 4.12 a la 4.23 (archivos `src/6zw…6zyy`)
 
 - **4.12** busto en cuerpos femeninos y NPCs (`bodyBust` en `6zw_bodies.js`; Esbelta/Menuda 1, Clásica 2, Curvas 3).
 - **4.13** armas tier 1-6 de la hoja de cobre (`tools/dev/armas.py` → `6zyd_armas_data.js`, motor `6zye_armas.js`: icono 16, mano 16/32 HD, atlas de ataque HD; dagas en ambas manos, aletas del pez). Campamento de los **Vigías del Alba** en la Costa Coral (169-178, 168-177) con 8 NPCs de su dibujo (`tools/dev/campamento.py`), 5 misiones, uniforme cosmético y lore de Edrin Valcorde (`6zyg_vigias.js`).
@@ -27,6 +27,7 @@ Versión actual: **4.22 (build 43)**, publicada en `main` el 2026-11-14. La skil
 - **4.21** `6zyw_velo4.js` (datos de imagen en `6zyv_velo4_data.js`, generados con `tools/dev/velo4.py` desde `tools/dev/velo4_ref/hoja.png`): 24 lanzas/hachas/mazas del guerrero (`av_<tipo>_<0-7>`, `gear.av`, atlas de ataque `WSPR_IMG.av`), 6 mascotas espectrales (`PETV`, las vende Corvel), región **Bosque de la Torre Hueca** (`VR_ZONES[VR4_ZI]`, torre, Biblioteca Anegada, caldera), jefe Ossaryn (`rey_rosas`, humanoide que camina), 6 enemigos con mecánicas (`VR4_MOBS`), +35 % de XP en el Velo, **subrazas** (`P.sr` lobo/fantasma/vampiro, `P.srF` transformado, `P.srC` pelaje; botón 🐺/👻/🦇; lobo a cuatro patas dibujado al doble en `drawWolf`; 4 habilidades `srl*/srf*/srv*` que sustituyen las ranuras; desactivadas en duelos; Poción de Sangre Limpia), NPCs Corvel, Ilvaine (romance, conjuros 🔮 `CJ`, marca `c_tercer_ojo`) y Grizzla, detalles de cara para NPCs (`L.xf`: tercer ojo, labios, nariz, aretes, dientes) y la pestaña 🗝 Secretos de la guía (`SECRETS`, pistas una a una en `P.secH`).
 
 - **4.22** `6zyx_velo5.js`: flecha dorada en cualquier mapa (`P.wp.m` = mapa del destino, `wpRoute` lleva al portal/puerta; `WP_M` recuerda el mapa de cada botón «Seguir»), sitio exacto por paso en cada secreto (`SEC_WHERE`, `VRP`), aviso 📍 «Siguiente» bajo la misión (`secNext`, `#secChip`), pestañas 👹 Enemigos y 🐺 Subrazas en la lupa (`guiaX`), lobo híbrido (`P.srF` 1 = híbrido, 2 = cuatro patas; `wolfHybrid`) y Agarre de Sangre del vampiro (`srv1`, tipo `vgrab`: el tipo `grab` ya lo usa el pez), que también chupa a jugadores con PvP.
+- **4.23** `6zyy_v423.js`: subrazas en el PvP con todas sus habilidades y visibles online (`srCast`, `srToggle` y `cjCast` van por `nfxWrap`; tipos de efecto `claw/howl/bite/cj` en `NFX_TYPES`). Contra jugadores el daño de subraza sale de `srBase(P)` (nivel) × habilidad × `SR_PVPK`, no de la clase; se mide con `tests/srpvp.txt` (hoy 1123-1127 de daño por segundo). Recursos (rocas, árboles, hierbas, montículos y buceo) reaparecen a los 5 s (`RES_RESPAWN`).
 ## Pendiente o ideas que dejó abiertas
 
 - Lanzas, hachas y mazas solo las usa el guerrero; si las quiere para otras clases, hay que darles agarre y atlas por clase.

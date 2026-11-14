@@ -1,28 +1,24 @@
 {
- "build": 43,
- "ver": "4.22",
+ "build": 44,
+ "ver": "4.23",
  "date": "2026-11-14",
  "file": "thebound.html",
- "size": 7230410,
- "sha256": "05f1ebc224e30ab5f1d52fb542e39dc7e0867c548a8f5f246134bb8f845062da",
+ "size": 7236826,
+ "sha256": "000ecea4bf6eed052a9bb6408d18ced2a058a6b6f9dc0eb4332301f2aca68706",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "La lupa 🔎 te guía en todo: la flecha dorada funciona también dentro del Velo Roto y del Jardín de la Sonrisa, y si el sitio está en otro mapa te lleva primero al portal o a la puerta.",
-   "Cada secreto de 🗝 Secretos apunta al sitio exacto del paso en el que vas (Fenrik, Malvia, el islote, los pedestales, el altar que falta, los trozos del nombre…).",
-   "Nuevo aviso 📍 bajo la misión: te dice cuál es el siguiente secreto y dónde ir. Tócalo para encender la flecha.",
-   "Pestañas nuevas en la lupa: 👹 Enemigos (todos, con nivel, botín, dónde salen y flecha al campamento más cercano) y 🐺 Subrazas (pasivas, habilidades, ofrenda y dónde está Corvel).",
-   "Lobo: el botón 🐺 pasa ahora por la forma híbrida (pelaje en la cara y el cuerpo, hocico, colmillos y ojos dorados, con tu ropa y tus cosméticos) y luego por el lobo a cuatro patas.",
-   "Vampiro: Agarre de Sangre sustituye a Mordisco. Sujeta a un enemigo y le chupa la sangre 2,5 s mientras te curas; también funciona con jugadores online que tengan el PvP activado (en duelo es la única habilidad de subraza que se puede usar)."
+   "Subrazas en el PvP: en un duelo funcionan las 4 habilidades de cada subraza (zarpazo, aullido, salto, almas heladas, atravesar, poseer, lamento, agarre de sangre, murciélagos, sed de sangre…) y el rival ve tu transformación, tus efectos y tus proyectiles en su teléfono.",
+   "Las subrazas están igualadas entre sí y no importa tu clase: contra jugadores, el daño de una habilidad de subraza depende de tu nivel y de la habilidad, no del ataque de tu clase. Lobo, fantasma y vampiro hacen el mismo daño por segundo (el vampiro cuenta lo que se cura).",
+   "En duelo, Poseer se mete en el rival y le arranca el alma en 4 golpes; Vuelo Nocturno da esquiva.",
+   "Rocas de minería (todos los minerales), árboles, hierbas, montículos y puntos de buceo reaparecen a los 5 segundos en el mismo sitio."
   ],
   "en": [
-   "The 🔎 guide leads you everywhere: the golden arrow also works inside the Broken Veil and the Garden of the Smile, and if the place is on another map it first takes you to the portal or door.",
-   "Each secret in 🗝 Secrets points to the exact place of the step you are on (Fenrik, Malvia, the islet, the pedestals, the missing altar, the pieces of the name…).",
-   "New 📍 notice under the quest: it tells you the next secret and where to go. Tap it to turn on the arrow.",
-   "New guide tabs: 👹 Enemies (all of them, with level, loot, where they appear and an arrow to the nearest camp) and 🐺 Subraces (passives, skills, offering and where Corvel is).",
-   "Wolf: the 🐺 button now goes through the hybrid form (fur on face and body, snout, fangs and golden eyes, with your clothes and cosmetics) and then the four-legged wolf.",
-   "Vampire: Blood Grip replaces Bite. It holds an enemy and drinks its blood for 2.5 s while you heal; it also works on online players with PvP on (in a duel it is the only subrace skill you can use)."
+   "Subraces in PvP: in a duel all 4 skills of each subrace work (claw rake, howl, pounce, icy souls, phase through, possess, wail, blood grip, bats, bloodthirst…) and your opponent sees your transformation, effects and projectiles on their phone.",
+   "Subraces are balanced against each other regardless of your class: against players, a subrace skill's damage depends on your level and the skill, not your class's attack. Wolf, ghost and vampire deal the same damage per second (the vampire counts its healing).",
+   "In a duel, Possess slips into the opponent and tears out their soul in 4 hits; Night Flight gives dodge.",
+   "Mining rocks (every ore), trees, herbs, mounds and diving spots respawn after 5 seconds in the same place."
   ]
  }
 }

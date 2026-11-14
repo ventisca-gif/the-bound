@@ -1,0 +1,11 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), 1)
+js (()=>{ netOnline=()=>true; netPresence=()=>{}; const P=G.P; P.lv=350; calcStats(P); P.sr='lobo'; NFX_OUT.length=0; srToggle(); P.cds={}; P.mp=1e6; useSkill(0); useSkill(1); return 1; })()
+wait 800
+js (()=>JSON.stringify(NFX_OUT.map(x=>x.e.k+':'+(x.e.o&&x.e.o.type||x.e.a||x.e.art||'')).slice(0,20)))
+js (()=>{ const M=G.map; const o=M.objs.find(o=>o.k==='ore'&&!o.hidden&&o.st!=='dep'); o.st='dep'; o.respawn=G.t+80; window._o=o; const t=M.objs.find(o=>o.k==='tree'&&!o.deco&&o.st!=='stump'); t.st='stump'; t.respawn=G.t+70; window._t=t; return 1; })()
+wait 6500
+js (()=>JSON.stringify({ore:_o.st, tree:_t.st}))
+wait 3000
+js (()=>JSON.stringify({ore:_o.st, tree:_t.st}))
+js (window._errs)
