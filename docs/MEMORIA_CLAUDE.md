@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.34 (build 55)**.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.35 (build 56)**.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -43,6 +43,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.34 (bui
 - **4.32** top mundial en Firebase (Realtime Database gratis del proyecto `the-bound-3afef` de Sergio; reglas en `docs/firebase_rules.json`).
 - **4.33** pueblos vivos: tablón en cada plaza (periódico, rumores, mercado, ayuntamiento, bazar), prosperidad, casas abandonadas, alcalde con impuestos, Día del Tributo, oficio Comercio y vecinos que te ayudan.
 - **4.34** oficios: hogueras con 50 platos (peruanos incluidos) y plato perfecto, 12 peces legendarios y colección de peces dibujados, alquimia experimental, arqueología (oficio nuevo) y forja artesanal con runas.
+- **4.35** combate: maestría por tipo de arma con posturas y técnica especial, Campo de Entrenamiento en Arxar, reacciones elementales, raíces que se queman, partes vulnerables en 5 jefes, guardianes y curanderos enemigos, técnicas combinadas entre clases en el online.
 
 ## Pendiente o ideas abiertas
 
