@@ -1,34 +1,34 @@
 {
- "build": 41,
- "ver": "4.20",
+ "build": 42,
+ "ver": "4.21",
  "date": "2026-11-14",
  "file": "thebound.html",
- "size": 6537427,
- "sha256": "0f8bcc3a520f85eda2e2ad9592d02c9a6850f4adf30c65e508f404dada24dc6c",
+ "size": 7203360,
+ "sha256": "7ae4469bc892706e1d245c6acc739444aa2f30e3151de0570a084730a182c7b1",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Historia principal del Velo Roto con El Hombre sin Rostro: 7 jefes nuevos con diseño y mecánica propios (Ghorm el Gran Brujo Sapo te atrapa con la lengua, Cornaviva embiste, Lady Morwen se divide en reflejos que explotan, Lady Sanguia se cura con tu vida, Baalzor lanza anillos de fuego, el Reflejo Eclipsado copia tu aspecto y alterna inmunidad a habilidades o ataques, y Risotto el bufón salta y deja trampas). Ya son 12 jefes en el continente.",
-   "Corrupción del Velo: sube mientras exploras. Con 30 % ves el mundo distinto y salen enemigos corruptos; con 60 % se abren muros secretos, aprendes el Grito del Velo (toca el contador) y algunos personajes te cuentan secretos. Oren la purifica.",
-   "Jefes con memoria: si vences a un jefe casi siempre con habilidades o con ataques normales, la próxima vez resiste ese tipo de daño y te da otra recompensa.",
-   "Luna de sangre: los jefes del Velo salen en versión Sangrienta, más fuertes y con más botín.",
-   "Heredero del Eclipse: al vencer a la Luna Sonriente recibes una corona de eclipse y +8 % de daño de noche.",
-   "Bioma secreto: el Jardín de la Sonrisa, solo cuando la luna sonríe (de medianoche a las 3). Criaturas adorables de nivel 350 que abrazan muy fuerte, el Tendero Imposible (Reloj sin Manecillas, Sombra Embotellada, Una Mañana, Mapa de Ninguna Parte) y El Sin Nombre, que no se vence luchando: hay que descubrir su nombre verdadero.",
-   "Arma Velada con voluntad propia: habla, crece con cada criatura del Velo y a las 300 te deja elegir entre Guardiana (escudos para ti y tu grupo) o Devoradora (daño y robo de vida contra criaturas malditas).",
-   "Tres finales según tus decisiones: El Amanecer, La Nueva Luna o El Heredero Corrupto. Nuevo capítulo de las Crónicas.",
-   "Las clases siguen igualadas a nivel 350."
+   "Lanzas, hachas y mazas para el guerrero (24, sacadas de la hoja de Sergio, tiers 22 a 26) con su propia animación de ataque: la lanza llega más lejos, el hacha da más crítico y la maza aturde.",
+   "6 mascotas espectrales con su dibujo: Sapo Fúngico, Babosa de Ectoplasma, Búho de las Almas, Polilla Calavera, Lobo de Niebla y Rape Farolillo. Las vende Corvel.",
+   "Nueva región del Velo Roto: el Bosque de la Torre Hueca, con niebla azul, la torre de Corvel el Encapuchado, la Biblioteca Anegada de la hechicera Ilvaine y la caldera de la bruja Grizzla.",
+   "Nuevo jefe: Ossaryn, el Rey de las Rosas Azules (calavera coronada). Te señala y caen estrellas, hace florecer rosas que atrapan y levanta a sus caballeros.",
+   "6 enemigos nuevos con mecánicas: Bruja de la Caldera (charcos de veneno), Espectro de la Niebla (se vuelve intangible y aparece detrás), Huargo Espectral (aullido de manada), Caballero de las Rosas (escudo de espinas), Bibliotecario Ahogado (páginas) y Polilla Calavera Gigante (polvo que ralentiza). En el Velo Roto se gana un 35 % más de experiencia.",
+   "Subrazas: Mitad Lobo, Mitad Fantasma o Mitad Vampiro (ritual de Corvel). Cambian tu aspecto en todas las estructuras de cuerpo y tienen pasivas. El botón 🐺/👻/🦇 te transforma cuando quieras: lobo a cuatro patas con el pelaje del color que elijas, fantasma blanco y transparente con tu ropa, o vampiro con alas. Cada una trae 4 habilidades propias (zarpazo, aullido, poseer, mordisco, enjambre de murciélagos, vuelo...). La Poción de Sangre Limpia la quita.",
+   "Ilvaine, la Hechicera del Ojo: conjuros nuevos con su botón 🔮 (Ojo del Abismo, Velas Flotantes, Marea de Tinta y Páginas Cortantes), lectura diaria del Ojo, su marca del tercer ojo con labios negros, y se la puede enamorar.",
+   "La guía 🔎 tiene una pestaña nueva, 🗝 Secretos: explica paso a paso todas las misiones y mundos secretos del Velo Roto, con pistas que se piden una a una.",
+   "Las novedades largas ya no se cortan en la ventana de actualización."
   ],
   "en": [
-   "Main story of the Broken Veil with the Faceless Man: 7 new bosses with their own design and mechanic (Ghorm the Great Toad Warlock grabs you with his tongue, Cornaviva charges, Lady Morwen splits into exploding reflections, Lady Sanguia heals from your life, Baalzor casts rings of fire, the Eclipsed Reflection copies your look and switches immunity between skills and attacks, and Risotto the jester blinks and leaves traps). The continent now has 12 bosses.",
-   "Veil Corruption: it rises while you explore. At 30% the world looks different and corrupted enemies appear; at 60% secret walls open, you learn the Veil Scream (tap the meter) and some characters tell you secrets. Oren purifies it.",
-   "Bosses with memory: if you beat a boss mostly with skills or with basic attacks, next time it resists that damage type and gives a different reward.",
-   "Blood moon: Veil bosses appear in a Bloody version, stronger and with more loot.",
-   "Eclipse Heir: defeating the Smiling Moon gives you an eclipse crown and +8% damage at night.",
-   "Secret biome: the Garden of the Smile, only while the moon smiles (midnight to 3). Adorable level 350 creatures that hug very hard, the Impossible Shopkeeper (Handless Clock, Bottled Shadow, A Morning, Map of Nowhere) and the Nameless One, who cannot be beaten by fighting: you must discover its true name.",
-   "Veiled Weapon with a will of its own: it talks, grows with every Veil creature and at 300 lets you choose Guardian (shields for you and your group) or Devourer (damage and lifesteal against cursed creatures).",
-   "Three endings based on your choices: The Dawn, The New Moon or The Corrupted Heir. New Chronicles chapter.",
-   "Classes remain balanced at level 350."
+   "Spears, axes and maces for the warrior (24, taken from Sergio's sheet, tiers 22 to 26) with their own attack animation: the spear reaches further, the axe crits more and the mace stuns.",
+   "6 spectral pets with their drawing: Fungus Toad, Ectoplasm Slug, Owl of Souls, Skull Moth, Mist Wolf and Lantern Angler. Corvel sells them.",
+   "New Broken Veil region: the Hollow Tower Woods, with blue mist, the tower of Corvel the Hooded, the Flooded Library of the sorceress Ilvaine and the cauldron of the witch Grizzla.",
+   "New boss: Ossaryn, King of the Blue Roses (a crowned skull). He points at you and stars fall, makes roses bloom that trap you and raises his knights.",
+   "6 new enemies with mechanics: Cauldron Hag (poison puddles), Mist Wraith (turns intangible and appears behind you), Spectral Warg (pack howl), Knight of the Roses (thorn shield), Drowned Librarian (pages) and Giant Skull Moth (slowing dust). In the Broken Veil you earn 35% more experience.",
+   "Subraces: Half-Wolf, Half-Ghost or Half-Vampire (Corvel's ritual). They change your look on every body type and have passives. The 🐺/👻/🦇 button transforms you whenever you want: a four-legged wolf with the fur color you choose, a white see-through ghost with your outfit, or a winged vampire. Each brings 4 skills of its own (claw rake, howl, possess, bite, bat swarm, flight...). The Clean Blood Potion removes it.",
+   "Ilvaine, the Sorceress of the Eye: new spells with their 🔮 button (Eye of the Abyss, Floating Candles, Ink Tide and Cutting Pages), a daily Reading of the Eye, her third-eye mark with black lips, and she can be romanced.",
+   "The 🔎 guide has a new tab, 🗝 Secrets: it explains step by step every secret quest and world of the Broken Veil, with hints you ask for one at a time.",
+   "Long patch notes are no longer cut off in the update window."
   ]
  }
 }
