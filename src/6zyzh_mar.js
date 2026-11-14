@@ -3,8 +3,8 @@
 it('perla_rosa', { n: L2('Perla Rosa', 'Pink Pearl'), t: 'mat', stack: true, price: 2500, icon: ['pearl', '#ff9ac0'], rar: 3 });
 it('perla_dorada', { n: L2('Perla Dorada', 'Golden Pearl'), t: 'mat', stack: true, price: 9000, icon: ['pearl', '#ffd040'], rar: 4 });
 it('perla_luna', { n: L2('Perla de Luna', 'Moon Pearl'), t: 'mat', stack: true, price: 40000, icon: ['pearl', '#c8e8ff'], rar: 5 });
-it('collar_perlas_doradas', { n: L2('Collar de Perlas Doradas', 'Golden Pearl Necklace'), t: 'acc', slot: 'neck', lv: 200, price: 400000, icon: ['amulet', 5], rar: 5, hpB: 16000, def: 700, mpB: 1600, atk: 820, crit: 3 });
-it('lagrima_luna', { n: L2('Lágrima de Luna', 'Moon Tear'), t: 'acc', slot: 'acc', lv: 250, price: 900000, icon: ['ring', 5], rar: 5, hpB: 12000, def: 600, atk: 1100, crit: 5 });
+it('collar_perlas_doradas', { n: L2('Collar de Perlas Doradas', 'Golden Pearl Necklace'), t: 'acc', slot: 'neck', lv: 200, price: 400000, icon: ['amulet', 5], rar: 5, hpB: 2000, def: 300, mpB: 600, atk: 450, crit: 2 });
+it('lagrima_luna', { n: L2('Lágrima de Luna', 'Moon Tear'), t: 'acc', slot: 'acc', lv: 250, price: 900000, icon: ['ring', 5], rar: 5, hpB: 2000, def: 300, mpB: 400, atk: 480, crit: 3 });
 RECIPES.push({ id: 'r_collar_perlas_doradas', job: 'joyeria', out: 'collar_perlas_doradas', n: 1, lv: 200, jlv: 30, gold: 120000, mats: [['perla_dorada', 3], ['perla_rosa', 5], ['perla', 6]], cat: 'accesorio' });
 RECIPES.push({ id: 'r_lagrima_luna', job: 'joyeria', out: 'lagrima_luna', n: 1, lv: 250, jlv: 40, gold: 300000, mats: [['perla_luna', 2], ['perla_dorada', 3], ['diamante', 2]], cat: 'accesorio' });
 
