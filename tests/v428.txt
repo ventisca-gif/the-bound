@@ -1,0 +1,18 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.gold=500000, G.P.partner='lia', G.P.rel={lia:{t:1000,a:1000}}, G.P.homes={casa_a3:{floor:0,f:{bed:'bigbed',table:'table',deco1:'plant',crib:'crib'}, lv:1}}, (()=>{ const d=G.world.doors.find(d=>d.to==='casa_a3'); G.P.x=d.x*16+8; G.P.y=(d.y+1)*16+8; enterInterior(d); return 1; })())
+wait 1500
+js (()=>{ const P=G.P; P.lv=120; calcStats(P); P.hp=P.S.maxhp; P.kids=[{id:'a',name:'Luna',g:'f',app:mixApps('f',1)[0],born:calDay()-20,parent:'lia',equip:{},cls:'guerrero'},{id:'b',name:'Sol',g:'m',app:mixApps('m',1)[0],born:calDay()-20,parent:'lia',equip:{},cls:'mago'},{id:'c',name:'Rio',g:'m',app:mixApps('m',1)[0],born:calDay()-20,parent:'lia',equip:{},cls:'arquero'}]; rebuildHome(); return G.ents.filter(e=>e.type==='kid').length; })()
+wait 800
+js (()=>{ const es=G.ents.filter(e=>e.type==='kid'); openKid(es[0]); document.querySelector('#kFol').click(); openKid(es[1]); document.querySelector('#kFol').click(); openKid(es[2]); document.querySelector('#kFol').click(); return [folCount(), es.map(e=>[e.kid.name,kidLv(e.kid),kidAtk(e.kid),kidMaxHp(e.kid),kidDef(e.kid)]), G.P.S.atk, G.P.S.maxhp, G.P.S.def]; })()
+js (()=>{ closeModal(); const P=G.P; const c=G.world.camps.find(c=>c.lv>100&&c.lv<120&&!c.L); setMap(G.world, c.x*16+8, c.y*16+30, 'up'); P.inside=null; P.map='world'; window.hurtPlayer0=1; P.ifr=1e9; return c.lv; })()
+wait 6000
+shot
+js (()=>{ const ks=FOLLOW_KIDS.map(e=>[e.kid.name, Math.round(e.kid.hp), kidMaxHp(e.kid), e.kid.lv, e.kid.xp, e.down]); const tg=G.ents.filter(m=>m.type==='mob'&&m.ktgt).length; return {ks, tg}; })()
+wait 6000
+js (()=>{ const ks=FOLLOW_KIDS.map(e=>[e.kid.name, Math.round(e.kid.hp), e.kid.lv, e.kid.xp, e.down]); return ks; })()
+shot
+js (()=>{ const e=FOLLOW_KIDS[0]; openKid(e); return !!document.querySelector('#kxSend'); })()
+js (document.querySelector('#kxSend').click(), (()=>{ const k=G.P.kids[0]; k.xt=Date.now()-30*60000; kidSimTick(); return [k.lv, k.xp, (k.inv||[]).length, k.gold, kidWhere(k), (k.log||[]).length, Object.keys(k.equip)]; })())
+js (()=>{ const k=G.P.kids[0]; const e=G.ents.find(q=>q.type==='kid'&&q.kid===k&&!q.remove)||{kid:k}; openKid(e); return document.querySelector('#mbody').innerText.slice(0,900); })()
+shot
+js (window._errs)
