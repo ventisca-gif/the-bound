@@ -1,24 +1,18 @@
 {
- "build": 47,
- "ver": "4.26",
+ "build": 48,
+ "ver": "4.27",
  "date": "2026-11-14",
  "file": "thebound.html",
- "size": 8125592,
- "sha256": "a0a53bfe182064b9ac465cb93d9799310d090b6cd0686eca8f47da418c42ebd3",
+ "size": 8129072,
+ "sha256": "7ee620f44ec9bae0000841bf7c54e1125c70456aae3d4eb302b73ce6c4e79771",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "El Colgante de Promesa ahora te lo regala la persona cuando llegáis a 10 corazones de Confianza y de Amor (una vez por persona). Con él ya puedes pedirle que sea tu pareja.",
-   "Al besaros o abrazaros ya no se ve la línea rara de las manos cogidas.",
-   "Tu pareja habla: de vez en cuando dice cosas en un globo de texto según lo que pasa (de noche, en combate, si tienes poca vida, a caballo, en el Velo Roto, en Nochebruma, en brazos, de la mano…). Los demás jugadores también ven sus globos.",
-   "Al montar, tu pareja sube detrás de ti y te agarra de la cintura, con cualquier montura (caballos, grifo y dragón) y cualquier cuerpo. Se baja a tu lado al desmontar y también se ve online."
+   "La escena de la cama al tener un hijo ya se ve siempre: la cámara se centra en la cama (antes quedaba tapada por el panel de misiones), la pareja se dibuja encima de los muebles y la cama matrimonial se elige primero."
   ],
   "en": [
-   "The Promise Pendant is now given to you when you reach 10 hearts of Trust and Love with someone (once per person). With it you can ask them to be your partner.",
-   "The odd line of held hands no longer shows while you kiss or hug.",
-   "Your partner talks: now and then they say something in a speech bubble depending on what is happening (night, combat, low health, riding, the Broken Veil, Nochebruma, being carried, holding hands…). Other players see the bubbles too.",
-   "When you ride, your partner climbs on behind you and holds your waist, on any mount (horses, griffin and dragon) and with any body. They get off beside you when you dismount, and it shows online too."
+   "The bed scene when having a child is always visible now: the camera centres on the bed (it used to be hidden under the quest panel), the couple is drawn above the furniture and the double bed is picked first."
   ]
  }
 }
