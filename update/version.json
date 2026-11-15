@@ -1,20 +1,18 @@
 {
- "build": 77,
- "ver": "4.56",
+ "build": 78,
+ "ver": "4.57",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 9910308,
- "sha256": "0c28d4124db9fb0d5231b29a3462ca45fc6c9c8b12134fbc48475a43513b0868",
+ "size": 9917086,
+ "sha256": "be8cdb3dec9733299778ee0c4ed98e64ffb9714f10270995b34b991c7655124c",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "El poder vuelve a calcularse como antes (sin el ×10). Los rangos de la Torre, los títulos y la guía vuelven a sus números.",
-   "Números grandes y claros en la ficha del personaje: el poder sale grande y dorado, y la vida, el maná, el ataque, la experiencia y los atributos usan una letra que se lee bien (la pixelada confundía el 8 con la S). El cristal de la Torre también."
+   "Ropa desgarrada según tu vida: con menos de la mitad aparecen rotos en la ropa, la armadura y los cosméticos, y raspones rojos; con menos de un cuarto, más rotos, bordes deshilachados y gotas de sangre. Funciona con todas las prendas y estructuras de cuerpo, protege el pecho de los cuerpos femeninos y se arregla al curarte por encima del 60 %. Se ve online."
   ],
   "en": [
-   "Power is calculated as before again (no ×10). Tower ranks, titles and the guide go back to their numbers.",
-   "Big, clear numbers in the character sheet: power is shown big and golden, and HP, mana, attack, experience and attributes use an easy-to-read font (the pixel font made 8 look like S). The Tower crystal too."
+   "Torn clothes based on your health: below half, rips appear in your clothes, armour and cosmetics, plus red scratches; below a quarter, more rips, frayed edges and drops of blood. It works with every item and body type, protects the chest on female bodies and is fixed when you heal above 60%. Visible online."
   ]
  }
 }

@@ -341,7 +341,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v4.56 · Números de la ficha grandes y claros</div>
+  <div class="tfoot">v4.57 · Ropa desgarrada según la vida</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11740,13 +11740,14 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '4.56', GAME_BUILD = 77;
+const GAME_VER = '4.57', GAME_BUILD = 78;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
 const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/[
+  {"b": 78, "v": "4.57", "d": "2026-11-15", "es": ["Ropa desgarrada según tu vida: con menos de la mitad aparecen rotos en la ropa, la armadura y los cosméticos, y raspones rojos; con menos de un cuarto, más rotos, bordes deshilachados y gotas de sangre. Funciona con todas las prendas y estructuras de cuerpo, protege el pecho de los cuerpos femeninos y se arregla al curarte por encima del 60 %. Se ve online."], "en": ["Torn clothes based on your health: below half, rips appear in your clothes, armour and cosmetics, plus red scratches; below a quarter, more rips, frayed edges and drops of blood. It works with every item and body type, protects the chest on female bodies and is fixed when you heal above 60%. Visible online."]},
   {"b": 77, "v": "4.56", "d": "2026-11-15", "es": ["El poder vuelve a calcularse como antes (sin el ×10). Los rangos de la Torre, los títulos y la guía vuelven a sus números.", "Números grandes y claros en la ficha del personaje: el poder sale grande y dorado, y la vida, el maná, el ataque, la experiencia y los atributos usan una letra que se lee bien (la pixelada confundía el 8 con la S). El cristal de la Torre también."], "en": ["Power is calculated as before again (no ×10). Tower ranks, titles and the guide go back to their numbers.", "Big, clear numbers in the character sheet: power is shown big and golden, and HP, mana, attack, experience and attributes use an easy-to-read font (the pixel font made 8 look like S). The Tower crystal too."]},
   {"b": 76, "v": "4.55", "d": "2026-11-15", "es": ["Arreglado: los títulos, el título equipado y otros datos nuevos no se guardaban; por eso volvía a salir «Nuevo título: Aprendiz». Ahora se guardan (los ganados antes de esta versión se recuperan solos al cumplir su condición).", "El poder ahora se muestra ×10 para que los números se lean mejor (antes ~4.000, ahora ~40.000). Los rangos de la Torre, los títulos y la guía de la lupa usan la escala nueva. Vuelve a medir tu poder en el cristal.", "El equipo de tus hijos, nietos y bisnietos es suyo: ya no se lo puedes quitar. Sí puedes darles algo mejor; lo que llevaban se queda en su propia mochila."], "en": ["Fixed: titles, the equipped title and other new data weren't saved; that's why \"New title: Apprentice\" kept appearing. Now they are saved (titles earned before this version come back on their own when their condition is met).", "Power is now shown ×10 so the numbers read better (before ~4,000, now ~40,000). Tower ranks, titles and the magnifier guide use the new scale. Measure your power at the crystal again.", "Your children's, grandchildren's and great-grandchildren's gear is theirs: you can no longer take it. You can give them something better; what they wore stays in their own bag."]},
   {"b": 75, "v": "4.54", "d": "2026-11-15", "es": ["Hijos, nietos y bisnietos: ya no puedes quitarles armas, armaduras o herramientas de más nivel que el tuyo si tú nunca las conseguiste. Si alguna vez la tuviste o ya tienes el nivel, sí.", "Menos curación enemiga: las invocaciones de los jefes ya no salen como Curandero, el Curandero cura un 8 % cada 5 s (a un jefe solo un 1,5 %) y ningún jefe puede recuperar más de un 0,6 % de vida por segundo mientras luchas (Devorador Carmesí, Obispo Hueco y todos los demás).", "Mucho más fluido con muchos enemigos: los enemigos de la Luna de Sangre, corruptos y sombras ya no se tiñen en cada fotograma (era lo que más lag daba), el velo rojo se prepara una vez, los sonidos de golpe no se amontonan y las partículas y números se reducen solo cuando hay demasiados."], "en": ["Children, grandchildren and great-grandchildren: you can no longer take weapons, armour or tools above your level from them if you never got them yourself. If you had it before or have the level, you can.", "Less enemy healing: boss summons no longer spawn as Healers, Healers heal 8% every 5 s (only 1.5% to a boss) and no boss can recover more than 0.6% HP per second while you fight (Crimson Devourer, Hollow Bishop and all the others).", "Much smoother with lots of enemies: Blood Moon, corrupted and shadow enemies are no longer tinted every frame (the biggest cause of lag), the red veil is prepared once, hit sounds don't pile up, and particles and numbers are reduced only when there are too many."]},
@@ -19213,6 +19214,47 @@ V33_TICKS.push(() => { const P = G.P; if (!P) return; try { const H = hunt(); if
         b.onclick = () => toast(L2('El equipo de ', 'The gear of ') + k.name + L2(' es suyo: no se lo puedes quitar. Sí puedes darle algo mejor.', ' is theirs: you can\'t take it. You can give them something better.'), 'info', 4); });
       // al darle algo, lo que llevaba se queda en su propia mochila (no vuelve a la tuya)
       const P = G.P; $$('[data-keq]').forEach(b => b.onclick = () => { const s = P.inv[+b.dataset.keq]; if (!s) return; const sl = ITEMS[s.id].slot; P.inv.splice(+b.dataset.keq, 1); if (k.equip[sl]) { k.inv = k.inv || []; k.inv.push(k.equip[sl]); } k.equip[sl] = s; sfx('equip'); refreshKidAtlas(k); uiDirty.inv = true; markDirty(true); openKid(e); }); } catch (x) { } return r; }; }
+
+// =====================================================================================
+// v4.57: ROPA DESGARRADA SEGÚN LA VIDA. Funciona con cualquier ropa, armadura o cosmético porque se aplica
+// sobre el dibujo ya terminado (después de drawHero), usando los puntos de anclaje del cuerpo (p.meta).
+//   nivel 1 (vida < 50 %): algunos rotos y raspones
+//   nivel 2 (vida < 25 %): más rotos, bordes deshilachados y gotas de sangre
+// Siempre protegido: el pecho de los cuerpos femeninos (mitad alta del torso) y la entrepierna.
+// Al curarte por encima del 60 % la ropa vuelve a estar bien. Se ve online (presencia «tr»).
+// =====================================================================================
+const TEAR_HOLES = {   // [parte, fx, fy, tamaño]  (fracciones dentro de cada parte del cuerpo)
+  1: [['torso', 0.15, 0.78, 1], ['torso', 0.8, 0.62, 1], ['legL', 0.5, 0.35, 1], ['legR', 0.5, 0.62, 1], ['armL', 0.5, 0.55, 1], ['armR', 0.5, 0.35, 1]],
+  2: [['torso', 0.12, 0.72, 2], ['torso', 0.82, 0.58, 2], ['torso', 0.5, 0.92, 1], ['legL', 0.5, 0.25, 2], ['legL', 0.4, 0.7, 1], ['legR', 0.5, 0.5, 2], ['legR', 0.6, 0.85, 1], ['armL', 0.5, 0.4, 2], ['armL', 0.5, 0.8, 1], ['armR', 0.5, 0.3, 1], ['armR', 0.5, 0.7, 2]] };
+const TEAR_RED = [C('#7a0a12'), C('#b81a24'), C('#e0303a')], TEAR_BLACK = C('#000000');
+let TEAR_CUR = 0;
+function tearApply(p, L) { const M = p.meta, lvl = L.tear | 0; if (!M || !lvl) return; const SK = M.sk || L.skin || []; const skin = new Set(SK), hair = new Set(L.hair || []), W = p.w, H = p.h;
+  const R = M.tx0 + M.tw - 1, legTop = M.legTop, base = M.base, ty = M.torsoTop, th = M.th, al = M.al || 6, aw = M.aw || 2, cx = M.cx, side = M.side;
+  const isCloth = (x, y) => { if (x < 0 || y < 0 || x >= W || y >= H) return false; const c = p.get(x, y); if (!uA(c) || skin.has(c) || hair.has(c)) return false; const r = uR(c), g = uG(c), b = uB(c); if (r + g + b < 40) return false; return true; };
+  const protect = (x, y) => { if (M.fem && y >= ty && y < ty + Math.ceil(th * 0.55) && x >= M.tx0 - 1 && x <= R + 1) return true; if (y >= legTop && y <= legTop + 2 && Math.abs(x - cx + 0.5) <= 2 && !side) return true; return y < ty; };
+  const where = (part, fx, fy) => { if (part === 'torso') return [Math.round(M.tx0 + fx * (M.tw - 1)), Math.round(ty + fy * (th - 1))];
+    if (part === 'legL' || part === 'legR') { const lx = side ? cx - 1 : (part === 'legL' ? M.tx0 + 1 : R - 1); return [lx, Math.round(legTop + 1 + fy * Math.max(1, base - legTop - 4))]; }
+    if (side) return null; const ax = part === 'armL' ? M.tx0 - Math.ceil(aw / 2) : R + Math.ceil(aw / 2); return [ax, Math.round(ty + 1 + fy * (al - 1))]; };
+  for (const [part, fx, fy, sz] of TEAR_HOLES[lvl]) { const w = where(part, fx, fy); if (!w) continue; const [x0, y0] = w; const cells = sz >= 2 ? [[0, 0], [1, 0], [0, 1], [1, 1]] : [[0, 0], [1, 0]];
+    for (const [dx, dy] of cells) { const x = x0 + dx, y = y0 + dy; if (protect(x, y) || !isCloth(x, y)) continue; p.set(x, y, M.up && part !== 'legL' && part !== 'legR' ? uMix(p.get(x, y), TEAR_BLACK, 0.7) : (SK[dy ? 1 : 2] || C('#e0b090'))); }
+    // borde del roto más oscuro (tela rasgada)
+    for (const [dx, dy] of [[-1, 0], [2, 0], [0, -1], [1, -1], [0, sz >= 2 ? 2 : 1], [1, sz >= 2 ? 2 : 1]]) { const x = x0 + dx, y = y0 + dy; if (!protect(x, y) && isCloth(x, y)) p.set(x, y, uMix(p.get(x, y), TEAR_BLACK, 0.45)); } }
+  // deshilachado del bajo (nivel 2): el borde inferior de la ropa del torso queda irregular
+  if (lvl >= 2) for (let x = M.tx0; x <= R; x++) { if ((x * 7) % 3) continue; for (let y = legTop + 3; y >= legTop - 1; y--) if (isCloth(x, y) && !protect(x, y)) { if (!isCloth(x, y + 1)) { p.set(x, y, uMix(p.get(x, y), TEAR_BLACK, 0.5)); } break; } }
+  // raspones rojos en la piel del cuerpo (no en la cara) y gotas
+  let n = 0; const want = lvl === 1 ? 2 : 5; for (let y = ty; y < base - 1 && n < want; y++) for (let x = 0; x < W && n < want; x++) { if (!skin.has(p.get(x, y)) || ((x * 13 + y * 7) % 11)) continue; if (M.fem && y < ty + Math.ceil(th * 0.55) && x >= M.tx0 && x <= R) continue; p.set(x, y, TEAR_RED[1]); if (skin.has(p.get(x + 1, y + 1))) p.set(x + 1, y + 1, TEAR_RED[0]); n++; }
+  if (lvl >= 2) { const drops = [[M.tx0 + 1, Math.min(base - 2, legTop + 2)], [R - 1, ty + th - 1]]; for (const [x, y] of drops) if (uA(p.get(x, y)) && !protect(x, y)) p.set(x, y, TEAR_RED[2]); } }
+{ const _dh = drawHero; drawHero = function (p, L) { const r = _dh.apply(this, arguments); try { if (L && L.tear) tearApply(p, L); } catch (e) { } return r; }; }
+{ const _hk = heroKey; heroKey = function () { const k = _hk.apply(this, arguments); return TEAR_CUR ? k + '|tr' + TEAR_CUR : k; }; }
+{ const _hl = heroLook; heroLook = function () { const L = _hl.apply(this, arguments); if (L && TEAR_CUR) L.tear = TEAR_CUR; return L; }; }
+{ const _pa = playerAtlas; playerAtlas = function (P) { TEAR_CUR = (P && P === G.P && SETTINGS.tear !== false) ? (P.tear | 0) : 0; try { return _pa.apply(this, arguments); } finally { TEAR_CUR = 0; } }; }
+{ const _ra = remoteAtlas; remoteAtlas = function (r) { TEAR_CUR = (r && SETTINGS.tear !== false) ? (r.tear | 0) : 0; try { return _ra.apply(this, arguments); } finally { TEAR_CUR = 0; } }; }
+// el nivel de rotura sigue a tu vida
+V33_TICKS.push(() => { const P = G.P; if (!P || !P.S || !P.S.maxhp) return; const f = P.dead ? 0 : P.hp / P.S.maxhp, cur = P.tear | 0; let lvl = cur;
+  if (f < 0.25) lvl = 2; else if (f < 0.5) lvl = Math.max(cur, 1) === 2 && f < 0.32 ? 2 : 1; else if (f >= 0.6) lvl = 0; else lvl = cur;
+  if (P.dead || P.downed) lvl = cur; if (lvl !== cur) { P.tear = lvl; P.atlas = playerAtlas(P); uiDirty.hud = true; netPresence(true); } });
+{ const _ep = extraPresence; extraPresence = function (o) { const r = _ep.apply(this, arguments); if (G.P && G.P.tear) o.tr = G.P.tear; return r; }; }
+{ const _er = extraRecv; extraRecv = function (r, pr) { _er.apply(this, arguments); const t = clamp((pr.tr | 0), 0, 2); if ((r.tear | 0) !== t) { r.tear = t; try { r.atlas = remoteAtlas(r); } catch (e) { } } }; }
 
 // ================= v3.6: IDIOMA (Español / English) =================
 // Los textos del código se traducen al compilar (tools/i18n/tr.js + en.json): cada uno es (LANG_EN ? "inglés" : "español").

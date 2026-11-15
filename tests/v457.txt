@@ -1,0 +1,10 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), calcStats(G.P), G.P.hp=Math.round(G.P.S.maxhp*0.4), 1)
+wait 600
+js [G.P.tear]
+js (G.P.hp=Math.round(G.P.S.maxhp*0.2), 1)
+wait 600
+js [G.P.tear]
+js (G.P.hp=G.P.S.maxhp, 1)
+wait 600
+js [G.P.tear, window._errs]
