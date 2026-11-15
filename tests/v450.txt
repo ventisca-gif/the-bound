@@ -1,0 +1,18 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.gold=900000, G.P.lv=80, calcStats(G.P), G.P.hp=G.P.S.maxhp, [GOTH_COS.length, !!FITK.body.gt_campana, COSM.c_chaq_cuero.vis({}).k])
+js (gothShop(), document.querySelectorAll('#modal [data-gs]').length)
+js (closeModal(), G.P.app.pale=1, refreshLook(), normApp(G.P.app).pale)
+js (duelStart({name:'Kael',lv:120,pw:'fuego',look:hnLook(HN[0]),h:HN[0]}), 1)
+wait 2500
+js (()=>{ const m=DUEL.m; G.P.x=m.x; G.P.y=m.y+30; let n=0; for (let k=0;k<12;k++){ m.dashCd=0; useSkill(0); if (m.dodgeT>G.t) n++; } return [n, !!DUEL]; })()
+js (hitMob(DUEL.m, 10, {}), 1)
+wait 500
+js (DUEL&&DUEL.m&&hitMob(DUEL.m, DUEL.m.maxhp*5, {}), 1)
+wait 3000
+js (tprGo('tp_coliseo'), 1)
+wait 2500
+js (tourMenu(), !!document.getElementById('arInv'))
+js (closeModal(), tourStart('real'), 1)
+wait 15000
+js [G.ents.filter(e=>e.type==='tf').length]
+js window._errs
