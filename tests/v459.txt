@@ -1,0 +1,15 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.lv=80, G.P.gold=99999, calcStats(G.P), [!!G.ents.find(e=>e.id==='medica_iris'), G.world.objs.filter(o=>o.warm).length])
+js (()=>{ const c=document.createElement('canvas'); c.id='hs'; c.width=900; c.height=600; c.style.cssText='position:fixed;left:0;top:0;width:900px;height:600px;z-index:999;background:#6a7a6a;image-rendering:pixelated'; document.body.appendChild(c); window.XX=c.getContext('2d'); XX.imageSmoothingEnabled=false; const P=G.P; P.app.g='f'; [{body:'c_gt_romantico'},{body:'c_chaq_cazador'}].forEach((cos,ri)=>{ P.cos=cos; [1,2].forEach((t,ti)=>{ P.tear=t; const A=playerAtlas(P); [0,1,3].forEach((row,j)=>{ hdEnsure(A, A.idx.idle, row, true); XX.drawImage(A.hd, A.idx.idle*A.fw*2, row*A.fh*2, A.fw*2, A.fh*2, ti*440+j*140-30, ri*290-40, A.fw*2*1.7, A.fh*2*1.7); }); }); }); P.tear=0; P.cos={}; return 1; })()
+shot
+js (()=>{ const A=mobAtlasFor(BOSSES.devorador_carmesi.art); XX.fillStyle='#2a2030'; XX.fillRect(0,0,900,600); for (let r=0;r<4;r++) XX.drawImage(A.hi,0,r*A.fh*2,A.fw*2,A.fh*2,r*220,20,A.fw*2*0.75,A.fh*2*0.75); XX.drawImage(A.hi,A.fw*2*7,0,A.fw*2,A.fh*2,0,300,A.fw*2*0.75,A.fh*2*0.75); const N=npcAtlas('medica_iris'); for (let r=0;r<4;r++){ hdEnsure(N,0,r,true); XX.drawImage(N.hd||N.img,0,r*N.fh*2,N.fw*2,N.fh*2,330+r*130,320,N.fw*2*1.6,N.fh*2*1.6); } return [A.fw,A.fh]; })()
+shot
+js (document.getElementById('hs').remove(), G.P.inj={k:'rota', d:calDay()}, calcStats(G.P), [Math.round(G.P.S.spd)])
+js (()=>{ const P=G.P, W=G.world; for (let i=0;i<W.w*W.h;i+=7){ const x=i%W.w, y=(i/W.w)|0; if (REGIONS[W.reg[i]].k==="picos" && !blockedFor(W,x,y,0) && !W.objs.some(o=>o.warm&&Math.abs(o.tx-x)<6&&Math.abs(o.ty-y)<6)) { P.x=x*16+8; P.y=y*16+8; break; } } P.cold=99; return [inColdZone(), nearWarm()]; })()
+wait 2500
+js [Object.keys(G.P.ills||{}), Math.round(G.P.cold)]
+js (()=>{ const e=G.ents.find(e=>e.id==='medica_iris'); G.P.x=e.x; G.P.y=e.y+24; clinicMenu(); return document.querySelector('#clCure')? 1:0; })()
+js (document.getElementById('clCure').click(), [Object.keys(G.P.ills||{}), G.P.inj])
+wait 1500
+shot
+js window._errs
