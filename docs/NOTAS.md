@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.65 (build 86)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.66 (build 87)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -72,6 +72,8 @@ Versión actual: **4.65 (build 86)**, publicada en `main` el 2026-11-15. La skil
 - **4.63** `6zz9_v463.js`: el top enseña al héroe de cada fila (último aspecto: `lkOf(P)` = JSON {c, a, g, cs, hh}, guardado por cuenta en `thebound.lk.<cuenta>` y en la fila `L[id].k`; retrato con `remoteAtlas` + HD recortado, `lkPortrait`, en cola `lkQueue`). Pestaña 👗 Moda (`HRS.tab = 'm'`): `modaCount` = cosméticos del armario + armaduras distintas (vistas, inventario, equipo, cofre); total `modaTotal()` = 265 hoy. Servidor: `/lk/<id>` {n, lv, c, m, k, t} con índice en `m` (**hay que pegar las reglas nuevas de `docs/firebase_rules.json`** o solo se ve tu propio aspecto). Online: índice 5 de las filas = prendas y presencia `rkk` = aspecto. Guía `GSIS` 'top_moda'. Prueba `tests/v463.txt`.
 - **4.64** `6zz9a_cine.js`: cinemáticas pixel art (256×144, `CN_SC` escenas, `cnChapterScenes` capítulo → escenas, `cnPrologue`, `cinePlay`/`cineEnd`; se ven al descubrir un capítulo con el diálogo abierto, desde el Libro 🎬 y con Mira). `SUPER_BOSS` (súper jefes: barra dorada `#bossbar.super`, aviso `#sbBan` una vez por héroe en `P.superSeen`, cinemática al vencerlos). **Lore oficial y reglas en `docs/LORE.md`** (enlazado desde `AGENTS.md`). Prueba `tests/v464.txt`.
 - **4.65** Nihil con el dibujo de Sergio: `tools/dev/nihil.py` (refs en `tools/dev/nihil_ref/`) → `6zz9c_nihil_data.js` (atlas 10×4 a la mitad de su píxel, 6 ataques × 5 fotogramas); `6zz9d_nihil.js`: `art ['nihx']`, `BMECH.nihil` con 6 ataques (`NIH_ATK`, zonas `NHZ`, orbes `NORB`, efectos `NFX` en `WORLD_DRAW`), fases al 60 % y 25 %. Espadas imbuidas: `tools/dev/imbuidas.py` → `6zz9b_imbue_data.js`; `imbueOf`, `drawImbue`, `P.imb` (Esencias de imbuir) en `6zz9e_v465.js` junto con la maestría nueva (`wmNeed` = 8·lv^1.3 + extra por nivel del enemigo), arma despertada ×1,5 y espera de pociones curativas (`POT_CD` 8 s, `P.healCd`). `6zz9f_casa.js`: trofeos `trofeo_<jefe>` (64), museo (`P.mus` {tr, fd, md, fw}, ¡día+1 porque el día 0 es válido!), hallazgos `FINDS` (excavación 5 %), muebles `NEWF` (BK con `f: 'nf_<k>'`, `FURN_ACT`), sótano `P.cellar`, biblioteca `P.libDay`. `6zz9g_vida.js`: jardinería mágica `MCROPS` (crecen ×3 con su clima restando a `F.t`), alquimia `ALCH`, taller `WORK`, amistades `P.fr` + técnicas `P.tech`/`TECH` (mentores `MENTORS`), duelos de rivales con `duelStart` (`FR_DUEL`), festivales cada 3 días (`FEST_GAMES`, medallas), armas ancestrales `ANC`/`P.anc`, Crónicas del mundo (pestaña `mundo` del Libro). `6zz9h_examen.js`: examen de la Academia → `a_arcana`. 120 objetos nuevos. Pruebas `tests/v465.txt` y `tests/v465n.txt`.
+
+- **4.66** `6zz9i_v466.js`: la runa ya no deja el aura fija (solo 0,9 s tras golpear, `P._runeT`), habilidad 1,5 s, `SETTINGS.imbue` en Opciones, «Quitar la runa» en `fgOpen`, esencia igual = cancelar, aura más pequeña (`drawImbue` reemplazado). A Sergio le molestó el fuego permanente.
 
 ## Pendiente o ideas que dejó abiertas
 

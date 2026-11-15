@@ -1,0 +1,10 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{ const P=G.P; P.equip.weapon.fg={rune:'fuego'}; return imbueOf(P); })()
+js (()=>{ const P=G.P; const m=spawnMob(Object.keys(MOBS)[0], 1, P.x+20, P.y, P.L, null, false); hitMob(m, 5, {}); return imbueOf(P); })()
+wait 1200
+js imbueOf(G.P)
+js (fgOpen(), !!document.getElementById('fgNoRune'))
+js (document.getElementById('fgNoRune').click(), closeModal(), G.P.equip.weapon.fg.rune===undefined)
+js (openPanel('opts'), !!document.getElementById('oImb'))
+js window._errs

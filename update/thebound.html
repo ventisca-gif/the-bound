@@ -341,7 +341,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v4.65 · Nihil nuevo, museo, festivales y más</div>
+  <div class="tfoot">v4.66 · Arreglo del fuego de la runa</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11740,13 +11740,14 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '4.65', GAME_BUILD = 86;
+const GAME_VER = '4.66', GAME_BUILD = 87;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
 const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/[
+  {"b": 87, "v": "4.66", "d": "2026-11-15", "es": ["Arreglado el fuego que se quedaba pegado al héroe con la runa de fuego: ahora el aura de la runa solo aparece un instante al golpear a un monstruo, más pequeña y en el arma.", "Opciones › «Aura de armas imbuidas» para apagar todas las auras.", "En la forja puedes quitar la runa del arma, y tocar otra vez la misma Esencia de imbuir la cancela."], "en": ["Fixed the fire stuck to the hero with the fire rune: the rune's aura now only flashes for a moment when you hit a monster, smaller and on the weapon.", "Options › \"Imbued weapon aura\" to turn all auras off.", "At the forge you can remove the weapon's rune, and tapping the same Imbue essence again cancels it."]},
   {"b": 86, "v": "4.65", "d": "2026-11-15", "es": ["⚠ Nihil renovado con tu dibujo: flota, se ve en las 4 direcciones y tiene 6 ataques nuevos con sus sprites (Orbe Umbrío, Garra del Vacío, Pilar Oscuro, Lluvia de Cristales, Nova Nihil y Prisión Sombría). Todo se avisa en el suelo; al 60 % llama sombras y al 25 % combina ataques. Solo aparece en la Corona del Cielo.", "🔥 Armas imbuidas: fuego, hielo, rayo y agua se ven en tu arma (con tu dibujo) al usar habilidades de ese elemento, con runas o con las nuevas Esencias de imbuir (5 min).", "⚔ Maestría de armas mucho más rápida (sube más con enemigos de nivel alto) y el arma despierta antes.", "🧪 Las pociones curativas esperan 8 s entre una y otra; el botón muestra la cuenta atrás.", "🏛 Museo de aventuras: trofeos de los 64 jefes con su dibujo, hallazgos arqueológicos, medallas de festivales y tus primeras armas. Los aldeanos lo visitan y lo comentan.", "🏠 Casa útil: vitrina, pedestal, taller del artesano, biblioteca, sótano secreto (40 huecos), cama de invitados, macetero mágico, mesa de alquimia y decoración nueva.", "🌙 Jardinería mágica: 6 plantas que crecen con su clima (la Flor Lunar brilla de noche) y elixires de alquimia.", "🤝 Amistades, rivales y mentores: charla cada día, duelos de rivales y técnicas que te enseñan.", "🎉 Festivales cada 3 días: concurso musical, cocina, baile, carrera y apuestas de caracoles.", "🗡 Armas ancestrales con historia: despiertan restaurando su santuario, hablando con quien conoció a su portador y venciendo a su creador.", "📜 Crónicas del mundo en el Libro del Vínculo: jefes, pueblos, familia, descubrimientos, decisiones y secretos sin resolver. 📝 Examen de la Academia con técnica exclusiva.", "Más de 120 objetos nuevos con sprite. Todo explicado en la lupa › Sistemas."], "en": ["⚠ Nihil remade with your drawing: it floats, shows in all 4 directions and has 6 new attacks with their sprites (Umbral Orb, Void Claw, Dark Pillar, Crystal Rain, Nihil Nova and Shadow Prison). Everything is warned on the ground; at 60% it calls shadows and at 25% it combines attacks. It only appears in the Crown of the Sky.", "🔥 Imbued weapons: fire, ice, lightning and water show on your weapon (with your drawing) when using skills of that element, with runes or with the new Imbue essences (5 min).", "⚔ Much faster weapon mastery (more from high-level enemies) and the weapon awakens sooner.", "🧪 Healing potions have an 8 s cooldown; the button shows the countdown.", "🏛 Adventure museum: trophies from the 64 bosses with their drawing, archaeological finds, festival medals and your first weapons. Villagers visit and comment on it.", "🏠 Useful house: display case, pedestal, artisan workshop, library, secret cellar (40 slots), guest bed, magic planter, alchemy table and new decoration.", "🌙 Magic gardening: 6 plants that grow with their weather (the Moonflower glows at night) and alchemy elixirs.", "🤝 Friendships, rivals and mentors: chat every day, rival duels and techniques they teach you.", "🎉 Festivals every 3 days: music contest, cooking, dance, race and snail betting.", "🗡 Ancestral weapons with a story: they awaken by restoring their shrine, talking to whoever knew their bearer and defeating their creator.", "📜 World chronicles in the Book of the Bond: bosses, towns, family, discoveries, decisions and unsolved secrets. 📝 Academy exam with an exclusive technique.", "Over 120 new items with sprites. Everything explained in the magnifier › Systems."]},
   {"b": 85, "v": "4.64", "d": "2026-11-15", "es": ["🎬 Cinemáticas en pixel art: el pasado del mundo se ve con escenas animadas y tu propio héroe aparece en ellas.", "Prólogo con toda la historia: en el Libro del Vínculo («🎬 Ver el prólogo») y hablando con la Anciana Mira («Ver el pasado»).", "Cada capítulo tiene su cinemática: se ve al descubrirlo hablando con un aldeano y desde el Libro con el botón 🎬 (los siete guardianes, Vael y el Kraken, el Eclipse, el ámbar, el invierno, la Ventisca, los reyes…).", "⚠ Súper jefes: el Desatado, el Señor del Eclipse, Nihil, la Luna Sonriente y El Sin Nombre son jefes de la historia: barra dorada, aviso al aparecer y cinemática al vencerlos.", "Tejedores más grandes y detallados en las escenas."], "en": ["🎬 Pixel art cutscenes: the world's past is shown with animated scenes and your own hero appears in them.", "Prologue with the whole story: in the Book of the Bond (\"🎬 Watch the prologue\") and talking to Elder Mira (\"See the past\").", "Every chapter has its cutscene: it plays when a villager tells it to you and from the Book with the 🎬 button (the seven guardians, Vael and the Kraken, the Eclipse, the amber, the winter, Ventisca, the kings…).", "⚠ Super bosses: the Unbound, the Lord of the Eclipse, Nihil, the Smiling Moon and the Nameless One are story bosses: golden bar, warning when they appear and a cutscene when you defeat them.", "Bigger, more detailed Weavers in the scenes."]},
   {"b": 84, "v": "4.63", "d": "2026-11-15", "es": ["🏆 Top con tu héroe: cada fila del top muestra al personaje tal como iba la última vez que jugó (ropa, armadura, arma, cosméticos, cuerpo y subraza). Si te cambias, cambia en el top.", "👗 Nueva pestaña Moda: ranking de quién tiene más prendas distintas, contando cosméticos del armario y todas las armaduras conseguidas.", "Explicado en la lupa › Sistemas."], "en": ["🏆 Top with your hero: every row of the top shows the character as they were dressed the last time they played (clothes, armour, weapon, cosmetics, body and subrace). If you change, the top changes too.", "👗 New Fashion tab: ranking of who owns the most different clothes, counting wardrobe cosmetics and every armour piece obtained.", "Explained in the magnifier › Systems."]},
@@ -20763,6 +20764,50 @@ DLG_HOOKS.push((npc, opts) => { if (!/^acad_/.test(npc.id || '') || !NPCS[npc.id
 if (typeof GSIS !== 'undefined') GSIS.push(['examen', '📝 ' + L2('Examen de la Academia', 'Academy exam'), () => [
   L2('Asiste a 3 lecciones en la Academia Arcana y habla con un profesor: «Examen de la Academia». Son 4 preguntas sobre la historia del mundo (todo está en el Libro del Vínculo).', 'Attend 3 lessons at the Arcane Academy and talk to a teacher: "Academy exam". It is 4 questions about the world\'s history (everything is in the Book of the Bond).'),
   L2('Con 3 aciertos aprendes la Técnica arcana (+4 % ataque y +4 % vida), que solo se enseña allí. Si fallas, vuelve al día siguiente.', 'With 3 correct answers you learn the Arcane technique (+4% attack and +4% HP), only taught there. If you fail, come back the next day.')], () => null]);
+
+// ================= v4.66: ARREGLO DEL FUEGO PEGADO AL HÉROE =================
+// En la 4.65 una runa de fuego, hielo o rayo dejaba el aura del arma encendida todo el rato (aunque estuvieras quieto
+// en una tienda). Ahora:
+// - La runa solo enciende el aura un instante cuando golpeas a un monstruo.
+// - La de una habilidad de elemento dura 1,5 s; la Esencia de imbuir, sus 5 min (tocar otra esencia igual la cancela).
+// - Opciones › «Aura de armas imbuidas» apaga todas las auras (la tuya y las de los demás).
+// - En la forja hay un botón «Quitar la runa».
+// - El aura es más pequeña y va pegada al arma, no encima del cuerpo.
+if (SETTINGS.imbue === undefined) SETTINGS.imbue = true;
+imbueOf = function (P) {
+  if (!P || !P.equip || !P.equip.weapon || SETTINGS.imbue === false) return '';
+  if (P.imb && P.imb.until > Date.now() && IMB_CV[P.imb.k]) return P.imb.k;
+  if (P._el && P._el.id !== 'imb' && G.t - P._el.t < 1.5 && IMB_CV[P._el.k]) return P._el.k;
+  if (P._runeT && G.t - P._runeT < 0.9) { const r = P.equip.weapon.fg && P.equip.weapon.fg.rune; return r === 'fuego' ? 'fire' : r === 'hielo' ? 'ice' : r === 'rayo' ? 'shock' : ''; }
+  return '';
+};
+{ const _hm = hitMob; hitMob = function (m, base, src) { const d = _hm.apply(this, arguments); try { const P = G.P, w = P && P.equip && P.equip.weapon; if (d && w && w.fg && /fuego|hielo|rayo/.test(w.fg.rune || '')) P._runeT = G.t; } catch (e) { } return d; }; }
+// más pequeña y en la mano
+drawImbue = function (e, cx, cy, k) {
+  const c = IMB_CV[k]; if (!c || !c.width || SETTINGS.imbue === false) return; const [w, h] = IMB_SIZE[k], s = 0.55;
+  const off = { down: [8, -6], up: [-8, -9], left: [-9, -7], right: [9, -7] }[e.dir] || [8, -6];
+  const atk = e.anim === 'atk', a = atk ? dirAng(e.dir) + Math.PI / 2 : 0.35 * (e.dir === 'left' ? -1 : 1);
+  const x = Math.round(e.x - cx + off[0] + (atk ? Math.cos(dirAng(e.dir)) * 6 : 0)), y = Math.round(e.y - cy + off[1]);
+  ctx.save(); ctx.imageSmoothingEnabled = false; ctx.translate(x, y); ctx.rotate(a);
+  ctx.globalAlpha = 0.25; ctx.fillStyle = IMB_COL[k]; ctx.beginPath(); ctx.ellipse(0, -h * s / 2, w * s * 0.8, h * s * 0.55, 0, 0, 7); ctx.fill();
+  ctx.globalAlpha = 0.9; if (Math.floor(G.t * 8) % 2 && k === 'fire') ctx.scale(-1, 1);
+  ctx.drawImage(c, Math.round(-w * s / 2), Math.round(-h * s - 1), Math.round(w * s), Math.round(h * s)); ctx.restore();
+  if (Math.random() < 0.15) part(e.x + off[0], e.y + off[1], { z: 6 + Math.random() * 8, vz: k === 'ice' || k === 'wet' ? -6 : 14, life: 0.5, c: IMB_COL[k], s: 1 });
+};
+// la presencia online ya usa imbueOf; si alguien apaga las auras, tampoco ve las de los demás (drawImbue lo comprueba)
+// tocar otra vez una esencia con el arma imbuida de ese elemento la cancela
+{ const _ui = useItem; useItem = function (idx) { const P = G.P, s = P && P.inv[idx], I = s && ITEMS[s.id];
+    if (I && I.imbK && P.imb && P.imb.k === I.imbK && P.imb.until > Date.now()) { P.imb = null; toast(L2('Has quitado la esencia del arma', 'You removed the essence from your weapon'), 'info'); markDirty(); return; }
+    return _ui.apply(this, arguments); }; }
+// opción en Opciones › Juego
+{ const _ro = renderOpts; renderOpts = function (B) { const r = _ro.apply(this, arguments);
+    try { const wx = $('#oWx'); if (wx && !$('#oImb')) { const l = document.createElement('label'); l.className = 'tg'; l.innerHTML = `<input type="checkbox" id="oImb" ${SETTINGS.imbue !== false ? 'checked' : ''}> ${L2('Aura de armas imbuidas (fuego, hielo, rayo y agua)', 'Imbued weapon aura (fire, ice, lightning and water)')}`; wx.closest('label').after(l); $('#oImb').onchange = e => { SETTINGS.imbue = e.target.checked; saveSettings(); }; } } catch (e) { }
+    return r; }; }
+// forja: quitar la runa
+{ const _fo = fgOpen; fgOpen = function () { const r = _fo.apply(this, arguments);
+    try { const P = G.P, e = fgW(); if (e && e.fg && e.fg.rune) { const h = [...$$('#modal h3')].find(x => /runa|rune/i.test(x.textContent)); if (h && !$('#fgNoRune')) { const b = document.createElement('button'); b.className = 'btn sm'; b.id = 'fgNoRune'; b.textContent = '✕ ' + L2('Quitar la runa', 'Remove the rune'); b.style.marginLeft = '.5em';
+      b.onclick = () => { delete e.fg.rune; calcStats(P); markDirty(true); toast(L2('Runa quitada', 'Rune removed'), 'info'); fgOpen(); }; h.appendChild(b); } } } catch (x) { }
+    return r; }; }
 
 // ================= v3.6: IDIOMA (Español / English) =================
 // Los textos del código se traducen al compilar (tools/i18n/tr.js + en.json): cada uno es (LANG_EN ? "inglés" : "español").
