@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.50 (build 71)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.51 (build 72)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -57,6 +57,7 @@ Versión actual: **4.50 (build 71)**, publicada en `main` el 2026-11-15. La skil
 - **4.48** `6zz0_v448.js` (carga antes de `6zz_i18n.js`): `tpPower` = `S.power`, `HN_RKSC` reescalado, `hnLv` con tope `MAXLV`. 30 cazadores `h.proc` (desde `HN_PROC0`) con `hnLookProc` (capucha/capa/máscara) y `buildAtlas` clásico. Salas `TPR` (`tp_antesala`, `tp_coliseo`, `tp_pruebas`) con `tprMake`/`tprGo`, puertas `tp_door` en el vestíbulo (envoltura de `makeTower`), suelo `M.tw2`/`M.fl`, arena `M.ring`. Torneos `TOUR` (`tourStart`, `tourTick`, luchadores `type:'tf'` con `tfUpdate`/`tfHit`, se simula si no estás en el Coliseo, apuestas, `tourSpect`/`tourSpectEnd`, `TOUR_LAST` para retar al campeón). Pruebas `TRIAL` (`str`/`res`/`vel`), examen (`duelStart` con `o.exam`, envoltura de `duelEnd`), misión diaria `dq()`/`dqMenu` en `hunt().dq`. Prueba `tests/v448.txt`.
 - **4.49** la misión diaria (`dqMenu`) da 1 nivel (`gainXp` hasta el siguiente) en vez de +2 atributos; Sergio no quiere atributos extra (poder infinito). En nivel máximo: esencias y oro.
 - **4.50** `6zz1_v450.js`: tipos `fitKind` nuevos `gt_campana`, `gt_romantico`, `gt_malla`, `gt_tachas`, `gt_hombros` (skin), `gt_tiras` (skin), piernas `gt_faldacuero`/`gt_tutu`/`gt_cordones`, pies `gt_plataforma`, pelucas `gt_bob`/`gt_cardado`/`gt_larga`/`gt_melena` (`gtWig`, cover full) y `gt_gafas` (face). Mangas retocadas tras dibujar (`GT_SLEEVE` en envoltura de `drawHero`: campana, malla, encaje, tachas). `GOTH_COS` reemplazada por `GT_NEW` (los cosméticos viejos siguen existiendo). Piel blanca `app.pale` → `GT_PALE`. Ropa de cazador: `hn_chaqueta`, `hn_cuero`, `hn_sudadera`, `hn_tactico` (cambiando `COSM[id].vis`). `aiDash(e, fx, fy)` + `dodgeT` (duelo: `duelDodge` en `useSkill`/`basicAttack`; aliados: zonas `tele`; Coliseo: `tfUpdate`/`tfHit`). Combate online: `CARENA` (no `ARENA`, que ya existe en `6u_arena.js`) con presencia `ari`/`ara`/`arl`, `arenaGo`, `startDown` → pierde. fitcheck 0 avisos. Prueba `tests/v450.txt`.
+- **4.51** entrada `ropa_gotica` en `GSIS` (lupa › Sistemas): cómo conseguir ropa gótica, pelucas, maquillaje y ropa de cazador, en ES/EN. Sergio quiere que todo lo nuevo se explique en la lupa en los dos idiomas.
 ## Pendiente o ideas que dejó abiertas
 
 - El top mundial depende de las reglas de Firebase (`docs/firebase_rules.json`) pegadas en la consola del proyecto `the-bound-3afef`.

@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.50 (build 71)**.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.51 (build 72)**.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -59,6 +59,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.50 (bui
 - **4.48** Torre ampliada (Antesala, Coliseo con torneos/apuestas/espectador, Salón de Pruebas con misión diaria), 30 cazadores nuevos de estilo clásico, medidor de poder = poder del menú, cazadores máx. nv. 350.
 - **4.49** misión diaria = 1 nivel al día (nada de puntos de atributo extra: desbalancea).
 - **4.50** ropa gótica nueva con tipos propios (`gt_*`), pelucas, gafas, piel blanca (`app.pale`), chaquetas de cazador rediseñadas (`hn_*`), dash de los cazadores (`aiDash`), combate online en el Coliseo (`CARENA`).
+- **4.51** ropa gótica y de cazador en la lupa (cómo conseguirla, ES/EN). Regla: todo lo nuevo que se consigue va a la lupa en los dos idiomas.
 
 ## Pendiente o ideas abiertas
 
