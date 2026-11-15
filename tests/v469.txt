@@ -1,0 +1,24 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), G.P.lv=340, calcStats(G.P), G.P.hp=G.P.S.maxhp, G.P.quests.done.vr6=1, [!!TSP_WPOS.gate, TSP_WPOS.gate])
+js (goSinPintar(), 1)
+wait 2500
+js [G.map.id, G.map.camps.length, G.map.bossAt.length, G.ents.filter(e=>e.type==='npc'&&e.id==='pintora_mael').length]
+shot
+js (()=>{ const P=G.P, Z=TSP_ZONES[0]; P.x=(Z.c[0])*16; P.y=(Z.c[1]+6)*16; return 1; })()
+wait 2500
+js (()=>{ const ms=G.ents.filter(e=>e.type==='mob'&&e.map==='sin_pintar'); return [ms.length, ms.slice(0,4).map(m=>m.mid)]; })()
+shot
+js (()=>{ const P=G.P; for(const id of ['tsp_slime','tsp_golemito','tsp_borron','tsp_caballero']) { const m=spawnMob(id,320,P.x+40+Math.random()*60,P.y-20+Math.random()*40,P.L,null,false); m.map=G.map.id; m.state='idle'; } return 1; })()
+wait 600
+shot
+js (()=>{ const P=G.P; for(let i=0;i<40;i++){ const m=spawnMob('tsp_slime',310,P.x+30,P.y,P.L,null,false); m.map=G.map.id; killMob(m);} return Math.round(tspPaint(0)*100); })()
+wait 400
+shot
+js (()=>{ const P=G.P; const m=spawnMob('lienzo_blanco',350,P.x+80,P.y-20,P.L,null,true); m.map=G.map.id; m.state='chase'; window.LB=m; BMECH.lienzo_blanco.fn(m,P); return [m.maxhp, isSuper(m)]; })()
+wait 900
+shot
+js (G.P.lv=350, gainXp(trzNeed(0)*2.5), [trzLv(), Math.round(G.P.S.atk)])
+js (backFromSinPintar(), 1)
+wait 1500
+js [G.map.id]
+js window._errs
