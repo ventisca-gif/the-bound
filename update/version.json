@@ -1,22 +1,18 @@
 {
- "build": 87,
- "ver": "4.66",
+ "build": 88,
+ "ver": "4.67",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 11172029,
- "sha256": "2585e01cddae510c528d0859571cd3c3acf1f75a1e31f9dbddb32e5ed29c218c",
+ "size": 11175195,
+ "sha256": "7eec84190688b901807e05aeb81bb2a717a2c6b8d34fb1414edf602faf906fc6",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Arreglado el fuego que se quedaba pegado al héroe con la runa de fuego: ahora el aura de la runa solo aparece un instante al golpear a un monstruo, más pequeña y en el arma.",
-   "Opciones › «Aura de armas imbuidas» para apagar todas las auras.",
-   "En la forja puedes quitar la runa del arma, y tocar otra vez la misma Esencia de imbuir la cancela."
+   "Lupa › Sistemas › «Nihil, el Ente Oscuro»: ahora dice dónde está (Corona del Cielo, en Celestia), el camino de misiones para llegar, cómo vencer cada ataque, sus fases y qué suelta. Con flecha dorada para ir."
   ],
   "en": [
-   "Fixed the fire stuck to the hero with the fire rune: the rune's aura now only flashes for a moment when you hit a monster, smaller and on the weapon.",
-   "Options › \"Imbued weapon aura\" to turn all auras off.",
-   "At the forge you can remove the weapon's rune, and tapping the same Imbue essence again cancels it."
+   "Magnifier › Systems › \"Nihil, the Dark Entity\": it now says where it is (Crown of the Sky, in Celestia), the quest path to get there, how to beat each attack, its phases and its drops. With a golden arrow to go there."
   ]
  }
 }
