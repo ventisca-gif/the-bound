@@ -1,0 +1,13 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.lv=350, G.P.gold=20000000, G.P.evo=G.P.cls, calcStats(G.P), G.P.partner='lia', 1)
+wait 4500
+js [titOwned(G.P)]
+js (G.P.title='t_mito', 1)
+wait 600
+shot
+js (wdMode='tit', openPanel('wardrobe'), document.querySelectorAll('[data-tt]').length)
+wait 500
+shot
+js (document.querySelector('[data-tt="t_magnate"]').click(), G.P.title)
+js (closePanel ? closePanel() : 0, GSIS.filter(x=>['poder','velada','herreria','despertar','maestria50','evolucion','titulos'].includes(x[0])).length)
+js window._errs

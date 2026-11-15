@@ -1,20 +1,22 @@
 {
- "build": 73,
- "ver": "4.52",
+ "build": 74,
+ "ver": "4.53",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 9876729,
- "sha256": "6113a962825f4c6c89808c02a28594cd961bc4d64c2f1e0e6e1bda7daa6c62c3",
+ "size": 9895732,
+ "sha256": "a90e39dec75371e8ebedf7a70f8fabf53e83a214b8fe16dd03f41184bbc0df57",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Arreglado: el número de poder no contaba todos tus bonus (maestría, arma despertada, clase despertada…) si no tenías subraza. Ahora el poder del menú y el del cristal de la Torre incluyen todo.",
-   "La clase despertada ahora fortalece a todas las clases: +10 % de ataque, +8 % de vida y +8 % de defensa, además de su bonus propio."
+   "Títulos: 26 títulos que se ganan por tu poder (Aprendiz, Veterano, Élite, Héroe, Leyenda, Mito Inmortal) y por logros (nivel máximo, clase despertada, Arma Velada, +10, arma despertada, maestría 50, rangos de la Torre, subrazas, boda, Coliseo, misiones diarias, ropa gótica, oro…).",
+   "Se equipan en el Armario › Títulos y salen encima de tu personaje con letras de colores, borde, adornos y brillo animado. Los demás jugadores los ven online encima de tu nombre.",
+   "Lupa › Sistemas: guías nuevas de Camino al poder máximo, Arma Velada (cómo conseguirla), Herrería (+10), Arma despertada, Maestría 50, Clase despertada y Títulos."
   ],
   "en": [
-   "Fixed: the power number didn't count all your bonuses (mastery, awakened weapon, awakened class…) unless you had a subrace. Now the menu power and the Tower crystal include everything.",
-   "Awakened class now strengthens every class: +10% attack, +8% HP and +8% defence, on top of its own bonus."
+   "Titles: 26 titles earned by your power (Apprentice, Veteran, Elite, Hero, Legend, Immortal Myth) and by achievements (max level, awakened class, Veiled Weapon, +10, awakened weapon, mastery 50, Tower ranks, subraces, wedding, Coliseum, daily quests, gothic clothes, gold…).",
+   "Equip them in Wardrobe › Titles; they show above your character with coloured letters, outline, ornaments and animated shine. Other players see them online above your name.",
+   "Magnifier › Systems: new guides for Road to max power, Veiled Weapon (how to get it), Blacksmith (+10), Awakened weapon, Mastery 50, Awakened class and Titles."
   ]
  }
 }
