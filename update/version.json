@@ -1,22 +1,20 @@
 {
- "build": 76,
- "ver": "4.55",
+ "build": 77,
+ "ver": "4.56",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 9910959,
- "sha256": "84f12b890591360f8b72820b61813077c5ffac0113f46c3e7b794b90ad0ddd7c",
+ "size": 9910308,
+ "sha256": "0c28d4124db9fb0d5231b29a3462ca45fc6c9c8b12134fbc48475a43513b0868",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Arreglado: los títulos, el título equipado y otros datos nuevos no se guardaban; por eso volvía a salir «Nuevo título: Aprendiz». Ahora se guardan (los ganados antes de esta versión se recuperan solos al cumplir su condición).",
-   "El poder ahora se muestra ×10 para que los números se lean mejor (antes ~4.000, ahora ~40.000). Los rangos de la Torre, los títulos y la guía de la lupa usan la escala nueva. Vuelve a medir tu poder en el cristal.",
-   "El equipo de tus hijos, nietos y bisnietos es suyo: ya no se lo puedes quitar. Sí puedes darles algo mejor; lo que llevaban se queda en su propia mochila."
+   "El poder vuelve a calcularse como antes (sin el ×10). Los rangos de la Torre, los títulos y la guía vuelven a sus números.",
+   "Números grandes y claros en la ficha del personaje: el poder sale grande y dorado, y la vida, el maná, el ataque, la experiencia y los atributos usan una letra que se lee bien (la pixelada confundía el 8 con la S). El cristal de la Torre también."
   ],
   "en": [
-   "Fixed: titles, the equipped title and other new data weren't saved; that's why \"New title: Apprentice\" kept appearing. Now they are saved (titles earned before this version come back on their own when their condition is met).",
-   "Power is now shown ×10 so the numbers read better (before ~4,000, now ~40,000). Tower ranks, titles and the magnifier guide use the new scale. Measure your power at the crystal again.",
-   "Your children's, grandchildren's and great-grandchildren's gear is theirs: you can no longer take it. You can give them something better; what they wore stays in their own bag."
+   "Power is calculated as before again (no ×10). Tower ranks, titles and the guide go back to their numbers.",
+   "Big, clear numbers in the character sheet: power is shown big and golden, and HP, mana, attack, experience and attributes use an easy-to-read font (the pixel font made 8 look like S). The Tower crystal too."
   ]
  }
 }
