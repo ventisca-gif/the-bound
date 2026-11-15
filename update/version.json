@@ -1,22 +1,18 @@
 {
- "build": 93,
- "ver": "4.72",
+ "build": 94,
+ "ver": "4.73",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 12762497,
- "sha256": "9dff4e3cc74e2eef8bbb7a6e64e074917436a347ea9a0f2177a9cf46391ec670",
+ "size": 12763457,
+ "sha256": "371e0cd1a1ba17066089e4de2c0f2006aa73ad5ee39adcd7e11152531aa99e1a",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🛡 Armaduras de Las Tierras sin Pintar con los conceptos de Sergio (tiers 27-30): abrigo crema y bufanda morada del bardo, túnica con ribetes de oro y colgante del mago, placas de cal agrietadas y capa morada del guerrero, manto de escamas con perla del pez, correas y bufanda del ninja, círculo morado y talismanes del invocador, y túnica crema para el arquero.",
-   "Se ajustan a las 8 estructuras de cuerpo (revisión automática sin avisos) y cambian de tono por tier: tiza, trazo, cal y lienzo. Van con la cabeza descubierta, como en los dibujos.",
-   "Ya no sale el manto celeste de Celestia con estas armaduras."
+   "El número de Poder ahora cuenta los Trazos, las técnicas (amistades, mentores y academia) y las armas ancestrales. Antes daban su bono en combate pero no salían en el Poder."
   ],
   "en": [
-   "🛡 Unpainted Lands armour with Sergio's concepts (tiers 27-30): the bard's cream coat and purple scarf, the mage's gold-trimmed robe and pendant, the warrior's cracked lime plates and purple cape, the fish's scale mantle with a pearl, the ninja's straps and scarf, the summoner's purple circle and talismans, and a cream tunic for the archer.",
-   "They fit all 8 body types (automatic check with no warnings) and change tone by tier: chalk, stroke, lime and canvas. Worn bareheaded, like in the drawings.",
-   "Celestia's sky-blue mantle no longer appears with this armour."
+   "The Power number now counts Strokes, techniques (friendships, mentors and academy) and ancestral weapons. They already gave their bonus in combat but didn't show in Power."
   ]
  }
 }
