@@ -48,7 +48,7 @@ with sync_playwright() as p:
     pg.click('#tNew'); pg.wait_for_timeout(400); pg.fill('#ccName', 'Sim'); pg.click('#ccGo'); pg.wait_for_timeout(1500); pg.click('#introOk'); pg.wait_for_timeout(300)
     R = pg.evaluate(JS)
     b.close()
-SUPER_T = {'desatado': 360, 'eclipsor': 420, 'nihil': 540, 'luna_sonriente': 540, 'sin_nombre': 600, 'lienzo_blanco': 600}
+SUPER_T = {'desatado': 360, 'eclipsor': 420, 'nihil': 540, 'luna_sonriente': 540, 'sin_nombre': 600, 'lienzo_blanco': 600, 'lienya': 720}
 def target(r):
     if r['kind'] == 'super': return SUPER_T.get(r['id'], 480)
     if r['kind'] == 'cont': return 180 + (r['lv'] - 200) / 150 * 120          # 3 -> 5 min
@@ -69,6 +69,7 @@ bad = 0
 for r in sorted(R, key=lambda r: r['lv']):
     lo, hi = T[r['kind']]
     if r['kind'] == 'zona': lo, hi = target(r) * 0.75, target(r) * 1.5
+    if r['kind'] == 'super': lo, hi = target(r) * 0.9, target(r) * 1.1
     lo *= 0.97; hi *= 1.03; flag = '' if lo <= r['solo'] <= hi else ('LARGO' if r['solo'] > hi else 'CORTO')
     if r['ttd'] < 12: flag += ' MUERES-RAPIDO'
     if flag: bad += 1

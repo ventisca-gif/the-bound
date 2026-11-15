@@ -1,18 +1,24 @@
 {
- "build": 95,
- "ver": "4.74",
+ "build": 96,
+ "ver": "4.75",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 12780425,
- "sha256": "2a76bbf792b49a4c316e6903632d24904c013c9dba3ed31dec2adb0682cb6cce",
+ "size": 13043306,
+ "sha256": "e081548c990e65f0bf758824ba716ff8088ebdff8954501451c3f5b88082eccf",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "💪 Nueva pestaña Poder en la lupa: tu poder ahora y qué te falta (arma, herrería, arma despertada, maestría, clase, subraza, Poder del Velo, Trazos y técnicas), la tabla del poder máximo a nivel 400 por clase y cada forma de ganar poder explicada: equipo, armas ancestrales, herrería, Trazos (límite 50), técnicas de rivales, mentores y academia, anillos, mascotas, comida y familia."
+   "🌸 Descubrimiento en Las Tierras sin Pintar: Lienya, la Diosa sin Pintar. Al principio solo te vigila desde lejos y desaparece si te acercas.",
+   "Después de vencer a El Lienzo en Blanco te espera junto a la puerta de luz: pregúntale quién es y revelará su forma verdadera (con el dibujo de Sergio). Súper jefe de nivel 410, muy difícil, con 5 ataques: Ráfaga del Vacío, Círculo de Olvido, Tentáculos Incoloros, Lluvia Sin Color y Desvanecer.",
+   "🎨 Al vencerla te enseña el oficio de Artista: pinta los caballetes del borde para devolverle el color (bonos de ataque, defensa, vida y experiencia).",
+   "💕 Se queda junto a Mael y la puedes enamorar y casarte con ella. Capítulo nuevo en el Libro del Vínculo con cinemática, y su guía en la lupa con flecha."
   ],
   "en": [
-   "💪 New Power tab in the magnifier: your power now and what you're missing (weapon, blacksmith, awakened weapon, mastery, class, subrace, Veil Power, Strokes and techniques), the level 400 max power table by class and every way to gain power explained: gear, ancestral weapons, blacksmith, Strokes (limit 50), rival, mentor and academy techniques, rings, pets, food and family."
+   "🌸 A discovery in the Unpainted Lands: Lienya, the Unpainted Goddess. At first she only watches you from afar and vanishes if you get close.",
+   "After defeating The Blank Canvas she waits by the door of light: ask her who she is and she will reveal her true form (with Sergio's drawing). A very hard level 410 super boss with 5 attacks: Void Burst, Circle of Oblivion, Colourless Tentacles, Colourless Rain and Vanish.",
+   "🎨 Once defeated she teaches you the Artist job: paint the border's easels to bring its colour back (attack, defence, HP and experience bonuses).",
+   "💕 She stays next to Mael and you can win her heart and marry her. New chapter in the Book of the Bond with a cutscene, and her guide in the magnifier with an arrow."
   ]
  }
 }
