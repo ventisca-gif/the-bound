@@ -1,22 +1,26 @@
 {
- "build": 89,
- "ver": "4.68",
+ "build": 90,
+ "ver": "4.69",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 11178086,
- "sha256": "85690cdbbdd1561ac898cf57de142ad4f8ed069b6d0aa79b8d3702d256817178",
+ "size": 11221253,
+ "sha256": "491d100f1b14dca9ee3291432fa71736b2294e548c69dde4ddf00281e29b1c5c",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "⚖ Dificultad de los 64 jefes medida y ajustada: antes caían en segundos. Ahora, en solitario y con buen equipo, un jefe de zona dura de 1 a 3 minutos, uno de continente de 3 a 5 y los súper jefes de 6 a 10 (Nihil 9, El Sin Nombre 10).",
-   "Con 4 amigos se tarda unos 2/3 de eso y con 2 hijos, un poco menos que solo: siempre se puede pasar solo, con familia o con amigos.",
-   "Solo cambia la vida de los jefes; el PvP no se toca."
+   "🖌 Nuevo continente: Las Tierras sin Pintar (nivel 300-350), el borde del mundo donde la Ventisca todavía no ha pintado. Se entra por el puente blanco al este de Albor después de vencer a la Luna Sonriente; habla con Mael, la Pintora del Borde.",
+   "Todo se ve como un boceto sin color sobre un vacío morado, y en el cielo una mano gigante pinta con su pincel. Cada criatura que vences devuelve el color a su zona.",
+   "Criaturas esbozadas (slimes a medio pintar, gólems de boceto, esqueletos, lobos de carboncillo, borrones de tinta…), 4 jefes nuevos y el súper jefe El Lienzo en Blanco, con 6 misiones y su capítulo y cinemática en el Libro del Vínculo.",
+   "Trazos: al nivel máximo la experiencia sigue sumando (hasta 50 Trazos, +0,4 % de ataque, defensa y vida cada uno). Mael cambia Tinta Viva por Trazos.",
+   "Todos los jefes nuevos pasan la medición de dificultad. Explicado en la lupa › Sistemas, con flecha al puente."
   ],
   "en": [
-   "⚖ The difficulty of all 64 bosses was measured and adjusted: they used to fall in seconds. Now, solo with good gear, a zone boss lasts 1-3 minutes, a continent boss 3-5 and super bosses 6-10 (Nihil 9, the Nameless One 10).",
-   "With 4 friends it takes about 2/3 of that and with 2 kids a bit less than solo: it can always be beaten solo, with family or with friends.",
-   "Only boss HP changes; PvP is untouched."
+   "🖌 New continent: The Unpainted Lands (level 300-350), the edge of the world where the Ventisca has not painted yet. Enter through the white bridge east of Albor after defeating the Smiling Moon; talk to Mael, the Painter of the Border.",
+   "Everything looks like a colourless sketch over a purple void, and in the sky a giant hand paints with its brush. Every creature you defeat gives its zone its colour back.",
+   "Sketched creatures (half-painted slimes, sketch golems, skeletons, charcoal wolves, ink smudges…), 4 new bosses and the super boss The Blank Canvas, with 6 quests and its chapter and cutscene in the Book of the Bond.",
+   "Strokes: at max level experience keeps adding up (up to 50 Strokes, +0.4% attack, defence and HP each). Mael trades Living Ink for Strokes.",
+   "All new bosses pass the difficulty measurement. Explained in the magnifier › Systems, with an arrow to the bridge."
   ]
  }
 }

@@ -29,6 +29,8 @@
 14. **El Velo Roto**. El silencio de Nihil se coló por una grieta del Velo y pintó un continente al revés: siempre de noche, campanas que suenan solas, muertos que rezan. La **Luna Sonriente** es la cara que el silencio se puso para que alguien lo mirara. Fenrik, el Lobo Viejo, vigila la grieta; la bruja Malvia habla al portal.
 15. **Velmira**. El muchacho de Edrin no se deshizo del todo: una parte cruzó la grieta y, para no olvidarse de sí, se fue poniendo caras ajenas. Olvidó su nombre, **Velmira**. El Hombre sin Rostro y El Sin Nombre son la misma persona, esperando a otro hilo vacío que se lo recuerde (tú).
 
+16. **Las Tierras sin Pintar** (v4.69). El mundo termina donde se acaba el color: más allá del último pueblo (puente al este de Albor) la Ventisca todavía no ha pintado y el suelo es un boceto blanco sobre el vacío morado. Allí el silencio de Nihil no es negro sino **blanco**: **el Lienzo en Blanco**, un lienzo vacío que no quiere que nada se pinte nunca (otro rostro de Nihil, no un mal nuevo). Dibuja de memoria **ecos inacabados** de lo ya vencido (el Rey en Borrador es un eco de Varkhul) y borra lo que la Ventisca pinta. **Mael, la Pintora del Borde**, sigue los trazos de la Ventisca. En el cielo, una mano enorme con un pincel (la Ventisca) sigue pintando. Cada criatura vencida devuelve color a su zona. Zonas: Orilla del Boceto, Llanura de los Trazos, Ciénaga de los Borrones, El Marco Roto y El Lienzo en Blanco. Código: `src/6zz9k_sinpintar.js`.
+
 ## Armas ancestrales (v4.65)
 
 Armas hechas por los siete guardianes antes de que el Sello los torciera, o por reyes de la Edad de los Reyes. No suben con experiencia: despiertan restaurando su santuario (una estela antigua), hablando con quien conoció a su portador y venciendo a su creador. `ANC` en `src/6zz9g_vida.js`.
@@ -44,7 +46,7 @@ Las plantas mágicas, los festivales y el museo son vida cotidiana: no añaden h
 
 ## Súper jefes
 
-Los jefes de la historia principal no son jefes normales: salen como **Súper jefe** (barra dorada, aviso grande la primera vez, cinemática al vencerlos). Hoy: el Desatado, el Señor del Eclipse, Nihil, la Luna Sonriente y El Sin Nombre. Nihil usa el dibujo de Sergio (v4.65) y solo aparece en la Corona del Cielo. Un jefe nuevo es súper jefe solo si cierra un capítulo de la historia principal; los demás (guardianes de zona, jefes del mundo, mazmorras) siguen siendo jefes.
+Los jefes de la historia principal no son jefes normales: salen como **Súper jefe** (barra dorada, aviso grande la primera vez, cinemática al vencerlos). Hoy: el Desatado, el Señor del Eclipse, Nihil, la Luna Sonriente, El Sin Nombre y El Lienzo en Blanco. Nihil usa el dibujo de Sergio (v4.65) y solo aparece en la Corona del Cielo. Un jefe nuevo es súper jefe solo si cierra un capítulo de la historia principal; los demás (guardianes de zona, jefes del mundo, mazmorras) siguen siendo jefes.
 
 ## Reglas para ampliar el lore
 
