@@ -1,22 +1,26 @@
 {
- "build": 84,
- "ver": "4.63",
+ "build": 85,
+ "ver": "4.64",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 10678816,
- "sha256": "15e92cdd67ea30bad834267ff48919a57bdeb6e96600fcc2660a5fcce80dbcb6",
+ "size": 10716779,
+ "sha256": "1472eebde9aa414c0806c717742b3e933e33f1f0154c93551783e7479a944226",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🏆 Top con tu héroe: cada fila del top muestra al personaje tal como iba la última vez que jugó (ropa, armadura, arma, cosméticos, cuerpo y subraza). Si te cambias, cambia en el top.",
-   "👗 Nueva pestaña Moda: ranking de quién tiene más prendas distintas, contando cosméticos del armario y todas las armaduras conseguidas.",
-   "Explicado en la lupa › Sistemas."
+   "🎬 Cinemáticas en pixel art: el pasado del mundo se ve con escenas animadas y tu propio héroe aparece en ellas.",
+   "Prólogo con toda la historia: en el Libro del Vínculo («🎬 Ver el prólogo») y hablando con la Anciana Mira («Ver el pasado»).",
+   "Cada capítulo tiene su cinemática: se ve al descubrirlo hablando con un aldeano y desde el Libro con el botón 🎬 (los siete guardianes, Vael y el Kraken, el Eclipse, el ámbar, el invierno, la Ventisca, los reyes…).",
+   "⚠ Súper jefes: el Desatado, el Señor del Eclipse, Nihil, la Luna Sonriente y El Sin Nombre son jefes de la historia: barra dorada, aviso al aparecer y cinemática al vencerlos.",
+   "Tejedores más grandes y detallados en las escenas."
   ],
   "en": [
-   "🏆 Top with your hero: every row of the top shows the character as they were dressed the last time they played (clothes, armour, weapon, cosmetics, body and subrace). If you change, the top changes too.",
-   "👗 New Fashion tab: ranking of who owns the most different clothes, counting wardrobe cosmetics and every armour piece obtained.",
-   "Explained in the magnifier › Systems."
+   "🎬 Pixel art cutscenes: the world's past is shown with animated scenes and your own hero appears in them.",
+   "Prologue with the whole story: in the Book of the Bond (\"🎬 Watch the prologue\") and talking to Elder Mira (\"See the past\").",
+   "Every chapter has its cutscene: it plays when a villager tells it to you and from the Book with the 🎬 button (the seven guardians, Vael and the Kraken, the Eclipse, the amber, the winter, Ventisca, the kings…).",
+   "⚠ Super bosses: the Unbound, the Lord of the Eclipse, Nihil, the Smiling Moon and the Nameless One are story bosses: golden bar, warning when they appear and a cutscene when you defeat them.",
+   "Bigger, more detailed Weavers in the scenes."
   ]
  }
 }
