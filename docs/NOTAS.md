@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.59 (build 80)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.60 (build 81)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -66,6 +66,7 @@ Versión actual: **4.59 (build 80)**, publicada en `main` el 2026-11-15. La skil
 - **4.57** `6zz5_v457.js`: ropa desgarrada genérica. `tearApply(p, L)` se ejecuta tras `drawHero` si `L.tear` (1 o 2): agujeros en posiciones relativas a `p.meta` (torso/piernas/brazos, `TEAR_HOLES`), solo sobre píxeles de ropa (no piel, pelo ni contorno), borde oscurecido, bajo deshilachado (nivel 2), raspones y gotas rojas; protege la mitad alta del torso en mujeres y la entrepierna; de espaldas los rotos de capa son tela oscura. `TEAR_CUR` se mete en `heroKey`/`heroLook` solo dentro de `playerAtlas`/`remoteAtlas`. `P.tear` sigue la vida (<50 % → 1, <25 % → 2, ≥60 % → 0). Online: presencia `tr`. `SETTINGS.tear === false` lo apaga. Prueba `tests/v457.txt`.
 - **4.58** `TEAR_HOLES_F` (agujeros extra solo en cuerpos femeninos y tamaño 2 en nivel 2), en `6zz5_v457.js`. A Sergio le gusta el efecto.
 - **4.59** `6zz6_v459.js` + `6zz5a_art_v459.js` (`tools/art/make_v459.py`: frente recortado, perfil comprimido, espalda pintada con dos esferas). Devorador: `BOSSES.devorador_carmesi.art = ['art59','devo']`. Top al destrozarse la ropa de mujer: envoltura de `tearApply` (nivel 2: mitad alta del torso → top `TOPB`, vientre → piel). Frío `P.cold` (Picos o nieve; calientan `o.warm` antorchas, hogueras `ofi_fire`, `campfire`, interiores), `coldHud`. Enfermedades `ILL` en `P.ills` {clave: día} (ojo: el día 0 es válido, usar `k in P.ills`), efectos en `calcStats`. Lesiones `INJ` en `P.inj` {k, d} por `injMaybe` (desde `hurtPlayer` con `CUR_MOB`: 15+ niveles o golpe ≥25 %), cojera/gateo con transformación en `drawEnt` (jugador y remotos, presencia `inj`). Médica `medica_iris` (atlas de héroe con cosméticos `c_enfermera`/`c_cofia`, `clinicMenu`, `ROM`). `SAVEKEYS`: ills, inj, cold. Guía `GSIS` 'salud'. Prueba `tests/v459.txt`.
+- **4.60** `6zz7_v460.js` + `6zz6a_art_v460.js` (fondo pixelado del castillo, `tools/art/make_v460.py`). Mapa `academia` (`makeAcademy`, 44×76, filas 0-39 = muro tapado por el cielo dibujado en `bldDrawFloors`), entrada `acad_go` cerca de `VR_GATE`, salida por `exitInterior` (vuelve a `P.acRet`). NPCs `acad_*`, lecciones `LESSON` (`hunt().lessons` por día), biblioteca `ACAD_TOMES` (`hunt().tomes`), `polvo_arcano`. Libros `BOOKS` (`libro_*`, consumibles por `useItem`; `P.book` 60 s; dibujo flotante con presencia `bk`). Escobas: `MOUNTS.escoba`/`escoba_astral` (`broom`, `genMount` envuelto; online gratis porque `mt` ya se envía). Top más pequeño en `tearApply` (marca capas `p.t`: 5 piel, 2 top, para que el HD no pinte rayas). Prueba `tests/v460.txt`.
 ## Pendiente o ideas que dejó abiertas
 
 - El top mundial depende de las reglas de Firebase (`docs/firebase_rules.json`) pegadas en la consola del proyecto `the-bound-3afef`.

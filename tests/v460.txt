@@ -1,0 +1,26 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.lv=300, G.P.gold=999999, calcStats(G.P), G.P.hp=G.P.S.maxhp, 1)
+js (goVelo(), 1)
+wait 3000
+js (()=>{ const o=G.map.objs.find(o=>o.xact==='acad_go'); return [G.map.id, !!o]; })()
+js (()=>{ const o=G.map.objs.find(o=>o.xact==='acad_go'); XACT.acad_go[2](o); return 1; })()
+wait 2500
+js (G.P.y = 50*16, [G.map.id, G.ents.filter(e=>e.map==='academia').length])
+wait 1200
+shot
+js (G.P.y = 42*16+8, 1)
+wait 800
+shot
+js (lessonStart('acad_ignar'), LESSON.orbs.length)
+js (()=>{ for (const o of LESSON.orbs){ o.got=1; } LESSON.got=10; return 1; })()
+wait 400
+js [countItem('polvo_arcano'), hunt().lessons]
+js (giveItem('libro_rayo', 3), useItem(G.P.inv.findIndex(s=>s.id==='libro_rayo')), [G.P.book&&G.P.book.k, countItem('libro_rayo')])
+js (()=>{ const P=G.P; for (let i=0;i<4;i++){ const m=spawnMob(Object.keys(MOBS).find(k=>MOBS[k].lv&&MOBS[k].lv&&MOBS[k].art[0]!=='hum'), 20, P.x+40+i*10, P.y+20, P.L, null, false); m.map=G.map.id; } return 1; })()
+wait 3000
+js [G.ents.filter(e=>e.type==='mob'&&e.map===G.map.id&&e.hp<e.maxhp).length]
+shot
+js (exitInterior(), 1)
+wait 2500
+js [G.map.id]
+js window._errs
