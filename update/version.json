@@ -1,18 +1,22 @@
 {
- "build": 83,
- "ver": "4.62",
+ "build": 84,
+ "ver": "4.63",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 10663201,
- "sha256": "28649b86358fbadcab810d40626359462f22266ac221d7cafb12bea0c82ef87b",
+ "size": 10678816,
+ "sha256": "15e92cdd67ea30bad834267ff48919a57bdeb6e96600fcc2660a5fcce80dbcb6",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Ropa rasgada de mujer: la ropa sigue puesta y rasgada, y debajo lleva un top que se ve por los rotos del pecho; por los rotos del vientre se ve la piel."
+   "🏆 Top con tu héroe: cada fila del top muestra al personaje tal como iba la última vez que jugó (ropa, armadura, arma, cosméticos, cuerpo y subraza). Si te cambias, cambia en el top.",
+   "👗 Nueva pestaña Moda: ranking de quién tiene más prendas distintas, contando cosméticos del armario y todas las armaduras conseguidas.",
+   "Explicado en la lupa › Sistemas."
   ],
   "en": [
-   "Torn women's clothes: the clothes stay on and torn, with a top underneath visible through the rips on the chest; skin shows through the rips on the belly."
+   "🏆 Top with your hero: every row of the top shows the character as they were dressed the last time they played (clothes, armour, weapon, cosmetics, body and subrace). If you change, the top changes too.",
+   "👗 New Fashion tab: ranking of who owns the most different clothes, counting wardrobe cosmetics and every armour piece obtained.",
+   "Explained in the magnifier › Systems."
   ]
  }
 }

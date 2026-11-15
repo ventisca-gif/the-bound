@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.62 (build 83)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.63 (build 84)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -69,6 +69,8 @@ Versión actual: **4.62 (build 83)**, publicada en `main` el 2026-11-15. La skil
 - **4.60** `6zz7_v460.js` + `6zz6a_art_v460.js` (fondo pixelado del castillo, `tools/art/make_v460.py`). Mapa `academia` (`makeAcademy`, 44×76, filas 0-39 = muro tapado por el cielo dibujado en `bldDrawFloors`), entrada `acad_go` cerca de `VR_GATE`, salida por `exitInterior` (vuelve a `P.acRet`). NPCs `acad_*`, lecciones `LESSON` (`hunt().lessons` por día), biblioteca `ACAD_TOMES` (`hunt().tomes`), `polvo_arcano`. Libros `BOOKS` (`libro_*`, consumibles por `useItem`; `P.book` 60 s; dibujo flotante con presencia `bk`). Escobas: `MOUNTS.escoba`/`escoba_astral` (`broom`, `genMount` envuelto; online gratis porque `mt` ya se envía). Top más pequeño en `tearApply` (marca capas `p.t`: 5 piel, 2 top, para que el HD no pinte rayas). Prueba `tests/v460.txt`.
 - **4.61** `6zz8_v461.js`: `TEAR_TOP = false` apaga el top de 4.59/4.60 (sus envolturas lo comprueban); nuevos jirones de vientre y bajo dentado. Castillo `castillo_arcano` (`makeCastle`, `CAST` horario 46 s clase / 24 s recreo, alumnos `M.stu` con `castStep`/`castWay` por las puertas, profesores con frases `CAST_SUBJ`, pupitres `cast_desk` → `castEndClass`), entrada `castGo` (portón o acercarse), salida al patio. Kaela `loba_kaela`: sprite de héroe con `heroLook` + gear `{sr:'lobo', sf, sc:'negro'}` y cosméticos `loba_vestido`/`loba_medias`/`boina`, `L.fang`; `P.kaela` {lv,k,hp,down,wolf} (SAVEKEYS); combate en `compUpdate`; montura `MOUNTS.loba_kaela` (`kaeRide`, genMount con `wolfAtlas`); hijos `kidWolf` (envoltura de `kidAtlas` con `sr` lobo, `k.wf` forma híbrida). Prueba `tests/v461.txt`.
 - **4.62** en `6zz8_v461.js` (`holeTop`): rotos del pecho muestran el top `TOPB` y los del vientre la piel; la ropa sigue puesta. Así lo quiere Sergio: ropa rasgada + top debajo, las dos cosas.
+- **4.63** `6zz9_v463.js`: el top enseña al héroe de cada fila (último aspecto: `lkOf(P)` = JSON {c, a, g, cs, hh}, guardado por cuenta en `thebound.lk.<cuenta>` y en la fila `L[id].k`; retrato con `remoteAtlas` + HD recortado, `lkPortrait`, en cola `lkQueue`). Pestaña 👗 Moda (`HRS.tab = 'm'`): `modaCount` = cosméticos del armario + armaduras distintas (vistas, inventario, equipo, cofre); total `modaTotal()` = 265 hoy. Servidor: `/lk/<id>` {n, lv, c, m, k, t} con índice en `m` (**hay que pegar las reglas nuevas de `docs/firebase_rules.json`** o solo se ve tu propio aspecto). Online: índice 5 de las filas = prendas y presencia `rkk` = aspecto. Guía `GSIS` 'top_moda'. Prueba `tests/v463.txt`.
+
 ## Pendiente o ideas que dejó abiertas
 
 - El top mundial depende de las reglas de Firebase (`docs/firebase_rules.json`) pegadas en la consola del proyecto `the-bound-3afef`.
