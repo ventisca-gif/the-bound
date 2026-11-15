@@ -29,9 +29,22 @@
 14. **El Velo Roto**. El silencio de Nihil se coló por una grieta del Velo y pintó un continente al revés: siempre de noche, campanas que suenan solas, muertos que rezan. La **Luna Sonriente** es la cara que el silencio se puso para que alguien lo mirara. Fenrik, el Lobo Viejo, vigila la grieta; la bruja Malvia habla al portal.
 15. **Velmira**. El muchacho de Edrin no se deshizo del todo: una parte cruzó la grieta y, para no olvidarse de sí, se fue poniendo caras ajenas. Olvidó su nombre, **Velmira**. El Hombre sin Rostro y El Sin Nombre son la misma persona, esperando a otro hilo vacío que se lo recuerde (tú).
 
+## Armas ancestrales (v4.65)
+
+Armas hechas por los siete guardianes antes de que el Sello los torciera, o por reyes de la Edad de los Reyes. No suben con experiencia: despiertan restaurando su santuario (una estela antigua), hablando con quien conoció a su portador y venciendo a su creador. `ANC` en `src/6zz9g_vida.js`.
+- Hoja de Brasa (guerrero): la forjó Ignaroth cuando aún era un Alado; la empuñó una guardiana de Arxar (Brienne la conoce).
+- Báculo del Silencio Roto (mago): Morgana lo talló para no oír a Nihil (Ysolde).
+- Arco del Ent Anciano (arquero): rama del Ent antes de guardar un fragmento (Doctora Selma).
+- Colmillo de Ámbar (asesino): daga del faraón de Sahrim para cortar el hilo de los héroes (Alma Errante).
+- Laúd de las Mareas (bardo): del rey de Nerea antes de volverse el Kraken (Mira).
+- Guadaña del Rey de Vael (invocador): segaba los días que el rey no quería vivir (Lys).
+- Aletas del Leviatán (pez): regalo del Leviatán al pueblo Pez cuando era un solo clan (Mira).
+
+Las plantas mágicas, los festivales y el museo son vida cotidiana: no añaden historia nueva. Los hallazgos arqueológicos (`FINDS`) son restos de cosas que ya están en el canon (Nerea, Alados, Vael, Altavela, el faraón, el Telar, el Eclipse, el Sello).
+
 ## Súper jefes
 
-Los jefes de la historia principal no son jefes normales: salen como **Súper jefe** (barra dorada, aviso grande la primera vez, cinemática al vencerlos). Hoy: el Desatado, el Señor del Eclipse, Nihil, la Luna Sonriente y El Sin Nombre. Un jefe nuevo es súper jefe solo si cierra un capítulo de la historia principal; los demás (guardianes de zona, jefes del mundo, mazmorras) siguen siendo jefes.
+Los jefes de la historia principal no son jefes normales: salen como **Súper jefe** (barra dorada, aviso grande la primera vez, cinemática al vencerlos). Hoy: el Desatado, el Señor del Eclipse, Nihil, la Luna Sonriente y El Sin Nombre. Nihil usa el dibujo de Sergio (v4.65) y solo aparece en la Corona del Cielo. Un jefe nuevo es súper jefe solo si cierra un capítulo de la historia principal; los demás (guardianes de zona, jefes del mundo, mazmorras) siguen siendo jefes.
 
 ## Reglas para ampliar el lore
 

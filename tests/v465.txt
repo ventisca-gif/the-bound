@@ -1,0 +1,22 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+(e.lineno||''))), G.P.lv=200, G.P.gold=9999999, calcStats(G.P), G.P.hp=G.P.S.maxhp, 1)
+js (()=>{ const n=Object.keys(ITEMS).filter(k=>/^trofeo_|^hallazgo_|^sem_(flor_lunar|raiz_tormenta|rosa_escarcha|girasol_solar|seta_velo|lirio_estelar)|^(flor_lunar|raiz_tormenta|rosa_escarcha|girasol_solar|seta_velo|lirio_estelar)$|^elixir_|^esencia_imb_|^bk_(vitrina|pedestal|taller|biblioteca|trampilla|cama_inv|macetero|alquimia|farol_flor|estatua_heroe|banderin|alfombra_m|cuadro_nihil)$|^medalla_|^ficha_festival$|^anc_/.test(k)); return [n.length, ['anc_guerrero','anc_mago','anc_arquero','anc_asesino','anc_bardo','anc_invocador','anc_pez'].map(k=>!!ITEMS[k]), ['maestro_armas','oraculo','arqueologa','espiritu_guia','mira','tejedora_ultima'].map(k=>!!NPCS[k]), curWx()]; })()
+js (()=>{ const P=G.P; const m=spawnMob('reyslime', 10, P.x+40, P.y, P.L, null, true); killMob(m); return [countItem('trofeo_reyslime'), wmLv(wmType()), JSON.stringify(P.wm)]; })()
+js (()=>{ const P=G.P; ['hallazgo_vasija','medalla_baile','trofeo_ent','trofeo_nihil'].forEach(i=>giveItem(i,1)); openMuseum(); document.getElementById('musD').click(); return [Object.keys(P.mus.tr).length, Object.keys(P.mus.fd).length, document.querySelectorAll('.musC:not(.off)').length]; })()
+wait 600
+shot
+js (closeModal(), openWorkshop(), document.querySelectorAll('#modal [data-cr]').length)
+js (closeModal(), openAlchemy(), openPlanter(), document.getElementById('mgGet').click(), [countItem('sem_flor_lunar')+countItem('sem_raiz_tormenta')+countItem('sem_rosa_escarcha')+countItem('sem_girasol_solar')+countItem('sem_seta_velo')+countItem('sem_lirio_estelar')])
+js (closeModal(), openLibrary(), document.getElementById('libR').click(), G.P.libDay===calDay())
+js (closeModal(), openCellar(), document.querySelector('#modal [data-iv]').click(), G.P.cellar.length)
+js (closeModal(), openBook('mundo'), document.querySelector('.cron.book').innerText.slice(0,300))
+shot
+js (closeModal(), openFestival(), FEST_GAMES.cocina(), [...document.querySelectorAll('#modal [data-ing]')].slice(0,3).forEach(b=>b.click()), 1)
+js (document.querySelectorAll('#modal [data-ing]').length, document.querySelector('#modal h2').textContent)
+js (closeModal(), giveItem('pocion4',3), useItem(G.P.inv.findIndex(s=>s.id==='pocion4')), useItem(G.P.inv.findIndex(s=>s.id==='pocion4')), [countItem('pocion4'), Math.round(G.P.healCd-G.t)])
+js (giveItem('esencia_imb_fire',1), useItem(G.P.inv.findIndex(s=>s.id==='esencia_imb_fire')), imbueOf(G.P))
+wait 800
+shot
+js (()=>{ const e=G.ents.find(e=>e.type==='npc'&&e.def&&e.def.tf); if(!e) return 'no npc'; openDialog(e); const o=[...document.querySelectorAll('#dopts button, .dopt, #dialog button')].map(b=>b.textContent).join('|'); return o.slice(0,400); })()
+js (closeDialog(), (()=>{ const P=G.P; giveItem('anc_guerrero',1); const i=P.inv.findIndex(s=>s.id==='anc_guerrero'); equipFromInv(i); P.anc={got_anc_guerrero:1}; const a0=P.S.atk; ancUp('anc_guerrero',1); return [a0, P.S.atk]; })())
+js window._errs
