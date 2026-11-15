@@ -1,5 +1,5 @@
 // ================= GAME DATA =================
-const MAXLV = 350;   // v4.18: el Continente del Velo Roto sube el máximo a 350
+const MAXLV = 400;   // v4.18: Velo Roto → 350; v4.70: Las Tierras sin Pintar → 400
 const xpToNext = L => Math.floor(40 * Math.pow(L, 1.5) + 60);
 const jobXpToNext = L => Math.floor(26 * Math.pow(L, 1.45) + 24);
 const JOBS = {

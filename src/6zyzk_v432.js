@@ -11,7 +11,7 @@ function topKey(id) { return String(id || '').replace(/[.#$\[\]\/]/g, '_').slice
 function topPush(force) {
   if (!topOk() || (!force && Date.now() - TOP.pushAt < 120000)) return; TOP.pushAt = Date.now();
   hrsSelfAll(); const id = hrsCurrent(), e = hrsList()[id]; if (!e || e.h < 60) return;
-  const body = { n: cleanStr(e.n, 20) || '?', h: Math.floor(e.h / 60), lv: clamp(e.lv | 0, 1, 350), c: e.c || '', t: { '.sv': 'timestamp' } };
+  const body = { n: cleanStr(e.n, 20) || '?', h: Math.floor(e.h / 60), lv: clamp(e.lv | 0, 1, MAXLV), c: e.c || '', t: { '.sv': 'timestamp' } };
   fetch(TOP_URL + '/top/' + encodeURIComponent(topKey(id)) + '.json', { method: 'PUT', body: JSON.stringify(body) }).then(r => { TOP.on = r.ok || TOP.on; }).catch(() => { });
 }
 function topGet(force) {

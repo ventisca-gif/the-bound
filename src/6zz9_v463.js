@@ -116,7 +116,7 @@ function lkId(id) { return topOk() && typeof id === 'string' && !id.startsWith('
 // ---------- servidor (/lk) ----------
 function lkPush(force) {
   if (!topOk()) return; hrsSelfAll(); const id = hrsCurrent(), e = hrsList()[id]; if (!e || !e.k || e.h < 60) return;
-  const body = { n: cleanStr(e.n, 20) || '?', lv: clamp(e.lv | 0, 1, 350), c: e.c || '', m: clamp(e.m | 0, 0, 9999), k: e.k };
+  const body = { n: cleanStr(e.n, 20) || '?', lv: clamp(e.lv | 0, 1, MAXLV), c: e.c || '', m: clamp(e.m | 0, 0, 9999), k: e.k };
   const sig = JSON.stringify(body); if (!force && sig === LKT.pushK && Date.now() - LKT.pushAt < 600000) return; if (Date.now() - LKT.pushAt < 20000 && sig === LKT.pushK) return;
   LKT.pushK = sig; LKT.pushAt = Date.now(); body.t = { '.sv': 'timestamp' };
   fetch(TOP_URL + '/lk/' + encodeURIComponent(topKey(id)) + '.json', { method: 'PUT', body: JSON.stringify(body) }).catch(() => { });

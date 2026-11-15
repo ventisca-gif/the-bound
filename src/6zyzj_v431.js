@@ -40,7 +40,7 @@ function hrsStore() {
 }
 function hrsClean(e) {
   if (!Array.isArray(e)) return null; const id = cleanStr(e[0], 40), n = cleanStr(e[1], 20).trim();
-  const h = Math.min(HRS_CAP, Math.max(0, (+e[2] || 0) * 60)), lv = clamp(Math.floor(+e[3] || 1), 1, 350), c = CLASSES[e[4]] ? e[4] : '';
+  const h = Math.min(HRS_CAP, Math.max(0, (+e[2] || 0) * 60)), lv = clamp(Math.floor(+e[3] || 1), 1, MAXLV), c = CLASSES[e[4]] ? e[4] : '';
   if (!id || !n || !isFinite(h)) return null; return { id, n, h, lv, c };
 }
 function hrsMerge(arr) {
@@ -59,7 +59,7 @@ function hrsSelfEntry(acc) {
   const A = acc ? accList()[accId(acc)] : null;
   const id = acc ? 'a:' + accId(acc) + ':' + hrsShort(A && A.s) : 'g:' + hrsDevice();
   const h = acc === ACC || (!acc && !ACC) ? Math.max(HRS.s, +storage.get(hrsKey(acc)) || 0) : (+storage.get(hrsKey(acc)) || 0);
-  return { id, n: cleanStr(n, 20), h: Math.min(HRS_CAP, h), lv: best ? clamp(best.lv | 0, 1, 350) : 1, c: best && CLASSES[best.cls] ? best.cls : '', me: 1 };
+  return { id, n: cleanStr(n, 20), h: Math.min(HRS_CAP, h), lv: best ? clamp(best.lv | 0, 1, MAXLV) : 1, c: best && CLASSES[best.cls] ? best.cls : '', me: 1 };
 }
 function hrsMine() { const L = accList(), out = []; for (const k in L) { const A = L[k]; out.push('a:' + accId(A.n || k) + ':' + hrsShort(A.s)); } out.push('g:' + hrsDevice()); return out; }
 function hrsSelfAll() {
@@ -67,7 +67,7 @@ function hrsSelfAll() {
   for (const k in acc) { const e = hrsSelfEntry(acc[k].n || k); if (e) L[e.id] = { n: e.n, h: e.h, lv: e.lv, c: e.c, t: Date.now(), me: 1 }; }
   const g = hrsSelfEntry(''); if (g) L[g.id] = { n: g.n, h: g.h, lv: g.lv, c: g.c, t: Date.now(), me: 1 };
   // el héroe en juego puede tener más nivel que su partida guardada
-  const P = G.P; if (!titleMode && P && !P.ghost) { const id = ACC ? 'a:' + accId(ACC) + ':' + hrsShort((acc[accId(ACC)] || {}).s) : 'g:' + hrsDevice(); const o = L[id]; if (o && (P.lv | 0) > o.lv) { o.lv = clamp(P.lv | 0, 1, 350); o.c = P.cls; } }
+  const P = G.P; if (!titleMode && P && !P.ghost) { const id = ACC ? 'a:' + accId(ACC) + ':' + hrsShort((acc[accId(ACC)] || {}).s) : 'g:' + hrsDevice(); const o = L[id]; if (o && (P.lv | 0) > o.lv) { o.lv = clamp(P.lv | 0, 1, MAXLV); o.c = P.cls; } }
   storage.set('thebound.rank', JSON.stringify(L));
 }
 function hrsPack(o, id) { return [id, o.n, Math.floor(o.h / 60), o.lv, o.c]; }
