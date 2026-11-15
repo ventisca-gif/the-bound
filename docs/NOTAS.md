@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.67 (build 88)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.68 (build 89)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -11,6 +11,7 @@ Versión actual: **4.67 (build 88)**, publicada en `main` el 2026-11-15. La skil
 - Antes de un cambio visual grande, haz una muestra con el propio motor y espera su visto bueno. Si ya dijo «sí a todo», sigue.
 - Cuando manda una imagen en pixel art, extrae los sprites de la imagen (no los redibujes): detecta la cuadrícula con FFT, muestrea el centro de cada celda y recorta el fondo. Así salieron idénticos las armas de cobre, el campamento, las criaturas de Altavela y las armas dark fantasy.
 - Ropa y armaduras nuevas: `fitKind` + `python3 tools/dev/fitcheck.py file://$PWD/dist/test.html out` con 0 avisos (cubre tiers hasta el 26). En mujer llevan busto solas.
+- Dificultad de jefes: `python3 tools/dev/jefes.py file://$PWD/dist/test.html` (`--solve` da `BOSS_TUNE` para `src/6zz9j_v468.js`). Calibrado con peleas reales (×2,2). Objetivos solo: zona 1,25-3 min, continente 3-5, súper 6-10. Sergio: «si tardas 10 minutos es porque el jefe es difícil, no todos iguales». Un jefe nuevo debe pasar por aquí.
 - Tras tocar daño, vida o curas: `python3 tools/dev/pvp.py file://$PWD/dist/test.html` (fuerza 0,9-1,1; hoy 0,99-1,00 tras la 4.29) y `tools/dev/balance.py` (niveles hasta 350). Si tocas habilidades de subraza, `tests/srpvp.txt` y ajusta `SR_PVPK`.
 - `tools/i18n/vendor/acorn.js` no está en git (está en `.git/info/exclude`): en una sesión nueva, `npm pack acorn@8.14.0` y copia `package/dist/acorn.js` ahí, o `build.py` falla al traducir. Textos nuevos con `L2('es', 'en')`.
 - Pruebas: `python3 tests/play.py file://$PWD/dist/test.html out.png 900 500 @tests/<nombre>.txt` (debe terminar en `JS> []`).
@@ -76,6 +77,8 @@ Versión actual: **4.67 (build 88)**, publicada en `main` el 2026-11-15. La skil
 - **4.66** `6zz9i_v466.js`: la runa ya no deja el aura fija (solo 0,9 s tras golpear, `P._runeT`), habilidad 1,5 s, `SETTINGS.imbue` en Opciones, «Quitar la runa» en `fgOpen`, esencia igual = cancelar, aura más pequeña (`drawImbue` reemplazado). A Sergio le molestó el fuego permanente.
 
 - **4.67** guía `GSIS` 'nihil_jefe' completa (dónde está, misiones q33-q44, ataques, fases, botín) con flecha (`m: 'cielo'`, posición del jefe en `SKY_ISLES` corona). Sergio quiere que cada jefe importante tenga en la lupa dónde está y cómo llegar.
+
+- **4.68** `6zz9j_v468.js` `BOSS_TUNE` (vida de cada jefe) desde `tools/dev/jefes.py --solve`. Antes los jefes caían en 10 s-2 min. Compañía en solitario: hijos, Kaela y mascotas (los cazadores solo en mazmorras, como dijo Sergio).
 
 ## Pendiente o ideas que dejó abiertas
 
