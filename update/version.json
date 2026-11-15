@@ -1,26 +1,26 @@
 {
- "build": 90,
- "ver": "4.69",
+ "build": 91,
+ "ver": "4.70",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 11221253,
- "sha256": "491d100f1b14dca9ee3291432fa71736b2294e548c69dde4ddf00281e29b1c5c",
+ "size": 12123412,
+ "sha256": "1d2dbab4b2802e5e73f7785040423182b5d26571e23236060355e58cbe681ac9",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🖌 Nuevo continente: Las Tierras sin Pintar (nivel 300-350), el borde del mundo donde la Ventisca todavía no ha pintado. Se entra por el puente blanco al este de Albor después de vencer a la Luna Sonriente; habla con Mael, la Pintora del Borde.",
-   "Todo se ve como un boceto sin color sobre un vacío morado, y en el cielo una mano gigante pinta con su pincel. Cada criatura que vences devuelve el color a su zona.",
-   "Criaturas esbozadas (slimes a medio pintar, gólems de boceto, esqueletos, lobos de carboncillo, borrones de tinta…), 4 jefes nuevos y el súper jefe El Lienzo en Blanco, con 6 misiones y su capítulo y cinemática en el Libro del Vínculo.",
-   "Trazos: al nivel máximo la experiencia sigue sumando (hasta 50 Trazos, +0,4 % de ataque, defensa y vida cada uno). Mael cambia Tinta Viva por Trazos.",
-   "Todos los jefes nuevos pasan la medición de dificultad. Explicado en la lupa › Sistemas, con flecha al puente."
+   "⭐ Nivel máximo 400. Las Tierras sin Pintar ahora van del 300 al 400: Orilla del Boceto, Llanura de los Trazos, Ciénaga de los Borrones, El Marco Roto y El Lienzo en Blanco (385-400).",
+   "🖌 Criaturas con el dibujo de Sergio: Babosa Borrada, Lobo Inacabado, Araña de Tiza, Caballero Vacío, Esqueleto Sin Tinta, Gólem de Cal, Espectro del Lienzo, Pez Pálido, Mimo del Silencio y Nihilito.",
+   "⚔ Jefes nuevos con su dibujo: Eco del Vencido (310), El Fragmento sin Color (320) y La Sierpe de Tormenta (330), cada uno con su misión de Mael; El Lienzo en Blanco tiene su nuevo aspecto y es de nivel 400.",
+   "Lupa › Sistemas › «Las Tierras sin Pintar»: cómo llegar, zonas, criaturas, jefes, misiones y Trazos (ahora desde el nivel 400).",
+   "Dificultad medida otra vez: los 72 jefes dentro de su objetivo. Próximamente: las armas y armaduras del Lienzo (tiers 27-30)."
   ],
   "en": [
-   "🖌 New continent: The Unpainted Lands (level 300-350), the edge of the world where the Ventisca has not painted yet. Enter through the white bridge east of Albor after defeating the Smiling Moon; talk to Mael, the Painter of the Border.",
-   "Everything looks like a colourless sketch over a purple void, and in the sky a giant hand paints with its brush. Every creature you defeat gives its zone its colour back.",
-   "Sketched creatures (half-painted slimes, sketch golems, skeletons, charcoal wolves, ink smudges…), 4 new bosses and the super boss The Blank Canvas, with 6 quests and its chapter and cutscene in the Book of the Bond.",
-   "Strokes: at max level experience keeps adding up (up to 50 Strokes, +0.4% attack, defence and HP each). Mael trades Living Ink for Strokes.",
-   "All new bosses pass the difficulty measurement. Explained in the magnifier › Systems, with an arrow to the bridge."
+   "⭐ Max level 400. The Unpainted Lands now go from 300 to 400: Sketch Shore, Plain of Strokes, Swamp of Smudges, The Broken Frame and The Blank Canvas (385-400).",
+   "🖌 Creatures with Sergio's drawing: Erased Slug, Unfinished Wolf, Chalk Spider, Hollow Knight, Inkless Skeleton, Lime Golem, Canvas Specter, Pale Fish, Mime of Silence and Little Nihil.",
+   "⚔ New bosses with their drawing: Echo of the Vanquished (310), The Colourless Fragment (320) and The Storm Serpent (330), each with a quest from Mael; The Blank Canvas has its new look and is level 400.",
+   "Magnifier › Systems › \"The Unpainted Lands\": how to get there, zones, creatures, bosses, quests and Strokes (now from level 400).",
+   "Difficulty measured again: all 72 bosses within target. Coming soon: the Canvas weapons and armour (tiers 27-30)."
   ]
  }
 }
