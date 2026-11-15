@@ -1,0 +1,36 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.gold=900000, G.P.lv=73, calcStats(G.P), G.P.hp=G.P.S.maxhp, [HN.length, HN.filter(h=>h.proc).length, Math.max(...HN.map(h=>hnLv(h))), tpPower(), G.P.S.power])
+js (tpGo(), 1)
+wait 2500
+js [G.map.id, G.map.objs.filter(o=>o.xact==='tp_door').length, G.ents.filter(e=>e.map==='torre_portales'&&e.hn&&e.hn.proc).length]
+js (tprGo('tp_antesala'), 1)
+wait 2500
+js (G.P.y -= 140, [G.map.id, G.map.objs.filter(o=>o.gp).length])
+wait 1500
+shot
+js (exitInterior(), 1)
+wait 2500
+js (tprGo('tp_coliseo'), 1)
+wait 2500
+js (tourStart('duelo'), closeModal(), G.P.y -= 180, [G.map.id, !!TOUR])
+wait 8000
+shot
+js [TOUR&&TOUR.cur&&TOUR.cur.match.map(tourSideName), G.ents.filter(e=>e.type==='tf').map(e=>e.hp|0)]
+js (tourSpect(), 1)
+wait 6000
+shot
+js (tourSpectEnd(), exitInterior(), 1)
+wait 2500
+js (tprGo('tp_pruebas'), 1)
+wait 2500
+js (trialStart('str'), [!!TRIAL])
+wait 500
+js (()=>{ for(let k=0;k<5;k++) hitMob(TRIAL.m, 500, {}); return TRIAL.dmg|0; })()
+wait 10500
+js [!!TRIAL, hunt().trial]
+js (trialStart('vel'), TRIAL.orbs.forEach(o=>{G.P.x=o.x;G.P.y=o.y;}), 1)
+js (()=>{ for (const o of TRIAL.orbs){ G.P.x=o.x; G.P.y=o.y; } return 1; })()
+wait 1500
+js [!!TRIAL, hunt().trial]
+js (dqMenu(), document.querySelectorAll('#modal .news').length)
+js (closeModal(), window._errs)
