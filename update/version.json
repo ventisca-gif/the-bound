@@ -1,18 +1,18 @@
 {
- "build": 94,
- "ver": "4.73",
+ "build": 95,
+ "ver": "4.74",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 12763457,
- "sha256": "371e0cd1a1ba17066089e4de2c0f2006aa73ad5ee39adcd7e11152531aa99e1a",
+ "size": 12780425,
+ "sha256": "2a76bbf792b49a4c316e6903632d24904c013c9dba3ed31dec2adb0682cb6cce",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "El número de Poder ahora cuenta los Trazos, las técnicas (amistades, mentores y academia) y las armas ancestrales. Antes daban su bono en combate pero no salían en el Poder."
+   "💪 Nueva pestaña Poder en la lupa: tu poder ahora y qué te falta (arma, herrería, arma despertada, maestría, clase, subraza, Poder del Velo, Trazos y técnicas), la tabla del poder máximo a nivel 400 por clase y cada forma de ganar poder explicada: equipo, armas ancestrales, herrería, Trazos (límite 50), técnicas de rivales, mentores y academia, anillos, mascotas, comida y familia."
   ],
   "en": [
-   "The Power number now counts Strokes, techniques (friendships, mentors and academy) and ancestral weapons. They already gave their bonus in combat but didn't show in Power."
+   "💪 New Power tab in the magnifier: your power now and what you're missing (weapon, blacksmith, awakened weapon, mastery, class, subrace, Veil Power, Strokes and techniques), the level 400 max power table by class and every way to gain power explained: gear, ancestral weapons, blacksmith, Strokes (limit 50), rival, mentor and academy techniques, rings, pets, food and family."
   ]
  }
 }

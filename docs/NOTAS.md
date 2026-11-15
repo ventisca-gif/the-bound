@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.73 (build 94)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.74 (build 95)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -89,6 +89,8 @@ Versión actual: **4.73 (build 94)**, publicada en `main` el 2026-11-15. La skil
 - **4.72** `6zz9p_armaduras_lz.js`: trajes por clase de `lienzo_ref/armaduras.png` como `fitKind` (`lz_bardo`, `lz_mago`, `lz_guerrero`, `lz_pez`, `lz_ninja`, `lz_invocador`, `lz_arquero`, piernas `lz_wrap`), paletas por tier `LZA` 27-30, cabeza descubierta (`gearVis` head → null), capa propia en vez del manto celeste de 6zs_sky (tier ≥19 ponía `TIERP[21]`), `fitItems` incluye 27-30 (fitcheck 0 avisos).
 
 - **4.73** `6zz9q_v473.js`: última envoltura de `calcStats` que recalcula `S.power` (las de 6zz9* iban después de la de 4.52). Poder medido a nivel 400 (mismo método para todas: mejor equipo con accesorios, Arma del Lienzo, +10, arma despertada 10, maestría 50, clase despertada, lobo transformado): 58k-83k; + 50 Trazos 70k-100k; + todas las técnicas 83k-119k. A 350 con el mismo método: 53k-75k. Script: copiar el de esta conversación (/tmp pow.txt) si hace falta.
+
+- **4.74** `6zz9r_poder.js`: pestaña 💪 Poder de la lupa (`guiaPower`, secciones `GPOW`, tabla `GPOW_TAB` con lo medido en 4.73, «Tu poder ahora» con checklist). Si cambian fuentes de poder, actualizar ahí la tabla y los textos. Sergio quiere todo lo importante del poder en esa pestaña.
 
 ## Pendiente o ideas que dejó abiertas
 

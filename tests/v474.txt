@@ -1,0 +1,9 @@
+click #tNew;;wait 400;;type #ccName|Sim;;click #ccGo;;wait 1500;;click #introOk;;wait 800
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), 1)
+js (guiaPower(), [document.querySelectorAll('[data-gpw]').length, !!document.querySelector('.guia [data-gx="pow"].on'), document.querySelector('.gdet').innerText.slice(0,200)])
+shot
+js (document.querySelector('[data-gpw="tabla"]').click(), document.querySelectorAll('.gpowT td').length)
+shot
+js (()=>{ const r=[]; for (const b of [...document.querySelectorAll('[data-gpw]')].map(b=>b.dataset.gpw)) { GPOW_SEL=b; guiaPower(); r.push(b+':'+document.querySelectorAll('.gdet .gsrc').length); } return r.join(' '); })()
+js (document.querySelector('.guia [data-gx="sis"]').click(), document.querySelector('.guia [data-gx="pow"]').click(), !!document.querySelector('[data-gpw]'))
+js window._errs
