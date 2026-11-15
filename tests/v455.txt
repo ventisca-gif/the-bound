@@ -1,0 +1,8 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.lv=79, calcStats(G.P), [G.P.S.power, Math.round(G.P.S.atk*2+G.P.S.def*1.5+G.P.S.maxhp/10)])
+js (()=>{ const P=G.P; P.partner='lia'; const low=Object.keys(ITEMS).filter(i=>ITEMS[i].slot==='head'&&(ITEMS[i].lv||1)<=20); P.kids=[{id:'k1', name:'Blake', g:'m', app:{}, born: calDay()-99999, parent:'lia', cls:'guerrero', equip:{head:{id:low[0]}}, inv:[]}]; P.inv.push({id:low[1]}); const e=kidEnt(P.kids[0], G.map.id, P.x+20, P.y); openKid(e); const n0=P.inv.length; document.querySelector('[data-kun="head"]').click(); const a=P.inv.length-n0; const gi=P.inv.findIndex(s=>s.id===low[1]); const g=document.querySelector(`[data-keq="${gi}"]`); g&&g.click(); return [a, P.inv.length-n0, P.kids[0].equip.head.id===low[1], P.kids[0].inv.length]; })()
+js (closeModal(), 1)
+wait 3500
+js (()=>{ const o=serializeP(G.P); return [o.titles, 'title' in o, 'seen' in o]; })()
+js [HN_RKSC[1], TIT_ID.t_aprendiz[4]]
+js window._errs

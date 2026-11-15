@@ -1,22 +1,22 @@
 {
- "build": 75,
- "ver": "4.54",
+ "build": 76,
+ "ver": "4.55",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 9905167,
- "sha256": "c0a83bb435ed61bf8e295cbbcd58be284066e49f6be2411960f616510aab160a",
+ "size": 9910959,
+ "sha256": "84f12b890591360f8b72820b61813077c5ffac0113f46c3e7b794b90ad0ddd7c",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Hijos, nietos y bisnietos: ya no puedes quitarles armas, armaduras o herramientas de más nivel que el tuyo si tú nunca las conseguiste. Si alguna vez la tuviste o ya tienes el nivel, sí.",
-   "Menos curación enemiga: las invocaciones de los jefes ya no salen como Curandero, el Curandero cura un 8 % cada 5 s (a un jefe solo un 1,5 %) y ningún jefe puede recuperar más de un 0,6 % de vida por segundo mientras luchas (Devorador Carmesí, Obispo Hueco y todos los demás).",
-   "Mucho más fluido con muchos enemigos: los enemigos de la Luna de Sangre, corruptos y sombras ya no se tiñen en cada fotograma (era lo que más lag daba), el velo rojo se prepara una vez, los sonidos de golpe no se amontonan y las partículas y números se reducen solo cuando hay demasiados."
+   "Arreglado: los títulos, el título equipado y otros datos nuevos no se guardaban; por eso volvía a salir «Nuevo título: Aprendiz». Ahora se guardan (los ganados antes de esta versión se recuperan solos al cumplir su condición).",
+   "El poder ahora se muestra ×10 para que los números se lean mejor (antes ~4.000, ahora ~40.000). Los rangos de la Torre, los títulos y la guía de la lupa usan la escala nueva. Vuelve a medir tu poder en el cristal.",
+   "El equipo de tus hijos, nietos y bisnietos es suyo: ya no se lo puedes quitar. Sí puedes darles algo mejor; lo que llevaban se queda en su propia mochila."
   ],
   "en": [
-   "Children, grandchildren and great-grandchildren: you can no longer take weapons, armour or tools above your level from them if you never got them yourself. If you had it before or have the level, you can.",
-   "Less enemy healing: boss summons no longer spawn as Healers, Healers heal 8% every 5 s (only 1.5% to a boss) and no boss can recover more than 0.6% HP per second while you fight (Crimson Devourer, Hollow Bishop and all the others).",
-   "Much smoother with lots of enemies: Blood Moon, corrupted and shadow enemies are no longer tinted every frame (the biggest cause of lag), the red veil is prepared once, hit sounds don't pile up, and particles and numbers are reduced only when there are too many."
+   "Fixed: titles, the equipped title and other new data weren't saved; that's why \"New title: Apprentice\" kept appearing. Now they are saved (titles earned before this version come back on their own when their condition is met).",
+   "Power is now shown ×10 so the numbers read better (before ~4,000, now ~40,000). Tower ranks, titles and the magnifier guide use the new scale. Measure your power at the crystal again.",
+   "Your children's, grandchildren's and great-grandchildren's gear is theirs: you can no longer take it. You can give them something better; what they wore stays in their own bag."
   ]
  }
 }
