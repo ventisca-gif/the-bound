@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.47 (build 68)**.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.48 (build 69)**.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -56,6 +56,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.47 (bui
 - **4.45** cuerpos Esbelto/Atlética para el jugador, 5 NPCs góticas (tienda gótica de Morwenna en Albor), fiestas por calendario (Semana Santa, Sol, Mes Morado, Ánimas, Navidad, Año Nuevo).
 - **4.46** cazadores estilo anime extraídos de la imagen de Sergio (15 diseños + 11 cazadoras, recoloreados), Titán Carmesí extraído de su imagen, nieve en Navidad. Hojas para que Sergio mejore: `docs/sprites/goticas.png`, `enemigos_mazmorra.png`, `jefes_mazmorra.png`.
 - **4.47** cazadores con estadísticas propias (como jugadores) e IA mejor, mazmorras sin reaparición, espectador sin ataques, 12 enemigos + Alfa + Tormentas + 5 góticos sacados de imágenes de Sergio; góticos enamorables.
+- **4.48** Torre ampliada (Antesala, Coliseo con torneos/apuestas/espectador, Salón de Pruebas con misión diaria), 30 cazadores nuevos de estilo clásico, medidor de poder = poder del menú, cazadores máx. nv. 350.
 
 ## Pendiente o ideas abiertas
 
