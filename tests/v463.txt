@@ -1,0 +1,13 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.lv=300, calcStats(G.P), 1)
+js (()=>{ const P=G.P; P.app.g='f'; P.wardrobe=Object.keys(COSM).slice(0,40); P.cos={body:'c_gt_romantico', head:'c_corona', back: Object.keys(COSM).find(k=>COSM[k].slot==='back')}; refreshLook && refreshLook(); P.playT=9000; return [modaCount(P), modaTotal(), Object.keys(COSM).length]; })()
+js (HRS.s=9000, hrsSelfAll(), (()=>{ const L=hrsList(), e=L[hrsCurrent()]; return [e.m, (e.k||'').length]; })())
+js (()=>{ const L=hrsList(); const P=G.P; const lk=lkOf(Object.assign({},P,{cls:'mago', app:Object.assign({},P.app,{g:'m'}), cos:{head:'c_bruja'}})); L['w:x1']={n:'fabriy47',h:60,lv:118,c:'guerrero',m:85,k:lkOf(Object.assign({},P,{cos:{}}))}; L['w:x2']={n:'ventisca',h:60,lv:67,c:'mago',m:12,k:lk}; L['w:x3']={n:'sinlook',h:120,lv:40,c:'arquero',m:3}; hrsStore(); return 1; })()
+js (hrsOpenTop(), 1)
+wait 1500
+shot
+js (document.querySelector('[data-ht="m"]').click(), 1)
+wait 1200
+shot
+js [document.querySelectorAll('#hrsTop li .pf img').length, [...document.querySelectorAll('#hrsTop li .val')].map(v=>v.textContent)]
+js window._errs
