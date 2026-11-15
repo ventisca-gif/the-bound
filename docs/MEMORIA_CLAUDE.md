@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.44 (build 65)**.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.45 (build 66)**.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -53,7 +53,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.44 (bui
 - **4.42** ropa de cazador (chaquetas, ropa negra, capuchas, capas), anillos de cazador, 6 peinados emo, maquillaje de ojos y 8 aspectos de arma.
 - **4.43** arreglo del bloqueo al salir de mazmorras y de la retransmisión; cazadores pegan según su nivel; los de mucho más nivel te rechazan; jefes menos inflados.
 - **4.44** cazadores variados (cuerpos alto y gigante), poderes animados, 6 legendarios de rango Nacional/Mundial, duelos de entrenamiento, modo espectador, ojeras y labial.
-- **Pedido aún por hacer (4.45)**: cuerpos nuevos en la creación del jugador, NPCs góticas y fiestas religiosas/eventos en los pueblos.
+- **4.45** cuerpos Esbelto/Atlética para el jugador, 5 NPCs góticas (tienda gótica de Morwenna en Albor), fiestas por calendario (Semana Santa, Sol, Mes Morado, Ánimas, Navidad, Año Nuevo).
 
 ## Pendiente o ideas abiertas
 

@@ -1,0 +1,17 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.gold=900000, [BODY_T.m.length, BODY_T.f.length, G.ents.filter(e=>e.id&&/^goth_/.test(e.id)).length])
+js (()=>{ const C_=G.P.cal; C_.d = (9 - C_.m0 + 12) % 12 * 7 + 2; return [calDate().m, calDate().day, relNow()&&relNow().k]; })()
+wait 2500
+js [REL_D.length, REL_D.filter(d=>d.relP).length]
+js (()=>{ const t=TOWNS[0]; const d=REL_D.find(d=>d.k2==='rel_anda'); G.P.x=d.x; G.P.y=d.y+30; return 1; })()
+wait 2500
+shot
+js (()=>{ const C_=G.P.cal; C_.d = (11 - C_.m0 + 12) % 12 * 7 + 4; return relNow().k; })()
+wait 2500
+js (()=>{ const d=REL_D.find(d=>d.xact2==='gift'); G.P.x=d.x; G.P.y=d.y+10; const it=interactTarget(); doInteract(it); return [it&&it.kind, countItem('paneton')]; })()
+shot
+js (()=>{ const i=G.P.inv.findIndex(s=>s&&s.id==='paneton'); useItem(i); return !!G.P.buffs.find(b=>b.id==='fiesta_rel'); })()
+js (gothShop(), document.querySelectorAll('#modal [data-gs]').length)
+js (document.querySelector('#modal [data-gs]').click(), closeModal(), G.P.wardrobe.length>0)
+js (G.P.app.bt=4, refreshLook(), normApp(G.P.app).bt)
+js window._errs
