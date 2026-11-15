@@ -1,18 +1,22 @@
 {
- "build": 88,
- "ver": "4.67",
+ "build": 89,
+ "ver": "4.68",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 11175195,
- "sha256": "7eec84190688b901807e05aeb81bb2a717a2c6b8d34fb1414edf602faf906fc6",
+ "size": 11178086,
+ "sha256": "85690cdbbdd1561ac898cf57de142ad4f8ed069b6d0aa79b8d3702d256817178",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Lupa › Sistemas › «Nihil, el Ente Oscuro»: ahora dice dónde está (Corona del Cielo, en Celestia), el camino de misiones para llegar, cómo vencer cada ataque, sus fases y qué suelta. Con flecha dorada para ir."
+   "⚖ Dificultad de los 64 jefes medida y ajustada: antes caían en segundos. Ahora, en solitario y con buen equipo, un jefe de zona dura de 1 a 3 minutos, uno de continente de 3 a 5 y los súper jefes de 6 a 10 (Nihil 9, El Sin Nombre 10).",
+   "Con 4 amigos se tarda unos 2/3 de eso y con 2 hijos, un poco menos que solo: siempre se puede pasar solo, con familia o con amigos.",
+   "Solo cambia la vida de los jefes; el PvP no se toca."
   ],
   "en": [
-   "Magnifier › Systems › \"Nihil, the Dark Entity\": it now says where it is (Crown of the Sky, in Celestia), the quest path to get there, how to beat each attack, its phases and its drops. With a golden arrow to go there."
+   "⚖ The difficulty of all 64 bosses was measured and adjusted: they used to fall in seconds. Now, solo with good gear, a zone boss lasts 1-3 minutes, a continent boss 3-5 and super bosses 6-10 (Nihil 9, the Nameless One 10).",
+   "With 4 friends it takes about 2/3 of that and with 2 kids a bit less than solo: it can always be beaten solo, with family or with friends.",
+   "Only boss HP changes; PvP is untouched."
   ]
  }
 }
