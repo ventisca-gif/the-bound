@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.54 (build 75)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.55 (build 76)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -61,6 +61,7 @@ Versión actual: **4.54 (build 75)**, publicada en `main` el 2026-11-15. La skil
 - **4.52** al final de `6zz1_v450.js`: `calcStats` recalcula `S.power` después de todas las envolturas (antes la de subrazas era la única que lo recalculaba) y la evolución de clase (`P.evo`) da +10 % atk, +8 % vida/def a todas. Poder a nivel 350 (medido en el juego, 70 % atributos al principal): mejor equipo ~20.500–22.000; +10, arma despertada 10 y maestría 50 ~37.700–41.000; + clase despertada ~41.300–45.700; + subraza transformada: lobo ~47.500–52.900, vampiro ~46.000–51.000, fantasma ~45.000–50.000 (sin transformar la subraza no suma poder). Sin contar mascotas, anillos, comida ni familia.
 - **4.53** `6zz2_v453.js`: `TITLES` ([id, nombre, estilo, condición(P), cómo]) en `P.titles`/`P.title`, comprobación cada 3 s, `titSprite` (degradado `TIT_ST`, borde, rombos/cruces, brillo animado en `TIT_ANIM`), dibujo en `WORLD_DRAW` sobre el jugador y los remotos (presencia `tt`). Armario › Títulos envolviendo `renderWardrobe` (`wdMode = 'tit'`). Guías `GSIS`: poder, velada, herreria, despertar, maestria50, evolucion, titulos. `P.arWins` (Coliseo online) y `P.dqN` (misiones diarias). Prueba `tests/v453.txt`.
 - **4.54** `6zz3_v454.js`: `P.seen` (objetos conseguidos; envoltura de `giveItem`) y `kidGearLocked` en `openKid` ([data-kun]). Curación: invocaciones sin rol, curandero propio (`hlT2`, 8 %/5 s, jefe 1,5 %) y tope de curación de jefes (`_hb`, 0,6 %/s salvo `return`/`idle`). Rendimiento (medido con CPU ×6: luna de sangre con 60 enemigos de 3 a ~11 FPS): nada de `ctx.filter` por fotograma (`tintAtlas` en caché + `NOFILTER` neutraliza el setter de `ctx.filter`), `sfx` limitado, `burst`/`part`/`floatText` se reducen con carga, velo rojo en caché (`bmOverlay`). Script de medida: copiar el de esta versión (playwright + `Emulation.setCPUThrottlingRate`). Prueba `tests/v454.txt`.
+- **4.55** `6zz4_v455.js`: OJO, el guardado usa la lista `SAVEKEYS` (52_player.js): todo campo nuevo de `G.P` hay que añadirlo con `SAVEKEYS.push(...)` o se pierde al recargar (pasó con `titles`, `title`, `seen`, `arWins`, `dqN`, `dqLast`). Poder ×10 (envoltura final de `calcStats`), `HN_RKSC` = 34k/100k/230k/360k/500k, `hunt().score` ×10 una vez (`sc10`), títulos de poder ×10, guía `poder` reescrita. Equipo de la familia: `[data-kun]` siempre bloqueado; `[data-keq]` manda lo viejo a `k.inv`. Prueba `tests/v455.txt`.
 ## Pendiente o ideas que dejó abiertas
 
 - El top mundial depende de las reglas de Firebase (`docs/firebase_rules.json`) pegadas en la consola del proyecto `the-bound-3afef`.
