@@ -1,0 +1,23 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), G.P.lv=400, calcStats(G.P), G.P.hp=G.P.S.maxhp, G.P.quests.done.vr6=1, 1)
+js (goSinPintar(), 1)
+wait 2500
+js (lny().nextW=0, (()=>{ for(let i=0;i<10 && !LNY_W;i++){ lny().nextW=0; V33_TICKS.forEach(f=>{ try{f(0.016)}catch(e){} }); } return [!!LNY_W, lny().seen]; })())
+wait 500
+shot
+js (G.P.quests.done.tsp5=1, LNY_W&&(LNY_W.e.remove=true), LNY_W=null, lnyPlace(), (()=>{ const e=G.ents.find(e=>e.id==='lienya'&&!e.remove&&!e.noTalk); if(!e) return 'no'; G.P.x=e.x; G.P.y=e.y+30; return [lny().st, Math.round(e.x/16), Math.round(e.y/16)]; })())
+wait 1500
+shot
+js (()=>{ const e=G.ents.find(e=>e.id==='lienya'&&!e.remove&&!e.noTalk); lnyFight(e); const m=lienyaBoss(); return [!!m, m&&m.maxhp, isSuper(m)]; })()
+wait 1200
+js (()=>{ const m=lienyaBoss(); for (const k of ['rafaga','circulo','tentaculos','lluvia']) LNY_ATK[k][1](m,G.P); return 1; })()
+wait 900
+shot
+js (()=>{ const m=lienyaBoss(); LNY_ATK.desvanecer[1](m,G.P); return 1; })()
+wait 700
+shot
+js (killMob(lienyaBoss()), 1)
+wait 6000
+js [lny().st, (G.P.loreU||[]).includes(CH_LIENYA), G.ents.filter(e=>e.id==='lienya'&&!e.remove).length, !!JOBS.artista]
+js (()=>{ G.P.dead=false; G.P.hp=G.P.S.maxhp; const M=G.map; const o=M.objs.find(o=>o.f==='sp_caballete'); G.P.x=o.px; G.P.y=o.py+12; const t=interactTarget(); if(!t||t.kind!=='lny_paint') return 'no t '+(t&&t.kind); doInteract(); return [G.P.jobs.artista.lv, G.P.jobs.artista.xp]; })()
+js window._errs
