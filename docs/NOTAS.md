@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.51 (build 72)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.52 (build 73)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -58,6 +58,7 @@ Versión actual: **4.51 (build 72)**, publicada en `main` el 2026-11-15. La skil
 - **4.49** la misión diaria (`dqMenu`) da 1 nivel (`gainXp` hasta el siguiente) en vez de +2 atributos; Sergio no quiere atributos extra (poder infinito). En nivel máximo: esencias y oro.
 - **4.50** `6zz1_v450.js`: tipos `fitKind` nuevos `gt_campana`, `gt_romantico`, `gt_malla`, `gt_tachas`, `gt_hombros` (skin), `gt_tiras` (skin), piernas `gt_faldacuero`/`gt_tutu`/`gt_cordones`, pies `gt_plataforma`, pelucas `gt_bob`/`gt_cardado`/`gt_larga`/`gt_melena` (`gtWig`, cover full) y `gt_gafas` (face). Mangas retocadas tras dibujar (`GT_SLEEVE` en envoltura de `drawHero`: campana, malla, encaje, tachas). `GOTH_COS` reemplazada por `GT_NEW` (los cosméticos viejos siguen existiendo). Piel blanca `app.pale` → `GT_PALE`. Ropa de cazador: `hn_chaqueta`, `hn_cuero`, `hn_sudadera`, `hn_tactico` (cambiando `COSM[id].vis`). `aiDash(e, fx, fy)` + `dodgeT` (duelo: `duelDodge` en `useSkill`/`basicAttack`; aliados: zonas `tele`; Coliseo: `tfUpdate`/`tfHit`). Combate online: `CARENA` (no `ARENA`, que ya existe en `6u_arena.js`) con presencia `ari`/`ara`/`arl`, `arenaGo`, `startDown` → pierde. fitcheck 0 avisos. Prueba `tests/v450.txt`.
 - **4.51** entrada `ropa_gotica` en `GSIS` (lupa › Sistemas): cómo conseguir ropa gótica, pelucas, maquillaje y ropa de cazador, en ES/EN. Sergio quiere que todo lo nuevo se explique en la lupa en los dos idiomas.
+- **4.52** al final de `6zz1_v450.js`: `calcStats` recalcula `S.power` después de todas las envolturas (antes la de subrazas era la única que lo recalculaba) y la evolución de clase (`P.evo`) da +10 % atk, +8 % vida/def a todas. Poder a nivel 350 (medido en el juego, 70 % atributos al principal): mejor equipo ~20.500–22.000; +10, arma despertada 10 y maestría 50 ~37.700–41.000; + clase despertada ~41.300–45.700; + subraza transformada: lobo ~47.500–52.900, vampiro ~46.000–51.000, fantasma ~45.000–50.000 (sin transformar la subraza no suma poder). Sin contar mascotas, anillos, comida ni familia.
 ## Pendiente o ideas que dejó abiertas
 
 - El top mundial depende de las reglas de Firebase (`docs/firebase_rules.json`) pegadas en la consola del proyecto `the-bound-3afef`.

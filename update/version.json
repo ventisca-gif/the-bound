@@ -1,18 +1,20 @@
 {
- "build": 72,
- "ver": "4.51",
+ "build": 73,
+ "ver": "4.52",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 9875198,
- "sha256": "318cb71139a20f5399eeb71ccc40a4b85a043d4e893f36aac065f22793b008be",
+ "size": 9876729,
+ "sha256": "6113a962825f4c6c89808c02a28594cd961bc4d64c2f1e0e6e1bda7daa6c62c3",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Lupa › Sistemas › Ropa gótica y de cazador: dónde conseguir cada prenda gótica (con su precio), las pelucas, las gafas, el maquillaje blanco y la ropa de cazador."
+   "Arreglado: el número de poder no contaba todos tus bonus (maestría, arma despertada, clase despertada…) si no tenías subraza. Ahora el poder del menú y el del cristal de la Torre incluyen todo.",
+   "La clase despertada ahora fortalece a todas las clases: +10 % de ataque, +8 % de vida y +8 % de defensa, además de su bonus propio."
   ],
   "en": [
-   "Magnifier › Systems › Gothic and hunter clothes: where to get each gothic item (with its price), the wigs, the glasses, the white makeup and the hunter clothes."
+   "Fixed: the power number didn't count all your bonuses (mastery, awakened weapon, awakened class…) unless you had a subrace. Now the menu power and the Tower crystal include everything.",
+   "Awakened class now strengthens every class: +10% attack, +8% HP and +8% defence, on top of its own bonus."
   ]
  }
 }

@@ -181,3 +181,7 @@ if (typeof GSIS !== 'undefined') GSIS.push(['ropa_gotica', '🖤 ' + L2('Ropa g�
   L2('Ropa de cazador (chaquetas, sudadera, chaleco táctico, capuchas, pantalones, falda, botas y capas): sale en los cofres al cerrar un portal de la Torre de los Portales y se compra en la Tienda del Portal (vestíbulo de la Torre).', 'Hunter clothes (jackets, hoodie, tactical vest, hoods, trousers, skirt, boots and capes): drop from chests when you close a Portal Tower portal and can be bought at the Portal Shop (Tower lobby).'),
   L2('Todo se pone en el Vestuario (menú › percha) y se ajusta solo a tu cuerpo.', 'Everything is worn from the Wardrobe (menu › hanger) and fits your body automatically.')
 ]), () => null]);
+// v4.52: la clase despertada sube a todas las clases (+10 % ataque, +8 % vida y defensa, además de su bonus propio)
+{ const _cs = calcStats; calcStats = function (P) { const r = _cs.apply(this, arguments); try { if (P && P === G.P && P.S && P.evo) { const S = P.S; S.atk = Math.round(S.atk * 1.10); S.def = Math.round(S.def * 1.08); const h0 = S.maxhp; S.maxhp = Math.round(S.maxhp * 1.08); if (P.hp > S.maxhp) P.hp = S.maxhp; } } catch (e) { } return r; }; }
+// el poder se calcula al final, con todos los bonus (antes algunos solo contaban si tenías subraza)
+{ const _cs = calcStats; calcStats = function (P) { const r = _cs.apply(this, arguments); try { const S = (P && P.S) || r; if (S && S.atk !== undefined) S.power = Math.round(S.atk * 2 + S.def * 1.5 + S.maxhp / 10); } catch (e) { } return r; }; }
