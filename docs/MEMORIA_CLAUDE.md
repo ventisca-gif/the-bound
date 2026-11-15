@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.57 (build 78)**.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.58 (build 79)**.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -72,6 +72,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.57 (bui
 - **4.55** títulos guardados (regla: campos nuevos de G.P → `SAVEKEYS.push`), equipo de la familia no se puede quitar.
 - **4.56** poder como antes (el ×10 fue un malentendido); números de la ficha grandes y en letra clara. Si Sergio dice «números más grandes» se refiere al tamaño de la letra.
 - **4.57** ropa desgarrada según la vida (cualquier prenda, pecho femenino protegido, raspones de sangre, se ve online).
+- **4.58** la ropa de mujer se rasga un poco más (pecho protegido).
 
 ## Pendiente o ideas abiertas
 
