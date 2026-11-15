@@ -1,0 +1,9 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.lv=70, calcStats(G.P), 1)
+wait 500
+js (()=>{ const P=G.P; P.partner='lia'; P.kids=[{id:'k1', name:'Blake', g:'m', app:{}, born: calDay()-99999, parent:'lia', cls:'invocador', equip:{weapon:{id:Object.keys(ITEMS).find(i=>ITEMS[i].slot==='weapon'&&ITEMS[i].cls==='invocador'&&(ITEMS[i].lv||1)>=88&&(ITEMS[i].lv||1)<=95)}, head:{id:Object.keys(ITEMS).find(i=>ITEMS[i].slot==='head'&&(ITEMS[i].lv||1)<=20)}}}]; const e=kidEnt(P.kids[0], G.map.id, P.x+20, P.y); openKid(e); const n0=P.inv.length; document.querySelector('[data-kun="weapon"]').click(); const a=P.inv.length-n0; document.querySelector('[data-kun="head"]') && document.querySelector('[data-kun="head"]').click(); return [a, P.inv.length-n0, !!P.kids[0].equip.weapon]; })()
+js (closeModal(), 1)
+js (()=>{ const P=G.P; const b=spawnMob(Object.keys(BOSSES)[0], 70, P.x+60, P.y, P.L, null, true); b.map=G.map.id; b.state='fight'; b.hp=b.maxhp*0.5; const h=spawnMob(Object.keys(MOBS).find(k=>MOBS[k].lv&&MOBS[k].lv[0]>20&&MOBS[k].art[0]!=='hum'), 60, P.x+70, P.y+10, P.L, null, false); h.map=G.map.id; h.role='healer'; h.state='chase'; window._B=b; window._h0=b.hp; return Math.round(b.hp/b.maxhp*100); })()
+wait 12000
+js [Math.round(_B.hp/_B.maxhp*100), Math.round((_B.hp-_h0)/_B.maxhp*1000)/10]
+js window._errs

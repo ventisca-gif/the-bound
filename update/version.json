@@ -1,22 +1,22 @@
 {
- "build": 74,
- "ver": "4.53",
+ "build": 75,
+ "ver": "4.54",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 9895732,
- "sha256": "a90e39dec75371e8ebedf7a70f8fabf53e83a214b8fe16dd03f41184bbc0df57",
+ "size": 9905167,
+ "sha256": "c0a83bb435ed61bf8e295cbbcd58be284066e49f6be2411960f616510aab160a",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Títulos: 26 títulos que se ganan por tu poder (Aprendiz, Veterano, Élite, Héroe, Leyenda, Mito Inmortal) y por logros (nivel máximo, clase despertada, Arma Velada, +10, arma despertada, maestría 50, rangos de la Torre, subrazas, boda, Coliseo, misiones diarias, ropa gótica, oro…).",
-   "Se equipan en el Armario › Títulos y salen encima de tu personaje con letras de colores, borde, adornos y brillo animado. Los demás jugadores los ven online encima de tu nombre.",
-   "Lupa › Sistemas: guías nuevas de Camino al poder máximo, Arma Velada (cómo conseguirla), Herrería (+10), Arma despertada, Maestría 50, Clase despertada y Títulos."
+   "Hijos, nietos y bisnietos: ya no puedes quitarles armas, armaduras o herramientas de más nivel que el tuyo si tú nunca las conseguiste. Si alguna vez la tuviste o ya tienes el nivel, sí.",
+   "Menos curación enemiga: las invocaciones de los jefes ya no salen como Curandero, el Curandero cura un 8 % cada 5 s (a un jefe solo un 1,5 %) y ningún jefe puede recuperar más de un 0,6 % de vida por segundo mientras luchas (Devorador Carmesí, Obispo Hueco y todos los demás).",
+   "Mucho más fluido con muchos enemigos: los enemigos de la Luna de Sangre, corruptos y sombras ya no se tiñen en cada fotograma (era lo que más lag daba), el velo rojo se prepara una vez, los sonidos de golpe no se amontonan y las partículas y números se reducen solo cuando hay demasiados."
   ],
   "en": [
-   "Titles: 26 titles earned by your power (Apprentice, Veteran, Elite, Hero, Legend, Immortal Myth) and by achievements (max level, awakened class, Veiled Weapon, +10, awakened weapon, mastery 50, Tower ranks, subraces, wedding, Coliseum, daily quests, gothic clothes, gold…).",
-   "Equip them in Wardrobe › Titles; they show above your character with coloured letters, outline, ornaments and animated shine. Other players see them online above your name.",
-   "Magnifier › Systems: new guides for Road to max power, Veiled Weapon (how to get it), Blacksmith (+10), Awakened weapon, Mastery 50, Awakened class and Titles."
+   "Children, grandchildren and great-grandchildren: you can no longer take weapons, armour or tools above your level from them if you never got them yourself. If you had it before or have the level, you can.",
+   "Less enemy healing: boss summons no longer spawn as Healers, Healers heal 8% every 5 s (only 1.5% to a boss) and no boss can recover more than 0.6% HP per second while you fight (Crimson Devourer, Hollow Bishop and all the others).",
+   "Much smoother with lots of enemies: Blood Moon, corrupted and shadow enemies are no longer tinted every frame (the biggest cause of lag), the red veil is prepared once, hit sounds don't pile up, and particles and numbers are reduced only when there are too many."
   ]
  }
 }
