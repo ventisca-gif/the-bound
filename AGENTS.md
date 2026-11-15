@@ -1,6 +1,7 @@
 # The Bound
 
-> **Al empezar un chat nuevo, lee `docs/NOTAS.md`**: estado actual (v4.20), qué se hizo en cada versión, pendientes y cómo trabajar con Sergio.
+> **Al empezar un chat nuevo, lee `docs/NOTAS.md`**: estado actual, qué se hizo en cada versión, pendientes y cómo trabajar con Sergio.
+> **Antes de tocar la historia, NPCs que cuenten lore, jefes de la historia o cinemáticas, lee `docs/LORE.md`**: el lore oficial y las reglas para ampliarlo sin contradicciones.
 
 The Bound es un RPG 2D de mundo abierto con movimiento en cuatro direcciones.
 

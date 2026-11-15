@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.63 (build 84)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.64 (build 85)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -70,6 +70,7 @@ Versión actual: **4.63 (build 84)**, publicada en `main` el 2026-11-15. La skil
 - **4.61** `6zz8_v461.js`: `TEAR_TOP = false` apaga el top de 4.59/4.60 (sus envolturas lo comprueban); nuevos jirones de vientre y bajo dentado. Castillo `castillo_arcano` (`makeCastle`, `CAST` horario 46 s clase / 24 s recreo, alumnos `M.stu` con `castStep`/`castWay` por las puertas, profesores con frases `CAST_SUBJ`, pupitres `cast_desk` → `castEndClass`), entrada `castGo` (portón o acercarse), salida al patio. Kaela `loba_kaela`: sprite de héroe con `heroLook` + gear `{sr:'lobo', sf, sc:'negro'}` y cosméticos `loba_vestido`/`loba_medias`/`boina`, `L.fang`; `P.kaela` {lv,k,hp,down,wolf} (SAVEKEYS); combate en `compUpdate`; montura `MOUNTS.loba_kaela` (`kaeRide`, genMount con `wolfAtlas`); hijos `kidWolf` (envoltura de `kidAtlas` con `sr` lobo, `k.wf` forma híbrida). Prueba `tests/v461.txt`.
 - **4.62** en `6zz8_v461.js` (`holeTop`): rotos del pecho muestran el top `TOPB` y los del vientre la piel; la ropa sigue puesta. Así lo quiere Sergio: ropa rasgada + top debajo, las dos cosas.
 - **4.63** `6zz9_v463.js`: el top enseña al héroe de cada fila (último aspecto: `lkOf(P)` = JSON {c, a, g, cs, hh}, guardado por cuenta en `thebound.lk.<cuenta>` y en la fila `L[id].k`; retrato con `remoteAtlas` + HD recortado, `lkPortrait`, en cola `lkQueue`). Pestaña 👗 Moda (`HRS.tab = 'm'`): `modaCount` = cosméticos del armario + armaduras distintas (vistas, inventario, equipo, cofre); total `modaTotal()` = 265 hoy. Servidor: `/lk/<id>` {n, lv, c, m, k, t} con índice en `m` (**hay que pegar las reglas nuevas de `docs/firebase_rules.json`** o solo se ve tu propio aspecto). Online: índice 5 de las filas = prendas y presencia `rkk` = aspecto. Guía `GSIS` 'top_moda'. Prueba `tests/v463.txt`.
+- **4.64** `6zz9a_cine.js`: cinemáticas pixel art (256×144, `CN_SC` escenas, `cnChapterScenes` capítulo → escenas, `cnPrologue`, `cinePlay`/`cineEnd`; se ven al descubrir un capítulo con el diálogo abierto, desde el Libro 🎬 y con Mira). `SUPER_BOSS` (súper jefes: barra dorada `#bossbar.super`, aviso `#sbBan` una vez por héroe en `P.superSeen`, cinemática al vencerlos). **Lore oficial y reglas en `docs/LORE.md`** (enlazado desde `AGENTS.md`). Prueba `tests/v464.txt`.
 
 ## Pendiente o ideas que dejó abiertas
 
