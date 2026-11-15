@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.42 (build 63)**.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.43 (build 64)**.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -51,6 +51,8 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.42 (bui
 - **4.40** hijos con 4 habilidades elegibles, invocadores con almas e invocaciones, equipo propio (pueden superarte), jefes que atacan a los hijos, escalado de jefes por equipo, jefes 200+ con menos vida.
 - **4.41** Torre de los Portales: Selene, prueba de poder y rangos, ranking, 40 cazadores con poderes, retransmisiones, botón ⛩ con 8 mazmorras (solas o en equipo de 4 con cazadores), enemigos y jefes nuevos.
 - **4.42** ropa de cazador (chaquetas, ropa negra, capuchas, capas), anillos de cazador, 6 peinados emo, maquillaje de ojos y 8 aspectos de arma.
+- **4.43** arreglo del bloqueo al salir de mazmorras y de la retransmisión; cazadores pegan según su nivel; los de mucho más nivel te rechazan; jefes menos inflados.
+- **Pedido aún por hacer (4.44+)**: cazadores muy variados (cuerpos nuevos, poderes animados, rangos superiores imbatibles tipo Nacional/Mundial), modo espectador real de mazmorras, duelos de entrenamiento contra cazadores más fuertes, ojeras y labial (negro, etc.), cuerpos nuevos en la creación, NPCs góticas y fiestas religiosas/eventos en los pueblos, todo visible en el online.
 
 ## Pendiente o ideas abiertas
 

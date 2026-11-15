@@ -1,26 +1,26 @@
 {
- "build": 63,
- "ver": "4.42",
- "date": "2026-11-14",
+ "build": 64,
+ "ver": "4.43",
+ "date": "2026-11-15",
  "file": "thebound.html",
- "size": 8641954,
- "sha256": "663af4319398c68efa137c66fa5f67f2afe7d06bc6a31682fc8374c630d681aa",
+ "size": 8647572,
+ "sha256": "3d537c547a4c097b4f0a3e8a63e53721f8a3a9803615d426545ec41a9e97edf7",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Ropa de cazador (cofres de los portales y Tienda del Portal): Chaqueta de Cazador, Chaqueta de Cuero Negra, Gabardina Nocturna, Chaqueta Astral, Ropa Negra, Sudadera Oscura, tres capuchas, pantalones y falda negros, botas y zapatillas negras y dos capas. Se ajustan a las 8 estructuras de cuerpo (con busto en mujer).",
-   "Anillos de Cazador (Hierro, Plata, Oro, Platino y Astral), tan buenos como los mejores accesorios de su nivel.",
-   "6 peinados emo nuevos (3 para chicas y 3 para chicos) con flequillo largo que tapa un ojo.",
-   "Maquillaje de ojos en la creación, la peluquería y el estilo de los hijos (pestaña Pelo): delineado negro, sombras morada, roja y azul, pestañas largas y ojos ahumados.",
-   "Aspectos de arma: 8 aspectos (Acero Pulido, Plata Lunar, Oro Real, Mithril Azur, Obsidiana, Cristal Celeste, Sombra Eclipsada y Luna Sonriente) que cambian solo el dibujo de tu arma, no el daño. Los demás jugadores también lo ven."
+   "Arreglado: el error rojo «Maximum call stack size exceeded» al salir de una mazmorra (pasaba si se pisaba otra vez la salida mientras cargaba). Ahora siempre sales bien, aunque falte el punto de vuelta.",
+   "Arreglado: en la Torre de los Portales la ventana de retransmisiones se abría sola al caminar.",
+   "Cazadores mucho más útiles: pegan según su propio nivel y rango (uno de más nivel pega mucho más) y aguantan más.",
+   "Los cazadores de más de 20 niveles por encima del tuyo no aceptan ir contigo.",
+   "Jefes menos inflados: los cazadores cuentan medio y los hijos un tercio para el escalado del equipo, y los jefes de las mazmorras tienen un 30 % menos de vida."
   ],
   "en": [
-   "Hunter clothes (portal chests and Portal Shop): Hunter Jacket, Black Leather Jacket, Night Trench Coat, Astral Jacket, Black Clothes, Dark Hoodie, three hoods, black trousers and skirt, black boots and sneakers and two capes. They fit all 8 body builds (with bust on women).",
-   "Hunter Rings (Iron, Silver, Gold, Platinum and Astral), as good as the best accessories of their level.",
-   "6 new emo hairstyles (3 for girls and 3 for boys) with a long fringe covering one eye.",
-   "Eye makeup in character creation, the hairdresser and kids' style (Hair tab): black eyeliner, purple, red and blue shadow, long lashes and smoky eyes.",
-   "Weapon looks: 8 looks (Polished Steel, Lunar Silver, Royal Gold, Azure Mithril, Obsidian, Celestial Crystal, Eclipsed Shadow and Smiling Moon) that only change your weapon's art, not its damage. Other players see it too."
+   "Fixed: the red error \"Maximum call stack size exceeded\" when leaving a dungeon (it happened if you stepped on the exit again while loading). You now always get out, even if the return point is missing.",
+   "Fixed: in the Portal Tower the broadcast window opened by itself while walking.",
+   "Hunters are much more useful: they hit based on their own level and rank (a higher-level one hits much harder) and are tougher.",
+   "Hunters more than 20 levels above you refuse to go with you.",
+   "Less bloated bosses: hunters count as half and kids as a third for team scaling, and dungeon bosses have 30% less HP."
   ]
  }
 }
