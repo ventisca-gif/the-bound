@@ -1,26 +1,28 @@
 {
- "build": 64,
- "ver": "4.43",
+ "build": 65,
+ "ver": "4.44",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 8647572,
- "sha256": "3d537c547a4c097b4f0a3e8a63e53721f8a3a9803615d426545ec41a9e97edf7",
+ "size": 8673121,
+ "sha256": "bde009765a1c36c0eb12a2ed19ec796df73d386302df7eaaff3ff0a7b642ebd3",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Arreglado: el error rojo «Maximum call stack size exceeded» al salir de una mazmorra (pasaba si se pisaba otra vez la salida mientras cargaba). Ahora siempre sales bien, aunque falte el punto de vuelta.",
-   "Arreglado: en la Torre de los Portales la ventana de retransmisiones se abría sola al caminar.",
-   "Cazadores mucho más útiles: pegan según su propio nivel y rango (uno de más nivel pega mucho más) y aguantan más.",
-   "Los cazadores de más de 20 niveles por encima del tuyo no aceptan ir contigo.",
-   "Jefes menos inflados: los cazadores cuentan medio y los hijos un tercio para el escalado del equipo, y los jefes de las mazmorras tienen un 30 % menos de vida."
+   "Cazadores mucho más variados: cuerpos normales, altos, robustos y gigantes, capas del color de su poder, armaduras, máscaras, bufandas, barbas, ojos brillantes y armas según su clase.",
+   "Poderes con animación propia: pilares de fuego, cristales de hielo, picos de roca, tornados, olas de agua, runas mentales y, nuevos, sombras y rayos.",
+   "Rangos por encima de Astral: Nacional y Mundial. Seis cazadores legendarios en la Torre (Vaelor, el Monarca de las Sombras; Thorgar, la Bestia Dorada; Ilhan, el Sabueso Carmesí; Kiro, el de la Máscara de Gas; la Doctora Seren y Brutus, el Muro), de nivel 430 a 520: no se unen a nadie.",
+   "Duelos de entrenamiento en la Torre: reta a cualquier cazador (o a un legendario, imposible por ahora). Notas la diferencia de poder en vida, daño y poderes; a 1 de vida el duelo termina y no mueres. Ganar da maestría y esencias.",
+   "Modo espectador: en las retransmisiones pulsa «Ver en directo» y entra a ver al cazador (o a su equipo) recorrer la mazmorra y luchar. Tú eres invisible; sales desde el botón ⛩.",
+   "Maquillaje nuevo: ojeras y ojeras con delineado. Labial negro, rojo, granate, morado, rosa y azul (pestaña Pelo). Se ve en el online."
   ],
   "en": [
-   "Fixed: the red error \"Maximum call stack size exceeded\" when leaving a dungeon (it happened if you stepped on the exit again while loading). You now always get out, even if the return point is missing.",
-   "Fixed: in the Portal Tower the broadcast window opened by itself while walking.",
-   "Hunters are much more useful: they hit based on their own level and rank (a higher-level one hits much harder) and are tougher.",
-   "Hunters more than 20 levels above you refuse to go with you.",
-   "Less bloated bosses: hunters count as half and kids as a third for team scaling, and dungeon bosses have 30% less HP."
+   "Much more varied hunters: normal, tall, burly and giant bodies, capes in their power's colour, armour, masks, scarves, beards, glowing eyes and weapons by class.",
+   "Powers with their own animation: fire pillars, ice crystals, rock spikes, tornadoes, water waves, mind runes and, new, shadows and lightning.",
+   "Ranks above Astral: National and World. Six legendary hunters in the Tower (Vaelor, the Shadow Monarch; Thorgar, the Golden Beast; Ilhan, the Crimson Hound; Kiro, the Gas Mask; Doctor Seren and Brutus, the Wall), level 430 to 520: they team up with nobody.",
+   "Training duels in the Tower: challenge any hunter (or a legendary one, impossible for now). You feel the power gap in HP, damage and powers; at 1 HP the duel ends and you don't die. Winning gives mastery and essences.",
+   "Spectator mode: in the broadcasts press \"Watch live\" and go in to watch the hunter (or their team) explore the dungeon and fight. You are invisible; leave from the ⛩ button.",
+   "New makeup: dark circles and dark circles with eyeliner. Black, red, burgundy, purple, pink and blue lipstick (Hair tab). Visible online."
   ]
  }
 }

@@ -1,0 +1,28 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.gold=900000, G.P.lv=72, calcStats(G.P), G.P.hp=G.P.S.maxhp, 1)
+js (()=>{ const c=document.createElement('canvas'); c.id='hsheet'; c.width=1000; c.height=452; c.style.cssText='position:fixed;left:0;top:0;z-index:999;background:#e8e8f0;image-rendering:pixelated'; document.body.appendChild(c); const x=c.getContext('2d'); x.imageSmoothingEnabled=false; let col=0,row=0; const all=HN.concat(MON); for (const h of all){ const A=hnAtlas(h); x.drawImage(A.img,0,0,A.fw,A.fh,col*62,row*80+(72-A.fh),A.fw,A.fh); col++; if(col>15){col=0;row++;} } return all.length; })()
+shot
+js (document.getElementById('hsheet').remove(), tpGo(), 1)
+wait 2000
+js [G.ents.filter(e=>e.mon).length]
+shot
+js (duelStart({name:'Kael',lv:90,pw:'fuego',look:hnLook(HN[0]),h:HN[0]}), 1)
+wait 2500
+js [G.map.id, !!DUEL, DUEL&&DUEL.m&&DUEL.m.lv]
+wait 6000
+shot
+js (DUEL&&DUEL.m&&hitMob(DUEL.m, DUEL.m.maxhp*5, {}), 1)
+wait 2500
+js [G.map.id, !!DUEL]
+js (()=>{ hnStartRun(); hnStartRun(); return HN_RUNS.length; })()
+js (spectStart(HN_RUNS[0]), 1)
+wait 3000
+js [G.map.id, !!SPECT, G.P.invis, HUNT.allies.length]
+wait 5000
+shot
+js (spectEnd(), 1)
+wait 2000
+js [G.map.id, G.P.invis]
+js (G.P.app.lip=1, G.P.app.mk=8, refreshLook(), [normApp(G.P.app).lip, normApp(G.P.app).mk])
+js (edTab='pelo', openModal('<div id="edt">'+appEditorHTML(G.P.app,[['pelo','Pelo']])+'</div>'), [document.querySelectorAll('[data-elp]').length, document.querySelectorAll('[data-emk]').length])
+js (closeModal(), window._errs)
