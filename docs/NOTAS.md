@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.71 (build 92)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.72 (build 93)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -84,7 +84,9 @@ Versión actual: **4.71 (build 92)**, publicada en `main` el 2026-11-15. La skil
 
 - **4.70** `MAXLV = 400`. `tools/dev/lienzo.py` (hojas en `tools/dev/lienzo_ref/`, sin cuadrícula uniforme: recorte + reducción BOX + 16 colores) → `6zz9l_lienzo_data.js`; `6zz9m_v470.js`: `art ['lz', k]`, criaturas con nombres de Sergio (ids de la 4.69 + `tsp_arana`, `tsp_pez`, `tsp_mimo`, `tsp_eco_sombra`), jefes `eco_vencido`, `fragmento_sin_color`, `sierpe_lienzo` (misiones `tsp6`-`tsp8`), `lienzo_blanco` nivel 400, zonas 300-400 (`LZ_ZONE`, segundo jefe por zona `boss2`). Top mundial hasta 400: **Sergio debe pegar otra vez `docs/firebase_rules.json`** (`lv <= 400`). Pendiente: armas (`tools/dev/lienzo_ref/armas.png`, 30) y armaduras (`armaduras.png`, 6 clases; el «ninja» es el asesino y falta el arquero) para tiers 27-30.
 
-- **4.71** `tools/dev/armas_lz.py` (hoja `lienzo_ref/armas.png`, recorte + enderezar por eje principal + `armas.py`) → `6zz9n_armas_lz_data.js`; `6zz9o_armas_lz.js`: tiers 27-30 (`LZ_T`, nombres `LZ_WN`, recetas con `tinta_viva`/`pigmento_puro`) y 31 = `wlz_<clase>` (6 % de `lienzo_blanco`); armaduras 27-30 con el dibujo de placas genérico (pendiente: conceptos de `armaduras.png`); `cleanGear` acepta hasta 31. Arquero: arco del Velo en lila (no estaba en la hoja). Prueba `tests/v471.txt`.
+- **4.71** `tools/dev/armas_lz.py` (hoja `lienzo_ref/armas.png`, recorte + enderezar por eje principal + `armas.py`) → `6zz9n_armas_lz_data.js`; `6zz9o_armas_lz.js`: tiers 27-30 (`LZ_T`, nombres `LZ_WN`, recetas con `tinta_viva`/`pigmento_puro`) y 31 = `wlz_<clase>` (6 % de `lienzo_blanco`); armaduras 27-30 con el dibujo de placas genérico (sustituido en la 4.72); `cleanGear` acepta hasta 31. Arquero: arco del Velo en lila (no estaba en la hoja). Prueba `tests/v471.txt`.
+
+- **4.72** `6zz9p_armaduras_lz.js`: trajes por clase de `lienzo_ref/armaduras.png` como `fitKind` (`lz_bardo`, `lz_mago`, `lz_guerrero`, `lz_pez`, `lz_ninja`, `lz_invocador`, `lz_arquero`, piernas `lz_wrap`), paletas por tier `LZA` 27-30, cabeza descubierta (`gearVis` head → null), capa propia en vez del manto celeste de 6zs_sky (tier ≥19 ponía `TIERP[21]`), `fitItems` incluye 27-30 (fitcheck 0 avisos).
 
 ## Pendiente o ideas que dejó abiertas
 
