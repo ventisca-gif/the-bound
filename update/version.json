@@ -1,30 +1,28 @@
 {
- "build": 80,
- "ver": "4.59",
+ "build": 81,
+ "ver": "4.60",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 10305839,
- "sha256": "7f4aaac3d9c8dc9592025f1651481c2b4d407825afe899b23fc308e1284e7df0",
+ "size": 10626767,
+ "sha256": "601acc28b7cf3bf967e12e62d3bceb0bcd866a378210f561f61753147df89b27",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Nuevo Devorador Carmesí (Luna de Sangre) con el diseño de Sergio: boca llena de colmillos, garras y núcleo de luz, con frente, perfil y espalda, caminata y ataque.",
-   "Ropa de mujer muy dañada (menos de un cuarto de vida): la tela del vientre se destroza y queda un top oscuro que cubre el pecho.",
-   "Frío: en los Picos Helados o cuando nieva sube tu medidor ❄. Las 14 antorchas nuevas de los Picos, las hogueras y estar bajo techo te calientan. Si llega al 100 % te resfrías.",
-   "Enfermedades: Resfriado, Gripe, Fiebre del pantano, Intoxicación (picaduras venenosas) e Infección (heridas). Cada una baja algo (velocidad, ataque, vida o maná), tiene sus síntomas y se cura sola en unos días.",
-   "Lesiones: los golpes de enemigos mucho más fuertes pueden darte una Contusión, un Esguince (cojeas) o romperte la pierna (vas gateando). Se ve en cualquier ropa, cuerpo y clase, también online.",
-   "Médica Iris en Albor (con uniforme de enfermería y cofia): cura enfermedades y lesiones a cambio de oro, vende su uniforme y cofia y se puede enamorar.",
-   "Todo explicado en la lupa › Sistemas › Enfermedades, lesiones y frío."
+   "Academia Arcana en el Velo Roto (runa azul junto a la llegada): castillo bajo un cielo de estrellas en espiral, camino de piedra azul con faroles, la Archimaga Ondine, los profesores Ignar (fuego), Nevia (hielo) y Orvel (arcano), alumnos y biblioteca.",
+   "Lecciones diarias con cada profesor (toca 10 runas en 35 s): Polvo Arcano, experiencia y oro. La biblioteca tiene libros con historias que también dan Polvo Arcano.",
+   "Libros mágicos (Librera Folia): vuelan a tu lado 1 minuto y lanzan hechizos con tu fuerza: Fuego, Hielo, Trueno, Arcano, Sanación y Escudo. Se gastan; se compran en packs de 3. Los demás jugadores los ven online.",
+   "Escobas voladoras (Maese Ramas): Escoba voladora y Escoba astral con estela de estrellas. Son monturas y se ven online.",
+   "Túnica y Sombrero de la Academia.",
+   "El top que queda al destrozarse la ropa de mujer ahora es más pequeño: solo una banda sobre el pecho, con hombros, vientre y brazos al aire."
   ],
   "en": [
-   "New Crimson Devourer (Blood Moon) with Sergio's design: a mouth full of fangs, claws and a light core, with front, side and back views, walking and attacking.",
-   "Badly damaged women's clothes (below a quarter of HP): the fabric over the belly is torn away, leaving a dark top that covers the chest.",
-   "Cold: in the Frozen Peaks or when it snows your ❄ meter rises. The 14 new torches in the Peaks, campfires and being indoors warm you up. At 100% you catch a cold.",
-   "Illnesses: Cold, Flu, Swamp fever, Poisoning (venomous bites) and Infection (wounds). Each lowers something (speed, attack, HP or mana), has symptoms and heals by itself in a few days.",
-   "Injuries: hits from much stronger enemies can give you a Bruise, a Sprain (you limp) or a broken leg (you crawl). It shows on any clothes, body and class, also online.",
-   "Doctor Iris in Albor (in a nurse uniform and cap): cures illnesses and injuries for gold, sells her uniform and cap, and can be romanced.",
-   "All explained in the magnifier › Systems › Illness, injuries and cold."
+   "Arcane Academy in the Broken Veil (blue rune by the arrival point): a castle under a spiralling starry sky, a blue stone path with lanterns, Archmage Ondine, professors Ignar (fire), Nevia (ice) and Orvel (arcane), students and a library.",
+   "Daily lessons with each professor (touch 10 runes in 35 s): Arcane Dust, experience and gold. The library has storybooks that also give Arcane Dust.",
+   "Magic books (Librarian Folia): they fly by your side for 1 minute and cast spells with your power: Fire, Ice, Thunder, Arcane, Healing and Shield. They're consumed; sold in packs of 3. Online players see them.",
+   "Flying brooms (Master Twig): Flying broom and Astral broom with a star trail. They're mounts and visible online.",
+   "Academy Robe and Hat.",
+   "The top left when women's clothes are torn apart is now smaller: just a band over the chest, with shoulders, belly and arms bare."
   ]
  }
 }
