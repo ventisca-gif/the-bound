@@ -1,0 +1,22 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.gold=900000, G.P.lv=72, calcStats(G.P), G.P.hp=G.P.S.maxhp, [!!A47.mob, !!A47.alfa, !!A47.goth, ROM.goth_nyx.g, hnStats(HN[0]).atk, HN[0].lv, G.P.S.atk])
+js (dgEnter(DG[0], true), 1)
+wait 2500
+js [G.map.id, HUNT.allies.map(a=>[a.h.name, hnLv(a.h), a.maxhp]), G.ents.filter(e=>e.type==='mob'&&e.map===G.map.id).length]
+wait 6000
+shot
+js (()=>{ const M=G.map; for (const e of G.ents) if (e.type==='mob'&&e.map===M.id&&!e.boss) hitMob(e, e.hp*10, {}); return dgLeft(); })()
+wait 3000
+js [dgLeft(), G.ents.filter(e=>e.type==='mob'&&e.map===G.map.id&&!e.dying).length]
+wait 4000
+js [dgLeft()]
+js (G.P.dgRet=null, exitInterior(), 1)
+wait 2500
+js (()=>{ const c=document.createElement('canvas'); c.id='hs'; c.width=900; c.height=600; c.style.cssText='position:fixed;left:0;top:0;width:900px;height:600px;z-index:999;background:#3a4a3a;image-rendering:pixelated'; document.body.appendChild(c); const x=c.getContext('2d'); x.imageSmoothingEnabled=false; let X=0; for (const id of ART47_MOB.ids){ const A=mobAtlasFor(MOBS[id].art); x.drawImage(A.hi,0,0,A.fw*2,A.fh*2,X,0,A.fw*2,A.fh*2); x.drawImage(A.hi,A.fw*2*2,A.fh*2,A.fw*2,A.fh*2,X,100,A.fw*2,A.fh*2); X+=74; } let Y=200; for (const k of ['alfa_nocturno','senor_tormentas']){ const A=mobAtlasFor(BOSSES[k].art); for (let r=0;r<4;r++) x.drawImage(A.hi,0,r*A.fh*2,A.fw*2,A.fh*2,r*140,Y,A.fw*2,A.fh*2); Y+=200; } for (let i=0;i<5;i++){ const A=npcAtlas(ART47_GOTH.ids[i]); for (let r=0;r<4;r++) x.drawImage(A.hi,(2+(r%4))*A.fw*2,r*A.fh*2,A.fw*2,A.fh*2,580+r*80,200+i*0,A.fw*2,A.fh*2); } return 1; })()
+shot
+js (document.getElementById('hs').remove(), hnStartRun(), spectStart(HN_RUNS[0]), 1)
+wait 3000
+js (basicAttack(), useSkill(0), [G.P.spect, (G.P.wm||{})])
+wait 8000
+shot
+js window._errs
