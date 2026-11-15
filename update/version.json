@@ -1,40 +1,22 @@
 {
- "build": 86,
- "ver": "4.65",
+ "build": 87,
+ "ver": "4.66",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 11166916,
- "sha256": "d2724b437eb9d10199f2f80508f449bcb6c92313026d0d3d94fdd75a67483f7f",
+ "size": 11172029,
+ "sha256": "2585e01cddae510c528d0859571cd3c3acf1f75a1e31f9dbddb32e5ed29c218c",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "⚠ Nihil renovado con tu dibujo: flota, se ve en las 4 direcciones y tiene 6 ataques nuevos con sus sprites (Orbe Umbrío, Garra del Vacío, Pilar Oscuro, Lluvia de Cristales, Nova Nihil y Prisión Sombría). Todo se avisa en el suelo; al 60 % llama sombras y al 25 % combina ataques. Solo aparece en la Corona del Cielo.",
-   "🔥 Armas imbuidas: fuego, hielo, rayo y agua se ven en tu arma (con tu dibujo) al usar habilidades de ese elemento, con runas o con las nuevas Esencias de imbuir (5 min).",
-   "⚔ Maestría de armas mucho más rápida (sube más con enemigos de nivel alto) y el arma despierta antes.",
-   "🧪 Las pociones curativas esperan 8 s entre una y otra; el botón muestra la cuenta atrás.",
-   "🏛 Museo de aventuras: trofeos de los 64 jefes con su dibujo, hallazgos arqueológicos, medallas de festivales y tus primeras armas. Los aldeanos lo visitan y lo comentan.",
-   "🏠 Casa útil: vitrina, pedestal, taller del artesano, biblioteca, sótano secreto (40 huecos), cama de invitados, macetero mágico, mesa de alquimia y decoración nueva.",
-   "🌙 Jardinería mágica: 6 plantas que crecen con su clima (la Flor Lunar brilla de noche) y elixires de alquimia.",
-   "🤝 Amistades, rivales y mentores: charla cada día, duelos de rivales y técnicas que te enseñan.",
-   "🎉 Festivales cada 3 días: concurso musical, cocina, baile, carrera y apuestas de caracoles.",
-   "🗡 Armas ancestrales con historia: despiertan restaurando su santuario, hablando con quien conoció a su portador y venciendo a su creador.",
-   "📜 Crónicas del mundo en el Libro del Vínculo: jefes, pueblos, familia, descubrimientos, decisiones y secretos sin resolver. 📝 Examen de la Academia con técnica exclusiva.",
-   "Más de 120 objetos nuevos con sprite. Todo explicado en la lupa › Sistemas."
+   "Arreglado el fuego que se quedaba pegado al héroe con la runa de fuego: ahora el aura de la runa solo aparece un instante al golpear a un monstruo, más pequeña y en el arma.",
+   "Opciones › «Aura de armas imbuidas» para apagar todas las auras.",
+   "En la forja puedes quitar la runa del arma, y tocar otra vez la misma Esencia de imbuir la cancela."
   ],
   "en": [
-   "⚠ Nihil remade with your drawing: it floats, shows in all 4 directions and has 6 new attacks with their sprites (Umbral Orb, Void Claw, Dark Pillar, Crystal Rain, Nihil Nova and Shadow Prison). Everything is warned on the ground; at 60% it calls shadows and at 25% it combines attacks. It only appears in the Crown of the Sky.",
-   "🔥 Imbued weapons: fire, ice, lightning and water show on your weapon (with your drawing) when using skills of that element, with runes or with the new Imbue essences (5 min).",
-   "⚔ Much faster weapon mastery (more from high-level enemies) and the weapon awakens sooner.",
-   "🧪 Healing potions have an 8 s cooldown; the button shows the countdown.",
-   "🏛 Adventure museum: trophies from the 64 bosses with their drawing, archaeological finds, festival medals and your first weapons. Villagers visit and comment on it.",
-   "🏠 Useful house: display case, pedestal, artisan workshop, library, secret cellar (40 slots), guest bed, magic planter, alchemy table and new decoration.",
-   "🌙 Magic gardening: 6 plants that grow with their weather (the Moonflower glows at night) and alchemy elixirs.",
-   "🤝 Friendships, rivals and mentors: chat every day, rival duels and techniques they teach you.",
-   "🎉 Festivals every 3 days: music contest, cooking, dance, race and snail betting.",
-   "🗡 Ancestral weapons with a story: they awaken by restoring their shrine, talking to whoever knew their bearer and defeating their creator.",
-   "📜 World chronicles in the Book of the Bond: bosses, towns, family, discoveries, decisions and unsolved secrets. 📝 Academy exam with an exclusive technique.",
-   "Over 120 new items with sprites. Everything explained in the magnifier › Systems."
+   "Fixed the fire stuck to the hero with the fire rune: the rune's aura now only flashes for a moment when you hit a monster, smaller and on the weapon.",
+   "Options › \"Imbued weapon aura\" to turn all auras off.",
+   "At the forge you can remove the weapon's rune, and tapping the same Imbue essence again cancels it."
   ]
  }
 }
