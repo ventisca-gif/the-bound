@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.45 (build 66)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.46 (build 67)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -52,6 +52,7 @@ Versión actual: **4.45 (build 66)**, publicada en `main` el 2026-11-15. La skil
 - **4.43** `6zyzv_v443.js`: arreglo de recursión infinita al salir de mazmorra (`dgLeave` con candado `DG_LEAVING`), retransmisión que se reabría (en 6zyzt solo refresca con la ventana abierta), `huntAtk` por nivel y rango del cazador, `hnAccepts` (rechazan si su nivel > el tuyo + 20), `teamSize` (cazadores 0,5, hijos 0,33; jefes +40 % por miembro), jefes de mazmorra −30 % de vida. Prueba `tests/v443.txt`.
 - **4.44** `6zyzw_v444.js`: `BODYP.tall`/`giant` (solo NPCs), `hnLook`/`hnAtlas` (aspecto único por cazador con idle/walk/atk/cast/hurt), `pwFx` (animación de cada poder; nuevos `sombra` y `rayo`), rangos Nacional/Mundial y 6 legendarios `MON`, duelos (`duelStart`, mapa `tp_arena` con `makeDuelArena` — ojo, `makeArena` es el coliseo), espectador (`spectStart`/`spectEnd`, `P.spect` invisible e invulnerable, el cazador explora), ojeras (`MK` 7-8) y labial (`app.lip`, `LIPS`). Prueba `tests/v444.txt`.
 - **4.45** `6zyzx_v445.js`: `BODY_T.m[4]` Esbelto y `BODY_T.f[4]` Atlética (fitcheck 0 avisos), NPCs `goth_*` (`gothShop`, `GOTH_COS`), fiestas `REL` según `calDate()` (`relNow`, decoración `REL_D` en la plaza de cada `TOWNS`, procesión con NPCs `rel_fiel`, interacción `relx`, comidas con buff `fiesta_rel`), entrada `fiestas` en `GSIS`. La procesión es local (no se sincroniza). Prueba `tests/v445.txt`.
+- **4.46** `6zyzy_v446.js` + `6zyzx0_art_hd.js` (PNG en base64): sprites sacados de imágenes de Sergio con `tools/art/make_hd.sh` (originales en `tools/art/ref`; `hunters_extract.py` recorta, `hunters_views.py` crea espalda/perfil/máscara de pelo y 11 cazadoras con cabeza de pelo largo, `titan_extract.py` recorta el titán del fondo con simetría). En el juego: `HNA`/`hnaAtlas(spec)` arma idle/walk/atk/cast/hurt en 4 direcciones con lienzo HD propio (`A.hi`, `atlasBlit` lo usa), `hnaAssign` reparte modelo por sexo/clase y cambia tono de ropa (`hue`) y tiñe pelo gris (`hair`); `MON` en `HNA_MON`. Titán: `BOSSES.titan_carmesi.art[4].hi='titan'` → `titanAtlas()`. Nieve: `xmasSnow()` (mes 11 entero y día 1 del mes 0) fuerza `curWx` a nieve y `getChunk` devuelve trozos blanqueados (`snowChunk`). Las imágenes cargan asíncronas: hasta entonces se usa el dibujo viejo. Prueba `tests/v446.txt`.
 ## Pendiente o ideas que dejó abiertas
 
 - El top mundial depende de las reglas de Firebase (`docs/firebase_rules.json`) pegadas en la consola del proyecto `the-bound-3afef`.
