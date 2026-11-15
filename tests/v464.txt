@@ -1,0 +1,14 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{ const c=document.createElement('canvas'); c.id='hs'; c.width=1024; c.height=576; c.style.cssText='position:fixed;left:0;top:0;width:900px;height:506px;z-index:999;background:#000;image-rendering:pixelated'; document.body.appendChild(c); const X=c.getContext('2d'); X.imageSmoothingEnabled=false; const t=document.createElement('canvas'); t.width=256; t.height=144; const x=t.getContext('2d'); const S=['lienzo','nihil','tejedores','vinculo','celestia','alados','guerra','sello','origen','corona','heroe','velo','vigias','luna','libro','guerra']; S.forEach((s,i)=>{ x.clearRect(0,0,256,144); const k=i===15?0.2:(s==='origen'?0.7:0.6); CN_SC[s](x, 3, k, 0); X.drawImage(t,(i%4)*256,Math.floor(i/4)*144); }); return S.length; })()
+shot
+js (document.getElementById('hs').remove(), cinePrologue(), 1)
+wait 2500
+shot
+js (cineNext(), cineNext(), cineNext(), cineNext(), cineNext(), cineNext(), 1)
+wait 3000
+shot
+js (cineEnd(), openBook('cron'), [!!document.getElementById('cnPro'), document.querySelectorAll('.cnB').length])
+js (G.P.loreU=[0,1,11,12,14], openBook('cron'), document.querySelectorAll('.cnB').length)
+shot
+js window._errs
