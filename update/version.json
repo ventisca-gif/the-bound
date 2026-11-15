@@ -1,28 +1,24 @@
 {
- "build": 65,
- "ver": "4.44",
+ "build": 66,
+ "ver": "4.45",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 8673121,
- "sha256": "bde009765a1c36c0eb12a2ed19ec796df73d386302df7eaaff3ff0a7b642ebd3",
+ "size": 8693479,
+ "sha256": "42ea9fb4bd94668476aab926b48499b04347e07dd17b68b60ddee21dcad1251e",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Cazadores mucho más variados: cuerpos normales, altos, robustos y gigantes, capas del color de su poder, armaduras, máscaras, bufandas, barbas, ojos brillantes y armas según su clase.",
-   "Poderes con animación propia: pilares de fuego, cristales de hielo, picos de roca, tornados, olas de agua, runas mentales y, nuevos, sombras y rayos.",
-   "Rangos por encima de Astral: Nacional y Mundial. Seis cazadores legendarios en la Torre (Vaelor, el Monarca de las Sombras; Thorgar, la Bestia Dorada; Ilhan, el Sabueso Carmesí; Kiro, el de la Máscara de Gas; la Doctora Seren y Brutus, el Muro), de nivel 430 a 520: no se unen a nadie.",
-   "Duelos de entrenamiento en la Torre: reta a cualquier cazador (o a un legendario, imposible por ahora). Notas la diferencia de poder en vida, daño y poderes; a 1 de vida el duelo termina y no mueres. Ganar da maestría y esencias.",
-   "Modo espectador: en las retransmisiones pulsa «Ver en directo» y entra a ver al cazador (o a su equipo) recorrer la mazmorra y luchar. Tú eres invisible; sales desde el botón ⛩.",
-   "Maquillaje nuevo: ojeras y ojeras con delineado. Labial negro, rojo, granate, morado, rosa y azul (pestaña Pelo). Se ve en el online."
+   "Dos cuerpos nuevos al crear o cambiar tu personaje: Esbelto (hombre) y Atlética (mujer). Toda la ropa, armaduras y cosméticos se ajustan a ellos.",
+   "NPCs góticas: Morwenna en Albor (costurera con tienda de ropa gótica: vestido, corsé, velo, capa de encaje, guantes, gargantilla y botas), Lilith en el puerto, Nyx en Arxar, Raven en Sahrim y Dorian en Yarakai.",
+   "Fiestas en los pueblos según el calendario del juego: Semana Santa (alfombras de flores, palmas y procesión), Fiesta del Sol, Mes Morado (procesión morada con anda, velas y turrón), Día de las Ánimas (altar y pan de ánimas), Navidad (árbol con regalo, nacimiento y panetón) y Año Nuevo (fuegos artificiales).",
+   "Las comidas de cada fiesta dan una bendición especial. Todo está en la lupa › Sistemas › Fiestas."
   ],
   "en": [
-   "Much more varied hunters: normal, tall, burly and giant bodies, capes in their power's colour, armour, masks, scarves, beards, glowing eyes and weapons by class.",
-   "Powers with their own animation: fire pillars, ice crystals, rock spikes, tornadoes, water waves, mind runes and, new, shadows and lightning.",
-   "Ranks above Astral: National and World. Six legendary hunters in the Tower (Vaelor, the Shadow Monarch; Thorgar, the Golden Beast; Ilhan, the Crimson Hound; Kiro, the Gas Mask; Doctor Seren and Brutus, the Wall), level 430 to 520: they team up with nobody.",
-   "Training duels in the Tower: challenge any hunter (or a legendary one, impossible for now). You feel the power gap in HP, damage and powers; at 1 HP the duel ends and you don't die. Winning gives mastery and essences.",
-   "Spectator mode: in the broadcasts press \"Watch live\" and go in to watch the hunter (or their team) explore the dungeon and fight. You are invisible; leave from the ⛩ button.",
-   "New makeup: dark circles and dark circles with eyeliner. Black, red, burgundy, purple, pink and blue lipstick (Hair tab). Visible online."
+   "Two new bodies when creating or changing your character: Slim (male) and Athletic (female). All clothes, armor and cosmetics fit them.",
+   "Gothic NPCs: Morwenna in Albor (seamstress with a gothic clothing shop: dress, corset, veil, lace cape, gloves, choker and boots), Lilith at the port, Nyx in Arxar, Raven in Sahrim and Dorian in Yarakai.",
+   "Town festivals following the game calendar: Holy Week (flower carpets, palms and procession), Sun Festival, Purple Month (purple procession with float, candles and turrón), Day of Souls (altar and souls bread), Christmas (tree with a gift, nativity and panettone) and New Year (fireworks).",
+   "Each festival's food gives a special blessing. Everything is in the magnifier › Systems › Festivals."
   ]
  }
 }
