@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.53 (build 74)**.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.54 (build 75)**.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -62,6 +62,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.53 (bui
 - **4.51** ropa gótica y de cazador en la lupa (cómo conseguirla, ES/EN). Regla: todo lo nuevo que se consigue va a la lupa en los dos idiomas.
 - **4.52** poder siempre con todos los bonus; clase despertada +10 % atk/+8 % vida y def. Poder a nivel 350 (medido en el juego, 70 % atributos al principal): mejor equipo ~20.500–22.000; +10, arma despertada 10 y maestría 50 ~37.700–41.000; + clase despertada ~41.300–45.700; + subraza transformada: lobo ~47.500–52.900, vampiro ~46.000–51.000, fantasma ~45.000–50.000 (sin transformar la subraza no suma poder). Sin contar mascotas, anillos, comida ni familia.
 - **4.53** títulos (26, por poder y logros, Armario › Títulos, se ven online) y guías de poder en la lupa.
+- **4.54** equipo de los hijos bloqueado si no lo conseguiste ni tienes el nivel; menos curación de enemigos/jefes; optimización (nunca usar `ctx.filter` por fotograma).
 
 ## Pendiente o ideas abiertas
 
