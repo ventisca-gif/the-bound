@@ -1,26 +1,18 @@
 {
- "build": 82,
- "ver": "4.61",
+ "build": 83,
+ "ver": "4.62",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 10661903,
- "sha256": "f8d07b33fb221d358afc87d76ab711f767625ec07f9be3e08fd145191c033a03",
+ "size": 10663201,
+ "sha256": "28649b86358fbadcab810d40626359462f22266ac221d7cafb12bea0c82ef87b",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "El castillo de la Academia Arcana se abre: acércate al portón. Dentro hay un gran salón con alfombra morada, vidrieras, la directora y tres aulas (Fuego, Hielo y Runas) con 18 alumnos que van a clase y salen al recreo. Los profesores enseñan en voz alta. Siéntate en un pupitre durante la clase: Polvo Arcano y experiencia.",
-   "Ropa rasgada de mujer: ya no queda un top; la ropa sigue puesta con jirones y agujeros en el vientre y el bajo en picos (el pecho siempre protegido). Los rotos de chico y chica usan siempre el color de tu piel.",
-   "Kaela, la Loba del Velo (Velo Roto, cerca de la llegada): chica loba de pelo negro, orejas, cola y colmillos, vestido de jirones, medias de pelaje y boina roja. Se puede enamorar y casar.",
-   "Kaela es la pareja más fuerte: lucha a tu lado sin armadura con su propio nivel (sube hasta 350), tiene vida, aúlla para curarte y habla según lo que pase. Con 6 corazones se transforma en loba y puedes subirte a su lomo (se ve online). También te regala su ropa.",
-   "Hijos con Kaela: nacen híbridos (orejas, cola y colmillos del color de su pelo) y de jóvenes pueden pasar a forma híbrida con pelaje y hocico."
+   "Ropa rasgada de mujer: la ropa sigue puesta y rasgada, y debajo lleva un top que se ve por los rotos del pecho; por los rotos del vientre se ve la piel."
   ],
   "en": [
-   "The Arcane Academy castle opens: walk up to the gate. Inside there's a great hall with a purple carpet, stained glass, the headmistress and three classrooms (Fire, Ice and Runes) with 18 students who go to class and out to break. Professors teach out loud. Sit at a desk during class: Arcane Dust and experience.",
-   "Torn women's clothes: no more top; the clothes stay on with rips and holes over the belly and a jagged hem (the chest is always protected). Rips on men and women always use your skin colour.",
-   "Kaela, the Veil She-Wolf (Broken Veil, near the arrival point): a wolf girl with black hair, ears, tail and fangs, a tattered dress, fur stockings and a red beret. She can be romanced and married.",
-   "Kaela is the strongest partner: she fights by your side without armour at her own level (up to 350), has HP, howls to heal you and talks about what's happening. At 6 hearts she turns into a wolf and you can ride on her back (visible online). She also gives you her clothes.",
-   "Children with Kaela: born hybrids (ears, tail and fangs in their hair colour) and as young adults they can switch to a hybrid form with fur and snout."
+   "Torn women's clothes: the clothes stay on and torn, with a top underneath visible through the rips on the chest; skin shows through the rips on the belly."
   ]
  }
 }

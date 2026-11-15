@@ -15,6 +15,11 @@ SAVEKEYS.push('kaela');
         if (p.t) p.tg = 2; for (const [x, y] of [[x0 - 1, y0], [x0 + w, y0 + 1], [x0 + 1, y0 - 1], [x0 + w - 2, y0 + h]]) if (y >= chest && cloth(x, y)) p.set(x, y, uMix(p.get(x, y), C('#000000'), 0.5)); };
       if (!M.side) { const w = M.tw; hole(M.tx0 + Math.round(w * 0.12), chest, 3, 2); hole(M.tx0 + Math.round(w * 0.55), chest + 1, 3, 2); if (legTop - chest > 3) hole(M.tx0 + Math.round(w * 0.3), chest + 2, 2, 2); }
       else hole(M.cx - 2, chest, 3, 2);
+      // v4.62: debajo de la ropa lleva un top: por los rotos del pecho se ve el top (oscuro), por los del vientre la piel
+      const holeTop = (x0, y0, w, h) => { for (let y = y0; y < y0 + h; y++) for (let x = x0; x < x0 + w; x++) { if (y <= ty || y >= chest + 1 || !cloth(x, y)) continue; if (p.t) p.tg = 2; p.set(x, y, TOPB[(x + y) % 4 === 0 ? 4 : y === y0 + h - 1 ? 1 : 2]); }
+        if (p.t) p.tg = 2; for (const [x, y] of [[x0 - 1, y0], [x0 + w, y0], [x0, y0 - 1], [x0 + w - 1, y0 + h]]) if (y > ty && cloth(x, y)) p.set(x, y, uMix(p.get(x, y), C('#000000'), 0.5)); };
+      if (!M.side) { const w = M.tw; holeTop(M.tx0 + Math.round(w * 0.15), ty + 2, 3, chest - ty - 2); holeTop(M.tx0 + Math.round(w * 0.6), ty + 1, 3, Math.max(2, chest - ty - 2)); for (let x = M.tx0 + 2; x < R - 1; x++) if (cloth(x, chest) && (x % 3)) { if (p.t) p.tg = 2; p.set(x, chest, TOPB[0]); } }
+      else holeTop(M.cx - 1, ty + 2, 2, chest - ty - 2);
       // bajo dentado: la tela termina en picos sobre las piernas
       for (let x = M.tx0 - 1; x <= R + 1; x++) { if ((x + 1) % 2) continue; for (let y = legTop + 4; y >= legTop - 1; y--) if (cloth(x, y)) { if (p.t) p.tg = 1; if (!cloth(x, y + 1)) p.set(x, y, 0); break; } }
       p.tg = tg; } catch (e) { } }; }
