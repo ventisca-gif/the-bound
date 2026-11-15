@@ -1,0 +1,16 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.gold=900000, G.P.lv=72, calcStats(G.P), G.P.hp=G.P.S.maxhp, 1)
+js (dgEnter(DG[0], true), 1)
+wait 2000
+js [G.map.id, HUNT.allies.map(a=>huntAtk(a)), G.P.S.atk]
+js (G.P.dgRet=null, exitInterior(), exitInterior(), exitInterior(), 1)
+js (exitInterior(), exitInterior(), 1)
+wait 2500
+js [G.map.id, isFinite(G.P.x)]
+js (tpGo(), 1)
+wait 2000
+js (tpWatch(), closeModal(), 1)
+wait 3000
+js [$('#modal').hidden]
+js (tpInvite(HN.slice().sort((a,b)=>hnLv(b)-hnLv(a))[0]), (hunt().team||[]).length)
+js window._errs

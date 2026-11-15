@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.42 (build 63)**, publicada en `main` el 2026-11-14. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.43 (build 64)**, publicada en `main` el 2026-11-14. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -49,6 +49,7 @@ Versión actual: **4.42 (build 63)**, publicada en `main` el 2026-11-14. La skil
 - **4.40** `6zyzs_v440.js`: `wTopLv` (penalización de arma desde la mejor arma existente), habilidades de hijos (`kidSkills` 4 de `kidSkPool`, `kidCast` simplificado por `eff.k`), almas e invocaciones de hijos invocadores (`k.souls`, `k.soulSet`, entidad `ksum`), `kidForge` en expediciones, `kidRatio` hasta 1,5, jefes que eligen hijo (`m.bkt` con `kidProxy`), escalado por equipo (`teamSize`/`teamScale`: jefes +55 % vida y +15 % daño por miembro), jefes nv. 200+ −20 % vida. Informe de equilibrio (balance.py): jefes en solitario 1-6 min, te matan en 9-60 s si no esquivas; enemigos normales 2→15 golpes de nivel 10 a 350. Prueba `tests/v440.txt`.
 - **4.41** `6zyzt_v441.js` (`P.hunt`): Torre de los Portales (mapa `torre_portales`, `makeTower`, suelo blanco en `bldDrawFloors`), Selene, cristal de poder (`tpTest`, rangos `HN_RK`/`HN_RKSC`), ranking, retransmisiones (`HN_RUNS`), tienda de esencias; 40 cazadores `HN` (NPCS `hn_<i>`, poderes `HN_PW`); mazmorras `DG` (8, CAVES `mz_<id>[_eq]` con `makeCave`; salida por `dgLeave`/`P.dgRet`); aliados `HUNT.allies` (tipo `hunter`, `huntUpdate`, `huntPower`, aggro con `HUNT_AGGRO`), barras `#huntBars`; enemigos `DG_MOBS` y jefes `DG_BOSS`; botón `#dgBtn` desde nivel 50. Prueba `tests/v441.txt`.
 - **4.42** `6zyzu_v442.js`: 16 cosméticos de cazador con tipos existentes (`DG_COSMS`; la capa usa `{o, i, tr}`), anillos `anillo_cazador_1..5` (95 % del mejor accesorio de su nivel), 6 peinados emo (`bang: 'long'`), maquillaje `app.mk` (`MK`; `normApp`/`heroKey`/`heroLook` llevan `mk`, se pinta tras `drawHero` con `p.meta.ey/eyes`), aspectos de arma `P.wskin`/`P.wskins` (`gearTiers` cambia solo el tier de dibujo). fitcheck: 0 avisos. Prueba `tests/v442.txt`.
+- **4.43** `6zyzv_v443.js`: arreglo de recursión infinita al salir de mazmorra (`dgLeave` con candado `DG_LEAVING`), retransmisión que se reabría (en 6zyzt solo refresca con la ventana abierta), `huntAtk` por nivel y rango del cazador, `hnAccepts` (rechazan si su nivel > el tuyo + 20), `teamSize` (cazadores 0,5, hijos 0,33; jefes +40 % por miembro), jefes de mazmorra −30 % de vida. Prueba `tests/v443.txt`.
 ## Pendiente o ideas que dejó abiertas
 
 - El top mundial depende de las reglas de Firebase (`docs/firebase_rules.json`) pegadas en la consola del proyecto `the-bound-3afef`.
