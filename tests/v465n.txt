@@ -1,0 +1,17 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.lv=250, calcStats(G.P), G.P.hp=G.P.S.maxhp, 1)
+js (()=>{ const P=G.P; const m=spawnMob('nihil', 250, P.x+70, P.y-10, P.L, null, true); window.M1=m; m.state='chase'; return [m.atlas.fw, m.atlas.fh]; })()
+wait 1200
+shot
+js (NIH_ATK.nova[1](M1, G.P), NIH_ATK.pilar[1](M1, G.P), 1)
+wait 1150
+shot
+js (NIH_ATK.orbe[1](M1, G.P), NIH_ATK.prision[1](M1, G.P), NIH_ATK.cristales[1](M1,G.P), 1)
+wait 900
+shot
+wait 5000
+js [Math.round(G.P.hp/G.P.S.maxhp*100), G.P.dead, NHZ.length]
+js (M1.hp = M1.maxhp*0.2, M1.mech=99, 1)
+wait 3000
+shot
+js window._errs
