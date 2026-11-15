@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.56 (build 77)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.57 (build 78)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -63,6 +63,7 @@ Versión actual: **4.56 (build 77)**, publicada en `main` el 2026-11-15. La skil
 - **4.54** `6zz3_v454.js`: `P.seen` (objetos conseguidos; envoltura de `giveItem`) y `kidGearLocked` en `openKid` ([data-kun]). Curación: invocaciones sin rol, curandero propio (`hlT2`, 8 %/5 s, jefe 1,5 %) y tope de curación de jefes (`_hb`, 0,6 %/s salvo `return`/`idle`). Rendimiento (medido con CPU ×6: luna de sangre con 60 enemigos de 3 a ~11 FPS): nada de `ctx.filter` por fotograma (`tintAtlas` en caché + `NOFILTER` neutraliza el setter de `ctx.filter`), `sfx` limitado, `burst`/`part`/`floatText` se reducen con carga, velo rojo en caché (`bmOverlay`). Script de medida: copiar el de esta versión (playwright + `Emulation.setCPUThrottlingRate`). Prueba `tests/v454.txt`.
 - **4.55** `6zz4_v455.js`: OJO, el guardado usa la lista `SAVEKEYS` (52_player.js): todo campo nuevo de `G.P` hay que añadirlo con `SAVEKEYS.push(...)` o se pierde al recargar (pasó con `titles`, `title`, `seen`, `arWins`, `dqN`, `dqLast`). Equipo de la familia: `[data-kun]` siempre bloqueado; `[data-keq]` manda lo viejo a `k.inv`. Prueba `tests/v455.txt`.
 - **4.56** Sergio NO quería poder ×10: quería ver los números grandes. Revertido (se deshace `sc10` en `hunt().score`); CSS de números claros (Verdana negrita) en `.chR` (`.pwv` para el poder, envoltura de `renderChar`) y `#tpRes`. La letra pixelada confunde el 8 con la S: para números importantes usar esta letra.
+- **4.57** `6zz5_v457.js`: ropa desgarrada genérica. `tearApply(p, L)` se ejecuta tras `drawHero` si `L.tear` (1 o 2): agujeros en posiciones relativas a `p.meta` (torso/piernas/brazos, `TEAR_HOLES`), solo sobre píxeles de ropa (no piel, pelo ni contorno), borde oscurecido, bajo deshilachado (nivel 2), raspones y gotas rojas; protege la mitad alta del torso en mujeres y la entrepierna; de espaldas los rotos de capa son tela oscura. `TEAR_CUR` se mete en `heroKey`/`heroLook` solo dentro de `playerAtlas`/`remoteAtlas`. `P.tear` sigue la vida (<50 % → 1, <25 % → 2, ≥60 % → 0). Online: presencia `tr`. `SETTINGS.tear === false` lo apaga. Prueba `tests/v457.txt`.
 ## Pendiente o ideas que dejó abiertas
 
 - El top mundial depende de las reglas de Firebase (`docs/firebase_rules.json`) pegadas en la consola del proyecto `the-bound-3afef`.

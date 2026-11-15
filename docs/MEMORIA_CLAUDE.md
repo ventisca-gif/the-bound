@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.56 (build 77)**.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.57 (build 78)**.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -24,6 +24,12 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.56 (bui
 - Si tocas daño, vida, curas, armas o accesorios: `python3 tools/dev/pvp.py file://$PWD/dist/test.html` (fuerza de cada clase entre 0,9 y 1,1). Si se sale, `--solve` y copia el `PVP_CLS sugerido` en `src/6zyb_pvp.js`. Ojo: un accesorio sin clase muy fuerte rompe el PvP (pasó en la 4.29).
 - Publicar una versión: sube `GAME_VER`/`GAME_BUILD` en `src/6zv_update.js`, añade la entrada al principio de `CHANGELOG` (es y en), cambia el pie `tfoot` en `template.html`, `python3 tools/dev/release.py`, commit, push a la rama de trabajo, PR a `main` y fusionar.
 - La APK se firma con la clave de siempre (`THEBOUND_KEYSTORE`, `THEBOUND_SIGNING_PASSWORD`); nunca la subas ni generes otra. Solo hace falta APK nueva si cambia `tools/apk/` (`UPD_MIN_APK`).
+- **Guardado**: `serializeP` solo guarda los campos de `SAVEKEYS` (52_player.js). Todo campo nuevo de `G.P` necesita `SAVEKEYS.push('campo')` o se pierde al recargar (pasó con los títulos en la 4.53).
+- **Lupa**: todo lo nuevo que se consigue (ropa, sistemas, jefes…) se explica en la lupa › Sistemas (`GSIS.push([clave, título, () => [líneas], () => null])`) en español e inglés con `L2`.
+- **Números**: la letra pixelada confunde el 8 con la S. Si Sergio pide «números más grandes» quiere letra más grande y clara (Verdana negrita), no cambiar el cálculo (error de la 4.55).
+- **Rendimiento**: nunca usar `ctx.filter` en cada fotograma (tiñe una copia en caché, ver `tintAtlas` de la 4.54). Medir con Playwright y `Emulation.setCPUThrottlingRate` 6 (simula un móvil).
+- **Sprites desde imágenes de Sergio**: `tools/art/sheet_extract.py` (`find`/`cut`/`shrink`/`pack`), `tools/art/make_v447.py`, `tools/art/make_hd.sh`; originales en `tools/art/ref`. Se incrustan como PNG en base64 en `src/6zyz*0_art*.js`.
+- **Pruebas recientes**: `tests/v441.txt` … `tests/v457.txt` (todas deben acabar en `JS> []`).
 - Reglas del repositorio: `AGENTS.md` (sprites, caminata, estilo HD, ajuste de prendas, PvP). Historial detallado de cada versión: `docs/NOTAS.md`.
 
 ## Qué tiene el juego (resumen)
@@ -65,6 +71,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.56 (bui
 - **4.54** equipo de los hijos bloqueado si no lo conseguiste ni tienes el nivel; menos curación de enemigos/jefes; optimización (nunca usar `ctx.filter` por fotograma).
 - **4.55** títulos guardados (regla: campos nuevos de G.P → `SAVEKEYS.push`), equipo de la familia no se puede quitar.
 - **4.56** poder como antes (el ×10 fue un malentendido); números de la ficha grandes y en letra clara. Si Sergio dice «números más grandes» se refiere al tamaño de la letra.
+- **4.57** ropa desgarrada según la vida (cualquier prenda, pecho femenino protegido, raspones de sangre, se ve online).
 
 ## Pendiente o ideas abiertas
 
