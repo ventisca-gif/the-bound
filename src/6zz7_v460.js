@@ -6,7 +6,7 @@
 // =====================================================================================
 
 // ---------- top más pequeño: solo una banda sobre el pecho; hombros, vientre y mangas rotas ----------
-{ const _ta = tearApply; tearApply = function (p, L) { _ta.apply(this, arguments); try { const M = p.meta; if (!M || !M.fem || (L.tear | 0) < 2) return; const SK = M.sk || L.skin || [], skin = new Set(SK), hair = new Set(L.hair || []);
+{ const _ta = tearApply; tearApply = function (p, L) { _ta.apply(this, arguments); try { const M = p.meta; if (!window.TEAR_TOP || !M || !M.fem || (L.tear | 0) < 2) return; const SK = M.sk || L.skin || [], skin = new Set(SK), hair = new Set(L.hair || []);
       const ty = M.torsoTop, th = M.th, R = M.tx0 + M.tw - 1, top0 = ty + 1, top1 = ty + Math.max(3, Math.ceil(th * 0.45)), legTop = M.legTop, aw = M.aw || 2, al = M.al || 6;
       const TB = new Set(TOPB), nonSkin = (x, y) => { const c = p.get(x, y); return uA(c) && !skin.has(c) && !hair.has(c) && (TB.has(c) || uR(c) + uG(c) + uB(c) > 24); };
       // hombros al aire y banda del top

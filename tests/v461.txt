@@ -1,0 +1,23 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.lv=300, G.P.gold=999999, calcStats(G.P), G.P.hp=G.P.S.maxhp, 1)
+js (()=>{ const c=document.createElement('canvas'); c.id='hs'; c.width=900; c.height=600; c.style.cssText='position:fixed;left:0;top:0;width:900px;height:600px;z-index:999;background:#5a6a7a;image-rendering:pixelated'; document.body.appendChild(c); window.XX=c.getContext('2d'); XX.imageSmoothingEnabled=false; const P=G.P; P.app.g='f'; [{body:'c_gt_romantico'},{body:'c_chaq_cazador'}].forEach((cos,ri)=>{ P.cos=cos; P.tear=2; const A=playerAtlas(P); [0,1,3].forEach((row,j)=>{ hdEnsure(A, A.idx.idle, row, true); XX.drawImage(A.hd, A.idx.idle*A.fw*2, row*A.fh*2, A.fw*2, A.fh*2, ri*450+j*140-30, -40, A.fw*2*1.6, A.fh*2*1.6); }); }); P.tear=0; P.cos={}; [0,1,2].forEach((fm,i)=>{ const A=kaeAtlas(fm); [0,1,3].forEach((row,j)=>{ if (A.hdL) hdEnsure(A, A.idx.idle, row, true); const src=A.hd&&A.hdL?A.hd:A.img, k=A.hd&&A.hdL?2:1; XX.drawImage(src, A.idx.idle*A.fw*k, row*A.fh*k, A.fw*k, A.fh*k, i*300+j*90-10, 300, A.fw*1.8, A.fh*1.8); }); }); return 1; })()
+shot
+js (document.getElementById('hs').remove(), goVelo(), 1)
+wait 3000
+js (()=>{ const e=G.ents.find(e=>e.id==='loba_kaela'); G.P.rel={loba_kaela:{t:900,a:900}}; G.P.x=e.x; G.P.y=e.y+20; startComp(e,false); return [!!e, kae().lv, kaeStats().atk]; })()
+js (()=>{ const P=G.P; for (let i=0;i<4;i++){ const m=spawnMob(Object.keys(MOBS).find(k=>MOBS[k].lv&&MOBS[k].art[0]!=='hum'), 60, P.x+50+i*12, P.y+10, P.L, null, false); m.map=G.map.id; m.state='chase'; } return 1; })()
+wait 4000
+js [G.ents.filter(e=>e.type==='mob'&&e.map===G.map.id&&!e.dying).length, Math.round(kae().hp)]
+js (kaeWolf(true), kaeRide(true), [G.P.mount, !!mountOf(G.P)])
+wait 1500
+shot
+js (toggleMount(), [G.P.mount])
+js (()=>{ const P=G.P; P.partner='loba_kaela'; P.kids=[{id:'kw', name:'Lobito', g:'m', app:{hair:'castano'}, born: calDay()-99999, parent:'loba_kaela', cls:'guerrero', equip:{}, inv:[]}]; const e=kidEnt(P.kids[0], G.map.id, P.x+20, P.y); openKid(e); return !!document.getElementById('kWolf'); })()
+js (document.getElementById('kWolf').click(), closeModal(), G.P.kids[0].wf)
+js (goVelo, G.P.mount=null, (()=>{ const A=makeAcademy(); return 1; })())
+js (castGo(), 1)
+wait 2500
+js [G.map.id, G.map.stu.length]
+wait 6000
+shot
+js window._errs

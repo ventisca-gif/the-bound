@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.60 (build 81)**.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.61 (build 82)**.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -75,6 +75,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.60 (bui
 - **4.58** la ropa de mujer se rasga un poco más (pecho protegido).
 - **4.59** Devorador Carmesí nuevo, top al destrozarse la ropa de mujer, frío con antorchas, enfermedades, lesiones (cojear/gatear) y médica Iris enamorable en Albor.
 - **4.60** Academia Arcana en el Velo Roto (profesores, lecciones, biblioteca), libros mágicos voladores, escobas voladoras, top más pequeño. Ojo: al repintar píxeles de un sprite de héroe, marca también su capa en `p.t` o el HD dibuja rayas.
+- **4.61** castillo-escuela por dentro, ropa rasgada sin top (Sergio prefiere jirones en la propia ropa), Kaela la chica loba (pareja más fuerte, se transforma, montable, hijos híbridos).
 
 ## Pendiente o ideas abiertas
 
