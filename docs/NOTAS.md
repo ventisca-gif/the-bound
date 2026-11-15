@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.70 (build 91)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.71 (build 92)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -83,6 +83,8 @@ Versión actual: **4.70 (build 91)**, publicada en `main` el 2026-11-15. La skil
 - **4.69** `6zz9k_sinpintar.js`: Las Tierras sin Pintar (mapa `sin_pintar` 220×160, `M.tsp`, `TSP_ZONES`), entrada `sp_puente` al este de Albor (`TSP_WPOS.gate`, requiere `vr6`), suelo sin color con composición `saturation`/`screen` en `tspGround` según `P.tsp.p[zona]` (color por victorias), cielo `tspSky` (mano con pincel y rostro blanco, referencia de Sergio en el chat). Criaturas esbozadas: `art ['tsp', variante, ...art]` → `tspSketch` sobre cualquier atlas ('w', 'part', 'ink', 'gold'). Jefes `tsp_golem`, `tsp_rey`, `tsp_borron_gran`, `tsp_marco` y súper jefe `lienzo_blanco` (círculos `SHZ` que borran, `P.paleT` −15 % ataque, `P.inkT` ceguera), misiones `tsp0`-`tsp5` de Mael, Trazos `P.trz` (post-350, `trzGain` desde `gainXp`, no en duelos), capítulo `CH_SIN_PINTAR`, escena `sinpintar`. El nivel máximo sigue en 350 (subirlo toca top/Firebase, PvP y muchos topes). Prueba `tests/v469.txt`.
 
 - **4.70** `MAXLV = 400`. `tools/dev/lienzo.py` (hojas en `tools/dev/lienzo_ref/`, sin cuadrícula uniforme: recorte + reducción BOX + 16 colores) → `6zz9l_lienzo_data.js`; `6zz9m_v470.js`: `art ['lz', k]`, criaturas con nombres de Sergio (ids de la 4.69 + `tsp_arana`, `tsp_pez`, `tsp_mimo`, `tsp_eco_sombra`), jefes `eco_vencido`, `fragmento_sin_color`, `sierpe_lienzo` (misiones `tsp6`-`tsp8`), `lienzo_blanco` nivel 400, zonas 300-400 (`LZ_ZONE`, segundo jefe por zona `boss2`). Top mundial hasta 400: **Sergio debe pegar otra vez `docs/firebase_rules.json`** (`lv <= 400`). Pendiente: armas (`tools/dev/lienzo_ref/armas.png`, 30) y armaduras (`armaduras.png`, 6 clases; el «ninja» es el asesino y falta el arquero) para tiers 27-30.
+
+- **4.71** `tools/dev/armas_lz.py` (hoja `lienzo_ref/armas.png`, recorte + enderezar por eje principal + `armas.py`) → `6zz9n_armas_lz_data.js`; `6zz9o_armas_lz.js`: tiers 27-30 (`LZ_T`, nombres `LZ_WN`, recetas con `tinta_viva`/`pigmento_puro`) y 31 = `wlz_<clase>` (6 % de `lienzo_blanco`); armaduras 27-30 con el dibujo de placas genérico (pendiente: conceptos de `armaduras.png`); `cleanGear` acepta hasta 31. Arquero: arco del Velo en lila (no estaba en la hoja). Prueba `tests/v471.txt`.
 
 ## Pendiente o ideas que dejó abiertas
 
