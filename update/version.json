@@ -1,18 +1,30 @@
 {
- "build": 79,
- "ver": "4.58",
+ "build": 80,
+ "ver": "4.59",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 9918019,
- "sha256": "a9707c320cb9e79abed27ef554e8f84d3ecc3e1d30922b924eb926ac6e7f9bca",
+ "size": 10305839,
+ "sha256": "7f4aaac3d9c8dc9592025f1651481c2b4d407825afe899b23fc308e1284e7df0",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "La ropa de los cuerpos femeninos se rasga un poco más con poca vida: más rotos y más grandes en cintura, costados, brazos y piernas (el pecho sigue protegido)."
+   "Nuevo Devorador Carmesí (Luna de Sangre) con el diseño de Sergio: boca llena de colmillos, garras y núcleo de luz, con frente, perfil y espalda, caminata y ataque.",
+   "Ropa de mujer muy dañada (menos de un cuarto de vida): la tela del vientre se destroza y queda un top oscuro que cubre el pecho.",
+   "Frío: en los Picos Helados o cuando nieva sube tu medidor ❄. Las 14 antorchas nuevas de los Picos, las hogueras y estar bajo techo te calientan. Si llega al 100 % te resfrías.",
+   "Enfermedades: Resfriado, Gripe, Fiebre del pantano, Intoxicación (picaduras venenosas) e Infección (heridas). Cada una baja algo (velocidad, ataque, vida o maná), tiene sus síntomas y se cura sola en unos días.",
+   "Lesiones: los golpes de enemigos mucho más fuertes pueden darte una Contusión, un Esguince (cojeas) o romperte la pierna (vas gateando). Se ve en cualquier ropa, cuerpo y clase, también online.",
+   "Médica Iris en Albor (con uniforme de enfermería y cofia): cura enfermedades y lesiones a cambio de oro, vende su uniforme y cofia y se puede enamorar.",
+   "Todo explicado en la lupa › Sistemas › Enfermedades, lesiones y frío."
   ],
   "en": [
-   "Clothes on female bodies tear a bit more at low health: more and bigger rips at the waist, sides, arms and legs (the chest stays protected)."
+   "New Crimson Devourer (Blood Moon) with Sergio's design: a mouth full of fangs, claws and a light core, with front, side and back views, walking and attacking.",
+   "Badly damaged women's clothes (below a quarter of HP): the fabric over the belly is torn away, leaving a dark top that covers the chest.",
+   "Cold: in the Frozen Peaks or when it snows your ❄ meter rises. The 14 new torches in the Peaks, campfires and being indoors warm you up. At 100% you catch a cold.",
+   "Illnesses: Cold, Flu, Swamp fever, Poisoning (venomous bites) and Infection (wounds). Each lowers something (speed, attack, HP or mana), has symptoms and heals by itself in a few days.",
+   "Injuries: hits from much stronger enemies can give you a Bruise, a Sprain (you limp) or a broken leg (you crawl). It shows on any clothes, body and class, also online.",
+   "Doctor Iris in Albor (in a nurse uniform and cap): cures illnesses and injuries for gold, sells her uniform and cap, and can be romanced.",
+   "All explained in the magnifier › Systems › Illness, injuries and cold."
   ]
  }
 }

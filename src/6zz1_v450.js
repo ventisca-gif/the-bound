@@ -61,7 +61,7 @@ function gtWig(style) { return (p, A, s) => { const H = s.m, P2 = s.s, { hx, hy,
   for (let y = Math.floor(cy - ry); y <= Math.round(hy + len); y++) for (let x = Math.floor(hx - rx - 1); x <= Math.ceil(hx + rx + 1); x++) {
     const nx = (x - hx) / rx, ny = (y - cy) / ry, inDome = nx * nx + ny * ny <= 1, wave = style === 'larga' || style === 'melena' ? Math.round(Math.sin(y * 0.9) * 0.8) : 0;
     const sideBand = Math.abs(x - hx - wave) >= hrx - 1 && Math.abs(x - hx - wave) <= rx + (big ? 0.5 : 0) && y > hy - 2;
-    if (!inDome && !(sideBand && y <= hy + len)) continue; if (big && (x * 13 + y * 7) % 9 === 0 && !inDome) continue;
+    if (!inDome && !(sideBand && y <= hy + len)) continue; if (up && style === 'bob' && (!inDome || y > hy + hry - 2)) continue; if (big && (x * 13 + y * 7) % 9 === 0 && !inDome) continue;
     if (!up) { const faceZone = y >= ey - 1 && Math.abs(x - hx) < hrx - 1; if (faceZone && !side) continue; if (side && y >= ey - 1 && (x - hx) * d > -1) continue;
       if (style === 'melena' && !side && y >= top + 3 && Math.abs(x - hx) < hrx - 2 && y < ey + 4) continue; }
     const t = (y - (cy - ry)) / (ry * 2 + len); let c = t < 0.12 ? H[2] : t < 0.26 ? ((x + y) % 3 ? H[2] : H[3]) : x < hx ? H[2] : H[1];
