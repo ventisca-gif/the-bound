@@ -14,7 +14,7 @@ const DEVO_OLD = BOSSES.devorador_carmesi.art; BOSSES.devorador_carmesi.art = ['
 
 // ---------- ropa de mujer destrozada (nivel 2): la tela del vientre se rompe y queda un top que cubre el pecho ----------
 const TOPB = [C('#08090b'), C('#12171a'), C('#1c2628'), C('#2a3e3c'), C('#4a7a6a')];
-{ const _ta = tearApply; tearApply = function (p, L) { _ta.apply(this, arguments); try { const M = p.meta; if (!M || !M.fem || (L.tear | 0) < 2) return; const SK = M.sk || L.skin || [], skin = new Set(SK), hair = new Set(L.hair || []);
+{ const _ta = tearApply; tearApply = function (p, L) { _ta.apply(this, arguments); try { const M = p.meta; if (!window.TEAR_TOP || !M || !M.fem || (L.tear | 0) < 2) return; const SK = M.sk || L.skin || [], skin = new Set(SK), hair = new Set(L.hair || []);
       const ty = M.torsoTop, th = M.th, R = M.tx0 + M.tw - 1, cut = ty + Math.ceil(th * 0.55), legTop = M.legTop;
       const cloth = (x, y) => { const c = p.get(x, y); return uA(c) && !skin.has(c) && !hair.has(c) && (uR(c) + uG(c) + uB(c) > 30); };
       for (let y = ty; y < cut; y++) for (let x = M.tx0; x <= R; x++) if (cloth(x, y)) { const k = x === M.tx0 ? 3 : x === R ? 1 : (x + y) % 5 === 0 ? 4 : 2; p.set(x, y, TOPB[k]); }

@@ -1,28 +1,26 @@
 {
- "build": 81,
- "ver": "4.60",
+ "build": 82,
+ "ver": "4.61",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 10626767,
- "sha256": "601acc28b7cf3bf967e12e62d3bceb0bcd866a378210f561f61753147df89b27",
+ "size": 10661903,
+ "sha256": "f8d07b33fb221d358afc87d76ab711f767625ec07f9be3e08fd145191c033a03",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Academia Arcana en el Velo Roto (runa azul junto a la llegada): castillo bajo un cielo de estrellas en espiral, camino de piedra azul con faroles, la Archimaga Ondine, los profesores Ignar (fuego), Nevia (hielo) y Orvel (arcano), alumnos y biblioteca.",
-   "Lecciones diarias con cada profesor (toca 10 runas en 35 s): Polvo Arcano, experiencia y oro. La biblioteca tiene libros con historias que también dan Polvo Arcano.",
-   "Libros mágicos (Librera Folia): vuelan a tu lado 1 minuto y lanzan hechizos con tu fuerza: Fuego, Hielo, Trueno, Arcano, Sanación y Escudo. Se gastan; se compran en packs de 3. Los demás jugadores los ven online.",
-   "Escobas voladoras (Maese Ramas): Escoba voladora y Escoba astral con estela de estrellas. Son monturas y se ven online.",
-   "Túnica y Sombrero de la Academia.",
-   "El top que queda al destrozarse la ropa de mujer ahora es más pequeño: solo una banda sobre el pecho, con hombros, vientre y brazos al aire."
+   "El castillo de la Academia Arcana se abre: acércate al portón. Dentro hay un gran salón con alfombra morada, vidrieras, la directora y tres aulas (Fuego, Hielo y Runas) con 18 alumnos que van a clase y salen al recreo. Los profesores enseñan en voz alta. Siéntate en un pupitre durante la clase: Polvo Arcano y experiencia.",
+   "Ropa rasgada de mujer: ya no queda un top; la ropa sigue puesta con jirones y agujeros en el vientre y el bajo en picos (el pecho siempre protegido). Los rotos de chico y chica usan siempre el color de tu piel.",
+   "Kaela, la Loba del Velo (Velo Roto, cerca de la llegada): chica loba de pelo negro, orejas, cola y colmillos, vestido de jirones, medias de pelaje y boina roja. Se puede enamorar y casar.",
+   "Kaela es la pareja más fuerte: lucha a tu lado sin armadura con su propio nivel (sube hasta 350), tiene vida, aúlla para curarte y habla según lo que pase. Con 6 corazones se transforma en loba y puedes subirte a su lomo (se ve online). También te regala su ropa.",
+   "Hijos con Kaela: nacen híbridos (orejas, cola y colmillos del color de su pelo) y de jóvenes pueden pasar a forma híbrida con pelaje y hocico."
   ],
   "en": [
-   "Arcane Academy in the Broken Veil (blue rune by the arrival point): a castle under a spiralling starry sky, a blue stone path with lanterns, Archmage Ondine, professors Ignar (fire), Nevia (ice) and Orvel (arcane), students and a library.",
-   "Daily lessons with each professor (touch 10 runes in 35 s): Arcane Dust, experience and gold. The library has storybooks that also give Arcane Dust.",
-   "Magic books (Librarian Folia): they fly by your side for 1 minute and cast spells with your power: Fire, Ice, Thunder, Arcane, Healing and Shield. They're consumed; sold in packs of 3. Online players see them.",
-   "Flying brooms (Master Twig): Flying broom and Astral broom with a star trail. They're mounts and visible online.",
-   "Academy Robe and Hat.",
-   "The top left when women's clothes are torn apart is now smaller: just a band over the chest, with shoulders, belly and arms bare."
+   "The Arcane Academy castle opens: walk up to the gate. Inside there's a great hall with a purple carpet, stained glass, the headmistress and three classrooms (Fire, Ice and Runes) with 18 students who go to class and out to break. Professors teach out loud. Sit at a desk during class: Arcane Dust and experience.",
+   "Torn women's clothes: no more top; the clothes stay on with rips and holes over the belly and a jagged hem (the chest is always protected). Rips on men and women always use your skin colour.",
+   "Kaela, the Veil She-Wolf (Broken Veil, near the arrival point): a wolf girl with black hair, ears, tail and fangs, a tattered dress, fur stockings and a red beret. She can be romanced and married.",
+   "Kaela is the strongest partner: she fights by your side without armour at her own level (up to 350), has HP, howls to heal you and talks about what's happening. At 6 hearts she turns into a wolf and you can ride on her back (visible online). She also gives you her clothes.",
+   "Children with Kaela: born hybrids (ears, tail and fangs in their hair colour) and as young adults they can switch to a hybrid form with fur and snout."
   ]
  }
 }
