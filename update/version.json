@@ -1,26 +1,26 @@
 {
- "build": 91,
- "ver": "4.70",
+ "build": 92,
+ "ver": "4.71",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 12123412,
- "sha256": "1d2dbab4b2802e5e73f7785040423182b5d26571e23236060355e58cbe681ac9",
+ "size": 12750301,
+ "sha256": "34da38494103773a32ce5dad7e17dea064091bfa69afb0cf8a9d33ab6db75e3f",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "⭐ Nivel máximo 400. Las Tierras sin Pintar ahora van del 300 al 400: Orilla del Boceto, Llanura de los Trazos, Ciénaga de los Borrones, El Marco Roto y El Lienzo en Blanco (385-400).",
-   "🖌 Criaturas con el dibujo de Sergio: Babosa Borrada, Lobo Inacabado, Araña de Tiza, Caballero Vacío, Esqueleto Sin Tinta, Gólem de Cal, Espectro del Lienzo, Pez Pálido, Mimo del Silencio y Nihilito.",
-   "⚔ Jefes nuevos con su dibujo: Eco del Vencido (310), El Fragmento sin Color (320) y La Sierpe de Tormenta (330), cada uno con su misión de Mael; El Lienzo en Blanco tiene su nuevo aspecto y es de nivel 400.",
-   "Lupa › Sistemas › «Las Tierras sin Pintar»: cómo llegar, zonas, criaturas, jefes, misiones y Trazos (ahora desde el nivel 400).",
-   "Dificultad medida otra vez: los 72 jefes dentro de su objetivo. Próximamente: las armas y armaduras del Lienzo (tiers 27-30)."
+   "🗡 Armas de Las Tierras sin Pintar con el dibujo de Sergio: cinco por clase (laúd-espada, cetro-pincel, espadón del vacío blanco, tridente perlado, katana pálida, bastón de sellos…). Tiers 27 (nivel 360), 28 (372), 29 (384) y 30 (396) en la herrería con Tinta Viva y Pigmento Puro.",
+   "✨ El arma del Lienzo Eterno (tier 31, nivel 400): solo la suelta El Lienzo en Blanco.",
+   "Armaduras de tiza, trazo, cal y lienzo (27-30). Su aspecto propio, como en los conceptos de Sergio, llega en la próxima versión.",
+   "El arquero no salía en la hoja: lleva arcos de tiza en blanco y lila.",
+   "Dificultad y PvP medidos de nuevo con el equipo nuevo."
   ],
   "en": [
-   "⭐ Max level 400. The Unpainted Lands now go from 300 to 400: Sketch Shore, Plain of Strokes, Swamp of Smudges, The Broken Frame and The Blank Canvas (385-400).",
-   "🖌 Creatures with Sergio's drawing: Erased Slug, Unfinished Wolf, Chalk Spider, Hollow Knight, Inkless Skeleton, Lime Golem, Canvas Specter, Pale Fish, Mime of Silence and Little Nihil.",
-   "⚔ New bosses with their drawing: Echo of the Vanquished (310), The Colourless Fragment (320) and The Storm Serpent (330), each with a quest from Mael; The Blank Canvas has its new look and is level 400.",
-   "Magnifier › Systems › \"The Unpainted Lands\": how to get there, zones, creatures, bosses, quests and Strokes (now from level 400).",
-   "Difficulty measured again: all 72 bosses within target. Coming soon: the Canvas weapons and armour (tiers 27-30)."
+   "🗡 Unpainted Lands weapons with Sergio's drawing: five per class (lute-sword, brush-sceptre, white void greatsword, pearl trident, pale katana, seal staff…). Tiers 27 (level 360), 28 (372), 29 (384) and 30 (396) at the blacksmith with Living Ink and Pure Pigment.",
+   "✨ The Eternal Canvas weapon (tier 31, level 400): only dropped by The Blank Canvas.",
+   "Chalk, stroke, lime and canvas armour (27-30). Their own look, like Sergio's concepts, comes in the next version.",
+   "The archer wasn't on the sheet: it carries chalk bows in white and lilac.",
+   "Difficulty and PvP measured again with the new gear."
   ]
  }
 }

@@ -1,0 +1,7 @@
+click #tNew;;wait 400;;type #ccName|Sim;;click #ccGo;;wait 1500;;click #introOk;;wait 800
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), 1)
+js (()=>{ const c=document.createElement('canvas'); c.width=620; c.height=330; c.style.cssText='position:fixed;left:0;top:0;width:1240px;height:660px;z-index:999;background:#7a7090;image-rendering:pixelated'; document.body.appendChild(c); const X=c.getContext('2d'); X.imageSmoothingEnabled=false; const P=G.P; const cls=['guerrero','mago','arquero','asesino','bardo','invocador','pez']; const out=[]; cls.forEach((cl,j)=>{ [27,28,29,30,31].forEach((t,i)=>{ const id = t===31?'wlz_'+cl:'w_'+cl+'_'+t; const it=ITEMS[id]; if(!it){out.push('miss '+id); return;} P.cls=cl; P.equip.weapon={id}; P.equip.body={id:'b_'+Math.min(t,30)}; P.equip.head={id:'h_'+Math.min(t,30)}; P.equip.legs={id:'l_'+Math.min(t,30)}; P.equip.feet={id:'f_'+Math.min(t,30)}; const A=playerAtlas(P); P.atlas=A; hdEnsure(A, A.idx.idle, 0, true); X.drawImage(A.hd||A.img, A.idx.idle*A.fw*(A.hd?2:1), 0, A.fw*(A.hd?2:1), A.fh*(A.hd?2:1), i*96+4, j*46-30, A.fw*(A.hd?1:2)/1, A.fh*(A.hd?1:2)/1); }); }); return out.join(','); })()
+shot
+js (()=>{ const Ic=document.createElement('div'); Ic.style.cssText='position:fixed;left:0;top:0;z-index:1000;background:#222;padding:4px;width:900px'; Ic.innerHTML=Object.keys(ITEMS).filter(k=>ITEMS[k].lz).map(i=>iconHTML(ITEMS[i].icon,40)).join(''); document.body.appendChild(Ic); return Object.keys(ITEMS).filter(k=>ITEMS[k].lz).length; })()
+shot
+js window._errs
