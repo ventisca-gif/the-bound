@@ -1,28 +1,18 @@
 {
- "build": 69,
- "ver": "4.48",
+ "build": 70,
+ "ver": "4.49",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 9841090,
- "sha256": "438406f5f63952c6ee0d808cda62e878ddc3876edbcf94d7edc118a8b1dd6599",
+ "size": 9841696,
+ "sha256": "211f5bee4db50fd63d2dbe98710bba921c64ded66f7edc69e6f80bc154353a72",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "La Torre de los Portales crece: tres puertas nuevas en el vestíbulo.",
-   "Antesala de los Portales: un gran salón con alfombra roja, columnas, estatuas, braseros y las 8 puertas gigantes con su nombre y nivel (rojas si aún no puedes), guardias y el tablón de puertas.",
-   "Coliseo de Cazadores: torneos de duelos (8 cazadores), por parejas y batalla real de 6. Se ven en vivo en la arena desde las gradas, con el público animando, o de cerca en modo espectador. Puedes apostar al campeón y retarlo después.",
-   "Salón de Pruebas: prueba de fuerza (daño en 10 s), de resistencia (aguanta oleadas 45 s), de velocidad (recoge 10 luces), examen de ascenso de rango contra un examinador y la Misión diaria del Sistema (+2 puntos de atributo al día).",
-   "30 cazadores nuevos con el estilo del juego: capuchas, capas, máscaras, armaduras y bufandas. Conviven con los de estilo anime.",
-   "El medidor de poder ahora da el mismo número que el menú del personaje. Los cazadores ya no pasan del nivel 350."
+   "La Misión diaria del Sistema ahora te sube 1 nivel al día (más esencias y oro) en vez de dar puntos de atributo, para no romper el equilibrio. En el nivel máximo da esencias y oro extra."
   ],
   "en": [
-   "The Portal Tower grows: three new doors in the lobby.",
-   "Portal Antechamber: a great hall with a red carpet, pillars, statues, braziers and the 8 giant gates with their name and level (red if you can't enter yet), guards and the gate board.",
-   "Hunters' Coliseum: duel tournaments (8 hunters), pairs and a 6-way battle royale. Watch live in the arena from the stands, with a cheering crowd, or up close in spectator mode. Bet on the champion and challenge them afterwards.",
-   "Trial Hall: strength trial (damage in 10 s), endurance (survive waves for 45 s), speed (collect 10 lights), a rank-up exam against an examiner and the System Daily Quest (+2 attribute points a day).",
-   "30 new hunters in the game's style: hoods, capes, masks, armour and scarves. They live alongside the anime-style ones.",
-   "The power meter now shows the same number as the character menu. Hunters no longer go above level 350."
+   "The System Daily Quest now gives you 1 level a day (plus essences and gold) instead of attribute points, to keep the balance. At max level it gives extra essences and gold."
   ]
  }
 }
