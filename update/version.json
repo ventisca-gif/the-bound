@@ -1,18 +1,28 @@
 {
- "build": 70,
- "ver": "4.49",
+ "build": 71,
+ "ver": "4.50",
  "date": "2026-11-15",
  "file": "thebound.html",
- "size": 9841696,
- "sha256": "211f5bee4db50fd63d2dbe98710bba921c64ded66f7edc69e6f80bc154353a72",
+ "size": 9873188,
+ "sha256": "ec392438517a823765b8faaee2c71c011ddf3591f11ccd94a65230f100cc596f",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "La Misión diaria del Sistema ahora te sube 1 nivel al día (más esencias y oro) en vez de dar puntos de atributo, para no romper el equilibrio. En el nivel máximo da esencias y oro extra."
+   "Taller de Morwenna renovado con ropa gótica nueva y distinta: Vestido de Campana con Corsé (cadenas y cruz ansada), Vestido Romántico de Encaje, Top de Malla y Gargantilla, Chaleco de Tachas y Encaje, Top de Hombros Caídos y Rosario, Top de Tiras y Malla, Vestido de Campana Vino, Falda de Cuero con Cadenas, Falda Tutú y Medias Rotas, Pantalón de Cuero con Cordones y Botas de Plataforma.",
+   "Pelucas góticas (Bob con Flequillo, Cardada, Larga Ondulada Morada, Melena Ondulada) y Gafas Redondas. Se ajustan a todos los cuerpos.",
+   "Nueva opción en el editor (Pelo): Maquillaje blanco gótico en la piel. Se ve online, igual que el labial.",
+   "La ropa de cazador de la Torre ya no es una copia en negro: la Chaqueta de Cazador tiene cuello alto, cremallera e insignia; la de Cuero, cremallera cruzada y tachas; la Sudadera, bolsillo y cordones; y la Ropa Negra es ahora un chaleco táctico con bolsillos.",
+   "Los cazadores esquivan con dash: en los duelos detectan tus habilidades y se apartan, en el Coliseo esquivan el poder del rival y en las mazmorras salen de las zonas rojas.",
+   "Combate online en el Coliseo: desde el menú de torneos invita a un jugador conectado; si acepta, los dos aparecéis en la arena, cuenta atrás y a luchar. Quien cae pierde el combate (sin quedar derribado)."
   ],
   "en": [
-   "The System Daily Quest now gives you 1 level a day (plus essences and gold) instead of attribute points, to keep the balance. At max level it gives extra essences and gold."
+   "Morwenna's workshop renewed with new, distinct gothic clothes: Bell-Sleeve Corset Dress (chains and ankh), Romantic Lace Dress, Mesh Top and Choker, Studded Vest and Lace, Off-Shoulder Top and Rosary, Strappy Mesh Top, Wine Bell-Sleeve Dress, Chained Leather Skirt, Tutu Skirt and Ripped Tights, Lace-Up Leather Pants and Platform Boots.",
+   "Gothic wigs (Bob with Bangs, Teased, Long Wavy Purple, Wavy Shoulder Hair) and Round Glasses. They fit every body.",
+   "New editor option (Hair): white gothic skin makeup. Visible online, like lipstick.",
+   "Tower hunter clothes are no longer black copies: the Hunter Jacket has a high collar, zip and badge; the Leather one a cross zip and studs; the Hoodie a pocket and strings; and Black Clothes is now a tactical vest with pouches.",
+   "Hunters dodge with a dash: in duels they sense your skills and jump aside, in the Coliseum they dodge the rival's power and in dungeons they dash out of red zones.",
+   "Online Coliseum fights: from the tournament menu invite an online player; if they accept, you both appear in the arena, countdown and fight. Whoever falls loses the fight (without being downed)."
   ]
  }
 }
