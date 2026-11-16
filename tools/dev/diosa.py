@@ -51,6 +51,15 @@ def main():
                 a = np.array(im).astype(float); a[..., :3] = a[..., :3] * 0.6 + 100; im = Image.fromarray(a.clip(0, 255).astype(np.uint8), 'RGBA')
             x = col * fw + (fw - im.width) // 2; y = row * fh + (fh - 4) - im.height + bobs[col]
             S.alpha_composite(im, (x, max(row * fh, y)))
+    # forma de persona: el mismo dibujo más pequeño (58 px, más que un héroe para que se vea su pelo)
+    HP = 58; pp = {d: [LZ.shrink(LZ.cut('diosa_hoja', b, []), HP) for b in bx] for d, bx in DIRS.items()}
+    pw = max(im.width for v in pp.values() for im in v) + 6; ph = HP + 6
+    PS = Image.new('RGBA', (pw * 6, ph * 4), (0, 0, 0, 0))
+    for row, d in enumerate(['down', 'left', 'right', 'up']):
+        for col in range(6):
+            im = pp[d][[0, 1, 0, 1, 0, 1][col]]; x = col * pw + (pw - im.width) // 2; y = row * ph + (ph - 3) - im.height + [0, -1, 0, -1, 0, -1][col]
+            PS.alpha_composite(im, (x, max(row * ph, y)))
+    if dbg: PS.save('/tmp/diosa_persona.png')
     fx_rows = [[LZ.shrink(LZ.cut('diosa_hoja', b, []), h) for b in bx] for (_, h, bx) in FX]
     cw = max(im.width for r in fx_rows for im in r) + 2; ch = max(im.height for r in fx_rows for im in r) + 2
     F = Image.new('RGBA', (cw * 4, ch * len(FX)), (0, 0, 0, 0))
@@ -61,6 +70,7 @@ def main():
     p = os.path.join(ROOT, 'src', '6zz9s_diosa_data.js')
     open(p, 'w').write('// Generado por tools/dev/diosa.py desde la hoja de Sergio (v4.75). No editar a mano.\n'
                        'const LNY_SIZE = ' + json.dumps([fw, fh]) + ';\nconst LNY_SHEET = ' + json.dumps(b64(S)) + ';\n'
+                       'const LNY_PSIZE = ' + json.dumps([pw, ph]) + ';\nconst LNY_PSHEET = ' + json.dumps(b64(PS)) + ';\n'
                        'const LNY_FXSIZE = ' + json.dumps([cw, ch]) + ';\nconst LNY_FXN = ' + json.dumps([f[0] for f in FX]) + ';\nconst LNY_FXC = ' + json.dumps([len(f[2]) for f in FX]) + ';\nconst LNY_FX = ' + json.dumps(b64(F)) + ';\n')
     print('escrito', p, os.path.getsize(p), 'frame', [fw, fh], 'fx', [cw, ch])
 
