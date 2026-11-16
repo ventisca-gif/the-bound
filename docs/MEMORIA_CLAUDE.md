@@ -9,7 +9,6 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.86 (bui
 - Escribe en español, con listas largas, capturas del móvil y faltas de ortografía. Quiere que se haga **todo lo que pide de una vez**.
 - Responde siempre en **español**, corto y concreto: qué se hizo, qué no y por qué. Sin jerga técnica.
 - **Al terminar una versión: abre el pull request a `main` y fusiónalo tú mismo, sin preguntar.** Los teléfonos leen `update/version.json` de `main` y se actualizan solos.
-- Si manda una referencia de otra franquicia, haz una versión original (otro nombre, colores y detalles) y díselo.
 - Si manda pixel art, extrae los sprites de la imagen (cuadrícula con FFT, centro de cada celda, recortar fondo); no los redibujes.
 - Antes de un cambio visual grande, haz una muestra con el propio motor. Si ya dijo «sí a todo», sigue.
 
@@ -47,7 +46,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.86 (bui
 - **4.83** Japón, tercera parte (`src/6zz9za_japon3.js`): mapa 320×300 con Osaka (Dōtonbori), Okinawa (Acuario Churaumi), Cuesta de Nagasaki y Fushimi Inari; idols STELLA☆LINK con sala de conciertos, wotagei, carrera de idol propia con rangos y títulos, tienda de recuerdos; rally de 10 sellos; omikuji; paseo en barco.
 - **4.84** 8 trajes de idol (`src/6zz9zb_idol_moda.js`) de las referencias de Sergio, para todas las estructuras; los vende la estilista Mio en la sala STELLA☆LINK. Lupa con Japón por partes e ideas pendientes (onsen, café de gatos, kimonos, historia y romance de idols).
 - **4.85** (`src/6zz9zc_japon4.js`) onsen del Fuji, café de gatos y tienda de kimonos con interior; romance con las 13 idols (STELLA☆LINK + grupo nuevo PRISM8 en Shibuya); peinado «Lobo en capas»; Diva Virtual en turquesa; 9 looks más y 6 kimonos.
-- **4.86** (`src/6zz9ze_japon5.js`) Ruri (PRISM9, sprite extraído del dibujo de Sergio con beso y abrazo), Melena de Ruri, pelo Turquesa vivo, tienda de cómics con mangas legibles, mapa de las Tierras sin Pintar. El zip «4.86 Miku» (Hatsune Miku con nombre y sprite) no se publicó: personajes de otras franquicias, siempre versión original.
+- **4.86** (`src/6zz9ze_japon5.js`) Ruri (PRISM9, sprite extraído del dibujo de Sergio con beso y abrazo), Melena de Ruri, pelo Turquesa vivo, tienda de cómics con mangas legibles, mapa de las Tierras sin Pintar.
 - Carteles japoneses: `python3 tools/dev/jp_glyphs.py` regenera `src/6zz9w_jp_glyphs.js` (añade el texto nuevo a `JP_TEXTS` o úsalo en los archivos que escanea).
 - La pantalla del móvil mide unas 24×13 casillas: un dibujo más alto que ~12 casillas no se ve entero (por eso el Fuji y la torre son más pequeños y la cámara sube cerca).
 
