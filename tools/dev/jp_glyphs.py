@@ -22,7 +22,7 @@ JP_TEXTS = [
     '0123456789', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'ÁÉÍÓÚÑ', '-!?:.·', 'ー', '・', '成田', '羽田', '出発', '到着', '国際線', '案内',
 ]
 
-SCAN = ['6zz9x_v481.js', '6zz9y_japon.js', '6zz9z_japon2.js', '6zz9za_japon3.js', '6zz9zb_idol_moda.js', '6zz9zc_japon4.js']   # también todos los kana y kanji que aparecen en estos archivos
+SCAN = ['6zz9x_v481.js', '6zz9y_japon.js', '6zz9z_japon2.js', '6zz9za_japon3.js', '6zz9zb_idol_moda.js', '6zz9zc_japon4.js', '6zz9ze_japon5.js']   # también todos los kana y kanji que aparecen en estos archivos
 
 def scanned():
     base = os.path.join(os.path.dirname(__file__), '..', '..', 'src'); out = ''

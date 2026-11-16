@@ -1,0 +1,20 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), G.P.lv=400, calcStats(G.P), G.P.gold=900000, G.time=12*60, 1)
+js [HAIR_ORDER.includes('turquesa_v'), HS_F.some(h=>h.ah==='melena_ruri'), MAPW_LIST.some(w=>w.id==='sin_pintar'), COMICS.length]
+js (goJapan(), 1)
+wait 2500
+js (()=>{ const d=G.map.objs.find(o=>o.xact==='jp_in'&&o.ik==='comics'); const e=G.ents.find(e=>e.id==='idol_ruri'); return [d&&[d.tx,d.ty], e&&e.map]; })()
+js (()=>{ const e=G.ents.find(e=>e.id==='idol_ruri'); G.P.x=e.x-20; G.P.y=e.y; openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(x=>/Relaci|Relationship/.test(x.textContent)); closeDialog(); setAnim(e,'kiss'); e.dir='left'; return [!!b]; })()
+wait 600
+shot
+js (()=>{const d=G.map.objs.find(o=>o.xact==='jp_in'&&o.ik==='comics'); G.P.x=d.px; G.P.y=d.py+6; doInteract(); return 1;})()
+wait 1500
+js (()=>{ const e=G.ents.find(e=>e.id==='jp_comic_st'&&e.map===G.map.id); G.P.x=e.x; G.P.y=e.y+24; openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(x=>/📖/.test(x.textContent)); b&&b.click(); return [G.map.id, !!b, countItem('jp_manga_stella1'), !!document.querySelector('.cpanel')]; })()
+wait 800
+shot
+js (closeModal(), exitInterior(), 1)
+wait 1500
+js (openPanel('map'), MAPW=MAPW_LIST.findIndex(w=>w.id==='sin_pintar'), renderPanel(), 1)
+wait 1500
+shot
+js (window._errs)
