@@ -1,18 +1,18 @@
 {
- "build": 113,
- "ver": "4.92",
+ "build": 114,
+ "ver": "4.93",
  "date": "2026-11-16",
  "file": "thebound.html",
- "size": 16489040,
- "sha256": "e753f8afe87657ddf15ba24a83e263de3053c266d32faa99a62048906ee2a80d",
+ "size": 16615559,
+ "sha256": "12312ec4ff07ff7341edde280c4c1814f5333f1425388dd03d45b4dbade8f51f",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Neru pasea por Akihabara y regala su traje. Miku y Teto estrenan trajes de concierto, pasos y retratos. Nuevo peinado recoloreable."
+   "Miku y Teto pueden ser tu pareja, acompañarte y cambiarse de atuendo. Se añadieron 13 peinados recoloreables."
   ],
   "en": [
-   "Neru walks around Akihabara and gifts her outfit. Miku and Teto have new concert outfits, moves and portraits. New recolorable hairstyle."
+   "Miku and Teto can become your partner, walk with you, and change outfits. Added 13 recolorable hairstyles."
   ]
  }
 }
