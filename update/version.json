@@ -1,30 +1,24 @@
 {
- "build": 106,
- "ver": "4.85",
+ "build": 107,
+ "ver": "4.86",
  "date": "2026-11-16",
  "file": "thebound.html",
- "size": 13577970,
- "sha256": "ae5b846bf98bb24e1c11b3db57f36a36e1697a5cbb51a32b56efb1aaf2361682",
+ "size": 13631153,
+ "sha256": "d36b4542b812be2b3f3877b3b990a38b946d20a327d24131340bb9cfc591f571",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "💗 Romance con las idols: las 5 de STELLA☆LINK (te esperan en la sala de Akihabara cuando no actúan) y un grupo nuevo, PRISM8, con 8 idols (Kira, Umi, Sena, Hana, Ryo, Mika, Jun y Nene) que pasean por el Cruce de Shibuya. Regalos, citas, pareja, boda e hijos como con cualquier pareja.",
-   "🎤 PRISM8 actúa en la sala de Akihabara un concierto sí y otro no, con sus 8 idols bailando en el escenario.",
-   "💇 Peinado nuevo: Lobo en capas (melena a capas con flequillo desfilado), el de Kira. También en el editor y la peluquería.",
-   "♨ Onsen del Fuji: ryokan al suroeste del lago del Fuji con baño termal (vida y maná al máximo, +8 % de ataque y velocidad), mural del Fuji, leche con café y huevos de onsen.",
-   "🐱 Café de gatos en Akihabara: entra, acaricia a los 9 gatos (+5 % de ataque y velocidad) y pide un neko latte.",
-   "👘 Tienda de kimonos en Asakusa: 6 kimonos y yukatas con flores, obi, sandalias y horquilla kanzashi.",
-   "👗 La estilista Mio vende 9 looks más: los 8 de PRISM8 (corsé vaquero, estrellas de mar, vestido boho, tirantes con shorts, gabardina, chaqueta universitaria, peto vaquero y Y2K) y el Traje de Diva Virtual en turquesa."
+   "💙 Ruri, la novena integrante de PRISM9 (antes PRISM8), con el sprite de tu dibujo: pasea por el Cruce de Shibuya, se puede enamorar (beso y abrazo con su propio sprite) y baila con el grupo en la sala de Akihabara. La estilista Mio vende su Corsé Azul.",
+   "💇 Peinado nuevo para chicas: Melena de Ruri. Color de pelo nuevo para chicas y chicos: Turquesa vivo.",
+   "📖 Tienda de cómics en Akihabara: 8 mangas que se leen desde la mochila (viñetas con las idols, el héroe, los gatos y la Ventisca) y un dependiente otaku que te cuenta historias y curiosidades del mundo.",
+   "🗺 El mapa de las Tierras sin Pintar (Lienzo Blanco) ya sale en el panel del mapa."
   ],
   "en": [
-   "💗 Romance with the idols: the 5 of STELLA☆LINK (they wait for you in the Akihabara hall when not performing) and a new group, PRISM8, with 8 idols (Kira, Umi, Sena, Hana, Ryo, Mika, Jun and Nene) who hang around Shibuya Crossing. Gifts, dates, partner, wedding and children like any partner.",
-   "🎤 PRISM8 performs at the Akihabara hall every other concert, with its 8 idols dancing on stage.",
-   "💇 New hairstyle: Layered wolf cut (Kira's). Also in the editor and the barber.",
-   "♨ Fuji Onsen: a ryokan southwest of Fuji's lake with a hot spring bath (full HP and mana, +8% attack and speed), a Fuji mural, coffee milk and onsen eggs.",
-   "🐱 Cat café in Akihabara: go in, pet the 9 cats (+5% attack and speed) and order a neko latte.",
-   "👘 Kimono shop in Asakusa: 6 kimonos and yukatas with flowers, obi, sandals and a kanzashi hairpin.",
-   "👗 Stylist Mio sells 9 more looks: PRISM8's 8 (denim corset, starfish tee, boho dress, tank top with shorts, trench coat, varsity jacket, denim overalls and Y2K) and the Virtual Diva Outfit in turquoise."
+   "💙 Ruri, the ninth member of PRISM9 (formerly PRISM8), with the sprite from your drawing: she hangs around Shibuya Crossing, can be romanced (kiss and hug with her own sprite) and dances with the group at the Akihabara hall. Stylist Mio sells her Blue Corset.",
+   "💇 New hairstyle for girls: Ruri's mane. New hair colour for girls and boys: Bright turquoise.",
+   "📖 Comic shop in Akihabara: 8 manga you read from your bag (panels with the idols, the hero, the cats and the Ventisca) and an otaku shopkeeper who tells you stories and trivia about the world.",
+   "🗺 The Unpainted Lands (White Canvas) map now shows in the map panel."
   ]
  }
 }
