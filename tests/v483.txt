@@ -1,0 +1,25 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), G.P.lv=400, calcStats(G.P), G.P.gold=900000, window._jr=jpRhythm, jpRhythm=o=>o.done(85), 1)
+js (goJapan(), 1)
+wait 2500
+js [G.map.h, JP_ZONES.slice(0,4).map(z=>z.k), G.map.objs.filter(o=>o.xact==='jp_sello').length, G.map.objs.filter(o=>o.f==='jp_torii2').length, JP_NPC2.length]
+js (()=>{ const r=[]; for (const o of G.map.objs.filter(o=>o.xact==='jp_sello')) { G.P.x=o.px; G.P.y=o.py+14; const t=interactTarget(); if (t&&t.kind==='xact') doInteract(t); closeModal(); } return [Object.keys(G.P.jp.st).length, G.P.jp.stDone]; })()
+js (()=>{ const o=G.map.objs.find(o=>o.xact==='jp_omikuji'); G.P.x=o.px; G.P.y=o.py+14; doInteract(interactTarget()); closeModal(); return [G.P.jp.omi===calDay()]; })()
+js (()=>{ const o=G.map.objs.find(o=>o.xact==='jp_kushi'); G.P.x=o.px; G.P.y=o.py+14; const t=interactTarget(); doInteract(t); closeModal(); return [t&&t.o.xact, countItem('jp_kushikatsu')]; })()
+js (()=>{const d=G.map.objs.find(o=>o.xact==='jp_in'&&o.ik==='live'); G.P.x=d.px; G.P.y=d.py+6; doInteract(); return 1;})()
+wait 1500
+js (()=>{ const e=G.ents.find(e=>e.id==='jp_prod'&&e.map===G.map.id); G.P.x=e.x; G.P.y=e.y+24; openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(x=>/audici|Audition/.test(x.textContent)); b&&b.click(); closeModal(); return [!!b, !!G.P.jp.idol]; })()
+js (()=>{ const e=G.ents.find(e=>e.id==='jp_prod'&&e.map===G.map.id); openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(x=>/concierto|concert/.test(x.textContent)); b&&b.click(); closeModal(); return [!!b, G.P.jp.idol.fans, G.P.jp.idol.n]; })()
+js (()=>{ const e=G.ents.find(e=>e.id==='jp_merch'&&e.map===G.map.id); openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(x=>/cromos|card pack/.test(x.textContent)); b&&b.click(); closeDialog(); return [!!b, Object.keys(G.P.jp.cards||{}).length]; })()
+js (()=>{ G.P.jp.wota=null; const was=liveOn; liveOn=()=>true; G.P.x=15*16+8; G.P.y=9*16+8; const t=interactTarget(); doInteract(t); closeModal(); liveOn=was; return [t&&t.o&&t.o.xact, G.P.jp.wota===liveIdx()]; })()
+js (G.P.jp.idol.fans=20000, G.P.titles=G.P.titles||[], 1)
+wait 3500
+js [(G.P.titles||[]).includes('t_jp_viajero'), (G.P.titles||[]).includes('t_idol_top')]
+js (exitInterior(), 1)
+wait 1500
+js (()=>{const d=G.map.objs.find(o=>o.xact==='jp_in'&&o.ik==='acuario'); G.P.x=d.px; G.P.y=d.py+6; doInteract(); return 1;})()
+wait 1500
+js (()=>{ G.P.x=17*16+8; G.P.y=10*16+8; const t=interactTarget(); doInteract(t); closeModal(); return [G.map.id, G.P.buffs.some(b=>b.id==='kuroshio')]; })()
+js (jpRhythm=window._jr, exitInterior(), 1)
+wait 1500
+js (window._errs)
