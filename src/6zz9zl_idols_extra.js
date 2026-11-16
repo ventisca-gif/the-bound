@@ -32,7 +32,7 @@ function jpVariantAtlas(id) {
 function jpDanceAtlas(id) {
   const key = jpGuestShow.wardrobe[id];
   const replacement = JP_NEW_SPRITES[key] && jpVariantAtlas(key);
-  return replacement?.ready ? replacement : npcAtlas(id);
+  return replacement?.ready ? replacement : STELLA_NPC_ATLAS(id);
 }
 
 function jpGuestDance(t, i) {
@@ -64,7 +64,7 @@ NPCS.jp_neru = {
 }
 
 function jpDrawDialoguePortrait(npc) {
-  const costume = jpGuestShow?.wardrobe[npc.id];
+  const costume = jpGuestShow?.wardrobe[npc.id] || (G.P?.partner === npc.id ? G.P.pOut : null);
   const key = JP_NEW_PORTRAITS[costume] ? costume : npc.id;
   if (!JP_NEW_PORTRAITS[key]) return;
   const active = dlg;

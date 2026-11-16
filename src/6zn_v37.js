@@ -77,11 +77,13 @@ function ptSetLook(id, k) { const D = (ROM[relKey(id)] || { g: 'f' }), S = PT_SE
 function ptApply() { const P = G.P; for (const e of G.ents) if (e.type === 'npc' && relKey(e.id) === P.partner && !e.wedTmp && !e.scene) e.atlas = npcAtlas(e.id); }
 function openPartnerWardrobe() {
   const P = G.P, k = P.partner; if (!k || !NPCS[k]) { toast('Primero necesitas una pareja', 'warn'); return; } const nm = NPCS[k].n.split(' ')[0];
+  const stella = typeof STELLA_PARTNER_OUTFITS !== 'undefined' && STELLA_PARTNER_OUTFITS[k];
+  const choices = stella || Object.keys(PT_SETS).filter(s => !['miku_neon', 'miku_maid', 'teto_gotica'].includes(s));
   openModal(`<h2>${iconHTML(['hanger'], 22)} Armario de ${esc(nm)}</h2><p class="hint">Elige qué ropa lleva ${esc(nm)}. Se cambia al momento, también cuando paseáis juntos.</p>
-    <div class="ptw">${Object.keys(PT_SETS).map(s => `<button class="ptc ${(P.pOut || 'normal') === s ? 'on' : ''}" data-pt="${s}"><canvas width="32" height="48" data-ptc="${s}"></canvas><span>${esc(PT_SETS[s].n)}</span></button>`).join('')}</div>
+    <div class="ptw">${choices.map(s => `<button class="ptc ${(P.pOut || 'normal') === s ? 'on' : ''}" data-pt="${s}"><canvas width="32" height="48" data-ptc="${s}"></canvas><span>${esc(PT_SETS[s].n)}</span></button>`).join('')}</div>
     <div class="row"><button class="btn" id="mclose">Cerrar</button></div>`, 'party');
   $('#mclose').onclick = closeModal;
-  $$('#modal [data-ptc]').forEach(cv => { const s = cv.dataset.ptc, L = ptSetLook(k, s), A = L ? getAtlas('PT' + k + s, () => buildAtlas(Object.assign({}, NPCS[k].look, L), ['idle', 'walk', 'hug', 'kiss'])) : npcAtlas(k); const x = cv.getContext('2d'); x.imageSmoothingEnabled = false; const src = A.img || A.c || A.canvas; if (src && A.fw) { const fw = A.fw, fh = A.fh, s2 = Math.min(32 / fw, 48 / fh); x.drawImage(src, (A.idx && A.idx.idle || 0) * fw, 0, fw, fh, (32 - fw * s2) / 2, 48 - fh * s2, fw * s2, fh * s2); } });
+  $$('#modal [data-ptc]').forEach(cv => { const s = cv.dataset.ptc, L = ptSetLook(k, s), A = stella ? stellaPartnerAtlas(k, s) : L ? getAtlas('PT' + k + s, () => buildAtlas(Object.assign({}, NPCS[k].look, L), ['idle', 'walk', 'hug', 'kiss'])) : npcAtlas(k); const x = cv.getContext('2d'); x.imageSmoothingEnabled = false; if (stella && s !== 'normal' && !jpVariantAtlas(s).ready) { const pic = new Image(); pic.onload = () => { if (cv.isConnected) x.drawImage(pic, 0, 0, 42, 40, 0, 17, 32, 30); }; pic.src = JP_NEW_SPRITES[s]; return; } const src = A.img || A.c || A.canvas; if (src && A.fw) { const fw = A.fw, fh = A.fh, s2 = Math.min(32 / fw, 48 / fh); x.drawImage(src, (A.idx && A.idx.idle || 0) * fw, 0, fw, fh, (32 - fw * s2) / 2, 48 - fh * s2, fw * s2, fh * s2); } });
   $$('#modal [data-pt]').forEach(b => b.onclick = () => { P.pOut = b.dataset.pt; ptApply(); sfx('equip'); markDirty(); toast(nm + ' se ha cambiado: ' + PT_SETS[P.pOut].n, 'loot'); openPartnerWardrobe(); });
 }
 DLG_HOOKS.push((npc, opts) => { const P = G.P; if (P.partner && relKey(npc.id) === P.partner) opts.unshift({ label: 'Cambiar de ropa (armario)', icon: ['hanger'], fn: () => { closeDialog(); openPartnerWardrobe(); } }); });
