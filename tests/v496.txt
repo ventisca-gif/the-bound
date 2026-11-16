@@ -1,0 +1,28 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), G.P.lv=400, calcStats(G.P), G.P.gold=900000, G.time=12*60, 1)
+js (goJapan(), 1)
+wait 2500
+js [G.map.w, JP_NPC3.length, G.ents.filter(e=>e.map==='japon'&&e.id.startsWith('jp3_')).length, G.map.objs.filter(o=>o.xact==='jp_sake').length, G.map.objs.filter(o=>o.xact==='jp_sado').length, G.map.objs.filter(o=>o.xact==='jp_ceramica').length]
+js (G.P.x=370*16, G.P.y=24*16+8, 1)
+wait 1800
+shot
+js (G.P.x=367*16+8, G.P.y=150*16, 1)
+wait 1800
+shot
+js (G.P.x=367*16+8, G.P.y=124*16, 1)
+wait 1800
+shot
+js (()=>{ const o=G.map.objs.find(o=>o.xact==='jp_jinriki'); G.P.x=o.px; G.P.y=o.py+16; doInteract(interactTarget()); closeModal(); const R=G.P.jp.rk; return [!!R, R&&R.n]; })()
+wait 600
+shot
+js (()=>{ const R=G.P.jp.rk; G.P.x=R.x*16+8; G.P.y=R.y*16+8; return 1; })()
+wait 800
+js (closeModal(), [G.P.jp.rk, G.P.jp.rkN, G.P.jobs.rickshaw && G.P.jobs.rickshaw.xp])
+js (()=>{ const r=[]; window._mg=mgOverlay; mgOverlay=(b,o)=>{ for(let k=0;k<5;k++){ o.tap&&o.tap(); } o.end(); }; window._jr2=jpRhythm; jpRhythm=o=>o.done(80); for (const k of ['jp_sake','jp_sado','jp_ceramica']) { const o=G.map.objs.find(x=>x.xact===k); G.P.x=o.px; G.P.y=o.py+14; doInteract(interactTarget()); closeModal(); } mgOverlay=window._mg; jpRhythm=window._jr2; return [countItem('jp_sake'), countItem('jp_matcha'), countItem('jp_cuenco1')+countItem('jp_cuenco2')+countItem('jp_cuenco3')]; })()
+js (openPanel('map'), MAPW=MAPW_LIST.findIndex(w=>w.id==='japon'), renderPanel(), 1)
+wait 1500
+shot
+js (document.querySelector('#wmZin').click(), 1)
+wait 1200
+shot
+js (window._errs)

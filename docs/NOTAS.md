@@ -2,12 +2,14 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.95 (build 116)**, publicada en `main` el 2026-11-16. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.96 (build 117)**, publicada en `main` el 2026-11-16. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
 - Responde siempre en español, corto y concreto. Él manda listas largas con capturas y quiere todo hecho de una vez.
 - **Al terminar una versión, abre el pull request a `main` y fusiónalo sin preguntar.** Los teléfonos se actualizan solos desde `update/` en `main`.
+- **Contenido nuevo (lo pidió en la 4.96):** prefiere actividades interactivas y oficios/trabajos (dan oro, objetos para vender o decorar, experiencia de oficio) en vez de más poder; nada de buffs de fuerza nuevos salvo que lo pida. Zonas nuevas con **mucha gente** (japonesas y japoneses, en kimono si encaja), con **subidas y bajadas** (terrazas, muros, escaleras), que **salgan en el mapa con sus puntos** y que el mapa se pueda **ampliar y mover** si la zona no entra.
+- Lo que Sergio añadió por su cuenta en otras versiones (personajes de otras franquicias) **no se toca**: es su juego. Claude no crea personajes de otras franquicias; propone una versión original.
 - Antes de un cambio visual grande, haz una muestra con el propio motor y espera su visto bueno. Si ya dijo «sí a todo», sigue.
 - Cuando manda una imagen en pixel art, extrae los sprites de la imagen (no los redibujes): detecta la cuadrícula con FFT, muestrea el centro de cada celda y recorta el fondo. Así salieron idénticos las armas de cobre, el campamento, las criaturas de Altavela y las armas dark fantasy.
 - Ropa y armaduras nuevas: `fitKind` + `python3 tools/dev/fitcheck.py file://$PWD/dist/test.html out` con 0 avisos (cubre tiers hasta el 26). En mujer llevan busto solas.
@@ -112,6 +114,8 @@ Versión actual: **4.95 (build 116)**, publicada en `main` el 2026-11-16. La ski
 - **4.94** `6zz9zp_peinados_fix.js`: los 13 peinados de `6zz9zo_peinados_ref.js` (`HS.refHair`) usan de perfil y de espaldas un peinado anime equivalente (`REF_AH[refHair]`, se pone `HS.ah` solo durante ese `drawHero`) y de frente el dibujo de referencia se encoge por arriba si no cabe (envoltura de `drawReferenceFringe` con un búfer 40 px más alto; deja 2 filas libres para el contorno). No se borró nada.
 
 - **4.95** en `6zz9zp_peinados_fix.js`: Puntas bicolor (`refHair` 0) pinta con `L.hair2` la parte de arriba también de perfil (hasta `hy - 5`) y de espaldas (mitad derecha, hasta `hy - 1`). Sergio pidió no tocar lo que añadió de otras franquicias en otras versiones.
+
+- **4.96** `6zz9zq_japon6.js`: `JP_W` 420 (la ciudad acaba en `JP_CX1` = 315; `6zz9y` usa esa constante para calles, manzanas y aceras). Al este del río (x 317-320, puentes en y 29-32, 60-61, 125-128, 186-187): Takayama (`JE.tk`, calles `TK_LANES` con acequia `CANAL`, callejas `TK_ALLEYS`, casas `jpb_edo_*`, mercado `jp_asaichi0-3`, rickshaw, puente rojo) e Higashiyama (`JE.hi`, cuesta `HI_ST` x 364-371, terrazas `HI_T` con `RET`+`STEP`, casas `jpb_kyo_*`, pagoda, `jp_shidare`, `jp_nodate`). Oficios `addJob` sin poder: `rickshaw` (`P.jp.rk`, flecha en `WORLD_DRAW`, propina < 60 s), `sakero` (XACT `jp_sake`), `sado` (`jp_sado`, usa `jpRhythm`), `ceramica` (`jp_ceramica`); ventajas con claves propias (`rkG`, `skB`, `skG`, `sdG`, `ceQ`) que no tocan estadísticas. 54 NPCs `jp3_tk_*`/`jp3_hi_*` (2 de cada 3 en kimono: `JP_NPC3_LOOK` con `KIMONO_SETS`). Mapa de otros mundos: `#wmScroll` desplazable (dedo o arrastrar con ratón), zoom `MAPZO[id]` con `MAPZ_STEPS` (botones `#wmZin`/`#wmZout`) en `6zt_v39.js`. Prueba `tests/v496.txt`.
 
 ## Pendiente o ideas que dejó abiertas
 

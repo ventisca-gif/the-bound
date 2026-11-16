@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.87 (build 108)** (16-11-2026). El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.96 (build 117)** (16-11-2026). El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -11,6 +11,8 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.87 (bui
 - **Al terminar una versión: abre el pull request a `main` y fusiónalo tú mismo, sin preguntar.** Los teléfonos leen `update/version.json` de `main` y se actualizan solos.
 - Si manda pixel art, extrae los sprites de la imagen (cuadrícula con FFT, centro de cada celda, recortar fondo); no los redibujes.
 - Antes de un cambio visual grande, haz una muestra con el propio motor. Si ya dijo «sí a todo», sigue.
+- **Contenido nuevo (lo pidió en la 4.96):** prefiere actividades interactivas y oficios/trabajos (dan oro, objetos para vender o decorar, experiencia de oficio) en vez de más poder; nada de buffs de fuerza nuevos salvo que lo pida. Zonas nuevas con **mucha gente** (japonesas y japoneses, en kimono si encaja), con **subidas y bajadas** (terrazas, muros, escaleras), que **salgan en el mapa con sus puntos** y que el mapa se pueda **ampliar y mover** si la zona no entra.
+- Lo que Sergio añadió por su cuenta en otras versiones (personajes de otras franquicias) **no se toca**: es su juego. Claude no crea personajes de otras franquicias; propone una versión original.
 
 ## Cómo se trabaja en el código
 
@@ -48,6 +50,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.87 (bui
 - **4.85** (`src/6zz9zc_japon4.js`) onsen del Fuji, café de gatos y tienda de kimonos con interior; romance con las 13 idols (STELLA☆LINK + grupo nuevo PRISM8 en Shibuya); peinado «Lobo en capas»; Diva Virtual en turquesa; 9 looks más y 6 kimonos.
 - **4.86** (`src/6zz9ze_japon5.js`) Ruri (PRISM9, sprite extraído del dibujo de Sergio con beso y abrazo), Melena de Ruri, pelo Turquesa vivo, tienda de cómics con mangas legibles, mapa de las Tierras sin Pintar.
 - **4.87** peinado «Melena de puntas» para chicos y chicas (`src/6zz9zf_pelo_puntas.js`).
+- **4.94–4.96** peinados de referencia arreglados (perfil y espalda, sin cortes), puntas bicolor, y Japón al este (`src/6zz9zq_japon6.js`): Takayama (pueblo Edo) e Higashiyama (Kioto antiguo en cuesta), oficios rickshaw, sakero, té y cerámica, mapa de otros mundos ampliable y desplazable.
 - Carteles japoneses: `python3 tools/dev/jp_glyphs.py` regenera `src/6zz9w_jp_glyphs.js` (añade el texto nuevo a `JP_TEXTS` o úsalo en los archivos que escanea).
 - La pantalla del móvil mide unas 24×13 casillas: un dibujo más alto que ~12 casillas no se ve entero (por eso el Fuji y la torre son más pequeños y la cámara sube cerca).
 

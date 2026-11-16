@@ -6,7 +6,7 @@
 //   karaoke, ramen) · Asakusa (Kaminarimon, Hōzōmon, templo, pagoda, Nakamise) · Aeropuerto de Tokio · playa.
 // Calles con aceras, pasos de cebra, semáforos y coches que paran en rojo y ante el jugador. NPCs sin nombre propio
 // (Japonés 1, Japonesa 2…). Carteles en japonés con los glifos de 6zz9w_jp_glyphs.js (jpText).
-const JP_W = 320, JP_H = 300;
+const JP_W = 420, JP_H = 300, JP_CX1 = 315;   // la ciudad acaba en x 315; al este de 320 están Takayama y Higashiyama (4.96)
 const JP_VR = [118, 142, 166, 190, 214, 238, 262, 286], JP_HR = [4, 28, 52, 76, 100, 124, 148];
 const JP_ZONES = [
   { k: 'fuji', n: L2('Monte Fuji', 'Mount Fuji'), j: '富士山', x0: 3, x1: 117, y0: 3, y1: 82 },
@@ -262,11 +262,11 @@ function makeJapan() { if (G.maps.japon) return G.maps.japon; const w = JP_W, h 
   const ell = (cx, cy, rx, ry, k) => { for (let y = Math.floor(cy - ry); y <= cy + ry; y++) for (let x = Math.floor(cx - rx); x <= cx + rx; x++) if (((x - cx) / rx) ** 2 + ((y - cy) / ry) ** 2 <= 1) S(x, y, k); };
   // tierra, playa y mar
   for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const sea = x < 3 + ((hash2(y >> 2, 1, 31) * 2) | 0) || y < 3 || x > w - 4 - ((hash2(y >> 2, 2, 31) * 2) | 0) || y > h - 5 + ((hash2(x >> 2, 3, 31) * 2) | 0) - 1; S(x, y, sea ? J.SEA : y > h - 10 ? J.SAND : J.GRASS); }
-  RG(118, 4, w - 5, 153, J.WALK);
+  RG(118, 4, JP_CX1, 153, J.WALK);
   // carreteras con aceras, línea central, cruces y pasos de cebra
   const hc = new Uint8Array(N), vc = new Uint8Array(N);
   const road = (x0, y0, x1, y1, hz) => { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) { if (!inb(x, y)) continue; const i = I(x, y), al = hz ? y - y0 : x - x0; if (al === 0 || al === 5) { if (M.jg[i] !== J.ROAD) S(x, y, J.WALK); continue; } S(x, y, J.ROAD); (hz ? hc : vc)[i] = 1; if (al === 2) M.jm[i] = hz ? 1 : 2; } };
-  for (const y0 of JP_HR) road(118, y0, w - 5, y0 + 5, true); road(6, 100, 117, 105, true); road(70, 76, 117, 81, true); road(6, 206, w - 5, 211, true);
+  for (const y0 of JP_HR) road(118, y0, JP_CX1, y0 + 5, true); road(6, 100, 117, 105, true); road(70, 76, 117, 81, true); road(6, 206, w - 5, 211, true);
   for (const x0 of JP_VR) road(x0, 4, x0 + 5, 153, false); road(118, 154, 123, 205, false); road(238, 154, 243, 205, false); road(286, 154, 291, 170, false);
   for (let i = 0; i < N; i++) { if (hc[i] && vc[i]) M.jm[i] = 0; }
   for (let y = 1; y < h - 1; y++) for (let x = 1; x < w - 1; x++) { const i = I(x, y); if (hc[i] && !vc[i] && (vc[i - 1] || vc[i + 1])) M.jm[i] = 3; else if (vc[i] && !hc[i] && (hc[i - w] || hc[i + w])) M.jm[i] = 4; }
@@ -296,7 +296,7 @@ function makeJapan() { if (G.maps.japon) return G.maps.japon; const w = JP_W, h 
   // manzanas de la ciudad
   const ZK = { aki: ['slim', 'slim', 'aki', 'slim', 'slim', 'shop', 'slim', 'aki', 'neon', 'slim'], tokio: ['office', 'tower', 'apt', 'office', 'hotel', 'slim', 'tower', 'office', 'slim', 'shop'], shinjuku: ['slim', 'neon', 'slim', 'slim', 'hotel', 'slim', 'neon', 'slim', 'shop'] };
   const SPEC = { '0,1': [['comics', 6]], '2,1': [['nekocafe', 6]], '1,2': [['live', 10]], '1,1': [['arcade', 6]], '3,0': [['konbini', 5]], '0,3': [['konbini', 5]], '6,4': [['konbini', 5]], '2,5': [['konbini', 5]], '5,2': [['konbini', 5]], '7,3': [['ramen', 4], ['konbini', 5]] };
-  for (let i = 0; i < JP_VR.length; i++) for (let j = 0; j < JP_HR.length - 1; j++) { const bx0 = JP_VR[i] + 6, bx1 = i + 1 < JP_VR.length ? JP_VR[i + 1] - 1 : w - 6, by0 = JP_HR[j] + 6, by1 = JP_HR[j + 1] - 1;
+  for (let i = 0; i < JP_VR.length; i++) for (let j = 0; j < JP_HR.length - 1; j++) { const bx0 = JP_VR[i] + 6, bx1 = i + 1 < JP_VR.length ? JP_VR[i + 1] - 1 : JP_CX1 - 1, by0 = JP_HR[j] + 6, by1 = JP_HR[j + 1] - 1;
     const z = jpZoneAt(((bx0 + bx1) >> 1) * 16, ((by0 + by1) >> 1) * 16), kinds = ZK[z && z.k] || ZK.tokio;
     if (i === 3 && j === 4) { jpPark(M, F, Fs, R, bx0, bx1, by0, by1); continue; }
     const row = (by, maxH, segs, special) => { let x = segs[0]; const x1 = segs[1]; const sp = (special || []).slice();
@@ -313,7 +313,7 @@ function makeJapan() { if (G.maps.japon) return G.maps.japon; const w = JP_W, h 
     if (!fr && (zk === 'aki' || zk === 'shinjuku') && R.f() < 0.6) { const ax = bx0 + 5 + R.int(0, bx1 - bx0 - 12); jpAlley(M, F, Fs, R, ax, by0, by1, zk); row(by1, 0, [bx0, ax - 1]); row(by1, 0, [ax + 3, bx1]); row(by0 + 8, 128, [bx0, ax - 1]); row(by0 + 8, 128, [ax + 3, bx1]); continue; }
     row(by1, 0, [bx0, bx1], fr); row(by0 + 8, 128, [bx0, bx1]); }
   // decorado de aceras y semáforos
-  for (const y0 of JP_HR) for (let x = 120; x < w - 6; x++) { const y = y0; if (M.jg[I(x, y)] !== J.WALK || doors.has(I(x, y)) || vc[I(x, y)] || x % 7) continue; if (JP_VR.some(v => x >= v - 1 && x <= v + 6)) continue; if (x % 14 === 0) { const o = Fs('jp_poste', x, y); if (o) (M.jpPoles = M.jpPoles || []).push(o); continue; } const r2 = R.f(); Fs(r2 < 0.45 ? 'ae_farola' : r2 < 0.75 ? 'jp_maquina' : 'jp_bici', x, y, { jl: r2 < 0.45 ? [[4, -36, 40, 'rgba(255,240,190,0.5)']] : r2 < 0.75 ? [[0, -12, 26, 'rgba(200,230,255,0.5)']] : null }); }
+  for (const y0 of JP_HR) for (let x = 120; x < JP_CX1 - 1; x++) { const y = y0; if (M.jg[I(x, y)] !== J.WALK || doors.has(I(x, y)) || vc[I(x, y)] || x % 7) continue; if (JP_VR.some(v => x >= v - 1 && x <= v + 6)) continue; if (x % 14 === 0) { const o = Fs('jp_poste', x, y); if (o) (M.jpPoles = M.jpPoles || []).push(o); continue; } const r2 = R.f(); Fs(r2 < 0.45 ? 'ae_farola' : r2 < 0.75 ? 'jp_maquina' : 'jp_bici', x, y, { jl: r2 < 0.45 ? [[4, -36, 40, 'rgba(255,240,190,0.5)']] : r2 < 0.75 ? [[0, -12, 26, 'rgba(200,230,255,0.5)']] : null }); }
   for (const x0 of JP_VR) for (const y0 of JP_HR) Fs('jp_semaforo', x0 + 5, y0 + 5, { sem: 1 });
   // Asakusa: Kaminarimon, Nakamise, Hōzōmon, templo, pagoda e incienso
   F('jp_kaminarimon', A.lane, A.y1, [[-4, 0], [-3, 0], [3, 0], [4, 0]], { px: A.lane * 16 + 8, jl: [[0, -40, 60, 'rgba(255,90,60,0.55)']] });
