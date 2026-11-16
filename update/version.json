@@ -1,18 +1,18 @@
 {
- "build": 97,
- "ver": "4.76",
+ "build": 98,
+ "ver": "4.77",
  "date": "2026-11-16",
  "file": "thebound.html",
- "size": 13087416,
- "sha256": "ea16452dd62d419d98824bd7f49949506f69c9711c068b853ad53505f2746213",
+ "size": 13091280,
+ "sha256": "70a6ed67369421e465d131826a8f8a5aeff3810baafcd00df41cfd9f6cb57ccd",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🌸 Lienya ahora se ve con su propio dibujo también en su forma de persona (cuando te vigila, cuando habla y después de vencerla): pelo salvaje, cara y ojos brillantes."
+   "🌸 Lienya, después de vencerla, vuelve a ser un personaje como los del juego, ahora con un pelo nuevo como el de su dibujo: lila, salvaje y rizado, con volumen arriba y mechones que ondean hasta la cintura. Antes de vencerla se ve su dibujo pequeño."
   ],
   "en": [
-   "🌸 Lienya now uses her own drawing in her person form too (when she watches you, talks and after you defeat her): wild hair, face and glowing eyes."
+   "🌸 After you defeat her, Lienya is a game-style character again, now with new hair like her drawing: lilac, wild and curly, with volume on top and locks waving down to her waist. Before you defeat her, her small drawing is shown."
   ]
  }
 }
