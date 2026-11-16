@@ -61,6 +61,5 @@ Los jefes de la historia principal no son jefes normales: salen como **Súper je
 5. **Las fechas encajan en `ERAS`.** Antes del tiempo, hace 12.000, 8.000, 5.000 o 1.000 años, siempre, hoy y lo que vendrá. Un suceso nuevo va en una de ellas y no contradice lo que ya pasó allí.
 6. **Lo vencido no vuelve igual.** Si un enemigo regresa, es su sombra, su eco o un resto (como el Eclipse o el Eco de Nihil), y la historia lo dice.
 7. **Cada lugar nuevo dice quién lo hizo**: Tejedores, Alados, un reino de la Edad de los Reyes, el pueblo Pez, Nihil (lugares al revés) o la Ventisca (tierras nuevas).
-8. **Referencias de otras franquicias**: versión original con otro nombre y otros detalles (ver `AGENTS.md`).
-9. **Bilingüe.** Todo texto de lore va con `L2('es', 'en')`.
-10. **Cada capítulo nuevo** lleva: entrada en `CRON` al final, su época en `ERAS`, al menos una pista (`CLUES`) o un NPC que lo cuente, y su escena en las cinemáticas. Actualiza este archivo con un resumen de una o dos líneas.
+8. **Bilingüe.** Todo texto de lore va con `L2('es', 'en')`.
+9. **Cada capítulo nuevo** lleva: entrada en `CRON` al final, su época en `ERAS`, al menos una pista (`CLUES`) o un NPC que lo cuente, y su escena en las cinemáticas. Actualiza este archivo con un resumen de una o dos líneas.
