@@ -7,13 +7,14 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '4.89', GAME_BUILD = 110;
+const GAME_VER = '4.90', GAME_BUILD = 111;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
 const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/[
+  {"b": 111, "v": "4.90", "d": "2026-11-16", "es": ["Diez criaturas renovadas con cuatro direcciones. Los gólems de Piedra y Escarcha tienen sprites más grandes."], "en": ["Ten redesigned creatures with four directions. The Stone and Frost Golems have larger sprites."]},
   {"b": 110, "v": "4.89", "d": "2026-11-16", "es": ["Kasane Teto visita STELLA☆LINK. Habla con Akane para ver su concierto con Hatsune Miku."], "en": ["Kasane Teto visits STELLA☆LINK. Speak to Akane to watch her concert with Hatsune Miku."]},
   {"b": 109, "v": "4.88", "d": "2026-11-16", "es": ["Hatsune Miku visita STELLA☆LINK en Akihabara. Puedes verla caminar y hablar con ella."], "en": ["Hatsune Miku visits STELLA☆LINK in Akihabara. You can see her walk and talk to her."]},
   {"b": 108, "v": "4.87", "d": "2026-11-17", "es": ["💇 Peinado nuevo para chicas y chicos: Melena de puntas (larga hasta media espalda, mechones en pico, puntas en la coronilla y flequillo desfilado). En el editor y la peluquería, con cualquier color."], "en": ["💇 New hairstyle for girls and boys: Spiky long mane (down to mid-back, pointed locks, spikes on the crown and a choppy fringe). In the editor and the barber, in any colour."]},

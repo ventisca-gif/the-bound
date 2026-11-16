@@ -1,18 +1,18 @@
 {
- "build": 110,
- "ver": "4.89",
+ "build": 111,
+ "ver": "4.90",
  "date": "2026-11-16",
  "file": "thebound.html",
- "size": 15689704,
- "sha256": "78c33700dfe814310a77d3579a76c3aad215ee0359b9a321f396f6c83076e727",
+ "size": 15777321,
+ "sha256": "78932e42bd03b2352a939e91aad41a2b41c122e59a071cfb1a224c0680c86206",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Kasane Teto visita STELLA☆LINK. Habla con Akane para ver su concierto con Hatsune Miku."
+   "Diez criaturas renovadas con cuatro direcciones. Los gólems de Piedra y Escarcha tienen sprites más grandes."
   ],
   "en": [
-   "Kasane Teto visits STELLA☆LINK. Speak to Akane to watch her concert with Hatsune Miku."
+   "Ten redesigned creatures with four directions. The Stone and Frost Golems have larger sprites."
   ]
  }
 }

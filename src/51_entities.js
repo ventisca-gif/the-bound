@@ -192,8 +192,9 @@ function spawnMob(mid, lv, x, y, L, camp, boss) {
   const e = { type: 'mob', mid, def, boss: !!boss, lv, name: def.n, hp: st.hp, maxhp: 0, atk: st.atk, df: st.def, xp: boss ? Math.round(st.xp * 1.6) : st.xp, gold: boss ? st.gold * 3 : st.gold, x, y, L, map: (G.map && G.map.id) || 'world', dir: 'down', anim: 'idle', af: 0, at: Math.random(), state: 'idle', st: Math.random() * 2, home: { x, y }, camp, atlas, hum, flash: 0, stun: 0, slow: 0, root: 0, freeze: 0, poison: 0, burn: 0, mark: 0, kbx: 0, kby: 0, cd: 1, z: 0 };
   if (!boss && camp && !camp.noElite && lv >= 6 && Math.random() < 0.04) { e.elite = 1; e.hp *= 3.5; e.atk = Math.round(e.atk * 1.4); e.xp *= 4; e.gold *= 4; e.name = 'Élite ' + def.n; }
   e.hp = Math.round(e.hp); e.maxhp = e.hp;
-  e.spd = def.spd; e.range = (boss ? (def.r || 26) : (atlas.fw > 50 ? 22 : 15)); e.aggroR = boss ? 150 : def.ai === 'passive' ? 0 : 78 + Math.min(40, lv);
-  e.rad = boss ? 16 : atlas.fw > 50 ? 12 : 8; e.hgt = boss ? atlas.fh - 10 : hum ? 34 : Math.round(atlas.fh * 0.7); e.shR = boss ? 18 : atlas.fw > 50 ? 10 : 7; e.hw = boss ? 7 : 4; e.hh = 3;
+  const combatWidth = atlas.combatWidth || atlas.fw;
+  e.spd = def.spd; e.range = (boss ? (def.r || 26) : (combatWidth > 50 ? 22 : 15)); e.aggroR = boss ? 150 : def.ai === 'passive' ? 0 : 78 + Math.min(40, lv);
+  e.rad = boss ? 16 : combatWidth > 50 ? 12 : 8; e.hgt = boss ? atlas.fh - 10 : hum ? 34 : Math.round(atlas.fh * 0.7); e.shR = boss ? 18 : combatWidth > 50 ? 10 : 7; e.hw = boss ? 7 : 4; e.hh = 3;
   if (def.fly) { e.z = 10; e.noShadow = false; }
   G.ents.push(e); return e;
 }
