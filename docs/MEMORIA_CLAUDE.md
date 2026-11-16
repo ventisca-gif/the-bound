@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.62 (build 83)**.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.81 (build 102)** (16-11-2026). El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -36,8 +36,15 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.62 (bui
 
 - Mundo principal con pueblos (Albor, Puerto Coral, Arxar, Sahrim…), tren, barcos, yate, monturas, casas, construcción, mascotas, oficios, festivales, reinos, coliseo, eventos (luna de sangre con asedio del Devorador Carmesí), online con chat, grupos y PvP.
 - Otros mapas: Fondo Marino y Nerea (buceo desde Isla Brasa), El Archipiélago (galeón, nivel 160), Islas del Cielo / Celestia (aeronave, nivel 200), Altavela (nivel 220), El Velo (mundo espiritual) y el Continente del Velo Roto (nivel 250-350, Nochebruma, subrazas lobo/fantasma/vampiro).
-- Nivel máximo 350. Clases: guerrero, mago, arquero, asesino, bardo, invocador, pez. Ascensión y evoluciones.
+- Nivel máximo 400 (desde la 4.70). Clases: guerrero, mago, arquero, asesino, bardo, invocador, pez. Ascensión y evoluciones.
 - Romance con dos medidores (Confianza y Amor, 10 corazones), regalos, pasear de la mano, llevar en brazos o a hombros, besos (normal y francés), pareja (hasta dos), boda, casa, hijos (3 por pareja) y escena de la cama con corazones.
+
+## Lo más reciente (4.79 – 4.81)
+
+- **4.79-4.80** 30 peinados anime (`src/6zz9u_pelo_anime.js` y `6zz9v_v480.js`, marca `ah` en `HS_F`/`HS_M`, pincel de mechones `ahLock`/`ahCap`). Nevadas cortas (30-75 s).
+- **4.81** sur de Albor con el **Camposanto del Alba** y el **Aeródromo** (aviones animados, terminal, billete a Japón nivel 400); los descendientes **envejecen, se jubilan a los 65 y mueren de viejos** (tumba en el camposanto, árbol genealógico); **Japón** (`src/6zz9y_japon.js`, mapa 320×220: Fuji, Kioto, Akihabara, Tokio, Shinjuku, Asakusa, aeropuerto; coches, semáforos, 78 NPCs sin nombre, karaoke, ramen, konbini, recreativos). Sergio dijo que esto es **la primera parte de Japón**: después pedirá más (más edificios en los que entrar, más cosas japonesas).
+- Carteles japoneses: `python3 tools/dev/jp_glyphs.py` regenera `src/6zz9w_jp_glyphs.js` (añade el texto nuevo a `JP_TEXTS` o úsalo en los archivos que escanea).
+- La pantalla del móvil mide unas 24×13 casillas: un dibujo más alto que ~12 casillas no se ve entero (por eso el Fuji y la torre son más pequeños y la cámara sube cerca).
 
 ## Lo último (4.27 – 4.36)
 
