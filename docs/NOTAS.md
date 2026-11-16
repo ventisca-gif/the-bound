@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.94 (build 115)**, publicada en `main` el 2026-11-16. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.95 (build 116)**, publicada en `main` el 2026-11-16. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -110,6 +110,8 @@ Versión actual: **4.94 (build 115)**, publicada en `main` el 2026-11-16. La ski
 - **4.87** `6zz9zf_pelo_puntas.js`: peinado `AH.melena_puntas` («Melena de puntas») en `HS_F` y `HS_M`: mechones largos con `ahLock` que acaban en pico (más mechones en la vista de espaldas para tapar huecos), puntas en la coronilla con `c.spikes`, flequillo `point`. Diseño propio (Sergio pidió una melena larga de puntas; no es copia de ningún personaje).
 
 - **4.94** `6zz9zp_peinados_fix.js`: los 13 peinados de `6zz9zo_peinados_ref.js` (`HS.refHair`) usan de perfil y de espaldas un peinado anime equivalente (`REF_AH[refHair]`, se pone `HS.ah` solo durante ese `drawHero`) y de frente el dibujo de referencia se encoge por arriba si no cabe (envoltura de `drawReferenceFringe` con un búfer 40 px más alto; deja 2 filas libres para el contorno). No se borró nada.
+
+- **4.95** en `6zz9zp_peinados_fix.js`: Puntas bicolor (`refHair` 0) pinta con `L.hair2` la parte de arriba también de perfil (hasta `hy - 5`) y de espaldas (mitad derecha, hasta `hy - 1`). Sergio pidió no tocar lo que añadió de otras franquicias en otras versiones.
 
 ## Pendiente o ideas que dejó abiertas
 
