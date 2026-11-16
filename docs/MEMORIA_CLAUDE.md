@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.86 (build 107)** (16-11-2026). El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.87 (build 108)** (16-11-2026). El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -38,7 +38,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.86 (bui
 - Nivel máximo 400 (desde la 4.70). Clases: guerrero, mago, arquero, asesino, bardo, invocador, pez. Ascensión y evoluciones.
 - Romance con dos medidores (Confianza y Amor, 10 corazones), regalos, pasear de la mano, llevar en brazos o a hombros, besos (normal y francés), pareja (hasta dos), boda, casa, hijos (3 por pareja) y escena de la cama con corazones.
 
-## Lo más reciente (4.79 – 4.86)
+## Lo más reciente (4.79 – 4.87)
 
 - **4.79-4.80** 30 peinados anime (`src/6zz9u_pelo_anime.js` y `6zz9v_v480.js`, marca `ah` en `HS_F`/`HS_M`, pincel de mechones `ahLock`/`ahCap`). Nevadas cortas (30-75 s).
 - **4.81** sur de Albor con el **Camposanto del Alba** y el **Aeródromo** (aviones animados, terminal, billete a Japón nivel 400); los descendientes **envejecen, se jubilan a los 65 y mueren de viejos** (tumba en el camposanto, árbol genealógico); **Japón** (`src/6zz9y_japon.js`, mapa 320×220: Fuji, Kioto, Akihabara, Tokio, Shinjuku, Asakusa, aeropuerto; coches, semáforos, 78 NPCs sin nombre, karaoke, ramen, konbini, recreativos). Sergio dijo que esto es **la primera parte de Japón**: después pedirá más (más edificios en los que entrar, más cosas japonesas).
@@ -47,6 +47,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.86 (bui
 - **4.84** 8 trajes de idol (`src/6zz9zb_idol_moda.js`) de las referencias de Sergio, para todas las estructuras; los vende la estilista Mio en la sala STELLA☆LINK. Lupa con Japón por partes e ideas pendientes (onsen, café de gatos, kimonos, historia y romance de idols).
 - **4.85** (`src/6zz9zc_japon4.js`) onsen del Fuji, café de gatos y tienda de kimonos con interior; romance con las 13 idols (STELLA☆LINK + grupo nuevo PRISM8 en Shibuya); peinado «Lobo en capas»; Diva Virtual en turquesa; 9 looks más y 6 kimonos.
 - **4.86** (`src/6zz9ze_japon5.js`) Ruri (PRISM9, sprite extraído del dibujo de Sergio con beso y abrazo), Melena de Ruri, pelo Turquesa vivo, tienda de cómics con mangas legibles, mapa de las Tierras sin Pintar.
+- **4.87** peinado «Melena de puntas» para chicos y chicas (`src/6zz9zf_pelo_puntas.js`).
 - Carteles japoneses: `python3 tools/dev/jp_glyphs.py` regenera `src/6zz9w_jp_glyphs.js` (añade el texto nuevo a `JP_TEXTS` o úsalo en los archivos que escanea).
 - La pantalla del móvil mide unas 24×13 casillas: un dibujo más alto que ~12 casillas no se ve entero (por eso el Fuji y la torre son más pequeños y la cámara sube cerca).
 
