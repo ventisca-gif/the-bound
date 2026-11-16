@@ -12,7 +12,7 @@ HS_F.push({ n: 'Ola marina', cap: 'round', bang: 'side', side: 13, back: 22, bw:
 HS_M.push({ n: 'Aleta', cap: 'mohawk', bang: 'none', side: 0, back: 3, pz: 1, orn: 'fin' }, { n: 'Marea', cap: 'swept', bang: 'none', side: 3, back: 9, wave: 1, pz: 1, orn: 'shell' }, { n: 'Coral', cap: 'spiky', bang: 'messy', side: 3, back: 5, jag: 1, pz: 1, orn: 'coral' }, { n: 'Rastas de alga', cap: 'volume', bang: 'messy', side: 6, back: 12, bw: 1.15, jag: 1, pz: 1, orn: 'star' });
 const TOP_PEZ0 = TOPS.length, BOT_PEZ0 = BOTS.length;
 TOPS.push(['scaletop', 'Top de escamas'], ['shelltop', 'Chaleco de conchas']); BOTS.push(['scaleskirt', 'Faldón de escamas']);
-const isPezStyle = (g, i) => i >= (g === 'm' ? HS_PEZ_M0 : HS_PEZ_F0);
+const isPezStyle = (g, i) => { const h = (g === 'm' ? HS_M : HS_F)[i]; return !!(h && h.pz); };   // por marca (pz), no por posición: hay peinados añadidos después
 // la etapa (0, 1 = nv70, 2 = nv100) y la ascensión viajan en la apariencia, así el resto de jugadores también las ve
 { const _n = normApp; normApp = function (a) { const o = _n(a); if (a && a.pz) o.pz = clamp(a.pz | 0, 0, 2); if (a && a.asc) o.asc = 1; return o; }; }
 function pezStage(lv) { return lv >= 100 ? 2 : lv >= 70 ? 1 : 0; }
@@ -86,7 +86,7 @@ const SKIN_ORDER0 = SKIN_ORDER.slice();
   const pez = editorCls() === 'pez';
   SKIN_ORDER.length = 0; (pez ? PEZ_SKINS : SKIN_ORDER0).forEach(v => SKIN_ORDER.push(v));
   let h = _ae(app, tabs); SKIN_ORDER.length = 0; SKIN_ORDER0.forEach(v => SKIN_ORDER.push(v));
-  if (!pez) { const nF = app.g === 'm' ? HS_PEZ_M0 : HS_PEZ_F0; h = h.replace(/(\d+)\/(\d+)( · (?:masculinos|femeninos|male|female))/, (m, a, b, c) => a + '/' + nF + c); h = h.replace(/<button class="chip[^"]*" data-ek="hs" data-ev="(\d+)">[^<]*<\/button>/g, (m, i) => isPezStyle(app.g, +i) ? '' : m); h = h.replace(/<button class="chip[^"]*" data-ek="(top0|bot0)" data-ev="(\d+)">[^<]*<\/button>/g, (m, k, i) => +i >= (k === 'top0' ? TOP_PEZ0 : BOT_PEZ0) ? '' : m); }
+  if (!pez) { const nF = (app.g === 'm' ? HS_M : HS_F).filter(h => !h.pz).length; h = h.replace(/(\d+)\/(\d+)( · (?:masculinos|femeninos|male|female))/, (m, a, b, c) => (app.g === 'm' ? HS_M : HS_F).slice(0, app.hs + 1).filter(h => !h.pz).length + '/' + nF + c); h = h.replace(/<button class="chip[^"]*" data-ek="hs" data-ev="(\d+)">[^<]*<\/button>/g, (m, i) => isPezStyle(app.g, +i) ? '' : m); h = h.replace(/<button class="chip[^"]*" data-ek="(top0|bot0)" data-ev="(\d+)">[^<]*<\/button>/g, (m, k, i) => +i >= (k === 'top0' ? TOP_PEZ0 : BOT_PEZ0) ? '' : m); }
   return h; }; }
 { const _oc = openCreate; openCreate = function () {
   const pez = CC.cls === 'pez', a = CC.app;

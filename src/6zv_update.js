@@ -7,13 +7,14 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '4.78', GAME_BUILD = 99;
+const GAME_VER = '4.79', GAME_BUILD = 100;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
 const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/[
+  {"b": 100, "v": "4.79", "d": "2026-11-16", "es": ["💇 10 peinados anime nuevos al estilo del pelo de Lienya, por mechones con rizos en espiral, flequillo en punta y brillo. Chica: Rizos de diosa, Seda anime, Coletas taladro, Nube rizada y Cola rizada. Chico: Puntas de héroe, Rizos revueltos, Melena salvaje, Flequillo de príncipe y Lobo rebelde. Se ven en las 8 estructuras de cuerpo, con cualquier color y mechas.", "Los peinados emo vuelven a salir en la creación y la peluquería (estaban ocultos por error)."], "en": ["💇 10 new anime hairstyles in the style of Lienya's hair, drawn lock by lock with spiral curls, pointed fringes and shine. Female: Goddess curls, Anime silk, Drill twintails, Curly cloud and Curly ponytail. Male: Hero spikes, Tousled curls, Wild mane, Prince fringe and Rebel wolf. They fit all 8 body types, with any colour and highlights.", "Emo hairstyles show up again in character creation and at the hairdresser (they were hidden by mistake)."]},
   {"b": 99, "v": "4.78", "d": "2026-11-16", "es": ["🌸 Lienya, después de vencerla, usa exactamente el dibujo de Sergio: pelo lila enorme y rizado, cara oscura y vestido, de frente, de perfil y de espaldas."], "en": ["🌸 After you defeat her, Lienya uses exactly Sergio's drawing: huge curly lilac hair, dark face and dress, from the front, side and back."]},
   {"b": 98, "v": "4.77", "d": "2026-11-16", "es": ["🌸 Lienya, después de vencerla, vuelve a ser un personaje como los del juego, ahora con un pelo nuevo como el de su dibujo: lila, salvaje y rizado, con volumen arriba y mechones que ondean hasta la cintura. Antes de vencerla se ve su dibujo pequeño."], "en": ["🌸 After you defeat her, Lienya is a game-style character again, now with new hair like her drawing: lilac, wild and curly, with volume on top and locks waving down to her waist. Before you defeat her, her small drawing is shown."]},
   {"b": 97, "v": "4.76", "d": "2026-11-16", "es": ["🌸 Lienya ahora se ve con su propio dibujo también en su forma de persona (cuando te vigila, cuando habla y después de vencerla): pelo salvaje, cara y ojos brillantes."], "en": ["🌸 Lienya now uses her own drawing in her person form too (when she watches you, talks and after you defeat her): wild hair, face and glowing eyes."]},
