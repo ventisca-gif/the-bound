@@ -1,24 +1,18 @@
 {
- "build": 96,
- "ver": "4.75",
- "date": "2026-11-15",
+ "build": 97,
+ "ver": "4.76",
+ "date": "2026-11-16",
  "file": "thebound.html",
- "size": 13043306,
- "sha256": "e081548c990e65f0bf758824ba716ff8088ebdff8954501451c3f5b88082eccf",
+ "size": 13087416,
+ "sha256": "ea16452dd62d419d98824bd7f49949506f69c9711c068b853ad53505f2746213",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🌸 Descubrimiento en Las Tierras sin Pintar: Lienya, la Diosa sin Pintar. Al principio solo te vigila desde lejos y desaparece si te acercas.",
-   "Después de vencer a El Lienzo en Blanco te espera junto a la puerta de luz: pregúntale quién es y revelará su forma verdadera (con el dibujo de Sergio). Súper jefe de nivel 410, muy difícil, con 5 ataques: Ráfaga del Vacío, Círculo de Olvido, Tentáculos Incoloros, Lluvia Sin Color y Desvanecer.",
-   "🎨 Al vencerla te enseña el oficio de Artista: pinta los caballetes del borde para devolverle el color (bonos de ataque, defensa, vida y experiencia).",
-   "💕 Se queda junto a Mael y la puedes enamorar y casarte con ella. Capítulo nuevo en el Libro del Vínculo con cinemática, y su guía en la lupa con flecha."
+   "🌸 Lienya ahora se ve con su propio dibujo también en su forma de persona (cuando te vigila, cuando habla y después de vencerla): pelo salvaje, cara y ojos brillantes."
   ],
   "en": [
-   "🌸 A discovery in the Unpainted Lands: Lienya, the Unpainted Goddess. At first she only watches you from afar and vanishes if you get close.",
-   "After defeating The Blank Canvas she waits by the door of light: ask her who she is and she will reveal her true form (with Sergio's drawing). A very hard level 410 super boss with 5 attacks: Void Burst, Circle of Oblivion, Colourless Tentacles, Colourless Rain and Vanish.",
-   "🎨 Once defeated she teaches you the Artist job: paint the border's easels to bring its colour back (attack, defence, HP and experience bonuses).",
-   "💕 She stays next to Mael and you can win her heart and marry her. New chapter in the Book of the Bond with a cutscene, and her guide in the magnifier with an arrow."
+   "🌸 Lienya now uses her own drawing in her person form too (when she watches you, talks and after you defeat her): wild hair, face and glowing eyes."
   ]
  }
 }
