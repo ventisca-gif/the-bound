@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.77 (build 98)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.78 (build 99)**, publicada en `main` el 2026-11-15. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -92,7 +92,7 @@ Versión actual: **4.77 (build 98)**, publicada en `main` el 2026-11-15. La skil
 
 - **4.74** `6zz9r_poder.js`: pestaña 💪 Poder de la lupa (`guiaPower`, secciones `GPOW`, tabla `GPOW_TAB` con lo medido en 4.73, «Tu poder ahora» con checklist). Si cambian fuentes de poder, actualizar ahí la tabla y los textos. Sergio quiere todo lo importante del poder en esa pestaña.
 
-- **4.75** `tools/dev/diosa.py` (hoja `lienzo_ref/diosa_hoja.png`, usa cut/shrink de lienzo.py) → `6zz9s_diosa_data.js`; `6zz9t_diosa.js`: Lienya. `P.lny` {st 0 vigila, 1 espera tras `tsp5`, 2 vencida}, `LNY_W` aparición lejana (`noTalk`), forma de persona `lnyLook` (heroLook + `lny_pluma`), jefe `lienya` 410 (`art ['lny']`, `BMECH.lienya`, zonas `LHZ`, efectos `LFX` de 5 ataques, `BOSS_TUNE` 2,36 = 12 min solo), oficio `artista` (caballetes `sp_caballete`, `tspAddPaint`), romance `ROM.lienya`, capítulo `CH_LIENYA`. Prueba `tests/v475.txt`. **4.76**: su forma de persona es su dibujo reducido a 58 px (`LNY_PSHEET`, `lnyAtlas`), **4.77**: corregido: el sprite de héroe es su forma tras vencerla (`P.lny.st >= 2` → `lnyAtlasP`) con pelo propio `fitKind head 'lny_pelo'` (lila `LNY_HL`, rizado); antes de vencerla, su dibujo reducido.
+- **4.75** `tools/dev/diosa.py` (hoja `lienzo_ref/diosa_hoja.png`, usa cut/shrink de lienzo.py) → `6zz9s_diosa_data.js`; `6zz9t_diosa.js`: Lienya. `P.lny` {st 0 vigila, 1 espera tras `tsp5`, 2 vencida}, `LNY_W` aparición lejana (`noTalk`), forma de persona `lnyLook` (heroLook + `lny_pluma`), jefe `lienya` 410 (`art ['lny']`, `BMECH.lienya`, zonas `LHZ`, efectos `LFX` de 5 ataques, `BOSS_TUNE` 2,36 = 12 min solo), oficio `artista` (caballetes `sp_caballete`, `tspAddPaint`), romance `ROM.lienya`, capítulo `CH_LIENYA`. Prueba `tests/v475.txt`. **4.76**: su forma de persona es su dibujo reducido a 58 px (`LNY_PSHEET`, `lnyAtlas`), **4.77**: corregido: el sprite de héroe es su forma tras vencerla (`P.lny.st >= 2` → `lnyAtlasP`) con pelo propio `fitKind head 'lny_pelo'` (lila `LNY_HL`, rizado); antes de vencerla, su dibujo reducido. **4.78**: tras vencerla usa su dibujo de persona extraído (`tools/dev/lienya_p.py`, `lienzo_ref/lienya_persona.png` → `6zz9s2_lienya_p_data.js`, `lnyAtlasP`); la espalda se genera.
 
 ## Pendiente o ideas que dejó abiertas
 

@@ -146,5 +146,7 @@ fitKind('head', 'lny_pelo', (p, A, s) => { const H = LNY_HL, { hx, hy, hrx, hry,
   else if (side) { lock(hx - d * (hrx - 1), -d); lock(hx - d * (hrx - 3), -d); }
   else { lock(hx - hrx - 1, -1); lock(hx + hrx - 1, 1); } }, { cover: 'full' });
 { const _ll = lnyLook; lnyLook = function () { const L = _ll.apply(this, arguments); L.head = { k: 'lny_pelo', cover: 'full', m: LNY_HAIR }; L.hs = Object.assign({}, L.hs, { back: 0, side: 0, bang: 'none' }); return L; }; }
-function lnyAtlasP() { return getAtlas('npc_lienya_p', () => buildHeroAtlas(lnyLook())); }
+// v4.78: forma de persona sacada del dibujo de Sergio (tools/dev/lienya_p.py → 6zz9s2_lienya_p_data.js)
+const LNY_P2CV = (() => { const [pw, ph] = LNY_P2SIZE, c = mkCanvas(pw * 6, ph * 4), im = new Image(); im.onload = () => c.getContext('2d').drawImage(im, 0, 0); im.src = LNY_P2SHEET; return c; })();
+function lnyAtlasP() { return getAtlas('npc_lienya_p2', () => { const [pw, ph] = LNY_P2SIZE; return { img: LNY_P2CV, fw: pw, fh: ph, idx: { idle: 0, walk: 2 }, ax: pw >> 1, ay: ph - 2 }; }); }
 { const _na = npcAtlas; npcAtlas = function (id) { if (id === 'lienya' && G.P && G.P.lny && G.P.lny.st >= 2) return lnyAtlasP(); return _na.apply(this, arguments); }; }

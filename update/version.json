@@ -1,18 +1,18 @@
 {
- "build": 98,
- "ver": "4.77",
+ "build": 99,
+ "ver": "4.78",
  "date": "2026-11-16",
  "file": "thebound.html",
- "size": 13091280,
- "sha256": "70a6ed67369421e465d131826a8f8a5aeff3810baafcd00df41cfd9f6cb57ccd",
+ "size": 13136412,
+ "sha256": "58e44b5eebeab0360542c95b4876d9681da59cdcd9119e408394896a36a2954d",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🌸 Lienya, después de vencerla, vuelve a ser un personaje como los del juego, ahora con un pelo nuevo como el de su dibujo: lila, salvaje y rizado, con volumen arriba y mechones que ondean hasta la cintura. Antes de vencerla se ve su dibujo pequeño."
+   "🌸 Lienya, después de vencerla, usa exactamente el dibujo de Sergio: pelo lila enorme y rizado, cara oscura y vestido, de frente, de perfil y de espaldas."
   ],
   "en": [
-   "🌸 After you defeat her, Lienya is a game-style character again, now with new hair like her drawing: lilac, wild and curly, with volume on top and locks waving down to her waist. Before you defeat her, her small drawing is shown."
+   "🌸 After you defeat her, Lienya uses exactly Sergio's drawing: huge curly lilac hair, dark face and dress, from the front, side and back."
   ]
  }
 }
