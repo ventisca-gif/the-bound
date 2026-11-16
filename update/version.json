@@ -1,24 +1,18 @@
 {
- "build": 107,
- "ver": "4.86",
- "date": "2026-11-16",
+ "build": 108,
+ "ver": "4.87",
+ "date": "2026-11-17",
  "file": "thebound.html",
- "size": 13631153,
- "sha256": "d36b4542b812be2b3f3877b3b990a38b946d20a327d24131340bb9cfc591f571",
+ "size": 13633704,
+ "sha256": "829295ea1fbe881c7385dcf85790e00dab309cdc464c9577eb0e8f6cfd8068be",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "💙 Ruri, la novena integrante de PRISM9 (antes PRISM8), con el sprite de tu dibujo: pasea por el Cruce de Shibuya, se puede enamorar (beso y abrazo con su propio sprite) y baila con el grupo en la sala de Akihabara. La estilista Mio vende su Corsé Azul.",
-   "💇 Peinado nuevo para chicas: Melena de Ruri. Color de pelo nuevo para chicas y chicos: Turquesa vivo.",
-   "📖 Tienda de cómics en Akihabara: 8 mangas que se leen desde la mochila (viñetas con las idols, el héroe, los gatos y la Ventisca) y un dependiente otaku que te cuenta historias y curiosidades del mundo.",
-   "🗺 El mapa de las Tierras sin Pintar (Lienzo Blanco) ya sale en el panel del mapa."
+   "💇 Peinado nuevo para chicas y chicos: Melena de puntas (larga hasta media espalda, mechones en pico, puntas en la coronilla y flequillo desfilado). En el editor y la peluquería, con cualquier color."
   ],
   "en": [
-   "💙 Ruri, the ninth member of PRISM9 (formerly PRISM8), with the sprite from your drawing: she hangs around Shibuya Crossing, can be romanced (kiss and hug with her own sprite) and dances with the group at the Akihabara hall. Stylist Mio sells her Blue Corset.",
-   "💇 New hairstyle for girls: Ruri's mane. New hair colour for girls and boys: Bright turquoise.",
-   "📖 Comic shop in Akihabara: 8 manga you read from your bag (panels with the idols, the hero, the cats and the Ventisca) and an otaku shopkeeper who tells you stories and trivia about the world.",
-   "🗺 The Unpainted Lands (White Canvas) map now shows in the map panel."
+   "💇 New hairstyle for girls and boys: Spiky long mane (down to mid-back, pointed locks, spikes on the crown and a choppy fringe). In the editor and the barber, in any colour."
   ]
  }
 }
