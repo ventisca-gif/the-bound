@@ -1,18 +1,20 @@
 {
- "build": 114,
- "ver": "4.93",
- "date": "2026-11-16",
+ "build": 115,
+ "ver": "4.94",
+ "date": "2026-11-17",
  "file": "thebound.html",
- "size": 16615559,
- "sha256": "12312ec4ff07ff7341edde280c4c1814f5333f1425388dd03d45b4dbade8f51f",
+ "size": 16618771,
+ "sha256": "755f26542c3825ca11fca3929fd0d689054368b43d85c0f2393088c8f4b758a4",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Miku y Teto pueden ser tu pareja, acompañarte y cambiarse de atuendo. Se añadieron 13 peinados recoloreables."
+   "💇 Arreglados los 13 peinados nuevos: de perfil y de espaldas ahora tienen su propia forma (capas, largo, coleta, trenzas, coletas o moño) igual que de frente, en todas las estructuras de chica y chico.",
+   "💇 Seis de ellos (Puntas bicolor, Coleta alta rizada, Ondas largas abiertas, Moño lateral y los dos bobs) se cortaban por arriba: ahora caben enteros."
   ],
   "en": [
-   "Miku and Teto can become your partner, walk with you, and change outfits. Added 13 recolorable hairstyles."
+   "💇 Fixed the 13 new hairstyles: from the side and from behind they now have their own shape (layers, length, ponytail, braids, twintails or bun) matching the front, on every female and male body structure.",
+   "💇 Six of them (Two-tone spikes, High curly ponytail, Long open waves, Side bun and both bobs) were cut off at the top: now they fit whole."
   ]
  }
 }
