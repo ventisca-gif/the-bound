@@ -1,18 +1,18 @@
 {
- "build": 109,
- "ver": "4.88",
+ "build": 110,
+ "ver": "4.89",
  "date": "2026-11-16",
  "file": "thebound.html",
- "size": 13677526,
- "sha256": "f9f6c3c5699dfcea53c5270677f4b4a77ef71d9fc3d5dc56b11988626a96f2c2",
+ "size": 15689704,
+ "sha256": "78c33700dfe814310a77d3579a76c3aad215ee0359b9a321f396f6c83076e727",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Hatsune Miku visita STELLA☆LINK en Akihabara. Puedes verla caminar y hablar con ella."
+   "Kasane Teto visita STELLA☆LINK. Habla con Akane para ver su concierto con Hatsune Miku."
   ],
   "en": [
-   "Hatsune Miku visits STELLA☆LINK in Akihabara. You can see her walk and talk to her."
+   "Kasane Teto visits STELLA☆LINK. Speak to Akane to watch her concert with Hatsune Miku."
   ]
  }
 }
