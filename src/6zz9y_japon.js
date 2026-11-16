@@ -354,6 +354,7 @@ function makeJapan() { if (G.maps.japon) return G.maps.japon; const w = JP_W, h 
   let n = 1; const geish = []; for (let k = 67; k <= JP_NPC_N; k++) geish.push(k);
   const put = (id, cx, cy, rr) => { for (let t = 0; t < 40; t++) { const x = cx + R.int(-rr, rr), y = cy + R.int(-rr, rr); if (!inb(x, y) || occ(x, y) || M.jg[I(x, y)] === J.ROAD) continue; spawnNPC(id, x * 16 + 8, y * 16 + 8, 'japon', { wander: 5, face: 'down' }); return; } };
   for (const [x, y, , c] of spots) for (let k = 0; k < c && n <= 66; k++) put('jp_' + n++, x, y, 7);
+  put('jp_neru', 161, 79, 5);
   geish.forEach((k, i) => put('jp_' + k, i % 3 === 0 ? A.lane : 20 + (i * 13) % 80, i % 3 === 0 ? 190 : 118 + (i % 4) * 12, 4));
   M.drawExtra = (cx, cy) => jpExtra(M, cx, cy);
   jpCarsInit(M); G.maps.japon = M; return M; }

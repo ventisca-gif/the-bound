@@ -78,7 +78,7 @@ function jpGuestStart() {
   if (jpGuestShow || G.map?.id !== JP_GUEST_ROOM) return;
   const audio = new Audio(JP_GUEST_TRACK);
   const guests = G.ents.filter(e => e.map === JP_GUEST_ROOM && ['jp_miku', 'jp_teto'].includes(e.id));
-  const show = { audio, guests, room: G.map, start: performance.now() };
+  const show = { audio, guests, room: G.map, start: performance.now(), wardrobe: jpChooseConcertWardrobe() };
   jpGuestShow = show;
   for (const npc of guests) npc.map = '_jp_guest_stage';
   audio.volume = clamp(SETTINGS.music, 0, 1);
@@ -119,16 +119,20 @@ DL_HOOKS.push(list => {
   const t = jpGuestShow.audio.currentTime;
   const artists = t < 50 ? ['jp_miku'] : t < 100 ? ['jp_teto'] : ['jp_miku', 'jp_teto'];
   artists.forEach((id, i) => {
-    const atlas = npcAtlas(id);
-    const phase = t * 2.8 + i * 0.18;
-    const x = (artists.length === 1 ? 248 : 216 + i * 64) + Math.sin(phase * Math.PI) * 6;
+    const atlas = jpDanceAtlas(id), dance = jpGuestDance(t, i);
+    const x = (artists.length === 1 ? 248 : 216 + i * 64) + dance.shift;
     const y = 108;
-    const frame = atlas.idx.walk + Math.floor(phase * 2) % ANIMS.walk[1];
-    const bounce = Math.round(Math.abs(Math.sin(phase * Math.PI)) * 5);
+    const frame = atlas.idx.walk + dance.frame;
     list.push({ type: 'xdraw', x, y, noShadow: true, draw: (e, cx, cy) => {
       const sx = Math.round(x - cx), sy = y - cy;
       ctx.drawImage(shadowSprite(8, 2), sx - 8, sy - 2);
-      atlasBlit(ctx, atlas, frame, DIRI.down, sx - atlas.ax, sy - atlas.ay - bounce, atlas.fw, atlas.fh);
+      ctx.save();
+      ctx.translate(sx, sy - dance.lift);
+      ctx.rotate(dance.tilt);
+      if (!jpDanceHDFrame(id, dance.frame, 0, 0)) {
+        atlasBlit(ctx, atlas, frame, DIRI.down, -atlas.ax, -atlas.ay, atlas.fw, atlas.fh);
+      }
+      ctx.restore();
     } });
   });
 });

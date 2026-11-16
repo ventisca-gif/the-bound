@@ -7,13 +7,14 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '4.91', GAME_BUILD = 112;
+const GAME_VER = '4.92', GAME_BUILD = 113;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
 const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/[
+  {"b": 113, "v": "4.92", "d": "2026-11-16", "es": ["Neru pasea por Akihabara y regala su traje. Miku y Teto estrenan trajes de concierto, pasos y retratos. Nuevo peinado recoloreable."], "en": ["Neru walks around Akihabara and gifts her outfit. Miku and Teto have new concert outfits, moves and portraits. New recolorable hairstyle."]},
   {"b": 112, "v": "4.91", "d": "2026-11-16", "es": ["Compra el traje de Kasane Teto hablando con ella en STELLA☆LINK. El set se guarda en tu Armario y se adapta a todos los cuerpos."], "en": ["Buy Kasane Teto’s outfit by talking to her at STELLA☆LINK. The set is saved in your Wardrobe and fits every body type."]},
   {"b": 111, "v": "4.90", "d": "2026-11-16", "es": ["Diez criaturas renovadas con cuatro direcciones. Los gólems de Piedra y Escarcha tienen sprites más grandes."], "en": ["Ten redesigned creatures with four directions. The Stone and Frost Golems have larger sprites."]},
   {"b": 110, "v": "4.89", "d": "2026-11-16", "es": ["Kasane Teto visita STELLA☆LINK. Habla con Akane para ver su concierto con Hatsune Miku."], "en": ["Kasane Teto visits STELLA☆LINK. Speak to Akane to watch her concert with Hatsune Miku."]},

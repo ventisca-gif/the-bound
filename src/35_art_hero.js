@@ -264,6 +264,7 @@ function drawHero(p, L, dir, anim, f) {
   const hairPix = (x, y, dx, ny) => { let v = dx < 0.15 ? 2 : 1; if (ny < 0.55 && (x * 7 + y * 3) % 11 === 0 && dx < 0.5) { p.set(x, y, HP[3]); return; } if (ny > 0.1 && ny < 0.22 && dx < 0.45 && dx > -0.8) v = 3; if (ny > 0.22 && ny < 0.3 && dx < 0 && dx > -0.6) v = 2; if (dx > 0.6) v = 0; if (HS.curl && ((x * 3 + y * 5) % 7 === 0)) v = Math.max(0, v - 1); else if (y > hy && (x % 3 === 0)) v = Math.max(0, v - 1); p.set(x, y, HP[v]); };
   const drawCap = () => { TG(6);
     if (!HP || HS.cap === 'bald' || hideHair || hood) return;
+    if (HS.cap === 'rukia') { drawRukiaHair(p, dir, hx, hy, B.hrx, B.hry, HP); return; }
     const cap = HS.cap, vol = cap === 'volume', short_ = cap === 'flat' || cap === 'buzz', rx = B.hrx + (vol ? 2.6 : short_ ? 0.4 : 1) + (short_ ? 0 : FACE.vol), ry = B.hry + (vol ? 2 : short_ ? 0.2 : 0.6) + (short_ ? 0 : FACE.vol * 0.8), cyH = hy - (vol ? 2.2 : 1.4) - (short_ ? 0 : 0.5);
     if (cap === 'mohawk') {
       if (up) { for (let y = Math.round(hy - B.hry - 3); y < hy + 5; y++) for (let x = hx - 1; x <= hx + 1; x++) p.set(x, y, HP[x === hx - 1 ? 3 : x === hx ? 2 : 1]); }
