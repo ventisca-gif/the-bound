@@ -1,0 +1,14 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), G.P.lv=400, calcStats(G.P), G.P.gold=90000, G.time=21*60, 1)
+js (goJapan(), 1)
+wait 2500
+js (()=>{ const M=G.map, o=M.objs; return [o.filter(x=>x.f&&x.f.startsWith('jpb_slim')).length, M.jpScr.length, (M.jpPoles||[]).length, o.filter(x=>x.xact==='jp_tako').length, o.filter(x=>x.xact==='jp_yatai').length, JP_CARS.filter(c=>c.taxi).length]; })()
+js (()=>{ const o=G.map.objs.find(x=>x.xact==='jp_tako'); G.P.x=o.px+(G.map.jg[G.map.I(o.tx+1,o.ty)]===JP_G.ALLEY?16:-16); G.P.y=o.py; const t=interactTarget(); doInteract(t); return [t&&t.kind, countItem('jp_takoyaki')]; })()
+js (()=>{ const o=G.map.objs.find(x=>x.xact==='jp_yatai'); G.P.x=o.px+(G.map.jg[G.map.I(o.tx+1,o.ty)]===JP_G.ALLEY?16:-16); G.P.y=o.py; const t=interactTarget(); doInteract(t); return [t&&t.kind, countItem('jp_yakitori')]; })()
+js (closeModal(), closeDialog(), G.P.x=265*16, G.P.y=58*16+8, G.t=Math.ceil(G.t/24)*24+17.6, 1)
+wait 1500
+js [jpLight().all, JP_PED.length > 10, jpZoneAt(G.P.x, G.P.y).k]
+shot
+js (openPanel('map'), [document.querySelector('.mwt b').textContent, document.querySelectorAll('#mwChips .mchip').length])
+shot
+js (closeModal && closeModal(), window._errs)

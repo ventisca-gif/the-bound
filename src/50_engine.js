@@ -184,7 +184,7 @@ function render() {
       }
       const s = objSprite(d); const x = Math.round(d.px - s.ax - cx), y = Math.round(d.py - s.ay - cy);
       if (x > VW || y > VH || x + s.c.width < 0 || y + s.c.height < 0) continue;
-      const big = d.k === 'bld' || d.k === 'castle' || d.k === 'magetower' || d.k === 'lighthouse' || d.k === 'volcano';
+      const big = d.k === 'bld' || (d.k === 'furn' && d.jpb) || d.k === 'castle' || d.k === 'magetower' || d.k === 'lighthouse' || d.k === 'volcano';
       let alpha = 1; if (big && P.y < d.py - 4 && P.x > d.px - s.ax + 4 && P.x < d.px - s.ax + s.c.width - 4 && P.y > d.py - s.ay + 6) alpha = 0.55;
       if (alpha < 1) ctx.globalAlpha = alpha; ctx.drawImage(s.c, x, y); if (d.ruin) drawRuin(d, x, y, s); if (alpha < 1) ctx.globalAlpha = 1;
       if (d.k === 'herb' || (d.k === 'ore' && d.st !== 'dep')) { const gl = (Math.sin(G.t * 3 + d.tx) + 1) * 0.5; if (gl > 0.8) { ctx.fillStyle = 'rgba(255,255,220,0.9)'; ctx.fillRect(x + (d.k === 'herb' ? 9 : 6), y + 2, 1, 1); } }
