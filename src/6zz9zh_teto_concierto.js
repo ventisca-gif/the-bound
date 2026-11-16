@@ -132,3 +132,52 @@ DL_HOOKS.push(list => {
     } });
   });
 });
+
+// Usa las mismas prendas ajustables de Diva Virtual con la paleta de Teto.
+const JP_TETO_PRICE = 32000;
+const JP_TETO_ACCENT = pal(['#631533', '#a82049', '#de3663', '#ff6389', '#ffadc0']);
+const JP_TETO_CLOTH = pal(['#131c2b', '#25344a', '#3c4e65', '#556a80', '#8091a6']);
+const JP_TETO_OUTFIT = [
+  ['c_teto_chaleco', 'body', L2('Chaleco de Teto', 'Teto’s vest'),
+    () => ({ k: 'id_diva', m: JP_TETO_CLOTH, a: JP_TETO_ACCENT, sl: 'det' })],
+  ['c_teto_falda', 'legs', L2('Falda de Teto', 'Teto’s skirt'),
+    () => ({ k: 'id_diva_f', m: IDP.negro, a: JP_TETO_ACCENT })],
+  ['c_teto_botas', 'feet', L2('Botas de Teto', 'Teto’s boots'),
+    () => ({ k: 'boots', m: IDP.negro })],
+];
+
+for (const [id, slot, name, look] of JP_TETO_OUTFIT) {
+  cosm(id, name, slot, look, {
+    src: L2('Kasane Teto · STELLA☆LINK, Akihabara', 'Kasane Teto · STELLA☆LINK, Akihabara'),
+  });
+}
+
+DLG_HOOKS.push((npc, opts) => {
+  if (npc.id !== 'jp_teto' || jpGuestShow || G.map?.id !== JP_GUEST_ROOM || !G.P) return;
+  const P = G.P;
+  const missing = () => JP_TETO_OUTFIT.filter(([id]) => !(P.wardrobe || []).includes(id));
+  opts.push({
+    label: missing().length
+      ? L2('Comprar mi traje · ', 'Buy my outfit · ') + fmt(JP_TETO_PRICE) + L2(' oro', ' gold')
+      : L2('¿Dónde quedó mi traje?', 'Where is my outfit?'),
+    icon: ['hanger'],
+    fn: () => {
+      if (jpGuestShow || G.P !== P || G.map?.id !== JP_GUEST_ROOM) return;
+      const parts = missing();
+      if (!parts.length) {
+        typeText(L2('¡Ya tienes mi traje! Puedes equiparlo desde el Armario.', 'You already have my outfit! Equip it from the Wardrobe.'));
+        return;
+      }
+      if (P.gold < JP_TETO_PRICE) {
+        typeText(L2('Te falta oro para el traje completo.', 'You need more gold for the full outfit.'));
+        return;
+      }
+      P.gold -= JP_TETO_PRICE;
+      P.wardrobe = [...(P.wardrobe || []), ...parts.map(([id]) => id)];
+      markDirty(true);
+      sfx('coin');
+      typeText(L2('¡Te queda genial! El chaleco, la falda y las botas están en tu Armario.',
+        'It looks great on you! The vest, skirt and boots are in your Wardrobe.'));
+    },
+  });
+});
