@@ -18,3 +18,8 @@ const REF_AH = ['despeinado', 'lobo_capas', 'liso_largo', 'coleta_anime', 'cuadr
   const headTop = Math.round(hy - ry) + OFF, top = y0 - OFF;
   for (let y = 0; y < H; y++) { let dy; if (top >= 2 || y >= headTop) dy = y - OFF; else { if (y < y0) continue; dy = Math.round(2 + (y - y0) * (headTop - OFF - 2) / Math.max(1, headTop - y0)); }
     if (dy < 0 || dy >= p.h) continue; for (let x = 0; x < W; x++) { const c = buf[y * W + x]; if (c) p.set(x, dy, c); } } }; }
+// Puntas bicolor: de perfil y de espaldas la parte de arriba también lleva el segundo color (como de frente)
+{ const _dh = drawHero; drawHero = function (p, L, dir, anim, f) { const r = _dh.apply(this, arguments); try { const HS = L && L.hs, M = p.meta;
+  if (!HS || HS.refHair !== 0 || !L.hair2 || !L.hair || !M || (dir !== 'left' && dir !== 'right' && dir !== 'up') || L.head) return r;
+  const ix = new Map(L.hair.map((c, i) => [c, i])), yLim = Math.round(M.hy - (dir === 'up' ? 1 : 5)), hx = Math.round(M.hx);
+  for (let y = 0; y <= yLim; y++) for (let x = 0; x < p.w; x++) { if (dir === 'up' && x < hx) continue; const i = ix.get(p.get(x, y)); if (i === undefined) continue; if (dir !== 'up' && y > yLim - 2 && (x + y) % 2) continue; p.set(x, y, L.hair2[i]); } } catch (e) { } return r; }; }

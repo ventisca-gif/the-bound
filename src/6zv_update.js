@@ -7,13 +7,14 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '4.94', GAME_BUILD = 115;
+const GAME_VER = '4.95', GAME_BUILD = 116;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
 const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/[
+  {"b": 116, "v": "4.95", "d": "2026-11-17", "es": ["💇 Puntas bicolor: de perfil y de espaldas ahora también se ve el segundo color arriba, como de frente."], "en": ["💇 Two-tone spikes: from the side and from behind the second colour now shows on top too, like from the front."]},
   {"b": 115, "v": "4.94", "d": "2026-11-17", "es": ["💇 Arreglados los 13 peinados nuevos: de perfil y de espaldas ahora tienen su propia forma (capas, largo, coleta, trenzas, coletas o moño) igual que de frente, en todas las estructuras de chica y chico.", "💇 Seis de ellos (Puntas bicolor, Coleta alta rizada, Ondas largas abiertas, Moño lateral y los dos bobs) se cortaban por arriba: ahora caben enteros."], "en": ["💇 Fixed the 13 new hairstyles: from the side and from behind they now have their own shape (layers, length, ponytail, braids, twintails or bun) matching the front, on every female and male body structure.", "💇 Six of them (Two-tone spikes, High curly ponytail, Long open waves, Side bun and both bobs) were cut off at the top: now they fit whole."]},
   {"b": 114, "v": "4.93", "d": "2026-11-16", "es": ["Miku y Teto pueden ser tu pareja, acompañarte y cambiarse de atuendo. Se añadieron 13 peinados recoloreables."], "en": ["Miku and Teto can become your partner, walk with you, and change outfits. Added 13 recolorable hairstyles."]},
   {"b": 113, "v": "4.92", "d": "2026-11-16", "es": ["Neru pasea por Akihabara y regala su traje. Miku y Teto estrenan trajes de concierto, pasos y retratos. Nuevo peinado recoloreable."], "en": ["Neru walks around Akihabara and gifts her outfit. Miku and Teto have new concert outfits, moves and portraits. New recolorable hairstyle."]},

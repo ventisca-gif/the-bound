@@ -1,20 +1,18 @@
 {
- "build": 115,
- "ver": "4.94",
+ "build": 116,
+ "ver": "4.95",
  "date": "2026-11-17",
  "file": "thebound.html",
- "size": 16618771,
- "sha256": "755f26542c3825ca11fca3929fd0d689054368b43d85c0f2393088c8f4b758a4",
+ "size": 16619853,
+ "sha256": "1a52ce8950fd4ca430194c47027fa3bec69c83e865e35aa58a5057afe6555a00",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "💇 Arreglados los 13 peinados nuevos: de perfil y de espaldas ahora tienen su propia forma (capas, largo, coleta, trenzas, coletas o moño) igual que de frente, en todas las estructuras de chica y chico.",
-   "💇 Seis de ellos (Puntas bicolor, Coleta alta rizada, Ondas largas abiertas, Moño lateral y los dos bobs) se cortaban por arriba: ahora caben enteros."
+   "💇 Puntas bicolor: de perfil y de espaldas ahora también se ve el segundo color arriba, como de frente."
   ],
   "en": [
-   "💇 Fixed the 13 new hairstyles: from the side and from behind they now have their own shape (layers, length, ponytail, braids, twintails or bun) matching the front, on every female and male body structure.",
-   "💇 Six of them (Two-tone spikes, High curly ponytail, Long open waves, Side bun and both bobs) were cut off at the top: now they fit whole."
+   "💇 Two-tone spikes: from the side and from behind the second colour now shows on top too, like from the front."
   ]
  }
 }
