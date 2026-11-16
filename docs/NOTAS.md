@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.79 (build 100)**, publicada en `main` el 2026-11-16. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.80 (build 101)**, publicada en `main` el 2026-11-16. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -94,6 +94,7 @@ Versión actual: **4.79 (build 100)**, publicada en `main` el 2026-11-16. La ski
 
 - **4.75** `tools/dev/diosa.py` (hoja `lienzo_ref/diosa_hoja.png`, usa cut/shrink de lienzo.py) → `6zz9s_diosa_data.js`; `6zz9t_diosa.js`: Lienya. `P.lny` {st 0 vigila, 1 espera tras `tsp5`, 2 vencida}, `LNY_W` aparición lejana (`noTalk`), forma de persona `lnyLook` (heroLook + `lny_pluma`), jefe `lienya` 410 (`art ['lny']`, `BMECH.lienya`, zonas `LHZ`, efectos `LFX` de 5 ataques, `BOSS_TUNE` 2,36 = 12 min solo), oficio `artista` (caballetes `sp_caballete`, `tspAddPaint`), romance `ROM.lienya`, capítulo `CH_LIENYA`. Prueba `tests/v475.txt`. **4.76**: su forma de persona es su dibujo reducido a 58 px (`LNY_PSHEET`, `lnyAtlas`), **4.77**: corregido: el sprite de héroe es su forma tras vencerla (`P.lny.st >= 2` → `lnyAtlasP`) con pelo propio `fitKind head 'lny_pelo'` (lila `LNY_HL`, rizado); antes de vencerla, su dibujo reducido. **4.78**: tras vencerla usa su dibujo de persona extraído (`tools/dev/lienya_p.py`, `lienzo_ref/lienya_persona.png` → `6zz9s2_lienya_p_data.js`, `lnyAtlasP`); la espalda se genera.
 - **4.79** `6zz9u_pelo_anime.js`: 10 peinados anime (chica `diosa`, `seda`, `taladro`, `nube`, `cola`; chico `puntas`, `revuelto`, `salvaje`, `principe`, `lobo`) con la marca `ah` en `HS_F`/`HS_M`. Envoltura de `drawHero`: pinta la cabeza calva y luego `ahDraw` dibuja dos capas medidas con `p.meta` (capa B solo en huecos vacíos = detrás del cuerpo; capa F encima con la cara protegida). Pincel: `ahLock` (mechón que se afina, cada uno con su número; donde uno pisa a otro sale línea oscura), `ahCap` (casquete con aro de brillo), `ahCurlEnd`/`ahHook` (rizos en espiral) y limpieza de píxeles sueltos. Piezas en `ahCtx`: `cap`, `fringe`, `sidelocks`, `mane`, `tufts`, `ahoge`, `spikes`, `nape`. Con casco/sombrero/capucha (`L.head`) usa los parámetros clásicos de la entrada. Arreglado `isPezStyle` (ahora por `pz`, antes por posición: ocultaba los emo y cualquier peinado nuevo fuera de la clase pez).
+- **4.80** `6zz9v_v480.js`: 19 peinados anime de chica y 1 de chico sacados de las láminas de Sergio (marca `ah`). Piezas nuevas en `ahMore(c)` (envuelve `ahCtx`): `hang`, `tie`, `braid`, `bun`, `blunt`, `eyelock`, `bob`, `curlRing`; `ahPair` para piezas dobles. Nueva capa `c.E` en `ahDraw` (encima de la cara, sin máscara: mechón que tapa un ojo y punta central del flequillo). Clima: envoltura de `weatherTick` recorta cada nevada a 30-75 s (`SNOW_MAX`); en la nieve de fin de año (`xmasSnow`) `curWx` solo devuelve nieve 1 minuto de cada 3 (el suelo sigue blanco).
 
 ## Pendiente o ideas que dejó abiertas
 

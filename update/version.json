@@ -1,20 +1,20 @@
 {
- "build": 100,
- "ver": "4.79",
+ "build": 101,
+ "ver": "4.80",
  "date": "2026-11-16",
  "file": "thebound.html",
- "size": 13158571,
- "sha256": "d243202768fc3cfcef88c87908efb0838e2068a83f6e69836bc49c5aee6c5579",
+ "size": 13174918,
+ "sha256": "3d4fb0563f36eca94a230c8c194069d15c46e4be3036eaa08c226af92c8a7be3",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "💇 10 peinados anime nuevos al estilo del pelo de Lienya, por mechones con rizos en espiral, flequillo en punta y brillo. Chica: Rizos de diosa, Seda anime, Coletas taladro, Nube rizada y Cola rizada. Chico: Puntas de héroe, Rizos revueltos, Melena salvaje, Flequillo de príncipe y Lobo rebelde. Se ven en las 8 estructuras de cuerpo, con cualquier color y mechas.",
-   "Los peinados emo vuelven a salir en la creación y la peluquería (estaban ocultos por error)."
+   "💇 20 peinados anime nuevos sacados de tus láminas. Chica: Lisa con raya, Coleta anime, Lisa tapando un ojo, Rizos con flequillo, Ondas de lado, Dos trenzas, Coletitas bajas, Moño despeinado, Media coleta, Bob en capas, Bob con flequillo recto, Corto rizado, Corto liso, Cuadrado largo delante, Lisa larga con flequillo, Cebollas, Cuadrado ondulado, Coletas largas y Ondas largas anime. Chico: Despeinado anime.",
+   "❄ Las nevadas duran mucho menos (de 30 a 75 segundos) y en la nieve de fin de año solo nieva 1 minuto de cada 3, así el frío sube menos."
   ],
   "en": [
-   "💇 10 new anime hairstyles in the style of Lienya's hair, drawn lock by lock with spiral curls, pointed fringes and shine. Female: Goddess curls, Anime silk, Drill twintails, Curly cloud and Curly ponytail. Male: Hero spikes, Tousled curls, Wild mane, Prince fringe and Rebel wolf. They fit all 8 body types, with any colour and highlights.",
-   "Emo hairstyles show up again in character creation and at the hairdresser (they were hidden by mistake)."
+   "💇 20 new anime hairstyles taken from your sheets. Female: Straight side part, Anime ponytail, Straight over one eye, Curls with bangs, Side waves, Two braids, Low pigtails, Messy bun, Half-up, Layered bob, Blunt bob, Short curly, Short straight, Angled bob, Long straight with bangs, Space buns, Wavy bob, Long twintails and Long anime waves. Male: Messy anime.",
+   "❄ Snowfalls are much shorter (30 to 75 seconds) and during the end-of-year snow it only snows 1 minute out of 3, so you get less cold."
   ]
  }
 }
