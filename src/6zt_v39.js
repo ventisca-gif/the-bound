@@ -111,7 +111,7 @@ const MAPW_LIST = [
   { id: 'cielo', n: L2('Islas del Cielo · Celestia', 'Sky Isles · Celestia'), mk: () => makeSky(), how: L2('Aeronave: habla con la ingeniera de Puerto Coral (nivel 200).', 'Airship: talk to the engineer in Puerto Coral (level 200).') },
   { id: 'espiritual', n: L2('El Velo (Mundo Espiritual)', 'The Veil (Spirit World)'), mk: () => makeSpirit(), how: L2('Altar del Velo al oeste de Albor, o al caer en combate.', 'Veil Altar west of Albor, or when you fall in battle.') },
 ];
-let MAPW = 0, MAPF = null; const MAP_OV = {};
+let MAPW = 0, MAPF = null; const MAP_OV = {}, MAPZO = {}, MAPZ_STEPS = [1, 1.5, 2, 3, 4];
 function mapOverview(M) {
   if (MAP_OV[M.id] && MAP_OV[M.id].w === M.w) return MAP_OV[M.id].c;
   const c = mkCanvas(M.w, M.h), x = c.getContext('2d'), id = x.createImageData(M.w, M.h), d = new Uint32Array(id.data.buffer), uw = M.sub || M.id === 'nerea';
@@ -155,15 +155,18 @@ function mapWire(B, pois, sc, cvs, fallback) {
     mapWire(B, pois, sc, cvs, fb); return;
   }
   let M = G.maps[Wd.id]; try { if (!M && Wd.mk) M = Wd.mk(); } catch (e) { M = null; }
-  B.innerHTML = `<div class="frame mapwrap"><div class="mapmain">${mapArrowsHTML()}<canvas id="wm"></canvas><div class="maplegend"><span><i style="background:#ffffff"></i>${L2('Tú', 'You')}</span>${G.remote.size ? `<span><i style="background:#5ae0ff"></i>${L2('Jugadores', 'Players')}</span>` : ''}</div></div><div class="mapregs"><h3>${esc(Wd.n)}</h3><p class="hint">${L2('Cómo llegar: ', 'How to get there: ')}${esc(Wd.how)}</p><div class="mchips" id="mwChips"></div><div id="mwList"></div></div></div>`;
+  B.innerHTML = `<div class="frame mapwrap"><div class="mapmain">${mapArrowsHTML()}<div id="wmScroll" style="overflow:auto;max-width:100%;touch-action:pan-x pan-y;position:relative"><canvas id="wm"></canvas></div><div class="mwz"><button class="marr" id="wmZin">+</button><button class="marr" id="wmZout">−</button></div><div class="maplegend"><span><i style="background:#ffffff"></i>${L2('Tú', 'You')}</span>${G.remote.size ? `<span><i style="background:#5ae0ff"></i>${L2('Jugadores', 'Players')}</span>` : ''}</div></div><div class="mapregs"><h3>${esc(Wd.n)}</h3><p class="hint">${L2('Cómo llegar: ', 'How to get there: ')}${esc(Wd.how)}</p><div class="mchips" id="mwChips"></div><div id="mwList"></div></div></div>`;
   const cvs = $('#wm'); if (!M || !cvs) { mapWire(B, [], 1, null); return; }
-  const wrap = cvs.parentElement, rw = wrap.clientWidth - 8, rh = Math.max(200, wrap.clientHeight - 70), sc = Math.max(1, Math.min(rw / M.w, rh / M.h));
+  const wrap = cvs.parentElement.parentElement, rw = wrap.clientWidth - 8, rh = Math.max(200, wrap.clientHeight - 110), sc = Math.max(1, Math.min(rw / M.w, rh / M.h)) * (MAPZO[M.id] || 1); const scr = $('#wmScroll'); scr.style.maxHeight = rh + 'px';
   cvs.width = Math.floor(M.w * sc); cvs.height = Math.floor(M.h * sc); cvs.style.width = cvs.width + 'px'; cvs.style.height = cvs.height + 'px';
   const x = cvs.getContext('2d'); x.imageSmoothingEnabled = false; x.drawImage(mapOverview(M), 0, 0, cvs.width, cvs.height); x.font = `bold ${Math.round(9 + sc)}px 'Pixelify Sans', monospace`; x.textAlign = 'center';
   if (M.id === 'cielo' && typeof SKY_ISLES !== 'undefined') for (const I of SKY_ISLES) { x.lineWidth = 3; x.strokeStyle = 'rgba(10,6,4,0.9)'; x.strokeText(I.n, I.c[0] * sc, (I.c[1] - I.r * 0.6) * sc); x.fillStyle = '#fff4c0'; x.fillText(I.n, I.c[0] * sc, (I.c[1] - I.r * 0.6) * sc); }
   const pois = otherPOI(M); drawPOIs(x, sc, pois);
   for (const r of G.remote.values()) if (r.map === M.id) { x.fillStyle = '#5ae0ff'; x.beginPath(); x.arc(r.x / 16 * sc, r.y / 16 * sc, 4, 0, 7); x.fill(); }
   const P = G.P; if (P.map === M.id) { x.fillStyle = '#ffffff'; x.strokeStyle = '#1a1010'; x.lineWidth = 2; x.beginPath(); x.arc(P.x / 16 * sc, P.y / 16 * sc, 5, 0, 7); x.stroke(); x.fill(); }
+  { const z = MAPZ_STEPS, cur = MAPZO[M.id] || 1, set = v => { MAPZO[M.id] = v; renderPanel(); }; $('#wmZin').onclick = () => set(z[Math.min(z.length - 1, z.indexOf(cur) + 1)] || cur); $('#wmZout').onclick = () => set(z[Math.max(0, z.indexOf(cur) - 1)] || 1);
+    if (P.map === M.id) { scr.scrollLeft = P.x / 16 * sc - scr.clientWidth / 2; scr.scrollTop = P.y / 16 * sc - scr.clientHeight / 2; }
+    let drag = null; scr.onpointerdown = e => { if (e.pointerType !== 'mouse') return; drag = [e.clientX, e.clientY, scr.scrollLeft, scr.scrollTop, false]; }; scr.onpointermove = e => { if (!drag) return; const dx = e.clientX - drag[0], dy = e.clientY - drag[1]; if (Math.abs(dx) + Math.abs(dy) > 4) drag[4] = true; scr.scrollLeft = drag[2] - dx; scr.scrollTop = drag[3] - dy; }; scr.onpointerup = scr.onpointerleave = () => { setTimeout(() => { drag = null; }, 0); }; }
   $('#mwChips').innerHTML = legendHTML(pois);
   $('#mwList').innerHTML = pois.filter(q => !MAPF || q.c === MAPF).map(q => `<div class="mreg">${iconHTML(ICON.list[mapIconIdx(MAPC[q.c][3])] || ['bag'], 16)} <b>${esc(q.t)}</b></div>`).join('') || `<p class="hint">${L2('Nada que marcar aquí.', 'Nothing to mark here.')}</p>`;
   mapWire(B, pois, sc, cvs);
@@ -172,4 +175,4 @@ function mapWire(B, pois, sc, cvs, fallback) {
 { const _op = openPanel; openPanel = function (tab) { if (tab === 'map' && G.P) { const k = MAPW_LIST.findIndex(w => w.id === G.P.map); MAPW = k >= 0 ? k : 0; MAPF = null; } return _op.apply(this, arguments); }; }
 { const st = document.createElement('style'); st.textContent = `.mworld{display:flex;align-items:center;gap:6px;margin-bottom:4px}.mworld .mwt{flex:1;text-align:center;display:flex;flex-direction:column;line-height:1.1}.mworld .mwt small{opacity:.7;font-size:11px}
 .marr{min-width:40px;height:34px;border-radius:8px;border:2px solid #c8a060;background:#2a1e14;color:#ffe8a0;font-size:16px;font-family:inherit}.marr:active{transform:scale(.94)}
-.mchips{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}.mchip{display:flex;align-items:center;gap:4px;padding:2px 6px 2px 3px;border-radius:12px;border:1.5px solid #6a5a4a;background:rgba(20,14,10,.75);color:#f0e4c8;font:inherit;font-size:11px}.mchip.on{background:#5a4020;color:#fff}`; document.head.appendChild(st); }
+.mwz{display:flex;gap:4px;justify-content:flex-end;margin-top:2px}.mchips{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}.mchip{display:flex;align-items:center;gap:4px;padding:2px 6px 2px 3px;border-radius:12px;border:1.5px solid #6a5a4a;background:rgba(20,14,10,.75);color:#f0e4c8;font:inherit;font-size:11px}.mchip.on{background:#5a4020;color:#fff}`; document.head.appendChild(st); }

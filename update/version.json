@@ -1,18 +1,24 @@
 {
- "build": 116,
- "ver": "4.95",
+ "build": 117,
+ "ver": "4.96",
  "date": "2026-11-17",
  "file": "thebound.html",
- "size": 16619853,
- "sha256": "1a52ce8950fd4ca430194c47027fa3bec69c83e865e35aa58a5057afe6555a00",
+ "size": 16661523,
+ "sha256": "256e3521777f6167b3d2f0ac11398237cc63aa0a6fbbe685323b1634ca6243b5",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "💇 Puntas bicolor: de perfil y de espaldas ahora también se ve el segundo color arriba, como de frente."
+   "🏯 Japón crece hacia el este, al otro lado del río: Takayama, un pueblo de la era Edo (casas de madera con celosías, acequias, linternas, hortensias, sakagura con bola de cedro, mercado de la mañana y puente rojo), e Higashiyama, el Kioto antiguo (una cuesta con terrazas, muros de piedra y escaleras que sube hasta la pagoda, cerezos llorones, sombrillas rojas y casas de té).",
+   "👘 54 vecinos nuevos, la mayoría paseando en kimono, y cerezos a los lados de la calle Nakamise de Asakusa.",
+   "🛺 Trabajos nuevos (dan oro y objetos, no poder): Conductor de rickshaw (lleva turistas siguiendo la flecha; propina si llegas rápido), Maestro sakero (remueve el arroz en la sakagura), Maestro del té (bate el matcha al ritmo) y Ceramista (centra el barro en el torno). Mercado de la mañana con manzanas, miso y muñecos sarubobo.",
+   "🗺 El mapa de Japón (y de los otros mundos) se puede ampliar con + y − y mover con el dedo."
   ],
   "en": [
-   "💇 Two-tone spikes: from the side and from behind the second colour now shows on top too, like from the front."
+   "🏯 Japan grows east, across the river: Takayama, an Edo-era town (wooden lattice houses, gutters, lanterns, hydrangeas, cedar-ball sake breweries, a morning market and a red bridge), and Higashiyama, old Kyoto (a slope with terraces, stone walls and stairs climbing to the pagoda, weeping cherries, red parasols and teahouses).",
+   "👘 54 new locals, most of them strolling in kimono, and cherry trees along Asakusa's Nakamise street.",
+   "🛺 New jobs (gold and items, no power): Rickshaw puller (carry tourists following the arrow; tip if you're quick), Sake brewer (stir the rice at the sakagura), Tea master (whisk matcha to the beat) and Potter (centre the clay on the wheel). Morning market with apples, miso and sarubobo dolls.",
+   "🗺 Japan's map (and the other worlds') can be zoomed with + and − and moved with your finger."
   ]
  }
 }
