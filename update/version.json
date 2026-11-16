@@ -1,34 +1,22 @@
 {
- "build": 104,
- "ver": "4.83",
+ "build": 105,
+ "ver": "4.84",
  "date": "2026-11-16",
  "file": "thebound.html",
- "size": 13507226,
- "sha256": "76e8640f44bcc93920d365a614ac38f4352415eeddd7af417d1862d4bdfa940e",
+ "size": 13532792,
+ "sha256": "46cad0dfb0df5e82c176b6dc4a4f3a7850a33ba876208eda1828f432b34754a0",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🗾 Japón crece hacia el sur: Osaka, Okinawa y Nagasaki nuevas, y el túnel de toriis de Fushimi Inari en Kioto.",
-   "🎤 Idols STELLA☆LINK (Hikari, Sora, Mei, Rin y Yuzu) con su sala de conciertos en Akihabara: concierto cada 2 minutos y medio con escenario, luces, pantalla LED y fans con barras de luz. Anima con wotagei (minijuego de ritmo) y gana oro y +5 % de ataque y velocidad.",
-   "🌟 Hazte idol: pasa la audición de la productora Akane, da conciertos para ganar fans y oro y sube de rango (Aprendiz → Debut → Idol en ascenso → Idol popular → Top idol → Leyenda de Hoshizora). Títulos nuevos: Idol en Debut, Top Idol y Leyenda de Hoshizora.",
-   "🛍 Tienda de recuerdos: cromos de las 5 idols (colección completa = título «Fan número uno»), barra de luz (+10 % en el wotagei), trajes de idol de cada color y botas de plataforma.",
-   "🐙 Osaka · Dōtonbori: canal con barcos, puente, carteles gigantes con pulpo, cangrejo y dragón, pantallas, reflejos de neón por la noche, paseo en barco (2.000 oro, +8 % de velocidad) y puestos de takoyaki, okonomiyaki y kushikatsu.",
-   "🦈 Okinawa: playa con palmeras, sombrillas, hibiscos y shisas, y el Acuario Churaumi con su tanque gigante, tiburón ballena y mantas (+6 % de ataque y velocidad al contemplarlo). Peluche de tiburón ballena.",
-   "🏘 Cuesta de Nagasaki: terrazas con casitas, muros de piedra, escaleras, postes con cables, señales y espejos, hortensias, mirador y puerto con barcos.",
-   "⛩ Fushimi Inari: túnel de toriis uno tras otro, zorros de piedra, tablillas ema y omikuji diaria (hasta +10 % de ataque y velocidad).",
-   "📮 Rally de 10 sellos por todo Japón (salen en el mapa). Completo: 50.000 de oro, 5 bentōs y el título «Viajero de Japón». 28 vecinos nuevos que hablan en su dialecto."
+   "👗 8 trajes de idol nuevos, sacados de tus referencias, que se adaptan a todas las estructuras de cuerpo (chica y chico) y a las 4 direcciones: Uniforme Escolar de Idol, Vestido Blanco de Escenario, Chaqueta Peluda de Pop, Traje de Diva Virtual (en violeta), Top de Estrella Plateada (con horquillas de estrella), Conjunto Rosa Peluche (con calentadores), Armadura de Idol Robot y Vestido Maid de Estrellas.",
+   "🛍 Los vende la estilista Mio en la sala STELLA☆LINK de Akihabara (junto a la salida). Cada traje trae parte de arriba, falda y botas, y va directo al armario.",
+   "🔎 Lupa › Sistemas: Japón explicado por partes (idols y carrera de idol, Osaka/Okinawa/Nagasaki/Fushimi Inari, rally de sellos, ropa de idol) y una lista con las ideas para las próximas versiones (onsen, café de gatos, tienda de kimonos, historia y romance de las idols)."
   ],
   "en": [
-   "🗾 Japan grows south: new Osaka, Okinawa and Nagasaki, and the Fushimi Inari torii tunnel in Kyoto.",
-   "🎤 STELLA☆LINK idols (Hikari, Sora, Mei, Rin and Yuzu) with their concert hall in Akihabara: a concert every two and a half minutes with stage, lights, LED screen and fans with penlights. Cheer with wotagei (rhythm minigame) for gold and +5% attack and speed.",
-   "🌟 Become an idol: pass producer Akane's audition, give concerts to win fans and gold and rank up (Trainee → Debut → Rising idol → Popular idol → Top idol → Hoshizora legend). New titles: Debut Idol, Top Idol and Hoshizora Legend.",
-   "🛍 Merch stand: photo cards of the 5 idols (full collection = title «Number one fan»), penlight (+10% wotagei score), idol outfits in each colour and platform boots.",
-   "🐙 Osaka · Dotonbori: canal with boats, bridge, giant octopus, crab and dragon signs, screens, neon reflections at night, boat ride (2,000 gold, +8% speed) and takoyaki, okonomiyaki and kushikatsu stalls.",
-   "🦈 Okinawa: beach with palm trees, umbrellas, hibiscus and shisa, and the Churaumi Aquarium with its giant tank, whale shark and mantas (+6% attack and speed when you gaze at it). Whale shark plushie.",
-   "🏘 Nagasaki Slopes: terraces with little houses, stone walls, stairs, poles with wires, signs and mirrors, hydrangeas, a viewpoint and a harbour with boats.",
-   "⛩ Fushimi Inari: a tunnel of torii one after another, stone foxes, ema boards and a daily omikuji (up to +10% attack and speed).",
-   "📮 A rally of 10 stamps across Japan (shown on the map). Complete: 50,000 gold, 5 bentos and the title «Japan Traveller». 28 new locals who speak their dialect."
+   "👗 8 new idol outfits, made from your references, that fit every body structure (female and male) and all 4 directions: Idol School Uniform, White Stage Dress, Fluffy Pop Jacket, Virtual Diva Outfit (in violet), Silver Star Top (with star hair clips), Pink Fluffy Set (with leg warmers), Robot Idol Armour and Starry Maid Dress.",
+   "🛍 Stylist Mio sells them in the STELLA☆LINK hall in Akihabara (by the exit). Each outfit has a top, skirt and boots, and goes straight to your wardrobe.",
+   "🔎 Magnifier › Systems: Japan explained in parts (idols and idol career, Osaka/Okinawa/Nagasaki/Fushimi Inari, stamp rally, idol clothes) and a list of ideas for the next versions (onsen, cat café, kimono shop, idol story and romance)."
   ]
  }
 }
