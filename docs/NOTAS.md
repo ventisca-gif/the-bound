@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.87 (build 108)**, publicada en `main` el 2026-11-16. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.94 (build 115)**, publicada en `main` el 2026-11-16. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -108,6 +108,8 @@ Versión actual: **4.87 (build 108)**, publicada en `main` el 2026-11-16. La ski
 - **4.86** `6zz9ze_japon5.js` + `6zz9zd_ruri_data.js` (de `tools/dev/ruri.py`, dibujo en `tools/art/ref/prism_novena.png`: 2 filas × 4 vistas, celda 11,7 px; atlas de 10 columnas: reposo 2, caminata 4, beso 2 con ojo cerrado y rubor, abrazo 2; `idx` con Proxy para que cualquier otra animación caiga en reposo). Ruri `idol_ruri` (Shibuya, `ROM`), PRISM8 pasa a PRISM9 y el escenario baila 9 (`jpLiveGroup` envuelto: `r.n`, `r.at`). Peinado `AH.melena_ruri`, color `HAIRS.turquesa_v` («Turquesa vivo», al final de `HAIR_ORDER`). Tienda de cómics `jpb_comics_6_0` (SPEC `0,1` de Akihabara, interior `makeComicsIn`), mangas `jp_manga_<k>` (`COMICS`, se leen con `comicRead` desde `useItem` sin gastarse; caras en `comicFace`), charla `COMIC_TALK`. `MAPW_LIST` incluye `sin_pintar`. Sergio mandó un zip «4.86 Miku» que añadía a Hatsune Miku como NPC con su nombre y sprite: no se publicó (Claude no añade personajes registrados de otras empresas con su nombre y su aspecto). Prueba `tests/v486.txt`.
 
 - **4.87** `6zz9zf_pelo_puntas.js`: peinado `AH.melena_puntas` («Melena de puntas») en `HS_F` y `HS_M`: mechones largos con `ahLock` que acaban en pico (más mechones en la vista de espaldas para tapar huecos), puntas en la coronilla con `c.spikes`, flequillo `point`. Diseño propio (Sergio pidió una melena larga de puntas; no es copia de ningún personaje).
+
+- **4.94** `6zz9zp_peinados_fix.js`: los 13 peinados de `6zz9zo_peinados_ref.js` (`HS.refHair`) usan de perfil y de espaldas un peinado anime equivalente (`REF_AH[refHair]`, se pone `HS.ah` solo durante ese `drawHero`) y de frente el dibujo de referencia se encoge por arriba si no cabe (envoltura de `drawReferenceFringe` con un búfer 40 px más alto; deja 2 filas libres para el contorno). No se borró nada.
 
 ## Pendiente o ideas que dejó abiertas
 
