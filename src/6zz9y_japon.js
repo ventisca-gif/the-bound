@@ -290,19 +290,19 @@ function makeJapan() { if (G.maps.japon) return G.maps.japon; const w = JP_W, h 
   M.exit = { x: -9, y: -9 }; prepPalettes(M); initMapObjs(M);
   const R = new RNG(SEED + 8101), occ = (x, y) => !inb(x, y) || M.objAt[I(x, y)] >= 0 || SOLID_T[M.ter[I(x, y)]];
   const F = (f, x, y, fp, o) => addObj(M, 'furn', x, y, Object.assign({ f, fp: fp || [[0, 0]] }, o || {}));
-  const Fs = (f, x, y, o) => { if (occ(x, y)) return null; return F(f, x, y, null, o); };
+  const Fs = (f, x, y, o) => { if (occ(x, y) || jpReserved(x, y)) return null; return F(f, x, y, null, o); };
   const doors = new Set(), bld = (kind, x, by, wd, v, extra) => { const H = JP_H_OF[kind] ? JP_H_OF[kind](v) : 96; return F('jpb_' + kind + '_' + wd + '_' + v, x, by, jpFp(wd, 9), Object.assign({ px: x * 16 + wd * 8, py: (by + 1) * 16 - 1, jpb: 1, jl: jpBldLights(kind, wd) }, extra || {})); };
   const door = (ik, x, y) => { doors.add(I(x, y)); F('jp_vacio', x, y, null, { solid: false, xact: 'jp_in', ik }); };
   // manzanas de la ciudad
   const ZK = { aki: ['slim', 'slim', 'aki', 'slim', 'slim', 'shop', 'slim', 'aki', 'neon', 'slim'], tokio: ['office', 'tower', 'apt', 'office', 'hotel', 'slim', 'tower', 'office', 'slim', 'shop'], shinjuku: ['slim', 'neon', 'slim', 'slim', 'hotel', 'slim', 'neon', 'slim', 'shop'] };
-  const SPEC = { '1,2': [['live', 10]], '1,1': [['arcade', 6]], '3,0': [['konbini', 5]], '0,3': [['konbini', 5]], '6,4': [['konbini', 5]], '2,5': [['konbini', 5]], '5,2': [['konbini', 5]], '7,3': [['ramen', 4], ['konbini', 5]] };
+  const SPEC = { '2,1': [['nekocafe', 6]], '1,2': [['live', 10]], '1,1': [['arcade', 6]], '3,0': [['konbini', 5]], '0,3': [['konbini', 5]], '6,4': [['konbini', 5]], '2,5': [['konbini', 5]], '5,2': [['konbini', 5]], '7,3': [['ramen', 4], ['konbini', 5]] };
   for (let i = 0; i < JP_VR.length; i++) for (let j = 0; j < JP_HR.length - 1; j++) { const bx0 = JP_VR[i] + 6, bx1 = i + 1 < JP_VR.length ? JP_VR[i + 1] - 1 : w - 6, by0 = JP_HR[j] + 6, by1 = JP_HR[j + 1] - 1;
     const z = jpZoneAt(((bx0 + bx1) >> 1) * 16, ((by0 + by1) >> 1) * 16), kinds = ZK[z && z.k] || ZK.tokio;
     if (i === 3 && j === 4) { jpPark(M, F, Fs, R, bx0, bx1, by0, by1); continue; }
     const row = (by, maxH, segs, special) => { let x = segs[0]; const x1 = segs[1]; const sp = (special || []).slice();
       while (x <= x1) { const rem = x1 - x + 1; const s = sp.shift(); let kind, wd; if (s) { kind = s[0]; wd = Math.min(s[1], rem); } else { kind = rem < 3 ? 'slim' : kinds[(R.f() * kinds.length) | 0]; if (kind === 'slim') { const q = R.f(); wd = Math.min(rem, q < 0.28 ? 1 : q < 0.9 ? 2 : 3); } else { wd = Math.min(rem, 3 + ((R.f() * 4) | 0)); } }
         let v = (R.f() * (kind === 'slim' ? 16 : 4)) | 0; if (maxH) { if (kind === 'tower') kind = 'office'; while (v > 0 && JP_H_OF[kind](v) > maxH) v--; if (JP_H_OF[kind](v) > maxH) kind = 'shop'; }
-        bld(kind, x, by, wd, v); if (!maxH && ['arcade', 'konbini', 'ramen', 'karaoke', 'live'].includes(kind)) door(kind, x + (wd >> 1), by + 1); x += wd; } };
+        bld(kind, x, by, wd, v); if (!maxH && ['arcade', 'konbini', 'ramen', 'karaoke', 'live', 'nekocafe'].includes(kind)) door(kind, x + (wd >> 1), by + 1); x += wd; } };
     if (i === 6 && j === 1) { // callejón de Kabukichō con su arco
       const ax = 276; RG(ax, by0, ax + 1, by1, J.WALK); row(by1, 0, [bx0, ax - 1], [['ramen', 4]]); row(by1, 0, [ax + 2, bx1], [['karaoke', 5]]); row(by0 + 8, 128, [bx0, ax - 1]); row(by0 + 8, 128, [ax + 2, bx1]);
       F('jp_kabuki', ax, by1, [], { px: (ax + 1) * 16, py: (by1 + 1) * 16 + 2, solid: false, jl: [[0, -60, 70, 'rgba(255,60,60,0.6)']] }); for (let y = by0 + 2; y < by1 - 1; y += 4) F('jp_chochin', ax, y, [], { px: (ax + 1) * 16, py: y * 16 + 10, solid: false, jl: [[0, -14, 34, 'rgba(255,90,60,0.5)']] }); continue; }

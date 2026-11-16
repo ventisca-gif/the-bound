@@ -1,0 +1,32 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), G.P.lv=400, calcStats(G.P), G.P.gold=900000, G.time=12*60, 1)
+js (goJapan(), 1)
+wait 2500
+js [G.map.objs.filter(o=>o.xact==='jp_in').map(o=>o.ik).filter(k=>/onsen|neko|kimono|live/.test(k)), G.ents.filter(e=>e.map==='japon'&&e.id.startsWith('idol_')).length, HS_F.some(h=>h.ah==='lobo_capas')]
+js (G.P.x=18*16+8, G.P.y=70*16, 1)
+wait 1500
+shot
+js (()=>{const d=G.map.objs.find(o=>o.xact==='jp_in'&&o.ik==='onsen'); G.P.x=d.px; G.P.y=d.py+6; doInteract(); return 1;})()
+wait 1500
+js (()=>{ G.P.x=15*16+8; G.P.y=11*16+8; const t=interactTarget(); doInteract(t); closeModal(); return [G.map.id, G.P.buffs.some(b=>b.id==='onsen')]; })()
+wait 500
+shot
+js (exitInterior(), 1)
+wait 1500
+js (()=>{const d=G.map.objs.find(o=>o.xact==='jp_in'&&o.ik==='nekocafe'); G.P.x=d.px; G.P.y=d.py+6; doInteract(); return 1;})()
+wait 1500
+js (()=>{ G.P.x=11*16+8; G.P.y=8*16+8; const t=interactTarget(); doInteract(t); closeModal(); return [G.map.id, G.P.buffs.some(b=>b.id==='nekoterapia')]; })()
+wait 800
+shot
+js (exitInterior(), 1)
+wait 1500
+js (()=>{const d=G.map.objs.find(o=>o.xact==='jp_in'&&o.ik==='kimono'); G.P.x=d.px; G.P.y=d.py+6; doInteract(); return 1;})()
+wait 1500
+js (()=>{ const e=G.ents.find(e=>e.id==='jp_kimono_st'&&e.map===G.map.id); G.P.x=e.x; G.P.y=e.y+24; openDialog(e); const bs=[...document.querySelectorAll('#dopts .dopt')].filter(x=>/👘/.test(x.textContent)); bs[0]&&bs[0].click(); closeDialog(); return [G.map.id, bs.length, G.P.wardrobe.filter(c=>/kim_sakura/.test(c)).length]; })()
+shot
+js (exitInterior(), 1)
+wait 1500
+js (()=>{const d=G.map.objs.find(o=>o.xact==='jp_in'&&o.ik==='live'); G.P.x=d.px; G.P.y=d.py+6; doInteract(); return 1;})()
+wait 1500
+js (()=>{ const e=G.ents.find(e=>e.id==='idol_hikari'); if (!e) return 'no'; const was=e.map; e.map=G.map.id; G.P.x=e.x; G.P.y=e.y+20; openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(x=>/Relaci|Relationship/.test(x.textContent)); closeDialog(); return [was, !!b, !!ROM.idol_kira]; })()
+js (window._errs)

@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.84 (build 105)**, publicada en `main` el 2026-11-16. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.85 (build 106)**, publicada en `main` el 2026-11-16. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -103,9 +103,11 @@ Versión actual: **4.84 (build 105)**, publicada en `main` el 2026-11-16. La ski
 
 - **4.84** `6zz9zb_idol_moda.js`: 8 trajes de idol de las referencias de Sergio (`IDOL_SETS`, cosméticos `c_idol_<k>_v/_f/_b/_h`, paletas `IDP`). Tipos `fitKind` con `{ skin: true }`: cuerpos `id_uniforme`, `id_volantes`, `id_peluche`, `id_diva`, `id_estrella`, `id_rosa`, `id_robot`, `id_maid`; piernas `id_plaid`, `id_volantes_f`, `id_diva_f`, `id_mini`, `id_rosa_f`, `id_cuadros`, `id_maid_f` (dobladillo proporcional `idHem`, medias/botas con `idLegsBelow`); cabeza `id_horquillas`. Mangas tras `drawHero` según `spec.sl` ('puff', 'det', 'bare') y `spec.gl` (guantes; nunca la última fila de la mano o el revisor dice «flota» al balancear el brazo), por capas `p.t` = 3 o por colores fuera del torso. La paleta negra de algunos tipos llega como `s.k` (envoltura de su `draw`). Vendedora `jp_moda` en `makeLive`. El Traje de Diva Virtual va en violeta (referencia de una franquicia). `giveItem` de un objeto `t: 'cos'` lo mete directo en `P.wardrobe`. Lupa: `jp_idols`, `jp_sur`, `jp_sellos` (sustituyen a `japon3`), `jp_moda`, `jp_ideas`. fitcheck 0 avisos. Prueba `tests/v484.txt`.
 
+- **4.85** `6zz9zc_japon4.js`: `JP_RESERVE`/`jpReserved` (el `Fs` de `makeJapan` no llena esas zonas de árboles). Edificios con interior `jpb_ryokan_12_0` (onsen, Fuji, puerta `ik: 'onsen'`), `jpb_nekocafe_6_0` (SPEC `2,1` de Akihabara) y `jpb_kimono_8_0` (Asakusa); interiores `makeOnsen`, `makeNekoCafe` (gatos `M.cats` en `V33_TICKS`/`DL_HOOKS`, `nekoSprite`), `makeKimonoIn`. Peinado `AH.lobo_capas` («Lobo en capas»). Romance: NPCs `idol_<k>` para las 5 de STELLA☆LINK (en la sala; se van a `_stage` mientras actúan) y las 8 de PRISM8 (`PRISM`, Shibuya), `ROM`/`ROM_WHERE`, atlas en `npcAtlas` (`IDOL_NPC`). Conciertos alternos: `jpLiveGroup()` (par STELLA, impar PRISM8). Ropa: `idDefineSet(S)` crea cosméticos `c_idol_<k>_*`; tipos nuevos `id_corse`, `id_grafica`, `id_tirantes`, `id_varsity`, `id_peto`, `id_kimono_f`, `id_kanzashi` y flores en `kimono` (fitKind sobre el tipo base). Diva Virtual también en turquesa (`diva_turquesa`) porque Sergio lo pidió. Las idols de PRISM8 son diseños propios inspirados en estilos de ropa de sus fotos, no las personas reales. fitcheck 0 avisos (719 prendas). Prueba `tests/v485.txt`.
+
 ## Pendiente o ideas que dejó abiertas
 
-- Japón (propuesto, está en la lupa › Sistemas › Japón: ideas): onsen, café de gatos, tienda de kimonos, historia propia y romance de las idols STELLA☆LINK.
+- Japón: falta la historia propia de las idols (misiones con cada una).
 
 - El top mundial depende de las reglas de Firebase (`docs/firebase_rules.json`) pegadas en la consola del proyecto `the-bound-3afef`.
 - Los jefes no se reflejan desde el líder (cada uno ve su jefe con sus mecánicas); se comparten el daño (`o.bd`) y las partes vulnerables.
