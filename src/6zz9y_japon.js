@@ -37,8 +37,7 @@ function jpPaint(M, g, cx, cy) { const Q = JP_Q;
       case 9: g.fillStyle = h < 0.5 ? '#34373e' : '#383b42'; g.fillRect(x, y, 16, 16); break;
       case 10: g.fillStyle = h < 0.5 ? '#bba98a' : '#b4a283'; g.fillRect(x, y, 16, 16); g.fillStyle = '#9c8a6c'; for (let k2 = 0; k2 < 3; k2++) g.fillRect(x + ((h * 23 + k2 * 9) | 0) % 14, y + ((h2 * 29 + k2 * 6) | 0) % 14, 2, 1); break;
       case 13: g.fillStyle = h < 0.5 ? '#5e5a6a' : '#666274'; g.fillRect(x, y, 16, 16); break;
-      default: { g.fillStyle = h < 0.33 ? '#58a03a' : h < 0.66 ? '#5ca63e' : '#549a36'; g.fillRect(x, y, 16, 16); g.fillStyle = '#6cba4a'; g.fillRect(x + ((h * 61) | 0) % 14, y + ((h2 * 41) | 0) % 13, 1, 2); g.fillStyle = '#468a2e'; g.fillRect(x + ((h2 * 37) | 0) % 14, y + ((h * 47) | 0) % 13, 1, 2);
-        if (k === 11) { g.fillStyle = '#ffc8d8'; for (let k2 = 0; k2 < 4; k2++) g.fillRect(x + ((h * 13 + k2 * 11) | 0) % 15, y + ((h2 * 19 + k2 * 7) | 0) % 15, 1, 1); g.fillStyle = '#f490b0'; g.fillRect(x + ((h2 * 9) | 0) % 15, y + ((h * 11) | 0) % 15, 1, 1); } }
+      default: jpGrass(g, x, y, tx, ty, k === 11);
     }
     // marcas: 1 línea central (abajo), 2 línea central (derecha), 3 paso de cebra en calle horizontal, 4 en calle vertical, 5/6 bordes de pista, 7 eje de pista, 8 cabecera, 9/10 líneas amarillas de rodaje
     if (m === 1 && tx % 2) { g.fillStyle = '#f0f0f0'; g.fillRect(x + 2, y + 15, 12, 2); }
@@ -271,6 +270,7 @@ function makeJapan() { if (G.maps.japon) return G.maps.japon; const w = JP_W, h 
   for (const x0 of JP_VR) road(x0, 4, x0 + 5, 153, false); road(118, 154, 123, 205, false); road(238, 154, 243, 205, false); road(286, 154, 291, 170, false);
   for (let i = 0; i < N; i++) { if (hc[i] && vc[i]) M.jm[i] = 0; }
   for (let y = 1; y < h - 1; y++) for (let x = 1; x < w - 1; x++) { const i = I(x, y); if (hc[i] && !vc[i] && (vc[i - 1] || vc[i + 1])) M.jm[i] = 3; else if (vc[i] && !hc[i] && (hc[i - w] || hc[i + w])) M.jm[i] = 4; }
+  for (let y = JP_SCR.y0; y <= JP_SCR.y1; y++) for (let x = JP_SCR.x0; x <= JP_SCR.x1; x++) M.jm[I(x, y)] = 11;
   // aeropuerto
   const Q = JP_Q; RG(Q.park.x0, Q.park.y0, Q.park.x1, Q.park.y1, J.WALK); RG(Q.apron.x0, Q.apron.y0, Q.apron.x1, Q.apron.y1, J.RUN); RG(Q.run.x0, Q.run.y0, Q.run.x1, Q.run.y1, J.RUN);
   for (const tx of [Q.taxiE, Q.taxiW]) { RG(tx - 1, Q.apron.y1, tx + 1, Q.run.y0, J.RUN); for (let y = Q.apron.y1 + 1; y < Q.run.y0; y++) M.jm[I(tx, y)] = 10; }
@@ -291,24 +291,29 @@ function makeJapan() { if (G.maps.japon) return G.maps.japon; const w = JP_W, h 
   const R = new RNG(SEED + 8101), occ = (x, y) => !inb(x, y) || M.objAt[I(x, y)] >= 0 || SOLID_T[M.ter[I(x, y)]];
   const F = (f, x, y, fp, o) => addObj(M, 'furn', x, y, Object.assign({ f, fp: fp || [[0, 0]] }, o || {}));
   const Fs = (f, x, y, o) => { if (occ(x, y)) return null; return F(f, x, y, null, o); };
-  const doors = new Set(), bld = (kind, x, by, wd, v, extra) => { const H = JP_H_OF[kind] ? JP_H_OF[kind](v) : 96; return F('jpb_' + kind + '_' + wd + '_' + v, x, by, jpFp(wd, 9), Object.assign({ px: x * 16 + wd * 8, py: (by + 1) * 16 - 1, jl: jpBldLights(kind, wd) }, extra || {})); };
+  const doors = new Set(), bld = (kind, x, by, wd, v, extra) => { const H = JP_H_OF[kind] ? JP_H_OF[kind](v) : 96; return F('jpb_' + kind + '_' + wd + '_' + v, x, by, jpFp(wd, 9), Object.assign({ px: x * 16 + wd * 8, py: (by + 1) * 16 - 1, jpb: 1, jl: jpBldLights(kind, wd) }, extra || {})); };
   const door = (ik, x, y) => { doors.add(I(x, y)); F('jp_vacio', x, y, null, { solid: false, xact: 'jp_in', ik }); };
   // manzanas de la ciudad
-  const ZK = { aki: ['aki', 'aki', 'shop', 'office', 'aki', 'neon', 'aki'], tokio: ['office', 'tower', 'apt', 'office', 'hotel', 'shop', 'tower', 'office'], shinjuku: ['neon', 'neon', 'office', 'hotel', 'neon', 'shop', 'neon'] };
+  const ZK = { aki: ['slim', 'slim', 'aki', 'slim', 'slim', 'shop', 'slim', 'aki', 'neon', 'slim'], tokio: ['office', 'tower', 'apt', 'office', 'hotel', 'slim', 'tower', 'office', 'slim', 'shop'], shinjuku: ['slim', 'neon', 'slim', 'slim', 'hotel', 'slim', 'neon', 'slim', 'shop'] };
   const SPEC = { '1,1': [['arcade', 6]], '3,0': [['konbini', 5]], '0,3': [['konbini', 5]], '6,4': [['konbini', 5]], '2,5': [['konbini', 5]], '5,2': [['konbini', 5]], '7,3': [['ramen', 4], ['konbini', 5]] };
   for (let i = 0; i < JP_VR.length; i++) for (let j = 0; j < JP_HR.length - 1; j++) { const bx0 = JP_VR[i] + 6, bx1 = i + 1 < JP_VR.length ? JP_VR[i + 1] - 1 : w - 6, by0 = JP_HR[j] + 6, by1 = JP_HR[j + 1] - 1;
     const z = jpZoneAt(((bx0 + bx1) >> 1) * 16, ((by0 + by1) >> 1) * 16), kinds = ZK[z && z.k] || ZK.tokio;
     if (i === 3 && j === 4) { jpPark(M, F, Fs, R, bx0, bx1, by0, by1); continue; }
     const row = (by, maxH, segs, special) => { let x = segs[0]; const x1 = segs[1]; const sp = (special || []).slice();
-      while (x <= x1) { const rem = x1 - x + 1; if (rem < 3) break; const s = sp.shift(); let kind, wd; if (s) { kind = s[0]; wd = Math.min(s[1], rem); } else { kind = kinds[(R.f() * kinds.length) | 0]; wd = Math.min(rem, 3 + ((R.f() * 4) | 0)); if (rem - wd > 0 && rem - wd < 3) wd = rem; }
-        let v = (R.f() * 4) | 0; if (maxH) { if (kind === 'tower') kind = 'office'; while (v > 0 && JP_H_OF[kind](v) > maxH) v--; if (JP_H_OF[kind](v) > maxH) kind = 'shop'; }
+      while (x <= x1) { const rem = x1 - x + 1; const s = sp.shift(); let kind, wd; if (s) { kind = s[0]; wd = Math.min(s[1], rem); } else { kind = rem < 3 ? 'slim' : kinds[(R.f() * kinds.length) | 0]; if (kind === 'slim') { const q = R.f(); wd = Math.min(rem, q < 0.28 ? 1 : q < 0.9 ? 2 : 3); } else { wd = Math.min(rem, 3 + ((R.f() * 4) | 0)); } }
+        let v = (R.f() * (kind === 'slim' ? 16 : 4)) | 0; if (maxH) { if (kind === 'tower') kind = 'office'; while (v > 0 && JP_H_OF[kind](v) > maxH) v--; if (JP_H_OF[kind](v) > maxH) kind = 'shop'; }
         bld(kind, x, by, wd, v); if (!maxH && ['arcade', 'konbini', 'ramen', 'karaoke'].includes(kind)) door(kind, x + (wd >> 1), by + 1); x += wd; } };
     if (i === 6 && j === 1) { // callejón de Kabukichō con su arco
       const ax = 276; RG(ax, by0, ax + 1, by1, J.WALK); row(by1, 0, [bx0, ax - 1], [['ramen', 4]]); row(by1, 0, [ax + 2, bx1], [['karaoke', 5]]); row(by0 + 8, 128, [bx0, ax - 1]); row(by0 + 8, 128, [ax + 2, bx1]);
       F('jp_kabuki', ax, by1, [], { px: (ax + 1) * 16, py: (by1 + 1) * 16 + 2, solid: false, jl: [[0, -60, 70, 'rgba(255,60,60,0.6)']] }); for (let y = by0 + 2; y < by1 - 1; y += 4) F('jp_chochin', ax, y, [], { px: (ax + 1) * 16, py: y * 16 + 10, solid: false, jl: [[0, -14, 34, 'rgba(255,90,60,0.5)']] }); continue; }
-    row(by1, 0, [bx0, bx1], SPEC[i + ',' + j]); row(by0 + 8, 128, [bx0, bx1]); }
+    const fr = SPEC[i + ',' + j], scr = { '5,1': 'fe', '5,2': 'be', '6,2': 'bs' }[i + ',' + j], zk = z && z.k;
+    if (scr === 'fe') { row(by1, 0, [bx0, bx1 - 5], fr); bld('screen', bx1 - 4, by1, 5, 0); row(by0 + 8, 128, [bx0, bx1]); continue; }
+    if (scr === 'be') { row(by1, 0, [bx0, bx1], fr); row(by0 + 8, 128, [bx0, bx1 - 5]); bld('screen', bx1 - 4, by0 + 8, 5, 1); continue; }
+    if (scr === 'bs') { row(by1, 0, [bx0, bx1], fr); bld('screen', bx0, by0 + 8, 5, 2); row(by0 + 8, 128, [bx0 + 5, bx1]); continue; }
+    if (!fr && (zk === 'aki' || zk === 'shinjuku') && R.f() < 0.6) { const ax = bx0 + 5 + R.int(0, bx1 - bx0 - 12); jpAlley(M, F, Fs, R, ax, by0, by1, zk); row(by1, 0, [bx0, ax - 1]); row(by1, 0, [ax + 3, bx1]); row(by0 + 8, 128, [bx0, ax - 1]); row(by0 + 8, 128, [ax + 3, bx1]); continue; }
+    row(by1, 0, [bx0, bx1], fr); row(by0 + 8, 128, [bx0, bx1]); }
   // decorado de aceras y semáforos
-  for (const y0 of JP_HR) for (let x = 120; x < w - 6; x++) { const y = y0; if (M.jg[I(x, y)] !== J.WALK || doors.has(I(x, y)) || vc[I(x, y)] || x % 7) continue; if (JP_VR.some(v => x >= v - 1 && x <= v + 6)) continue; const r2 = R.f(); Fs(r2 < 0.35 ? 'ae_farola' : r2 < 0.6 ? 'jp_poste' : r2 < 0.8 ? 'jp_maquina' : 'jp_bici', x, y, { jl: r2 < 0.35 ? [[4, -36, 40, 'rgba(255,240,190,0.5)']] : r2 >= 0.6 && r2 < 0.8 ? [[0, -12, 26, 'rgba(200,230,255,0.5)']] : null }); }
+  for (const y0 of JP_HR) for (let x = 120; x < w - 6; x++) { const y = y0; if (M.jg[I(x, y)] !== J.WALK || doors.has(I(x, y)) || vc[I(x, y)] || x % 7) continue; if (JP_VR.some(v => x >= v - 1 && x <= v + 6)) continue; if (x % 14 === 0) { const o = Fs('jp_poste', x, y); if (o) (M.jpPoles = M.jpPoles || []).push(o); continue; } const r2 = R.f(); Fs(r2 < 0.45 ? 'ae_farola' : r2 < 0.75 ? 'jp_maquina' : 'jp_bici', x, y, { jl: r2 < 0.45 ? [[4, -36, 40, 'rgba(255,240,190,0.5)']] : r2 < 0.75 ? [[0, -12, 26, 'rgba(200,230,255,0.5)']] : null }); }
   for (const x0 of JP_VR) for (const y0 of JP_HR) Fs('jp_semaforo', x0 + 5, y0 + 5, { sem: 1 });
   // Asakusa: Kaminarimon, Nakamise, Hōzōmon, templo, pagoda e incienso
   F('jp_kaminarimon', A.lane, A.y1, [[-4, 0], [-3, 0], [3, 0], [4, 0]], { px: A.lane * 16 + 8, jl: [[0, -40, 60, 'rgba(255,90,60,0.55)']] });
@@ -361,11 +366,11 @@ function jpExtra(M, cx, cy) { if (!M.kinkaku) return; const [kx, ky] = M.kinkaku
   ctx.save(); ctx.beginPath(); ctx.ellipse(38 * 16 + 8 - cx, 186 * 16 + 8 - cy, 18 * 16, 10 * 16, 0, 0, 7); ctx.clip(); ctx.globalAlpha = 0.35 + Math.sin(G.t * 1.5) * 0.04; ctx.translate(Math.round(kx - cx), Math.round(ky - cy)); ctx.scale(1, -0.8); ctx.drawImage(S.c, -S.ax, -S.c.height); ctx.restore(); }
 
 // ---------- coches con carril por la izquierda, semáforos y paradas ante el jugador ----------
-const JP_CARS = [], JP_CCOL = ['#e8ecf2', '#1a1c24', '#c8102e', '#2a5ad8', '#ffd040', '#8a8e98', '#3aa04a', '#e8ecf2', '#1a1c24'];
-const jpLight = () => { const t = G.t % 18; return { h: t < 7.5 ? 'g' : t < 9 ? 'y' : 'r', v: t >= 9 && t < 16.5 ? 'g' : t >= 16.5 ? 'y' : 'r' }; };
+const JP_CARS = [], JP_CCOL = ['#e8ecf2', '#1a1c24', '#c8102e', '#2a5ad8', '#ffd040', '#8a8e98', '#3aa04a', '#e8ecf2', '#1a1c24', '#2a8a5a'];
+const jpLight = () => { const t = G.t % 24; return { h: t < 7 ? 'g' : t < 8.5 ? 'y' : 'r', v: t >= 8.5 && t < 15.5 ? 'g' : t >= 15.5 && t < 17 ? 'y' : 'r', all: t >= 17.5 && t < 23.5 }; };
 function jpCarsInit(M) { JP_CARS.length = 0; const R = new RNG(SEED + 8202);
-  for (let k = 0; k < 40; k++) { const hz = R.f() < 0.55, d = R.f() < 0.5 ? 1 : -1, ri = hz ? R.int(0, JP_HR.length - 1) : R.int(0, JP_VR.length - 1); const span = hz ? [(JP_VR[0] + 3) * 16, (JP_VR[JP_VR.length - 1] + 3) * 16] : [(JP_HR[0] + 3) * 16, (JP_HR[JP_HR.length - 1] + 3) * 16];
-    JP_CARS.push({ hz, d, ri, s: span[0] + R.f() * (span[1] - span[0]), col: R.int(0, JP_CCOL.length - 1), v: 0 }); } }
+  for (let k = 0; k < 56; k++) { const hz = R.f() < 0.55, d = R.f() < 0.5 ? 1 : -1, ri = hz ? R.int(0, JP_HR.length - 1) : R.int(0, JP_VR.length - 1); const span = hz ? [(JP_VR[0] + 3) * 16, (JP_VR[JP_VR.length - 1] + 3) * 16] : [(JP_HR[0] + 3) * 16, (JP_HR[JP_HR.length - 1] + 3) * 16];
+    const tx = R.f() < 0.38; JP_CARS.push({ hz, d, ri, s: span[0] + R.f() * (span[1] - span[0]), col: tx ? (R.f() < 0.5 ? 4 : 9) : R.int(0, 8), taxi: tx, v: 0 }); } }
 const jpCarXY = c => c.hz ? [c.s, (JP_HR[c.ri] + (c.d > 0 ? 2 : 4)) * 16] : [(JP_VR[c.ri] + (c.d > 0 ? 4 : 2)) * 16, c.s];
 function jpCarsTick(dt) { const M = G.map, P = G.P; if (!M || !M.jp || !P) return; const L = jpLight(), V = 70;
   for (const c of JP_CARS) { const [x, y] = jpCarXY(c), cross = c.hz ? JP_VR.map(v => (v + 3) * 16) : JP_HR.map(v => (v + 3) * 16);
@@ -382,7 +387,7 @@ function jpCarsTick(dt) { const M = G.map, P = G.P; if (!M || !M.jp || !P) retur
 V33_TICKS.push(dt => jpCarsTick(Math.min(0.05, dt || 0)));
 DL_HOOKS.push((list, cx, cy) => { const M = G.map; if (!M || !M.jp) return; const night = darkness() > 0.25;
   for (const c of JP_CARS) { const [x, y] = jpCarXY(c); if (x < cx - 40 || x > cx + VW + 40 || y < cy - 40 || y > cy + VH + 40) continue; const dir = c.hz ? (c.d > 0 ? 'right' : 'left') : (c.d > 0 ? 'down' : 'up'), col = JP_CCOL[c.col];
-    list.push({ type: 'xdraw', x, y: y + 6, noShadow: true, draw: (e, a, b) => { const S = spr('jpcar' + c.col + dir, () => ({ c: carSprite(col, dir), ax: c.hz ? 17 : 10, ay: c.hz ? 16 : 24 })); ctx.drawImage(S.c, Math.round(x - S.ax - a), Math.round(y - S.ay - b)); },
+    list.push({ type: 'xdraw', x, y: y + 6, noShadow: true, draw: (e, a, b) => { const S = spr('jpcar' + c.col + dir, () => ({ c: carSprite(col, dir), ax: c.hz ? 17 : 10, ay: c.hz ? 16 : 24 })); ctx.drawImage(S.c, Math.round(x - S.ax - a), Math.round(y - S.ay - b)); if (c.taxi) jpTaxiSign(Math.round(x - a), Math.round(y - S.ay - b), c.hz); },
       light: night ? { x: x + (c.hz ? c.d * 22 : 0), y: y + (c.hz ? -4 : c.d * 20), r: 30, c: 'rgba(255,240,190,0.5)' } : null }); } });
 WORLD_DRAW.push((cx, cy) => { const M = G.map; if (!M || !M.jp) return; const L = jpLight(); for (const o of M.objs) { if (!o.sem || o.px < cx - 20 || o.px > cx + VW + 20 || o.py < cy - 60 || o.py > cy + VH + 20) continue;
     const x = Math.round(o.px - cx), y = Math.round(o.py - cy - 41); ctx.fillStyle = L.h === 'g' ? '#3aff9a' : '#1a3a2a'; ctx.fillRect(x - 6, y, 3, 4); ctx.fillStyle = L.h === 'y' ? '#ffd040' : '#3a3410'; ctx.fillRect(x - 1, y, 3, 4); ctx.fillStyle = L.h === 'r' ? '#ff3a3a' : '#3a1010'; ctx.fillRect(x + 4, y, 3, 4); } });
