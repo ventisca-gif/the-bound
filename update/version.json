@@ -1,18 +1,20 @@
 {
- "build": 99,
- "ver": "4.78",
+ "build": 100,
+ "ver": "4.79",
  "date": "2026-11-16",
  "file": "thebound.html",
- "size": 13136412,
- "sha256": "58e44b5eebeab0360542c95b4876d9681da59cdcd9119e408394896a36a2954d",
+ "size": 13158571,
+ "sha256": "d243202768fc3cfcef88c87908efb0838e2068a83f6e69836bc49c5aee6c5579",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🌸 Lienya, después de vencerla, usa exactamente el dibujo de Sergio: pelo lila enorme y rizado, cara oscura y vestido, de frente, de perfil y de espaldas."
+   "💇 10 peinados anime nuevos al estilo del pelo de Lienya, por mechones con rizos en espiral, flequillo en punta y brillo. Chica: Rizos de diosa, Seda anime, Coletas taladro, Nube rizada y Cola rizada. Chico: Puntas de héroe, Rizos revueltos, Melena salvaje, Flequillo de príncipe y Lobo rebelde. Se ven en las 8 estructuras de cuerpo, con cualquier color y mechas.",
+   "Los peinados emo vuelven a salir en la creación y la peluquería (estaban ocultos por error)."
   ],
   "en": [
-   "🌸 After you defeat her, Lienya uses exactly Sergio's drawing: huge curly lilac hair, dark face and dress, from the front, side and back."
+   "💇 10 new anime hairstyles in the style of Lienya's hair, drawn lock by lock with spiral curls, pointed fringes and shine. Female: Goddess curls, Anime silk, Drill twintails, Curly cloud and Curly ponytail. Male: Hero spikes, Tousled curls, Wild mane, Prince fringe and Rebel wolf. They fit all 8 body types, with any colour and highlights.",
+   "Emo hairstyles show up again in character creation and at the hairdresser (they were hidden by mistake)."
   ]
  }
 }
