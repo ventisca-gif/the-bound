@@ -1,18 +1,18 @@
 {
- "build": 111,
- "ver": "4.90",
+ "build": 112,
+ "ver": "4.91",
  "date": "2026-11-16",
  "file": "thebound.html",
- "size": 15777321,
- "sha256": "78932e42bd03b2352a939e91aad41a2b41c122e59a071cfb1a224c0680c86206",
+ "size": 15779808,
+ "sha256": "6985caeb6c5868893171c55868105f2d5de4b93e5483ed768f1e438e1c01e974",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Diez criaturas renovadas con cuatro direcciones. Los gólems de Piedra y Escarcha tienen sprites más grandes."
+   "Compra el traje de Kasane Teto hablando con ella en STELLA☆LINK. El set se guarda en tu Armario y se adapta a todos los cuerpos."
   ],
   "en": [
-   "Ten redesigned creatures with four directions. The Stone and Frost Golems have larger sprites."
+   "Buy Kasane Teto’s outfit by talking to her at STELLA☆LINK. The set is saved in your Wardrobe and fits every body type."
   ]
  }
 }
