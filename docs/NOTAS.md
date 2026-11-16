@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.83 (build 104)**, publicada en `main` el 2026-11-16. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.84 (build 105)**, publicada en `main` el 2026-11-16. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -101,7 +101,11 @@ Versión actual: **4.83 (build 104)**, publicada en `main` el 2026-11-16. La ski
 
 - **4.83** `6zz9za_japon3.js` (Japón, tercera parte). `JP_H` = 300: la franja sur (y 212-296) la crea `jpSouth(M)` en una envoltura de `makeJapan` (después de la de 4.82; recalcula `M.jpScr` y ordena `M.jpPoles`). Suelos `JP_G.CANAL` 14, `RET` 15 (muro de contención, `T.IWALL`) y `STEP` 16, pintados en otra envoltura de `jpPaint`. Zonas nuevas al principio de `JP_ZONES` (`fushimi`, `nagasaki`, `osaka`, `okinawa`; `z.mn` = nombre corto del mapa). Edificios `jpb_osaka_6_<v>` (pulpo/cangrejo/dragón), `jpb_nhouse_<w>_<v>` (casitas de Nagasaki, fondo 6) y `jpb_live_10_0` (sala de conciertos, manzana `1,2` de Akihabara, puerta `ik: 'live'`). Nagasaki: 6 terrazas cada 12 filas desde y 214, escaleras en `NG_SX`. Osaka: canal y 241-246, puente x 176-181, barcos `OS_BOATS` (reloj `G.t`), reflejos en `WORLD_DRAW`, paseantes en `JP_PED`, XACT `jp_crucero` (minijuego visual con `mgOverlay`), `jp_oko`, `jp_kushi`. Okinawa: `jp_acuario` (puerta `ik: 'acuario'`), interiores con `jpRoom`, `makeLive`, `makeAcuario` (envoltura de `makeJpIn`); cámara 64 px más alta en esos dos (envoltura de `updateCamera`). Fushimi: `jp_torii2` en cada fila 158-203 con `jpb` (se difuminan), `jp_omikuji` (diaria, `P.jp.omi`). Idols: `IDOLS` (5, cosméticos `c_idol_v_<k>`/`c_idol_f_<k>` sobre `gt_romantico`/`gt_tutu` y `c_idol_botas` sobre `gt_plataforma`), `IDOL_APPS`, `idolPortrait`; conciertos por reloj real (`LIVE_CYC` 150 s, `LIVE_ON` 80 s, `liveIdx`); `jpRhythm(o)` minijuego de ritmo genérico; wotagei `jp_wota` (`P.jp.wota`); carrera `P.jp.idol` {fans, cd, n}, rangos `IDOL_RK`; tienda `jp_merch` (cromos `P.jp.cards`); títulos en `TITLES`. Sellos `JP_STAMPS` (10, `P.jp.st`, `P.jp.stDone`). Anuncios de pantalla `JP_ADS` = 7 (idols y corredor). NPCs `jp2_<zona>_<n>` (`JP_NPC2`). Mapa: `MAPC` `jpidol`, `jpstamp`. Guía `GSIS` 'japon3'. Prueba `tests/v483.txt`.
 
+- **4.84** `6zz9zb_idol_moda.js`: 8 trajes de idol de las referencias de Sergio (`IDOL_SETS`, cosméticos `c_idol_<k>_v/_f/_b/_h`, paletas `IDP`). Tipos `fitKind` con `{ skin: true }`: cuerpos `id_uniforme`, `id_volantes`, `id_peluche`, `id_diva`, `id_estrella`, `id_rosa`, `id_robot`, `id_maid`; piernas `id_plaid`, `id_volantes_f`, `id_diva_f`, `id_mini`, `id_rosa_f`, `id_cuadros`, `id_maid_f` (dobladillo proporcional `idHem`, medias/botas con `idLegsBelow`); cabeza `id_horquillas`. Mangas tras `drawHero` según `spec.sl` ('puff', 'det', 'bare') y `spec.gl` (guantes; nunca la última fila de la mano o el revisor dice «flota» al balancear el brazo), por capas `p.t` = 3 o por colores fuera del torso. La paleta negra de algunos tipos llega como `s.k` (envoltura de su `draw`). Vendedora `jp_moda` en `makeLive`. El Traje de Diva Virtual va en violeta (referencia de una franquicia). `giveItem` de un objeto `t: 'cos'` lo mete directo en `P.wardrobe`. Lupa: `jp_idols`, `jp_sur`, `jp_sellos` (sustituyen a `japon3`), `jp_moda`, `jp_ideas`. fitcheck 0 avisos. Prueba `tests/v484.txt`.
+
 ## Pendiente o ideas que dejó abiertas
+
+- Japón (propuesto, está en la lupa › Sistemas › Japón: ideas): onsen, café de gatos, tienda de kimonos, historia propia y romance de las idols STELLA☆LINK.
 
 - El top mundial depende de las reglas de Firebase (`docs/firebase_rules.json`) pegadas en la consola del proyecto `the-bound-3afef`.
 - Los jefes no se reflejan desde el líder (cada uno ve su jefe con sus mecánicas); se comparten el daño (`o.bd`) y las partes vulnerables.
