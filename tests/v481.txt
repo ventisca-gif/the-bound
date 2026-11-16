@@ -1,0 +1,45 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), G.P.lv=400, calcStats(G.P), G.P.hp=G.P.S.maxhp, G.P.gold=900000, 1)
+js [G.world.saDone, !!SA.famG && SA.famG.length, G.world.objs.filter(o=>o.f==='ae_terminal').length]
+js (()=>{ const P=G.P; P.kids=[{ id:'k1', name:'Iker', g:'m', app:{g:'m'}, born:calDay()-40, equip:{} }, { id:'k2', name:'Vera', g:'f', app:{g:'f'}, born:calDay()-10, equip:{}, gparent:'k1' }]; const k=P.kids[0]; kidAgeY(k); k.agY=65; k.ag0=calDay(); ageDay(); const r1=[kidAgeY(k), !!k.ret]; k.agY=200; ageDay(); cmSync(); return [r1, (P.fallen||[]).length, P.kids.length, SA.famG[0].hidden, famGen(P.kids[0])]; })()
+js (famTree(), [document.querySelectorAll('.ftN').length, !!document.querySelector('.ftN.dead')])
+js (closeModal(), goJapan(), 1)
+wait 2500
+js [G.map.id, JP_CARS.filter(c=>c.v>1).length]
+js (()=>{ const d=G.map.objs.find(o=>o.xact==='jp_in'&&o.ik==='ramen'); G.P.x=d.px; G.P.y=d.py+6; doInteract(); return 1; })()
+wait 1500
+js (()=>{ const e=G.ents.find(e=>e.id==='jp_chef'&&e.map===G.map.id); G.P.x=e.x; G.P.y=e.y+30; return [G.map.id, !!e]; })()
+wait 300
+js (doInteract(), 1)
+wait 600
+js (()=>{ const b=[...document.querySelectorAll('#dopts .dopt')].find(x=>x.textContent.includes('ramen')); b&&b.click(); return [!!b, G.P.buffs.some(x=>x.id==='ramen')]; })()
+js (exitInterior(), 1)
+wait 1500
+js (()=>{ const d=G.map.objs.find(o=>o.xact==='jp_in'&&o.ik==='konbini'); G.P.x=d.px; G.P.y=d.py+6; doInteract(); return 1; })()
+wait 1500
+js (()=>{ const e=G.ents.find(e=>e.id==='jp_cajero'&&e.map===G.map.id); G.P.x=e.x; G.P.y=e.y+30; return G.map.id; })()
+wait 300
+js (doInteract(), 1)
+wait 600
+js (()=>{ const b=[...document.querySelectorAll('#dopts .dopt')].find(x=>x.textContent.includes('Onigiri')); b&&b.click(); return [!!b, countItem('jp_onigiri')]; })()
+js (exitInterior(), 1)
+wait 1500
+js (()=>{ const d=G.map.objs.find(o=>o.xact==='jp_in'&&o.ik==='arcade'); G.P.x=d.px; G.P.y=d.py+6; doInteract(); return 1; })()
+wait 1500
+js (XACT.jp_ufo[2](), 1)
+wait 700
+js (document.querySelector('#jpMg button').dispatchEvent(new PointerEvent('pointerdown')), 1)
+wait 3500
+js [!document.querySelector('#jpMg'), G.P.jp && G.P.jp.plush || 0]
+js (closeModal(), XACT.jp_arcade[2](), 1)
+wait 600
+js (document.querySelector('#jpMg') ? 1 : 0)
+js (document.querySelector('#jpMg').remove(), exitInterior(), 1)
+wait 1500
+js (XACT.jp_aeropuerto[2](G.map.objs.find(o=>o.xact==='jp_aeropuerto')), 1)
+wait 1500
+js [G.map.id, G.map.aeIn]
+js (G.P.aeTk='al', aeNow=()=>30, XACT.ae_embarcar[2](), 1)
+wait 7500
+js [G.map.id, Math.round(G.P.x/16), Math.round(G.P.y/16)]
+js window._errs
