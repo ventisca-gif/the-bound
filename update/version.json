@@ -1,18 +1,18 @@
 {
- "build": 112,
- "ver": "4.91",
+ "build": 113,
+ "ver": "4.92",
  "date": "2026-11-16",
  "file": "thebound.html",
- "size": 15779808,
- "sha256": "6985caeb6c5868893171c55868105f2d5de4b93e5483ed768f1e438e1c01e974",
+ "size": 16489040,
+ "sha256": "e753f8afe87657ddf15ba24a83e263de3053c266d32faa99a62048906ee2a80d",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Compra el traje de Kasane Teto hablando con ella en STELLA☆LINK. El set se guarda en tu Armario y se adapta a todos los cuerpos."
+   "Neru pasea por Akihabara y regala su traje. Miku y Teto estrenan trajes de concierto, pasos y retratos. Nuevo peinado recoloreable."
   ],
   "en": [
-   "Buy Kasane Teto’s outfit by talking to her at STELLA☆LINK. The set is saved in your Wardrobe and fits every body type."
+   "Neru walks around Akihabara and gifts her outfit. Miku and Teto have new concert outfits, moves and portraits. New recolorable hairstyle."
   ]
  }
 }
