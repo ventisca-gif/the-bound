@@ -1,8 +1,8 @@
 // ================= v4.85: JAPÓN (cuarta parte) =================
 // Onsen (ryokan al pie del Fuji), café de gatos (Akihabara) y tienda de kimonos (Asakusa), los tres con interior.
-// Romance con las idols: las 5 de STELLA☆LINK y el grupo nuevo PRISM8 (8 idols propias con los estilos de las fotos de
+// Romance con las idols: las 5 de STELLA☆LINK y el grupo nuevo PRISM9 (8 idols propias con los estilos de las fotos de
 // Sergio; no son las personas de las fotos). Peinado nuevo «Lobo en capas». Traje de Diva Virtual también en turquesa.
-// Ropa nueva para la estilista Mio (looks de PRISM8) y kimonos/yukatas con horquilla kanzashi.
+// Ropa nueva para la estilista Mio (looks de PRISM9) y kimonos/yukatas con horquilla kanzashi.
 
 // ---------- zonas reservadas (no se llenan de árboles al crear el mapa) ----------
 const JP_RESERVE = [[10, 58, 27, 70], [157, 186, 173, 200]];
@@ -45,7 +45,7 @@ fitKind('head', 'id_kanzashi', (p, A, s) => { const g = s.m, x = Math.round(A.si
 // kimono con flores en la tela: retoca el tipo base 'kimono' cuando la prenda trae fl
 { const K0 = FITK.body.kimono; fitKind('body', 'kimono', (p, A, s) => { if (K0) K0.draw(p, A, s); if (!s.fl || A.up) return; const { tx0, tw, torsoTop: ty, th } = A; for (let y = ty + 1; y < ty + th - 3; y++) for (let x = tx0; x < tx0 + tw; x++) if ((x * 3 + y * 5) % 11 === 0) p.set(x, y, s.fl[3]); }); }
 
-// ---------- conjuntos nuevos para la estilista Mio (looks de PRISM8 y diva turquesa) ----------
+// ---------- conjuntos nuevos para la estilista Mio (looks de PRISM9 y diva turquesa) ----------
 function idDefineSet(S) { const src = { src: L2('Estilista Mio, sala STELLA☆LINK (Akihabara, Japón)', 'Stylist Mio, STELLA☆LINK hall (Akihabara, Japan)') };
   for (const [slot, part] of [['body', 'v'], ['legs', 'f'], ['feet', 'b'], ['head', 'h']]) { const fn = S[slot]; if (!fn) continue; const id = 'c_idol_' + S.k + '_' + part, nm = S.n + ' · ' + { v: L2('parte de arriba', 'top'), f: L2('parte de abajo', 'bottom'), b: L2('calzado', 'shoes'), h: L2('adorno del pelo', 'hair ornament') }[part];
     cosm(id, nm, slot, fn, S.src ? { src: S.src } : src); it('cosi_' + id, { n: nm, t: 'cos', cos: id, price: Math.round(S.price / 3), icon: ['hanger'], rar: 3 }); } IDOL_SETS.push(S); }
@@ -66,7 +66,7 @@ const KIMONOS = [['sakura', L2('Yukata de Sakura', 'Sakura Yukata'), IDP.rosa, I
 const KIMONO_SETS = KIMONOS.map(([k, n, m, fl, obi]) => ({ k: 'kim_' + k, n, price: 22000, src: L2('Tienda de kimonos de Asakusa (Japón)', 'Asakusa kimono shop (Japan)'), body: () => ({ k: 'kimono', m, s: obi, fl }), legs: () => ({ k: 'id_kimono_f', m, fl }), feet: () => ({ k: 'sandals', m: IDP.beige }), head: () => ({ k: 'id_kanzashi', m: IDP.oro, p: fl }) }));
 for (const S of KIMONO_SETS) { idDefineSet(S); IDOL_SETS.pop(); }   // no salen en la lista de Mio
 
-// ---------- PRISM8: grupo nuevo de idols (diseños propios inspirados en estilos de moda) ----------
+// ---------- PRISM9: grupo nuevo de idols (diseños propios inspirados en estilos de moda) ----------
 const PRISM = [
   { k: 'kira', n: 'Kira', hair: 'negro', hs: 'lobo_capas', set: 'vaquero', skin: 0, line: L2('El escenario es donde me siento libre.', 'The stage is where I feel free.'), loves: ['ring', 'gem', 'amulet'], taste: L2('las joyas y los anillos', 'jewels and rings') },
   { k: 'umi', n: 'Umi', hair: 'negro', hs: 'cebollas', set: 'estrellamar', skin: 0, line: L2('¿Sabías que las estrellas de mar no tienen cerebro? ¡Pero brillan igual!', 'Did you know starfish have no brain? They still shine!'), loves: ['fish', 'cake', 'bouquet'], taste: L2('el mar, el pescado y los pasteles', 'the sea, fish and cakes') },
@@ -78,18 +78,18 @@ const PRISM = [
   { k: 'nene', n: 'Nene', hair: 'negro', hs: 'coletas_largas', set: 'y2k', skin: 0, line: L2('¡Kawaii es una forma de vida!', 'Kawaii is a way of life!'), loves: ['cake', 'gem', 'bouquet'], taste: L2('los dulces, las gemas brillantes y las flores', 'sweets, shiny gems and flowers') }];
 const setCos = k => { const c = {}; for (const [slot, part] of [['body', 'v'], ['legs', 'f'], ['feet', 'b'], ['head', 'h']]) if (COSM['c_idol_' + k + '_' + part]) c[slot] = 'c_idol_' + k + '_' + part; return c; };
 const PRISM_APPS = []; PRISM_APPS.tag = 'PR'; PRISM.forEach((I, i) => Object.defineProperty(PRISM_APPS, i, { get: () => [{ g: 'f', skin: I.skin, hair: I.hair, hs: jpHF(I.hs), eyes: 'cafe', bt: (i % 2) ? 4 : 1, top: [1, 'blanco'], bot: [0, 'azul'], shoe: [1, 'blanco'] }, setCos(I.set)], enumerable: true })); PRISM_APPS.length = PRISM.length;
-function jpLiveGroup(next) { const i = liveIdx() + (next ? 1 : 0); return i % 2 ? { apps: PRISM_APPS, name: 'PRISM8', list: PRISM } : { apps: IDOL_APPS, name: 'STELLA☆LINK', list: IDOLS }; }
+function jpLiveGroup(next) { const i = liveIdx() + (next ? 1 : 0); return i % 2 ? { apps: PRISM_APPS, name: 'PRISM9', list: PRISM } : { apps: IDOL_APPS, name: 'STELLA☆LINK', list: IDOLS }; }
 // las idols como NPCs con las que se puede hablar y enamorar
 const IDOL_NPC = {};
 IDOLS.forEach((I, i) => { const id = 'idol_' + I.k; IDOL_NPC[id] = () => IDOL_APPS[i]; NPCS[id] = { n: I.n, title: 'STELLA☆LINK', look: LK({ g: 'f' }), lines: ['«' + I.line + '»', L2('Gracias por venir a vernos. ¡Te he visto en primera fila!', 'Thanks for coming to see us. I saw you in the front row!')], quests: [] };
   ROM[id] = { g: 'f', loves: [['bouquet', 'cake', 'gem'], ['crystal', 'bouquet', 'ring'], ['cake', 'food', 'potion'], ['relic', 'crystal', 'gem'], ['crop', 'cake', 'bouquet']][i], likes: ['bouquet', 'cake', 'amulet'], hates: ['bone', 'ore'], taste: [L2('las flores, los pasteles y las gemas', 'flowers, cakes and gems'), L2('los cristales, las flores y los anillos', 'crystals, flowers and rings'), L2('los dulces y la comida rica', 'sweets and tasty food'), L2('las reliquias misteriosas y los cristales', 'mysterious relics and crystals'), L2('las frutas, los pasteles y las flores', 'fruit, cakes and flowers')][i] }; ROM_WHERE[id] = L2('Sala STELLA☆LINK, Akihabara (Japón)', 'STELLA☆LINK hall, Akihabara (Japan)'); });
-PRISM.forEach((I, i) => { const id = 'idol_' + I.k; IDOL_NPC[id] = () => PRISM_APPS[i]; NPCS[id] = { n: I.n, title: 'PRISM8', look: LK({ g: 'f' }), lines: ['«' + I.line + '»', L2('PRISM8 actúa en la sala de Akihabara, un concierto sí y otro no.', 'PRISM8 performs at the Akihabara hall, every other concert.')], quests: [] };
+PRISM.forEach((I, i) => { const id = 'idol_' + I.k; IDOL_NPC[id] = () => PRISM_APPS[i]; NPCS[id] = { n: I.n, title: 'PRISM9', look: LK({ g: 'f' }), lines: ['«' + I.line + '»', L2('PRISM9 actúa en la sala de Akihabara, un concierto sí y otro no.', 'PRISM9 performs at the Akihabara hall, every other concert.')], quests: [] };
   ROM[id] = { g: 'f', loves: I.loves, likes: ['bouquet', 'cake'], hates: ['bone', 'ore'], taste: I.taste }; ROM_WHERE[id] = L2('Cruce de Shibuya (Japón)', 'Shibuya Crossing (Japan)'); });
 { const _na = npcAtlas; npcAtlas = function (id) { const f = IDOL_NPC[id]; if (f) return getAtlas('npc_' + id, () => { const [a, cos] = f(); const L = heroLook('bardo', a, { weapon: 0 }, cos, {}); L.weapon = null; L.back = null; return buildHeroAtlas(L); }); return _na.apply(this, arguments); }; }
-// STELLA☆LINK espera en la sala (zona de saludo) cuando no actúa; PRISM8 pasea por Shibuya
+// STELLA☆LINK espera en la sala (zona de saludo) cuando no actúa; PRISM9 pasea por Shibuya
 { const _ml = makeLive; makeLive = function () { const had = G.maps.jp_live_in, M = _ml.apply(this, arguments); if (!had) IDOLS.forEach((I, i) => spawnNPC('idol_' + I.k, (7 + i * 1.5) * 16 + 8, 9 * 16 + 8, M.id, { face: 'down', wander: 1 })); return M; }; }
 { const _mj = makeJapan; makeJapan = function () { const had = G.maps.japon, M = _mj.apply(this, arguments); if (!had && M) PRISM.forEach((I, i) => spawnNPC('idol_' + I.k, [250, 253, 256, 259, 270, 273, 276, 279][i] * 16 + 8, (i % 2 ? 57 : 52) * 16 + 8, 'japon', { face: 'down', wander: 2 })); return M; }; }
-V33_TICKS.push(() => { const M = G.maps.jp_live_in; if (!M) return; const hide = liveOn() && jpLiveGroup().name !== 'PRISM8'; for (const e of G.ents) { if (e.type !== 'npc' || !e.id || !e.id.startsWith('idol_') || !IDOLS.some(I => 'idol_' + I.k === e.id)) continue; if (G.P && G.P.partner === e.id) continue; const want = hide ? '_stage' : M.id; if (e.map !== want && (e.map === M.id || e.map === '_stage')) e.map = want; } });
+V33_TICKS.push(() => { const M = G.maps.jp_live_in; if (!M) return; const hide = liveOn() && jpLiveGroup().name !== 'PRISM9'; for (const e of G.ents) { if (e.type !== 'npc' || !e.id || !e.id.startsWith('idol_') || !IDOLS.some(I => 'idol_' + I.k === e.id)) continue; if (G.P && G.P.partner === e.id) continue; const want = hide ? '_stage' : M.id; if (e.map !== want && (e.map === M.id || e.map === '_stage')) e.map = want; } });
 
 // ---------- edificios nuevos: ryokan con onsen, café de gatos y tienda de kimonos ----------
 JP_H_OF.ryokan = () => 92; JP_H_OF.nekocafe = () => 88; JP_H_OF.kimono = () => 78; JP_ROOF.ryokan = ['#3a4252']; JP_ROOF.nekocafe = ['#ffb0c8']; JP_ROOF.kimono = ['#5a3a4a'];
@@ -187,19 +187,19 @@ DLG_HOOKS.push((npc, opts) => { const P = G.P; if (!P) return;
 
 // ---------- mapa ----------
 { const _op = otherPOI; otherPOI = function (M) { const out = _op.apply(this, arguments); if (!M || !M.jp) return out; const T = { onsen: [L2('Onsen del Fuji (ryokan)', 'Fuji Onsen (ryokan)'), 'jpfun'], nekocafe: [L2('Café de gatos', 'Cat café'), 'jpfun'], kimono: [L2('Tienda de kimonos', 'Kimono shop'), 'jpfun'] };
-  for (const o of M.objs) if (o.xact === 'jp_in' && T[o.ik]) out.push({ c: T[o.ik][1], x: o.tx, y: o.ty, t: T[o.ik][0] }); for (const e of G.ents) if (e.type === 'npc' && e.map === M.id && e.id && e.id.startsWith('idol_')) out.push({ c: 'jpidol', x: e.x / 16, y: e.y / 16, t: (NPCS[e.id] || {}).n + ' · PRISM8' }); return out; }; }
+  for (const o of M.objs) if (o.xact === 'jp_in' && T[o.ik]) out.push({ c: T[o.ik][1], x: o.tx, y: o.ty, t: T[o.ik][0] }); for (const e of G.ents) if (e.type === 'npc' && e.map === M.id && e.id && e.id.startsWith('idol_')) out.push({ c: 'jpidol', x: e.x / 16, y: e.y / 16, t: (NPCS[e.id] || {}).n + ' · PRISM9' }); return out; }; }
 
 // ---------- lupa ----------
 if (typeof GSIS !== 'undefined') { const gi = GSIS.findIndex(g => g[0] === 'jp_ideas'); if (gi >= 0) GSIS.splice(gi, 1);
   GSIS.push(['jp_romance', '💗 ' + L2('Japón: romance con las idols', 'Japan: romance with the idols'), () => [
     L2('Ahora puedes enamorar a las 13 idols de Japón, como a cualquier otra pareja del juego (botón «Relación ♥» al hablar con ellas: regalos, citas, pareja, boda e hijos).', 'You can now win the hearts of all 13 idols in Japan, like any other partner in the game («Relationship ♥» when you talk to them: gifts, dates, partner, wedding and children).'),
     L2('STELLA☆LINK (Hikari, Sora, Mei, Rin y Yuzu): te esperan en la sala de Akihabara, delante del escenario, cuando no están actuando.', 'STELLA☆LINK (Hikari, Sora, Mei, Rin and Yuzu): they wait for you in the Akihabara hall, in front of the stage, when they are not performing.'),
-    L2('PRISM8, el grupo nuevo (Kira, Umi, Sena, Hana, Ryo, Mika, Jun y Nene): pasean por el Cruce de Shibuya y actúan en la sala de Akihabara un concierto sí y otro no. Kira estrena el peinado «Lobo en capas» (también en el editor y la peluquería).', 'PRISM8, the new group (Kira, Umi, Sena, Hana, Ryo, Mika, Jun and Nene): they hang around Shibuya Crossing and perform at the Akihabara hall every other concert. Kira debuts the «Layered wolf cut» hairstyle (also in the editor and the barber).'),
+    L2('PRISM9, el grupo nuevo (Kira, Umi, Sena, Hana, Ryo, Mika, Jun y Nene): pasean por el Cruce de Shibuya y actúan en la sala de Akihabara un concierto sí y otro no. Kira estrena el peinado «Lobo en capas» (también en el editor y la peluquería).', 'PRISM9, the new group (Kira, Umi, Sena, Hana, Ryo, Mika, Jun and Nene): they hang around Shibuya Crossing and perform at the Akihabara hall every other concert. Kira debuts the «Layered wolf cut» hairstyle (also in the editor and the barber).'),
     L2('Cada una tiene sus gustos para los regalos (lo verás en su ficha de relación).', 'Each one has her own gift tastes (you\'ll see them on her relationship sheet).')],
     () => ({ loc: [265, 58], t: L2('Cruce de Shibuya', 'Shibuya Crossing'), m: 'japon' })],
     ['jp_ocio', '♨ ' + L2('Japón: onsen, café de gatos y kimonos', 'Japan: onsen, cat café and kimonos'), () => [
     L2('Onsen del Fuji: ryokan al suroeste del lago del Fuji. Bañarse cuesta 1.000 de oro: vida y maná al máximo y +8 % de ataque y velocidad durante 20 minutos. La okami vende leche con café y huevos de onsen.', 'Fuji Onsen: a ryokan southwest of Fuji\'s lake. Bathing costs 1,000 gold: full HP and mana and +8% attack and speed for 20 minutes. The okami sells coffee milk and onsen eggs.'),
     L2('Café de gatos (Akihabara): entra y acaricia a los 9 gatos (+5 % de ataque y velocidad durante 15 minutos). La camarera vende neko latte.', 'Cat café (Akihabara): go in and pet the 9 cats (+5% attack and speed for 15 minutes). The waitress sells neko lattes.'),
     L2('Tienda de kimonos (Asakusa, al este de la calle Nakamise): 6 kimonos y yukatas (sakura, índigo, carmesí, nieve, glicina y bambú) con sandalias y horquilla kanzashi, 22.000 de oro cada uno.', 'Kimono shop (Asakusa, east of Nakamise street): 6 kimonos and yukatas (sakura, indigo, crimson, snow, wisteria and bamboo) with sandals and a kanzashi hairpin, 22,000 gold each.'),
-    L2('La estilista Mio vende también los looks de PRISM8 y el Traje de Diva Virtual en turquesa.', 'Stylist Mio also sells PRISM8\'s looks and the Virtual Diva Outfit in turquoise.')],
+    L2('La estilista Mio vende también los looks de PRISM9 y el Traje de Diva Virtual en turquesa.', 'Stylist Mio also sells PRISM9\'s looks and the Virtual Diva Outfit in turquoise.')],
     () => ({ loc: [18, 68], t: L2('Onsen del Fuji', 'Fuji Onsen'), m: 'japon' })]); }
