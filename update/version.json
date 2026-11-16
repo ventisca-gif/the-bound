@@ -1,18 +1,18 @@
 {
- "build": 108,
- "ver": "4.87",
- "date": "2026-11-17",
+ "build": 109,
+ "ver": "4.88",
+ "date": "2026-11-16",
  "file": "thebound.html",
- "size": 13633704,
- "sha256": "829295ea1fbe881c7385dcf85790e00dab309cdc464c9577eb0e8f6cfd8068be",
+ "size": 13677526,
+ "sha256": "f9f6c3c5699dfcea53c5270677f4b4a77ef71d9fc3d5dc56b11988626a96f2c2",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "💇 Peinado nuevo para chicas y chicos: Melena de puntas (larga hasta media espalda, mechones en pico, puntas en la coronilla y flequillo desfilado). En el editor y la peluquería, con cualquier color."
+   "Hatsune Miku visita STELLA☆LINK en Akihabara. Puedes verla caminar y hablar con ella."
   ],
   "en": [
-   "💇 New hairstyle for girls and boys: Spiky long mane (down to mid-back, pointed locks, spikes on the crown and a choppy fringe). In the editor and the barber, in any colour."
+   "Hatsune Miku visits STELLA☆LINK in Akihabara. You can see her walk and talk to her."
   ]
  }
 }
