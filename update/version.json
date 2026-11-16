@@ -1,26 +1,30 @@
 {
- "build": 102,
- "ver": "4.81",
+ "build": 103,
+ "ver": "4.82",
  "date": "2026-11-16",
  "file": "thebound.html",
- "size": 13376525,
- "sha256": "53adc020e585e3e1b45916978c88ec465e9e9b2b2a1b17babae169d8d6de6651",
+ "size": 13419624,
+ "sha256": "b0558d7eaa88c3d2f2aee8029de2cc311f5890e40aa99fe5e19fb94f6a8a7f42",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🗺 El mapa del principio crece: al sur de Albor hay tierra nueva con el Camposanto del Alba (tributo a los caídos, tumbas y la cuidadora Odila) y el Aeródromo de Albor.",
-   "✈ Aeródromo: pista, terminal, torre y hangar con 4 aviones que aterrizan, embarcan y despegan, y pasajeros entrando. Dentro, viajeros de 12 países, café, billete a Japón (nivel 400) y espera en la sala hasta embarcar.",
-   "🗾 Japón, el mapa más grande del juego: Monte Fuji con la pagoda y los cerezos, Kioto con el Pabellón Dorado, el sendero de toriis y geishas, Akihabara con carteles de anime, Tokio y su torre, Shinjuku y Kabukichō con neones, Asakusa con la Puerta del Trueno y el aeropuerto. Calles con semáforos y coches, y 78 japoneses (sin nombre: Japonés 1, Japonesa 2…).",
-   "🎤 Se puede entrar al karaoke (minijuego de cantar), al ramen, a los recreativos (máquina de peluches y juego de reflejos) y a las konbinis.",
-   "👴 Tus hijos, nietos y bisnietos cumplen años, se jubilan a los 65 y mueren de viejos (despacio). Sus tumbas aparecen en el Camposanto. Nuevo 🌳 árbol genealógico en ❤ Familia."
+   "🌱 Japón con pasto nuevo: tonos que se funden, matas de hierba, tréboles, florecitas de colores, piedrecitas y pétalos caídos bajo los cerezos.",
+   "🗾 Mapa de Japón en el panel del mapa (flecha ▶ hasta «Japón»): barrios con su nombre en español y en japonés, tejados de colores, el Fuji nevado, cerezos, templos y leyenda con comida, karaoke y recreativos, monumentos y aeropuerto.",
+   "🏙 Calles como Akihabara y Shinjuku: edificios estrechos y altos pegados unos a otros, cada uno con su fachada, carteles verticales que sobresalen y brillan de noche, carteles por piso, aparatos de aire, depósitos en la azotea y tiendas iluminadas en la planta baja.",
+   "⚡ Cables de luz entre los postes de todas las aceras de la ciudad.",
+   "🏮 Callejones (yokocho) entre los edificios con linternas rojas, máquinas expendedoras, bicis, cubos y cajas. Puestos de takoyaki en Akihabara y de yakitori en Shinjuku (comida que cura).",
+   "🚦 Cruce de Shibuya con tres pantallas gigantes de anuncios animados: cuando todos los semáforos se ponen en rojo, la gente cruza a la vez desde las cuatro esquinas, también en diagonal.",
+   "🚕 Taxis amarillos y verdes con luz en el techo, más coches y gente paseando por las aceras."
   ],
   "en": [
-   "🗺 The starting map grows: south of Albor there is new land with the Dawn Graveyard (tribute to the fallen, graves and Odila the keeper) and the Albor Aerodrome.",
-   "✈ Aerodrome: runway, terminal, tower and hangar with 4 planes that land, board and take off, and passengers walking in. Inside, travellers from 12 countries, a café, a ticket to Japan (level 400) and a wait in the lounge until boarding.",
-   "🗾 Japan, the largest map in the game: Mount Fuji with the pagoda and cherry trees, Kyoto with the Golden Pavilion, the torii path and geishas, Akihabara with anime billboards, Tokyo and its tower, Shinjuku and Kabukichō with neon, Asakusa with the Thunder Gate and the airport. Streets with traffic lights and cars, and 78 Japanese people (unnamed: Japanese man 1, Japanese woman 2…).",
-   "🎤 You can enter the karaoke (singing minigame), the ramen shop, the arcade (claw machine and reflex game) and the konbinis.",
-   "👴 Your children, grandchildren and great-grandchildren grow older, retire at 65 and die of old age (slowly). Their graves appear in the Graveyard. New 🌳 family tree in ❤ Family."
+   "🌱 Japan has new grass: blending tones, grass tufts, clovers, little coloured flowers, pebbles and fallen petals under the cherry trees.",
+   "🗾 Japan map in the map panel (arrow ▶ to «Japan»): districts named in English and Japanese, coloured roofs, snowy Fuji, cherry trees, temples and a legend with food, karaoke and arcade, landmarks and airport.",
+   "🏙 Streets like Akihabara and Shinjuku: narrow, tall buildings packed together, each with its own facade, vertical signs that stick out and glow at night, signs on every floor, air conditioners, rooftop tanks and lit shops on the ground floor.",
+   "⚡ Power lines between the poles on every city pavement.",
+   "🏮 Alleys (yokocho) between the buildings with red lanterns, vending machines, bikes, bins and crates. Takoyaki stalls in Akihabara and yakitori stalls in Shinjuku (food that heals).",
+   "🚦 Shibuya Crossing with three giant screens of animated adverts: when every light turns red, people cross at once from all four corners, diagonally too.",
+   "🚕 Yellow and green taxis with a roof light, more cars and people walking on the pavements."
   ]
  }
 }
