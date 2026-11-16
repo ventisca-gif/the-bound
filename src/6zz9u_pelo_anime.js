@@ -54,7 +54,7 @@ function ahRender(p, L, T, behind, face, ring, off) { off = off || 0; const W = 
 // ---------- piezas comunes (c = contexto del fotograma: medidas, capas y vista) ----------
 function ahCtx(m, anim, f, W, H) {
   const c = { hx: m.hx + 0.5, hy: m.hy, rx: m.hrx, ry: m.hry, top: m.headTop, ey: m.ey, tt: m.torsoTop, lt: m.legTop, base: m.base, side: !!m.side, up: !!m.up, d: m.d || 1,
-    sw: anim === 'walk' || anim === 'dance' ? (f % 2 ? 1 : -1) : anim === 'idle' ? (f ? 0.5 : 0) : 0, B: ahNew(W, H), F: ahNew(W, H) };
+    sw: anim === 'walk' || anim === 'dance' ? (f % 2 ? 1 : -1) : anim === 'idle' ? (f ? 0.5 : 0) : 0, B: ahNew(W, H), F: ahNew(W, H), E: ahNew(W, H) };   // E: encima de la cara (mechón que tapa un ojo)
   c.kx = c.rx / 7.5; c.ky = c.ry / 8; c.k = -c.d;   // k: hacia la nuca en la vista de perfil
   c.Y = t => c.tt + (c.base - c.tt) * t;           // altura en el cuerpo: 0 hombros, 1 suelo
   // casquete
@@ -111,7 +111,8 @@ function ahDraw(p, L, S, dir, anim, f) { const m = p.meta; if (!m || m.hrx === u
   ahRender(p, c.B, T, !c.up, null, null, c.up ? 0 : -0.1);
   const face = c.up ? null : c.side ? ((x, y) => y >= c.ey - 1 && y <= c.hy + c.ry + 1 && (x + 0.5 - c.hx) * c.d >= -1.6 && Math.abs(x + 0.5 - c.hx) <= c.rx + 0.6)
     : ((x, y) => y >= c.ey - 1 && y <= c.hy + c.ry + 1 && Math.abs(x + 0.5 - c.hx) <= c.rx - 1.6);
-  ahRender(p, c.F, T, false, face, c.ring === false ? null : c.side ? [Math.round(c.top), Math.round(c.top + 1), Math.round(c.hx - c.rx * 0.5 + c.k * 1.5), Math.round(c.hx + c.rx * 0.3 + c.k * 1.5)] : [Math.round(c.top), Math.round(c.top + 1), Math.round(c.hx - c.rx * 0.6), Math.round(c.hx + c.rx * 0.2)]); if (p.t) p.tg = tg; }
+  ahRender(p, c.F, T, false, face, c.ring === false ? null : c.side ? [Math.round(c.top), Math.round(c.top + 1), Math.round(c.hx - c.rx * 0.5 + c.k * 1.5), Math.round(c.hx + c.rx * 0.3 + c.k * 1.5)] : [Math.round(c.top), Math.round(c.top + 1), Math.round(c.hx - c.rx * 0.6), Math.round(c.hx + c.rx * 0.2)]);
+  if (c.E.n) ahRender(p, c.E, T, false); if (p.t) p.tg = tg; }
 
 // ---------- los 10 peinados ----------
 // chica
