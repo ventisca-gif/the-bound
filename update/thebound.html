@@ -341,7 +341,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v4.76 · Lienya con su dibujo</div>
+  <div class="tfoot">v4.77 · Pelo nuevo de Lienya</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11740,13 +11740,14 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '4.76', GAME_BUILD = 97;
+const GAME_VER = '4.77', GAME_BUILD = 98;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
 const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/[
+  {"b": 98, "v": "4.77", "d": "2026-11-16", "es": ["🌸 Lienya, después de vencerla, vuelve a ser un personaje como los del juego, ahora con un pelo nuevo como el de su dibujo: lila, salvaje y rizado, con volumen arriba y mechones que ondean hasta la cintura. Antes de vencerla se ve su dibujo pequeño."], "en": ["🌸 After you defeat her, Lienya is a game-style character again, now with new hair like her drawing: lilac, wild and curly, with volume on top and locks waving down to her waist. Before you defeat her, her small drawing is shown."]},
   {"b": 97, "v": "4.76", "d": "2026-11-16", "es": ["🌸 Lienya ahora se ve con su propio dibujo también en su forma de persona (cuando te vigila, cuando habla y después de vencerla): pelo salvaje, cara y ojos brillantes."], "en": ["🌸 Lienya now uses her own drawing in her person form too (when she watches you, talks and after you defeat her): wild hair, face and glowing eyes."]},
   {"b": 96, "v": "4.75", "d": "2026-11-15", "es": ["🌸 Descubrimiento en Las Tierras sin Pintar: Lienya, la Diosa sin Pintar. Al principio solo te vigila desde lejos y desaparece si te acercas.", "Después de vencer a El Lienzo en Blanco te espera junto a la puerta de luz: pregúntale quién es y revelará su forma verdadera (con el dibujo de Sergio). Súper jefe de nivel 410, muy difícil, con 5 ataques: Ráfaga del Vacío, Círculo de Olvido, Tentáculos Incoloros, Lluvia Sin Color y Desvanecer.", "🎨 Al vencerla te enseña el oficio de Artista: pinta los caballetes del borde para devolverle el color (bonos de ataque, defensa, vida y experiencia).", "💕 Se queda junto a Mael y la puedes enamorar y casarte con ella. Capítulo nuevo en el Libro del Vínculo con cinemática, y su guía en la lupa con flecha."], "en": ["🌸 A discovery in the Unpainted Lands: Lienya, the Unpainted Goddess. At first she only watches you from afar and vanishes if you get close.", "After defeating The Blank Canvas she waits by the door of light: ask her who she is and she will reveal her true form (with Sergio's drawing). A very hard level 410 super boss with 5 attacks: Void Burst, Circle of Oblivion, Colourless Tentacles, Colourless Rain and Vanish.", "🎨 Once defeated she teaches you the Artist job: paint the border's easels to bring its colour back (attack, defence, HP and experience bonuses).", "💕 She stays next to Mael and you can win her heart and marry her. New chapter in the Book of the Bond with a cutscene, and her guide in the magnifier with an arrow."]},
   {"b": 95, "v": "4.74", "d": "2026-11-15", "es": ["💪 Nueva pestaña Poder en la lupa: tu poder ahora y qué te falta (arma, herrería, arma despertada, maestría, clase, subraza, Poder del Velo, Trazos y técnicas), la tabla del poder máximo a nivel 400 por clase y cada forma de ganar poder explicada: equipo, armas ancestrales, herrería, Trazos (límite 50), técnicas de rivales, mentores y academia, anillos, mascotas, comida y familia."], "en": ["💪 New Power tab in the magnifier: your power now and what you're missing (weapon, blacksmith, awakened weapon, mastery, class, subrace, Veil Power, Strokes and techniques), the level 400 max power table by class and every way to gain power explained: gear, ancestral weapons, blacksmith, Strokes (limit 50), rival, mentor and academy techniques, rings, pets, food and family."]},
@@ -21529,6 +21530,28 @@ if (typeof GSIS !== 'undefined') GSIS.push(['lienya', '🌸 ' + L2('Lienya, la D
   () => (typeof TSP_ZONES !== 'undefined' ? (Z => ({ loc: [Z.c[0] + 3, Z.c[1] - 9], t: L2('Puerta de luz · El Lienzo en Blanco', 'Door of light · The Blank Canvas'), m: 'sin_pintar' }))(TSP_ZONES.find(z => z.k === 'blanco')) : null)]);
 // dificultad medida con tools/dev/jefes.py: unos 12 minutos en solitario con todo (súper jefe por encima del nivel máximo)
 Object.assign(BOSS_TUNE, { lienya: 2.36 });
+
+// ---------- v4.77: forma de persona (después de vencerla) con pelo propio, salvaje y rizado como en su dibujo ----------
+// Antes de vencerla se ve su dibujo reducido (lnyAtlas); después, el sprite de personaje del juego con este pelo.
+const LNY_HL = P5(['#4a2c78', '#7a58b4', '#a888dc', '#cdb8f0', '#f0e8ff']);
+fitKind('head', 'lny_pelo', (p, A, s) => { const H = LNY_HL, { hx, hy, hrx, hry, headTop: top, ey, side, up, d } = A, legTop = A.legTop, R = Math.round, rx = hrx + 3;
+  const col = (x, y) => { const g = (x - hx) * 0.08 + (y - top) * 0.09 + (Math.sin((x - hx) * 0.9 + (y - top) * 0.35) > 0.82 ? 0.9 : 0); return g < 0.15 ? H[4] : g < 0.65 ? H[3] : g < 1.25 ? H[2] : H[1]; };
+  const face = (x, y) => !up && y >= ey - 2 && y <= hy + hry && (side ? (x - hx) * d >= -1 && Math.abs(x - hx) <= hrx : Math.abs(x - hx) <= hrx - 2);
+  const put = (x, y, c) => { x = R(x); y = R(y); if (!face(x, y)) p.set(x, y, c || col(x, y)); };
+  const curl = (x, y, sx) => { for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) if (dx * dx + dy * dy < 2) put(x + dx, y + dy, dy > 0 || dx * sx > 0 ? H[2] : H[3]); put(x + sx * 2, y, H[2]); put(x + sx * 2, y - 1, H[1]); };
+  // volumen de arriba
+  for (let y = R(top) - 3; y <= R(hy); y++) for (let x = hx - rx; x <= hx + rx; x++) { const e = ((x - hx) / rx) ** 2 + ((y - hy + 2) / (hry + 2)) ** 2 + (Math.sin(Math.atan2(y - hy, x - hx) * 6) * 0.12); if (e < 1) put(x, y); }
+  // mechones que se escapan arriba
+  for (const [ox, oy, sx] of [[-7, 1, -1], [-3, -2, -1], [3, -2, 1], [7, 1, 1]]) { const x0 = hx + ox * (side ? 0.7 : 1), y0 = top + oy; put(x0, y0, H[3]); put(x0 + sx, y0 - 1, H[3]); curl(x0 + sx * 2, y0 - 2, sx); }
+  if (!up && !side) for (const bx of [-1, 1]) for (let y = R(top) + 2; y <= ey - 1; y++) put(hx + bx, y, H[4]);   // flequillo fino
+  // melena larga que ondea hasta la cintura
+  const lock = (bx, sx) => { for (let y = R(hy) - 3; y <= legTop + 3; y++) { const k = (y - hy) / Math.max(1, legTop - hy), w = R(bx + sx * (k * 3.5 + Math.sin(y * 0.5) * 2)); const tw = y < hy + 3 ? 4 : 3; for (let t = 0; t < tw; t++) put(w + sx * t, y, t === tw - 1 ? H[1] : t === 0 ? H[3] : H[2]); if ((y - R(hy)) % 7 === 3) { put(w + sx * tw, y - 1, H[2]); put(w + sx * (tw + 1), y - 2, H[2]); put(w + sx * (tw + 1), y - 3, H[1]); } } curl(bx + sx * 5, legTop + 4, sx); };
+  if (up) { for (let y = R(hy) - 2; y <= legTop + 4; y++) { const half = R(rx - 1 + (y - hy) * 0.18 + Math.sin(y * 0.6)); for (let x = hx - half; x <= hx + half; x++) put(x, y, (x - hx + 40) % 4 === 0 ? H[2] : Math.abs(x - hx) > half - 1 ? H[1] : H[3]); } for (const sx of [-1, 1]) curl(hx + sx * (rx + 2), legTop + 4, sx); }
+  else if (side) { lock(hx - d * (hrx - 1), -d); lock(hx - d * (hrx - 3), -d); }
+  else { lock(hx - hrx - 1, -1); lock(hx + hrx - 1, 1); } }, { cover: 'full' });
+{ const _ll = lnyLook; lnyLook = function () { const L = _ll.apply(this, arguments); L.head = { k: 'lny_pelo', cover: 'full', m: LNY_HAIR }; L.hs = Object.assign({}, L.hs, { back: 0, side: 0, bang: 'none' }); return L; }; }
+function lnyAtlasP() { return getAtlas('npc_lienya_p', () => buildHeroAtlas(lnyLook())); }
+{ const _na = npcAtlas; npcAtlas = function (id) { if (id === 'lienya' && G.P && G.P.lny && G.P.lny.st >= 2) return lnyAtlasP(); return _na.apply(this, arguments); }; }
 
 // ================= v3.6: IDIOMA (Español / English) =================
 // Los textos del código se traducen al compilar (tools/i18n/tr.js + en.json): cada uno es (LANG_EN ? "inglés" : "español").

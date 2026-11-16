@@ -126,3 +126,25 @@ if (typeof GSIS !== 'undefined') GSIS.push(['lienya', '🌸 ' + L2('Lienya, la D
   () => (typeof TSP_ZONES !== 'undefined' ? (Z => ({ loc: [Z.c[0] + 3, Z.c[1] - 9], t: L2('Puerta de luz · El Lienzo en Blanco', 'Door of light · The Blank Canvas'), m: 'sin_pintar' }))(TSP_ZONES.find(z => z.k === 'blanco')) : null)]);
 // dificultad medida con tools/dev/jefes.py: unos 12 minutos en solitario con todo (súper jefe por encima del nivel máximo)
 Object.assign(BOSS_TUNE, { lienya: 2.36 });
+
+// ---------- v4.77: forma de persona (después de vencerla) con pelo propio, salvaje y rizado como en su dibujo ----------
+// Antes de vencerla se ve su dibujo reducido (lnyAtlas); después, el sprite de personaje del juego con este pelo.
+const LNY_HL = P5(['#4a2c78', '#7a58b4', '#a888dc', '#cdb8f0', '#f0e8ff']);
+fitKind('head', 'lny_pelo', (p, A, s) => { const H = LNY_HL, { hx, hy, hrx, hry, headTop: top, ey, side, up, d } = A, legTop = A.legTop, R = Math.round, rx = hrx + 3;
+  const col = (x, y) => { const g = (x - hx) * 0.08 + (y - top) * 0.09 + (Math.sin((x - hx) * 0.9 + (y - top) * 0.35) > 0.82 ? 0.9 : 0); return g < 0.15 ? H[4] : g < 0.65 ? H[3] : g < 1.25 ? H[2] : H[1]; };
+  const face = (x, y) => !up && y >= ey - 2 && y <= hy + hry && (side ? (x - hx) * d >= -1 && Math.abs(x - hx) <= hrx : Math.abs(x - hx) <= hrx - 2);
+  const put = (x, y, c) => { x = R(x); y = R(y); if (!face(x, y)) p.set(x, y, c || col(x, y)); };
+  const curl = (x, y, sx) => { for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) if (dx * dx + dy * dy < 2) put(x + dx, y + dy, dy > 0 || dx * sx > 0 ? H[2] : H[3]); put(x + sx * 2, y, H[2]); put(x + sx * 2, y - 1, H[1]); };
+  // volumen de arriba
+  for (let y = R(top) - 3; y <= R(hy); y++) for (let x = hx - rx; x <= hx + rx; x++) { const e = ((x - hx) / rx) ** 2 + ((y - hy + 2) / (hry + 2)) ** 2 + (Math.sin(Math.atan2(y - hy, x - hx) * 6) * 0.12); if (e < 1) put(x, y); }
+  // mechones que se escapan arriba
+  for (const [ox, oy, sx] of [[-7, 1, -1], [-3, -2, -1], [3, -2, 1], [7, 1, 1]]) { const x0 = hx + ox * (side ? 0.7 : 1), y0 = top + oy; put(x0, y0, H[3]); put(x0 + sx, y0 - 1, H[3]); curl(x0 + sx * 2, y0 - 2, sx); }
+  if (!up && !side) for (const bx of [-1, 1]) for (let y = R(top) + 2; y <= ey - 1; y++) put(hx + bx, y, H[4]);   // flequillo fino
+  // melena larga que ondea hasta la cintura
+  const lock = (bx, sx) => { for (let y = R(hy) - 3; y <= legTop + 3; y++) { const k = (y - hy) / Math.max(1, legTop - hy), w = R(bx + sx * (k * 3.5 + Math.sin(y * 0.5) * 2)); const tw = y < hy + 3 ? 4 : 3; for (let t = 0; t < tw; t++) put(w + sx * t, y, t === tw - 1 ? H[1] : t === 0 ? H[3] : H[2]); if ((y - R(hy)) % 7 === 3) { put(w + sx * tw, y - 1, H[2]); put(w + sx * (tw + 1), y - 2, H[2]); put(w + sx * (tw + 1), y - 3, H[1]); } } curl(bx + sx * 5, legTop + 4, sx); };
+  if (up) { for (let y = R(hy) - 2; y <= legTop + 4; y++) { const half = R(rx - 1 + (y - hy) * 0.18 + Math.sin(y * 0.6)); for (let x = hx - half; x <= hx + half; x++) put(x, y, (x - hx + 40) % 4 === 0 ? H[2] : Math.abs(x - hx) > half - 1 ? H[1] : H[3]); } for (const sx of [-1, 1]) curl(hx + sx * (rx + 2), legTop + 4, sx); }
+  else if (side) { lock(hx - d * (hrx - 1), -d); lock(hx - d * (hrx - 3), -d); }
+  else { lock(hx - hrx - 1, -1); lock(hx + hrx - 1, 1); } }, { cover: 'full' });
+{ const _ll = lnyLook; lnyLook = function () { const L = _ll.apply(this, arguments); L.head = { k: 'lny_pelo', cover: 'full', m: LNY_HAIR }; L.hs = Object.assign({}, L.hs, { back: 0, side: 0, bang: 'none' }); return L; }; }
+function lnyAtlasP() { return getAtlas('npc_lienya_p', () => buildHeroAtlas(lnyLook())); }
+{ const _na = npcAtlas; npcAtlas = function (id) { if (id === 'lienya' && G.P && G.P.lny && G.P.lny.st >= 2) return lnyAtlasP(); return _na.apply(this, arguments); }; }
