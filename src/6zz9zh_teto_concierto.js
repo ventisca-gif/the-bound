@@ -70,17 +70,17 @@ function jpGuestStop() {
   if (!show) return;
   jpGuestShow = null;
   show.audio.pause();
-  for (const npc of show.guests) npc.map = JP_GUEST_ROOM;
+  for (const npc of show.guests) { npc.map = JP_GUEST_ROOM; npc.scene = 0; }
   applyVolumes();
 }
 
 function jpGuestStart() {
   if (jpGuestShow || G.map?.id !== JP_GUEST_ROOM) return;
   const audio = new Audio(JP_GUEST_TRACK);
-  const guests = G.ents.filter(e => e.map === JP_GUEST_ROOM && ['jp_miku', 'jp_teto'].includes(e.id));
+  const guests = G.ents.filter(e => !e.scene && e.map === JP_GUEST_ROOM && ['jp_miku', 'jp_teto'].includes(e.id));
   const show = { audio, guests, room: G.map, start: performance.now(), wardrobe: jpChooseConcertWardrobe() };
   jpGuestShow = show;
-  for (const npc of guests) npc.map = '_jp_guest_stage';
+  for (const npc of guests) { npc.map = '_jp_guest_stage'; npc.scene = 1; }
   audio.volume = clamp(SETTINGS.music, 0, 1);
   audio.addEventListener('ended', () => { if (jpGuestShow === show) jpGuestStop(); }, { once: true });
   audio.play().then(() => {

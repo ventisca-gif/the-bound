@@ -264,6 +264,10 @@ function drawHero(p, L, dir, anim, f) {
   const hairPix = (x, y, dx, ny) => { let v = dx < 0.15 ? 2 : 1; if (ny < 0.55 && (x * 7 + y * 3) % 11 === 0 && dx < 0.5) { p.set(x, y, HP[3]); return; } if (ny > 0.1 && ny < 0.22 && dx < 0.45 && dx > -0.8) v = 3; if (ny > 0.22 && ny < 0.3 && dx < 0 && dx > -0.6) v = 2; if (dx > 0.6) v = 0; if (HS.curl && ((x * 3 + y * 5) % 7 === 0)) v = Math.max(0, v - 1); else if (y > hy && (x % 3 === 0)) v = Math.max(0, v - 1); p.set(x, y, HP[v]); };
   const drawCap = () => { TG(6);
     if (!HP || HS.cap === 'bald' || hideHair || hood) return;
+    if (!side && !up && HS.refHair !== undefined) {
+      drawReferenceFringe(p, HS.refHair, hx, hy, B.hrx, B.hry, HP, L.hair2);
+      return;
+    }
     if (HS.cap === 'rukia') { drawRukiaHair(p, dir, hx, hy, B.hrx, B.hry, HP); return; }
     const cap = HS.cap, vol = cap === 'volume', short_ = cap === 'flat' || cap === 'buzz', rx = B.hrx + (vol ? 2.6 : short_ ? 0.4 : 1) + (short_ ? 0 : FACE.vol), ry = B.hry + (vol ? 2 : short_ ? 0.2 : 0.6) + (short_ ? 0 : FACE.vol * 0.8), cyH = hy - (vol ? 2.2 : 1.4) - (short_ ? 0 : 0.5);
     if (cap === 'mohawk') {
@@ -291,6 +295,7 @@ function drawHero(p, L, dir, anim, f) {
   };
   const drawBackHair = () => { TG(6);
     if (!HP || HS.cap === 'bald' || hood) return;
+    if (!side && !up && HS.refHair !== undefined) return;
     if (HS.back > 0) { const top = hy - 3, bot = hy + HS.back, bw = HS.bw || 1;
       for (let y = top; y <= bot; y++) { const t = (y - top) / Math.max(1, bot - top); const half = (up ? lerp(7.6, 5, t) : lerp(9.4, 7.8, t)) * bw + (HS.wave ? Math.sin(y * 0.7) * 0.7 : 0) + (HS.curl === 2 ? Math.sin(y * 1.9) * 1.2 : 0) - (HS.layer ? Math.floor(t * 3) * 0.9 : 0); for (let x = Math.round(hx - half); x <= Math.round(hx + half) - (side ? 0 : 1); x++) { if (side && (dir === 'left' ? x < hx - 1 : x > hx + 1)) continue; if (y === bot && (x + y) % 2) continue; if (HS.jag && y >= bot - 1 && (x % 3 === 0)) continue; let c = x < hx ? HP[2] : HP[1]; if ((x - hx + 30) % 3 === 0) c = HP[x < hx ? 1 : 0]; if (HS.curl === 2 && (x * 5 + y * 3) % 6 === 0) c = HP[3]; else if (HS.curl === 2 && (x * 5 + y * 3) % 6 === 3) c = HP[0]; if (x === Math.round(hx - half)) c = HP[3]; if (up && y > top + 2 && y < top + 5 && x < hx + 2) c = HP[3]; p.set(x, y, c); } } }
   };
@@ -299,6 +304,8 @@ function drawHero(p, L, dir, anim, f) {
   // tails: drawn in 'back' layer (behind head) or 'front' layer
   const drawTails = layer => { TG(6);
     if (!HP || !HS.tail || hood) return; const t = HS.tail;
+    if (!side && !up && HS.refHair !== undefined) return;
+    if (t.startsWith('ref-')) { drawReferenceTails(p, t, hx, hy, dir, layer, sway, HP); return; }
     if (t === 'high') {
       if (up) { if (layer !== 'front') return; heroStrand(p, [[hx, hy - 6], [hx + sway * 0.5, hy + 2], [hx + sway, hy + 10], [hx + sway * 1.5, hy + 15]], 4, HP, 1); if (HS.ribbon) ribbon(hx, hy - 7); return; }
       if (side) { if (layer !== 'back') return; const bx = hx - d * 6; heroStrand(p, [[bx, hy - 7], [bx - d * 3, hy - 4], [bx - d * 4 + sway, hy + 3], [bx - d * 3 + sway, hy + 11]], 4, HP, 1); if (HS.ribbon) ribbon(bx, hy - 8); return; }
@@ -438,7 +445,8 @@ function baseVis(app, slot) {
 function heroLook(cls, app, gear, cos, opts) {
   app = normApp(app); gear = gear || {}; cos = cos || {}; opts = opts || {};
   const HS = (app.g === 'm' ? HS_M : HS_F)[app.hs] || HS_F[0];
-  const L = { g: app.g, skin: SKINS[app.skin], hair: app.hair2 ? [HAIRS[app.hair][0], HAIRS[app.hair][1], HAIRS[app.hair2][2], HAIRS[app.hair2][3]] : HAIRS[app.hair], hs: HS, eyes: app.eyes, eyes2: app.eyes2, weapon: null };
+  const L = { g: app.g, skin: SKINS[app.skin], hair: app.hair2 && HS.refHair !== 0 ? [HAIRS[app.hair][0], HAIRS[app.hair][1], HAIRS[app.hair2][2], HAIRS[app.hair2][3]] : HAIRS[app.hair], hs: HS, eyes: app.eyes, eyes2: app.eyes2, weapon: null };
+  if (HS.refHair === 0 && app.hair2) L.hair2 = HAIRS[app.hair2];
   const slotVis = slot => {
     const c = cos[slot];
     if (c && c !== 'base' && COSM[c] && COSM[c].slot === slot) return COSM[c].vis(app);
