@@ -1,0 +1,15 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), G.P.lv=400, calcStats(G.P), G.P.gold=900000, 1)
+js GSIS.map(g=>g[0]).filter(k=>/^jp_|japon/.test(k))
+js (goJapan(), 1)
+wait 2500
+js (()=>{const d=G.map.objs.find(o=>o.xact==='jp_in'&&o.ik==='live'); G.P.x=d.px; G.P.y=d.py+6; doInteract(); return 1;})()
+wait 1500
+js (()=>{ const e=G.ents.find(e=>e.id==='jp_moda'&&e.map===G.map.id); G.P.x=e.x-24; G.P.y=e.y; openDialog(e); const bs=[...document.querySelectorAll('#dopts .dopt')].filter(x=>/👗/.test(x.textContent)); bs[3]&&bs[3].click(); closeDialog(); return [!!e, bs.length, G.P.wardrobe.filter(c=>/idol_diva/.test(c)).length]; })()
+js (()=>{ const P=G.P; P.cos=P.cos||{}; const L=heroLook(P.cls, P.app, {weapon:0}, {body:'c_idol_maid_v', legs:'c_idol_maid_f', feet:'c_idol_maid_b'}, {}); const A=buildAtlas(L,['idle','walk'],drawHero); return !!A; })()
+js (G.P.cos={body:'c_idol_diva_v',legs:'c_idol_diva_f',feet:'c_idol_diva_b'}, refreshLook(), exitInterior(), 1)
+wait 1500
+js (G.P.x=200*16, G.P.y=265*16+8, 1)
+wait 1500
+shot
+js (window._errs)
