@@ -11,6 +11,7 @@
    for(const dir of ['down','left','right','up']){const row=DIRI[dir],idle=r143Warp(S,source,dir,'idle',0);assert(idle.getContext('2d').getImageData(0,0,S.cell,S.cell).data.some(v=>v),'empty idle '+S.id);directions.push(hash(idle));
     for(const anim of ['idle','walk','atk','hurt']){const hashes=[];for(let f=0;f<(anim==='idle'?2:anim==='hurt'?1:4);f++){hashes.push(hash(r143Warp(S,source,dir,anim,f)));frames++;}if(anim==='walk'||anim==='atk')assert(new Set(hashes).size>1,anim+' movement missing '+S.id+dir);}
     const c=r143Cell(A,A.idx.atk+1,row,source);assert(c&&c.width===(A.fw+2*A.r143PadX)*3,'HD frame missing '+S.id);
+    const portrait=mkCanvas(120,120),pg=portrait.getContext('2d'),L=r143PortraitLayout(A,120,120);atlasBlit(pg,A,A.idx.idle||0,row,L.x,L.y,A.fw*L.s,A.fh*L.s);const pixels=pg.getImageData(0,0,120,120).data;let count=0,edge=0;for(let y=0;y<120;y++)for(let x=0;x<120;x++)if(pixels[(y*120+x)*4+3]>128){count++;if(x===0||y===0||x===119||y===119)edge++;}assert(count>150,'portrait too small '+S.id+dir);assert(edge===0,'portrait clipped '+S.id+dir);
    }assert(directions[0]!==directions[3],'front/back duplicate '+S.id);assert(!seen.has(directions[0]),'duplicate source '+S.id+' '+seen.get(directions[0]));seen.set(directions[0],S.id);
   }else assert(A.img===old.img,'reflection must still copy player');
   for(const dir of ['down','left','right','up'])for(let f=0;f<4;f++){const fx=r143Effect(S,dir,f);assert(fx.getContext('2d').getImageData(0,0,192,192).data.some(v=>v),'empty effect '+S.id);effects++;}
