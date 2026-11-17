@@ -1,0 +1,1852 @@
+{
+  "ok": true,
+  "targets": 133,
+  "enemies": 119,
+  "bosses": 14,
+  "frames": 5852,
+  "effects": 2128,
+  "combatUnchanged": 133,
+  "cacheBytes": {
+    "frames": 8339456,
+    "atlases": 11779136
+  },
+  "sprites": [
+    {
+      "id": "lobo",
+      "name": "Lobo",
+      "family": "beast",
+      "oldArt": [
+        "quad",
+        "lobo"
+      ],
+      "width": 44,
+      "height": 36
+    },
+    {
+      "id": "cangrejo",
+      "name": "Cangrejo Coral",
+      "family": "crab",
+      "oldArt": [
+        "crab"
+      ],
+      "width": 34,
+      "height": 26
+    },
+    {
+      "id": "jabali",
+      "name": "Jabalí",
+      "family": "beast",
+      "oldArt": [
+        "quad",
+        "jabali"
+      ],
+      "width": 44,
+      "height": 36
+    },
+    {
+      "id": "goblin",
+      "name": "Goblin",
+      "family": "human",
+      "oldArt": [
+        "hum",
+        "goblin"
+      ],
+      "width": 40,
+      "height": 40
+    },
+    {
+      "id": "bandido",
+      "name": "Bandido",
+      "family": "human",
+      "oldArt": [
+        "hum",
+        "bandido"
+      ],
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "lobosombra",
+      "name": "Lobo Sombrío",
+      "family": "beast",
+      "oldArt": [
+        "quad",
+        "sombra"
+      ],
+      "width": 44,
+      "height": 36
+    },
+    {
+      "id": "oso",
+      "name": "Oso Pardo",
+      "family": "beast",
+      "oldArt": [
+        "quad",
+        "oso"
+      ],
+      "width": 59,
+      "height": 49
+    },
+    {
+      "id": "orco",
+      "name": "Orco",
+      "family": "human",
+      "oldArt": [
+        "hum",
+        "orco"
+      ],
+      "width": 64,
+      "height": 64
+    },
+    {
+      "id": "slime_m",
+      "name": "Slime Tóxico",
+      "family": "slime",
+      "oldArt": [
+        "slime",
+        "purple"
+      ],
+      "width": 28,
+      "height": 26
+    },
+    {
+      "id": "fantasma",
+      "name": "Espectro",
+      "family": "ghost",
+      "oldArt": [
+        "ghost",
+        ""
+      ],
+      "width": 30,
+      "height": 34
+    },
+    {
+      "id": "murcielago",
+      "name": "Murciélago",
+      "family": "bat",
+      "oldArt": [
+        "bat",
+        ""
+      ],
+      "width": 32,
+      "height": 30
+    },
+    {
+      "id": "esqueleto",
+      "name": "Esqueleto",
+      "family": "human",
+      "oldArt": [
+        "hum",
+        "esqueleto"
+      ],
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "lobohielo",
+      "name": "Lobo de Escarcha",
+      "family": "beast",
+      "oldArt": [
+        "quad",
+        "lobohielo"
+      ],
+      "width": 44,
+      "height": 36
+    },
+    {
+      "id": "slime_h",
+      "name": "Slime Helado",
+      "family": "slime",
+      "oldArt": [
+        "slime",
+        "ice"
+      ],
+      "width": 28,
+      "height": 26
+    },
+    {
+      "id": "slime_r",
+      "name": "Slime de Magma",
+      "family": "slime",
+      "oldArt": [
+        "slime",
+        "red"
+      ],
+      "width": 28,
+      "height": 26
+    },
+    {
+      "id": "murcifuego",
+      "name": "Murciélago Ígneo",
+      "family": "bat",
+      "oldArt": [
+        "bat",
+        "fuego"
+      ],
+      "width": 32,
+      "height": 30
+    },
+    {
+      "id": "fantafuego",
+      "name": "Alma Ígnea",
+      "family": "ghost",
+      "oldArt": [
+        "ghost",
+        "fuego"
+      ],
+      "width": 30,
+      "height": 34
+    },
+    {
+      "id": "caballero",
+      "name": "Caballero Oscuro",
+      "family": "human",
+      "oldArt": [
+        "hum",
+        "caballero"
+      ],
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "escorpion",
+      "name": "Escorpión de Arena",
+      "family": "scorpion",
+      "oldArt": [
+        "scorp",
+        "arena"
+      ],
+      "width": 48,
+      "height": 40
+    },
+    {
+      "id": "serpiente",
+      "name": "Serpiente de las Dunas",
+      "family": "snake",
+      "oldArt": [
+        "snake",
+        "arena"
+      ],
+      "width": 40,
+      "height": 34
+    },
+    {
+      "id": "nomada",
+      "name": "Bandido Nómada",
+      "family": "human",
+      "oldArt": [
+        "hum",
+        "nomada"
+      ],
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "hiena",
+      "name": "Hiena",
+      "family": "beast",
+      "oldArt": [
+        "quad",
+        "hiena"
+      ],
+      "width": 44,
+      "height": 36
+    },
+    {
+      "id": "slime_arena",
+      "name": "Slime de Arena",
+      "family": "slime",
+      "oldArt": [
+        "slime",
+        "arena"
+      ],
+      "width": 28,
+      "height": 26
+    },
+    {
+      "id": "jaguar",
+      "name": "Jaguar",
+      "family": "beast",
+      "oldArt": [
+        "quad",
+        "jaguar"
+      ],
+      "width": 46,
+      "height": 38
+    },
+    {
+      "id": "planta",
+      "name": "Planta Carnívora",
+      "family": "plant",
+      "oldArt": [
+        "plant",
+        ""
+      ],
+      "width": 40,
+      "height": 44
+    },
+    {
+      "id": "arana",
+      "name": "Araña de la Selva",
+      "family": "spider",
+      "oldArt": [
+        "spider",
+        "selva"
+      ],
+      "width": 40,
+      "height": 30
+    },
+    {
+      "id": "serpselva",
+      "name": "Víbora Esmeralda",
+      "family": "snake",
+      "oldArt": [
+        "snake",
+        "selva"
+      ],
+      "width": 40,
+      "height": 34
+    },
+    {
+      "id": "murciselva",
+      "name": "Murciélago Vampiro",
+      "family": "bat",
+      "oldArt": [
+        "bat",
+        "selva"
+      ],
+      "width": 32,
+      "height": 30
+    },
+    {
+      "id": "slime_cristal",
+      "name": "Slime Prismático",
+      "family": "slime",
+      "oldArt": [
+        "slime",
+        "cristal"
+      ],
+      "width": 28,
+      "height": 26
+    },
+    {
+      "id": "prisma",
+      "name": "Espectro Prismático",
+      "family": "ghost",
+      "oldArt": [
+        "ghost",
+        "prisma"
+      ],
+      "width": 30,
+      "height": 34
+    },
+    {
+      "id": "aranacristal",
+      "name": "Araña de Cristal",
+      "family": "spider",
+      "oldArt": [
+        "spider",
+        "cristal"
+      ],
+      "width": 40,
+      "height": 30
+    },
+    {
+      "id": "escorpcristal",
+      "name": "Escorpión de Cuarzo",
+      "family": "scorpion",
+      "oldArt": [
+        "scorp",
+        "cristal"
+      ],
+      "width": 48,
+      "height": 40
+    },
+    {
+      "id": "plantacristal",
+      "name": "Flor de Cuarzo",
+      "family": "plant",
+      "oldArt": [
+        "plant",
+        "cristal"
+      ],
+      "width": 40,
+      "height": 44
+    },
+    {
+      "id": "caballero_e",
+      "name": "Caballero del Eclipse",
+      "family": "human",
+      "oldArt": [
+        "hum",
+        "caballero_eclipse"
+      ],
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "demonio",
+      "name": "Demonio Umbrío",
+      "family": "human",
+      "oldArt": [
+        "hum",
+        "demonio"
+      ],
+      "width": 64,
+      "height": 64
+    },
+    {
+      "id": "bestia",
+      "name": "Bestia del Vacío",
+      "family": "beast",
+      "oldArt": [
+        "quad",
+        "vacio"
+      ],
+      "width": 53,
+      "height": 43
+    },
+    {
+      "id": "sombra",
+      "name": "Sombra Errante",
+      "family": "ghost",
+      "oldArt": [
+        "ghost",
+        "sombra"
+      ],
+      "width": 30,
+      "height": 34
+    },
+    {
+      "id": "murcieclipse",
+      "name": "Murciélago del Eclipse",
+      "family": "bat",
+      "oldArt": [
+        "bat",
+        "eclipse"
+      ],
+      "width": 32,
+      "height": 30
+    },
+    {
+      "id": "slime_eclipse",
+      "name": "Slime del Vacío",
+      "family": "slime",
+      "oldArt": [
+        "slime",
+        "eclipse"
+      ],
+      "width": 28,
+      "height": 26
+    },
+    {
+      "id": "murci_cueva",
+      "name": "Murciélago de las Cuevas",
+      "family": "bat",
+      "oldArt": [
+        "bat",
+        "cueva"
+      ],
+      "width": 32,
+      "height": 30
+    },
+    {
+      "id": "arana_cueva",
+      "name": "Araña de las Grutas",
+      "family": "spider",
+      "oldArt": [
+        "spider",
+        "cueva"
+      ],
+      "width": 46,
+      "height": 37
+    },
+    {
+      "id": "trasgo",
+      "name": "Trasgo Minero",
+      "family": "human",
+      "oldArt": [
+        "hum",
+        "trasgo"
+      ],
+      "width": 40,
+      "height": 40
+    },
+    {
+      "id": "golem_magma",
+      "name": "Gólem de Magma",
+      "family": "golem",
+      "oldArt": [
+        "bst",
+        "golem",
+        [
+          "#1a0a0a",
+          "#3a1a14",
+          "#5a2a1a",
+          "#8a3a1a"
+        ],
+        1.1,
+        {
+          "core": "#ff6a1a"
+        }
+      ],
+      "width": 40,
+      "height": 44
+    },
+    {
+      "id": "salamandra",
+      "name": "Salamandra Ígnea",
+      "family": "lizard",
+      "oldArt": [
+        "snake",
+        "fuego"
+      ],
+      "width": 40,
+      "height": 34
+    },
+    {
+      "id": "arana_abismo",
+      "name": "Araña Abisal",
+      "family": "spider",
+      "oldArt": [
+        "spider",
+        "abismo"
+      ],
+      "width": 40,
+      "height": 30
+    },
+    {
+      "id": "escorp_abismo",
+      "name": "Escorpión Abisal",
+      "family": "scorpion",
+      "oldArt": [
+        "scorp",
+        "abismo"
+      ],
+      "width": 48,
+      "height": 40
+    },
+    {
+      "id": "eco_abismo",
+      "name": "Eco del Abismo",
+      "family": "ghost",
+      "oldArt": [
+        "ghost",
+        "abismo"
+      ],
+      "width": 30,
+      "height": 34
+    },
+    {
+      "id": "salamandra_v",
+      "name": "Salamandra Volcánica",
+      "family": "lizard",
+      "oldArt": [
+        "snake",
+        "fuego"
+      ],
+      "width": 40,
+      "height": 34
+    },
+    {
+      "id": "murci_ceniza",
+      "name": "Murciélago de Ceniza",
+      "family": "bat",
+      "oldArt": [
+        "bat",
+        "ceniza"
+      ],
+      "width": 32,
+      "height": 30
+    },
+    {
+      "id": "slime_brasa",
+      "name": "Slime de Brasa",
+      "family": "slime",
+      "oldArt": [
+        "slime",
+        "brasa"
+      ],
+      "width": 28,
+      "height": 26
+    },
+    {
+      "id": "espiritu_brasa",
+      "name": "Espíritu de Brasa",
+      "family": "ghost",
+      "oldArt": [
+        "ghost",
+        "brasa"
+      ],
+      "width": 30,
+      "height": 34
+    },
+    {
+      "id": "escorp_brasa",
+      "name": "Escorpión de Brasa",
+      "family": "scorpion",
+      "oldArt": [
+        "scorp",
+        "brasa"
+      ],
+      "width": 48,
+      "height": 40
+    },
+    {
+      "id": "pirata",
+      "name": "Pirata del Volcán",
+      "family": "human",
+      "oldArt": [
+        "hum",
+        "pirata"
+      ],
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "medusa",
+      "name": "Medusa Rosada",
+      "family": "jelly",
+      "oldArt": [
+        "sea",
+        "medusa"
+      ],
+      "width": 24,
+      "height": 34
+    },
+    {
+      "id": "pez_leon",
+      "name": "Pez León",
+      "family": "fish",
+      "oldArt": [
+        "sea",
+        "leon"
+      ],
+      "width": 28,
+      "height": 26
+    },
+    {
+      "id": "tiburon",
+      "name": "Tiburón del Arrecife",
+      "family": "fish",
+      "oldArt": [
+        "sea",
+        "tiburon"
+      ],
+      "width": 44,
+      "height": 30
+    },
+    {
+      "id": "pulpo",
+      "name": "Pulpo Gigante",
+      "family": "octopus",
+      "oldArt": [
+        "sea",
+        "pulpo"
+      ],
+      "width": 36,
+      "height": 34
+    },
+    {
+      "id": "mero",
+      "name": "Mero Gigante",
+      "family": "fish",
+      "oldArt": [
+        "sea",
+        "mero"
+      ],
+      "width": 36,
+      "height": 30
+    },
+    {
+      "id": "cangrejo_g",
+      "name": "Cangrejo Gigante",
+      "family": "crab",
+      "oldArt": [
+        "crab",
+        1.5
+      ],
+      "width": 51,
+      "height": 39
+    },
+    {
+      "id": "medusa_abisal",
+      "name": "Medusa Abisal",
+      "family": "jelly",
+      "oldArt": [
+        "sea",
+        "medusa_a"
+      ],
+      "width": 28,
+      "height": 38
+    },
+    {
+      "id": "rape_abisal",
+      "name": "Rape Abisal",
+      "family": "fish",
+      "oldArt": [
+        "sea",
+        "rape"
+      ],
+      "width": 32,
+      "height": 28
+    },
+    {
+      "id": "manta",
+      "name": "Manta Raya Abisal",
+      "family": "ray",
+      "oldArt": [
+        "sea",
+        "manta"
+      ],
+      "width": 44,
+      "height": 30
+    },
+    {
+      "id": "ladron",
+      "name": "Ladrón",
+      "family": "human",
+      "oldArt": [
+        "hum",
+        "bandido"
+      ],
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "cangrejo_mutante",
+      "name": "Cangrejo Mutante",
+      "family": "crab",
+      "oldArt": [
+        "bst",
+        "crab",
+        [
+          "#0a3a1a",
+          "#2a8a4a",
+          "#5ad08a",
+          "#c8ffd8"
+        ],
+        1.1,
+        {
+          "spikes": 1,
+          "eye": "#ff2a2a"
+        }
+      ],
+      "width": 44,
+      "height": 33
+    },
+    {
+      "id": "cangrejo_ermitano",
+      "name": "Ermitaño Coraza",
+      "family": "crab",
+      "oldArt": [
+        "bst",
+        "crab",
+        [
+          "#3a1a0a",
+          "#8a4a1a",
+          "#d08a3a",
+          "#ffd8a0"
+        ],
+        1.25
+      ],
+      "width": 50,
+      "height": 38
+    },
+    {
+      "id": "araña_playa",
+      "name": "Araña de Arena",
+      "family": "spider",
+      "oldArt": [
+        "bst",
+        "spider2",
+        [
+          "#4a3a20",
+          "#8a7040",
+          "#c8a868",
+          "#f0e0b0"
+        ],
+        0.9
+      ],
+      "width": 40,
+      "height": 27
+    },
+    {
+      "id": "sapo_salino",
+      "name": "Sapo Salino",
+      "family": "toad",
+      "oldArt": [
+        "bst",
+        "toad",
+        [
+          "#2a4a5a",
+          "#4a7a8a",
+          "#7ab0b8",
+          "#c8f0f0"
+        ],
+        1
+      ],
+      "width": 34,
+      "height": 30
+    },
+    {
+      "id": "escarabajo_perla",
+      "name": "Escarabajo Perla",
+      "family": "beetle",
+      "oldArt": [
+        "bst",
+        "beetle",
+        [
+          "#4a4a5a",
+          "#8a8aa8",
+          "#c8c8e8",
+          "#ffffff"
+        ],
+        1
+      ],
+      "width": 36,
+      "height": 28
+    },
+    {
+      "id": "ajolote_rosa",
+      "name": "Ajolote Rosado",
+      "family": "axolotl",
+      "oldArt": [
+        "bst",
+        "axo",
+        [
+          "#8a3a5a",
+          "#d06a8a",
+          "#ffa0c0",
+          "#ffe0ea"
+        ],
+        1,
+        {
+          "gill": "#ff3a7a"
+        }
+      ],
+      "width": 40,
+      "height": 28
+    },
+    {
+      "id": "ajolote_negro",
+      "name": "Ajolote Sombrío",
+      "family": "axolotl",
+      "oldArt": [
+        "bst",
+        "axo",
+        [
+          "#0a0a14",
+          "#22223a",
+          "#3a3a5a",
+          "#6a6a9a"
+        ],
+        1.1,
+        {
+          "gill": "#8a5aff",
+          "eye": "#ffd040"
+        }
+      ],
+      "width": 44,
+      "height": 31
+    },
+    {
+      "id": "ajolote_dorado",
+      "name": "Ajolote Dorado",
+      "family": "axolotl",
+      "oldArt": [
+        "bst",
+        "axo",
+        [
+          "#7a5a0a",
+          "#c8a020",
+          "#ffd84a",
+          "#fff4b0"
+        ],
+        0.95,
+        {
+          "gill": "#ff8a2a"
+        }
+      ],
+      "width": 38,
+      "height": 27
+    },
+    {
+      "id": "sapo_pantano",
+      "name": "Sapo Gigante del Pantano",
+      "family": "toad",
+      "oldArt": [
+        "bst",
+        "toad",
+        [
+          "#1a3a0a",
+          "#3a6a1a",
+          "#6aa03a",
+          "#b0d878"
+        ],
+        1.25
+      ],
+      "width": 43,
+      "height": 38
+    },
+    {
+      "id": "hongo_andante",
+      "name": "Hongo Andante",
+      "family": "mushroom",
+      "oldArt": [
+        "bst",
+        "shroom",
+        [
+          "#4a0a3a",
+          "#8a1a6a",
+          "#c84aa0",
+          "#ffa0e0"
+        ],
+        1
+      ],
+      "width": 28,
+      "height": 32
+    },
+    {
+      "id": "salamandra_ignea",
+      "name": "Salamandra Ígnea",
+      "family": "lizard",
+      "oldArt": [
+        "bst",
+        "lizard",
+        [
+          "#4a0a0a",
+          "#a02a0a",
+          "#f06a1a",
+          "#ffd06a"
+        ],
+        1.1
+      ],
+      "width": 46,
+      "height": 31
+    },
+    {
+      "id": "salamandra_azul",
+      "name": "Salamandra de Llama Azul",
+      "family": "lizard",
+      "oldArt": [
+        "bst",
+        "lizard",
+        [
+          "#0a1a4a",
+          "#1a4aa0",
+          "#3a8af0",
+          "#a0e0ff"
+        ],
+        1.05
+      ],
+      "width": 44,
+      "height": 29
+    },
+    {
+      "id": "escarabajo_brasa",
+      "name": "Escarabajo de Brasa",
+      "family": "beetle",
+      "oldArt": [
+        "bst",
+        "beetle",
+        [
+          "#2a0a0a",
+          "#6a1a0a",
+          "#c84a1a",
+          "#ffb04a"
+        ],
+        1.1
+      ],
+      "width": 40,
+      "height": 31
+    },
+    {
+      "id": "espiritu_lava",
+      "name": "Espíritu de Lava",
+      "family": "wisp",
+      "oldArt": [
+        "bst",
+        "wisp",
+        [
+          "#6a1a0a",
+          "#d04a0a",
+          "#ffa020",
+          "#fff0a0"
+        ],
+        1.1
+      ],
+      "width": 29,
+      "height": 35
+    },
+    {
+      "id": "sapo_volcan",
+      "name": "Sapo Volcánico",
+      "family": "toad",
+      "oldArt": [
+        "bst",
+        "toad",
+        [
+          "#2a0a0a",
+          "#5a1a14",
+          "#a03a1a",
+          "#f08a4a"
+        ],
+        1.15
+      ],
+      "width": 39,
+      "height": 35
+    },
+    {
+      "id": "cangrejo_ancla",
+      "name": "Cangrejo Ancla",
+      "family": "crab",
+      "oldArt": [
+        "bst",
+        "crab",
+        [
+          "#1a1a24",
+          "#3a3a4a",
+          "#6a6a80",
+          "#a8a8c0"
+        ],
+        1.4,
+        {
+          "spikes": 1
+        }
+      ],
+      "width": 56,
+      "height": 42
+    },
+    {
+      "id": "araña_mastil",
+      "name": "Araña del Mástil",
+      "family": "spider",
+      "oldArt": [
+        "bst",
+        "spider2",
+        [
+          "#0a0a0a",
+          "#2a2a2a",
+          "#5a4a3a",
+          "#a08a6a"
+        ],
+        1.1
+      ],
+      "width": 48,
+      "height": 33
+    },
+    {
+      "id": "tiburon_espectral",
+      "name": "Tiburón Espectral",
+      "family": "fish",
+      "oldArt": [
+        "sea",
+        "espectral"
+      ],
+      "width": 32,
+      "height": 28
+    },
+    {
+      "id": "medusa_tormenta",
+      "name": "Medusa de Tormenta",
+      "family": "jelly",
+      "oldArt": [
+        "sea",
+        "medusa_a"
+      ],
+      "width": 28,
+      "height": 38
+    },
+    {
+      "id": "golem_runico",
+      "name": "Gólem Rúnico",
+      "family": "golem",
+      "oldArt": [
+        "bst",
+        "golem",
+        [
+          "#2a2a3a",
+          "#4a4a6a",
+          "#7a7aa0",
+          "#b0b0d8"
+        ],
+        1.2,
+        {
+          "core": "#5ad0ff"
+        }
+      ],
+      "width": 43,
+      "height": 48
+    },
+    {
+      "id": "guardian_jade",
+      "name": "Guardián de Jade",
+      "family": "golem",
+      "oldArt": [
+        "bst",
+        "golem",
+        [
+          "#0a2a1a",
+          "#1a5a3a",
+          "#3a9a6a",
+          "#8ae0b0"
+        ],
+        1.15,
+        {
+          "core": "#ffffff"
+        }
+      ],
+      "width": 41,
+      "height": 46
+    },
+    {
+      "id": "escarabajo_sagrado",
+      "name": "Escarabajo Sagrado",
+      "family": "beetle",
+      "oldArt": [
+        "bst",
+        "beetle",
+        [
+          "#3a2a00",
+          "#8a6a0a",
+          "#d8a820",
+          "#fff0a0"
+        ],
+        1.2
+      ],
+      "width": 43,
+      "height": 34
+    },
+    {
+      "id": "alma_antigua",
+      "name": "Alma Antigua",
+      "family": "wisp",
+      "oldArt": [
+        "bst",
+        "wisp",
+        [
+          "#3a1a5a",
+          "#6a3aa0",
+          "#b07ae8",
+          "#f0e0ff"
+        ],
+        1.2
+      ],
+      "width": 31,
+      "height": 38
+    },
+    {
+      "id": "lagarto_sabio",
+      "name": "Lagarto Escriba",
+      "family": "human",
+      "oldArt": [
+        "bst",
+        "lizard",
+        [
+          "#1a2a1a",
+          "#3a5a2a",
+          "#6a8a4a",
+          "#c8d890"
+        ],
+        1.1
+      ],
+      "width": 46,
+      "height": 31
+    },
+    {
+      "id": "muneco_nieve",
+      "name": "Muñeco de Nieve Maldito",
+      "family": "snowman",
+      "oldArt": [
+        "snowman",
+        "nieve"
+      ],
+      "width": 30,
+      "height": 40
+    },
+    {
+      "id": "muneco_oscuro",
+      "name": "Muñeco de Escarcha Negra",
+      "family": "snowman",
+      "oldArt": [
+        "snowman",
+        "oscuro",
+        1.15
+      ],
+      "width": 35,
+      "height": 46
+    },
+    {
+      "id": "lobo_glacial",
+      "name": "Lobo Glacial",
+      "family": "beast",
+      "oldArt": [
+        "quad",
+        "lobohielo"
+      ],
+      "width": 44,
+      "height": 36
+    },
+    {
+      "id": "espiritu_escarcha",
+      "name": "Espíritu de Escarcha",
+      "family": "ghost",
+      "oldArt": [
+        "ghost",
+        "escarcha"
+      ],
+      "width": 30,
+      "height": 34
+    },
+    {
+      "id": "murci_hielo",
+      "name": "Murciélago de Hielo",
+      "family": "bat",
+      "oldArt": [
+        "bat",
+        "hielo"
+      ],
+      "width": 32,
+      "height": 30
+    },
+    {
+      "id": "slime_espora",
+      "name": "Slime de Esporas",
+      "family": "slime",
+      "oldArt": [
+        "slime",
+        "espora"
+      ],
+      "width": 28,
+      "height": 26
+    },
+    {
+      "id": "murci_espora",
+      "name": "Murciélago Esporado",
+      "family": "bat",
+      "oldArt": [
+        "bat",
+        "espora"
+      ],
+      "width": 32,
+      "height": 30
+    },
+    {
+      "id": "espectro_arena",
+      "name": "Espectro de Arena",
+      "family": "ghost",
+      "oldArt": [
+        "ghost",
+        "arena"
+      ],
+      "width": 30,
+      "height": 34
+    },
+    {
+      "id": "silfide",
+      "name": "Sílfide",
+      "family": "wisp",
+      "oldArt": [
+        "bst",
+        "wisp",
+        [
+          "#2a6a5a",
+          "#5ac0a0",
+          "#a8ffe0",
+          "#ffffff"
+        ],
+        1
+      ],
+      "width": 26,
+      "height": 32
+    },
+    {
+      "id": "golem_nube",
+      "name": "Gólem de Nube",
+      "family": "golem",
+      "oldArt": [
+        "bst",
+        "golem",
+        [
+          "#8aa0b8",
+          "#c0d0e0",
+          "#e8f0f8",
+          "#ffffff"
+        ],
+        1.2,
+        {
+          "core": "#8ad8ff"
+        }
+      ],
+      "width": 43,
+      "height": 48
+    },
+    {
+      "id": "elemental_viento",
+      "name": "Elemental de Viento",
+      "family": "wisp",
+      "oldArt": [
+        "bst",
+        "wisp",
+        [
+          "#1a5a7a",
+          "#3aa0d0",
+          "#9af0ff",
+          "#ffffff"
+        ],
+        1.2
+      ],
+      "width": 31,
+      "height": 38
+    },
+    {
+      "id": "golem_rayo",
+      "name": "Gólem del Rayo",
+      "family": "golem",
+      "oldArt": [
+        "bst",
+        "golem",
+        [
+          "#1a1a2a",
+          "#3a3a5a",
+          "#6a6a8a",
+          "#a0a0c0"
+        ],
+        1.25,
+        {
+          "core": "#ffe85a"
+        }
+      ],
+      "width": 45,
+      "height": 50
+    },
+    {
+      "id": "escarabajo_cielo",
+      "name": "Escarabajo del Cielo",
+      "family": "beetle",
+      "oldArt": [
+        "bst",
+        "beetle",
+        [
+          "#0a2a5a",
+          "#1a5aa8",
+          "#4aa0ff",
+          "#c8e8ff"
+        ],
+        1.15
+      ],
+      "width": 41,
+      "height": 32
+    },
+    {
+      "id": "golem_telar",
+      "name": "Gólem del Telar",
+      "family": "golem",
+      "oldArt": [
+        "bst",
+        "golem",
+        [
+          "#5a4a1a",
+          "#a89040",
+          "#f0e0a0",
+          "#fff8e0"
+        ],
+        1.3,
+        {
+          "core": "#d8b0ff"
+        }
+      ],
+      "width": 47,
+      "height": 52
+    },
+    {
+      "id": "arana_hilo",
+      "name": "Araña de Hilo de Oro",
+      "family": "spider",
+      "oldArt": [
+        "bst",
+        "spider2",
+        [
+          "#5a4a0a",
+          "#c8a020",
+          "#ffe070",
+          "#fff8d0"
+        ],
+        1.15
+      ],
+      "width": 51,
+      "height": 35
+    },
+    {
+      "id": "sombra_tejida",
+      "name": "Sombra Tejida",
+      "family": "ghost",
+      "oldArt": [
+        "ghost",
+        "sombratejida"
+      ],
+      "width": 30,
+      "height": 34
+    },
+    {
+      "id": "coloso_umbrio",
+      "name": "Coloso Umbrío",
+      "family": "golem",
+      "oldArt": [
+        "bst",
+        "golem",
+        [
+          "#05000a",
+          "#1a0a2a",
+          "#2a1a3a",
+          "#4a2a6a"
+        ],
+        1.5,
+        {
+          "core": "#ff3a6a"
+        }
+      ],
+      "width": 54,
+      "height": 60
+    },
+    {
+      "id": "conejo_sonriente",
+      "name": "Conejo Sonriente",
+      "family": "rabbit",
+      "oldArt": [
+        "vr",
+        "conejo"
+      ],
+      "width": 22,
+      "height": 28
+    },
+    {
+      "id": "farolillo_risueno",
+      "name": "Farolillo Risueño",
+      "family": "lantern",
+      "oldArt": [
+        "vr",
+        "farol"
+      ],
+      "width": 19,
+      "height": 30
+    },
+    {
+      "id": "muneco_trapo",
+      "name": "Muñeco de Trapo",
+      "family": "doll",
+      "oldArt": [
+        "vr",
+        "muneco"
+      ],
+      "width": 21,
+      "height": 33
+    },
+    {
+      "id": "bruja_caldera",
+      "name": "Bruja de la Caldera",
+      "family": "human",
+      "oldArt": [
+        "hum",
+        "bruja_caldera"
+      ],
+      "width": 40,
+      "height": 40
+    },
+    {
+      "id": "espectro_niebla",
+      "name": "Espectro de la Niebla",
+      "family": "ghost",
+      "oldArt": [
+        "ghost",
+        "niebla"
+      ],
+      "width": 30,
+      "height": 34
+    },
+    {
+      "id": "caballero_rosas",
+      "name": "Caballero de las Rosas Azules",
+      "family": "human",
+      "oldArt": [
+        "hum",
+        "caballero_rosas"
+      ],
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "bibliotecario_ahogado",
+      "name": "Bibliotecario Ahogado",
+      "family": "human",
+      "oldArt": [
+        "hum",
+        "bibliotecario"
+      ],
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "diana_celeste",
+      "name": "Diana celeste",
+      "family": "wisp",
+      "oldArt": [
+        "bst",
+        "wisp",
+        [
+          "#7a5a0a",
+          "#d8a820",
+          "#ffe070",
+          "#ffffff"
+        ],
+        0.8
+      ],
+      "width": 21,
+      "height": 26
+    },
+    {
+      "id": "ix_guerrero",
+      "name": "Guerrero de Jade",
+      "family": "golem",
+      "oldArt": [
+        "bst",
+        "golem",
+        [
+          "#0a2a1a",
+          "#1a5a3a",
+          "#3a9a6a",
+          "#8ae0b0"
+        ],
+        1.2,
+        {
+          "core": "#ffd040"
+        }
+      ],
+      "width": 43,
+      "height": 48
+    },
+    {
+      "id": "ix_escarabajo",
+      "name": "Escarabajo Solar",
+      "family": "beetle",
+      "oldArt": [
+        "bst",
+        "beetle",
+        [
+          "#5a3a00",
+          "#a87a0a",
+          "#ffd040",
+          "#fff4b0"
+        ],
+        1.2
+      ],
+      "width": 43,
+      "height": 34
+    },
+    {
+      "id": "ix_alma",
+      "name": "Alma del Sacrificio",
+      "family": "wisp",
+      "oldArt": [
+        "bst",
+        "wisp",
+        [
+          "#5a0a0a",
+          "#a02a1a",
+          "#ff6a3a",
+          "#ffe0a0"
+        ],
+        1.2
+      ],
+      "width": 31,
+      "height": 38
+    },
+    {
+      "id": "ix_arana",
+      "name": "Araña de Obsidiana",
+      "family": "spider",
+      "oldArt": [
+        "bst",
+        "spider2",
+        [
+          "#05000a",
+          "#1a1028",
+          "#3a2a5a",
+          "#ffd040"
+        ],
+        1.25
+      ],
+      "width": 55,
+      "height": 38
+    },
+    {
+      "id": "ix_espiritu",
+      "name": "Espíritu del Sol Negro",
+      "family": "wisp",
+      "oldArt": [
+        "bst",
+        "wisp",
+        [
+          "#000000",
+          "#1a0a00",
+          "#5a2a00",
+          "#ffd040"
+        ],
+        1.3
+      ],
+      "width": 34,
+      "height": 42
+    },
+    {
+      "id": "ix_sapo",
+      "name": "Sapo de Oro",
+      "family": "toad",
+      "oldArt": [
+        "bst",
+        "toad",
+        [
+          "#5a3a00",
+          "#a87a0a",
+          "#ffd040",
+          "#fff4b0"
+        ],
+        1.3
+      ],
+      "width": 44,
+      "height": 39
+    },
+    {
+      "id": "tp_dummy",
+      "name": "Muñeco de prueba",
+      "family": "dummy",
+      "oldArt": [
+        "bst",
+        "golem",
+        [
+          "#3a2a1a",
+          "#6a4a2a",
+          "#9a7a4a",
+          "#c8a878"
+        ],
+        1,
+        {
+          "core": "#ffd040"
+        }
+      ],
+      "width": 36,
+      "height": 40
+    },
+    {
+      "id": "B_kragg",
+      "name": "Kragg, Rey Cangrejo",
+      "family": "crab",
+      "oldArt": [
+        "crab",
+        2.4
+      ],
+      "width": 82,
+      "height": 62
+    },
+    {
+      "id": "B_sahrak",
+      "name": "Sahrak, Rey Escorpión",
+      "family": "scorpion",
+      "oldArt": [
+        "scorp",
+        "rey",
+        2.3
+      ],
+      "width": 110,
+      "height": 92
+    },
+    {
+      "id": "B_escorp_rey",
+      "name": "Emperador Abisal",
+      "family": "scorpion",
+      "oldArt": [
+        "scorp",
+        "abismo",
+        2.2
+      ],
+      "width": 106,
+      "height": 88
+    },
+    {
+      "id": "B_rey_cangrejo",
+      "name": "Rey Cangrejo Mutante",
+      "family": "crab",
+      "oldArt": [
+        "bst",
+        "crab",
+        [
+          "#0a3a1a",
+          "#2a8a4a",
+          "#5ad08a",
+          "#c8ffd8"
+        ],
+        2.4,
+        {
+          "spikes": 1,
+          "eye": "#ff2a2a"
+        }
+      ],
+      "width": 96,
+      "height": 72
+    },
+    {
+      "id": "B_ajolote_ancestral",
+      "name": "Ajolote Ancestral",
+      "family": "axolotl",
+      "oldArt": [
+        "bst",
+        "axo",
+        [
+          "#3a1a5a",
+          "#8a4ad0",
+          "#d0a0ff",
+          "#fff0ff"
+        ],
+        2.4,
+        {
+          "gill": "#ffd040"
+        }
+      ],
+      "width": 96,
+      "height": 67
+    },
+    {
+      "id": "B_salamandra_madre",
+      "name": "Salamandra Madre",
+      "family": "lizard",
+      "oldArt": [
+        "bst",
+        "lizard",
+        [
+          "#4a0a0a",
+          "#a02a0a",
+          "#f06a1a",
+          "#ffd06a"
+        ],
+        2.5
+      ],
+      "width": 105,
+      "height": 70
+    },
+    {
+      "id": "B_coloso_ruinas",
+      "name": "Coloso de las Ruinas",
+      "family": "golem",
+      "oldArt": [
+        "bst",
+        "golem",
+        [
+          "#3a2a1a",
+          "#6a5a3a",
+          "#a08a5a",
+          "#e0d0a0"
+        ],
+        2.4,
+        {
+          "core": "#ffd040"
+        }
+      ],
+      "width": 86,
+      "height": 96
+    },
+    {
+      "id": "B_rey_invierno",
+      "name": "Rey del Invierno Eterno",
+      "family": "snowman",
+      "oldArt": [
+        "snowman",
+        "rey",
+        2.2
+      ],
+      "width": 66,
+      "height": 88
+    },
+    {
+      "id": "B_guardian_ambar",
+      "name": "Guardián de Ámbar",
+      "family": "scorpion",
+      "oldArt": [
+        "scorp",
+        "ambar",
+        2.4
+      ],
+      "width": 115,
+      "height": 96
+    },
+    {
+      "id": "B_eco_nihil",
+      "name": "Eco de Nihil",
+      "family": "ghost",
+      "oldArt": [
+        "ghost",
+        "nihil"
+      ],
+      "width": 30,
+      "height": 34
+    },
+    {
+      "id": "B_luna_sonriente",
+      "name": "La Luna Sonriente",
+      "family": "moon",
+      "oldArt": [
+        "vr",
+        "luna"
+      ],
+      "width": 64,
+      "height": 66
+    },
+    {
+      "id": "B_rey_rosas",
+      "name": "Ossaryn, el Rey de las Rosas Azules",
+      "family": "human",
+      "oldArt": [
+        "hum",
+        "rey_rosas"
+      ],
+      "width": 64,
+      "height": 64
+    },
+    {
+      "id": "B_reina_aracnida",
+      "name": "Reina Arácnida del Portal",
+      "family": "spider",
+      "oldArt": [
+        "bst",
+        "spider2",
+        [
+          "#14081e",
+          "#3e1460",
+          "#8a2ac0",
+          "#ffb0ff"
+        ],
+        2.6
+      ],
+      "width": 114,
+      "height": 78
+    },
+    {
+      "id": "B_sapo_rey",
+      "name": "Rey Sapo Abisal",
+      "family": "toad",
+      "oldArt": [
+        "bst",
+        "toad",
+        [
+          "#0a1a14",
+          "#1a4a3a",
+          "#2aa07a",
+          "#c8ffe8"
+        ],
+        3
+      ],
+      "width": 102,
+      "height": 90
+    }
+  ],
+  "errors": []
+}

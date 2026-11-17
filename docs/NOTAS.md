@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.98 (build 119)**, publicada en `main` el 2026-11-16. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.99 (build 120)**, publicada en `main` el 2026-11-16. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -141,3 +141,6 @@ Pruebas: `python3 tests/hair8/browser.py`; `tests/hair8/check.js` también funci
 
 ## 4.98: gi naranja aprobado
 `src/6zz9zu_gi_preview.js`: cinco estructuras por sexo, con busto femenino existente. Vendedor: `jp_comic_st`, tienda de cómics al oeste de Akihabara, punto [127,52]. Conjunto de 24.000 de oro: chaqueta con fajín, pantalón y pies descalzos en Vestuario. Recompra bloqueada; las piezas que falten cuestan 8.000 cada una. Solo cosméticos. Integración: `tests/gi/browser.py`.
+
+## 4.99: los 133 rediseños seleccionados
+Sergio autorizó los 119 enemigos y 14 jefes de «Retoque recomendado» de la auditoría 4.98. Lista exacta: tests/r133/selection.json. Solo dibujo, cuatro vistas, caminata, ataque y VFX separados. Archivos 6zz9zv_r133_data.js, 6zz9zw_r133_art.js, 6zz9zx_r133_runtime.js, 6zz9zy_r133_vfx.js. Se conserva art[0], dimensiones y anclajes originales, combatWidth y toda la lógica de combate. No cambia vida, daño, alcance, colisiones, IA, botín ni cadencias. Caché HD de 8 MiB y atlas de 12 MiB, efectos hasta 80 cuadros. Tests/r133/browser.py valida todos los dibujos, animaciones, VFX y estado de spawn antes/después. No modificar los 93 rediseños prioritarios ni las 55 entradas a conservar, que quedan fuera de esta petición.

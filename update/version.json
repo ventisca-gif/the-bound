@@ -1,20 +1,20 @@
 {
- "build": 119,
- "ver": "4.98",
+ "build": 120,
+ "ver": "4.99",
  "date": "2026-11-16",
  "file": "thebound.html",
- "size": 17664408,
- "sha256": "c645136dfd9dbec551a7852d1907e89c4129277627a78bc1979d6703d21b002b",
+ "size": 17740482,
+ "sha256": "01288e854182b3841a39548278fca7217799e85e00ea01c3ae464c1a5e9d15e6",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🥋 Gi naranja sin mangas, emblema y fajín azul: chaqueta, pantalón y pies descalzos para las cinco estructuras femeninas y las cinco masculinas, conservando el busto existente.",
-   "📖 Lo vende el tendero de cómics al oeste de Akihabara (Japón) por 24.000 de oro. Las tres piezas van a Vestuario y solo cambian el aspecto."
+   "🎨 Rediseño visual de los 119 enemigos y 14 jefes seleccionados del bestiario, con cuatro vistas, caminata, animaciones de ataque y VFX en capa separada.",
+   "⚔️ Se conservan vida, daño, estadísticas, alcance, colisiones, IA, botín y cadencias originales. El bestiario muestra los nuevos dibujos con detalle HD."
   ],
   "en": [
-   "🥋 Sleeveless orange gi, emblem and blue sash: jacket, trousers and bare feet for all five female and five male structures, preserving existing body shapes.",
-   "📖 Sold by the comic shopkeeper in western Akihabara (Japan) for 24,000 gold. All three pieces go to Wardrobe and change appearance only."
+   "🎨 Visual redesign of the selected 119 enemies and 14 bosses, with four views, walking, attack animations and separate-layer VFX.",
+   "⚔️ Original health, damage, stats, reach, collision, AI, loot and attack timing are preserved. Bestiary portraits use the new HD artwork."
   ]
  }
 }
