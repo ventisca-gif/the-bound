@@ -341,7 +341,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.03 · Iconos nuevos</div>
+  <div class="tfoot">v5.04 · Oficios y Gremio</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11756,7 +11756,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.03', GAME_BUILD = 124;
+const GAME_VER = '5.04', GAME_BUILD = 125;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11764,6 +11764,29 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "b": 125,
+  "v": "5.04",
+  "d": "2026-11-17",
+  "es": [
+   "⛏ Oficios más rápidos: del nivel 50 al 75 hace falta la mitad de experiencia, y las 30 primeras acciones de cada oficio al día dan +50 %.",
+   "🎁 Los 23 oficios desbloquean algo cada 5 niveles: 114 productos para vender o regalar, 58 muebles y decoraciones, 69 prendas de ropa del oficio, 9 platos de hoguera nuevos (Cocina 55-85) y ventajas de oro y experiencia.",
+   "⚔ Cada oficio en nivel 50 da +0,1 % de ataque, como mucho +1 %: ningún oficio es obligatorio.",
+   "🏛 Gremio de Oficios en los 6 pueblos: pedidos diarios bien pagados, Taller de oficios, maestrías para todos los oficios (hasta nivel 105), mercado entre jugadores y torneo diario de oficios.",
+   "🐔 Granja en casa: gallinero, establo, corral, colmena, perro trufero, estanque e invernadero. Además, tienda propia: los vecinos te compran aunque no estés jugando.",
+   "🐫 Caravanas comerciales con el Caravanero, Museo de Albor con 6 colecciones y 7 títulos nuevos.",
+   "🎤 Historia de las idols: 3 misiones con cada una de las 13 idols de STELLA☆LINK y PRISM9, con foto firmada y el título «Amigo de las Idols»."
+  ],
+  "en": [
+   "⛏ Faster jobs: levels 50 to 75 need half the experience, and the first 30 actions of each job per day give +50%.",
+   "🎁 All 23 jobs unlock something every 5 levels: 114 goods to sell or gift, 58 furniture and decorations, 69 job clothing pieces, 9 new campfire dishes (Cooking 55-85) and gold and XP perks.",
+   "⚔ Each job at level 50 gives +0.1% attack, at most +1%: no job is mandatory.",
+   "🏛 Crafters Guild in all 6 towns: well-paid daily orders, Crafts workshop, masteries for every job (up to level 105), player market and a daily crafts tournament.",
+   "🐔 Home farm: henhouse, stable, sheep pen, beehive, truffle dog, fish pond and greenhouse. Plus your own shop: neighbours buy from you even while you are away.",
+   "🐫 Trade caravans with the Caravaneer, the Albor Museum with 6 collections and 7 new titles.",
+   "🎤 The idols' story: 3 quests with each of the 13 idols of STELLA☆LINK and PRISM9, with a signed photo and the title «Friend of the Idols»."
+  ]
+ },
  {
   "b": 124,
   "v": "5.03",
@@ -28440,6 +28463,568 @@ function sviPaint(glyph, P, A) { const p = new Pix(16, 16); (SVI_DRAW[glyph] || 
   return sviPaint(SVI_PAS[k] || 'slash', sviPalette(col), SVI_GOLD);
  };
 }
+
+// ================= v5.04: OFICIOS QUE MERECEN LA PENA =================
+// - Ritmo: hace falta menos experiencia desde el nivel 20 (hasta un 55 % menos) y las 30 primeras acciones de cada día dan +50 %.
+// - Cada oficio desbloquea algo cada 5 niveles: productos para vender o regalar, muebles y decoración, ropa del oficio,
+//   platos nuevos y ventajas de oro. Nada de esto da fuerza, salvo un +0,1 % de ataque por oficio en nivel 50 (máximo +1 %).
+// - Gremio de Oficios en cada pueblo: pedidos diarios, taller para los oficios sin mesa propia y maestrías para todos.
+// No se borra ni se cambia nada anterior: recetas, ventajas y maestrías existentes siguen igual.
+SAVEKEYS.push('ofx');
+function ofx() { const P = G.P; P.ofx = P.ofx || {}; const O = P.ofx; O.dn = O.dn || {}; O.got = O.got || {}; O.ord = O.ord || {}; O.mast = O.mast || {}; return O; }
+const ofRamp = h => P5([shade(h, -0.55), shade(h, -0.3), h, shade(h, 0.25), shade(h, 0.5)]);
+
+// ---------- ritmo ----------
+const OFX_CURVE = L => Math.max(0.45, Math.min(1, 1 - (L - 20) * 0.012));
+const OFX_DAILY = 30;
+{ const prev = gainJobXp; gainJobXp = function (job, n) {
+  const P = G.P, J = P && P.jobs && P.jobs[job]; if (!J || !(n > 0)) return prev.apply(this, arguments);
+  const O = ofx(), day = calDay(); if (O.dd !== day) { O.dd = day; O.dn = {}; }
+  let k = 1 / OFX_CURVE(J.lv); const c = O.dn[job] | 0; if (c < OFX_DAILY) { k *= 1.5; O.dn[job] = c + 1; }
+  // ventajas «+% experiencia de este oficio»
+  k *= 1 + ofPerkSum(job, 'xp') / 100;
+  const before = J.lv, r = prev.call(this, job, Math.max(1, Math.round(n * k)));
+  if (J.lv > before) ofOnLevel(job, before, J.lv);
+  // ventaja de oro al trabajar
+  const g = ofPerkSum(job, 'gold'); if (g && Math.random() < g / 100) { const v = 20 + J.lv * 8; P.gold += v; floatText(P.x, P.y - 52, '+' + v + ' ' + L2('ORO', 'GOLD'), '#ffd040'); }
+  return r; }; }
+// +0,1 % de ataque por cada oficio en nivel 50 (máximo +1 %): pequeño a propósito, ningún oficio es obligatorio.
+function ofAtkBonus(P) { if (!P || !P.jobs) return 0; let n = 0; for (const k in JOBS) if ((P.jobs[k] || {}).lv >= 50) n++; return Math.min(1, n * 0.1); }
+{ const _cs = calcStats; calcStats = function (P) { const r = _cs.apply(this, arguments); if (P && P === G.P && P.S) { const b = ofAtkBonus(P); if (b) P.S.atk = Math.round(P.S.atk * (1 + b / 100)); } return r; }; }
+
+// ---------- iconos de productos ----------
+const OFP_SHAPES = ['plank', 'crate', 'figure', 'vase', 'jar', 'bottle', 'ring', 'scroll', 'basket', 'bundle', 'candle', 'bowl', 'box', 'lantern', 'pendant', 'cheese', 'soap', 'tea', 'statue', 'fish', 'painting', 'doll', 'fan', 'bouquet', 'honey', 'wool', 'medal', 'shell', 'map', 'brick'];
+function ofpPaint(p, sh, a, b) {
+ const A = [C(shade(a, -0.45)), C(shade(a, -0.2)), C(a), C(shade(a, 0.35))], B = [C(shade(b, -0.4)), C(b), C(shade(b, 0.4))], W = C('#ffffff');
+ switch (sh) {
+  case 'plank': for (let i = 0; i < 3; i++) { p.rect(2, 3 + i * 4, 12, 3, A[1 + (i % 2)]); p.hl(2, 3 + i * 4, 12, A[3]); p.set(4 + i * 3, 4 + i * 4, A[0]); } break;
+  case 'crate': p.rect(2, 4, 12, 10, A[1]); p.rect(3, 5, 10, 8, A[2]); p.line(3, 5, 12, 12, A[0]); p.line(3, 12, 12, 5, A[0]); p.hl(2, 4, 12, A[3]); p.rect(6, 1, 4, 3, B[1]); break;
+  case 'figure': p.ball(8, 4, 2.5, 2.5, [A[1], A[2], A[3]]); p.poly([[5, 7], [11, 7], [12, 13], [4, 13]], A[2]); p.line(5, 7, 4, 12, A[3]); p.rect(3, 13, 10, 2, B[0]); break;
+  case 'vase': p.ell(8, 9, 5, 5, A[2]); p.rect(6, 2, 4, 4, A[1]); p.hl(5, 2, 6, A[3]); p.hl(4, 9, 8, B[1]); p.set(6, 7, A[3]); p.hl(6, 13, 4, A[0]); break;
+  case 'jar': p.rect(4, 5, 8, 9, A[2]); p.rect(4, 3, 8, 2, B[1]); p.hl(4, 3, 8, B[2]); p.vl(5, 6, 6, A[3]); p.rect(6, 8, 4, 3, W); p.hl(6, 9, 4, B[0]); break;
+  case 'bottle': p.rect(6, 1, 4, 3, B[1]); p.rect(7, 4, 2, 2, A[1]); p.ell(8, 10, 4.5, 4.5, A[2]); p.vl(6, 8, 4, A[3]); p.rect(6, 9, 4, 3, W); break;
+  case 'ring': for (let a = 0; a < 6.3; a += 0.25) p.set(Math.round(8 + Math.cos(a) * 5), Math.round(10 + Math.sin(a) * 3.5), A[2]); p.ball(8, 5, 2.5, 2.5, [B[0], B[1], B[2], W]); break;
+  case 'scroll': p.rect(3, 4, 10, 9, C('#f0e0b8')); for (let y = 6; y < 12; y += 2) p.hl(5, y, 6, A[1]); p.rect(2, 3, 12, 2, A[2]); p.rect(2, 12, 12, 2, A[2]); p.set(13, 8, B[1]); break;
+  case 'basket': p.poly([[2, 7], [14, 7], [12, 14], [4, 14]], A[1]); for (let x = 3; x < 14; x += 2) p.vl(x, 8, 5, A[2]); p.hl(2, 7, 12, A[3]); for (let a = 3.3; a < 6.2; a += 0.3) p.set(Math.round(8 + Math.cos(a) * 5), Math.round(7 + Math.sin(a) * 5), A[0]); p.ball(6, 6, 2, 1.6, [B[0], B[1], B[2]]); p.ball(10, 6, 2, 1.6, [B[0], B[1], B[2]]); break;
+  case 'bundle': for (let i = 0; i < 4; i++) p.line(3 + i * 2, 14, 7 + i * 2, 2, i % 2 ? A[2] : A[1]); p.hl(4, 8, 9, B[1]); p.hl(4, 9, 9, B[0]); break;
+  case 'candle': p.rect(5, 5, 6, 9, A[2]); p.vl(6, 6, 7, A[3]); p.vl(10, 6, 7, A[1]); p.vl(8, 3, 2, C('#3a2a1a')); p.ball(8, 2, 1.2, 1.6, [C('#ff8a2a'), C('#ffe060'), W]); p.rect(4, 13, 8, 2, B[1]); break;
+  case 'bowl': p.ell(8, 8, 6.5, 2, B[2]); p.poly([[1, 8], [15, 8], [12, 14], [4, 14]], A[2]); p.hl(2, 9, 12, A[3]); p.hl(5, 13, 6, A[0]); p.set(6, 7, B[1]); p.set(10, 7, B[0]); break;
+  case 'box': p.rect(2, 6, 12, 8, A[2]); p.rect(2, 4, 12, 3, A[3]); p.vl(8, 4, 10, B[1]); p.hl(2, 9, 12, B[1]); p.ball(8, 3, 2.5, 1.5, [B[0], B[1], B[2]]); break;
+  case 'lantern': p.vl(8, 1, 2, A[0]); p.rect(4, 3, 8, 2, A[1]); p.rect(5, 5, 6, 7, C('#ffe080')); p.vl(5, 5, 7, A[1]); p.vl(10, 5, 7, A[1]); p.ball(8, 8, 1.5, 2, [C('#ff8a2a'), W]); p.rect(4, 12, 8, 2, A[1]); break;
+  case 'pendant': p.line(3, 2, 8, 9, B[1]); p.line(13, 2, 8, 9, B[1]); p.poly([[8, 7], [12, 11], [8, 15], [4, 11]], A[2]); p.line(8, 8, 11, 11, A[3]); break;
+  case 'cheese': p.poly([[2, 13], [14, 13], [14, 7], [4, 5]], A[2]); p.poly([[4, 5], [14, 7], [2, 8]], A[3]); p.ell(7, 10, 1.2, 1, A[0]); p.ell(11, 11, 1, 1, A[0]); p.set(12, 9, A[0]); break;
+  case 'soap': p.rect(3, 6, 10, 7, A[2]); p.hl(3, 6, 10, A[3]); p.hl(3, 12, 10, A[0]); for (const [x, y] of [[4, 3], [9, 2], [12, 4]]) p.ball(x, y, 1.4, 1.4, [B[1], B[2], W]); break;
+  case 'tea': p.ell(8, 12, 6, 2, B[1]); p.poly([[3, 6], [13, 6], [12, 12], [4, 12]], A[2]); p.ell(8, 6, 5, 1.5, B[0]); p.hl(4, 8, 8, A[3]); p.set(6, 3, W); p.set(9, 2, W); p.set(10, 4, W); break;
+  case 'statue': p.rect(3, 12, 10, 3, A[0]); p.ball(8, 3, 2.2, 2.2, [A[1], A[2], A[3]]); p.poly([[5, 6], [11, 6], [10, 12], [6, 12]], A[2]); p.line(11, 6, 13, 3, A[3]); p.set(13, 2, B[2]); break;
+  case 'fish': p.rect(2, 3, 12, 10, C('#7a4c29')); p.rect(3, 4, 10, 8, C('#986236')); p.ell(7, 8, 4, 2.2, A[2]); p.poly([[11, 8], [14, 5], [14, 11]], A[1]); p.set(5, 7, C('#101010')); p.hl(5, 9, 4, A[3]); break;
+  case 'painting': p.rect(1, 2, 14, 12, B[1]); p.rect(2, 3, 12, 10, C('#9ad0f0')); p.poly([[2, 13], [6, 7], [9, 11], [11, 8], [14, 13]], A[2]); p.ball(11, 5, 1.5, 1.5, [C('#ffd040'), W]); break;
+  case 'doll': p.ball(8, 5, 3.5, 3.5, [A[1], A[2], A[3]]); p.poly([[4, 9], [12, 9], [13, 14], [3, 14]], B[1]); p.set(7, 5, C('#101010')); p.set(9, 5, C('#101010')); p.hl(4, 2, 8, A[0]); break;
+  case 'fan': for (let i = 0; i < 7; i++) { const an = Math.PI * (1.05 + i * 0.15); p.line(8, 13, Math.round(8 + Math.cos(an) * 7), Math.round(13 + Math.sin(an) * 9), i % 2 ? A[2] : A[3]); } p.ball(8, 13, 1.5, 1.5, [B[0], B[1]]); break;
+  case 'bouquet': for (const [x, y, c] of [[5, 5, A], [10, 4, B], [8, 7, A], [4, 9, B], [11, 9, A]]) p.ball(x, y, 2.2, 2.2, [c[0], c[1], c[2]]); p.poly([[5, 11], [11, 11], [9, 15], [7, 15]], C('#5ab04a')); break;
+  case 'honey': p.ell(8, 10, 5, 4.5, A[2]); p.rect(5, 3, 6, 3, B[1]); p.hl(5, 3, 6, B[2]); p.set(6, 9, A[3]); p.set(6, 8, W); p.line(10, 6, 10, 9, A[1]); break;
+  case 'wool': p.ball(8, 9, 6, 5, [A[1], A[2], A[3], W]); for (let a = 0; a < 6; a += 0.7) p.set(Math.round(8 + Math.cos(a) * 3), Math.round(9 + Math.sin(a) * 2.5), A[0]); p.line(12, 12, 15, 15, B[1]); break;
+  case 'medal': p.poly([[5, 1], [8, 6], [11, 1]], B[1]); p.ball(8, 10, 4.2, 4.2, [A[0], A[1], A[2], A[3]]); p.set(7, 9, W); break;
+  case 'shell': for (let i = 0; i < 6; i++) p.line(8, 14, 2 + i * 2.4, 4 + Math.abs(i - 2.5) * 1.2, i % 2 ? A[2] : A[3]); p.ell(8, 13, 3, 1.5, A[1]); break;
+  case 'map': p.poly([[2, 3], [6, 2], [10, 3], [14, 2], [14, 13], [10, 14], [6, 13], [2, 14]], C('#f0e0b8')); p.vl(6, 2, 11, C('#d8c098')); p.vl(10, 3, 11, C('#d8c098')); p.line(4, 11, 8, 6, A[2]); p.line(8, 6, 12, 9, A[2]); p.set(12, 9, B[1]); p.set(11, 8, B[1]); break;
+  case 'brick': for (let r = 0; r < 3; r++) for (let c = 0; c < 2; c++) { const x = 2 + c * 6 + (r % 2) * 3, y = 4 + r * 3; p.rect(x, y, 5, 2, A[2]); p.hl(x, y, 5, A[3]); } break;
+ }
+}
+{ const _gi = genIcon; genIcon = function (spec) { if (spec[0] !== 'ofp') return _gi.apply(this, arguments); const p = new Pix(16, 16); ofpPaint(p, spec[1], spec[2] || '#c08a4a', spec[3] || '#ffd040'); p.outline(OUTL); return p; }; }
+
+// ---------- muebles del oficio ----------
+function offPaint(sh, a, b) {
+ const A = [C(shade(a, -0.5)), C(shade(a, -0.25)), C(a), C(shade(a, 0.3)), C(shade(a, 0.55))], B = [C(shade(b, -0.4)), C(b), C(shade(b, 0.4))], W_ = WOOD, W = C('#ffffff');
+ let p, ax, ay;
+ switch (sh) {
+  case 'shelf': { p = new Pix(32, 34); p.rect(1, 2, 30, 31, W_[2]); p.rect(1, 0, 30, 3, W_[4]); for (let s = 0; s < 3; s++) { const y = 10 + s * 9; p.rect(3, y - 6, 26, 6, W_[1]); p.hl(2, y, 28, W_[4]); for (let i = 0; i < 5; i++) { const x = 4 + i * 5, c = (i + s) % 2 ? A : B; p.rect(x, y - 5, 3, 5, c[1]); p.hl(x, y - 5, 3, c[2]); } } ax = 8; ay = 32; break; }
+  case 'crates': { p = new Pix(30, 26); for (const [x, y, w, h] of [[1, 10, 14, 14], [15, 12, 13, 12], [7, 1, 13, 10]]) { p.rect(x, y, w, h, A[1]); p.rect(x + 1, y + 1, w - 2, h - 2, A[2]); p.line(x + 1, y + 1, x + w - 2, y + h - 2, A[0]); p.hl(x, y, w, A[3]); } p.ball(13, 4, 2, 1.5, [B[0], B[1], B[2]]); ax = 8; ay = 24; break; }
+  case 'barrel': { p = new Pix(16, 22); p.ell(8, 11, 7, 10, A[2]); for (let x = 2; x < 15; x += 3) p.vl(x, 3, 16, A[1]); p.hl(1, 5, 14, IRON[3]); p.hl(1, 16, 14, IRON[3]); p.ell(8, 2, 6, 1.6, A[3]); p.ball(8, 1, 2, 1.2, [B[0], B[1], B[2]]); ax = 8; ay = 21; break; }
+  case 'statue': { p = new Pix(18, 34); p.rect(2, 26, 14, 7, C('#6a6a76')); p.hl(2, 26, 14, C('#a0a0aa')); p.ball(9, 6, 3.5, 3.5, [A[1], A[2], A[3], A[4]]); p.poly([[5, 10], [13, 10], [12, 26], [6, 26]], A[2]); p.line(5, 10, 6, 26, A[3]); p.line(13, 11, 16, 4, B[1]); p.ball(16, 3, 1.5, 1.5, [B[1], B[2], W]); ax = 9; ay = 32; break; }
+  case 'lamp': { p = new Pix(14, 34); p.vl(7, 8, 24, IRON[2]); p.vl(6, 8, 24, IRON[3]); p.rect(3, 30, 8, 3, IRON[1]); p.rect(2, 1, 10, 9, A[1]); p.rect(3, 2, 8, 7, C('#ffe8a0')); p.vl(7, 2, 7, A[1]); p.hl(2, 1, 10, A[3]); p.ball(7, 5, 1.5, 2, [C('#ff8a2a'), C('#ffe060')]); ax = 7; ay = 32; break; }
+  case 'rack': { p = new Pix(30, 30); woodPost(p, 2, 4, 28, 3); woodPost(p, 25, 4, 28, 3); p.rect(2, 4, 26, 3, W_[4]); for (let i = 0; i < 4; i++) { const x = 7 + i * 5; p.vl(x, 7, 14, i % 2 ? B[1] : A[2]); p.rect(x - 1, 7, 3, 4, i % 2 ? A[3] : B[2]); } p.rect(2, 22, 26, 3, W_[2]); ax = 8; ay = 28; break; }
+  case 'display': { p = new Pix(32, 24); p.rect(1, 8, 30, 4, W_[4]); p.hl(1, 8, 30, W_[5]); woodPost(p, 3, 12, 22, 3); woodPost(p, 27, 12, 22, 3); for (let i = 0; i < 4; i++) { const x = 4 + i * 7, c = i % 2 ? A : B; p.ball(x + 2, 5, 2.5, 3, [c[0], c[1], c[2]]); p.set(x + 1, 3, W); } ax = 8; ay = 22; break; }
+  case 'rug': { p = new Pix(32, 18); p.rect(1, 2, 30, 14, A[1]); p.rect(3, 4, 26, 10, A[2]); p.rect(6, 6, 20, 6, B[1]); p.rect(9, 8, 14, 2, A[3]); for (let x = 1; x < 31; x += 2) { p.set(x, 1, A[3]); p.set(x, 16, A[3]); } ax = 8; ay = 16; break; }
+  case 'easel': { p = new Pix(22, 34); p.line(4, 32, 10, 2, W_[3]); p.line(17, 32, 11, 2, W_[3]); p.line(11, 20, 15, 32, W_[2]); p.rect(2, 6, 18, 14, B[1]); p.rect(3, 7, 16, 12, C('#9ad0f0')); p.poly([[3, 19], [8, 11], [12, 16], [15, 12], [19, 19]], A[2]); p.ball(15, 10, 1.6, 1.6, [C('#ffd040'), W]); ax = 11; ay = 32; break; }
+  case 'pots': { p = new Pix(30, 22); for (const [x, s] of [[6, 1], [15, 1.3], [24, 0.9]]) { p.poly([[x - 4 * s, 13], [x + 4 * s, 13], [x + 3 * s, 21], [x - 3 * s, 21]], C('#b0603a')); p.hl(Math.round(x - 4 * s), 13, Math.round(8 * s), C('#d08050')); for (let k = 0; k < 4; k++) p.ball(x + Math.cos(k * 1.6) * 3 * s, 9 - k * 1.5 * s, 2.2 * s, 1.8 * s, [A[1], A[2], A[3]]); p.ball(x, 6 - 2 * s, 1.6, 1.6, [B[0], B[1], B[2]]); } ax = 8; ay = 21; break; }
+  case 'tank': { p = new Pix(32, 30); p.rect(1, 20, 30, 9, W_[2]); p.hl(1, 20, 30, W_[4]); p.rect(2, 3, 28, 17, C('#3a8ad0')); p.rect(3, 4, 26, 15, C('#6ab8f0')); p.hl(3, 4, 26, C('#c8f0ff')); p.rect(3, 16, 26, 3, C('#d8c088')); p.ell(10, 10, 3, 1.6, A[2]); p.poly([[13, 10], [15, 8], [15, 12]], A[2]); p.ell(21, 13, 2.5, 1.4, B[1]); p.poly([[18, 13], [16, 11], [16, 15]], B[1]); p.vl(26, 9, 8, C('#3aa04a')); p.vl(6, 11, 6, C('#3aa04a')); ax = 8; ay = 28; break; }
+  case 'bench': { p = new Pix(32, 20); p.rect(1, 6, 30, 4, A[2]); p.hl(1, 6, 30, A[3]); p.rect(1, 1, 30, 3, A[1]); woodPost(p, 3, 10, 19, 2); woodPost(p, 27, 10, 19, 2); p.hl(1, 10, 30, A[0]); ax = 8; ay = 18; break; }
+  case 'loom': { p = new Pix(30, 30); woodPost(p, 2, 2, 28, 3); woodPost(p, 25, 2, 28, 3); p.rect(2, 2, 26, 3, W_[4]); p.rect(2, 24, 26, 3, W_[3]); for (let x = 6; x < 25; x += 2) p.vl(x, 5, 11, C('#f0e8d8')); p.rect(6, 15, 18, 9, A[2]); for (let y = 16; y < 24; y += 2) p.hl(6, y, 18, B[1]); ax = 8; ay = 28; break; }
+  case 'wheel': { p = new Pix(24, 24); p.rect(2, 12, 20, 10, W_[2]); p.hl(2, 12, 20, W_[4]); p.ell(12, 10, 8, 2.5, IRON[3]); p.ell(12, 8, 4, 4, A[2]); p.ell(12, 5, 3, 1.2, A[3]); p.vl(10, 6, 4, A[3]); p.ball(19, 17, 2, 2, [B[0], B[1], B[2]]); ax = 8; ay = 22; break; }
+  case 'oven': { p = new Pix(30, 30); p.ball(15, 16, 13, 13, [A[0], A[1], A[2], A[3]]); p.rect(2, 22, 26, 7, A[1]); p.ell(15, 22, 6, 5, C('#2a1408')); p.ell(15, 23, 4, 3, C('#ff6a1a')); p.ell(15, 24, 2, 1.5, C('#ffd040')); p.rect(19, 1, 4, 6, A[0]); ax = 8; ay = 28; break; }
+  case 'trophy': { p = new Pix(32, 22); p.rect(1, 2, 30, 18, W_[2]); p.rect(2, 3, 28, 16, W_[3]); p.ell(14, 11, 10, 4.5, A[2]); p.ell(14, 10, 8, 2.5, A[3]); p.poly([[23, 11], [29, 5], [29, 17]], A[1]); p.set(7, 10, C('#101010')); p.hl(9, 12, 10, B[1]); ax = 8; ay = 20; break; }
+  case 'bonsai': { p = new Pix(22, 26); p.rect(3, 19, 16, 6, A[1]); p.hl(3, 19, 16, A[3]); p.line(11, 19, 9, 11, W_[2]); p.line(9, 11, 13, 7, W_[2]); for (const [x, y] of [[6, 9], [12, 6], [16, 9], [9, 5]]) p.ball(x, y, 3.5, 2.4, [B[0], B[1], B[2]]); ax = 11; ay = 25; break; }
+  case 'fountain': { p = new Pix(30, 28); p.ell(15, 20, 13, 6, C('#7a7a86')); p.ell(15, 19, 11, 4.5, C('#5ab0e0')); p.rect(13, 6, 4, 13, C('#9a9aa6')); p.ell(15, 7, 6, 2, C('#b0b0ba')); p.ell(15, 6, 5, 1.4, C('#8ad0f0')); p.set(15, 2, W); p.set(14, 3, C('#c8f0ff')); p.ball(24, 19, 1.5, 1, [A[1], A[2]]); ax = 8; ay = 26; break; }
+  case 'cart': { p = new Pix(32, 24); p.rect(3, 6, 22, 10, A[2]); p.hl(3, 6, 22, A[3]); for (let x = 5; x < 24; x += 5) p.vl(x, 7, 8, A[1]); for (const [x, c] of [[8, B], [15, A], [21, B]]) p.ball(x, 5, 3, 2.5, [c[0], c[1], c[2]]); p.ball(9, 18, 4, 4, [W_[1], W_[2], W_[3]]); p.ball(21, 18, 4, 4, [W_[1], W_[2], W_[3]]); p.line(25, 10, 31, 12, W_[3]); ax = 8; ay = 22; break; }
+  case 'board': { p = new Pix(30, 32); woodPost(p, 3, 6, 31, 2); woodPost(p, 25, 6, 31, 2); p.rect(1, 2, 28, 18, W_[3]); p.rect(2, 3, 26, 16, A[1]); for (const [x, y] of [[4, 5], [12, 6], [19, 5], [7, 12], [16, 12]]) { p.rect(x, y, 6, 5, C('#f0e0b8')); p.hl(x + 1, y + 2, 4, B[1]); } ax = 8; ay = 31; break; }
+  default: { p = new Pix(16, 16); p.rect(2, 2, 12, 12, A[2]); ax = 8; ay = 15; }
+ }
+ p.outline(C('#1a1010')); return { c: p.canvas(), ax, ay };
+}
+{ const _gf = genFurn2; genFurn2 = function (kind) { if (!/^of_/.test(kind)) return _gf.apply(this, arguments); const b = BK[kind.slice(3)]; return b && b.ofs ? offPaint(b.ofs[0], b.ofs[1], b.ofs[2]) : _gf.apply(this, arguments); }; }
+const OFF_FP = { shelf: [[0, 0], [1, 0]], crates: [[0, 0], [1, 0]], rack: [[0, 0], [1, 0]], display: [[0, 0], [1, 0]], rug: [[0, 0], [1, 0]], tank: [[0, 0], [1, 0]], bench: [[0, 0], [1, 0]], loom: [[0, 0], [1, 0]], oven: [[0, 0], [1, 0]], trophy: [[0, 0], [1, 0]], fountain: [[0, 0], [1, 0]], cart: [[0, 0], [1, 0]], board: [[0, 0], [1, 0]] };
+
+// ---------- catálogo por oficio ----------
+// p: producto [nivel, id, es, en, forma, color, color2, precio, materiales, cantidad]
+// f: mueble  [nivel, id, es, en, forma, color, color2, coste, oro, categoría]
+// c: ropa    [nivel, id, es, en, ranura, función de aspecto]
+// k: ventaja [nivel, es, en, {xp|gold|dbl|sell: %}]
+const OFU = {};
+const OFC = (k, m, s, o) => () => Object.assign({ k, m: ofRamp(m), s: ofRamp(s || m) }, o || {});
+OFU.tala = {
+ p: [[5, 'tablas', 'Tablas cepilladas', 'Planed boards', 'plank', '#b67c48', '#7a4c29', 40, [['log1', 3]], 2], [15, 'tallas', 'Talla de madera', 'Wood carving', 'figure', '#c8904a', '#5e381e', 220, [['log2', 3], ['log3', 1]], 1],
+  [25, 'arcon', 'Arcón de abedul', 'Birch chest', 'box', '#d8b080', '#8a5a2a', 600, [['log3', 4], ['ore2', 1]], 1], [35, 'carbon', 'Carbón vegetal', 'Charcoal', 'bundle', '#3a3a40', '#7a4c29', 300, [['log4', 2]], 3],
+  [55, 'barca', 'Barca en miniatura', 'Model boat', 'crate', '#7a4c29', '#e0e0f0', 2400, [['log7', 4], ['tela_fina', 2]], 1], [75, 'obra_tala', 'Obra maestra: árbol tallado', 'Masterpiece: carved tree', 'statue', '#986236', '#5ab04a', 9000, [['log10', 6], ['log11', 2]], 1]],
+ f: [[20, 'of_lenera', 'Leñera', 'Woodpile', 'crates', '#986236', '#5ab04a', [['log', 8]], 300, 'deco'], [40, 'of_banco_roble', 'Banco de roble tallado', 'Carved oak bench', 'bench', '#b67c48', '#5e381e', [['log4', 6]], 800, 'mueble'], [60, 'of_bonsai', 'Bonsái del leñador', 'Woodcutter bonsai', 'bonsai', '#b0603a', '#3a9a3a', [['log7', 3]], 2500, 'deco']],
+ c: [[30, 'c_of_tala_g', 'Gorro de leñador', 'Woodcutter cap', 'head', OFC('bandana', '#b8322a', '#3a2a1a', { cover: 'hat' })], [50, 'c_of_tala_c', 'Camisa de leñador', 'Woodcutter shirt', 'body', OFC('shirt', '#b8322a', '#2a1a1a')], [70, 'c_of_tala_p', 'Pantalón de faena', 'Work trousers', 'legs', OFC('pants', '#3a4a6a')]],
+ k: [[10, 'Astillas útiles: +10 % de experiencia de Tala', 'Useful chips: +10% Woodcutting XP', { xp: 10 }], [45, 'Madera noble: tus productos de Tala valen un 20 % más', 'Fine timber: your Woodcutting goods are worth 20% more', { sell: 20 }], [65, 'Racha: 15 % de producto doble en el taller', 'Streak: 15% double goods in the workshop', { dbl: 15 }]] };
+OFU.mineria = {
+ p: [[5, 'ladrillos', 'Ladrillos de arcilla', 'Clay bricks', 'brick', '#b0603a', '#d08050', 30, [['piedra', 3]], 3], [15, 'lingote', 'Lingote de plata', 'Silver ingot', 'brick', '#c8d0e0', '#8a8a96', 260, [['ore3', 3]], 1],
+  [25, 'geoda', 'Geoda abierta', 'Opened geode', 'shell', '#8a5ad0', '#c8a0ff', 700, [['ore4', 2], ['piedra', 6]], 1], [35, 'campana', 'Campanilla de bronce', 'Bronze bell', 'lantern', '#c8902a', '#fff0a0', 900, [['ore2', 4], ['ore4', 1]], 1],
+  [55, 'farolm', 'Farol de mithril', 'Mithril lantern', 'lantern', '#8ad0e0', '#ffe080', 2600, [['ore5', 4], ['ore7', 1]], 1], [75, 'obra_min', 'Obra maestra: corona de cristal', 'Masterpiece: crystal crown', 'pendant', '#8af0ff', '#ffd040', 9500, [['ore10', 4], ['diamante', 1]], 1]],
+ f: [[20, 'of_carretilla', 'Vagoneta de mina', 'Mine cart', 'cart', '#5d5c66', '#c8a040', [['piedra', 10], ['ore2', 2]], 300, 'deco'], [40, 'of_geodas', 'Estante de geodas', 'Geode shelf', 'shelf', '#8a5ad0', '#8ad0f0', [['ore4', 3], ['log', 4]], 900, 'mueble'], [60, 'of_fuente_m', 'Fuente de piedra', 'Stone fountain', 'fountain', '#8a8a96', '#5ab0e0', [['piedra', 30], ['ore6', 2]], 3000, 'deco']],
+ c: [[30, 'c_of_min_g', 'Casco de minero', 'Miner helmet', 'head', OFC('bandana', '#e0b030', '#5d5c66', { cover: 'hat' })], [50, 'c_of_min_c', 'Chaleco de minero', 'Miner vest', 'body', OFC('vest', '#7a5a3a', '#e0b030')], [70, 'c_of_min_b', 'Botas de roca', 'Rock boots', 'feet', OFC('boots', '#4a4a56')]],
+ k: [[10, 'Buen pulso: +10 % de experiencia de Minería', 'Steady hand: +10% Mining XP', { xp: 10 }], [45, 'Pepitas: 6 % de encontrar oro al minar', 'Nuggets: 6% chance to find gold when mining', { gold: 6 }], [65, 'Metal puro: productos de Minería un 20 % más caros', 'Pure metal: Mining goods worth 20% more', { sell: 20 }]] };
+OFU.pesca = {
+ p: [[5, 'cebo', 'Cebo casero', 'Homemade bait', 'jar', '#8a6a3a', '#c86a4a', 25, [['sardina', 2]], 3], [15, 'ahumado', 'Pescado ahumado', 'Smoked fish', 'fish', '#c8783a', '#8a4a2a', 260, [['salmon', 2], ['log2', 1]], 2],
+  [25, 'conserva', 'Conserva de anguila', 'Eel preserve', 'jar', '#5a7a5a', '#e0c070', 520, [['anguila', 2], ['herb2', 1]], 2], [35, 'red', 'Red de pescador', 'Fishing net', 'bundle', '#c8b088', '#3a5a8a', 900, [['tela_fina', 4], ['log3', 2]], 1],
+  [55, 'trofeo_p', 'Trofeo: pez espada disecado', 'Trophy: mounted swordfish', 'fish', '#5a7ab0', '#c8d0e0', 3000, [['pezespada', 2], ['log5', 2]], 1], [75, 'obra_pes', 'Obra maestra: pez dragón de oro', 'Masterpiece: golden dragonfish', 'fish', '#ffd040', '#ff6a3a', 10000, [['pezdragon', 2], ['ore4', 4]], 1]],
+ f: [[20, 'of_acuario', 'Acuario', 'Aquarium', 'tank', '#ff8a3a', '#ffd040', [['log', 4], ['piedra', 4]], 900, 'mueble'], [40, 'of_trofeo_pez', 'Pez gigante en la pared', 'Giant fish on the wall', 'trophy', '#5a8ab0', '#ffd040', [['log4', 3], ['lucio', 2]], 1500, 'deco'], [60, 'of_barril_p', 'Barril de salazón', 'Salting barrel', 'barrel', '#7a4c29', '#c8d0e0', [['log5', 3], ['sardina', 6]], 1200, 'deco']],
+ c: [[30, 'c_of_pes_g', 'Sombrero de pescador', 'Fisher hat', 'head', OFC('ranger', '#c8b070', '#3a5a8a', { cover: 'hat' })], [50, 'c_of_pes_c', 'Impermeable amarillo', 'Yellow raincoat', 'body', OFC('coat', '#ffd030', '#c89a20')], [70, 'c_of_pes_b', 'Botas de agua', 'Rain boots', 'feet', OFC('boots', '#2a6a4a')]],
+ k: [[10, 'Buen cebo: +10 % de experiencia de Pesca', 'Good bait: +10% Fishing XP', { xp: 10 }], [45, 'Lonja: productos de Pesca un 20 % más caros', 'Fish market: Fishing goods worth 20% more', { sell: 20 }], [65, 'Monedas en la red: 6 % de sacar oro', 'Coins in the net: 6% chance of gold', { gold: 6 }]] };
+OFU.herbo = {
+ p: [[5, 'te_hierbas', 'Té de hierbas', 'Herbal tea', 'tea', '#c8a070', '#5ab04a', 35, [['herb1', 3]], 2], [15, 'incienso', 'Varillas de incienso', 'Incense sticks', 'bundle', '#a05ad0', '#ffd040', 240, [['herb2', 2], ['log1', 1]], 3],
+  [25, 'jabon', 'Jabón de lavanda', 'Lavender soap', 'soap', '#b090e0', '#ffffff', 420, [['herb3', 2], ['gel', 2]], 2], [35, 'perfume', 'Perfume de flor de luna', 'Moonflower perfume', 'bottle', '#c8a0ff', '#ffd040', 1100, [['herb5', 2], ['ore3', 1]], 1],
+  [55, 'especias', 'Mezcla de especias', 'Spice blend', 'jar', '#d8602a', '#ffd040', 1800, [['herb8', 2], ['herb7', 1]], 2], [75, 'obra_her', 'Obra maestra: jardín en botella', 'Masterpiece: garden in a bottle', 'bottle', '#5ad08a', '#c8f0ff', 9000, [['herb10', 3], ['herb11', 2]], 1]],
+ f: [[20, 'of_macetas', 'Macetas de flores', 'Flower pots', 'pots', '#e05a8a', '#ffd040', [['piedra', 4]], 400, 'deco'], [40, 'of_secadero', 'Secadero de hierbas', 'Herb drying rack', 'rack', '#5ab04a', '#c8a070', [['log', 6]], 900, 'mueble'], [60, 'of_bonsai_flor', 'Árbol de flores lunares', 'Moonflower tree', 'bonsai', '#6a6aa0', '#c8a0ff', [['herb5', 4], ['piedra', 6]], 2500, 'deco']],
+ c: [[30, 'c_of_her_g', 'Corona de hierbas', 'Herb crown', 'head', () => ({ k: 'flowers', cover: 'hat' })], [50, 'c_of_her_c', 'Túnica de herbolaria', 'Herbalist tunic', 'body', OFC('tunic', '#5a8a4a', '#d8c088')], [70, 'c_of_her_p', 'Falda de pétalos', 'Petal skirt', 'legs', OFC('skirt', '#d870a0')]],
+ k: [[10, 'Buen olfato: +10 % de experiencia de Herboristería', 'Keen nose: +10% Herbalism XP', { xp: 10 }], [45, 'Boticaria: productos de Herboristería un 20 % más caros', 'Apothecary: Herbalism goods worth 20% more', { sell: 20 }], [65, 'Ramillete doble: 15 % de producto doble', 'Double posy: 15% double goods', { dbl: 15 }]] };
+OFU.herreria = {
+ p: [[5, 'clavos', 'Caja de clavos', 'Box of nails', 'box', '#7c7b86', '#a3a2ac', 40, [['ore1', 2]], 2], [15, 'herradura', 'Herradura de la suerte', 'Lucky horseshoe', 'ring', '#a3a2ac', '#ffd040', 300, [['ore2', 3]], 1],
+  [25, 'candelabro', 'Candelabro de hierro', 'Iron candelabrum', 'candle', '#424149', '#ffe060', 650, [['ore2', 4], ['ore3', 1]], 1], [35, 'espada_deco', 'Espada de adorno', 'Ornamental sword', 'statue', '#c8d0e0', '#ffd040', 1300, [['ore4', 3], ['ore5', 1]], 1],
+  [55, 'yelmo_deco', 'Armadura de exposición', 'Display armour', 'figure', '#8a96b0', '#ffd040', 3000, [['ore6', 4], ['ore7', 1]], 1], [75, 'obra_her2', 'Obra maestra: estandarte de acero', 'Masterpiece: steel standard', 'statue', '#e8f0ff', '#c83a3a', 10000, [['ore10', 5], ['ore11', 2]], 1]],
+ f: [[20, 'of_armero', 'Armero de pared', 'Weapon rack', 'rack', '#a3a2ac', '#c83a3a', [['log', 4], ['ore2', 2]], 600, 'mueble'], [40, 'of_estatua_cab', 'Estatua del caballero', 'Knight statue', 'statue', '#8a96b0', '#ffd040', [['piedra', 12], ['ore4', 2]], 2000, 'deco'], [60, 'of_farol_forja', 'Farol de forja', 'Forge lantern', 'lamp', '#424149', '#ff8a2a', [['ore6', 2]], 1500, 'deco']],
+ c: [[30, 'c_of_hrr_g', 'Pañuelo de herrero', 'Smith bandana', 'head', OFC('bandana', '#5a5a64', '#2a2a30', { cover: 'hat' })], [50, 'c_of_hrr_c', 'Mandil de cuero', 'Leather apron', 'body', OFC('leather', '#7a4a2a', '#a3a2ac')], [70, 'c_of_hrr_b', 'Botas reforzadas', 'Reinforced boots', 'feet', OFC('boots', '#3a2a20')]],
+ k: [[10, 'Fuelle: +10 % de experiencia de Herrería', 'Bellows: +10% Smithing XP', { xp: 10 }], [45, 'Sello del gremio: productos de Herrería un 20 % más caros', 'Guild seal: Smithing goods worth 20% more', { sell: 20 }], [65, 'Martillo veloz: 15 % de producto doble', 'Quick hammer: 15% double goods', { dbl: 15 }]] };
+OFU.alquimia = {
+ p: [[5, 'sales', 'Sales de baño', 'Bath salts', 'jar', '#8ad0f0', '#ffffff', 40, [['herb1', 2], ['gel', 1]], 2], [15, 'tinta', 'Tinta mágica', 'Magic ink', 'bottle', '#3a3a8a', '#c8a0ff', 280, [['herb2', 2], ['espora', 1]], 2],
+  [25, 'velas_a', 'Velas aromáticas', 'Scented candles', 'candle', '#f0d0e0', '#c8a0ff', 500, [['herb3', 2], ['gel', 2]], 2], [35, 'fuegos', 'Fuegos artificiales', 'Fireworks', 'bundle', '#e83a3a', '#ffd040', 1100, [['brasa', 1], ['herb4', 2]], 3],
+  [55, 'esencia_luz', 'Esencia de luz', 'Light essence', 'bottle', '#ffe080', '#ffffff', 2600, [['herb7', 2], ['prisma', 1]], 1], [75, 'obra_alq', 'Obra maestra: piedra filosofal falsa', "Masterpiece: fake philosopher's stone", 'pendant', '#e83a5a', '#ffd040', 10000, [['opalo', 1], ['herb10', 2]], 1]],
+ f: [[20, 'of_estante_alq', 'Estante de frascos', 'Jar shelf', 'shelf', '#5ab0e0', '#c070ff', [['log', 4], ['gel', 4]], 600, 'mueble'], [40, 'of_farol_alq', 'Farol de esencia azul', 'Blue essence lamp', 'lamp', '#3a6ad0', '#8af0ff', [['ore3', 2], ['herb4', 2]], 1200, 'deco'], [60, 'of_fuente_alq', 'Fuente burbujeante', 'Bubbling fountain', 'fountain', '#6a5a8a', '#c070ff', [['piedra', 20], ['herb6', 3]], 3000, 'deco']],
+ c: [[30, 'c_of_alq_g', 'Sombrero de alquimista', 'Alchemist hat', 'head', OFC('wizard', '#4a3a8a', '#c8a040', { cover: 'hat' })], [50, 'c_of_alq_c', 'Bata de laboratorio', 'Lab coat', 'body', OFC('robe', '#e8e8f0', '#5a8ad0')], [70, 'c_of_alq_b', 'Zapatos de alquimista', 'Alchemist shoes', 'feet', OFC('shoes', '#3a2a4a')]],
+ k: [[10, 'Probeta limpia: +10 % de experiencia de Alquimia', 'Clean flask: +10% Alchemy XP', { xp: 10 }], [45, 'Fórmula secreta: productos de Alquimia un 20 % más caros', 'Secret formula: Alchemy goods worth 20% more', { sell: 20 }], [65, 'Reacción en cadena: 15 % de producto doble', 'Chain reaction: 15% double goods', { dbl: 15 }]] };
+OFU.cocina = {
+ p: [[5, 'mermelada', 'Mermelada casera', 'Homemade jam', 'jar', '#c83a5a', '#f0e0b8', 40, [['uva', 1], ['trigo', 1]], 2], [25, 'queso_c', 'Queso curado', 'Aged cheese', 'cheese', '#f0c040', '#c89020', 500, [['ig_leche', 3], ['herb2', 1]], 1],
+  [45, 'galletas', 'Caja de galletas', 'Box of biscuits', 'box', '#d8a060', '#e85a8a', 1200, [['trigo', 4], ['ig_azucar', 2], ['ig_huevo', 1]], 2], [75, 'obra_coc', 'Obra maestra: tarta de bodas', 'Masterpiece: wedding cake', 'cheese', '#fff0f8', '#ffd040', 9000, [['frutaestelar', 2], ['ig_azucar', 4], ['ig_leche', 4]], 1]],
+ f: [[20, 'of_horno', 'Horno de leña', 'Wood oven', 'oven', '#b0603a', '#ffd040', [['piedra', 12], ['log', 4]], 1200, 'mueble'], [40, 'of_mostrador_c', 'Vitrina de pasteles', 'Cake counter', 'display', '#f0c0d0', '#c83a5a', [['log', 6], ['piedra', 2]], 1500, 'mueble'], [60, 'of_barril_v', 'Barril de vino', 'Wine barrel', 'barrel', '#7a2a3a', '#c8a040', [['log5', 4], ['uva', 4]], 1500, 'deco']],
+ c: [[30, 'c_of_coc_g', 'Gorro de chef', 'Chef hat', 'head', OFC('bandana', '#ffffff', '#d8d8e0', { cover: 'hat' })], [50, 'c_of_coc_c', 'Chaqueta de chef', 'Chef jacket', 'body', OFC('coat', '#f4f4f0', '#3a3a40')], [70, 'c_of_coc_p', 'Pantalón de cuadros', 'Checked trousers', 'legs', OFC('pants', '#2a2a30')]],
+ k: [[10, 'Buena sazón: +10 % de experiencia de Cocina', 'Good seasoning: +10% Cooking XP', { xp: 10 }], [35, 'Clientela: productos de Cocina un 20 % más caros', 'Regulars: Cooking goods worth 20% more', { sell: 20 }], [65, 'Propinas: 6 % de ganar oro al cocinar', 'Tips: 6% chance of gold when cooking', { gold: 6 }]] };
+OFU.excavacion = {
+ p: [[5, 'vasija', 'Vasija restaurada', 'Restored pot', 'vase', '#b0603a', '#e0c070', 40, [['piedra', 4]], 1], [15, 'punta', 'Punta de flecha antigua', 'Ancient arrowhead', 'pendant', '#6a6a76', '#c8a070', 280, [['moneda_antigua', 2]], 1],
+  [25, 'mosaico', 'Mosaico pequeño', 'Small mosaic', 'painting', '#5a8ad0', '#ffd040', 650, [['piedra', 10], ['reliquia1', 1]], 1], [35, 'mapa_t', 'Mapa del tesoro copiado', 'Copied treasure map', 'map', '#c83a3a', '#ffd040', 1200, [['moneda_antigua', 6], ['tela_fina', 1]], 1],
+  [55, 'idolo_r', 'Réplica de ídolo de oro', 'Golden idol replica', 'statue', '#ffd040', '#c83a3a', 2800, [['reliquia2', 1], ['ore4', 3]], 1], [75, 'obra_exc', 'Obra maestra: corona restaurada', 'Masterpiece: restored crown', 'pendant', '#ffd040', '#8af0ff', 12000, [['reliquia4', 1], ['diamante', 1]], 1]],
+ f: [[20, 'of_vitrina_exc', 'Mesa de hallazgos', 'Finds table', 'display', '#c8a070', '#5a8ad0', [['log', 4], ['piedra', 4]], 600, 'mueble'], [40, 'of_estatua_ant', 'Estatua antigua', 'Ancient statue', 'statue', '#a09a80', '#5ab04a', [['piedra', 16]], 1800, 'deco'], [60, 'of_mosaico', 'Alfombra de mosaico', 'Mosaic floor rug', 'rug', '#5a8ad0', '#ffd040', [['piedra', 20], ['ore3', 2]], 2000, 'deco']],
+ c: [[30, 'c_of_exc_g', 'Sombrero de explorador', 'Explorer hat', 'head', OFC('ranger', '#c8a070', '#7a4c29', { cover: 'hat' })], [50, 'c_of_exc_c', 'Camisa de expedición', 'Expedition shirt', 'body', OFC('shirt', '#d8c088', '#8a6a3a')], [70, 'c_of_exc_p', 'Pantalón corto de campo', 'Field shorts', 'legs', OFC('shorts', '#a08a5a')]],
+ k: [[10, 'Pincel fino: +10 % de experiencia de Excavación', 'Fine brush: +10% Digging XP', { xp: 10 }], [45, 'Coleccionistas: productos de Excavación un 20 % más caros', 'Collectors: Digging goods worth 20% more', { sell: 20 }], [65, 'Tesoro enterrado: 6 % de encontrar oro', 'Buried treasure: 6% chance of gold', { gold: 6 }]] };
+OFU.agricultura = {
+ p: [[5, 'pan_c', 'Hogaza de campo', 'Country loaf', 'bundle', '#d8a060', '#8a5a2a', 40, [['trigo', 3]], 1], [15, 'zumo', 'Zumo de tomate', 'Tomato juice', 'bottle', '#e83a3a', '#5ab04a', 220, [['tomate', 3]], 2],
+  [25, 'cesta_v', 'Cesta de verduras', 'Vegetable basket', 'basket', '#c8904a', '#e86a2a', 500, [['zanahoria', 3], ['tomate', 2], ['calabaza', 1]], 1], [35, 'vino_c', 'Vino de la casa', 'House wine', 'bottle', '#7a1a3a', '#c8a040', 1000, [['uva', 4]], 1],
+  [55, 'melon_c', 'Melones de exposición', 'Show melons', 'basket', '#e0c040', '#5ab04a', 2400, [['melon', 3]], 1], [75, 'obra_agr', 'Obra maestra: calabaza gigante', 'Masterpiece: giant pumpkin', 'vase', '#e8802a', '#5ab04a', 9500, [['calabaza', 8], ['frutaestelar', 2]], 1]],
+ f: [[20, 'of_carretilla_v', 'Carro de verduras', 'Vegetable cart', 'cart', '#986236', '#e86a2a', [['log', 6]], 500, 'granja'], [40, 'of_espantapajaros', 'Espantapájaros', 'Scarecrow', 'statue', '#c8a070', '#c83a3a', [['log', 4], ['tela_fina', 2]], 800, 'granja'], [60, 'of_cajas_fruta', 'Cajas de fruta', 'Fruit crates', 'crates', '#b67c48', '#e05a3a', [['log5', 3]], 1200, 'granja']],
+ c: [[30, 'c_of_agr_g', 'Sombrero de paja', 'Straw hat', 'head', OFC('ranger', '#e0c070', '#c83a3a', { cover: 'hat' })], [50, 'c_of_agr_c', 'Peto de granjero', 'Farmer overalls', 'body', OFC('vest', '#4a6aa0', '#e0c070')], [70, 'c_of_agr_b', 'Botas de campo', 'Field boots', 'feet', OFC('boots', '#5a3a1a')]],
+ k: [[10, 'Tierra fértil: +10 % de experiencia de Agricultura', 'Fertile soil: +10% Farming XP', { xp: 10 }], [45, 'Mercado de abastos: productos de Agricultura un 20 % más caros', 'Farmers market: Farming goods worth 20% more', { sell: 20 }], [65, 'Buena cosecha: 15 % de producto doble', 'Bumper crop: 15% double goods', { dbl: 15 }]] };
+OFU.joyeria = {
+ p: [[5, 'abalorios', 'Abalorios de cobre', 'Copper beads', 'ring', '#c8783a', '#ffd040', 45, [['ore1', 3]], 2], [15, 'broche', 'Broche de rubí', 'Ruby brooch', 'pendant', '#e83a3a', '#ffd040', 600, [['rubi', 1], ['ore3', 1]], 1],
+  [25, 'diadema', 'Diadema de zafiro', 'Sapphire diadem', 'ring', '#3a6ad0', '#c8d0e0', 1100, [['zafiro', 1], ['ore3', 2]], 1], [35, 'joyero', 'Joyero de ébano', 'Ebony jewel box', 'box', '#3a2a1a', '#ffd040', 1600, [['log4', 3], ['esmeralda', 1]], 1],
+  [55, 'collar_p', 'Collar de perlas finas', 'Fine pearl necklace', 'pendant', '#f0f0f8', '#ffd040', 4000, [['perla', 2], ['ore4', 2]], 1], [75, 'obra_joy', 'Obra maestra: tiara de ópalo', 'Masterpiece: opal tiara', 'ring', '#e8a0ff', '#ffd040', 15000, [['opalo', 1], ['diamante', 1], ['ore4', 4]], 1]],
+ f: [[20, 'of_espejo_j', 'Tocador con joyas', 'Jewellery dresser', 'display', '#e8c0d0', '#ffd040', [['log', 4], ['ore3', 1]], 1200, 'mueble'], [40, 'of_farol_j', 'Farol de cristal', 'Crystal lantern', 'lamp', '#c8d0e0', '#8af0ff', [['ore7', 1], ['ore3', 2]], 1500, 'deco'], [60, 'of_estatua_j', 'Estatua con gemas', 'Gem statue', 'statue', '#f0f0f8', '#e83a8a', [['piedra', 12], ['amatista', 1]], 3500, 'deco']],
+ c: [[30, 'c_of_joy_g', 'Diadema de joyera', 'Jeweller circlet', 'head', () => ({ k: 'circlet', s: TIERP[9], cover: 'hat' })], [50, 'c_of_joy_c', 'Chaqueta de terciopelo', 'Velvet jacket', 'body', OFC('coat', '#5a1a4a', '#ffd040')], [70, 'c_of_joy_k', 'Capa de seda brillante', 'Shimmering silk cape', 'back', () => ({ k: 'cape', o: ofRamp('#8a2a7a'), i: ofRamp('#3a1a3a'), tr: GOLD.slice(1) })]],
+ k: [[10, 'Lupa: +10 % de experiencia de Joyería', 'Loupe: +10% Jewelcrafting XP', { xp: 10 }], [45, 'Firma de autor: productos de Joyería un 20 % más caros', "Maker's mark: Jewelcrafting goods worth 20% more", { sell: 20 }], [65, 'Engaste doble: 10 % de producto doble', 'Double setting: 10% double goods', { dbl: 10 }]] };
+OFU.sastreria = {
+ p: [[5, 'panuelos', 'Pañuelos bordados', 'Embroidered handkerchiefs', 'scroll', '#f0e8d8', '#e85a8a', 40, [['tela', 1]], 3], [15, 'ovillo', 'Ovillos de colores', 'Coloured yarn', 'wool', '#e86a8a', '#5a8ad0', 200, [['tela_fina', 2]], 2],
+  [25, 'muneco_t', 'Muñeco de trapo', 'Rag doll', 'doll', '#f0c8a0', '#c83a5a', 520, [['tela_fina', 3], ['tinte', 1]], 1], [35, 'tapiz', 'Tapiz bordado', 'Embroidered tapestry', 'painting', '#8a2a3a', '#ffd040', 1300, [['tela_fina', 5], ['tinte', 2]], 1],
+  [55, 'abanico', 'Abanico de seda', 'Silk fan', 'fan', '#e85a8a', '#ffd040', 2600, [['seda', 2], ['log4', 1]], 1], [75, 'obra_sas', 'Obra maestra: vestido de gala', 'Masterpiece: gala gown', 'doll', '#f0f0ff', '#c8a0ff', 11000, [['seda', 4], ['hilo_estelar', 1]], 1]],
+ f: [[20, 'of_telar', 'Telar', 'Loom', 'loom', '#c83a5a', '#ffd040', [['log', 8]], 900, 'mueble'], [40, 'of_maniqui', 'Maniquí', 'Mannequin', 'statue', '#f0d8b8', '#5a8ad0', [['log', 3], ['tela_fina', 3]], 900, 'mueble'], [60, 'of_alfombra_s', 'Alfombra tejida', 'Woven rug', 'rug', '#c83a5a', '#ffd040', [['tela_fina', 8], ['tinte', 2]], 1500, 'deco']],
+ c: [[30, 'c_of_sas_g', 'Cinta métrica', 'Measuring ribbon', 'head', OFC('bandana', '#ffd040', '#c8a020', { cover: 'hat' })], [50, 'c_of_sas_c', 'Chaleco a medida', 'Tailored waistcoat', 'body', OFC('vest', '#3a3a6a', '#ffd040')], [70, 'c_of_sas_p', 'Falda de sastre', 'Tailored skirt', 'legs', OFC('skirt', '#2a2a3a')]],
+ k: [[10, 'Dedal: +10 % de experiencia de Sastrería', 'Thimble: +10% Tailoring XP', { xp: 10 }], [45, 'Alta costura: productos de Sastrería un 20 % más caros', 'Haute couture: Tailoring goods worth 20% more', { sell: 20 }], [65, 'Patrón doble: 15 % de producto doble', 'Double pattern: 15% double goods', { dbl: 15 }]] };
+OFU.buceo = {
+ p: [[5, 'collar_c', 'Collar de conchas', 'Shell necklace', 'shell', '#f0c8a0', '#e86a8a', 45, [['concha', 1]], 1], [15, 'coral_t', 'Coral tallado', 'Carved coral', 'figure', '#e85a4a', '#f0c8a0', 600, [['coral', 1]], 1],
+  [25, 'farol_m', 'Farol marino', 'Sea lantern', 'lantern', '#3a8ad0', '#8af0ff', 900, [['concha', 2], ['ore3', 1]], 1], [35, 'botella_b', 'Barco en botella', 'Ship in a bottle', 'bottle', '#8ad0f0', '#7a4c29', 1600, [['log4', 2], ['perla', 1]], 1],
+  [55, 'perla_t', 'Pendientes de perla negra', 'Black pearl earrings', 'pendant', '#2a2a3a', '#ffd040', 7000, [['perla_negra', 1], ['ore4', 1]], 1], [75, 'obra_buc', 'Obra maestra: cofre del galeón', "Masterpiece: galleon's chest", 'box', '#7a4c29', '#ffd040', 12000, [['perla', 3], ['ancla_maldita', 1]], 1]],
+ f: [[20, 'of_acuario_c', 'Acuario de coral', 'Coral aquarium', 'tank', '#e85a4a', '#ffd040', [['coral', 1], ['piedra', 6]], 1200, 'mueble'], [40, 'of_ancla', 'Ancla decorativa', 'Decorative anchor', 'statue', '#424149', '#c8a040', [['ore2', 6]], 1200, 'deco'], [60, 'of_cofre_b', 'Cofre hundido', 'Sunken chest', 'crates', '#5a4a2a', '#ffd040', [['log5', 4], ['concha', 3]], 2500, 'deco']],
+ c: [[30, 'c_of_buc_g', 'Gafas de buceo', 'Diving goggles', 'head', OFC('bandana', '#2a8ad0', '#c8f0ff', { cover: 'hat' })], [50, 'c_of_buc_c', 'Traje de neopreno', 'Wetsuit', 'body', OFC('shirt', '#1a2a4a', '#2a8ad0')], [70, 'c_of_buc_b', (LANG_EN ? "Fins" : 'Aletas'), 'Flippers', 'feet', OFC('sandals', '#2a8ad0')]],
+ k: [[10, 'Pulmón de pez: +10 % de experiencia de Buceo', 'Fish lungs: +10% Diving XP', { xp: 10 }], [45, 'Tesoro del arrecife: 6 % de encontrar oro', 'Reef treasure: 6% chance of gold', { gold: 6 }], [65, 'Coleccionista marino: productos de Buceo un 20 % más caros', 'Sea collector: Diving goods worth 20% more', { sell: 20 }]] };
+// oficios de minijuego (cielo, archipiélago, comercio, arte y Japón): productos con materiales comunes
+const OF_MINI = {
+ carrera: ['Carrera de Ángeles', '#e8f0ff', '#ffd040', ['medal', 'Medalla de alas', 'Wing medal'], ['figure', 'Figurita de ángel', 'Angel figurine'], ['fan', 'Abanico de plumas', 'Feather fan'], ['statue', 'Copa de las nubes', 'Cloud cup'], 'lamp', 'statue', ['ranger', 'shirt', 'boots'], '#e8f0ff', '#5a8ad0'],
+ olimpiadas: ['Olimpiadas Angelicales', '#ffd040', '#e83a3a', ['medal', 'Medalla de bronce celeste', 'Celestial bronze medal'], ['scroll', 'Diploma olímpico', 'Olympic diploma'], ['figure', 'Estatuilla de atleta', 'Athlete statuette'], ['medal', 'Medalla de oro celeste', 'Celestial gold medal'], 'board', 'statue', ['bandana', 'tunic', 'sandals'], '#ffd040', '#e83a3a'],
+ surf: ['Surf', '#2ab0e0', '#ffd040', ['shell', 'Llavero de concha', 'Shell keyring'], ['plank', 'Tabla en miniatura', 'Mini surfboard'], ['bottle', 'Arena de playa en frasco', 'Beach sand jar'], ['painting', 'Póster de la gran ola', 'Big wave poster'], 'rack', 'bench', ['bandana', 'shirt', 'sandals'], '#2ab0e0', '#ff8a3a'],
+ arte: ['Arte', '#e85a8a', '#5a8ad0', ['scroll', 'Boceto enmarcado', 'Framed sketch'], ['painting', 'Paisaje al óleo', 'Oil landscape'], ['vase', 'Jarrón pintado', 'Painted vase'], ['painting', 'Retrato de la reina', 'Portrait of the queen'], 'easel', 'statue', ['bandana', 'coat', 'shoes'], '#3a2a5a', '#e85a8a'],
+ comercio: ['Comercio', '#c8a040', '#7a4c29', ['crate', 'Lote de mercancías', 'Goods lot'], ['map', 'Mapa de rutas', 'Trade route map'], ['box', 'Caja de especias exóticas', 'Exotic spice box'], ['medal', 'Sello de mercader real', 'Royal merchant seal'], 'cart', 'crates', ['ranger', 'vest', 'boots'], '#8a5a2a', '#c8a040'],
+ arqueologia: ['Arqueología', '#a09a80', '#c8a040', ['vase', 'Ánfora pegada', 'Glued amphora'], ['map', 'Calco de inscripción', 'Inscription rubbing'], ['figure', 'Réplica de guardián', 'Guardian replica'], ['statue', 'Busto antiguo', 'Ancient bust'], 'display', 'statue', ['ranger', 'shirt', 'boots'], '#c8a070', '#5a6a3a'],
+ artista: ['Artista', '#c070ff', '#ffd040', ['painting', 'Lámina de la diosa', 'Goddess print'], ['figure', 'Figura de barro pintada', 'Painted clay figure'], ['painting', 'Cuadro de estrellas', 'Starry painting'], ['statue', 'Escultura de luz', 'Light sculpture'], 'easel', 'lamp', ['bandana', 'robe', 'shoes'], '#5a3a8a', '#c070ff'],
+ rickshaw: ['Conductor de rickshaw', '#c83a3a', '#2a2a30', ['fan', 'Uchiwa de recuerdo', 'Souvenir uchiwa'], ['map', 'Guía de Takayama', 'Takayama guide'], ['doll', 'Muñeco de pasajero', 'Passenger doll'], ['lantern', 'Farolillo de rickshaw', 'Rickshaw lantern'], 'lamp', 'bench', ['bandana', 'kimono', 'sandals'], '#2a2a40', '#c83a3a'],
+ sakero: ['Maestro sakero', '#f0f0f8', '#3a6ad0', ['bottle', 'Sake de arroz joven', 'Young rice sake'], ['bowl', 'Copa de sake', 'Sake cup'], ['bottle', 'Sake de ciruela', 'Plum sake'], ['crate', 'Barrica de cedro', 'Cedar cask'], 'barrel', 'shelf', ['bandana', 'kimono', 'sandals'], '#3a4a6a', '#f0f0f8'],
+ sado: ['Maestro del té', '#5ab04a', '#c8a070', ['tea', 'Té verde matcha', 'Matcha tea'], ['bowl', 'Chawan de té', 'Tea bowl'], ['box', 'Caja de dulces wagashi', 'Wagashi box'], ['tea', 'Té de ceremonia imperial', 'Imperial ceremony tea'], 'bonsai', 'rug', ['bandana', 'kimono', 'sandals'], '#3a6a3a', '#c8a070'],
+ ceramica: ['Ceramista', '#b0603a', '#5a8ad0', ['bowl', 'Taza de barro', 'Clay cup'], ['vase', 'Jarrón azul', 'Blue vase'], ['bowl', 'Juego de platos', 'Plate set'], ['vase', 'Jarrón del dragón', 'Dragon vase'], 'wheel', 'shelf', ['bandana', 'shirt', 'sandals'], '#7a5a3a', '#5a8ad0'],
+};
+const OF_MINI_MATS = [[['log1', 3], ['piedra', 2]], [['tela_fina', 2], ['log3', 2]], [['ore3', 2], ['tinte', 1]], [['ore4', 2], ['seda', 1]]];
+for (const k in OF_MINI) { const [nm, c1, c2, a, b, c, d, f1, f2, kinds, oc1, oc2] = OF_MINI[k];
+ OFU[k] = { p: [[10, ...a], [25, ...b], [45, ...c], [65, ...d]].map(([lv, sh, es, en], i) => [lv, k + '_' + i, es, en, sh, i % 2 ? c2 : c1, i % 2 ? c1 : c2, [80, 500, 1600, 4500][i], OF_MINI_MATS[i], 1]),
+  f: [[20, 'of_' + k + '_a', L2('Recuerdo de ', 'Keepsake: ') + nm, L2('Recuerdo de ', 'Keepsake: ') + nm, f1, c1, c2, [['log', 4], ['piedra', 4]], 800, 'deco'], [55, 'of_' + k + '_b', L2('Trofeo de ', 'Trophy: ') + nm, L2('Trofeo de ', 'Trophy: ') + nm, f2, c2, c1, [['log4', 2], ['piedra', 8]], 2500, 'deco']],
+  c: [[30, 'c_of_' + k + '_g', L2('Gorro de ', 'Cap: ') + nm, L2('Gorro de ', 'Cap: ') + nm, 'head', OFC(kinds[0], oc1, oc2, { cover: 'hat' })], [50, 'c_of_' + k + '_c', L2('Uniforme de ', 'Uniform: ') + nm, L2('Uniforme de ', 'Uniform: ') + nm, 'body', OFC(kinds[1], oc1, oc2)], [70, 'c_of_' + k + '_b', L2('Calzado de ', 'Shoes: ') + nm, L2('Calzado de ', 'Shoes: ') + nm, 'feet', OFC(kinds[2], oc2)]],
+  k: [[15, '+10 % de experiencia de este oficio', '+10% XP in this job', { xp: 10 }], [40, 'Recuerdos más caros: productos un 20 % más caros', 'Pricier keepsakes: goods worth 20% more', { sell: 20 }], [60, 'Propinas: 6 % de ganar oro al trabajar', 'Tips: 6% chance of gold while working', { gold: 6 }]] }; }
+
+// platos nuevos de hoguera (Cocina 55-85): sin más fuerza; más curación, más duración y más valor de venta
+const OF_DISHES = [
+ ['ramen', 'Ramen del gremio', 'Guild ramen', '', 'bowl', ['#f0d8a0', '#e85a3a', '#5ab04a'], 'job', 5, [['ig_huevo', 1], ['trigo', 2], ['ig_carne', 1], ['ig_cebolla', 1]], 55],
+ ['paella', 'Arroz marinero', "Sailor's rice", '', 'pan', ['#f0c040', '#e85a3a', '#5ab04a'], 'gold', 5, [['ig_arroz', 3], ['salmon', 1], ['ig_limon', 1]], 58],
+ ['curry', 'Curri de las especias', 'Spice curry', '', 'bowl', ['#d8902a', '#f4f4ec', '#5ab04a'], 'regen', 5, [['ig_arroz', 2], ['ig_carne', 1], ['ig_aji', 1], ['ig_papa', 1]], 62],
+ ['tortilla', 'Tortilla de la abuela', "Grandma's omelette", '', 'pie', ['#f0c860', '#c89020', '#5ab04a'], 'hp', 5, [['ig_huevo', 3], ['ig_papa', 2], ['ig_cebolla', 1]], 65],
+ ['pizza', 'Pizza del horno de leña', 'Wood-fired pizza', '', 'pie', ['#e8a040', '#e83a3a', '#5ab04a'], 'xp', 5, [['trigo', 3], ['tomate', 2], ['ig_queso', 2]], 68],
+ ['bento', 'Bento de Japón', 'Japanese bento', '', 'plate', ['#f4f4ec', '#e85a8a', '#5ab04a'], 'spd', 5, [['ig_arroz', 2], ['salmon', 1], ['ig_huevo', 1], ['ig_hoja', 1]], 72],
+ ['crepes', 'Crepes de fruta estelar', 'Starfruit crêpes', '', 'layer', ['#f0d0a0', '#ffd040', '#c070ff'], 'aspd', 5, [['ig_huevo', 2], ['ig_leche', 2], ['frutaestelar', 1]], 75],
+ ['banquete_g', 'Banquete del Gremio', 'Guild banquet', '', 'roast', ['#a8501a', '#ffd040', '#5ab04a'], 'gold', 5, [['ig_carne', 3], ['melon', 1], ['uva', 2], ['ig_queso', 2]], 80],
+ ['tarta_m', 'Tarta del Maestro', "Master's cake", '', 'cake', ['#fff0f8', '#e85a8a', '#ffd040'], 'xp', 5, [['frutaestelar', 2], ['ig_azucar', 3], ['ig_leche', 2], ['ig_huevo', 2]], 85],
+];
+const OF_DISH_LV = {};
+for (const d of OF_DISHES) { const lv = d.pop(); PL.push(d); OF_DISH_LV[d[0]] = lv; for (const pf of [0, 1]) it((pf ? 'plp_' : 'pl_') + d[0], { n: L2(d[1], d[2]) + (pf ? ' ★' : ''), t: 'cons', stack: true, tier: 5, heal: 4000 + lv * 40, plato: d[0], perfect: pf, price: 900 + lv * 12, icon: ['ofi', 'pl_' + d[0]], rar: pf ? 4 : 3 }); UI_ICONS.push('ofi:pl_' + d[0]); }
+// el nivel de Cocina de los platos nuevos (la hoguera usa PL_JLV por tier): se esconden hasta tenerlo
+{ const _po = plOpen; plOpen = function (o, tab) { const jl = ((G.P && G.P.jobs.cocina) || { lv: 1 }).lv, hide = PL.filter(d => OF_DISH_LV[d[0]] && jl < OF_DISH_LV[d[0]]); const keep = PL.slice(); for (const d of hide) PL.splice(PL.indexOf(d), 1); try { return _po.apply(this, arguments); } finally { PL.length = 0; PL.push(...keep); } }; }
+{ const _pc = plCook; plCook = function (o, d) { if (d && OF_DISH_LV[d[0]] && ((G.P.jobs.cocina || { lv: 1 }).lv) < OF_DISH_LV[d[0]]) { toast(L2('Requiere Cocina ', 'Requires Cooking ') + OF_DISH_LV[d[0]], 'warn'); return; } return _pc.apply(this, arguments); }; }
+// los platos del gremio duran el doble
+{ const _ui = useItem; useItem = function (idx) { const P = G.P, s = P.inv[idx], I = s && ITEMS[s.id]; const r = _ui.apply(this, arguments); if (I && I.plato && OF_DISH_LV[I.plato]) { const b = (P.buffs || []).find(b => b.id === 'plato'); if (b) { b.t *= 2; b.dur *= 2; } } return r; }; }
+
+// ---------- registro: objetos, recetas, muebles, ropa ----------
+const OF_PROD = {}, OF_FURN = {}, OF_COS = {};
+for (const job in OFU) { const U = OFU[job];
+ for (const [lv, id0, es, en, sh, c1, c2, price, mats, n] of U.p || []) { const id = 'ofp_' + id0; OF_PROD[id] = job;
+  it(id, { n: L2(es, en), t: 'mat', stack: true, tier: Math.max(1, Math.ceil(lv / 8)), base: price, icon: ['ofp', sh, c1, c2], rar: lv >= 75 ? 4 : lv >= 55 ? 3 : lv >= 25 ? 2 : 1, ofjob: job, d: L2('Producto de oficio: véndelo, regálalo, entrégalo en pedidos o ponlo en tu tienda.', 'Crafted good: sell it, gift it, use it for orders or put it in your shop.') });
+  Object.defineProperty(ITEMS[id], 'price', { get() { return Math.round(this.base * (1 + ofPerkSum(job, 'sell') / 100)); }, set(v) { this.base = v; }, enumerable: true, configurable: true });
+  RECIPES.push({ id: 'r_' + id, job, out: id, n: n || 1, lv: 1, jlv: lv, gold: Math.round(price * 0.08), mats, cat: 'oficio' }); }
+ for (const [lv, k, es, en, sh, c1, c2, cost, gold, cat] of U.f || []) { const key = k.replace(/^of_/, 'of_'); OF_FURN[key] = [job, lv];
+  BK[key] = { n: L2(es, en), f: 'of_' + key, fp: OFF_FP[sh] || [[0, 0]], cost, gold, tool: 'tala', tier: 1, cat, L: 1, ofs: [sh, c1, c2], ofjob: job, ofjlv: lv, solid: sh === 'rug' ? false : undefined };
+  BK_KEYS.push(key); it('bk_' + key, { n: BK[key].n, t: 'mat', bk: key, stack: true, tier: 1, price: 5, icon: ['bk', key] }); }
+ for (const [lv, id, es, en, slot, vis] of U.c || []) { OF_COS[id] = [job, lv]; cosm(id, L2(es, en), slot, vis, { src: L2('Oficio: ', 'Job: ') + (JOBS[job] ? JOBS[job].n : job) + ' ' + lv }); it('cosi_' + id, { n: COSM[id].n, t: 'cos', cos: id, price: 1500 + lv * 40, icon: ['hanger'], rar: 3 }); } }
+function ofPerkSum(job, key) { const P = G.P, U = OFU[job]; if (!P || !U || !P.jobs || !P.jobs[job]) return 0; let v = 0; for (const [lv, , , ef] of U.k || []) if (P.jobs[job].lv >= lv && ef[key]) v += ef[key]; return v; }
+// muebles: hace falta el nivel del oficio para fabricarlos en la Mesa de trabajo
+{ const _cc = bkCanCraft; bkCanCraft = function (b, n) { if (b && b.ofjob && ((G.P.jobs[b.ofjob] || { lv: 1 }).lv) < b.ofjlv) return false; return _cc.apply(this, arguments); }; }
+{ const _ct = bkCostTxt; bkCostTxt = function (b) { const t = _ct.apply(this, arguments); return b && b.ofjob ? t + ' · ' + (JOBS[b.ofjob] ? JOBS[b.ofjob].n : b.ofjob) + ' ' + b.ofjlv : t; }; }
+// producto doble en el taller
+{ const _dc = doCraft; doCraft = function (r) { const before = r && OF_PROD[r.out] ? countItem(r.out) : -1; const res = _dc.apply(this, arguments); if (before >= 0 && countItem(r.out) > before) { const d = ofPerkSum(r.job, 'dbl'); if (d && Math.random() < d / 100) { giveItem(r.out, r.n, true); floatText(G.P.x, G.P.y - 50, L2('¡Doble!', 'Double!'), '#ffd040'); } } return res; }; }
+
+// ---------- subir de nivel: avisos y ropa del oficio ----------
+function ofUnlocksAt(job, lv) { const U = OFU[job], out = []; if (!U) return out;
+ for (const p of U.p || []) if (p[0] === lv) out.push(['p', ITEMS['ofp_' + p[1]].n]);
+ for (const f of U.f || []) if (f[0] === lv) out.push(['f', BK[f[1]].n]);
+ for (const c of U.c || []) if (c[0] === lv) out.push(['c', COSM[c[1]].n]);
+ for (const k of U.k || []) if (k[0] === lv) out.push(['k', L2(k[1], k[2])]);
+ for (const d of OF_DISHES) if (job === 'cocina' && OF_DISH_LV[d[0]] === lv) out.push(['d', L2(d[1], d[2])]);
+ if (lv === 50) out.push(['a', L2('+0,1 % de ataque (máx. +1 % con 10 oficios)', '+0.1% attack (max +1% with 10 jobs)')]);
+ return out; }
+function ofOnLevel(job, a, b) { const all = []; for (let lv = a + 1; lv <= b; lv++) { for (const [t, n] of ofUnlocksAt(job, lv)) all.push([lv, t, n]);
+  for (const c of (OFU[job] && OFU[job].c) || []) if (c[0] === lv) ofGiveCos(c[1]); }
+ if (!all.length) return; const ic = { c: '👕 ', f: '🪑 ', d: '🍲 ', a: '⚔ ', k: '🏅 ', p: '📦 ' };
+ all.slice(0, 3).forEach(([lv, t, n]) => toast(ic[t] + (JOBS[job] ? JOBS[job].n : job) + ' ' + lv + ': ' + n, 'job', 4));
+ if (all.length > 3) toast(L2('…y ', '…and ') + (all.length - 3) + L2(' desbloqueos más (mira Oficios).', ' more unlocks (see Jobs).'), 'job', 4);
+ ofCatchUp(); if (a < 50 && b >= 50) calcStats(G.P); markDirty(true); }
+function ofGiveCos(id) { const O = ofx(); if (O.got[id]) return; O.got[id] = 1; giveItem('cosi_' + id, 1); }
+// partidas guardadas: entrega la ropa que ya te corresponde
+function ofCatchUp() { const P = G.P; if (!P || !P.jobs) return; for (const id in OF_COS) { const [job, lv] = OF_COS[id]; if ((P.jobs[job] || { lv: 1 }).lv >= lv) ofGiveCos(id); } }
+V33_TICKS.push(() => { const P = G.P; if (!P || P._ofCU) return; P._ofCU = 1; try { for (const k in JOBS) if (!P.jobs[k]) P.jobs[k] = { lv: 1, xp: 0 }; ofCatchUp(); } catch (e) { } });
+
+// ---------- panel de oficios: lo nuevo de cada oficio ----------
+const OF_TYPE = { p: L2('Producto', 'Good'), f: L2('Mueble', 'Furniture'), c: L2('Ropa', 'Clothing'), k: L2('Ventaja', 'Perk'), d: L2('Plato', 'Dish'), a: L2('Ataque', 'Attack') };
+{ const _pl = perkLine; perkLine = function (job) { const base = _pl.apply(this, arguments), J = (G.P.jobs[job] || { lv: 1 }), nx = []; for (let lv = 5; lv <= 85; lv += 5) for (const [t, n] of ofUnlocksAt(job, lv)) nx.push([lv, t, n]);
+  const done = nx.filter(v => J.lv >= v[0]).length, next = nx.find(v => J.lv < v[0]);
+  return base + `<span class="perk ${done ? 'on' : ''}">${done ? '✓ ' : ''}${done}/${nx.length} ${L2('desbloqueos del gremio', 'guild unlocks')}</span>` + (next ? `<span class="perk">${L2('Nv.', 'Lv.')}${next[0]} ${esc(OF_TYPE[next[1]])}: ${esc(next[2])}</span>` : ''); }; }
+// renderJobs solo listaba los oficios clásicos; las ventajas nuevas también salen en la Guía de oficios (JOB_PERKS)
+for (const job in OFU) { JOB_PERKS[job] = JOB_PERKS[job] || []; for (const [lv, es, en] of OFU[job].k || []) JOB_PERKS[job].push([lv, L2(es, en)]); JOB_PERKS[job].sort((a, b) => a[0] - b[0]); }
+
+// ---------- Gremio de Oficios: una oficina en cada pueblo ----------
+const GR_TOWNS = ['albor', 'puerto', 'arxar', 'sahrim', 'yarakai', 'brasa'];
+const GR_LOOK = LK({ hair: HAIRS.castano, hairStyle: 'long', outfit: 'apron', main: CLOTH.marron, sec: CLOTH.beige, eyes: 'verde', hat: 'straw' });
+for (const t of GR_TOWNS) NPCS['gremio_' + t] = { n: L2('Encargada del Gremio', 'Guild Clerk'), title: L2('Gremio de Oficios', 'Crafters Guild'), look: GR_LOOK, lines: [L2('Cada oficio tiene su recompensa. Hasta el más humilde.', 'Every job has its reward. Even the humblest one.'), L2('¿Buscas trabajo? Tengo pedidos frescos cada día.', 'Looking for work? I have fresh orders every day.')] };
+{ const _pd = placeDiveSpots; placeDiveSpots = function (W) { _pd(W); for (const tk of GR_TOWNS) { const t = TOWNS.find(t => t.k === tk); if (!t) continue; const [x, y] = freeTileNear(W, (t.x0 + t.x1) / 2 + 6, (t.y0 + t.y1) / 2 + 4); W.npcDefs.push({ id: 'gremio_' + tk, x, y, face: 'down' }); } }; }
+DLG_HOOKS.push((npc, opts) => { if (!/^gremio_/.test(npc.id || '')) return; const tk = npc.id.slice(7);
+ opts.unshift({ label: L2('Pedidos del gremio', 'Guild orders'), icon: ['board'], fn: () => { closeDialog(); ofOrders(tk); } },
+  { label: L2('Taller de oficios', 'Crafts workshop'), icon: ['anvil'], fn: () => { closeDialog(); ofWorkshop(); } },
+  { label: L2('Maestrías de oficio', 'Job masteries'), icon: ['star', '#ffd040'], fn: () => { closeDialog(); ofMasteries(); } }); });
+
+// taller: productos de todos los oficios (los de Herrería, Alquimia, Cocina, Joyería y Sastrería también salen en sus mesas)
+let OFW_JOB = 'tala';
+function ofWorkshop() { const P = G.P, jobs = Object.keys(OFU).filter(j => JOBS[j]); if (!jobs.includes(OFW_JOB)) OFW_JOB = jobs[0];
+ const list = RECIPES.filter(r => r.cat === 'oficio' && r.job === OFW_JOB);
+ const rows = list.map(r => { const I = ITEMS[r.out], why = craftCheck(r), mats = matsFor(r).map(([id, n]) => `<span class="${countItem(id) >= n ? 'ok' : 'bad'}">${iconHTML(ITEMS[id].icon, 14)} ${countItem(id)}/${n}</span>`).join('');
+  return `<div class="crow ${why ? 'dim' : ''}">${iconHTML(I.icon, 32)}<div class="sn"><b style="color:${RARC[I.rar || 0]}">${esc(I.n)}${r.n > 1 ? ' ×' + r.n : ''}</b><small>${L2('Vale', 'Worth')} ${fmt(I.price)} · ${esc(JOBS[r.job].n)} ${r.jlv}</small><div class="mats">${mats}<span class="${P.gold >= r.gold ? 'ok' : 'bad'}">${fmt(r.gold)} ${L2('oro', 'gold')}</span></div></div><button class="btn sm" data-ofc="${r.id}" ${why ? 'disabled' : ''}>${L2('Hacer', 'Make')}</button></div>`; }).join('');
+ openModal(`<h2>${iconHTML(['anvil'], 22)} ${L2('Taller de oficios', 'Crafts workshop')}</h2><p class="hint">${L2('Productos de cada oficio. Se venden caros, sirven para pedidos y para tu tienda. Muebles y ropa: Mesa de trabajo y Vestuario.', 'Goods from every job. They sell well and are used for orders and your shop. Furniture and clothes: Workbench and Wardrobe.')}</p>
+  <div class="chips">${jobs.map(j => `<button class="chip ${OFW_JOB === j ? 'on' : ''}" data-ofj="${j}">${esc(JOBS[j].n)} ${(P.jobs[j] || { lv: 1 }).lv}</button>`).join('')}</div>
+  <div class="goldline">${iconHTML(['coin'], 16)} ${fmt(P.gold)}</div><div class="slist">${rows}</div><div class="row"><button class="btn" id="mclose">${L2('Cerrar', 'Close')}</button></div>`, 'party');
+ $('#mclose').onclick = closeModal; $$('#modal [data-ofj]').forEach(b => b.onclick = () => { OFW_JOB = b.dataset.ofj; ofWorkshop(); });
+ $$('#modal [data-ofc]').forEach(b => b.onclick = () => { doCraft(RECIPES.find(r => r.id === b.dataset.ofc)); ofWorkshop(); }); }
+// los oficios con mesa propia muestran sus productos nuevos también allí (renderCraft filtra por oficio)
+{ const _rc = renderCraft; renderCraft = function () { const r = _rc.apply(this, arguments); try { const h = $('#modal h2'); if (h && /undefined/.test(h.textContent)) h.firstChild.textContent = JOBS[craftState.job].n + ' '; } catch (e) { } return r; }; }
+
+// maestrías para los oficios sin maestro propio (las de Tala, Minería, Pesca y Agricultura siguen con sus maestros)
+for (const job in JOBS) if (!MAST[job]) MAST[job] = { npc: '_gremio', town: '_gremio', need: [40, 60, 75], gold: [12000, 50000, 160000], mats: [[], [], []], gremio: 1 };
+// los productos de gremio cuentan como «material» del maestro: piden obras propias del oficio
+for (const job in MAST) if (MAST[job].gremio && OFU[job]) { const ps = (OFU[job].p || []).map(p => 'ofp_' + p[1]); MAST[job].mats = [[[ps[1] || ps[0], 3]], [[ps[3] || ps[1], 3]], [[ps[ps.length - 1], 1]]]; }
+function ofMasteries() { const P = G.P, list = Object.keys(MAST).filter(j => JOBS[j] && MAST[j].gremio);
+ openModal(`<h2>${iconHTML(['star', '#ffd040'], 22)} ${L2('Maestrías de oficio', 'Job masteries')}</h2><p class="hint">${L2('Cada rango sube 10 niveles el tope del oficio (hasta 105) y da +15 % de experiencia de ese oficio. Tala, Minería, Pesca y Agricultura tienen sus propios maestros.', 'Each rank raises the job cap by 10 levels (up to 105) and gives +15% XP for that job. Woodcutting, Mining, Fishing and Farming have their own masters.')}</p>
+  <div class="slist">${list.map(j => `<div class="srow">${iconHTML(['star', mastRank(j) ? '#ffd040' : '#8a8a96'], 24)}<div class="sn"><b>${esc(JOBS[j].n)}</b><small>${MAST_RANK[mastRank(j)]} · ${L2('Nv.', 'Lv.')} ${(P.jobs[j] || { lv: 1 }).lv}</small></div><button class="btn sm" data-ofm="${j}">${L2('Ver', 'View')}</button></div>`).join('')}</div>
+  <div class="row"><button class="btn" id="mclose">${L2('Cerrar', 'Close')}</button></div>`, 'party');
+ $('#mclose').onclick = closeModal; $$('#modal [data-ofm]').forEach(b => b.onclick = () => openMastery(b.dataset.ofm)); }
+
+// pedidos diarios: 3 por pueblo y día de juego. Productos o materiales del oficio a cambio de oro, experiencia y a veces un regalo único.
+function ofSeed(s) { let h = 2166136261; for (const c of s) h = Math.imul(h ^ c.charCodeAt(0), 16777619) >>> 0; return () => (h = Math.imul(h ^ (h >>> 15), 2246822507) >>> 0, h / 4294967296); }
+function ofOrderList(tk) { const P = G.P, day = calDay(), R = ofSeed(tk + ':' + day + ':' + (P.name || '')), out = [];
+ const jobs = Object.keys(OFU).filter(j => JOBS[j] && P.jobs[j]); const pick = a => a[Math.floor(R() * a.length)];
+ for (let i = 0; i < 3; i++) { const job = pick(jobs), J = P.jobs[job] || { lv: 1 }, U = OFU[job], ok = (U.p || []).filter(p => p[0] <= Math.max(5, J.lv)); const p = ok.length ? ok[Math.floor(R() * ok.length)] : U.p[0];
+  const id = 'ofp_' + p[1], n = 1 + Math.floor(R() * (p[0] >= 55 ? 1 : 3)), I = ITEMS[id];
+  out.push({ k: tk + day + ':' + i, job, id, n, gold: Math.round(I.base * n * 1.6 + 200), xp: Math.round(60 + p[0] * 12 * n), gift: R() < 0.3 }); }
+ return out; }
+function ofOrders(tk) { const P = G.P, O = ofx(), list = ofOrderList(tk);
+ openModal(`<h2>${iconHTML(['board'], 22)} ${L2('Pedidos del gremio', 'Guild orders')}</h2><p class="hint">${L2('Tres pedidos nuevos cada día. Pagan más que la tienda y dan experiencia del oficio.', 'Three new orders every day. They pay more than the shop and give job XP.')}</p>
+  <div class="slist">${list.map(o => { const I = ITEMS[o.id], done = O.ord[o.k] !== undefined, have = countItem(o.id) >= o.n;
+   return `<div class="srow ${done ? 'dim' : ''}">${iconHTML(I.icon, 30)}<div class="sn"><b>${o.n} × ${esc(I.n)}</b><small>${esc(JOBS[o.job].n)} · ${fmt(o.gold)} ${L2('oro', 'gold')} · +${o.xp} ${L2('exp. de oficio', 'job XP')}${o.gift ? ' · 🎁' : ''}</small><small>${L2('Tienes', 'You have')} ${countItem(o.id)}</small></div><button class="btn sm gold" data-ofo="${o.k}" ${done || !have ? 'disabled' : ''}>${done ? L2('Hecho', 'Done') : L2('Entregar', 'Deliver')}</button></div>`; }).join('')}</div>
+  <div class="row"><button class="btn" id="mclose">${L2('Cerrar', 'Close')}</button></div>`, 'party');
+ $('#mclose').onclick = closeModal;
+ $$('#modal [data-ofo]').forEach(b => b.onclick = () => { const o = list.find(v => v.k === b.dataset.ofo); if (!o || O.ord[o.k] !== undefined || countItem(o.id) < o.n) return; takeItem(o.id, o.n); O.ord[o.k] = calDay(); P.gold += o.gold; gainJobXp(o.job, o.xp); sfx('coin');
+  if (o.gift) { const opts = (OFU[o.job].f || []).map(f => 'bk_' + f[1]); const g = opts[Math.floor(Math.random() * opts.length)]; if (g) { giveItem(g, 1); toast('🎁 ' + ITEMS[g].n, 'quest', 3); } }
+  // limpieza: solo se guardan los pedidos de los últimos días
+  for (const k in O.ord) if (!(O.ord[k] >= calDay() - 1)) delete O.ord[k];
+  markDirty(true); ofOrders(tk); }); }
+
+// ================= v5.04: AMPLIACIÓN DE LA VIDA DE OFICIO =================
+// - Granja en casa: gallinero, establo, corral de ovejas, colmena, caseta del perro trufero, estanque e invernadero.
+//   Cada uno da sus productos una vez por día de juego (más con nivel de Agricultura).
+// - Tienda en casa: un mostrador donde pones productos a la venta; los vecinos compran solos con el tiempo (también sin jugar).
+// - Museo de Albor: la curadora recibe donaciones para 5 colecciones; completarlas da oro, un título y una estatua.
+// - Caravanas: el Caravanero lleva tus productos a otros reinos y vuelve con más oro y a veces algo raro.
+// - Mercado entre jugadores (WiFi y online): pones ofertas y tus amigos te las compran desde el Gremio.
+// - Torneo de oficios: reto diario de 2 minutos contra rivales del gremio y contra tus amigos conectados.
+// Todo es vida cotidiana: no añade historia ni poder de combate.
+
+// ---------- materiales nuevos ----------
+it('ofm_lana', { n: L2('Lana', 'Wool'), t: 'mat', stack: true, tier: 2, price: 120, icon: ['ofp', 'wool', '#f0f0e8', '#c8a070'], rar: 1 });
+it('ofm_miel', { n: L2('Tarro de miel', 'Honey jar'), t: 'mat', stack: true, tier: 2, price: 150, icon: ['ofp', 'honey', '#f0a020', '#c8a070'], rar: 1 });
+it('ofm_trufa', { n: L2('Trufa negra', 'Black truffle'), t: 'mat', stack: true, tier: 4, price: 900, icon: ['ofp', 'cheese', '#3a2a2a', '#8a6a4a'], rar: 3 });
+it('ofm_medalla', { n: L2('Medalla del gremio', 'Guild medal'), t: 'mat', stack: true, tier: 3, price: 600, icon: ['ofp', 'medal', '#ffd040', '#3a6ad0'], rar: 3 });
+RECIPES.push({ id: 'r_ofm_lana', job: 'sastreria', out: 'tela_fina', n: 3, lv: 1, jlv: 5, gold: 10, mats: [['ofm_lana', 2]], cat: 'oficio' },
+ { id: 'r_ofm_hidromiel', job: 'cocina', out: 'ofp_mermelada', n: 3, lv: 1, jlv: 5, gold: 10, mats: [['ofm_miel', 1], ['uva', 1]], cat: 'oficio' });
+
+// ---------- granja en casa ----------
+// [clave, es, en, nivel de Agricultura, coste, oro, producto(s)]
+const FARM = [
+ ['gallinero', 'Gallinero', 'Henhouse', 10, [['log', 8]], 1500, () => [['ig_huevo', 2]]],
+ ['establo', 'Establo con vaca', 'Cow stable', 20, [['log', 12], ['piedra', 4]], 3000, () => [['ig_leche', 2], ['ig_queso', 1]]],
+ ['corral', 'Corral de ovejas', 'Sheep pen', 30, [['log', 10]], 4000, () => [['ofm_lana', 2]]],
+ ['colmena', 'Colmena', 'Beehive', 40, [['log4', 4]], 5000, () => [['ofm_miel', 2]]],
+ ['caseta', 'Caseta del perro trufero', 'Truffle dog kennel', 50, [['log5', 4]], 8000, () => [['ofm_trufa', 1]]],
+ ['estanque', 'Estanque de peces', 'Fish pond', 55, [['piedra', 20]], 9000, () => [[pick(['carpa', 'trucha', 'perca', 'koi', 'pezluna']), 2]]],
+ ['invernadero', 'Invernadero', 'Greenhouse', 65, [['log6', 6], ['ore3', 4]], 15000, () => [[pick(['tomate', 'zanahoria', 'calabaza', 'uva', 'melon']), 3]]],
+];
+function farmPaint(k) {
+ const W_ = WOOD, D = C, wh = D('#f4f4ec'), rd = D('#c83a3a'); let p, ax = 8, ay;
+ const animal = (x, y, body, head, sc = 1) => { p.ell(x, y, 4 * sc, 2.6 * sc, body); p.ball(x + 4 * sc, y - 2 * sc, 1.8 * sc, 1.8 * sc, [head, head]); p.vl(Math.round(x - 2 * sc), Math.round(y + 2 * sc), 2, D('#3a2a1a')); p.vl(Math.round(x + 2 * sc), Math.round(y + 2 * sc), 2, D('#3a2a1a')); };
+ switch (k) {
+  case 'gallinero': p = new Pix(32, 30); p.poly([[1, 10], [16, 1], [31, 10]], rd); p.rect(3, 10, 26, 14, W_[3]); for (let x = 3; x < 29; x += 4) p.vl(x, 10, 14, W_[2]); p.rect(12, 15, 7, 9, W_[0]); p.ball(15, 13, 2, 2, [D('#ffd040'), D('#fff0a0')]);
+   for (const [x, y] of [[6, 27], [24, 27]]) { p.ell(x, y, 3, 2.2, wh); p.ball(x + 3, y - 2, 1.5, 1.5, [wh, wh]); p.set(x + 4, y - 2, D('#ff8a2a')); p.set(x + 3, y - 3, rd); } ay = 29; break;
+  case 'establo': p = new Pix(34, 32); p.poly([[1, 12], [17, 2], [33, 12]], D('#8a3a2a')); p.rect(3, 12, 28, 14, D('#b04a3a')); p.rect(11, 15, 12, 11, W_[0]); p.line(11, 15, 22, 25, wh); p.line(22, 15, 11, 25, wh);
+   animal(25, 28, wh, wh, 1.3); p.ell(24, 28, 2, 1.2, D('#2a2a2a')); p.set(31, 25, D('#f0a0a0')); ay = 31; break;
+  case 'corral': p = new Pix(34, 26); for (let x = 1; x < 33; x += 6) woodPost(p, x, 8, 24, 2); p.hl(1, 11, 32, W_[4]); p.hl(1, 18, 32, W_[4]);
+   for (const [x, y] of [[9, 16], [22, 18]]) { p.ball(x, y, 5, 3.5, [D('#d8d8d0'), wh, wh, wh]); p.ball(x + 5, y - 2, 1.8, 1.8, [D('#3a3a3a'), D('#3a3a3a')]); p.vl(x - 2, y + 3, 3, D('#3a3a3a')); p.vl(x + 2, y + 3, 3, D('#3a3a3a')); } ay = 25; break;
+  case 'colmena': p = new Pix(18, 26); p.rect(5, 18, 8, 7, W_[2]); woodPost(p, 7, 18, 25, 2); for (let i = 0; i < 4; i++) { p.rect(2, 4 + i * 4, 14, 4, i % 2 ? D('#e0b030') : D('#c8902a')); p.hl(2, 4 + i * 4, 14, D('#f0d060')); } p.rect(4, 1, 10, 3, W_[3]); p.rect(7, 14, 4, 2, D('#2a1a0a'));
+   for (const [x, y] of [[1, 3], [16, 8], [15, 1]]) { p.set(x, y, D('#ffd040')); p.set(x + 1, y, D('#2a2a2a')); } ay = 25; break;
+  case 'caseta': p = new Pix(26, 26); p.poly([[1, 9], [13, 1], [25, 9]], D('#3a6ad0')); p.rect(3, 9, 20, 12, W_[3]); p.ell(13, 17, 4, 5, D('#2a1a0a')); p.rect(9, 17, 8, 4, D('#2a1a0a'));
+   p.ell(19, 23, 4, 2.4, D('#b07a3a')); p.ball(23, 20, 2.2, 2, [D('#b07a3a'), D('#c8904a')]); p.set(25, 20, D('#2a1a1a')); p.vl(21, 18, 2, D('#7a4a1a')); ay = 25; break;
+  case 'estanque': p = new Pix(34, 22); p.ell(17, 12, 16, 9, D('#7a7a86')); p.ell(17, 12, 14, 7.5, D('#3a8ad0')); p.ell(17, 11, 12, 6, D('#5ab0e8')); p.hl(9, 9, 6, D('#c8f0ff'));
+   p.ell(12, 13, 2.5, 1.2, D('#ff8a3a')); p.ell(22, 11, 2.5, 1.2, D('#f4f4ec')); p.ball(27, 7, 2.5, 1.5, [D('#3a9a3a'), D('#5ab04a')]); p.set(27, 6, D('#ff8ab0')); ay = 21; break;
+  case 'invernadero': p = new Pix(34, 30); p.poly([[2, 12], [17, 2], [32, 12]], D('#bfe8ff')); p.rect(3, 12, 28, 16, D('#a8d8f0')); for (let x = 3; x < 31; x += 7) p.vl(x, 4, 24, D('#e8f8ff')); p.hl(3, 20, 28, D('#e8f8ff'));
+   for (const [x, c] of [[7, '#e83a3a'], [14, '#ff8a2a'], [21, '#5ab04a'], [27, '#c070ff']]) { p.ball(x, 24, 2.4, 2.4, [D('#3a8a3a'), D('#5ab04a')]); p.set(x, 23, D(c)); p.set(x + 1, 24, D(c)); } p.rect(3, 27, 28, 2, W_[2]); ay = 29; break;
+ }
+ p.outline(D('#1a1010')); return { c: p.canvas(), ax, ay };
+}
+for (const [k, es, en, lv, cost, gold] of FARM) { const key = 'of_' + k; BK[key] = { n: L2(es, en), f: 'of_' + key, fp: [[0, 0], [1, 0]], cost, gold, tool: 'tala', tier: 1, cat: 'granja', L: 1, farm: k, ofjob: 'agricultura', ofjlv: lv }; BK_KEYS.push(key); it('bk_' + key, { n: BK[key].n, t: 'mat', bk: key, stack: true, tier: 1, price: 5, icon: ['bk', key] }); }
+{ const _gf = genFurn2; genFurn2 = function (kind) { const b = /^of_of_/.test(kind) && BK[kind.slice(3)]; if (b && b.farm) return farmPaint(b.farm); return _gf.apply(this, arguments); }; }
+function farmCollect(k) { const P = G.P, O = ofx(), D = FARM.find(f => f[0] === k); O.farm = O.farm || {}; const day = calDay();
+ if (O.farm[k] === day) { toast(L2('Ya has recogido hoy. Vuelve mañana.', 'Already collected today. Come back tomorrow.'), 'warn'); return; }
+ O.farm[k] = day; const bonus = Math.floor(((P.jobs.agricultura || { lv: 1 }).lv) / 25), got = [];
+ for (const [id, n] of D[6]()) { giveItem(id, n + bonus); got.push((n + bonus) + ' ' + ITEMS[id].n); }
+ gainJobXp('agricultura', 40 + D[3] * 4); sfx('coin'); toast('🧺 ' + got.join(', '), 'loot', 3); markDirty(true); }
+for (const [k, es, en] of FARM) FURN_ACT['of_of_' + k] = [L2('Recoger: ', 'Collect: ') + L2(es, en), 'herb:1', () => farmCollect(k)];
+
+// ---------- tienda en casa ----------
+BK.of_tienda = { n: L2('Mostrador de tu tienda', 'Your shop counter'), f: 'of_of_tienda', fp: [[0, 0], [1, 0]], cost: [['log', 10]], gold: 2500, tool: 'tala', tier: 1, cat: 'mueble', L: 1, ofs: ['display', '#c8a040', '#e85a8a'] };
+BK_KEYS.push('of_tienda'); it('bk_of_tienda', { n: BK.of_tienda.n, t: 'mat', bk: 'of_tienda', stack: true, tier: 1, price: 5, icon: ['bk', 'of_tienda'] });
+const SHOP_SLOTS = 8, SHOP_EVERY = 150; // segundos reales por venta (más rápido con Comercio)
+function homeShopState() { const O = ofx(); O.shop = O.shop || { s: [], g: 0, t: Date.now(), n: 0 }; return O.shop; }
+function shopTick() { const S = homeShopState(), now = Date.now(), lvC = ((G.P.jobs.comercio || { lv: 1 }).lv), every = SHOP_EVERY * 1000 / (1 + lvC / 50);
+ let k = Math.min(200, Math.floor((now - S.t) / every)); if (k <= 0) return 0; S.t += k * every; let sold = 0;
+ while (k-- > 0) { const live = S.s.filter(s => s.n > 0); if (!live.length) { S.t = now; break; } const s = live[Math.floor(Math.random() * live.length)]; s.n--; S.g += s.p; S.n = (S.n || 0) + 1; sold++; }
+ S.s = S.s.filter(s => s.n > 0); return sold; }
+function shopPrice(id) { const I = ITEMS[id]; return Math.max(1, Math.round(I.price * (I.ofjob || I.plato ? 0.9 : 0.6))); }
+function openHomeShop() { const P = G.P, S = homeShopState(), sold = shopTick();
+ const sellable = P.inv.map((s, i) => [s, i]).filter(([s]) => { const I = ITEMS[s.id]; return I && I.t !== 'quest' && I.t !== 'cos' && (I.ofjob || I.plato || I.t === 'mat' || I.t === 'cons'); });
+ openModal(`<h2>${iconHTML(['coin'], 22)} ${L2('Tu tienda', 'Your shop')}</h2><p class="hint">${L2('Pon productos a la venta: los vecinos pasan y compran solos, aunque no estés jugando. Los productos de oficio y los platos se venden a casi todo su valor (el resto, al 60 %). Comercio vende más rápido.', 'Put goods on sale: neighbours come by and buy on their own, even while you are away. Crafted goods and dishes sell at nearly full value (the rest at 60%). Trading sells faster.')}</p>
+  ${sold ? `<p class="hint">🛒 ${L2('Has vendido', 'You sold')} ${sold} ${L2('cosas desde tu última visita.', 'items since your last visit.')}</p>` : ''}
+  <div class="goldline">${iconHTML(['coin'], 16)} ${L2('En la caja', 'In the till')}: <b>${fmt(S.g)}</b> <button class="btn sm gold" id="shG" ${S.g ? '' : 'disabled'}>${L2('Cobrar', 'Collect')}</button></div>
+  <h4>${L2('A la venta', 'On sale')} (${S.s.length}/${SHOP_SLOTS})</h4><div class="slist">${S.s.map((s, i) => `<div class="srow">${iconHTML(ITEMS[s.id].icon, 26)}<div class="sn"><b>${s.n} × ${esc(ITEMS[s.id].n)}</b><small>${fmt(s.p)} ${L2('cada uno', 'each')}</small></div><button class="btn sm" data-shr="${i}">${L2('Retirar', 'Remove')}</button></div>`).join('') || `<p class="hint">${L2('Nada a la venta.', 'Nothing on sale.')}</p>`}</div>
+  <h4>${L2('Tu inventario', 'Your inventory')}</h4><div class="slist">${sellable.slice(0, 40).map(([s, i]) => `<div class="srow">${iconHTML(ITEMS[s.id].icon, 26)}<div class="sn"><b>${esc(ITEMS[s.id].n)} ×${s.q || 1}</b><small>${fmt(shopPrice(s.id))} ${L2('cada uno', 'each')}</small></div><button class="btn sm" data-sha="${i}" ${S.s.length >= SHOP_SLOTS && !S.s.find(x => x.id === s.id) ? 'disabled' : ''}>${L2('Poner', 'Stock')}</button></div>`).join('')}</div>
+  <div class="row"><button class="btn" id="mclose">${L2('Cerrar', 'Close')}</button></div>`, 'party');
+ $('#mclose').onclick = closeModal;
+ const g = $('#shG'); if (g) g.onclick = () => { P.gold += S.g; floatText(P.x, P.y - 40, '+' + fmt(S.g) + ' ' + L2('ORO', 'GOLD'), '#ffd040'); S.g = 0; sfx('coin'); markDirty(true); openHomeShop(); };
+ $$('#modal [data-shr]').forEach(b => b.onclick = () => { const s = S.s[+b.dataset.shr]; if (s) { giveItem(s.id, s.n); S.s.splice(+b.dataset.shr, 1); } markDirty(true); openHomeShop(); });
+ $$('#modal [data-sha]').forEach(b => b.onclick = () => { const st = P.inv[+b.dataset.sha]; if (!st) return; const id = st.id, n = st.q || 1; let slot = S.s.find(x => x.id === id); if (!slot) { if (S.s.length >= SHOP_SLOTS) return; slot = { id, n: 0, p: shopPrice(id) }; S.s.push(slot); }
+  if (!S.s.some(x => x.n > 0)) S.t = Date.now(); takeItem(id, n); slot.n += n; markDirty(true); openHomeShop(); }); }
+FURN_ACT.of_of_tienda = [L2('Tu tienda', 'Your shop'), 'coin', () => openHomeShop()];
+
+// ---------- títulos nuevos ----------
+const OF_TITLES = [
+ ['t_artesano', L2('Artesano', 'Artisan'), 'natural', P => Object.keys(JOBS).some(k => (P.jobs[k] || {}).lv >= 50), L2('Sube un oficio a nivel 50.', 'Raise a job to level 50.')],
+ ['t_gran_maestro', L2('Gran Maestro Artesano', 'Grand Master Artisan'), 'oro', P => Object.keys(JOBS).some(k => (P.jobs[k] || {}).lv >= 75), L2('Sube un oficio a nivel 75.', 'Raise a job to level 75.')],
+ ['t_gremio', L2('Orgullo del Gremio', 'Pride of the Guild'), 'astral', P => Object.keys(JOBS).filter(k => (P.jobs[k] || {}).lv >= 50).length >= 10, L2('Ten 10 oficios a nivel 50.', 'Have 10 jobs at level 50.')],
+ ['t_tendero', L2('Tendero del Barrio', 'Neighbourhood Grocer'), 'plata', P => ((P.ofx || {}).shop || {}).n >= 100, L2('Vende 100 cosas en tu tienda.', 'Sell 100 items in your shop.')],
+ ['t_curador', L2('Mecenas del Museo', 'Museum Patron'), 'hielo', P => Object.keys((P.ofx || {}).musDone || {}).length >= 1, L2('Completa una colección del Museo de Albor.', 'Complete an Albor Museum collection.')],
+ ['t_campeon_of', L2('Campeón de Oficios', 'Crafts Champion'), 'fuego', P => ((P.ofx || {}).torW || 0) >= 5, L2('Gana 5 torneos de oficios.', 'Win 5 crafts tournaments.')],
+];
+for (const t of OF_TITLES) { TITLES.push(t); TIT_ID[t[0]] = t; }
+
+// ---------- Museo de Albor ----------
+const MUSEUM = [
+ ['peces', L2('Peces de los reinos', 'Fish of the realms'), ['sardina', 'trucha', 'carpa', 'lubina', 'salmon', 'perca', 'pezglobo', 'anguila', 'lucio', 'pezespada', 'truchadorada', 'pezluna', 'pezhielo', 'pezlinterna', 'atunreal', 'koi', 'pezdragon', 'pezoasis', 'piranha', 'arapaima'], 20000],
+ ['hallazgos', L2('Hallazgos y reliquias', 'Finds and relics'), ['moneda_antigua', 'reliquia1', 'reliquia2', 'reliquia3', 'reliquia4', ...FINDS.map(f => f[0])], 40000],
+ ['gemas', L2('Gemas y tesoros del mar', 'Gems and sea treasures'), ['rubi', 'zafiro', 'esmeralda', 'amatista', 'diamante', 'opalo', 'perla', 'perla_negra', 'coral', 'concha'], 30000],
+ ['obras', L2('Obras maestras de oficio', 'Craft masterpieces'), Object.keys(OF_PROD).filter(id => /^ofp_obra_/.test(id)), 80000],
+ ['granja', L2('Despensa de la granja', 'Farm pantry'), ['trigo', 'zanahoria', 'tomate', 'calabaza', 'uva', 'melon', 'frutaestelar', 'ig_huevo', 'ig_leche', 'ig_queso', 'ofm_lana', 'ofm_miel', 'ofm_trufa'], 25000],
+];
+for (const [k, n] of MUSEUM) { const key = 'of_mus_' + k; BK[key] = { n: L2('Estatua del museo: ', 'Museum statue: ') + n, f: 'of_' + key, cost: [['piedra', 2]], gold: 0, tool: 'tala', tier: 1, cat: 'deco', L: 1, ofs: ['statue', '#ffd040', '#5a8ad0'], musOnly: 1 }; BK_KEYS.push(key); it('bk_' + key, { n: BK[key].n, t: 'mat', bk: key, stack: true, tier: 1, price: 5, icon: ['bk', key] }); }
+{ const _cc = bkCanCraft; bkCanCraft = function (b, n) { if (b && b.musOnly) return false; return _cc.apply(this, arguments); }; }
+NPCS.curadora_museo = { n: L2('Curadora Elvira', 'Curator Elvira'), title: L2('Museo de Albor', 'Albor Museum'), look: LK({ hair: HAIRS.blanco, hairStyle: 'long', outfit: 'robe', main: CLOTH.marino, sec: CLOTH.beige, eyes: 'azul' }), lines: [L2('Albor fue un observatorio. Ahora guardamos lo que el mundo hace con sus manos.', 'Albor was an observatory. Now we keep what the world makes with its hands.'), L2('Cada pieza que donas la verá alguien mañana.', 'Someone will see every piece you donate tomorrow.')] };
+{ const _pd = placeDiveSpots; placeDiveSpots = function (W) { _pd(W); const t = TOWNS.find(t => t.k === 'albor'); if (t) { const [x, y] = freeTileNear(W, (t.x0 + t.x1) / 2 - 7, (t.y0 + t.y1) / 2 - 4); W.npcDefs.push({ id: 'curadora_museo', x, y, face: 'down' }); } }; }
+DLG_HOOKS.push((npc, opts) => { if (npc.id === 'curadora_museo') opts.unshift({ label: L2('Colecciones del museo', 'Museum collections'), icon: ['book'], fn: () => { closeDialog(); openAlborMuseum(); } }); });
+function openAlborMuseum() { const P = G.P, O = ofx(); O.mus2 = O.mus2 || {}; O.musDone = O.musDone || {};
+ openModal(`<h2>${iconHTML(['book'], 22)} ${L2('Museo de Albor', 'Albor Museum')}</h2><p class="hint">${L2('Dona una pieza de cada para completar una colección. Al completarla: oro, un título y una estatua para tu casa.', 'Donate one of each piece to complete a collection. When complete: gold, a title and a statue for your home.')}</p>
+  ${MUSEUM.map(([k, n, ids, gold]) => { const have = O.mus2[k] || {}, c = ids.filter(id => have[id]).length;
+   return `<h4>${esc(n)} · ${c}/${ids.length}${O.musDone[k] ? ' ✓' : ''}</h4><div class="chips">${ids.map(id => { const I = ITEMS[id]; if (!I) return ''; const can = !have[id] && countItem(id) > 0;
+    return `<button class="chip ${have[id] ? 'on' : ''}" ${can ? `data-mud="${k}:${id}"` : 'disabled'} title="${esc(I.n)}" style="${have[id] ? '' : can ? 'border-color:#ffd040' : 'opacity:.45'}">${iconHTML(I.icon, 20)}</button>`; }).join('')}</div>
+    <small class="hint">${L2('Premio', 'Reward')}: ${fmt(gold)} ${L2('oro', 'gold')}</small>`; }).join('')}
+  <p class="hint">${L2('Borde dorado: lo tienes en el inventario y puedes donarlo.', 'Gold border: you have it and can donate it.')}</p><div class="row"><button class="btn" id="mclose">${L2('Cerrar', 'Close')}</button></div>`, 'party');
+ $('#mclose').onclick = closeModal;
+ $$('#modal [data-mud]').forEach(b => b.onclick = () => { const [k, id] = b.dataset.mud.split(':'), M = MUSEUM.find(m => m[0] === k); if (!M || countItem(id) < 1) return; takeItem(id, 1); (O.mus2[k] = O.mus2[k] || {})[id] = 1; sfx('coin');
+  if (!O.musDone[k] && M[2].every(x => O.mus2[k][x])) { O.musDone[k] = 1; P.gold += M[3]; giveItem('bk_of_mus_' + k, 1); banner('🏛 ' + L2('¡Colección completa!', 'Collection complete!'), M[1]); }
+  markDirty(true); openAlborMuseum(); }); }
+
+// ---------- caravanas comerciales ----------
+const CARAVAN_ROUTES = [['corta', L2('Ruta corta (Albor - Puerto)', 'Short route (Albor - Port)'), 10, 1.35, 0.05], ['media', L2('Ruta del desierto', 'Desert route'), 30, 1.6, 0.12], ['larga', L2('Ruta de los cinco reinos', 'Five realms route'), 90, 2, 0.25]];
+const CARAVAN_RARE = ['perla', 'esmeralda', 'diamante', 'ofm_trufa', 'reliquia2', 'seda', 'pluma_alba'];
+function openCaravan() { const P = G.P, O = ofx(), C_ = O.car;
+ if (C_) { const left = C_.end - Date.now();
+  if (left > 0) { openModal(`<h2>🐫 ${L2('Caravana en camino', 'Caravan on the road')}</h2><p class="hint">${L2('Vuelve en', 'Back in')} ${Math.ceil(left / 60000)} ${L2('minutos (cuenta aunque no juegues).', 'minutes (it counts even while you are away).')}</p><div class="row"><button class="btn" id="mclose">${L2('Cerrar', 'Close')}</button></div>`, 'party'); $('#mclose').onclick = closeModal; return; }
+  const R = CARAVAN_ROUTES.find(r => r[0] === C_.r) || CARAVAN_ROUTES[0], gold = Math.round(C_.v * R[3]); P.gold += gold; let extra = '';
+  if (Math.random() < R[4]) { const id = pick(CARAVAN_RARE); giveItem(id, 1); extra = ' + ' + ITEMS[id].n; }
+  gainJobXp('comercio', 30 + Math.round(C_.v / 200)); delete O.car; markDirty(true); sfx('coin');
+  openModal(`<h2>🐫 ${L2('¡La caravana ha vuelto!', 'The caravan is back!')}</h2><p class="hint">${L2('Has ganado', 'You earned')} <b>${fmt(gold)}</b> ${L2('oro', 'gold')}${esc(extra)}.</p><div class="row"><button class="btn gold" id="mclose">${L2('Genial', 'Great')}</button></div>`, 'party'); $('#mclose').onclick = closeModal; return; }
+ const goods = P.inv.map((s, i) => [s, i]).filter(([s]) => ITEMS[s.id] && (ITEMS[s.id].ofjob || ITEMS[s.id].plato || /^ofm_/.test(s.id)));
+ const sel = openCaravan.sel = openCaravan.sel || {}; const val = goods.reduce((a, [s, i]) => a + (sel[i] ? ITEMS[s.id].price * (s.q || 1) : 0), 0);
+ openModal(`<h2>🐫 ${L2('Caravana comercial', 'Trade caravan')}</h2><p class="hint">${L2('Elige productos de oficio, platos o productos de granja y una ruta. La caravana los vende lejos y vuelve con más oro; en las rutas largas, a veces con algo raro.', 'Choose crafted goods, dishes or farm goods and a route. The caravan sells them far away and comes back with more gold; on long routes, sometimes with something rare.')}</p>
+  <div class="chips">${goods.map(([s, i]) => `<button class="chip ${sel[i] ? 'on' : ''}" data-cvs="${i}">${iconHTML(ITEMS[s.id].icon, 16)} ${esc(ITEMS[s.id].n)} ×${s.q || 1}</button>`).join('') || `<span class="hint">${L2('No tienes productos.', 'You have no goods.')}</span>`}</div>
+  <p class="hint">${L2('Valor de la carga', 'Cargo value')}: <b>${fmt(val)}</b></p>
+  <div class="slist">${CARAVAN_ROUTES.map(r => `<div class="srow"><div class="sn"><b>${esc(r[1])}</b><small>${r[2]} min · ×${r[3]} · ${Math.round(r[4] * 100)} % ${L2('de rareza', 'rare chance')}</small></div><button class="btn sm gold" data-cvr="${r[0]}" ${val ? '' : 'disabled'}>${L2('Enviar', 'Send')}</button></div>`).join('')}</div>
+  <div class="row"><button class="btn" id="mclose">${L2('Cerrar', 'Close')}</button></div>`, 'party');
+ $('#mclose').onclick = () => { openCaravan.sel = {}; closeModal(); };
+ $$('#modal [data-cvs]').forEach(b => b.onclick = () => { const i = +b.dataset.cvs; sel[i] = !sel[i]; openCaravan(); });
+ $$('#modal [data-cvr]').forEach(b => b.onclick = () => { const R = CARAVAN_ROUTES.find(r => r[0] === b.dataset.cvr); let v = 0; const take = goods.filter(([s, i]) => sel[i]).map(([s]) => [s.id, s.q || 1]);
+  for (const [id, n] of take) { v += ITEMS[id].price * n; takeItem(id, n); } openCaravan.sel = {}; O.car = { r: R[0], v, end: Date.now() + R[2] * 60000 }; markDirty(true); toast('🐫 ' + L2('¡La caravana ha salido!', 'The caravan has left!'), 'quest'); closeModal(); }); }
+DLG_HOOKS.push((npc, opts) => { if (npc.id === 'caravanero' || /^gremio_/.test(npc.id || '')) opts.push({ label: L2('Caravana comercial', 'Trade caravan'), icon: ['coin'], fn: () => { closeDialog(); openCaravan(); } }); });
+
+// ---------- mercado entre jugadores ----------
+// Presencia: o.mk = ofertas [[id, n, precio total]]; o.mkb = petición de compra [para, id, n, precio, nonce]; o.mkd = entregas [[para, nonce, ok, id, n]].
+const MKT = { pend: null, done: [], seen: new Set() };
+function mkOffers() { const O = ofx(); O.mk = (O.mk || []).filter(o => ITEMS[o[0]] && countItem(o[0]) >= 1); return O.mk; }
+function mkValid(id, n, p) { const I = ITEMS[id]; return !!I && I.t !== 'quest' && !I.bound && Number.isInteger(n) && n >= 1 && n <= 999 && Number.isFinite(p) && p >= 1 && p <= 1e9; }
+{ const _sp = socialPresence; socialPresence = function (o) { _sp.apply(this, arguments); try { const of = mkOffers(); if (of.length) o.mk = of.slice(0, 8);
+  if (MKT.pend && Date.now() - MKT.pend.t0 < 25000) o.mkb = [MKT.pend.to, MKT.pend.id, MKT.pend.n, MKT.pend.p, MKT.pend.k];
+  MKT.done = MKT.done.filter(d => Date.now() - d.t < 30000); if (MKT.done.length) o.mkd = MKT.done.map(d => [d.to, d.k, d.ok, d.id, d.n]); } catch (e) { } }; }
+{ const _sr = socialRecv; socialRecv = function (r, pr) { _sr.apply(this, arguments); try {
+  r.mk = Array.isArray(pr.mk) ? pr.mk.filter(o => Array.isArray(o) && mkValid(o[0], o[1] | 0, +o[2])).slice(0, 8).map(o => [o[0], o[1] | 0, +o[2]]) : [];
+  // alguien me compra
+  const b = pr.mkb; if (Array.isArray(b) && b[0] === NET.myId && typeof b[4] === 'string' && !MKT.seen.has(r.id + b[4])) { MKT.seen.add(r.id + b[4]);
+   const [, id, n, p, k] = b, O = ofx(), off = (O.mk || []).find(o => o[0] === id && o[1] >= n && Math.round(o[2] * n / o[1]) === p), ok = !!off && mkValid(id, n, p) && countItem(id) >= n;
+   if (ok) { takeItem(id, n); G.P.gold += p; off[1] -= n; off[2] = Math.round(off[2] * off[1] / (off[1] + n)); O.mk = O.mk.filter(o => o[1] > 0); toast('🛒 ' + r.name + L2(' te ha comprado ', ' bought ') + n + ' ' + ITEMS[id].n + ' (+' + fmt(p) + ')', 'loot', 4); markDirty(true); }
+   MKT.done.push({ to: r.id, k, ok: ok ? 1 : 0, id, n, t: Date.now() }); netPresence(true); }
+  // me entregan lo que compré
+  if (Array.isArray(pr.mkd) && MKT.pend) for (const d of pr.mkd) if (Array.isArray(d) && d[0] === NET.myId && d[1] === MKT.pend.k && r.id === MKT.pend.to) { const q = MKT.pend; MKT.pend = null;
+   if (d[2] === 1) { giveItem(q.id, q.n); toast('📦 ' + L2('Compra recibida: ', 'Purchase received: ') + q.n + ' ' + ITEMS[q.id].n, 'loot', 4); } else { G.P.gold += q.p; toast(L2('La oferta ya no estaba. Te devolvemos el oro.', 'The offer was gone. Your gold is refunded.'), 'warn'); }
+   markDirty(true); break; }
+ } catch (e) { } }; }
+V33_TICKS.push(() => { if (MKT.pend && Date.now() - MKT.pend.t0 > 25000) { G.P.gold += MKT.pend.p; MKT.pend = null; toast(L2('El vendedor no respondió. Te devolvemos el oro.', 'The seller did not answer. Your gold is refunded.'), 'warn'); } });
+function openMarket() { const P = G.P, O = ofx(), mine = mkOffers(), others = [...G.remote.values()].filter(r => r.id && (r.mk || []).length);
+ const sellable = P.inv.map((s, i) => [s, i]).filter(([s]) => { const I = ITEMS[s.id]; return I && I.t !== 'quest' && I.t !== 'cos' && !I.bound; });
+ openModal(`<h2>🛒 ${L2('Mercado entre jugadores', 'Player market')}</h2><p class="hint">${L2('Pon ofertas y los jugadores conectados contigo (WiFi u online) te las compran. El oro se cobra solo cuando el vendedor entrega.', 'Post offers and players connected with you (WiFi or online) can buy them. Gold changes hands only when the seller delivers.')}</p>
+  ${netOnline() ? '' : `<p class="hint" style="color:#ffb0a0">${L2('No estás conectado con nadie: tus ofertas se verán cuando te conectes.', 'You are not connected to anyone: your offers will show once you connect.')}</p>`}
+  <h4>${L2('Ofertas de otros jugadores', 'Other players’ offers')}</h4><div class="slist">${others.map(r => r.mk.map((o, i) => `<div class="srow">${iconHTML(ITEMS[o[0]].icon, 26)}<div class="sn"><b>${o[1]} × ${esc(ITEMS[o[0]].n)}</b><small>${esc(r.name)} · ${fmt(o[2])} ${L2('oro', 'gold')}</small></div><button class="btn sm gold" data-mkb="${esc(r.peer)}|${i}" ${MKT.pend || P.gold < o[2] ? 'disabled' : ''}>${L2('Comprar', 'Buy')}</button></div>`).join('')).join('') || `<p class="hint">${L2('Nadie vende nada ahora mismo.', 'Nobody is selling right now.')}</p>`}</div>
+  <h4>${L2('Tus ofertas', 'Your offers')} (${mine.length}/8)</h4><div class="slist">${mine.map((o, i) => `<div class="srow">${iconHTML(ITEMS[o[0]].icon, 26)}<div class="sn"><b>${o[1]} × ${esc(ITEMS[o[0]].n)}</b><small>${fmt(o[2])} ${L2('oro', 'gold')}</small></div><button class="btn sm" data-mkr="${i}">${L2('Quitar', 'Remove')}</button></div>`).join('')}</div>
+  <h4>${L2('Ofrecer', 'Offer')}</h4><div class="slist">${sellable.slice(0, 30).map(([s, i]) => { const I = ITEMS[s.id], n = s.q || 1; return `<div class="srow">${iconHTML(I.icon, 24)}<div class="sn"><b>${esc(I.n)} ×${n}</b><small>${L2('Precio justo', 'Fair price')}: ${fmt(I.price * n)}</small></div><button class="btn sm" data-mka="${i}" ${mine.length >= 8 ? 'disabled' : ''}>${L2('Ofrecer', 'Offer')}</button></div>`; }).join('')}</div>
+  <div class="row"><button class="btn" id="mclose">${L2('Cerrar', 'Close')}</button></div>`, 'party');
+ $('#mclose').onclick = closeModal;
+ $$('#modal [data-mkr]').forEach(b => b.onclick = () => { O.mk.splice(+b.dataset.mkr, 1); netPresence(true); markDirty(true); openMarket(); });
+ $$('#modal [data-mka]').forEach(b => b.onclick = () => { const s = P.inv[+b.dataset.mka]; if (!s) return; const n = s.q || 1, I = ITEMS[s.id]; O.mk = mkOffers(); O.mk.push([s.id, n, Math.max(1, I.price * n)]); netPresence(true); markDirty(true); openMarket(); });
+ $$('#modal [data-mkb]').forEach(b => b.onclick = () => { const [peer, i] = b.dataset.mkb.split('|'), r = G.remote.get(peer), o = r && r.mk[+i]; if (!o || MKT.pend || P.gold < o[2]) return;
+  P.gold -= o[2]; MKT.pend = { to: r.id, id: o[0], n: o[1], p: o[2], k: Math.random().toString(36).slice(2, 10), t0: Date.now() }; netPresence(true); toast(L2('Pedido enviado al vendedor…', 'Order sent to the seller…'), 'quest'); closeModal(); }); }
+DLG_HOOKS.push((npc, opts) => { if (/^gremio_/.test(npc.id || '')) opts.push({ label: L2('Mercado entre jugadores', 'Player market'), icon: ['users'], fn: () => { closeDialog(); openMarket(); } }); });
+
+// ---------- torneo de oficios ----------
+const TOR_JOBS = ['tala', 'mineria', 'pesca', 'herbo'], TOR_TIME = 120;
+const TOR = { on: false, t: 0, n: 0, job: null };
+function torJob() { return TOR_JOBS[calDay() % TOR_JOBS.length]; }
+function torRivals() { const d = calDay(); return [[L2('Sauce la Leñadora', 'Willow the Woodcutter'), 9 + d % 4], [L2('Brok Picahondo', 'Brok Deepdelve'), 6 + (d * 3) % 5], [L2('Aprendiz Tomi', 'Apprentice Tomi'), 3 + d % 3]]; }
+{ const _gj = gainJobXp; gainJobXp = function (job, n) { if (TOR.on && job === TOR.job) { TOR.n++; mgHud(`🏆 ${esc(JOBS[job].n)}: <b>${TOR.n}</b> · ${Math.ceil(TOR_TIME - TOR.t)} s`); } return _gj.apply(this, arguments); }; }
+V33_TICKS.push(dt => { if (!TOR.on) return; TOR.t += dt || 0; if (Math.floor(TOR.t * 4) !== Math.floor((TOR.t - (dt || 0)) * 4)) mgHud(`🏆 ${esc(JOBS[TOR.job].n)}: <b>${TOR.n}</b> · ${Math.max(0, Math.ceil(TOR_TIME - TOR.t))} s`); if (TOR.t >= TOR_TIME) torEnd(); });
+function torEnd() { const P = G.P, O = ofx(); TOR.on = false; mgHud(''); const day = calDay(); O.tor = O.tor && O.tor.d === day ? O.tor : { d: day, j: TOR.job, b: 0 };
+ const best = Math.max(O.tor.b, TOR.n); O.tor.b = best; const rivals = torRivals(), beat = rivals.filter(r => TOR.n > r[1]).length;
+ const prize = [100, 600, 1500, 4000][beat]; P.gold += prize; if (beat === 3) { O.torW = (O.torW || 0) + 1; giveItem('ofm_medalla', 1); }
+ gainJobXp(TOR.job, 50 * (beat + 1)); markDirty(true); netPresence(true);
+ openModal(`<h2>🏆 ${L2('Fin del torneo', 'Tournament over')}</h2><p class="hint">${L2('Tu marca', 'Your score')}: <b>${TOR.n}</b> · ${L2('Premio', 'Prize')}: ${fmt(prize)} ${L2('oro', 'gold')}${beat === 3 ? ' + ' + ITEMS.ofm_medalla.n : ''}</p><div class="row"><button class="btn gold" id="mclose">OK</button></div>`, 'party'); $('#mclose').onclick = closeModal; }
+{ const _sp = socialPresence; socialPresence = function (o) { _sp.apply(this, arguments); const T = (G.P && G.P.ofx || {}).tor; if (T && T.d === calDay()) o.tor = [T.d, T.j, T.b]; }; }
+{ const _sr = socialRecv; socialRecv = function (r, pr) { _sr.apply(this, arguments); r.tor = Array.isArray(pr.tor) && TOR_JOBS.includes(pr.tor[1]) ? [pr.tor[0] | 0, pr.tor[1], clamp(pr.tor[2] | 0, 0, 999)] : null; }; }
+function openTournament() { const P = G.P, O = ofx(), job = torJob(), day = calDay(), mine = O.tor && O.tor.d === day ? O.tor.b : 0;
+ const board = torRivals().map(([n, s]) => [n, s, 0]).concat([...G.remote.values()].filter(r => r.tor && r.tor[0] === day && r.tor[1] === job).map(r => [r.name, r.tor[2], 1]), [[P.name, mine, 2]]).sort((a, b) => b[1] - a[1]);
+ openModal(`<h2>🏆 ${L2('Torneo de oficios', 'Crafts tournament')}</h2><p class="hint">${L2('Reto de hoy', "Today's challenge")}: <b>${esc(JOBS[job].n)}</b>. ${L2('Tienes 2 minutos para trabajar todo lo que puedas en ese oficio. Gana a los tres rivales del gremio para llevarte la medalla; tus amigos conectados también salen en la tabla.', 'You have 2 minutes to work as much as you can at that job. Beat the three guild rivals to win the medal; your connected friends also appear on the board.')}</p>
+  <div class="slist">${board.map(([n, s, me], i) => `<div class="srow"><div class="sn"><b>${i + 1}. ${esc(n)}${me === 2 ? ' ★' : me ? ' 🌐' : ''}</b></div><b>${s}</b></div>`).join('')}</div>
+  <div class="row"><button class="btn gold" id="torGo" ${TOR.on ? 'disabled' : ''}>${L2('¡Empezar!', 'Start!')}</button><button class="btn" id="mclose">${L2('Cerrar', 'Close')}</button></div>`, 'party');
+ $('#mclose').onclick = closeModal; $('#torGo').onclick = () => { Object.assign(TOR, { on: true, t: 0, n: 0, job }); closeModal(); toast('🏆 ' + L2('¡Ya! Trabaja en ', 'Go! Work at ') + JOBS[job].n, 'quest', 3); }; }
+DLG_HOOKS.push((npc, opts) => { if (/^gremio_/.test(npc.id || '')) opts.push({ label: L2('Torneo de oficios', 'Crafts tournament'), icon: ['star', '#ffd040'], fn: () => { closeDialog(); openTournament(); } }); });
+
+// ================= v5.04: LA HISTORIA DE LAS IDOLS =================
+// Tres misiones con cada idol de STELLA☆LINK y PRISM9 (vida cotidiana en Japón, sin lore nuevo):
+// 1) un favor con un producto de oficio, 2) un ensayo con una compañera, 3) un regalo hecho a mano.
+// Al terminar todas: título «Amigo de las Idols». Cada idol regala una foto firmada (decoración y museo de recuerdos).
+// [idol, producto del favor, producto del regalo, compañera del ensayo, favor (es,en), ensayo (es,en), regalo (es,en), despedida (es,en)]
+const IDOL_STORY = [
+ ['hikari', 'ofp_campana', 'ofp_geoda', 'sora', ['Antes de cada concierto me pongo nerviosa. Una luz pequeña en el camerino me calma… ¿me traerías una campanilla que suene bonito?', 'I get nervous before every show. A gentle sound in the dressing room calms me… would you bring me a little bell?'], ['Sora siempre llega tarde a los ensayos. ¿Puedes ir a buscarla?', 'Sora is always late to rehearsals. Can you go and fetch her?'], ['Quiero que el escenario brille como nunca. Una geoda abierta, llena de cristales, sería perfecta.', 'I want the stage to shine like never before. An opened geode full of crystals would be perfect.'], ['¡Brillemos juntos, siempre!', "Let's shine together, always!"]],
+ ['sora', 'ofp_carrera_2', 'ofp_carrera_3', 'mei', ['Quiero un abanico de plumas para la canción del cielo. ¡Las plumas de Celestia son las mejores!', 'I want a feather fan for the sky song. Celestia feathers are the best!'], ['Mei dice que no puedo bailar y abanicar a la vez. ¡Ve a decirle que sí puedo!', "Mei says I can't dance and fan at the same time. Go tell her I can!"], ['La copa de las nubes… dicen que quien la gana nunca deja de soñar. ¿Me ayudas?', 'The cloud cup… they say whoever wins it never stops dreaming. Will you help?'], ['El cielo es nuestro escenario. Y tú eres parte del público favorito.', 'The sky is our stage. And you are part of my favourite crowd.']],
+ ['mei', 'ofp_mermelada', 'ofp_galletas', 'yuzu', ['¡Tengo hambre al cien por cien! Pan con mermelada casera y vuelvo a tener energía.', "I'm one hundred percent hungry! Bread with homemade jam and I'm full of energy again."], ['Yuzu guarda los dulces del grupo. Pregúntale si nos deja uno… o dos.', 'Yuzu keeps the group’s sweets. Ask her if she’ll let us have one… or two.'], ['El cumpleaños de STELLA☆LINK es pronto. ¡Necesitamos una caja enorme de galletas!', "STELLA☆LINK's birthday is soon. We need a huge box of biscuits!"], ['¡Energía al cien! Y gracias a ti, al ciento uno.', 'Energy at one hundred! And thanks to you, one hundred and one.']],
+ ['rin', 'ofp_te_hierbas', 'ofp_perfume', 'hikari', ['Canto para quien me escucha de verdad… pero hoy me duele la garganta. Un té de hierbas, por favor.', 'I sing for whoever really listens… but my throat hurts today. A herbal tea, please.'], ['Hikari quiere cambiar mi parte del estribillo. Habla con ella antes de que yo diga algo feo.', 'Hikari wants to change my part of the chorus. Talk to her before I say something mean.'], ['En el escenario huelo los focos y el miedo. Un perfume de flor de luna me ayudaría a olvidarlos.', 'On stage I smell the spotlights and fear. A moonflower perfume would help me forget them.'], ['Ahora sé que alguien me escucha de verdad.', 'Now I know someone really listens to me.']],
+ ['yuzu', 'ofp_tablas', 'ofp_muneco_t', 'rin', ['Quiero regalar algo a las fans de la primera fila. Voy a hacer cajitas de madera: ¿me traes tablas cepilladas?', 'I want to give something to the fans in the front row. I am making little wooden boxes: will you bring me planed boards?'], ['Rin está triste hoy. Ve a hablar con ella, por favor.', 'Rin is sad today. Please go and talk to her.'], ['Hago muñecos de cada fan que viene a todos los conciertos. Me falta uno… el tuyo.', 'I make dolls of every fan who comes to every concert. I’m missing one… yours.'], ['¡Gracias por venir hoy! Y ayer. Y mañana, ¿verdad?', 'Thanks for coming today! And yesterday. And tomorrow, right?']],
+ ['kira', 'ofp_lingote', 'ofp_espada_deco', 'hana', ['El escenario es donde me siento libre. Quiero un micro con el pie de plata, ¿me traes un lingote?', 'The stage is where I feel free. I want a mic with a silver stand, will you bring me an ingot?'], ['Hana dice que soy demasiado seria. Pregúntale qué quiere decir.', 'Hana says I am too serious. Ask her what she means.'], ['En el número final saco una espada de adorno. Que sea de verdad bonita.', 'In the final number I draw an ornamental sword. Make it truly beautiful.'], ['Libre. Así me siento cuando cantáis conmigo.', 'Free. That is how I feel when you sing with me.']],
+ ['umi', 'ofp_collar_c', 'ofp_botella_b', 'sena', ['¿Sabías que las conchas guardan el ruido del mar? ¡Quiero un collar de conchas!', 'Did you know shells keep the sound of the sea? I want a shell necklace!'], ['Sena baila descalza y se ha cortado con una concha. ¡Ve a ver si está bien!', 'Sena dances barefoot and cut herself on a shell. Go and see if she is all right!'], ['Un barco dentro de una botella es como un mar en miniatura. ¿Me haces uno?', 'A ship in a bottle is like a tiny sea. Will you make me one?'], ['Las estrellas de mar no tienen cerebro… pero yo tengo una amiga como tú.', "Starfish have no brain… but I have a friend like you."]],
+ ['sena', 'ofp_panuelos', 'ofp_abanico', 'umi', ['Bailo descalza y siempre se me ensucian los pies. Unos pañuelos bordados, por favor.', 'I dance barefoot and my feet always get dirty. Some embroidered handkerchiefs, please.'], ['Umi me ha regalado una concha… para que me corte otra vez, creo. Habla con ella.', 'Umi gave me a shell… so I cut myself again, I think. Talk to her.'], ['Quiero un abanico de seda para el baile de la luna. Que vuele como una pluma.', 'I want a silk fan for the moon dance. It should float like a feather.'], ['Cuando bailo descalza siento el mundo entero. Hoy lo siento más.', 'When I dance barefoot I feel the whole world. Today I feel it more.']],
+ ['hana', 'ofp_broche', 'ofp_collar_p', 'kira', ['Sin miedo, así se canta. Pero un broche de rubí da un poco más de valor.', 'No fear, that’s how you sing. But a ruby brooch gives a little more courage.'], ['Kira me ha pedido perdón y no sé qué hacer. ¿Le dices que ya está?', 'Kira apologised and I don’t know what to do. Will you tell her it’s fine?'], ['Mi madre cantaba con un collar de perlas. Quiero llevar uno en su honor.', 'My mother sang wearing a pearl necklace. I want to wear one in her honour.'], ['Sin miedo. Contigo es más fácil.', 'No fear. It’s easier with you.']],
+ ['ryo', 'ofp_sado_0', 'ofp_sado_2', 'jun', ['Hablo poco. Té matcha. Por favor.', 'I talk little. Matcha tea. Please.'], ['Jun. Ensayo. Llámala.', 'Jun. Rehearsal. Call her.'], ['Dulces wagashi. Para el grupo. Gracias.', 'Wagashi sweets. For the group. Thank you.'], ['…Gracias. De verdad.', '…Thank you. Really.']],
+ ['mika', 'ofp_clavos', 'ofp_trofeo_p', 'nene', ['¡Equipo PRISM, a por todas! Se ha roto el escenario y necesitamos clavos. ¡Muchos!', 'Team PRISM, go for it! The stage broke and we need nails. Lots!'], ['¡Nene se ha escondido para no ensayar! Búscala.', 'Nene is hiding to skip rehearsal! Find her.'], ['Para el premio del grupo quiero algo enorme. ¿Un pez espada disecado? ¡Sí!', 'For the group award I want something huge. A mounted swordfish? Yes!'], ['¡Ánimo! ¡Tú también eres del equipo PRISM!', 'Go! You are part of team PRISM too!']],
+ ['jun', 'ofp_ceramica_0', 'ofp_ceramica_1', 'ryo', ['Lo sencillo también es bonito. Una taza de barro para mi té.', 'Simple things are beautiful too. A clay cup for my tea.'], ['Ryo me ha escrito una nota de tres palabras. ¿Le preguntas qué significa?', 'Ryo wrote me a three-word note. Can you ask her what it means?'], ['Un jarrón azul para el camerino. Con una sola flor.', 'A blue vase for the dressing room. With a single flower.'], ['Sencillo. Como un buen amigo.', 'Simple. Like a good friend.']],
+ ['nene', 'ofp_ovillo', 'ofp_muneco_t', 'mika', ['¡Kawaii es una forma de vida! Necesito ovillos de colores para tejer orejitas.', 'Kawaii is a way of life! I need coloured yarn to knit little ears.'], ['Mika me ha encontrado… ¡Dile que estaba ensayando en secreto!', 'Mika found me… Tell her I was rehearsing in secret!'], ['Quiero un muñeco de trapo para dormir con él en las giras. ¡El más mono!', 'I want a rag doll to sleep with on tour. The cutest one!'], ['¡Eres oficialmente kawaii!', 'You are officially kawaii!']],
+];
+for (const [k] of IDOL_STORY) it('foto_' + k, { n: L2('Foto firmada de ', 'Signed photo of ') + NPCS['idol_' + k].n, t: 'mat', stack: true, tier: 3, price: 2000, icon: ['ofp', 'painting', '#ffb0d0', '#ffd040'], rar: 3, d: L2('Un recuerdo de tu amistad con ella.', 'A keepsake of your friendship with her.') });
+for (const [k, a, b, mate, fav, ens, reg, bye] of IDOL_STORY) { const g = 'idol_' + k, n = NPCS[g].n, ids = ['is_' + k + '1', 'is_' + k + '2', 'is_' + k + '3'];
+ q(ids[0], { n: L2('Un favor para ', 'A favour for ') + n, giver: g, lv: 30, desc: L2(fav[0], fav[1]), obj: [{ t: 'item', it: a, n: 1, take: 1 }], rew: { xp: 40000, gold: 3000, job: [ITEMS[a].ofjob || 'comercio', 300] }, offer: [L2(fav[0], fav[1])], prog: [L2('Se hace en el Taller de oficios del Gremio.', 'Made at the Guild crafts workshop.')], done: [L2('¡Gracias! Eres un sol.', 'Thank you! You are a ray of sunshine.')] });
+ q(ids[1], { n: L2('Ensayo con ', 'Rehearsal with ') + n, giver: g, lv: 30, pre: ids[0], desc: L2(ens[0], ens[1]), obj: [{ t: 'talk', npc: 'idol_' + mate }], turnin: g, rew: { xp: 60000, gold: 4000 }, offer: [L2(ens[0], ens[1])], prog: [NPCS['idol_' + mate].n], done: [L2('Ya estamos todas. ¡A ensayar!', "We're all here. Let's rehearse!")] });
+ q(ids[2], { n: L2('El regalo para ', 'The gift for ') + n, giver: g, lv: 30, pre: ids[1], desc: L2(reg[0], reg[1]), obj: [{ t: 'item', it: b, n: 1, take: 1 }], rew: { xp: 120000, gold: 10000, items: [['foto_' + k, 1]], job: [ITEMS[b].ofjob || 'comercio', 800] }, offer: [L2(reg[0], reg[1])], prog: [L2('Se hace en el Taller de oficios del Gremio.', 'Made at the Guild crafts workshop.')], done: [L2(bye[0], bye[1])] });
+ NPCS[g].quests = NPCS[g].quests || []; NPCS[g].quests.push(...ids); }
+{ const t = ['t_idols', L2('Amigo de las Idols', 'Friend of the Idols'), 'amor', P => IDOL_STORY.every(([k]) => P.quests && P.quests.done && P.quests.done['is_' + k + '3']), L2('Completa la historia de las 13 idols.', 'Complete the story of all 13 idols.')]; TITLES.push(t); TIT_ID[t[0]] = t; }
+// las fotos firmadas también cuentan como colección del Museo de Albor
+MUSEUM.push(['idols', L2('Recuerdos de las idols', 'Idol keepsakes'), IDOL_STORY.map(([k]) => 'foto_' + k), 30000]);
+{ const key = 'of_mus_idols'; BK[key] = { n: L2('Estatua del museo: ', 'Museum statue: ') + L2('Recuerdos de las idols', 'Idol keepsakes'), f: 'of_' + key, cost: [['piedra', 2]], gold: 0, tool: 'tala', tier: 1, cat: 'deco', L: 1, ofs: ['statue', '#ffb0d0', '#ffd040'], musOnly: 1 }; BK_KEYS.push(key); it('bk_' + key, { n: BK[key].n, t: 'mat', bk: key, stack: true, tier: 1, price: 5, icon: ['bk', key] }); }
 
 // ================= v3.6: IDIOMA (Español / English) =================
 // Los textos del código se traducen al compilar (tools/i18n/tr.js + en.json): cada uno es (LANG_EN ? "inglés" : "español").

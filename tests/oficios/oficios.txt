@@ -1,0 +1,19 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), 1)
+js (window.hurtPlayer=()=>{}, G.P.lv=120, calcStats(G.P), [jobXpToNext(60), Math.round(jobXpToNext(60)*OFX_CURVE(60)), Object.keys(OFU).length, Object.keys(OF_PROD).length, Object.keys(OF_FURN).length, Object.keys(OF_COS).length, OF_DISHES.length])
+js (()=>{const P=G.P,J=P.jobs.tala;J.lv=48;J.xp=0;const a=G.P.S.atk;gainJobXp('tala',999999);return [J.lv, P.inv.filter(s=>/cosi_c_of/.test(s.id)).map(s=>s.id), ofAtkBonus(P), P.S.atk-a];})()
+js (G.P.gold=1e6, ['log1','log2','log3','log4','ore2','piedra','herb1','herb2','gel','tela_fina','sardina','salmon','trigo','ig_huevo','ig_arroz','ig_carne','ig_cebolla'].forEach(i=>giveItem(i,40,true)), G.P.jobs.cocina.lv=70, 1)
+js (ofWorkshop(), document.querySelectorAll('#modal [data-ofc]').length)
+shot
+js (document.querySelector('#modal [data-ofc]:not([disabled])').click(), G.P.inv.filter(s=>/^ofp_/.test(s.id)).map(s=>s.id+':'+(s.q||1)))
+js (closeModal(), ofOrders('albor'), document.querySelectorAll('#modal [data-ofo]').length)
+shot
+js (closeModal(), ofMasteries(), document.querySelectorAll('#modal [data-ofm]').length)
+js (closeModal(), wbCat='deco', openWorkbench(), document.querySelectorAll('#modal [data-wb]').length)
+shot
+js (closeModal(), plOpen({reg:''}), document.querySelectorAll('#modal [data-plc]').length)
+shot
+js (closeModal(), openPanel('jobs'), 1)
+wait 300
+shot
+js (closePanel(), window._errs)
