@@ -19,7 +19,7 @@
  assert(pictures[0]!==pictures[3],'front and back must be drawn separately: '+S.id);
  const h=pictures[0];assert(!duplicate.has(h),'identical redesign: '+S.id+' / '+duplicate.get(h));duplicate.set(h,S.id);
  const lv=Array.isArray(D.lv)?D.lv[0]:D.lv,id=S.boss?S.id.slice(2):S.id;
- const saved=D.art;D.art=S.originalArt;const before=spawnMob(id,lv,64,64,0,null,S.boss);D.art=saved;const after=spawnMob(id,lv,64,64,0,null,S.boss);
+ const saved=D.art,random=Math.random;let before,after;try{Math.random=()=>0.5;D.art=S.originalArt;before=spawnMob(id,lv,64,64,0,null,S.boss);D.art=saved;Math.random=()=>0.5;after=spawnMob(id,lv,64,64,0,null,S.boss);}finally{D.art=saved;Math.random=random;}
  for(const k of stateFields)assert(before[k]===after[k],'combat changed '+S.id+'.'+k+': '+before[k]+' / '+after[k]);
  before.remove=true;unchanged.push(S.id);assert(after.atlas.r133===S.id,'spawn uses redesign '+S.id);
  // VFX-only renderer must not alter entity state or add gameplay effects.
