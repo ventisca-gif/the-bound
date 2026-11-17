@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **5.04 (build 125)**, oficios con desbloqueos cada 5 niveles, Gremio de Oficios, granja, tienda, museo, caravanas, mercado entre jugadores e historia de las idols, publicada en el actualizador interno.
+Versión actual: **5.05 (build 126)**, ropa de oficio con formas propias; antes 5.04, oficios con desbloqueos cada 5 niveles, Gremio de Oficios, granja, tienda, museo, caravanas, mercado entre jugadores e historia de las idols, publicada en el actualizador interno.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -175,3 +175,8 @@ Multijugador revisado con `tests/net501/browser.py` (presencia → `upsertRemote
 - `src/6zz9zz5_ampliacion.js`: granja (`FARM`, `farmPaint`, `FURN_ACT.of_of_<k>`, una vez por día), tienda en casa (`of_tienda`, `homeShopState`, ventas por tiempo real), títulos (`OF_TITLES`), Museo de Albor (`curadora_museo`, `MUSEUM`, `openAlborMuseum`), caravanas (`openCaravan`, `O.car`), mercado (`MKT`; presencia `mk`/`mkb`/`mkd`, el comprador paga al pedir y se le devuelve si no hay entrega en 25 s) y torneo (`TOR`, presencia `tor`).
 - `src/6zz9zz6_idols_historia.js`: `IDOL_STORY` (3 misiones `is_<idol>1-3` por idol, foto firmada `foto_<idol>`, título `t_idols`, colección del museo).
 - Pruebas: `tests/oficios/oficios.txt`, `tests/oficios/ampliacion.txt` (play.py) y `tests/oficios/mercado_rtc.py` (dos jugadores por WebRTC).
+
+
+## 5.05 · Ropa de oficio con formas propias
+
+`src/6zz9zz7_ropa_oficios.js`: las 69 prendas de `OF_COS` dejan de reutilizar cortes existentes. Cada una tiene su `fitKind` (`of_trapper`, `of_hardhat`, `of_toque`, `of_flannel`, `of_raincoat`, `of_maekake`, `of_wellies`, `of_geta`, `of_jewelmantle`…) dibujado solo con anclajes; `RO_SPEC` da nombre, tipo y colores y reescribe `COSM[id].vis` (mismos ids e items). Pies con `roFeet` (píxeles del calzado por pie), piernas con `roLegPix`. Sergio aprobó la muestra del motor (23 conjuntos). fitcheck --strict: 0 avisos; ninguna coincide más de un 66 % de color con la ropa existente.

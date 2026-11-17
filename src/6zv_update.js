@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.04', GAME_BUILD = 125;
+const GAME_VER = '5.05', GAME_BUILD = 126;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "b": 126,
+  "v": "5.05",
+  "d": "2026-11-17",
+  "es": [
+   "👕 Las 69 prendas de oficio tienen ahora forma propia y ya no repiten ropa que existía: gorro de trampero, casco con linterna, gorro alto de chef, salacot, máscara con tubo, sombrero cónico, haori con blasones, aletas, geta, sandalias de gladiador y muchas más.",
+   "Se adaptan a todas las estructuras de cuerpo, a las 4 direcciones y a la caminata. Si ya tenías alguna, la conservas con su dibujo y nombre nuevos."
+  ],
+  "en": [
+   "👕 All 69 job clothing pieces now have their own shapes and no longer repeat existing clothes: trapper hat, lamp hard hat, tall chef toque, pith helmet, mask and snorkel, conical kasa, crested haori, fins, geta, gladiator sandals and many more.",
+   "They fit every body structure, all 4 directions and the walk cycle. If you already had one, you keep it with its new look and name."
+  ]
+ },
  {
   "b": 125,
   "v": "5.04",
