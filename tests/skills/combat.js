@@ -1,5 +1,5 @@
 (()=>{
- const assert=(v,m)=>{if(!v)throw Error(m);},oldRandom=Math.random;let checked=0,success=0,failed=0;
+ const assert=(v,m)=>{if(!v)throw Error(m);},oldRandom=Math.random,oldSfx=SETTINGS.sfx;SETTINGS.sfx=0;let checked=0,success=0,failed=0;
  function setup(D){let seed=1987;Math.random=()=>((seed=Math.imul(seed,1664525)+1013904223>>>0)/4294967296);
   const P=newPlayer('Prueba',D.cls,{...DEF_APP,g:'f',bt:4});G.P=P;P.lv=400;initPlayerRuntime(P);P.x=248;P.y=200;P.map=G.map.id;P.dir='down';P.hp=Math.floor(P.S.maxhp*.5);P.mp=1e6;P.slots=[D.id,null,null,null];P.skills={};for(const s of Object.values(SK))if(s.cls===D.cls)P.skills[s.id]=10;P.cds={};P.acts=[];P.busy=0;P.inv=[];P.souls=[{id:'fixture',mid:'slime_v',lv:400,el:0,b:0}];P.soulSet=['fixture'];SUMMONS=[];G.ents=[P];G.fx=[];G.parts=[];
   const m=spawnMob('slime_v',400,248,226,0,null,false);m.hp=m.maxhp=1e9;m.df=100;P.target=m;if(D.kind==='sumbuff')spawnSummon(P.souls[0],1,20);ATK_ID=100;return{P,m};
@@ -19,5 +19,5 @@
   const I=SV_OF.get('i1'),{P}=setup(I);P.souls=[];P.soulSet=[];useSkill(0);assert(!P.svCast,'animation on missing souls');
   const remote={cls:'mago',type:'remote',app:DEF_APP,gear:{body:30},cos:{},dir:'down',x:200,y:200};nfxPlay(remote,{k:'sv',id:'m1',dir:'right'});assert(remote.svCast?.id==='m1','remote skill missing');const saved=remote.svCast;nfxPlay(remote,{k:'sv',id:'g1',dir:'left'});assert(remote.svCast===saved,'wrong-class network event accepted');
   return{checked,successfulCasts:success,rejectedCasts:failed,combat:'identical costs, cooldowns, damage, statuses, action times, summons and movement',network:'validated'};
- }finally{Math.random=oldRandom;}
+ }finally{Math.random=oldRandom;SETTINGS.sfx=oldSfx;}
 })()

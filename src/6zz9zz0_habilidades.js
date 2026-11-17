@@ -246,7 +246,7 @@ function svDrawEffect(D,phase,role,dir,x,y,r=32){const cv=svEffect(D.id,Math.min
 function svStart(e,D,dir){if(!e||e.dead)return;e.svCast={id:D.id,t:G.t,dur:D.dur,dir:DIRS.includes(dir)?dir:e.dir};}
 {const old=drawEnt;drawEnt=function(e,cx,cy){const S=e.svCast,D=S&&SV_OF.get(S.id);if(!D||e.dead||G.t-S.t>=S.dur||e.job||['hurt','dead'].includes(e.anim))return old.apply(this,arguments);
  const age=svClamp((G.t-S.t)/S.dur),f=Math.min(11,Math.floor(age*12)),A=svAtlas(e,D),saved=[e.atlas,e.anim,e.af,e.dir];e.atlas=A;e.anim='sv_skill';e.af=f;e.dir=D.kind==='spin'?['down','left','up','right'][(Math.floor(age*4)+['down','left','up','right'].indexOf(S.dir))%4]:S.dir;svEnsure(A,f,DIRI[e.dir]);
- try{const result=old.apply(this,arguments);svDrawEffect(D,age,'cast',S.dir,e.x-cx,e.y-cy-9,26);return result;}finally{[e.atlas,e.anim,e.af,e.dir]=saved;}};}
+ try{const behind=['guard','channel','heal'].includes(D.pose);if(behind)svDrawEffect(D,age,'cast',S.dir,e.x-cx,e.y-cy-9,26);const result=old.apply(this,arguments);if(!behind)svDrawEffect(D,age,'cast',S.dir,e.x-cx,e.y-cy-9,26);return result;}finally{[e.atlas,e.anim,e.af,e.dir]=saved;}};}
 {const old=delayAct;delayAct=function(t,fn){const D=svContext;if(!D)return old.apply(this,arguments);return old(t,function(){const before=svContext;svContext=D;try{return fn.apply(this,arguments);}finally{svContext=before;}});};}
 {const old=addFx;addFx=function(o){return old(svContext?Object.assign({},o,{svId:svContext.id,svDir:G.P?.dir||'down'}):o);};}
 {const old=spawnProj;spawnProj=function(owner,x,y,ang,o){const e=old.apply(this,arguments);if(e&&owner==='p'&&svContext)e.svId=svContext.id;return e;};}
