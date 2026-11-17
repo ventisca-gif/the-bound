@@ -1,0 +1,75 @@
+name: Validate hairstyle update
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'template.html'
+      - 'tests/hair8/**'
+      - '.github/workflows/hair8.yml'
+permissions:
+  contents: read
+concurrency:
+  group: hair8-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'codex/peinados-ocho-referencias'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install build and browser dependencies
+        run: |
+          pip install playwright pillow
+          mkdir -p tools/i18n/vendor
+          npm pack acorn@8.14.0
+          tar -xzf acorn-8.14.0.tgz package/dist/acorn.js
+          cp package/dist/acorn.js tools/i18n/vendor/acorn.js
+          google-chrome --version
+      - name: Build and exercise detailed hairstyles in Chromium
+        run: |
+          python3 build.py
+          python3 tests/hair8/browser.py
+      - name: Check every existing outfit on all bodies
+        run: python3 tools/dev/fitcheck.py file://$PWD/dist/test.html /tmp/hair8-fit --strict
+      - name: Test OTA download, integrity and rollback
+        run: |
+          python3 tests/upd.py file://$PWD/dist/test.html /tmp/hair8-updater.png > /tmp/hair8-updater.log
+          python3 - <<'PY'
+          import json
+          s=open('/tmp/hair8-updater.log').read(); r=json.loads(s[s.rfind('\n{')+1:])
+          assert not r['errs'],r['errs']
+          assert r['frame'] and r['child_ota'],r
+          assert r['child_build']==r['apk_build']+1,r
+          assert r['relaunch_build']==r['child_build'],r
+          assert r['needs_apk'],r
+          assert not r['rollback_frame'] and r['rollback_build']==r['apk_build'],r
+          assert not r['timeout_frame'] and r['timeout_title'],r
+          print('OTA download, integrity, restart and rollback passed')
+          PY
+      - name: Package verified release on the work branch
+        run: |
+          python3 tools/dev/release.py --no-build
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('docs/NOTAS.md');s=p.read_text();s=s.replace('<!-- Integración 4.97 en preparación: publicar solo tras pasar CI de peinados, fitcheck y OTA. -->\n','');s=s.replace('**4.96 (build 117)**','**4.97 (build 118)**');p.write_text(s)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hair8-validation
+          path: |
+            update/thebound.html
+            update/version.json
+            docs/sprites/peinados_*_motor.png
+            tests/hair8/result.json
+            /tmp/hair8-fit/fit_report.txt
+            /tmp/hair8-updater.log
