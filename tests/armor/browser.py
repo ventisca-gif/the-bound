@@ -9,7 +9,20 @@ with sync_playwright()as p:
  pg=b.new_page(viewport={'width':1200,'height':850});errors=[];pg.on('pageerror',lambda e:errors.append(str(e)))
  try:
   pg.goto((ROOT/'dist/test.html').as_uri());pg.wait_for_timeout(1800)
-  after=pg.evaluate(SNAP);assert before==after,'gameplay, items, progression, bodies or animation definitions changed'
+  after=pg.evaluate(SNAP)
+  if before!=after:
+   aa=json.loads(before);bb=json.loads(after);diff=[]
+   def walk(a,b,path=''):
+    if type(a)!=type(b):diff.append([path,a,b]);return
+    if isinstance(a,dict):
+     for k in a.keys()|b.keys():
+      if k not in a or k not in b:diff.append([path+'.'+k,a.get(k),b.get(k)])
+      else:walk(a[k],b[k],path+'.'+k)
+    elif isinstance(a,list):
+     if len(a)!=len(b):diff.append([path+'.length',len(a),len(b)])
+     for i,(x,y)in enumerate(zip(a,b)):walk(x,y,path+'.'+str(i))
+    elif a!=b:diff.append([path,a,b])
+   walk(aa,bb);(OUT/'data_difference.json').write_text(json.dumps(diff,ensure_ascii=False,indent=2));raise AssertionError(str(diff[:10]))
   result=pg.evaluate((ROOT/'tests/armor/check.js').read_text());print(json.dumps(result),flush=True)
   result['unchangedDataSha256']=hashlib.sha256(before.encode()).hexdigest()
   pg.click('#tNew');pg.wait_for_timeout(400);pg.fill('#ccName','Armaduras');pg.click('#ccGo');pg.wait_for_timeout(1200);pg.click('#introOk');pg.wait_for_timeout(300)
