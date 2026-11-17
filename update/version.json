@@ -1,22 +1,22 @@
 {
- "build": 122,
- "ver": "5.01",
+ "build": 123,
+ "ver": "5.02",
  "date": "2026-11-17",
  "file": "thebound.html",
- "size": 22009519,
- "sha256": "e574c93996309dffdd36a78cb7a35d3cfc1ebdba6f794dc19f26c6be9e7e7f78",
+ "size": 22032028,
+ "sha256": "274aa321398cdbf846a842790d8d1b31b4d7b0dbf4aad565cb1a7724ad3ea742",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🛡 Armaduras pulidas en los 30 niveles de equipo: placas, cuero, telas, emblemas y capas propios, sobre los cinco cuerpos masculinos y femeninos originales.",
-   "🎨 Iconos nuevos para las 125 piezas en Armaduras del bestiario, inventario, herrería y tiendas, con vista de la pieza equipada en cuatro direcciones.",
-   "Se conservan las estadísticas, el progreso, las animaciones y la cobertura del pelo de cada casco."
+   "✨ Las 122 habilidades activas de las siete clases reciben poses y efectos propios, en cuatro direcciones y sobre los cinco cuerpos originales de cada sexo.",
+   "🎨 Iconos nuevos para las 146 habilidades, incluidas las 24 pasivas. Los demás jugadores también ven los nuevos ataques.",
+   "Se conservan daño, costes, recargas, estados, invocaciones, movimiento y tiempos de golpe. Los nuevos gráficos usan cachés limitadas."
   ],
   "en": [
-   "🛡 Polished armor across all 30 gear tiers: plates, leather, cloth, emblems and capes on the five original male and female bodies.",
-   "🎨 New icons for all 125 pieces in the bestiary Armor tab, inventory, smithy and shops, plus a four-direction equipped preview.",
-   "Stats, progress, animations and each helmet’s hair coverage are preserved."
+   "✨ All 122 active skills across seven classes receive their own poses and effects in four directions on the five original bodies of each sex.",
+   "🎨 New icons for all 146 skills, including 24 passives. Other players can see the new attacks too.",
+   "Damage, costs, cooldowns, statuses, summons, movement and hit timings are preserved. New graphics use bounded caches."
   ]
  }
 }
