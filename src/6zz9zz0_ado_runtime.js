@@ -29,7 +29,7 @@ STELLA_LOVE_LINES.jp_ado=[
  L2('No necesito focos cuando sonríes así. ♥','I do not need spotlights when you smile like that. ♥') ];
 // Fixed identity for inheritance, independent of concert graphics, outfit, or palette object identity.
 {const old=partnerApp;partnerApp=function(id){if(id==='jp_ado')return{g:'f',hair:'ado',skin:0,eyes:'celeste',hs:ADO_HS.f};if(id==='jp_miku')return{g:'f',hair:'turquesa',skin:0,eyes:'turquesa'};if(id==='jp_teto')return{g:'f',hair:'rojo',skin:0,eyes:'rojo'};return old.apply(this,arguments);};}
-{const old=mixApps;mixApps=function(g,n){const out=old.apply(this,arguments);if(G.P?.partner!=='jp_ado')return out;for(let i=0;i<out.length;i++){const a=out[i];if(i%2===0){a.hs=ADO_HS[g];if(a.hair!=='ado')a.r8Dye=1;}else if(i%3===0)a.hair2='ado';}return out;};}
+{const old=mixApps;mixApps=function(g,n){const out=old.apply(this,arguments);if(G.P?.partner!=='jp_ado')return out;for(let i=0;i<out.length;i++){const a=out[i];if(i%2===0){a.hs=ADO_HS[g];if(a.hair!=='ado')a.r8Dye=1;}else if(i%3===0)a.hair2='ado';if(i%3===0){const B=partnerApp('jp_ado'),A=normApp(G.P.app);if(A.eyes!==B.eyes)a.eyes2=a.eyes===A.eyes?B.eyes:A.eyes;}}return out;};}
 const ADO_IMAGES={};for(const style of ['detail','classic'])ADO_IMAGES[style]=ADO_ART[style].map(src=>{const im=new Image();im.src=src;return im;});
 const IDOL_SOCIAL_CACHE=new Map();
 // Split limbs from the original sprite, pose them at their existing shoulder anchors, keep hair/face pixels.
