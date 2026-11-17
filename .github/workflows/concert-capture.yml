@@ -1,0 +1,29 @@
+name: Capture Miku and Teto in the published game
+on:
+  pull_request:
+    paths:
+      - 'tests/concert_capture/**'
+      - '.github/workflows/concert-capture.yml'
+permissions:
+  contents: read
+jobs:
+  capture:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'codex/capturas-miku-teto'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install capture driver
+        run: pip install playwright pillow
+      - name: Photograph the published build with an isolated demonstration save
+        run: python3 tests/concert_capture/capture.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: miku-teto-game-captures
+          path: tests/concert_capture/out/*
