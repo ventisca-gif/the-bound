@@ -3,8 +3,8 @@
  "ver": "5.00",
  "date": "2026-11-17",
  "file": "thebound.html",
- "size": 21993485,
- "sha256": "4592c739216c45ba81bbddf0d9801622bb03efe1deda7e34e4a31b7fb2b75b30",
+ "size": 21993769,
+ "sha256": "c1fd9c6fa2736bf99032221ba84f8d7f5749240b56513fba6b70ef9ae530128c",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
