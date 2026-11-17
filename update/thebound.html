@@ -341,7 +341,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.02 · Habilidades distintas</div>
+  <div class="tfoot">v5.03 · Iconos nuevos</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11756,7 +11756,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.02', GAME_BUILD = 123;
+const GAME_VER = '5.03', GAME_BUILD = 124;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11764,6 +11764,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "b": 124,
+  "v": "5.03",
+  "d": "2026-11-17",
+  "es": [
+   "🎨 Iconos de habilidad dibujados de nuevo: espadas, escudos, llamas, copos, flechas, notas, calaveras, guadañas, olas y más, con el color de cada elemento. Ya no salen manchas marrones en el árbol ni en los botones.",
+   "✨ Quitado el bloque marrón que tapaba al personaje en Grito, Muro, Avatar, Fortaleza, Égida, Coro y otras: ahora son ondas y contornos brillantes. Los ataques del guerrero pasan de marrón a acero y oro.",
+   "🌐 Revisado en multijugador local y online: las 125 armaduras rediseñadas, los 255 cosméticos, los 149 peinados (85 femeninos y 64 masculinos, ninguno borrado) y las 122 habilidades se ven igual en el otro teléfono."
+  ],
+  "en": [
+   "🎨 Skill icons redrawn: swords, shields, flames, snowflakes, arrows, notes, skulls, scythes, waves and more, in each element's colours. No more brown blobs in the tree or the buttons.",
+   "✨ Removed the brown block that covered the character in Shout, Wall, Avatar, Fortress, Aegis, Choir and others: now they are waves and glowing outlines. Warrior skills go from brown to steel and gold.",
+   "🌐 Checked in local and online multiplayer: the 125 redesigned armours, 255 cosmetics, 149 hairstyles (85 female and 64 male, none removed) and 122 skills look the same on the other phone."
+  ]
+ },
  {
   "b": 123,
   "v": "5.02",
@@ -28095,7 +28110,7 @@ function svClassPose(cls,dir,t,L){
  for(const k of['rax','ray','lax','lay','crouch','jump','lean','bob','lfy','rfy'])if(p[k])p[k]*=1-recover;
  return p;
 }
-const SV_COL={guerrero:['#543724','#bd8140','#efc674','#fff1cc'],mago:['#722528','#d55629','#ffac45','#fff0b9'],arquero:['#1b4940','#418b6f','#99d7a3','#e6f8d7'],asesino:['#25162f','#633d81','#c28bd9','#f6d7ed'],bardo:['#57416b','#ad709b','#edc773','#fff0b4'],invocador:['#122e51','#366b9e','#89c9e6','#ecffff'],pez:['#123e64','#3187a6','#8edee0','#edffff']};
+const SV_COL={guerrero:['#34466e','#7f9fd0','#f2d27a','#fffbe8'],mago:['#722528','#d55629','#ffac45','#fff0b9'],arquero:['#1b4940','#418b6f','#99d7a3','#e6f8d7'],asesino:['#25162f','#633d81','#c28bd9','#f6d7ed'],bardo:['#57416b','#ad709b','#edc773','#fff0b4'],invocador:['#122e51','#366b9e','#89c9e6','#ecffff'],pez:['#123e64','#3187a6','#8edee0','#edffff']};
 const svHash=s=>{let h=2166136261;for(const c of s)h=Math.imul(h^c.charCodeAt(0),16777619)>>>0;return h;};
 const SV_OF=new Map();
 for(const s of Object.values(SK))if(AP_CLASSES.includes(s.cls)&&s.type==='act'){
@@ -28135,7 +28150,7 @@ function svEffect(id,frame,role='cast',dir='down'){
  const D=SV_OF.get(id);if(!D)return null;frame=svClamp(frame|0,0,11);const key=[id,frame,role,dir].join(':');let cv=svGet(SV_FX_CACHE,key);if(cv)return cv;
  const p=new Pix(128,128),C_=D.colors,t=(frame+1)/12,seed=D.seed,n=D.beats,angle=({right:0,down:Math.PI/2,left:Math.PI,up:-Math.PI/2})[dir]||0;
  const pt=(u,v)=>[Math.round(64+Math.cos(angle)*u-Math.sin(angle)*v),Math.round(64+(Math.sin(angle)*u+Math.cos(angle)*v)*.65)];
- const line=(a,b,c=C_[2])=>p.line(...pt(...a),...pt(...b),c),dot=(u,v,r=2)=>p.ball(...pt(u,v),r,r,[C_[0],C_[1],C_[2],C_[3]]);
+ const line=(a,b,c=C_[2])=>p.line(...pt(...a),...pt(...b),c),dot=(u,v,r=2)=>p.ball(...pt(u,v),r,r,[C_[1],C_[2],C_[3],C_[3]]),glass=(c,a=70)=>((c&0xffffff)|(a<<24))>>>0;
  const poly=(a,c)=>p.poly(a.map(v=>pt(...v)),c),circle=(r,phase=0,c=C_[2],sides=24)=>{let last;for(let i=0;i<=sides;i++){const a=i/sides*Math.PI*2+phase,z=[Math.cos(a)*r,Math.sin(a)*r];if(last)line(last,z,c);last=z;}};
  const projectile=role==='proj',ground=role==='field',fx=D.fx;
  if(projectile){
@@ -28164,11 +28179,12 @@ function svEffect(id,frame,role='cast',dir='down'){
   circle(24,seed%6,C_[1],6);circle(18,-t,C_[2],6);for(let j=0;j<(fx==='summon'?1:n);j++){const x=(j-(n-1)/2)*12,y=-t*20;dot(x,y-8,5);poly([[x-4,y-6],[x+4,y-6],[x+6,y+7],[x,y+3],[x-5,y+7]],C_[1]);dot(x-2,y-9,1);dot(x+2,y-9,1);}
  }else if(/wall|aegis|seraph|arcshield|icearmor|fortress|carapace|bubble|stealth|hawkeye|avatar|abysmal|hunter|shout|shadows/.test(fx)){
   if(fx==='bubble'){circle(27,t*.3,C_[2]);for(let j=0;j<5;j++)dot(Math.cos(j)*21,Math.sin(j)*21,2);}
-  else{poly([[-21,-21],[21,-21],[18,14],[0,30],[-18,14]],C_[0]);line([-21,-21],[0,-16],C_[3]);line([0,-16],[21,-21]);line([-18,14],[0,30]);line([0,30],[18,14]);for(let j=0;j<n;j++)line([-12+j*7,-12],[-12+j*7,12],C_[1]);}
+  else if(fx==='shout'){for(let j=0;j<3;j++)circle(10+j*8+t*12,j,j%2?C_[1]:C_[2],28);}
+  else{const k=.55+t*.45,S=[[-21,-21],[0,-16],[21,-21],[18,14],[0,30],[-18,14]].map(([u,v])=>[u*k,v*k]);for(let i=0;i<S.length;i++)line(S[i],S[(i+1)%S.length],i%2?C_[2]:C_[3]);for(let j=0;j<n;j++){const a=j*2.4+t*3;dot(Math.cos(a)*26*k,Math.sin(a)*22*k-4,1);}}
  }else if(/blink|tumble|voidstep|shadowstep|charge/.test(fx)){
   for(let j=0;j<n+1;j++){const x=-27+j*13-t*12;poly([[x,-12],[x+8,0],[x,12],[x+4,0]],j%2?C_[1]:C_[2]);}
  }else if(/mark|curse|deathmark/.test(fx)){
-  poly([[0,-28],[21,0],[0,28],[-21,0]],C_[0]);for(const sign of[-1,1]){line([sign*15,-18],[-sign*15,18],C_[2]);line([sign*9,-24],[sign*15,-18],C_[3]);}dot(0,0,4);
+  for(const [u,v,x,y] of [[0,-28,21,0],[21,0,0,28],[0,28,-21,0],[-21,0,0,-28]])line([u,v],[x,y],C_[1]);for(const sign of[-1,1]){line([sign*15,-18],[-sign*15,18],C_[2]);line([sign*9,-24],[sign*15,-18],C_[3]);}dot(0,0,4);
  }else if(/ice|frost|glacier|absolute|blizzard/.test(fx)){
   for(let j=0;j<n+2;j++){const x=(j-(n+1)/2)*10,h=12+((j*7+seed)%19)*t;poly([[x-4,12],[x,-h],[x+5,12]],C_[j%2?1:2]);line([x,-h],[x+1,8],C_[3]);}
  }else if(/meteor|apocalypse|runerain|deluge|feathers|prism|skyblade|dawn/.test(fx)){
@@ -28341,6 +28357,89 @@ function r143Effect(S,dir,f){const key=S.id+':'+dir+':'+f,cached=R143_FX.get(key
  const cv=p.canvas();R143_FX.set(key,cv);r143FxBytes+=N*N*4;while(r143FxBytes>R143_FX_MAX&&R143_FX.size>1){R143_FX.delete(R143_FX.keys().next().value);r143FxBytes-=N*N*4;}return cv;}
 function r143DrawFx(e,cx,cy){if(!e?.atlas?.r143||e.anim!=='atk'||e.dying||e.remove)return;const A=e.atlas,S=R143_OF.get(A.r143);if(!S)return;const cv=r143Effect(S,e.dir||'down',e.af||0),sc=Math.max(A.fw,A.fh)/144*(e.scale||1);ctx.save();ctx.imageSmoothingEnabled=false;ctx.drawImage(cv,Math.round(e.x-cx-96*sc),Math.round(e.y-cy-(e.z||0)-132*sc),192*sc,192*sc);ctx.restore();}
 {const prev=drawEnt;drawEnt=function(e,cx,cy){if(e?.dir==='up')r143DrawFx(e,cx,cy);const r=prev.apply(this,arguments);if(e?.dir!=='up')r143DrawFx(e,cx,cy);return r;};}
+
+// v5.03: iconos de habilidad dibujados a mano en 16×16 (antes eran un hexágono oscuro casi vacío).
+// Solo cambia el dibujo del icono; SK, costes, daño y la ranura de cada habilidad no se tocan.
+const SVI_GLYPH = {
+ cleave: 'slash', whirlwind: 'spin', judgment: 'hammer', shout: 'shout', wall: 'shield', charge: 'dash', quake: 'hammer', avatar: 'wings',
+ fireball: 'fireball', meteors: 'meteor', inferno: 'flame', icebolt: 'shard', frost: 'snow', icearmor: 'shield', blizzard: 'snow', blink: 'blink',
+ arcshield: 'shield', chargedarrow: 'arrow', deatharrow: 'arrow', arrowstorm: 'arrows', poisonarrow: 'arrow', roots: 'leaf', forestheal: 'heal',
+ arrowrain: 'arrows', tumble: 'dash', multishot: 'arrows', hunter: 'target', shadow: 'dagger', stealth: 'moon', deathmark: 'target', venom: 'drop',
+ toxic: 'drop', daggers: 'daggers', bladedance: 'daggers', thousand: 'daggers', steelstorm: 'spin', bond: 'bond', fortress: 'shield', aegis: 'shield',
+ leap: 'impact', cataclysm: 'hammer', meteor: 'meteor', apocalypse: 'meteor', glacier: 'shard', absolute: 'snow', blackhole: 'orb', singularity: 'orb',
+ pierce: 'arrow', mark: 'target', arrowflood: 'arrows', forestwrath: 'leaf', fan: 'arrows', hawkeye: 'eye', execute: 'dagger', shadowdance: 'daggers',
+ plague: 'drop', miasma: 'drop', voidstep: 'blink', shadows: 'moon', note: 'note', chord: 'notes', crescendo: 'shout', song: 'heal', ballad: 'note',
+ rebirth: 'heal', dance: 'dash', march: 'notes', rhythm: 'note', symphony: 'notes', requiem: 'note', choir: 'shield', aria: 'note', echo: 'shout',
+ finale: 'notes', concert: 'notes', summon: 'skull', soulrage: 'wisp', reap: 'scythe', scythespin: 'scythe', execution: 'scythe', drain: 'wisp',
+ soulplague: 'wisp', curse: 'target', army: 'skull', soulking: 'skull', macabre: 'skull', harvest: 'scythe', hellfire: 'flame', gate: 'orb',
+ skyblade: 'impact', prism: 'orb', phoenix: 'wings', shadowcuts: 'daggers', bite: 'fang', frenzy: 'fang', jaw: 'fang', bubble: 'bubble', tide: 'wave',
+ grab: 'hand', whirl: 'spin', abysmal: 'shield', megalodon: 'fin', devour: 'fang', tsunami: 'wave', carapace: 'shield', shark: 'fin', kraken: 'tentacle',
+ leviathan: 'fang', dawn: 'wings', seraph: 'wings', runerain: 'meteor', arcanestorm: 'orb', zephyr: 'arrow', feathers: 'wings', dusk: 'moon',
+ shadowstep: 'blink', hymn: 'heal', thunderchord: 'notes', legion: 'skull', judgmentscythe: 'scythe', deluge: 'wave', abysswhirl: 'spin',
+};
+// Pasivas: el dibujo sale de lo que mejoran.
+const SVI_PAS = { atkP: 'slash', sumP: 'skull', defP: 'shield', hpP: 'heart', life: 'drop', mpReg: 'drop', vsPoison: 'drop', fireP: 'flame', crit: 'eye', critD: 'skull', spdP: 'dash', aspdP: 'dash', dodge: 'blink', soulP: 'wisp' };
+const SVI_GOLD = [C('#8a5a12'), C('#e0a43a'), C('#ffd96a'), C('#fff6c8')];
+function sviPalette(hex) { const c = C(hex); return [uMix(c, C('#000000'), .45), c, uMix(c, C('#ffffff'), .45), uMix(c, C('#ffffff'), .85)]; }
+function sviArc(p, cx, cy, r, a0, a1, c, ry = r) { const n = Math.max(8, Math.ceil(Math.abs(a1 - a0) * r * 1.6)); for (let i = 0; i <= n; i++) { const a = a0 + (a1 - a0) * i / n; p.set(Math.round(cx + Math.cos(a) * r - .5), Math.round(cy + Math.sin(a) * ry - .5), c); } }
+function sviThick(p, x0, y0, x1, y1, c, c2) { p.line(x0, y0, x1, y1, c); p.line(x0 + 1, y0, x1 + 1, y1, c2 ?? c); }
+const SVI_DRAW = {
+ slash(p, [d, m, l, w], A) { sviArc(p, 7, 9, 7, Math.PI * 1.05, Math.PI * 1.75, m); sviArc(p, 7, 9, 6, Math.PI * 1.05, Math.PI * 1.75, l);
+  p.poly([[12, 1], [15, 1], [15, 4], [7, 11], [5, 9]], l); p.line(6, 10, 14, 2, w); p.line(3, 8, 8, 13, A[2]); p.line(4, 8, 8, 12, A[1]); p.line(2, 14, 4, 12, d); p.set(1, 15, A[2]); },
+ spin(p, [d, m, l, w], A) { let last = null; for (let i = 0; i <= 40; i++) { const a = i * .19, r = 1.2 + i * .16, z = [Math.round(8 + Math.cos(a) * r), Math.round(8 + Math.sin(a) * r)]; if (last) p.line(...last, ...z, i > 26 ? m : i > 12 ? l : w); last = z; }
+  p.poly([[14, 2], [15, 3], [11, 7], [10, 6]], w); p.line(9, 7, 8, 8, A[2]); },
+ hammer(p, [d, m, l, w], A) { p.line(2, 14, 8, 8, A[1]); p.line(3, 14, 9, 8, A[0]); p.poly([[5, 5], [10, 0], [15, 5], [10, 10]], m); p.poly([[6, 5], [10, 1], [12, 3], [8, 7]], l); p.line(6, 5, 10, 1, w); p.set(1, 15, A[2]); p.set(13, 12, w); p.set(14, 9, l); p.set(11, 13, l); },
+ shout(p, [d, m, l, w], A) { p.ball(4, 8, 2.5, 3.2, [m, l, w, w]); for (const [r, c] of [[5, w], [8, l], [11, m]]) sviArc(p, 4, 8, r, -.85, .85, c); },
+ shield(p, [d, m, l, w], A) { p.poly([[2, 1], [14, 1], [14, 8], [8, 15], [2, 8]], m); p.poly([[4, 3], [12, 3], [12, 8], [8, 12], [4, 8]], l); p.hl(2, 1, 12, w);
+  p.line(8, 4, 8, 10, A[2]); p.line(5, 6, 11, 6, A[2]); p.set(8, 6, w); },
+ dash(p, [d, m, l, w]) { [[2, m], [6, l], [10, w]].forEach(([x, c]) => { p.line(x, 2, x + 4, 8, c); p.line(x + 4, 8, x, 14, c); p.line(x + 1, 2, x + 5, 8, c); p.line(x + 5, 8, x + 1, 14, c); }); },
+ blink(p, [d, m, l, w]) { for (let i = 0; i < 8; i++) { const a = i * Math.PI / 4; p.line(8 + Math.round(Math.cos(a) * 3), 8 + Math.round(Math.sin(a) * 3), 8 + Math.round(Math.cos(a) * 7), 8 + Math.round(Math.sin(a) * 7), i % 2 ? m : l); } p.ball(8, 8, 2.5, 2.5, [l, w, w, w]); },
+ wings(p, [d, m, l, w], A) { for (const s of [-1, 1]) { const x = v => 8 + s * v; p.poly([[x(1), 8], [x(7), 2], [x(7.5), 6], [x(6), 9], [x(4), 12]].map(([a, b]) => [a, b]), l); p.line(x(2), 8, x(6), 4, w); p.line(x(3), 10, x(6), 8, m); }
+  p.ball(8, 9, 2, 3, [A[1], A[2], A[3], A[3]]); sviArc(p, 8, 3, 3, Math.PI, Math.PI * 2, A[2], 1.5); },
+ bond(p, [d, m, l, w], A) { sviArc(p, 6, 8, 4, 0, Math.PI * 2, l); sviArc(p, 6, 8, 3.2, 0, Math.PI * 2, w); sviArc(p, 10.5, 8, 4, 0, Math.PI * 2, A[2]); sviArc(p, 10.5, 8, 3.2, 0, Math.PI * 2, A[1]); },
+ flame(p, [d, m, l, w]) { p.poly([[8, 1], [13, 7], [13, 11], [9, 15], [6, 15], [3, 11], [3, 7], [5, 4], [7, 7]], m); p.poly([[8, 5], [11, 9], [11, 12], [8, 14], [5, 12], [5, 9]], l); p.poly([[8, 9], [10, 12], [8, 14], [6, 12]], w); },
+ fireball(p, [d, m, l, w]) { p.poly([[1, 15], [5, 8], [9, 12]], m); p.line(2, 14, 7, 9, l); p.ball(10, 6, 4.5, 4.5, [m, l, w, w]); },
+ meteor(p, [d, m, l, w]) { p.poly([[0, 15], [6, 4], [12, 10]], m); p.poly([[3, 13], [7, 6], [10, 9]], l); p.ball(10, 6, 4, 4, [d, m, l, w]); p.set(9, 4, w); p.set(8, 5, w); },
+ snow(p, [d, m, l, w]) { for (let i = 0; i < 6; i++) { const a = i * Math.PI / 3 + Math.PI / 2, ex = 8 + Math.cos(a) * 6.5, ey = 8 + Math.sin(a) * 6.5; p.line(8, 8, Math.round(ex), Math.round(ey), l);
+  for (const s of [-1, 1]) p.line(Math.round(8 + Math.cos(a) * 4), Math.round(8 + Math.sin(a) * 4), Math.round(8 + Math.cos(a) * 4 + Math.cos(a + s * 1) * 2.4), Math.round(8 + Math.sin(a) * 4 + Math.sin(a + s * 1) * 2.4), w); } p.ball(8, 8, 1.5, 1.5, [w, w, w, w]); },
+ shard(p, [d, m, l, w]) { p.poly([[13, 1], [15, 3], [5, 13], [2, 14], [3, 11]], l); p.line(4, 12, 14, 2, w); p.poly([[1, 9], [4, 10], [3, 12]], m); p.poly([[6, 14], [7, 11], [9, 13]], m); },
+ arrow(p, [d, m, l, w], A) { p.line(3, 13, 12, 4, l); p.line(4, 13, 13, 4, m); p.poly([[15, 1], [9, 3], [13, 7]], w); p.line(1, 11, 4, 13, A[2]); p.line(3, 15, 4, 13, A[2]); p.line(1, 13, 3, 14, A[1]); },
+ arrows(p, [d, m, l, w], A) { [[3, 1], [8, 3], [13, 0]].forEach(([x, y]) => { p.line(x, y, x, y + 8, l); p.poly([[x - 2.5, y + 8], [x + 2.5, y + 8], [x, y + 12]], w); p.set(x - 1, y, A[2]); p.set(x + 1, y, A[2]); }); },
+ drop(p, [d, m, l, w]) { p.poly([[8, 1], [13, 9], [12, 13], [8, 15], [4, 13], [3, 9]], m); p.poly([[8, 4], [11, 9], [10, 12], [8, 13], [6, 12], [5, 9]], l); p.line(6, 9, 6, 11, w); p.set(12, 3, l); p.set(14, 6, w); },
+ leaf(p, [d, m, l, w], A) { p.poly([[2, 14], [3, 7], [8, 2], [14, 1], [13, 7], [8, 12]], m); p.poly([[4, 12], [5, 7], [9, 4], [12, 3], [11, 7], [7, 11]], l); p.line(2, 14, 12, 3, w); p.line(6, 10, 4, 7, d); p.line(9, 7, 11, 9, d); },
+ heal(p, [d, m, l, w], A) { p.poly([[6, 2], [10, 2], [10, 6], [14, 6], [14, 10], [10, 10], [10, 14], [6, 14], [6, 10], [2, 10], [2, 6], [6, 6]], l); p.line(8, 4, 8, 12, w); p.line(4, 8, 12, 8, w); p.set(13, 2, A[3]); p.set(2, 13, A[2]); },
+ target(p, [d, m, l, w], A) { sviArc(p, 8, 8, 6.5, 0, Math.PI * 2, l); sviArc(p, 8, 8, 3.5, 0, Math.PI * 2, A[2]); for (const [a, b, c, e] of [[8, 0, 8, 4], [8, 12, 8, 16], [0, 8, 4, 8], [12, 8, 16, 8]]) p.line(a, b, c, e, w); p.set(8, 8, w); },
+ eye(p, [d, m, l, w], A) { p.poly([[1, 8], [5, 4], [11, 4], [15, 8], [11, 12], [5, 12]], w); p.ball(8, 8, 3.2, 3.2, [A[0], A[1], A[2], A[2]]); p.ball(8, 8, 1.4, 1.4, [d, d, d, d]); p.set(7, 7, w); p.hl(5, 3, 6, l); },
+ moon(p, [d, m, l, w], A) { p.ball(8, 8, 6.5, 6.5, [m, l, w, w]); for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++) { const dx = x + .5 - 11, dy = y + .5 - 5.5; if (dx * dx + dy * dy < 30) p.set(x, y, 0); } p.set(13, 10, A[2]); p.set(12, 13, w); },
+ dagger(p, [d, m, l, w], A) { p.poly([[14, 1], [15, 2], [8, 10], [6, 8]], l); p.line(7, 9, 14, 2, w); p.line(4, 8, 8, 12, A[2]); p.line(2, 13, 5, 10, d); p.line(3, 14, 6, 11, A[0]); },
+ daggers(p, P, A) { const [d, m, l, w] = P; for (const s of [1, -1]) { const X = x => s > 0 ? x : 15 - x; p.poly([[X(14), 1], [X(15), 2], [X(9), 9], [X(7), 7]], l); p.line(X(8), 8, X(14), 2, w); p.line(X(5), 8, X(8), 11, A[2]); p.line(X(2), 14, X(6), 10, A[1]); p.set(X(1), 15, A[2]); } },
+ note(p, [d, m, l, w], A) { p.ball(5, 12, 3.2, 2.4, [m, l, w, w]); p.line(8, 12, 8, 2, w); p.line(7, 12, 7, 3, l); p.line(8, 2, 13, 5, l); p.line(13, 5, 12, 8, l); p.line(8, 3, 12, 6, m); },
+ notes(p, [d, m, l, w], A) { p.ball(4, 12, 2.6, 2, [m, l, w, w]); p.ball(11, 10, 2.6, 2, [m, l, w, w]); p.line(6, 12, 6, 3, w); p.line(13, 10, 13, 1, w); p.line(6, 3, 13, 1, l); p.line(6, 4, 13, 2, l); p.line(6, 6, 13, 4, m); },
+ skull(p, [d, m, l, w], A) { p.ball(8, 7, 5.5, 5.5, [m, l, w, w]); p.poly([[5, 10], [11, 10], [11, 14], [5, 14]], l); p.ball(5.8, 7.5, 1.5, 1.6, [d, d, d, d]); p.ball(10.2, 7.5, 1.5, 1.6, [d, d, d, d]); p.set(8, 10, d); for (const x of [6, 8, 10]) p.set(x, 13, d); p.set(5, 7, A[2]); p.set(10, 7, A[2]); },
+ scythe(p, [d, m, l, w], A) { p.line(3, 15, 10, 2, A[0]); p.line(4, 15, 11, 2, A[1]); p.poly([[10, 2], [5, 1], [1, 4], [3, 5], [6, 3], [10, 4]], l); p.line(1, 4, 6, 1, w); p.set(10, 3, w); },
+ wisp(p, [d, m, l, w]) { p.poly([[11, 1], [12, 5], [11, 9], [8, 13], [5, 13], [3, 10], [4, 6], [6, 8], [7, 4]], m); p.ball(7, 10, 3.2, 3, [l, w, w, w]); p.set(6, 10, d); p.set(8, 10, d); p.set(13, 2, l); },
+ fang(p, [d, m, l, w]) { p.ell(8, 8, 7.5, 6.5, m); p.ell(8, 8, 5.5, 4.5, d); for (const x of [3.5, 6.5, 9.5, 12.5]) { p.poly([[x - 1.5, 3.6], [x + 1.5, 3.6], [x, 7.5]], w); p.poly([[x - 1.5, 12.4], [x + 1.5, 12.4], [x, 8.5]], l); } sviArc(p, 8, 8, 7.5, Math.PI * 1.15, Math.PI * 1.6, l, 6.5); },
+ bubble(p, [d, m, l, w]) { sviArc(p, 8, 8, 6.5, 0, Math.PI * 2, l); sviArc(p, 8, 8, 5.5, 0, Math.PI * 2, m); sviArc(p, 8, 8, 4, Math.PI * 1.1, Math.PI * 1.5, w); p.ball(12, 3, 1.4, 1.4, [l, w, w, w]); p.ball(3, 13, 1, 1, [l, w, w, w]); },
+ wave(p, [d, m, l, w]) { p.poly([[0, 15], [1, 9], [4, 4], [8, 1.5], [12, 2], [15, 5], [12, 4.5], [9, 5.5], [8, 8.5], [10, 11], [13, 11], [16, 15]], m); p.line(1, 10, 4, 5, l); p.line(4, 5, 8, 2, w); p.line(8, 2, 12, 2, w); p.line(12, 2, 15, 5, l); p.set(9, 7, l); p.set(10, 9, l); p.hl(11, 13, 5, w); p.set(14, 3, w); },
+ fin(p, [d, m, l, w]) { p.poly([[2, 12], [9, 1], [10, 6], [14, 12]], m); p.line(3, 11, 9, 2, l); p.line(9, 2, 10, 6, w); for (let x = 0; x < 16; x++) { p.set(x, 12 + Math.round(Math.sin(x * .9)), l); p.set(x, 14 + Math.round(Math.sin(x * .9 + 2)), m); } },
+ tentacle(p, [d, m, l, w]) { for (let i = 0; i < 12; i++) { const t = i / 11, x = 4 + Math.sin(t * 5) * 4 + t * 4, y = 15 - t * 13, r = 2.8 - t * 1.9; p.ball(x, y, r, r, [m, l, l, w]); if (i % 3 === 1) p.set(Math.round(x - 1), Math.round(y), w); } },
+ hand(p, [d, m, l, w]) { p.poly([[4, 8], [12, 8], [12, 13], [9, 15], [5, 14], [3, 11]], l); for (const x of [4, 6.5, 9, 11.5]) { p.line(Math.round(x), 8, Math.round(x), x === 4 ? 5 : 2, l); p.set(Math.round(x), x === 4 ? 5 : 2, w); } p.line(2, 10, 3, 8, l); p.line(5, 11, 10, 11, m); },
+ impact(p, [d, m, l, w], A) { p.poly([[6, 1], [10, 1], [10, 7], [13, 7], [8, 12], [3, 7], [6, 7]], l); p.line(8, 2, 8, 10, w); p.line(1, 15, 5, 12, A[2]); p.line(15, 15, 11, 12, A[2]); p.line(8, 15, 8, 13, A[2]); },
+ heart(p, [d, m, l, w]) { p.ball(5, 6, 3.5, 3.5, [m, l, l, w]); p.ball(11, 6, 3.5, 3.5, [m, l, l, w]); p.poly([[1.6, 7], [14.4, 7], [8, 14.5]], l); p.set(4, 4, w); p.set(5, 4, w); },
+ orb(p, [d, m, l, w], A) { p.ball(8, 8, 5, 5, [d, m, l, w]); sviArc(p, 8, 8, 7.3, 0, Math.PI * 2, A[2], 3); sviArc(p, 8, 8, 7.3, Math.PI * .1, Math.PI * .9, w, 3); p.set(6, 6, w); },
+};
+function sviPaint(glyph, P, A) { const p = new Pix(16, 16); (SVI_DRAW[glyph] || SVI_DRAW.slash)(p, P, A); p.outline(OUTL, false); return p; }
+{
+ const prev = genIcon;
+ genIcon = function (spec) {
+  if (spec[0] !== 'sv_skill' || !SK[spec[1]]) return prev.apply(this, arguments);
+  const s = SK[spec[1]], D = SV_OF.get(s.id);
+  if (D) { const glyph = SVI_GLYPH[D.fx] || 'slash', P = [D.colors[0], D.colors[1], D.colors[2], D.colors[3]]; return sviPaint(glyph, P.map((c, i) => i === 0 ? c : uMix(c, C('#ffffff'), i === 1 ? .12 : 0)), SVI_GOLD); }
+  // Pasiva: dibujo por estadística y el color original de SK.
+  const k = Object.keys(s.pas || s.eff || {}).find(v => SVI_PAS[v]), col = Array.isArray(s.icon) && typeof s.icon[1] === 'string' && /^#[0-9a-f]{6}$/i.test(s.icon[1]) ? s.icon[1] : '#c8d0e0';
+  return sviPaint(SVI_PAS[k] || 'slash', sviPalette(col), SVI_GOLD);
+ };
+}
 
 // ================= v3.6: IDIOMA (Español / English) =================
 // Los textos del código se traducen al compilar (tools/i18n/tr.js + en.json): cada uno es (LANG_EN ? "inglés" : "español").

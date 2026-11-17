@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **5.02 (build 123)**, habilidades con identidad propia, publicada en el actualizador interno.
+Versión actual: **5.03 (build 124)**, iconos de habilidad nuevos y efectos sin bloques marrones, publicada en el actualizador interno.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -161,3 +161,10 @@ Validación 5.01: 58.944 cuadros comparados, 2.952 cuadros HD, 8.344 combinacion
 `src/6zz9zz0_habilidades.js`: registro explícito SV_ART para las 122 activas, poses SV_OF sobre heroPose/drawHero originales, 12 fotogramas y cuatro direcciones. Atlas de generación perezosa (4 entradas) y efectos separados (96 entradas). No modifica SK, SAVEKEYS, daño, costes, recargas ni tiempos. useSkill conserva toda la ejecución original y solo activa el dibujo tras un lanzamiento aceptado; delayAct conserva su tiempo y propaga la etiqueta visual a efectos y proyectiles. Los campos conservan sus cbTick de daño. Eventos de red validados por clase. Iconos de interfaz para las 146 habilidades sin sustituir los colores internos de SK. `tests/skills` compara los resultados de cada habilidad y conserva cuerpo/cara/pelo en las diez estructuras.
 
 Validación 5.02: 122 activas aceptadas y comparadas contra la ejecución original (costes, recargas, daño, estados, tiempos de acciones, invocaciones y posiciones idénticos), rechazos sin animación y red por clase. 58.560 cuadros en diez cuerpos/cuatro direcciones, 976 HD y 2.928 efectos; límites de caché y liberación de atlas HD comprobados. Regresiones de peinados, gi, 133/143 criaturas y ajuste de 1.095 prendas/256.080 dibujos sin avisos. Pruebas del actualizador: integridad SHA, progreso conservado tras recargar, rechazo de descarga dañada y rollback. Recuperación del worker de terreno cuando se detiene entre solicitudes del mismo fotograma.
+
+
+## 5.03 · Iconos nuevos
+
+`src/6zz9zz3_iconos.js`: iconos 16×16 dibujados a mano para las 146 habilidades (`SVI_GLYPH` fx → dibujo, `SVI_PAS` estadística de la pasiva → dibujo, `SVI_DRAW` con 36 dibujos). Sustituye solo `genIcon(['sv_skill', id])`; SK no cambia. En `6zz9zz0_habilidades.js`: el guerrero pasa de marrón a acero/oro (`SV_COL.guerrero`), `dot` ya no usa el tono más oscuro, Grito son ondas y los escudos/marcas son contornos sin relleno (el relleno `C_[0]` era el bloque marrón que Sergio veía sobre el personaje).
+
+Multijugador revisado con `tests/net501/browser.py` (presencia → `upsertRemote`, igual que sala, WiFi y Photon): 763 casos de armaduras de los 30 tiers × 7 clases, 255 cosméticos y los 149 peinados (85 F, 64 M, con y sin tinte) dan el mismo dibujo en el otro jugador; las 122 activas llegan como `sv`. `tests/net501/rtc.py` lo repite con dos páginas por WebRTC real (píxeles HD idénticos y habilidad recibida). Si un amigo ve otra cosa, lo más probable es que su teléfono no se haya actualizado.

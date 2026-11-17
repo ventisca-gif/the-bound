@@ -1,22 +1,22 @@
 {
- "build": 123,
- "ver": "5.02",
+ "build": 124,
+ "ver": "5.03",
  "date": "2026-11-17",
  "file": "thebound.html",
- "size": 22032028,
- "sha256": "274aa321398cdbf846a842790d8d1b31b4d7b0dbf4aad565cb1a7724ad3ea742",
+ "size": 22047036,
+ "sha256": "274c733f384cf5989816e7df2aa816cb77b78afcf8f32ec5bed2a6f732e1e23b",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "✨ Las 122 habilidades activas de las siete clases reciben poses y efectos propios, en cuatro direcciones y sobre los cinco cuerpos originales de cada sexo.",
-   "🎨 Iconos nuevos para las 146 habilidades, incluidas las 24 pasivas. Los demás jugadores también ven los nuevos ataques.",
-   "Se conservan daño, costes, recargas, estados, invocaciones, movimiento y tiempos de golpe. Los nuevos gráficos usan cachés limitadas."
+   "🎨 Iconos de habilidad dibujados de nuevo: espadas, escudos, llamas, copos, flechas, notas, calaveras, guadañas, olas y más, con el color de cada elemento. Ya no salen manchas marrones en el árbol ni en los botones.",
+   "✨ Quitado el bloque marrón que tapaba al personaje en Grito, Muro, Avatar, Fortaleza, Égida, Coro y otras: ahora son ondas y contornos brillantes. Los ataques del guerrero pasan de marrón a acero y oro.",
+   "🌐 Revisado en multijugador local y online: las 125 armaduras rediseñadas, los 255 cosméticos, los 149 peinados (85 femeninos y 64 masculinos, ninguno borrado) y las 122 habilidades se ven igual en el otro teléfono."
   ],
   "en": [
-   "✨ All 122 active skills across seven classes receive their own poses and effects in four directions on the five original bodies of each sex.",
-   "🎨 New icons for all 146 skills, including 24 passives. Other players can see the new attacks too.",
-   "Damage, costs, cooldowns, statuses, summons, movement and hit timings are preserved. New graphics use bounded caches."
+   "🎨 Skill icons redrawn: swords, shields, flames, snowflakes, arrows, notes, skulls, scythes, waves and more, in each element's colours. No more brown blobs in the tree or the buttons.",
+   "✨ Removed the brown block that covered the character in Shout, Wall, Avatar, Fortress, Aegis, Choir and others: now they are waves and glowing outlines. Warrior skills go from brown to steel and gold.",
+   "🌐 Checked in local and online multiplayer: the 125 redesigned armours, 255 cosmetics, 149 hairstyles (85 female and 64 male, none removed) and 122 skills look the same on the other phone."
   ]
  }
 }
