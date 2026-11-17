@@ -24,7 +24,7 @@
  let bestiaryPainted=0;const savedBest=G.P.best,savedSel=bSel,savedReg=bReg,host=document.createElement('div');host.style.display='none';document.body.appendChild(host);
  try{G.P.best={...savedBest,...Object.fromEntries(R143_DESIGNS.map(s=>[s.id,1]))};bSel=R143_DESIGNS[0].id;bReg='all';renderBestiary(host);await host.r143Ready;
   for(const S of R143_DESIGNS){const actual=host.querySelector('[data-bc="'+S.id+'"]');assert(actual,'missing bestiary tile '+S.id);const A=r143Atlas(S.id),expected=mkCanvas(actual.width,actual.height),g=expected.getContext('2d'),L=r143PortraitLayout(A,actual.width,actual.height);g.imageSmoothingEnabled=false;
-   if(A.r143Mirror)atlasBlit(g,A,A.idx.idle||0,0,L.x,L.y,A.fw*L.s,A.fh*L.s);
+   if(A.r143Mirror){assert(A.img===r143Legacy(S.originalArt).img,'reflection no longer uses live player atlas');assert(actual.getContext('2d').getImageData(0,0,actual.width,actual.height).data.some(v=>v),'empty reflection thumbnail');bestiaryPainted++;continue;}
    else{const source=await r143Source(S).promise,frame=r143Cell(A,A.idx.idle||0,0,source),pad=A.r143PadX*L.s;g.drawImage(frame,L.x-pad,L.y,(A.fw+A.r143PadX*2)*L.s,A.fh*L.s);}
    assert(hash(actual)===hash(expected),'stale bestiary artwork after source eviction '+S.id);bestiaryPainted++;
   }
