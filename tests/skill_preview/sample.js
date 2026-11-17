@@ -44,7 +44,7 @@ function spFx(cls,t,p,anchor,behind){
  const point=(u,v)=>[Math.round(x+u),Math.round(y+v)];
  const line=(a,b,c)=>p.line(...point(...a),...point(...b),C(c));
  const arc=(rx,ry,a,b,c,w=1)=>{let last;for(let i=0;i<=30;i++){const ang=a+(b-a)*i/30,z=point(Math.cos(ang)*rx,Math.sin(ang)*ry);if(last)for(let j=0;j<w;j++)p.line(last[0],last[1]+j,z[0],z[1]+j,C(c));last=z;}};
- const dot=(u,v,r,cols)=>p.ball(x+u,y+v,r,r,cols.map(C));
+ const dot=(u,v,r,cols)=>p.ball(x+u,y+v,r,r,cols.map(h=>C(h)));
  const life=spClamp((t-.26)/.45),fade=1-spClamp((t-.7)/.2),charge=spClamp(t/.3);
  if(t>.91)return;
  if(cls==='guerrero'){
