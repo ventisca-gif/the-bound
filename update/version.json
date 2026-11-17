@@ -1,20 +1,18 @@
 {
- "build": 130,
- "ver": "5.09",
+ "build": 131,
+ "ver": "5.10",
  "date": "2026-11-17",
  "file": "thebound.html",
- "size": 22411092,
- "sha256": "245e38204c4f18dca57e6dbaa78e70b14126dfeef1d8eb7c7a18243ea0aa255f",
+ "size": 22413492,
+ "sha256": "2660d69352b82aca38fdcb385d6f9d1a5620a004f36c5fe7002092036466f3f8",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "💇 Peinado Ado corregido: melena y flequillo propios, cuatro direcciones y anclajes de cabeza en los cinco cuerpos femeninos y cinco masculinos. Sin compresión vertical ni restos del recorte.",
-   "🎨 Conserva el tinte original/personalizado, los índices guardados y la apariencia multijugador."
+   "📜 Misiones ordenadas en tres grupos con su color: Historia (principal), Secundarias y Trabajo (tablón del gremio y encargos de oficio). También en «Disponibles»."
   ],
   "en": [
-   "💇 Fixed Ado hairstyle: native layered hair and fringe, four directions and head anchors for all five female and five male bodies. No vertical squeezing or extraction debris.",
-   "🎨 Original/custom dye, saved hairstyle indexes and multiplayer appearance preserved."
+   "📜 Quests sorted into three colour-coded groups: Story (main), Side and Work (guild board and trade jobs). Also under «Available»."
   ]
  }
 }
