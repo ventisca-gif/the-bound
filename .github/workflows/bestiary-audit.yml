@@ -1,0 +1,27 @@
+name: Audit published bestiary
+on:
+  pull_request:
+    paths:
+      - 'tests/audit/bestiary.py'
+      - '.github/workflows/bestiary-audit.yml'
+permissions:
+  contents: read
+jobs:
+  audit:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'codex/auditoria-bestiario'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright
+      - run: python3 tests/audit/bestiary.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bestiary-audit
+          path: bestiary-audit/*
