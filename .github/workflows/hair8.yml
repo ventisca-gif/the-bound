@@ -7,7 +7,7 @@ on:
       - 'tests/hair8/**'
       - '.github/workflows/hair8.yml'
 permissions:
-  contents: read
+  contents: write
 concurrency:
   group: hair8-${{ github.event.pull_request.number }}
   cancel-in-progress: true
@@ -50,6 +50,10 @@ jobs:
           assert r['frame'] and r['child_ota'],r
           assert r['child_build']==r['apk_build']+1,r
           assert r['relaunch_build']==r['child_build'],r
+          assert r['child_gold']==4321,r
+          assert r['bad_sha_still']==r['child_build'],r
+          assert r['bad_sha_msg'],r
+          assert r['rollback_slot']>0,r
           assert r['needs_apk'],r
           assert not r['rollback_frame'] and r['rollback_build']==r['apk_build'],r
           assert not r['timeout_frame'] and r['timeout_title'],r
@@ -73,3 +77,17 @@ jobs:
             tests/hair8/result.json
             /tmp/hair8-fit/fit_report.txt
             /tmp/hair8-updater.log
+      - name: Commit verified package to the work branch
+        env:
+          WORK_BRANCH: ${{ github.event.pull_request.head.ref }}
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git fetch origin "$WORK_BRANCH"
+          test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_HEAD"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add update/thebound.html update/version.json docs/NOTAS.md docs/sprites/peinados_*_motor.png tests/hair8/result.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Package verified The Bound 4.97 hairstyle update"
+            git push origin "HEAD:refs/heads/$WORK_BRANCH"
+          fi
