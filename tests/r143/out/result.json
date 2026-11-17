@@ -6,6 +6,7 @@
   "frames": 6248,
   "effects": 2288,
   "combatUnchanged": 143,
+  "bestiaryPainted": 143,
   "excluded": [
     "slime_v",
     "slime_a",
@@ -17,7 +18,7 @@
   "cacheBytes": {
     "images": 12441600,
     "atlases": 11318528,
-    "frames": 12471264,
+    "frames": 12536064,
     "fx": 3096576
   },
   "sprites": [
