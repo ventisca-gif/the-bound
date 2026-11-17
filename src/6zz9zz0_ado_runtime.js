@@ -39,7 +39,7 @@ function idolPoseFrame(source,sw,sh,row,anim,f,adoStyle){
  const idle=anim==='idle',walk=anim==='walk',hug=anim==='hug',kiss=anim==='kiss',sit=anim==='sit'||anim==='held',wave=anim==='wave'||anim==='cheer',sing=anim==='dance';
  const head=adoStyle?(adoStyle==='detail'?51:65):Math.round(h*.53),waist=adoStyle?(adoStyle==='detail'?81:86):Math.round(h*.77),base=h-8;
  const body=mkCanvas(w,h),b=body.getContext('2d');b.imageSmoothingEnabled=false;
- const bob=walk||sing?(f%2?-2:0):idle?-(f%2):hug||kiss?-f:0;
+ const bob=walk||sing?(f%2?-2:0):idle?-(f%2):hug||kiss?-1-f:0;
  b.drawImage(c,0,0,w,waist,0,bob,w,waist);
  if(sit){const leg=mkCanvas(w,h),l=leg.getContext('2d');l.imageSmoothingEnabled=false;l.drawImage(c,0,waist,w,h-waist,0,waist,w,h-waist);b.save();b.translate(w/2,waist-2);b.rotate(row===1?-.85:.85);b.drawImage(leg,-w/2,-waist);b.restore();}
  else{const mid=w/2;for(let side=0;side<2;side++){const dx=walk?Math.round(Math.sin((f+side*2)*Math.PI/2)*2):0,dy=walk?Math.max(0,Math.round(Math.cos((f+side*2)*Math.PI/2)*2)):0;b.drawImage(c,side*mid,waist,mid,h-waist,side*mid+dx,waist+dy,mid,h-waist);}}
