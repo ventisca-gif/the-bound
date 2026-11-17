@@ -30,7 +30,7 @@ function spPose(cls,dir,t,L){
  }else if(cls==='bardo'){
   p.lax=side?d:0;p.lay=-3;p.rax=side?d*3:2;p.ray=-3+Math.sin(spClamp((t-.2)/.45)*Math.PI*4)*2;p.wang=-.6;p.wph=frame%2;p.bob=t>.22&&t<.65?-Math.sin(t*17):0;p.lfy=t>.25&&t<.5?-1:0;p.crouch=0;
  }else if(cls==='invocador'){
-  p.rax=(side?d:1)*(2+wind*2);p.lax=(side?d:-1)*(2+wind*2);p.ray=-2-wind*5+hit;p.lay=-1-wind*5+hit;p.wang=-1.5;p.crouch=0;p.jump=0;p.bob=-wind*.8;
+  p.rax=(side?d:1)*(2+wind*2);p.lax=(side?d:-1)*(2+wind*2);p.ray=-2-wind*5+hit;p.lay=-1-wind*5+hit;p.wang=side?(d>0?.6:2.5):.7;p.crouch=0;p.jump=0;p.bob=-wind*.8;
  }else if(cls==='pez'){
   p.noWeapon=1;p.rax=(side?d:1)*(1+hit*5);p.lax=(side?d:-1)*(1+hit*5);p.ray=-3+hit*5;p.lay=-3+hit*5;p.crouch=wind*2*(1-hit)+hit*(1-recover);p.lean=hit*3*(1-recover);p.jump=Math.sin(spClamp((t-.27)/.3)*Math.PI)*2;
  }
@@ -48,30 +48,30 @@ function spFx(cls,t,p,anchor,behind){
  const life=spClamp((t-.26)/.45),fade=1-spClamp((t-.7)/.2),charge=spClamp(t/.3);
  if(t>.91)return;
  if(cls==='guerrero'){
-  if(behind&&t>.36&&t<.83){const r=10+life*32;for(let k=0;k<7;k++){const a=k*2.399;const q=[Math.cos(a)*r,22+Math.sin(a)*r*.35];line([0,20],[q[0]*.55,q[1]],'#6d472c');line([q[0]*.55,q[1]],[q[0],q[1]+4],'#e4a553');}arc(r,r*.35,0,Math.PI*2,'#bb8140');}
-  if(!behind&&t>.28&&t<.54){arc(13+life*26,6+life*14,Math.PI*.08,Math.PI*.95,'#f9e8b9',3);arc(11+life*26,5+life*13,Math.PI*.13,Math.PI*.9,'#edb95b',2);}
+  if(behind&&t>.36&&t<.83){const r=10+life*32;for(let k=0;k<7;k++){const a=k*2.399;const q=[Math.cos(a)*r,22+Math.sin(a)*r*.35];line([0,20],[q[0]*.55,q[1]],'#6d472c');line([q[0]*.55,q[1]],[q[0],q[1]+4],'#e4a553');line([q[0]*.55,q[1]],[q[0]*.7+3,q[1]-5],'#b27b3f');}}
+  if(!behind&&t>.28&&t<.54){const z=life*27;p.poly([point(-5,-16+z),point(1,-12+z),point(8,18+z),point(0,21+z)],C('#e7bd72'));line([-3,-14+z],[2,18+z],'#fff2c9');line([2,18+z],[6,22+z],'#fff8e1');}
   if(!behind&&t>.4&&t<.72)for(let i=0;i<10;i++){const a=i*2.4,r=(t-.38)*75;dot(Math.cos(a)*r,20+Math.sin(a)*r*.5,1,['#9a612d','#edb45d','#fff4d1']);}
  }else if(cls==='mago'){
-  if(behind&&t<.35)arc(7+charge*5,3+charge*2,0,Math.PI*2,'#9f3b28');
+  if(behind&&t<.35)for(let i=0;i<5;i++){const a=i*2.399+t*6;dot(Math.cos(a)*(10-charge*5),Math.sin(a)*(9-charge*4),1,['#85292a','#d56c35','#ffe3a3']);}
   if(!behind){const z=t<.32?0:(t-.32)*85,sz=t<.32?2+charge*3:5*(1-life*.3),cols=['#7f2325','#d84325','#f89438','#ffe3a0'];
    if(t<.72){for(let i=5;i>=1;i--)dot(Math.sin(i*1.5+t*15)*2,-i*3+z,Math.max(1,sz-i*.6),cols);dot(0,z,sz,cols);dot(-1,z-1,Math.max(1,sz*.38),['#ffdf7b','#fff0b5','#fff8dd']);}
    if(t>.58&&t<.85){const r=(t-.58)*60;for(let i=0;i<11;i++){const a=i*2.399;dot(Math.cos(a)*r,25+Math.sin(a)*r*.6,1,cols);}}
   }
  }else if(cls==='arquero'){
-  if(behind&&t<.36){arc(8+charge*5,4,-Math.PI*.9,Math.PI*.2,'#356d65');arc(5+charge*7,2,0,Math.PI,'#8ee0bb');}
+  if(behind&&t<.36)for(let i=0;i<3;i++){const yy=3+i*4;line([-16-charge*5,yy],[-6,yy-2],'#518e80');line([6,yy-2],[16+charge*5,yy],'#8ed0b4');}
   if(!behind&&t>.31&&t<.73){const d=(t-.31)*110;line([0,d-17],[0,d+2],'#d7e3d4');line([-2,d],[0,d+4],'#b3f1dd');line([0,d+4],[2,d],'#8addb8');for(let i=1;i<4;i++)line([-i*2,d-4-i*4],[-i*2,d-13-i*3],i%2?'#79c9b8':'#3c857b');}
   if(!behind&&t>.65&&t<.87)for(let i=0;i<7;i++){const a=i*2.399,r=(t-.65)*50;line([Math.cos(a)*r,30+Math.sin(a)*r*.5],[Math.cos(a)*(r+3),30+Math.sin(a)*(r+3)*.5],'#9be9c3');}
  }else if(cls==='asesino'){
   if(behind&&t>.25&&t<.64){for(let i=0;i<7;i++){const k=(i*2.4+t*5);dot(Math.sin(k)*13,15+Math.cos(k)*5,2,['#1c1231','#3b2354','#694081']);}}
   if(!behind&&t>.33&&t<.65){const z=life*12;line([-17+z,-2],[17+z,28],'#ab68da');line([-16+z,-2],[18+z,28],'#eee1fb');line([17-z,-2],[-17-z,28],'#7d3fa2');line([16-z,-2],[-18-z,28],'#e7bdf3');}
  }else if(cls==='bardo'){
-  if(behind&&t>.22&&t<.84){const r=10+life*30;arc(r,r*.38,0,Math.PI*2,'#b08b44');arc(r-3,(r-3)*.38,0,Math.PI*2,'#6b527e');}
+  if(behind&&t>.22&&t<.84)for(let i=0;i<4;i++){const a=i*1.5+t*9;dot(Math.sin(a)*20,17+Math.cos(a)*3,1,['#674b7e','#ac7ca9','#e5bd73']);}
   if(!behind&&t>.23&&t<.83){for(let l=0;l<5;l++)for(let i=0;i<20;i++){const xx=-20+i*2,yy=10+l*3+Math.sin(i*.35-t*9)*3+life*7;line([xx,yy],[xx+2,yy],l%2?'#8f6d8f':'#c6a85b');}
    for(let n=0;n<4;n++){const xx=-20+n*13+Math.sin(t*8+n)*2,yy=5+n%2*7-life*11,cols=n%2?['#63345e','#bc6fa5','#f4bad9']:['#866525','#e0b44c','#fff0ad'];dot(xx,yy,2,cols);line([xx+2,yy],[xx+2,yy-8],n%2?'#e6a4d0':'#f4d378');line([xx+2,yy-8],[xx+5,yy-6],n%2?'#e6a4d0':'#f4d378');}
   }
  }else if(cls==='invocador'){
-  if(behind&&t>.12&&t<.87){const r=7+Math.sin(spClamp((t-.12)/.65)*Math.PI)*16;arc(r,r*.4,0,Math.PI*2,'#5f8fb6');arc(r-3,(r-3)*.4,0,Math.PI*2,'#20486e');for(let i=0;i<8;i++){const a=i*Math.PI/4;line([Math.cos(a)*(r+1),Math.sin(a)*(r+1)*.4],[Math.cos(a)*(r+4),Math.sin(a)*(r+4)*.4],'#9dd7e9');}}
-  if(!behind&&t>.35&&t<.85){const rise=spEase((t-.35)/.25),yy=15-rise*13,cols=['#173a5e','#2e719b','#78b4d1','#c5f0f2'];dot(0,yy-7,5,cols);p.poly([point(-4,yy-4),point(4,yy-4),point(6,yy+7),point(2,yy+4),point(0,yy+8),point(-2,yy+4),point(-5,yy+7)],C('#5796b6'));p.set(x-2,y+yy-8,C('#e6fcfc'));p.set(x+2,y+yy-8,C('#e6fcfc'));}
+  if(behind&&t>.12&&t<.87){const r=7+Math.sin(spClamp((t-.12)/.65)*Math.PI)*16,gy=(base-y)/FS+2;let last;for(let i=0;i<=36;i++){const a=i/36*Math.PI*2,z=[Math.cos(a)*r,gy+Math.sin(a)*r*.4];if(last)line(last,z,i%2?'#5f8fb6':'#87c9dd');last=z;}for(let i=0;i<8;i++){const a=i*Math.PI/4;line([Math.cos(a)*(r+1),gy+Math.sin(a)*(r+1)*.4],[Math.cos(a)*(r+4),gy+Math.sin(a)*(r+4)*.4],'#9dd7e9');}}
+  if(!behind&&t>.35&&t<.85){const rise=spEase((t-.35)/.25),yy=(base-y)/FS+14-rise*16,dx=22,cols=['#173a5e','#2e719b','#78b4d1','#c5f0f2'];dot(dx,yy-7,5,cols);p.poly([point(dx-4,yy-4),point(dx+4,yy-4),point(dx+6,yy+7),point(dx+2,yy+4),point(dx,yy+8),point(dx-2,yy+4),point(dx-5,yy+7)],C('#5796b6'));p.set(...point(dx-2,yy-8),C('#e6fcfc'));p.set(...point(dx+2,yy-8),C('#e6fcfc'));}
  }else if(cls==='pez'){
   if(behind&&t>.25&&t<.84){const r=7+life*29;arc(r,r*.4,Math.PI,Math.PI*2,'#3a8fa8',2);arc(r-3,(r-3)*.4,0,Math.PI,'#a8eff0');}
   if(!behind&&t>.32&&t<.76){const openness=Math.sin(spClamp((t-.32)/.4)*Math.PI),rx=13+life*13,ry=4+openness*10;
