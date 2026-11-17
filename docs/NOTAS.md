@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **5.01 (build 122)**, armaduras pulidas; publicar tras las comprobaciones de la rama `codex/armaduras-pulidas`.
+Versión actual: **5.01 (build 122)**, armaduras pulidas, validada el 2026-11-17.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -152,3 +152,5 @@ Sergio autorizó los 119 enemigos y 14 jefes de «Retoque recomendado» de la au
 ## 5.01 · Armaduras pulidas
 
 `src/6zz9zz0_armaduras.js` detalla las prendas equipadas dentro de sus máscaras originales, conservando anclajes, cinco estructuras por sexo, cara, pelo, busto y silueta. Los cascos siguen usando `cover` y el ajuste existente. Las 125 piezas reciben iconos sacados de su dibujo real por clase. Bestiario › Armaduras muestra la pieza sobre el personaje en cuatro direcciones; los cosméticos y capas elegidos se respetan. Sin cambios de estadísticas, inventario ni guardado. `tests/armor` comprueba todos los tiers, cuerpos, animaciones, pelo/cascos, datos y la interfaz; el ajuste incluye todos los tiers 1–30.
+
+Validación 5.01: 58.944 cuadros comparados, 2.952 cuadros HD, 8.344 combinaciones de peinado/casco/dirección, 875 iconos por clase y 125 filas en Armaduras. Ajuste: 1.095 prendas, 256.080 dibujos, cero avisos. Guardado/recarga y pruebas del actualizador (SHA, reinicio, rechazo de descarga dañada y rollback) correctos. Regresiones de peinados, gi, 133 y 143 criaturas correctas. Las capturas son del motor real, no los conceptos generados.
