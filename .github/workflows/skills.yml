@@ -1,0 +1,73 @@
+name: Validate distinct skill animations and combat
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'template.html'
+      - 'tests/skills/**'
+      - '.github/workflows/skills.yml'
+permissions:
+  contents: write
+concurrency:
+  group: skills-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'codex/habilidades-distintas'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install build and browser dependencies
+        run: |
+          pip install playwright pillow
+          mkdir -p tools/i18n/vendor
+          npm pack acorn@8.14.0
+          tar -xzf acorn-8.14.0.tgz package/dist/acorn.js
+          cp package/dist/acorn.js tools/i18n/vendor/acorn.js
+      - name: Build game
+        run: python3 build.py
+      - name: Check all class skills, original bodies, VFX and unchanged combat
+        run: python3 tests/skills/browser.py
+      - name: Regress hairstyles, orange gi and detailed creatures
+        run: |
+          python3 tests/hair8/browser.py
+          python3 tests/gi/browser.py
+          python3 tests/r133/browser.py
+          python3 tests/r143/browser.py
+      - name: Fit every outfit and all armor tiers on all bodies
+        run: python3 tools/dev/fitcheck.py file://$PWD/dist/test.html /tmp/armor-fit --strict
+      - name: Exercise internal updater
+        run: python3 tests/upd.py file://$PWD/dist/test.html /tmp/armor-updater.png > /tmp/armor-updater.log
+      - name: Package verified update
+        run: python3 tools/dev/release.py --no-build
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: skills-validation
+          path: |
+            update/thebound.html
+            update/version.json
+            tests/skills/out/*
+            /tmp/armor-fit/fit_report.txt
+            /tmp/armor-updater.log
+      - name: Commit verified package on work branch
+        env:
+          WORK_BRANCH: ${{ github.event.pull_request.head.ref }}
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git fetch origin "$WORK_BRANCH"
+          test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_HEAD"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add update/thebound.html update/version.json
+          git commit -m "Package verified The Bound 5.02 skill visuals"
+          git push origin "HEAD:refs/heads/$WORK_BRANCH"
