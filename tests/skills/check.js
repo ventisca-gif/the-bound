@@ -17,7 +17,7 @@
    }assert(new Set(movement).size>1,'static pose '+D.id+dir);}
   }
  }
- for(let bt=0;bt<10;bt++){const e={cls:'guerrero',type:'player',app:{...DEF_APP,g:bt<5?'m':'f',bt:bt%5},gear:{},cos:{}},A=svAtlas(e,SV_OF.get('g4'));svEnsure(A,4,0);assert(hdEnsure(A,4,0,true),'skill HD cache failed');const done=A.svDone[4];svEnsure(A,4,0);assert(A.svDone[4]===done,'cached frame repainted');assert(HD_LIVE.filter(a=>a.svDone).length<=4,'evicted atlas retained by HD cache');}
+ for(let bt=0;bt<10;bt++){const e={cls:'guerrero',type:'remote',app:{...DEF_APP,g:bt<5?'m':'f',bt:bt%5},gear:{},cos:{}},A=svAtlas(e,SV_OF.get('g4'));svEnsure(A,4,0);assert(hdEnsure(A,4,0,true),'skill HD cache failed');const done=A.svDone[4];svEnsure(A,4,0);assert(A.svDone[4]===done,'cached frame repainted');assert(HD_LIVE.filter(a=>a.svDone).length<=4,'evicted atlas retained by HD cache');}
  assert(SV_ATLASES.size<=4&&SV_FX_CACHE.size<=96,'cache exceeded');
  return{ok:true,activeSkills:SV_OF.size,passiveSkills:Object.values(SK).filter(s=>s.type==='pas'&&AP_CLASSES.includes(s.cls)).length,frames,hdFrames:hd,effects,uniqueEffects:signatures.size,bodies:10,directions:4};
 })()
