@@ -1,9 +1,8 @@
-<!-- Integración 4.97 en preparación: publicar solo tras pasar CI de peinados, fitcheck y OTA. -->
 # The Bound: notas para continuar en otro chat
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.96 (build 117)**, publicada en `main` el 2026-11-16. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.97 (build 118)**, publicada en `main` el 2026-11-16. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
