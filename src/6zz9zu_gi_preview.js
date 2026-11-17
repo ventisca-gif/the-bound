@@ -1,4 +1,4 @@
-// Draft outfit preview. Not sold or released until the appearance is approved.
+// Approved orange gi: existing cosmetics, body shapes, wardrobe and comic shop.
 const GI_ORANGE = P5(['#572309','#84320d','#b44813','#d3631c','#eb8833']);
 const GI_BLUE = P5(['#060e29','#0a1c49','#14326e','#234c99','#4774bd']);
 const GI_PARTS = {body:'c_gi_ref_top',legs:'c_gi_ref_pants',feet:'c_gi_ref_bare'};
@@ -20,7 +20,7 @@ fitKind('body','gi_ref',(p,A,s)=>{
  // Wide wrapped blue sash; its tails are drawn after the arms.
  for(let j=th-2;j<th;j++)for(let x=tx0;x<=R;x++)if(p.get(x,y+j))p.set(x,y+j,b[j===th-2?3:1]);
 },{skin:true});
-cosm(GI_PARTS.body,L2('Gi naranja · chaqueta','Orange gi · jacket'),'body',()=>({k:'gi_ref',m:GI_ORANGE,s:GI_BLUE,giRef:1}),{src:L2('Muestra: tienda de cómics de Akihabara','Preview: Akihabara comic shop')});
+cosm(GI_PARTS.body,L2('Gi naranja · chaqueta','Orange gi · jacket'),'body',()=>({k:'gi_ref',m:GI_ORANGE,s:GI_BLUE,giRef:1}),{src:L2('Tienda de cómics de Akihabara','Akihabara comic shop')});
 cosm(GI_PARTS.legs,L2('Gi naranja · pantalón','Orange gi · trousers'),'legs',()=>({k:'baggy',m:GI_ORANGE,giRef:1}),{src:'Akihabara'});
 cosm(GI_PARTS.feet,L2('Gi naranja · pies descalzos','Orange gi · bare feet'),'feet',app=>{const a=SKINS[(app&&app.skin)||0];return {k:'shoes',m:[a[0],a[0],a[1],a[2],a[3]],giRef:1};},{src:'Akihabara'});
 {const previous=drawHero;drawHero=function(p,L,dir,anim,f){
@@ -56,3 +56,25 @@ function giBadge(q,M){
 }
 {const previous=hdDetail;hdDetail=function(p,mats){const q=previous.apply(this,arguments);if(p._giRef&&p.meta)giBadge(q,p.meta);return q;};}
 {const previous=drawHero;drawHero=function(p,L){if(L?.top?.giRef&&!p.t){p.t=new Uint8Array(p.w*p.h);p.tg=0;}const r=previous.apply(this,arguments);p._giRef=!!L?.top?.giRef;return r;};}
+
+// Shop: use the existing cosmetic item/wardrobe path; never charge twice.
+const GI_PRICE = 24000;
+for(const id of Object.values(GI_PARTS)) {
+ COSM[id].src=L2('Tendero de cómics, oeste de Akihabara (Japón)','Comic shopkeeper, western Akihabara (Japan)');
+ it('cosi_'+id,{n:COSM[id].n,t:'cos',cos:id,price:GI_PRICE/3,icon:['hanger'],rar:3});
+}
+DLG_HOOKS.push((npc,opts)=>{
+ const P=G.P;if(!P||npc.id!=='jp_comic_st')return;
+ const missing=()=>Object.values(GI_PARTS).filter(id=>!(P.wardrobe||[]).includes(id));
+ const cost=missing().length*GI_PRICE/3;
+ opts.unshift({label:'🥋 '+L2('Gi naranja completo','Complete orange gi')+' · '+(cost?cost.toLocaleString()+L2(' oro',' gold'):L2('Ya lo tienes','Already owned')),icon:['hanger'],fn:()=>{
+  const ids=missing(),price=ids.length*GI_PRICE/3;
+  if(!ids.length){typeText(L2('Ya tienes el gi completo en tu armario.','You already own the complete gi in your wardrobe.'));return;}
+  if(P.gold<price){typeText(L2('No te llega el oro.','Not enough gold.'));return;}
+  P.gold-=price;for(const id of ids)giveItem('cosi_'+id,1);sfx('coin');markDirty(true);
+  typeText(L2('¡Gi naranja al armario! Incluye chaqueta, pantalón y pies descalzos. Equípalo desde Vestuario.','Orange gi added to your wardrobe! Includes jacket, trousers and bare feet. Equip it in Wardrobe.'));
+ }});
+});
+if(typeof GSIS!=='undefined')GSIS.push(['jp_gi','🥋 '+L2('Gi naranja de Akihabara','Akihabara orange gi'),()=>[
+ L2('El tendero de la tienda de cómics, al oeste de Akihabara (Japón), vende el gi naranja completo por 24.000 de oro.','The comic shopkeeper in western Akihabara (Japan) sells the complete orange gi for 24,000 gold.'),
+ L2('Tres piezas para Vestuario: chaqueta sin mangas con fajín azul, pantalón y pies descalzos. Para las cinco estructuras femeninas y las cinco masculinas; solo cambia el aspecto.','Three Wardrobe pieces: sleeveless jacket with blue sash, trousers and bare feet. Fits all five female and five male structures; appearance only.')],()=>({loc:[127,52],t:L2('Tienda de cómics · Gi naranja','Comic shop · Orange gi'),m:'japon'})]);

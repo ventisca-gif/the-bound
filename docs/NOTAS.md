@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.97 (build 118)**, publicada en `main` el 2026-11-16. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **4.98 (build 119)**, publicada en `main` el 2026-11-16. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -138,3 +138,6 @@ Las hojas de todo lo creado están en `docs/sprites/` (personajes del Velo Roto,
 `6zz9zr_peinados_muestra.js`: 8 variantes iniciales y selector original/personalizado (`app.r8Dye=1` significa personalizado; ausencia significa original). Los colores elegidos no se borran al recuperar el original.
 `6zz9zs_hair8_data.js`: 32 vistas RGB/RLE con máscaras separadas de cabello, accesorios y orejas. `6zz9zt_hair8_detail.js` añade 8 entradas detalladas al final de ambos catálogos, sin cambiar índices anteriores. Mantiene cuerpo/cara/ropa originales y sus anclajes, con capa fina en `hdDetail`. No sustituir estos píxeles por los modelos paramétricos de la primera muestra. Las máscaras de accesorio no se tiñen; orejas siguen la piel elegida.
 Pruebas: `python3 tests/hair8/browser.py`; `tests/hair8/check.js` también funciona cargado después del motor. Valida 7040 dibujos y eventos del editor, incluyendo normalización/guardado del tinte. Previews del motor en `docs/sprites/peinados_*_motor.png`.
+
+## 4.98: gi naranja aprobado
+`src/6zz9zu_gi_preview.js`: cinco estructuras por sexo, con busto femenino existente. Vendedor: `jp_comic_st`, tienda de cómics al oeste de Akihabara, punto [127,52]. Conjunto de 24.000 de oro: chaqueta con fajín, pantalón y pies descalzos en Vestuario. Recompra bloqueada; las piezas que falten cuestan 8.000 cada una. Solo cosméticos. Integración: `tests/gi/browser.py`.
