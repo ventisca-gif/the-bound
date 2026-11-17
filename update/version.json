@@ -1,20 +1,20 @@
 {
- "build": 120,
- "ver": "4.99",
- "date": "2026-11-16",
+ "build": 121,
+ "ver": "5.00",
+ "date": "2026-11-17",
  "file": "thebound.html",
- "size": 17740482,
- "sha256": "01288e854182b3841a39548278fca7217799e85e00ea01c3ae464c1a5e9d15e6",
+ "size": 21993083,
+ "sha256": "949e70c8fb6fe6cf0762907444b59ed5419f9bd1a2aab291250cf43afcf6a48d",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🎨 Rediseño visual de los 119 enemigos y 14 jefes seleccionados del bestiario, con cuatro vistas, caminata, animaciones de ataque y VFX en capa separada.",
-   "⚔️ Se conservan vida, daño, estadísticas, alcance, colisiones, IA, botín y cadencias originales. El bestiario muestra los nuevos dibujos con detalle HD."
+   "🎨 Los 143 enemigos y jefes aprobados reciben sus dibujos detallados, cuatro vistas, caminata, un ataque animado y VFX separados.",
+   "🛡️ Se conservan personajes, NPCs, vida, daño, estadísticas y mecánicas. Excluidos: Slime Verde, Slime Azul, Imitador, Nihil y Lienya. El Reflejo Eclipsado sigue copiando tu aspecto."
   ],
   "en": [
-   "🎨 Visual redesign of the selected 119 enemies and 14 bosses, with four views, walking, attack animations and separate-layer VFX.",
-   "⚔️ Original health, damage, stats, reach, collision, AI, loot and attack timing are preserved. Bestiary portraits use the new HD artwork."
+   "🎨 The 143 approved enemies and bosses receive detailed artwork, four views, walking, an animated attack and separate VFX.",
+   "🛡️ Player/NPC sprites, health, damage, stats and mechanics are preserved. Green Slime, Blue Slime, Mimic, Nihil and Lienya are excluded. The Eclipsed Reflection still copies your appearance."
   ]
  }
 }

@@ -1,0 +1,1313 @@
+{
+  "ok": true,
+  "targets": 143,
+  "enemies": 86,
+  "bosses": 57,
+  "frames": 6248,
+  "effects": 2288,
+  "combatUnchanged": 143,
+  "excluded": [
+    "slime_v",
+    "slime_a",
+    "imitador",
+    "B_nihil",
+    "B_lienya"
+  ],
+  "playersAndNpcsPreserved": true,
+  "cacheBytes": {
+    "images": 12441600,
+    "atlases": 11318528,
+    "frames": 12572928,
+    "fx": 3096576
+  },
+  "sprites": [
+    {
+      "id": "hongo",
+      "name": "Hongo Saltarín",
+      "sourceBytes": 19743,
+      "movement": "float",
+      "mirror": false,
+      "width": 28,
+      "height": 28
+    },
+    {
+      "id": "hongo_v",
+      "name": "Hongo Venenoso",
+      "sourceBytes": 27730,
+      "movement": "float",
+      "mirror": false,
+      "width": 28,
+      "height": 28
+    },
+    {
+      "id": "golem",
+      "name": "Gólem de Piedra",
+      "sourceBytes": 24179,
+      "movement": "legs",
+      "mirror": false,
+      "width": 63,
+      "height": 62
+    },
+    {
+      "id": "yeti",
+      "name": "Yeti",
+      "sourceBytes": 21739,
+      "movement": "beast",
+      "mirror": false,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "id": "momia",
+      "name": "Momia",
+      "sourceBytes": 18412,
+      "movement": "legs",
+      "mirror": false,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "lagarto",
+      "name": "Guerrero Lagarto",
+      "sourceBytes": 22473,
+      "movement": "legs",
+      "mirror": false,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "golemcristal",
+      "name": "Gólem de Cristal",
+      "sourceBytes": 22962,
+      "movement": "legs",
+      "mirror": false,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "id": "ciervo",
+      "name": "Ciervo Astral",
+      "sourceBytes": 20930,
+      "movement": "beast",
+      "mirror": false,
+      "width": 51,
+      "height": 41
+    },
+    {
+      "id": "slime_gema",
+      "name": "Slime de Gemas",
+      "sourceBytes": 24745,
+      "movement": "float",
+      "mirror": false,
+      "width": 37,
+      "height": 37
+    },
+    {
+      "id": "minero_esp",
+      "name": "Minero Fantasma",
+      "sourceBytes": 24665,
+      "movement": "legs",
+      "mirror": false,
+      "width": 30,
+      "height": 34
+    },
+    {
+      "id": "golem_hierro",
+      "name": "Gólem de Hierro",
+      "sourceBytes": 22145,
+      "movement": "legs",
+      "mirror": false,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "id": "golem_obs",
+      "name": "Gólem de Obsidiana",
+      "sourceBytes": 24328,
+      "movement": "legs",
+      "mirror": false,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "id": "morena",
+      "name": "Morena Verde",
+      "sourceBytes": 19420,
+      "movement": "swim",
+      "mirror": false,
+      "width": 40,
+      "height": 34
+    },
+    {
+      "id": "martillo",
+      "name": "Tiburón Martillo",
+      "sourceBytes": 13269,
+      "movement": "swim",
+      "mirror": false,
+      "width": 48,
+      "height": 32
+    },
+    {
+      "id": "guardia_ley",
+      "name": "Guardia de la Ley",
+      "sourceBytes": 24724,
+      "movement": "legs",
+      "mirror": false,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "gladiador",
+      "name": "Gladiador",
+      "sourceBytes": 18990,
+      "movement": "legs",
+      "mirror": false,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "gladiador_bestia",
+      "name": "Bestiario",
+      "sourceBytes": 23932,
+      "movement": "legs",
+      "mirror": false,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "id": "campeon",
+      "name": "Campeón del Coliseo",
+      "sourceBytes": 20490,
+      "movement": "legs",
+      "mirror": false,
+      "width": 88,
+      "height": 88
+    },
+    {
+      "id": "harpia_costera",
+      "name": "Arpía Costera",
+      "sourceBytes": 21768,
+      "movement": "wing",
+      "mirror": false,
+      "width": 40,
+      "height": 36
+    },
+    {
+      "id": "libelula_reina",
+      "name": "Fuego Fatuo del Pantano",
+      "sourceBytes": 14787,
+      "movement": "float",
+      "mirror": false,
+      "width": 26,
+      "height": 32
+    },
+    {
+      "id": "pirata_fantasma",
+      "name": "Pirata Fantasma",
+      "sourceBytes": 27574,
+      "movement": "legs",
+      "mirror": false,
+      "width": 30,
+      "height": 37
+    },
+    {
+      "id": "arpia_tormenta",
+      "name": "Arpía de Tormenta",
+      "sourceBytes": 22820,
+      "movement": "wing",
+      "mirror": false,
+      "width": 44,
+      "height": 40
+    },
+    {
+      "id": "arpia_dorada",
+      "name": "Arpía Dorada",
+      "sourceBytes": 18217,
+      "movement": "wing",
+      "mirror": false,
+      "width": 46,
+      "height": 41
+    },
+    {
+      "id": "fungido",
+      "name": "Fúngido Errante",
+      "sourceBytes": 24851,
+      "movement": "float",
+      "mirror": false,
+      "width": 40,
+      "height": 40
+    },
+    {
+      "id": "escarabajo_ambar",
+      "name": "Escarabajo de Ámbar",
+      "sourceBytes": 18769,
+      "movement": "insect",
+      "mirror": false,
+      "width": 48,
+      "height": 40
+    },
+    {
+      "id": "momia_ambar",
+      "name": "Momia del Ámbar",
+      "sourceBytes": 15890,
+      "movement": "legs",
+      "mirror": false,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "arpia_alba",
+      "name": "Arpía del Alba",
+      "sourceBytes": 19432,
+      "movement": "wing",
+      "mirror": false,
+      "width": 46,
+      "height": 41
+    },
+    {
+      "id": "grifo_joven",
+      "name": "Grifo Joven",
+      "sourceBytes": 19629,
+      "movement": "wing",
+      "mirror": false,
+      "width": 54,
+      "height": 49
+    },
+    {
+      "id": "colibri_trueno",
+      "name": "Colibrí de Trueno",
+      "sourceBytes": 12360,
+      "movement": "wing",
+      "mirror": false,
+      "width": 32,
+      "height": 30
+    },
+    {
+      "id": "halcon_tormenta",
+      "name": "Halcón de Tormenta",
+      "sourceBytes": 20914,
+      "movement": "wing",
+      "mirror": false,
+      "width": 44,
+      "height": 40
+    },
+    {
+      "id": "nube_viva",
+      "name": "Nube Viva",
+      "sourceBytes": 19092,
+      "movement": "float",
+      "mirror": false,
+      "width": 36,
+      "height": 34
+    },
+    {
+      "id": "querubin",
+      "name": "Querubín Errante",
+      "sourceBytes": 22113,
+      "movement": "legs",
+      "mirror": false,
+      "width": 30,
+      "height": 34
+    },
+    {
+      "id": "arcangel_caido",
+      "name": "Arcángel Caído",
+      "sourceBytes": 24702,
+      "movement": "wing",
+      "mirror": false,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "mantis_jade",
+      "name": "Mantis de Jade",
+      "sourceBytes": 19370,
+      "movement": "insect",
+      "mirror": false,
+      "width": 43,
+      "height": 34
+    },
+    {
+      "id": "flor_devoradora",
+      "name": "Flor Devoradora",
+      "sourceBytes": 25187,
+      "movement": "legs",
+      "mirror": false,
+      "width": 36,
+      "height": 42
+    },
+    {
+      "id": "draco_alado",
+      "name": "Draco Alado",
+      "sourceBytes": 20544,
+      "movement": "wing",
+      "mirror": false,
+      "width": 50,
+      "height": 34
+    },
+    {
+      "id": "tejedor_hueco",
+      "name": "Tejedor Hueco",
+      "sourceBytes": 20828,
+      "movement": "legs",
+      "mirror": false,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "polilla_luz",
+      "name": "Polilla de Luz",
+      "sourceBytes": 19881,
+      "movement": "wing",
+      "mirror": false,
+      "width": 32,
+      "height": 30
+    },
+    {
+      "id": "centinela_alado",
+      "name": "Centinela Alado",
+      "sourceBytes": 21149,
+      "movement": "wing",
+      "mirror": false,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "serafin_umbrio",
+      "name": "Serafín Umbrío",
+      "sourceBytes": 25391,
+      "movement": "wing",
+      "mirror": false,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "ojo_vacio",
+      "name": "Ojo del Vacío",
+      "sourceBytes": 23417,
+      "movement": "float",
+      "mirror": false,
+      "width": 34,
+      "height": 42
+    },
+    {
+      "id": "arpia_nihil",
+      "name": "Arpía de Nihil",
+      "sourceBytes": 18969,
+      "movement": "wing",
+      "mirror": false,
+      "width": 48,
+      "height": 43
+    },
+    {
+      "id": "arpia_maligna",
+      "name": "Arpía Maligna",
+      "sourceBytes": 20078,
+      "movement": "wing",
+      "mirror": false,
+      "width": 51,
+      "height": 49
+    },
+    {
+      "id": "medusa_nube",
+      "name": "Medusa de Nube",
+      "sourceBytes": 19915,
+      "movement": "swim",
+      "mirror": false,
+      "width": 37,
+      "height": 49
+    },
+    {
+      "id": "manta_viento",
+      "name": "Manta del Viento",
+      "sourceBytes": 15576,
+      "movement": "swim",
+      "mirror": false,
+      "width": 52,
+      "height": 42
+    },
+    {
+      "id": "centinela_aeris",
+      "name": "Centinela de Aeris",
+      "sourceBytes": 21233,
+      "movement": "legs",
+      "mirror": false,
+      "width": 44,
+      "height": 51
+    },
+    {
+      "id": "chispa_errante",
+      "name": "Chispa Errante",
+      "sourceBytes": 15239,
+      "movement": "float",
+      "mirror": false,
+      "width": 36,
+      "height": 44
+    },
+    {
+      "id": "brujo_sapo",
+      "name": "Brujo Sapo",
+      "sourceBytes": 21020,
+      "movement": "legs",
+      "mirror": false,
+      "width": 36,
+      "height": 62
+    },
+    {
+      "id": "alce_velado",
+      "name": "Alce Velado",
+      "sourceBytes": 24076,
+      "movement": "beast",
+      "mirror": false,
+      "width": 52,
+      "height": 76
+    },
+    {
+      "id": "hechicera_violeta",
+      "name": "Hechicera Violeta",
+      "sourceBytes": 17877,
+      "movement": "legs",
+      "mirror": false,
+      "width": 36,
+      "height": 62
+    },
+    {
+      "id": "demonio_cornudo",
+      "name": "Demonio Cornudo",
+      "sourceBytes": 24239,
+      "movement": "legs",
+      "mirror": false,
+      "width": 40,
+      "height": 64
+    },
+    {
+      "id": "hechicera_carmesi",
+      "name": "Hechicera Carmesí",
+      "sourceBytes": 20007,
+      "movement": "legs",
+      "mirror": false,
+      "width": 36,
+      "height": 62
+    },
+    {
+      "id": "soldado_hueco",
+      "name": "Soldado Hueco",
+      "sourceBytes": 20842,
+      "movement": "legs",
+      "mirror": false,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "diacono_eclipse",
+      "name": "Diácono del Eclipse",
+      "sourceBytes": 24402,
+      "movement": "legs",
+      "mirror": false,
+      "width": 40,
+      "height": 64
+    },
+    {
+      "id": "heraldo_lunar",
+      "name": "Heraldo Lunar",
+      "sourceBytes": 23050,
+      "movement": "legs",
+      "mirror": false,
+      "width": 40,
+      "height": 64
+    },
+    {
+      "id": "lancero_sepulcral",
+      "name": "Lancero Sepulcral",
+      "sourceBytes": 14091,
+      "movement": "legs",
+      "mirror": false,
+      "width": 39,
+      "height": 64
+    },
+    {
+      "id": "acolito_velo",
+      "name": "Acólito del Velo",
+      "sourceBytes": 20281,
+      "movement": "legs",
+      "mirror": false,
+      "width": 32,
+      "height": 62
+    },
+    {
+      "id": "huargo_espectral",
+      "name": "Huargo Espectral",
+      "sourceBytes": 21281,
+      "movement": "beast",
+      "mirror": false,
+      "width": 26,
+      "height": 21
+    },
+    {
+      "id": "polilla_gigante",
+      "name": "Polilla Calavera Gigante",
+      "sourceBytes": 20950,
+      "movement": "wing",
+      "mirror": false,
+      "width": 26,
+      "height": 23
+    },
+    {
+      "id": "ix_jaguar",
+      "name": "Jaguar de Obsidiana",
+      "sourceBytes": 16916,
+      "movement": "beast",
+      "mirror": false,
+      "width": 50,
+      "height": 34
+    },
+    {
+      "id": "ix_serpiente",
+      "name": "Serpiente Emplumada",
+      "sourceBytes": 27373,
+      "movement": "swim",
+      "mirror": false,
+      "width": 48,
+      "height": 32
+    },
+    {
+      "id": "ix_momia",
+      "name": "Sacerdote Momificado",
+      "sourceBytes": 20914,
+      "movement": "legs",
+      "mirror": false,
+      "width": 41,
+      "height": 46
+    },
+    {
+      "id": "ix_coatl",
+      "name": "Cóatl Guardián",
+      "sourceBytes": 21773,
+      "movement": "wing",
+      "mirror": false,
+      "width": 52,
+      "height": 47
+    },
+    {
+      "id": "golem_rojo",
+      "name": "Gólem Rojo",
+      "sourceBytes": 24221,
+      "movement": "legs",
+      "mirror": false,
+      "width": 56,
+      "height": 50
+    },
+    {
+      "id": "elemental_roca",
+      "name": "Elemental de Roca",
+      "sourceBytes": 14972,
+      "movement": "float",
+      "mirror": false,
+      "width": 53,
+      "height": 51
+    },
+    {
+      "id": "arana_portal",
+      "name": "Araña del Portal",
+      "sourceBytes": 17974,
+      "movement": "insect",
+      "mirror": false,
+      "width": 53,
+      "height": 47
+    },
+    {
+      "id": "lobo_nocturno",
+      "name": "Lobo Nocturno",
+      "sourceBytes": 18376,
+      "movement": "beast",
+      "mirror": false,
+      "width": 56,
+      "height": 50
+    },
+    {
+      "id": "cazador_corrupto",
+      "name": "Cazador Corrupto",
+      "sourceBytes": 18511,
+      "movement": "legs",
+      "mirror": false,
+      "width": 56,
+      "height": 50
+    },
+    {
+      "id": "lagarto_igneo",
+      "name": "Lagarto Ígneo",
+      "sourceBytes": 21044,
+      "movement": "beast",
+      "mirror": false,
+      "width": 56,
+      "height": 50
+    },
+    {
+      "id": "elemental_fuego",
+      "name": "Elemental de Fuego",
+      "sourceBytes": 23673,
+      "movement": "float",
+      "mirror": false,
+      "width": 56,
+      "height": 50
+    },
+    {
+      "id": "elemental_hielo",
+      "name": "Elemental de Hielo",
+      "sourceBytes": 22432,
+      "movement": "float",
+      "mirror": false,
+      "width": 56,
+      "height": 50
+    },
+    {
+      "id": "escarabajo_acero",
+      "name": "Escarabajo de Acero",
+      "sourceBytes": 22109,
+      "movement": "insect",
+      "mirror": false,
+      "width": 56,
+      "height": 50
+    },
+    {
+      "id": "sapo_abisal",
+      "name": "Sapo Abisal",
+      "sourceBytes": 28093,
+      "movement": "legs",
+      "mirror": false,
+      "width": 56,
+      "height": 50
+    },
+    {
+      "id": "espectro_portal",
+      "name": "Espectro del Portal",
+      "sourceBytes": 24494,
+      "movement": "float",
+      "mirror": false,
+      "width": 56,
+      "height": 50
+    },
+    {
+      "id": "golem_vacio",
+      "name": "Gólem del Vacío",
+      "sourceBytes": 19493,
+      "movement": "legs",
+      "mirror": false,
+      "width": 56,
+      "height": 50
+    },
+    {
+      "id": "tsp_slime",
+      "name": "Babosa Borrada",
+      "sourceBytes": 17260,
+      "movement": "float",
+      "mirror": false,
+      "width": 38,
+      "height": 32
+    },
+    {
+      "id": "tsp_golemito",
+      "name": "Gólem de Cal",
+      "sourceBytes": 16376,
+      "movement": "legs",
+      "mirror": false,
+      "width": 54,
+      "height": 50
+    },
+    {
+      "id": "tsp_esqueleto",
+      "name": "Esqueleto Sin Tinta",
+      "sourceBytes": 14519,
+      "movement": "legs",
+      "mirror": false,
+      "width": 40,
+      "height": 46
+    },
+    {
+      "id": "tsp_lobo",
+      "name": "Lobo Inacabado",
+      "sourceBytes": 17341,
+      "movement": "beast",
+      "mirror": false,
+      "width": 45,
+      "height": 38
+    },
+    {
+      "id": "tsp_borron",
+      "name": "Nihilito",
+      "sourceBytes": 11820,
+      "movement": "float",
+      "mirror": false,
+      "width": 33,
+      "height": 34
+    },
+    {
+      "id": "tsp_fantasma",
+      "name": "Espectro del Lienzo",
+      "sourceBytes": 22210,
+      "movement": "float",
+      "mirror": false,
+      "width": 40,
+      "height": 46
+    },
+    {
+      "id": "tsp_caballero",
+      "name": "Caballero Vacío",
+      "sourceBytes": 23525,
+      "movement": "legs",
+      "mirror": false,
+      "width": 50,
+      "height": 48
+    },
+    {
+      "id": "tsp_arana",
+      "name": "Araña de Tiza",
+      "sourceBytes": 16955,
+      "movement": "insect",
+      "mirror": false,
+      "width": 40,
+      "height": 34
+    },
+    {
+      "id": "tsp_pez",
+      "name": "Pez Pálido",
+      "sourceBytes": 17347,
+      "movement": "swim",
+      "mirror": false,
+      "width": 37,
+      "height": 36
+    },
+    {
+      "id": "tsp_mimo",
+      "name": "Mimo del Silencio",
+      "sourceBytes": 13502,
+      "movement": "legs",
+      "mirror": false,
+      "width": 44,
+      "height": 46
+    },
+    {
+      "id": "tsp_eco_sombra",
+      "name": "Sombra Repetida",
+      "sourceBytes": 15715,
+      "movement": "float",
+      "mirror": false,
+      "width": 101,
+      "height": 104
+    },
+    {
+      "id": "B_reyslime",
+      "name": "Rey Slime",
+      "sourceBytes": 23995,
+      "movement": "float",
+      "mirror": false,
+      "width": 67,
+      "height": 67
+    },
+    {
+      "id": "B_ent",
+      "name": "Ent Anciano",
+      "sourceBytes": 28238,
+      "movement": "legs",
+      "mirror": false,
+      "width": 88,
+      "height": 96
+    },
+    {
+      "id": "B_gruk",
+      "name": "Gruk, Señor Orco",
+      "sourceBytes": 27606,
+      "movement": "legs",
+      "mirror": false,
+      "width": 88,
+      "height": 88
+    },
+    {
+      "id": "B_morgana",
+      "name": "Morgana, la Bruja",
+      "sourceBytes": 26161,
+      "movement": "legs",
+      "mirror": false,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "id": "B_vael",
+      "name": "Rey Vael",
+      "sourceBytes": 24198,
+      "movement": "legs",
+      "mirror": false,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "id": "B_golemhielo",
+      "name": "Gólem de Escarcha",
+      "sourceBytes": 25219,
+      "movement": "legs",
+      "mirror": false,
+      "width": 79,
+      "height": 76
+    },
+    {
+      "id": "B_ignaroth",
+      "name": "Ignaroth, Dragón Carmesí",
+      "sourceBytes": 34398,
+      "movement": "beast",
+      "mirror": false,
+      "width": 140,
+      "height": 120
+    },
+    {
+      "id": "B_desatado",
+      "name": "El Desatado",
+      "sourceBytes": 23895,
+      "movement": "legs",
+      "mirror": false,
+      "width": 88,
+      "height": 88
+    },
+    {
+      "id": "B_colmillo",
+      "name": "Colmilloférreo",
+      "sourceBytes": 22044,
+      "movement": "beast",
+      "mirror": false,
+      "width": 75,
+      "height": 61
+    },
+    {
+      "id": "B_renegado",
+      "name": "Sir Aldric, el Renegado",
+      "sourceBytes": 18882,
+      "movement": "legs",
+      "mirror": false,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "id": "B_yarak",
+      "name": "Yarak, el Gran Simio",
+      "sourceBytes": 27396,
+      "movement": "beast",
+      "mirror": false,
+      "width": 88,
+      "height": 88
+    },
+    {
+      "id": "B_coloso",
+      "name": "Coloso de Cristal",
+      "sourceBytes": 29476,
+      "movement": "legs",
+      "mirror": false,
+      "width": 88,
+      "height": 88
+    },
+    {
+      "id": "B_eclipsor",
+      "name": "Señor del Eclipse",
+      "sourceBytes": 20132,
+      "movement": "legs",
+      "mirror": false,
+      "width": 88,
+      "height": 88
+    },
+    {
+      "id": "B_slime_gema_rey",
+      "name": "Coloso de Gemas",
+      "sourceBytes": 26477,
+      "movement": "float",
+      "mirror": false,
+      "width": 71,
+      "height": 68
+    },
+    {
+      "id": "B_capataz",
+      "name": "Capataz Espectral",
+      "sourceBytes": 26566,
+      "movement": "legs",
+      "mirror": false,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "id": "B_golem_lava",
+      "name": "Gólem de Lava Ancestral",
+      "sourceBytes": 25271,
+      "movement": "legs",
+      "mirror": false,
+      "width": 88,
+      "height": 88
+    },
+    {
+      "id": "B_volcanus",
+      "name": "Volcanus, Titán de Fuego",
+      "sourceBytes": 26299,
+      "movement": "legs",
+      "mirror": false,
+      "width": 88,
+      "height": 88
+    },
+    {
+      "id": "B_kraken",
+      "name": "Kraken, Señor del Abismo",
+      "sourceBytes": 28451,
+      "movement": "swim",
+      "mirror": false,
+      "width": 96,
+      "height": 91
+    },
+    {
+      "id": "B_leviatan",
+      "name": "Leviatán del Naufragio",
+      "sourceBytes": 29953,
+      "movement": "swim",
+      "mirror": false,
+      "width": 125,
+      "height": 83
+    },
+    {
+      "id": "B_faraon",
+      "name": "Faraón Olvidado",
+      "sourceBytes": 29404,
+      "movement": "legs",
+      "mirror": false,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "B_gusano_roca",
+      "name": "Gusano de Roca Ancestral",
+      "sourceBytes": 23680,
+      "movement": "legs",
+      "mirror": false,
+      "width": 40,
+      "height": 34
+    },
+    {
+      "id": "B_micelio_madre",
+      "name": "Micelio Primordial",
+      "sourceBytes": 27049,
+      "movement": "float",
+      "mirror": false,
+      "width": 78,
+      "height": 73
+    },
+    {
+      "id": "B_devorador_carmesi",
+      "name": "Devorador Carmesí",
+      "sourceBytes": 24203,
+      "movement": "legs",
+      "mirror": false,
+      "width": 149,
+      "height": 139
+    },
+    {
+      "id": "B_rey_grifo_aurion",
+      "name": "Aurion, Rey de los Grifos",
+      "sourceBytes": 25738,
+      "movement": "wing",
+      "mirror": false,
+      "width": 112,
+      "height": 101
+    },
+    {
+      "id": "B_tifon",
+      "name": "Tifón, Señor de los Vientos",
+      "sourceBytes": 27153,
+      "movement": "legs",
+      "mirror": false,
+      "width": 78,
+      "height": 96
+    },
+    {
+      "id": "B_seraviel",
+      "name": "Seraviel, Arcángel Corrompido",
+      "sourceBytes": 26658,
+      "movement": "legs",
+      "mirror": false,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "B_telar_viviente",
+      "name": "El Telar Viviente",
+      "sourceBytes": 25239,
+      "movement": "legs",
+      "mirror": false,
+      "width": 104,
+      "height": 116
+    },
+    {
+      "id": "B_reina_arpia",
+      "name": "Kaelyra, Reina de las Arpías",
+      "sourceBytes": 23195,
+      "movement": "wing",
+      "mirror": false,
+      "width": 51,
+      "height": 49
+    },
+    {
+      "id": "B_coloso_aeris",
+      "name": "El Coloso de Aeris",
+      "sourceBytes": 25892,
+      "movement": "legs",
+      "mirror": false,
+      "width": 44,
+      "height": 51
+    },
+    {
+      "id": "B_sierpe_tormenta",
+      "name": "Vendaval, la Sierpe de Tormenta",
+      "sourceBytes": 36022,
+      "movement": "swim",
+      "mirror": false,
+      "width": 61,
+      "height": 46
+    },
+    {
+      "id": "B_obispo_hueco",
+      "name": "El Obispo Hueco",
+      "sourceBytes": 26455,
+      "movement": "legs",
+      "mirror": false,
+      "width": 40,
+      "height": 64
+    },
+    {
+      "id": "B_rey_esqueleto",
+      "name": "Varkhul, el Rey Esqueleto",
+      "sourceBytes": 20004,
+      "movement": "legs",
+      "mirror": false,
+      "width": 46,
+      "height": 62
+    },
+    {
+      "id": "B_rey_campanas",
+      "name": "El Rey de las Campanas",
+      "sourceBytes": 25094,
+      "movement": "legs",
+      "mirror": false,
+      "width": 40,
+      "height": 64
+    },
+    {
+      "id": "B_gran_sapo",
+      "name": "Ghorm, el Gran Brujo Sapo",
+      "sourceBytes": 25661,
+      "movement": "legs",
+      "mirror": false,
+      "width": 36,
+      "height": 62
+    },
+    {
+      "id": "B_alce_ancestral",
+      "name": "Cornaviva, el Alce Ancestral",
+      "sourceBytes": 23685,
+      "movement": "beast",
+      "mirror": false,
+      "width": 52,
+      "height": 76
+    },
+    {
+      "id": "B_dama_violeta",
+      "name": "Lady Morwen, la Dama Violeta",
+      "sourceBytes": 22281,
+      "movement": "legs",
+      "mirror": false,
+      "width": 36,
+      "height": 62
+    },
+    {
+      "id": "B_dama_carmesi",
+      "name": "Lady Sanguia, la Dama Carmesí",
+      "sourceBytes": 20088,
+      "movement": "legs",
+      "mirror": false,
+      "width": 36,
+      "height": 62
+    },
+    {
+      "id": "B_archidemonio",
+      "name": "Baalzor, el Archidemonio",
+      "sourceBytes": 24159,
+      "movement": "legs",
+      "mirror": false,
+      "width": 40,
+      "height": 64
+    },
+    {
+      "id": "B_reflejo_eclipse",
+      "name": "El Reflejo Eclipsado",
+      "sourceBytes": 17870,
+      "movement": "legs",
+      "mirror": true,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "B_heraldo_sonrisa",
+      "name": "Risotto, el Heraldo de la Sonrisa",
+      "sourceBytes": 22339,
+      "movement": "legs",
+      "mirror": false,
+      "width": 36,
+      "height": 62
+    },
+    {
+      "id": "B_sin_nombre",
+      "name": "El Sin Nombre",
+      "sourceBytes": 22727,
+      "movement": "legs",
+      "mirror": false,
+      "width": 40,
+      "height": 68
+    },
+    {
+      "id": "B_quetzal_obsidiana",
+      "name": "Quetzal de Obsidiana",
+      "sourceBytes": 24640,
+      "movement": "wing",
+      "mirror": false,
+      "width": 112,
+      "height": 101
+    },
+    {
+      "id": "B_rey_sol_ixtal",
+      "name": "Tonatiuh, el Rey Sol de Ixtal",
+      "sourceBytes": 28873,
+      "movement": "legs",
+      "mirror": false,
+      "width": 104,
+      "height": 116
+    },
+    {
+      "id": "B_titan_carmesi",
+      "name": "Titán Carmesí",
+      "sourceBytes": 24910,
+      "movement": "legs",
+      "mirror": false,
+      "width": 142,
+      "height": 100
+    },
+    {
+      "id": "B_alfa_nocturno",
+      "name": "Alfa Nocturno",
+      "sourceBytes": 20582,
+      "movement": "legs",
+      "mirror": false,
+      "width": 70,
+      "height": 104
+    },
+    {
+      "id": "B_senor_tormentas",
+      "name": "Señor de las Tormentas",
+      "sourceBytes": 21513,
+      "movement": "legs",
+      "mirror": false,
+      "width": 70,
+      "height": 104
+    },
+    {
+      "id": "B_senor_elemental",
+      "name": "Señor Elemental",
+      "sourceBytes": 21081,
+      "movement": "float",
+      "mirror": false,
+      "width": 83,
+      "height": 102
+    },
+    {
+      "id": "B_cazador_caido",
+      "name": "El Cazador Caído",
+      "sourceBytes": 16184,
+      "movement": "legs",
+      "mirror": false,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "B_monarca_vacio",
+      "name": "Monarca del Vacío",
+      "sourceBytes": 21426,
+      "movement": "legs",
+      "mirror": false,
+      "width": 130,
+      "height": 144
+    },
+    {
+      "id": "B_tsp_golem",
+      "name": "El Gólem Inacabado",
+      "sourceBytes": 24535,
+      "movement": "legs",
+      "mirror": false,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "id": "B_tsp_rey",
+      "name": "El Rey en Borrador",
+      "sourceBytes": 17078,
+      "movement": "legs",
+      "mirror": false,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "B_tsp_borron_gran",
+      "name": "El Gran Borrón",
+      "sourceBytes": 18903,
+      "movement": "float",
+      "mirror": false,
+      "width": 28,
+      "height": 26
+    },
+    {
+      "id": "B_tsp_marco",
+      "name": "El Guardián del Marco",
+      "sourceBytes": 22226,
+      "movement": "legs",
+      "mirror": false,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "B_lienzo_blanco",
+      "name": "El Lienzo en Blanco",
+      "sourceBytes": 20980,
+      "movement": "float",
+      "mirror": false,
+      "width": 75,
+      "height": 112
+    },
+    {
+      "id": "B_eco_vencido",
+      "name": "Eco del Vencido",
+      "sourceBytes": 24081,
+      "movement": "legs",
+      "mirror": false,
+      "width": 101,
+      "height": 104
+    },
+    {
+      "id": "B_fragmento_sin_color",
+      "name": "El Fragmento sin Color",
+      "sourceBytes": 16594,
+      "movement": "float",
+      "mirror": false,
+      "width": 96,
+      "height": 104
+    },
+    {
+      "id": "B_sierpe_lienzo",
+      "name": "La Sierpe de Tormenta",
+      "sourceBytes": 23857,
+      "movement": "swim",
+      "mirror": false,
+      "width": 99,
+      "height": 104
+    }
+  ],
+  "errors": []
+}
