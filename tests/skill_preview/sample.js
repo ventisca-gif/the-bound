@@ -41,10 +41,10 @@ heroPose=function(dir,anim,f,L){return anim==='sp_example'?spPose(L.spClass,dir,
 
 function spFx(cls,t,p,anchor,behind){
  const x=anchor.x,y=anchor.y,base=anchor.base,F=C('#e8fbff');
- const point=(u,v)=>[Math.round(x+u),Math.round(y+v)];
+ const FS=1.5,point=(u,v)=>[Math.round(x+u*FS),Math.round(y+v*FS)];
  const line=(a,b,c)=>p.line(...point(...a),...point(...b),C(c));
  const arc=(rx,ry,a,b,c,w=1)=>{let last;for(let i=0;i<=30;i++){const ang=a+(b-a)*i/30,z=point(Math.cos(ang)*rx,Math.sin(ang)*ry);if(last)for(let j=0;j<w;j++)p.line(last[0],last[1]+j,z[0],z[1]+j,C(c));last=z;}};
- const dot=(u,v,r,cols)=>p.ball(x+u,y+v,r,r,cols.map(h=>C(h)));
+ const dot=(u,v,r,cols)=>p.ball(x+u*FS,y+v*FS,r*FS,r*FS,cols.map(h=>C(h)));
  const life=spClamp((t-.26)/.45),fade=1-spClamp((t-.7)/.2),charge=spClamp(t/.3);
  if(t>.91)return;
  if(cls==='guerrero'){
@@ -84,7 +84,10 @@ function spFx(cls,t,p,anchor,behind){
 const SP_CACHE=new Map();
 function spSprite(cls,g,bt,f){const key=[cls,g,bt,f].join(':');if(SP_CACHE.has(key))return SP_CACHE.get(key);
  const app={...DEF_APP,g,bt,hs:g==='f'?6:0,hair:'negro',eyes:'azul'},L=heroLook(cls,app,{weapon:5,body:30,legs:30,feet:30},{},{hideHelm:true});L.spClass=cls;
- const p=new Pix(48,48);p.t=new Uint8Array(2304);p.tg=0;drawHero(p,L,'down','sp_example',f);p.outline(OUTL,false);const q=hdDetail(p,hdMats(L));hdOrn(q,p,L);
+ const p=new Pix(48,48);p.t=new Uint8Array(2304);p.tg=0;const rec=ARM_REC=[];
+ try{drawHero(p,L,'down','sp_example',f);}finally{ARM_REC=null;}
+ p.outline(OUTL,false);const q=hdDetail(p,hdMats(L));hdOrn(q,p,L);
+ for(const r of rec){const src=armHD(r.key);if(src)armRot(q,src,ARM_PIVK32[r.key]||ARM_PIV32[r.cls],r.hx*2,r.hy*2,r.ang,i=>!uA(q.d[i])||q.t[i]===10||q.t[i]===0);}
  const result={canvas:q.canvas(),meta:p.meta};SP_CACHE.set(key,result);return result;
 }
 function spFrame(cls,f){const D=SP_CASES.find(v=>v.cls===cls),S=2,CW=104,CH=106,LABEL=60,TOP=65,c=mkCanvas(LABEL+5*CW*S,TOP+2*CH*S),x=c.getContext('2d');x.imageSmoothingEnabled=false;
@@ -92,9 +95,9 @@ function spFrame(cls,f){const D=SP_CASES.find(v=>v.cls===cls),S=2,CW=104,CH=106,
  const phase=f<7?'Preparación':f<13?'Ataque':f<19?'Impacto':'Recuperación';x.fillStyle=D.color;x.fillText(phase,c.width-125,26);
  for(let row=0;row<2;row++){const g=row?'f':'m';x.fillStyle='#aab7c9';x.fillText(row?'MUJER':'HOMBRE',5,TOP+row*CH*S+CH*S/2);for(let bt=0;bt<5;bt++){
   const ox=LABEL+bt*CW*S,oy=TOP+row*CH*S;x.save();x.beginPath();x.rect(ox,oy,CW*S,CH*S);x.clip();x.fillStyle=bt%2?'#202735':'#1c2330';x.fillRect(ox,oy,CW*S-2,CH*S-2);x.fillStyle='#b6c3d3';x.font='13px sans-serif';x.fillText(bodyName(g,bt),ox+8,oy+16);
-  const A=spSprite(cls,g,bt,f),fx=new Pix(CW*S,CH*S),anchor={x:56+A.meta.cx*2,y:28+(A.meta.torsoTop+2)*2,base:28+A.meta.base*2};
+  const A=spSprite(cls,g,bt,f),fx=new Pix(CW*S,CH*S),anchor={x:32+A.meta.cx*3,y:8+(A.meta.torsoTop+2)*3,base:8+A.meta.base*3};
   spFx(cls,f/24,fx,anchor,true);x.drawImage(fx.canvas(),ox,oy);
   const dash=cls==='asesino'&&f>=8&&f<=15?Math.sin((f-8)/7*Math.PI)*10:0;
-  if(cls==='asesino'&&f>=8&&f<=15){x.globalAlpha=.18;for(let j=1;j<=2;j++)x.drawImage(A.canvas,ox+56-j*4,oy+28-j*5);x.globalAlpha=1;}
-  x.drawImage(A.canvas,ox+56,oy+28+dash);const front=new Pix(CW*S,CH*S);spFx(cls,f/24,front,anchor,false);x.drawImage(front.canvas(),ox,oy);x.restore();
+  if(cls==='asesino'&&f>=8&&f<=15){x.globalAlpha=.18;for(let j=1;j<=2;j++)x.drawImage(A.canvas,ox+32-j*6,oy+8-j*7,144,144);x.globalAlpha=1;}
+  x.drawImage(A.canvas,ox+32,oy+8+dash,144,144);const front=new Pix(CW*S,CH*S);spFx(cls,f/24,front,anchor,false);x.drawImage(front.canvas(),ox,oy);x.restore();
  }}return c.toDataURL();}
