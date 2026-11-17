@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '4.97', GAME_BUILD = 118;
+const GAME_VER = '4.98', GAME_BUILD = 119;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "b": 119,
+  "v": "4.98",
+  "d": "2026-11-16",
+  "es": [
+   "🥋 Gi naranja sin mangas, emblema y fajín azul: chaqueta, pantalón y pies descalzos para las cinco estructuras femeninas y las cinco masculinas, conservando el busto existente.",
+   "📖 Lo vende el tendero de cómics al oeste de Akihabara (Japón) por 24.000 de oro. Las tres piezas van a Vestuario y solo cambian el aspecto."
+  ],
+  "en": [
+   "🥋 Sleeveless orange gi, emblem and blue sash: jacket, trousers and bare feet for all five female and five male structures, preserving existing body shapes.",
+   "📖 Sold by the comic shopkeeper in western Akihabara (Japan) for 24,000 gold. All three pieces go to Wardrobe and change appearance only."
+  ]
+ },
  {
   "b": 118,
   "v": "4.97",
