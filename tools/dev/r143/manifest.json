@@ -1,0 +1,2355 @@
+[
+  {
+    "id": "hongo",
+    "name": "Hongo Saltarín",
+    "boss": false,
+    "sheet": 1,
+    "row": 2,
+    "oldSize": [
+      28,
+      28
+    ],
+    "oldArt": [
+      "mush",
+      ""
+    ]
+  },
+  {
+    "id": "hongo_v",
+    "name": "Hongo Venenoso",
+    "boss": false,
+    "sheet": 1,
+    "row": 3,
+    "oldSize": [
+      28,
+      28
+    ],
+    "oldArt": [
+      "mush",
+      "veneno"
+    ]
+  },
+  {
+    "id": "golem",
+    "name": "Gólem de Piedra",
+    "boss": false,
+    "sheet": 1,
+    "row": 4,
+    "oldSize": [
+      63,
+      62
+    ],
+    "oldArt": [
+      "hum",
+      "golem"
+    ]
+  },
+  {
+    "id": "yeti",
+    "name": "Yeti",
+    "boss": false,
+    "sheet": 1,
+    "row": 5,
+    "oldSize": [
+      64,
+      64
+    ],
+    "oldArt": [
+      "hum",
+      "yeti"
+    ]
+  },
+  {
+    "id": "momia",
+    "name": "Momia",
+    "boss": false,
+    "sheet": 1,
+    "row": 6,
+    "oldSize": [
+      48,
+      48
+    ],
+    "oldArt": [
+      "hum",
+      "momia"
+    ]
+  },
+  {
+    "id": "lagarto",
+    "name": "Guerrero Lagarto",
+    "boss": false,
+    "sheet": 1,
+    "row": 7,
+    "oldSize": [
+      48,
+      48
+    ],
+    "oldArt": [
+      "hum",
+      "lagarto"
+    ]
+  },
+  {
+    "id": "golemcristal",
+    "name": "Gólem de Cristal",
+    "boss": false,
+    "sheet": 1,
+    "row": 8,
+    "oldSize": [
+      64,
+      64
+    ],
+    "oldArt": [
+      "hum",
+      "golemcristal"
+    ]
+  },
+  {
+    "id": "ciervo",
+    "name": "Ciervo Astral",
+    "boss": false,
+    "sheet": 1,
+    "row": 9,
+    "oldSize": [
+      51,
+      41
+    ],
+    "oldArt": [
+      "quad",
+      "ciervo"
+    ]
+  },
+  {
+    "id": "slime_gema",
+    "name": "Slime de Gemas",
+    "boss": false,
+    "sheet": 1,
+    "row": 10,
+    "oldSize": [
+      37,
+      37
+    ],
+    "oldArt": [
+      "slime",
+      "gema"
+    ]
+  },
+  {
+    "id": "minero_esp",
+    "name": "Minero Fantasma",
+    "boss": false,
+    "sheet": 1,
+    "row": 11,
+    "oldSize": [
+      30,
+      34
+    ],
+    "oldArt": [
+      "ghost",
+      "minero"
+    ]
+  },
+  {
+    "id": "golem_hierro",
+    "name": "Gólem de Hierro",
+    "boss": false,
+    "sheet": 2,
+    "row": 0,
+    "oldSize": [
+      64,
+      64
+    ],
+    "oldArt": [
+      "hum",
+      "golem"
+    ]
+  },
+  {
+    "id": "golem_obs",
+    "name": "Gólem de Obsidiana",
+    "boss": false,
+    "sheet": 2,
+    "row": 1,
+    "oldSize": [
+      64,
+      64
+    ],
+    "oldArt": [
+      "hum",
+      "golemobs"
+    ]
+  },
+  {
+    "id": "morena",
+    "name": "Morena Verde",
+    "boss": false,
+    "sheet": 2,
+    "row": 2,
+    "oldSize": [
+      40,
+      34
+    ],
+    "oldArt": [
+      "snake",
+      "morena"
+    ]
+  },
+  {
+    "id": "martillo",
+    "name": "Tiburón Martillo",
+    "boss": false,
+    "sheet": 2,
+    "row": 3,
+    "oldSize": [
+      48,
+      32
+    ],
+    "oldArt": [
+      "sea",
+      "martillo"
+    ]
+  },
+  {
+    "id": "guardia_ley",
+    "name": "Guardia de la Ley",
+    "boss": false,
+    "sheet": 2,
+    "row": 4,
+    "oldSize": [
+      48,
+      48
+    ],
+    "oldArt": [
+      "hum",
+      "caballero"
+    ]
+  },
+  {
+    "id": "gladiador",
+    "name": "Gladiador",
+    "boss": false,
+    "sheet": 2,
+    "row": 5,
+    "oldSize": [
+      48,
+      48
+    ],
+    "oldArt": [
+      "hum",
+      "caballero"
+    ]
+  },
+  {
+    "id": "gladiador_bestia",
+    "name": "Bestiario",
+    "boss": false,
+    "sheet": 2,
+    "row": 6,
+    "oldSize": [
+      64,
+      64
+    ],
+    "oldArt": [
+      "hum",
+      "orco"
+    ]
+  },
+  {
+    "id": "campeon",
+    "name": "Campeón del Coliseo",
+    "boss": false,
+    "sheet": 2,
+    "row": 7,
+    "oldSize": [
+      88,
+      88
+    ],
+    "oldArt": [
+      "hum",
+      "gruk"
+    ]
+  },
+  {
+    "id": "harpia_costera",
+    "name": "Arpía Costera",
+    "boss": false,
+    "sheet": 2,
+    "row": 8,
+    "oldSize": [
+      40,
+      36
+    ],
+    "oldArt": [
+      "bst",
+      "harpy",
+      [
+        "#1a3a5a",
+        "#3a6aa0",
+        "#6aa0d8",
+        "#c8e8ff"
+      ],
+      1
+    ]
+  },
+  {
+    "id": "libelula_reina",
+    "name": "Fuego Fatuo del Pantano",
+    "boss": false,
+    "sheet": 2,
+    "row": 9,
+    "oldSize": [
+      26,
+      32
+    ],
+    "oldArt": [
+      "bst",
+      "wisp",
+      [
+        "#1a5a2a",
+        "#3aa04a",
+        "#8ae07a",
+        "#e0ffd0"
+      ],
+      1
+    ]
+  },
+  {
+    "id": "pirata_fantasma",
+    "name": "Pirata Fantasma",
+    "boss": false,
+    "sheet": 2,
+    "row": 10,
+    "oldSize": [
+      30,
+      37
+    ],
+    "oldArt": [
+      "bst",
+      "wisp",
+      [
+        "#1a3a3a",
+        "#3a6a6a",
+        "#6aa8a8",
+        "#d0ffff"
+      ],
+      1.15
+    ]
+  },
+  {
+    "id": "arpia_tormenta",
+    "name": "Arpía de Tormenta",
+    "boss": false,
+    "sheet": 2,
+    "row": 11,
+    "oldSize": [
+      44,
+      40
+    ],
+    "oldArt": [
+      "bst",
+      "harpy",
+      [
+        "#1a1a2a",
+        "#3a3a5a",
+        "#6a6a9a",
+        "#c8c8ff"
+      ],
+      1.1
+    ]
+  },
+  {
+    "id": "arpia_dorada",
+    "name": "Arpía Dorada",
+    "boss": false,
+    "sheet": 3,
+    "row": 0,
+    "oldSize": [
+      46,
+      41
+    ],
+    "oldArt": [
+      "bst",
+      "harpy",
+      [
+        "#5a3a00",
+        "#a87a10",
+        "#f0c040",
+        "#fff0b0"
+      ],
+      1.15
+    ]
+  },
+  {
+    "id": "fungido",
+    "name": "Fúngido Errante",
+    "boss": false,
+    "sheet": 3,
+    "row": 1,
+    "oldSize": [
+      40,
+      40
+    ],
+    "oldArt": [
+      "hum",
+      "fungido"
+    ]
+  },
+  {
+    "id": "escarabajo_ambar",
+    "name": "Escarabajo de Ámbar",
+    "boss": false,
+    "sheet": 3,
+    "row": 2,
+    "oldSize": [
+      48,
+      40
+    ],
+    "oldArt": [
+      "scorp",
+      "ambar"
+    ]
+  },
+  {
+    "id": "momia_ambar",
+    "name": "Momia del Ámbar",
+    "boss": false,
+    "sheet": 3,
+    "row": 3,
+    "oldSize": [
+      48,
+      48
+    ],
+    "oldArt": [
+      "hum",
+      "momia_ambar"
+    ]
+  },
+  {
+    "id": "arpia_alba",
+    "name": "Arpía del Alba",
+    "boss": false,
+    "sheet": 3,
+    "row": 4,
+    "oldSize": [
+      46,
+      41
+    ],
+    "oldArt": [
+      "bst",
+      "harpy",
+      [
+        "#8a7a5a",
+        "#d8c8a0",
+        "#fff4d8",
+        "#ffffff"
+      ],
+      1.15
+    ]
+  },
+  {
+    "id": "grifo_joven",
+    "name": "Grifo Joven",
+    "boss": false,
+    "sheet": 3,
+    "row": 5,
+    "oldSize": [
+      54,
+      49
+    ],
+    "oldArt": [
+      "bst",
+      "harpy",
+      [
+        "#5a3a1a",
+        "#a8702a",
+        "#e0b060",
+        "#fff0c0"
+      ],
+      1.35
+    ]
+  },
+  {
+    "id": "colibri_trueno",
+    "name": "Colibrí de Trueno",
+    "boss": false,
+    "sheet": 3,
+    "row": 6,
+    "oldSize": [
+      32,
+      30
+    ],
+    "oldArt": [
+      "bat",
+      "trueno"
+    ]
+  },
+  {
+    "id": "halcon_tormenta",
+    "name": "Halcón de Tormenta",
+    "boss": false,
+    "sheet": 3,
+    "row": 7,
+    "oldSize": [
+      44,
+      40
+    ],
+    "oldArt": [
+      "bst",
+      "harpy",
+      [
+        "#0a1a3a",
+        "#1a3a7a",
+        "#e0c03a",
+        "#ffffff"
+      ],
+      1.1
+    ]
+  },
+  {
+    "id": "nube_viva",
+    "name": "Nube Viva",
+    "boss": false,
+    "sheet": 3,
+    "row": 8,
+    "oldSize": [
+      36,
+      34
+    ],
+    "oldArt": [
+      "slime",
+      "nube",
+      1.3
+    ]
+  },
+  {
+    "id": "querubin",
+    "name": "Querubín Errante",
+    "boss": false,
+    "sheet": 3,
+    "row": 9,
+    "oldSize": [
+      30,
+      34
+    ],
+    "oldArt": [
+      "ghost",
+      "querubin"
+    ]
+  },
+  {
+    "id": "arcangel_caido",
+    "name": "Arcángel Caído",
+    "boss": false,
+    "sheet": 3,
+    "row": 10,
+    "oldSize": [
+      48,
+      48
+    ],
+    "oldArt": [
+      "hum",
+      "arcangel"
+    ]
+  },
+  {
+    "id": "mantis_jade",
+    "name": "Mantis de Jade",
+    "boss": false,
+    "sheet": 3,
+    "row": 11,
+    "oldSize": [
+      43,
+      34
+    ],
+    "oldArt": [
+      "bst",
+      "beetle",
+      [
+        "#0a3a1a",
+        "#2a7a3a",
+        "#6ad07a",
+        "#c8ffd0"
+      ],
+      1.2
+    ]
+  },
+  {
+    "id": "flor_devoradora",
+    "name": "Flor Devoradora",
+    "boss": false,
+    "sheet": 4,
+    "row": 0,
+    "oldSize": [
+      36,
+      42
+    ],
+    "oldArt": [
+      "bst",
+      "shroom",
+      [
+        "#5a0a3a",
+        "#a02a6a",
+        "#ff6ab0",
+        "#ffd0e8"
+      ],
+      1.3
+    ]
+  },
+  {
+    "id": "draco_alado",
+    "name": "Draco Alado",
+    "boss": false,
+    "sheet": 4,
+    "row": 1,
+    "oldSize": [
+      50,
+      34
+    ],
+    "oldArt": [
+      "bst",
+      "lizard",
+      [
+        "#5a5a6a",
+        "#a8a8c0",
+        "#e8e8ff",
+        "#ffffff"
+      ],
+      1.2
+    ]
+  },
+  {
+    "id": "tejedor_hueco",
+    "name": "Tejedor Hueco",
+    "boss": false,
+    "sheet": 4,
+    "row": 2,
+    "oldSize": [
+      48,
+      48
+    ],
+    "oldArt": [
+      "hum",
+      "tejedor_hueco"
+    ]
+  },
+  {
+    "id": "polilla_luz",
+    "name": "Polilla de Luz",
+    "boss": false,
+    "sheet": 4,
+    "row": 3,
+    "oldSize": [
+      32,
+      30
+    ],
+    "oldArt": [
+      "bat",
+      "polilla"
+    ]
+  },
+  {
+    "id": "centinela_alado",
+    "name": "Centinela Alado",
+    "boss": false,
+    "sheet": 4,
+    "row": 4,
+    "oldSize": [
+      48,
+      48
+    ],
+    "oldArt": [
+      "hum",
+      "arcangel"
+    ]
+  },
+  {
+    "id": "serafin_umbrio",
+    "name": "Serafín Umbrío",
+    "boss": false,
+    "sheet": 4,
+    "row": 5,
+    "oldSize": [
+      48,
+      48
+    ],
+    "oldArt": [
+      "hum",
+      "serafin_umbrio"
+    ]
+  },
+  {
+    "id": "ojo_vacio",
+    "name": "Ojo del Vacío",
+    "boss": false,
+    "sheet": 4,
+    "row": 6,
+    "oldSize": [
+      34,
+      42
+    ],
+    "oldArt": [
+      "bst",
+      "wisp",
+      [
+        "#05000a",
+        "#1a0a2a",
+        "#5a2a8a",
+        "#ff3a6a"
+      ],
+      1.3
+    ]
+  },
+  {
+    "id": "arpia_nihil",
+    "name": "Arpía de Nihil",
+    "boss": false,
+    "sheet": 4,
+    "row": 7,
+    "oldSize": [
+      48,
+      43
+    ],
+    "oldArt": [
+      "bst",
+      "harpy",
+      [
+        "#05000a",
+        "#1a0a2a",
+        "#3a1a5a",
+        "#8a5aff"
+      ],
+      1.2
+    ]
+  },
+  {
+    "id": "arpia_maligna",
+    "name": "Arpía Maligna",
+    "boss": false,
+    "sheet": 4,
+    "row": 8,
+    "oldSize": [
+      51,
+      49
+    ],
+    "oldArt": [
+      "celx",
+      "arpia"
+    ]
+  },
+  {
+    "id": "medusa_nube",
+    "name": "Medusa de Nube",
+    "boss": false,
+    "sheet": 4,
+    "row": 9,
+    "oldSize": [
+      37,
+      49
+    ],
+    "oldArt": [
+      "celx",
+      "medusa"
+    ]
+  },
+  {
+    "id": "manta_viento",
+    "name": "Manta del Viento",
+    "boss": false,
+    "sheet": 4,
+    "row": 10,
+    "oldSize": [
+      52,
+      42
+    ],
+    "oldArt": [
+      "celx",
+      "manta"
+    ]
+  },
+  {
+    "id": "centinela_aeris",
+    "name": "Centinela de Aeris",
+    "boss": false,
+    "sheet": 4,
+    "row": 11,
+    "oldSize": [
+      44,
+      51
+    ],
+    "oldArt": [
+      "celx",
+      "centinela"
+    ]
+  },
+  {
+    "id": "chispa_errante",
+    "name": "Chispa Errante",
+    "boss": false,
+    "sheet": 5,
+    "row": 0,
+    "oldSize": [
+      36,
+      44
+    ],
+    "oldArt": [
+      "celx",
+      "chispa"
+    ]
+  },
+  {
+    "id": "brujo_sapo",
+    "name": "Brujo Sapo",
+    "boss": false,
+    "sheet": 5,
+    "row": 1,
+    "oldSize": [
+      36,
+      62
+    ],
+    "oldArt": [
+      "vr",
+      "sapo"
+    ]
+  },
+  {
+    "id": "alce_velado",
+    "name": "Alce Velado",
+    "boss": false,
+    "sheet": 5,
+    "row": 2,
+    "oldSize": [
+      52,
+      76
+    ],
+    "oldArt": [
+      "vr",
+      "alce"
+    ]
+  },
+  {
+    "id": "hechicera_violeta",
+    "name": "Hechicera Violeta",
+    "boss": false,
+    "sheet": 5,
+    "row": 3,
+    "oldSize": [
+      36,
+      62
+    ],
+    "oldArt": [
+      "vr",
+      "violeta"
+    ]
+  },
+  {
+    "id": "demonio_cornudo",
+    "name": "Demonio Cornudo",
+    "boss": false,
+    "sheet": 5,
+    "row": 4,
+    "oldSize": [
+      40,
+      64
+    ],
+    "oldArt": [
+      "vr",
+      "demonio"
+    ]
+  },
+  {
+    "id": "hechicera_carmesi",
+    "name": "Hechicera Carmesí",
+    "boss": false,
+    "sheet": 5,
+    "row": 5,
+    "oldSize": [
+      36,
+      62
+    ],
+    "oldArt": [
+      "vr",
+      "carmesi"
+    ]
+  },
+  {
+    "id": "soldado_hueco",
+    "name": "Soldado Hueco",
+    "boss": false,
+    "sheet": 5,
+    "row": 6,
+    "oldSize": [
+      48,
+      48
+    ],
+    "oldArt": [
+      "hum",
+      "esqueleto"
+    ]
+  },
+  {
+    "id": "diacono_eclipse",
+    "name": "Diácono del Eclipse",
+    "boss": false,
+    "sheet": 5,
+    "row": 7,
+    "oldSize": [
+      40,
+      64
+    ],
+    "oldArt": [
+      "vr",
+      "obispo"
+    ]
+  },
+  {
+    "id": "heraldo_lunar",
+    "name": "Heraldo Lunar",
+    "boss": false,
+    "sheet": 5,
+    "row": 8,
+    "oldSize": [
+      40,
+      64
+    ],
+    "oldArt": [
+      "vr",
+      "demonio"
+    ]
+  },
+  {
+    "id": "lancero_sepulcral",
+    "name": "Lancero Sepulcral",
+    "boss": false,
+    "sheet": 5,
+    "row": 9,
+    "oldSize": [
+      39,
+      64
+    ],
+    "oldArt": [
+      "vr",
+      "lancero"
+    ]
+  },
+  {
+    "id": "acolito_velo",
+    "name": "Acólito del Velo",
+    "boss": false,
+    "sheet": 5,
+    "row": 10,
+    "oldSize": [
+      32,
+      62
+    ],
+    "oldArt": [
+      "vr",
+      "acolito"
+    ]
+  },
+  {
+    "id": "huargo_espectral",
+    "name": "Huargo Espectral",
+    "boss": false,
+    "sheet": 6,
+    "row": 0,
+    "oldSize": [
+      26,
+      21
+    ],
+    "oldArt": [
+      "petv",
+      "lobo"
+    ]
+  },
+  {
+    "id": "polilla_gigante",
+    "name": "Polilla Calavera Gigante",
+    "boss": false,
+    "sheet": 6,
+    "row": 1,
+    "oldSize": [
+      26,
+      23
+    ],
+    "oldArt": [
+      "petv",
+      "polilla"
+    ]
+  },
+  {
+    "id": "ix_jaguar",
+    "name": "Jaguar de Obsidiana",
+    "boss": false,
+    "sheet": 6,
+    "row": 2,
+    "oldSize": [
+      50,
+      34
+    ],
+    "oldArt": [
+      "bst",
+      "lizard",
+      [
+        "#05000a",
+        "#1a1028",
+        "#3a2a5a",
+        "#8a6ad0"
+      ],
+      1.2,
+      {
+        "eye": "#ffd040"
+      }
+    ]
+  },
+  {
+    "id": "ix_serpiente",
+    "name": "Serpiente Emplumada",
+    "boss": false,
+    "sheet": 6,
+    "row": 3,
+    "oldSize": [
+      48,
+      32
+    ],
+    "oldArt": [
+      "bst",
+      "lizard",
+      [
+        "#0a3a3a",
+        "#1a7a6a",
+        "#3ad0a0",
+        "#ffe070"
+      ],
+      1.15
+    ]
+  },
+  {
+    "id": "ix_momia",
+    "name": "Sacerdote Momificado",
+    "boss": false,
+    "sheet": 6,
+    "row": 4,
+    "oldSize": [
+      41,
+      46
+    ],
+    "oldArt": [
+      "bst",
+      "golem",
+      [
+        "#3a2a1a",
+        "#7a6a4a",
+        "#c8b890",
+        "#fff0d0"
+      ],
+      1.15,
+      {
+        "core": "#ff3a2a"
+      }
+    ]
+  },
+  {
+    "id": "ix_coatl",
+    "name": "Cóatl Guardián",
+    "boss": false,
+    "sheet": 6,
+    "row": 5,
+    "oldSize": [
+      52,
+      47
+    ],
+    "oldArt": [
+      "bst",
+      "harpy",
+      [
+        "#0a3a1a",
+        "#1a7a3a",
+        "#3ad06a",
+        "#ffd040"
+      ],
+      1.3
+    ]
+  },
+  {
+    "id": "golem_rojo",
+    "name": "Gólem Rojo",
+    "boss": false,
+    "sheet": 6,
+    "row": 6,
+    "oldSize": [
+      56,
+      50
+    ],
+    "oldArt": [
+      "art47",
+      "golem_rojo"
+    ]
+  },
+  {
+    "id": "elemental_roca",
+    "name": "Elemental de Roca",
+    "boss": false,
+    "sheet": 6,
+    "row": 7,
+    "oldSize": [
+      53,
+      51
+    ],
+    "oldArt": [
+      "art47",
+      "elemental_roca"
+    ]
+  },
+  {
+    "id": "arana_portal",
+    "name": "Araña del Portal",
+    "boss": false,
+    "sheet": 6,
+    "row": 8,
+    "oldSize": [
+      53,
+      47
+    ],
+    "oldArt": [
+      "art47",
+      "arana_portal"
+    ]
+  },
+  {
+    "id": "lobo_nocturno",
+    "name": "Lobo Nocturno",
+    "boss": false,
+    "sheet": 6,
+    "row": 9,
+    "oldSize": [
+      56,
+      50
+    ],
+    "oldArt": [
+      "art47",
+      "lobo_nocturno"
+    ]
+  },
+  {
+    "id": "cazador_corrupto",
+    "name": "Cazador Corrupto",
+    "boss": false,
+    "sheet": 6,
+    "row": 10,
+    "oldSize": [
+      56,
+      50
+    ],
+    "oldArt": [
+      "art47",
+      "cazador_corrupto"
+    ]
+  },
+  {
+    "id": "lagarto_igneo",
+    "name": "Lagarto Ígneo",
+    "boss": false,
+    "sheet": 6,
+    "row": 11,
+    "oldSize": [
+      56,
+      50
+    ],
+    "oldArt": [
+      "art47",
+      "lagarto_igneo"
+    ]
+  },
+  {
+    "id": "elemental_fuego",
+    "name": "Elemental de Fuego",
+    "boss": false,
+    "sheet": 7,
+    "row": 0,
+    "oldSize": [
+      56,
+      50
+    ],
+    "oldArt": [
+      "art47",
+      "elemental_fuego"
+    ]
+  },
+  {
+    "id": "elemental_hielo",
+    "name": "Elemental de Hielo",
+    "boss": false,
+    "sheet": 7,
+    "row": 1,
+    "oldSize": [
+      56,
+      50
+    ],
+    "oldArt": [
+      "art47",
+      "elemental_hielo"
+    ]
+  },
+  {
+    "id": "escarabajo_acero",
+    "name": "Escarabajo de Acero",
+    "boss": false,
+    "sheet": 7,
+    "row": 2,
+    "oldSize": [
+      56,
+      50
+    ],
+    "oldArt": [
+      "art47",
+      "escarabajo_acero"
+    ]
+  },
+  {
+    "id": "sapo_abisal",
+    "name": "Sapo Abisal",
+    "boss": false,
+    "sheet": 7,
+    "row": 3,
+    "oldSize": [
+      56,
+      50
+    ],
+    "oldArt": [
+      "art47",
+      "sapo_abisal"
+    ]
+  },
+  {
+    "id": "espectro_portal",
+    "name": "Espectro del Portal",
+    "boss": false,
+    "sheet": 7,
+    "row": 4,
+    "oldSize": [
+      56,
+      50
+    ],
+    "oldArt": [
+      "art47",
+      "espectro_portal"
+    ]
+  },
+  {
+    "id": "golem_vacio",
+    "name": "Gólem del Vacío",
+    "boss": false,
+    "sheet": 7,
+    "row": 5,
+    "oldSize": [
+      56,
+      50
+    ],
+    "oldArt": [
+      "art47",
+      "golem_vacio"
+    ]
+  },
+  {
+    "id": "tsp_slime",
+    "name": "Babosa Borrada",
+    "boss": false,
+    "sheet": 7,
+    "row": 6,
+    "oldSize": [
+      38,
+      32
+    ],
+    "oldArt": [
+      "lz",
+      "babosa"
+    ]
+  },
+  {
+    "id": "tsp_golemito",
+    "name": "Gólem de Cal",
+    "boss": false,
+    "sheet": 7,
+    "row": 7,
+    "oldSize": [
+      54,
+      50
+    ],
+    "oldArt": [
+      "lz",
+      "golem"
+    ]
+  },
+  {
+    "id": "tsp_esqueleto",
+    "name": "Esqueleto Sin Tinta",
+    "boss": false,
+    "sheet": 7,
+    "row": 8,
+    "oldSize": [
+      40,
+      46
+    ],
+    "oldArt": [
+      "lz",
+      "esqueleto"
+    ]
+  },
+  {
+    "id": "tsp_lobo",
+    "name": "Lobo Inacabado",
+    "boss": false,
+    "sheet": 7,
+    "row": 9,
+    "oldSize": [
+      45,
+      38
+    ],
+    "oldArt": [
+      "lz",
+      "lobo"
+    ]
+  },
+  {
+    "id": "tsp_borron",
+    "name": "Nihilito",
+    "boss": false,
+    "sheet": 7,
+    "row": 10,
+    "oldSize": [
+      33,
+      34
+    ],
+    "oldArt": [
+      "lz",
+      "nihilito"
+    ]
+  },
+  {
+    "id": "tsp_fantasma",
+    "name": "Espectro del Lienzo",
+    "boss": false,
+    "sheet": 7,
+    "row": 11,
+    "oldSize": [
+      40,
+      46
+    ],
+    "oldArt": [
+      "lz",
+      "espectro"
+    ]
+  },
+  {
+    "id": "tsp_caballero",
+    "name": "Caballero Vacío",
+    "boss": false,
+    "sheet": 8,
+    "row": 0,
+    "oldSize": [
+      50,
+      48
+    ],
+    "oldArt": [
+      "lz",
+      "caballero"
+    ]
+  },
+  {
+    "id": "tsp_arana",
+    "name": "Araña de Tiza",
+    "boss": false,
+    "sheet": 8,
+    "row": 1,
+    "oldSize": [
+      40,
+      34
+    ],
+    "oldArt": [
+      "lz",
+      "arana"
+    ]
+  },
+  {
+    "id": "tsp_pez",
+    "name": "Pez Pálido",
+    "boss": false,
+    "sheet": 8,
+    "row": 2,
+    "oldSize": [
+      37,
+      36
+    ],
+    "oldArt": [
+      "lz",
+      "pez"
+    ]
+  },
+  {
+    "id": "tsp_mimo",
+    "name": "Mimo del Silencio",
+    "boss": false,
+    "sheet": 8,
+    "row": 3,
+    "oldSize": [
+      44,
+      46
+    ],
+    "oldArt": [
+      "lz",
+      "mimo"
+    ]
+  },
+  {
+    "id": "tsp_eco_sombra",
+    "name": "Sombra Repetida",
+    "boss": false,
+    "sheet": 8,
+    "row": 4,
+    "oldSize": [
+      101,
+      104
+    ],
+    "oldArt": [
+      "lz",
+      "eco"
+    ]
+  },
+  {
+    "id": "B_reyslime",
+    "name": "Rey Slime",
+    "boss": true,
+    "sheet": 8,
+    "row": 5,
+    "oldSize": [
+      67,
+      67
+    ],
+    "oldArt": [
+      "slime",
+      "green",
+      2.6,
+      true
+    ]
+  },
+  {
+    "id": "B_ent",
+    "name": "Ent Anciano",
+    "boss": true,
+    "sheet": 8,
+    "row": 6,
+    "oldSize": [
+      88,
+      96
+    ],
+    "oldArt": [
+      "treant"
+    ]
+  },
+  {
+    "id": "B_gruk",
+    "name": "Gruk, Señor Orco",
+    "boss": true,
+    "sheet": 8,
+    "row": 7,
+    "oldSize": [
+      88,
+      88
+    ],
+    "oldArt": [
+      "hum",
+      "gruk"
+    ]
+  },
+  {
+    "id": "B_morgana",
+    "name": "Morgana, la Bruja",
+    "boss": true,
+    "sheet": 8,
+    "row": 8,
+    "oldSize": [
+      64,
+      64
+    ],
+    "oldArt": [
+      "hum",
+      "morgana"
+    ]
+  },
+  {
+    "id": "B_vael",
+    "name": "Rey Vael",
+    "boss": true,
+    "sheet": 8,
+    "row": 9,
+    "oldSize": [
+      64,
+      64
+    ],
+    "oldArt": [
+      "hum",
+      "vael"
+    ]
+  },
+  {
+    "id": "B_golemhielo",
+    "name": "Gólem de Escarcha",
+    "boss": true,
+    "sheet": 8,
+    "row": 10,
+    "oldSize": [
+      79,
+      76
+    ],
+    "oldArt": [
+      "hum",
+      "golemhielo"
+    ]
+  },
+  {
+    "id": "B_ignaroth",
+    "name": "Ignaroth, Dragón Carmesí",
+    "boss": true,
+    "sheet": 8,
+    "row": 11,
+    "oldSize": [
+      140,
+      120
+    ],
+    "oldArt": [
+      "dragon"
+    ]
+  },
+  {
+    "id": "B_desatado",
+    "name": "El Desatado",
+    "boss": true,
+    "sheet": 9,
+    "row": 0,
+    "oldSize": [
+      88,
+      88
+    ],
+    "oldArt": [
+      "hum",
+      "desatado"
+    ]
+  },
+  {
+    "id": "B_colmillo",
+    "name": "Colmilloférreo",
+    "boss": true,
+    "sheet": 9,
+    "row": 1,
+    "oldSize": [
+      75,
+      61
+    ],
+    "oldArt": [
+      "quad",
+      "jabali_rey"
+    ]
+  },
+  {
+    "id": "B_renegado",
+    "name": "Sir Aldric, el Renegado",
+    "boss": true,
+    "sheet": 9,
+    "row": 2,
+    "oldSize": [
+      64,
+      64
+    ],
+    "oldArt": [
+      "hum",
+      "renegado"
+    ]
+  },
+  {
+    "id": "B_yarak",
+    "name": "Yarak, el Gran Simio",
+    "boss": true,
+    "sheet": 9,
+    "row": 3,
+    "oldSize": [
+      88,
+      88
+    ],
+    "oldArt": [
+      "hum",
+      "simio"
+    ]
+  },
+  {
+    "id": "B_coloso",
+    "name": "Coloso de Cristal",
+    "boss": true,
+    "sheet": 9,
+    "row": 4,
+    "oldSize": [
+      88,
+      88
+    ],
+    "oldArt": [
+      "hum",
+      "coloso"
+    ]
+  },
+  {
+    "id": "B_eclipsor",
+    "name": "Señor del Eclipse",
+    "boss": true,
+    "sheet": 9,
+    "row": 5,
+    "oldSize": [
+      88,
+      88
+    ],
+    "oldArt": [
+      "hum",
+      "eclipsor"
+    ]
+  },
+  {
+    "id": "B_slime_gema_rey",
+    "name": "Coloso de Gemas",
+    "boss": true,
+    "sheet": 9,
+    "row": 6,
+    "oldSize": [
+      71,
+      68
+    ],
+    "oldArt": [
+      "slime",
+      "gema",
+      2.4,
+      true
+    ]
+  },
+  {
+    "id": "B_capataz",
+    "name": "Capataz Espectral",
+    "boss": true,
+    "sheet": 9,
+    "row": 7,
+    "oldSize": [
+      64,
+      64
+    ],
+    "oldArt": [
+      "hum",
+      "capataz"
+    ]
+  },
+  {
+    "id": "B_golem_lava",
+    "name": "Gólem de Lava Ancestral",
+    "boss": true,
+    "sheet": 9,
+    "row": 8,
+    "oldSize": [
+      88,
+      88
+    ],
+    "oldArt": [
+      "hum",
+      "golemlava_b"
+    ]
+  },
+  {
+    "id": "B_volcanus",
+    "name": "Volcanus, Titán de Fuego",
+    "boss": true,
+    "sheet": 9,
+    "row": 9,
+    "oldSize": [
+      88,
+      88
+    ],
+    "oldArt": [
+      "hum",
+      "titan"
+    ]
+  },
+  {
+    "id": "B_kraken",
+    "name": "Kraken, Señor del Abismo",
+    "boss": true,
+    "sheet": 9,
+    "row": 10,
+    "oldSize": [
+      96,
+      91
+    ],
+    "oldArt": [
+      "sea",
+      "kraken",
+      2.4
+    ]
+  },
+  {
+    "id": "B_leviatan",
+    "name": "Leviatán del Naufragio",
+    "boss": true,
+    "sheet": 9,
+    "row": 11,
+    "oldSize": [
+      125,
+      83
+    ],
+    "oldArt": [
+      "sea",
+      "martillo",
+      2.6
+    ]
+  },
+  {
+    "id": "B_faraon",
+    "name": "Faraón Olvidado",
+    "boss": true,
+    "sheet": 10,
+    "row": 0,
+    "oldSize": [
+      48,
+      48
+    ],
+    "oldArt": [
+      "hum",
+      "momia"
+    ]
+  },
+  {
+    "id": "B_gusano_roca",
+    "name": "Gusano de Roca Ancestral",
+    "boss": true,
+    "sheet": 10,
+    "row": 1,
+    "oldSize": [
+      40,
+      34
+    ],
+    "oldArt": [
+      "snake",
+      "roca"
+    ]
+  },
+  {
+    "id": "B_micelio_madre",
+    "name": "Micelio Primordial",
+    "boss": true,
+    "sheet": 10,
+    "row": 2,
+    "oldSize": [
+      78,
+      73
+    ],
+    "oldArt": [
+      "slime",
+      "espora",
+      2.8,
+      true
+    ]
+  },
+  {
+    "id": "B_devorador_carmesi",
+    "name": "Devorador Carmesí",
+    "boss": true,
+    "sheet": 10,
+    "row": 3,
+    "oldSize": [
+      149,
+      139
+    ],
+    "oldArt": [
+      "art59",
+      "devo"
+    ]
+  },
+  {
+    "id": "B_rey_grifo_aurion",
+    "name": "Aurion, Rey de los Grifos",
+    "boss": true,
+    "sheet": 10,
+    "row": 4,
+    "oldSize": [
+      112,
+      101
+    ],
+    "oldArt": [
+      "bst",
+      "harpy",
+      [
+        "#5a3a0a",
+        "#c8902a",
+        "#ffd060",
+        "#fff4c0"
+      ],
+      2.8
+    ]
+  },
+  {
+    "id": "B_tifon",
+    "name": "Tifón, Señor de los Vientos",
+    "boss": true,
+    "sheet": 10,
+    "row": 5,
+    "oldSize": [
+      78,
+      96
+    ],
+    "oldArt": [
+      "bst",
+      "wisp",
+      [
+        "#0a3a5a",
+        "#2a8ac0",
+        "#9af0ff",
+        "#ffffff"
+      ],
+      3
+    ]
+  },
+  {
+    "id": "B_seraviel",
+    "name": "Seraviel, Arcángel Corrompido",
+    "boss": true,
+    "sheet": 10,
+    "row": 6,
+    "oldSize": [
+      48,
+      48
+    ],
+    "oldArt": [
+      "hum",
+      "arcangel"
+    ]
+  },
+  {
+    "id": "B_telar_viviente",
+    "name": "El Telar Viviente",
+    "boss": true,
+    "sheet": 10,
+    "row": 7,
+    "oldSize": [
+      104,
+      116
+    ],
+    "oldArt": [
+      "bst",
+      "golem",
+      [
+        "#5a4a1a",
+        "#c8a040",
+        "#fff0b0",
+        "#ffffff"
+      ],
+      2.9,
+      {
+        "core": "#d8b0ff"
+      }
+    ]
+  },
+  {
+    "id": "B_reina_arpia",
+    "name": "Kaelyra, Reina de las Arpías",
+    "boss": true,
+    "sheet": 10,
+    "row": 8,
+    "oldSize": [
+      51,
+      49
+    ],
+    "oldArt": [
+      "celx",
+      "arpia"
+    ]
+  },
+  {
+    "id": "B_coloso_aeris",
+    "name": "El Coloso de Aeris",
+    "boss": true,
+    "sheet": 10,
+    "row": 9,
+    "oldSize": [
+      44,
+      51
+    ],
+    "oldArt": [
+      "celx",
+      "centinela"
+    ]
+  },
+  {
+    "id": "B_sierpe_tormenta",
+    "name": "Vendaval, la Sierpe de Tormenta",
+    "boss": true,
+    "sheet": 10,
+    "row": 10,
+    "oldSize": [
+      61,
+      46
+    ],
+    "oldArt": [
+      "celx",
+      "sierpe"
+    ]
+  },
+  {
+    "id": "B_obispo_hueco",
+    "name": "El Obispo Hueco",
+    "boss": true,
+    "sheet": 10,
+    "row": 11,
+    "oldSize": [
+      40,
+      64
+    ],
+    "oldArt": [
+      "vr",
+      "obispo"
+    ]
+  },
+  {
+    "id": "B_rey_esqueleto",
+    "name": "Varkhul, el Rey Esqueleto",
+    "boss": true,
+    "sheet": 11,
+    "row": 0,
+    "oldSize": [
+      46,
+      62
+    ],
+    "oldArt": [
+      "vr",
+      "rey"
+    ]
+  },
+  {
+    "id": "B_rey_campanas",
+    "name": "El Rey de las Campanas",
+    "boss": true,
+    "sheet": 11,
+    "row": 1,
+    "oldSize": [
+      40,
+      64
+    ],
+    "oldArt": [
+      "vr",
+      "campanas"
+    ]
+  },
+  {
+    "id": "B_gran_sapo",
+    "name": "Ghorm, el Gran Brujo Sapo",
+    "boss": true,
+    "sheet": 11,
+    "row": 2,
+    "oldSize": [
+      36,
+      62
+    ],
+    "oldArt": [
+      "vr",
+      "gransapo"
+    ]
+  },
+  {
+    "id": "B_alce_ancestral",
+    "name": "Cornaviva, el Alce Ancestral",
+    "boss": true,
+    "sheet": 11,
+    "row": 3,
+    "oldSize": [
+      52,
+      76
+    ],
+    "oldArt": [
+      "vr",
+      "alcean"
+    ]
+  },
+  {
+    "id": "B_dama_violeta",
+    "name": "Lady Morwen, la Dama Violeta",
+    "boss": true,
+    "sheet": 11,
+    "row": 4,
+    "oldSize": [
+      36,
+      62
+    ],
+    "oldArt": [
+      "vr",
+      "damav"
+    ]
+  },
+  {
+    "id": "B_dama_carmesi",
+    "name": "Lady Sanguia, la Dama Carmesí",
+    "boss": true,
+    "sheet": 11,
+    "row": 5,
+    "oldSize": [
+      36,
+      62
+    ],
+    "oldArt": [
+      "vr",
+      "damac"
+    ]
+  },
+  {
+    "id": "B_archidemonio",
+    "name": "Baalzor, el Archidemonio",
+    "boss": true,
+    "sheet": 11,
+    "row": 6,
+    "oldSize": [
+      40,
+      64
+    ],
+    "oldArt": [
+      "vr",
+      "archi"
+    ]
+  },
+  {
+    "id": "B_reflejo_eclipse",
+    "name": "El Reflejo Eclipsado",
+    "boss": true,
+    "sheet": 11,
+    "row": 7,
+    "oldSize": [
+      48,
+      48
+    ],
+    "oldArt": [
+      "mimic"
+    ]
+  },
+  {
+    "id": "B_heraldo_sonrisa",
+    "name": "Risotto, el Heraldo de la Sonrisa",
+    "boss": true,
+    "sheet": 11,
+    "row": 8,
+    "oldSize": [
+      36,
+      62
+    ],
+    "oldArt": [
+      "vr",
+      "bufon"
+    ]
+  },
+  {
+    "id": "B_sin_nombre",
+    "name": "El Sin Nombre",
+    "boss": true,
+    "sheet": 11,
+    "row": 9,
+    "oldSize": [
+      40,
+      68
+    ],
+    "oldArt": [
+      "vr",
+      "sinnombre"
+    ]
+  },
+  {
+    "id": "B_quetzal_obsidiana",
+    "name": "Quetzal de Obsidiana",
+    "boss": true,
+    "sheet": 11,
+    "row": 10,
+    "oldSize": [
+      112,
+      101
+    ],
+    "oldArt": [
+      "bst",
+      "harpy",
+      [
+        "#05000a",
+        "#1a1028",
+        "#3ad0a0",
+        "#ffe070"
+      ],
+      2.8
+    ]
+  },
+  {
+    "id": "B_rey_sol_ixtal",
+    "name": "Tonatiuh, el Rey Sol de Ixtal",
+    "boss": true,
+    "sheet": 11,
+    "row": 11,
+    "oldSize": [
+      104,
+      116
+    ],
+    "oldArt": [
+      "bst",
+      "golem",
+      [
+        "#5a3a00",
+        "#c89a1a",
+        "#ffd040",
+        "#fff8c0"
+      ],
+      2.9,
+      {
+        "core": "#ff3a1a"
+      }
+    ]
+  },
+  {
+    "id": "B_titan_carmesi",
+    "name": "Titán Carmesí",
+    "boss": true,
+    "sheet": 12,
+    "row": 0,
+    "oldSize": [
+      142,
+      100
+    ],
+    "oldArt": [
+      "bst",
+      "golem",
+      [
+        "#2a0604",
+        "#6a140c",
+        "#c82a1a",
+        "#ff8a4a"
+      ],
+      3.2,
+      {
+        "core": "#ffe040",
+        "hi": "titan"
+      }
+    ]
+  },
+  {
+    "id": "B_alfa_nocturno",
+    "name": "Alfa Nocturno",
+    "boss": true,
+    "sheet": 12,
+    "row": 1,
+    "oldSize": [
+      70,
+      104
+    ],
+    "oldArt": [
+      "art47b",
+      "alfa"
+    ]
+  },
+  {
+    "id": "B_senor_tormentas",
+    "name": "Señor de las Tormentas",
+    "boss": true,
+    "sheet": 12,
+    "row": 2,
+    "oldSize": [
+      70,
+      104
+    ],
+    "oldArt": [
+      "art47b",
+      "torm"
+    ]
+  },
+  {
+    "id": "B_senor_elemental",
+    "name": "Señor Elemental",
+    "boss": true,
+    "sheet": 12,
+    "row": 3,
+    "oldSize": [
+      83,
+      102
+    ],
+    "oldArt": [
+      "bst",
+      "wisp",
+      [
+        "#3a0a00",
+        "#c83a0a",
+        "#ffb040",
+        "#fff0c0"
+      ],
+      3.2
+    ]
+  },
+  {
+    "id": "B_cazador_caido",
+    "name": "El Cazador Caído",
+    "boss": true,
+    "sheet": 12,
+    "row": 4,
+    "oldSize": [
+      48,
+      48
+    ],
+    "oldArt": [
+      "hum",
+      "cazador_caido"
+    ]
+  },
+  {
+    "id": "B_monarca_vacio",
+    "name": "Monarca del Vacío",
+    "boss": true,
+    "sheet": 12,
+    "row": 5,
+    "oldSize": [
+      130,
+      144
+    ],
+    "oldArt": [
+      "bst",
+      "golem",
+      [
+        "#05000a",
+        "#1a0a2a",
+        "#4a1a8a",
+        "#c88aff"
+      ],
+      3.6,
+      {
+        "core": "#ff3a8a"
+      }
+    ]
+  },
+  {
+    "id": "B_tsp_golem",
+    "name": "El Gólem Inacabado",
+    "boss": true,
+    "sheet": 12,
+    "row": 6,
+    "oldSize": [
+      64,
+      64
+    ],
+    "oldArt": [
+      "tsp",
+      "part",
+      "hum",
+      "golem"
+    ]
+  },
+  {
+    "id": "B_tsp_rey",
+    "name": "El Rey en Borrador",
+    "boss": true,
+    "sheet": 12,
+    "row": 7,
+    "oldSize": [
+      48,
+      48
+    ],
+    "oldArt": [
+      "tsp",
+      "w",
+      "hum",
+      "esqueleto"
+    ]
+  },
+  {
+    "id": "B_tsp_borron_gran",
+    "name": "El Gran Borrón",
+    "boss": true,
+    "sheet": 12,
+    "row": 8,
+    "oldSize": [
+      28,
+      26
+    ],
+    "oldArt": [
+      "tsp",
+      "ink",
+      "slime",
+      "purple"
+    ]
+  },
+  {
+    "id": "B_tsp_marco",
+    "name": "El Guardián del Marco",
+    "boss": true,
+    "sheet": 12,
+    "row": 9,
+    "oldSize": [
+      48,
+      48
+    ],
+    "oldArt": [
+      "tsp",
+      "gold",
+      "hum",
+      "caballero"
+    ]
+  },
+  {
+    "id": "B_lienzo_blanco",
+    "name": "El Lienzo en Blanco",
+    "boss": true,
+    "sheet": 12,
+    "row": 10,
+    "oldSize": [
+      75,
+      112
+    ],
+    "oldArt": [
+      "lz",
+      "lienzo"
+    ]
+  },
+  {
+    "id": "B_eco_vencido",
+    "name": "Eco del Vencido",
+    "boss": true,
+    "sheet": 12,
+    "row": 11,
+    "oldSize": [
+      101,
+      104
+    ],
+    "oldArt": [
+      "lz",
+      "eco"
+    ]
+  },
+  {
+    "id": "B_fragmento_sin_color",
+    "name": "El Fragmento sin Color",
+    "boss": true,
+    "sheet": 13,
+    "row": 0,
+    "oldSize": [
+      96,
+      104
+    ],
+    "oldArt": [
+      "lz",
+      "fragmento"
+    ]
+  },
+  {
+    "id": "B_sierpe_lienzo",
+    "name": "La Sierpe de Tormenta",
+    "boss": true,
+    "sheet": 13,
+    "row": 1,
+    "oldSize": [
+      99,
+      104
+    ],
+    "oldArt": [
+      "lz",
+      "sierpe"
+    ]
+  }
+]

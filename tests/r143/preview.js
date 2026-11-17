@@ -1,0 +1,6 @@
+(async()=>{const images={};for(let start=0;start<R143_DESIGNS.length;start+=16){const rows=R143_DESIGNS.slice(start,start+16),cv=mkCanvas(1400,80+Math.ceil(rows.length/4)*235),g=cv.getContext('2d');g.fillStyle='#1c2535';g.fillRect(0,0,cv.width,cv.height);g.font='bold 24px sans-serif';g.fillStyle='#ffedcf';g.fillText('THE BOUND · 143 DISEÑOS APROBADOS · '+(start+1)+'–'+(start+rows.length),16,30);g.font='14px sans-serif';g.fillText('Cuatro direcciones · abajo: ataque + VFX en capa separada · dibujos del motor',16,56);
+ for(let k=0;k<rows.length;k++){const S=rows[k],A=r143Atlas(S.id),source=await r143Source(S).promise,x=k%4*350,y=80+Math.floor(k/4)*235;g.fillStyle='#ffedcf';g.font='bold 14px sans-serif';g.fillText(S.name,x+5,y+16,340);
+  function draw(row,col,xx,yy,w){const L=r143PortraitLayout(A,100,100),c=mkCanvas(100,100),q=c.getContext('2d');q.imageSmoothingEnabled=false;atlasBlit(q,A,col,row,L.x,L.y,A.fw*L.s,A.fh*L.s);g.drawImage(c,xx,yy,w,w);}
+  for(let d=0;d<4;d++)draw([0,3,1,2][d],A.idx.idle||0,x+d*86,y+25,84);
+  draw(0,A.idx.atk+1,x+115,y+115,108);const fx=r143Effect(S,'down',1);g.drawImage(fx,x+106,y+101,126,126);
+ }images['detallados_'+String(start/16+1).padStart(2,'0')+'.png']=cv.toDataURL('image/png');}return images;})()

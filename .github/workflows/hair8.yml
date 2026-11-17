@@ -7,6 +7,7 @@ on:
       - 'tests/hair8/**'
       - 'tests/gi/**'
       - 'tests/r133/**'
+      - 'tests/r143/**'
       - '.github/workflows/hair8.yml'
 permissions:
   contents: write
@@ -15,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   validate:
-    if: github.event.pull_request.head.repo.full_name == github.repository && (github.event.pull_request.head.ref == 'codex/peinados-ocho-referencias' || github.event.pull_request.head.ref == 'codex/traje-gi-muestras' || github.event.pull_request.head.ref == 'codex/redisenos-bestiario-133')
+    if: github.event.pull_request.head.repo.full_name == github.repository && (github.event.pull_request.head.ref == 'codex/peinados-ocho-referencias' || github.event.pull_request.head.ref == 'codex/traje-gi-muestras' || github.event.pull_request.head.ref == 'codex/redisenos-bestiario-133' || github.event.pull_request.head.ref == 'codex/bestiario-detallado-143')
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -44,6 +45,8 @@ jobs:
         run: python3 tests/gi/browser.py
       - name: Validate all 133 redesigns, attack VFX and unchanged combat
         run: python3 tests/r133/browser.py
+      - name: Validate 143 detailed designs, protected sprites and combat
+        run: python3 tests/r143/browser.py
       - name: Check every existing outfit on all bodies
         run: python3 tools/dev/fitcheck.py file://$PWD/dist/test.html /tmp/hair8-fit --strict
       - name: Test OTA download, integrity and rollback
@@ -79,6 +82,7 @@ jobs:
             tests/hair8/result.json
             tests/gi/result.json
             tests/r133/out/*
+            tests/r143/out/*
             /tmp/hair8-fit/fit_report.txt
             /tmp/hair8-updater.log
       - name: Commit verified package to the work branch
@@ -90,8 +94,8 @@ jobs:
           test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_HEAD"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add update/thebound.html update/version.json docs/NOTAS.md docs/sprites/peinados_*_motor.png tests/hair8/result.json tests/gi/result.json tests/r133/out/result.json
+          git add update/thebound.html update/version.json docs/NOTAS.md docs/sprites/peinados_*_motor.png tests/hair8/result.json tests/gi/result.json tests/r133/out/result.json tests/r143/out/result.json
           if ! git diff --cached --quiet; then
-            git commit -m "Package verified The Bound 4.99 visual-only bestiary update"
+            git commit -m "Package verified The Bound 5.00 detailed bestiary update"
             git push origin "HEAD:refs/heads/$WORK_BRANCH"
           fi
