@@ -7,177 +7,1820 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '4.96', GAME_BUILD = 117;
+const GAME_VER = '4.97', GAME_BUILD = 118;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
 const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
-const CHANGELOG = /*CL*/[
-  {"b": 117, "v": "4.96", "d": "2026-11-17", "es": ["🏯 Japón crece hacia el este, al otro lado del río: Takayama, un pueblo de la era Edo (casas de madera con celosías, acequias, linternas, hortensias, sakagura con bola de cedro, mercado de la mañana y puente rojo), e Higashiyama, el Kioto antiguo (una cuesta con terrazas, muros de piedra y escaleras que sube hasta la pagoda, cerezos llorones, sombrillas rojas y casas de té).", "👘 54 vecinos nuevos, la mayoría paseando en kimono, y cerezos a los lados de la calle Nakamise de Asakusa.", "🛺 Trabajos nuevos (dan oro y objetos, no poder): Conductor de rickshaw (lleva turistas siguiendo la flecha; propina si llegas rápido), Maestro sakero (remueve el arroz en la sakagura), Maestro del té (bate el matcha al ritmo) y Ceramista (centra el barro en el torno). Mercado de la mañana con manzanas, miso y muñecos sarubobo.", "🗺 El mapa de Japón (y de los otros mundos) se puede ampliar con + y − y mover con el dedo."], "en": ["🏯 Japan grows east, across the river: Takayama, an Edo-era town (wooden lattice houses, gutters, lanterns, hydrangeas, cedar-ball sake breweries, a morning market and a red bridge), and Higashiyama, old Kyoto (a slope with terraces, stone walls and stairs climbing to the pagoda, weeping cherries, red parasols and teahouses).", "👘 54 new locals, most of them strolling in kimono, and cherry trees along Asakusa's Nakamise street.", "🛺 New jobs (gold and items, no power): Rickshaw puller (carry tourists following the arrow; tip if you're quick), Sake brewer (stir the rice at the sakagura), Tea master (whisk matcha to the beat) and Potter (centre the clay on the wheel). Morning market with apples, miso and sarubobo dolls.", "🗺 Japan's map (and the other worlds') can be zoomed with + and − and moved with your finger."]},
-  {"b": 116, "v": "4.95", "d": "2026-11-17", "es": ["💇 Puntas bicolor: de perfil y de espaldas ahora también se ve el segundo color arriba, como de frente."], "en": ["💇 Two-tone spikes: from the side and from behind the second colour now shows on top too, like from the front."]},
-  {"b": 115, "v": "4.94", "d": "2026-11-17", "es": ["💇 Arreglados los 13 peinados nuevos: de perfil y de espaldas ahora tienen su propia forma (capas, largo, coleta, trenzas, coletas o moño) igual que de frente, en todas las estructuras de chica y chico.", "💇 Seis de ellos (Puntas bicolor, Coleta alta rizada, Ondas largas abiertas, Moño lateral y los dos bobs) se cortaban por arriba: ahora caben enteros."], "en": ["💇 Fixed the 13 new hairstyles: from the side and from behind they now have their own shape (layers, length, ponytail, braids, twintails or bun) matching the front, on every female and male body structure.", "💇 Six of them (Two-tone spikes, High curly ponytail, Long open waves, Side bun and both bobs) were cut off at the top: now they fit whole."]},
-  {"b": 114, "v": "4.93", "d": "2026-11-16", "es": ["Miku y Teto pueden ser tu pareja, acompañarte y cambiarse de atuendo. Se añadieron 13 peinados recoloreables."], "en": ["Miku and Teto can become your partner, walk with you, and change outfits. Added 13 recolorable hairstyles."]},
-  {"b": 113, "v": "4.92", "d": "2026-11-16", "es": ["Neru pasea por Akihabara y regala su traje. Miku y Teto estrenan trajes de concierto, pasos y retratos. Nuevo peinado recoloreable."], "en": ["Neru walks around Akihabara and gifts her outfit. Miku and Teto have new concert outfits, moves and portraits. New recolorable hairstyle."]},
-  {"b": 112, "v": "4.91", "d": "2026-11-16", "es": ["Compra el traje de Kasane Teto hablando con ella en STELLA☆LINK. El set se guarda en tu Armario y se adapta a todos los cuerpos."], "en": ["Buy Kasane Teto’s outfit by talking to her at STELLA☆LINK. The set is saved in your Wardrobe and fits every body type."]},
-  {"b": 111, "v": "4.90", "d": "2026-11-16", "es": ["Diez criaturas renovadas con cuatro direcciones. Los gólems de Piedra y Escarcha tienen sprites más grandes."], "en": ["Ten redesigned creatures with four directions. The Stone and Frost Golems have larger sprites."]},
-  {"b": 110, "v": "4.89", "d": "2026-11-16", "es": ["Kasane Teto visita STELLA☆LINK. Habla con Akane para ver su concierto con Hatsune Miku."], "en": ["Kasane Teto visits STELLA☆LINK. Speak to Akane to watch her concert with Hatsune Miku."]},
-  {"b": 109, "v": "4.88", "d": "2026-11-16", "es": ["Hatsune Miku visita STELLA☆LINK en Akihabara. Puedes verla caminar y hablar con ella."], "en": ["Hatsune Miku visits STELLA☆LINK in Akihabara. You can see her walk and talk to her."]},
-  {"b": 108, "v": "4.87", "d": "2026-11-17", "es": ["💇 Peinado nuevo para chicas y chicos: Melena de puntas (larga hasta media espalda, mechones en pico, puntas en la coronilla y flequillo desfilado). En el editor y la peluquería, con cualquier color."], "en": ["💇 New hairstyle for girls and boys: Spiky long mane (down to mid-back, pointed locks, spikes on the crown and a choppy fringe). In the editor and the barber, in any colour."]},
-  {"b": 107, "v": "4.86", "d": "2026-11-16", "es": ["💙 Ruri, la novena integrante de PRISM9 (antes PRISM8), con el sprite de tu dibujo: pasea por el Cruce de Shibuya, se puede enamorar (beso y abrazo con su propio sprite) y baila con el grupo en la sala de Akihabara. La estilista Mio vende su Corsé Azul.", "💇 Peinado nuevo para chicas: Melena de Ruri. Color de pelo nuevo para chicas y chicos: Turquesa vivo.", "📖 Tienda de cómics en Akihabara: 8 mangas que se leen desde la mochila (viñetas con las idols, el héroe, los gatos y la Ventisca) y un dependiente otaku que te cuenta historias y curiosidades del mundo.", "🗺 El mapa de las Tierras sin Pintar (Lienzo Blanco) ya sale en el panel del mapa."], "en": ["💙 Ruri, the ninth member of PRISM9 (formerly PRISM8), with the sprite from your drawing: she hangs around Shibuya Crossing, can be romanced (kiss and hug with her own sprite) and dances with the group at the Akihabara hall. Stylist Mio sells her Blue Corset.", "💇 New hairstyle for girls: Ruri's mane. New hair colour for girls and boys: Bright turquoise.", "📖 Comic shop in Akihabara: 8 manga you read from your bag (panels with the idols, the hero, the cats and the Ventisca) and an otaku shopkeeper who tells you stories and trivia about the world.", "🗺 The Unpainted Lands (White Canvas) map now shows in the map panel."]},
-  {"b": 106, "v": "4.85", "d": "2026-11-16", "es": ["💗 Romance con las idols: las 5 de STELLA☆LINK (te esperan en la sala de Akihabara cuando no actúan) y un grupo nuevo, PRISM8, con 8 idols (Kira, Umi, Sena, Hana, Ryo, Mika, Jun y Nene) que pasean por el Cruce de Shibuya. Regalos, citas, pareja, boda e hijos como con cualquier pareja.", "🎤 PRISM8 actúa en la sala de Akihabara un concierto sí y otro no, con sus 8 idols bailando en el escenario.", "💇 Peinado nuevo: Lobo en capas (melena a capas con flequillo desfilado), el de Kira. También en el editor y la peluquería.", "♨ Onsen del Fuji: ryokan al suroeste del lago del Fuji con baño termal (vida y maná al máximo, +8 % de ataque y velocidad), mural del Fuji, leche con café y huevos de onsen.", "🐱 Café de gatos en Akihabara: entra, acaricia a los 9 gatos (+5 % de ataque y velocidad) y pide un neko latte.", "👘 Tienda de kimonos en Asakusa: 6 kimonos y yukatas con flores, obi, sandalias y horquilla kanzashi.", "👗 La estilista Mio vende 9 looks más: los 8 de PRISM8 (corsé vaquero, estrellas de mar, vestido boho, tirantes con shorts, gabardina, chaqueta universitaria, peto vaquero y Y2K) y el Traje de Diva Virtual en turquesa."], "en": ["💗 Romance with the idols: the 5 of STELLA☆LINK (they wait for you in the Akihabara hall when not performing) and a new group, PRISM8, with 8 idols (Kira, Umi, Sena, Hana, Ryo, Mika, Jun and Nene) who hang around Shibuya Crossing. Gifts, dates, partner, wedding and children like any partner.", "🎤 PRISM8 performs at the Akihabara hall every other concert, with its 8 idols dancing on stage.", "💇 New hairstyle: Layered wolf cut (Kira's). Also in the editor and the barber.", "♨ Fuji Onsen: a ryokan southwest of Fuji's lake with a hot spring bath (full HP and mana, +8% attack and speed), a Fuji mural, coffee milk and onsen eggs.", "🐱 Cat café in Akihabara: go in, pet the 9 cats (+5% attack and speed) and order a neko latte.", "👘 Kimono shop in Asakusa: 6 kimonos and yukatas with flowers, obi, sandals and a kanzashi hairpin.", "👗 Stylist Mio sells 9 more looks: PRISM8's 8 (denim corset, starfish tee, boho dress, tank top with shorts, trench coat, varsity jacket, denim overalls and Y2K) and the Virtual Diva Outfit in turquoise."]},
-  {"b": 105, "v": "4.84", "d": "2026-11-16", "es": ["👗 8 trajes de idol nuevos, sacados de tus referencias, que se adaptan a todas las estructuras de cuerpo (chica y chico) y a las 4 direcciones: Uniforme Escolar de Idol, Vestido Blanco de Escenario, Chaqueta Peluda de Pop, Traje de Diva Virtual (en violeta), Top de Estrella Plateada (con horquillas de estrella), Conjunto Rosa Peluche (con calentadores), Armadura de Idol Robot y Vestido Maid de Estrellas.", "🛍 Los vende la estilista Mio en la sala STELLA☆LINK de Akihabara (junto a la salida). Cada traje trae parte de arriba, falda y botas, y va directo al armario.", "🔎 Lupa › Sistemas: Japón explicado por partes (idols y carrera de idol, Osaka/Okinawa/Nagasaki/Fushimi Inari, rally de sellos, ropa de idol) y una lista con las ideas para las próximas versiones (onsen, café de gatos, tienda de kimonos, historia y romance de las idols)."], "en": ["👗 8 new idol outfits, made from your references, that fit every body structure (female and male) and all 4 directions: Idol School Uniform, White Stage Dress, Fluffy Pop Jacket, Virtual Diva Outfit (in violet), Silver Star Top (with star hair clips), Pink Fluffy Set (with leg warmers), Robot Idol Armour and Starry Maid Dress.", "🛍 Stylist Mio sells them in the STELLA☆LINK hall in Akihabara (by the exit). Each outfit has a top, skirt and boots, and goes straight to your wardrobe.", "🔎 Magnifier › Systems: Japan explained in parts (idols and idol career, Osaka/Okinawa/Nagasaki/Fushimi Inari, stamp rally, idol clothes) and a list of ideas for the next versions (onsen, cat café, kimono shop, idol story and romance)."]},
-  {"b": 104, "v": "4.83", "d": "2026-11-16", "es": ["🗾 Japón crece hacia el sur: Osaka, Okinawa y Nagasaki nuevas, y el túnel de toriis de Fushimi Inari en Kioto.", "🎤 Idols STELLA☆LINK (Hikari, Sora, Mei, Rin y Yuzu) con su sala de conciertos en Akihabara: concierto cada 2 minutos y medio con escenario, luces, pantalla LED y fans con barras de luz. Anima con wotagei (minijuego de ritmo) y gana oro y +5 % de ataque y velocidad.", "🌟 Hazte idol: pasa la audición de la productora Akane, da conciertos para ganar fans y oro y sube de rango (Aprendiz → Debut → Idol en ascenso → Idol popular → Top idol → Leyenda de Hoshizora). Títulos nuevos: Idol en Debut, Top Idol y Leyenda de Hoshizora.", "🛍 Tienda de recuerdos: cromos de las 5 idols (colección completa = título «Fan número uno»), barra de luz (+10 % en el wotagei), trajes de idol de cada color y botas de plataforma.", "🐙 Osaka · Dōtonbori: canal con barcos, puente, carteles gigantes con pulpo, cangrejo y dragón, pantallas, reflejos de neón por la noche, paseo en barco (2.000 oro, +8 % de velocidad) y puestos de takoyaki, okonomiyaki y kushikatsu.", "🦈 Okinawa: playa con palmeras, sombrillas, hibiscos y shisas, y el Acuario Churaumi con su tanque gigante, tiburón ballena y mantas (+6 % de ataque y velocidad al contemplarlo). Peluche de tiburón ballena.", "🏘 Cuesta de Nagasaki: terrazas con casitas, muros de piedra, escaleras, postes con cables, señales y espejos, hortensias, mirador y puerto con barcos.", "⛩ Fushimi Inari: túnel de toriis uno tras otro, zorros de piedra, tablillas ema y omikuji diaria (hasta +10 % de ataque y velocidad).", "📮 Rally de 10 sellos por todo Japón (salen en el mapa). Completo: 50.000 de oro, 5 bentōs y el título «Viajero de Japón». 28 vecinos nuevos que hablan en su dialecto."], "en": ["🗾 Japan grows south: new Osaka, Okinawa and Nagasaki, and the Fushimi Inari torii tunnel in Kyoto.", "🎤 STELLA☆LINK idols (Hikari, Sora, Mei, Rin and Yuzu) with their concert hall in Akihabara: a concert every two and a half minutes with stage, lights, LED screen and fans with penlights. Cheer with wotagei (rhythm minigame) for gold and +5% attack and speed.", "🌟 Become an idol: pass producer Akane's audition, give concerts to win fans and gold and rank up (Trainee → Debut → Rising idol → Popular idol → Top idol → Hoshizora legend). New titles: Debut Idol, Top Idol and Hoshizora Legend.", "🛍 Merch stand: photo cards of the 5 idols (full collection = title «Number one fan»), penlight (+10% wotagei score), idol outfits in each colour and platform boots.", "🐙 Osaka · Dotonbori: canal with boats, bridge, giant octopus, crab and dragon signs, screens, neon reflections at night, boat ride (2,000 gold, +8% speed) and takoyaki, okonomiyaki and kushikatsu stalls.", "🦈 Okinawa: beach with palm trees, umbrellas, hibiscus and shisa, and the Churaumi Aquarium with its giant tank, whale shark and mantas (+6% attack and speed when you gaze at it). Whale shark plushie.", "🏘 Nagasaki Slopes: terraces with little houses, stone walls, stairs, poles with wires, signs and mirrors, hydrangeas, a viewpoint and a harbour with boats.", "⛩ Fushimi Inari: a tunnel of torii one after another, stone foxes, ema boards and a daily omikuji (up to +10% attack and speed).", "📮 A rally of 10 stamps across Japan (shown on the map). Complete: 50,000 gold, 5 bentos and the title «Japan Traveller». 28 new locals who speak their dialect."]},
-  {"b": 103, "v": "4.82", "d": "2026-11-16", "es": ["🌱 Japón con pasto nuevo: tonos que se funden, matas de hierba, tréboles, florecitas de colores, piedrecitas y pétalos caídos bajo los cerezos.", "🗾 Mapa de Japón en el panel del mapa (flecha ▶ hasta «Japón»): barrios con su nombre en español y en japonés, tejados de colores, el Fuji nevado, cerezos, templos y leyenda con comida, karaoke y recreativos, monumentos y aeropuerto.", "🏙 Calles como Akihabara y Shinjuku: edificios estrechos y altos pegados unos a otros, cada uno con su fachada, carteles verticales que sobresalen y brillan de noche, carteles por piso, aparatos de aire, depósitos en la azotea y tiendas iluminadas en la planta baja.", "⚡ Cables de luz entre los postes de todas las aceras de la ciudad.", "🏮 Callejones (yokocho) entre los edificios con linternas rojas, máquinas expendedoras, bicis, cubos y cajas. Puestos de takoyaki en Akihabara y de yakitori en Shinjuku (comida que cura).", "🚦 Cruce de Shibuya con tres pantallas gigantes de anuncios animados: cuando todos los semáforos se ponen en rojo, la gente cruza a la vez desde las cuatro esquinas, también en diagonal.", "🚕 Taxis amarillos y verdes con luz en el techo, más coches y gente paseando por las aceras."], "en": ["🌱 Japan has new grass: blending tones, grass tufts, clovers, little coloured flowers, pebbles and fallen petals under the cherry trees.", "🗾 Japan map in the map panel (arrow ▶ to «Japan»): districts named in English and Japanese, coloured roofs, snowy Fuji, cherry trees, temples and a legend with food, karaoke and arcade, landmarks and airport.", "🏙 Streets like Akihabara and Shinjuku: narrow, tall buildings packed together, each with its own facade, vertical signs that stick out and glow at night, signs on every floor, air conditioners, rooftop tanks and lit shops on the ground floor.", "⚡ Power lines between the poles on every city pavement.", "🏮 Alleys (yokocho) between the buildings with red lanterns, vending machines, bikes, bins and crates. Takoyaki stalls in Akihabara and yakitori stalls in Shinjuku (food that heals).", "🚦 Shibuya Crossing with three giant screens of animated adverts: when every light turns red, people cross at once from all four corners, diagonally too.", "🚕 Yellow and green taxis with a roof light, more cars and people walking on the pavements."]},
-  {"b": 102, "v": "4.81", "d": "2026-11-16", "es": ["🗺 El mapa del principio crece: al sur de Albor hay tierra nueva con el Camposanto del Alba (tributo a los caídos, tumbas y la cuidadora Odila) y el Aeródromo de Albor.", "✈ Aeródromo: pista, terminal, torre y hangar con 4 aviones que aterrizan, embarcan y despegan, y pasajeros entrando. Dentro, viajeros de 12 países, café, billete a Japón (nivel 400) y espera en la sala hasta embarcar.", "🗾 Japón, el mapa más grande del juego: Monte Fuji con la pagoda y los cerezos, Kioto con el Pabellón Dorado, el sendero de toriis y geishas, Akihabara con carteles de anime, Tokio y su torre, Shinjuku y Kabukichō con neones, Asakusa con la Puerta del Trueno y el aeropuerto. Calles con semáforos y coches, y 78 japoneses (sin nombre: Japonés 1, Japonesa 2…).", "🎤 Se puede entrar al karaoke (minijuego de cantar), al ramen, a los recreativos (máquina de peluches y juego de reflejos) y a las konbinis.", "👴 Tus hijos, nietos y bisnietos cumplen años, se jubilan a los 65 y mueren de viejos (despacio). Sus tumbas aparecen en el Camposanto. Nuevo 🌳 árbol genealógico en ❤ Familia."], "en": ["🗺 The starting map grows: south of Albor there is new land with the Dawn Graveyard (tribute to the fallen, graves and Odila the keeper) and the Albor Aerodrome.", "✈ Aerodrome: runway, terminal, tower and hangar with 4 planes that land, board and take off, and passengers walking in. Inside, travellers from 12 countries, a café, a ticket to Japan (level 400) and a wait in the lounge until boarding.", "🗾 Japan, the largest map in the game: Mount Fuji with the pagoda and cherry trees, Kyoto with the Golden Pavilion, the torii path and geishas, Akihabara with anime billboards, Tokyo and its tower, Shinjuku and Kabukichō with neon, Asakusa with the Thunder Gate and the airport. Streets with traffic lights and cars, and 78 Japanese people (unnamed: Japanese man 1, Japanese woman 2…).", "🎤 You can enter the karaoke (singing minigame), the ramen shop, the arcade (claw machine and reflex game) and the konbinis.", "👴 Your children, grandchildren and great-grandchildren grow older, retire at 65 and die of old age (slowly). Their graves appear in the Graveyard. New 🌳 family tree in ❤ Family."]},
-  {"b": 101, "v": "4.80", "d": "2026-11-16", "es": ["💇 20 peinados anime nuevos sacados de tus láminas. Chica: Lisa con raya, Coleta anime, Lisa tapando un ojo, Rizos con flequillo, Ondas de lado, Dos trenzas, Coletitas bajas, Moño despeinado, Media coleta, Bob en capas, Bob con flequillo recto, Corto rizado, Corto liso, Cuadrado largo delante, Lisa larga con flequillo, Cebollas, Cuadrado ondulado, Coletas largas y Ondas largas anime. Chico: Despeinado anime.", "❄ Las nevadas duran mucho menos (de 30 a 75 segundos) y en la nieve de fin de año solo nieva 1 minuto de cada 3, así el frío sube menos."], "en": ["💇 20 new anime hairstyles taken from your sheets. Female: Straight side part, Anime ponytail, Straight over one eye, Curls with bangs, Side waves, Two braids, Low pigtails, Messy bun, Half-up, Layered bob, Blunt bob, Short curly, Short straight, Angled bob, Long straight with bangs, Space buns, Wavy bob, Long twintails and Long anime waves. Male: Messy anime.", "❄ Snowfalls are much shorter (30 to 75 seconds) and during the end-of-year snow it only snows 1 minute out of 3, so you get less cold."]},
-  {"b": 100, "v": "4.79", "d": "2026-11-16", "es": ["💇 10 peinados anime nuevos al estilo del pelo de Lienya, por mechones con rizos en espiral, flequillo en punta y brillo. Chica: Rizos de diosa, Seda anime, Coletas taladro, Nube rizada y Cola rizada. Chico: Puntas de héroe, Rizos revueltos, Melena salvaje, Flequillo de príncipe y Lobo rebelde. Se ven en las 8 estructuras de cuerpo, con cualquier color y mechas.", "Los peinados emo vuelven a salir en la creación y la peluquería (estaban ocultos por error)."], "en": ["💇 10 new anime hairstyles in the style of Lienya's hair, drawn lock by lock with spiral curls, pointed fringes and shine. Female: Goddess curls, Anime silk, Drill twintails, Curly cloud and Curly ponytail. Male: Hero spikes, Tousled curls, Wild mane, Prince fringe and Rebel wolf. They fit all 8 body types, with any colour and highlights.", "Emo hairstyles show up again in character creation and at the hairdresser (they were hidden by mistake)."]},
-  {"b": 99, "v": "4.78", "d": "2026-11-16", "es": ["🌸 Lienya, después de vencerla, usa exactamente el dibujo de Sergio: pelo lila enorme y rizado, cara oscura y vestido, de frente, de perfil y de espaldas."], "en": ["🌸 After you defeat her, Lienya uses exactly Sergio's drawing: huge curly lilac hair, dark face and dress, from the front, side and back."]},
-  {"b": 98, "v": "4.77", "d": "2026-11-16", "es": ["🌸 Lienya, después de vencerla, vuelve a ser un personaje como los del juego, ahora con un pelo nuevo como el de su dibujo: lila, salvaje y rizado, con volumen arriba y mechones que ondean hasta la cintura. Antes de vencerla se ve su dibujo pequeño."], "en": ["🌸 After you defeat her, Lienya is a game-style character again, now with new hair like her drawing: lilac, wild and curly, with volume on top and locks waving down to her waist. Before you defeat her, her small drawing is shown."]},
-  {"b": 97, "v": "4.76", "d": "2026-11-16", "es": ["🌸 Lienya ahora se ve con su propio dibujo también en su forma de persona (cuando te vigila, cuando habla y después de vencerla): pelo salvaje, cara y ojos brillantes."], "en": ["🌸 Lienya now uses her own drawing in her person form too (when she watches you, talks and after you defeat her): wild hair, face and glowing eyes."]},
-  {"b": 96, "v": "4.75", "d": "2026-11-15", "es": ["🌸 Descubrimiento en Las Tierras sin Pintar: Lienya, la Diosa sin Pintar. Al principio solo te vigila desde lejos y desaparece si te acercas.", "Después de vencer a El Lienzo en Blanco te espera junto a la puerta de luz: pregúntale quién es y revelará su forma verdadera (con el dibujo de Sergio). Súper jefe de nivel 410, muy difícil, con 5 ataques: Ráfaga del Vacío, Círculo de Olvido, Tentáculos Incoloros, Lluvia Sin Color y Desvanecer.", "🎨 Al vencerla te enseña el oficio de Artista: pinta los caballetes del borde para devolverle el color (bonos de ataque, defensa, vida y experiencia).", "💕 Se queda junto a Mael y la puedes enamorar y casarte con ella. Capítulo nuevo en el Libro del Vínculo con cinemática, y su guía en la lupa con flecha."], "en": ["🌸 A discovery in the Unpainted Lands: Lienya, the Unpainted Goddess. At first she only watches you from afar and vanishes if you get close.", "After defeating The Blank Canvas she waits by the door of light: ask her who she is and she will reveal her true form (with Sergio's drawing). A very hard level 410 super boss with 5 attacks: Void Burst, Circle of Oblivion, Colourless Tentacles, Colourless Rain and Vanish.", "🎨 Once defeated she teaches you the Artist job: paint the border's easels to bring its colour back (attack, defence, HP and experience bonuses).", "💕 She stays next to Mael and you can win her heart and marry her. New chapter in the Book of the Bond with a cutscene, and her guide in the magnifier with an arrow."]},
-  {"b": 95, "v": "4.74", "d": "2026-11-15", "es": ["💪 Nueva pestaña Poder en la lupa: tu poder ahora y qué te falta (arma, herrería, arma despertada, maestría, clase, subraza, Poder del Velo, Trazos y técnicas), la tabla del poder máximo a nivel 400 por clase y cada forma de ganar poder explicada: equipo, armas ancestrales, herrería, Trazos (límite 50), técnicas de rivales, mentores y academia, anillos, mascotas, comida y familia."], "en": ["💪 New Power tab in the magnifier: your power now and what you're missing (weapon, blacksmith, awakened weapon, mastery, class, subrace, Veil Power, Strokes and techniques), the level 400 max power table by class and every way to gain power explained: gear, ancestral weapons, blacksmith, Strokes (limit 50), rival, mentor and academy techniques, rings, pets, food and family."]},
-  {"b": 94, "v": "4.73", "d": "2026-11-15", "es": ["El número de Poder ahora cuenta los Trazos, las técnicas (amistades, mentores y academia) y las armas ancestrales. Antes daban su bono en combate pero no salían en el Poder."], "en": ["The Power number now counts Strokes, techniques (friendships, mentors and academy) and ancestral weapons. They already gave their bonus in combat but didn't show in Power."]},
-  {"b": 93, "v": "4.72", "d": "2026-11-15", "es": ["🛡 Armaduras de Las Tierras sin Pintar con los conceptos de Sergio (tiers 27-30): abrigo crema y bufanda morada del bardo, túnica con ribetes de oro y colgante del mago, placas de cal agrietadas y capa morada del guerrero, manto de escamas con perla del pez, correas y bufanda del ninja, círculo morado y talismanes del invocador, y túnica crema para el arquero.", "Se ajustan a las 8 estructuras de cuerpo (revisión automática sin avisos) y cambian de tono por tier: tiza, trazo, cal y lienzo. Van con la cabeza descubierta, como en los dibujos.", "Ya no sale el manto celeste de Celestia con estas armaduras."], "en": ["🛡 Unpainted Lands armour with Sergio's concepts (tiers 27-30): the bard's cream coat and purple scarf, the mage's gold-trimmed robe and pendant, the warrior's cracked lime plates and purple cape, the fish's scale mantle with a pearl, the ninja's straps and scarf, the summoner's purple circle and talismans, and a cream tunic for the archer.", "They fit all 8 body types (automatic check with no warnings) and change tone by tier: chalk, stroke, lime and canvas. Worn bareheaded, like in the drawings.", "Celestia's sky-blue mantle no longer appears with this armour."]},
-  {"b": 92, "v": "4.71", "d": "2026-11-15", "es": ["🗡 Armas de Las Tierras sin Pintar con el dibujo de Sergio: cinco por clase (laúd-espada, cetro-pincel, espadón del vacío blanco, tridente perlado, katana pálida, bastón de sellos…). Tiers 27 (nivel 360), 28 (372), 29 (384) y 30 (396) en la herrería con Tinta Viva y Pigmento Puro.", "✨ El arma del Lienzo Eterno (tier 31, nivel 400): solo la suelta El Lienzo en Blanco.", "Armaduras de tiza, trazo, cal y lienzo (27-30). Su aspecto propio, como en los conceptos de Sergio, llega en la próxima versión.", "El arquero no salía en la hoja: lleva arcos de tiza en blanco y lila.", "Dificultad y PvP medidos de nuevo con el equipo nuevo."], "en": ["🗡 Unpainted Lands weapons with Sergio's drawing: five per class (lute-sword, brush-sceptre, white void greatsword, pearl trident, pale katana, seal staff…). Tiers 27 (level 360), 28 (372), 29 (384) and 30 (396) at the blacksmith with Living Ink and Pure Pigment.", "✨ The Eternal Canvas weapon (tier 31, level 400): only dropped by The Blank Canvas.", "Chalk, stroke, lime and canvas armour (27-30). Their own look, like Sergio's concepts, comes in the next version.", "The archer wasn't on the sheet: it carries chalk bows in white and lilac.", "Difficulty and PvP measured again with the new gear."]},
-  {"b": 91, "v": "4.70", "d": "2026-11-15", "es": ["⭐ Nivel máximo 400. Las Tierras sin Pintar ahora van del 300 al 400: Orilla del Boceto, Llanura de los Trazos, Ciénaga de los Borrones, El Marco Roto y El Lienzo en Blanco (385-400).", "🖌 Criaturas con el dibujo de Sergio: Babosa Borrada, Lobo Inacabado, Araña de Tiza, Caballero Vacío, Esqueleto Sin Tinta, Gólem de Cal, Espectro del Lienzo, Pez Pálido, Mimo del Silencio y Nihilito.", "⚔ Jefes nuevos con su dibujo: Eco del Vencido (310), El Fragmento sin Color (320) y La Sierpe de Tormenta (330), cada uno con su misión de Mael; El Lienzo en Blanco tiene su nuevo aspecto y es de nivel 400.", "Lupa › Sistemas › «Las Tierras sin Pintar»: cómo llegar, zonas, criaturas, jefes, misiones y Trazos (ahora desde el nivel 400).", "Dificultad medida otra vez: los 72 jefes dentro de su objetivo. Próximamente: las armas y armaduras del Lienzo (tiers 27-30)."], "en": ["⭐ Max level 400. The Unpainted Lands now go from 300 to 400: Sketch Shore, Plain of Strokes, Swamp of Smudges, The Broken Frame and The Blank Canvas (385-400).", "🖌 Creatures with Sergio's drawing: Erased Slug, Unfinished Wolf, Chalk Spider, Hollow Knight, Inkless Skeleton, Lime Golem, Canvas Specter, Pale Fish, Mime of Silence and Little Nihil.", "⚔ New bosses with their drawing: Echo of the Vanquished (310), The Colourless Fragment (320) and The Storm Serpent (330), each with a quest from Mael; The Blank Canvas has its new look and is level 400.", "Magnifier › Systems › \"The Unpainted Lands\": how to get there, zones, creatures, bosses, quests and Strokes (now from level 400).", "Difficulty measured again: all 72 bosses within target. Coming soon: the Canvas weapons and armour (tiers 27-30)."]},
-  {"b": 90, "v": "4.69", "d": "2026-11-15", "es": ["🖌 Nuevo continente: Las Tierras sin Pintar (nivel 300-350), el borde del mundo donde la Ventisca todavía no ha pintado. Se entra por el puente blanco al este de Albor después de vencer a la Luna Sonriente; habla con Mael, la Pintora del Borde.", "Todo se ve como un boceto sin color sobre un vacío morado, y en el cielo una mano gigante pinta con su pincel. Cada criatura que vences devuelve el color a su zona.", "Criaturas esbozadas (slimes a medio pintar, gólems de boceto, esqueletos, lobos de carboncillo, borrones de tinta…), 4 jefes nuevos y el súper jefe El Lienzo en Blanco, con 6 misiones y su capítulo y cinemática en el Libro del Vínculo.", "Trazos: al nivel máximo la experiencia sigue sumando (hasta 50 Trazos, +0,4 % de ataque, defensa y vida cada uno). Mael cambia Tinta Viva por Trazos.", "Todos los jefes nuevos pasan la medición de dificultad. Explicado en la lupa › Sistemas, con flecha al puente."], "en": ["🖌 New continent: The Unpainted Lands (level 300-350), the edge of the world where the Ventisca has not painted yet. Enter through the white bridge east of Albor after defeating the Smiling Moon; talk to Mael, the Painter of the Border.", "Everything looks like a colourless sketch over a purple void, and in the sky a giant hand paints with its brush. Every creature you defeat gives its zone its colour back.", "Sketched creatures (half-painted slimes, sketch golems, skeletons, charcoal wolves, ink smudges…), 4 new bosses and the super boss The Blank Canvas, with 6 quests and its chapter and cutscene in the Book of the Bond.", "Strokes: at max level experience keeps adding up (up to 50 Strokes, +0.4% attack, defence and HP each). Mael trades Living Ink for Strokes.", "All new bosses pass the difficulty measurement. Explained in the magnifier › Systems, with an arrow to the bridge."]},
-  {"b": 89, "v": "4.68", "d": "2026-11-15", "es": ["⚖ Dificultad de los 64 jefes medida y ajustada: antes caían en segundos. Ahora, en solitario y con buen equipo, un jefe de zona dura de 1 a 3 minutos, uno de continente de 3 a 5 y los súper jefes de 6 a 10 (Nihil 9, El Sin Nombre 10).", "Con 4 amigos se tarda unos 2/3 de eso y con 2 hijos, un poco menos que solo: siempre se puede pasar solo, con familia o con amigos.", "Solo cambia la vida de los jefes; el PvP no se toca."], "en": ["⚖ The difficulty of all 64 bosses was measured and adjusted: they used to fall in seconds. Now, solo with good gear, a zone boss lasts 1-3 minutes, a continent boss 3-5 and super bosses 6-10 (Nihil 9, the Nameless One 10).", "With 4 friends it takes about 2/3 of that and with 2 kids a bit less than solo: it can always be beaten solo, with family or with friends.", "Only boss HP changes; PvP is untouched."]},
-  {"b": 88, "v": "4.67", "d": "2026-11-15", "es": ["Lupa › Sistemas › «Nihil, el Ente Oscuro»: ahora dice dónde está (Corona del Cielo, en Celestia), el camino de misiones para llegar, cómo vencer cada ataque, sus fases y qué suelta. Con flecha dorada para ir."], "en": ["Magnifier › Systems › \"Nihil, the Dark Entity\": it now says where it is (Crown of the Sky, in Celestia), the quest path to get there, how to beat each attack, its phases and its drops. With a golden arrow to go there."]},
-  {"b": 87, "v": "4.66", "d": "2026-11-15", "es": ["Arreglado el fuego que se quedaba pegado al héroe con la runa de fuego: ahora el aura de la runa solo aparece un instante al golpear a un monstruo, más pequeña y en el arma.", "Opciones › «Aura de armas imbuidas» para apagar todas las auras.", "En la forja puedes quitar la runa del arma, y tocar otra vez la misma Esencia de imbuir la cancela."], "en": ["Fixed the fire stuck to the hero with the fire rune: the rune's aura now only flashes for a moment when you hit a monster, smaller and on the weapon.", "Options › \"Imbued weapon aura\" to turn all auras off.", "At the forge you can remove the weapon's rune, and tapping the same Imbue essence again cancels it."]},
-  {"b": 86, "v": "4.65", "d": "2026-11-15", "es": ["⚠ Nihil renovado con tu dibujo: flota, se ve en las 4 direcciones y tiene 6 ataques nuevos con sus sprites (Orbe Umbrío, Garra del Vacío, Pilar Oscuro, Lluvia de Cristales, Nova Nihil y Prisión Sombría). Todo se avisa en el suelo; al 60 % llama sombras y al 25 % combina ataques. Solo aparece en la Corona del Cielo.", "🔥 Armas imbuidas: fuego, hielo, rayo y agua se ven en tu arma (con tu dibujo) al usar habilidades de ese elemento, con runas o con las nuevas Esencias de imbuir (5 min).", "⚔ Maestría de armas mucho más rápida (sube más con enemigos de nivel alto) y el arma despierta antes.", "🧪 Las pociones curativas esperan 8 s entre una y otra; el botón muestra la cuenta atrás.", "🏛 Museo de aventuras: trofeos de los 64 jefes con su dibujo, hallazgos arqueológicos, medallas de festivales y tus primeras armas. Los aldeanos lo visitan y lo comentan.", "🏠 Casa útil: vitrina, pedestal, taller del artesano, biblioteca, sótano secreto (40 huecos), cama de invitados, macetero mágico, mesa de alquimia y decoración nueva.", "🌙 Jardinería mágica: 6 plantas que crecen con su clima (la Flor Lunar brilla de noche) y elixires de alquimia.", "🤝 Amistades, rivales y mentores: charla cada día, duelos de rivales y técnicas que te enseñan.", "🎉 Festivales cada 3 días: concurso musical, cocina, baile, carrera y apuestas de caracoles.", "🗡 Armas ancestrales con historia: despiertan restaurando su santuario, hablando con quien conoció a su portador y venciendo a su creador.", "📜 Crónicas del mundo en el Libro del Vínculo: jefes, pueblos, familia, descubrimientos, decisiones y secretos sin resolver. 📝 Examen de la Academia con técnica exclusiva.", "Más de 120 objetos nuevos con sprite. Todo explicado en la lupa › Sistemas."], "en": ["⚠ Nihil remade with your drawing: it floats, shows in all 4 directions and has 6 new attacks with their sprites (Umbral Orb, Void Claw, Dark Pillar, Crystal Rain, Nihil Nova and Shadow Prison). Everything is warned on the ground; at 60% it calls shadows and at 25% it combines attacks. It only appears in the Crown of the Sky.", "🔥 Imbued weapons: fire, ice, lightning and water show on your weapon (with your drawing) when using skills of that element, with runes or with the new Imbue essences (5 min).", "⚔ Much faster weapon mastery (more from high-level enemies) and the weapon awakens sooner.", "🧪 Healing potions have an 8 s cooldown; the button shows the countdown.", "🏛 Adventure museum: trophies from the 64 bosses with their drawing, archaeological finds, festival medals and your first weapons. Villagers visit and comment on it.", "🏠 Useful house: display case, pedestal, artisan workshop, library, secret cellar (40 slots), guest bed, magic planter, alchemy table and new decoration.", "🌙 Magic gardening: 6 plants that grow with their weather (the Moonflower glows at night) and alchemy elixirs.", "🤝 Friendships, rivals and mentors: chat every day, rival duels and techniques they teach you.", "🎉 Festivals every 3 days: music contest, cooking, dance, race and snail betting.", "🗡 Ancestral weapons with a story: they awaken by restoring their shrine, talking to whoever knew their bearer and defeating their creator.", "📜 World chronicles in the Book of the Bond: bosses, towns, family, discoveries, decisions and unsolved secrets. 📝 Academy exam with an exclusive technique.", "Over 120 new items with sprites. Everything explained in the magnifier › Systems."]},
-  {"b": 85, "v": "4.64", "d": "2026-11-15", "es": ["🎬 Cinemáticas en pixel art: el pasado del mundo se ve con escenas animadas y tu propio héroe aparece en ellas.", "Prólogo con toda la historia: en el Libro del Vínculo («🎬 Ver el prólogo») y hablando con la Anciana Mira («Ver el pasado»).", "Cada capítulo tiene su cinemática: se ve al descubrirlo hablando con un aldeano y desde el Libro con el botón 🎬 (los siete guardianes, Vael y el Kraken, el Eclipse, el ámbar, el invierno, la Ventisca, los reyes…).", "⚠ Súper jefes: el Desatado, el Señor del Eclipse, Nihil, la Luna Sonriente y El Sin Nombre son jefes de la historia: barra dorada, aviso al aparecer y cinemática al vencerlos.", "Tejedores más grandes y detallados en las escenas."], "en": ["🎬 Pixel art cutscenes: the world's past is shown with animated scenes and your own hero appears in them.", "Prologue with the whole story: in the Book of the Bond (\"🎬 Watch the prologue\") and talking to Elder Mira (\"See the past\").", "Every chapter has its cutscene: it plays when a villager tells it to you and from the Book with the 🎬 button (the seven guardians, Vael and the Kraken, the Eclipse, the amber, the winter, Ventisca, the kings…).", "⚠ Super bosses: the Unbound, the Lord of the Eclipse, Nihil, the Smiling Moon and the Nameless One are story bosses: golden bar, warning when they appear and a cutscene when you defeat them.", "Bigger, more detailed Weavers in the scenes."]},
-  {"b": 84, "v": "4.63", "d": "2026-11-15", "es": ["🏆 Top con tu héroe: cada fila del top muestra al personaje tal como iba la última vez que jugó (ropa, armadura, arma, cosméticos, cuerpo y subraza). Si te cambias, cambia en el top.", "👗 Nueva pestaña Moda: ranking de quién tiene más prendas distintas, contando cosméticos del armario y todas las armaduras conseguidas.", "Explicado en la lupa › Sistemas."], "en": ["🏆 Top with your hero: every row of the top shows the character as they were dressed the last time they played (clothes, armour, weapon, cosmetics, body and subrace). If you change, the top changes too.", "👗 New Fashion tab: ranking of who owns the most different clothes, counting wardrobe cosmetics and every armour piece obtained.", "Explained in the magnifier › Systems."]},
-  {"b": 83, "v": "4.62", "d": "2026-11-15", "es": ["Ropa rasgada de mujer: la ropa sigue puesta y rasgada, y debajo lleva un top que se ve por los rotos del pecho; por los rotos del vientre se ve la piel."], "en": ["Torn women's clothes: the clothes stay on and torn, with a top underneath visible through the rips on the chest; skin shows through the rips on the belly."]},
-  {"b": 82, "v": "4.61", "d": "2026-11-15", "es": ["El castillo de la Academia Arcana se abre: acércate al portón. Dentro hay un gran salón con alfombra morada, vidrieras, la directora y tres aulas (Fuego, Hielo y Runas) con 18 alumnos que van a clase y salen al recreo. Los profesores enseñan en voz alta. Siéntate en un pupitre durante la clase: Polvo Arcano y experiencia.", "Ropa rasgada de mujer: ya no queda un top; la ropa sigue puesta con jirones y agujeros en el vientre y el bajo en picos (el pecho siempre protegido). Los rotos de chico y chica usan siempre el color de tu piel.", "Kaela, la Loba del Velo (Velo Roto, cerca de la llegada): chica loba de pelo negro, orejas, cola y colmillos, vestido de jirones, medias de pelaje y boina roja. Se puede enamorar y casar.", "Kaela es la pareja más fuerte: lucha a tu lado sin armadura con su propio nivel (sube hasta 350), tiene vida, aúlla para curarte y habla según lo que pase. Con 6 corazones se transforma en loba y puedes subirte a su lomo (se ve online). También te regala su ropa.", "Hijos con Kaela: nacen híbridos (orejas, cola y colmillos del color de su pelo) y de jóvenes pueden pasar a forma híbrida con pelaje y hocico."], "en": ["The Arcane Academy castle opens: walk up to the gate. Inside there's a great hall with a purple carpet, stained glass, the headmistress and three classrooms (Fire, Ice and Runes) with 18 students who go to class and out to break. Professors teach out loud. Sit at a desk during class: Arcane Dust and experience.", "Torn women's clothes: no more top; the clothes stay on with rips and holes over the belly and a jagged hem (the chest is always protected). Rips on men and women always use your skin colour.", "Kaela, the Veil She-Wolf (Broken Veil, near the arrival point): a wolf girl with black hair, ears, tail and fangs, a tattered dress, fur stockings and a red beret. She can be romanced and married.", "Kaela is the strongest partner: she fights by your side without armour at her own level (up to 350), has HP, howls to heal you and talks about what's happening. At 6 hearts she turns into a wolf and you can ride on her back (visible online). She also gives you her clothes.", "Children with Kaela: born hybrids (ears, tail and fangs in their hair colour) and as young adults they can switch to a hybrid form with fur and snout."]},
-  {"b": 81, "v": "4.60", "d": "2026-11-15", "es": ["Academia Arcana en el Velo Roto (runa azul junto a la llegada): castillo bajo un cielo de estrellas en espiral, camino de piedra azul con faroles, la Archimaga Ondine, los profesores Ignar (fuego), Nevia (hielo) y Orvel (arcano), alumnos y biblioteca.", "Lecciones diarias con cada profesor (toca 10 runas en 35 s): Polvo Arcano, experiencia y oro. La biblioteca tiene libros con historias que también dan Polvo Arcano.", "Libros mágicos (Librera Folia): vuelan a tu lado 1 minuto y lanzan hechizos con tu fuerza: Fuego, Hielo, Trueno, Arcano, Sanación y Escudo. Se gastan; se compran en packs de 3. Los demás jugadores los ven online.", "Escobas voladoras (Maese Ramas): Escoba voladora y Escoba astral con estela de estrellas. Son monturas y se ven online.", "Túnica y Sombrero de la Academia.", "El top que queda al destrozarse la ropa de mujer ahora es más pequeño: solo una banda sobre el pecho, con hombros, vientre y brazos al aire."], "en": ["Arcane Academy in the Broken Veil (blue rune by the arrival point): a castle under a spiralling starry sky, a blue stone path with lanterns, Archmage Ondine, professors Ignar (fire), Nevia (ice) and Orvel (arcane), students and a library.", "Daily lessons with each professor (touch 10 runes in 35 s): Arcane Dust, experience and gold. The library has storybooks that also give Arcane Dust.", "Magic books (Librarian Folia): they fly by your side for 1 minute and cast spells with your power: Fire, Ice, Thunder, Arcane, Healing and Shield. They're consumed; sold in packs of 3. Online players see them.", "Flying brooms (Master Twig): Flying broom and Astral broom with a star trail. They're mounts and visible online.", "Academy Robe and Hat.", "The top left when women's clothes are torn apart is now smaller: just a band over the chest, with shoulders, belly and arms bare."]},
-  {"b": 80, "v": "4.59", "d": "2026-11-15", "es": ["Nuevo Devorador Carmesí (Luna de Sangre) con el diseño de Sergio: boca llena de colmillos, garras y núcleo de luz, con frente, perfil y espalda, caminata y ataque.", "Ropa de mujer muy dañada (menos de un cuarto de vida): la tela del vientre se destroza y queda un top oscuro que cubre el pecho.", "Frío: en los Picos Helados o cuando nieva sube tu medidor ❄. Las 14 antorchas nuevas de los Picos, las hogueras y estar bajo techo te calientan. Si llega al 100 % te resfrías.", "Enfermedades: Resfriado, Gripe, Fiebre del pantano, Intoxicación (picaduras venenosas) e Infección (heridas). Cada una baja algo (velocidad, ataque, vida o maná), tiene sus síntomas y se cura sola en unos días.", "Lesiones: los golpes de enemigos mucho más fuertes pueden darte una Contusión, un Esguince (cojeas) o romperte la pierna (vas gateando). Se ve en cualquier ropa, cuerpo y clase, también online.", "Médica Iris en Albor (con uniforme de enfermería y cofia): cura enfermedades y lesiones a cambio de oro, vende su uniforme y cofia y se puede enamorar.", "Todo explicado en la lupa › Sistemas › Enfermedades, lesiones y frío."], "en": ["New Crimson Devourer (Blood Moon) with Sergio's design: a mouth full of fangs, claws and a light core, with front, side and back views, walking and attacking.", "Badly damaged women's clothes (below a quarter of HP): the fabric over the belly is torn away, leaving a dark top that covers the chest.", "Cold: in the Frozen Peaks or when it snows your ❄ meter rises. The 14 new torches in the Peaks, campfires and being indoors warm you up. At 100% you catch a cold.", "Illnesses: Cold, Flu, Swamp fever, Poisoning (venomous bites) and Infection (wounds). Each lowers something (speed, attack, HP or mana), has symptoms and heals by itself in a few days.", "Injuries: hits from much stronger enemies can give you a Bruise, a Sprain (you limp) or a broken leg (you crawl). It shows on any clothes, body and class, also online.", "Doctor Iris in Albor (in a nurse uniform and cap): cures illnesses and injuries for gold, sells her uniform and cap, and can be romanced.", "All explained in the magnifier › Systems › Illness, injuries and cold."]},
-  {"b": 79, "v": "4.58", "d": "2026-11-15", "es": ["La ropa de los cuerpos femeninos se rasga un poco más con poca vida: más rotos y más grandes en cintura, costados, brazos y piernas (el pecho sigue protegido)."], "en": ["Clothes on female bodies tear a bit more at low health: more and bigger rips at the waist, sides, arms and legs (the chest stays protected)."]},
-  {"b": 78, "v": "4.57", "d": "2026-11-15", "es": ["Ropa desgarrada según tu vida: con menos de la mitad aparecen rotos en la ropa, la armadura y los cosméticos, y raspones rojos; con menos de un cuarto, más rotos, bordes deshilachados y gotas de sangre. Funciona con todas las prendas y estructuras de cuerpo, protege el pecho de los cuerpos femeninos y se arregla al curarte por encima del 60 %. Se ve online."], "en": ["Torn clothes based on your health: below half, rips appear in your clothes, armour and cosmetics, plus red scratches; below a quarter, more rips, frayed edges and drops of blood. It works with every item and body type, protects the chest on female bodies and is fixed when you heal above 60%. Visible online."]},
-  {"b": 77, "v": "4.56", "d": "2026-11-15", "es": ["El poder vuelve a calcularse como antes (sin el ×10). Los rangos de la Torre, los títulos y la guía vuelven a sus números.", "Números grandes y claros en la ficha del personaje: el poder sale grande y dorado, y la vida, el maná, el ataque, la experiencia y los atributos usan una letra que se lee bien (la pixelada confundía el 8 con la S). El cristal de la Torre también."], "en": ["Power is calculated as before again (no ×10). Tower ranks, titles and the guide go back to their numbers.", "Big, clear numbers in the character sheet: power is shown big and golden, and HP, mana, attack, experience and attributes use an easy-to-read font (the pixel font made 8 look like S). The Tower crystal too."]},
-  {"b": 76, "v": "4.55", "d": "2026-11-15", "es": ["Arreglado: los títulos, el título equipado y otros datos nuevos no se guardaban; por eso volvía a salir «Nuevo título: Aprendiz». Ahora se guardan (los ganados antes de esta versión se recuperan solos al cumplir su condición).", "El poder ahora se muestra ×10 para que los números se lean mejor (antes ~4.000, ahora ~40.000). Los rangos de la Torre, los títulos y la guía de la lupa usan la escala nueva. Vuelve a medir tu poder en el cristal.", "El equipo de tus hijos, nietos y bisnietos es suyo: ya no se lo puedes quitar. Sí puedes darles algo mejor; lo que llevaban se queda en su propia mochila."], "en": ["Fixed: titles, the equipped title and other new data weren't saved; that's why \"New title: Apprentice\" kept appearing. Now they are saved (titles earned before this version come back on their own when their condition is met).", "Power is now shown ×10 so the numbers read better (before ~4,000, now ~40,000). Tower ranks, titles and the magnifier guide use the new scale. Measure your power at the crystal again.", "Your children's, grandchildren's and great-grandchildren's gear is theirs: you can no longer take it. You can give them something better; what they wore stays in their own bag."]},
-  {"b": 75, "v": "4.54", "d": "2026-11-15", "es": ["Hijos, nietos y bisnietos: ya no puedes quitarles armas, armaduras o herramientas de más nivel que el tuyo si tú nunca las conseguiste. Si alguna vez la tuviste o ya tienes el nivel, sí.", "Menos curación enemiga: las invocaciones de los jefes ya no salen como Curandero, el Curandero cura un 8 % cada 5 s (a un jefe solo un 1,5 %) y ningún jefe puede recuperar más de un 0,6 % de vida por segundo mientras luchas (Devorador Carmesí, Obispo Hueco y todos los demás).", "Mucho más fluido con muchos enemigos: los enemigos de la Luna de Sangre, corruptos y sombras ya no se tiñen en cada fotograma (era lo que más lag daba), el velo rojo se prepara una vez, los sonidos de golpe no se amontonan y las partículas y números se reducen solo cuando hay demasiados."], "en": ["Children, grandchildren and great-grandchildren: you can no longer take weapons, armour or tools above your level from them if you never got them yourself. If you had it before or have the level, you can.", "Less enemy healing: boss summons no longer spawn as Healers, Healers heal 8% every 5 s (only 1.5% to a boss) and no boss can recover more than 0.6% HP per second while you fight (Crimson Devourer, Hollow Bishop and all the others).", "Much smoother with lots of enemies: Blood Moon, corrupted and shadow enemies are no longer tinted every frame (the biggest cause of lag), the red veil is prepared once, hit sounds don't pile up, and particles and numbers are reduced only when there are too many."]},
-  {"b": 74, "v": "4.53", "d": "2026-11-15", "es": ["Títulos: 26 títulos que se ganan por tu poder (Aprendiz, Veterano, Élite, Héroe, Leyenda, Mito Inmortal) y por logros (nivel máximo, clase despertada, Arma Velada, +10, arma despertada, maestría 50, rangos de la Torre, subrazas, boda, Coliseo, misiones diarias, ropa gótica, oro…).", "Se equipan en el Armario › Títulos y salen encima de tu personaje con letras de colores, borde, adornos y brillo animado. Los demás jugadores los ven online encima de tu nombre.", "Lupa › Sistemas: guías nuevas de Camino al poder máximo, Arma Velada (cómo conseguirla), Herrería (+10), Arma despertada, Maestría 50, Clase despertada y Títulos."], "en": ["Titles: 26 titles earned by your power (Apprentice, Veteran, Elite, Hero, Legend, Immortal Myth) and by achievements (max level, awakened class, Veiled Weapon, +10, awakened weapon, mastery 50, Tower ranks, subraces, wedding, Coliseum, daily quests, gothic clothes, gold…).", "Equip them in Wardrobe › Titles; they show above your character with coloured letters, outline, ornaments and animated shine. Other players see them online above your name.", "Magnifier › Systems: new guides for Road to max power, Veiled Weapon (how to get it), Blacksmith (+10), Awakened weapon, Mastery 50, Awakened class and Titles."]},
-  {"b": 73, "v": "4.52", "d": "2026-11-15", "es": ["Arreglado: el número de poder no contaba todos tus bonus (maestría, arma despertada, clase despertada…) si no tenías subraza. Ahora el poder del menú y el del cristal de la Torre incluyen todo.", "La clase despertada ahora fortalece a todas las clases: +10 % de ataque, +8 % de vida y +8 % de defensa, además de su bonus propio."], "en": ["Fixed: the power number didn't count all your bonuses (mastery, awakened weapon, awakened class…) unless you had a subrace. Now the menu power and the Tower crystal include everything.", "Awakened class now strengthens every class: +10% attack, +8% HP and +8% defence, on top of its own bonus."]},
-  {"b": 72, "v": "4.51", "d": "2026-11-15", "es": ["Lupa › Sistemas › Ropa gótica y de cazador: dónde conseguir cada prenda gótica (con su precio), las pelucas, las gafas, el maquillaje blanco y la ropa de cazador."], "en": ["Magnifier › Systems › Gothic and hunter clothes: where to get each gothic item (with its price), the wigs, the glasses, the white makeup and the hunter clothes."]},
-  {"b": 71, "v": "4.50", "d": "2026-11-15", "es": ["Taller de Morwenna renovado con ropa gótica nueva y distinta: Vestido de Campana con Corsé (cadenas y cruz ansada), Vestido Romántico de Encaje, Top de Malla y Gargantilla, Chaleco de Tachas y Encaje, Top de Hombros Caídos y Rosario, Top de Tiras y Malla, Vestido de Campana Vino, Falda de Cuero con Cadenas, Falda Tutú y Medias Rotas, Pantalón de Cuero con Cordones y Botas de Plataforma.", "Pelucas góticas (Bob con Flequillo, Cardada, Larga Ondulada Morada, Melena Ondulada) y Gafas Redondas. Se ajustan a todos los cuerpos.", "Nueva opción en el editor (Pelo): Maquillaje blanco gótico en la piel. Se ve online, igual que el labial.", "La ropa de cazador de la Torre ya no es una copia en negro: la Chaqueta de Cazador tiene cuello alto, cremallera e insignia; la de Cuero, cremallera cruzada y tachas; la Sudadera, bolsillo y cordones; y la Ropa Negra es ahora un chaleco táctico con bolsillos.", "Los cazadores esquivan con dash: en los duelos detectan tus habilidades y se apartan, en el Coliseo esquivan el poder del rival y en las mazmorras salen de las zonas rojas.", "Combate online en el Coliseo: desde el menú de torneos invita a un jugador conectado; si acepta, los dos aparecéis en la arena, cuenta atrás y a luchar. Quien cae pierde el combate (sin quedar derribado)."], "en": ["Morwenna's workshop renewed with new, distinct gothic clothes: Bell-Sleeve Corset Dress (chains and ankh), Romantic Lace Dress, Mesh Top and Choker, Studded Vest and Lace, Off-Shoulder Top and Rosary, Strappy Mesh Top, Wine Bell-Sleeve Dress, Chained Leather Skirt, Tutu Skirt and Ripped Tights, Lace-Up Leather Pants and Platform Boots.", "Gothic wigs (Bob with Bangs, Teased, Long Wavy Purple, Wavy Shoulder Hair) and Round Glasses. They fit every body.", "New editor option (Hair): white gothic skin makeup. Visible online, like lipstick.", "Tower hunter clothes are no longer black copies: the Hunter Jacket has a high collar, zip and badge; the Leather one a cross zip and studs; the Hoodie a pocket and strings; and Black Clothes is now a tactical vest with pouches.", "Hunters dodge with a dash: in duels they sense your skills and jump aside, in the Coliseum they dodge the rival's power and in dungeons they dash out of red zones.", "Online Coliseum fights: from the tournament menu invite an online player; if they accept, you both appear in the arena, countdown and fight. Whoever falls loses the fight (without being downed)."]},
-  {"b": 70, "v": "4.49", "d": "2026-11-15", "es": ["La Misión diaria del Sistema ahora te sube 1 nivel al día (más esencias y oro) en vez de dar puntos de atributo, para no romper el equilibrio. En el nivel máximo da esencias y oro extra."], "en": ["The System Daily Quest now gives you 1 level a day (plus essences and gold) instead of attribute points, to keep the balance. At max level it gives extra essences and gold."]},
-  {"b": 69, "v": "4.48", "d": "2026-11-15", "es": ["La Torre de los Portales crece: tres puertas nuevas en el vestíbulo.", "Antesala de los Portales: un gran salón con alfombra roja, columnas, estatuas, braseros y las 8 puertas gigantes con su nombre y nivel (rojas si aún no puedes), guardias y el tablón de puertas.", "Coliseo de Cazadores: torneos de duelos (8 cazadores), por parejas y batalla real de 6. Se ven en vivo en la arena desde las gradas, con el público animando, o de cerca en modo espectador. Puedes apostar al campeón y retarlo después.", "Salón de Pruebas: prueba de fuerza (daño en 10 s), de resistencia (aguanta oleadas 45 s), de velocidad (recoge 10 luces), examen de ascenso de rango contra un examinador y la Misión diaria del Sistema (+2 puntos de atributo al día).", "30 cazadores nuevos con el estilo del juego: capuchas, capas, máscaras, armaduras y bufandas. Conviven con los de estilo anime.", "El medidor de poder ahora da el mismo número que el menú del personaje. Los cazadores ya no pasan del nivel 350."], "en": ["The Portal Tower grows: three new doors in the lobby.", "Portal Antechamber: a great hall with a red carpet, pillars, statues, braziers and the 8 giant gates with their name and level (red if you can't enter yet), guards and the gate board.", "Hunters' Coliseum: duel tournaments (8 hunters), pairs and a 6-way battle royale. Watch live in the arena from the stands, with a cheering crowd, or up close in spectator mode. Bet on the champion and challenge them afterwards.", "Trial Hall: strength trial (damage in 10 s), endurance (survive waves for 45 s), speed (collect 10 lights), a rank-up exam against an examiner and the System Daily Quest (+2 attribute points a day).", "30 new hunters in the game's style: hoods, capes, masks, armour and scarves. They live alongside the anime-style ones.", "The power meter now shows the same number as the character menu. Hunters no longer go above level 350."]},
-  {"b": 68, "v": "4.47", "d": "2026-11-15", "es": ["Cazadores con poder propio, como jugadores: estadísticas de su nivel y clase, mejor equipo de su nivel, pasivas, rango y maestría de arma que sube matando enemigos.", "Cazadores más listos: cada uno elige un enemigo distinto, se reparten alrededor, priorizan al jefe y a los heridos, esquivan las zonas rojas, usan la técnica de su arma, beben pociones y los bardos y los de agua curan al equipo.", "Mazmorras de verdad: los enemigos ya no vuelven a salir ni el jefe reaparece. Te avisa de cuántos quedan y cuando el portal está limpio.", "Modo espectador: los compañeros siguen al líder y exploran juntos hasta el jefe. Tú solo miras: no puedes atacar ni ganar maestría ni experiencia.", "Los 12 enemigos de las mazmorras, el Alfa Nocturno y el Señor de las Tormentas se ven como en las imágenes de Sergio. Los jefes tienen 4 direcciones.", "Morwenna, Lilith, Nyx, Raven y Dorian con su nuevo diseño gótico en 4 direcciones y con caminata. Ahora se pueden enamorar: regalos, citas, besos y boda."], "en": ["Hunters with their own power, like players: stats for their level and class, best gear for their level, passives, rank and weapon mastery that grows by killing enemies.", "Smarter hunters: each picks a different enemy, they spread out, focus the boss and wounded foes, dodge red zones, use their weapon technique, drink potions, and bards and water users heal the team.", "Real dungeons: enemies no longer respawn and the boss doesn't come back. You're told how many are left and when the portal is clear.", "Spectator mode: teammates follow the leader and explore together to the boss. You only watch: no attacking, no mastery or experience.", "The 12 dungeon enemies, the Night Alpha and the Lord of Storms look like Sergio's images. Bosses have 4 directions.", "Morwenna, Lilith, Nyx, Raven and Dorian with their new gothic design in 4 directions with walking. They can now be romanced: gifts, dates, kisses and wedding."]},
-  {"b": 67, "v": "4.46", "d": "2026-11-15", "es": ["Cazadores nuevos estilo anime, sacados de la imagen de Sergio: 15 diseños (capas, abrigos, garras, bastones, gemas) y 11 cazadoras de pelo largo, con frente, espalda y perfil, caminata y ataque.", "Cada cazador tiene su propio color de ropa y de pelo (rosa, azul, violeta, menta, rubio…), así no hay dos iguales. Los gigantes se ven más grandes. Los 6 legendarios también tienen su diseño nuevo.", "El Titán Carmesí de la Cripta del Gólem Rojo se ve como en la imagen: armadura roja agrietada, garras doradas, ojos amarillos y núcleo de luz que late.", "Navidad con nieve: durante todo el último mes y el día de Año Nuevo nieva y el suelo de todo el mundo se cubre de blanco (menos el desierto y el volcán)."], "en": ["New anime-style hunters taken from Sergio's image: 15 designs (capes, coats, claws, staves, gems) and 11 long-haired huntresses, with front, back and side views, walking and attacking.", "Every hunter has their own clothing and hair color (pink, blue, violet, mint, blond…), so no two look the same. Giants look bigger. The 6 legendaries also have their new design.", "The Crimson Titan in the Red Golem Crypt looks like the image: cracked red armor, golden claws, yellow eyes and a pulsing light core.", "Snowy Christmas: during the whole last month and on New Year's Day it snows and the ground of the whole world turns white (except desert and volcano)."]},
-  {"b": 66, "v": "4.45", "d": "2026-11-15", "es": ["Dos cuerpos nuevos al crear o cambiar tu personaje: Esbelto (hombre) y Atlética (mujer). Toda la ropa, armaduras y cosméticos se ajustan a ellos.", "NPCs góticas: Morwenna en Albor (costurera con tienda de ropa gótica: vestido, corsé, velo, capa de encaje, guantes, gargantilla y botas), Lilith en el puerto, Nyx en Arxar, Raven en Sahrim y Dorian en Yarakai.", "Fiestas en los pueblos según el calendario del juego: Semana Santa (alfombras de flores, palmas y procesión), Fiesta del Sol, Mes Morado (procesión morada con anda, velas y turrón), Día de las Ánimas (altar y pan de ánimas), Navidad (árbol con regalo, nacimiento y panetón) y Año Nuevo (fuegos artificiales).", "Las comidas de cada fiesta dan una bendición especial. Todo está en la lupa › Sistemas › Fiestas."], "en": ["Two new bodies when creating or changing your character: Slim (male) and Athletic (female). All clothes, armor and cosmetics fit them.", "Gothic NPCs: Morwenna in Albor (seamstress with a gothic clothing shop: dress, corset, veil, lace cape, gloves, choker and boots), Lilith at the port, Nyx in Arxar, Raven in Sahrim and Dorian in Yarakai.", "Town festivals following the game calendar: Holy Week (flower carpets, palms and procession), Sun Festival, Purple Month (purple procession with float, candles and turrón), Day of Souls (altar and souls bread), Christmas (tree with a gift, nativity and panettone) and New Year (fireworks).", "Each festival's food gives a special blessing. Everything is in the magnifier › Systems › Festivals."]},
-  {"b": 65, "v": "4.44", "d": "2026-11-15", "es": ["Cazadores mucho más variados: cuerpos normales, altos, robustos y gigantes, capas del color de su poder, armaduras, máscaras, bufandas, barbas, ojos brillantes y armas según su clase.", "Poderes con animación propia: pilares de fuego, cristales de hielo, picos de roca, tornados, olas de agua, runas mentales y, nuevos, sombras y rayos.", "Rangos por encima de Astral: Nacional y Mundial. Seis cazadores legendarios en la Torre (Vaelor, el Monarca de las Sombras; Thorgar, la Bestia Dorada; Ilhan, el Sabueso Carmesí; Kiro, el de la Máscara de Gas; la Doctora Seren y Brutus, el Muro), de nivel 430 a 520: no se unen a nadie.", "Duelos de entrenamiento en la Torre: reta a cualquier cazador (o a un legendario, imposible por ahora). Notas la diferencia de poder en vida, daño y poderes; a 1 de vida el duelo termina y no mueres. Ganar da maestría y esencias.", "Modo espectador: en las retransmisiones pulsa «Ver en directo» y entra a ver al cazador (o a su equipo) recorrer la mazmorra y luchar. Tú eres invisible; sales desde el botón ⛩.", "Maquillaje nuevo: ojeras y ojeras con delineado. Labial negro, rojo, granate, morado, rosa y azul (pestaña Pelo). Se ve en el online."], "en": ["Much more varied hunters: normal, tall, burly and giant bodies, capes in their power's colour, armour, masks, scarves, beards, glowing eyes and weapons by class.", "Powers with their own animation: fire pillars, ice crystals, rock spikes, tornadoes, water waves, mind runes and, new, shadows and lightning.", "Ranks above Astral: National and World. Six legendary hunters in the Tower (Vaelor, the Shadow Monarch; Thorgar, the Golden Beast; Ilhan, the Crimson Hound; Kiro, the Gas Mask; Doctor Seren and Brutus, the Wall), level 430 to 520: they team up with nobody.", "Training duels in the Tower: challenge any hunter (or a legendary one, impossible for now). You feel the power gap in HP, damage and powers; at 1 HP the duel ends and you don't die. Winning gives mastery and essences.", "Spectator mode: in the broadcasts press \"Watch live\" and go in to watch the hunter (or their team) explore the dungeon and fight. You are invisible; leave from the ⛩ button.", "New makeup: dark circles and dark circles with eyeliner. Black, red, burgundy, purple, pink and blue lipstick (Hair tab). Visible online."]},
-  {"b": 64, "v": "4.43", "d": "2026-11-15", "es": ["Arreglado: el error rojo «Maximum call stack size exceeded» al salir de una mazmorra (pasaba si se pisaba otra vez la salida mientras cargaba). Ahora siempre sales bien, aunque falte el punto de vuelta.", "Arreglado: en la Torre de los Portales la ventana de retransmisiones se abría sola al caminar.", "Cazadores mucho más útiles: pegan según su propio nivel y rango (uno de más nivel pega mucho más) y aguantan más.", "Los cazadores de más de 20 niveles por encima del tuyo no aceptan ir contigo.", "Jefes menos inflados: los cazadores cuentan medio y los hijos un tercio para el escalado del equipo, y los jefes de las mazmorras tienen un 30 % menos de vida."], "en": ["Fixed: the red error \"Maximum call stack size exceeded\" when leaving a dungeon (it happened if you stepped on the exit again while loading). You now always get out, even if the return point is missing.", "Fixed: in the Portal Tower the broadcast window opened by itself while walking.", "Hunters are much more useful: they hit based on their own level and rank (a higher-level one hits much harder) and are tougher.", "Hunters more than 20 levels above you refuse to go with you.", "Less bloated bosses: hunters count as half and kids as a third for team scaling, and dungeon bosses have 30% less HP."]},
-  {"b": 63, "v": "4.42", "d": "2026-11-14", "es": ["Ropa de cazador (cofres de los portales y Tienda del Portal): Chaqueta de Cazador, Chaqueta de Cuero Negra, Gabardina Nocturna, Chaqueta Astral, Ropa Negra, Sudadera Oscura, tres capuchas, pantalones y falda negros, botas y zapatillas negras y dos capas. Se ajustan a las 8 estructuras de cuerpo (con busto en mujer).", "Anillos de Cazador (Hierro, Plata, Oro, Platino y Astral), tan buenos como los mejores accesorios de su nivel.", "6 peinados emo nuevos (3 para chicas y 3 para chicos) con flequillo largo que tapa un ojo.", "Maquillaje de ojos en la creación, la peluquería y el estilo de los hijos (pestaña Pelo): delineado negro, sombras morada, roja y azul, pestañas largas y ojos ahumados.", "Aspectos de arma: 8 aspectos (Acero Pulido, Plata Lunar, Oro Real, Mithril Azur, Obsidiana, Cristal Celeste, Sombra Eclipsada y Luna Sonriente) que cambian solo el dibujo de tu arma, no el daño. Los demás jugadores también lo ven."], "en": ["Hunter clothes (portal chests and Portal Shop): Hunter Jacket, Black Leather Jacket, Night Trench Coat, Astral Jacket, Black Clothes, Dark Hoodie, three hoods, black trousers and skirt, black boots and sneakers and two capes. They fit all 8 body builds (with bust on women).", "Hunter Rings (Iron, Silver, Gold, Platinum and Astral), as good as the best accessories of their level.", "6 new emo hairstyles (3 for girls and 3 for boys) with a long fringe covering one eye.", "Eye makeup in character creation, the hairdresser and kids' style (Hair tab): black eyeliner, purple, red and blue shadow, long lashes and smoky eyes.", "Weapon looks: 8 looks (Polished Steel, Lunar Silver, Royal Gold, Azure Mithril, Obsidian, Celestial Crystal, Eclipsed Shadow and Smiling Moon) that only change your weapon's art, not its damage. Other players see it too."]},
-  {"b": 62, "v": "4.41", "d": "2026-11-14", "es": ["Torre de los Portales: un gran centro de cazadores blanco con Selene (la recepcionista de azul), el cristal que mide tu poder y te da rango (Cobre, Hierro, Plata, Oro, Platino y Astral), el ranking, pantallas para ver en directo a los cazadores dentro de los portales y la tienda de esencias.", "40 cazadores vivos con nombre, aspecto, clase, poder (fuego, hielo, roca, aire, agua o mente), rango y nivel propios, algunos robustos y grandes. Entran solos en portales, suben de nivel y de rango y tienen sus diálogos.", "Botón ⛩ Mazmorras (desde nivel 50): las mazmorras del mundo en el que estás. Mundo principal: nivel 50, 100, 150, 250 y 340. También en el Archipiélago (170), las Islas del Cielo (210) y el Velo Roto (300).", "Mazmorras en solitario o en equipo de 4: vas con 3 cazadores (invítalos hablando con ellos). Luchan con sus poderes, los enemigos van a por todos y ves la vida del equipo arriba a la izquierda, como en el online.", "Enemigos nuevos en el bestiario: Gólem Rojo, Elemental de Roca, Araña del Portal, Lobo Nocturno, Cazador Corrupto, Lagarto Ígneo, Elementales de Fuego y de Hielo, Escarabajo de Acero, Sapo Abisal, Espectro del Portal y Gólem del Vacío. Jefes: Titán Carmesí, Alfa Nocturno, Reina Arácnida, Rey Sapo Abisal, Señor de las Tormentas, Señor Elemental, El Cazador Caído y el Monarca del Vacío.", "Al cerrar un portal sale un cofre con oro, experiencia, esencias de portal y equipo de tu nivel (más en equipo)."], "en": ["Portal Tower: a large white hunters' hub with Selene (the receptionist in blue), the crystal that measures your power and gives you a rank (Copper, Iron, Silver, Gold, Platinum and Astral), the ranking, screens to watch hunters live inside portals and the essence shop.", "40 living hunters with their own name, look, class, power (fire, ice, rock, air, water or mind), rank and level, some of them big and burly. They go into portals alone, level up, rank up and have their own dialogue.", "⛩ Dungeons button (from level 50): the dungeons of the world you are in. Main world: level 50, 100, 150, 250 and 340. Also in the Archipelago (170), Sky Isles (210) and Broken Veil (300).", "Dungeons solo or as a team of 4: you go with 3 hunters (invite them by talking to them). They fight with their powers, enemies go for everyone and you see the team's HP at the top left, like online.", "New enemies in the bestiary: Red Golem, Rock Elemental, Portal Spider, Night Wolf, Corrupted Hunter, Igneous Lizard, Fire and Ice Elementals, Steel Beetle, Abyssal Toad, Portal Wraith and Void Golem. Bosses: Crimson Titan, Night Alpha, Portal Spider Queen, Abyssal Toad King, Lord of Storms, Elemental Lord, The Fallen Hunter and the Void Monarch.", "Closing a portal drops a chest with gold, experience, portal essences and gear for your level (more as a team)."]},
-  {"b": 61, "v": "4.40", "d": "2026-11-14", "es": ["Hijos, nietos y bisnietos usan 4 habilidades de su clase como tú (según su nivel). En su panel eliges cuáles y las cambias cuando quieras; las nuevas se añaden solas si hay hueco.", "Hijos invocadores: capturan almas al derrotar enemigos (hasta 8), invocan espíritus que luchan por ellos (1, 2 desde nivel 60 y 3 desde nivel 150) y en su panel marcas con ★ las que quieres o borras las que no.", "Se equipan lo mejor que encuentran o forjan en sus expediciones, aunque supere a tu equipo, y pueden llegar a ser más fuertes que tú (hasta 1,5 veces).", "Los jefes también van a por tus hijos: cambian de objetivo cada pocos segundos entre tú y los que te acompañan.", "Escalado por equipo: con más jugadores del grupo cerca o con hijos acompañándote, los jefes ganan vida (+55 % por miembro) y algo de daño, y los enemigos normales también un poco. Solo, todo queda igual.", "Jefes de nivel 200 o más: un 20 % menos de vida (el informe de equilibrio daba de 2 a 6 minutos en solitario).", "Armas: la penalización del arma vieja cuenta desde la mejor arma que existe para tu nivel (entre los niveles 250 y 300 no hay armas nuevas y antes perdías la mitad del ataque)."], "en": ["Kids, grandkids and great-grandkids use 4 skills of their class like you (by level). In their panel you choose which and change them anytime; new ones are added automatically if there is room.", "Summoner kids: they capture souls when defeating enemies (up to 8), summon spirits that fight for them (1, 2 from level 60 and 3 from level 150) and in their panel you ★ the ones you want or delete the rest.", "They equip the best they find or forge on expeditions, even if it beats your gear, and can become stronger than you (up to 1.5 times).", "Bosses also go for your kids: they switch targets every few seconds between you and the kids with you.", "Team scaling: with more party players nearby or kids following you, bosses gain HP (+55% per member) and some damage, and normal enemies a little. Solo, nothing changes.", "Bosses of level 200+: 20% less HP (the balance report gave 2 to 6 minutes solo).", "Weapons: the old-weapon penalty now counts from the best weapon that exists for your level (there are no new weapons between levels 250 and 300 and you used to lose half your attack)."]},
-  {"b": 60, "v": "4.39", "d": "2026-11-14", "es": ["Arreglado: al salir de casa durante la fiesta familiar el juego se congelaba con un error rojo. Ahora la fiesta siempre te deja en la puerta de tu casa y, si la posición de vuelta fallara, sales igualmente sin bloquearse.", "En el panel ❤ Familia ya puedes llamar también a los hijos, nietos y bisnietos que están de expedición: vuelven y se unen a tu equipo si hay hueco (si no, esperan en casa)."], "en": ["Fixed: leaving the house during the family party froze the game with a red error. The party now always leaves you at your house door and, if the return position ever failed, you still get out without freezing.", "In the ❤ Family panel you can now also call kids, grandkids and great-grandkids who are on an expedition: they come back and join your team if there is room (otherwise they wait at home)."]},
-  {"b": 59, "v": "4.38", "d": "2026-11-14", "es": ["Armas: un arma de tu nivel (hasta 10 niveles por debajo) da +10 % de ataque, y un arma vieja pierde más: desde 12 niveles por debajo, un 2,5 % por nivel (hasta −55 %). Ya no sirve llevar la espada de cobre todo el juego.", "Lupa › 📘 Sistemas: explica paso a paso armas, maestría, posturas, elementos, puntos débiles de jefes, enemigos en equipo, combos, pueblos y alcalde, forja, alquimia, sueños, escalada y profundidades, familia y top, con flecha dorada cuando hay un sitio.", "Tus dos parejas a la vez: con una acompañándote, pídele a la otra «Acompáñame tú también ♥». Te siguen las dos (la segunda da +5 % de ataque y defensa) y los demás jugadores las ven.", "Al llamar a un hijo, nieto o bisnieto desde el botón ❤ se une a tu equipo si hay hueco (como mucho 2 a la vez), así que los demás jugadores también lo ven. Desde ese panel también llamas a tus parejas.", "Casa de hasta 4 pisos: escaleras en el rincón de tu casa. Piso 2: dormitorios de la familia (ahí duermen tus hijos y nietos), piso 3: salón de fiestas y piso 4: terraza mirador.", "Fiesta familiar (botón ❤): toda tu familia, las parejas de tus hijos y tus parejas en tu casa (en el salón si lo tienes), con baile, confeti y globos de diálogo. Da Alegría familiar: +10 % de experiencia y +5 % de ataque durante 30 minutos."], "en": ["Weapons: a weapon at your level (up to 10 levels below) gives +10% attack, and an old weapon loses more: from 12 levels below, 2.5% per level (up to −55%). Carrying the copper sword all game no longer works.", "Magnifier › 📘 Systems: step-by-step explanations of weapons, mastery, stances, elements, boss weak points, teamwork enemies, combos, towns and mayor, forge, alchemy, dreams, climbing and depths, family and top, with the golden arrow when there is a place.", "Both partners at once: with one following you, ask the other \"Come with me too ♥\". Both follow you (the second gives +5% attack and defence) and other players see them.", "Calling a kid, grandkid or great-grandkid from the ❤ button makes them join your team if there is room (2 at most), so other players see them too. You can also call your partners from that panel.", "Houses up to 4 floors: stairs in the corner of your house. Floor 2: family bedrooms (your kids and grandkids sleep there), floor 3: party hall and floor 4: lookout terrace.", "Family party (❤ button): your whole family, your kids' partners and your partners at your home (in the hall if you have it), with dancing, confetti and chat bubbles. Gives Family joy: +10% experience and +5% attack for 30 minutes."]},
-  {"b": 58, "v": "4.37", "d": "2026-11-14", "es": ["Posturas con cuerpo: la postura ofensiva (agachado, arma alzada), la defensiva (arma cruzada en guardia) y la veloz (de puntillas, arma atrás) cambian la pose de tu personaje en las 4 direcciones, con todas las clases, armas y estructuras de cuerpo. Los demás jugadores también la ven.", "Pueblos vivos también en Céfira, Aurelia y Lumen (cielo), Puerto Esmeralda (archipiélago) y Nochebruma (Velo Roto): tablón, periódico, mercado con sus propias mercancías, alcalde, impuestos, bazar y casas abandonadas.", "Familia: nuevo botón ❤ arriba con toda tu familia. Llama a cualquier hijo o nieto desde cualquier sitio: viene a tu lado y puedes hacer que te acompañe, mandarle de expedición o equiparle, aunque ya viva en su casa con su pareja.", "Los nietos ya tienen todo: crecen, eligen clase, suben de nivel, te acompañan, van de expedición, se casan y pueden tener sus propios hijos. No gastan los hijos que puedes tener con tu pareja.", "Grupo online más sincronizado: los monstruos del líder se comparten también en el cielo, el Velo Roto, Altavela, el Jardín de la Sonrisa, Ixtal y las Profundidades; se ven sus papeles (guardián/curandero) y si están mojados, electrizados, quemados o congelados; y si alguien rompe la parte vulnerable de un jefe, se rompe para todos."], "en": ["Stances with body poses: offensive (crouched, weapon raised), defensive (weapon crossed on guard) and swift (on tiptoes, weapon back) change your character's pose in all 4 directions, with every class, weapon and body build. Other players see it too.", "Living towns also in Cefira, Aurelia and Lumen (sky), Emerald Port (archipelago) and Nochebruma (Broken Veil): board, newspaper, market with their own goods, mayor, taxes, bazaar and abandoned houses.", "Family: new ❤ button at the top with your whole family. Call any kid or grandkid from anywhere: they come to you and you can have them follow you, send them on an expedition or equip them, even if they already live at their own home with their partner.", "Grandkids now have everything: they grow, choose a class, level up, follow you, go on expeditions, marry and can have their own kids. They don't use up the kids you can have with your partner.", "More synced online party: the leader's monsters are now also shared in the sky, the Broken Veil, Altavela, the Smile Garden, Ixtal and the Depths; you see their roles (guardian/healer) and whether they are wet, electrified, burning or frozen; and if someone breaks a boss weak point, it breaks for everyone."]},
-  {"b": 57, "v": "4.36", "d": "2026-11-14", "es": ["Mundo de los Sueños: si duermes en tu cama de madrugada (22:00-4:00) a veces sueñas (con Hierba del sueño, siempre). Apareces en un Albor al revés, de noche y morado, con 3 pruebas: los Espejos, los Ecos (6 esquirlas en 45 s) y tu propia Sombra. Ganas polvo de sueño para la tienda de Oniria y, al superar las tres, el Amuleto del Soñador.", "Escalada: 40 puntos de escalada con cuerda en los acantilados del mundo para subir y bajar sin dar la vuelta.", "Puentes de hielo: una habilidad de hielo congela el agua que tienes delante durante 25 segundos y puedes cruzarla.", "Las Profundidades: cada cueva tiene un pozo con cuerda junto al jefe que baja a 5 niveles más, cada uno más oscuro, con enemigos más fuertes, mejores minerales, un jefe más duro y un cofre diario.", "Legado familiar: a los 20 días tus hijos son adultos. Pueden aprender un oficio (te dejan regalos cada día en el buzón de casa), casarse (eliges entre 3 pretendientes), vivir en su propia casa en un pueblo (marcada en el mapa) y tener hasta 2 nietos que mezclan sus rasgos.", "Historias familiares: de vez en cuando un hijo te pide algo (pescar juntos, buscarle si se pierde, un plato por su cumpleaños o vencer al monstruo de debajo de su cama)."], "en": ["Dream World: if you sleep in your bed late at night (22:00-4:00) you sometimes dream (always with Dream herb). You appear in a backwards, purple, night-time Albor with 3 trials: the Mirrors, the Echoes (6 shards in 45 s) and your own Shadow. Earn dream dust for Oniria's shop and, after all three, the Dreamer's Amulet.", "Climbing: 40 rope climbing spots on cliffs around the world to go up and down without going around.", "Ice bridges: an ice skill freezes the water in front of you for 25 seconds so you can cross it.", "The Depths: every cave has a rope pit next to the boss that goes down 5 more levels, each darker, with stronger enemies, better ore, a tougher boss and a daily chest.", "Family legacy: after 20 days your kids are adults. They can learn a job (leaving gifts in your home mailbox every day), marry (choose among 3 suitors), live in their own house in a town (marked on the map) and have up to 2 grandchildren who mix their features.", "Family stories: now and then a kid asks you for something (fishing together, finding them when lost, a dish for their birthday or beating the monster under their bed)."]},
-  {"b": 56, "v": "4.35", "d": "2026-11-14", "es": ["Maestría de armas: cada tipo de arma (espada, lanza, hacha, maza, báculo, arco, dagas, laúd, guadaña y aletas) tiene su propia experiencia hasta 50, sin subir de nivel. Desbloquea posturas, contraataque maestro, una técnica especial y +5 % de daño como Gran Maestro.", "Posturas ofensiva, defensiva y veloz con el botón ◇ (mantén pulsado para ver tu maestría). Se ven como un aro de color en el suelo, también en el online. Técnica especial con el botón ✦.", "Campo de Entrenamiento al sur de Arxar: muñecos, dianas, armeros, escudos, la Maestra Brienne y dos aprendices que practican. Golpear muñecos y dianas sube la maestría.", "Reacciones elementales: los enemigos se mojan con la lluvia, en el agua o con el pez. Rayo + mojado = Descarga en cadena; hielo + mojado = Congelado; fuego + hielo = Vapor; fuego + rayo = Sobrecarga; agua + fuego = Apagado. En las tormentas caen rayos.", "Raíces espinosas junto a 6 piedras de viaje tapan cofres: quémalas con una habilidad de fuego, un arma con runa de fuego o una poción explosiva. Vuelven a crecer cada día.", "Partes vulnerables en algunos jefes: cristal del Gólem de Escarcha (se regenera), escudo del Rey Vael (lo rompe un contraataque perfecto), tambor de Gruk (refuerzos), raíz corazón del Ent (solo el fuego) y corona del Rey Slime. Al romperlas cambian sus ataques.", "Enemigos en equipo: guardianes (🛡, protegen a los de al lado: la mitad de daño) y curanderos (✚, curan a sus aliados y se alejan de ti). Los arqueros siguen alejándose. Decide a quién atacar primero.", "Técnicas combinadas (online y WiFi local): si tú y otro jugador cercano usáis una habilidad casi a la vez, sale una técnica según vuestras clases (Espada Electrificada, Sinfonía de Almas, Lluvia Ígnea, Himno de Guerra, Tormenta Marina…)."], "en": ["Weapon mastery: each weapon type (sword, spear, axe, mace, staff, bow, daggers, lute, scythe and fins) has its own experience up to 50, without levelling up. Unlocks stances, master counter, a special technique and +5% damage as Grand Master.", "Offensive, defensive and swift stances with the ◇ button (hold to see your mastery). They show as a coloured ring on the ground, online too. Special technique with the ✦ button.", "Training Grounds south of Arxar: dummies, targets, weapon racks, shields, Master Brienne and two apprentices practising. Hitting dummies and targets raises mastery.", "Elemental reactions: enemies get wet in the rain, in water or from the fish. Lightning + wet = chain Discharge; ice + wet = Frozen; fire + ice = Steam; fire + lightning = Overload; water + fire = Doused. Lightning strikes during storms.", "Thorny roots next to 6 waystones block chests: burn them with a fire skill, a fire-rune weapon or an explosive potion. They grow back every day.", "Weak points on some bosses: the Frost Golem's crystal (regenerates), King Vael's shield (a perfect counter breaks it), Gruk's drum (reinforcements), the Ent's heart root (only fire) and the Slime King's crown. Breaking them changes their attacks.", "Teamwork enemies: guardians (🛡, protect those next to them: half damage) and healers (✚, heal allies and keep away from you). Archers still keep their distance. Choose who to hit first.", "Combined techniques (online and local WiFi): if you and a nearby player use a skill almost at the same time, a technique triggers based on your classes (Electrified Blade, Symphony of Souls, Fire Rain, War Hymn, Sea Storm…)."]},
-  {"b": 55, "v": "4.34", "d": "2026-11-14", "es": ["Cocina en hogueras: 14 hogueras (fuera de cada pueblo y junto a piedras de viaje) con despensa de ingredientes. 50 platos dibujados, cada uno con su efecto: ataque, defensa, velocidad, vel. de ataque, crítico, vida, regeneración, experiencia, oro u oficios.", "Recetas de cada reino: solo se cocinan en las hogueras de su región. Incluye platos peruanos: ceviche, tiradito, causa limeña, lomo saltado, ají de gallina, anticuchos, picarones, pachamanca, rocoto relleno, juane, tacacho con cecina, papa a la huancaína, suspiro limeño, mazamorra y chicha morada, y más.", "Plato perfecto: sirve el plato cuando la marca pase por la zona dorada y sale ★ con un 50 % más de efecto y más duración.", "Pesca legendaria: 12 peces legendarios que solo pican con cierto clima, estación y hora (Rey de la Tormenta, Koi Lunar, Paiche Ancestral…). Sirven para recetas o se liberan para que su espíritu te bendiga 20 minutos.", "Bestiario › Peces: todos los peces del juego tienen dibujo nuevo, con récord de tamaño y cuántos has pescado.", "Alquimia experimental (con el alquimista): mezcla 2 o 3 ingredientes y descubre 16 pociones, algunas con efectos inesperados (gigante, pluma, explosiva, arcoíris…). Las recetas se guardan en tu grimorio.", "Oficio nuevo Arqueología (en la lupa): 8 yacimientos con minijuego de pincel. Reúne las piezas y reconstruye 8 historias del mundo.", "Forja artesanal (con el herrero): elige el núcleo de mineral de tu arma, témplalo (hasta 3 estrellas) y grábale una runa de fuego, hielo, rayo, vida, viento o tierra."], "en": ["Campfire cooking: 14 campfires (outside each town and next to waystones) with an ingredient pantry. 50 drawn dishes, each with its own effect: attack, defence, speed, attack speed, crit, HP, regeneration, experience, gold or jobs.", "Kingdom recipes: they can only be cooked at campfires in their region. Includes Peruvian dishes: ceviche, tiradito, causa limeña, lomo saltado, ají de gallina, anticuchos, picarones, pachamanca, rocoto relleno, juane, tacacho, papa a la huancaína, suspiro limeño, mazamorra and chicha morada, and more.", "Perfect dish: serve when the marker crosses the golden zone to get a ★ dish with 50% more effect and longer duration.", "Legendary fishing: 12 legendary fish that only bite in certain weather, season and hour (Storm King, Moon Koi, Ancestral Paiche…). Use them in recipes or release them so their spirit blesses you for 20 minutes.", "Bestiary › Fish: every fish in the game has a new drawing, with size record and how many you caught.", "Experimental alchemy (at the alchemist): mix 2 or 3 ingredients and discover 16 potions, some with unexpected effects (giant, feather, explosive, rainbow…). Recipes are saved in your grimoire.", "New Archaeology job (in the magnifier): 8 dig sites with a brushing minigame. Gather the pieces and rebuild 8 stories of the world.", "Artisan forge (at the blacksmith): choose your weapon's ore core, temper it (up to 3 stars) and engrave a fire, ice, lightning, life, wind or earth rune."]},
-  {"b": 54, "v": "4.33", "d": "2026-11-14", "es": ["Pueblos vivos: cada plaza (Albor, Puerto Coral, Arxar, Sahrim, Yarakai y Puerto Brasa) tiene un Tablón del pueblo con periódico, rumores, mercado, ayuntamiento y bazar.", "El Pregonero: noticias generadas con lo que pasa en el juego (jefes derrotados, asedios, eventos, alcaldes, vecinos que salvaste) y un rumor nuevo cada día.", "Prosperidad de cada pueblo: sube si haces encargos, defiendes el pueblo, donas o vendes lo que necesita; baja si ignoras asaltos y hordas. Por debajo de 25 hay casas abandonadas (tapiadas); desde 75 abre un bazar más barato.", "Alcalde: si eres Héroe del pueblo puedes presentarte. Eliges impuestos bajos, normales o altos, cobras las arcas e inviertes en el pueblo. Si tu opinión baja de Neutral, te quitan el cargo.", "Día del Tributo cada 7 días (no se puede desactivar): los vecinos pagan al alcalde y, si tienes casa en un pueblo donde no eres alcalde, pagas un pequeño impuesto.", "Oficio nuevo Comercio (en la lupa): compra mercancías donde se producen y véndelas donde escasean. 8 mercancías con precios que cambian cada día, con la estación y con los eventos. Al entrar en un pueblo te avisa de lo que pagan bien.", "Los vecinos que ayudaste a levantarse te recuerdan: una vez al día, si estás en apuros, uno te lanza una poción."], "en": ["Living towns: every plaza (Albor, Coral Port, Arxar, Sahrim, Yarakai and Ember Port) has a Town board with newspaper, rumors, market, town hall and bazaar.", "The Herald: news generated from what happens in the game (bosses defeated, sieges, events, mayors, villagers you saved) and a new rumor every day.", "Town prosperity: rises if you do jobs, defend the town, donate or sell what it needs; drops if you ignore raids and hordes. Below 25 there are abandoned (boarded) houses; from 75 a cheaper bazaar opens.", "Mayor: if you are a Hero of the town you can run. Choose low, normal or high taxes, collect the coffers and invest in the town. If your standing drops below Neutral, you lose the post.", "Tribute Day every 7 days (can't be turned off): citizens pay the mayor and, if you own a house in a town where you aren't mayor, you pay a small tax.", "New Trade job (in the magnifier): buy goods where they are made and sell them where they are scarce. 8 goods with prices that change daily, with the season and with events. Entering a town tells you what pays well.", "Villagers you helped up remember you: once a day, if you are in trouble, one throws you a potion."]},
-  {"b": 53, "v": "4.32", "d": "2026-11-14", "es": ["🌍 Top mundial: el botón del menú ahora muestra los 50 primeros de todo el mundo en horas jugadas y en nivel máximo, guardados en un servidor.", "Tu fila se sube sola cada 2 minutos mientras juegas y al abrir el menú.", "Protección contra trampas: las horas no pueden bajar ni subir más rápido que el tiempo real, y el nivel va de 1 a 350.", "Sin internet se muestra la última lista guardada."], "en": ["🌍 World top: the menu button now shows the world's top 50 in hours played and highest level, stored on a server.", "Your row uploads by itself every 2 minutes while you play and when the menu opens.", "Anti-cheat: hours can't go down or rise faster than real time, and level goes from 1 to 350.", "Offline, the last saved list is shown."]},
-  {"b": 52, "v": "4.31", "d": "2026-11-14", "es": ["Tiempo jugado en el menú principal (arriba a la derecha): cuenta los minutos y las horas con el juego abierto, también en el menú. Va por cuenta y empieza a contar desde esta versión.", "Cada héroe muestra en su botón cuánto tiempo lleva jugado.", "Nuevo botón 🏆 Top jugadores: top de horas jugadas y de nivel máximo. Si inicias sesión sales con tu nombre de cuenta.", "El top se comparte entre jugadores al conectarse: en los mundos online y unos segundos al abrir el menú."], "en": ["Time played on the main menu (top right): counts minutes and hours with the game open, menu included. It is per account and starts counting from this version.", "Each hero shows its play time on its button.", "New 🏆 Top players button: top hours played and highest level. Log in to appear with your account name.", "The top is shared between players when they go online: in online worlds and for a few seconds when the menu opens."]},
-  {"b": 51, "v": "4.30", "d": "2026-11-14", "es": ["Luna de sangre y eventos: los monstruos ya te atacan dentro del pueblo (antes se quedaban quietos).", "Asedio de la luna de sangre más justo: ya no se pierde cuando acaba la noche. Solo se pierde si cae el 60 % de las casas o si te alejas del pueblo. El Devorador Carmesí pisa cada 10-14 segundos y rompe una casa por pisotón.", "Hijos más resistentes: tienen tu misma vida a su nivel y reciben un 40 % menos de daño. Si caen, descansan 2 minutos.", "En un asedio o ataque a tu pueblo, tus hijos mayores vienen solos a ayudarte y vuelven a casa al terminar.", "Los hijos hablan con globos de texto: al llegar, en combate, con poca vida, al ganar y de paseo.", "Los enemigos atacan a quien tengan más cerca: a ti o a tus hijos.", "Tus hijos salen en el minimapa (rosa si van contigo, naranja si están de expedición, con flecha en el borde si están lejos) y en el mapa grande."], "en": ["Blood moon and events: monsters now attack you inside towns.", "Fairer blood moon siege: it is no longer lost when the night ends; only if 60% of houses fall or you leave town. The Devourer stomps every 10-14 s and breaks one house per stomp.", "Tougher kids: same HP as you at their level and 40% less damage taken. They rest 2 minutes if they fall.", "During a siege or town attack your grown kids come to help and go home afterwards.", "Kids talk with speech bubbles.", "Enemies attack whoever is closest: you or your kids.", "Your kids show on the minimap and the big map."]},
-  {"b": 50, "v": "4.29", "d": "2026-11-14", "es": ["Islas del Cielo: tres pueblos nuevos. Céfira (arpías con alas de colores y nidos gigantes), Aurelia (la última ciudad de los ángeles) y Lumen (ciudad de los acertijos). Allí no entran los monstruos.", "Romance con alas: Aelis (ángel guerrera), Nimiel (ángel sanadora), Caelith (lectora de estrellas) y Kiri (arpía cantora), con todo el sistema: corazones, regalos, pasear, besos, pareja, boda e hijos.", "Beso francés (Amor 8 y Confianza 6): más largo y cercano; el más bajo se pone de puntillas para que las caras queden a la misma altura con cualquier cuerpo.", "Piedras de acertijos en todas las islas del cielo (una pregunta distinta cada día) y la Prueba de la Memoria del Oráculo Vespera en Lumen.", "Oficios nuevos: Carrera de Ángeles (vuela por los aros contra tres rivales) y Olimpiadas Angelicales (Tiro celeste y Lluvia de plumas, con medallas). 10 ventajas cada uno.", "Archipiélago: Puerto Esmeralda, un gran pueblo en el centro con isleños en bikini y ropa de verano, palmeras, antorchas tiki y más historia. Ailani vende 5 bikinis, camisas hawaianas, bermudas y pareos.", "Oficios nuevos: Surf (minijuego de trucos y combos con tabla) y Arte (pinta lo que quieras en pixel art y véndelo en tu galería: se vende solo mientras juegas). 10 ventajas cada uno.", "Ixtal, la Ciudad Perdida: un templo al sur de Puerto Esmeralda con un puzle de cuatro estatuas. Dentro, dos mazmorras de nivel 300 (Templo Hundido y Cripta del Sol), 10 enemigos nuevos y 2 jefes con armas y armaduras de tier 23-24.", "Experiencia revisada: del nivel 251 al 350 los enemigos dan un 40 % más (ahora hacen falta unos 50 por nivel en todo el juego, como antes del 250).", "Fondo Marino: 12 almejas gigantes con minijuego, perlas rosas, doradas y de luna, 30 perlas perdidas escondidas (premio final: Lágrima de Luna), la sirena Perlina que compra perlas y ensarta el Collar de Perlas Doradas, tortugas marinas y la ballena del abismo.", "Las ventajas de los oficios nuevos salen en el panel de oficios y en la lupa ⚒."], "en": ["Sky Isles: three new towns. Cefira (harpies), Aurelia (angels) and Lumen (riddles). No monsters there.", "Winged romance: Aelis, Nimiel, Caelith and Kiri with the full system.", "French kiss (Love 8, Trust 6): longer and closer; the shorter one goes on tiptoe so faces line up with any body.", "Riddle stones on every sky island (new question each day) and Oracle Vespera's Memory Trial in Lumen.", "New jobs: Angel Race and Angelic Olympics, 10 perks each.", "Archipelago: Emerald Port, a big central town with islanders in bikinis and summer clothes. Ailani sells bikinis, Hawaiian shirts, shorts and sarongs.", "New jobs: Surfing (trick and combo minigame) and Art (paint pixel art and sell it in your gallery). 10 perks each.", "Ixtal, the Lost City: a statue puzzle and two level 300 dungeons with 10 new enemies and 2 bosses (tier 23-24 gear).", "Experience: level 251-350 enemies give 40% more (about 50 kills per level across the game).", "Seabed: giant clam minigame, pink, golden and moon pearls, 30 hidden lost pearls, Perlina the mermaid, sea turtles and the abyss whale.", "New job perks show in the jobs panel and the ⚒ magnifier tab."]},
-  {"b": 49, "v": "4.28", "d": "2026-11-14", "es": ["Hijos equilibrados: a su mismo nivel hacen la mitad de tu daño (nunca más) y tienen el 60 % de tu vida y tu defensa (más con armadura). Tienen su propio nivel, hasta el 350, y ganan experiencia contigo.", "Los enemigos también atacan a tus hijos (y los ataques de área de los jefes les alcanzan). Ellos esquivan las zonas rojas.", "Barra de vida pequeña siempre visible sobre tus hijos, también en el online.", "PvP: tus hijos luchan contra el otro jugador (con daño reducido para no romper el duelo) y él puede golpearlos.", "Te acompañan como mucho 2 hijos a la vez. Puedes tener 3 hijos con cada pareja (6 con dos parejas).", "Expediciones: manda a un hijo a explorar solo. Viaja en tren, yate, galeón o aeronave, lucha, sube de nivel, guarda lo que encuentra en su mochila (la puedes mirar) y se equipa solo. Si pasas cerca de su campamento, le verás luchando. Puedes formar equipo con él cuando quieras.", "Con la familia completa puedes seguir yendo a la cama con tu pareja (escena de corazones).", "Los botones de Montar y del armario de tu pareja ya no tapan nada: están en la fila de iconos de arriba (caballo y percha).", "Lupa 🔎 → ⚒ Oficios: tu nivel en cada oficio, cómo se hace, para qué sirve y la flecha dorada al sitio más cercano para tu nivel."], "en": ["Balanced kids: at the same level they deal half your damage (never more) and have 60% of your HP and defence (more with armour). They have their own level, up to 350.", "Enemies also attack your kids (boss area attacks hit them too). Kids dodge red zones.", "Small HP bar always visible over your kids, online too.", "PvP: your kids fight the other player (reduced damage) and can be hit.", "At most 2 kids follow you at once. 3 kids per partner (6 with two partners).", "Expeditions: send a kid exploring alone. They travel, fight, level up, keep loot in their own bag (view only) and gear up. Pass by their camp to see them. Team up any time.", "With a full family you can still go to bed with your partner (heart scene).", "Mount and partner wardrobe buttons no longer cover anything: they are in the top icon row.", "Magnifier 🔎 → ⚒ Jobs: your level, how it works, what it's for and the golden arrow to the nearest place."]},
-  {"b": 48, "v": "4.27", "d": "2026-11-14", "es": ["La escena de la cama al tener un hijo ya se ve siempre: la cámara se centra en la cama (antes quedaba tapada por el panel de misiones), la pareja se dibuja encima de los muebles y la cama matrimonial se elige primero."], "en": ["The bed scene when having a child is always visible now: the camera centres on the bed (it used to be hidden under the quest panel), the couple is drawn above the furniture and the double bed is picked first."]},
-  {"b": 47, "v": "4.26", "d": "2026-11-14", "es": ["El Colgante de Promesa ahora te lo regala la persona cuando llegáis a 10 corazones de Confianza y de Amor (una vez por persona). Con él ya puedes pedirle que sea tu pareja.", "Al besaros o abrazaros ya no se ve la línea rara de las manos cogidas.", "Tu pareja habla: de vez en cuando dice cosas en un globo de texto según lo que pasa (de noche, en combate, si tienes poca vida, a caballo, en el Velo Roto, en Nochebruma, en brazos, de la mano…). Los demás jugadores también ven sus globos.", "Al montar, tu pareja sube detrás de ti y te agarra de la cintura, con cualquier montura (caballos, grifo y dragón) y cualquier cuerpo. Se baja a tu lado al desmontar y también se ve online."], "en": ["The Promise Pendant is now given to you when you reach 10 hearts of Trust and Love with someone (once per person). With it you can ask them to be your partner.", "The odd line of held hands no longer shows while you kiss or hug.", "Your partner talks: now and then they say something in a speech bubble depending on what is happening (night, combat, low health, riding, the Broken Veil, Nochebruma, being carried, holding hands…). Other players see the bubbles too.", "When you ride, your partner climbs on behind you and holds your waist, on any mount (horses, griffin and dragon) and with any body. They get off beside you when you dismount, and it shows online too."]},
-  {"b": 46, "v": "4.25", "d": "2026-11-14", "es": ["Música nueva en todo el Velo Roto (y el Jardín de la Sonrisa): suenan las dos canciones de los vídeos de Sergio, una detrás de otra y en bucle. Sigue el volumen de música de Opciones.", "La pareja que te acompaña se ve en el online con la ropa que le hayas puesto en su armario (antes los demás la veían con su ropa de siempre). También se ve en brazos o sobre tus hombros."], "en": ["New music across the Broken Veil (and the Garden of the Smile): the two songs from Sergio's videos play one after the other, looping. It follows the music volume in Options.", "The partner who travels with you is shown online wearing the outfit you chose in their wardrobe (others used to see their default clothes). Also when carried in your arms or on your shoulders."]},
-  {"b": 45, "v": "4.24", "d": "2026-11-14", "es": ["Herrería: las armas ya no piden nivel de Herrería en ninguna forja; solo tu nivel, oro y materiales.", "Todos los oficios suben 2,5 veces más rápido.", "Con tu pareja al lado ya puedes hablar con los demás: «Hablar» elige al otro personaje que tengas delante.", "Puedes tener hasta dos parejas. La que tratas pasa a ser la principal, así que boda, casa, cambio de ropa, llevarla en brazos e hijos funcionan con las dos. Las dos viven en tu casa.", "Ilvaine, la hechicera del Velo Roto, entra en todo el sistema de pareja: noviazgo, boda e hijos, que pueden heredar su piel lavanda.", "Nueva forma de llevar a tu pareja: sobre los hombros (además de en brazos y besarla). Los demás jugadores lo ven.", "Al decidir tener un hijo os metéis en la cama y salen corazones durante unos segundos (los demás jugadores ven los corazones).", "Nochebruma: un pueblo dark fantasy nevado en el centro del Velo Roto, con nieve azul, luna pálida, faroles en espiral con coronas, árbol de luces, carrusel, trineo de regalos y el Vigilante de Piedra asomando tras la torre. Allí no atacan los monstruos y 6 vecinos te cuentan cómo es su mundo. El Vigilante te quita algo de corrupción."], "en": ["Smithing: weapons no longer require a Smithing level at any forge; only your level, gold and materials.", "Every profession levels up 2.5 times faster.", "With your partner next to you, you can now talk to others: \"Talk\" picks the other character in front of you.", "You can have up to two partners. The one you interact with becomes the main one, so wedding, home, outfits, carrying and children work with both. Both live in your house.", "Ilvaine, the Broken Veil sorceress, joins the whole partner system: dating, wedding and children, who can inherit her lavender skin.", "New way to carry your partner: on your shoulders (besides in your arms and kissing). Other players see it.", "When you decide to have a child you both get into bed and hearts pop out for a few seconds (other players see the hearts).", "Nochebruma: a snowy dark fantasy town in the middle of the Broken Veil, with blue snow, a pale moon, spiral lamps with wreaths, a tree of lights, a carousel, a sleigh full of gifts and the Stone Watcher peering from behind the tower. Monsters do not attack there and 6 villagers tell you about their world. The Watcher removes some corruption."]},
-  {"b": 44, "v": "4.23", "d": "2026-11-14", "es": ["Subrazas en el PvP: en un duelo funcionan las 4 habilidades de cada subraza (zarpazo, aullido, salto, almas heladas, atravesar, poseer, lamento, agarre de sangre, murciélagos, sed de sangre…) y el rival ve tu transformación, tus efectos y tus proyectiles en su teléfono.", "Las subrazas están igualadas entre sí y no importa tu clase: contra jugadores, el daño de una habilidad de subraza depende de tu nivel y de la habilidad, no del ataque de tu clase. Lobo, fantasma y vampiro hacen el mismo daño por segundo (el vampiro cuenta lo que se cura).", "En duelo, Poseer se mete en el rival y le arranca el alma en 4 golpes; Vuelo Nocturno da esquiva.", "Rocas de minería (todos los minerales), árboles, hierbas, montículos y puntos de buceo reaparecen a los 5 segundos en el mismo sitio."], "en": ["Subraces in PvP: in a duel all 4 skills of each subrace work (claw rake, howl, pounce, icy souls, phase through, possess, wail, blood grip, bats, bloodthirst…) and your opponent sees your transformation, effects and projectiles on their phone.", "Subraces are balanced against each other regardless of your class: against players, a subrace skill's damage depends on your level and the skill, not your class's attack. Wolf, ghost and vampire deal the same damage per second (the vampire counts its healing).", "In a duel, Possess slips into the opponent and tears out their soul in 4 hits; Night Flight gives dodge.", "Mining rocks (every ore), trees, herbs, mounds and diving spots respawn after 5 seconds in the same place."]},
-  {"b": 43, "v": "4.22", "d": "2026-11-14", "es": ["La lupa 🔎 te guía en todo: la flecha dorada funciona también dentro del Velo Roto y del Jardín de la Sonrisa, y si el sitio está en otro mapa te lleva primero al portal o a la puerta.", "Cada secreto de 🗝 Secretos apunta al sitio exacto del paso en el que vas (Fenrik, Malvia, el islote, los pedestales, el altar que falta, los trozos del nombre…).", "Nuevo aviso 📍 bajo la misión: te dice cuál es el siguiente secreto y dónde ir. Tócalo para encender la flecha.", "Pestañas nuevas en la lupa: 👹 Enemigos (todos, con nivel, botín, dónde salen y flecha al campamento más cercano) y 🐺 Subrazas (pasivas, habilidades, ofrenda y dónde está Corvel).", "Lobo: el botón 🐺 pasa ahora por la forma híbrida (pelaje en la cara y el cuerpo, hocico, colmillos y ojos dorados, con tu ropa y tus cosméticos) y luego por el lobo a cuatro patas.", "Vampiro: Agarre de Sangre sustituye a Mordisco. Sujeta a un enemigo y le chupa la sangre 2,5 s mientras te curas; también funciona con jugadores online que tengan el PvP activado (en duelo es la única habilidad de subraza que se puede usar)."], "en": ["The 🔎 guide leads you everywhere: the golden arrow also works inside the Broken Veil and the Garden of the Smile, and if the place is on another map it first takes you to the portal or door.", "Each secret in 🗝 Secrets points to the exact place of the step you are on (Fenrik, Malvia, the islet, the pedestals, the missing altar, the pieces of the name…).", "New 📍 notice under the quest: it tells you the next secret and where to go. Tap it to turn on the arrow.", "New guide tabs: 👹 Enemies (all of them, with level, loot, where they appear and an arrow to the nearest camp) and 🐺 Subraces (passives, skills, offering and where Corvel is).", "Wolf: the 🐺 button now goes through the hybrid form (fur on face and body, snout, fangs and golden eyes, with your clothes and cosmetics) and then the four-legged wolf.", "Vampire: Blood Grip replaces Bite. It holds an enemy and drinks its blood for 2.5 s while you heal; it also works on online players with PvP on (in a duel it is the only subrace skill you can use)."]},
-  {"b": 42, "v": "4.21", "d": "2026-11-14", "es": ["Lanzas, hachas y mazas para el guerrero (24, sacadas de la hoja de Sergio, tiers 22 a 26) con su propia animación de ataque: la lanza llega más lejos, el hacha da más crítico y la maza aturde.", "6 mascotas espectrales con su dibujo: Sapo Fúngico, Babosa de Ectoplasma, Búho de las Almas, Polilla Calavera, Lobo de Niebla y Rape Farolillo. Las vende Corvel.", "Nueva región del Velo Roto: el Bosque de la Torre Hueca, con niebla azul, la torre de Corvel el Encapuchado, la Biblioteca Anegada de la hechicera Ilvaine y la caldera de la bruja Grizzla.", "Nuevo jefe: Ossaryn, el Rey de las Rosas Azules (calavera coronada). Te señala y caen estrellas, hace florecer rosas que atrapan y levanta a sus caballeros.", "6 enemigos nuevos con mecánicas: Bruja de la Caldera (charcos de veneno), Espectro de la Niebla (se vuelve intangible y aparece detrás), Huargo Espectral (aullido de manada), Caballero de las Rosas (escudo de espinas), Bibliotecario Ahogado (páginas) y Polilla Calavera Gigante (polvo que ralentiza). En el Velo Roto se gana un 35 % más de experiencia.", "Subrazas: Mitad Lobo, Mitad Fantasma o Mitad Vampiro (ritual de Corvel). Cambian tu aspecto en todas las estructuras de cuerpo y tienen pasivas. El botón 🐺/👻/🦇 te transforma cuando quieras: lobo a cuatro patas con el pelaje del color que elijas, fantasma blanco y transparente con tu ropa, o vampiro con alas. Cada una trae 4 habilidades propias (zarpazo, aullido, poseer, mordisco, enjambre de murciélagos, vuelo...). La Poción de Sangre Limpia la quita.", "Ilvaine, la Hechicera del Ojo: conjuros nuevos con su botón 🔮 (Ojo del Abismo, Velas Flotantes, Marea de Tinta y Páginas Cortantes), lectura diaria del Ojo, su marca del tercer ojo con labios negros, y se la puede enamorar.", "La guía 🔎 tiene una pestaña nueva, 🗝 Secretos: explica paso a paso todas las misiones y mundos secretos del Velo Roto, con pistas que se piden una a una.", "Las novedades largas ya no se cortan en la ventana de actualización."], "en": ["Spears, axes and maces for the warrior (24, taken from Sergio's sheet, tiers 22 to 26) with their own attack animation: the spear reaches further, the axe crits more and the mace stuns.", "6 spectral pets with their drawing: Fungus Toad, Ectoplasm Slug, Owl of Souls, Skull Moth, Mist Wolf and Lantern Angler. Corvel sells them.", "New Broken Veil region: the Hollow Tower Woods, with blue mist, the tower of Corvel the Hooded, the Flooded Library of the sorceress Ilvaine and the cauldron of the witch Grizzla.", "New boss: Ossaryn, King of the Blue Roses (a crowned skull). He points at you and stars fall, makes roses bloom that trap you and raises his knights.", "6 new enemies with mechanics: Cauldron Hag (poison puddles), Mist Wraith (turns intangible and appears behind you), Spectral Warg (pack howl), Knight of the Roses (thorn shield), Drowned Librarian (pages) and Giant Skull Moth (slowing dust). In the Broken Veil you earn 35% more experience.", "Subraces: Half-Wolf, Half-Ghost or Half-Vampire (Corvel's ritual). They change your look on every body type and have passives. The 🐺/👻/🦇 button transforms you whenever you want: a four-legged wolf with the fur color you choose, a white see-through ghost with your outfit, or a winged vampire. Each brings 4 skills of its own (claw rake, howl, possess, bite, bat swarm, flight...). The Clean Blood Potion removes it.", "Ilvaine, the Sorceress of the Eye: new spells with their 🔮 button (Eye of the Abyss, Floating Candles, Ink Tide and Cutting Pages), a daily Reading of the Eye, her third-eye mark with black lips, and she can be romanced.", "The 🔎 guide has a new tab, 🗝 Secrets: it explains step by step every secret quest and world of the Broken Veil, with hints you ask for one at a time.", "Long patch notes are no longer cut off in the update window."]},
-  {"b": 41, "v": "4.20", "d": "2026-11-14",
-   "es": ["Historia principal del Velo Roto con El Hombre sin Rostro: 7 jefes nuevos con diseño y mecánica propios (Ghorm el Gran Brujo Sapo te atrapa con la lengua, Cornaviva embiste, Lady Morwen se divide en reflejos que explotan, Lady Sanguia se cura con tu vida, Baalzor lanza anillos de fuego, el Reflejo Eclipsado copia tu aspecto y alterna inmunidad a habilidades o ataques, y Risotto el bufón salta y deja trampas). Ya son 12 jefes en el continente.", "Corrupción del Velo: sube mientras exploras. Con 30 % ves el mundo distinto y salen enemigos corruptos; con 60 % se abren muros secretos, aprendes el Grito del Velo (toca el contador) y algunos personajes te cuentan secretos. Oren la purifica.", "Jefes con memoria: si vences a un jefe casi siempre con habilidades o con ataques normales, la próxima vez resiste ese tipo de daño y te da otra recompensa.", "Luna de sangre: los jefes del Velo salen en versión Sangrienta, más fuertes y con más botín.", "Heredero del Eclipse: al vencer a la Luna Sonriente recibes una corona de eclipse y +8 % de daño de noche.", "Bioma secreto: el Jardín de la Sonrisa, solo cuando la luna sonríe (de medianoche a las 3). Criaturas adorables de nivel 350 que abrazan muy fuerte, el Tendero Imposible (Reloj sin Manecillas, Sombra Embotellada, Una Mañana, Mapa de Ninguna Parte) y El Sin Nombre, que no se vence luchando: hay que descubrir su nombre verdadero.", "Arma Velada con voluntad propia: habla, crece con cada criatura del Velo y a las 300 te deja elegir entre Guardiana (escudos para ti y tu grupo) o Devoradora (daño y robo de vida contra criaturas malditas).", "Tres finales según tus decisiones: El Amanecer, La Nueva Luna o El Heredero Corrupto. Nuevo capítulo de las Crónicas.", "Las clases siguen igualadas a nivel 350."],
-   "en": ["Main story of the Broken Veil with the Faceless Man: 7 new bosses with their own design and mechanic (Ghorm the Great Toad Warlock grabs you with his tongue, Cornaviva charges, Lady Morwen splits into exploding reflections, Lady Sanguia heals from your life, Baalzor casts rings of fire, the Eclipsed Reflection copies your look and switches immunity between skills and attacks, and Risotto the jester blinks and leaves traps). The continent now has 12 bosses.", "Veil Corruption: it rises while you explore. At 30% the world looks different and corrupted enemies appear; at 60% secret walls open, you learn the Veil Scream (tap the meter) and some characters tell you secrets. Oren purifies it.", "Bosses with memory: if you beat a boss mostly with skills or with basic attacks, next time it resists that damage type and gives a different reward.", "Blood moon: Veil bosses appear in a Bloody version, stronger and with more loot.", "Eclipse Heir: defeating the Smiling Moon gives you an eclipse crown and +8% damage at night.", "Secret biome: the Garden of the Smile, only while the moon smiles (midnight to 3). Adorable level 350 creatures that hug very hard, the Impossible Shopkeeper (Handless Clock, Bottled Shadow, A Morning, Map of Nowhere) and the Nameless One, who cannot be beaten by fighting: you must discover its true name.", "Veiled Weapon with a will of its own: it talks, grows with every Veil creature and at 300 lets you choose Guardian (shields for you and your group) or Devourer (damage and lifesteal against cursed creatures).", "Three endings based on your choices: The Dawn, The New Moon or The Corrupted Heir. New Chronicles chapter.", "Classes remain balanced at level 350."]},
-  {"b": 40, "v": "4.19", "d": "2026-11-13",
-   "es": ["Armaduras dark fantasy propias para los tiers 22 a 26, adaptadas a todos los cuerpos: Lobo Nocturno (cuello de pelo y capucha de lobo), Sepulcrales (placas con vidriera de luz y corona), Velo Roto (corsé carmesí, gorguera y velo), Eclipsadas (sol eclipsado, hombreras doradas y casco de cuernos) y Luna Sonriente (traje de bufón con la sonrisa de la luna y cascabeles).", "Poder del Velo: desde el nivel 251, cada nivel da +0,5 % de ataque y vida (hasta +50 % a nivel 350). Igual para todas las clases.", "Pantano de las Almas Perdidas: nuevo botón de linterna. Apagada, aparecen puentes espectrales hacia un islote con cofres de Esencia Espectral.", "Aldea de las Campanas Muertas: Nocturna, la Mercader del Eclipse, solo vende de noche (Elixir del Eclipse y más). Oren te pide decidir: tocar o romper la última campana, y la aldea lo recuerda.", "Bosque de los Susurros: lee las 3 estelas y toca los pedestales en orden para disipar las ilusiones que protegen a Varkhul. Si te equivocas, aparece un Imitador con tu propio aspecto.", "Catedral del Eclipse: enciende los 3 altares para abrir la reja del Rey de las Campanas.", "Castillo de la Luna Sonriente: la Luna te mira y, si te ve, los enemigos se vuelven más rápidos. Al vencerla eliges entre dos finales, cada uno con su recompensa.", "Enemigos nuevos: Lancero Sepulcral y Acólito del Velo. Nuevas mecánicas: la cruz de luz del Obispo Hueco y los lanceros de Varkhul.", "La guía 🔎 muestra todo lo del Velo Roto: en qué región sale cada material y cómo llegar."],
-   "en": ["Unique dark fantasy armor for tiers 22 to 26, fitted to every body: Night Wolf (fur collar and wolf hood), Sepulchral (plates with a stained-glass glow and crown), Broken Veil (crimson corset, ruff and veil), Eclipsed (eclipsed sun, gold pauldrons and horned helm) and Smiling Moon (jester suit with the moon's grin and bells).", "Veil Power: from level 251, each level gives +0.5% attack and health (up to +50% at level 350). Same for every class.", "Swamp of Lost Souls: new lantern button. With it off, spectral bridges appear leading to an islet with Spectral Essence chests.", "Village of the Dead Bells: Nocturna, the Eclipse Merchant, only sells at night (Eclipse Elixir and more). Oren asks you to choose: ring or break the last bell, and the village remembers.", "Forest of Whispers: read the 3 stelae and touch the pedestals in order to dispel the illusions guarding Varkhul. If you get it wrong, a Mimic with your own look appears.", "Cathedral of the Eclipse: light the 3 altars to open the King of Bells' gate.", "Castle of the Smiling Moon: the Moon watches you and, if it sees you, enemies get faster. After defeating it you choose between two endings, each with its own reward.", "New enemies: Sepulchral Lancer and Veil Acolyte. New mechanics: the Hollow Bishop's cross of light and Varkhul's lancers.", "The 🔎 guide shows everything in the Broken Veil: which region drops each material and how to get there."]},
-  {"b": 39, "v": "4.18", "d": "2026-11-13",
-   "es": ["Nuevo: el Continente del Velo Roto, dark fantasy, niveles 255 a 350. Por primera vez se ve el cielo: noche, nubes magenta, niebla y la Luna Sonriente.", "Para abrir el portal antiguo (al oeste de la Ciudadela de Arxar) habla con Fenrik, el Lobo Viejo, en el Bosque Susurrante y con la bruja Malvia, cerca del Pantano Gris.", "Cinco regiones: Pantano de las Almas Perdidas (agua luminosa), Aldea de las Campanas Muertas, Bosque de los Susurros, Catedral del Eclipse y Castillo de la Luna Sonriente.", "Enemigos nuevos: Brujo Sapo, Alce Velado, Hechicera Violeta, Hechicera Carmesí, Demonio Cornudo, Soldado Hueco, Diácono del Eclipse y Heraldo Lunar.", "Jefes con mecánicas: el Obispo Hueco reza y levanta a sus muertos; los soldados de Varkhul, el Rey Esqueleto, lo cubren hasta que caen; el Rey de las Campanas avisa cada ataque con campanadas, apaga la catedral y se encierra tras tres sellos; la Luna Sonriente lanza rayos, abre los ojos y enfurece a todos.", "Nivel máximo 350. Tiers 22 a 26 con las armas dark fantasy de Sergio: mandoble y Espada de la Dama para el guerrero, violín para el bardo, guadaña lunar para el invocador, y armaduras del Lobo Nocturno, Sepulcrales, del Velo Roto, Eclipsadas y de la Luna Sonriente.", "Capucha y manto del Lobo Nocturno, materiales nuevos (salen en la lupa 🔎) y un capítulo nuevo de las Crónicas.", "PvP reequilibrado para el nivel 350."],
-   "en": ["New: the Broken Veil Continent, dark fantasy, levels 255 to 350. For the first time you see the sky: night, magenta clouds, fog and the Smiling Moon.", "To open the ancient portal (west of the Arxar Citadel), talk to Fenrik, the Old Wolf, in the Whispering Forest and to the witch Malvia, near the Gray Swamp.", "Five regions: Swamp of Lost Souls (glowing water), Village of the Dead Bells, Forest of Whispers, Cathedral of the Eclipse and Castle of the Smiling Moon.", "New enemies: Toad Warlock, Veiled Elk, Violet Sorceress, Crimson Sorceress, Horned Fiend, Hollow Soldier, Eclipse Deacon and Lunar Herald.", "Bosses with mechanics: the Hollow Bishop prays and raises his dead; the soldiers of Varkhul, the Skeleton King, shield him until they fall; the King of Bells announces each attack with tolls, darkens the cathedral and locks himself behind three seals; the Smiling Moon fires beams, opens its eyes and enrages everyone.", "Max level 350. Tiers 22 to 26 with Sergio's dark fantasy weapons: greatsword and Lady's Sword for the warrior, violin for the bard, lunar scythe for the summoner, and Night Wolf, Sepulchral, Broken Veil, Eclipsed and Smiling Moon armor.", "Night Wolf hood and mantle, new materials (shown in the 🔎 guide) and a new Chronicles chapter.", "PvP rebalanced for level 350."]},
-  {"b": 38, "v": "4.17", "d": "2026-11-13",
-   "es": ["Los jefes del mundo tienen mecánicas nuevas, siempre avisadas en el suelo: el Rey Slime escupe slime que te deja pegado (rueda para soltarte), el Ent hace brotar raíces, Gruk toca su tambor de guerra (rueda cuando llegue la onda) y se enfurece, Morgana te lanza un maleficio que invierte tus pasos, el Gólem de Hielo congela el suelo, Volcanus hace erupciones de lava y Vael llama a sus soldados y, a mitad de vida, se vuelve inmune hasta que actives 3 sellos dorados.", "Mapa: acércalo o aléjalo con dos dedos, arrástralo con uno, o usa los botones + − ⟲."],
-   "en": ["World bosses have new mechanics, always warned on the ground: the Slime King spits slime that sticks you in place (roll to break free), the Ent makes roots burst out, Gruk beats his war drum (roll when the wave arrives) and enrages, Morgana casts a hex that reverses your steps, the Ice Golem freezes the ground, Volcanus erupts lava and Vael calls his soldiers and, at half health, becomes immune until you activate 3 golden seals.", "Map: zoom in or out with two fingers, drag it with one, or use the + − ⟲ buttons."]},
-  {"b": 37, "v": "4.16", "d": "2026-11-13",
-   "es": ["Nuevo botón 🔎 «Dónde conseguir» junto al Libro: cada material, arma, armadura, cosmético y jefe con dónde se consigue (monstruos, jefes, minería, tala, tiendas y recetas con sus materiales). «Seguir» enciende la flecha dorada hasta el sitio; vuelve a tocar para apagarla.", "Las habilidades de mejora pintan a tu personaje del color de su nombre mientras duran (Furia en rojo, Escarcha en hielo, Invisibilidad en sombra, Fortaleza en oro…) y los escudos muestran una burbuja. Cada habilidad lanza un destello del color de su elemento. Funciona con todos los cuerpos y se ve en el online.", "Las criaturas de Altavela usan el dibujo de Sergio, con el mismo detalle que en su imagen.", "Las armas superadas pierden como mucho un 30 % de daño (antes 55 %)."],
-   "en": ["New 🔎 \"Where to get it\" button next to the Book: every material, weapon, armor, cosmetic and boss with where to get it (monsters, bosses, mining, woodcutting, shops and recipes with their materials). \"Follow\" turns on the golden arrow to the place; tap again to turn it off.", "Buff skills paint your character in the color of their name while they last (Fury red, Frost icy, Invisibility shadow, Fortress gold…) and shields show a bubble. Every skill casts a flash in its element color. Works with every body and is seen online.", "Altavela's creatures use Sergio's drawing, with the same detail as his image.", "Outgrown weapons lose at most 30% damage (was 55%)."]},
-  {"b": 36, "v": "4.15", "d": "2026-11-13",
-   "es": ["Nuevo: Altavela, el Continente Celestial (nivel 220+). Puerta en la Isla de los Vientos de Celestia.", "La capital de los Alados que sobrevivieron, las Llanuras de Nimbo, el Templo de Aeris, los Campos de Tormenta e islotes flotantes que se recorren volando.", "Criaturas nuevas: Arpía Maligna, Medusa de Nube, Manta del Viento, Centinela de Aeris y Chispa Errante. Jefes: Kaelyra la Reina de las Arpías, el Coloso de Aeris y Vendaval la Sierpe de Tormenta (voladores).", "Tormentas mágicas que cruzan el continente: el cielo se oscurece y caen rayos que avisan antes de caer.", "Investigación en grupo con el Archivista Orelio: une fragmentos de mapa roto, descifra las estelas en la lengua de los Vientos y abre las tumbas de los Reyes del Aire. Lo que descubre cada miembro del grupo suma.", "3 misiones de la Reina Lyssandra, capa nueva y 2 capítulos de las Crónicas en español e inglés."],
-   "en": ["New: Altavela, the Celestial Continent (level 220+). Gate on Celestia's Isle of Winds.", "The capital of the surviving Winged, the Nimbus Plains, the Temple of Aeris, the Storm Fields and floating islets you reach by flying.", "New creatures: Malign Harpy, Cloud Jellyfish, Wind Manta, Aeris Sentinel and Wandering Spark. Bosses: Kaelyra the Harpy Queen, the Colossus of Aeris and Vendaval the Storm Wyrm (flying).", "Magic storms sweep across the continent: the sky darkens and lightning strikes after a warning.", "Group research with Orelio the Archivist: join broken map fragments, decipher the stelae in the Wind tongue and open the tombs of the Sky Kings. What each group member discovers adds up.", "3 quests from Queen Lyssandra, a new cape and 2 Chronicle chapters in Spanish and English."]},
-  {"b": 35, "v": "4.14", "d": "2026-11-13",
-   "es": ["Online: ahora se ven los ataques y las habilidades de los demás jugadores (pose, cortes, anillos, rayos, proyectiles y partículas), por sala, WiFi e internet. Los saltos se ven en el aire.", "Habilidades más fieles a su nombre: Salto Devastador salta de verdad, Voltereta y Paso de Baile dan un brinco, y Tsunami, Fauces del Megalodón, Cosecha Final y Juicio Final tienen efectos nuevos.", "Modo optimizado en Ajustes (sin clima ni lluvia, efectos simples, sin HD, 30 imágenes por segundo). Se activa solo si el juego va con lag.", "Menos consumo con el juego quieto y limpieza de memoria para que el juego no se cierre tras mucho rato.", "Inventario: botón Seleccionar para tirar varios objetos de una vez, los objetos de misión que ya no necesitas se pueden tirar y una Tarjeta de Tren repetida se convierte en 100 de saldo.", "Al equipar o comprar ropa, las listas ya no vuelven arriba.", "Las armas de más de 20 niveles por debajo del tuyo pierden fuerza (hasta un 55 %): ya no sirve la espada de cobre hasta el final.", "El Velo (mundo espiritual) es ahora un mundo de sueño blanco y acolchado, con árboles de algodón, lago de leche, tumbas y urnas de llama fría.", "Arreglo: en el online, las armas y armaduras de tier 16 a 21 se veían como tier 15."],
-   "en": ["Online: you now see other players' attacks and skills (pose, slashes, rings, beams, projectiles and particles), over room, WiFi and internet. Jumps are seen in the air.", "Skills closer to their names: Devastating Leap really jumps, Roll and Dance Step hop, and Tsunami, Megalodon Jaws, Final Harvest and Final Judgment have new effects.", "Optimized mode in Settings (no weather or rain, simple effects, no HD, 30 frames per second). It turns on by itself if the game lags.", "Lower usage while standing still and memory cleanup so the game doesn't close after a long session.", "Inventory: Select button to drop several items at once, quest items you no longer need can be dropped and a duplicate Train Card becomes 100 credit.", "When equipping or buying clothes, lists no longer jump back to the top.", "Weapons more than 20 levels below yours lose strength (up to 55%): the copper sword no longer works until the end.", "The Veil (spirit world) is now a white, quilted dream world with cotton trees, a milk lake, graves and cold-flame urns.", "Fix: online, tier 16 to 21 weapons and armor showed as tier 15."]},
-  {"b": 34, "v": "4.13", "d": "2026-11-13",
-   "es": ["Armas nuevas de madera, cobre, hierro, acero, plata y oro para todas las clases, con el dibujo de cobre de Sergio: más detalle en la mano (en HD se dibujan al doble) y ataques nuevos en 5 tiempos con su impacto.", "Las dagas van una en cada mano, el arco apunta bien y el pez lleva sus aletas en las manos.", "Campamento de los Vigías del Alba al este de Albor, en la Costa Coral: 8 miembros con su propio estilo y 5 misiones para ayudar y rescatar gente.", "Al unirte te dan su uniforme (abrigo, pantalón y botas) como cosmético; te lo puedes quitar cuando quieras.", "Lore nuevo: Edrin Valcorde, el pescador que hace mil años cuidó al primer portador del hilo vacío. Capítulo y pista nuevos en el Libro del Vínculo."],
-   "en": ["New wood, copper, iron, steel, silver and gold weapons for every class, based on Sergio's copper drawing: more detail in hand (drawn at double size in HD) and new 5-step attacks with their impact.", "Daggers go one in each hand, the bow aims properly and the Fish class holds its fins in its hands.", "Dawn Wardens camp east of Albor, on the Coral Coast: 8 members with their own style and 5 quests to help and rescue people.", "Joining gives you their uniform (coat, trousers and boots) as a cosmetic; take it off whenever you like.", "New lore: Edrin Valcorde, the fisherman who cared for the first bearer of the empty thread a thousand years ago. New chapter and clue in the Book of the Bond."]},
-  {"b": 33, "v": "4.12", "d": "2026-11-13",
-   "es": ["Los cuerpos femeninos tienen busto: Esbelta y Menuda pequeño, Clásica mediano y Curvas grande.", "Se ve con cualquier ropa, armadura o cosmético, de frente y de perfil, y también en las NPCs femeninas."],
-   "en": ["Female bodies now have a bust: small for Slender and Petite, medium for Classic and large for Curvy.", "It shows with any clothes, armor or cosmetic, from the front and in profile, and on female NPCs too."]},
-  {"b": 32, "v": "4.11", "d": "2026-11-13",
-   "es": ["Los árboles nunca se extinguen: al talarlos, el tocón se convierte en un retoño y luego vuelve a ser un árbol.", "Árboles, arbustos y hierbas quitados con el martillo de construcción vuelven a crecer a los 15 minutos, salvo que hayas construido encima. Las rocas y menas quitadas no vuelven.", "Los retoños no se pueden talar hasta que crecen."],
-   "en": ["Trees never go extinct: after chopping, the stump becomes a sapling and then grows back into a tree.", "Trees, bushes and herbs removed with the building hammer grow back after 15 minutes unless you built on that spot. Removed rocks and ores do not come back.", "Saplings can't be chopped until they grow."]},
-  {"b": 31, "v": "4.10", "d": "2026-11-13",
-   "es": ["Valentina vende tres trajes por oro: Plata y Azul, Carmesí y Oro, y Marcas Rojas y Oro. Se ajustan a las ocho estructuras en las cuatro direcciones."],
-   "en": ["Valentina sells three outfits for gold: Silver and Blue, Crimson and Gold, and Red Markings and Gold. They fit all eight builds in all four directions."]},
-  {"b": 30, "v": "4.9", "d": "2026-11-13",
-   "es": ["Bufandín estrena el sprite del gatito azul con bufanda roja y cuatro fotogramas de caminata por dirección."],
-   "en": ["Scarfy gets a new blue cat sprite with a red scarf and four walking frames per direction."]},
-  {"b": 29, "v": "4.8", "d": "2026-11-13",
-   "es": ["Bufandín redibujado en HD: el doble de resolución, ojos con brillo, orejas rosas, mejillas con mechones, luna en la frente, hocico, cola rizada y una bufanda carmesí con franja dorada y flecos que ondea al caminar."],
-   "en": ["Scarfy redrawn in HD: double resolution, shiny eyes, pink ears, fluffy cheeks, a crescent moon on its forehead, muzzle, curled tail and a crimson scarf with a gold stripe and fringe that flutters as it walks."]},
-  {"b": 28, "v": "4.7", "d": "2026-11-13",
-   "es": ["Nueva boutique en cada pueblo, con tejado morado: Valentina, la modista, vende la colección nueva.", "Ropa nueva: Suéter de Punto Medianoche (cuello de cuadrícula, franja carmesí, puños rosas), Pantalón Holgado Café, Zapatillas Carmesí, Tirita en la Mejilla, Vestido de Noche Carmesí y Chaqueta de Cuero. Se ajustan a las 8 estructuras.", "Nueva mascota: Bufandín, el Gato Viajero (+6% de velocidad y +4% de crítico).", "PvP equilibrado a nivel máximo: todas las clases pueden hacerse frente. En duelo las curas y escudos rinden menos, y cada clase tiene un ajuste de daño solo para PvP.", "Las invocaciones del Invocador ahora también atacan al rival en un duelo."],
-   "en": ["New boutique in every town, with a purple roof: Valentina, the designer, sells the new collection.", "New clothes: Midnight Knit Sweater (grid collar, crimson stripe, pink cuffs), Baggy Brown Trousers, Crimson Sneakers, Cheek Bandage, Crimson Evening Dress and Leather Jacket. They fit all 8 builds.", "New pet: Scarfy, the Wandering Cat (+6% speed and +4% crit).", "PvP balanced at max level: every class can stand up to the others. In duels heals and shields are weaker, and each class has a PvP-only damage adjustment.", "Summoner spirits now also attack your opponent in a duel."]},
-  {"b": 27, "v": "4.6", "d": "2026-11-13",
-   "es": ["Multas: todos los guardias cobran, también el Guardia Rolf en Albor y el Capitán Darius en Arxar, y cualquiera acepta las multas de cualquier pueblo (así se pagan las de Yarakai y Puerto Brasa).", "Nuevo panel «Multas y antecedentes» al hablar con un guardia: lo que debes en cada pueblo, pagar una o todas.", "Si eres Criminal en un pueblo sin multa registrada, puedes pagar para limpiar tu nombre.", "Si no debes nada, el guardia te lo dice.", "El Colgante de Promesa ya no pide nivel de Joyería."],
-   "en": ["Fines: every guard collects them, including Guard Rolf in Albor and Captain Darius in Arxar, and any guard accepts fines from any town (so Yarakai and Puerto Brasa fines can be paid).", "New \"Fines and record\" panel when talking to a guard: what you owe in each town, pay one or all.", "If you are a Criminal in a town with no recorded fine, you can pay to clear your name.", "If you owe nothing, the guard tells you.", "The Promise Pendant no longer needs a Jewelry level."]},
-  {"b": 26, "v": "4.5", "d": "2026-11-13",
-   "es": ["Ajuste automático: cascos, sombreros, coronas, orejas y cuernos se adaptan solos a la cabeza de cada estructura; los sombreros muy altos se encogen para no salirse.", "Las prendas nuevas que se añadan al juego se colocarán solas en las 8 estructuras.", "Arreglo: el casco del guerrero tapaba un poco el ojo derecho.", "Arreglo: las capuchas del asesino y el invocador tapaban el borde del ojo en la estructura Robusto.", "Los sombreros de los NPCs también se ajustan a su cabeza."],
-   "en": ["Automatic fit: helmets, hats, crowns, ears and horns adapt to the head of every build; very tall hats shrink so they stay on screen.", "New gear added to the game will fit all 8 builds on its own.", "Fix: the warrior helmet slightly covered the right eye.", "Fix: assassin and summoner hoods covered the edge of the eye on the Sturdy build.", "NPC hats also fit their heads."]},
-  {"b": 25, "v": "4.4", "d": "2026-11-13",
-   "es": ["3 estructuras nuevas de cuerpo y cabeza por sexo, además de la clásica: Héroe, Atlético y Robusto; Esbelta, Curvas y Menuda. Se eligen en «Estructura» al crear el personaje o en la peluquería.", "La estructura Héroe tiene los ojos de la referencia: ceja del color del pelo, ojo 2×2 con brillo y boca pequeña.", "Ropa, armaduras, cosméticos, pelo y armas se ajustan a cada estructura en las cuatro direcciones.", "Los NPCs y los enemigos humanos tienen estructuras variadas.", "Los demás jugadores ven tu estructura por WiFi local y por internet.", "Arreglo: las gafas de sol se ponían sobre la frente; ahora tapan los ojos."],
-   "en": ["3 new body and head builds per gender besides the classic one: Hero, Athletic and Sturdy; Slender, Curvy and Petite. Pick them under \"Build\" when creating your character or at the stylist.", "The Hero build has the reference eyes: brows in the hair colour, 2×2 eyes with a highlight and a small mouth.", "Clothes, armor, cosmetics, hair and weapons fit every build in all four directions.", "NPCs and human enemies have varied builds.", "Other players see your build over local WiFi and online.", "Fix: sunglasses sat on the forehead; they now cover the eyes."]},
-  {"b": 24, "v": "4.3", "d": "2026-11-13",
-   "es": ["Actualizador interno: el juego busca versiones nuevas en GitHub, te avisa y se reinicia con el contenido nuevo sin reinstalar el APK.", "Botón «Buscar actualización» en el título y en Ajustes › Actualizaciones.", "Sección de Novedades con los cambios de cada versión; se abre sola la primera vez tras actualizar.", "Si una versión descargada falla al arrancar, el juego vuelve solo a la versión instalada."],
-   "en": ["Built-in updater: the game checks GitHub for new versions, lets you know and restarts with the new content without reinstalling the APK.", "\"Check for updates\" button on the title screen and in Settings › Updates.", "What's New section with the changes of every version; it opens by itself the first time after an update.", "If a downloaded version fails to start, the game goes back to the installed version on its own."]},
-  {"b": 23, "v": "4.2", "d": "2026-11-12",
-   "es": ["Nuevo estilo chibi para todos los personajes y NPCs: cabeza más alta, ojos 2×3 con brillo, boca pequeña y rubor.", "Pelo con más volumen, ondas y mechones claros.", "Cintura marcada en los personajes femeninos."],
-   "en": ["New chibi style for every character and NPC: higher head, 2×3 eyes with highlights, small mouth and blush.", "Hair with more volume, waves and light strands.", "Defined waist on female characters."]},
-  {"b": 22, "v": "4.1", "d": "2026-11-12",
-   "es": ["Detalle HD suavizado: sin cuadrículas blancas en la ropa.", "Tu pareja te atiende en su tienda aunque seas Criminal en ese pueblo."],
-   "en": ["Softer HD detail: no more white grids on clothes.", "Your partner serves you in their shop even if you are a Criminal in that town."]},
-  {"b": 21, "v": "4.0", "d": "2026-11-12",
-   "es": ["Gráficos HD: el juego se dibuja al doble y la ropa, armaduras y NPCs tienen detalle fino (se puede desactivar en Ajustes).", "Cara más alta en todos los personajes.", "Trajes Dama Esmeralda, Danzarina del Ocaso y Rey del Cielo Blanco en las tiendas de cosméticos."],
-   "en": ["HD graphics: the game is drawn at double resolution and clothes, armor and NPCs get fine detail (can be turned off in Settings).", "Higher face on every character.", "Emerald Lady, Dusk Dancer and White Sky King outfits in the cosmetics shops."]},
-  {"b": 20, "v": "3.9", "d": "2026-11-11",
-   "es": ["Mapa con iconos y leyenda de tiendas y servicios, y flechas para ver los 6 mundos.", "Accesorios ajustados a su límite y accesorios de clase del cielo.", "Set cosmético del Heraldo Nocturno.", "Espadas nuevas de las hojas 4 y 5."],
-   "en": ["Map with icons and a legend for shops and services, plus arrows to see all 6 worlds.", "Accessories capped to their limit and sky class accessories.", "Night Herald cosmetic set.", "New swords from sheets 4 and 5."]},
-  {"b": 0, "v": "3.8", "d": "",
-   "es": ["Libro del Vínculo con lore, pistas y rumores; Nihil, el Ente Oscuro.", "Bloqueo y contraataque perfecto, jefes que aprenden, runas del mago, armas malditas y armas que hablan.", "Asedio de la Luna de Sangre, pueblos que crecen con donaciones y festivales con minijuegos.", "Islas del Cielo: nivel 250, aeronave, grifo, alas, tiers 19–21 y evolución de clase."],
-   "en": ["Book of the Bond with lore, clues and rumors; Nihil, the Dark Entity.", "Block and perfect counter, bosses that learn, mage runes, cursed weapons and talking weapons.", "Blood Moon siege, towns that grow with donations and festivals with minigames.", "Sky Islands: level 250, airship, griffin, wings, tiers 19–21 and class evolution."]},
-  {"b": 0, "v": "3.7", "d": "",
-   "es": ["Construcción libre: mesa de trabajo, paredes, suelos, puertas, ventanas, vallas y muebles, sincronizada en multijugador.", "Casa nueva con jardín, cuartos y planta alta.", "3 cuevas de nivel 150–178, maestros de oficio y Crónicas del Vínculo."],
-   "en": ["Free building: workbench, walls, floors, doors, windows, fences and furniture, synced in multiplayer.", "New home with a garden, rooms and an upper floor.", "3 caves for levels 150–178, job masters and the Chronicles of the Bond."]},
-  {"b": 0, "v": "3.6", "d": "",
-   "es": ["Sprites de armas Estelares, Primordiales y Divinas.", "Logo nuevo, interfaz dorada con atardecer y fuente pixel.", "Juego completo en inglés."],
-   "en": ["Stellar, Primordial and Divine weapon sprites.", "New logo, golden sunset interface and pixel font.", "Full English translation."]},
-  {"b": 0, "v": "3.5", "d": "",
-   "es": ["Sprites de armas de tier 7–15, espadas con estilo y legendarias.", "Vista animada del ataque en la enciclopedia."],
-   "en": ["Weapon sprites for tiers 7–15, styled swords and legendaries.", "Animated attack preview in the encyclopedia."]},
-  {"b": 0, "v": "3.4", "d": "",
-   "es": ["Armas de tier 1–6 con sprites propios.", "Llevar a tu pareja en brazos, hijos con vida y mascota en casa."],
-   "en": ["Tier 1–6 weapons with their own sprites.", "Carry your partner, kids with HP and a pet at home."]},
-  {"b": 0, "v": "3.3", "d": "",
-   "es": ["Clase Pez, Aldara, peluquería y Ascensión al nivel 190.", "Inventario de 200, gestos y grupos de 6 con monstruos sincronizados."],
-   "en": ["Fish class, Aldara, barber and Ascension at level 190.", "200-slot inventory, emotes and parties of 6 with synced monsters."]},
-  {"b": 0, "v": "3.2", "d": "",
-   "es": ["Online por internet: salas privadas con código y 5 mundos públicos."],
-   "en": ["Internet online: private rooms with a code and 5 public worlds."]}
-]/*CL_END*/;
+const CHANGELOG = /*CL*/
+[
+ {
+  "b": 118,
+  "v": "4.97",
+  "d": "2026-11-16",
+  "es": [
+   "💇 Ocho peinados detallados extraídos de las láminas aprobadas: Zero Two, Kanna, Sailor Moon, Senku, Yuichiro, Frieren, 2B y Lina, con sus accesorios y cuatro vistas. También se incluyen las ocho variantes de la primera muestra.",
+   "🎨 Tinte original recupera los colores del diseño; Personalizado utiliza los colores y mechas del estilista. Los accesorios conservan sus colores. Compatible con todas las estructuras de cuerpo."
+  ],
+  "en": [
+   "💇 Eight detailed hairstyles extracted from the approved boards, with accessories and four views: Zero Two, Kanna, Sailor Moon, Senku, Yuichiro, Frieren, 2B and Lina. Includes the eight first-preview variants.",
+   "🎨 Original dye restores design colors; Custom uses the stylist colors and highlights. Accessories keep their colors. Supports all body builds."
+  ]
+ },
+ {
+  "b": 117,
+  "v": "4.96",
+  "d": "2026-11-17",
+  "es": [
+   "🏯 Japón crece hacia el este, al otro lado del río: Takayama, un pueblo de la era Edo (casas de madera con celosías, acequias, linternas, hortensias, sakagura con bola de cedro, mercado de la mañana y puente rojo), e Higashiyama, el Kioto antiguo (una cuesta con terrazas, muros de piedra y escaleras que sube hasta la pagoda, cerezos llorones, sombrillas rojas y casas de té).",
+   "👘 54 vecinos nuevos, la mayoría paseando en kimono, y cerezos a los lados de la calle Nakamise de Asakusa.",
+   "🛺 Trabajos nuevos (dan oro y objetos, no poder): Conductor de rickshaw (lleva turistas siguiendo la flecha; propina si llegas rápido), Maestro sakero (remueve el arroz en la sakagura), Maestro del té (bate el matcha al ritmo) y Ceramista (centra el barro en el torno). Mercado de la mañana con manzanas, miso y muñecos sarubobo.",
+   "🗺 El mapa de Japón (y de los otros mundos) se puede ampliar con + y − y mover con el dedo."
+  ],
+  "en": [
+   "🏯 Japan grows east, across the river: Takayama, an Edo-era town (wooden lattice houses, gutters, lanterns, hydrangeas, cedar-ball sake breweries, a morning market and a red bridge), and Higashiyama, old Kyoto (a slope with terraces, stone walls and stairs climbing to the pagoda, weeping cherries, red parasols and teahouses).",
+   "👘 54 new locals, most of them strolling in kimono, and cherry trees along Asakusa's Nakamise street.",
+   "🛺 New jobs (gold and items, no power): Rickshaw puller (carry tourists following the arrow; tip if you're quick), Sake brewer (stir the rice at the sakagura), Tea master (whisk matcha to the beat) and Potter (centre the clay on the wheel). Morning market with apples, miso and sarubobo dolls.",
+   "🗺 Japan's map (and the other worlds') can be zoomed with + and − and moved with your finger."
+  ]
+ },
+ {
+  "b": 116,
+  "v": "4.95",
+  "d": "2026-11-17",
+  "es": [
+   "💇 Puntas bicolor: de perfil y de espaldas ahora también se ve el segundo color arriba, como de frente."
+  ],
+  "en": [
+   "💇 Two-tone spikes: from the side and from behind the second colour now shows on top too, like from the front."
+  ]
+ },
+ {
+  "b": 115,
+  "v": "4.94",
+  "d": "2026-11-17",
+  "es": [
+   "💇 Arreglados los 13 peinados nuevos: de perfil y de espaldas ahora tienen su propia forma (capas, largo, coleta, trenzas, coletas o moño) igual que de frente, en todas las estructuras de chica y chico.",
+   "💇 Seis de ellos (Puntas bicolor, Coleta alta rizada, Ondas largas abiertas, Moño lateral y los dos bobs) se cortaban por arriba: ahora caben enteros."
+  ],
+  "en": [
+   "💇 Fixed the 13 new hairstyles: from the side and from behind they now have their own shape (layers, length, ponytail, braids, twintails or bun) matching the front, on every female and male body structure.",
+   "💇 Six of them (Two-tone spikes, High curly ponytail, Long open waves, Side bun and both bobs) were cut off at the top: now they fit whole."
+  ]
+ },
+ {
+  "b": 114,
+  "v": "4.93",
+  "d": "2026-11-16",
+  "es": [
+   "Miku y Teto pueden ser tu pareja, acompañarte y cambiarse de atuendo. Se añadieron 13 peinados recoloreables."
+  ],
+  "en": [
+   "Miku and Teto can become your partner, walk with you, and change outfits. Added 13 recolorable hairstyles."
+  ]
+ },
+ {
+  "b": 113,
+  "v": "4.92",
+  "d": "2026-11-16",
+  "es": [
+   "Neru pasea por Akihabara y regala su traje. Miku y Teto estrenan trajes de concierto, pasos y retratos. Nuevo peinado recoloreable."
+  ],
+  "en": [
+   "Neru walks around Akihabara and gifts her outfit. Miku and Teto have new concert outfits, moves and portraits. New recolorable hairstyle."
+  ]
+ },
+ {
+  "b": 112,
+  "v": "4.91",
+  "d": "2026-11-16",
+  "es": [
+   "Compra el traje de Kasane Teto hablando con ella en STELLA☆LINK. El set se guarda en tu Armario y se adapta a todos los cuerpos."
+  ],
+  "en": [
+   "Buy Kasane Teto’s outfit by talking to her at STELLA☆LINK. The set is saved in your Wardrobe and fits every body type."
+  ]
+ },
+ {
+  "b": 111,
+  "v": "4.90",
+  "d": "2026-11-16",
+  "es": [
+   "Diez criaturas renovadas con cuatro direcciones. Los gólems de Piedra y Escarcha tienen sprites más grandes."
+  ],
+  "en": [
+   "Ten redesigned creatures with four directions. The Stone and Frost Golems have larger sprites."
+  ]
+ },
+ {
+  "b": 110,
+  "v": "4.89",
+  "d": "2026-11-16",
+  "es": [
+   "Kasane Teto visita STELLA☆LINK. Habla con Akane para ver su concierto con Hatsune Miku."
+  ],
+  "en": [
+   "Kasane Teto visits STELLA☆LINK. Speak to Akane to watch her concert with Hatsune Miku."
+  ]
+ },
+ {
+  "b": 109,
+  "v": "4.88",
+  "d": "2026-11-16",
+  "es": [
+   "Hatsune Miku visita STELLA☆LINK en Akihabara. Puedes verla caminar y hablar con ella."
+  ],
+  "en": [
+   "Hatsune Miku visits STELLA☆LINK in Akihabara. You can see her walk and talk to her."
+  ]
+ },
+ {
+  "b": 108,
+  "v": "4.87",
+  "d": "2026-11-17",
+  "es": [
+   "💇 Peinado nuevo para chicas y chicos: Melena de puntas (larga hasta media espalda, mechones en pico, puntas en la coronilla y flequillo desfilado). En el editor y la peluquería, con cualquier color."
+  ],
+  "en": [
+   "💇 New hairstyle for girls and boys: Spiky long mane (down to mid-back, pointed locks, spikes on the crown and a choppy fringe). In the editor and the barber, in any colour."
+  ]
+ },
+ {
+  "b": 107,
+  "v": "4.86",
+  "d": "2026-11-16",
+  "es": [
+   "💙 Ruri, la novena integrante de PRISM9 (antes PRISM8), con el sprite de tu dibujo: pasea por el Cruce de Shibuya, se puede enamorar (beso y abrazo con su propio sprite) y baila con el grupo en la sala de Akihabara. La estilista Mio vende su Corsé Azul.",
+   "💇 Peinado nuevo para chicas: Melena de Ruri. Color de pelo nuevo para chicas y chicos: Turquesa vivo.",
+   "📖 Tienda de cómics en Akihabara: 8 mangas que se leen desde la mochila (viñetas con las idols, el héroe, los gatos y la Ventisca) y un dependiente otaku que te cuenta historias y curiosidades del mundo.",
+   "🗺 El mapa de las Tierras sin Pintar (Lienzo Blanco) ya sale en el panel del mapa."
+  ],
+  "en": [
+   "💙 Ruri, the ninth member of PRISM9 (formerly PRISM8), with the sprite from your drawing: she hangs around Shibuya Crossing, can be romanced (kiss and hug with her own sprite) and dances with the group at the Akihabara hall. Stylist Mio sells her Blue Corset.",
+   "💇 New hairstyle for girls: Ruri's mane. New hair colour for girls and boys: Bright turquoise.",
+   "📖 Comic shop in Akihabara: 8 manga you read from your bag (panels with the idols, the hero, the cats and the Ventisca) and an otaku shopkeeper who tells you stories and trivia about the world.",
+   "🗺 The Unpainted Lands (White Canvas) map now shows in the map panel."
+  ]
+ },
+ {
+  "b": 106,
+  "v": "4.85",
+  "d": "2026-11-16",
+  "es": [
+   "💗 Romance con las idols: las 5 de STELLA☆LINK (te esperan en la sala de Akihabara cuando no actúan) y un grupo nuevo, PRISM8, con 8 idols (Kira, Umi, Sena, Hana, Ryo, Mika, Jun y Nene) que pasean por el Cruce de Shibuya. Regalos, citas, pareja, boda e hijos como con cualquier pareja.",
+   "🎤 PRISM8 actúa en la sala de Akihabara un concierto sí y otro no, con sus 8 idols bailando en el escenario.",
+   "💇 Peinado nuevo: Lobo en capas (melena a capas con flequillo desfilado), el de Kira. También en el editor y la peluquería.",
+   "♨ Onsen del Fuji: ryokan al suroeste del lago del Fuji con baño termal (vida y maná al máximo, +8 % de ataque y velocidad), mural del Fuji, leche con café y huevos de onsen.",
+   "🐱 Café de gatos en Akihabara: entra, acaricia a los 9 gatos (+5 % de ataque y velocidad) y pide un neko latte.",
+   "👘 Tienda de kimonos en Asakusa: 6 kimonos y yukatas con flores, obi, sandalias y horquilla kanzashi.",
+   "👗 La estilista Mio vende 9 looks más: los 8 de PRISM8 (corsé vaquero, estrellas de mar, vestido boho, tirantes con shorts, gabardina, chaqueta universitaria, peto vaquero y Y2K) y el Traje de Diva Virtual en turquesa."
+  ],
+  "en": [
+   "💗 Romance with the idols: the 5 of STELLA☆LINK (they wait for you in the Akihabara hall when not performing) and a new group, PRISM8, with 8 idols (Kira, Umi, Sena, Hana, Ryo, Mika, Jun and Nene) who hang around Shibuya Crossing. Gifts, dates, partner, wedding and children like any partner.",
+   "🎤 PRISM8 performs at the Akihabara hall every other concert, with its 8 idols dancing on stage.",
+   "💇 New hairstyle: Layered wolf cut (Kira's). Also in the editor and the barber.",
+   "♨ Fuji Onsen: a ryokan southwest of Fuji's lake with a hot spring bath (full HP and mana, +8% attack and speed), a Fuji mural, coffee milk and onsen eggs.",
+   "🐱 Cat café in Akihabara: go in, pet the 9 cats (+5% attack and speed) and order a neko latte.",
+   "👘 Kimono shop in Asakusa: 6 kimonos and yukatas with flowers, obi, sandals and a kanzashi hairpin.",
+   "👗 Stylist Mio sells 9 more looks: PRISM8's 8 (denim corset, starfish tee, boho dress, tank top with shorts, trench coat, varsity jacket, denim overalls and Y2K) and the Virtual Diva Outfit in turquoise."
+  ]
+ },
+ {
+  "b": 105,
+  "v": "4.84",
+  "d": "2026-11-16",
+  "es": [
+   "👗 8 trajes de idol nuevos, sacados de tus referencias, que se adaptan a todas las estructuras de cuerpo (chica y chico) y a las 4 direcciones: Uniforme Escolar de Idol, Vestido Blanco de Escenario, Chaqueta Peluda de Pop, Traje de Diva Virtual (en violeta), Top de Estrella Plateada (con horquillas de estrella), Conjunto Rosa Peluche (con calentadores), Armadura de Idol Robot y Vestido Maid de Estrellas.",
+   "🛍 Los vende la estilista Mio en la sala STELLA☆LINK de Akihabara (junto a la salida). Cada traje trae parte de arriba, falda y botas, y va directo al armario.",
+   "🔎 Lupa › Sistemas: Japón explicado por partes (idols y carrera de idol, Osaka/Okinawa/Nagasaki/Fushimi Inari, rally de sellos, ropa de idol) y una lista con las ideas para las próximas versiones (onsen, café de gatos, tienda de kimonos, historia y romance de las idols)."
+  ],
+  "en": [
+   "👗 8 new idol outfits, made from your references, that fit every body structure (female and male) and all 4 directions: Idol School Uniform, White Stage Dress, Fluffy Pop Jacket, Virtual Diva Outfit (in violet), Silver Star Top (with star hair clips), Pink Fluffy Set (with leg warmers), Robot Idol Armour and Starry Maid Dress.",
+   "🛍 Stylist Mio sells them in the STELLA☆LINK hall in Akihabara (by the exit). Each outfit has a top, skirt and boots, and goes straight to your wardrobe.",
+   "🔎 Magnifier › Systems: Japan explained in parts (idols and idol career, Osaka/Okinawa/Nagasaki/Fushimi Inari, stamp rally, idol clothes) and a list of ideas for the next versions (onsen, cat café, kimono shop, idol story and romance)."
+  ]
+ },
+ {
+  "b": 104,
+  "v": "4.83",
+  "d": "2026-11-16",
+  "es": [
+   "🗾 Japón crece hacia el sur: Osaka, Okinawa y Nagasaki nuevas, y el túnel de toriis de Fushimi Inari en Kioto.",
+   "🎤 Idols STELLA☆LINK (Hikari, Sora, Mei, Rin y Yuzu) con su sala de conciertos en Akihabara: concierto cada 2 minutos y medio con escenario, luces, pantalla LED y fans con barras de luz. Anima con wotagei (minijuego de ritmo) y gana oro y +5 % de ataque y velocidad.",
+   "🌟 Hazte idol: pasa la audición de la productora Akane, da conciertos para ganar fans y oro y sube de rango (Aprendiz → Debut → Idol en ascenso → Idol popular → Top idol → Leyenda de Hoshizora). Títulos nuevos: Idol en Debut, Top Idol y Leyenda de Hoshizora.",
+   "🛍 Tienda de recuerdos: cromos de las 5 idols (colección completa = título «Fan número uno»), barra de luz (+10 % en el wotagei), trajes de idol de cada color y botas de plataforma.",
+   "🐙 Osaka · Dōtonbori: canal con barcos, puente, carteles gigantes con pulpo, cangrejo y dragón, pantallas, reflejos de neón por la noche, paseo en barco (2.000 oro, +8 % de velocidad) y puestos de takoyaki, okonomiyaki y kushikatsu.",
+   "🦈 Okinawa: playa con palmeras, sombrillas, hibiscos y shisas, y el Acuario Churaumi con su tanque gigante, tiburón ballena y mantas (+6 % de ataque y velocidad al contemplarlo). Peluche de tiburón ballena.",
+   "🏘 Cuesta de Nagasaki: terrazas con casitas, muros de piedra, escaleras, postes con cables, señales y espejos, hortensias, mirador y puerto con barcos.",
+   "⛩ Fushimi Inari: túnel de toriis uno tras otro, zorros de piedra, tablillas ema y omikuji diaria (hasta +10 % de ataque y velocidad).",
+   "📮 Rally de 10 sellos por todo Japón (salen en el mapa). Completo: 50.000 de oro, 5 bentōs y el título «Viajero de Japón». 28 vecinos nuevos que hablan en su dialecto."
+  ],
+  "en": [
+   "🗾 Japan grows south: new Osaka, Okinawa and Nagasaki, and the Fushimi Inari torii tunnel in Kyoto.",
+   "🎤 STELLA☆LINK idols (Hikari, Sora, Mei, Rin and Yuzu) with their concert hall in Akihabara: a concert every two and a half minutes with stage, lights, LED screen and fans with penlights. Cheer with wotagei (rhythm minigame) for gold and +5% attack and speed.",
+   "🌟 Become an idol: pass producer Akane's audition, give concerts to win fans and gold and rank up (Trainee → Debut → Rising idol → Popular idol → Top idol → Hoshizora legend). New titles: Debut Idol, Top Idol and Hoshizora Legend.",
+   "🛍 Merch stand: photo cards of the 5 idols (full collection = title «Number one fan»), penlight (+10% wotagei score), idol outfits in each colour and platform boots.",
+   "🐙 Osaka · Dotonbori: canal with boats, bridge, giant octopus, crab and dragon signs, screens, neon reflections at night, boat ride (2,000 gold, +8% speed) and takoyaki, okonomiyaki and kushikatsu stalls.",
+   "🦈 Okinawa: beach with palm trees, umbrellas, hibiscus and shisa, and the Churaumi Aquarium with its giant tank, whale shark and mantas (+6% attack and speed when you gaze at it). Whale shark plushie.",
+   "🏘 Nagasaki Slopes: terraces with little houses, stone walls, stairs, poles with wires, signs and mirrors, hydrangeas, a viewpoint and a harbour with boats.",
+   "⛩ Fushimi Inari: a tunnel of torii one after another, stone foxes, ema boards and a daily omikuji (up to +10% attack and speed).",
+   "📮 A rally of 10 stamps across Japan (shown on the map). Complete: 50,000 gold, 5 bentos and the title «Japan Traveller». 28 new locals who speak their dialect."
+  ]
+ },
+ {
+  "b": 103,
+  "v": "4.82",
+  "d": "2026-11-16",
+  "es": [
+   "🌱 Japón con pasto nuevo: tonos que se funden, matas de hierba, tréboles, florecitas de colores, piedrecitas y pétalos caídos bajo los cerezos.",
+   "🗾 Mapa de Japón en el panel del mapa (flecha ▶ hasta «Japón»): barrios con su nombre en español y en japonés, tejados de colores, el Fuji nevado, cerezos, templos y leyenda con comida, karaoke y recreativos, monumentos y aeropuerto.",
+   "🏙 Calles como Akihabara y Shinjuku: edificios estrechos y altos pegados unos a otros, cada uno con su fachada, carteles verticales que sobresalen y brillan de noche, carteles por piso, aparatos de aire, depósitos en la azotea y tiendas iluminadas en la planta baja.",
+   "⚡ Cables de luz entre los postes de todas las aceras de la ciudad.",
+   "🏮 Callejones (yokocho) entre los edificios con linternas rojas, máquinas expendedoras, bicis, cubos y cajas. Puestos de takoyaki en Akihabara y de yakitori en Shinjuku (comida que cura).",
+   "🚦 Cruce de Shibuya con tres pantallas gigantes de anuncios animados: cuando todos los semáforos se ponen en rojo, la gente cruza a la vez desde las cuatro esquinas, también en diagonal.",
+   "🚕 Taxis amarillos y verdes con luz en el techo, más coches y gente paseando por las aceras."
+  ],
+  "en": [
+   "🌱 Japan has new grass: blending tones, grass tufts, clovers, little coloured flowers, pebbles and fallen petals under the cherry trees.",
+   "🗾 Japan map in the map panel (arrow ▶ to «Japan»): districts named in English and Japanese, coloured roofs, snowy Fuji, cherry trees, temples and a legend with food, karaoke and arcade, landmarks and airport.",
+   "🏙 Streets like Akihabara and Shinjuku: narrow, tall buildings packed together, each with its own facade, vertical signs that stick out and glow at night, signs on every floor, air conditioners, rooftop tanks and lit shops on the ground floor.",
+   "⚡ Power lines between the poles on every city pavement.",
+   "🏮 Alleys (yokocho) between the buildings with red lanterns, vending machines, bikes, bins and crates. Takoyaki stalls in Akihabara and yakitori stalls in Shinjuku (food that heals).",
+   "🚦 Shibuya Crossing with three giant screens of animated adverts: when every light turns red, people cross at once from all four corners, diagonally too.",
+   "🚕 Yellow and green taxis with a roof light, more cars and people walking on the pavements."
+  ]
+ },
+ {
+  "b": 102,
+  "v": "4.81",
+  "d": "2026-11-16",
+  "es": [
+   "🗺 El mapa del principio crece: al sur de Albor hay tierra nueva con el Camposanto del Alba (tributo a los caídos, tumbas y la cuidadora Odila) y el Aeródromo de Albor.",
+   "✈ Aeródromo: pista, terminal, torre y hangar con 4 aviones que aterrizan, embarcan y despegan, y pasajeros entrando. Dentro, viajeros de 12 países, café, billete a Japón (nivel 400) y espera en la sala hasta embarcar.",
+   "🗾 Japón, el mapa más grande del juego: Monte Fuji con la pagoda y los cerezos, Kioto con el Pabellón Dorado, el sendero de toriis y geishas, Akihabara con carteles de anime, Tokio y su torre, Shinjuku y Kabukichō con neones, Asakusa con la Puerta del Trueno y el aeropuerto. Calles con semáforos y coches, y 78 japoneses (sin nombre: Japonés 1, Japonesa 2…).",
+   "🎤 Se puede entrar al karaoke (minijuego de cantar), al ramen, a los recreativos (máquina de peluches y juego de reflejos) y a las konbinis.",
+   "👴 Tus hijos, nietos y bisnietos cumplen años, se jubilan a los 65 y mueren de viejos (despacio). Sus tumbas aparecen en el Camposanto. Nuevo 🌳 árbol genealógico en ❤ Familia."
+  ],
+  "en": [
+   "🗺 The starting map grows: south of Albor there is new land with the Dawn Graveyard (tribute to the fallen, graves and Odila the keeper) and the Albor Aerodrome.",
+   "✈ Aerodrome: runway, terminal, tower and hangar with 4 planes that land, board and take off, and passengers walking in. Inside, travellers from 12 countries, a café, a ticket to Japan (level 400) and a wait in the lounge until boarding.",
+   "🗾 Japan, the largest map in the game: Mount Fuji with the pagoda and cherry trees, Kyoto with the Golden Pavilion, the torii path and geishas, Akihabara with anime billboards, Tokyo and its tower, Shinjuku and Kabukichō with neon, Asakusa with the Thunder Gate and the airport. Streets with traffic lights and cars, and 78 Japanese people (unnamed: Japanese man 1, Japanese woman 2…).",
+   "🎤 You can enter the karaoke (singing minigame), the ramen shop, the arcade (claw machine and reflex game) and the konbinis.",
+   "👴 Your children, grandchildren and great-grandchildren grow older, retire at 65 and die of old age (slowly). Their graves appear in the Graveyard. New 🌳 family tree in ❤ Family."
+  ]
+ },
+ {
+  "b": 101,
+  "v": "4.80",
+  "d": "2026-11-16",
+  "es": [
+   "💇 20 peinados anime nuevos sacados de tus láminas. Chica: Lisa con raya, Coleta anime, Lisa tapando un ojo, Rizos con flequillo, Ondas de lado, Dos trenzas, Coletitas bajas, Moño despeinado, Media coleta, Bob en capas, Bob con flequillo recto, Corto rizado, Corto liso, Cuadrado largo delante, Lisa larga con flequillo, Cebollas, Cuadrado ondulado, Coletas largas y Ondas largas anime. Chico: Despeinado anime.",
+   "❄ Las nevadas duran mucho menos (de 30 a 75 segundos) y en la nieve de fin de año solo nieva 1 minuto de cada 3, así el frío sube menos."
+  ],
+  "en": [
+   "💇 20 new anime hairstyles taken from your sheets. Female: Straight side part, Anime ponytail, Straight over one eye, Curls with bangs, Side waves, Two braids, Low pigtails, Messy bun, Half-up, Layered bob, Blunt bob, Short curly, Short straight, Angled bob, Long straight with bangs, Space buns, Wavy bob, Long twintails and Long anime waves. Male: Messy anime.",
+   "❄ Snowfalls are much shorter (30 to 75 seconds) and during the end-of-year snow it only snows 1 minute out of 3, so you get less cold."
+  ]
+ },
+ {
+  "b": 100,
+  "v": "4.79",
+  "d": "2026-11-16",
+  "es": [
+   "💇 10 peinados anime nuevos al estilo del pelo de Lienya, por mechones con rizos en espiral, flequillo en punta y brillo. Chica: Rizos de diosa, Seda anime, Coletas taladro, Nube rizada y Cola rizada. Chico: Puntas de héroe, Rizos revueltos, Melena salvaje, Flequillo de príncipe y Lobo rebelde. Se ven en las 8 estructuras de cuerpo, con cualquier color y mechas.",
+   "Los peinados emo vuelven a salir en la creación y la peluquería (estaban ocultos por error)."
+  ],
+  "en": [
+   "💇 10 new anime hairstyles in the style of Lienya's hair, drawn lock by lock with spiral curls, pointed fringes and shine. Female: Goddess curls, Anime silk, Drill twintails, Curly cloud and Curly ponytail. Male: Hero spikes, Tousled curls, Wild mane, Prince fringe and Rebel wolf. They fit all 8 body types, with any colour and highlights.",
+   "Emo hairstyles show up again in character creation and at the hairdresser (they were hidden by mistake)."
+  ]
+ },
+ {
+  "b": 99,
+  "v": "4.78",
+  "d": "2026-11-16",
+  "es": [
+   "🌸 Lienya, después de vencerla, usa exactamente el dibujo de Sergio: pelo lila enorme y rizado, cara oscura y vestido, de frente, de perfil y de espaldas."
+  ],
+  "en": [
+   "🌸 After you defeat her, Lienya uses exactly Sergio's drawing: huge curly lilac hair, dark face and dress, from the front, side and back."
+  ]
+ },
+ {
+  "b": 98,
+  "v": "4.77",
+  "d": "2026-11-16",
+  "es": [
+   "🌸 Lienya, después de vencerla, vuelve a ser un personaje como los del juego, ahora con un pelo nuevo como el de su dibujo: lila, salvaje y rizado, con volumen arriba y mechones que ondean hasta la cintura. Antes de vencerla se ve su dibujo pequeño."
+  ],
+  "en": [
+   "🌸 After you defeat her, Lienya is a game-style character again, now with new hair like her drawing: lilac, wild and curly, with volume on top and locks waving down to her waist. Before you defeat her, her small drawing is shown."
+  ]
+ },
+ {
+  "b": 97,
+  "v": "4.76",
+  "d": "2026-11-16",
+  "es": [
+   "🌸 Lienya ahora se ve con su propio dibujo también en su forma de persona (cuando te vigila, cuando habla y después de vencerla): pelo salvaje, cara y ojos brillantes."
+  ],
+  "en": [
+   "🌸 Lienya now uses her own drawing in her person form too (when she watches you, talks and after you defeat her): wild hair, face and glowing eyes."
+  ]
+ },
+ {
+  "b": 96,
+  "v": "4.75",
+  "d": "2026-11-15",
+  "es": [
+   "🌸 Descubrimiento en Las Tierras sin Pintar: Lienya, la Diosa sin Pintar. Al principio solo te vigila desde lejos y desaparece si te acercas.",
+   "Después de vencer a El Lienzo en Blanco te espera junto a la puerta de luz: pregúntale quién es y revelará su forma verdadera (con el dibujo de Sergio). Súper jefe de nivel 410, muy difícil, con 5 ataques: Ráfaga del Vacío, Círculo de Olvido, Tentáculos Incoloros, Lluvia Sin Color y Desvanecer.",
+   "🎨 Al vencerla te enseña el oficio de Artista: pinta los caballetes del borde para devolverle el color (bonos de ataque, defensa, vida y experiencia).",
+   "💕 Se queda junto a Mael y la puedes enamorar y casarte con ella. Capítulo nuevo en el Libro del Vínculo con cinemática, y su guía en la lupa con flecha."
+  ],
+  "en": [
+   "🌸 A discovery in the Unpainted Lands: Lienya, the Unpainted Goddess. At first she only watches you from afar and vanishes if you get close.",
+   "After defeating The Blank Canvas she waits by the door of light: ask her who she is and she will reveal her true form (with Sergio's drawing). A very hard level 410 super boss with 5 attacks: Void Burst, Circle of Oblivion, Colourless Tentacles, Colourless Rain and Vanish.",
+   "🎨 Once defeated she teaches you the Artist job: paint the border's easels to bring its colour back (attack, defence, HP and experience bonuses).",
+   "💕 She stays next to Mael and you can win her heart and marry her. New chapter in the Book of the Bond with a cutscene, and her guide in the magnifier with an arrow."
+  ]
+ },
+ {
+  "b": 95,
+  "v": "4.74",
+  "d": "2026-11-15",
+  "es": [
+   "💪 Nueva pestaña Poder en la lupa: tu poder ahora y qué te falta (arma, herrería, arma despertada, maestría, clase, subraza, Poder del Velo, Trazos y técnicas), la tabla del poder máximo a nivel 400 por clase y cada forma de ganar poder explicada: equipo, armas ancestrales, herrería, Trazos (límite 50), técnicas de rivales, mentores y academia, anillos, mascotas, comida y familia."
+  ],
+  "en": [
+   "💪 New Power tab in the magnifier: your power now and what you're missing (weapon, blacksmith, awakened weapon, mastery, class, subrace, Veil Power, Strokes and techniques), the level 400 max power table by class and every way to gain power explained: gear, ancestral weapons, blacksmith, Strokes (limit 50), rival, mentor and academy techniques, rings, pets, food and family."
+  ]
+ },
+ {
+  "b": 94,
+  "v": "4.73",
+  "d": "2026-11-15",
+  "es": [
+   "El número de Poder ahora cuenta los Trazos, las técnicas (amistades, mentores y academia) y las armas ancestrales. Antes daban su bono en combate pero no salían en el Poder."
+  ],
+  "en": [
+   "The Power number now counts Strokes, techniques (friendships, mentors and academy) and ancestral weapons. They already gave their bonus in combat but didn't show in Power."
+  ]
+ },
+ {
+  "b": 93,
+  "v": "4.72",
+  "d": "2026-11-15",
+  "es": [
+   "🛡 Armaduras de Las Tierras sin Pintar con los conceptos de Sergio (tiers 27-30): abrigo crema y bufanda morada del bardo, túnica con ribetes de oro y colgante del mago, placas de cal agrietadas y capa morada del guerrero, manto de escamas con perla del pez, correas y bufanda del ninja, círculo morado y talismanes del invocador, y túnica crema para el arquero.",
+   "Se ajustan a las 8 estructuras de cuerpo (revisión automática sin avisos) y cambian de tono por tier: tiza, trazo, cal y lienzo. Van con la cabeza descubierta, como en los dibujos.",
+   "Ya no sale el manto celeste de Celestia con estas armaduras."
+  ],
+  "en": [
+   "🛡 Unpainted Lands armour with Sergio's concepts (tiers 27-30): the bard's cream coat and purple scarf, the mage's gold-trimmed robe and pendant, the warrior's cracked lime plates and purple cape, the fish's scale mantle with a pearl, the ninja's straps and scarf, the summoner's purple circle and talismans, and a cream tunic for the archer.",
+   "They fit all 8 body types (automatic check with no warnings) and change tone by tier: chalk, stroke, lime and canvas. Worn bareheaded, like in the drawings.",
+   "Celestia's sky-blue mantle no longer appears with this armour."
+  ]
+ },
+ {
+  "b": 92,
+  "v": "4.71",
+  "d": "2026-11-15",
+  "es": [
+   "🗡 Armas de Las Tierras sin Pintar con el dibujo de Sergio: cinco por clase (laúd-espada, cetro-pincel, espadón del vacío blanco, tridente perlado, katana pálida, bastón de sellos…). Tiers 27 (nivel 360), 28 (372), 29 (384) y 30 (396) en la herrería con Tinta Viva y Pigmento Puro.",
+   "✨ El arma del Lienzo Eterno (tier 31, nivel 400): solo la suelta El Lienzo en Blanco.",
+   "Armaduras de tiza, trazo, cal y lienzo (27-30). Su aspecto propio, como en los conceptos de Sergio, llega en la próxima versión.",
+   "El arquero no salía en la hoja: lleva arcos de tiza en blanco y lila.",
+   "Dificultad y PvP medidos de nuevo con el equipo nuevo."
+  ],
+  "en": [
+   "🗡 Unpainted Lands weapons with Sergio's drawing: five per class (lute-sword, brush-sceptre, white void greatsword, pearl trident, pale katana, seal staff…). Tiers 27 (level 360), 28 (372), 29 (384) and 30 (396) at the blacksmith with Living Ink and Pure Pigment.",
+   "✨ The Eternal Canvas weapon (tier 31, level 400): only dropped by The Blank Canvas.",
+   "Chalk, stroke, lime and canvas armour (27-30). Their own look, like Sergio's concepts, comes in the next version.",
+   "The archer wasn't on the sheet: it carries chalk bows in white and lilac.",
+   "Difficulty and PvP measured again with the new gear."
+  ]
+ },
+ {
+  "b": 91,
+  "v": "4.70",
+  "d": "2026-11-15",
+  "es": [
+   "⭐ Nivel máximo 400. Las Tierras sin Pintar ahora van del 300 al 400: Orilla del Boceto, Llanura de los Trazos, Ciénaga de los Borrones, El Marco Roto y El Lienzo en Blanco (385-400).",
+   "🖌 Criaturas con el dibujo de Sergio: Babosa Borrada, Lobo Inacabado, Araña de Tiza, Caballero Vacío, Esqueleto Sin Tinta, Gólem de Cal, Espectro del Lienzo, Pez Pálido, Mimo del Silencio y Nihilito.",
+   "⚔ Jefes nuevos con su dibujo: Eco del Vencido (310), El Fragmento sin Color (320) y La Sierpe de Tormenta (330), cada uno con su misión de Mael; El Lienzo en Blanco tiene su nuevo aspecto y es de nivel 400.",
+   "Lupa › Sistemas › «Las Tierras sin Pintar»: cómo llegar, zonas, criaturas, jefes, misiones y Trazos (ahora desde el nivel 400).",
+   "Dificultad medida otra vez: los 72 jefes dentro de su objetivo. Próximamente: las armas y armaduras del Lienzo (tiers 27-30)."
+  ],
+  "en": [
+   "⭐ Max level 400. The Unpainted Lands now go from 300 to 400: Sketch Shore, Plain of Strokes, Swamp of Smudges, The Broken Frame and The Blank Canvas (385-400).",
+   "🖌 Creatures with Sergio's drawing: Erased Slug, Unfinished Wolf, Chalk Spider, Hollow Knight, Inkless Skeleton, Lime Golem, Canvas Specter, Pale Fish, Mime of Silence and Little Nihil.",
+   "⚔ New bosses with their drawing: Echo of the Vanquished (310), The Colourless Fragment (320) and The Storm Serpent (330), each with a quest from Mael; The Blank Canvas has its new look and is level 400.",
+   "Magnifier › Systems › \"The Unpainted Lands\": how to get there, zones, creatures, bosses, quests and Strokes (now from level 400).",
+   "Difficulty measured again: all 72 bosses within target. Coming soon: the Canvas weapons and armour (tiers 27-30)."
+  ]
+ },
+ {
+  "b": 90,
+  "v": "4.69",
+  "d": "2026-11-15",
+  "es": [
+   "🖌 Nuevo continente: Las Tierras sin Pintar (nivel 300-350), el borde del mundo donde la Ventisca todavía no ha pintado. Se entra por el puente blanco al este de Albor después de vencer a la Luna Sonriente; habla con Mael, la Pintora del Borde.",
+   "Todo se ve como un boceto sin color sobre un vacío morado, y en el cielo una mano gigante pinta con su pincel. Cada criatura que vences devuelve el color a su zona.",
+   "Criaturas esbozadas (slimes a medio pintar, gólems de boceto, esqueletos, lobos de carboncillo, borrones de tinta…), 4 jefes nuevos y el súper jefe El Lienzo en Blanco, con 6 misiones y su capítulo y cinemática en el Libro del Vínculo.",
+   "Trazos: al nivel máximo la experiencia sigue sumando (hasta 50 Trazos, +0,4 % de ataque, defensa y vida cada uno). Mael cambia Tinta Viva por Trazos.",
+   "Todos los jefes nuevos pasan la medición de dificultad. Explicado en la lupa › Sistemas, con flecha al puente."
+  ],
+  "en": [
+   "🖌 New continent: The Unpainted Lands (level 300-350), the edge of the world where the Ventisca has not painted yet. Enter through the white bridge east of Albor after defeating the Smiling Moon; talk to Mael, the Painter of the Border.",
+   "Everything looks like a colourless sketch over a purple void, and in the sky a giant hand paints with its brush. Every creature you defeat gives its zone its colour back.",
+   "Sketched creatures (half-painted slimes, sketch golems, skeletons, charcoal wolves, ink smudges…), 4 new bosses and the super boss The Blank Canvas, with 6 quests and its chapter and cutscene in the Book of the Bond.",
+   "Strokes: at max level experience keeps adding up (up to 50 Strokes, +0.4% attack, defence and HP each). Mael trades Living Ink for Strokes.",
+   "All new bosses pass the difficulty measurement. Explained in the magnifier › Systems, with an arrow to the bridge."
+  ]
+ },
+ {
+  "b": 89,
+  "v": "4.68",
+  "d": "2026-11-15",
+  "es": [
+   "⚖ Dificultad de los 64 jefes medida y ajustada: antes caían en segundos. Ahora, en solitario y con buen equipo, un jefe de zona dura de 1 a 3 minutos, uno de continente de 3 a 5 y los súper jefes de 6 a 10 (Nihil 9, El Sin Nombre 10).",
+   "Con 4 amigos se tarda unos 2/3 de eso y con 2 hijos, un poco menos que solo: siempre se puede pasar solo, con familia o con amigos.",
+   "Solo cambia la vida de los jefes; el PvP no se toca."
+  ],
+  "en": [
+   "⚖ The difficulty of all 64 bosses was measured and adjusted: they used to fall in seconds. Now, solo with good gear, a zone boss lasts 1-3 minutes, a continent boss 3-5 and super bosses 6-10 (Nihil 9, the Nameless One 10).",
+   "With 4 friends it takes about 2/3 of that and with 2 kids a bit less than solo: it can always be beaten solo, with family or with friends.",
+   "Only boss HP changes; PvP is untouched."
+  ]
+ },
+ {
+  "b": 88,
+  "v": "4.67",
+  "d": "2026-11-15",
+  "es": [
+   "Lupa › Sistemas › «Nihil, el Ente Oscuro»: ahora dice dónde está (Corona del Cielo, en Celestia), el camino de misiones para llegar, cómo vencer cada ataque, sus fases y qué suelta. Con flecha dorada para ir."
+  ],
+  "en": [
+   "Magnifier › Systems › \"Nihil, the Dark Entity\": it now says where it is (Crown of the Sky, in Celestia), the quest path to get there, how to beat each attack, its phases and its drops. With a golden arrow to go there."
+  ]
+ },
+ {
+  "b": 87,
+  "v": "4.66",
+  "d": "2026-11-15",
+  "es": [
+   "Arreglado el fuego que se quedaba pegado al héroe con la runa de fuego: ahora el aura de la runa solo aparece un instante al golpear a un monstruo, más pequeña y en el arma.",
+   "Opciones › «Aura de armas imbuidas» para apagar todas las auras.",
+   "En la forja puedes quitar la runa del arma, y tocar otra vez la misma Esencia de imbuir la cancela."
+  ],
+  "en": [
+   "Fixed the fire stuck to the hero with the fire rune: the rune's aura now only flashes for a moment when you hit a monster, smaller and on the weapon.",
+   "Options › \"Imbued weapon aura\" to turn all auras off.",
+   "At the forge you can remove the weapon's rune, and tapping the same Imbue essence again cancels it."
+  ]
+ },
+ {
+  "b": 86,
+  "v": "4.65",
+  "d": "2026-11-15",
+  "es": [
+   "⚠ Nihil renovado con tu dibujo: flota, se ve en las 4 direcciones y tiene 6 ataques nuevos con sus sprites (Orbe Umbrío, Garra del Vacío, Pilar Oscuro, Lluvia de Cristales, Nova Nihil y Prisión Sombría). Todo se avisa en el suelo; al 60 % llama sombras y al 25 % combina ataques. Solo aparece en la Corona del Cielo.",
+   "🔥 Armas imbuidas: fuego, hielo, rayo y agua se ven en tu arma (con tu dibujo) al usar habilidades de ese elemento, con runas o con las nuevas Esencias de imbuir (5 min).",
+   "⚔ Maestría de armas mucho más rápida (sube más con enemigos de nivel alto) y el arma despierta antes.",
+   "🧪 Las pociones curativas esperan 8 s entre una y otra; el botón muestra la cuenta atrás.",
+   "🏛 Museo de aventuras: trofeos de los 64 jefes con su dibujo, hallazgos arqueológicos, medallas de festivales y tus primeras armas. Los aldeanos lo visitan y lo comentan.",
+   "🏠 Casa útil: vitrina, pedestal, taller del artesano, biblioteca, sótano secreto (40 huecos), cama de invitados, macetero mágico, mesa de alquimia y decoración nueva.",
+   "🌙 Jardinería mágica: 6 plantas que crecen con su clima (la Flor Lunar brilla de noche) y elixires de alquimia.",
+   "🤝 Amistades, rivales y mentores: charla cada día, duelos de rivales y técnicas que te enseñan.",
+   "🎉 Festivales cada 3 días: concurso musical, cocina, baile, carrera y apuestas de caracoles.",
+   "🗡 Armas ancestrales con historia: despiertan restaurando su santuario, hablando con quien conoció a su portador y venciendo a su creador.",
+   "📜 Crónicas del mundo en el Libro del Vínculo: jefes, pueblos, familia, descubrimientos, decisiones y secretos sin resolver. 📝 Examen de la Academia con técnica exclusiva.",
+   "Más de 120 objetos nuevos con sprite. Todo explicado en la lupa › Sistemas."
+  ],
+  "en": [
+   "⚠ Nihil remade with your drawing: it floats, shows in all 4 directions and has 6 new attacks with their sprites (Umbral Orb, Void Claw, Dark Pillar, Crystal Rain, Nihil Nova and Shadow Prison). Everything is warned on the ground; at 60% it calls shadows and at 25% it combines attacks. It only appears in the Crown of the Sky.",
+   "🔥 Imbued weapons: fire, ice, lightning and water show on your weapon (with your drawing) when using skills of that element, with runes or with the new Imbue essences (5 min).",
+   "⚔ Much faster weapon mastery (more from high-level enemies) and the weapon awakens sooner.",
+   "🧪 Healing potions have an 8 s cooldown; the button shows the countdown.",
+   "🏛 Adventure museum: trophies from the 64 bosses with their drawing, archaeological finds, festival medals and your first weapons. Villagers visit and comment on it.",
+   "🏠 Useful house: display case, pedestal, artisan workshop, library, secret cellar (40 slots), guest bed, magic planter, alchemy table and new decoration.",
+   "🌙 Magic gardening: 6 plants that grow with their weather (the Moonflower glows at night) and alchemy elixirs.",
+   "🤝 Friendships, rivals and mentors: chat every day, rival duels and techniques they teach you.",
+   "🎉 Festivals every 3 days: music contest, cooking, dance, race and snail betting.",
+   "🗡 Ancestral weapons with a story: they awaken by restoring their shrine, talking to whoever knew their bearer and defeating their creator.",
+   "📜 World chronicles in the Book of the Bond: bosses, towns, family, discoveries, decisions and unsolved secrets. 📝 Academy exam with an exclusive technique.",
+   "Over 120 new items with sprites. Everything explained in the magnifier › Systems."
+  ]
+ },
+ {
+  "b": 85,
+  "v": "4.64",
+  "d": "2026-11-15",
+  "es": [
+   "🎬 Cinemáticas en pixel art: el pasado del mundo se ve con escenas animadas y tu propio héroe aparece en ellas.",
+   "Prólogo con toda la historia: en el Libro del Vínculo («🎬 Ver el prólogo») y hablando con la Anciana Mira («Ver el pasado»).",
+   "Cada capítulo tiene su cinemática: se ve al descubrirlo hablando con un aldeano y desde el Libro con el botón 🎬 (los siete guardianes, Vael y el Kraken, el Eclipse, el ámbar, el invierno, la Ventisca, los reyes…).",
+   "⚠ Súper jefes: el Desatado, el Señor del Eclipse, Nihil, la Luna Sonriente y El Sin Nombre son jefes de la historia: barra dorada, aviso al aparecer y cinemática al vencerlos.",
+   "Tejedores más grandes y detallados en las escenas."
+  ],
+  "en": [
+   "🎬 Pixel art cutscenes: the world's past is shown with animated scenes and your own hero appears in them.",
+   "Prologue with the whole story: in the Book of the Bond (\"🎬 Watch the prologue\") and talking to Elder Mira (\"See the past\").",
+   "Every chapter has its cutscene: it plays when a villager tells it to you and from the Book with the 🎬 button (the seven guardians, Vael and the Kraken, the Eclipse, the amber, the winter, Ventisca, the kings…).",
+   "⚠ Super bosses: the Unbound, the Lord of the Eclipse, Nihil, the Smiling Moon and the Nameless One are story bosses: golden bar, warning when they appear and a cutscene when you defeat them.",
+   "Bigger, more detailed Weavers in the scenes."
+  ]
+ },
+ {
+  "b": 84,
+  "v": "4.63",
+  "d": "2026-11-15",
+  "es": [
+   "🏆 Top con tu héroe: cada fila del top muestra al personaje tal como iba la última vez que jugó (ropa, armadura, arma, cosméticos, cuerpo y subraza). Si te cambias, cambia en el top.",
+   "👗 Nueva pestaña Moda: ranking de quién tiene más prendas distintas, contando cosméticos del armario y todas las armaduras conseguidas.",
+   "Explicado en la lupa › Sistemas."
+  ],
+  "en": [
+   "🏆 Top with your hero: every row of the top shows the character as they were dressed the last time they played (clothes, armour, weapon, cosmetics, body and subrace). If you change, the top changes too.",
+   "👗 New Fashion tab: ranking of who owns the most different clothes, counting wardrobe cosmetics and every armour piece obtained.",
+   "Explained in the magnifier › Systems."
+  ]
+ },
+ {
+  "b": 83,
+  "v": "4.62",
+  "d": "2026-11-15",
+  "es": [
+   "Ropa rasgada de mujer: la ropa sigue puesta y rasgada, y debajo lleva un top que se ve por los rotos del pecho; por los rotos del vientre se ve la piel."
+  ],
+  "en": [
+   "Torn women's clothes: the clothes stay on and torn, with a top underneath visible through the rips on the chest; skin shows through the rips on the belly."
+  ]
+ },
+ {
+  "b": 82,
+  "v": "4.61",
+  "d": "2026-11-15",
+  "es": [
+   "El castillo de la Academia Arcana se abre: acércate al portón. Dentro hay un gran salón con alfombra morada, vidrieras, la directora y tres aulas (Fuego, Hielo y Runas) con 18 alumnos que van a clase y salen al recreo. Los profesores enseñan en voz alta. Siéntate en un pupitre durante la clase: Polvo Arcano y experiencia.",
+   "Ropa rasgada de mujer: ya no queda un top; la ropa sigue puesta con jirones y agujeros en el vientre y el bajo en picos (el pecho siempre protegido). Los rotos de chico y chica usan siempre el color de tu piel.",
+   "Kaela, la Loba del Velo (Velo Roto, cerca de la llegada): chica loba de pelo negro, orejas, cola y colmillos, vestido de jirones, medias de pelaje y boina roja. Se puede enamorar y casar.",
+   "Kaela es la pareja más fuerte: lucha a tu lado sin armadura con su propio nivel (sube hasta 350), tiene vida, aúlla para curarte y habla según lo que pase. Con 6 corazones se transforma en loba y puedes subirte a su lomo (se ve online). También te regala su ropa.",
+   "Hijos con Kaela: nacen híbridos (orejas, cola y colmillos del color de su pelo) y de jóvenes pueden pasar a forma híbrida con pelaje y hocico."
+  ],
+  "en": [
+   "The Arcane Academy castle opens: walk up to the gate. Inside there's a great hall with a purple carpet, stained glass, the headmistress and three classrooms (Fire, Ice and Runes) with 18 students who go to class and out to break. Professors teach out loud. Sit at a desk during class: Arcane Dust and experience.",
+   "Torn women's clothes: no more top; the clothes stay on with rips and holes over the belly and a jagged hem (the chest is always protected). Rips on men and women always use your skin colour.",
+   "Kaela, the Veil She-Wolf (Broken Veil, near the arrival point): a wolf girl with black hair, ears, tail and fangs, a tattered dress, fur stockings and a red beret. She can be romanced and married.",
+   "Kaela is the strongest partner: she fights by your side without armour at her own level (up to 350), has HP, howls to heal you and talks about what's happening. At 6 hearts she turns into a wolf and you can ride on her back (visible online). She also gives you her clothes.",
+   "Children with Kaela: born hybrids (ears, tail and fangs in their hair colour) and as young adults they can switch to a hybrid form with fur and snout."
+  ]
+ },
+ {
+  "b": 81,
+  "v": "4.60",
+  "d": "2026-11-15",
+  "es": [
+   "Academia Arcana en el Velo Roto (runa azul junto a la llegada): castillo bajo un cielo de estrellas en espiral, camino de piedra azul con faroles, la Archimaga Ondine, los profesores Ignar (fuego), Nevia (hielo) y Orvel (arcano), alumnos y biblioteca.",
+   "Lecciones diarias con cada profesor (toca 10 runas en 35 s): Polvo Arcano, experiencia y oro. La biblioteca tiene libros con historias que también dan Polvo Arcano.",
+   "Libros mágicos (Librera Folia): vuelan a tu lado 1 minuto y lanzan hechizos con tu fuerza: Fuego, Hielo, Trueno, Arcano, Sanación y Escudo. Se gastan; se compran en packs de 3. Los demás jugadores los ven online.",
+   "Escobas voladoras (Maese Ramas): Escoba voladora y Escoba astral con estela de estrellas. Son monturas y se ven online.",
+   "Túnica y Sombrero de la Academia.",
+   "El top que queda al destrozarse la ropa de mujer ahora es más pequeño: solo una banda sobre el pecho, con hombros, vientre y brazos al aire."
+  ],
+  "en": [
+   "Arcane Academy in the Broken Veil (blue rune by the arrival point): a castle under a spiralling starry sky, a blue stone path with lanterns, Archmage Ondine, professors Ignar (fire), Nevia (ice) and Orvel (arcane), students and a library.",
+   "Daily lessons with each professor (touch 10 runes in 35 s): Arcane Dust, experience and gold. The library has storybooks that also give Arcane Dust.",
+   "Magic books (Librarian Folia): they fly by your side for 1 minute and cast spells with your power: Fire, Ice, Thunder, Arcane, Healing and Shield. They're consumed; sold in packs of 3. Online players see them.",
+   "Flying brooms (Master Twig): Flying broom and Astral broom with a star trail. They're mounts and visible online.",
+   "Academy Robe and Hat.",
+   "The top left when women's clothes are torn apart is now smaller: just a band over the chest, with shoulders, belly and arms bare."
+  ]
+ },
+ {
+  "b": 80,
+  "v": "4.59",
+  "d": "2026-11-15",
+  "es": [
+   "Nuevo Devorador Carmesí (Luna de Sangre) con el diseño de Sergio: boca llena de colmillos, garras y núcleo de luz, con frente, perfil y espalda, caminata y ataque.",
+   "Ropa de mujer muy dañada (menos de un cuarto de vida): la tela del vientre se destroza y queda un top oscuro que cubre el pecho.",
+   "Frío: en los Picos Helados o cuando nieva sube tu medidor ❄. Las 14 antorchas nuevas de los Picos, las hogueras y estar bajo techo te calientan. Si llega al 100 % te resfrías.",
+   "Enfermedades: Resfriado, Gripe, Fiebre del pantano, Intoxicación (picaduras venenosas) e Infección (heridas). Cada una baja algo (velocidad, ataque, vida o maná), tiene sus síntomas y se cura sola en unos días.",
+   "Lesiones: los golpes de enemigos mucho más fuertes pueden darte una Contusión, un Esguince (cojeas) o romperte la pierna (vas gateando). Se ve en cualquier ropa, cuerpo y clase, también online.",
+   "Médica Iris en Albor (con uniforme de enfermería y cofia): cura enfermedades y lesiones a cambio de oro, vende su uniforme y cofia y se puede enamorar.",
+   "Todo explicado en la lupa › Sistemas › Enfermedades, lesiones y frío."
+  ],
+  "en": [
+   "New Crimson Devourer (Blood Moon) with Sergio's design: a mouth full of fangs, claws and a light core, with front, side and back views, walking and attacking.",
+   "Badly damaged women's clothes (below a quarter of HP): the fabric over the belly is torn away, leaving a dark top that covers the chest.",
+   "Cold: in the Frozen Peaks or when it snows your ❄ meter rises. The 14 new torches in the Peaks, campfires and being indoors warm you up. At 100% you catch a cold.",
+   "Illnesses: Cold, Flu, Swamp fever, Poisoning (venomous bites) and Infection (wounds). Each lowers something (speed, attack, HP or mana), has symptoms and heals by itself in a few days.",
+   "Injuries: hits from much stronger enemies can give you a Bruise, a Sprain (you limp) or a broken leg (you crawl). It shows on any clothes, body and class, also online.",
+   "Doctor Iris in Albor (in a nurse uniform and cap): cures illnesses and injuries for gold, sells her uniform and cap, and can be romanced.",
+   "All explained in the magnifier › Systems › Illness, injuries and cold."
+  ]
+ },
+ {
+  "b": 79,
+  "v": "4.58",
+  "d": "2026-11-15",
+  "es": [
+   "La ropa de los cuerpos femeninos se rasga un poco más con poca vida: más rotos y más grandes en cintura, costados, brazos y piernas (el pecho sigue protegido)."
+  ],
+  "en": [
+   "Clothes on female bodies tear a bit more at low health: more and bigger rips at the waist, sides, arms and legs (the chest stays protected)."
+  ]
+ },
+ {
+  "b": 78,
+  "v": "4.57",
+  "d": "2026-11-15",
+  "es": [
+   "Ropa desgarrada según tu vida: con menos de la mitad aparecen rotos en la ropa, la armadura y los cosméticos, y raspones rojos; con menos de un cuarto, más rotos, bordes deshilachados y gotas de sangre. Funciona con todas las prendas y estructuras de cuerpo, protege el pecho de los cuerpos femeninos y se arregla al curarte por encima del 60 %. Se ve online."
+  ],
+  "en": [
+   "Torn clothes based on your health: below half, rips appear in your clothes, armour and cosmetics, plus red scratches; below a quarter, more rips, frayed edges and drops of blood. It works with every item and body type, protects the chest on female bodies and is fixed when you heal above 60%. Visible online."
+  ]
+ },
+ {
+  "b": 77,
+  "v": "4.56",
+  "d": "2026-11-15",
+  "es": [
+   "El poder vuelve a calcularse como antes (sin el ×10). Los rangos de la Torre, los títulos y la guía vuelven a sus números.",
+   "Números grandes y claros en la ficha del personaje: el poder sale grande y dorado, y la vida, el maná, el ataque, la experiencia y los atributos usan una letra que se lee bien (la pixelada confundía el 8 con la S). El cristal de la Torre también."
+  ],
+  "en": [
+   "Power is calculated as before again (no ×10). Tower ranks, titles and the guide go back to their numbers.",
+   "Big, clear numbers in the character sheet: power is shown big and golden, and HP, mana, attack, experience and attributes use an easy-to-read font (the pixel font made 8 look like S). The Tower crystal too."
+  ]
+ },
+ {
+  "b": 76,
+  "v": "4.55",
+  "d": "2026-11-15",
+  "es": [
+   "Arreglado: los títulos, el título equipado y otros datos nuevos no se guardaban; por eso volvía a salir «Nuevo título: Aprendiz». Ahora se guardan (los ganados antes de esta versión se recuperan solos al cumplir su condición).",
+   "El poder ahora se muestra ×10 para que los números se lean mejor (antes ~4.000, ahora ~40.000). Los rangos de la Torre, los títulos y la guía de la lupa usan la escala nueva. Vuelve a medir tu poder en el cristal.",
+   "El equipo de tus hijos, nietos y bisnietos es suyo: ya no se lo puedes quitar. Sí puedes darles algo mejor; lo que llevaban se queda en su propia mochila."
+  ],
+  "en": [
+   "Fixed: titles, the equipped title and other new data weren't saved; that's why \"New title: Apprentice\" kept appearing. Now they are saved (titles earned before this version come back on their own when their condition is met).",
+   "Power is now shown ×10 so the numbers read better (before ~4,000, now ~40,000). Tower ranks, titles and the magnifier guide use the new scale. Measure your power at the crystal again.",
+   "Your children's, grandchildren's and great-grandchildren's gear is theirs: you can no longer take it. You can give them something better; what they wore stays in their own bag."
+  ]
+ },
+ {
+  "b": 75,
+  "v": "4.54",
+  "d": "2026-11-15",
+  "es": [
+   "Hijos, nietos y bisnietos: ya no puedes quitarles armas, armaduras o herramientas de más nivel que el tuyo si tú nunca las conseguiste. Si alguna vez la tuviste o ya tienes el nivel, sí.",
+   "Menos curación enemiga: las invocaciones de los jefes ya no salen como Curandero, el Curandero cura un 8 % cada 5 s (a un jefe solo un 1,5 %) y ningún jefe puede recuperar más de un 0,6 % de vida por segundo mientras luchas (Devorador Carmesí, Obispo Hueco y todos los demás).",
+   "Mucho más fluido con muchos enemigos: los enemigos de la Luna de Sangre, corruptos y sombras ya no se tiñen en cada fotograma (era lo que más lag daba), el velo rojo se prepara una vez, los sonidos de golpe no se amontonan y las partículas y números se reducen solo cuando hay demasiados."
+  ],
+  "en": [
+   "Children, grandchildren and great-grandchildren: you can no longer take weapons, armour or tools above your level from them if you never got them yourself. If you had it before or have the level, you can.",
+   "Less enemy healing: boss summons no longer spawn as Healers, Healers heal 8% every 5 s (only 1.5% to a boss) and no boss can recover more than 0.6% HP per second while you fight (Crimson Devourer, Hollow Bishop and all the others).",
+   "Much smoother with lots of enemies: Blood Moon, corrupted and shadow enemies are no longer tinted every frame (the biggest cause of lag), the red veil is prepared once, hit sounds don't pile up, and particles and numbers are reduced only when there are too many."
+  ]
+ },
+ {
+  "b": 74,
+  "v": "4.53",
+  "d": "2026-11-15",
+  "es": [
+   "Títulos: 26 títulos que se ganan por tu poder (Aprendiz, Veterano, Élite, Héroe, Leyenda, Mito Inmortal) y por logros (nivel máximo, clase despertada, Arma Velada, +10, arma despertada, maestría 50, rangos de la Torre, subrazas, boda, Coliseo, misiones diarias, ropa gótica, oro…).",
+   "Se equipan en el Armario › Títulos y salen encima de tu personaje con letras de colores, borde, adornos y brillo animado. Los demás jugadores los ven online encima de tu nombre.",
+   "Lupa › Sistemas: guías nuevas de Camino al poder máximo, Arma Velada (cómo conseguirla), Herrería (+10), Arma despertada, Maestría 50, Clase despertada y Títulos."
+  ],
+  "en": [
+   "Titles: 26 titles earned by your power (Apprentice, Veteran, Elite, Hero, Legend, Immortal Myth) and by achievements (max level, awakened class, Veiled Weapon, +10, awakened weapon, mastery 50, Tower ranks, subraces, wedding, Coliseum, daily quests, gothic clothes, gold…).",
+   "Equip them in Wardrobe › Titles; they show above your character with coloured letters, outline, ornaments and animated shine. Other players see them online above your name.",
+   "Magnifier › Systems: new guides for Road to max power, Veiled Weapon (how to get it), Blacksmith (+10), Awakened weapon, Mastery 50, Awakened class and Titles."
+  ]
+ },
+ {
+  "b": 73,
+  "v": "4.52",
+  "d": "2026-11-15",
+  "es": [
+   "Arreglado: el número de poder no contaba todos tus bonus (maestría, arma despertada, clase despertada…) si no tenías subraza. Ahora el poder del menú y el del cristal de la Torre incluyen todo.",
+   "La clase despertada ahora fortalece a todas las clases: +10 % de ataque, +8 % de vida y +8 % de defensa, además de su bonus propio."
+  ],
+  "en": [
+   "Fixed: the power number didn't count all your bonuses (mastery, awakened weapon, awakened class…) unless you had a subrace. Now the menu power and the Tower crystal include everything.",
+   "Awakened class now strengthens every class: +10% attack, +8% HP and +8% defence, on top of its own bonus."
+  ]
+ },
+ {
+  "b": 72,
+  "v": "4.51",
+  "d": "2026-11-15",
+  "es": [
+   "Lupa › Sistemas › Ropa gótica y de cazador: dónde conseguir cada prenda gótica (con su precio), las pelucas, las gafas, el maquillaje blanco y la ropa de cazador."
+  ],
+  "en": [
+   "Magnifier › Systems › Gothic and hunter clothes: where to get each gothic item (with its price), the wigs, the glasses, the white makeup and the hunter clothes."
+  ]
+ },
+ {
+  "b": 71,
+  "v": "4.50",
+  "d": "2026-11-15",
+  "es": [
+   "Taller de Morwenna renovado con ropa gótica nueva y distinta: Vestido de Campana con Corsé (cadenas y cruz ansada), Vestido Romántico de Encaje, Top de Malla y Gargantilla, Chaleco de Tachas y Encaje, Top de Hombros Caídos y Rosario, Top de Tiras y Malla, Vestido de Campana Vino, Falda de Cuero con Cadenas, Falda Tutú y Medias Rotas, Pantalón de Cuero con Cordones y Botas de Plataforma.",
+   "Pelucas góticas (Bob con Flequillo, Cardada, Larga Ondulada Morada, Melena Ondulada) y Gafas Redondas. Se ajustan a todos los cuerpos.",
+   "Nueva opción en el editor (Pelo): Maquillaje blanco gótico en la piel. Se ve online, igual que el labial.",
+   "La ropa de cazador de la Torre ya no es una copia en negro: la Chaqueta de Cazador tiene cuello alto, cremallera e insignia; la de Cuero, cremallera cruzada y tachas; la Sudadera, bolsillo y cordones; y la Ropa Negra es ahora un chaleco táctico con bolsillos.",
+   "Los cazadores esquivan con dash: en los duelos detectan tus habilidades y se apartan, en el Coliseo esquivan el poder del rival y en las mazmorras salen de las zonas rojas.",
+   "Combate online en el Coliseo: desde el menú de torneos invita a un jugador conectado; si acepta, los dos aparecéis en la arena, cuenta atrás y a luchar. Quien cae pierde el combate (sin quedar derribado)."
+  ],
+  "en": [
+   "Morwenna's workshop renewed with new, distinct gothic clothes: Bell-Sleeve Corset Dress (chains and ankh), Romantic Lace Dress, Mesh Top and Choker, Studded Vest and Lace, Off-Shoulder Top and Rosary, Strappy Mesh Top, Wine Bell-Sleeve Dress, Chained Leather Skirt, Tutu Skirt and Ripped Tights, Lace-Up Leather Pants and Platform Boots.",
+   "Gothic wigs (Bob with Bangs, Teased, Long Wavy Purple, Wavy Shoulder Hair) and Round Glasses. They fit every body.",
+   "New editor option (Hair): white gothic skin makeup. Visible online, like lipstick.",
+   "Tower hunter clothes are no longer black copies: the Hunter Jacket has a high collar, zip and badge; the Leather one a cross zip and studs; the Hoodie a pocket and strings; and Black Clothes is now a tactical vest with pouches.",
+   "Hunters dodge with a dash: in duels they sense your skills and jump aside, in the Coliseum they dodge the rival's power and in dungeons they dash out of red zones.",
+   "Online Coliseum fights: from the tournament menu invite an online player; if they accept, you both appear in the arena, countdown and fight. Whoever falls loses the fight (without being downed)."
+  ]
+ },
+ {
+  "b": 70,
+  "v": "4.49",
+  "d": "2026-11-15",
+  "es": [
+   "La Misión diaria del Sistema ahora te sube 1 nivel al día (más esencias y oro) en vez de dar puntos de atributo, para no romper el equilibrio. En el nivel máximo da esencias y oro extra."
+  ],
+  "en": [
+   "The System Daily Quest now gives you 1 level a day (plus essences and gold) instead of attribute points, to keep the balance. At max level it gives extra essences and gold."
+  ]
+ },
+ {
+  "b": 69,
+  "v": "4.48",
+  "d": "2026-11-15",
+  "es": [
+   "La Torre de los Portales crece: tres puertas nuevas en el vestíbulo.",
+   "Antesala de los Portales: un gran salón con alfombra roja, columnas, estatuas, braseros y las 8 puertas gigantes con su nombre y nivel (rojas si aún no puedes), guardias y el tablón de puertas.",
+   "Coliseo de Cazadores: torneos de duelos (8 cazadores), por parejas y batalla real de 6. Se ven en vivo en la arena desde las gradas, con el público animando, o de cerca en modo espectador. Puedes apostar al campeón y retarlo después.",
+   "Salón de Pruebas: prueba de fuerza (daño en 10 s), de resistencia (aguanta oleadas 45 s), de velocidad (recoge 10 luces), examen de ascenso de rango contra un examinador y la Misión diaria del Sistema (+2 puntos de atributo al día).",
+   "30 cazadores nuevos con el estilo del juego: capuchas, capas, máscaras, armaduras y bufandas. Conviven con los de estilo anime.",
+   "El medidor de poder ahora da el mismo número que el menú del personaje. Los cazadores ya no pasan del nivel 350."
+  ],
+  "en": [
+   "The Portal Tower grows: three new doors in the lobby.",
+   "Portal Antechamber: a great hall with a red carpet, pillars, statues, braziers and the 8 giant gates with their name and level (red if you can't enter yet), guards and the gate board.",
+   "Hunters' Coliseum: duel tournaments (8 hunters), pairs and a 6-way battle royale. Watch live in the arena from the stands, with a cheering crowd, or up close in spectator mode. Bet on the champion and challenge them afterwards.",
+   "Trial Hall: strength trial (damage in 10 s), endurance (survive waves for 45 s), speed (collect 10 lights), a rank-up exam against an examiner and the System Daily Quest (+2 attribute points a day).",
+   "30 new hunters in the game's style: hoods, capes, masks, armour and scarves. They live alongside the anime-style ones.",
+   "The power meter now shows the same number as the character menu. Hunters no longer go above level 350."
+  ]
+ },
+ {
+  "b": 68,
+  "v": "4.47",
+  "d": "2026-11-15",
+  "es": [
+   "Cazadores con poder propio, como jugadores: estadísticas de su nivel y clase, mejor equipo de su nivel, pasivas, rango y maestría de arma que sube matando enemigos.",
+   "Cazadores más listos: cada uno elige un enemigo distinto, se reparten alrededor, priorizan al jefe y a los heridos, esquivan las zonas rojas, usan la técnica de su arma, beben pociones y los bardos y los de agua curan al equipo.",
+   "Mazmorras de verdad: los enemigos ya no vuelven a salir ni el jefe reaparece. Te avisa de cuántos quedan y cuando el portal está limpio.",
+   "Modo espectador: los compañeros siguen al líder y exploran juntos hasta el jefe. Tú solo miras: no puedes atacar ni ganar maestría ni experiencia.",
+   "Los 12 enemigos de las mazmorras, el Alfa Nocturno y el Señor de las Tormentas se ven como en las imágenes de Sergio. Los jefes tienen 4 direcciones.",
+   "Morwenna, Lilith, Nyx, Raven y Dorian con su nuevo diseño gótico en 4 direcciones y con caminata. Ahora se pueden enamorar: regalos, citas, besos y boda."
+  ],
+  "en": [
+   "Hunters with their own power, like players: stats for their level and class, best gear for their level, passives, rank and weapon mastery that grows by killing enemies.",
+   "Smarter hunters: each picks a different enemy, they spread out, focus the boss and wounded foes, dodge red zones, use their weapon technique, drink potions, and bards and water users heal the team.",
+   "Real dungeons: enemies no longer respawn and the boss doesn't come back. You're told how many are left and when the portal is clear.",
+   "Spectator mode: teammates follow the leader and explore together to the boss. You only watch: no attacking, no mastery or experience.",
+   "The 12 dungeon enemies, the Night Alpha and the Lord of Storms look like Sergio's images. Bosses have 4 directions.",
+   "Morwenna, Lilith, Nyx, Raven and Dorian with their new gothic design in 4 directions with walking. They can now be romanced: gifts, dates, kisses and wedding."
+  ]
+ },
+ {
+  "b": 67,
+  "v": "4.46",
+  "d": "2026-11-15",
+  "es": [
+   "Cazadores nuevos estilo anime, sacados de la imagen de Sergio: 15 diseños (capas, abrigos, garras, bastones, gemas) y 11 cazadoras de pelo largo, con frente, espalda y perfil, caminata y ataque.",
+   "Cada cazador tiene su propio color de ropa y de pelo (rosa, azul, violeta, menta, rubio…), así no hay dos iguales. Los gigantes se ven más grandes. Los 6 legendarios también tienen su diseño nuevo.",
+   "El Titán Carmesí de la Cripta del Gólem Rojo se ve como en la imagen: armadura roja agrietada, garras doradas, ojos amarillos y núcleo de luz que late.",
+   "Navidad con nieve: durante todo el último mes y el día de Año Nuevo nieva y el suelo de todo el mundo se cubre de blanco (menos el desierto y el volcán)."
+  ],
+  "en": [
+   "New anime-style hunters taken from Sergio's image: 15 designs (capes, coats, claws, staves, gems) and 11 long-haired huntresses, with front, back and side views, walking and attacking.",
+   "Every hunter has their own clothing and hair color (pink, blue, violet, mint, blond…), so no two look the same. Giants look bigger. The 6 legendaries also have their new design.",
+   "The Crimson Titan in the Red Golem Crypt looks like the image: cracked red armor, golden claws, yellow eyes and a pulsing light core.",
+   "Snowy Christmas: during the whole last month and on New Year's Day it snows and the ground of the whole world turns white (except desert and volcano)."
+  ]
+ },
+ {
+  "b": 66,
+  "v": "4.45",
+  "d": "2026-11-15",
+  "es": [
+   "Dos cuerpos nuevos al crear o cambiar tu personaje: Esbelto (hombre) y Atlética (mujer). Toda la ropa, armaduras y cosméticos se ajustan a ellos.",
+   "NPCs góticas: Morwenna en Albor (costurera con tienda de ropa gótica: vestido, corsé, velo, capa de encaje, guantes, gargantilla y botas), Lilith en el puerto, Nyx en Arxar, Raven en Sahrim y Dorian en Yarakai.",
+   "Fiestas en los pueblos según el calendario del juego: Semana Santa (alfombras de flores, palmas y procesión), Fiesta del Sol, Mes Morado (procesión morada con anda, velas y turrón), Día de las Ánimas (altar y pan de ánimas), Navidad (árbol con regalo, nacimiento y panetón) y Año Nuevo (fuegos artificiales).",
+   "Las comidas de cada fiesta dan una bendición especial. Todo está en la lupa › Sistemas › Fiestas."
+  ],
+  "en": [
+   "Two new bodies when creating or changing your character: Slim (male) and Athletic (female). All clothes, armor and cosmetics fit them.",
+   "Gothic NPCs: Morwenna in Albor (seamstress with a gothic clothing shop: dress, corset, veil, lace cape, gloves, choker and boots), Lilith at the port, Nyx in Arxar, Raven in Sahrim and Dorian in Yarakai.",
+   "Town festivals following the game calendar: Holy Week (flower carpets, palms and procession), Sun Festival, Purple Month (purple procession with float, candles and turrón), Day of Souls (altar and souls bread), Christmas (tree with a gift, nativity and panettone) and New Year (fireworks).",
+   "Each festival's food gives a special blessing. Everything is in the magnifier › Systems › Festivals."
+  ]
+ },
+ {
+  "b": 65,
+  "v": "4.44",
+  "d": "2026-11-15",
+  "es": [
+   "Cazadores mucho más variados: cuerpos normales, altos, robustos y gigantes, capas del color de su poder, armaduras, máscaras, bufandas, barbas, ojos brillantes y armas según su clase.",
+   "Poderes con animación propia: pilares de fuego, cristales de hielo, picos de roca, tornados, olas de agua, runas mentales y, nuevos, sombras y rayos.",
+   "Rangos por encima de Astral: Nacional y Mundial. Seis cazadores legendarios en la Torre (Vaelor, el Monarca de las Sombras; Thorgar, la Bestia Dorada; Ilhan, el Sabueso Carmesí; Kiro, el de la Máscara de Gas; la Doctora Seren y Brutus, el Muro), de nivel 430 a 520: no se unen a nadie.",
+   "Duelos de entrenamiento en la Torre: reta a cualquier cazador (o a un legendario, imposible por ahora). Notas la diferencia de poder en vida, daño y poderes; a 1 de vida el duelo termina y no mueres. Ganar da maestría y esencias.",
+   "Modo espectador: en las retransmisiones pulsa «Ver en directo» y entra a ver al cazador (o a su equipo) recorrer la mazmorra y luchar. Tú eres invisible; sales desde el botón ⛩.",
+   "Maquillaje nuevo: ojeras y ojeras con delineado. Labial negro, rojo, granate, morado, rosa y azul (pestaña Pelo). Se ve en el online."
+  ],
+  "en": [
+   "Much more varied hunters: normal, tall, burly and giant bodies, capes in their power's colour, armour, masks, scarves, beards, glowing eyes and weapons by class.",
+   "Powers with their own animation: fire pillars, ice crystals, rock spikes, tornadoes, water waves, mind runes and, new, shadows and lightning.",
+   "Ranks above Astral: National and World. Six legendary hunters in the Tower (Vaelor, the Shadow Monarch; Thorgar, the Golden Beast; Ilhan, the Crimson Hound; Kiro, the Gas Mask; Doctor Seren and Brutus, the Wall), level 430 to 520: they team up with nobody.",
+   "Training duels in the Tower: challenge any hunter (or a legendary one, impossible for now). You feel the power gap in HP, damage and powers; at 1 HP the duel ends and you don't die. Winning gives mastery and essences.",
+   "Spectator mode: in the broadcasts press \"Watch live\" and go in to watch the hunter (or their team) explore the dungeon and fight. You are invisible; leave from the ⛩ button.",
+   "New makeup: dark circles and dark circles with eyeliner. Black, red, burgundy, purple, pink and blue lipstick (Hair tab). Visible online."
+  ]
+ },
+ {
+  "b": 64,
+  "v": "4.43",
+  "d": "2026-11-15",
+  "es": [
+   "Arreglado: el error rojo «Maximum call stack size exceeded» al salir de una mazmorra (pasaba si se pisaba otra vez la salida mientras cargaba). Ahora siempre sales bien, aunque falte el punto de vuelta.",
+   "Arreglado: en la Torre de los Portales la ventana de retransmisiones se abría sola al caminar.",
+   "Cazadores mucho más útiles: pegan según su propio nivel y rango (uno de más nivel pega mucho más) y aguantan más.",
+   "Los cazadores de más de 20 niveles por encima del tuyo no aceptan ir contigo.",
+   "Jefes menos inflados: los cazadores cuentan medio y los hijos un tercio para el escalado del equipo, y los jefes de las mazmorras tienen un 30 % menos de vida."
+  ],
+  "en": [
+   "Fixed: the red error \"Maximum call stack size exceeded\" when leaving a dungeon (it happened if you stepped on the exit again while loading). You now always get out, even if the return point is missing.",
+   "Fixed: in the Portal Tower the broadcast window opened by itself while walking.",
+   "Hunters are much more useful: they hit based on their own level and rank (a higher-level one hits much harder) and are tougher.",
+   "Hunters more than 20 levels above you refuse to go with you.",
+   "Less bloated bosses: hunters count as half and kids as a third for team scaling, and dungeon bosses have 30% less HP."
+  ]
+ },
+ {
+  "b": 63,
+  "v": "4.42",
+  "d": "2026-11-14",
+  "es": [
+   "Ropa de cazador (cofres de los portales y Tienda del Portal): Chaqueta de Cazador, Chaqueta de Cuero Negra, Gabardina Nocturna, Chaqueta Astral, Ropa Negra, Sudadera Oscura, tres capuchas, pantalones y falda negros, botas y zapatillas negras y dos capas. Se ajustan a las 8 estructuras de cuerpo (con busto en mujer).",
+   "Anillos de Cazador (Hierro, Plata, Oro, Platino y Astral), tan buenos como los mejores accesorios de su nivel.",
+   "6 peinados emo nuevos (3 para chicas y 3 para chicos) con flequillo largo que tapa un ojo.",
+   "Maquillaje de ojos en la creación, la peluquería y el estilo de los hijos (pestaña Pelo): delineado negro, sombras morada, roja y azul, pestañas largas y ojos ahumados.",
+   "Aspectos de arma: 8 aspectos (Acero Pulido, Plata Lunar, Oro Real, Mithril Azur, Obsidiana, Cristal Celeste, Sombra Eclipsada y Luna Sonriente) que cambian solo el dibujo de tu arma, no el daño. Los demás jugadores también lo ven."
+  ],
+  "en": [
+   "Hunter clothes (portal chests and Portal Shop): Hunter Jacket, Black Leather Jacket, Night Trench Coat, Astral Jacket, Black Clothes, Dark Hoodie, three hoods, black trousers and skirt, black boots and sneakers and two capes. They fit all 8 body builds (with bust on women).",
+   "Hunter Rings (Iron, Silver, Gold, Platinum and Astral), as good as the best accessories of their level.",
+   "6 new emo hairstyles (3 for girls and 3 for boys) with a long fringe covering one eye.",
+   "Eye makeup in character creation, the hairdresser and kids' style (Hair tab): black eyeliner, purple, red and blue shadow, long lashes and smoky eyes.",
+   "Weapon looks: 8 looks (Polished Steel, Lunar Silver, Royal Gold, Azure Mithril, Obsidian, Celestial Crystal, Eclipsed Shadow and Smiling Moon) that only change your weapon's art, not its damage. Other players see it too."
+  ]
+ },
+ {
+  "b": 62,
+  "v": "4.41",
+  "d": "2026-11-14",
+  "es": [
+   "Torre de los Portales: un gran centro de cazadores blanco con Selene (la recepcionista de azul), el cristal que mide tu poder y te da rango (Cobre, Hierro, Plata, Oro, Platino y Astral), el ranking, pantallas para ver en directo a los cazadores dentro de los portales y la tienda de esencias.",
+   "40 cazadores vivos con nombre, aspecto, clase, poder (fuego, hielo, roca, aire, agua o mente), rango y nivel propios, algunos robustos y grandes. Entran solos en portales, suben de nivel y de rango y tienen sus diálogos.",
+   "Botón ⛩ Mazmorras (desde nivel 50): las mazmorras del mundo en el que estás. Mundo principal: nivel 50, 100, 150, 250 y 340. También en el Archipiélago (170), las Islas del Cielo (210) y el Velo Roto (300).",
+   "Mazmorras en solitario o en equipo de 4: vas con 3 cazadores (invítalos hablando con ellos). Luchan con sus poderes, los enemigos van a por todos y ves la vida del equipo arriba a la izquierda, como en el online.",
+   "Enemigos nuevos en el bestiario: Gólem Rojo, Elemental de Roca, Araña del Portal, Lobo Nocturno, Cazador Corrupto, Lagarto Ígneo, Elementales de Fuego y de Hielo, Escarabajo de Acero, Sapo Abisal, Espectro del Portal y Gólem del Vacío. Jefes: Titán Carmesí, Alfa Nocturno, Reina Arácnida, Rey Sapo Abisal, Señor de las Tormentas, Señor Elemental, El Cazador Caído y el Monarca del Vacío.",
+   "Al cerrar un portal sale un cofre con oro, experiencia, esencias de portal y equipo de tu nivel (más en equipo)."
+  ],
+  "en": [
+   "Portal Tower: a large white hunters' hub with Selene (the receptionist in blue), the crystal that measures your power and gives you a rank (Copper, Iron, Silver, Gold, Platinum and Astral), the ranking, screens to watch hunters live inside portals and the essence shop.",
+   "40 living hunters with their own name, look, class, power (fire, ice, rock, air, water or mind), rank and level, some of them big and burly. They go into portals alone, level up, rank up and have their own dialogue.",
+   "⛩ Dungeons button (from level 50): the dungeons of the world you are in. Main world: level 50, 100, 150, 250 and 340. Also in the Archipelago (170), Sky Isles (210) and Broken Veil (300).",
+   "Dungeons solo or as a team of 4: you go with 3 hunters (invite them by talking to them). They fight with their powers, enemies go for everyone and you see the team's HP at the top left, like online.",
+   "New enemies in the bestiary: Red Golem, Rock Elemental, Portal Spider, Night Wolf, Corrupted Hunter, Igneous Lizard, Fire and Ice Elementals, Steel Beetle, Abyssal Toad, Portal Wraith and Void Golem. Bosses: Crimson Titan, Night Alpha, Portal Spider Queen, Abyssal Toad King, Lord of Storms, Elemental Lord, The Fallen Hunter and the Void Monarch.",
+   "Closing a portal drops a chest with gold, experience, portal essences and gear for your level (more as a team)."
+  ]
+ },
+ {
+  "b": 61,
+  "v": "4.40",
+  "d": "2026-11-14",
+  "es": [
+   "Hijos, nietos y bisnietos usan 4 habilidades de su clase como tú (según su nivel). En su panel eliges cuáles y las cambias cuando quieras; las nuevas se añaden solas si hay hueco.",
+   "Hijos invocadores: capturan almas al derrotar enemigos (hasta 8), invocan espíritus que luchan por ellos (1, 2 desde nivel 60 y 3 desde nivel 150) y en su panel marcas con ★ las que quieres o borras las que no.",
+   "Se equipan lo mejor que encuentran o forjan en sus expediciones, aunque supere a tu equipo, y pueden llegar a ser más fuertes que tú (hasta 1,5 veces).",
+   "Los jefes también van a por tus hijos: cambian de objetivo cada pocos segundos entre tú y los que te acompañan.",
+   "Escalado por equipo: con más jugadores del grupo cerca o con hijos acompañándote, los jefes ganan vida (+55 % por miembro) y algo de daño, y los enemigos normales también un poco. Solo, todo queda igual.",
+   "Jefes de nivel 200 o más: un 20 % menos de vida (el informe de equilibrio daba de 2 a 6 minutos en solitario).",
+   "Armas: la penalización del arma vieja cuenta desde la mejor arma que existe para tu nivel (entre los niveles 250 y 300 no hay armas nuevas y antes perdías la mitad del ataque)."
+  ],
+  "en": [
+   "Kids, grandkids and great-grandkids use 4 skills of their class like you (by level). In their panel you choose which and change them anytime; new ones are added automatically if there is room.",
+   "Summoner kids: they capture souls when defeating enemies (up to 8), summon spirits that fight for them (1, 2 from level 60 and 3 from level 150) and in their panel you ★ the ones you want or delete the rest.",
+   "They equip the best they find or forge on expeditions, even if it beats your gear, and can become stronger than you (up to 1.5 times).",
+   "Bosses also go for your kids: they switch targets every few seconds between you and the kids with you.",
+   "Team scaling: with more party players nearby or kids following you, bosses gain HP (+55% per member) and some damage, and normal enemies a little. Solo, nothing changes.",
+   "Bosses of level 200+: 20% less HP (the balance report gave 2 to 6 minutes solo).",
+   "Weapons: the old-weapon penalty now counts from the best weapon that exists for your level (there are no new weapons between levels 250 and 300 and you used to lose half your attack)."
+  ]
+ },
+ {
+  "b": 60,
+  "v": "4.39",
+  "d": "2026-11-14",
+  "es": [
+   "Arreglado: al salir de casa durante la fiesta familiar el juego se congelaba con un error rojo. Ahora la fiesta siempre te deja en la puerta de tu casa y, si la posición de vuelta fallara, sales igualmente sin bloquearse.",
+   "En el panel ❤ Familia ya puedes llamar también a los hijos, nietos y bisnietos que están de expedición: vuelven y se unen a tu equipo si hay hueco (si no, esperan en casa)."
+  ],
+  "en": [
+   "Fixed: leaving the house during the family party froze the game with a red error. The party now always leaves you at your house door and, if the return position ever failed, you still get out without freezing.",
+   "In the ❤ Family panel you can now also call kids, grandkids and great-grandkids who are on an expedition: they come back and join your team if there is room (otherwise they wait at home)."
+  ]
+ },
+ {
+  "b": 59,
+  "v": "4.38",
+  "d": "2026-11-14",
+  "es": [
+   "Armas: un arma de tu nivel (hasta 10 niveles por debajo) da +10 % de ataque, y un arma vieja pierde más: desde 12 niveles por debajo, un 2,5 % por nivel (hasta −55 %). Ya no sirve llevar la espada de cobre todo el juego.",
+   "Lupa › 📘 Sistemas: explica paso a paso armas, maestría, posturas, elementos, puntos débiles de jefes, enemigos en equipo, combos, pueblos y alcalde, forja, alquimia, sueños, escalada y profundidades, familia y top, con flecha dorada cuando hay un sitio.",
+   "Tus dos parejas a la vez: con una acompañándote, pídele a la otra «Acompáñame tú también ♥». Te siguen las dos (la segunda da +5 % de ataque y defensa) y los demás jugadores las ven.",
+   "Al llamar a un hijo, nieto o bisnieto desde el botón ❤ se une a tu equipo si hay hueco (como mucho 2 a la vez), así que los demás jugadores también lo ven. Desde ese panel también llamas a tus parejas.",
+   "Casa de hasta 4 pisos: escaleras en el rincón de tu casa. Piso 2: dormitorios de la familia (ahí duermen tus hijos y nietos), piso 3: salón de fiestas y piso 4: terraza mirador.",
+   "Fiesta familiar (botón ❤): toda tu familia, las parejas de tus hijos y tus parejas en tu casa (en el salón si lo tienes), con baile, confeti y globos de diálogo. Da Alegría familiar: +10 % de experiencia y +5 % de ataque durante 30 minutos."
+  ],
+  "en": [
+   "Weapons: a weapon at your level (up to 10 levels below) gives +10% attack, and an old weapon loses more: from 12 levels below, 2.5% per level (up to −55%). Carrying the copper sword all game no longer works.",
+   "Magnifier › 📘 Systems: step-by-step explanations of weapons, mastery, stances, elements, boss weak points, teamwork enemies, combos, towns and mayor, forge, alchemy, dreams, climbing and depths, family and top, with the golden arrow when there is a place.",
+   "Both partners at once: with one following you, ask the other \"Come with me too ♥\". Both follow you (the second gives +5% attack and defence) and other players see them.",
+   "Calling a kid, grandkid or great-grandkid from the ❤ button makes them join your team if there is room (2 at most), so other players see them too. You can also call your partners from that panel.",
+   "Houses up to 4 floors: stairs in the corner of your house. Floor 2: family bedrooms (your kids and grandkids sleep there), floor 3: party hall and floor 4: lookout terrace.",
+   "Family party (❤ button): your whole family, your kids' partners and your partners at your home (in the hall if you have it), with dancing, confetti and chat bubbles. Gives Family joy: +10% experience and +5% attack for 30 minutes."
+  ]
+ },
+ {
+  "b": 58,
+  "v": "4.37",
+  "d": "2026-11-14",
+  "es": [
+   "Posturas con cuerpo: la postura ofensiva (agachado, arma alzada), la defensiva (arma cruzada en guardia) y la veloz (de puntillas, arma atrás) cambian la pose de tu personaje en las 4 direcciones, con todas las clases, armas y estructuras de cuerpo. Los demás jugadores también la ven.",
+   "Pueblos vivos también en Céfira, Aurelia y Lumen (cielo), Puerto Esmeralda (archipiélago) y Nochebruma (Velo Roto): tablón, periódico, mercado con sus propias mercancías, alcalde, impuestos, bazar y casas abandonadas.",
+   "Familia: nuevo botón ❤ arriba con toda tu familia. Llama a cualquier hijo o nieto desde cualquier sitio: viene a tu lado y puedes hacer que te acompañe, mandarle de expedición o equiparle, aunque ya viva en su casa con su pareja.",
+   "Los nietos ya tienen todo: crecen, eligen clase, suben de nivel, te acompañan, van de expedición, se casan y pueden tener sus propios hijos. No gastan los hijos que puedes tener con tu pareja.",
+   "Grupo online más sincronizado: los monstruos del líder se comparten también en el cielo, el Velo Roto, Altavela, el Jardín de la Sonrisa, Ixtal y las Profundidades; se ven sus papeles (guardián/curandero) y si están mojados, electrizados, quemados o congelados; y si alguien rompe la parte vulnerable de un jefe, se rompe para todos."
+  ],
+  "en": [
+   "Stances with body poses: offensive (crouched, weapon raised), defensive (weapon crossed on guard) and swift (on tiptoes, weapon back) change your character's pose in all 4 directions, with every class, weapon and body build. Other players see it too.",
+   "Living towns also in Cefira, Aurelia and Lumen (sky), Emerald Port (archipelago) and Nochebruma (Broken Veil): board, newspaper, market with their own goods, mayor, taxes, bazaar and abandoned houses.",
+   "Family: new ❤ button at the top with your whole family. Call any kid or grandkid from anywhere: they come to you and you can have them follow you, send them on an expedition or equip them, even if they already live at their own home with their partner.",
+   "Grandkids now have everything: they grow, choose a class, level up, follow you, go on expeditions, marry and can have their own kids. They don't use up the kids you can have with your partner.",
+   "More synced online party: the leader's monsters are now also shared in the sky, the Broken Veil, Altavela, the Smile Garden, Ixtal and the Depths; you see their roles (guardian/healer) and whether they are wet, electrified, burning or frozen; and if someone breaks a boss weak point, it breaks for everyone."
+  ]
+ },
+ {
+  "b": 57,
+  "v": "4.36",
+  "d": "2026-11-14",
+  "es": [
+   "Mundo de los Sueños: si duermes en tu cama de madrugada (22:00-4:00) a veces sueñas (con Hierba del sueño, siempre). Apareces en un Albor al revés, de noche y morado, con 3 pruebas: los Espejos, los Ecos (6 esquirlas en 45 s) y tu propia Sombra. Ganas polvo de sueño para la tienda de Oniria y, al superar las tres, el Amuleto del Soñador.",
+   "Escalada: 40 puntos de escalada con cuerda en los acantilados del mundo para subir y bajar sin dar la vuelta.",
+   "Puentes de hielo: una habilidad de hielo congela el agua que tienes delante durante 25 segundos y puedes cruzarla.",
+   "Las Profundidades: cada cueva tiene un pozo con cuerda junto al jefe que baja a 5 niveles más, cada uno más oscuro, con enemigos más fuertes, mejores minerales, un jefe más duro y un cofre diario.",
+   "Legado familiar: a los 20 días tus hijos son adultos. Pueden aprender un oficio (te dejan regalos cada día en el buzón de casa), casarse (eliges entre 3 pretendientes), vivir en su propia casa en un pueblo (marcada en el mapa) y tener hasta 2 nietos que mezclan sus rasgos.",
+   "Historias familiares: de vez en cuando un hijo te pide algo (pescar juntos, buscarle si se pierde, un plato por su cumpleaños o vencer al monstruo de debajo de su cama)."
+  ],
+  "en": [
+   "Dream World: if you sleep in your bed late at night (22:00-4:00) you sometimes dream (always with Dream herb). You appear in a backwards, purple, night-time Albor with 3 trials: the Mirrors, the Echoes (6 shards in 45 s) and your own Shadow. Earn dream dust for Oniria's shop and, after all three, the Dreamer's Amulet.",
+   "Climbing: 40 rope climbing spots on cliffs around the world to go up and down without going around.",
+   "Ice bridges: an ice skill freezes the water in front of you for 25 seconds so you can cross it.",
+   "The Depths: every cave has a rope pit next to the boss that goes down 5 more levels, each darker, with stronger enemies, better ore, a tougher boss and a daily chest.",
+   "Family legacy: after 20 days your kids are adults. They can learn a job (leaving gifts in your home mailbox every day), marry (choose among 3 suitors), live in their own house in a town (marked on the map) and have up to 2 grandchildren who mix their features.",
+   "Family stories: now and then a kid asks you for something (fishing together, finding them when lost, a dish for their birthday or beating the monster under their bed)."
+  ]
+ },
+ {
+  "b": 56,
+  "v": "4.35",
+  "d": "2026-11-14",
+  "es": [
+   "Maestría de armas: cada tipo de arma (espada, lanza, hacha, maza, báculo, arco, dagas, laúd, guadaña y aletas) tiene su propia experiencia hasta 50, sin subir de nivel. Desbloquea posturas, contraataque maestro, una técnica especial y +5 % de daño como Gran Maestro.",
+   "Posturas ofensiva, defensiva y veloz con el botón ◇ (mantén pulsado para ver tu maestría). Se ven como un aro de color en el suelo, también en el online. Técnica especial con el botón ✦.",
+   "Campo de Entrenamiento al sur de Arxar: muñecos, dianas, armeros, escudos, la Maestra Brienne y dos aprendices que practican. Golpear muñecos y dianas sube la maestría.",
+   "Reacciones elementales: los enemigos se mojan con la lluvia, en el agua o con el pez. Rayo + mojado = Descarga en cadena; hielo + mojado = Congelado; fuego + hielo = Vapor; fuego + rayo = Sobrecarga; agua + fuego = Apagado. En las tormentas caen rayos.",
+   "Raíces espinosas junto a 6 piedras de viaje tapan cofres: quémalas con una habilidad de fuego, un arma con runa de fuego o una poción explosiva. Vuelven a crecer cada día.",
+   "Partes vulnerables en algunos jefes: cristal del Gólem de Escarcha (se regenera), escudo del Rey Vael (lo rompe un contraataque perfecto), tambor de Gruk (refuerzos), raíz corazón del Ent (solo el fuego) y corona del Rey Slime. Al romperlas cambian sus ataques.",
+   "Enemigos en equipo: guardianes (🛡, protegen a los de al lado: la mitad de daño) y curanderos (✚, curan a sus aliados y se alejan de ti). Los arqueros siguen alejándose. Decide a quién atacar primero.",
+   "Técnicas combinadas (online y WiFi local): si tú y otro jugador cercano usáis una habilidad casi a la vez, sale una técnica según vuestras clases (Espada Electrificada, Sinfonía de Almas, Lluvia Ígnea, Himno de Guerra, Tormenta Marina…)."
+  ],
+  "en": [
+   "Weapon mastery: each weapon type (sword, spear, axe, mace, staff, bow, daggers, lute, scythe and fins) has its own experience up to 50, without levelling up. Unlocks stances, master counter, a special technique and +5% damage as Grand Master.",
+   "Offensive, defensive and swift stances with the ◇ button (hold to see your mastery). They show as a coloured ring on the ground, online too. Special technique with the ✦ button.",
+   "Training Grounds south of Arxar: dummies, targets, weapon racks, shields, Master Brienne and two apprentices practising. Hitting dummies and targets raises mastery.",
+   "Elemental reactions: enemies get wet in the rain, in water or from the fish. Lightning + wet = chain Discharge; ice + wet = Frozen; fire + ice = Steam; fire + lightning = Overload; water + fire = Doused. Lightning strikes during storms.",
+   "Thorny roots next to 6 waystones block chests: burn them with a fire skill, a fire-rune weapon or an explosive potion. They grow back every day.",
+   "Weak points on some bosses: the Frost Golem's crystal (regenerates), King Vael's shield (a perfect counter breaks it), Gruk's drum (reinforcements), the Ent's heart root (only fire) and the Slime King's crown. Breaking them changes their attacks.",
+   "Teamwork enemies: guardians (🛡, protect those next to them: half damage) and healers (✚, heal allies and keep away from you). Archers still keep their distance. Choose who to hit first.",
+   "Combined techniques (online and local WiFi): if you and a nearby player use a skill almost at the same time, a technique triggers based on your classes (Electrified Blade, Symphony of Souls, Fire Rain, War Hymn, Sea Storm…)."
+  ]
+ },
+ {
+  "b": 55,
+  "v": "4.34",
+  "d": "2026-11-14",
+  "es": [
+   "Cocina en hogueras: 14 hogueras (fuera de cada pueblo y junto a piedras de viaje) con despensa de ingredientes. 50 platos dibujados, cada uno con su efecto: ataque, defensa, velocidad, vel. de ataque, crítico, vida, regeneración, experiencia, oro u oficios.",
+   "Recetas de cada reino: solo se cocinan en las hogueras de su región. Incluye platos peruanos: ceviche, tiradito, causa limeña, lomo saltado, ají de gallina, anticuchos, picarones, pachamanca, rocoto relleno, juane, tacacho con cecina, papa a la huancaína, suspiro limeño, mazamorra y chicha morada, y más.",
+   "Plato perfecto: sirve el plato cuando la marca pase por la zona dorada y sale ★ con un 50 % más de efecto y más duración.",
+   "Pesca legendaria: 12 peces legendarios que solo pican con cierto clima, estación y hora (Rey de la Tormenta, Koi Lunar, Paiche Ancestral…). Sirven para recetas o se liberan para que su espíritu te bendiga 20 minutos.",
+   "Bestiario › Peces: todos los peces del juego tienen dibujo nuevo, con récord de tamaño y cuántos has pescado.",
+   "Alquimia experimental (con el alquimista): mezcla 2 o 3 ingredientes y descubre 16 pociones, algunas con efectos inesperados (gigante, pluma, explosiva, arcoíris…). Las recetas se guardan en tu grimorio.",
+   "Oficio nuevo Arqueología (en la lupa): 8 yacimientos con minijuego de pincel. Reúne las piezas y reconstruye 8 historias del mundo.",
+   "Forja artesanal (con el herrero): elige el núcleo de mineral de tu arma, témplalo (hasta 3 estrellas) y grábale una runa de fuego, hielo, rayo, vida, viento o tierra."
+  ],
+  "en": [
+   "Campfire cooking: 14 campfires (outside each town and next to waystones) with an ingredient pantry. 50 drawn dishes, each with its own effect: attack, defence, speed, attack speed, crit, HP, regeneration, experience, gold or jobs.",
+   "Kingdom recipes: they can only be cooked at campfires in their region. Includes Peruvian dishes: ceviche, tiradito, causa limeña, lomo saltado, ají de gallina, anticuchos, picarones, pachamanca, rocoto relleno, juane, tacacho, papa a la huancaína, suspiro limeño, mazamorra and chicha morada, and more.",
+   "Perfect dish: serve when the marker crosses the golden zone to get a ★ dish with 50% more effect and longer duration.",
+   "Legendary fishing: 12 legendary fish that only bite in certain weather, season and hour (Storm King, Moon Koi, Ancestral Paiche…). Use them in recipes or release them so their spirit blesses you for 20 minutes.",
+   "Bestiary › Fish: every fish in the game has a new drawing, with size record and how many you caught.",
+   "Experimental alchemy (at the alchemist): mix 2 or 3 ingredients and discover 16 potions, some with unexpected effects (giant, feather, explosive, rainbow…). Recipes are saved in your grimoire.",
+   "New Archaeology job (in the magnifier): 8 dig sites with a brushing minigame. Gather the pieces and rebuild 8 stories of the world.",
+   "Artisan forge (at the blacksmith): choose your weapon's ore core, temper it (up to 3 stars) and engrave a fire, ice, lightning, life, wind or earth rune."
+  ]
+ },
+ {
+  "b": 54,
+  "v": "4.33",
+  "d": "2026-11-14",
+  "es": [
+   "Pueblos vivos: cada plaza (Albor, Puerto Coral, Arxar, Sahrim, Yarakai y Puerto Brasa) tiene un Tablón del pueblo con periódico, rumores, mercado, ayuntamiento y bazar.",
+   "El Pregonero: noticias generadas con lo que pasa en el juego (jefes derrotados, asedios, eventos, alcaldes, vecinos que salvaste) y un rumor nuevo cada día.",
+   "Prosperidad de cada pueblo: sube si haces encargos, defiendes el pueblo, donas o vendes lo que necesita; baja si ignoras asaltos y hordas. Por debajo de 25 hay casas abandonadas (tapiadas); desde 75 abre un bazar más barato.",
+   "Alcalde: si eres Héroe del pueblo puedes presentarte. Eliges impuestos bajos, normales o altos, cobras las arcas e inviertes en el pueblo. Si tu opinión baja de Neutral, te quitan el cargo.",
+   "Día del Tributo cada 7 días (no se puede desactivar): los vecinos pagan al alcalde y, si tienes casa en un pueblo donde no eres alcalde, pagas un pequeño impuesto.",
+   "Oficio nuevo Comercio (en la lupa): compra mercancías donde se producen y véndelas donde escasean. 8 mercancías con precios que cambian cada día, con la estación y con los eventos. Al entrar en un pueblo te avisa de lo que pagan bien.",
+   "Los vecinos que ayudaste a levantarse te recuerdan: una vez al día, si estás en apuros, uno te lanza una poción."
+  ],
+  "en": [
+   "Living towns: every plaza (Albor, Coral Port, Arxar, Sahrim, Yarakai and Ember Port) has a Town board with newspaper, rumors, market, town hall and bazaar.",
+   "The Herald: news generated from what happens in the game (bosses defeated, sieges, events, mayors, villagers you saved) and a new rumor every day.",
+   "Town prosperity: rises if you do jobs, defend the town, donate or sell what it needs; drops if you ignore raids and hordes. Below 25 there are abandoned (boarded) houses; from 75 a cheaper bazaar opens.",
+   "Mayor: if you are a Hero of the town you can run. Choose low, normal or high taxes, collect the coffers and invest in the town. If your standing drops below Neutral, you lose the post.",
+   "Tribute Day every 7 days (can't be turned off): citizens pay the mayor and, if you own a house in a town where you aren't mayor, you pay a small tax.",
+   "New Trade job (in the magnifier): buy goods where they are made and sell them where they are scarce. 8 goods with prices that change daily, with the season and with events. Entering a town tells you what pays well.",
+   "Villagers you helped up remember you: once a day, if you are in trouble, one throws you a potion."
+  ]
+ },
+ {
+  "b": 53,
+  "v": "4.32",
+  "d": "2026-11-14",
+  "es": [
+   "🌍 Top mundial: el botón del menú ahora muestra los 50 primeros de todo el mundo en horas jugadas y en nivel máximo, guardados en un servidor.",
+   "Tu fila se sube sola cada 2 minutos mientras juegas y al abrir el menú.",
+   "Protección contra trampas: las horas no pueden bajar ni subir más rápido que el tiempo real, y el nivel va de 1 a 350.",
+   "Sin internet se muestra la última lista guardada."
+  ],
+  "en": [
+   "🌍 World top: the menu button now shows the world's top 50 in hours played and highest level, stored on a server.",
+   "Your row uploads by itself every 2 minutes while you play and when the menu opens.",
+   "Anti-cheat: hours can't go down or rise faster than real time, and level goes from 1 to 350.",
+   "Offline, the last saved list is shown."
+  ]
+ },
+ {
+  "b": 52,
+  "v": "4.31",
+  "d": "2026-11-14",
+  "es": [
+   "Tiempo jugado en el menú principal (arriba a la derecha): cuenta los minutos y las horas con el juego abierto, también en el menú. Va por cuenta y empieza a contar desde esta versión.",
+   "Cada héroe muestra en su botón cuánto tiempo lleva jugado.",
+   "Nuevo botón 🏆 Top jugadores: top de horas jugadas y de nivel máximo. Si inicias sesión sales con tu nombre de cuenta.",
+   "El top se comparte entre jugadores al conectarse: en los mundos online y unos segundos al abrir el menú."
+  ],
+  "en": [
+   "Time played on the main menu (top right): counts minutes and hours with the game open, menu included. It is per account and starts counting from this version.",
+   "Each hero shows its play time on its button.",
+   "New 🏆 Top players button: top hours played and highest level. Log in to appear with your account name.",
+   "The top is shared between players when they go online: in online worlds and for a few seconds when the menu opens."
+  ]
+ },
+ {
+  "b": 51,
+  "v": "4.30",
+  "d": "2026-11-14",
+  "es": [
+   "Luna de sangre y eventos: los monstruos ya te atacan dentro del pueblo (antes se quedaban quietos).",
+   "Asedio de la luna de sangre más justo: ya no se pierde cuando acaba la noche. Solo se pierde si cae el 60 % de las casas o si te alejas del pueblo. El Devorador Carmesí pisa cada 10-14 segundos y rompe una casa por pisotón.",
+   "Hijos más resistentes: tienen tu misma vida a su nivel y reciben un 40 % menos de daño. Si caen, descansan 2 minutos.",
+   "En un asedio o ataque a tu pueblo, tus hijos mayores vienen solos a ayudarte y vuelven a casa al terminar.",
+   "Los hijos hablan con globos de texto: al llegar, en combate, con poca vida, al ganar y de paseo.",
+   "Los enemigos atacan a quien tengan más cerca: a ti o a tus hijos.",
+   "Tus hijos salen en el minimapa (rosa si van contigo, naranja si están de expedición, con flecha en el borde si están lejos) y en el mapa grande."
+  ],
+  "en": [
+   "Blood moon and events: monsters now attack you inside towns.",
+   "Fairer blood moon siege: it is no longer lost when the night ends; only if 60% of houses fall or you leave town. The Devourer stomps every 10-14 s and breaks one house per stomp.",
+   "Tougher kids: same HP as you at their level and 40% less damage taken. They rest 2 minutes if they fall.",
+   "During a siege or town attack your grown kids come to help and go home afterwards.",
+   "Kids talk with speech bubbles.",
+   "Enemies attack whoever is closest: you or your kids.",
+   "Your kids show on the minimap and the big map."
+  ]
+ },
+ {
+  "b": 50,
+  "v": "4.29",
+  "d": "2026-11-14",
+  "es": [
+   "Islas del Cielo: tres pueblos nuevos. Céfira (arpías con alas de colores y nidos gigantes), Aurelia (la última ciudad de los ángeles) y Lumen (ciudad de los acertijos). Allí no entran los monstruos.",
+   "Romance con alas: Aelis (ángel guerrera), Nimiel (ángel sanadora), Caelith (lectora de estrellas) y Kiri (arpía cantora), con todo el sistema: corazones, regalos, pasear, besos, pareja, boda e hijos.",
+   "Beso francés (Amor 8 y Confianza 6): más largo y cercano; el más bajo se pone de puntillas para que las caras queden a la misma altura con cualquier cuerpo.",
+   "Piedras de acertijos en todas las islas del cielo (una pregunta distinta cada día) y la Prueba de la Memoria del Oráculo Vespera en Lumen.",
+   "Oficios nuevos: Carrera de Ángeles (vuela por los aros contra tres rivales) y Olimpiadas Angelicales (Tiro celeste y Lluvia de plumas, con medallas). 10 ventajas cada uno.",
+   "Archipiélago: Puerto Esmeralda, un gran pueblo en el centro con isleños en bikini y ropa de verano, palmeras, antorchas tiki y más historia. Ailani vende 5 bikinis, camisas hawaianas, bermudas y pareos.",
+   "Oficios nuevos: Surf (minijuego de trucos y combos con tabla) y Arte (pinta lo que quieras en pixel art y véndelo en tu galería: se vende solo mientras juegas). 10 ventajas cada uno.",
+   "Ixtal, la Ciudad Perdida: un templo al sur de Puerto Esmeralda con un puzle de cuatro estatuas. Dentro, dos mazmorras de nivel 300 (Templo Hundido y Cripta del Sol), 10 enemigos nuevos y 2 jefes con armas y armaduras de tier 23-24.",
+   "Experiencia revisada: del nivel 251 al 350 los enemigos dan un 40 % más (ahora hacen falta unos 50 por nivel en todo el juego, como antes del 250).",
+   "Fondo Marino: 12 almejas gigantes con minijuego, perlas rosas, doradas y de luna, 30 perlas perdidas escondidas (premio final: Lágrima de Luna), la sirena Perlina que compra perlas y ensarta el Collar de Perlas Doradas, tortugas marinas y la ballena del abismo.",
+   "Las ventajas de los oficios nuevos salen en el panel de oficios y en la lupa ⚒."
+  ],
+  "en": [
+   "Sky Isles: three new towns. Cefira (harpies), Aurelia (angels) and Lumen (riddles). No monsters there.",
+   "Winged romance: Aelis, Nimiel, Caelith and Kiri with the full system.",
+   "French kiss (Love 8, Trust 6): longer and closer; the shorter one goes on tiptoe so faces line up with any body.",
+   "Riddle stones on every sky island (new question each day) and Oracle Vespera's Memory Trial in Lumen.",
+   "New jobs: Angel Race and Angelic Olympics, 10 perks each.",
+   "Archipelago: Emerald Port, a big central town with islanders in bikinis and summer clothes. Ailani sells bikinis, Hawaiian shirts, shorts and sarongs.",
+   "New jobs: Surfing (trick and combo minigame) and Art (paint pixel art and sell it in your gallery). 10 perks each.",
+   "Ixtal, the Lost City: a statue puzzle and two level 300 dungeons with 10 new enemies and 2 bosses (tier 23-24 gear).",
+   "Experience: level 251-350 enemies give 40% more (about 50 kills per level across the game).",
+   "Seabed: giant clam minigame, pink, golden and moon pearls, 30 hidden lost pearls, Perlina the mermaid, sea turtles and the abyss whale.",
+   "New job perks show in the jobs panel and the ⚒ magnifier tab."
+  ]
+ },
+ {
+  "b": 49,
+  "v": "4.28",
+  "d": "2026-11-14",
+  "es": [
+   "Hijos equilibrados: a su mismo nivel hacen la mitad de tu daño (nunca más) y tienen el 60 % de tu vida y tu defensa (más con armadura). Tienen su propio nivel, hasta el 350, y ganan experiencia contigo.",
+   "Los enemigos también atacan a tus hijos (y los ataques de área de los jefes les alcanzan). Ellos esquivan las zonas rojas.",
+   "Barra de vida pequeña siempre visible sobre tus hijos, también en el online.",
+   "PvP: tus hijos luchan contra el otro jugador (con daño reducido para no romper el duelo) y él puede golpearlos.",
+   "Te acompañan como mucho 2 hijos a la vez. Puedes tener 3 hijos con cada pareja (6 con dos parejas).",
+   "Expediciones: manda a un hijo a explorar solo. Viaja en tren, yate, galeón o aeronave, lucha, sube de nivel, guarda lo que encuentra en su mochila (la puedes mirar) y se equipa solo. Si pasas cerca de su campamento, le verás luchando. Puedes formar equipo con él cuando quieras.",
+   "Con la familia completa puedes seguir yendo a la cama con tu pareja (escena de corazones).",
+   "Los botones de Montar y del armario de tu pareja ya no tapan nada: están en la fila de iconos de arriba (caballo y percha).",
+   "Lupa 🔎 → ⚒ Oficios: tu nivel en cada oficio, cómo se hace, para qué sirve y la flecha dorada al sitio más cercano para tu nivel."
+  ],
+  "en": [
+   "Balanced kids: at the same level they deal half your damage (never more) and have 60% of your HP and defence (more with armour). They have their own level, up to 350.",
+   "Enemies also attack your kids (boss area attacks hit them too). Kids dodge red zones.",
+   "Small HP bar always visible over your kids, online too.",
+   "PvP: your kids fight the other player (reduced damage) and can be hit.",
+   "At most 2 kids follow you at once. 3 kids per partner (6 with two partners).",
+   "Expeditions: send a kid exploring alone. They travel, fight, level up, keep loot in their own bag (view only) and gear up. Pass by their camp to see them. Team up any time.",
+   "With a full family you can still go to bed with your partner (heart scene).",
+   "Mount and partner wardrobe buttons no longer cover anything: they are in the top icon row.",
+   "Magnifier 🔎 → ⚒ Jobs: your level, how it works, what it's for and the golden arrow to the nearest place."
+  ]
+ },
+ {
+  "b": 48,
+  "v": "4.27",
+  "d": "2026-11-14",
+  "es": [
+   "La escena de la cama al tener un hijo ya se ve siempre: la cámara se centra en la cama (antes quedaba tapada por el panel de misiones), la pareja se dibuja encima de los muebles y la cama matrimonial se elige primero."
+  ],
+  "en": [
+   "The bed scene when having a child is always visible now: the camera centres on the bed (it used to be hidden under the quest panel), the couple is drawn above the furniture and the double bed is picked first."
+  ]
+ },
+ {
+  "b": 47,
+  "v": "4.26",
+  "d": "2026-11-14",
+  "es": [
+   "El Colgante de Promesa ahora te lo regala la persona cuando llegáis a 10 corazones de Confianza y de Amor (una vez por persona). Con él ya puedes pedirle que sea tu pareja.",
+   "Al besaros o abrazaros ya no se ve la línea rara de las manos cogidas.",
+   "Tu pareja habla: de vez en cuando dice cosas en un globo de texto según lo que pasa (de noche, en combate, si tienes poca vida, a caballo, en el Velo Roto, en Nochebruma, en brazos, de la mano…). Los demás jugadores también ven sus globos.",
+   "Al montar, tu pareja sube detrás de ti y te agarra de la cintura, con cualquier montura (caballos, grifo y dragón) y cualquier cuerpo. Se baja a tu lado al desmontar y también se ve online."
+  ],
+  "en": [
+   "The Promise Pendant is now given to you when you reach 10 hearts of Trust and Love with someone (once per person). With it you can ask them to be your partner.",
+   "The odd line of held hands no longer shows while you kiss or hug.",
+   "Your partner talks: now and then they say something in a speech bubble depending on what is happening (night, combat, low health, riding, the Broken Veil, Nochebruma, being carried, holding hands…). Other players see the bubbles too.",
+   "When you ride, your partner climbs on behind you and holds your waist, on any mount (horses, griffin and dragon) and with any body. They get off beside you when you dismount, and it shows online too."
+  ]
+ },
+ {
+  "b": 46,
+  "v": "4.25",
+  "d": "2026-11-14",
+  "es": [
+   "Música nueva en todo el Velo Roto (y el Jardín de la Sonrisa): suenan las dos canciones de los vídeos de Sergio, una detrás de otra y en bucle. Sigue el volumen de música de Opciones.",
+   "La pareja que te acompaña se ve en el online con la ropa que le hayas puesto en su armario (antes los demás la veían con su ropa de siempre). También se ve en brazos o sobre tus hombros."
+  ],
+  "en": [
+   "New music across the Broken Veil (and the Garden of the Smile): the two songs from Sergio's videos play one after the other, looping. It follows the music volume in Options.",
+   "The partner who travels with you is shown online wearing the outfit you chose in their wardrobe (others used to see their default clothes). Also when carried in your arms or on your shoulders."
+  ]
+ },
+ {
+  "b": 45,
+  "v": "4.24",
+  "d": "2026-11-14",
+  "es": [
+   "Herrería: las armas ya no piden nivel de Herrería en ninguna forja; solo tu nivel, oro y materiales.",
+   "Todos los oficios suben 2,5 veces más rápido.",
+   "Con tu pareja al lado ya puedes hablar con los demás: «Hablar» elige al otro personaje que tengas delante.",
+   "Puedes tener hasta dos parejas. La que tratas pasa a ser la principal, así que boda, casa, cambio de ropa, llevarla en brazos e hijos funcionan con las dos. Las dos viven en tu casa.",
+   "Ilvaine, la hechicera del Velo Roto, entra en todo el sistema de pareja: noviazgo, boda e hijos, que pueden heredar su piel lavanda.",
+   "Nueva forma de llevar a tu pareja: sobre los hombros (además de en brazos y besarla). Los demás jugadores lo ven.",
+   "Al decidir tener un hijo os metéis en la cama y salen corazones durante unos segundos (los demás jugadores ven los corazones).",
+   "Nochebruma: un pueblo dark fantasy nevado en el centro del Velo Roto, con nieve azul, luna pálida, faroles en espiral con coronas, árbol de luces, carrusel, trineo de regalos y el Vigilante de Piedra asomando tras la torre. Allí no atacan los monstruos y 6 vecinos te cuentan cómo es su mundo. El Vigilante te quita algo de corrupción."
+  ],
+  "en": [
+   "Smithing: weapons no longer require a Smithing level at any forge; only your level, gold and materials.",
+   "Every profession levels up 2.5 times faster.",
+   "With your partner next to you, you can now talk to others: \"Talk\" picks the other character in front of you.",
+   "You can have up to two partners. The one you interact with becomes the main one, so wedding, home, outfits, carrying and children work with both. Both live in your house.",
+   "Ilvaine, the Broken Veil sorceress, joins the whole partner system: dating, wedding and children, who can inherit her lavender skin.",
+   "New way to carry your partner: on your shoulders (besides in your arms and kissing). Other players see it.",
+   "When you decide to have a child you both get into bed and hearts pop out for a few seconds (other players see the hearts).",
+   "Nochebruma: a snowy dark fantasy town in the middle of the Broken Veil, with blue snow, a pale moon, spiral lamps with wreaths, a tree of lights, a carousel, a sleigh full of gifts and the Stone Watcher peering from behind the tower. Monsters do not attack there and 6 villagers tell you about their world. The Watcher removes some corruption."
+  ]
+ },
+ {
+  "b": 44,
+  "v": "4.23",
+  "d": "2026-11-14",
+  "es": [
+   "Subrazas en el PvP: en un duelo funcionan las 4 habilidades de cada subraza (zarpazo, aullido, salto, almas heladas, atravesar, poseer, lamento, agarre de sangre, murciélagos, sed de sangre…) y el rival ve tu transformación, tus efectos y tus proyectiles en su teléfono.",
+   "Las subrazas están igualadas entre sí y no importa tu clase: contra jugadores, el daño de una habilidad de subraza depende de tu nivel y de la habilidad, no del ataque de tu clase. Lobo, fantasma y vampiro hacen el mismo daño por segundo (el vampiro cuenta lo que se cura).",
+   "En duelo, Poseer se mete en el rival y le arranca el alma en 4 golpes; Vuelo Nocturno da esquiva.",
+   "Rocas de minería (todos los minerales), árboles, hierbas, montículos y puntos de buceo reaparecen a los 5 segundos en el mismo sitio."
+  ],
+  "en": [
+   "Subraces in PvP: in a duel all 4 skills of each subrace work (claw rake, howl, pounce, icy souls, phase through, possess, wail, blood grip, bats, bloodthirst…) and your opponent sees your transformation, effects and projectiles on their phone.",
+   "Subraces are balanced against each other regardless of your class: against players, a subrace skill's damage depends on your level and the skill, not your class's attack. Wolf, ghost and vampire deal the same damage per second (the vampire counts its healing).",
+   "In a duel, Possess slips into the opponent and tears out their soul in 4 hits; Night Flight gives dodge.",
+   "Mining rocks (every ore), trees, herbs, mounds and diving spots respawn after 5 seconds in the same place."
+  ]
+ },
+ {
+  "b": 43,
+  "v": "4.22",
+  "d": "2026-11-14",
+  "es": [
+   "La lupa 🔎 te guía en todo: la flecha dorada funciona también dentro del Velo Roto y del Jardín de la Sonrisa, y si el sitio está en otro mapa te lleva primero al portal o a la puerta.",
+   "Cada secreto de 🗝 Secretos apunta al sitio exacto del paso en el que vas (Fenrik, Malvia, el islote, los pedestales, el altar que falta, los trozos del nombre…).",
+   "Nuevo aviso 📍 bajo la misión: te dice cuál es el siguiente secreto y dónde ir. Tócalo para encender la flecha.",
+   "Pestañas nuevas en la lupa: 👹 Enemigos (todos, con nivel, botín, dónde salen y flecha al campamento más cercano) y 🐺 Subrazas (pasivas, habilidades, ofrenda y dónde está Corvel).",
+   "Lobo: el botón 🐺 pasa ahora por la forma híbrida (pelaje en la cara y el cuerpo, hocico, colmillos y ojos dorados, con tu ropa y tus cosméticos) y luego por el lobo a cuatro patas.",
+   "Vampiro: Agarre de Sangre sustituye a Mordisco. Sujeta a un enemigo y le chupa la sangre 2,5 s mientras te curas; también funciona con jugadores online que tengan el PvP activado (en duelo es la única habilidad de subraza que se puede usar)."
+  ],
+  "en": [
+   "The 🔎 guide leads you everywhere: the golden arrow also works inside the Broken Veil and the Garden of the Smile, and if the place is on another map it first takes you to the portal or door.",
+   "Each secret in 🗝 Secrets points to the exact place of the step you are on (Fenrik, Malvia, the islet, the pedestals, the missing altar, the pieces of the name…).",
+   "New 📍 notice under the quest: it tells you the next secret and where to go. Tap it to turn on the arrow.",
+   "New guide tabs: 👹 Enemies (all of them, with level, loot, where they appear and an arrow to the nearest camp) and 🐺 Subraces (passives, skills, offering and where Corvel is).",
+   "Wolf: the 🐺 button now goes through the hybrid form (fur on face and body, snout, fangs and golden eyes, with your clothes and cosmetics) and then the four-legged wolf.",
+   "Vampire: Blood Grip replaces Bite. It holds an enemy and drinks its blood for 2.5 s while you heal; it also works on online players with PvP on (in a duel it is the only subrace skill you can use)."
+  ]
+ },
+ {
+  "b": 42,
+  "v": "4.21",
+  "d": "2026-11-14",
+  "es": [
+   "Lanzas, hachas y mazas para el guerrero (24, sacadas de la hoja de Sergio, tiers 22 a 26) con su propia animación de ataque: la lanza llega más lejos, el hacha da más crítico y la maza aturde.",
+   "6 mascotas espectrales con su dibujo: Sapo Fúngico, Babosa de Ectoplasma, Búho de las Almas, Polilla Calavera, Lobo de Niebla y Rape Farolillo. Las vende Corvel.",
+   "Nueva región del Velo Roto: el Bosque de la Torre Hueca, con niebla azul, la torre de Corvel el Encapuchado, la Biblioteca Anegada de la hechicera Ilvaine y la caldera de la bruja Grizzla.",
+   "Nuevo jefe: Ossaryn, el Rey de las Rosas Azules (calavera coronada). Te señala y caen estrellas, hace florecer rosas que atrapan y levanta a sus caballeros.",
+   "6 enemigos nuevos con mecánicas: Bruja de la Caldera (charcos de veneno), Espectro de la Niebla (se vuelve intangible y aparece detrás), Huargo Espectral (aullido de manada), Caballero de las Rosas (escudo de espinas), Bibliotecario Ahogado (páginas) y Polilla Calavera Gigante (polvo que ralentiza). En el Velo Roto se gana un 35 % más de experiencia.",
+   "Subrazas: Mitad Lobo, Mitad Fantasma o Mitad Vampiro (ritual de Corvel). Cambian tu aspecto en todas las estructuras de cuerpo y tienen pasivas. El botón 🐺/👻/🦇 te transforma cuando quieras: lobo a cuatro patas con el pelaje del color que elijas, fantasma blanco y transparente con tu ropa, o vampiro con alas. Cada una trae 4 habilidades propias (zarpazo, aullido, poseer, mordisco, enjambre de murciélagos, vuelo...). La Poción de Sangre Limpia la quita.",
+   "Ilvaine, la Hechicera del Ojo: conjuros nuevos con su botón 🔮 (Ojo del Abismo, Velas Flotantes, Marea de Tinta y Páginas Cortantes), lectura diaria del Ojo, su marca del tercer ojo con labios negros, y se la puede enamorar.",
+   "La guía 🔎 tiene una pestaña nueva, 🗝 Secretos: explica paso a paso todas las misiones y mundos secretos del Velo Roto, con pistas que se piden una a una.",
+   "Las novedades largas ya no se cortan en la ventana de actualización."
+  ],
+  "en": [
+   "Spears, axes and maces for the warrior (24, taken from Sergio's sheet, tiers 22 to 26) with their own attack animation: the spear reaches further, the axe crits more and the mace stuns.",
+   "6 spectral pets with their drawing: Fungus Toad, Ectoplasm Slug, Owl of Souls, Skull Moth, Mist Wolf and Lantern Angler. Corvel sells them.",
+   "New Broken Veil region: the Hollow Tower Woods, with blue mist, the tower of Corvel the Hooded, the Flooded Library of the sorceress Ilvaine and the cauldron of the witch Grizzla.",
+   "New boss: Ossaryn, King of the Blue Roses (a crowned skull). He points at you and stars fall, makes roses bloom that trap you and raises his knights.",
+   "6 new enemies with mechanics: Cauldron Hag (poison puddles), Mist Wraith (turns intangible and appears behind you), Spectral Warg (pack howl), Knight of the Roses (thorn shield), Drowned Librarian (pages) and Giant Skull Moth (slowing dust). In the Broken Veil you earn 35% more experience.",
+   "Subraces: Half-Wolf, Half-Ghost or Half-Vampire (Corvel's ritual). They change your look on every body type and have passives. The 🐺/👻/🦇 button transforms you whenever you want: a four-legged wolf with the fur color you choose, a white see-through ghost with your outfit, or a winged vampire. Each brings 4 skills of its own (claw rake, howl, possess, bite, bat swarm, flight...). The Clean Blood Potion removes it.",
+   "Ilvaine, the Sorceress of the Eye: new spells with their 🔮 button (Eye of the Abyss, Floating Candles, Ink Tide and Cutting Pages), a daily Reading of the Eye, her third-eye mark with black lips, and she can be romanced.",
+   "The 🔎 guide has a new tab, 🗝 Secrets: it explains step by step every secret quest and world of the Broken Veil, with hints you ask for one at a time.",
+   "Long patch notes are no longer cut off in the update window."
+  ]
+ },
+ {
+  "b": 41,
+  "v": "4.20",
+  "d": "2026-11-14",
+  "es": [
+   "Historia principal del Velo Roto con El Hombre sin Rostro: 7 jefes nuevos con diseño y mecánica propios (Ghorm el Gran Brujo Sapo te atrapa con la lengua, Cornaviva embiste, Lady Morwen se divide en reflejos que explotan, Lady Sanguia se cura con tu vida, Baalzor lanza anillos de fuego, el Reflejo Eclipsado copia tu aspecto y alterna inmunidad a habilidades o ataques, y Risotto el bufón salta y deja trampas). Ya son 12 jefes en el continente.",
+   "Corrupción del Velo: sube mientras exploras. Con 30 % ves el mundo distinto y salen enemigos corruptos; con 60 % se abren muros secretos, aprendes el Grito del Velo (toca el contador) y algunos personajes te cuentan secretos. Oren la purifica.",
+   "Jefes con memoria: si vences a un jefe casi siempre con habilidades o con ataques normales, la próxima vez resiste ese tipo de daño y te da otra recompensa.",
+   "Luna de sangre: los jefes del Velo salen en versión Sangrienta, más fuertes y con más botín.",
+   "Heredero del Eclipse: al vencer a la Luna Sonriente recibes una corona de eclipse y +8 % de daño de noche.",
+   "Bioma secreto: el Jardín de la Sonrisa, solo cuando la luna sonríe (de medianoche a las 3). Criaturas adorables de nivel 350 que abrazan muy fuerte, el Tendero Imposible (Reloj sin Manecillas, Sombra Embotellada, Una Mañana, Mapa de Ninguna Parte) y El Sin Nombre, que no se vence luchando: hay que descubrir su nombre verdadero.",
+   "Arma Velada con voluntad propia: habla, crece con cada criatura del Velo y a las 300 te deja elegir entre Guardiana (escudos para ti y tu grupo) o Devoradora (daño y robo de vida contra criaturas malditas).",
+   "Tres finales según tus decisiones: El Amanecer, La Nueva Luna o El Heredero Corrupto. Nuevo capítulo de las Crónicas.",
+   "Las clases siguen igualadas a nivel 350."
+  ],
+  "en": [
+   "Main story of the Broken Veil with the Faceless Man: 7 new bosses with their own design and mechanic (Ghorm the Great Toad Warlock grabs you with his tongue, Cornaviva charges, Lady Morwen splits into exploding reflections, Lady Sanguia heals from your life, Baalzor casts rings of fire, the Eclipsed Reflection copies your look and switches immunity between skills and attacks, and Risotto the jester blinks and leaves traps). The continent now has 12 bosses.",
+   "Veil Corruption: it rises while you explore. At 30% the world looks different and corrupted enemies appear; at 60% secret walls open, you learn the Veil Scream (tap the meter) and some characters tell you secrets. Oren purifies it.",
+   "Bosses with memory: if you beat a boss mostly with skills or with basic attacks, next time it resists that damage type and gives a different reward.",
+   "Blood moon: Veil bosses appear in a Bloody version, stronger and with more loot.",
+   "Eclipse Heir: defeating the Smiling Moon gives you an eclipse crown and +8% damage at night.",
+   "Secret biome: the Garden of the Smile, only while the moon smiles (midnight to 3). Adorable level 350 creatures that hug very hard, the Impossible Shopkeeper (Handless Clock, Bottled Shadow, A Morning, Map of Nowhere) and the Nameless One, who cannot be beaten by fighting: you must discover its true name.",
+   "Veiled Weapon with a will of its own: it talks, grows with every Veil creature and at 300 lets you choose Guardian (shields for you and your group) or Devourer (damage and lifesteal against cursed creatures).",
+   "Three endings based on your choices: The Dawn, The New Moon or The Corrupted Heir. New Chronicles chapter.",
+   "Classes remain balanced at level 350."
+  ]
+ },
+ {
+  "b": 40,
+  "v": "4.19",
+  "d": "2026-11-13",
+  "es": [
+   "Armaduras dark fantasy propias para los tiers 22 a 26, adaptadas a todos los cuerpos: Lobo Nocturno (cuello de pelo y capucha de lobo), Sepulcrales (placas con vidriera de luz y corona), Velo Roto (corsé carmesí, gorguera y velo), Eclipsadas (sol eclipsado, hombreras doradas y casco de cuernos) y Luna Sonriente (traje de bufón con la sonrisa de la luna y cascabeles).",
+   "Poder del Velo: desde el nivel 251, cada nivel da +0,5 % de ataque y vida (hasta +50 % a nivel 350). Igual para todas las clases.",
+   "Pantano de las Almas Perdidas: nuevo botón de linterna. Apagada, aparecen puentes espectrales hacia un islote con cofres de Esencia Espectral.",
+   "Aldea de las Campanas Muertas: Nocturna, la Mercader del Eclipse, solo vende de noche (Elixir del Eclipse y más). Oren te pide decidir: tocar o romper la última campana, y la aldea lo recuerda.",
+   "Bosque de los Susurros: lee las 3 estelas y toca los pedestales en orden para disipar las ilusiones que protegen a Varkhul. Si te equivocas, aparece un Imitador con tu propio aspecto.",
+   "Catedral del Eclipse: enciende los 3 altares para abrir la reja del Rey de las Campanas.",
+   "Castillo de la Luna Sonriente: la Luna te mira y, si te ve, los enemigos se vuelven más rápidos. Al vencerla eliges entre dos finales, cada uno con su recompensa.",
+   "Enemigos nuevos: Lancero Sepulcral y Acólito del Velo. Nuevas mecánicas: la cruz de luz del Obispo Hueco y los lanceros de Varkhul.",
+   "La guía 🔎 muestra todo lo del Velo Roto: en qué región sale cada material y cómo llegar."
+  ],
+  "en": [
+   "Unique dark fantasy armor for tiers 22 to 26, fitted to every body: Night Wolf (fur collar and wolf hood), Sepulchral (plates with a stained-glass glow and crown), Broken Veil (crimson corset, ruff and veil), Eclipsed (eclipsed sun, gold pauldrons and horned helm) and Smiling Moon (jester suit with the moon's grin and bells).",
+   "Veil Power: from level 251, each level gives +0.5% attack and health (up to +50% at level 350). Same for every class.",
+   "Swamp of Lost Souls: new lantern button. With it off, spectral bridges appear leading to an islet with Spectral Essence chests.",
+   "Village of the Dead Bells: Nocturna, the Eclipse Merchant, only sells at night (Eclipse Elixir and more). Oren asks you to choose: ring or break the last bell, and the village remembers.",
+   "Forest of Whispers: read the 3 stelae and touch the pedestals in order to dispel the illusions guarding Varkhul. If you get it wrong, a Mimic with your own look appears.",
+   "Cathedral of the Eclipse: light the 3 altars to open the King of Bells' gate.",
+   "Castle of the Smiling Moon: the Moon watches you and, if it sees you, enemies get faster. After defeating it you choose between two endings, each with its own reward.",
+   "New enemies: Sepulchral Lancer and Veil Acolyte. New mechanics: the Hollow Bishop's cross of light and Varkhul's lancers.",
+   "The 🔎 guide shows everything in the Broken Veil: which region drops each material and how to get there."
+  ]
+ },
+ {
+  "b": 39,
+  "v": "4.18",
+  "d": "2026-11-13",
+  "es": [
+   "Nuevo: el Continente del Velo Roto, dark fantasy, niveles 255 a 350. Por primera vez se ve el cielo: noche, nubes magenta, niebla y la Luna Sonriente.",
+   "Para abrir el portal antiguo (al oeste de la Ciudadela de Arxar) habla con Fenrik, el Lobo Viejo, en el Bosque Susurrante y con la bruja Malvia, cerca del Pantano Gris.",
+   "Cinco regiones: Pantano de las Almas Perdidas (agua luminosa), Aldea de las Campanas Muertas, Bosque de los Susurros, Catedral del Eclipse y Castillo de la Luna Sonriente.",
+   "Enemigos nuevos: Brujo Sapo, Alce Velado, Hechicera Violeta, Hechicera Carmesí, Demonio Cornudo, Soldado Hueco, Diácono del Eclipse y Heraldo Lunar.",
+   "Jefes con mecánicas: el Obispo Hueco reza y levanta a sus muertos; los soldados de Varkhul, el Rey Esqueleto, lo cubren hasta que caen; el Rey de las Campanas avisa cada ataque con campanadas, apaga la catedral y se encierra tras tres sellos; la Luna Sonriente lanza rayos, abre los ojos y enfurece a todos.",
+   "Nivel máximo 350. Tiers 22 a 26 con las armas dark fantasy de Sergio: mandoble y Espada de la Dama para el guerrero, violín para el bardo, guadaña lunar para el invocador, y armaduras del Lobo Nocturno, Sepulcrales, del Velo Roto, Eclipsadas y de la Luna Sonriente.",
+   "Capucha y manto del Lobo Nocturno, materiales nuevos (salen en la lupa 🔎) y un capítulo nuevo de las Crónicas.",
+   "PvP reequilibrado para el nivel 350."
+  ],
+  "en": [
+   "New: the Broken Veil Continent, dark fantasy, levels 255 to 350. For the first time you see the sky: night, magenta clouds, fog and the Smiling Moon.",
+   "To open the ancient portal (west of the Arxar Citadel), talk to Fenrik, the Old Wolf, in the Whispering Forest and to the witch Malvia, near the Gray Swamp.",
+   "Five regions: Swamp of Lost Souls (glowing water), Village of the Dead Bells, Forest of Whispers, Cathedral of the Eclipse and Castle of the Smiling Moon.",
+   "New enemies: Toad Warlock, Veiled Elk, Violet Sorceress, Crimson Sorceress, Horned Fiend, Hollow Soldier, Eclipse Deacon and Lunar Herald.",
+   "Bosses with mechanics: the Hollow Bishop prays and raises his dead; the soldiers of Varkhul, the Skeleton King, shield him until they fall; the King of Bells announces each attack with tolls, darkens the cathedral and locks himself behind three seals; the Smiling Moon fires beams, opens its eyes and enrages everyone.",
+   "Max level 350. Tiers 22 to 26 with Sergio's dark fantasy weapons: greatsword and Lady's Sword for the warrior, violin for the bard, lunar scythe for the summoner, and Night Wolf, Sepulchral, Broken Veil, Eclipsed and Smiling Moon armor.",
+   "Night Wolf hood and mantle, new materials (shown in the 🔎 guide) and a new Chronicles chapter.",
+   "PvP rebalanced for level 350."
+  ]
+ },
+ {
+  "b": 38,
+  "v": "4.17",
+  "d": "2026-11-13",
+  "es": [
+   "Los jefes del mundo tienen mecánicas nuevas, siempre avisadas en el suelo: el Rey Slime escupe slime que te deja pegado (rueda para soltarte), el Ent hace brotar raíces, Gruk toca su tambor de guerra (rueda cuando llegue la onda) y se enfurece, Morgana te lanza un maleficio que invierte tus pasos, el Gólem de Hielo congela el suelo, Volcanus hace erupciones de lava y Vael llama a sus soldados y, a mitad de vida, se vuelve inmune hasta que actives 3 sellos dorados.",
+   "Mapa: acércalo o aléjalo con dos dedos, arrástralo con uno, o usa los botones + − ⟲."
+  ],
+  "en": [
+   "World bosses have new mechanics, always warned on the ground: the Slime King spits slime that sticks you in place (roll to break free), the Ent makes roots burst out, Gruk beats his war drum (roll when the wave arrives) and enrages, Morgana casts a hex that reverses your steps, the Ice Golem freezes the ground, Volcanus erupts lava and Vael calls his soldiers and, at half health, becomes immune until you activate 3 golden seals.",
+   "Map: zoom in or out with two fingers, drag it with one, or use the + − ⟲ buttons."
+  ]
+ },
+ {
+  "b": 37,
+  "v": "4.16",
+  "d": "2026-11-13",
+  "es": [
+   "Nuevo botón 🔎 «Dónde conseguir» junto al Libro: cada material, arma, armadura, cosmético y jefe con dónde se consigue (monstruos, jefes, minería, tala, tiendas y recetas con sus materiales). «Seguir» enciende la flecha dorada hasta el sitio; vuelve a tocar para apagarla.",
+   "Las habilidades de mejora pintan a tu personaje del color de su nombre mientras duran (Furia en rojo, Escarcha en hielo, Invisibilidad en sombra, Fortaleza en oro…) y los escudos muestran una burbuja. Cada habilidad lanza un destello del color de su elemento. Funciona con todos los cuerpos y se ve en el online.",
+   "Las criaturas de Altavela usan el dibujo de Sergio, con el mismo detalle que en su imagen.",
+   "Las armas superadas pierden como mucho un 30 % de daño (antes 55 %)."
+  ],
+  "en": [
+   "New 🔎 \"Where to get it\" button next to the Book: every material, weapon, armor, cosmetic and boss with where to get it (monsters, bosses, mining, woodcutting, shops and recipes with their materials). \"Follow\" turns on the golden arrow to the place; tap again to turn it off.",
+   "Buff skills paint your character in the color of their name while they last (Fury red, Frost icy, Invisibility shadow, Fortress gold…) and shields show a bubble. Every skill casts a flash in its element color. Works with every body and is seen online.",
+   "Altavela's creatures use Sergio's drawing, with the same detail as his image.",
+   "Outgrown weapons lose at most 30% damage (was 55%)."
+  ]
+ },
+ {
+  "b": 36,
+  "v": "4.15",
+  "d": "2026-11-13",
+  "es": [
+   "Nuevo: Altavela, el Continente Celestial (nivel 220+). Puerta en la Isla de los Vientos de Celestia.",
+   "La capital de los Alados que sobrevivieron, las Llanuras de Nimbo, el Templo de Aeris, los Campos de Tormenta e islotes flotantes que se recorren volando.",
+   "Criaturas nuevas: Arpía Maligna, Medusa de Nube, Manta del Viento, Centinela de Aeris y Chispa Errante. Jefes: Kaelyra la Reina de las Arpías, el Coloso de Aeris y Vendaval la Sierpe de Tormenta (voladores).",
+   "Tormentas mágicas que cruzan el continente: el cielo se oscurece y caen rayos que avisan antes de caer.",
+   "Investigación en grupo con el Archivista Orelio: une fragmentos de mapa roto, descifra las estelas en la lengua de los Vientos y abre las tumbas de los Reyes del Aire. Lo que descubre cada miembro del grupo suma.",
+   "3 misiones de la Reina Lyssandra, capa nueva y 2 capítulos de las Crónicas en español e inglés."
+  ],
+  "en": [
+   "New: Altavela, the Celestial Continent (level 220+). Gate on Celestia's Isle of Winds.",
+   "The capital of the surviving Winged, the Nimbus Plains, the Temple of Aeris, the Storm Fields and floating islets you reach by flying.",
+   "New creatures: Malign Harpy, Cloud Jellyfish, Wind Manta, Aeris Sentinel and Wandering Spark. Bosses: Kaelyra the Harpy Queen, the Colossus of Aeris and Vendaval the Storm Wyrm (flying).",
+   "Magic storms sweep across the continent: the sky darkens and lightning strikes after a warning.",
+   "Group research with Orelio the Archivist: join broken map fragments, decipher the stelae in the Wind tongue and open the tombs of the Sky Kings. What each group member discovers adds up.",
+   "3 quests from Queen Lyssandra, a new cape and 2 Chronicle chapters in Spanish and English."
+  ]
+ },
+ {
+  "b": 35,
+  "v": "4.14",
+  "d": "2026-11-13",
+  "es": [
+   "Online: ahora se ven los ataques y las habilidades de los demás jugadores (pose, cortes, anillos, rayos, proyectiles y partículas), por sala, WiFi e internet. Los saltos se ven en el aire.",
+   "Habilidades más fieles a su nombre: Salto Devastador salta de verdad, Voltereta y Paso de Baile dan un brinco, y Tsunami, Fauces del Megalodón, Cosecha Final y Juicio Final tienen efectos nuevos.",
+   "Modo optimizado en Ajustes (sin clima ni lluvia, efectos simples, sin HD, 30 imágenes por segundo). Se activa solo si el juego va con lag.",
+   "Menos consumo con el juego quieto y limpieza de memoria para que el juego no se cierre tras mucho rato.",
+   "Inventario: botón Seleccionar para tirar varios objetos de una vez, los objetos de misión que ya no necesitas se pueden tirar y una Tarjeta de Tren repetida se convierte en 100 de saldo.",
+   "Al equipar o comprar ropa, las listas ya no vuelven arriba.",
+   "Las armas de más de 20 niveles por debajo del tuyo pierden fuerza (hasta un 55 %): ya no sirve la espada de cobre hasta el final.",
+   "El Velo (mundo espiritual) es ahora un mundo de sueño blanco y acolchado, con árboles de algodón, lago de leche, tumbas y urnas de llama fría.",
+   "Arreglo: en el online, las armas y armaduras de tier 16 a 21 se veían como tier 15."
+  ],
+  "en": [
+   "Online: you now see other players' attacks and skills (pose, slashes, rings, beams, projectiles and particles), over room, WiFi and internet. Jumps are seen in the air.",
+   "Skills closer to their names: Devastating Leap really jumps, Roll and Dance Step hop, and Tsunami, Megalodon Jaws, Final Harvest and Final Judgment have new effects.",
+   "Optimized mode in Settings (no weather or rain, simple effects, no HD, 30 frames per second). It turns on by itself if the game lags.",
+   "Lower usage while standing still and memory cleanup so the game doesn't close after a long session.",
+   "Inventory: Select button to drop several items at once, quest items you no longer need can be dropped and a duplicate Train Card becomes 100 credit.",
+   "When equipping or buying clothes, lists no longer jump back to the top.",
+   "Weapons more than 20 levels below yours lose strength (up to 55%): the copper sword no longer works until the end.",
+   "The Veil (spirit world) is now a white, quilted dream world with cotton trees, a milk lake, graves and cold-flame urns.",
+   "Fix: online, tier 16 to 21 weapons and armor showed as tier 15."
+  ]
+ },
+ {
+  "b": 34,
+  "v": "4.13",
+  "d": "2026-11-13",
+  "es": [
+   "Armas nuevas de madera, cobre, hierro, acero, plata y oro para todas las clases, con el dibujo de cobre de Sergio: más detalle en la mano (en HD se dibujan al doble) y ataques nuevos en 5 tiempos con su impacto.",
+   "Las dagas van una en cada mano, el arco apunta bien y el pez lleva sus aletas en las manos.",
+   "Campamento de los Vigías del Alba al este de Albor, en la Costa Coral: 8 miembros con su propio estilo y 5 misiones para ayudar y rescatar gente.",
+   "Al unirte te dan su uniforme (abrigo, pantalón y botas) como cosmético; te lo puedes quitar cuando quieras.",
+   "Lore nuevo: Edrin Valcorde, el pescador que hace mil años cuidó al primer portador del hilo vacío. Capítulo y pista nuevos en el Libro del Vínculo."
+  ],
+  "en": [
+   "New wood, copper, iron, steel, silver and gold weapons for every class, based on Sergio's copper drawing: more detail in hand (drawn at double size in HD) and new 5-step attacks with their impact.",
+   "Daggers go one in each hand, the bow aims properly and the Fish class holds its fins in its hands.",
+   "Dawn Wardens camp east of Albor, on the Coral Coast: 8 members with their own style and 5 quests to help and rescue people.",
+   "Joining gives you their uniform (coat, trousers and boots) as a cosmetic; take it off whenever you like.",
+   "New lore: Edrin Valcorde, the fisherman who cared for the first bearer of the empty thread a thousand years ago. New chapter and clue in the Book of the Bond."
+  ]
+ },
+ {
+  "b": 33,
+  "v": "4.12",
+  "d": "2026-11-13",
+  "es": [
+   "Los cuerpos femeninos tienen busto: Esbelta y Menuda pequeño, Clásica mediano y Curvas grande.",
+   "Se ve con cualquier ropa, armadura o cosmético, de frente y de perfil, y también en las NPCs femeninas."
+  ],
+  "en": [
+   "Female bodies now have a bust: small for Slender and Petite, medium for Classic and large for Curvy.",
+   "It shows with any clothes, armor or cosmetic, from the front and in profile, and on female NPCs too."
+  ]
+ },
+ {
+  "b": 32,
+  "v": "4.11",
+  "d": "2026-11-13",
+  "es": [
+   "Los árboles nunca se extinguen: al talarlos, el tocón se convierte en un retoño y luego vuelve a ser un árbol.",
+   "Árboles, arbustos y hierbas quitados con el martillo de construcción vuelven a crecer a los 15 minutos, salvo que hayas construido encima. Las rocas y menas quitadas no vuelven.",
+   "Los retoños no se pueden talar hasta que crecen."
+  ],
+  "en": [
+   "Trees never go extinct: after chopping, the stump becomes a sapling and then grows back into a tree.",
+   "Trees, bushes and herbs removed with the building hammer grow back after 15 minutes unless you built on that spot. Removed rocks and ores do not come back.",
+   "Saplings can't be chopped until they grow."
+  ]
+ },
+ {
+  "b": 31,
+  "v": "4.10",
+  "d": "2026-11-13",
+  "es": [
+   "Valentina vende tres trajes por oro: Plata y Azul, Carmesí y Oro, y Marcas Rojas y Oro. Se ajustan a las ocho estructuras en las cuatro direcciones."
+  ],
+  "en": [
+   "Valentina sells three outfits for gold: Silver and Blue, Crimson and Gold, and Red Markings and Gold. They fit all eight builds in all four directions."
+  ]
+ },
+ {
+  "b": 30,
+  "v": "4.9",
+  "d": "2026-11-13",
+  "es": [
+   "Bufandín estrena el sprite del gatito azul con bufanda roja y cuatro fotogramas de caminata por dirección."
+  ],
+  "en": [
+   "Scarfy gets a new blue cat sprite with a red scarf and four walking frames per direction."
+  ]
+ },
+ {
+  "b": 29,
+  "v": "4.8",
+  "d": "2026-11-13",
+  "es": [
+   "Bufandín redibujado en HD: el doble de resolución, ojos con brillo, orejas rosas, mejillas con mechones, luna en la frente, hocico, cola rizada y una bufanda carmesí con franja dorada y flecos que ondea al caminar."
+  ],
+  "en": [
+   "Scarfy redrawn in HD: double resolution, shiny eyes, pink ears, fluffy cheeks, a crescent moon on its forehead, muzzle, curled tail and a crimson scarf with a gold stripe and fringe that flutters as it walks."
+  ]
+ },
+ {
+  "b": 28,
+  "v": "4.7",
+  "d": "2026-11-13",
+  "es": [
+   "Nueva boutique en cada pueblo, con tejado morado: Valentina, la modista, vende la colección nueva.",
+   "Ropa nueva: Suéter de Punto Medianoche (cuello de cuadrícula, franja carmesí, puños rosas), Pantalón Holgado Café, Zapatillas Carmesí, Tirita en la Mejilla, Vestido de Noche Carmesí y Chaqueta de Cuero. Se ajustan a las 8 estructuras.",
+   "Nueva mascota: Bufandín, el Gato Viajero (+6% de velocidad y +4% de crítico).",
+   "PvP equilibrado a nivel máximo: todas las clases pueden hacerse frente. En duelo las curas y escudos rinden menos, y cada clase tiene un ajuste de daño solo para PvP.",
+   "Las invocaciones del Invocador ahora también atacan al rival en un duelo."
+  ],
+  "en": [
+   "New boutique in every town, with a purple roof: Valentina, the designer, sells the new collection.",
+   "New clothes: Midnight Knit Sweater (grid collar, crimson stripe, pink cuffs), Baggy Brown Trousers, Crimson Sneakers, Cheek Bandage, Crimson Evening Dress and Leather Jacket. They fit all 8 builds.",
+   "New pet: Scarfy, the Wandering Cat (+6% speed and +4% crit).",
+   "PvP balanced at max level: every class can stand up to the others. In duels heals and shields are weaker, and each class has a PvP-only damage adjustment.",
+   "Summoner spirits now also attack your opponent in a duel."
+  ]
+ },
+ {
+  "b": 27,
+  "v": "4.6",
+  "d": "2026-11-13",
+  "es": [
+   "Multas: todos los guardias cobran, también el Guardia Rolf en Albor y el Capitán Darius en Arxar, y cualquiera acepta las multas de cualquier pueblo (así se pagan las de Yarakai y Puerto Brasa).",
+   "Nuevo panel «Multas y antecedentes» al hablar con un guardia: lo que debes en cada pueblo, pagar una o todas.",
+   "Si eres Criminal en un pueblo sin multa registrada, puedes pagar para limpiar tu nombre.",
+   "Si no debes nada, el guardia te lo dice.",
+   "El Colgante de Promesa ya no pide nivel de Joyería."
+  ],
+  "en": [
+   "Fines: every guard collects them, including Guard Rolf in Albor and Captain Darius in Arxar, and any guard accepts fines from any town (so Yarakai and Puerto Brasa fines can be paid).",
+   "New \"Fines and record\" panel when talking to a guard: what you owe in each town, pay one or all.",
+   "If you are a Criminal in a town with no recorded fine, you can pay to clear your name.",
+   "If you owe nothing, the guard tells you.",
+   "The Promise Pendant no longer needs a Jewelry level."
+  ]
+ },
+ {
+  "b": 26,
+  "v": "4.5",
+  "d": "2026-11-13",
+  "es": [
+   "Ajuste automático: cascos, sombreros, coronas, orejas y cuernos se adaptan solos a la cabeza de cada estructura; los sombreros muy altos se encogen para no salirse.",
+   "Las prendas nuevas que se añadan al juego se colocarán solas en las 8 estructuras.",
+   "Arreglo: el casco del guerrero tapaba un poco el ojo derecho.",
+   "Arreglo: las capuchas del asesino y el invocador tapaban el borde del ojo en la estructura Robusto.",
+   "Los sombreros de los NPCs también se ajustan a su cabeza."
+  ],
+  "en": [
+   "Automatic fit: helmets, hats, crowns, ears and horns adapt to the head of every build; very tall hats shrink so they stay on screen.",
+   "New gear added to the game will fit all 8 builds on its own.",
+   "Fix: the warrior helmet slightly covered the right eye.",
+   "Fix: assassin and summoner hoods covered the edge of the eye on the Sturdy build.",
+   "NPC hats also fit their heads."
+  ]
+ },
+ {
+  "b": 25,
+  "v": "4.4",
+  "d": "2026-11-13",
+  "es": [
+   "3 estructuras nuevas de cuerpo y cabeza por sexo, además de la clásica: Héroe, Atlético y Robusto; Esbelta, Curvas y Menuda. Se eligen en «Estructura» al crear el personaje o en la peluquería.",
+   "La estructura Héroe tiene los ojos de la referencia: ceja del color del pelo, ojo 2×2 con brillo y boca pequeña.",
+   "Ropa, armaduras, cosméticos, pelo y armas se ajustan a cada estructura en las cuatro direcciones.",
+   "Los NPCs y los enemigos humanos tienen estructuras variadas.",
+   "Los demás jugadores ven tu estructura por WiFi local y por internet.",
+   "Arreglo: las gafas de sol se ponían sobre la frente; ahora tapan los ojos."
+  ],
+  "en": [
+   "3 new body and head builds per gender besides the classic one: Hero, Athletic and Sturdy; Slender, Curvy and Petite. Pick them under \"Build\" when creating your character or at the stylist.",
+   "The Hero build has the reference eyes: brows in the hair colour, 2×2 eyes with a highlight and a small mouth.",
+   "Clothes, armor, cosmetics, hair and weapons fit every build in all four directions.",
+   "NPCs and human enemies have varied builds.",
+   "Other players see your build over local WiFi and online.",
+   "Fix: sunglasses sat on the forehead; they now cover the eyes."
+  ]
+ },
+ {
+  "b": 24,
+  "v": "4.3",
+  "d": "2026-11-13",
+  "es": [
+   "Actualizador interno: el juego busca versiones nuevas en GitHub, te avisa y se reinicia con el contenido nuevo sin reinstalar el APK.",
+   "Botón «Buscar actualización» en el título y en Ajustes › Actualizaciones.",
+   "Sección de Novedades con los cambios de cada versión; se abre sola la primera vez tras actualizar.",
+   "Si una versión descargada falla al arrancar, el juego vuelve solo a la versión instalada."
+  ],
+  "en": [
+   "Built-in updater: the game checks GitHub for new versions, lets you know and restarts with the new content without reinstalling the APK.",
+   "\"Check for updates\" button on the title screen and in Settings › Updates.",
+   "What's New section with the changes of every version; it opens by itself the first time after an update.",
+   "If a downloaded version fails to start, the game goes back to the installed version on its own."
+  ]
+ },
+ {
+  "b": 23,
+  "v": "4.2",
+  "d": "2026-11-12",
+  "es": [
+   "Nuevo estilo chibi para todos los personajes y NPCs: cabeza más alta, ojos 2×3 con brillo, boca pequeña y rubor.",
+   "Pelo con más volumen, ondas y mechones claros.",
+   "Cintura marcada en los personajes femeninos."
+  ],
+  "en": [
+   "New chibi style for every character and NPC: higher head, 2×3 eyes with highlights, small mouth and blush.",
+   "Hair with more volume, waves and light strands.",
+   "Defined waist on female characters."
+  ]
+ },
+ {
+  "b": 22,
+  "v": "4.1",
+  "d": "2026-11-12",
+  "es": [
+   "Detalle HD suavizado: sin cuadrículas blancas en la ropa.",
+   "Tu pareja te atiende en su tienda aunque seas Criminal en ese pueblo."
+  ],
+  "en": [
+   "Softer HD detail: no more white grids on clothes.",
+   "Your partner serves you in their shop even if you are a Criminal in that town."
+  ]
+ },
+ {
+  "b": 21,
+  "v": "4.0",
+  "d": "2026-11-12",
+  "es": [
+   "Gráficos HD: el juego se dibuja al doble y la ropa, armaduras y NPCs tienen detalle fino (se puede desactivar en Ajustes).",
+   "Cara más alta en todos los personajes.",
+   "Trajes Dama Esmeralda, Danzarina del Ocaso y Rey del Cielo Blanco en las tiendas de cosméticos."
+  ],
+  "en": [
+   "HD graphics: the game is drawn at double resolution and clothes, armor and NPCs get fine detail (can be turned off in Settings).",
+   "Higher face on every character.",
+   "Emerald Lady, Dusk Dancer and White Sky King outfits in the cosmetics shops."
+  ]
+ },
+ {
+  "b": 20,
+  "v": "3.9",
+  "d": "2026-11-11",
+  "es": [
+   "Mapa con iconos y leyenda de tiendas y servicios, y flechas para ver los 6 mundos.",
+   "Accesorios ajustados a su límite y accesorios de clase del cielo.",
+   "Set cosmético del Heraldo Nocturno.",
+   "Espadas nuevas de las hojas 4 y 5."
+  ],
+  "en": [
+   "Map with icons and a legend for shops and services, plus arrows to see all 6 worlds.",
+   "Accessories capped to their limit and sky class accessories.",
+   "Night Herald cosmetic set.",
+   "New swords from sheets 4 and 5."
+  ]
+ },
+ {
+  "b": 0,
+  "v": "3.8",
+  "d": "",
+  "es": [
+   "Libro del Vínculo con lore, pistas y rumores; Nihil, el Ente Oscuro.",
+   "Bloqueo y contraataque perfecto, jefes que aprenden, runas del mago, armas malditas y armas que hablan.",
+   "Asedio de la Luna de Sangre, pueblos que crecen con donaciones y festivales con minijuegos.",
+   "Islas del Cielo: nivel 250, aeronave, grifo, alas, tiers 19–21 y evolución de clase."
+  ],
+  "en": [
+   "Book of the Bond with lore, clues and rumors; Nihil, the Dark Entity.",
+   "Block and perfect counter, bosses that learn, mage runes, cursed weapons and talking weapons.",
+   "Blood Moon siege, towns that grow with donations and festivals with minigames.",
+   "Sky Islands: level 250, airship, griffin, wings, tiers 19–21 and class evolution."
+  ]
+ },
+ {
+  "b": 0,
+  "v": "3.7",
+  "d": "",
+  "es": [
+   "Construcción libre: mesa de trabajo, paredes, suelos, puertas, ventanas, vallas y muebles, sincronizada en multijugador.",
+   "Casa nueva con jardín, cuartos y planta alta.",
+   "3 cuevas de nivel 150–178, maestros de oficio y Crónicas del Vínculo."
+  ],
+  "en": [
+   "Free building: workbench, walls, floors, doors, windows, fences and furniture, synced in multiplayer.",
+   "New home with a garden, rooms and an upper floor.",
+   "3 caves for levels 150–178, job masters and the Chronicles of the Bond."
+  ]
+ },
+ {
+  "b": 0,
+  "v": "3.6",
+  "d": "",
+  "es": [
+   "Sprites de armas Estelares, Primordiales y Divinas.",
+   "Logo nuevo, interfaz dorada con atardecer y fuente pixel.",
+   "Juego completo en inglés."
+  ],
+  "en": [
+   "Stellar, Primordial and Divine weapon sprites.",
+   "New logo, golden sunset interface and pixel font.",
+   "Full English translation."
+  ]
+ },
+ {
+  "b": 0,
+  "v": "3.5",
+  "d": "",
+  "es": [
+   "Sprites de armas de tier 7–15, espadas con estilo y legendarias.",
+   "Vista animada del ataque en la enciclopedia."
+  ],
+  "en": [
+   "Weapon sprites for tiers 7–15, styled swords and legendaries.",
+   "Animated attack preview in the encyclopedia."
+  ]
+ },
+ {
+  "b": 0,
+  "v": "3.4",
+  "d": "",
+  "es": [
+   "Armas de tier 1–6 con sprites propios.",
+   "Llevar a tu pareja en brazos, hijos con vida y mascota en casa."
+  ],
+  "en": [
+   "Tier 1–6 weapons with their own sprites.",
+   "Carry your partner, kids with HP and a pet at home."
+  ]
+ },
+ {
+  "b": 0,
+  "v": "3.3",
+  "d": "",
+  "es": [
+   "Clase Pez, Aldara, peluquería y Ascensión al nivel 190.",
+   "Inventario de 200, gestos y grupos de 6 con monstruos sincronizados."
+  ],
+  "en": [
+   "Fish class, Aldara, barber and Ascension at level 190.",
+   "200-slot inventory, emotes and parties of 6 with synced monsters."
+  ]
+ },
+ {
+  "b": 0,
+  "v": "3.2",
+  "d": "",
+  "es": [
+   "Online por internet: salas privadas con código y 5 mundos públicos."
+  ],
+  "en": [
+   "Internet online: private rooms with a code and 5 public worlds."
+  ]
+ }
+]
+/*CL_END*/;
 
 const UPD = { base: UPD_BASE_DEF, latest: null, busy: false, auto: false, newsShown: false, err: '' };
 try { const m = /[?&]upd=([^&#]+)/.exec(location.search); if (m) UPD.base = decodeURIComponent(m[1]); } catch (e) { }
