@@ -8,7 +8,7 @@ with sync_playwright()as p:
  try:
   pg.goto((ROOT/'update/thebound.html').as_uri());pg.wait_for_timeout(2000)
   audit=pg.evaluate('''()=>{const kinds=new Set(['buff','heal','shield','nova','rain','field','meteor','vortex','summon','army','kingsoul','sumbuff','concert','beams','skyfall']);const skills=Object.values(SK).filter(s=>AP_CLASSES.includes(s.cls)).map(s=>({id:s.id,cls:s.cls,name:s.n,type:s.type,kind:s.eff?.k,art:s.eff?.art,pose:s.type==='act'?(SK_HOP[s.id]?.[2]||(['slam','leap'].includes(s.eff?.k)?'slam':kinds.has(s.eff?.k)?'cast':'atk')):null,cd:s.cd,mp:s.mp,extra:!!SK_EXTRA[s.id]}));return{version:GAME_VER,build:GAME_BUILD,bodies:BODY_T,classes:AP_CLASSES.map(cls=>({id:cls,name:CLASSES[cls].n,active:skills.filter(s=>s.cls===cls&&s.type==='act').length,passive:skills.filter(s=>s.cls===cls&&s.type==='pas').length})),skills};}''')
-  pg.evaluate((ROOT/'tests/skill_preview/sample.js').read_text())
+  pg.add_script_tag(content=(ROOT/'tests/skill_preview/sample.js').read_text())
   cases=pg.evaluate('SP_CASES');audit['examples']=cases;audit['previewOnly']=True;audit['frames']=0
   for case in cases:
    cls=case['cls'];frames=[]
