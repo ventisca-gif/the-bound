@@ -1,20 +1,22 @@
 {
- "build": 121,
- "ver": "5.00",
+ "build": 122,
+ "ver": "5.01",
  "date": "2026-11-17",
  "file": "thebound.html",
- "size": 21994047,
- "sha256": "198a5a4bd452334f1097b6cee8ea9c5a6d83f69ca135ef0438ad43629692c520",
+ "size": 22009519,
+ "sha256": "e574c93996309dffdd36a78cb7a35d3cfc1ebdba6f794dc19f26c6be9e7e7f78",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🎨 Los 143 enemigos y jefes aprobados reciben sus dibujos detallados, cuatro vistas, caminata, un ataque animado y VFX separados.",
-   "🛡️ Se conservan personajes, NPCs, vida, daño, estadísticas y mecánicas. Excluidos: Slime Verde, Slime Azul, Imitador, Nihil y Lienya. El Reflejo Eclipsado sigue copiando tu aspecto."
+   "🛡 Armaduras pulidas en los 30 niveles de equipo: placas, cuero, telas, emblemas y capas propios, sobre los cinco cuerpos masculinos y femeninos originales.",
+   "🎨 Iconos nuevos para las 125 piezas en Armaduras del bestiario, inventario, herrería y tiendas, con vista de la pieza equipada en cuatro direcciones.",
+   "Se conservan las estadísticas, el progreso, las animaciones y la cobertura del pelo de cada casco."
   ],
   "en": [
-   "🎨 The 143 approved enemies and bosses receive detailed artwork, four views, walking, an animated attack and separate VFX.",
-   "🛡️ Player/NPC sprites, health, damage, stats and mechanics are preserved. Green Slime, Blue Slime, Mimic, Nihil and Lienya are excluded. The Eclipsed Reflection still copies your appearance."
+   "🛡 Polished armor across all 30 gear tiers: plates, leather, cloth, emblems and capes on the five original male and female bodies.",
+   "🎨 New icons for all 125 pieces in the bestiary Armor tab, inventory, smithy and shops, plus a four-direction equipped preview.",
+   "Stats, progress, animations and each helmet’s hair coverage are preserved."
   ]
  }
 }
