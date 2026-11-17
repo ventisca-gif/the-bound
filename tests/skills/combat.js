@@ -4,7 +4,7 @@
   const P=newPlayer('Prueba',D.cls,{...DEF_APP,g:'f',bt:4});G.P=P;P.lv=400;initPlayerRuntime(P);P.x=248;P.y=200;P.map=G.map.id;P.dir='down';P.hp=Math.floor(P.S.maxhp*.5);P.mp=1e6;P.slots=[D.id,null,null,null];P.skills={};for(const s of Object.values(SK))if(s.cls===D.cls)P.skills[s.id]=10;P.cds={};P.acts=[];P.busy=0;P.inv=[];P.souls=[{id:'fixture',mid:'slime_v',lv:400,el:0,b:0}];P.soulSet=['fixture'];SUMMONS=[];G.ents=[P];G.fx=[];G.parts=[];
   const m=spawnMob('slime_v',400,248,226,0,null,false);m.hp=m.maxhp=1e9;m.df=100;P.target=m;if(D.kind==='sumbuff')spawnSummon(P.souls[0],1,20);ATK_ID=100;return{P,m};
  }
- function run(D,fn){const{P,m}=setup(D);fn(0);const schedules=P.acts.map(v=>v.t),casts=(P.cds[D.id]||0)>0;
+ function run(D,fn){const{P,m}=setup(D);let castSeed=8191;Math.random=()=>((castSeed=Math.imul(castSeed,1664525)+1013904223>>>0)/4294967296);fn(0);const schedules=P.acts.map(v=>v.t),casts=(P.cds[D.id]||0)>0;
   for(let n=0;n<160;n++){
    const acts=P.acts;P.acts=[];for(const a of acts){a.t-=.05;if(a.t<=0)a.fn();else P.acts.push(a);}
    for(const f of [...G.fx]){f.t+=.05;if(f.cbTick&&f.tick!==undefined){f._testTick=(f._testTick||0)+.05;if(f._testTick>=f.tick){f._testTick=0;f.cbTick(f);}}}G.fx=G.fx.filter(f=>f.t<f.dur);
