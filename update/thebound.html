@@ -341,7 +341,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.05 · Ropa de oficio</div>
+  <div class="tfoot">v5.06 · Mapa y Lupa</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11756,7 +11756,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.05', GAME_BUILD = 126;
+const GAME_VER = '5.06', GAME_BUILD = 127;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11764,6 +11764,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "b": 127,
+  "v": "5.06",
+  "d": "2026-11-17",
+  "es": [
+   "🗺 Mapa: ya se puede deslizar hasta todos los bordes (antes se cortaba abajo y a la derecha) y también sin zoom. Nuevos iconos: Gremio de Oficios en los 6 pueblos y Museo de Albor.",
+   "🔎 Lupa › Sistemas: arriba del todo, explicado paso a paso con flecha dorada: Gremio, desbloqueos de oficio, granja, tienda en casa, Museo de Albor, caravanas, mercado entre jugadores, torneo, historia de las idols y ropa de oficio.",
+   "🔎 Lupa: la pestaña «Poder» ya no desaparece al entrar en Materiales, Equipo, Cosméticos o Jefes."
+  ],
+  "en": [
+   "🗺 Map: you can now drag to every edge (it used to cut off at the bottom and right), even without zoom. New icons: Crafters Guild in all 6 towns and the Albor Museum.",
+   "🔎 Magnifier › Systems: at the very top, explained step by step with the golden arrow: Guild, job unlocks, farm, home shop, Albor Museum, caravans, player market, tournament, the idols' story and job clothing.",
+   "🔎 Magnifier: the «Power» tab no longer disappears when you open Materials, Gear, Cosmetics or Bosses."
+  ]
+ },
  {
   "b": 126,
   "v": "5.05",
@@ -15418,7 +15433,7 @@ function mapZoomWire() {
   const wrap = document.createElement('div'); wrap.className = 'mzoom'; cvs.parentElement.insertBefore(wrap, cvs); wrap.appendChild(cvs);
   wrap.insertAdjacentHTML('beforeend', `<div class="mzbtns"><button data-mz="1">+</button><button data-mz="-1">−</button><button data-mz="0">⟲</button></div>`);
   const key = String(MAPW); if (MAPZ.key !== key) { MAPZ.s = 1; MAPZ.x = 0; MAPZ.y = 0; MAPZ.key = key; }
-  const apply = () => { MAPZ.s = clamp(MAPZ.s, 1, 6); const mw = cvs.offsetWidth * (MAPZ.s - 1), mh = cvs.offsetHeight * (MAPZ.s - 1); MAPZ.x = clamp(MAPZ.x, -mw, 0); MAPZ.y = clamp(MAPZ.y, -mh, 0); cvs.style.transformOrigin = '0 0'; cvs.style.transform = `translate(${MAPZ.x}px,${MAPZ.y}px) scale(${MAPZ.s})`; };
+  const apply = () => { MAPZ.s = clamp(MAPZ.s, 1, 6); const mw = Math.max(0, cvs.offsetWidth * MAPZ.s - wrap.clientWidth), mh = Math.max(0, cvs.offsetHeight * MAPZ.s - wrap.clientHeight); MAPZ.x = clamp(MAPZ.x, -mw, 0); MAPZ.y = clamp(MAPZ.y, -mh, 0); cvs.style.transformOrigin = '0 0'; cvs.style.transform = `translate(${MAPZ.x}px,${MAPZ.y}px) scale(${MAPZ.s})`; };
   const zoomAt = (ns, px, py) => { const s0 = MAPZ.s; ns = clamp(ns, 1, 6); MAPZ.x = px - (px - MAPZ.x) * ns / s0; MAPZ.y = py - (py - MAPZ.y) * ns / s0; MAPZ.s = ns; apply(); };
   wrap.querySelectorAll('[data-mz]').forEach(b => b.onclick = e => { e.stopPropagation(); const v = +b.dataset.mz, w = wrap.clientWidth / 2, h = wrap.clientHeight / 2; if (!v) { MAPZ.s = 1; MAPZ.x = 0; MAPZ.y = 0; apply(); } else zoomAt(MAPZ.s * (v > 0 ? 1.5 : 1 / 1.5), w, h); });
   const pts = new Map(); let d0 = 0, s0 = 1, moved = 0, last = null;
@@ -15426,7 +15441,7 @@ function mapZoomWire() {
   wrap.addEventListener('pointerdown', e => { pts.set(e.pointerId, rel(e)); moved = 0; if (pts.size === 2) { const [a, b] = [...pts.values()]; d0 = Math.hypot(a[0] - b[0], a[1] - b[1]); s0 = MAPZ.s; } last = rel(e); });
   wrap.addEventListener('pointermove', e => { if (!pts.has(e.pointerId)) return; const p = rel(e); pts.set(e.pointerId, p);
     if (pts.size === 2) { const [a, b] = [...pts.values()], d = Math.hypot(a[0] - b[0], a[1] - b[1]); if (d0 > 10) { zoomAt(s0 * d / d0, (a[0] + b[0]) / 2, (a[1] + b[1]) / 2); moved = 1; } }
-    else if (pts.size === 1 && MAPZ.s > 1 && last) { const dx = p[0] - last[0], dy = p[1] - last[1]; if (Math.abs(dx) + Math.abs(dy) > 2) moved = 1; MAPZ.x += dx; MAPZ.y += dy; apply(); }
+    else if (pts.size === 1 && (MAPZ.s > 1 || cvs.offsetWidth > wrap.clientWidth || cvs.offsetHeight > wrap.clientHeight) && last) { const dx = p[0] - last[0], dy = p[1] - last[1]; if (Math.abs(dx) + Math.abs(dy) > 2) moved = 1; MAPZ.x += dx; MAPZ.y += dy; apply(); }
     last = p; e.preventDefault(); });
   const up = e => { pts.delete(e.pointerId); if (pts.size < 2) d0 = 0; last = pts.size ? [...pts.values()][0] : null; };
   wrap.addEventListener('pointerup', up); wrap.addEventListener('pointercancel', up);
@@ -29271,6 +29286,57 @@ const RO_SPEC = {
 for (const id in RO_SPEC) { const C_ = COSM[id]; if (!C_) continue; const [es, en, k, a, b, cover] = RO_SPEC[id];
  C_.n = L2(es, en); if (ITEMS['cosi_' + id]) ITEMS['cosi_' + id].n = C_.n;
  C_.vis = C_.slot === 'back' ? () => ({ k, m: RO(a), s: RO(b), o: RO(a), i: RO(b) }) : () => Object.assign({ k, m: RO(a), s: RO(b) }, C_.slot === 'head' ? { cover: cover === 'face' ? 'hat' : 'hat' } : {}); }
+
+// ================= v5.06: lo nuevo de la 5.04-5.05 en el mapa y en la Lupa › Sistemas =================
+MAPC.oficio = ['Gremio de Oficios', 'Crafters Guild', '#ffb050', 'anvil'];
+MAPC.museo = ['Museo de Albor', 'Albor Museum', '#e0d0ff', 'trophy'];
+for (const t of GR_TOWNS) NPC_CAT['gremio_' + t] = 'oficio';
+NPC_CAT.curadora_museo = 'museo';
+function ofNpcLoc(id) { const W = G.world, d = W && W.npcDefs && W.npcDefs.find(v => v.id === id); if (d) return [d.x, d.y]; const p = typeof npcWorldPos === 'function' ? npcWorldPos(id) : null; return p || null; }
+function ofNearestGuild() { const P = G.P; let best = null, bd = 1e18; for (const t of GR_TOWNS) { const l = ofNpcLoc('gremio_' + t); if (!l) continue; const px = (P.map === 'world' ? P.x : P.retX || P.x) / 16, py = (P.map === 'world' ? P.y : P.retY || P.y) / 16, dd = (l[0] - px) ** 2 + (l[1] - py) ** 2; if (dd < bd) { bd = dd; best = l; } } return best; }
+const ofGuildWP = () => { const l = ofNearestGuild(); return l ? { loc: l, m: 'world', t: L2('Encargada del Gremio', 'Guild Clerk') } : null; };
+if (typeof GSIS !== 'undefined') {
+ GSIS.push(['of_gremio', '🏛 ' + L2('Gremio de Oficios', 'Crafters Guild'), () => [
+  L2('La Encargada del Gremio está en Albor, Puerto Coral, Arxar, Sahrim, Yarakai y Brasa (icono de yunque naranja en el mapa).', 'The Guild Clerk is in Albor, Coral Port, Arxar, Sahrim, Yarakai and Ember (orange anvil icon on the map).'),
+  L2('Pedidos del gremio: 3 pedidos nuevos cada día. Entregas productos de oficio a cambio de mucho oro, experiencia del oficio y, a veces, un mueble de regalo.', 'Guild orders: 3 new orders every day. Deliver crafted goods for lots of gold, job experience and sometimes a gift piece of furniture.'),
+  L2('Taller de oficios: aquí se fabrican los productos de todos los oficios (también de los que no tienen mesa propia).', 'Crafts workshop: goods from every job are made here (including jobs without their own table).'),
+  L2('Maestrías de oficio: cada rango sube 10 niveles el tope del oficio (hasta 105) y da +15 % de experiencia. Tala, Minería, Pesca y Agricultura tienen sus maestros propios.', 'Job masteries: each rank raises the job cap by 10 levels (up to 105) and gives +15% XP. Woodcutting, Mining, Fishing and Farming have their own masters.'),
+  L2('También abre el Mercado entre jugadores, el Torneo de oficios y la Caravana comercial.', 'It also opens the Player market, the Crafts tournament and the Trade caravan.')], ofGuildWP]);
+ GSIS.push(['of_desbloqueos', '⛏ ' + L2('Oficios: desbloqueos cada 5 niveles', 'Jobs: unlocks every 5 levels'), () => [
+  L2('Cada oficio desbloquea algo cada 5 niveles: productos para vender o regalar, muebles (Mesa de trabajo), ropa propia del oficio (va directa al Vestuario), platos de hoguera (Cocina 55-85) y ventajas de oro y experiencia. Lo próximo sale en el panel de Oficios.', 'Every job unlocks something every 5 levels: goods to sell or gift, furniture (Workbench), the job’s own clothing (straight to the Wardrobe), campfire dishes (Cooking 55-85) and gold and XP perks. The next one shows in the Jobs panel.'),
+  L2('Desde el nivel 20 hace falta menos experiencia (del 50 al 75, la mitad) y las 30 primeras acciones de cada oficio al día dan +50 %.', 'From level 20 you need less experience (from 50 to 75, half) and the first 30 actions of each job per day give +50%.'),
+  L2('Cada oficio en nivel 50 da +0,1 % de ataque, como mucho +1 %: no hace falta subirlos todos.', 'Each job at level 50 gives +0.1% attack, at most +1%: you do not need to level them all.')], ofGuildWP]);
+ GSIS.push(['of_granja', '🐔 ' + L2('Granja en casa', 'Home farm'), () => [
+  L2('En la Mesa de trabajo › Granja: Gallinero (Agricultura 10), Establo con vaca (20), Corral de ovejas (30), Colmena (40), Caseta del perro trufero (50), Estanque de peces (55) e Invernadero (65).', 'At the Workbench › Farm: Henhouse (Farming 10), Cow stable (20), Sheep pen (30), Beehive (40), Truffle dog kennel (50), Fish pond (55) and Greenhouse (65).'),
+  L2('Colócalos dentro de tu casa y tócalos una vez por día del juego: huevos, leche y queso, lana, miel, trufas, peces y verduras. Con más Agricultura dan más.', 'Place them in your house and tap them once per game day: eggs, milk and cheese, wool, honey, truffles, fish and vegetables. Higher Farming gives more.')], () => null]);
+ GSIS.push(['of_tienda', '🛒 ' + L2('Tu tienda en casa', 'Your home shop'), () => [
+  L2('Fabrica el Mostrador de tu tienda en la Mesa de trabajo › Muebles y ponlo en tu casa. Tócalo para poner cosas a la venta (hasta 8 tipos).', 'Make Your shop counter at the Workbench › Furniture and place it in your house. Tap it to put things on sale (up to 8 kinds).'),
+  L2('Los vecinos compran solos con el tiempo, aunque no estés jugando. Los productos de oficio y los platos se venden casi a su valor; el resto, al 60 %. Con Comercio se vende más rápido. Cobra lo que hay en la caja.', 'Neighbours buy on their own over time, even while you are away. Crafted goods and dishes sell at nearly their value; the rest at 60%. Trading sells faster. Collect what is in the till.')], () => null]);
+ GSIS.push(['of_museo', '🏛 ' + L2('Museo de Albor', 'Albor Museum'), () => [
+  L2('La Curadora Elvira, en la plaza de Albor, recibe donaciones para 6 colecciones: peces, hallazgos y reliquias, gemas, obras maestras de oficio, despensa de la granja y recuerdos de las idols.', 'Curator Elvira, in Albor square, takes donations for 6 collections: fish, finds and relics, gems, craft masterpieces, farm pantry and idol keepsakes.'),
+  L2('Cada pieza se dona una vez. Al completar una colección: oro, una estatua para tu casa y el título «Mecenas del Museo».', 'Each piece is donated once. Completing a collection gives gold, a statue for your house and the title «Museum Patron».')], () => { const l = ofNpcLoc('curadora_museo'); return l ? { loc: l, m: 'world', t: L2('Curadora Elvira', 'Curator Elvira') } : null; }]);
+ GSIS.push(['of_caravana', '🐫 ' + L2('Caravanas comerciales', 'Trade caravans'), () => [
+  L2('Habla con el Caravanero o con la Encargada del Gremio. Eliges productos de oficio, platos o productos de la granja y una ruta: corta (10 min), del desierto (30 min) o de los cinco reinos (90 min).', 'Talk to the Caravaneer or the Guild Clerk. Choose crafted goods, dishes or farm goods and a route: short (10 min), desert (30 min) or five realms (90 min).'),
+  L2('La caravana vende lejos y vuelve con más oro (×1,35 a ×2) y, a veces, algo raro. El tiempo cuenta aunque no juegues.', 'The caravan sells far away and returns with more gold (×1.35 to ×2) and sometimes something rare. Time counts even while you are away.')], () => { const l = ofNpcLoc('caravanero'); return l ? { loc: l, m: 'world', t: L2('Caravanero', 'Caravaneer') } : null; }]);
+ GSIS.push(['of_mercado', '🤝 ' + L2('Mercado entre jugadores', 'Player market'), () => [
+  L2('Desde la Encargada del Gremio pones ofertas (hasta 8) y los jugadores conectados contigo por WiFi u online te las compran. También ves y compras lo que ofrecen ellos.', 'From the Guild Clerk you post offers (up to 8) and players connected with you over WiFi or online can buy them. You also see and buy what they offer.'),
+  L2('El oro solo cambia de manos cuando el vendedor entrega. Si la oferta ya no está o no responde, te devuelve el oro.', 'Gold only changes hands when the seller delivers. If the offer is gone or the seller does not answer, your gold is refunded.')], ofGuildWP]);
+ GSIS.push(['of_torneo', '🏆 ' + L2('Torneo de oficios', 'Crafts tournament'), () => [
+  L2('Cada día hay un oficio de torneo (Tala, Minería, Pesca o Herboristería). Pulsa Empezar y tienes 2 minutos para trabajar todo lo que puedas.', 'Each day there is a tournament job (Woodcutting, Mining, Fishing or Herbalism). Press Start and you have 2 minutes to work as much as you can.'),
+  L2('Vence a los tres rivales del gremio para ganar la Medalla del gremio; tus amigos conectados también salen en la tabla. Con 5 victorias: título «Campeón de Oficios».', 'Beat the three guild rivals to win the Guild medal; your connected friends also appear on the board. With 5 wins: title «Crafts Champion».')], ofGuildWP]);
+ GSIS.push(['of_idols', '🎤 ' + L2('Historia de las idols', 'The idols’ story'), () => [
+  L2('Cada idol de STELLA☆LINK (Akihabara) y PRISM9 (Shibuya) te pide 3 cosas: un favor con un producto de oficio, que llames a una compañera al ensayo y un regalo hecho a mano.', 'Each idol of STELLA☆LINK (Akihabara) and PRISM9 (Shibuya) asks you for 3 things: a favour with a crafted good, to call a bandmate to rehearsal and a handmade gift.'),
+  L2('Cada una te da su foto firmada (va al Museo de Albor). Con las 13 historias completas: título «Amigo de las Idols».', 'Each one gives you her signed photo (it goes to the Albor Museum). With all 13 stories done: title «Friend of the Idols».')], () => null]);
+ GSIS.push(['of_ropa', '👕 ' + L2('Ropa de oficio', 'Job clothing'), () => [
+  L2('Cada oficio tiene un conjunto de 3 prendas con forma propia (gorro de trampero, casco con linterna, gorro de chef, salacot, máscara de buceo, sombrero cónico, haori…). Se ganan en los niveles 30, 50 y 70 del oficio y van al Vestuario.', 'Every job has a 3-piece outfit with its own shape (trapper hat, lamp hard hat, chef toque, pith helmet, diving mask, conical hat, haori…). You earn them at job levels 30, 50 and 70 and they go to the Wardrobe.')], () => null]);
+}
+
+// ---------- Lupa: la fila de pestañas es siempre la misma (antes «Poder» desaparecía en Materiales, Equipo, Cosméticos y Jefes) ----------
+{ const _ga = guiaAddJobChip; guiaAddJobChip = function () { _ga.apply(this, arguments); const ch = $('.guia .chips'); if (!ch || ch.querySelector('[data-gx="pow"]') || typeof guiaPower !== 'function') return;
+  const b = document.createElement('button'); b.className = 'chip'; b.dataset.gx = 'pow'; b.textContent = '💪 ' + L2('Poder', 'Power'); b.onclick = () => guiaPower(); ch.insertBefore(b, ch.firstChild); }; }
+if (!document.getElementById('guiaChipsCss')) { const st = document.createElement('style'); st.id = 'guiaChipsCss'; st.textContent = '.guia .chips{display:flex;flex-wrap:wrap;gap:.3em}'; document.head.appendChild(st); }
+// lo nuevo, arriba de la lista de Sistemas
+if (typeof GSIS !== 'undefined') { const mine = GSIS.filter(s => /^of_/.test(s[0])); for (const s of mine) GSIS.splice(GSIS.indexOf(s), 1); GSIS.unshift(...mine); }
 
 // ================= v3.6: IDIOMA (Español / English) =================
 // Los textos del código se traducen al compilar (tools/i18n/tr.js + en.json): cada uno es (LANG_EN ? "inglés" : "español").

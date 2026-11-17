@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **5.05 (build 126)**, ropa de oficio con formas propias; antes 5.04, oficios con desbloqueos cada 5 niveles, Gremio de Oficios, granja, tienda, museo, caravanas, mercado entre jugadores e historia de las idols, publicada en el actualizador interno.
+Versión actual: **5.06 (build 127)**, mapa deslizable hasta los bordes y Lupa con lo nuevo; antes 5.05, ropa de oficio con formas propias; antes 5.04, oficios con desbloqueos cada 5 niveles, Gremio de Oficios, granja, tienda, museo, caravanas, mercado entre jugadores e historia de las idols, publicada en el actualizador interno.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -180,3 +180,9 @@ Multijugador revisado con `tests/net501/browser.py` (presencia → `upsertRemote
 ## 5.05 · Ropa de oficio con formas propias
 
 `src/6zz9zz7_ropa_oficios.js`: las 69 prendas de `OF_COS` dejan de reutilizar cortes existentes. Cada una tiene su `fitKind` (`of_trapper`, `of_hardhat`, `of_toque`, `of_flannel`, `of_raincoat`, `of_maekake`, `of_wellies`, `of_geta`, `of_jewelmantle`…) dibujado solo con anclajes; `RO_SPEC` da nombre, tipo y colores y reescribe `COSM[id].vis` (mismos ids e items). Pies con `roFeet` (píxeles del calzado por pie), piernas con `roLegPix`. Sergio aprobó la muestra del motor (23 conjuntos). fitcheck --strict: 0 avisos; ninguna coincide más de un 66 % de color con la ropa existente.
+
+
+## 5.06 · Mapa y Lupa
+
+- `src/6zyp_jefes.js` (`mapZoomWire`): el límite de arrastre se calcula con la ventana visible (`wrap.clientWidth/Height`), no con el tamaño del lienzo, y se puede arrastrar sin zoom si el mapa no cabe. Antes no se llegaba al borde de abajo ni al de la derecha.
+- `src/6zz9zz8_guia_oficios.js`: categorías de mapa `oficio` (Gremio) y `museo`, 10 entradas `of_*` arriba de la Lupa › Sistemas, y la pestaña «Poder» se añade también en la vista antigua de la Lupa (`guiaAddJobChip`).

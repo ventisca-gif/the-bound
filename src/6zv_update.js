@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.05', GAME_BUILD = 126;
+const GAME_VER = '5.06', GAME_BUILD = 127;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "b": 127,
+  "v": "5.06",
+  "d": "2026-11-17",
+  "es": [
+   "🗺 Mapa: ya se puede deslizar hasta todos los bordes (antes se cortaba abajo y a la derecha) y también sin zoom. Nuevos iconos: Gremio de Oficios en los 6 pueblos y Museo de Albor.",
+   "🔎 Lupa › Sistemas: arriba del todo, explicado paso a paso con flecha dorada: Gremio, desbloqueos de oficio, granja, tienda en casa, Museo de Albor, caravanas, mercado entre jugadores, torneo, historia de las idols y ropa de oficio.",
+   "🔎 Lupa: la pestaña «Poder» ya no desaparece al entrar en Materiales, Equipo, Cosméticos o Jefes."
+  ],
+  "en": [
+   "🗺 Map: you can now drag to every edge (it used to cut off at the bottom and right), even without zoom. New icons: Crafters Guild in all 6 towns and the Albor Museum.",
+   "🔎 Magnifier › Systems: at the very top, explained step by step with the golden arrow: Guild, job unlocks, farm, home shop, Albor Museum, caravans, player market, tournament, the idols' story and job clothing.",
+   "🔎 Magnifier: the «Power» tab no longer disappears when you open Materials, Gear, Cosmetics or Bosses."
+  ]
+ },
  {
   "b": 126,
   "v": "5.05",
