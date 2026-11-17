@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '4.98', GAME_BUILD = 119;
+const GAME_VER = '4.99', GAME_BUILD = 120;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "b": 120,
+  "v": "4.99",
+  "d": "2026-11-16",
+  "es": [
+   "🎨 Rediseño visual de los 119 enemigos y 14 jefes seleccionados del bestiario, con cuatro vistas, caminata, animaciones de ataque y VFX en capa separada.",
+   "⚔️ Se conservan vida, daño, estadísticas, alcance, colisiones, IA, botín y cadencias originales. El bestiario muestra los nuevos dibujos con detalle HD."
+  ],
+  "en": [
+   "🎨 Visual redesign of the selected 119 enemies and 14 bosses, with four views, walking, attack animations and separate-layer VFX.",
+   "⚔️ Original health, damage, stats, reach, collision, AI, loot and attack timing are preserved. Bestiary portraits use the new HD artwork."
+  ]
+ },
  {
   "b": 119,
   "v": "4.98",
