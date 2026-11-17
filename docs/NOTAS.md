@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **5.08 (build 129)** · Ado en Japón (en validación); anterior **5.07 (build 128)**, mapas bonitos en los 11 mundos, ventanas que no vuelven arriba y fans de idol; antes 5.06, mapa deslizable hasta los bordes y Lupa con lo nuevo; antes 5.05, ropa de oficio con formas propias; antes 5.04, oficios con desbloqueos cada 5 niveles, Gremio de Oficios, granja, tienda, museo, caravanas, mercado entre jugadores e historia de las idols, publicada en el actualizador interno.
+Versión actual: **5.09 (build 130)** · Peinado Ado nativo (en validación); anterior **5.08 (build 129)** · Ado en Japón publicada; anterior **5.07 (build 128)**, mapas bonitos en los 11 mundos, ventanas que no vuelven arriba y fans de idol; antes 5.06, mapa deslizable hasta los bordes y Lupa con lo nuevo; antes 5.05, ropa de oficio con formas propias; antes 5.04, oficios con desbloqueos cada 5 niveles, Gremio de Oficios, granja, tienda, museo, caravanas, mercado entre jugadores e historia de las idols, publicada en el actualizador interno.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -197,3 +197,7 @@ Multijugador revisado con `tests/net501/browser.py` (presencia → `upsertRemote
 
 ## 5.08 · Ado en Japón
 Ado (`jp_ado`) usa los dos diseños aprobados extraídos de `tools/dev/ado_ref`: detallado por defecto y pequeño en el Armario de pareja. `6zz9zz0_ado_data.js` contiene PNG y máscaras RGB de pelo, `6zz9zz0_ado_runtime.js` registra romance/familia, atlas HD social, herencia de aspecto, peinado para ambos sexos con tinte original/personalizado y concierto exclusivo de 90 s en la sala STELLA existente (Akane). No añade otro edificio ni elimina conciertos. Miku/Teto también reciben atlas sociales con brazos articulados, pose de rodillas flexionadas y render HD al cargarlas; identidad de ojos/pelo explícita para hijos. Atuendo remoto por rcompAtlas; concierto por presencia validada/fecha de fin, instrumental procedural original sin grabaciones. Pruebas y capturas reales en tests/ado.
+
+
+## 5.09 · Ajuste del peinado Ado
+`src/6zz9zz0_ado_z_hair.js` sustituye solo el pintor del peinado Ado. La máscara de la 5.08 se comprimía bajo la cabeza y conservaba huecos/restos de la extracción. Ahora el flequillo y melena se dibujan en dos capas nativas con ocho máscaras pixeladas HD, cabeza proporcional a `p.meta.hrx/hry` y largo ligado al suelo/piernas; contornos, mechas azul oscuro y mechón superior. Cuatro direcciones (perfiles simétricos), cinco cuerpos por sexo, ropa/manos/armas protegidas y tinte original/personalizado. Mismos índices, guardado, NPC Ado y atlas sociales. `tests/ado/hair-fit.js`: 1.040 cuadros, 92.227 píxeles del cuerpo protegidos y 40 comprobaciones de tinte en el motor local; se ejecuta también en Chromium mediante tests/ado/browser.py.
