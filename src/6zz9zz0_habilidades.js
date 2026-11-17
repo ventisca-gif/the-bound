@@ -245,11 +245,13 @@ function svEffect(id,frame,role='cast',dir='down'){
 function svDrawEffect(D,phase,role,dir,x,y,r=32){const cv=svEffect(D.id,Math.min(11,Math.floor(phase*12)),role,dir);if(!cv)return;const size=role==='proj'?48:svClamp(r*2,32,512);ctx.save();ctx.imageSmoothingEnabled=false;ctx.drawImage(cv,Math.round(x-size/2),Math.round(y-size*.55),size,size*.8);ctx.restore();}
 function svStart(e,D,dir){if(!e||e.dead)return;e.svCast={id:D.id,t:G.t,dur:D.dur,dir:DIRS.includes(dir)?dir:e.dir};}
 {const old=drawEnt;drawEnt=function(e,cx,cy){const S=e.svCast,D=S&&SV_OF.get(S.id);if(!D||e.dead||G.t-S.t>=S.dur||e.job||['hurt','dead'].includes(e.anim))return old.apply(this,arguments);
- const age=svClamp((G.t-S.t)/S.dur),f=Math.min(11,Math.floor(age*12)),A=svAtlas(e,D),saved=[e.atlas,e.anim,e.af,e.dir];e.atlas=A;e.anim='sv_skill';e.af=f;e.dir=S.dir;svEnsure(A,f,DIRI[e.dir]);
+ const age=svClamp((G.t-S.t)/S.dur),f=Math.min(11,Math.floor(age*12)),A=svAtlas(e,D),saved=[e.atlas,e.anim,e.af,e.dir];e.atlas=A;e.anim='sv_skill';e.af=f;e.dir=D.kind==='spin'?['down','left','up','right'][(Math.floor(age*4)+['down','left','up','right'].indexOf(S.dir))%4]:S.dir;svEnsure(A,f,DIRI[e.dir]);
  try{const result=old.apply(this,arguments);svDrawEffect(D,age,'cast',S.dir,e.x-cx,e.y-cy-9,26);return result;}finally{[e.atlas,e.anim,e.af,e.dir]=saved;}};}
 {const old=delayAct;delayAct=function(t,fn){const D=svContext;if(!D)return old.apply(this,arguments);return old(t,function(){const before=svContext;svContext=D;try{return fn.apply(this,arguments);}finally{svContext=before;}});};}
 {const old=addFx;addFx=function(o){return old(svContext?Object.assign({},o,{svId:svContext.id,svDir:G.P?.dir||'down'}):o);};}
 {const old=spawnProj;spawnProj=function(owner,x,y,ang,o){const e=old.apply(this,arguments);if(e&&owner==='p'&&svContext)e.svId=svContext.id;return e;};}
+{const old=updateProj;updateProj=function(e,dt){const previous=svContext;svContext=SV_OF.get(e.svId)||null;try{return old.apply(this,arguments);}finally{svContext=previous;}};}
+{const old=nfxSafe;nfxSafe=function(o,M){const r=old.apply(this,arguments);if(o&&SV_OF.has(o.svId))r.svId=o.svId;return r;};}
 {const old=nfxPush;nfxPush=function(e){return old(svContext?Object.assign({},e,{svId:svContext.id}):e);};}
 useSkill=function(slot){const P=G.P,id=P?.slots?.[slot],D=SV_OF.get(id),before=id?(P.cds[id]||0):0,prior=svContext;svContext=D||null;
  try{const result=SV_BASE_USE.apply(this,arguments);if(D&&G.P===P&&(P.cds[id]||0)>before){svStart(P,D,P.dir);nfxPush({k:'sv',id:D.id,dir:P.dir});}return result;}finally{svContext=prior;}};
@@ -257,11 +259,12 @@ useSkill=function(slot){const P=G.P,id=P?.slots?.[slot],D=SV_OF.get(id),before=i
 const SV_REPLACED=new Set(['slash','ring','boom','fall','note','line','beam','bolt','field']);
 drawFx=function(f,cx,cy){const D=f.svId&&SV_OF.get(f.svId);if(!D||!SV_REPLACED.has(f.type))return SV_BASE_FX.apply(this,arguments);
  const phase=svClamp(f.t/f.dur),r=f.r||32,dir=f.svDir||'down';
+ if(f.type==='field'){ctx.save();ctx.strokeStyle=uCss(D.colors[1]);ctx.lineWidth=.7;ctx.beginPath();ctx.ellipse(f.x-cx,f.y-cy,r,r*.6,0,0,Math.PI*2);ctx.stroke();ctx.restore();}
  if(['beam','line','bolt'].includes(f.type)&&Number.isFinite(f.x2)&&Number.isFinite(f.y2)){ctx.save();ctx.strokeStyle=uCss(D.colors[2]);ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(Math.round(f.x-cx),Math.round(f.y-cy));ctx.lineTo(Math.round(f.x2-cx),Math.round(f.y2-cy));ctx.stroke();ctx.restore();svDrawEffect(D,phase,f.type,dir,f.x2-cx,f.y2-cy,r);return;}
  svDrawEffect(D,phase,f.type,dir,f.x-cx,f.y-cy,r);
 };
 drawProj=function(e,cx,cy){const D=e.svId&&SV_OF.get(e.svId);if(!D)return SV_BASE_PROJ.apply(this,arguments);svDrawEffect(D,(e.t||0)/(e.life||1),'proj',dirFromVec(Math.cos(e.ang),Math.sin(e.ang)),e.x-cx,e.y-cy-(e.z||0),20);};
-{const old=nfxPlay;nfxPlay=function(r,ev){const D=SV_OF.get(ev?.id||ev?.svId);if(ev?.k==='sv'){if(D&&D.cls===r.cls)svStart(r,D,ev.dir);return;}
+{const old=nfxPlay;nfxPlay=function(r,ev){const D=SV_OF.get(ev?.id||ev?.svId);if(D&&D.cls!==r.cls)return;if(ev?.k==='sv'){if(D&&D.cls===r.cls)svStart(r,D,ev.dir);return;}
  if(ev?.k==='p'&&D&&D.cls===r.cls){const a=+ev.a||0,v=svClamp(+ev.v||200,20,900),life=svClamp(+ev.l||.9,.1,3),x=svClamp(+ev.x||0,0,G.map.w*16),y=svClamp(+ev.y||0,0,G.map.h*16);addFx({type:'custom',x,y,dur:life,net:1,draw(f,sx,sy){svDrawEffect(D,f.t/life,'proj',dirFromVec(Math.cos(a),Math.sin(a)),sx+Math.cos(a)*v*f.t,sy+Math.sin(a)*v*f.t-12,20);}});return;}
  return old.apply(this,arguments);};}
 // Los iconos se sustituyen al dibujar la interfaz; SK conserva sus colores, costes y efectos originales.
