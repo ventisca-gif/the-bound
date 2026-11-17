@@ -1,0 +1,27 @@
+name: Review class skill animation samples
+on:
+  pull_request:
+    paths:
+      - 'tests/skill_preview/**'
+      - '.github/workflows/skill-preview.yml'
+permissions:
+  contents: read
+jobs:
+  preview:
+    if: github.event.pull_request.head.ref == 'codex/habilidades-muestras' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright pillow
+      - run: python3 tests/skill_preview/review.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: skill-animation-samples
+          path: tests/skill_preview/out/*
