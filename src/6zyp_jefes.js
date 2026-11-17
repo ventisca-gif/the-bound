@@ -55,7 +55,7 @@ function mapZoomWire() {
   const wrap = document.createElement('div'); wrap.className = 'mzoom'; cvs.parentElement.insertBefore(wrap, cvs); wrap.appendChild(cvs);
   wrap.insertAdjacentHTML('beforeend', `<div class="mzbtns"><button data-mz="1">+</button><button data-mz="-1">−</button><button data-mz="0">⟲</button></div>`);
   const key = String(MAPW); if (MAPZ.key !== key) { MAPZ.s = 1; MAPZ.x = 0; MAPZ.y = 0; MAPZ.key = key; }
-  const apply = () => { MAPZ.s = clamp(MAPZ.s, 1, 6); const mw = cvs.offsetWidth * (MAPZ.s - 1), mh = cvs.offsetHeight * (MAPZ.s - 1); MAPZ.x = clamp(MAPZ.x, -mw, 0); MAPZ.y = clamp(MAPZ.y, -mh, 0); cvs.style.transformOrigin = '0 0'; cvs.style.transform = `translate(${MAPZ.x}px,${MAPZ.y}px) scale(${MAPZ.s})`; };
+  const apply = () => { MAPZ.s = clamp(MAPZ.s, 1, 6); const mw = Math.max(0, cvs.offsetWidth * MAPZ.s - wrap.clientWidth), mh = Math.max(0, cvs.offsetHeight * MAPZ.s - wrap.clientHeight); MAPZ.x = clamp(MAPZ.x, -mw, 0); MAPZ.y = clamp(MAPZ.y, -mh, 0); cvs.style.transformOrigin = '0 0'; cvs.style.transform = `translate(${MAPZ.x}px,${MAPZ.y}px) scale(${MAPZ.s})`; };
   const zoomAt = (ns, px, py) => { const s0 = MAPZ.s; ns = clamp(ns, 1, 6); MAPZ.x = px - (px - MAPZ.x) * ns / s0; MAPZ.y = py - (py - MAPZ.y) * ns / s0; MAPZ.s = ns; apply(); };
   wrap.querySelectorAll('[data-mz]').forEach(b => b.onclick = e => { e.stopPropagation(); const v = +b.dataset.mz, w = wrap.clientWidth / 2, h = wrap.clientHeight / 2; if (!v) { MAPZ.s = 1; MAPZ.x = 0; MAPZ.y = 0; apply(); } else zoomAt(MAPZ.s * (v > 0 ? 1.5 : 1 / 1.5), w, h); });
   const pts = new Map(); let d0 = 0, s0 = 1, moved = 0, last = null;
@@ -63,7 +63,7 @@ function mapZoomWire() {
   wrap.addEventListener('pointerdown', e => { pts.set(e.pointerId, rel(e)); moved = 0; if (pts.size === 2) { const [a, b] = [...pts.values()]; d0 = Math.hypot(a[0] - b[0], a[1] - b[1]); s0 = MAPZ.s; } last = rel(e); });
   wrap.addEventListener('pointermove', e => { if (!pts.has(e.pointerId)) return; const p = rel(e); pts.set(e.pointerId, p);
     if (pts.size === 2) { const [a, b] = [...pts.values()], d = Math.hypot(a[0] - b[0], a[1] - b[1]); if (d0 > 10) { zoomAt(s0 * d / d0, (a[0] + b[0]) / 2, (a[1] + b[1]) / 2); moved = 1; } }
-    else if (pts.size === 1 && MAPZ.s > 1 && last) { const dx = p[0] - last[0], dy = p[1] - last[1]; if (Math.abs(dx) + Math.abs(dy) > 2) moved = 1; MAPZ.x += dx; MAPZ.y += dy; apply(); }
+    else if (pts.size === 1 && (MAPZ.s > 1 || cvs.offsetWidth > wrap.clientWidth || cvs.offsetHeight > wrap.clientHeight) && last) { const dx = p[0] - last[0], dy = p[1] - last[1]; if (Math.abs(dx) + Math.abs(dy) > 2) moved = 1; MAPZ.x += dx; MAPZ.y += dy; apply(); }
     last = p; e.preventDefault(); });
   const up = e => { pts.delete(e.pointerId); if (pts.size < 2) d0 = 0; last = pts.size ? [...pts.values()][0] : null; };
   wrap.addEventListener('pointerup', up); wrap.addEventListener('pointercancel', up);
