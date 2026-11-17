@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **4.99 (build 120)**, publicada en `main` el 2026-11-16. La skill `the-bound-dev` está desactualizada (habla de la v4.2): manda lo que dicen este archivo y `AGENTS.md`.
+Versión actual: **5.01 (build 122)**, armaduras pulidas, validada el 2026-11-17.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -147,3 +147,10 @@ Sergio autorizó los 119 enemigos y 14 jefes de «Retoque recomendado» de la au
 
 ## 5.00: 143 dibujos detallados aprobados
 86 enemigos y 57 jefes de las propuestas, excluyendo Slime Verde, Slime Azul e Imitador, además de Nihil y Lienya. Solo arte; personajes y NPCs mantienen sus sprites. Datos PNG compactos `6zz9zz0_r143_data_*`, render `6zz9zz1_r143_runtime.js`, efectos `6zz9zz2_r143_vfx.js`. Los discriminadores de art, dimensiones/anclajes y combatWidth originales se conservan. El Reflejo Eclipsado mantiene la copia dinámica del jugador; solo recibe VFX nuevos. Caminata y ataque por deformación de los dibujos aprobados, con apoyo alterno y sin modificar tiempos del motor. Caches acotadas; dibujos incrustados sin descargas externas. Pruebas `tests/r143/browser.py`: 143 spawns antes/después, exclusiones y funciones/NPCs protegidos, vistas/animaciones/VFX y límites de memoria.
+
+
+## 5.01 · Armaduras pulidas
+
+`src/6zz9zz0_armaduras.js` detalla las prendas equipadas dentro de sus máscaras originales, conservando anclajes, cinco estructuras por sexo, cara, pelo, busto y silueta. Los cascos siguen usando `cover` y el ajuste existente. Las 125 piezas reciben iconos sacados de su dibujo real por clase. Bestiario › Armaduras muestra la pieza sobre el personaje en cuatro direcciones; los cosméticos y capas elegidos se respetan. Sin cambios de estadísticas, inventario ni guardado. `tests/armor` comprueba todos los tiers, cuerpos, animaciones, pelo/cascos, datos y la interfaz; el ajuste incluye todos los tiers 1–30.
+
+Validación 5.01: 58.944 cuadros comparados, 2.952 cuadros HD, 8.344 combinaciones de peinado/casco/dirección, 875 iconos por clase y 125 filas en Armaduras. Ajuste: 1.095 prendas, 256.080 dibujos, cero avisos. Guardado/recarga y pruebas del actualizador (SHA, reinicio, rechazo de descarga dañada y rollback) correctos. Regresiones de peinados, gi, 133 y 143 criaturas correctas. Las capturas son del motor real, no los conceptos generados.

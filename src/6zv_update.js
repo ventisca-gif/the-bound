@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.00', GAME_BUILD = 121;
+const GAME_VER = '5.01', GAME_BUILD = 122;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "b": 122,
+  "v": "5.01",
+  "d": "2026-11-17",
+  "es": [
+   "🛡 Armaduras pulidas en los 30 niveles de equipo: placas, cuero, telas, emblemas y capas propios, sobre los cinco cuerpos masculinos y femeninos originales.",
+   "🎨 Iconos nuevos para las 125 piezas en Armaduras del bestiario, inventario, herrería y tiendas, con vista de la pieza equipada en cuatro direcciones.",
+   "Se conservan las estadísticas, el progreso, las animaciones y la cobertura del pelo de cada casco."
+  ],
+  "en": [
+   "🛡 Polished armor across all 30 gear tiers: plates, leather, cloth, emblems and capes on the five original male and female bodies.",
+   "🎨 New icons for all 125 pieces in the bestiary Armor tab, inventory, smithy and shops, plus a four-direction equipped preview.",
+   "Stats, progress, animations and each helmet’s hair coverage are preserved."
+  ]
+ },
  {
   "b": 121,
   "v": "5.00",
