@@ -1,0 +1,16 @@
+{
+  "frames": 1440,
+  "fit": {
+    "items": 3,
+    "draws": 720
+  },
+  "fitIssues": 0,
+  "shop": {
+    "price": 24000,
+    "parts": 3,
+    "existingComics": true
+  },
+  "wardrobeUI": "passed",
+  "reloadPersistence": "passed",
+  "errors": []
+}
