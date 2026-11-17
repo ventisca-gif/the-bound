@@ -207,6 +207,7 @@ function initChunkWorker(M) {
   } catch (e) { CW.w = null; }
 }
 function requestChunk(M, cx, cy) {
+  if (!CW.w) return; // El worker puede haberse detenido en otra solicitud del mismo fotograma.
   const key = M.id + ':' + cx + ':' + cy, t = performance.now();
   if (CW.pending.size && t - CW.sent > 5000) { try { CW.w.terminate(); } catch (e) { } CW.w = null; CW.pending.clear(); return; } // worker silent: fall back to main-thread chunks
   if (CW.pending.has(key) || CW.pending.size >= 4) return; if (!CW.pending.size) CW.sent = t; CW.pending.add(key); CW.w.postMessage({ cmd: 'chunk', id: M.id, cx, cy });
