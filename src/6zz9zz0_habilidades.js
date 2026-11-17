@@ -158,7 +158,7 @@ for(const s of Object.values(SK))if(AP_CLASSES.includes(s.cls)&&s.type==='act'){
  const seed=svHash(s.id),kind=s.eff.k,fx=SV_ART[s.id]||s.id;
  const pose=['spin','flurry'].includes(kind)?'combo':['slam','leap','skyfall','meteor'].includes(kind)?'heavy':['dash','blink','shadow'].includes(kind)?'dash':['shield','buff','sumbuff'].includes(kind)?'guard':kind==='heal'?'heal':['field','rain','vortex','concert','army','kingsoul','summon','beams'].includes(kind)?'channel':kind==='mark'?'mark':kind==='grab'?'grab':s.cls==='arquero'?'bow':s.cls==='bardo'?'music':kind==='proj'?'cast':'strike';
  let colors=SV_COL[s.cls];if(/ice|frost|blizzard|glacier|absolute/.test(fx))colors=['#163b64','#4386b2','#9eddf4','#f4ffff'];else if(/poison|venom|toxic|plague|miasma/.test(fx))colors=['#243723','#537847','#afce71','#f3efb7'];else if(/arc|prism|singularity|blackhole|void/.test(fx))colors=['#211d47','#604b96','#b49bdc','#f2d9ff'];
- SV_OF.set(s.id,{id:s.id,cls:s.cls,kind,fx,pose,seed,variant:seed%5,beats:2+seed%4,dur:['channel','heavy'].includes(pose)?.78:pose==='dash'?.42:.58,colors:colors.map(h=>C(h))});
+ SV_OF.set(s.id,{id:s.id,cls:s.cls,kind,fx,pose,seed,variant:seed%5,beats:Math.min(8,s.eff.hits||s.eff.n||2+seed%4),dur:['channel','heavy'].includes(pose)?.78:pose==='dash'?.42:.58,colors:colors.map(h=>C(h))});
 }
 ANIMS.sv_skill=[0,12];
 function svPose(D,dir,f,L){
@@ -239,10 +239,10 @@ function svEffect(id,frame,role='cast',dir='down'){
   for(let j=0;j<n;j++){const a=(j-(n-1)/2)*.5+(D.variant-2)*.1,r=20+t*15;line([Math.cos(a)*-r,Math.sin(a)*-r],[Math.cos(a)*r,Math.sin(a)*r],j%2?C_[1]:C_[3]);line([Math.cos(a)*r,Math.sin(a)*r],[Math.cos(a+.2)*(r+5),Math.sin(a+.2)*(r+5)],C_[2]);}
  }
  // Un detalle geométrico de la firma se integra en el efecto; no es solo un cambio de color.
- for(let j=0;j<D.variant+1;j++){const a=(j+1)*2.399+seed%11,r=31+(frame%3);dot(Math.cos(a)*r,Math.sin(a)*r,1);}
+ for(let j=0;j<4;j++){const part=(seed>>>(j*7))&127,a=part/127*Math.PI*2+t*.4,r=25+((seed>>>(j*5+3))&15);const u=Math.cos(a)*r,v=Math.sin(a)*r;line([u,v],[u+Math.cos(a)*3,v+Math.sin(a)*3],j%2?C_[1]:C_[2]);}
  cv=p.canvas();return svPut(SV_FX_CACHE,key,cv,96);
 }
-function svDrawEffect(D,phase,role,dir,x,y,r=32){const cv=svEffect(D.id,Math.min(11,Math.floor(phase*12)),role,dir);if(!cv)return;const size=role==='proj'?48:svClamp(r*2,32,180);ctx.save();ctx.imageSmoothingEnabled=false;ctx.drawImage(cv,Math.round(x-size/2),Math.round(y-size*.55),size,size*.8);ctx.restore();}
+function svDrawEffect(D,phase,role,dir,x,y,r=32){const cv=svEffect(D.id,Math.min(11,Math.floor(phase*12)),role,dir);if(!cv)return;const size=role==='proj'?48:svClamp(r*2,32,512);ctx.save();ctx.imageSmoothingEnabled=false;ctx.drawImage(cv,Math.round(x-size/2),Math.round(y-size*.55),size,size*.8);ctx.restore();}
 function svStart(e,D,dir){if(!e||e.dead)return;e.svCast={id:D.id,t:G.t,dur:D.dur,dir:DIRS.includes(dir)?dir:e.dir};}
 {const old=drawEnt;drawEnt=function(e,cx,cy){const S=e.svCast,D=S&&SV_OF.get(S.id);if(!D||e.dead||G.t-S.t>=S.dur||e.job||['hurt','dead'].includes(e.anim))return old.apply(this,arguments);
  const age=svClamp((G.t-S.t)/S.dur),f=Math.min(11,Math.floor(age*12)),A=svAtlas(e,D),saved=[e.atlas,e.anim,e.af,e.dir];e.atlas=A;e.anim='sv_skill';e.af=f;e.dir=S.dir;svEnsure(A,f,DIRI[e.dir]);
