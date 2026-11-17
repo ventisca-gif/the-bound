@@ -5,10 +5,12 @@ ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'tests/armor/out';OUT.mkdir(ex
 SNAP=r'''()=>JSON.stringify({items:Object.entries(ITEMS).map(([id,v])=>{v={...v};delete v.icon;return[id,v]}),classes:CLASSES,mobs:MOBS,bosses:BOSSES,recipes:RECIPES,bodies:BODY_T,anims:ANIMS})'''
 with sync_playwright()as p:
  b=p.chromium.launch(executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--allow-file-access-from-files'])
- old=b.new_page();old.goto((ROOT/'update/thebound.html').as_uri());old.wait_for_timeout(1500);before=old.evaluate(SNAP);old.close()
+ # Algunas criaturas se generan con coeficientes aleatorios al cargar. Comparar con la misma semilla.
+ seed="{let armorTestSeed=104729;Math.random=()=>((armorTestSeed=Math.imul(armorTestSeed,1664525)+1013904223>>>0)/4294967296); }"
+ old=b.new_page();old.add_init_script(seed);old.goto((ROOT/'update/thebound.html').as_uri());old.wait_for_timeout(1500);before=old.evaluate(SNAP);old.close()
  pg=b.new_page(viewport={'width':1200,'height':850});errors=[];pg.on('pageerror',lambda e:errors.append(str(e)))
  try:
-  pg.goto((ROOT/'dist/test.html').as_uri());pg.wait_for_timeout(1800)
+  pg.add_init_script(seed);pg.goto((ROOT/'dist/test.html').as_uri());pg.wait_for_timeout(1800)
   after=pg.evaluate(SNAP)
   if before!=after:
    aa=json.loads(before);bb=json.loads(after);diff=[]
