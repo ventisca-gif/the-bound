@@ -21,7 +21,15 @@
   const snap=stateFields.map(k=>after[k]),fxN=G.fx.length,entN=G.ents.length;after.anim='atk';after.af=1;r143DrawFx(after,0,0);assert(G.fx.length===fxN&&G.ents.length===entN,'VFX gameplay mutation '+S.id);assert(snap.every((v,i)=>v===after[stateFields[i]]),'VFX stat mutation '+S.id);
   before.remove=true;after.remove=true;G.ents=G.ents.filter(e=>e!==before&&e!==after);sprites.push({id:S.id,name:S.name,sourceBytes:S.bytes,movement:S.movement,mirror:!!A.r143Mirror,width:A.fw,height:A.fh});
  }
+ let bestiaryPainted=0;const savedBest=G.P.best,savedSel=bSel,savedReg=bReg,host=document.createElement('div');host.style.display='none';document.body.appendChild(host);
+ try{G.P.best={...savedBest,...Object.fromEntries(R143_DESIGNS.map(s=>[s.id,1]))};bSel=R143_DESIGNS[0].id;bReg='all';renderBestiary(host);await host.r143Ready;
+  for(const S of R143_DESIGNS){const actual=host.querySelector('[data-bc="'+S.id+'"]');assert(actual,'missing bestiary tile '+S.id);const A=r143Atlas(S.id),expected=mkCanvas(actual.width,actual.height),g=expected.getContext('2d'),L=r143PortraitLayout(A,actual.width,actual.height);g.imageSmoothingEnabled=false;
+   if(A.r143Mirror)atlasBlit(g,A,A.idx.idle||0,0,L.x,L.y,A.fw*L.s,A.fh*L.s);
+   else{const source=await r143Source(S).promise,frame=r143Cell(A,A.idx.idle||0,0,source),pad=A.r143PadX*L.s;g.drawImage(frame,L.x-pad,L.y,(A.fw+A.r143PadX*2)*L.s,A.fh*L.s);}
+   assert(hash(actual)===hash(expected),'stale bestiary artwork after source eviction '+S.id);bestiaryPainted++;
+  }
+ }finally{G.P.best=savedBest;bSel=savedSel;bReg=savedReg;host.remove();}
  for(const kind of Object.keys(R143_LIMIT))assert(R143_BYTES[kind]<=R143_LIMIT[kind],'cache budget '+kind);assert(r143FxBytes<=R143_FX_MAX,'FX cache budget');
  assert(JSON.stringify(MOBS)===R143_BEFORE.mobs&&JSON.stringify(BOSSES)===R143_BEFORE.bosses,'definitions changed during rendering');
- return{ok:true,targets:143,enemies:86,bosses:57,frames,effects,combatUnchanged,excluded:R143_EXCLUDED,playersAndNpcsPreserved:true,cacheBytes:{...R143_BYTES,fx:r143FxBytes},sprites};
+ return{ok:true,targets:143,enemies:86,bosses:57,frames,effects,combatUnchanged,bestiaryPainted,excluded:R143_EXCLUDED,playersAndNpcsPreserved:true,cacheBytes:{...R143_BYTES,fx:r143FxBytes},sprites};
 })()
