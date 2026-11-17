@@ -1,0 +1,7 @@
+(()=>{const out={};
+ const c=mkCanvas(1000,650),x=c.getContext('2d');x.imageSmoothingEnabled=false;x.fillStyle='#242c3c';x.fillRect(0,0,c.width,c.height);x.fillStyle='#ede4ce';x.font='20px sans-serif';x.fillText('ADO · DOS ESTILOS · MOTOR DEL JUEGO',20,28);
+ for(let row=0;row<2;row++){const A=idolSocialAtlas('jp_ado',row?'ado_chibi':'normal');x.fillText(row?'Estilo del juego':'Detallada',20,65+row*285);for(let i=0;i<4;i++){const xx=70+i*235,yy=88+row*285;atlasBlit(x,A,A.idx.idle,DIRI[DIRS[i]],xx,yy,A.fw*3,A.fh*3);x.fillText(['Frente','Izquierda','Derecha','Espalda'][i],xx,yy+185);}}
+ out['ado_dos_sprites_motor.png']=c.toDataURL();
+ const h=mkCanvas(1150,1370),hx=h.getContext('2d');hx.imageSmoothingEnabled=false;hx.fillStyle='#242c3c';hx.fillRect(0,0,h.width,h.height);hx.font='18px sans-serif';hx.fillStyle='#ede4ce';hx.fillText('PEINADO ADO · 5 ESTRUCTURAS POR SEXO · MOTOR ORIGINAL',20,28);
+ for(let row=0;row<10;row++){const g=row<5?'f':'m',bt=row%5;hx.fillText((g==='f'?'Mujer ':'Hombre ')+bodyName(g,bt),10,65+row*130);for(let d=0;d<4;d++){const L=heroLook('bardo',{...DEF_APP,g,bt,hs:ADO_HS[g],hair:'ado',eyes:'celeste'},{weapon:0},{},{}),p=new Pix(48,48);p.t=new Uint8Array(2304);p.tg=0;drawHero(p,L,DIRS[d],'idle',0);p.outline(OUTL,false);const q=hdDetail(p,hdMats(L));hdOrn(q,p,L);hx.drawImage(q.canvas(),230+d*220,44+row*130,120,120);}}
+ out['ado_peinado_diez_cuerpos.png']=h.toDataURL();return out;})()

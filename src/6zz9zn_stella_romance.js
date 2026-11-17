@@ -99,7 +99,9 @@ const STELLA_LOVE_LINES = {
     if (!STELLA_PARTNER_OUTFITS[npc.id] || kind !== 'kiss') return previous.apply(this, arguments);
     return previous.call(this, npc, kind, () => {
       if (done) done();
-      const line = npc.id === 'jp_miku'
+      const line = npc.id === 'jp_ado'
+        ? L2('Por un momento me olvidé de todas las canciones… menos de la nuestra. ♥', 'For a moment I forgot every song… except ours. ♥')
+        : npc.id === 'jp_miku'
         ? L2('Ahora sí me hiciste perder el compás… ♥', 'Now you’ve made me lose the beat… ♥')
         : L2('¿Yo, sonrojada? ¡Son las luces del escenario! ♥', 'Me, blushing? It’s the stage lights! ♥');
       toast(nick(npc.id) + ': ' + line, 'info');

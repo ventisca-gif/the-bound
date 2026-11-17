@@ -1,22 +1,22 @@
 {
- "build": 128,
- "ver": "5.07",
- "date": "2026-11-17",
+ "build": 129,
+ "ver": "5.08",
+ "date": "",
  "file": "thebound.html",
- "size": 22223064,
- "sha256": "6feb97211d8532149cac070c015cd7cc2bd7cbde034881afe1b67e01668fd1ed",
+ "size": 22403037,
+ "sha256": "e0d426d09c6a716efd4323940bda6eefba172eddca701972a4441cd56d0d4ec1",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🗺 Los 11 mapas son ahora bonitos y muestran todo lo que hay: casas, castillos, torres, árboles, lápidas, cristales, corales, relieve, agua, lava y los nombres de las zonas (Velo Roto, Tierras sin Pintar, Altavela…).",
-   "📜 Las ventanas ya no vuelven arriba al elegir algo: la Lupa, el inventario, las tiendas y los demás paneles se quedan donde estabas.",
-   "✍ Si eres idol, los fans se te acercan en los pueblos y en Japón, te piden autógrafos (+fans), algunos te siguen un rato y se van. Cuanto más famoso, más fans. En el online los demás también los ven."
+   "🎤 Ado llega a STELLA☆LINK, Japón: concierto propio en la sala existente, aspecto detallado y estilo pequeño en el armario de pareja.",
+   "💙 Romance, paseos, besos, abrazos, cargar en brazos y familia con Ado. Poses sociales y dibujo HD en brazos también para Miku y Teto.",
+   "💇 Peinado de Ado extraído del diseño aprobado: cinco cuerpos por sexo, tinte original/personalizado e hijos que heredan ojos y pelo de sus padres."
   ],
   "en": [
-   "🗺 All 11 maps now look great and show everything: houses, castles, towers, trees, gravestones, crystals, corals, relief, water, lava and zone names (Broken Veil, Unpainted Lands, Altavela…).",
-   "📜 Windows no longer jump back to the top when you pick something: the Magnifier, inventory, shops and other panels stay where you were.",
-   "✍ If you are an idol, fans come up to you in towns and in Japan, ask for autographs (+fans), some follow you for a while and leave. The more famous, the more fans. Online, other players see them too."
+   "🎤 Ado arrives at STELLA☆LINK, Japan: her own show in the existing hall, detailed appearance and small style in the partner wardrobe.",
+   "💙 Romance, walks, kisses, hugs, carrying and family with Ado. Social poses and HD carried rendering also for Miku and Teto.",
+   "💇 Ado hairstyle extracted from the approved design: five bodies per sex, original/custom dye and children inheriting their parents eyes and hair."
   ]
  }
 }

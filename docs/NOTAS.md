@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **5.07 (build 128)**, mapas bonitos en los 11 mundos, ventanas que no vuelven arriba y fans de idol; antes 5.06, mapa deslizable hasta los bordes y Lupa con lo nuevo; antes 5.05, ropa de oficio con formas propias; antes 5.04, oficios con desbloqueos cada 5 niveles, Gremio de Oficios, granja, tienda, museo, caravanas, mercado entre jugadores e historia de las idols, publicada en el actualizador interno.
+Versión actual: **5.08 (build 129)** · Ado en Japón (en validación); anterior **5.07 (build 128)**, mapas bonitos en los 11 mundos, ventanas que no vuelven arriba y fans de idol; antes 5.06, mapa deslizable hasta los bordes y Lupa con lo nuevo; antes 5.05, ropa de oficio con formas propias; antes 5.04, oficios con desbloqueos cada 5 niveles, Gremio de Oficios, granja, tienda, museo, caravanas, mercado entre jugadores e historia de las idols, publicada en el actualizador interno.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -194,3 +194,6 @@ Multijugador revisado con `tests/net501/browser.py` (presencia → `upsertRemote
 - `src/6zz9zz9_mapas.js`: `mapOverview` de los mundos que no son el principal ni Japón se dibuja a 4 px por casilla (`mapPretty`): relieve, agua con brillo, lava, vacío con estrellas y la miniatura real de cada objeto (`objSprite`, los grandes ×2 con sombra). Nombres de zonas (`MAP_ZONES`: Velo Roto, Tierras sin Pintar, Altavela, islas del Archipiélago si tienen centro).
 - `src/6zz9zz9a_scroll.js`: `openModal` y `renderPanel` guardan el desplazamiento de cada zona con barra y lo recuperan si después de redibujar sigue la misma pantalla (título + pestañas activas).
 - `src/6zz9zz9b_fans.js`: fans de idol (`FANS`, `fanTick`) según `idolRank`: llegan, piden autógrafo (+fans), a veces te siguen y se van; presencia `fan` para que los demás los vean. Pruebas `tests/oficios/fans_rtc.py`.
+
+## 5.08 · Ado en Japón
+Ado (`jp_ado`) usa los dos diseños aprobados extraídos de `tools/dev/ado_ref`: detallado por defecto y pequeño en el Armario de pareja. `6zz9zz0_ado_data.js` contiene PNG y máscaras RGB de pelo, `6zz9zz0_ado_runtime.js` registra romance/familia, atlas HD social, herencia de aspecto, peinado para ambos sexos con tinte original/personalizado y concierto exclusivo de 90 s en la sala STELLA existente (Akane). No añade otro edificio ni elimina conciertos. Miku/Teto también reciben atlas sociales con brazos articulados, pose de rodillas flexionadas y render HD al cargarlas; identidad de ojos/pelo explícita para hijos. Atuendo remoto por rcompAtlas; concierto por presencia validada/fecha de fin, instrumental procedural original sin grabaciones. Pruebas y capturas reales en tests/ado.
