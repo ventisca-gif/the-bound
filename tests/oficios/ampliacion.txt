@@ -1,0 +1,20 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), 1)
+js (window.hurtPlayer=()=>{}, G.P.lv=120, G.P.gold=1e6, G.P.jobs.agricultura.lv=70, calcStats(G.P), FURN_ACT.of_of_gallinero[2](), FURN_ACT.of_of_caseta[2](), FURN_ACT.of_of_caseta[2](), [countItem('ig_huevo'), countItem('ofm_trufa')])
+js (giveItem('ofp_tablas',10), giveItem('ofm_trufa',3), FURN_ACT.of_of_tienda[2](), document.querySelectorAll('#modal [data-sha]').length)
+js (document.querySelector('#modal [data-sha]').click(), homeShopState().s.length)
+js (homeShopState().t -= 3600*1000, closeModal(), FURN_ACT.of_of_tienda[2](), [homeShopState().g, homeShopState().n])
+shot
+js (closeModal(), giveItem('sardina',1), giveItem('rubi',1), openAlborMuseum(), document.querySelectorAll('#modal [data-mud]').length)
+js (document.querySelector('#modal [data-mud]').click(), JSON.stringify(ofx().mus2))
+shot
+js (closeModal(), giveItem('ofp_tablas',5), openCaravan(), document.querySelector('#modal [data-cvs]').click(), document.querySelector('#modal [data-cvr]').click(), JSON.stringify(ofx().car))
+js (ofx().car.end=Date.now()-1, openCaravan(), document.querySelector('#modal h2').textContent)
+js (closeModal(), openTournament(), document.querySelector('#torGo').click(), TOR.on)
+js (gainJobXp(TOR.job,10), gainJobXp(TOR.job,10), TOR.t=200, 1)
+wait 300
+js ([TOR.on, ofx().tor.b, document.querySelector('#modal h2').textContent])
+js (closeModal(), acceptQuest('is_mei1'), giveItem('ofp_mermelada',1), completeQuest('is_mei1'), acceptQuest('is_mei2'), questEvent('talk',{npc:'idol_yuzu'}), questReady('is_mei2'))
+js (openMarket(), document.querySelectorAll('#modal [data-mka]').length)
+shot
+js (closeModal(), window._errs)

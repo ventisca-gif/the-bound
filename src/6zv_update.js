@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.03', GAME_BUILD = 124;
+const GAME_VER = '5.04', GAME_BUILD = 125;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,29 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "b": 125,
+  "v": "5.04",
+  "d": "2026-11-17",
+  "es": [
+   "⛏ Oficios más rápidos: del nivel 50 al 75 hace falta la mitad de experiencia, y las 30 primeras acciones de cada oficio al día dan +50 %.",
+   "🎁 Los 23 oficios desbloquean algo cada 5 niveles: 114 productos para vender o regalar, 58 muebles y decoraciones, 69 prendas de ropa del oficio, 9 platos de hoguera nuevos (Cocina 55-85) y ventajas de oro y experiencia.",
+   "⚔ Cada oficio en nivel 50 da +0,1 % de ataque, como mucho +1 %: ningún oficio es obligatorio.",
+   "🏛 Gremio de Oficios en los 6 pueblos: pedidos diarios bien pagados, Taller de oficios, maestrías para todos los oficios (hasta nivel 105), mercado entre jugadores y torneo diario de oficios.",
+   "🐔 Granja en casa: gallinero, establo, corral, colmena, perro trufero, estanque e invernadero. Además, tienda propia: los vecinos te compran aunque no estés jugando.",
+   "🐫 Caravanas comerciales con el Caravanero, Museo de Albor con 6 colecciones y 7 títulos nuevos.",
+   "🎤 Historia de las idols: 3 misiones con cada una de las 13 idols de STELLA☆LINK y PRISM9, con foto firmada y el título «Amigo de las Idols»."
+  ],
+  "en": [
+   "⛏ Faster jobs: levels 50 to 75 need half the experience, and the first 30 actions of each job per day give +50%.",
+   "🎁 All 23 jobs unlock something every 5 levels: 114 goods to sell or gift, 58 furniture and decorations, 69 job clothing pieces, 9 new campfire dishes (Cooking 55-85) and gold and XP perks.",
+   "⚔ Each job at level 50 gives +0.1% attack, at most +1%: no job is mandatory.",
+   "🏛 Crafters Guild in all 6 towns: well-paid daily orders, Crafts workshop, masteries for every job (up to level 105), player market and a daily crafts tournament.",
+   "🐔 Home farm: henhouse, stable, sheep pen, beehive, truffle dog, fish pond and greenhouse. Plus your own shop: neighbours buy from you even while you are away.",
+   "🐫 Trade caravans with the Caravaneer, the Albor Museum with 6 collections and 7 new titles.",
+   "🎤 The idols' story: 3 quests with each of the 13 idols of STELLA☆LINK and PRISM9, with a signed photo and the title «Friend of the Idols»."
+  ]
+ },
  {
   "b": 124,
   "v": "5.03",

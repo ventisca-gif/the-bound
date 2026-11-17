@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **5.03 (build 124)**, iconos de habilidad nuevos y efectos sin bloques marrones, publicada en el actualizador interno.
+Versión actual: **5.04 (build 125)**, oficios con desbloqueos cada 5 niveles, Gremio de Oficios, granja, tienda, museo, caravanas, mercado entre jugadores e historia de las idols, publicada en el actualizador interno.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -119,7 +119,6 @@ Versión actual: **5.03 (build 124)**, iconos de habilidad nuevos y efectos sin 
 
 ## Pendiente o ideas que dejó abiertas
 
-- Japón: falta la historia propia de las idols (misiones con cada una).
 
 - El top mundial depende de las reglas de Firebase (`docs/firebase_rules.json`) pegadas en la consola del proyecto `the-bound-3afef`.
 - Los jefes no se reflejan desde el líder (cada uno ve su jefe con sus mecánicas); se comparten el daño (`o.bd`) y las partes vulnerables.
@@ -168,3 +167,11 @@ Validación 5.02: 122 activas aceptadas y comparadas contra la ejecución origin
 `src/6zz9zz3_iconos.js`: iconos 16×16 dibujados a mano para las 146 habilidades (`SVI_GLYPH` fx → dibujo, `SVI_PAS` estadística de la pasiva → dibujo, `SVI_DRAW` con 36 dibujos). Sustituye solo `genIcon(['sv_skill', id])`; SK no cambia. En `6zz9zz0_habilidades.js`: el guerrero pasa de marrón a acero/oro (`SV_COL.guerrero`), `dot` ya no usa el tono más oscuro, Grito son ondas y los escudos/marcas son contornos sin relleno (el relleno `C_[0]` era el bloque marrón que Sergio veía sobre el personaje).
 
 Multijugador revisado con `tests/net501/browser.py` (presencia → `upsertRemote`, igual que sala, WiFi y Photon): 763 casos de armaduras de los 30 tiers × 7 clases, 255 cosméticos y los 149 peinados (85 F, 64 M, con y sin tinte) dan el mismo dibujo en el otro jugador; las 122 activas llegan como `sv`. `tests/net501/rtc.py` lo repite con dos páginas por WebRTC real (píxeles HD idénticos y habilidad recibida). Si un amigo ve otra cosa, lo más probable es que su teléfono no se haya actualizado.
+
+
+## 5.04 · Oficios y Gremio
+
+- `src/6zz9zz4_oficios.js`: ritmo (`OFX_CURVE` multiplica la experiencia ganada por 1/curva desde el nivel 20, mínimo 0,45; `OFX_DAILY` 30 acciones con +50 % por día de juego), +0,1 % de ataque por oficio en nivel 50 (`ofAtkBonus`, tope 1 %). Catálogo `OFU[job]` = `p` productos (`ofp_*`, precio con getter que suma la ventaja `sell`), `f` muebles (`BK` con `ofs` = [forma, color, color2], dibujados por `offPaint`, nivel exigido en `bkCanCraft`), `c` ropa (`cosm` reutilizando tipos existentes; se da al llegar al nivel y `ofCatchUp` la da a partidas viejas), `k` ventajas (`xp`, `gold`, `dbl`, `sell`). Los 11 oficios de minijuego se generan desde `OF_MINI`. Platos `OF_DISHES` (tier 5, nivel en `OF_DISH_LV`, duran el doble). Gremio `gremio_<pueblo>` en los 6 pueblos: pedidos (`ofOrderList`, 3 por día), Taller (`ofWorkshop`), maestrías para todo oficio sin maestro (`MAST[job].gremio`).
+- `src/6zz9zz5_ampliacion.js`: granja (`FARM`, `farmPaint`, `FURN_ACT.of_of_<k>`, una vez por día), tienda en casa (`of_tienda`, `homeShopState`, ventas por tiempo real), títulos (`OF_TITLES`), Museo de Albor (`curadora_museo`, `MUSEUM`, `openAlborMuseum`), caravanas (`openCaravan`, `O.car`), mercado (`MKT`; presencia `mk`/`mkb`/`mkd`, el comprador paga al pedir y se le devuelve si no hay entrega en 25 s) y torneo (`TOR`, presencia `tor`).
+- `src/6zz9zz6_idols_historia.js`: `IDOL_STORY` (3 misiones `is_<idol>1-3` por idol, foto firmada `foto_<idol>`, título `t_idols`, colección del museo).
+- Pruebas: `tests/oficios/oficios.txt`, `tests/oficios/ampliacion.txt` (play.py) y `tests/oficios/mercado_rtc.py` (dos jugadores por WebRTC).
