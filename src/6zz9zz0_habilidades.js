@@ -179,7 +179,7 @@ function svPose(D,dir,f,L){
 heroPose=function(dir,anim,f,L){const D=L?.svId&&SV_OF.get(L.svId);return anim==='sv_skill'&&D?svPose(D,dir,f,L):SV_OLD_POSE.apply(this,arguments);};
 const SV_ATLASES=new Map(),SV_FX_CACHE=new Map();let svContext=null;
 function svGet(map,key){const v=map.get(key);if(v){map.delete(key);map.set(key,v);}return v;}
-function svPut(map,key,value,max){map.set(key,value);while(map.size>max)map.delete(map.keys().next().value);return value;}
+function svPut(map,key,value,max){map.set(key,value);while(map.size>max){const k=map.keys().next().value,o=map.get(k);map.delete(k);if(o?.svDone){const i=HD_LIVE.indexOf(o);if(i>=0)HD_LIVE.splice(i,1);o.hd=null;o.hdX=null;o.hdDone=null;}}return value;}
 function svAtlas(e,D){const app=normApp(e.app),gear=e.type==='player'?gearTiers(e):e.gear,cos=e.cos||{},hh=e.type==='player'?e.hideHelm:e.hh,key=D.id+heroKey(e.cls,app,gear,cos,hh);let A=svGet(SV_ATLASES,key);if(A)return A;
  const L=heroLook(e.cls,app,gear,cos,{hideHelm:hh});L.svId=D.id;L.mirror=false;
  A={img:mkCanvas(48*12,48*4),fw:48,fh:48,ax:24,ay:44,idx:{sv_skill:0},hdL:L,hdDraw:drawHero,hdAnims:['sv_skill'],svDone:new Uint8Array(48)};
