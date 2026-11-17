@@ -38,9 +38,9 @@ with sync_playwright()as p:
   page.wait_for_function('()=>jpGuestShow&&jpGuestShow.audio.readyState>=2&&!jpGuestShow.audio.paused',timeout=15000)
   for t,file,desc in [(18,'02_concierto_miku.png','Miku canta en el primer acto'),(68,'03_concierto_teto.png','Teto canta en el segundo acto'),(128,'04_concierto_duo.png','Miku y Teto cantan juntas en STELLA☆LINK')]:
    page.evaluate('(t)=>{jpGuestShow.audio.currentTime=t;G.P.x=248;G.P.y=132;updateCamera(0,true)}',t);page.wait_for_timeout(450);shot(file,desc)
-  page.evaluate('jpGuestStop();G.P.x=248;G.P.y=205;updateCamera(0,true)');page.wait_for_timeout(250)
+  page.evaluate('jpGuestStop();G.P.x=248;G.P.y=205;updateCamera(0,true)');page.wait_for_timeout(3500)
   for id,label,start in [('jp_miku','Miku',5),('jp_teto','Teto',9)]:
-   page.evaluate('''id=>{closeDialog();if(G.P.partner!==id)swapPartner(id);const e=demoGuest(id);e.map=G.map.id;e.scene=0;e.follow=0;e.wander=0;e.wt=null;e.x=260;e.y=207;e.home={x:260,y:207};e.dir='left';e.atlas=npcAtlas(id);setAnim(e,'idle');G.P.x=235;G.P.y=207;G.P.dir='right';rel(id).a=1000;rel(id).t=1000;rel(id).cp=Date.now();updateCamera(0,true);openDialog(e);romanceMenu(e);}''',id)
+   page.evaluate('''id=>{closeDialog();if(G.P.partner!==id)swapPartner(id);for(const otherId of ['jp_miku','jp_teto'])if(otherId!==id){const other=demoGuest(otherId);other.x=360;other.y=300;other.home={x:360,y:300};other.wander=0;other.wt=null;setAnim(other,'idle');}const e=demoGuest(id);e.map=G.map.id;e.scene=0;e.follow=0;e.wander=0;e.wt=null;e.x=260;e.y=207;e.home={x:260,y:207};e.dir='left';e.atlas=npcAtlas(id);setAnim(e,'idle');G.P.x=235;G.P.y=207;G.P.dir='right';rel(id).a=1000;rel(id).t=1000;rel(id).cp=Date.now();updateCamera(0,true);openDialog(e);romanceMenu(e);}''',id)
    finish_text();shot(f'{start:02}_{label.lower()}_pareja.png',f'{label} como pareja: corazones y opciones reales del romance')
    page.locator('#dopts button').filter(has_text='Te quiero').click();finish_text()
    report['dialogs'][id]={'partner':page.locator('#dmsg').inner_text()}
@@ -50,7 +50,7 @@ with sync_playwright()as p:
    page.wait_for_timeout(1000);shot(f'{start+2:02}_{label.lower()}_beso.png',f'Animación de beso de {label} y el jugador, con los sprites del juego')
    page.wait_for_function('()=>!SCENE',timeout=7000);page.wait_for_timeout(120)
    report['dialogs'][id]['afterKiss']=page.locator('body').inner_text()[-4500:]
-   shot(f'{start+3:02}_{label.lower()}_despues_beso.png',f'Reacción de {label} después del beso')
+   shot(f'{start+3:02}_{label.lower()}_despues_beso.png',f'Reacción de {label} después del beso');page.wait_for_timeout(5000)
   assert not report['errors'],report['errors']
   assert len(report['captures'])==12
  except Exception as e:
