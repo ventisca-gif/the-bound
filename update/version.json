@@ -1,18 +1,26 @@
 {
- "build": 131,
- "ver": "5.10",
+ "build": 132,
+ "ver": "5.11",
  "date": "2026-11-17",
  "file": "thebound.html",
- "size": 22413492,
- "sha256": "2660d69352b82aca38fdcb385d6f9d1a5620a004f36c5fe7002092036466f3f8",
+ "size": 22537031,
+ "sha256": "94aea3e5db3e57106ffb7c8cfa04b4dab1e6c9b5446033ccf27a8ffba121e956",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "📜 Misiones ordenadas en tres grupos con su color: Historia (principal), Secundarias y Trabajo (tablón del gremio y encargos de oficio). También en «Disponibles»."
+   "📖 Bitácora (botón a la izquierda): lo más importante de hoy, 30 logros con títulos, marcos para el retrato y muebles, álbum de fotos en grupo, mascota exploradora y buzón.",
+   "📜 Misiones: filtros Historia/Secundarias/Trabajo/Hechas, grupos plegables, «Ir a entregar», disponibles ordenadas por cercanía y historial de lo completado.",
+   "🎲 Salón de juegos en los 6 pueblos: cartas coleccionables de enemigos y jefes, concurso de cocina con votos de jugadores, carrera de monturas y pesca por equipos.",
+   "🙈 Escondite en Higashiyama, 3 encargos en cadena de oficio, Pez Tormenta, muñecos de nieve y estrellas fugaces en Altavela.",
+   "🏠 Visita la casa de otros jugadores, mándales notas y regalos. 🛒 Tu tienda: precios y clientes que regatean. 🧹 «Vender basura» y botón ↩ de última ventana."
   ],
   "en": [
-   "📜 Quests sorted into three colour-coded groups: Story (main), Side and Work (guild board and trade jobs). Also under «Available»."
+   "📖 Logbook (button on the left): today’s key info, 30 achievements with titles, portrait frames and furniture, group photo album, exploring pet and mailbox.",
+   "📜 Quests: Story/Side/Work/Done filters, foldable groups, «Go turn in», available quests sorted by distance and a history of completed ones.",
+   "🎲 Game hall in all 6 towns: collectible enemy and boss cards, cooking contest with player votes, mount race and team fishing.",
+   "🙈 Hide-and-seek in Higashiyama, 3 chained job commissions, Storm Fish, snowmen and shooting stars in Altavela.",
+   "🏠 Visit other players’ houses, send them notes and gifts. 🛒 Your shop: prices and haggling customers. 🧹 «Sell junk» and ↩ last-window button."
   ]
  }
 }

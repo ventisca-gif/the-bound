@@ -1,0 +1,7 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (G.P.lv=8, BIT().c.steps=7000, BIT().c.fish=500, BIT().c.quest=30, openBitacora('hoy'), $('#modal .bbody').children.length)
+wait 500
+shot
+js (openPanel('jobs'), closePanel(), $('#bLast').hidden)
+wait 1000
+shot

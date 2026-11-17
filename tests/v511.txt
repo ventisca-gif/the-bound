@@ -1,0 +1,64 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js window.__e=[];window.addEventListener('error',e=>window.__e.push(String(e.message)));1
+wait 1200
+shot
+js (()=>{ const P=G.P; P.lv=60; P.gold=1e6; for (const id of ['s_greta1','s_tomas1','s_lia1','c_pez1']) acceptQuest(id); giveItem('log1',8); questEvent('init',{}); return {ready:questReady('s_greta1'), btn:!!$('#bBit'), chainQ:!!QUESTS.c_pez1, salon:G.world.npcDefs.filter(d=>/^salon_/.test(d.id)).length, ach:BIT_ACH.length, tit:TITLES.length}; })()
+js (openPanel('quest'), 1)
+wait 500
+shot
+js (qFilt='done', completeQuest('s_greta1'), renderPanel(), $$('.qi[data-qd]').length)
+wait 300
+shot
+js (qFilt='work', renderPanel(), $$('.qi').length)
+js (qFilt='all', closePanel(), openBitacora('hoy'), $('#modal .bbody').children.length)
+wait 400
+shot
+js (BIT().c.steps=10000, openBitacora('logros'), $$('#modal [data-bcl]').length)
+js ($('#modal [data-bcl]').click(), Object.keys(BIT().got))
+js (openBitacora('cartas'), $$('#modal .tcard').length)
+wait 600
+shot
+js (openBitacora('mascota'), $('#modal .bbody').textContent.slice(0,80))
+js (G.P.pets=['perro'], openBitacora('mascota'), $$('#modal [data-px]').length)
+js ($('#modal [data-px]').click(), BIT().px.end=Date.now()-1, openBitacora('mascota'), $('#pxGet').click(), $('#modal').textContent.slice(0,140))
+js (openBitacora('marcos'), $('#modal [data-bfr="bosque"]').click(), $('#tl .pframe').className)
+js (openBitacora('buzon'), $('#modal .bbody').textContent.slice(0,90))
+js (openBitacora('album'), $('#phStart').click(), !!$('#photoBar'))
+wait 300
+js ($('#phShot').click(), albLoad().length)
+js (photoMode(false), openBitacora('album'), $$('#modal .bphoto').length)
+wait 300
+shot
+js (closeModal(), giveItem('w_guerrero_1',1), giveItem('w_mago_2',1), openPanel('inv'), !!$('#bJunk'))
+js ($('#bJunk').click(), $$('#modal [data-jk]').length)
+wait 300
+shot
+js ($('#jSell').click(), bitC('junk'))
+js (closePanel(), duelStartCards('salon_albor'), $$('#modal [data-dc]').length)
+wait 500
+shot
+js (()=>{ for(let k=0;k<5;k++){ const b=$('#modal [data-dc]'); if(b) b.click(); } $('#mclose').click(); return bitC('cardWin'); })()
+js (cookStart(), COOK.pick=[0,1,2], COOK.st='cook', cookRender(), !!$('#ckN'))
+wait 700
+js ($('#ckS').click(), 1)
+wait 2500
+js ($('#ckS') && $('#ckS').click(), 1)
+wait 2500
+js ($('#ckS') && $('#ckS').click(), 1)
+wait 1500
+js (COOK && COOK.st)
+shot
+js (COOK.vEnd=0, cookTick(), [COOK.st, bitC('cookWin')])
+js (closeModal(), COOK=null, mraceStart({}), MRACE && MRACE.rings.length)
+wait 800
+shot
+js (()=>{ const R=MRACE; for (const r of R.rings) { G.P.x=r[0]; G.P.y=r[1]; mraceTick(0.1); } G.P.x=R.rings[0][0]; G.P.y=R.rings[0][1]; mraceTick(0.1); return [MRACE, bitC('raceWin')]; })()
+js (tfStart(), TF.n=8, 1)
+wait 1500
+js [TF, bitC('teamWin')]
+js (G.P.wstate.wx='snow', SETTINGS.weather=1, curWx())
+wait 7000
+js [curWx(), SNOW.length]
+shot
+js (shopTick(), typeof openHomeShop)
+js window.__e

@@ -177,6 +177,7 @@ p{margin:.3em 0;line-height:1.4}.hint{color:var(--muted);font-size:.9em}.sub{col
 .qi{display:flex;align-items:center;gap:.5em;width:100%;text-align:left;padding:.4em;margin-bottom:.3em;background:#140e0b;border:1px solid rgba(217,178,90,.25);border-radius:.4em}
 .qi.sel{border-color:var(--gold)}.qi.main b{color:#ffe08a}.qi .ex{font-weight:700;color:#ffd23a;font-size:1.2em}.qi div{flex:1;min-width:0}.qi small{display:block;color:var(--muted);font-size:.8em}.qi .trk{color:var(--gold);font-style:normal}
 .qcat{display:flex;align-items:center;gap:.4em;margin:.5em 0 .3em;padding:.15em .4em;border-left:3px solid #d9b25a;font-size:1em}.qcat .pill{font-size:.75em}h4.qcat{font-size:.9em;margin:.4em 0 .2em}.qcat.qc-story{color:#ffe08a;border-color:#ffd23a}.qcat.qc-side{color:#9fd0ff;border-color:#5aa0e0}.qcat.qc-work{color:#a8e08a;border-color:#6cbf4a}.qi.qc-side{border-left:3px solid #5aa0e0}.qi.qc-work{border-left:3px solid #6cbf4a}.qi.qc-story{border-left:3px solid #ffd23a}.qnone{margin:.1em 0 .4em;font-size:.85em}
+.qtabs{display:flex;flex-wrap:wrap;gap:.25em;margin-bottom:.4em}.qtab{flex:1 1 auto;padding:.3em .5em;border-radius:.45em;border:2px solid #5a4320;background:#1a110c;color:#f3e6c8;font:inherit;font-size:.82em;white-space:nowrap}.qtab.on{border-color:#ffd040;background:#3a2a14;color:#ffe08a}.qtab.qc-story{border-left:4px solid #ffd23a}.qtab.qc-side{border-left:4px solid #5aa0e0}.qtab.qc-work{border-left:4px solid #6cbf4a}.qcat.fold{cursor:pointer;user-select:none}.qi.ready{box-shadow:0 0 0 1px #ffd040,0 0 10px 1px rgba(255,208,64,.55);animation:qglow 1.6s ease-in-out infinite}.qi.ready small{color:#ffe08a}@keyframes qglow{50%{box-shadow:0 0 0 1px #ffd040,0 0 16px 3px rgba(255,208,64,.8)}}.qrdy{color:#ffe08a;margin:.2em 0 .4em;font-size:.9em}.qrdy.big{background:rgba(255,208,64,.12);border:1px solid #ffd040;border-radius:.45em;padding:.4em .6em}.qav{background:none;border:0;color:inherit;font:inherit;text-align:left;padding:.15em 0;cursor:pointer}.qav:hover{color:#ffe08a}.qdist{color:var(--muted)}.qi .ex{min-width:.8em}
 .exc{color:#ffd23a}
 .objs{padding-left:1.2em;margin:.2em 0}.objs li{margin:.2em 0}.objs li.ok{color:var(--ok);text-decoration:line-through;text-decoration-color:rgba(126,224,106,.5)}
 .avail{padding-left:1.2em;color:var(--muted);font-size:.88em}
@@ -342,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.10 · Misiones por tipo</div>
+  <div class="tfoot">v5.11 · Bitácora y juegos</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -4957,25 +4958,45 @@ function questCat(Q) {
   if (R.job || (Q.obj && Q.obj.length && Q.obj.every(o => o.t === 'job' || o.t === 'craft' || (o.t === 'item' && mat(o.it))))) return 'work';
   return 'side';
 }
+let qFilt = 'all', qDoneSel = null;
+function qFold() { SETTINGS.qFold = SETTINGS.qFold || {}; return SETTINGS.qFold; }
+function qDist(npc) { const P = G.P, p = npcWorldPos(npc); if (!p || P.map !== 'world') return p ? 9e8 : 1e9; return Math.hypot(p[0] - P.x / 16, p[1] - P.y / 16); }
+function qGoNpc(npc, label) { const p = npcWorldPos(npc); if (!p || typeof setWp !== 'function') { toast(L2('No sé dónde está ahora.', 'I don’t know where they are right now.'), 'warn'); return false; } setWp({ loc: p, t: label || (NPCS[npc] ? NPCS[npc].n : npc), m: 'world' }); return true; }
 function renderQuests(B) {
-  const P = G.P, act = Object.keys(P.quests.active).sort((a, b) => (QD(b).main ? 1 : 0) - (QD(a).main ? 1 : 0));
-  if (!qSel || !P.quests.active[qSel]) qSel = P.track || act[0] || null;
+  const P = G.P, act = Object.keys(P.quests.active).filter(id => QD(id)).sort((a, b) => (questReady(b) ? 1 : 0) - (questReady(a) ? 1 : 0) || (QD(b).main ? 1 : 0) - (QD(a).main ? 1 : 0));
+  if (!qSel || !P.quests.active[qSel]) qSel = P.track && P.quests.active[P.track] ? P.track : act[0] || null;
   const QCAT = { story: [L2('Historia', 'Story'), L2('Misiones de historia', 'Story quests')], side: [L2('Secundaria', 'Side'), L2('Misiones secundarias', 'Side quests')], work: [L2('Trabajo', 'Work'), L2('Misiones de trabajo', 'Work quests')] };
-  const item = id => { const Q = QD(id), c = questCat(Q); return (LANG_EN ? `<button class="qi ${qSel === id ? 'sel' : ''} ${Q.main ? 'main' : ''} qc-${c}" data-q="${id}"><span class="ex">${questReady(id) ? '?' : '!'}</span><div><b>${esc(Q.n)}</b><small>${QCAT[c][0]} · Lv. ${Q.lv}</small></div>${P.track === id ? '<i class="trk">◆</i>' : ''}</button>` : `<button class="qi ${qSel === id ? 'sel' : ''} ${Q.main ? 'main' : ''} qc-${c}" data-q="${id}"><span class="ex">${questReady(id) ? '?' : '!'}</span><div><b>${esc(Q.n)}</b><small>${QCAT[c][0]} · Nv. ${Q.lv}</small></div>${P.track === id ? '<i class="trk">◆</i>' : ''}</button>`); };
-  const list = act.length ? ['story', 'side', 'work'].map(c => { const ids = act.filter(id => questCat(QD(id)) === c); return `<h3 class="qcat qc-${c}">${QCAT[c][1]} <span class="pill">${ids.length}</span></h3>` + (ids.length ? ids.map(item).join('') : `<p class="hint qnone">${c === 'story' ? L2('Ninguna activa ahora.', 'None active right now.') : c === 'side' ? L2('Habla con personajes con <b class="exc">!</b> para conseguir más.', 'Talk to characters with <b class="exc">!</b> to get more.') : L2('Tablón del gremio y encargos de oficio (tala, pesca, minería…).', 'Guild board and trade jobs (logging, fishing, mining…).')}</p>`); }).join('') : (LANG_EN ? "<p class=\"hint\">You have no active quests. Look for characters with <b class=\"exc\">!</b> above their head.</p>" : '<p class="hint">No tienes misiones activas. Busca personajes con <b class="exc">!</b> sobre la cabeza.</p>');
+  const cats = qFilt === 'all' || qFilt === 'done' ? ['story', 'side', 'work'] : [qFilt], F = qFold();
+  const cnt = c => act.filter(id => questCat(QD(id)) === c).length, rdy = act.filter(questReady).length;
+  const done = (P.qlog || []).slice().reverse(), oldDone = Object.keys(P.quests.done || {}).filter(id => QUESTS[id] && !done.some(d => d.id === id));
+  const tabs = `<div class="qtabs">${[['all', L2('Todas', 'All') + ' ' + act.length], ['story', '📜 ' + cnt('story')], ['side', '❔ ' + cnt('side')], ['work', '⚒ ' + cnt('work')], ['done', '✓ ' + L2('Hechas', 'Done')]].map(([k, l]) => `<button class="qtab ${qFilt === k ? 'on' : ''} ${k !== 'all' && k !== 'done' ? 'qc-' + k : ''}" data-qf="${k}" title="${k === 'all' || k === 'done' ? '' : QCAT[k][1]}">${l}</button>`).join('')}</div>${rdy ? `<p class="qrdy">✨ ${rdy} ${L2(rdy > 1 ? 'listas para entregar' : 'lista para entregar', rdy > 1 ? 'ready to turn in' : 'ready to turn in')}</p>` : ''}`;
+  const item = id => { const Q = QD(id), c = questCat(Q), r = questReady(id); return `<button class="qi ${qSel === id ? 'sel' : ''} ${Q.main ? 'main' : ''} qc-${c} ${r ? 'ready' : ''}" data-q="${id}"><span class="ex">${r ? '?' : '!'}</span><div><b>${esc(Q.n)}</b><small>${r ? '✨ ' + L2('Lista para entregar', 'Ready to turn in') : QCAT[c][0] + (LANG_EN ? " · Lv. " : ' · Nv. ') + Q.lv}</small></div>${P.track === id ? '<i class="trk">◆</i>' : ''}</button>`; };
+  let list;
+  if (qFilt === 'done') list = (done.length || oldDone.length) ? `<div class="qdone">${done.map((d, i) => `<button class="qi qc-${d.c} ${qDoneSel === 'l' + i ? 'sel' : ''}" data-qd="l${i}"><span class="ex">✓</span><div><b>${esc(d.n)}</b><small>${QCAT[d.c] ? QCAT[d.c][0] : ''}${d.d ? ' · ' + esc(d.d) : ''}</small></div></button>`).join('')}${oldDone.map(id => `<button class="qi qc-${questCat(QUESTS[id])} ${qDoneSel === id ? 'sel' : ''}" data-qd="${id}"><span class="ex">✓</span><div><b>${esc(QUESTS[id].n)}</b><small>${QCAT[questCat(QUESTS[id])][0]}</small></div></button>`).join('')}</div>` : `<p class="hint">${L2('Todavía no has completado ninguna misión.', 'You have not completed any quest yet.')}</p>`;
+  else list = act.length ? cats.map(c => { const ids = act.filter(id => questCat(QD(id)) === c), fold = qFilt === 'all' && F[c]; return `<h3 class="qcat qc-${c} fold" data-qfold="${c}">${qFilt === 'all' ? (fold ? '▸ ' : '▾ ') : ''}${QCAT[c][1]} <span class="pill">${ids.length}</span></h3>` + (fold ? '' : ids.length ? ids.map(item).join('') : `<p class="hint qnone">${c === 'story' ? L2('Ninguna activa ahora.', 'None active right now.') : c === 'side' ? L2('Habla con personajes con <b class="exc">!</b> para conseguir más.', 'Talk to characters with <b class="exc">!</b> to get more.') : L2('Tablón del gremio y encargos de oficio (tala, pesca, minería…).', 'Guild board and trade jobs (logging, fishing, mining…).')}</p>`); }).join('') : (LANG_EN ? "<p class=\"hint\">You have no active quests. Look for characters with <b class=\"exc\">!</b> above their head.</p>" : '<p class="hint">No tienes misiones activas. Busca personajes con <b class="exc">!</b> sobre la cabeza.</p>');
   let det = '';
-  if (qSel) { const Q = QD(qSel), R = Q.rew; det = (LANG_EN ? `<h2>${esc(Q.n)}</h2><p class="sub">${({ story: L2('Misión de historia (principal)', 'Story quest (main)'), side: L2('Misión secundaria', 'Side quest'), work: L2('Misión de trabajo', 'Work quest') })[questCat(Q)]} · Turn in: ${esc(NPCS[turnInNpc(Q)] ? NPCS[turnInNpc(Q)].n : 'Kael')}</p><p>${esc(Q.desc)}</p><h3>Objectives</h3><ul class="objs">${Q.obj.map((o, i) => `<li class="${objCount(Q, i) >= (o.n || 1) ? 'ok' : ''}">${esc(objText(Q, i))}</li>`).join('')}</ul>
+  if (qFilt === 'done') { const d = qDoneSel && qDoneSel[0] === 'l' ? done[+qDoneSel.slice(1)] : qDoneSel && QUESTS[qDoneSel] ? { id: qDoneSel, n: QUESTS[qDoneSel].n, c: questCat(QUESTS[qDoneSel]) } : null;
+    if (d) { const Q = QUESTS[d.id], R = (Q && Q.rew) || {}; det = `<h2>✓ ${esc(d.n)}</h2><p class="sub">${QCAT[d.c] ? QCAT[d.c][1] : ''}${d.d ? ' · ' + L2('Completada el ', 'Completed on ') + esc(d.d) : ''}</p>${Q ? `<p>${esc(Q.desc)}</p>` : ''}<h3>${L2('Lo que ganaste', 'What you earned')}</h3><div class="rew">${(d.xp || R.xp) ? `<span>${fmt(d.xp || R.xp)} XP</span>` : ''}${(d.g || R.gold) ? `<span>${iconHTML(['coin'], 14)} ${fmt(d.g || R.gold)}</span>` : ''}${(R.items || []).filter(([id]) => ITEMS[id]).map(([id, n]) => `<span>${iconHTML(ITEMS[id].icon, 16)} ${esc(ITEMS[id].n)}${n > 1 ? ' ×' + n : ''}</span>`).join('')}</div>${Q && Q.offer ? `<h3>${L2('Lo que te contaron', 'What they told you')}</h3>${[].concat(Q.offer).slice(0, 4).map(l => `<p class="hint">«${esc(String(l))}»</p>`).join('')}` : ''}`; }
+    else det = `<p class="hint">${L2('Elige una misión para releerla y ver lo que ganaste.', 'Pick a quest to reread it and see what you earned.')}</p>`; }
+  else if (qSel && cats.includes(questCat(QD(qSel)))) { const Q = QD(qSel), R = Q.rew, r = questReady(qSel), tn = turnInNpc(Q); det = (LANG_EN ? `<h2>${esc(Q.n)}</h2><p class="sub">${({ story: L2('Misión de historia (principal)', 'Story quest (main)'), side: L2('Misión secundaria', 'Side quest'), work: L2('Misión de trabajo', 'Work quest') })[questCat(Q)]} · Turn in: ${esc(NPCS[tn] ? NPCS[tn].n : 'Kael')}</p>${r ? `<p class="qrdy big">✨ ${L2('¡Lista para entregar! Ve con ', 'Ready to turn in! Go to ')}<b>${esc(NPCS[tn] ? NPCS[tn].n : 'Kael')}</b>${esc(npcPlace(tn))}.</p>` : ''}<p>${esc(Q.desc)}</p><h3>Objectives</h3><ul class="objs">${Q.obj.map((o, i) => `<li class="${objCount(Q, i) >= (o.n || 1) ? 'ok' : ''}">${esc(objText(Q, i))}</li>`).join('')}</ul>
     <h3>Step-by-step guide</h3><ol class="guide">${questGuide(qSel).map(g => `<li>${g}</li>`).join('')}</ol>
     <h3>Rewards</h3><div class="rew">${R.xp ? `<span>${fmt(R.xp)} XP</span>` : ''}${R.gold ? `<span>${iconHTML(['coin'], 14)} ${fmt(R.gold)}</span>` : ''}${(R.items || []).map(([id, n]) => `<span>${iconHTML(ITEMS[id].icon, 16)} ${esc(ITEMS[id].n)}${n > 1 ? ' ×' + n : ''}</span>`).join('')}</div>
-    <div class="row"><button class="btn gold" id="qtrack">${P.track === qSel ? (LANG_EN ? "Tracking ✓" : 'Siguiendo ✓') : (LANG_EN ? "Track on screen" : 'Seguir en pantalla')}</button><button class="btn" id="qmap">Show on map</button>${!Q.main ? `<button class="btn danger" id="qab">${qAbandon === qSel ? (LANG_EN ? "Sure? Abandon" : '¿Seguro? Abandonar') : (LANG_EN ? "Abandon" : 'Abandonar')}</button>` : ''}</div>` : `<h2>${esc(Q.n)}</h2><p class="sub">${({ story: L2('Misión de historia (principal)', 'Story quest (main)'), side: L2('Misión secundaria', 'Side quest'), work: L2('Misión de trabajo', 'Work quest') })[questCat(Q)]} · Entrega: ${esc(NPCS[turnInNpc(Q)] ? NPCS[turnInNpc(Q)].n : 'Kael')}</p><p>${esc(Q.desc)}</p><h3>Objetivos</h3><ul class="objs">${Q.obj.map((o, i) => `<li class="${objCount(Q, i) >= (o.n || 1) ? 'ok' : ''}">${esc(objText(Q, i))}</li>`).join('')}</ul>
+    <div class="row">${r ? `<button class="btn gold qgo" id="qgo">➜ ${L2('Ir a entregar', 'Go turn in')}</button>` : ''}<button class="btn ${r ? '' : 'gold'}" id="qtrack">${P.track === qSel ? (LANG_EN ? "Tracking ✓" : 'Siguiendo ✓') : (LANG_EN ? "Track on screen" : 'Seguir en pantalla')}</button><button class="btn" id="qmap">Show on map</button>${!Q.main ? `<button class="btn danger" id="qab">${qAbandon === qSel ? (LANG_EN ? "Sure? Abandon" : '¿Seguro? Abandonar') : (LANG_EN ? "Abandon" : 'Abandonar')}</button>` : ''}</div>` : `<h2>${esc(Q.n)}</h2><p class="sub">${({ story: L2('Misión de historia (principal)', 'Story quest (main)'), side: L2('Misión secundaria', 'Side quest'), work: L2('Misión de trabajo', 'Work quest') })[questCat(Q)]} · Entrega: ${esc(NPCS[tn] ? NPCS[tn].n : 'Kael')}</p>${r ? `<p class="qrdy big">✨ ${L2('¡Lista para entregar! Ve con ', 'Ready to turn in! Go to ')}<b>${esc(NPCS[tn] ? NPCS[tn].n : 'Kael')}</b>${esc(npcPlace(tn))}.</p>` : ''}<p>${esc(Q.desc)}</p><h3>Objetivos</h3><ul class="objs">${Q.obj.map((o, i) => `<li class="${objCount(Q, i) >= (o.n || 1) ? 'ok' : ''}">${esc(objText(Q, i))}</li>`).join('')}</ul>
     <h3>Guía paso a paso</h3><ol class="guide">${questGuide(qSel).map(g => `<li>${g}</li>`).join('')}</ol>
     <h3>Recompensas</h3><div class="rew">${R.xp ? `<span>${fmt(R.xp)} XP</span>` : ''}${R.gold ? `<span>${iconHTML(['coin'], 14)} ${fmt(R.gold)}</span>` : ''}${(R.items || []).map(([id, n]) => `<span>${iconHTML(ITEMS[id].icon, 16)} ${esc(ITEMS[id].n)}${n > 1 ? ' ×' + n : ''}</span>`).join('')}</div>
-    <div class="row"><button class="btn gold" id="qtrack">${P.track === qSel ? (LANG_EN ? "Tracking ✓" : 'Siguiendo ✓') : (LANG_EN ? "Track on screen" : 'Seguir en pantalla')}</button><button class="btn" id="qmap">Ver en el mapa</button>${!Q.main ? `<button class="btn danger" id="qab">${qAbandon === qSel ? (LANG_EN ? "Sure? Abandon" : '¿Seguro? Abandonar') : (LANG_EN ? "Abandon" : 'Abandonar')}</button>` : ''}</div>`); }
-  const offr = Object.keys(QUESTS).filter(canOffer), avail = ['story', 'side', 'work'].map(c => { const ids = offr.filter(id => questCat(QUESTS[id]) === c).slice(0, 6); return ids.length ? `<h4 class="qcat qc-${c}">${QCAT[c][1]}</h4><ul class="avail">${ids.map(id => `<li>${esc(QUESTS[id].n)} — ${esc(NPCS[QUESTS[id].giver].n)}</li>`).join('')}</ul>` : ''; }).join('');
-  const ng = guideTarget(); const nextHint = !act.length && ng && ng.next ? (LANG_EN ? `<p class="hint">Next story quest: <b>${esc(QUESTS[ng.next].n)}</b>. ${esc(ng.label)}${npcPlace(ng.npc)}. The golden arrow will guide you.</p>` : `<p class="hint">Siguiente misión de la historia: <b>${esc(QUESTS[ng.next].n)}</b>. ${esc(ng.label)}${npcPlace(ng.npc)}. La flecha dorada te lleva.</p>`) : '';
-  B.innerHTML = (LANG_EN ? `<div class="qwrap"><div class="frame qL">${list}${nextHint}${avail ? (LANG_EN ? `<h3>Available</h3>${avail}` : `<h3>Disponibles</h3>${avail}`) : ''}<h3>Adventurer's guide</h3>${GUIDE.map((g, i) => `<details class="gd"${i === 0 && !act.length ? ' open' : ''}><summary>${esc(g[0])}</summary><p>${g[1]}</p></details>`).join('')}</div><div class="frame qR">${det || (LANG_EN ? "<p class=\"hint\">Select a quest.</p>" : '<p class="hint">Selecciona una misión.</p>')}</div></div>` : `<div class="qwrap"><div class="frame qL">${list}${nextHint}${avail ? (LANG_EN ? `<h3>Available</h3>${avail}` : `<h3>Disponibles</h3>${avail}`) : ''}<h3>Guía del aventurero</h3>${GUIDE.map((g, i) => `<details class="gd"${i === 0 && !act.length ? ' open' : ''}><summary>${esc(g[0])}</summary><p>${g[1]}</p></details>`).join('')}</div><div class="frame qR">${det || (LANG_EN ? "<p class=\"hint\">Select a quest.</p>" : '<p class="hint">Selecciona una misión.</p>')}</div></div>`);
+    <div class="row">${r ? `<button class="btn gold qgo" id="qgo">➜ ${L2('Ir a entregar', 'Go turn in')}</button>` : ''}<button class="btn ${r ? '' : 'gold'}" id="qtrack">${P.track === qSel ? (LANG_EN ? "Tracking ✓" : 'Siguiendo ✓') : (LANG_EN ? "Track on screen" : 'Seguir en pantalla')}</button><button class="btn" id="qmap">Ver en el mapa</button>${!Q.main ? `<button class="btn danger" id="qab">${qAbandon === qSel ? (LANG_EN ? "Sure? Abandon" : '¿Seguro? Abandonar') : (LANG_EN ? "Abandon" : 'Abandonar')}</button>` : ''}</div>`); }
+  const offr = Object.keys(QUESTS).filter(canOffer).filter(id => NPCS[QUESTS[id].giver]).map(id => [id, qDist(QUESTS[id].giver)]).sort((a, b) => a[1] - b[1]);
+  const dTxt = d => d >= 9e8 ? '' : ` <small class="qdist">· ${d < 1.5 ? L2('aquí', 'here') : Math.round(d) + ' ' + L2('pasos', 'steps')}</small>`;
+  const avail = qFilt === 'done' ? '' : cats.map(c => { const ids = offr.filter(([id]) => questCat(QUESTS[id]) === c).slice(0, 6); return ids.length ? `<h4 class="qcat qc-${c}">${QCAT[c][1]}</h4><ul class="avail">${ids.map(([id, d]) => `<li><button class="qav" data-qa="${id}">📍 ${esc(QUESTS[id].n)} — ${esc(NPCS[QUESTS[id].giver].n)}${dTxt(d)}</button></li>`).join('')}</ul>` : ''; }).join('');
+  const ng = guideTarget(); const nextHint = !act.length && ng && ng.next && QUESTS[ng.next] ? (LANG_EN ? `<p class="hint">Next story quest: <b>${esc(QUESTS[ng.next].n)}</b>. ${esc(ng.label)}${npcPlace(ng.npc)}. The golden arrow will guide you.</p>` : `<p class="hint">Siguiente misión de la historia: <b>${esc(QUESTS[ng.next].n)}</b>. ${esc(ng.label)}${npcPlace(ng.npc)}. La flecha dorada te lleva.</p>`) : '';
+  B.innerHTML = `<div class="qwrap"><div class="frame qL">${tabs}${list}${nextHint}${avail ? `<h3>${L2('Disponibles (las más cercanas primero)', 'Available (nearest first)')}</h3><p class="hint qnone">${L2('Toca una para ver dónde está en el mapa.', 'Tap one to see where it is on the map.')}</p>${avail}` : ''}${qFilt === 'all' ? (LANG_EN ? `<h3>Adventurer's guide</h3>${GUIDE.map((g, i) => `<details class="gd"${i === 0 && !act.length ? ' open' : ''}><summary>${esc(g[0])}</summary><p>${g[1]}</p></details>`).join('')}` : `<h3>Guía del aventurero</h3>${GUIDE.map((g, i) => `<details class="gd"${i === 0 && !act.length ? ' open' : ''}><summary>${esc(g[0])}</summary><p>${g[1]}</p></details>`).join('')}`) : ''}</div><div class="frame qR">${det || (LANG_EN ? "<p class=\"hint\">Select a quest.</p>" : '<p class="hint">Selecciona una misión.</p>')}</div></div>`;
+  $$('[data-qf]').forEach(b => b.onclick = () => { qFilt = b.dataset.qf; qAbandon = null; renderPanel(); });
+  $$('[data-qfold]').forEach(h => h.onclick = () => { if (qFilt !== 'all') return; const c = h.dataset.qfold; F[c] = !F[c]; saveSettings(); renderPanel(); });
+  $$('[data-qd]').forEach(b => b.onclick = () => { qDoneSel = b.dataset.qd; renderPanel(); });
+  $$('[data-qa]').forEach(b => b.onclick = () => { const Q = QUESTS[b.dataset.qa]; if (Q && qGoNpc(Q.giver, Q.n + ' — ' + NPCS[Q.giver].n)) { panelTab = 'map'; renderPanel(); } });
+  const qg = $('#qgo'); if (qg) qg.onclick = () => { const Q = QD(qSel), n = turnInNpc(Q); P.track = qSel; uiDirty.quest = true; qGoNpc(n, L2('Entregar: ', 'Turn in: ') + Q.n); closePanel(); };
   const qm = $('#qmap'); if (qm) qm.onclick = () => { P.track = qSel; uiDirty.quest = true; panelTab = 'map'; renderPanel(); };
-  $$('.qi').forEach(b => b.onclick = () => { qSel = b.dataset.q; qAbandon = null; renderPanel(); });
+  $$('.qi[data-q]').forEach(b => b.onclick = () => { qSel = b.dataset.q; qAbandon = null; renderPanel(); });
   const t = $('#qtrack'); if (t) t.onclick = () => { P.track = qSel; uiDirty.quest = true; renderPanel(); };
   const a = $('#qab'); if (a) a.onclick = () => { if (qAbandon !== qSel) { qAbandon = qSel; renderPanel(); return; } delete P.quests.active[qSel]; if (P.track === qSel) P.track = null; qSel = null; qAbandon = null; uiDirty.quest = true; renderPanel(); };
 }
@@ -11766,7 +11787,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.10', GAME_BUILD = 131;
+const GAME_VER = '5.11', GAME_BUILD = 132;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11774,6 +11795,25 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.11",
+  "b": 132,
+  "d": "2026-11-17",
+  "es": [
+   "📖 Bitácora (botón a la izquierda): lo más importante de hoy, 30 logros con títulos, marcos para el retrato y muebles, álbum de fotos en grupo, mascota exploradora y buzón.",
+   "📜 Misiones: filtros Historia/Secundarias/Trabajo/Hechas, grupos plegables, «Ir a entregar», disponibles ordenadas por cercanía y historial de lo completado.",
+   "🎲 Salón de juegos en los 6 pueblos: cartas coleccionables de enemigos y jefes, concurso de cocina con votos de jugadores, carrera de monturas y pesca por equipos.",
+   "🙈 Escondite en Higashiyama, 3 encargos en cadena de oficio, Pez Tormenta, muñecos de nieve y estrellas fugaces en Altavela.",
+   "🏠 Visita la casa de otros jugadores, mándales notas y regalos. 🛒 Tu tienda: precios y clientes que regatean. 🧹 «Vender basura» y botón ↩ de última ventana."
+  ],
+  "en": [
+   "📖 Logbook (button on the left): today’s key info, 30 achievements with titles, portrait frames and furniture, group photo album, exploring pet and mailbox.",
+   "📜 Quests: Story/Side/Work/Done filters, foldable groups, «Go turn in», available quests sorted by distance and a history of completed ones.",
+   "🎲 Game hall in all 6 towns: collectible enemy and boss cards, cooking contest with player votes, mount race and team fishing.",
+   "🙈 Hide-and-seek in Higashiyama, 3 chained job commissions, Storm Fish, snowmen and shooting stars in Altavela.",
+   "🏠 Visit other players’ houses, send them notes and gifts. 🛒 Your shop: prices and haggling customers. 🧹 «Sell junk» and ↩ last-window button."
+  ]
+ },
  {
   "v": "5.10",
   "b": 131,
@@ -29719,6 +29759,621 @@ if (typeof GSIS !== 'undefined') { const e = GSIS.find(s => s[0] === 'of_idols')
  L2('Si eres idol (agencia de Akane en Akihabara), en los pueblos y en las ciudades de Japón se te acercan fans. Cuanto más alto tu rango, más fans y más a menudo (de 1 a 10 a la vez).', 'If you are an idol (Akane’s agency in Akihabara), fans come up to you in towns and Japanese cities. The higher your rank, the more fans and the more often (from 1 to 10 at a time).'),
  L2('Te piden un autógrafo: quédate cerca unos segundos y lo firmas (+fans). Algunos te siguen un rato y luego se van. Los demás jugadores también ven a tus fans.', 'They ask for an autograph: stay close for a few seconds and you sign it (+fans). Some follow you for a while and then leave. Other players see your fans too.')], () => null];
  GSIS.splice(e ? GSIS.indexOf(e) + 1 : 0, 0, add); }
+
+// ================= v5.11: BITÁCORA DEL AVENTURERO =================
+// Botón 📖 a la izquierda (bajo la misión que sigues). Reúne lo más importante del momento y los sistemas nuevos:
+//  · Hoy: siguiente paso de la historia, misiones listas para entregar, misión diaria, logros a punto, mascota,
+//    tienda, buzón y el clima especial que hay ahora.
+//  · Logros curiosos (contadores en P.bit.c) que dan títulos nuevos (en TITLES, se ven online), marcos para el retrato
+//    del HUD y muebles para la casa (BK `bit_*`, se colocan con la Mesa de trabajo como los del museo).
+//  · Cartas (las define 6zz9zzd_juegos.js), Álbum de fotos (fotos en grupo, se guardan aparte en el teléfono),
+//    Mascota exploradora (vuelve con objetos y una nota), Buzón (notas, regalos y visitas a casas de otros jugadores).
+// También: historial de misiones (P.qlog), botón «última ventana» y «Vender basura» en el inventario.
+// Nada de poder nuevo: todo da oro, objetos, decoración o cosas para presumir.
+SAVEKEYS.push('qlog', 'bit');
+function BIT() { const P = G.P; P.bit = P.bit || {}; const b = P.bit; b.c = b.c || {}; b.got = b.got || {}; b.cards = b.cards || {}; b.mail = b.mail || []; b.fr = b.fr || ['oro']; b.towns = b.towns || {}; return b; }
+let bitBadge = true;
+function bitAdd(k, n) { if (!G.P) return; const c = BIT().c; c[k] = (c[k] || 0) + (n === undefined ? 1 : n); bitBadge = true; }
+function bitC(k) { return (G.P && G.P.bit && G.P.bit.c && G.P.bit.c[k]) || 0; }
+
+// ---------- historial de misiones ----------
+{ const _cq = completeQuest; completeQuest = function (id) { const Q = QD(id), P = G.P; const r = _cq.apply(this, arguments);
+  try { if (Q && P) { const c = questCat(Q); P.qlog = P.qlog || []; P.qlog.push({ id: Q.board ? null : id, n: Q.n, c, d: typeof calDate === 'function' ? String(calDate()).slice(0, 40) : '', xp: (Q.rew && Q.rew.xp) || 0, g: (Q.rew && Q.rew.gold) || 0 }); if (P.qlog.length > 250) P.qlog.splice(0, P.qlog.length - 250);
+    bitAdd('quest'); bitAdd('q_' + c); if (Q.chain) bitAdd('chain_' + Q.chain); } } catch (e) { console.warn(e); } return r; }; }
+
+// ---------- contadores para los logros ----------
+{ const _qe = questEvent; questEvent = function (type, d) { try { if (type === 'kill') bitAdd('kill'); else if (type === 'boss') bitAdd('boss'); else if (type === 'job') { bitAdd('job', (d && d.n) || 1); } else if (type === 'craft') bitAdd('craft'); } catch (e) { } return _qe.apply(this, arguments); }; }
+{ const _fc = fishCaught; fishCaught = function (fish) { try { bitAdd('fish'); const w = curWx(); if (w === 'rain' || w === 'storm') bitAdd('fishRain'); } catch (e) { } return _fc.apply(this, arguments); }; }
+{ const _sa = setAnim; setAnim = function (e, a, keep) { if (e && e === G.P && e.anim !== a) { if (a === 'hug') bitAdd('hug'); else if (a === 'kiss') bitAdd('kiss'); else if (a === 'dance') bitAdd('dance'); } return _sa.apply(this, arguments); }; }
+let bitWasDead = false, bitLX = null, bitLY = null, bitTownT = 0;
+V33_TICKS.push(dt => { const P = G.P; if (!P || !G.map) return;
+  if (P.dead && !bitWasDead) bitAdd('death'); bitWasDead = !!P.dead;
+  if (bitLX !== null && P.map === bitLM) { const d = Math.hypot(P.x - bitLX, P.y - bitLY); if (d > 0.5 && d < 40) BIT().c.steps = (BIT().c.steps || 0) + d / 16; }
+  bitLX = P.x; bitLY = P.y; bitLM = P.map;
+  bitTownT -= dt || 0; if (bitTownT <= 0 && G.map.isWorld) { bitTownT = 2; const tx = P.x / 16, ty = P.y / 16, t = TOWNS.find(t => tx >= t.x0 && tx <= t.x1 && ty >= t.y0 && ty <= t.y1); if (t && !BIT().towns[t.k]) { BIT().towns[t.k] = 1; bitBadge = true; } } });
+let bitLM = null;
+
+// ---------- marcos para el retrato ----------
+const BIT_FR = { oro: [L2('Dorado', 'Golden'), '#ffd040'], bosque: [L2('Bosque', 'Forest'), '#5ad06a'], mar: [L2('Mar', 'Sea'), '#4ab0ff'], rosa: [L2('Rosa', 'Rose'), '#ff6ab0'], sangre: [L2('Sangre', 'Blood'), '#e0303a'], cielo: [L2('Cielo', 'Sky'), '#a8e8ff'], trueno: [L2('Trueno', 'Thunder'), '#b07aff'], estrella: [L2('Estrella', 'Star'), '#fff4a0'], arcoiris: [L2('Arcoíris', 'Rainbow'), 'linear'] };
+function bitFrameApply() { const f = $('#tl .pframe'); if (!f || !G.P) return; const k = (G.P.bit && G.P.bit.frame) || 'oro'; f.className = 'pframe' + (k !== 'oro' ? ' frb fr-' + k : ''); if (BIT_FR[k] && k !== 'arcoiris') f.style.setProperty('--frc', BIT_FR[k][1]); }
+
+// ---------- muebles de recompensa (se colocan con la Mesa de trabajo, no se fabrican) ----------
+const BIT_FURN = {
+  bit_trofeo: [L2('Trofeo del Matajefes', 'Bossbane trophy'), (g) => { g.fillStyle = '#5a3a1a'; g.fillRect(5, 22, 14, 6); g.fillStyle = '#7a5226'; g.fillRect(6, 22, 12, 2); g.fillStyle = '#c8901a'; g.fillRect(9, 17, 6, 5); g.fillRect(4, 3, 16, 3); g.fillStyle = '#ffd040'; g.fillRect(5, 4, 14, 9); g.fillRect(8, 13, 8, 4); g.fillStyle = '#fff4b0'; g.fillRect(7, 5, 2, 6); g.fillStyle = '#c8901a'; g.fillRect(1, 5, 3, 2); g.fillRect(20, 5, 3, 2); g.fillRect(1, 5, 1, 5); g.fillRect(22, 5, 1, 5); }, 24, 29],
+  bit_vitrina: [L2('Vitrina de cartas', 'Card showcase'), (g) => { g.fillStyle = '#4a2a14'; g.fillRect(1, 2, 30, 30); g.fillStyle = '#a8d8f0'; g.fillRect(3, 4, 26, 24); const cc = ['#e85a5a', '#5ab0e8', '#5ad06a', '#ffd040', '#c07aff', '#ff9a40']; for (let i = 0; i < 6; i++) { g.fillStyle = '#f4ecd8'; g.fillRect(5 + (i % 3) * 8, 6 + ((i / 3) | 0) * 11, 6, 9); g.fillStyle = cc[i]; g.fillRect(6 + (i % 3) * 8, 7 + ((i / 3) | 0) * 11, 4, 4); } g.fillStyle = 'rgba(255,255,255,.5)'; g.fillRect(4, 5, 1, 22); g.fillStyle = '#2a180a'; g.fillRect(1, 30, 30, 3); }, 32, 33],
+  bit_cuadro: [L2('Cuadro de recuerdos', 'Memory frame'), (g) => { g.fillStyle = '#8a5a1a'; g.fillRect(0, 0, 28, 22); g.fillStyle = '#ffd070'; g.fillRect(1, 1, 26, 1); g.fillStyle = '#7ac0f0'; g.fillRect(3, 3, 22, 16); g.fillStyle = '#5ab04a'; g.fillRect(3, 13, 22, 6); g.fillStyle = '#ffe0a0'; g.fillRect(8, 9, 3, 5); g.fillRect(16, 8, 3, 6); g.fillStyle = '#5a3020'; g.fillRect(8, 7, 3, 2); g.fillRect(16, 6, 3, 2); g.fillStyle = '#fff'; g.fillRect(21, 4, 2, 2); }, 28, 22],
+  bit_muneco: [L2('Muñeco de nieve eterno', 'Everlasting snowman'), (g) => { g.fillStyle = '#d8e8f8'; g.beginPath(); g.arc(10, 22, 8, 0, 7); g.fill(); g.beginPath(); g.arc(10, 11, 6, 0, 7); g.fill(); g.fillStyle = '#ffffff'; g.fillRect(6, 17, 4, 3); g.fillRect(7, 7, 3, 2); g.fillStyle = '#1a1a24'; g.fillRect(8, 9, 1, 1); g.fillRect(11, 9, 1, 1); g.fillRect(9, 20, 2, 2); g.fillRect(9, 24, 2, 2); g.fillStyle = '#ff8a20'; g.fillRect(10, 11, 4, 1); g.fillStyle = '#c8343a'; g.fillRect(4, 14, 12, 2); g.fillRect(13, 15, 2, 4); g.fillStyle = '#2a2a34'; g.fillRect(6, 3, 8, 3); g.fillRect(4, 5, 12, 1); }, 20, 30],
+  bit_lampara: [L2('Lámpara de estrellas', 'Star lamp'), (g) => { g.fillStyle = '#3a3a5a'; g.fillRect(6, 26, 8, 3); g.fillRect(9, 12, 2, 14); g.fillStyle = '#ffe680'; g.beginPath(); for (let k = 0; k < 10; k++) { const a = k * Math.PI / 5 - Math.PI / 2, r = k % 2 ? 3 : 7; g.lineTo(10 + Math.cos(a) * r, 7 + Math.sin(a) * r); } g.fill(); g.fillStyle = '#fffbe0'; g.fillRect(9, 5, 2, 2); }, 20, 29, [10, 7]],
+  bit_caseta: [L2('Caseta de la mascota', 'Pet house'), (g) => { g.fillStyle = '#c8343a'; g.beginPath(); g.moveTo(1, 12); g.lineTo(14, 2); g.lineTo(27, 12); g.fill(); g.fillStyle = '#c89a5a'; g.fillRect(4, 12, 20, 14); g.fillStyle = '#a87a3a'; for (let y = 15; y < 26; y += 3) g.fillRect(4, y, 20, 1); g.fillStyle = '#2a1a10'; g.beginPath(); g.arc(14, 21, 5, Math.PI, 0); g.fill(); g.fillRect(9, 21, 10, 5); g.fillStyle = '#ffd040'; g.fillRect(12, 13, 4, 2); }, 28, 27],
+  bit_letrero: [L2('Letrero del artesano', 'Artisan sign'), (g) => { g.fillStyle = '#5a3a1a'; g.fillRect(3, 6, 2, 22); g.fillRect(23, 6, 2, 22); g.fillStyle = '#c8a060'; g.fillRect(0, 2, 28, 14); g.fillStyle = '#e8c890'; g.fillRect(1, 3, 26, 1); g.fillStyle = '#5a3a1a'; g.fillRect(5, 7, 6, 1); g.fillRect(13, 7, 10, 1); g.fillRect(5, 10, 18, 1); g.fillStyle = '#c8343a'; g.fillRect(4, 12, 3, 2); }, 28, 28],
+  bit_felpudo: [L2('Felpudo de bienvenida', 'Welcome mat'), (g) => { g.fillStyle = '#8a5a2a'; g.fillRect(0, 0, 30, 14); g.fillStyle = '#b07a3a'; g.fillRect(2, 2, 26, 10); g.fillStyle = '#5a2a14'; for (let x = 5; x < 26; x += 4) g.fillRect(x, 5, 2, 4); g.fillStyle = '#ff6a8a'; g.fillRect(13, 4, 4, 1); g.fillRect(12, 5, 6, 2); g.fillRect(14, 7, 2, 1); }, 30, 12, null, true],
+  bit_estrella: [L2('Corona de logros', 'Achievement crown'), (g) => { g.fillStyle = '#4a2a5a'; g.fillRect(3, 20, 18, 8); g.fillStyle = '#6a3a7a'; g.fillRect(3, 20, 18, 2); g.fillStyle = '#ffd040'; g.fillRect(5, 10, 14, 8); g.fillRect(5, 5, 3, 5); g.fillRect(10, 3, 4, 7); g.fillRect(16, 5, 3, 5); g.fillStyle = '#e83a5a'; g.fillRect(11, 12, 2, 3); g.fillStyle = '#5ab0ff'; g.fillRect(7, 13, 2, 2); g.fillRect(15, 13, 2, 2); g.fillStyle = '#fff4b0'; g.fillRect(6, 11, 1, 5); }, 24, 28],
+};
+for (const k in BIT_FURN) { const [n, draw, w, h, light, flat] = BIT_FURN[k];
+  XSPR[k] = () => { const [c, g] = XC(w, h); draw(g); return { c, ax: w >> 1, ay: h - 1, light }; };
+  BK[k] = { n, f: k, fp: [[0, 0]], cost: [], gold: 0, tool: 'tala', tier: 1, cat: 'deco', L: 1, musOnly: 1, solid: flat ? false : undefined }; if (!BK_KEYS.includes(k)) BK_KEYS.push(k);
+  it('bk_' + k, { n, t: 'mat', bk: k, stack: true, tier: 1, price: 5, icon: ['bk', k], rar: 3 }); }
+
+// ---------- títulos nuevos (logros de la Bitácora) ----------
+const BIT_TIT = [['t_b_viajero', L2('Trotamundos', 'Globetrotter'), 'natural'], ['t_b_lluvia', L2('Pescador de la Lluvia', 'Rain Angler'), 'hielo'], ['t_b_abrazos', L2('Corazón Cálido', 'Warm Heart'), 'amor'], ['t_b_baile', L2('Rey de la Pista', 'Dancefloor King'), 'arcoiris'], ['t_b_torpe', L2('Duro de Matar', 'Hard to Kill'), 'sangre'], ['t_b_obrero', L2('Manos de Oro', 'Golden Hands'), 'oro'], ['t_b_tahur', L2('Tahúr de las Cartas', 'Card Shark'), 'sombra'], ['t_b_halcon', L2('Ojo de Halcón', 'Hawk Eye'), 'natural'], ['t_b_mascota', L2('Mejor Amigo', 'Best Friend'), 'amor'], ['t_b_chef', L2('Chef Estrella', 'Star Chef'), 'fuego'], ['t_b_jinete', L2('Jinete Veloz', 'Swift Rider'), 'hielo'], ['t_b_cronista', L2('Cronista del Reino', 'Realm Chronicler'), 'astral'], ['t_b_vecino', L2('Buen Vecino', 'Good Neighbour'), 'plata'], ['t_b_tormenta', L2('Domador de Tormentas', 'Storm Tamer'), 'astral']];
+// ---------- logros: [id, icono, nombre, descripción, contador o función, meta, recompensa] ----------
+const BIT_ACH = [
+  ['a_pasos', '👣', L2('Caminante', 'Wanderer'), L2('Camina 10.000 pasos.', 'Walk 10,000 steps.'), 'steps', 10000, { g: 5000, fr: 'bosque' }],
+  ['a_pueblos', '🏘', L2('Los seis pueblos', 'The six towns'), L2('Visita Albor, Puerto Coral, Arxar, Sahrim, Yarakai y Brasa.', 'Visit Albor, Coral Port, Arxar, Sahrim, Yarakai and Ember.'), P => Object.keys(BIT().towns).length, 6, { t: 't_b_viajero', g: 8000 }],
+  ['a_lluvia', '🌧', L2('Pesca bajo la lluvia', 'Fishing in the rain'), L2('Pesca 100 peces con lluvia o tormenta.', 'Catch 100 fish in rain or storm.'), 'fishRain', 100, { t: 't_b_lluvia' }],
+  ['a_peces', '🐟', L2('Mil peces', 'A thousand fish'), L2('Pesca 1.000 peces.', 'Catch 1,000 fish.'), 'fish', 1000, { fr: 'mar', g: 20000 }],
+  ['a_tormenta', '⚡', L2('Pez de la tormenta', 'Storm fish'), L2('Pesca 5 Peces Tormenta (solo salen con tormenta).', 'Catch 5 Storm Fish (only during storms).'), 'stormFish', 5, { t: 't_b_tormenta', fr: 'trueno' }],
+  ['a_abrazos', '🤗', L2('Corazón cálido', 'Warm heart'), L2('Da 10 abrazos.', 'Give 10 hugs.'), 'hug', 10, { t: 't_b_abrazos' }],
+  ['a_besos', '💋', L2('Romántico', 'Romantic'), L2('Da 25 besos.', 'Give 25 kisses.'), 'kiss', 25, { fr: 'rosa' }],
+  ['a_baile', '💃', L2('Rey de la pista', 'Dancefloor king'), L2('Baila 50 veces.', 'Dance 50 times.'), 'dance', 50, { t: 't_b_baile' }],
+  ['a_caidas', '💀', L2('Duro de matar', 'Hard to kill'), L2('Cae 25 veces… y levántate siempre.', 'Fall 25 times… and always get up.'), 'death', 25, { t: 't_b_torpe' }],
+  ['a_caza', '⚔', L2('Cazador incansable', 'Tireless hunter'), L2('Derrota 5.000 enemigos.', 'Defeat 5,000 enemies.'), 'kill', 5000, { fr: 'sangre', g: 15000 }],
+  ['a_jefes', '👑', L2('Matajefes', 'Bossbane'), L2('Derrota 50 jefes.', 'Defeat 50 bosses.'), 'boss', 50, { bk: 'bit_trofeo' }],
+  ['a_misiones', '📜', L2('Ayudante del reino', 'Realm helper'), L2('Completa 50 misiones.', 'Complete 50 quests.'), 'quest', 50, { g: 25000 }],
+  ['a_historia', '📖', L2('Leyenda escrita', 'Written legend'), L2('Completa 15 misiones de historia.', 'Complete 15 story quests.'), 'q_story', 15, { fr: 'estrella' }],
+  ['a_trabajo', '⚒', L2('Manos de oro', 'Golden hands'), L2('Completa 30 misiones de trabajo.', 'Complete 30 work quests.'), 'q_work', 30, { t: 't_b_obrero' }],
+  ['a_oficios', '🔨', L2('Mil oficios', 'A thousand trades'), L2('Haz 2.000 acciones de oficio (talar, minar, pescar, cosechar…).', 'Do 2,000 job actions (chop, mine, fish, harvest…).'), 'job', 2000, { g: 20000 }],
+  ['a_cadenas', '🔗', L2('Encargos en cadena', 'Chained commissions'), L2('Completa las 3 cadenas de encargos de oficio.', 'Complete all 3 job commission chains.'), P => ['pez', 'mueble', 'guiso'].filter(k => bitC('chain_' + k + '_end')).length, 3, { bk: 'bit_letrero' }],
+  ['a_cartas', '🃏', L2('Coleccionista de cartas', 'Card collector'), L2('Consigue 40 cartas distintas.', 'Collect 40 different cards.'), P => Object.keys(BIT().cards).length, 40, { bk: 'bit_vitrina' }],
+  ['a_duelos', '🎴', L2('Tahúr', 'Card shark'), L2('Gana 25 duelos de cartas.', 'Win 25 card duels.'), 'cardWin', 25, { t: 't_b_tahur' }],
+  ['a_escondite', '🙈', L2('Ojo de halcón', 'Hawk eye'), L2('Gana 10 partidas al escondite en Higashiyama.', 'Win 10 hide-and-seek games in Higashiyama.'), 'seekWin', 10, { t: 't_b_halcon' }],
+  ['a_fotos', '📷', L2('Fotógrafo', 'Photographer'), L2('Haz 20 fotos para el álbum.', 'Take 20 photos for the album.'), 'photo', 20, { bk: 'bit_cuadro' }],
+  ['a_munecos', '⛄', L2('Artista de la nieve', 'Snow artist'), L2('Haz 10 muñecos de nieve cuando nieve.', 'Build 10 snowmen while it snows.'), 'snowman', 10, { bk: 'bit_muneco' }],
+  ['a_estrellas', '🌠', L2('Cazaestrellas', 'Star catcher'), L2('Atrapa 50 estrellas fugaces de noche en Altavela.', 'Catch 50 shooting stars at night in Altavela.'), 'star', 50, { bk: 'bit_lampara' }],
+  ['a_mascota', '🐾', L2('Mejor amigo', 'Best friend'), L2('Tu mascota vuelve de explorar 20 veces.', 'Your pet comes back from exploring 20 times.'), 'petx', 20, { t: 't_b_mascota', bk: 'bit_caseta' }],
+  ['a_buzon', '✉', L2('Buen vecino', 'Good neighbour'), L2('Envía 15 notas o regalos a otros jugadores.', 'Send 15 notes or gifts to other players.'), 'mailOut', 15, { t: 't_b_vecino', fr: 'cielo' }],
+  ['a_visitas', '🏠', L2('Casa abierta', 'Open house'), L2('Recibe o haz 5 visitas a casas.', 'Host or make 5 house visits.'), 'visit', 5, { bk: 'bit_felpudo' }],
+  ['a_cocina', '🍳', L2('Chef estrella', 'Star chef'), L2('Gana 5 concursos de cocina.', 'Win 5 cooking contests.'), 'cookWin', 5, { t: 't_b_chef' }],
+  ['a_carrera', '🏇', L2('Jinete veloz', 'Swift rider'), L2('Gana 5 carreras de monturas.', 'Win 5 mount races.'), 'raceWin', 5, { t: 't_b_jinete' }],
+  ['a_equipo', '🎣', L2('Pesca en equipo', 'Team fishing'), L2('Gana 3 concursos de pesca por equipos.', 'Win 3 team fishing contests.'), 'teamWin', 3, { g: 15000 }],
+  ['a_ordenado', '🧹', L2('Bolsa ordenada', 'Tidy bag'), L2('Vende 100 objetos con «Vender basura».', 'Sell 100 items with «Sell junk».'), 'junk', 100, { g: 5000 }],
+  ['a_cronista', '🏆', L2('Cronista del reino', 'Realm chronicler'), L2('Consigue 20 logros de la Bitácora.', 'Earn 20 Logbook achievements.'), P => Object.keys(BIT().got).length, 20, { t: 't_b_cronista', fr: 'arcoiris', bk: 'bit_estrella' }],
+];
+for (const [id, n, st] of BIT_TIT) { const a = BIT_ACH.find(x => x[6].t === id); if (!TITLES.some(t => t[0] === id)) TITLES.push([id, n, st, P => !!(P.bit && P.bit.got && a && P.bit.got[a[0]]), L2('Logro de la Bitácora: ', 'Logbook achievement: ') + (a ? a[2] : '')]); TIT_ID[id] = TITLES.find(t => t[0] === id); }
+function bitProg(a) { let v = 0; try { v = typeof a[4] === 'function' ? a[4](G.P) : bitC(a[4]); } catch (e) { } return [Math.floor(v), a[5]]; }
+function bitReady() { const b = BIT(); return BIT_ACH.filter(a => !b.got[a[0]] && bitProg(a)[0] >= a[5]); }
+function bitRewTxt(r) { const out = []; if (r.g) out.push('🪙 ' + fmt(r.g)); if (r.t) out.push('🏷 ' + ((TIT_ID[r.t] || [])[1] || '')); if (r.fr) out.push('🖼 ' + L2('Marco ', 'Frame ') + BIT_FR[r.fr][0]); if (r.bk) out.push('🪑 ' + BK[r.bk].n); return out.join(' · '); }
+function bitClaim(id) { const a = BIT_ACH.find(x => x[0] === id), b = BIT(), P = G.P; if (!a || b.got[id] || bitProg(a)[0] < a[5]) return; b.got[id] = Date.now(); const r = a[6];
+  if (r.g) P.gold += r.g; if (r.fr && !b.fr.includes(r.fr)) b.fr.push(r.fr); if (r.bk) giveItem('bk_' + r.bk, 1);
+  banner('🏆 ' + a[2], bitRewTxt(r)); sfx('level'); burst(P.x, P.y - 14, 26, { sp: 70, up: 60, g: 60, life: 0.9, c: ['#ffe080', '#ffffff', '#ff9ad0'] }); markDirty(true); }
+
+// ---------- botones del HUD: Bitácora y última ventana ----------
+function bitHudInit() { const H = $('#hud'); if (!H || $('#bBit')) return;
+  const b = document.createElement('button'); b.id = 'bBit'; b.className = 'bitbtn'; b.title = L2('Bitácora', 'Logbook'); b.setAttribute('aria-label', L2('Bitácora', 'Logbook')); b.innerHTML = `${iconHTML(['book'], 22)}<span>${L2('Bitácora', 'Logbook')}</span><i class="bdot" hidden></i>`; b.onclick = () => openBitacora(); H.appendChild(b);
+  const l = document.createElement('button'); l.id = 'bLast'; l.className = 'bitbtn sm'; l.title = L2('Última ventana', 'Last window'); l.setAttribute('aria-label', L2('Última ventana', 'Last window')); l.hidden = true; l.onclick = () => lastWinOpen(); H.appendChild(l); }
+let bitHudT = 0;
+V33_TICKS.push(dt => { bitHudT -= dt || 0; if (bitHudT > 0) return; bitHudT = 0.8; const P = G.P; if (!P) return; bitHudInit(); bitFrameApply();
+  const d = $('#bBit .bdot'); if (d && bitBadge) { bitBadge = false; const b = BIT(), n = bitReady().length + b.mail.filter(m => !m.r).length + (b.px && Date.now() >= b.px.end ? 1 : 0); d.hidden = !n; d.textContent = n > 9 ? '9+' : n || ''; }
+  const l = $('#bLast'); if (l) { const w = SETTINGS.lastW; l.hidden = !w; if (w && l.dataset.w !== w) { l.dataset.w = w; l.innerHTML = '↩ ' + (LASTW_IC[w.split(':')[1]] || '📖'); } } });
+setInterval(() => { bitBadge = true; }, 5000);
+// última ventana
+const LASTW_IC = { char: '🧍', inv: '🎒', skills: '⭐', jobs: '⚒', quest: '📜', map: '🗺', wardrobe: '👗', best: '🐾', rel: '❤', hoy: '📖', logros: '🏆', cartas: '🃏', album: '📷', mascota: '🐾', buzon: '✉', marcos: '🖼' };
+{ const _op = openPanel; openPanel = function (tab) { const r = _op.apply(this, arguments); try { if (!$('#panel').hidden) { SETTINGS.lastW = 'p:' + panelTab; saveSettings(); } } catch (e) { } return r; }; }
+function lastWinOpen() { const w = SETTINGS.lastW || ''; const [k, t] = w.split(':'); if (k === 'p') openPanel(t); else if (k === 'b') openBitacora(t); }
+
+// ---------- ventana de la Bitácora ----------
+let bitTab = 'hoy';
+const BIT_TABS = [['hoy', '📌', L2('Hoy', 'Today')], ['logros', '🏆', L2('Logros', 'Achievements')], ['cartas', '🃏', L2('Cartas', 'Cards')], ['album', '📷', L2('Álbum', 'Album')], ['mascota', '🐾', L2('Mascota', 'Pet')], ['buzon', '✉', L2('Buzón', 'Mailbox')], ['marcos', '🖼', L2('Marcos', 'Frames')]];
+function openBitacora(tab) { const P = G.P; if (!P || P.dead) return; if (tab) bitTab = tab; if (!BIT_TABS.some(t => t[0] === bitTab)) bitTab = 'hoy'; SETTINGS.lastW = 'b:' + bitTab; saveSettings(); bitBadge = true;
+  const b = BIT(), nR = bitReady().length, nM = b.mail.filter(m => !m.r).length;
+  const tabs = `<div class="btabs">${BIT_TABS.map(([k, ic, n]) => `<button class="btab ${bitTab === k ? 'on' : ''}" data-bt="${k}">${ic} <span>${n}</span>${k === 'logros' && nR ? `<i class="bdot">${nR}</i>` : k === 'buzon' && nM ? `<i class="bdot">${nM}</i>` : k === 'mascota' && b.px && Date.now() >= b.px.end ? '<i class="bdot">!</i>' : ''}</button>`).join('')}</div>`;
+  let body = ''; try { body = (BIT_RENDER[bitTab] || BIT_RENDER.hoy)(); } catch (e) { console.warn(e); body = `<p class="hint">${esc(String(e.message || e))}</p>`; }
+  openModal(`<h2>📖 ${L2('Bitácora del aventurero', 'Adventurer’s logbook')}</h2>${tabs}<div class="bbody">${body}</div><div class="row"><button class="btn" id="mclose">${L2('Cerrar', 'Close')}</button></div>`, 'party bitm');
+  $('#mclose').onclick = closeModal; $$('#modal [data-bt]').forEach(x => x.onclick = () => openBitacora(x.dataset.bt));
+  try { (BIT_WIRE[bitTab] || (() => { }))(); } catch (e) { console.warn(e); } }
+const BIT_RENDER = {}, BIT_WIRE = {};
+// --- Hoy: lo más importante ---
+function bitStrip(h) { return String(h || '').replace(/<[^>]+>/g, ''); }
+BIT_RENDER.hoy = () => { const P = G.P, b = BIT(), out = [];
+  const act = Object.keys(P.quests.active).filter(id => QD(id)), main = act.find(id => QD(id).main), ready = act.filter(questReady);
+  if (main) out.push(`<div class="bcard story"><b>📜 ${L2('Historia', 'Story')}: ${esc(QD(main).n)}</b><small>${esc(bitStrip(questGuide(main)[0]))}</small><button class="btn sm gold" data-bgo="q:${main}">${L2('Seguir', 'Follow')}</button></div>`);
+  else { const nx = Object.keys(QUESTS).find(id => QUESTS[id].main && canOffer(id)), lk = !nx && Object.keys(QUESTS).find(id => QUESTS[id].main && !P.quests.done[id] && !P.quests.active[id]);
+    if (nx) out.push(`<div class="bcard story"><b>📜 ${L2('Siguiente de la historia', 'Next in the story')}: ${esc(QUESTS[nx].n)}</b><small>${L2('Habla con ', 'Talk to ')}${esc((NPCS[QUESTS[nx].giver] || { n: '' }).n)}${esc(npcPlace(QUESTS[nx].giver) || '')}.</small><button class="btn sm gold" data-bgo="g:${nx}">➜ ${L2('Ir', 'Go')}</button></div>`);
+    else if (lk) out.push(`<div class="bcard story"><b>📜 ${L2('Siguiente de la historia', 'Next in the story')}: ${esc(QUESTS[lk].n)}</b><small>${L2('Se abre al nivel ', 'Unlocks at level ')}${QUESTS[lk].lv}.</small></div>`); }
+  if (ready.length) out.push(`<div class="bcard ready"><b>✨ ${L2('Listas para entregar', 'Ready to turn in')} (${ready.length})</b>${ready.slice(0, 4).map(id => `<div class="brow"><span>${esc(QD(id).n)} → ${esc((NPCS[turnInNpc(QD(id))] || { n: '' }).n)}</span><button class="btn sm gold" data-bgo="t:${id}">➜ ${L2('Ir', 'Go')}</button></div>`).join('')}</div>`);
+  try { if (typeof dq === 'function' && typeof DQ_T !== 'undefined' && P.lv >= 50) { const Q = dq(), all = DQ_T.every(([k, n]) => (Q[k] || 0) >= n); out.push(`<div class="bcard"><b>📅 ${L2('Misión diaria del Sistema', 'System daily quest')}: ${Q.done ? '✓ ' + L2('hecha', 'done') : all ? L2('¡lista para cobrar!', 'ready to claim!') : L2('pendiente', 'pending')}</b>${!Q.done ? `<button class="btn sm" data-bgo="dq">${L2('Abrir', 'Open')}</button>` : ''}</div>`); } } catch (e) { }
+  const rd = bitReady(); const near = BIT_ACH.filter(a => !b.got[a[0]]).map(a => [a, bitProg(a)]).filter(([a, p]) => p[0] < p[1] && p[0] > 0).sort((x, y) => y[1][0] / y[1][1] - x[1][0] / x[1][1]).slice(0, 3);
+  out.push(`<div class="bcard"><b>🏆 ${L2('Logros', 'Achievements')}: ${Object.keys(b.got).length}/${BIT_ACH.length}${rd.length ? ` · <span class="good">${rd.length} ${L2('para reclamar', 'to claim')}</span>` : ''}</b>${near.map(([a, p]) => `<div class="bprog"><span>${a[1]} ${esc(a[2])} <small>${fmt(p[0])}/${fmt(p[1])}</small></span><div class="bar xp"><i style="width:${(100 * p[0] / p[1]).toFixed(0)}%"></i></div></div>`).join('')}<button class="btn sm" data-bt2="logros">${L2('Ver logros', 'See achievements')}</button></div>`);
+  if (b.px) { const left = b.px.end - Date.now(); out.push(`<div class="bcard"><b>🐾 ${esc((PETS[b.px.k] || { n: '' }).n)} ${left > 0 ? L2('está explorando', 'is exploring') + ' · ' + fmtTime(left / 1000) : L2('¡ha vuelto con cosas!', 'is back with goodies!')}</b><button class="btn sm ${left > 0 ? '' : 'gold'}" data-bt2="mascota">${L2('Ver', 'See')}</button></div>`); }
+  try { const S = typeof homeShopState === 'function' ? homeShopState() : null; if (S && (S.s.length || S.g)) { shopTick(); out.push(`<div class="bcard"><b>🛒 ${L2('Tu tienda', 'Your shop')}: ${fmt(S.g)} ${L2('oro en la caja', 'gold in the till')} · ${S.s.length} ${L2('a la venta', 'on sale')}</b><small>${L2('Cóbralo en el mostrador de tu casa.', 'Collect it at your home counter.')}</small></div>`); } } catch (e) { }
+  const nM = b.mail.filter(m => !m.r).length; if (nM) out.push(`<div class="bcard"><b>✉ ${nM} ${L2('mensajes nuevos en el buzón', 'new messages in the mailbox')}</b><button class="btn sm gold" data-bt2="buzon">${L2('Leer', 'Read')}</button></div>`);
+  const wx = bitWxNow(); if (wx) out.push(`<div class="bcard wx"><b>${wx}</b></div>`);
+  let bj = null; for (const k in P.jobs) { const J = P.jobs[k]; if (!JOBS[k] || J.lv >= JOBMAX) continue; const pc = J.xp / jobXpToNext(J.lv); if (!bj || pc > bj[1]) bj = [k, pc, J.lv]; }
+  if (bj && bj[1] > 0.5) out.push(`<div class="bcard"><b>⚒ ${esc(JOBS[bj[0]].n)}: ${Math.round(bj[1] * 100)} % ${L2('para el nivel', 'to level')} ${bj[2] + 1}</b></div>`);
+  out.push(`<div class="bcard"><b>🎲 ${L2('Para divertirte', 'For fun')}</b><small>${L2('Salón de juegos en cada pueblo (cartas, cocina, carrera de monturas y pesca por equipos), escondite en Higashiyama (Japón), encargos en cadena de Tomás, Greta y Nora, fotos en grupo y tu mascota exploradora.', 'Game hall in every town (cards, cooking, mount race and team fishing), hide-and-seek in Higashiyama (Japan), chained commissions from Tomás, Greta and Nora, group photos and your exploring pet.')}</small><button class="btn sm" data-bgo="hall">${L2('Ir al Salón más cercano', 'Go to the nearest hall')}</button></div>`);
+  return out.join(''); };
+BIT_WIRE.hoy = () => { $$('#modal [data-bt2]').forEach(x => x.onclick = () => openBitacora(x.dataset.bt2));
+  $$('#modal [data-bgo]').forEach(x => x.onclick = () => { const v = x.dataset.bgo, P = G.P;
+    if (v === 'dq') { closeModal(); dqMenu(); return; }
+    if (v === 'hall') { const l = typeof hallNearest === 'function' ? hallNearest() : null; if (l) { setWp({ loc: l, t: L2('Salón de juegos', 'Game hall'), m: 'world' }); closeModal(); } return; }
+    const id = v.slice(2); if (v[0] === 'q') { P.track = id; uiDirty.quest = true; closeModal(); toast(L2('Siguiendo: ', 'Tracking: ') + QD(id).n, 'info'); }
+    else if (v[0] === 'g') { if (qGoNpc(QUESTS[id].giver, QUESTS[id].n)) closeModal(); }
+    else if (v[0] === 't') { P.track = id; uiDirty.quest = true; if (qGoNpc(turnInNpc(QD(id)), L2('Entregar: ', 'Turn in: ') + QD(id).n)) closeModal(); } }); };
+function bitWxNow() { const P = G.P, M = G.map; if (!M) return ''; const w = curWx(), h = ((G.time || 0) / 60) % 24;
+  if (M.sky && (h >= 21 || h < 4)) return '🌠 ' + L2('Noche en Altavela: caen estrellas fugaces. Acércate a los destellos para atraparlas.', 'Night in Altavela: shooting stars are falling. Walk to the sparkles to catch them.');
+  if (w === 'storm') return '⚡ ' + L2('Tormenta: al pescar puede picar el raro Pez Tormenta.', 'Storm: the rare Storm Fish may bite while fishing.');
+  if (w === 'snow') return '⛄ ' + L2('Nieva: busca montones de nieve brillantes y haz muñecos.', 'Snowing: look for sparkling snow piles and build snowmen.');
+  if (w === 'rain') return '🌧 ' + L2('Llueve: los peces pescados ahora cuentan para «Pesca bajo la lluvia».', 'Raining: fish caught now count for «Fishing in the rain».');
+  return ''; }
+// --- Logros ---
+BIT_RENDER.logros = () => { const b = BIT(); const rows = BIT_ACH.map(a => { const [v, g] = bitProg(a), got = b.got[a[0]], ok = !got && v >= g; return `<div class="bach ${got ? 'got' : ok ? 'ok' : ''}"><span class="bic">${a[1]}</span><div class="bt"><b>${esc(a[2])}</b><small>${esc(a[3])}</small><div class="bar xp"><i style="width:${Math.min(100, 100 * v / g).toFixed(0)}%"></i></div><small class="brw">${fmt(Math.min(v, g))}/${fmt(g)} · ${bitRewTxt(a[6])}</small></div>${got ? '<span class="good">✓</span>' : ok ? `<button class="btn sm gold" data-bcl="${a[0]}">${L2('Reclamar', 'Claim')}</button>` : ''}</div>`; });
+  return `<p class="hint">${L2('Logros curiosos: dan títulos (Vestuario › Títulos, se ven online), marcos para tu retrato y muebles para tu casa (se colocan con la Mesa de trabajo).', 'Fun achievements: they give titles (Wardrobe › Titles, visible online), portrait frames and furniture for your house (place it with the Workbench).')}</p><div class="blist">${rows.join('')}</div>`; };
+BIT_WIRE.logros = () => $$('#modal [data-bcl]').forEach(x => x.onclick = () => { bitClaim(x.dataset.bcl); openBitacora('logros'); });
+// --- Marcos ---
+BIT_RENDER.marcos = () => { const b = BIT(), cur = b.frame || 'oro'; return `<p class="hint">${L2('El marco de tu retrato (arriba a la izquierda). Se ganan con logros.', 'Your portrait frame (top left). Earned with achievements.')}</p><div class="bfr">${Object.keys(BIT_FR).map(k => { const own = b.fr.includes(k), a = BIT_ACH.find(x => x[6].fr === k); return `<button class="bfrb fr-${k} ${cur === k ? 'on' : ''}" data-bfr="${k}" ${own ? '' : 'disabled'} style="--frc:${BIT_FR[k][1]}"><i></i><b>${esc(BIT_FR[k][0])}</b><small>${own ? (cur === k ? L2('Puesto', 'Equipped') : L2('Poner', 'Equip')) : '🔒 ' + esc(a ? a[2] : '')}</small></button>`; }).join('')}</div>`; };
+BIT_WIRE.marcos = () => $$('#modal [data-bfr]').forEach(x => x.onclick = () => { BIT().frame = x.dataset.bfr; bitFrameApply(); sfx('equip'); markDirty(); openBitacora('marcos'); });
+
+// ---------- mascota exploradora ----------
+const PETX_DUR = [[10, L2('Paseo corto', 'Short walk')], [30, L2('Excursión', 'Outing')], [60, L2('Gran aventura', 'Big adventure')]];
+const PETX_NOTE = [
+  L2('{p} volvió con barro hasta las orejas y muy orgulloso de sí mismo.', '{p} came back muddy up to the ears and very proud of itself.'),
+  L2('{p} persiguió una mariposa durante una hora. La mariposa ganó.', '{p} chased a butterfly for an hour. The butterfly won.'),
+  L2('{p} se hizo amigo de una cabra en las colinas. Dice que es muy sabia.', '{p} befriended a goat in the hills. Says it is very wise.'),
+  L2('{p} encontró un charco enorme y decidió que era el mar.', '{p} found a huge puddle and decided it was the sea.'),
+  L2('{p} robó una salchicha de la posada. No preguntes.', '{p} stole a sausage from the inn. Don’t ask.'),
+  L2('{p} durmió la siesta bajo un árbol y soñó contigo.', '{p} napped under a tree and dreamt of you.'),
+  L2('{p} vio un slime y salió corriendo… luego volvió a por él.', '{p} saw a slime and ran away… then came back for it.'),
+  L2('{p} trae una flor en la boca. Es para ti.', '{p} brings a flower in its mouth. It is for you.'),
+  L2('{p} se perdió, pero un guardia de Arxar lo trajo de vuelta.', '{p} got lost, but an Arxar guard brought it back.'),
+  L2('{p} desenterró algo brillante cerca de un río.', '{p} dug up something shiny near a river.')];
+BIT_RENDER.mascota = () => { const P = G.P, b = BIT(), own = (P.pets || []).filter(k => PETS[k]);
+  if (!own.length) return `<p class="hint">${L2('No tienes mascotas. Las venden en las tiendas de mascotas de los pueblos (y Corvel en el Velo Roto).', 'You have no pets. Pet shops in towns sell them (and Corvel in the Broken Veil).')}</p>`;
+  if (b.px) { const left = b.px.end - Date.now(), pn = (PETS[b.px.k] || { n: '?' }).n;
+    if (left > 0) return `<div class="bcard"><b>🐾 ${esc(pn)} ${L2('está explorando', 'is exploring')}</b><small>${L2('Vuelve en', 'Back in')} ${fmtTime(left / 1000)}. ${L2('Sigue contando aunque cierres el juego.', 'It keeps counting even if you close the game.')}</small><div class="bar xp"><i style="width:${(100 * (1 - left / (b.px.dur * 60000))).toFixed(0)}%"></i></div></div>`;
+    return `<div class="bcard ready"><b>🐾 ¡${esc(pn)} ${L2('ha vuelto!', 'is back!')}</b><small>${L2('Trae algo en la mochila…', 'It brings something in its little bag…')}</small><button class="btn gold" id="pxGet">${L2('Recibir', 'Receive')}</button></div>`; }
+  return `<p class="hint">${L2('Manda a una de tus mascotas a explorar. Vuelve con materiales, oro, a veces una carta o un mueble… y una nota de lo que hizo. Si mandas a la que te acompaña, se va hasta que vuelva.', 'Send one of your pets exploring. It comes back with materials, gold, sometimes a card or furniture… and a note about what it did. If you send the one with you, it leaves until it comes back.')}</p>
+   <div class="slist">${own.map(k => `<div class="srow">${iconHTML(['paw'], 24)}<div class="sn"><b>${esc(PETS[k].n)}</b><small>${P.pet === k ? L2('Te acompaña', 'With you') : ''}</small></div>${PETX_DUR.map(([m, n]) => `<button class="btn sm" data-px="${k}|${m}">${esc(n)} · ${m} min</button>`).join('')}</div>`).join('')}</div>`; };
+BIT_WIRE.mascota = () => { const P = G.P, b = BIT();
+  $$('#modal [data-px]').forEach(x => x.onclick = () => { const [k, m] = x.dataset.px.split('|'); b.px = { k, dur: +m, end: Date.now() + m * 60000, act: P.pet === k ? 1 : 0 }; if (P.pet === k && typeof setPet === 'function') setPet(null); toast('🐾 ' + PETS[k].n + L2(' se va a explorar.', ' goes exploring.'), 'info'); sfx('ui'); markDirty(true); openBitacora('mascota'); });
+  const g = $('#pxGet'); if (g) g.onclick = () => { const px = b.px; if (!px || Date.now() < px.end) return; const pn = (PETS[px.k] || { n: '?' }).n, f = px.dur / 10, tier = clamp(Math.ceil(P.lv / 50), 1, 7), got = [];
+    const give = (id, n) => { if (ITEMS[id] && n > 0) { giveItem(id, n, true); got.push(ITEMS[id].n + ' ×' + n); } };
+    for (const base of ['log', 'ore', 'herb']) if (Math.random() < 0.7) give(base + tier, Math.round((2 + Math.random() * 3) * f));
+    const gold = Math.round((60 + P.lv * 12) * f * (0.8 + Math.random() * 0.5)); P.gold += gold; got.push(fmt(gold) + ' ' + L2('oro', 'gold'));
+    if (Math.random() < 0.2 * f && typeof cardGiveRandom === 'function') { const c = cardGiveRandom(); if (c) got.push('🃏 ' + c); }
+    if (Math.random() < 0.06 * f) { const fk = pick2(['plant', 'flowers', 'lamp', 'rug', 'painting']); give('bk_' + fk, 1); }
+    const note = pick2(PETX_NOTE).replace('{p}', pn); b.px = null; bitAdd('petx'); if (px.act && !P.pet && typeof setPet === 'function') setPet(px.k);
+    openModal(`<h2>🐾 ${esc(pn)}</h2><p class="rum">«${esc(note)}»</p><h4>${L2('Ha traído', 'It brought')}</h4><p>${got.map(esc).join('<br>')}</p><div class="row"><button class="btn gold" id="mclose">${L2('¡Buen chico!', 'Good pet!')}</button></div>`, 'party'); $('#mclose').onclick = () => openBitacora('mascota'); sfx('coin'); markDirty(true); }; };
+
+// ---------- álbum de fotos (fotos en grupo) ----------
+const ALB_MAX = 24;
+function albKey() { return 'thebound.alb.' + ((G.P && G.P.name) || 'x'); }
+function albLoad() { try { const a = JSON.parse(storage.get(albKey()) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+function albSave(a) { try { storage.set(albKey(), JSON.stringify(a.slice(-ALB_MAX))); return true; } catch (e) { toast(L2('No queda espacio para más fotos: borra alguna.', 'No room for more photos: delete some.'), 'warn'); return false; } }
+const PHOTO_FR = [['clasico', L2('Clásico', 'Classic'), '#f4ecd8'], ['oro', L2('Dorado', 'Golden'), '#ffd040'], ['rosa', L2('Corazones', 'Hearts'), '#ff7ab0'], ['noche', L2('Noche', 'Night'), '#2a2a4a'], ['polaroid', 'Polaroid', '#ffffff']];
+const PHOTO = { on: false, fr: 0, pose: null };
+let albSel = -1;
+BIT_RENDER.album = () => { const a = albLoad();
+  return `<p class="hint">${L2('Haz fotos con tus amigos: elige pose y marco, y los jugadores que salgan reciben un aviso. Se guardan en este teléfono (máximo ', 'Take photos with your friends: pick a pose and a frame, and players in the shot get a notice. They are stored on this phone (max ')}${ALB_MAX}).</p><div class="row"><button class="btn gold" id="phStart">📷 ${L2('Hacer una foto', 'Take a photo')}</button></div>
+   ${albSel >= 0 && a[albSel] ? `<div class="bphoto big"><img src="${a[albSel].d}" alt=""><small>${esc(a[albSel].t || '')}</small><div class="row"><button class="btn sm" id="phBack">${L2('Volver', 'Back')}</button><button class="btn sm danger" id="phDel">${L2('Borrar', 'Delete')}</button></div></div>` : `<div class="bgrid">${a.map((p, i) => `<button class="bphoto" data-ph="${i}"><img src="${p.d}" alt=""><small>${esc((p.t || '').slice(0, 40))}</small></button>`).reverse().join('') || `<p class="hint">${L2('Aún no hay fotos.', 'No photos yet.')}</p>`}</div>`}`; };
+BIT_WIRE.album = () => { const s = $('#phStart'); if (s) s.onclick = () => { closeModal(); photoMode(true); };
+  $$('#modal [data-ph]').forEach(x => x.onclick = () => { albSel = +x.dataset.ph; openBitacora('album'); });
+  const bk = $('#phBack'); if (bk) bk.onclick = () => { albSel = -1; openBitacora('album'); };
+  const dl = $('#phDel'); if (dl) dl.onclick = () => { const a = albLoad(); a.splice(albSel, 1); albSave(a); albSel = -1; openBitacora('album'); }; };
+function photoMode(on) { PHOTO.on = on; let d = $('#photoBar'); if (!on) { if (d) d.remove(); document.body.classList.remove('photo'); return; }
+  const P = G.P, dances = (P.dances || ['clasico']).filter(k => DANCES[k]).slice(0, 8);
+  if (!d) { d = document.createElement('div'); d.id = 'photoBar'; document.body.appendChild(d); } document.body.classList.add('photo');
+  d.innerHTML = `<div class="phr"><b>📷 ${L2('Pose', 'Pose')}</b>${[['wave', '👋'], ['cheer', '🙌'], ['sit', '🪑']].map(([k, i]) => `<button class="btn sm" data-pp="e:${k}">${i}</button>`).join('')}${dances.map(k => `<button class="btn sm" data-pp="d:${k}">💃 ${esc(DANCES[k].n)}</button>`).join('')}</div>
+   <div class="phr"><b>🖼 ${L2('Marco', 'Frame')}</b>${PHOTO_FR.map((f, i) => `<button class="btn sm ${PHOTO.fr === i ? 'gold' : ''}" data-pf="${i}">${esc(f[1])}</button>`).join('')}</div>
+   <div class="phr"><button class="btn gold big" id="phShot">📸 ${L2('¡Foto!', 'Snap!')}</button><button class="btn" id="phX">✕</button></div>`;
+  $$('#photoBar [data-pp]').forEach(b => b.onclick = () => { const [k, v] = b.dataset.pp.split(':'); if (k === 'd') doDance(v); else doEmote(v); });
+  $$('#photoBar [data-pf]').forEach(b => b.onclick = () => { PHOTO.fr = +b.dataset.pf; photoMode(true); });
+  $('#phX').onclick = () => photoMode(false); $('#phShot').onclick = () => photoShot(); }
+function photoShot() { const P = G.P, cv = $('#game'); if (!cv) return; const fr = PHOTO_FR[PHOTO.fr] || PHOTO_FR[0];
+  const cw = cv.width, ch = cv.height, sw = Math.round(cw * 0.56), sh = Math.round(ch * 0.62), sx = Math.round((cw - sw) / 2), sy = Math.round((ch - sh) / 2 - ch * 0.04), W = 240, H = Math.round(240 * sh / sw), pad = fr[0] === 'polaroid' ? 10 : 6, bot = fr[0] === 'polaroid' ? 26 : pad;
+  const [c, g] = XC(W + pad * 2, H + pad + bot); g.fillStyle = fr[2]; g.fillRect(0, 0, c.width, c.height); g.imageSmoothingEnabled = false; try { g.drawImage(cv, sx, sy, sw, sh, pad, pad, W, H); } catch (e) { toast(L2('No se pudo hacer la foto.', 'Could not take the photo.'), 'warn'); return; }
+  if (fr[0] === 'rosa') { g.fillStyle = '#ff4a8a'; for (let k = 0; k < 14; k++) { const x = (k * 37) % c.width, y = k % 2 ? 1 : c.height - 5; g.fillRect(x, y, 2, 2); g.fillRect(x + 3, y, 2, 2); g.fillRect(x, y + 1, 5, 2); g.fillRect(x + 1, y + 3, 3, 1); } }
+  if (fr[0] === 'oro') { g.strokeStyle = '#a8701a'; g.lineWidth = 2; g.strokeRect(2, 2, c.width - 4, c.height - 4); }
+  if (fr[0] === 'noche') { g.fillStyle = '#fff4b0'; for (let k = 0; k < 24; k++) g.fillRect((k * 53) % c.width, (k * 29) % 5 + (k % 3 ? 0 : c.height - 5), 1, 1); }
+  const ppl = [...G.remote.values()].filter(r => r.map === P.map && Math.hypot(r.x - P.x, r.y - P.y) < 170); const zone = ($('#zone') && $('#zone').textContent) || '';
+  const txt = (zone ? zone + ' · ' : '') + (ppl.length ? L2('Con ', 'With ') + ppl.map(r => r.name).join(', ') : P.name);
+  if (fr[0] === 'polaroid') { g.fillStyle = '#3a3a44'; g.font = '10px sans-serif'; g.fillText(txt.slice(0, 40), pad, c.height - 9); }
+  let d; try { d = c.toDataURL('image/jpeg', 0.72); } catch (e) { return; }
+  const a = albLoad(); a.push({ d, t: txt, ts: Date.now() }); if (!albSave(a)) return; bitAdd('photo');
+  for (const r of ppl) mailSend(r, { k: 'photo', txt: P.name + L2(' te ha hecho una foto.', ' took a photo of you.') });
+  const fl = document.createElement('div'); fl.className = 'phflash'; document.body.appendChild(fl); setTimeout(() => fl.remove(), 400); sfx('coin'); toast('📷 ' + L2('¡Foto guardada en el álbum de la Bitácora!', 'Photo saved to the Logbook album!'), 'info'); }
+
+// ---------- buzón: notas, regalos y visitas (por la presencia, como el PvP) ----------
+const MAILQ = { out: [], seq: 0, sid: Math.random().toString(36).slice(2, 7), pend: new Map() }, MAIL_SEEN = new Set();
+function mailSend(r, m) { if (!r || !r.id || !netOnline()) return false; m.to = r.id; m.s = ++MAILQ.seq; m.sid = MAILQ.sid; m.n = (G.P.name || '').slice(0, 16); m.ts = G.t; MAILQ.out.push(m); while (MAILQ.out.length > 6) MAILQ.out.shift(); netPresence(true); return m; }
+function mailOnline() { return [...G.remote.values()].filter(r => r.id && r.name); }
+{ const _sp = socialPresence; socialPresence = function (o) { _sp.apply(this, arguments); MAILQ.out = MAILQ.out.filter(m => G.t - m.ts < 25); if (MAILQ.out.length) o.bx = MAILQ.out; if (VISIT.host) o.vh = 1; }; }
+{ const _sr = socialRecv; socialRecv = function (r, pr) { _sr.apply(this, arguments); if (!Array.isArray(pr.bx)) return; for (const m of pr.bx) { if (!m || m.to !== NET.myId || typeof m.s !== 'number') continue; const key = (m.sid || '') + ':' + m.s; if (MAIL_SEEN.has(key)) continue; MAIL_SEEN.add(key); try { mailRecv(r, m); } catch (e) { console.warn(e); } } }; }
+function mailRecv(r, m) { const P = G.P; if (!P) return; const b = BIT(), from = cleanStr(m.n || r.name, 16) || r.name, add = (o) => { b.mail.unshift(Object.assign({ f: from, t: Date.now() }, o)); if (b.mail.length > 40) b.mail.length = 40; bitBadge = true; markDirty(); };
+  if (m.k === 'note') { add({ k: 'note', txt: cleanStr(m.txt, 140) }); toast('✉ ' + from + ': ' + cleanStr(m.txt, 60), 'info', 4); }
+  else if (m.k === 'gift') { const id = String(m.it || ''), q = clamp(m.q | 0, 1, 999); if (!ITEMS[id] || ITEMS[id].t === 'quest') return; giveItem(id, q, true); add({ k: 'gift', it: id, q, txt: cleanStr(m.txt || '', 80) }); toast('🎁 ' + from + L2(' te regala ', ' gives you ') + ITEMS[id].n + ' ×' + q, 'loot', 4); mailSend(r, { k: 'ack', a: m.s, as: m.sid }); }
+  else if (m.k === 'ack') { for (const [k, g] of MAILQ.pend) if (g.s === m.a && m.as === MAILQ.sid) MAILQ.pend.delete(k); }
+  else if (m.k === 'photo') { add({ k: 'note', txt: cleanStr(m.txt, 100) }); toast('📷 ' + cleanStr(m.txt, 60), 'info'); }
+  else if (m.k === 'visreq') { add({ k: 'visreq', rid: r.id }); toast('🏠 ' + from + L2(' quiere visitar tu casa (mira el buzón de la Bitácora).', ' wants to visit your house (see the Logbook mailbox).'), 'info', 5); }
+  else if (m.k === 'visno') { add({ k: 'note', txt: L2('Ahora no puede recibir visitas.', 'Can’t host visits right now.') }); }
+  else if (m.k === 'home' && m.cfg && typeof m.cfg === 'object') { VISIT.offer = { name: from, cfg: m.cfg, b: Array.isArray(m.b) ? m.b.slice(0, 400) : [], base: String(m.base || ''), lv: m.lv | 0 }; add({ k: 'home' }); toast('🏠 ' + from + L2(' te abre su casa. Entra desde el buzón de la Bitácora.', ' opens their house to you. Enter from the Logbook mailbox.'), 'quest', 6); }
+  else if (typeof JUEGOS_RECV === 'function') JUEGOS_RECV(r, m, from); }
+// regalos sin respuesta en 30 s: se devuelven
+V33_TICKS.push(() => { for (const [k, g] of MAILQ.pend) if (G.t - g.ts > 30) { MAILQ.pend.delete(k); giveItem(g.it, g.q, true); toast(L2('El regalo no llegó y ha vuelto a tu bolsa.', 'The gift did not arrive and is back in your bag.'), 'warn'); } });
+let mailTo = null;
+BIT_RENDER.buzon = () => { const P = G.P, b = BIT(), on = mailOnline(); b.mail.forEach(m => { if (m.k !== 'visreq' && m.k !== 'home') m.r = 1; }); bitBadge = true;
+  const inbox = b.mail.map((m, i) => `<div class="bmail ${m.r ? '' : 'new'}"><b>${m.k === 'gift' ? '🎁' : m.k === 'visreq' || m.k === 'home' ? '🏠' : '✉'} ${esc(m.f)}</b><small>${m.k === 'gift' ? L2('Te regaló ', 'Gave you ') + esc((ITEMS[m.it] || { n: '?' }).n) + ' ×' + m.q + (m.txt ? ' · «' + esc(m.txt) + '»' : '') : m.k === 'visreq' ? L2('Quiere visitar tu casa.', 'Wants to visit your house.') : m.k === 'home' ? L2('Te ha abierto su casa.', 'Opened their house to you.') : '«' + esc(m.txt || '') + '»'}</small>
+    ${m.k === 'visreq' && !m.r ? `<button class="btn sm gold" data-vok="${i}">${L2('Aceptar', 'Accept')}</button><button class="btn sm" data-vno="${i}">${L2('Ahora no', 'Not now')}</button>` : ''}${m.k === 'home' && !m.r && VISIT.offer ? `<button class="btn sm gold" data-vgo="${i}">${L2('Entrar ahora', 'Enter now')}</button>` : ''}<button class="btn sm" data-mdel="${i}">✕</button></div>`).join('');
+  let send = ''; const tgt = on.find(r => r.id === mailTo);
+  if (tgt) { const gifts = P.inv.map((s, i) => [s, i]).filter(([s]) => ITEMS[s.id] && ITEMS[s.id].t !== 'quest' && !(typeof invNeeded === 'function' && invNeeded(s.id))).slice(0, 60);
+    send = `<div class="bcard"><b>${L2('Para', 'To')} ${esc(tgt.name)}</b><input id="mTxt" maxlength="120" placeholder="${L2('Escribe una nota…', 'Write a note…')}" autocomplete="off"><div class="row"><button class="btn sm gold" id="mNote">✉ ${L2('Enviar nota', 'Send note')}</button><button class="btn sm" id="mVis">🏠 ${L2('Pedir visita a su casa', 'Ask to visit their house')}</button><button class="btn sm" id="mBack">${L2('Volver', 'Back')}</button></div>
+      <h4>🎁 ${L2('Regalar (se envía con la nota)', 'Gift (sent with the note)')}</h4><div class="slist">${gifts.map(([s, i]) => `<div class="srow">${iconHTML(ITEMS[s.id].icon, 22)}<div class="sn"><b>${esc(ITEMS[s.id].n)}</b><small>×${s.q || 1}</small></div><button class="btn sm" data-gift="${i}|1">1</button>${(s.q || 1) > 1 ? `<button class="btn sm" data-gift="${i}|${s.q}">${L2('Todo', 'All')}</button>` : ''}</div>`).join('')}</div></div>`; }
+  else send = on.length ? `<div class="bcard"><b>${L2('Jugadores conectados', 'Players online')}</b>${on.map(r => (LANG_EN ? `<div class="brow"><span>${esc(r.name)} <small>Lv. ${r.lv}</small></span><button class="btn sm" data-mto="${r.id}">✉ ${L2('Escribir', 'Write')}</button></div>` : `<div class="brow"><span>${esc(r.name)} <small>Nv. ${r.lv}</small></span><button class="btn sm" data-mto="${r.id}">✉ ${L2('Escribir', 'Write')}</button></div>`)).join('')}</div>` : `<p class="hint">${L2('Conéctate al online (Menú › En línea) para enviar notas, regalos y visitar casas de otros jugadores.', 'Go online (Menu › Online) to send notes, gifts and visit other players’ houses.')}</p>`;
+  return send + `<h4>${L2('Recibidos', 'Received')}</h4><div class="blist">${inbox || `<p class="hint">${L2('El buzón está vacío.', 'The mailbox is empty.')}</p>`}</div>`; };
+BIT_WIRE.buzon = () => { const P = G.P, b = BIT(), on = mailOnline(), tgt = on.find(r => r.id === mailTo);
+  $$('#modal [data-mto]').forEach(x => x.onclick = () => { mailTo = x.dataset.mto; openBitacora('buzon'); });
+  $$('#modal [data-mdel]').forEach(x => x.onclick = () => { b.mail.splice(+x.dataset.mdel, 1); markDirty(); openBitacora('buzon'); });
+  const bk = $('#mBack'); if (bk) bk.onclick = () => { mailTo = null; openBitacora('buzon'); };
+  const txt = () => cleanStr(($('#mTxt') || {}).value || '', 120);
+  const nt = $('#mNote'); if (nt) nt.onclick = () => { const t = txt(); if (!t) { toast(L2('Escribe algo primero.', 'Write something first.'), 'warn'); return; } if (mailSend(tgt, { k: 'note', txt: t })) { bitAdd('mailOut'); toast('✉ ' + L2('Nota enviada a ', 'Note sent to ') + tgt.name, 'info'); mailTo = null; openBitacora('buzon'); } };
+  const vs = $('#mVis'); if (vs) vs.onclick = () => { if (mailSend(tgt, { k: 'visreq' })) toast('🏠 ' + L2('Petición de visita enviada. Si acepta, te llegará al buzón.', 'Visit request sent. If they accept, it arrives in your mailbox.'), 'info', 4); };
+  $$('#modal [data-gift]').forEach(x => x.onclick = () => { const [i, q] = x.dataset.gift.split('|').map(Number), s = P.inv[i]; if (!s || !tgt) return; const id = s.id, n = Math.min(q, s.q || 1); takeItem(id, n); const m = mailSend(tgt, { k: 'gift', it: id, q: n, txt: txt() }); if (!m) { giveItem(id, n, true); return; } MAILQ.pend.set(m.sid + ':' + m.s, { s: m.s, it: id, q: n, ts: G.t }); bitAdd('mailOut'); toast('🎁 ' + ITEMS[id].n + ' ×' + n + ' → ' + tgt.name, 'info'); uiDirty.inv = true; markDirty(true); mailTo = null; openBitacora('buzon'); });
+  $$('#modal [data-vok]').forEach(x => x.onclick = () => { const m = b.mail[+x.dataset.vok], r = on.find(q => q.id === m.rid); m.r = 1; if (!r) { toast(L2('Ya no está conectado.', 'They are no longer online.'), 'warn'); openBitacora('buzon'); return; } visitOffer(r); openBitacora('buzon'); });
+  $$('#modal [data-vno]').forEach(x => x.onclick = () => { const m = b.mail[+x.dataset.vno], r = on.find(q => q.id === m.rid); m.r = 1; if (r) mailSend(r, { k: 'visno' }); openBitacora('buzon'); });
+  $$('#modal [data-vgo]').forEach(x => x.onclick = () => { b.mail[+x.dataset.vgo].r = 1; closeModal(); visitEnter(); }); };
+
+// ---------- visitas a casas de otros jugadores ----------
+// El anfitrión manda su casa (configuración + muebles colocados). El visitante entra en una copia de solo lectura
+// (mapa `visita`); los muebles van como registros «remotos» (no se pueden mover) y no se toca nada de su propia casa.
+const VISIT = { offer: null, host: 0, on: null };
+function visitOffer(r) { const P = G.P, hs = Object.keys(P.homes || {}).filter(k => HOUSES[k] && !isUpper(k)); if (!hs.length) { mailSend(r, { k: 'visno' }); toast(L2('No tienes casa todavía.', 'You don’t have a house yet.'), 'warn'); return; }
+  const base = P.inside && hs.includes(homeBaseOf(P.inside)) ? homeBaseOf(P.inside) : hs[0], up = homeUpId(base);
+  const recs = (P.builds || []).filter(x => Array.isArray(x) && (x[0] === base || x[0] === up)); const pay = { k: 'home', cfg: P.homes[base], b: recs, base, lv: P.lv };
+  if (JSON.stringify(pay).length > 24000) { toast(L2('Tu casa tiene demasiadas cosas para enviarla.', 'Your house has too many things to send.'), 'warn'); mailSend(r, { k: 'visno' }); return; }
+  mailSend(r, pay); VISIT.host = G.t; bitAdd('visit'); toast('🏠 ' + r.name + L2(' puede entrar a tu casa.', ' can come into your house.'), 'info'); }
+function visitEnter() { const P = G.P, O = VISIT.offer; if (!O) return; if (P.map !== 'world') { toast(L2('Sal al exterior primero.', 'Go outside first.'), 'warn'); return; } if (!HOUSES[O.base]) { toast(L2('Esa casa no existe en tu versión del juego.', 'That house does not exist in your game version.'), 'warn'); return; }
+  P.retX = P.x; P.retY = P.y;
+  transition(() => { const sw = { homes: P.homes, partner: P.partner, partner2: P.partner2, kids: P.kids, petHome: P.petHome };
+    const act = new Map(), upId = homeUpId(O.base); for (const x of O.b) { if (!Array.isArray(x) || !BK[x[4]]) continue; const m = x[0] === upId ? 'visita_up' : 'visita'; const rec = { m, x: x[1] | 0, y: x[2] | 0, L: x[3] | 0, k: x[4], sl: x[5] || undefined, sys: x[6] || undefined }; act.set(bkey(m, rec.x, rec.y, rec.L), rec); }
+    BLD.rem.set('__visit', { id: '__visit', ver: 0, total: 0, got: new Map(), act }); BLD.dirty = true;
+    HOUSES.visita = Object.assign({}, HOUSES[O.base], { n: L2('Casa de ', 'House of ') + O.name });
+    let M = null; try { P.homes = { visita: O.cfg }; P.partner = null; P.partner2 = null; P.kids = []; P.petHome = null; delete G.maps.visita; M = makeHome('visita');
+      for (const [k, r] of [...BLD.mine]) if (r.m === 'visita' || r.m === 'visita_up') { BLD.mine.delete(k); act.set(k, r); }
+      M.visit = O.name; P.inside = 'visita'; VISIT.on = O.name; setMap(M, M.exit.x * 16 + 8, (M.exit.y - 1) * 16 + 10, 'up'); }
+    catch (e) { console.warn(e); toast(L2('No se pudo abrir la casa.', 'Could not open the house.'), 'warn'); }
+    finally { Object.assign(P, sw); bldSave(); }
+    if (M) { banner('🏠 ' + L2('Casa de ', 'House of ') + O.name, L2('Estás de visita: mira, pero no toques.', 'You are visiting: look, but don’t touch.')); bitAdd('visit'); } }); }
+{ const _bd = BLD.rem.delete.bind(BLD.rem); BLD.rem.delete = k => (k === '__visit' && VISIT.on ? false : _bd(k)); }
+{ const _it = interactTarget; interactTarget = function () { const r = _it.apply(this, arguments); if (G.map && G.map.visit && r && r.kind !== 'npc') return null; return r; }; }
+{ const _ex = exitInterior; exitInterior = function () { const was = G.map && G.map.visit; const r = _ex.apply(this, arguments); if (was) setTimeout(() => { if (G.map && G.map.visit) return; VISIT.on = null; BLD.rem.delete('__visit'); delete G.maps.visita; delete G.maps.visita_up; BLD.dirty = true; }, 1500); return r; }; }
+
+// ---------- inventario: «Vender basura» ----------
+function junkList() { const P = G.P, out = [];
+  P.inv.forEach((s, i) => { const I = ITEMS[s.id]; if (!I || !I.slot || I.t === 'quest' || s.up || s.fg || s.lock || (I.rar || 0) >= 3) return; if (typeof invNeeded === 'function' && invNeeded(s.id)) return;
+    const eq = P.equip && P.equip[I.slot], ET = eq && ITEMS[eq.id]; const other = I.cls && I.cls !== P.cls, worse = ET && (ET.tier || 0) > (I.tier || 0), low = (I.lv || 1) < P.lv - 30;
+    if (other || worse || low) out.push(i); }); return out; }
+let junkSel = null;
+function openJunk() { const P = G.P, L = junkList(); if (!junkSel) junkSel = new Set(L); for (const i of [...junkSel]) if (!L.includes(i)) junkSel.delete(i);
+  const pr = i => Math.max(1, Math.floor(ITEMS[P.inv[i].id].price * 0.4)) * (P.inv[i].q || 1), tot = [...junkSel].reduce((a, i) => a + pr(i), 0);
+  openModal(`<h2>🧹 ${L2('Vender basura', 'Sell junk')}</h2><p class="hint">${L2('Equipo que ya no te sirve: de otra clase, de menos nivel que el que llevas puesto o muy por debajo de tu nivel. Nunca entra lo mejorado (+1…), lo forjado a mano, lo épico o lo que pide una misión. Quita la marca de lo que quieras guardar.', 'Gear you no longer need: other class, lower tier than what you wear, or far below your level. Never includes upgraded (+1…), hand-forged, epic items or anything a quest needs. Untick whatever you want to keep.')}</p>
+   <div class="slist">${L.map(i => { const s = P.inv[i], I = ITEMS[s.id]; return `<label class="srow jrow"><input type="checkbox" data-jk="${i}" ${junkSel.has(i) ? 'checked' : ''}>${iconHTML(I.icon, 24)}<div class="sn"><b style="color:${RARC[I.rar || 0]}">${esc(I.n)}</b><small>Nv. ${I.lv || 1} · ${fmt(pr(i))} ${L2('oro', 'gold')}</small></div></label>`; }).join('') || `<p class="hint">${L2('No hay nada que parezca basura. ¡Bolsa ordenada!', 'Nothing looks like junk. Tidy bag!')}</p>`}</div>
+   <div class="goldline">${L2('Total', 'Total')}: <b>${fmt(tot)}</b> ${L2('oro', 'gold')} (${junkSel.size})</div><div class="row"><button class="btn gold" id="jSell" ${junkSel.size ? '' : 'disabled'}>${L2('Vender', 'Sell')} ${junkSel.size}</button><button class="btn" id="mclose">${L2('Cerrar', 'Close')}</button></div>`, 'party');
+  $('#mclose').onclick = () => { junkSel = null; closeModal(); };
+  $$('#modal [data-jk]').forEach(x => x.onchange = () => { const i = +x.dataset.jk; if (x.checked) junkSel.add(i); else junkSel.delete(i); openJunk(); });
+  $('#jSell').onclick = () => { const idx = [...junkSel].sort((a, b) => b - a); let g = 0; for (const i of idx) { if (!P.inv[i]) continue; g += pr(i); P.inv.splice(i, 1); } P.gold += g; bitAdd('junk', idx.length); junkSel = null; sfx('coin'); toast('🧹 ' + L2('Vendido: ', 'Sold: ') + idx.length + ' · +' + fmt(g) + ' ' + L2('oro', 'gold'), 'loot'); invSel = -1; uiDirty.inv = true; markDirty(true); closeModal(); if (!$('#panel').hidden) renderPanel(); }; }
+{ const _ri = renderInv; renderInv = function (B) { _ri.apply(this, arguments); const chips = $('.invL .chips', B); if (!chips || $('#bJunk', B)) return; const n = junkList().length;
+  chips.insertAdjacentHTML('beforeend', `<button class="chip ${n ? 'gold' : ''}" id="bJunk">🧹 ${L2('Vender basura', 'Sell junk')}${n ? ' (' + n + ')' : ''}</button>`); $('#bJunk', B).onclick = () => { junkSel = null; openJunk(); }; }; }
+
+// ---------- estilos ----------
+{ const st = document.createElement('style'); st.textContent = `
+.bitbtn{position:absolute;left:calc(.8em + env(safe-area-inset-left,0px));top:calc(12.5em + env(safe-area-inset-top,0px));display:flex;align-items:center;gap:.3em;padding:.25em .55em .25em .35em;font:inherit;font-size:.9em;color:#ffe08a;background:linear-gradient(var(--pbg1),var(--pbg2));border:2px solid var(--gold);border-radius:.6em;box-shadow:0 0 0 2px var(--ink),0 3px 8px rgba(0,0,0,.45);z-index:6}
+.bitbtn span{text-shadow:0 1px 0 #000}.bitbtn .bdot{position:absolute;right:-.45em;top:-.45em;min-width:1.25em;height:1.25em;padding:0 .2em;border-radius:1em;background:#e8303a;color:#fff;font-style:normal;font-size:.72em;display:grid;place-items:center;box-shadow:0 0 0 2px var(--ink)}
+.bitbtn.sm{left:calc(7.6em + env(safe-area-inset-left,0px));font-size:.82em;padding:.3em .5em}
+#tracker[hidden]~.bitbtn{top:calc(7.4em + env(safe-area-inset-top,0px))}
+#party{top:calc(16.4em + env(safe-area-inset-top,0px))}
+@media (orientation:portrait){.bitbtn{top:calc(15.4em + env(safe-area-inset-top,0px))}#party{top:calc(19.4em + env(safe-area-inset-top,0px))}}
+body.photo #hud>*:not(#joy){opacity:0;pointer-events:none}body.photo #hud #joy{opacity:.35}
+#photoBar{position:fixed;left:50%;bottom:calc(.6em + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;display:flex;flex-direction:column;gap:.3em;max-width:min(96vw,46em);padding:.45em .6em;background:rgba(14,9,7,.88);border:2px solid var(--gold);border-radius:.7em}
+#photoBar .phr{display:flex;flex-wrap:wrap;gap:.25em;align-items:center}#photoBar b{color:#ffe08a;margin-right:.3em;font-size:.85em}
+.phflash{position:fixed;inset:0;background:#fff;z-index:99;animation:phf .4s ease-out forwards;pointer-events:none}@keyframes phf{to{opacity:0}}
+.pframe.frb{box-shadow:0 0 0 2px var(--frc),0 0 10px 2px var(--frc)}
+.pframe.fr-arcoiris{animation:frrb 3s linear infinite}@keyframes frrb{0%{box-shadow:0 0 0 2px #ff5a5a,0 0 10px 2px #ff5a5a}33%{box-shadow:0 0 0 2px #5ad06a,0 0 10px 2px #5ad06a}66%{box-shadow:0 0 0 2px #5a8aff,0 0 10px 2px #5a8aff}100%{box-shadow:0 0 0 2px #ff5a5a,0 0 10px 2px #ff5a5a}}
+.modal.bitm .frame{max-width:min(96vw,44em)}
+.btabs{display:flex;flex-wrap:wrap;gap:.25em;margin-bottom:.5em}.btab{position:relative;flex:1 1 auto;padding:.35em .5em;border-radius:.45em;border:2px solid #5a4320;background:#1a110c;color:#f3e6c8;font:inherit;font-size:.82em;white-space:nowrap}.btab.on{border-color:#ffd040;background:#3a2a14;color:#ffe08a}
+.btab .bdot{position:absolute;right:-.35em;top:-.45em;min-width:1.2em;height:1.2em;border-radius:1em;background:#e8303a;color:#fff;font-style:normal;font-size:.72em;display:grid;place-items:center}
+@media (max-width:640px){.btab span{display:none}}
+.bbody{max-height:56vh;overflow:auto;display:flex;flex-direction:column;gap:.4em}
+.bcard{background:#1a110c;border:1px solid #5a4320;border-radius:.5em;padding:.45em .6em;display:flex;flex-direction:column;gap:.25em;align-items:flex-start}.bcard b{color:#ffe9a0}.bcard small{color:var(--muted)}
+.bcard.story{border-color:#ffd23a}.bcard.ready{border-color:#ffd040;box-shadow:0 0 8px rgba(255,208,64,.35)}.bcard.wx{border-color:#7ab0ff}
+.bcard input{width:100%;box-sizing:border-box;padding:.35em .5em;border-radius:.4em;border:1px solid #5a4320;background:#0e0907;color:#f3e6c8;font:inherit}
+.brow{display:flex;align-items:center;gap:.4em;width:100%}.brow span{flex:1;min-width:0}
+.bprog{display:grid;grid-template-columns:minmax(0,1fr) minmax(3em,8em);box-sizing:border-box;padding-right:.4em;gap:.4em;align-items:center;width:100%;font-size:.85em}.bprog .bar{height:.5em;width:auto;min-width:0;margin:0}
+.blist{display:flex;flex-direction:column;gap:.3em}
+.bach{display:flex;align-items:center;gap:.5em;padding:.35em .5em;border-radius:.45em;background:#140e0b;border:1px solid rgba(217,178,90,.25)}.bach.ok{border-color:#ffd040;box-shadow:0 0 8px rgba(255,208,64,.4)}.bach.got{opacity:.7}
+.bach .bic{font-size:1.5em;width:1.4em;text-align:center}.bach .bt{flex:1;min-width:0;display:flex;flex-direction:column}.bach .bt small{color:var(--muted)}.bach .bar{height:.45em;margin:.15em 0}.bach .brw{font-size:.78em}
+.bfr{display:grid;grid-template-columns:repeat(auto-fill,minmax(7em,1fr));gap:.4em}.bfrb{display:flex;flex-direction:column;align-items:center;gap:.2em;padding:.5em .3em;border-radius:.5em;border:2px solid #5a4320;background:#1a110c;color:#f3e6c8;font:inherit;font-size:.8em}.bfrb.on{border-color:#ffd040}
+.bfrb i{width:2.4em;height:2.4em;border-radius:.3em;background:#2a1a10;box-shadow:0 0 0 2px var(--frc),0 0 8px 1px var(--frc)}.bfrb.fr-arcoiris i{animation:frrb 3s linear infinite}.bfrb[disabled]{opacity:.5}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(9em,1fr));gap:.4em}.bphoto{display:flex;flex-direction:column;gap:.2em;padding:.25em;border-radius:.4em;border:1px solid #5a4320;background:#1a110c;color:#f3e6c8;font:inherit;font-size:.72em}.bphoto img{width:100%;image-rendering:pixelated;border-radius:.2em}
+.bphoto.big img{max-height:42vh;object-fit:contain}
+.bmail{display:flex;flex-wrap:wrap;align-items:center;gap:.35em;padding:.35em .5em;border-radius:.45em;background:#140e0b;border:1px solid rgba(217,178,90,.25)}.bmail.new{border-color:#ffd040}.bmail b{color:#ffe9a0}.bmail small{flex:1 1 100%;color:#f3e6c8}
+.jrow{cursor:pointer}.jrow input{width:1.2em;height:1.2em}.chip.gold{border-color:#ffd040;color:#ffe08a}
+`; document.head.appendChild(st); }
+
+// ---------- Lupa › Sistemas ----------
+if (typeof GSIS !== 'undefined') {
+ GSIS.unshift(['bitacora', '📖 ' + L2('Bitácora del aventurero', 'Adventurer’s logbook'), () => [
+  L2('El botón 📖 Bitácora está a la izquierda, debajo de la misión que sigues. El punto rojo avisa de logros para reclamar, cartas del buzón o tu mascota de vuelta.', 'The 📖 Logbook button is on the left, under the quest you follow. The red dot tells you about achievements to claim, mail or your pet coming back.'),
+  L2('Hoy: lo más importante (historia, misiones para entregar con botón «Ir», misión diaria, logros a punto, mascota, tienda, buzón y el clima especial).', 'Today: the most important things (story, quests to turn in with a «Go» button, daily quest, nearly-done achievements, pet, shop, mailbox and special weather).'),
+  L2('Logros: ' + BIT_ACH.length + ' logros curiosos con títulos, marcos para el retrato y muebles. Marcos: cambia el borde de tu retrato.', 'Achievements: ' + BIT_ACH.length + ' fun achievements with titles, portrait frames and furniture. Frames: change your portrait border.'),
+  L2('Álbum: fotos en grupo con pose y marco. Mascota: mándala a explorar 10, 30 o 60 minutos. Buzón: notas, regalos y visitas a casas de otros jugadores conectados.', 'Album: group photos with pose and frame. Pet: send it exploring for 10, 30 or 60 minutes. Mailbox: notes, gifts and visits to the houses of other online players.'),
+  L2('Junto a la Bitácora, el botón ↩ abre la última ventana que usaste. En el inventario, «🧹 Vender basura» vende de una vez el equipo que ya no te sirve.', 'Next to the Logbook, the ↩ button opens the last window you used. In the inventory, «🧹 Sell junk» sells all gear you no longer need at once.')], () => null]);
+ GSIS.splice(1, 0, ['visitas', '🏠 ' + L2('Visitar casas de otros jugadores', 'Visiting other players’ houses'), () => [
+  L2('Bitácora › Buzón › Escribir a un jugador conectado › «Pedir visita a su casa». Si acepta, te llega su casa al buzón: «Entrar ahora» (desde el exterior).', 'Logbook › Mailbox › Write to an online player › «Ask to visit their house». If they accept, their house arrives in your mailbox: «Enter now» (from outdoors).'),
+  L2('Ves su casa tal como la tiene (muebles, suelo y paredes). Estás de visita: no puedes mover ni usar sus cosas. Sal por la puerta para volver.', 'You see their house as they have it (furniture, floor and walls). You are visiting: you can’t move or use their things. Leave through the door to go back.')], () => null]);
+}
+
+// ================= v5.11: JUEGOS Y ACTIVIDADES (sin poder nuevo) =================
+// · Cartas coleccionables: cada enemigo y jefe es una carta (dibujo del bestiario). Caen al derrotarlos y se juegan en
+//   duelos de 5 rondas (Fuego > Planta > Agua > Fuego, +3) contra la Anfitriona del Salón de juegos de cada pueblo.
+// · Salón de juegos (`salon_<pueblo>`): cartas, concurso de cocina (votan los jugadores cercanos), carrera de monturas
+//   con aros y toneles (los demás corredores salen en el marcador) y pesca por equipos (suman todos los que pescan a la vez).
+//   Lo que ya había (concursos de pesca, carrera y baile de las fiestas, torneo de oficios) no se repite.
+// · Encargos en cadena de oficio (Tomás, Greta, Nora, Bruno, Hugo): mini historias de 3 pasos.
+// · Escondite en Higashiyama (Japón) con la niña Hana: 5 vecinos escondidos en las terrazas, 2 minutos.
+// · Clima: Pez Tormenta (solo con tormenta), muñecos de nieve (se ven online) y estrellas fugaces de noche en Altavela.
+// · Tienda en casa: precio por producto (barato/normal/caro) y comentarios de los clientes que regatean.
+
+// ---------- objetos nuevos ----------
+it('pez_tormenta', { n: L2('Pez Tormenta', 'Storm Fish'), t: 'mat', stack: true, tier: 6, price: 4000, icon: ['fish', '#8a7aff'], rar: 3 });
+it('polvo_estelar', { n: L2('Polvo de estrella fugaz', 'Shooting star dust'), t: 'mat', stack: true, tier: 5, price: 900, icon: ['crystal', '#ffe680'], rar: 2 });
+
+// ================= CARTAS =================
+const CARD_EL = [['fuego', '🔥', '#ff6a3a'], ['agua', '💧', '#4ab0ff'], ['planta', '🌿', '#5ad06a']];
+const CARD_BEATS = { fuego: 'planta', planta: 'agua', agua: 'fuego' };
+function cardHash(s) { let h = 7; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h; }
+function cardDef(id) { const boss = id.startsWith('B_'), D = boss ? BOSSES[id.slice(2)] : MOBS[id]; if (!D) return null; const lv = Array.isArray(D.lv) ? (D.lv[0] + D.lv[1]) / 2 : (D.lv || 1), h = cardHash(id);
+  const pw = boss ? clamp(6 + Math.floor(lv / 80) + (h % 2), 6, 12) : clamp(1 + Math.floor(lv / 45) + (h % 2), 1, 9); return { id, n: D.n, el: CARD_EL[h % 3][0], pw, boss, lv }; }
+function cardAll() { return Object.keys(MOBS).concat(Object.keys(BOSSES).map(b => 'B_' + b)); }
+function cardEl(k) { return CARD_EL.find(e => e[0] === k) || CARD_EL[0]; }
+function cardGive(id, silent) { const D = cardDef(id); if (!D) return null; const c = BIT().cards, first = !c[id]; c[id] = (c[id] || 0) + 1; bitBadge = true;
+  if (!silent) { toast('🃏 ' + (first ? L2('¡Carta nueva! ', 'New card! ') : L2('Carta: ', 'Card: ')) + D.n + ' (' + D.pw + cardEl(D.el)[1] + ')', 'loot', first ? 3 : 1); if (first) sfx('coin'); } markDirty(); return D.n; }
+function cardGiveRandom(maxLv) { const P = G.P, lim = maxLv || P.lv + 10, pool = Object.keys(MOBS).filter(k => { const L = MOBS[k].lv; return (Array.isArray(L) ? L[0] : L || 1) <= lim; }); if (!pool.length) return null; return cardGive(pool[(Math.random() * pool.length) | 0]); }
+function cardStarter() { const b = BIT(); if (b.cardInit) return; b.cardInit = 1; for (let k = 0; k < 6; k++) cardGiveRandom(20); }
+{ const _qe = questEvent; questEvent = function (type, d) { try { if (type === 'kill' && d && d.m && MOBS[d.m] && Math.random() < 0.025) cardGive(d.m); else if (type === 'boss' && d && d.b && BOSSES[d.b] && Math.random() < 0.3) cardGive('B_' + d.b); } catch (e) { } return _qe.apply(this, arguments); }; }
+function cardPaint(cv, id) { if (!cv) return; const g = cv.getContext('2d'); g.imageSmoothingEnabled = false; g.clearRect(0, 0, cv.width, cv.height);
+  const blit = (A, L) => atlasBlit(g, A, A.idx.idle || 0, 0, L.x, L.y, A.fw * L.s, A.fh * L.s), fit = A => { const s = Math.min(cv.width / A.fw, cv.height / A.fh); return { s, x: (cv.width - A.fw * s) / 2, y: cv.height - A.fh * s }; };
+  try { if (typeof R143_OF !== 'undefined' && R143_OF.get(id)) { const A = r143Atlas(id); blit(A, typeof r143PortraitLayout === 'function' ? r143PortraitLayout(A, cv.width, cv.height) : fit(A)); return; } } catch (e) { }
+  try { if (typeof R133_OF !== 'undefined' && R133_OF.get(id)) { const A = r133Atlas(id); blit(A, fit(A)); return; } } catch (e) { }
+  try { const D = id.startsWith('B_') ? BOSSES[id.slice(2)] : MOBS[id], A = mobAtlasFor(D.art); blit(A, fit(A)); } catch (e) { } }
+function cardHTML(D, n, extra) { const E = cardEl(D.el); return `<div class="tcard ${D.boss ? 'boss' : ''} ${extra || ''}" style="--elc:${E[2]}"><canvas width="44" height="44" data-card="${D.id}"></canvas><b>${esc(D.n)}</b><span class="tpw">${D.pw}</span><span class="tel">${E[1]}</span>${n > 1 ? `<em>×${n}</em>` : ''}</div>`; }
+function cardPaintAll(root) { (root || document).querySelectorAll('[data-card]').forEach(cv => cardPaint(cv, cv.dataset.card)); }
+let cardSort = 'pw';
+BIT_RENDER.cartas = () => { cardStarter(); const b = BIT(), own = Object.keys(b.cards).map(cardDef).filter(Boolean), all = cardAll().length;
+  own.sort((x, y) => cardSort === 'pw' ? y.pw - x.pw : cardSort === 'el' ? x.el.localeCompare(y.el) || y.pw - x.pw : x.n.localeCompare(y.n));
+  return `<p class="hint">${L2('Cada enemigo y jefe es una carta: caen al derrotarlos (los jefes, más a menudo), las trae tu mascota y se ganan en duelos. Juega en el Salón de juegos de cualquier pueblo. Fuego gana a Planta, Planta a Agua y Agua a Fuego (+3).', 'Every enemy and boss is a card: they drop when defeated (bosses more often), your pet brings them and you win them in duels. Play at any town’s Game hall. Fire beats Plant, Plant beats Water and Water beats Fire (+3).')}</p>
+   <div class="row"><b>${own.length}/${all} ${L2('cartas', 'cards')}</b> · ${L2('Duelos ganados', 'Duels won')}: ${bitC('cardWin')}</div>
+   <div class="qtabs">${[['pw', L2('Poder', 'Power')], ['el', L2('Elemento', 'Element')], ['n', L2('Nombre', 'Name')]].map(([k, n]) => `<button class="qtab ${cardSort === k ? 'on' : ''}" data-cs="${k}">${n}</button>`).join('')}</div>
+   <div class="tcards">${own.map(D => cardHTML(D, b.cards[D.id])).join('')}</div>`; };
+BIT_WIRE.cartas = () => { cardPaintAll($('#modal')); $$('#modal [data-cs]').forEach(x => x.onclick = () => { cardSort = x.dataset.cs; openBitacora('cartas'); }); };
+// --- duelo ---
+let CDUEL = null;
+function duelStartCards(host) { cardStarter(); const P = G.P, b = BIT(), own = Object.keys(b.cards).map(cardDef).filter(Boolean).sort((x, y) => y.pw - x.pw);
+  if (own.length < 5) { xMsg('🃏', L2('Necesitas al menos 5 cartas. Derrota enemigos o manda a tu mascota a explorar.', 'You need at least 5 cards. Defeat enemies or send your pet exploring.')); return; }
+  const top = own.slice(0, 12).sort(() => Math.random() - 0.5), hand = top.slice(0, 5), avg = hand.reduce((a, c) => a + c.pw, 0) / 5;
+  const pool = cardAll().map(cardDef).filter(D => D && Math.abs(D.pw - avg) <= 1.6), opp = Array.from({ length: 5 }, () => pool[(Math.random() * pool.length) | 0] || hand[0]);
+  CDUEL = { host, hand, opp, r: 0, me: 0, op: 0, log: [] }; cduelRender(); }
+function cduelScore(a, b) { return a.pw + (CARD_BEATS[a.el] === b.el ? 3 : 0); }
+function cduelRender(msg) { const D = CDUEL; if (!D) return; const P = G.P, done = D.r >= 5;
+  openModal(`<h2>🃏 ${L2('Duelo de cartas', 'Card duel')} · ${L2('Ronda', 'Round')} ${Math.min(5, D.r + 1)}/5</h2><div class="goldline">${esc(P.name)} <b>${D.me}</b> — <b>${D.op}</b> ${esc(NPCS[D.host] ? NPCS[D.host].n : L2('Rival', 'Rival'))}</div>
+   ${msg ? `<p class="rum">${msg}</p>` : ''}
+   ${done ? `<p class="hint">${D.me > D.op ? '🏆 ' + L2('¡Has ganado el duelo!', 'You won the duel!') : D.me === D.op ? L2('Empate.', 'Draw.') : L2('Has perdido. ¡La próxima!', 'You lost. Next time!')}</p>` : `<h4>${L2('Tu mano: elige una carta', 'Your hand: pick a card')}</h4><div class="tcards">${D.hand.map((c, i) => c.used ? '' : `<button class="tcb" data-dc="${i}">${cardHTML(c, 1)}</button>`).join('')}</div><p class="hint">${L2('El rival enseña su carta a la vez. Fuego > Planta > Agua > Fuego da +3.', 'The rival shows their card at the same time. Fire > Plant > Water > Fire gives +3.')}</p>`}
+   <div class="row"><button class="btn ${done ? 'gold' : ''}" id="mclose">${done ? L2('Terminar', 'Finish') : L2('Rendirse', 'Give up')}</button></div>`, 'party');
+  cardPaintAll($('#modal'));
+  $('#mclose').onclick = () => { if (done) cduelEnd(); else { CDUEL = null; closeModal(); } };
+  $$('#modal [data-dc]').forEach(x => x.onclick = () => { const c = D.hand[+x.dataset.dc]; if (!c || c.used) return; c.used = 1; const o = D.opp[D.r]; const a = cduelScore(c, o), bb = cduelScore(o, c); D.r++;
+    let res; if (a > bb) { D.me++; res = '✔ ' + L2('Ganas la ronda', 'You win the round'); sfx('hit'); } else if (a < bb) { D.op++; res = '✘ ' + L2('Pierdes la ronda', 'You lose the round'); sfx('hurt'); } else res = '= ' + L2('Empate', 'Tie');
+    cduelRender(`${esc(c.n)} ${cardEl(c.el)[1]}${a} vs ${esc(o.n)} ${cardEl(o.el)[1]}${bb} · <b>${res}</b>`); }); }
+function cduelEnd() { const D = CDUEL, P = G.P; CDUEL = null; closeModal(); if (!D) return; if (D.me > D.op) { const b = BIT(), day = calDay(); if (b.cdDay !== day) { b.cdDay = day; b.cdN = 0; }
+  bitAdd('cardWin'); if ((b.cdN || 0) < 10) { b.cdN = (b.cdN || 0) + 1; const g = 200 + P.lv * 30; P.gold += g; floatText(P.x, P.y - 40, '+' + fmt(g) + ' ' + L2('ORO', 'GOLD'), '#ffd040'); if (Math.random() < 0.45) { const c = D.opp[(Math.random() * 5) | 0]; cardGive(c.id); } } else toast(L2('Hoy ya no hay más premios de duelos (10 al día). ¡Pero cuenta para el logro!', 'No more duel prizes today (10 per day). It still counts for the achievement!'), 'info');
+  banner('🃏 ' + L2('¡Duelo ganado!', 'Duel won!'), D.me + ' — ' + D.op); markDirty(true); } }
+
+// ================= SALÓN DE JUEGOS =================
+const HALL_LOOK = LK({ hair: HAIRS.rubio || HAIRS.castano, hairStyle: 'long', outfit: 'robe', main: CLOTH.morado || CLOTH.azul, sec: CLOTH.dorado || CLOTH.beige, eyes: 'azul' });
+const HALL_TOWNS = TOWNS.map(t => t.k);
+for (const t of HALL_TOWNS) NPCS['salon_' + t] = { n: L2('Anfitriona del Salón', 'Game Hall Host'), title: L2('Salón de juegos', 'Game hall'), look: HALL_LOOK, lines: [L2('¡Bienvenido al Salón de juegos! Cartas, cocina, carreras y pesca en equipo.', 'Welcome to the Game hall! Cards, cooking, races and team fishing.'), L2('Aquí no se gana fuerza: se gana diversión… y algo de oro.', 'You don’t gain strength here: you gain fun… and some gold.')], quests: [] };
+{ const _pd = placeDiveSpots; placeDiveSpots = function (W) { _pd(W); for (const tk of HALL_TOWNS) { const t = TOWNS.find(t => t.k === tk); if (!t) continue; const [x, y] = freeTileNear(W, (t.x0 + t.x1) / 2 - 6, (t.y0 + t.y1) / 2 + 4); W.npcDefs.push({ id: 'salon_' + tk, x, y, face: 'down' }); } }; }
+function hallLoc(tk) { const W = G.world, d = W && W.npcDefs && W.npcDefs.find(v => v.id === 'salon_' + tk); return d ? [d.x, d.y] : null; }
+function hallNearest() { const P = G.P, px = (P.map === 'world' ? P.x : P.retX || P.x) / 16, py = (P.map === 'world' ? P.y : P.retY || P.y) / 16; let best = null, bd = 1e18; for (const tk of HALL_TOWNS) { const l = hallLoc(tk); if (!l) continue; const d = (l[0] - px) ** 2 + (l[1] - py) ** 2; if (d < bd) { bd = d; best = l; } } return best; }
+DLG_HOOKS.push((npc, opts) => { if (!/^salon_/.test(npc.id || '')) return;
+  opts.unshift({ label: '🃏 ' + L2('Duelo de cartas', 'Card duel'), icon: ['book'], fn: () => { closeDialog(); duelStartCards(npc.id); } },
+    { label: '🍳 ' + L2('Concurso de cocina', 'Cooking contest'), icon: ['food', 2], fn: () => { closeDialog(); cookStart(); } },
+    { label: '🏇 ' + L2('Carrera de monturas', 'Mount race'), icon: ['run'], fn: () => { closeDialog(); mraceStart(npc); } },
+    { label: '🎣 ' + L2('Pesca por equipos (3 min)', 'Team fishing (3 min)'), icon: ['rod:2'], fn: () => { closeDialog(); tfStart(); } }); });
+if (typeof MAPC !== 'undefined') { MAPC.salon = ['Salón de juegos', 'Game hall', '#ff7ad0', 'star']; for (const t of HALL_TOWNS) NPC_CAT['salon_' + t] = 'salon'; NPC_CAT.jp_escondite = 'salon'; }
+
+// ================= CONCURSO DE COCINA (con votos online) =================
+const COOK_ING = [['🍓', L2('Fresas', 'Strawberries'), 'dulce'], ['🍯', L2('Miel', 'Honey'), 'dulce'], ['🌶', L2('Guindilla', 'Chili'), 'picante'], ['🧄', L2('Ajo', 'Garlic'), 'picante'], ['🐟', L2('Pescado', 'Fish'), 'mar'], ['🦀', L2('Cangrejo', 'Crab'), 'mar'], ['🍄', L2('Setas', 'Mushrooms'), 'bosque'], ['🌰', L2('Castañas', 'Chestnuts'), 'bosque'], ['🧀', L2('Queso', 'Cheese'), 'casero'], ['🥔', L2('Patatas', 'Potatoes'), 'casero']];
+const COOK_THEME = { dulce: L2('dulce', 'sweet'), picante: L2('picante', 'spicy'), mar: L2('marinero', 'seafood'), bosque: L2('del bosque', 'forest'), casero: L2('casero', 'homestyle') };
+let COOK = null;
+function cookStart() { if (COOK) return; const th = Object.keys(COOK_THEME), day = calDay(), theme = th[day % th.length], ings = COOK_ING.slice().sort(() => Math.random() - 0.5).slice(0, 7);
+  if (!ings.some(i => i[2] === theme)) ings[0] = COOK_ING.find(i => i[2] === theme);
+  COOK = { theme, ings, pick: [], st: 'pick', votes: 0, voters: new Set() }; cookRender(); }
+function cookRender() { const C = COOK; if (!C) return;
+  if (C.st === 'pick') { openModal(`<h2>🍳 ${L2('Concurso de cocina', 'Cooking contest')}</h2><p class="rum">${L2('El jurado de hoy quiere un plato', 'Today the judges want a')} <b>${COOK_THEME[C.theme]}</b>${L2('.', ' dish.')}</p><h4>${L2('Elige 3 ingredientes', 'Pick 3 ingredients')} (${C.pick.length}/3)</h4>
+     <div class="cking">${C.ings.map((g, i) => `<button class="btn ${C.pick.includes(i) ? 'gold' : ''}" data-ck="${i}">${g[0]} ${esc(g[1])}</button>`).join('')}</div>
+     <div class="row"><button class="btn gold" id="ckGo" ${C.pick.length === 3 ? '' : 'disabled'}>${L2('¡A cocinar!', 'Start cooking!')}</button><button class="btn" id="mclose">${L2('Salir', 'Leave')}</button></div>`, 'party');
+    $('#mclose').onclick = () => { COOK = null; closeModal(); };
+    $$('#modal [data-ck]').forEach(x => x.onclick = () => { const i = +x.dataset.ck, k = C.pick.indexOf(i); if (k >= 0) C.pick.splice(k, 1); else if (C.pick.length < 3) C.pick.push(i); cookRender(); });
+    $('#ckGo').onclick = () => { C.st = 'cook'; cookRender(); }; return; }
+  if (C.st === 'cook') { openModal(`<h2>🍳 ${L2('Punto de cocción', 'Cooking point')}</h2><p class="hint">${L2('Pulsa «¡Servir!» cuando la aguja esté en la zona verde. Tienes 3 intentos de remover (el mejor cuenta).', 'Press «Serve!» when the needle is in the green zone. You get 3 stirs (the best counts).')}</p><div class="ckbar"><i class="ckz"></i><i class="ckn" id="ckN"></i></div><p id="ckT" class="goldline"></p><div class="row"><button class="btn gold big" id="ckS">🍽 ${L2('¡Servir!', 'Serve!')}</button></div>`, 'party');
+    C.tries = C.tries || 0; C.best = C.best || 0; const t0 = performance.now(), sp = 0.9 + Math.random() * 0.5, zc = 0.3 + Math.random() * 0.4; $('.ckz').style.left = ((zc - 0.09) * 100) + '%'; let pos = 0, raf = 0;
+    const loop = now => { if (!COOK || COOK.st !== 'cook' || !$('#ckN')) return; pos = (Math.sin((now - t0) / 1000 * sp * 3.1) + 1) / 2; $('#ckN').style.left = (pos * 100) + '%'; raf = requestAnimationFrame(loop); }; raf = requestAnimationFrame(loop);
+    $('#ckS').onclick = () => { cancelAnimationFrame(raf); const q = Math.max(0, 1 - Math.abs(pos - zc) / 0.35); C.best = Math.max(C.best, q); C.tries++; $('#ckT').textContent = L2('Punto: ', 'Point: ') + Math.round(q * 100) + ' %';
+      if (C.tries >= 3 || q > 0.92) setTimeout(() => { C.st = 'vote'; cookJudge(); }, 600); else setTimeout(() => cookRender(), 700); }; return; }
+  if (C.st === 'vote' || C.st === 'end') { const left = Math.max(0, Math.ceil(C.vEnd - G.t)), tot = C.score + Math.min(15, C.votes * 3);
+    openModal(`<h2>🍳 ${L2('El jurado prueba tu plato', 'The judges taste your dish')}</h2><p class="rum">${C.pick.map(i => C.ings[i][0]).join(' ')} · ${L2('Tema', 'Theme')}: ${COOK_THEME[C.theme]}</p>
+     <div class="slist">${C.judges.map(j => `<div class="srow"><div class="sn"><b>${esc(j[0])}</b><small>«${esc(j[2])}»</small></div><b>${j[1]}</b></div>`).join('')}</div>
+     <div class="goldline">${L2('Jurado', 'Judges')}: <b>${C.score}</b> · ❤ ${L2('Votos de jugadores', 'Player votes')}: <b>${C.votes}</b> (+${Math.min(15, C.votes * 3)}) · ${L2('Total', 'Total')}: <b>${tot}</b> · ${L2('Mejor rival', 'Best rival')}: <b>${C.rival}</b></div>
+     ${C.st === 'vote' ? `<p class="hint">${L2('Los jugadores que estén cerca ven tu plato y pueden votarlo. Resultado en', 'Nearby players see your dish and can vote for it. Result in')} ${left} s…</p>` : `<p class="hint">${tot > C.rival ? '🏆 ' + L2('¡Has ganado el concurso!', 'You won the contest!') : L2('Esta vez gana otro cocinero.', 'Another cook wins this time.')}</p>`}
+     <div class="row"><button class="btn gold" id="mclose">${C.st === 'vote' ? L2('Ver el resultado ya', 'See result now') : L2('Cerrar', 'Close')}</button></div>`, 'party');
+    $('#mclose').onclick = () => { if (C.st === 'vote') { C.vEnd = G.t; cookTick(); } else { COOK = null; closeModal(); } }; } }
+const COOK_JUDGE = [L2('Chef Bertrand', 'Chef Bertrand'), L2('Abuela Rosa', 'Grandma Rosa'), L2('Crítico Lucien', 'Critic Lucien')];
+function cookJudge() { const C = COOK, P = G.P, th = C.pick.filter(i => C.ings[i][2] === C.theme).length, mix = new Set(C.pick.map(i => C.ings[i][2])).size;
+  const base = th * 15 + (mix === 1 ? 8 : mix === 2 ? 4 : 0) + Math.round(C.best * 40), lvB = Math.min(8, Math.floor(((P.jobs.cocina || { lv: 1 }).lv) / 10));
+  const say = s => s >= 80 ? L2('¡Una obra maestra!', 'A masterpiece!') : s >= 60 ? L2('Muy rico, de verdad.', 'Really tasty.') : s >= 40 ? L2('Se puede comer…', 'It is edible…') : L2('¿Esto es comida?', 'Is this food?');
+  C.judges = COOK_JUDGE.map(n => { const s = clamp(base + lvB + Math.round((Math.random() - 0.5) * 12), 5, 100); return [n, s, say(s)]; }); C.score = Math.round(C.judges.reduce((a, j) => a + j[1], 0) / 3);
+  C.rival = 55 + Math.round(Math.random() * 25); C.vEnd = G.t + (netOnline() && mailOnline().some(r => r.map === P.map) ? 20 : 3); C.st = 'vote'; netPresence(true); cookRender(); }
+function cookTick() { const C = COOK; if (!C || C.st !== 'vote') return; if (G.t >= C.vEnd) { C.st = 'end'; const P = G.P, tot = C.score + Math.min(15, C.votes * 3);
+  if (tot > C.rival) { const g = 300 + P.lv * 40; P.gold += g; bitAdd('cookWin'); if (JOBS.cocina) gainJobXp('cocina', 60 + P.lv); giveItem('food1', 2, true); banner('🍳 ' + L2('¡Ganas el concurso de cocina!', 'You win the cooking contest!'), '+' + fmt(g) + ' ' + L2('oro', 'gold')); sfx('questdone'); } else { if (JOBS.cocina) gainJobXp('cocina', 20); toast(L2('El jurado elige a otro cocinero.', 'The judges pick another cook.'), 'info'); }
+  markDirty(true); if (!$('#modal').hidden) cookRender(); netPresence(true); } else if (!$('#modal').hidden && $('#modal h2') && /jurado|judges/i.test($('#modal h2').textContent)) cookRender(); }
+let cookT = 0; V33_TICKS.push(dt => { cookT -= dt || 0; if (cookT > 0) return; cookT = 1; cookTick(); });
+
+// ================= CARRERA DE MONTURAS =================
+let MRACE = null;
+function mraceStart(npc) { const P = G.P; if (MRACE) return; if (P.map !== 'world') return;
+  if ((P.mounts || []).length && !mountOf(P)) { xMsg('🏇', L2('Súbete a tu montura para correr (botón de montura).', 'Get on your mount to race (mount button).')); return; }
+  const W = G.world, cx = Math.floor(P.x / 16), cy = Math.floor(P.y / 16), n = 8, rings = [], obs = [];
+  try {
+  for (let i = 0; i < n; i++) { const a = i / n * Math.PI * 2 - Math.PI / 2, r = 16 + (i % 2) * 5; const [x, y] = freeTileNear(W, cx + Math.cos(a) * r, cy + Math.sin(a) * r * 0.8); rings.push([x * 16 + 8, y * 16 + 8]); }
+  for (let i = 0; i < n; i++) { const A = rings[i], B = rings[(i + 1) % n]; for (const f of [0.35, 0.65]) { const [x, y] = freeTileNear(W, (A[0] + (B[0] - A[0]) * f) / 16 + (Math.random() - 0.5) * 2, (A[1] + (B[1] - A[1]) * f) / 16 + (Math.random() - 0.5) * 2); obs.push([x * 16 + 8, y * 16 + 8, 0]); } }
+  } catch (e) { xMsg('🏇', L2('Aquí no hay sitio para la carrera.', 'No room for the race here.')); return; }
+  let len = 0; for (let i = 0; i < n; i++) { const A = rings[i], B = rings[(i + 1) % n]; len += Math.hypot(A[0] - B[0], A[1] - B[1]); }
+  const sp = (P.S && P.S.spd) || 80; MRACE = { rings, obs, i: 0, t: 0, pen: 0, par: Math.round(len / sp * 1.35 + 4), id: Math.random().toString(36).slice(2, 6) };
+  banner('🏇 ' + L2('¡Carrera de monturas!', 'Mount race!'), L2('Pasa por los 8 aros y vuelve al primero. Esquiva los toneles. Récord a batir: ', 'Go through the 8 rings and back to the first. Dodge the barrels. Time to beat: ') + MRACE.par + ' s'); sfx('quest'); }
+function mraceTick(dt) { const R = MRACE, P = G.P; if (!R) return; if (P.map !== 'world' || P.dead) { MRACE = null; mgHud(null); return; } R.t += dt;
+  const tg = R.rings[R.i % R.rings.length]; if (Math.hypot(P.x - tg[0], P.y - tg[1]) < 26) { R.i++; sfx('coin'); burst(tg[0], tg[1] - 10, 10, { sp: 60, up: 40, g: 60, life: 0.5, c: ['#ffd040', '#ffffff'] }); }
+  for (const o of R.obs) { if (o[2] > G.t) continue; if (Math.hypot(P.x - o[0], P.y - o[1]) < 13) { o[2] = G.t + 3; R.pen += 2; floatText(P.x, P.y - 40, L2('¡Tonel! +2 s', 'Barrel! +2 s'), '#ff8a5a'); sfx('hurt'); G.shake = 3; } }
+  const others = [...G.remote.values()].filter(r => r.mr && r.map === P.map && Math.hypot(r.x - P.x, r.y - P.y) < 2000).map(r => `${esc(r.name)} ${r.mr.i}/${R.rings.length + 1}`).join(' · ');
+  mgHud(`🏇 ${L2('Aro', 'Ring')} <b>${Math.min(R.i, R.rings.length + 1)}/${R.rings.length + 1}</b> · ${(R.t + R.pen).toFixed(1)} s / ${R.par} s${others ? '<br><small>' + others + '</small>' : ''}`);
+  if (R.i > R.rings.length) { const tt = R.t + R.pen, win = tt <= R.par; MRACE = null; mgHud(null); netPresence(true);
+    if (win) { const g = 250 + P.lv * 35; P.gold += g; bitAdd('raceWin'); banner('🏇 ' + L2('¡Ganas la carrera!', 'You win the race!'), tt.toFixed(1) + ' s · +' + fmt(g) + ' ' + L2('oro', 'gold')); sfx('questdone'); } else banner('🏇 ' + L2('¡Meta!', 'Finish!'), tt.toFixed(1) + ' s — ' + L2('el récord era ', 'the record was ') + R.par + ' s'); markDirty(true); }
+  else if (R.t > 180) { MRACE = null; mgHud(null); toast(L2('Carrera abandonada.', 'Race abandoned.'), 'info'); } }
+V33_TICKS.push(dt => mraceTick(Math.min(0.05, dt || 0)));
+WORLD_DRAW.push((cx, cy) => { const R = MRACE, P = G.P; if (!R || !P || P.map !== 'world') return;
+  R.rings.forEach((r, k) => { const next = k === R.i % R.rings.length && R.i <= R.rings.length, x = r[0] - cx, y = r[1] - cy - 14; if (x < -40 || y < -40 || x > VW + 40 || y > VH + 40) return; ctx.save(); ctx.globalAlpha = next ? 1 : k < R.i ? 0.25 : 0.55; ctx.strokeStyle = next ? '#ffd040' : '#c8a0ff'; ctx.lineWidth = next ? 3 : 2; ctx.beginPath(); ctx.ellipse(Math.round(x), Math.round(y), 11 + (next ? Math.sin(G.t * 6) : 0), 15, 0, 0, 7); ctx.stroke(); ctx.restore(); });
+  for (const o of R.obs) { const x = Math.round(o[0] - cx), y = Math.round(o[1] - cy); if (x < -20 || y < -20 || x > VW + 20 || y > VH + 20) continue; ctx.fillStyle = '#5a3418'; ctx.fillRect(x - 6, y - 14, 12, 14); ctx.fillStyle = '#8a5a2a'; ctx.fillRect(x - 5, y - 13, 10, 12); ctx.fillStyle = '#3a3a44'; ctx.fillRect(x - 6, y - 11, 12, 1); ctx.fillRect(x - 6, y - 5, 12, 1); }
+  const tg = R.rings[R.i % R.rings.length]; if (typeof drawWpArrow === 'function') drawWpArrow(cx, cy, [(tg[0] - 8) / 16, (tg[1] - 8) / 16]); });
+
+// ================= PESCA POR EQUIPOS =================
+let TF = null;
+function tfStart() { if (TF) return; TF = { n: 0, end: G.t + 180 }; banner('🎣 ' + L2('Pesca por equipos', 'Team fishing'), L2('3 minutos. Todos los que pesquen a la vez cerca suman. Meta: 8 peces por jugador.', '3 minutes. Everyone fishing at the same time nearby adds up. Goal: 8 fish per player.')); sfx('quest'); netPresence(true); }
+{ const _fc = fishCaught; fishCaught = function (fish) { const r = _fc.apply(this, arguments); try { if (TF) { TF.n++; netPresence(true); }
+  const w = curWx(); if (w === 'storm' && Math.random() < 0.12) { giveItem('pez_tormenta', 1); bitAdd('stormFish'); banner('⚡ ' + L2('¡Pez Tormenta!', 'Storm Fish!'), L2('Solo pica con tormenta. Vale mucho oro.', 'It only bites in storms. Worth a lot of gold.')); } } catch (e) { } return r; }; }
+function tfTeam() { const P = G.P; return [...G.remote.values()].filter(r => r.tf && r.map === P.map && Math.hypot(r.x - P.x, r.y - P.y) < 1600); }
+V33_TICKS.push(dt => { if (!TF) return; const P = G.P, team = tfTeam(), sum = TF.n + team.reduce((a, r) => a + r.tf, 0), goal = 8 * (1 + team.length), left = TF.end - G.t;
+  mgHud(`🎣 ${L2('Equipo', 'Team')} (${1 + team.length}): <b>${sum}/${goal}</b> · ${Math.max(0, Math.ceil(left))} s<br><small>${esc(P.name)} ${TF.n}${team.map(r => ' · ' + esc(r.name) + ' ' + r.tf).join('')}</small>`);
+  if (sum >= goal || left <= 0) { const win = sum >= goal; TF = null; mgHud(null); netPresence(true); if (win) { const g = 200 + P.lv * 30; P.gold += g; gainJobXp('pesca', 80 + P.lv); bitAdd('teamWin'); banner('🎣 ' + L2('¡Meta del equipo!', 'Team goal reached!'), '+' + fmt(g) + ' ' + L2('oro', 'gold')); sfx('questdone'); } else toast(L2('Se acabó el tiempo. ¡Casi!', 'Time is up. So close!'), 'info'); markDirty(true); } });
+
+// ================= PRESENCIA ONLINE: plato, carrera, pesca, muñecos =================
+{ const _sp = socialPresence; socialPresence = function (o) { _sp.apply(this, arguments); if (COOK && COOK.st === 'vote') o.ck = COOK.score | 0; if (MRACE) o.mr = { i: MRACE.i }; if (TF) o.tf = TF.n; const sm = SNOW.filter(s => s.man).slice(0, 5).map(s => [Math.round(s.x), Math.round(s.y)]); if (sm.length && G.P.map === 'world') o.sm = sm; }; }
+{ const _sr = socialRecv; socialRecv = function (r, pr) { _sr.apply(this, arguments); r.ck = pr.ck | 0; r.mr = pr.mr && typeof pr.mr === 'object' ? { i: clamp(pr.mr.i | 0, 0, 20) } : null; r.tf = clamp(pr.tf | 0, 0, 999); r.sm = Array.isArray(pr.sm) ? pr.sm.slice(0, 5).filter(a => Array.isArray(a) && isFinite(a[0]) && isFinite(a[1])) : null; if (!r.ck) r.ckVoted = false; }; }
+function JUEGOS_RECV(r, m, from) { if (m.k === 'vote' && COOK && COOK.st === 'vote' && !COOK.voters.has(r.id)) { COOK.voters.add(r.id); COOK.votes++; toast('❤ ' + from + L2(' ha votado tu plato.', ' voted for your dish.'), 'info'); } }
+// votar el plato de otro jugador (botón de acción al lado)
+{ const _it = interactTarget; interactTarget = function () { const r = _it.apply(this, arguments); if (r) return r; const P = G.P; if (!P || P.dead) return null; for (const q of G.remote.values()) if (q.ck && !q.ckVoted && q.map === P.map && Math.hypot(q.x - P.x, q.y - P.y) < 40) return { kind: 'ckvote', r: q, label: L2('❤ Votar plato', '❤ Vote dish'), icon: 'heart' };
+  for (const s of SNOW) if (!s.man && Math.hypot(s.x - P.x, s.y - P.y) < 24) return { kind: 'snow', s, label: L2('Hacer muñeco', 'Build snowman'), icon: 'snow' }; return null; }; }
+{ const _di = doInteract; doInteract = function (it) { it = it || interactTarget(); if (it && it.kind === 'ckvote') { it.r.ckVoted = true; mailSend(it.r, { k: 'vote' }); toast('❤ ' + L2('Has votado el plato de ', 'You voted for the dish of ') + it.r.name, 'info'); sfx('coin'); return; }
+  if (it && it.kind === 'snow') { const P = G.P; it.s.man = 1; it.s.t = G.t; setAnim(P, 'gather'); bitAdd('snowman'); burst(it.s.x, it.s.y - 8, 12, { sp: 40, up: 50, g: 80, life: 0.6, c: ['#ffffff', '#d8e8f8'] }); floatText(it.s.x, it.s.y - 30, '⛄', '#ffffff'); sfx('pickup'); netPresence(true); markDirty(); return; } return _di.apply(this, arguments); }; }
+
+// ================= CLIMA: nieve y estrellas fugaces =================
+const SNOW = [], STARS = []; let snowT = 3, starT = 5;
+function freePxNear(M, px, py, r) { for (let k = 0; k < 30; k++) { const x = Math.floor(px / 16 + (Math.random() - 0.5) * r * 2), y = Math.floor(py / 16 + (Math.random() - 0.5) * r * 2), i = tileAt(M, x, y); if (i < 0 || SOLID_T[M.ter[i]] || M.ter[i] === T.WATER || M.ter[i] === T.DEEP || (M.objAt && M.objAt[i] >= 0) || (M.solidO && M.solidO[i])) continue; return [x * 16 + 8, y * 16 + 10]; } return null; }
+V33_TICKS.push(dt => { const P = G.P, M = G.map; dt = Math.min(0.1, dt || 0); if (!P || !M) return;
+  const snowing = M.isWorld && curWx() === 'snow';
+  for (let k = SNOW.length - 1; k >= 0; k--) { const s = SNOW[k]; if (s.m !== P.map || (!snowing && !s.man) || (s.man && G.t - s.t > 240) || Math.hypot(s.x - P.x, s.y - P.y) > 700) SNOW.splice(k, 1); }
+  if (snowing) { snowT -= dt; if (snowT <= 0) { snowT = 6; if (SNOW.filter(s => !s.man).length < 3) { const p = freePxNear(M, P.x, P.y, 7); if (p) SNOW.push({ x: p[0], y: p[1], m: P.map, man: 0 }); } } }
+  const h = ((G.time || 0) / 60) % 24, night = M.sky && (h >= 21 || h < 4);
+  for (let k = STARS.length - 1; k >= 0; k--) { const s = STARS[k]; s.a += dt; if (s.m !== P.map || s.a > 40) { STARS.splice(k, 1); continue; } if (s.a > 1 && Math.hypot(s.x - P.x, s.y - P.y) < 20) { STARS.splice(k, 1); giveItem('polvo_estelar', 1); bitAdd('star'); burst(s.x, s.y - 6, 14, { sp: 60, up: 40, g: 40, life: 0.6, c: ['#fff4a0', '#ffffff', '#ffd040'] }); sfx('coin'); } }
+  if (night) { starT -= dt; if (starT <= 0) { starT = 7 + Math.random() * 5; if (STARS.length < 3) { const p = freePxNear(M, P.x, P.y, 9); if (p) STARS.push({ x: p[0], y: p[1], m: P.map, a: 0 }); } } } });
+DL_HOOKS.push((list, cx, cy) => { const P = G.P; if (!P) return;
+  const snowDraw = (x0, y0, man) => (e, a, b) => { const x = Math.round(x0 - a), y = Math.round(y0 - b); if (!man) { ctx.fillStyle = '#e8f0fa'; ctx.beginPath(); ctx.ellipse(x, y - 3, 8, 4, 0, 0, 7); ctx.fill(); ctx.fillStyle = '#ffffff'; ctx.fillRect(x - 4, y - 6, 5, 2); if ((G.t * 2 | 0) % 2) { ctx.fillStyle = '#ffffff'; ctx.fillRect(x + 3, y - 10, 1, 1); } return; }
+    ctx.fillStyle = '#e8f0fa'; ctx.beginPath(); ctx.arc(x, y - 6, 6, 0, 7); ctx.fill(); ctx.beginPath(); ctx.arc(x, y - 15, 4.5, 0, 7); ctx.fill(); ctx.fillStyle = '#1a1a24'; ctx.fillRect(x - 2, y - 17, 1, 1); ctx.fillRect(x + 1, y - 17, 1, 1); ctx.fillRect(x, y - 8, 1, 1); ctx.fillRect(x, y - 5, 1, 1); ctx.fillStyle = '#ff8a20'; ctx.fillRect(x, y - 15, 3, 1); ctx.fillStyle = '#c8343a'; ctx.fillRect(x - 4, y - 12, 8, 1); ctx.fillStyle = '#2a2a34'; ctx.fillRect(x - 3, y - 22, 6, 3); ctx.fillRect(x - 4, y - 19, 8, 1); };
+  for (const s of SNOW) if (s.m === P.map) list.push({ type: 'xdraw', x: s.x, y: s.y, noShadow: true, draw: snowDraw(s.x, s.y, s.man) });
+  for (const r of G.remote.values()) if (r.sm && r.map === P.map) for (const [x, y] of r.sm) list.push({ type: 'xdraw', x, y, noShadow: true, draw: snowDraw(x, y, 1) });
+  for (const s of STARS) if (s.m === P.map) list.push({ type: 'xdraw', x: s.x, y: s.y, noShadow: true, draw: (e, a, b) => { const x = Math.round(s.x - a), y = Math.round(s.y - b); if (s.a < 1) { const k = 1 - s.a; ctx.strokeStyle = 'rgba(255,244,160,0.8)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x - 60 * k, y - 120 * k - 8); ctx.lineTo(x - 60 * k + 10, y - 120 * k + 12); ctx.stroke(); return; }
+    const p = 2 + Math.sin(G.t * 8 + s.x) * 1.5; ctx.fillStyle = '#fff4a0'; ctx.fillRect(x - 1, y - 8 - p, 2, p * 2 + 2); ctx.fillRect(x - 1 - p, y - 8, p * 2 + 2, 2); ctx.fillStyle = '#ffffff'; ctx.fillRect(x - 1, y - 8, 2, 2); } });
+  for (const q of G.remote.values()) if (q.ck && q.map === P.map) list.push({ type: 'xdraw', x: q.x, y: q.y + 1, noShadow: true, draw: (e, a, b) => { const x = Math.round(q.x - a), y = Math.round(q.y - b - 46); ctx.fillStyle = 'rgba(255,255,255,.95)'; ctx.fillRect(x - 9, y - 7, 18, 13); ctx.fillStyle = '#c8c8d0'; ctx.fillRect(x - 6, y, 12, 2); ctx.fillStyle = '#e88a3a'; ctx.fillRect(x - 4, y - 3, 8, 3); ctx.fillStyle = '#ff4a8a'; ctx.fillRect(x + 4, y - 6, 2, 2); } }); });
+
+// ================= ENCARGOS EN CADENA DE OFICIO =================
+q('c_pez1', { n: L2('El pedido del Viejo Pez (1/3)', 'The Old Fish order (1/3)'), giver: 'tomas', lv: 5, chain: 'pez', desc: L2('Un cliente rico quiere una cena de pescado. Primero hay que pescar.', 'A rich customer wants a fish dinner. First we need to fish.'), obj: [{ t: 'job', job: 'pesca', n: 8, txt: L2('Pesca peces', 'Catch fish') }], rew: { xp: 600, gold: 180, job: ['pesca', 160] }, offer: [L2('Un señor de Arxar me ha encargado una cena de pescado… ¡y yo solo no doy abasto!', 'A gentleman from Arxar ordered a fish dinner… and I can’t do it alone!'), L2('Pesca 8 peces y seguimos.', 'Catch 8 fish and we continue.')], prog: [L2('¿Ya tienes los peces?', 'Got the fish yet?')], done: [L2('¡Estupendos! Ahora hay que cocinarlos: habla con Nora.', 'Great! Now they need cooking: talk to Nora.')] });
+q('c_pez2', { n: L2('El pedido del Viejo Pez (2/3)', 'The Old Fish order (2/3)'), giver: 'nora', lv: 5, pre: 'c_pez1', chain: 'pez', desc: L2('Nora necesita sardinas y leña para el horno.', 'Nora needs sardines and firewood for the oven.'), obj: [{ t: 'item', it: 'sardina', n: 4, take: 1 }, { t: 'item', it: 'log1', n: 5, take: 1 }], rew: { xp: 700, gold: 220, job: ['cocina', 160] }, offer: [L2('¿Tomás te manda? Tráeme 4 sardinas y 5 troncos de roble para el horno.', 'Tomás sent you? Bring me 4 sardines and 5 oak logs for the oven.')], prog: [L2('Sin sardinas no hay cena.', 'No sardines, no dinner.')], done: [L2('¡Huele de maravilla! Llévaselo a Tomás.', 'Smells wonderful! Take it to Tomás.')] });
+q('c_pez3', { n: L2('El pedido del Viejo Pez (3/3)', 'The Old Fish order (3/3)'), giver: 'nora', lv: 5, pre: 'c_pez2', chain: 'pez_end', turnin: 'tomas', desc: L2('Lleva la cena a Tomás para que la entregue.', 'Take the dinner to Tomás so he can deliver it.'), obj: [{ t: 'talk', npc: 'tomas', txt: L2('Lleva la cena a Tomás', 'Take the dinner to Tomás') }], rew: { xp: 900, gold: 600, items: [['bk_flowers', 1], ['food1', 3]] }, offer: [L2('Corre, que se enfría.', 'Hurry, it’s getting cold.')], done: [L2('¡El cliente pagó el triple! Toma, tu parte y un jarrón de flores.', 'The customer paid triple! Here, your share and a flower vase.')] });
+q('c_mue1', { n: L2('Un mueble para la boda (1/3)', 'Furniture for the wedding (1/3)'), giver: 'greta', lv: 4, chain: 'mueble', desc: L2('Greta va a fabricar una estantería de regalo de boda.', 'Greta is making a bookshelf as a wedding gift.'), obj: [{ t: 'item', it: 'log1', n: 10, take: 1 }], rew: { xp: 500, gold: 150, job: ['tala', 160] }, offer: [L2('Mi sobrina se casa y quiero regalarle una estantería. Necesito 10 troncos de roble.', 'My niece is getting married and I want to give her a bookshelf. I need 10 oak logs.')], prog: [L2('Faltan troncos.', 'Logs are missing.')], done: [L2('¡Buena madera! Ahora faltan clavos: Bruno, el herrero.', 'Good wood! Now we need nails: Bruno, the smith.')] });
+q('c_mue2', { n: L2('Un mueble para la boda (2/3)', 'Furniture for the wedding (2/3)'), giver: 'bruno', lv: 4, pre: 'c_mue1', chain: 'mueble', desc: L2('Bruno hará los clavos si le llevas cobre.', 'Bruno will make the nails if you bring him copper.'), obj: [{ t: 'item', it: 'ore1', n: 6, take: 1 }], rew: { xp: 600, gold: 180, job: ['herreria', 160] }, offer: [L2('¿Clavos para Greta? Tráeme 6 de cobre y te los forjo.', 'Nails for Greta? Bring me 6 copper and I’ll forge them.')], prog: [L2('Sin cobre no hay clavos.', 'No copper, no nails.')], done: [L2('Aquí tienes. ¡Que sea una boda bonita!', 'Here you go. May it be a lovely wedding!')] });
+q('c_mue3', { n: L2('Un mueble para la boda (3/3)', 'Furniture for the wedding (3/3)'), giver: 'greta', lv: 4, pre: 'c_mue2', chain: 'mueble_end', desc: L2('Ayuda a Greta a cortar las tablas.', 'Help Greta cut the boards.'), obj: [{ t: 'job', job: 'tala', n: 10, txt: L2('Tala árboles para las tablas', 'Chop trees for the boards') }], rew: { xp: 900, gold: 500, items: [['bk_bookshelf', 1]], job: ['tala', 240] }, offer: [L2('Con los clavos ya solo faltan tablas. ¡Vamos a talar!', 'With the nails we only need boards. Let’s chop!')], prog: [L2('¡Más tablas!', 'More boards!')], done: [L2('¡Quedó preciosa! Te hice otra igual para tu casa.', 'It turned out beautiful! I made you one too for your house.')] });
+q('c_gui1', { n: L2('El guiso de la granja (1/3)', 'The farm stew (1/3)'), giver: 'hugo_granjero', lv: 4, chain: 'guiso', desc: L2('Hugo quiere preparar el guiso de la cosecha.', 'Hugo wants to cook the harvest stew.'), obj: [{ t: 'job', job: 'agricultura', n: 3, txt: L2('Cosecha en el huerto', 'Harvest in the garden') }], rew: { xp: 500, gold: 150, job: ['agricultura', 160] }, offer: [L2('Cada año hacemos el guiso de la cosecha. ¡Ayúdame a recoger verduras!', 'Every year we make the harvest stew. Help me pick vegetables!')], prog: [L2('Las verduras no se recogen solas.', 'Vegetables don’t pick themselves.')], done: [L2('¡Qué buena cosecha! Nora sabe qué hierbas le van.', 'What a harvest! Nora knows which herbs go with it.')] });
+q('c_gui2', { n: L2('El guiso de la granja (2/3)', 'The farm stew (2/3)'), giver: 'nora', lv: 4, pre: 'c_gui1', chain: 'guiso', desc: L2('Nora pide hierba verde para el guiso.', 'Nora asks for green herb for the stew.'), obj: [{ t: 'item', it: 'herb1', n: 6, take: 1 }], rew: { xp: 600, gold: 180, job: ['herbo', 160] }, offer: [L2('El secreto está en las hierbas. Tráeme 6 de hierba verde.', 'The secret is in the herbs. Bring me 6 green herbs.')], prog: [L2('Sin hierbas sabe a agua.', 'Without herbs it tastes like water.')], done: [L2('¡Perfecto! Solo falta pescado fresco para el caldo.', 'Perfect! Only fresh fish for the broth left.')] });
+q('c_gui3', { n: L2('El guiso de la granja (3/3)', 'The farm stew (3/3)'), giver: 'nora', lv: 4, pre: 'c_gui2', chain: 'guiso_end', turnin: 'hugo_granjero', desc: L2('Pesca para el caldo y lleva el guiso a Hugo.', 'Fish for the broth and bring the stew to Hugo.'), obj: [{ t: 'job', job: 'pesca', n: 4, txt: L2('Pesca para el caldo', 'Fish for the broth') }], rew: { xp: 900, gold: 500, items: [['bk_plant', 1], ['food1', 4]], job: ['cocina', 200] }, offer: [L2('Pesca 4 peces y llévale el guiso a Hugo. ¡Que no se enfríe!', 'Catch 4 fish and bring the stew to Hugo. Don’t let it get cold!')], prog: [L2('El caldo espera.', 'The broth is waiting.')], done: [L2('¡El mejor guiso en años! Toma, para tu casa.', 'Best stew in years! Here, for your house.')] });
+for (const id of ['c_pez1', 'c_pez2', 'c_pez3', 'c_mue1', 'c_mue2', 'c_mue3', 'c_gui1', 'c_gui2', 'c_gui3']) { const Q = QUESTS[id]; if (!NPCS[Q.giver] || (Q.turnin && !NPCS[Q.turnin])) delete QUESTS[id]; else for (const [i] of (Q.rew.items || [])) if (!ITEMS[i]) Q.rew.items = Q.rew.items.filter(x => ITEMS[x[0]]); if (Q && Q.rew.job && !JOBS[Q.rew.job[0]]) delete Q.rew.job; for (const o of (Q.obj || [])) if (o.t === 'job' && !JOBS[o.job]) delete QUESTS[id]; }
+for (const id in QUESTS) { const Q = QUESTS[id]; if (!/^c_(pez|mue|gui)/.test(id) || !NPCS[Q.giver]) continue; const G_ = NPCS[Q.giver]; G_.quests = G_.quests || []; if (!G_.quests.includes(id)) G_.quests.push(id); }
+
+// ================= ESCONDITE EN HIGASHIYAMA =================
+NPCS.jp_escondite = { n: L2('Hana, la niña del escondite', 'Hana, the hide-and-seek girl'), title: L2('Higashiyama', 'Higashiyama'), look: LK({ g: 'f', hair: HAIRS.negro || HAIRS.castano, hairStyle: 'long', outfit: 'robe', main: CLOTH.rojo || CLOTH.azul, sec: CLOTH.blanco || CLOTH.beige }), lines: [L2('¡Los vecinos se han escondido por las terrazas! ¿Los encuentras?', 'The neighbours are hiding on the terraces! Can you find them?')], quests: [] };
+if (typeof JP_NPC_LOOK !== 'undefined') JP_NPC_LOOK.jp_escondite = JP_NPC_LOOK.jp_escondite || 3;
+{ const _mj = makeJapan; makeJapan = function () { const had = G.maps.japon, M = _mj.apply(this, arguments); if (!had && M && typeof JE !== 'undefined') { const p = freePxNear(M, 366 * 16, 150 * 16, 4) || freePxNear(M, 366 * 16, 150 * 16, 10); if (p) spawnNPC('jp_escondite', p[0], p[1] - 2, 'japon', { face: 'down' }); } return M; }; }
+DLG_HOOKS.push((npc, opts) => { if (npc.id !== 'jp_escondite') return; opts.unshift({ label: '🙈 ' + L2('Jugar al escondite (2 min)', 'Play hide-and-seek (2 min)'), icon: ['eye'], fn: () => { closeDialog(); seekStart(npc); } }); });
+let SEEK = null;
+function seekStart(npc) { const M = G.map, P = G.P; if (!M || P.map !== 'japon' || SEEK) return; const hid = [];
+  for (let k = 0; k < 60 && hid.length < 5; k++) { const p = freePxNear(M, npc.x + (Math.random() - 0.5) * 320, npc.y + (Math.random() - 0.5) * 360, 3); if (!p || p[0] / 16 < 322 || p[1] / 16 < 102 || p[1] / 16 > 204 || Math.hypot(p[0] - npc.x, p[1] - npc.y) < 80 || hid.some(h => Math.hypot(h.x - p[0], h.y - p[1]) < 60)) continue; hid.push({ x: p[0], y: p[1], A: xwAtlas((Math.random() * 16) | 0, typeof JP_APPS_W !== 'undefined' ? JP_APPS_W : undefined), ph: Math.random() * 9, mv: 0, dir: 'down', found: 0 }); }
+  if (hid.length < 3) { xMsg('🙈', L2('Hoy no hay sitio para esconderse… ¡Vuelve luego!', 'No room to hide today… Come back later!')); return; }
+  SEEK = { hid, t: 120, n: hid.length }; banner('🙈 ' + L2('¡A buscar!', 'Go find them!'), L2('Se han escondido ', 'Hidden: ') + hid.length + L2(' vecinos por las terrazas. 2 minutos.', ' neighbours on the terraces. 2 minutes.')); sfx('quest'); }
+V33_TICKS.push(dt => { const S = SEEK, P = G.P; if (!S) return; dt = Math.min(0.1, dt || 0); if (!P || P.map !== 'japon') { SEEK = null; mgHud(null); return; } S.t -= dt; let best = 1e9;
+  for (const h of S.hid) { if (h.found) continue; const d = Math.hypot(h.x - P.x, h.y - P.y); best = Math.min(best, d); if (d < 26) { h.found = 1; h.mv = 0; floatText(h.x, h.y - 40, L2('¡Me has encontrado!', 'You found me!'), '#ffd040'); sfx('coin'); burst(h.x, h.y - 16, 10, { sp: 50, up: 40, g: 60, life: 0.5, c: ['#ffd040', '#ffffff'] }); } }
+  const f = S.hid.filter(h => h.found).length, heat = best < 90 ? '🔥 ' + L2('¡Caliente!', 'Hot!') : best < 200 ? '🌤 ' + L2('Templado', 'Warm') : '❄ ' + L2('Frío', 'Cold');
+  mgHud(`🙈 <b>${f}/${S.n}</b> · ${Math.max(0, Math.ceil(S.t))} s · ${f < S.n ? heat : ''}`);
+  if (f >= S.n || S.t <= 0) { const win = f >= S.n; SEEK = null; mgHud(null); if (win) { const g = 300 + P.lv * 30; P.gold += g; bitAdd('seekWin'); banner('🙈 ' + L2('¡Los has encontrado a todos!', 'You found them all!'), '+' + fmt(g) + ' ' + L2('oro', 'gold')); sfx('questdone'); } else toast(L2('¡Se acabó el tiempo! Encontraste ', 'Time’s up! You found ') + f + '/' + S.n, 'info'); markDirty(true); } });
+DL_HOOKS.push((list, cx, cy) => { const S = SEEK, P = G.P; if (!S || !P || P.map !== 'japon') return; for (const h of S.hid) { const d = Math.hypot(h.x - P.x, h.y - P.y); if (!h.found && d > 110) continue;
+  list.push({ type: 'xdraw', x: h.x, y: h.y, noShadow: true, draw: (e, a, b) => { if (h.found) { xwDraw(h, a, b); return; } ctx.save(); ctx.globalAlpha = clamp((110 - d) / 60, 0.15, 0.75); xwDraw(h, a, b); ctx.restore(); if ((G.t * 3 | 0) % 2) { ctx.fillStyle = '#ffffff'; ctx.fillRect(Math.round(h.x - a + 8), Math.round(h.y - b - 30), 1, 1); } } }); } });
+
+// ================= TIENDA EN CASA: precios y regateo =================
+const SHOP_MUL = [[0.8, L2('Barato', 'Cheap')], [1, L2('Normal', 'Normal')], [1.3, L2('Caro', 'Pricey')]];
+const SHOP_SAY = { cheap: [L2('¡Qué ganga! Me llevo uno.', 'What a bargain! I’ll take one.'), L2('A este precio, compro dos… bueno, uno.', 'At this price I’d buy two… well, one.')], dear: [L2('¡Qué caro! Bueno… vale.', 'So expensive! Well… fine.'), L2('Te lo compro si me haces descuento.', 'I’ll buy it if you give me a discount.'), L2('Hum… en Arxar es más barato.', 'Hmm… it’s cheaper in Arxar.')], ok: [L2('Justo lo que buscaba.', 'Just what I was looking for.'), L2('¡Volveré mañana!', 'I’ll come back tomorrow!')] };
+if (typeof shopTick === 'function') shopTick = function () { const S = homeShopState(), now = Date.now(), lvC = ((G.P.jobs.comercio || { lv: 1 }).lv), every = SHOP_EVERY * 1000 / (1 + lvC / 50); S.log = S.log || [];
+  let k = Math.min(200, Math.floor((now - S.t) / every)); if (k <= 0) return 0; S.t += k * every; let sold = 0;
+  while (k-- > 0) { const live = S.s.filter(s => s.n > 0); if (!live.length) { S.t = now; break; } const w = live.map(s => 1 / Math.pow(s.m || 1, 3)), tw = w.reduce((a, b) => a + b, 0); let r = Math.random() * tw, s = live[0]; for (let i = 0; i < live.length; i++) { r -= w[i]; if (r <= 0) { s = live[i]; break; } }
+    if ((s.m || 1) > 1.15 && Math.random() < 0.45) continue; // el cliente se va sin comprar
+    let pay = s.p * (s.m || 1), say = null; if ((s.m || 1) > 1.15 && Math.random() < 0.4) { pay = s.p * (1 + Math.random() * 0.2); say = pick2(SHOP_SAY.dear); } else if ((s.m || 1) < 0.9) { if (Math.random() < 0.3) say = pick2(SHOP_SAY.cheap); } else if (Math.random() < 0.1) say = pick2(SHOP_SAY.ok);
+    s.n--; S.g += Math.round(pay); S.n = (S.n || 0) + 1; sold++; if (say) { S.log.unshift([ITEMS[s.id] ? ITEMS[s.id].n : '', say]); if (S.log.length > 8) S.log.length = 8; } }
+  S.s = S.s.filter(s => s.n > 0); return sold; };
+if (typeof openHomeShop === 'function') { const _oh = openHomeShop; openHomeShop = function () { const r = _oh.apply(this, arguments); try { const S = homeShopState(), list = $('#modal .slist'); if (!list) return r;
+  list.querySelectorAll('[data-shr]').forEach(b => { const i = +b.dataset.shr, s = S.s[i]; if (!s) return; const m = s.m || 1, k = SHOP_MUL.findIndex(x => x[0] === m); b.insertAdjacentHTML('beforebegin', `<button class="btn sm" data-shm="${i}">🏷 ${esc((SHOP_MUL[k] || SHOP_MUL[1])[1])} · ${fmt(Math.round(s.p * m))}</button>`); });
+  list.insertAdjacentHTML('afterend', `<p class="hint">${L2('🏷 Cambia el precio: barato se vende antes, caro da más oro pero algunos clientes se van o regatean.', '🏷 Change the price: cheap sells sooner, pricey gives more gold but some customers leave or haggle.')}</p>${(S.log || []).length ? `<h4>💬 ${L2('Lo que dicen los clientes', 'What customers say')}</h4><div class="slist">${S.log.map(([n, t]) => `<p class="rum">«${esc(t)}» <small>— ${esc(n)}</small></p>`).join('')}</div>` : ''}`);
+  $$('#modal [data-shm]').forEach(b => b.onclick = () => { const s = S.s[+b.dataset.shm]; if (!s) return; const k = SHOP_MUL.findIndex(x => x[0] === (s.m || 1)); s.m = SHOP_MUL[(k + 1) % SHOP_MUL.length][0]; markDirty(true); openHomeShop(); }); } catch (e) { console.warn(e); } return r; }; }
+
+// ---------- estilos ----------
+{ const st = document.createElement('style'); st.textContent = `
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(5.6em,1fr));gap:.35em}
+.tcard{position:relative;display:flex;flex-direction:column;align-items:center;gap:.1em;padding:.3em .2em .25em;border-radius:.45em;border:2px solid var(--elc);background:linear-gradient(#2a1c12,#140c08);color:#f3e6c8;font-size:.72em;min-height:6.4em}
+.tcard.boss{box-shadow:0 0 0 1px #ffd040,0 0 8px rgba(255,208,64,.5)}.tcard canvas{width:44px;height:44px;image-rendering:pixelated}.tcard b{text-align:center;line-height:1.1;font-weight:600}
+.tcard .tpw{position:absolute;left:.2em;top:.1em;font-weight:700;color:#ffe08a;text-shadow:0 1px 0 #000;font-size:1.25em}.tcard .tel{position:absolute;right:.2em;top:.1em}.tcard em{position:absolute;right:.25em;bottom:.15em;font-style:normal;color:var(--muted)}
+.tcb{background:none;border:0;padding:0;font:inherit;cursor:pointer}.tcb:hover .tcard{transform:translateY(-2px);border-color:#ffd040}
+.cking{display:flex;flex-wrap:wrap;gap:.3em;margin:.3em 0}
+.ckbar{position:relative;height:1.6em;border-radius:.4em;background:linear-gradient(90deg,#5a1a1a,#8a5a1a,#5a1a1a);border:2px solid #5a4320;margin:.6em 0}.ckz{position:absolute;top:0;bottom:0;width:18%;background:rgba(90,208,106,.7)}.ckn{position:absolute;top:-.3em;bottom:-.3em;width:4px;margin-left:-2px;background:#fff;box-shadow:0 0 6px #fff}
+`; document.head.appendChild(st); }
+
+// ---------- Lupa › Sistemas ----------
+if (typeof GSIS !== 'undefined') {
+ const hallWP = () => { const l = hallNearest(); return l ? { loc: l, m: 'world', t: L2('Salón de juegos', 'Game hall') } : null; };
+ GSIS.splice(1, 0, ['salon', '🎲 ' + L2('Salón de juegos', 'Game hall'), () => [
+  L2('La Anfitriona del Salón está en los 6 pueblos (estrella rosa en el mapa). No da fuerza: da diversión, oro y logros.', 'The Game Hall Host is in all 6 towns (pink star on the map). No strength: fun, gold and achievements.'),
+  L2('🃏 Duelo de cartas: 5 rondas con 5 cartas de tu colección. Fuego > Planta > Agua > Fuego (+3). Premio hasta 10 veces al día y a veces una carta del rival.', '🃏 Card duel: 5 rounds with 5 cards from your collection. Fire > Plant > Water > Fire (+3). Prize up to 10 times a day and sometimes a rival’s card.'),
+  L2('🍳 Concurso de cocina: elige 3 ingredientes según el tema del día y acierta el punto de cocción. Los jugadores cercanos ven tu plato y pueden votarlo con el botón de acción (+3 por voto).', '🍳 Cooking contest: pick 3 ingredients for the day’s theme and hit the cooking point. Nearby players see your dish and can vote with the action button (+3 per vote).'),
+  L2('🏇 Carrera de monturas: 8 aros alrededor y toneles (+2 s). Bate el récord. Los demás corredores salen en tu marcador.', '🏇 Mount race: 8 rings around and barrels (+2 s). Beat the record. Other racers show on your scoreboard.'),
+  L2('🎣 Pesca por equipos: 3 minutos; suman todos los que la jueguen a la vez cerca. Meta: 8 peces por jugador.', '🎣 Team fishing: 3 minutes; everyone playing at the same time nearby adds up. Goal: 8 fish per player.')], hallWP]);
+ GSIS.splice(2, 0, ['juegos_mas', '🌦 ' + L2('Escondite, encargos en cadena y clima especial', 'Hide-and-seek, chained commissions and special weather'), () => [
+  L2('🙈 Escondite: Hana, en Higashiyama (Japón, junto a la pagoda), esconde a 5 vecinos por las terrazas. Tienes 2 minutos; el marcador dice si estás caliente o frío.', '🙈 Hide-and-seek: Hana, in Higashiyama (Japan, by the pagoda), hides 5 neighbours on the terraces. You have 2 minutes; the scoreboard says hot or cold.'),
+  L2('🔗 Encargos en cadena: «El pedido del Viejo Pez» (Tomás y Nora), «Un mueble para la boda» (Greta y Bruno) y «El guiso de la granja» (Hugo y Nora). Salen en Misiones › Trabajo y dan muebles.', '🔗 Chained commissions: «The Old Fish order» (Tomás and Nora), «Furniture for the wedding» (Greta and Bruno) and «The farm stew» (Hugo and Nora). They show in Quests › Work and give furniture.'),
+  L2('⚡ Con tormenta puede picar el Pez Tormenta (muy valioso). ⛄ Cuando nieva salen montones de nieve: tócalos para hacer muñecos (los demás los ven). 🌠 De noche en Altavela caen estrellas fugaces: acércate a los destellos.', '⚡ In storms the Storm Fish may bite (very valuable). ⛄ When it snows, snow piles appear: tap them to build snowmen (others see them). 🌠 At night in Altavela shooting stars fall: walk to the sparkles.'),
+  L2('🛒 Tu tienda en casa: ahora puedes poner cada producto barato, normal o caro, y ver lo que dicen los clientes.', '🛒 Your home shop: you can now set each product cheap, normal or pricey, and read what customers say.')], () => null]);
+}
 
 // ================= v3.6: IDIOMA (Español / English) =================
 // Los textos del código se traducen al compilar (tools/i18n/tr.js + en.json): cada uno es (LANG_EN ? "inglés" : "español").
