@@ -11,7 +11,7 @@ with sync_playwright()as p:
   pg.goto((R/'dist/test.html').as_uri());pg.wait_for_timeout(1500);pg.click('#tNew');pg.wait_for_timeout(400);pg.fill('#ccName','Ventisca');pg.click('#ccGo');pg.wait_for_timeout(1300);pg.click('#introOk');pg.wait_for_timeout(500)
   pg.evaluate("window.hurtPlayer=()=>{};G.paused=true;SETTINGS.sfx=0;setMap(makeLive(),248,180,'up');G.fade=0;G.fadeTarget=0;setHD(true)")
   pg.wait_for_function("()=>['jp_ado','jp_miku','jp_teto'].every(id=>STELLA_PARTNER_OUTFITS[id].every(s=>idolSocialAtlas(id,s).ready))")
-  result=pg.evaluate((R/'tests/ado/check.js').read_text());print(json.dumps(result),flush=True)
+  result=pg.evaluate((R/'tests/ado/check.js').read_text());result['hairFit']=pg.evaluate((R/'tests/ado/hair-fit.js').read_text());print(json.dumps(result),flush=True)
   for name,data in pg.evaluate((R/'tests/ado/preview.js').read_text()).items():(O/name).write_bytes(base64.b64decode(data.split(',')[1]))
   pg.evaluate("()=>{G.P.partner=null;G.P.pOut='normal';G.P.inside='jp_live_in';G.P.app={...DEF_APP,g:'m',bt:1,hair:'rojo',eyes:'verde'};G.P.atlas=playerAtlas(G.P);G.paused=false;G.P.x=248;G.P.y=150;updateCamera(0,true);for(const e of G.ents)if(e.type==='npc'){e.wander=0;e.wt=null;}const e=G.ents.find(e=>e.id==='jp_ado');e.x=360;e.y=184;e.home={x:360,y:184};e.atlas=npcAtlas(e.id);}")
   pg.wait_for_timeout(350);pg.evaluate("openDialog(G.ents.find(e=>e.id==='jp_prod'))");textdone();shot('01_akane_concierto_ado.png')

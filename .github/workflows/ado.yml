@@ -9,7 +9,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   validate:
-    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'codex/ado-japon'
+    if: github.event.pull_request.head.repo.full_name == github.repository && startsWith(github.event.pull_request.head.ref, 'codex/ado-')
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -58,11 +58,13 @@ jobs:
       - name: Commit verified package
         env:
           EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
+          TARGET_BRANCH: ${{ github.event.pull_request.head.ref }}
         run: |
-          git fetch origin codex/ado-japon
+          git fetch origin "$TARGET_BRANCH"
           test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_HEAD"
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add update/thebound.html update/version.json
-          git commit -m 'Package verified The Bound 5.08 Ado'
-          git push origin HEAD:refs/heads/codex/ado-japon
+          git diff --cached --quiet && exit 0
+          git commit -m 'Package verified Ado update'
+          git push origin "HEAD:refs/heads/$TARGET_BRANCH"

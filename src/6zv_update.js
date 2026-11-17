@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.08', GAME_BUILD = 129;
+const GAME_VER = '5.09', GAME_BUILD = 130;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -16,19 +16,32 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 const CHANGELOG = /*CL*/
 [
  {
- "v": "5.08",
- "b": 129,
- "es": [
-  "🎤 Ado llega a STELLA☆LINK, Japón: concierto propio en la sala existente, aspecto detallado y estilo pequeño en el armario de pareja.",
-  "💙 Romance, paseos, besos, abrazos, cargar en brazos y familia con Ado. Poses sociales y dibujo HD en brazos también para Miku y Teto.",
-  "💇 Peinado de Ado extraído del diseño aprobado: cinco cuerpos por sexo, tinte original/personalizado e hijos que heredan ojos y pelo de sus padres."
- ],
- "en": [
-  "🎤 Ado arrives at STELLA☆LINK, Japan: her own show in the existing hall, detailed appearance and small style in the partner wardrobe.",
-  "💙 Romance, walks, kisses, hugs, carrying and family with Ado. Social poses and HD carried rendering also for Miku and Teto.",
-  "💇 Ado hairstyle extracted from the approved design: five bodies per sex, original/custom dye and children inheriting their parents eyes and hair."
- ]
-},
+  "v": "5.09",
+  "b": 130,
+  "d": "2026-11-17",
+  "es": [
+   "💇 Peinado Ado corregido: melena y flequillo propios, cuatro direcciones y anclajes de cabeza en los cinco cuerpos femeninos y cinco masculinos. Sin compresión vertical ni restos del recorte.",
+   "🎨 Conserva el tinte original/personalizado, los índices guardados y la apariencia multijugador."
+  ],
+  "en": [
+   "💇 Fixed Ado hairstyle: native layered hair and fringe, four directions and head anchors for all five female and five male bodies. No vertical squeezing or extraction debris.",
+   "🎨 Original/custom dye, saved hairstyle indexes and multiplayer appearance preserved."
+  ]
+ },
+ {
+  "v": "5.08",
+  "b": 129,
+  "es": [
+   "🎤 Ado llega a STELLA☆LINK, Japón: concierto propio en la sala existente, aspecto detallado y estilo pequeño en el armario de pareja.",
+   "💙 Romance, paseos, besos, abrazos, cargar en brazos y familia con Ado. Poses sociales y dibujo HD en brazos también para Miku y Teto.",
+   "💇 Peinado de Ado extraído del diseño aprobado: cinco cuerpos por sexo, tinte original/personalizado e hijos que heredan ojos y pelo de sus padres."
+  ],
+  "en": [
+   "🎤 Ado arrives at STELLA☆LINK, Japan: her own show in the existing hall, detailed appearance and small style in the partner wardrobe.",
+   "💙 Romance, walks, kisses, hugs, carrying and family with Ado. Social poses and HD carried rendering also for Miku and Teto.",
+   "💇 Ado hairstyle extracted from the approved design: five bodies per sex, original/custom dye and children inheriting their parents eyes and hair."
+  ]
+ },
  {
   "b": 128,
   "v": "5.07",
