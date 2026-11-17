@@ -1,0 +1,18 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js window.__e=[];window.addEventListener('error',e=>window.__e.push(String(e.message)+' @ '+(e.error&&e.error.stack||'').slice(0,500)));1
+js (()=>{ const P=G.P; P.lv=60; const cfg={ floor: 2, f: { bed: 'bigbed', table: 'sofa', deco1: 'lamp', paint: 'painting2', rug: 'rugb' } }; const pay={ k:'home', cfg, b:[['casa_a3',20,10,1,'bit_trofeo',0,0],['casa_a3',22,10,1,'bit_vitrina',0,0]], base:'casa_a3', lv:90, n:'Amiga', s:1, sid:'zz', to:NET.myId }; mailRecv({ id:'peer1', name:'Amiga' }, pay); return [!!VISIT.offer, BIT().mail.length, Object.keys(P.homes||{}).length, (P.builds||[]).length]; })()
+js (visitEnter(), 1)
+wait 1500
+js [G.map.id, G.map.visit, G.map.objs.filter(o=>o.k==='furn').map(o=>o.f).join(','), Object.keys(G.P.homes||{}).length, (G.P.builds||[]).length, interactTarget()]
+shot
+js (exitInterior(), 1)
+wait 2500
+js [G.map.id, !!G.maps.visita, BLD.rem.has('__visit'), (G.P.builds||[]).length, BIT().c.visit]
+js (()=>{ const P=G.P; goJapan(); return 1; })()
+wait 2500
+js (()=>{ const P=G.P, e=G.ents.find(e=>e.id==='jp_escondite'); if(!e) return 'no npc'; P.x=e.x; P.y=e.y+20; seekStart(e); return SEEK && SEEK.hid.map(h=>[Math.round(h.x/16),Math.round(h.y/16)]); })()
+wait 600
+shot
+js (()=>{ const S=SEEK; for (const h of S.hid) { G.P.x=h.x; G.P.y=h.y; } return 1; })()
+js (()=>{ const P=G.P; for (const h of SEEK.hid) { P.x=h.x; P.y=h.y+2; for(let k=0;k<3;k++) V33_TICKS.forEach(f=>{try{f(0.016)}catch(e){}}); } return [SEEK, bitC('seekWin')]; })()
+js window.__e

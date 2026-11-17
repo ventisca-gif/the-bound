@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.10', GAME_BUILD = 131;
+const GAME_VER = '5.11', GAME_BUILD = 132;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,25 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.11",
+  "b": 132,
+  "d": "2026-11-17",
+  "es": [
+   "📖 Bitácora (botón a la izquierda): lo más importante de hoy, 30 logros con títulos, marcos para el retrato y muebles, álbum de fotos en grupo, mascota exploradora y buzón.",
+   "📜 Misiones: filtros Historia/Secundarias/Trabajo/Hechas, grupos plegables, «Ir a entregar», disponibles ordenadas por cercanía y historial de lo completado.",
+   "🎲 Salón de juegos en los 6 pueblos: cartas coleccionables de enemigos y jefes, concurso de cocina con votos de jugadores, carrera de monturas y pesca por equipos.",
+   "🙈 Escondite en Higashiyama, 3 encargos en cadena de oficio, Pez Tormenta, muñecos de nieve y estrellas fugaces en Altavela.",
+   "🏠 Visita la casa de otros jugadores, mándales notas y regalos. 🛒 Tu tienda: precios y clientes que regatean. 🧹 «Vender basura» y botón ↩ de última ventana."
+  ],
+  "en": [
+   "📖 Logbook (button on the left): today’s key info, 30 achievements with titles, portrait frames and furniture, group photo album, exploring pet and mailbox.",
+   "📜 Quests: Story/Side/Work/Done filters, foldable groups, «Go turn in», available quests sorted by distance and a history of completed ones.",
+   "🎲 Game hall in all 6 towns: collectible enemy and boss cards, cooking contest with player votes, mount race and team fishing.",
+   "🙈 Hide-and-seek in Higashiyama, 3 chained job commissions, Storm Fish, snowmen and shooting stars in Altavela.",
+   "🏠 Visit other players’ houses, send them notes and gifts. 🛒 Your shop: prices and haggling customers. 🧹 «Sell junk» and ↩ last-window button."
+  ]
+ },
  {
   "v": "5.10",
   "b": 131,

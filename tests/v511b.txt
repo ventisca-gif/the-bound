@@ -1,0 +1,16 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js window.__e=[];window.addEventListener('error',e=>window.__e.push(String(e.message)+' @ '+(e.error&&e.error.stack||'').slice(0,600)));1
+js JSON.stringify(guideTarget())
+js (G.P.lv=60, closePanel(), duelStartCards('salon_albor'), CDUEL.opp.forEach(c=>c.pw=0), 1)
+js (()=>{ for(let k=0;k<5;k++){ const b=$('#modal [data-dc]'); if(b) b.click(); } $('#mclose').click(); return bitC('cardWin'); })()
+wait 500
+js window.__e
+js (G.P.wstate.wx='snow', SETTINGS.weather=1, [curWx(), G.map.isWorld, G.paused, snowT])
+wait 8000
+js [curWx(), SNOW.length, G.paused, snowT, freePxNear(G.map, G.P.x, G.P.y, 7)]
+shot
+js window.__e
+js (()=>{ const s=SNOW[0]; if(!s) return 'none'; G.P.x=s.x; G.P.y=s.y+4; const it=interactTarget(); if(it) doInteract(it); return [it&&it.kind, bitC('snowman')]; })()
+wait 500
+shot
+js window.__e
