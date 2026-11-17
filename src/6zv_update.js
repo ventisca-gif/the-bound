@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.02', GAME_BUILD = 123;
+const GAME_VER = '5.03', GAME_BUILD = 124;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "b": 124,
+  "v": "5.03",
+  "d": "2026-11-17",
+  "es": [
+   "🎨 Iconos de habilidad dibujados de nuevo: espadas, escudos, llamas, copos, flechas, notas, calaveras, guadañas, olas y más, con el color de cada elemento. Ya no salen manchas marrones en el árbol ni en los botones.",
+   "✨ Quitado el bloque marrón que tapaba al personaje en Grito, Muro, Avatar, Fortaleza, Égida, Coro y otras: ahora son ondas y contornos brillantes. Los ataques del guerrero pasan de marrón a acero y oro.",
+   "🌐 Revisado en multijugador local y online: las 125 armaduras rediseñadas, los 255 cosméticos, los 149 peinados (85 femeninos y 64 masculinos, ninguno borrado) y las 122 habilidades se ven igual en el otro teléfono."
+  ],
+  "en": [
+   "🎨 Skill icons redrawn: swords, shields, flames, snowflakes, arrows, notes, skulls, scythes, waves and more, in each element's colours. No more brown blobs in the tree or the buttons.",
+   "✨ Removed the brown block that covered the character in Shout, Wall, Avatar, Fortress, Aegis, Choir and others: now they are waves and glowing outlines. Warrior skills go from brown to steel and gold.",
+   "🌐 Checked in local and online multiplayer: the 125 redesigned armours, 255 cosmetics, 149 hairstyles (85 female and 64 male, none removed) and 122 skills look the same on the other phone."
+  ]
+ },
  {
   "b": 123,
   "v": "5.02",

@@ -151,7 +151,7 @@ function svClassPose(cls,dir,t,L){
  for(const k of['rax','ray','lax','lay','crouch','jump','lean','bob','lfy','rfy'])if(p[k])p[k]*=1-recover;
  return p;
 }
-const SV_COL={guerrero:['#543724','#bd8140','#efc674','#fff1cc'],mago:['#722528','#d55629','#ffac45','#fff0b9'],arquero:['#1b4940','#418b6f','#99d7a3','#e6f8d7'],asesino:['#25162f','#633d81','#c28bd9','#f6d7ed'],bardo:['#57416b','#ad709b','#edc773','#fff0b4'],invocador:['#122e51','#366b9e','#89c9e6','#ecffff'],pez:['#123e64','#3187a6','#8edee0','#edffff']};
+const SV_COL={guerrero:['#34466e','#7f9fd0','#f2d27a','#fffbe8'],mago:['#722528','#d55629','#ffac45','#fff0b9'],arquero:['#1b4940','#418b6f','#99d7a3','#e6f8d7'],asesino:['#25162f','#633d81','#c28bd9','#f6d7ed'],bardo:['#57416b','#ad709b','#edc773','#fff0b4'],invocador:['#122e51','#366b9e','#89c9e6','#ecffff'],pez:['#123e64','#3187a6','#8edee0','#edffff']};
 const svHash=s=>{let h=2166136261;for(const c of s)h=Math.imul(h^c.charCodeAt(0),16777619)>>>0;return h;};
 const SV_OF=new Map();
 for(const s of Object.values(SK))if(AP_CLASSES.includes(s.cls)&&s.type==='act'){
@@ -191,7 +191,7 @@ function svEffect(id,frame,role='cast',dir='down'){
  const D=SV_OF.get(id);if(!D)return null;frame=svClamp(frame|0,0,11);const key=[id,frame,role,dir].join(':');let cv=svGet(SV_FX_CACHE,key);if(cv)return cv;
  const p=new Pix(128,128),C_=D.colors,t=(frame+1)/12,seed=D.seed,n=D.beats,angle=({right:0,down:Math.PI/2,left:Math.PI,up:-Math.PI/2})[dir]||0;
  const pt=(u,v)=>[Math.round(64+Math.cos(angle)*u-Math.sin(angle)*v),Math.round(64+(Math.sin(angle)*u+Math.cos(angle)*v)*.65)];
- const line=(a,b,c=C_[2])=>p.line(...pt(...a),...pt(...b),c),dot=(u,v,r=2)=>p.ball(...pt(u,v),r,r,[C_[0],C_[1],C_[2],C_[3]]);
+ const line=(a,b,c=C_[2])=>p.line(...pt(...a),...pt(...b),c),dot=(u,v,r=2)=>p.ball(...pt(u,v),r,r,[C_[1],C_[2],C_[3],C_[3]]),glass=(c,a=70)=>((c&0xffffff)|(a<<24))>>>0;
  const poly=(a,c)=>p.poly(a.map(v=>pt(...v)),c),circle=(r,phase=0,c=C_[2],sides=24)=>{let last;for(let i=0;i<=sides;i++){const a=i/sides*Math.PI*2+phase,z=[Math.cos(a)*r,Math.sin(a)*r];if(last)line(last,z,c);last=z;}};
  const projectile=role==='proj',ground=role==='field',fx=D.fx;
  if(projectile){
@@ -220,11 +220,12 @@ function svEffect(id,frame,role='cast',dir='down'){
   circle(24,seed%6,C_[1],6);circle(18,-t,C_[2],6);for(let j=0;j<(fx==='summon'?1:n);j++){const x=(j-(n-1)/2)*12,y=-t*20;dot(x,y-8,5);poly([[x-4,y-6],[x+4,y-6],[x+6,y+7],[x,y+3],[x-5,y+7]],C_[1]);dot(x-2,y-9,1);dot(x+2,y-9,1);}
  }else if(/wall|aegis|seraph|arcshield|icearmor|fortress|carapace|bubble|stealth|hawkeye|avatar|abysmal|hunter|shout|shadows/.test(fx)){
   if(fx==='bubble'){circle(27,t*.3,C_[2]);for(let j=0;j<5;j++)dot(Math.cos(j)*21,Math.sin(j)*21,2);}
-  else{poly([[-21,-21],[21,-21],[18,14],[0,30],[-18,14]],C_[0]);line([-21,-21],[0,-16],C_[3]);line([0,-16],[21,-21]);line([-18,14],[0,30]);line([0,30],[18,14]);for(let j=0;j<n;j++)line([-12+j*7,-12],[-12+j*7,12],C_[1]);}
+  else if(fx==='shout'){for(let j=0;j<3;j++)circle(10+j*8+t*12,j,j%2?C_[1]:C_[2],28);}
+  else{const k=.55+t*.45,S=[[-21,-21],[0,-16],[21,-21],[18,14],[0,30],[-18,14]].map(([u,v])=>[u*k,v*k]);for(let i=0;i<S.length;i++)line(S[i],S[(i+1)%S.length],i%2?C_[2]:C_[3]);for(let j=0;j<n;j++){const a=j*2.4+t*3;dot(Math.cos(a)*26*k,Math.sin(a)*22*k-4,1);}}
  }else if(/blink|tumble|voidstep|shadowstep|charge/.test(fx)){
   for(let j=0;j<n+1;j++){const x=-27+j*13-t*12;poly([[x,-12],[x+8,0],[x,12],[x+4,0]],j%2?C_[1]:C_[2]);}
  }else if(/mark|curse|deathmark/.test(fx)){
-  poly([[0,-28],[21,0],[0,28],[-21,0]],C_[0]);for(const sign of[-1,1]){line([sign*15,-18],[-sign*15,18],C_[2]);line([sign*9,-24],[sign*15,-18],C_[3]);}dot(0,0,4);
+  for(const [u,v,x,y] of [[0,-28,21,0],[21,0,0,28],[0,28,-21,0],[-21,0,0,-28]])line([u,v],[x,y],C_[1]);for(const sign of[-1,1]){line([sign*15,-18],[-sign*15,18],C_[2]);line([sign*9,-24],[sign*15,-18],C_[3]);}dot(0,0,4);
  }else if(/ice|frost|glacier|absolute|blizzard/.test(fx)){
   for(let j=0;j<n+2;j++){const x=(j-(n+1)/2)*10,h=12+((j*7+seed)%19)*t;poly([[x-4,12],[x,-h],[x+5,12]],C_[j%2?1:2]);line([x,-h],[x+1,8],C_[3]);}
  }else if(/meteor|apocalypse|runerain|deluge|feathers|prism|skyblade|dawn/.test(fx)){
