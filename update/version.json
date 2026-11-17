@@ -1,22 +1,22 @@
 {
- "build": 127,
- "ver": "5.06",
+ "build": 128,
+ "ver": "5.07",
  "date": "2026-11-17",
  "file": "thebound.html",
- "size": 22208398,
- "sha256": "786dd142392b91ed11c300153a0f9223a560fac79d299fd9ebfe62f628c0863c",
+ "size": 22223064,
+ "sha256": "6feb97211d8532149cac070c015cd7cc2bd7cbde034881afe1b67e01668fd1ed",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🗺 Mapa: ya se puede deslizar hasta todos los bordes (antes se cortaba abajo y a la derecha) y también sin zoom. Nuevos iconos: Gremio de Oficios en los 6 pueblos y Museo de Albor.",
-   "🔎 Lupa › Sistemas: arriba del todo, explicado paso a paso con flecha dorada: Gremio, desbloqueos de oficio, granja, tienda en casa, Museo de Albor, caravanas, mercado entre jugadores, torneo, historia de las idols y ropa de oficio.",
-   "🔎 Lupa: la pestaña «Poder» ya no desaparece al entrar en Materiales, Equipo, Cosméticos o Jefes."
+   "🗺 Los 11 mapas son ahora bonitos y muestran todo lo que hay: casas, castillos, torres, árboles, lápidas, cristales, corales, relieve, agua, lava y los nombres de las zonas (Velo Roto, Tierras sin Pintar, Altavela…).",
+   "📜 Las ventanas ya no vuelven arriba al elegir algo: la Lupa, el inventario, las tiendas y los demás paneles se quedan donde estabas.",
+   "✍ Si eres idol, los fans se te acercan en los pueblos y en Japón, te piden autógrafos (+fans), algunos te siguen un rato y se van. Cuanto más famoso, más fans. En el online los demás también los ven."
   ],
   "en": [
-   "🗺 Map: you can now drag to every edge (it used to cut off at the bottom and right), even without zoom. New icons: Crafters Guild in all 6 towns and the Albor Museum.",
-   "🔎 Magnifier › Systems: at the very top, explained step by step with the golden arrow: Guild, job unlocks, farm, home shop, Albor Museum, caravans, player market, tournament, the idols' story and job clothing.",
-   "🔎 Magnifier: the «Power» tab no longer disappears when you open Materials, Gear, Cosmetics or Bosses."
+   "🗺 All 11 maps now look great and show everything: houses, castles, towers, trees, gravestones, crystals, corals, relief, water, lava and zone names (Broken Veil, Unpainted Lands, Altavela…).",
+   "📜 Windows no longer jump back to the top when you pick something: the Magnifier, inventory, shops and other panels stay where you were.",
+   "✍ If you are an idol, fans come up to you in towns and in Japan, ask for autographs (+fans), some follow you for a while and leave. The more famous, the more fans. Online, other players see them too."
   ]
  }
 }

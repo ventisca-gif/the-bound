@@ -2,11 +2,12 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **5.06 (build 127)**, mapa deslizable hasta los bordes y Lupa con lo nuevo; antes 5.05, ropa de oficio con formas propias; antes 5.04, oficios con desbloqueos cada 5 niveles, Gremio de Oficios, granja, tienda, museo, caravanas, mercado entre jugadores e historia de las idols, publicada en el actualizador interno.
+Versión actual: **5.07 (build 128)**, mapas bonitos en los 11 mundos, ventanas que no vuelven arriba y fans de idol; antes 5.06, mapa deslizable hasta los bordes y Lupa con lo nuevo; antes 5.05, ropa de oficio con formas propias; antes 5.04, oficios con desbloqueos cada 5 niveles, Gremio de Oficios, granja, tienda, museo, caravanas, mercado entre jugadores e historia de las idols, publicada en el actualizador interno.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
 - Responde siempre en español, corto y concreto. Él manda listas largas con capturas y quiere todo hecho de una vez.
+- **Recordatorios de la 5.03-5.07** (también en `docs/MEMORIA_CLAUDE.md`): no borrar nada; ropa nueva con forma propia que no repita la existente; todo visible en multijugador; cada sistema nuevo en la Lupa › Sistemas y en el mapa; mapas de todos los mundos bonitos y deslizables hasta los bordes; las ventanas conservan el desplazamiento al elegir algo.
 - **Al terminar una versión, abre el pull request a `main` y fusiónalo sin preguntar.** Los teléfonos se actualizan solos desde `update/` en `main`.
 - **Contenido nuevo (lo pidió en la 4.96):** prefiere actividades interactivas y oficios/trabajos (dan oro, objetos para vender o decorar, experiencia de oficio) en vez de más poder; nada de buffs de fuerza nuevos salvo que lo pida. Zonas nuevas con **mucha gente** (japonesas y japoneses, en kimono si encaja), con **subidas y bajadas** (terrazas, muros, escaleras), que **salgan en el mapa con sus puntos** y que el mapa se pueda **ampliar y mover** si la zona no entra.
 - Lo que Sergio añadió por su cuenta en otras versiones (personajes de otras franquicias) **no se toca**: es su juego. Claude no crea personajes de otras franquicias; propone una versión original.
@@ -186,3 +187,10 @@ Multijugador revisado con `tests/net501/browser.py` (presencia → `upsertRemote
 
 - `src/6zyp_jefes.js` (`mapZoomWire`): el límite de arrastre se calcula con la ventana visible (`wrap.clientWidth/Height`), no con el tamaño del lienzo, y se puede arrastrar sin zoom si el mapa no cabe. Antes no se llegaba al borde de abajo ni al de la derecha.
 - `src/6zz9zz8_guia_oficios.js`: categorías de mapa `oficio` (Gremio) y `museo`, 10 entradas `of_*` arriba de la Lupa › Sistemas, y la pestaña «Poder» se añade también en la vista antigua de la Lupa (`guiaAddJobChip`).
+
+
+## 5.07 · Mapas, desplazamiento y fans
+
+- `src/6zz9zz9_mapas.js`: `mapOverview` de los mundos que no son el principal ni Japón se dibuja a 4 px por casilla (`mapPretty`): relieve, agua con brillo, lava, vacío con estrellas y la miniatura real de cada objeto (`objSprite`, los grandes ×2 con sombra). Nombres de zonas (`MAP_ZONES`: Velo Roto, Tierras sin Pintar, Altavela, islas del Archipiélago si tienen centro).
+- `src/6zz9zz9a_scroll.js`: `openModal` y `renderPanel` guardan el desplazamiento de cada zona con barra y lo recuperan si después de redibujar sigue la misma pantalla (título + pestañas activas).
+- `src/6zz9zz9b_fans.js`: fans de idol (`FANS`, `fanTick`) según `idolRank`: llegan, piden autógrafo (+fans), a veces te siguen y se van; presencia `fan` para que los demás los vean. Pruebas `tests/oficios/fans_rtc.py`.

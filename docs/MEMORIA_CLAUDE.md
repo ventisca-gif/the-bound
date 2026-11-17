@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.96 (build 117)** (16-11-2026). El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.07 (build 128)** (17-11-2026). El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -13,6 +13,18 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **4.96 (bui
 - Antes de un cambio visual grande, haz una muestra con el propio motor. Si ya dijo «sí a todo», sigue.
 - **Contenido nuevo (lo pidió en la 4.96):** prefiere actividades interactivas y oficios/trabajos (dan oro, objetos para vender o decorar, experiencia de oficio) en vez de más poder; nada de buffs de fuerza nuevos salvo que lo pida. Zonas nuevas con **mucha gente** (japonesas y japoneses, en kimono si encaja), con **subidas y bajadas** (terrazas, muros, escaleras), que **salgan en el mapa con sus puntos** y que el mapa se pueda **ampliar y mover** si la zona no entra.
 - Lo que Sergio añadió por su cuenta en otras versiones (personajes de otras franquicias) **no se toca**: es su juego. Claude no crea personajes de otras franquicias; propone una versión original.
+
+## Lo que Sergio pidió recordar (5.03-5.07)
+
+- **No borrar nada nunca.** Ampliar encima de lo que hay; si algo se rediseña, mismos ids y objetos.
+- **Ropa nueva que no se repita** con la existente: cada prenda con forma propia (`fitKind`), no solo otro color. Comprobarlo comparando con todos los `COSM` antes de publicar (ver 5.05). Muestra del motor antes de publicar ropa.
+- **Todo lo nuevo debe verse en el multijugador** (WiFi y online): armaduras, ropa, peinados, habilidades, fans… Probar con `tests/net501` y una prueba de dos páginas por WebRTC.
+- **Todo sistema nuevo va también a la Lupa › Sistemas** (arriba de la lista) y, si tiene sitio, al **mapa con su icono**.
+- **Mapas de todos los mundos bonitos** y con todo lo que hay (ciudades, castillos, volcanes, árboles, nombres de zonas), no solo colores. Se deben poder **deslizar hasta todos los bordes**.
+- **Las ventanas no deben volver arriba** al elegir algo: conservar el desplazamiento (ver `6zz9zz9a_scroll.js`).
+- **Oficios**: que den cosas con sentido (productos, muebles, ropa, platos, oro) y no tarden demasiado; la fuerza que dan es pequeña (máximo +1 % en total).
+- **Iconos**: dibujos claros por habilidad; nada de manchas marrones.
+- Cuando dice «si quieres», propón y hazlo si encaja; si no está claro qué quiere, pregunta en una línea.
 
 ## Cómo se trabaja en el código
 
