@@ -1,24 +1,28 @@
 {
- "build": 148,
- "ver": "5.27",
+ "build": 149,
+ "ver": "5.28",
  "date": "2026-11-18",
  "file": "thebound.html",
- "size": 23545852,
- "sha256": "b4b3fab1617255206388c6052e4f8c3eaada1464ff850706361c68c8c13f14ad",
+ "size": 23664271,
+ "sha256": "b46c888eac9c7caf90f7cf75f683595a57e0386c509f57570d14d364f69c9fb5",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🚶 Sin tirones al caminar entre la gente de Lima y los países: el limpiador de memoria borraba los dibujos de los peatones que seguían en pantalla y se volvían a crear cada pocos segundos. Ahora además se preparan al entrar al país.",
-   "🕯️ Procesión de la Plaza de Armas: los devotos ya no llenan la pantalla de carteles; su nombre sale al acercarte.",
-   "🏷️ Entre la multitud, los nombres de los NPCs cercanos ya no se montan unos sobre otros.",
-   "📈 Medido en un celular lento simulado tras 1 minuto en la Plaza de Armas: unas 45 imágenes por segundo (eran ~15 antes de la 5.26)."
+   "🇵🇪 Lima: lustrabotas en la Plaza de Armas (frota con el joystick y pule a tiempo), muralista de Barranco (pinta la pared copiando el boceto), cevichero (cortes al punto y limones exprimidos), cobrador de combi (¡sube, sube! y cobra antes de que se bajen) y lonja de Chorrillos (sube las cajas y subasta). Además, el Puente de los Suspiros: crúzalo sin pararte y pide un deseo.",
+   "🏜 Trujillo: restaurador de la Huaca de la Luna (quieto para limpiar, apártate si cruje), chalán de caballo de paso (conos y paso llano), corso de la primavera (flores desde el carro), pesca con red en caballito de totora y gruista del puerto de Salaverry.",
+   "🇲🇽 México: clavadista de La Quebrada (escala, salta con la ola y haz piruetas), juego de pelota maya (cadera y aro de piedra), voladores de Papantla (gira el joystick con la cuerda), mariachi en Garibaldi (balcón correcto, ¡ajúa! y monedas) y platero de Taxco (martilla la plata caliente).",
+   "🇪🇸 España: castells en Barcelona (equilibra la torre humana), paella gigante en Valencia (ingredientes en orden y despega lo que se pega), vareo de aceitunas en Andalucía, farolero de la Feria de Abril (enciende farolillos y esquiva coches de caballos) y pastor trashumante en Extremadura (lleva el rebaño al corral con tu perro).",
+   "💪 Los 20 son oficios: oro, experiencia de oficio ×3 y ventajas pequeñas que suman (+0,1 % de daño, +0,2 % de defensa, vida, crítico, esquiva o velocidad).",
+   "🗺 Todo se juega en el mapa, sin ventanas; cada puesto sale en su mapa (Trabajos) y en la Lupa › Sistemas hay una guía por país con flecha. Los demás jugadores ven a qué trabajas."
   ],
   "en": [
-   "🚶 No more stutter walking through crowds in Lima and the countries: the memory cleaner was deleting pedestrian sprites still on screen and they were rebuilt every few seconds. They are now also prepared when you enter the country.",
-   "🕯️ Plaza de Armas procession: the devotees no longer fill the screen with name tags; their name shows when you get close.",
-   "🏷️ In crowds, nearby NPC names no longer pile on top of each other.",
-   "📈 Measured on a simulated slow phone after 1 minute in the Plaza de Armas: about 45 frames per second (it was ~15 before 5.26)."
+   "🇵🇪 Lima: shoeshiner in the Plaza de Armas (rub with the joystick and polish on time), Barranco muralist (paint the wall copying the sketch), ceviche cook (precise cuts and squeezed limes), combi fare collector (get on, get on! and charge before they get off) and the Chorrillos fish market (carry the crates and auction them). Plus the Bridge of Sighs: cross it without stopping and make a wish.",
+   "🏜 Trujillo: Huaca de la Luna restorer (keep still to clean, step away if it creaks), Paso horse rider (cones and smooth gait), spring parade (flowers from the float), reed-boat net fishing and Salaverry port crane operator.",
+   "🇲🇽 Mexico: La Quebrada cliff diver (climb, jump with the wave and spin), Maya ballgame (hip and stone ring), Papantla flyers (spin the joystick with the rope), Garibaldi mariachi (right balcony, ajúa! and coins) and Taxco silversmith (hammer the hot silver).",
+   "🇪🇸 Spain: castells in Barcelona (balance the human tower), giant paella in Valencia (ingredients in order and loosen what sticks), olive harvest in Andalusia, April Fair lamplighter (light lanterns and dodge horse carriages) and transhumant shepherd in Extremadura (take the flock to the pen with your dog).",
+   "💪 All 20 are jobs: gold, ×3 job experience and small stacking perks (+0.1% damage, +0.2% defense, HP, crit, dodge or speed).",
+   "🗺 Everything is played on the map, no windows; each stall shows on its map (Jobs) and Magnifier › Systems has a guide per country with an arrow. Other players see what job you are doing."
   ]
  }
 }
