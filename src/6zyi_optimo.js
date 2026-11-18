@@ -38,7 +38,11 @@ function optGC(force) {
   return n;
 }
 // límite de dibujos HD más bajo en celulares con poca memoria (cada uno puede ocupar varios MB)
-{ const _he = hdEnsure; hdEnsure = function (A, col, row, force) { const r = _he(A, col, row, force); const lim = OPT_LOWMEM ? 14 : 26;
+// 5.26: si todos los dibujos HD se usaron hace poco (multitudes como la Plaza de Armas), el personaje nuevo se dibuja normal
+// en vez de borrar uno visible: así no se regeneran HD en bucle cada fotograma.
+{ const _he = hdEnsure; hdEnsure = function (A, col, row, force) { const lim = OPT_LOWMEM ? 14 : 26;
+  if (!A.hd && !force && A.hdL && HD_LIVE.length >= lim) { let old = 1e15; for (const o of HD_LIVE) old = Math.min(old, o.hdT || 0); if (G.t - old < 2) return false; }
+  const r = _he(A, col, row, force);
   while (HD_LIVE.length > lim) { let k = 0; for (let j = 1; j < HD_LIVE.length; j++) if ((HD_LIVE[j].hdT || 0) < (HD_LIVE[k].hdT || 0)) k = j; const o = HD_LIVE.splice(k, 1)[0]; if (o === A) { HD_LIVE.push(o); break; } o.hd = null; o.hdX = null; o.hdDone = null; }
   return r; }; }
 V33_TICKS.push(dt => { OPT_GCT += dt; if (OPT_GCT > 25) { OPT_GCT = 0; optGC(false); } });

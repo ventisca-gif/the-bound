@@ -312,3 +312,9 @@ Ado (`jp_ado`) usa los dos diseños aprobados extraídos de `tools/dev/ado_ref`:
 ## 5.25 · Taquero, cajero, Tomatina y golf dentro del mapa
 - En `src/6zz9zzzz_enjuego.js` (sección 5.25), con el mismo `ACT`: `mxTacoRound` reescrito (`ACT.k = 'taco'`: estaciones `TQ_ST` alrededor de donde empiezas, «con todo», clientes `mx_*` con globo de pedido y paciencia, 8 por turno). `lmCajaRound`/`XACT.lm_caja` → `cjStart` (`'caja'`: cinta con `LM_PROD`, lector con luz, bandejas de vuelto). `fsTomatina` reescrito (`'tom'`: 12 vecinos `es_*` que corren y lanzan, proyectiles `ACT.tom`, manchas). `trGolf` reescrito (`'golf'`: `GOLF_HOLES`, fases walk/aim/pow/roll, búnker = arena frena, fuera de `TR_GOLF` = +1).
 - Regla guardada en `AGENTS.md`, `docs/NOTAS.md` y `docs/MEMORIA_CLAUDE.md`: nada de minijuegos en ventana (salvo lotería y piñata).
+
+
+## 5.26 — Plaza sin lag
+- Causa: el tick de `src/6zz9zzv_fiestas.js` envolvía `M.drawExtra` buscando `.fs` y `bldHookMap` lo re-envolvía (busca `M._bde`): ping-pong que añadía una capa por fotograma → `fsGround` miles de veces/seg (Lima, México, España). Ahora se envuelve una vez (`M._fsw`) y se actualiza `M._bde`.
+- `src/6zyi_optimo.js`: si los 26 (14 poca memoria) dibujos HD se usaron en los últimos 2 s, el personaje nuevo va sin HD en vez de expulsar uno visible.
+- Regla: al envolver `M.drawExtra` desde un tick, marca el mapa (no la función) para no re-envolver.

@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.25', GAME_BUILD = 146;
+const GAME_VER = '5.26', GAME_BUILD = 147;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.26",
+  "b": 147,
+  "d": "2026-11-18",
+  "es": [
+   "⚡ Arreglado el lag de la Plaza de Armas: el suelo de los escenarios de baile se volvía a dibujar cada vez más veces por fotograma (miles por segundo a los pocos minutos). Pasaba también en Guadalajara y Sevilla.",
+   "⚡ Multitudes: con muchos personajes en pantalla, el modo HD ya no borra y vuelve a crear sus dibujos sin parar; los que no caben se dibujan en calidad normal.",
+   "📈 En un celular lento la Plaza pasa de ~11–16 fps a ~23–28 fps y ya no empeora con el tiempo."
+  ],
+  "en": [
+   "⚡ Fixed lag at Lima's Plaza de Armas: the dance stage floor was being redrawn more and more times per frame (thousands per second after a few minutes). It also happened in Guadalajara and Seville.",
+   "⚡ Crowds: with many characters on screen, HD mode no longer deletes and rebuilds their drawings non-stop; the ones that don't fit are drawn in normal quality.",
+   "📈 On a slow phone the Plaza goes from ~11–16 fps to ~23–28 fps and no longer gets worse over time."
+  ]
+ },
  {
   "v": "5.25",
   "b": 146,
