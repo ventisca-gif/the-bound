@@ -1,30 +1,26 @@
 {
- "build": 144,
- "ver": "5.23",
+ "build": 145,
+ "ver": "5.24",
  "date": "2026-11-18",
  "file": "thebound.html",
- "size": 23492064,
- "sha256": "89969985a774add1ca5439756be385d9b28a9b324f77d90bb3b1f353c0776ae6",
+ "size": 23516102,
+ "sha256": "f89d147e4d964e8987d4869f2db8cc0e411d25b62efa3731bd2e1a4bbdd6ba31",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🐴 Monturas: caballo charro y vocho propio (México), caballo de paso (Lima y Trujillo), caballo andaluz y Vespa (España).",
-   "🐾 Mascotas: xoloitzcuintle, chihuahua con sombrerito, ajolote, alpaca, perro peruano sin pelo, cuy con chullo, pelícano, lince ibérico, torito de peluche y gato madrileño.",
-   "🇲🇽 Día de Muertos con ofrenda en el Zócalo (de noche se llena de velas) y maquillaje de catrina y catrín; lucha libre en la Arena con 4 máscaras; paseo en trajinera por Xochimilco con mariachi.",
-   "🇵🇪 Procesión de octubre en la Plaza de Armas con turrón de doña Pepa; Circuito Mágico del Agua; vóley y pollada bailable en Comas (aprendes cumbia).",
-   "🏜 Trujillo: rema en caballito de totora, surf en Huanchaco, Concurso Nacional de Marinera en el Coliseo y el misterio nocturno de Chan Chan.",
-   "🇪🇸 Fallas en Valencia, San Fermín con gigantes y cabezudos, cine de verano y verbena con chotis, y el Camino de Santiago con su Compostela.",
-   "📔 Tiendas de recuerdos en Japón, México, Lima, Trujillo y España con muebles típicos para tu casa, y un álbum de recuerdos."
+   "🏂 Sandboard de verdad: en la cima del Cerro Carretas te pones la tabla y bajas la duna en el mapa, girando con el joystick entre banderas y piedras.",
+   "⚽ Partido real 3 contra 3 en el Gran Estadio de Madrid (2 minutos, con portero): conduce el balón y chuta con ⚔. Habla con el Entrenador.",
+   "🏐 Vóley en la plaza de Comas, 3 contra 3: corre hasta la sombra de la pelota para devolverla. Gana el primero en llegar a 7.",
+   "💃 Los bailes (Ballet Folklórico, marinera, flamenco y Concurso Nacional) se bailan en la tarima: las flechas caen sobre tu cabeza, sin ventanas.",
+   "📈 Los oficios de México, Perú y España dan el triple de experiencia."
   ],
   "en": [
-   "🐴 Mounts: charro horse and your own Beetle (Mexico), Paso horse (Lima and Trujillo), Andalusian horse and Vespa (Spain).",
-   "🐾 Pets: xoloitzcuintle, chihuahua with a tiny sombrero, axolotl, alpaca, Peruvian hairless dog, guinea pig in a chullo, pelican, Iberian lynx, plush little bull and Madrid cat.",
-   "🇲🇽 Day of the Dead altar in the Zócalo (full of candles at night) with catrina and catrín make-up; lucha libre at the Arena with 4 masks; trajinera ride through Xochimilco with mariachi.",
-   "🇵🇪 October procession in the Plaza de Armas with Doña Pepa nougat; Magic Water Circuit; volleyball and dance pollada in Comas (learn cumbia).",
-   "🏜 Trujillo: paddle a reed boat, surf in Huanchaco, the National Marinera Contest at the Coliseum and the night mystery of Chan Chan.",
-   "🇪🇸 Las Fallas in Valencia, San Fermín with giants and big-heads, summer cinema and verbena with chotis, and the Camino de Santiago with its Compostela.",
-   "📔 Souvenir shops in Japan, Mexico, Lima, Trujillo and Spain with typical furniture for your house, and a souvenir album."
+   "🏂 Real sandboarding: at the top of Cerro Carretas you strap on the board and ride down the dune on the map, steering with the joystick between flags and rocks.",
+   "⚽ Real 3-a-side match at Madrid's Great Stadium (2 minutes, with goalkeepers): dribble and shoot with ⚔. Talk to the Coach.",
+   "🏐 Volleyball on the Comas square, 3-a-side: run to the ball's shadow to return it. First to 7 wins.",
+   "💃 The dances (Folk Ballet, marinera, flamenco and the National Contest) are danced on the stage: the arrows fall above your head, with no windows.",
+   "📈 Mexico, Peru and Spain jobs give triple experience."
   ]
  }
 }
