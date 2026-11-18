@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.14', GAME_BUILD = 135;
+const GAME_VER = '5.15', GAME_BUILD = 136;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,27 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.15",
+  "b": 136,
+  "d": "2026-11-18",
+  "es": [
+   "🇲🇽 ¡México! Billete en Albor o en Lima (1.500 de oro). Mapa de México con 10 estados: toca uno y se abre el mapa grande.",
+   "🏛 Ciudad de México: Zócalo con la Catedral, el Palacio Nacional y la bandera gigante, Bellas Artes, Torre Latinoamericana, mariachis y el Paseo de la Reforma con el Ángel.",
+   "🌵 Guadalajara y los agaves, Taxco (calles empedradas, Santa Prisca y vochos), Acapulco y La Quebrada, Chichén Itzá, Cancún, Monterrey, Puebla, Veracruz, Cuernavaca, Oaxaca y Chihuahua. Central de Autobuses para ir de un estado a otro.",
+   "🌮 Trabajos: taquero y taxista de vocho. Comida mexicana y Farmacias del Doctor Bonachón con su mascota bailando y su disfraz (te pone panzón).",
+   "👕 Gamarra: ambulantes de ropa en el suelo y de comida, y la tienda «Ropa Peruana» con la camiseta de Perú (blanca y negra) y el polo «PERÚ».",
+   "⚔ Nivel máximo 500: Desierto de las Lomas (Lima Norte, 410-448), Monte Osore (Japón, 420-468) y Desierto de las Ánimas (México, 470-500), con 15 criaturas y 3 jefes."
+  ],
+  "en": [
+   "🇲🇽 Mexico! Ticket at Albor or Lima (1,500 gold). Map of Mexico with 10 states: tap one to open the big map.",
+   "🏛 Mexico City: Zócalo with the Cathedral, the National Palace and the giant flag, Bellas Artes, the Latin American Tower, mariachis and Paseo de la Reforma with the Angel.",
+   "🌵 Guadalajara and the agave fields, Taxco (cobbled streets, Santa Prisca and Beetle taxis), Acapulco and La Quebrada, Chichén Itzá, Cancún, Monterrey, Puebla, Veracruz, Cuernavaca, Oaxaca and Chihuahua. Bus station to travel between states.",
+   "🌮 Jobs: taco cook and Beetle taxi driver. Mexican food and Doctor Bonachón pharmacies with their dancing mascot and his costume (makes you chubby).",
+   "👕 Gamarra: street sellers with clothes on the ground and food, and the «Peruvian Clothes» shop with the Peru shirt (white and black) and the «PERÚ» T-shirt.",
+   "⚔ Level cap 500: Desert of the Lomas (North Lima, 410-448), Mount Osore (Japan, 420-468) and Desert of the Souls (Mexico, 470-500), with 15 creatures and 3 bosses."
+  ]
+ },
  {
   "v": "5.14",
   "b": 135,

@@ -39,6 +39,8 @@
 
 20. **Lima Norte y el Metropolitano** (v5.14). La Ventisca siguió pintando su ciudad hacia el norte: Comas, Independencia, Los Olivos, Carabayllo y San Juan de Lurigancho, con casas de ladrillo que todavía no tienen color (como un boceto a medio pintar, pero lleno de vida) y cerros cubiertos de casitas. El Metropolitano y el Tren Eléctrico unen las dos mitades. Tampoco hay monstruos. Las tiendas tienen nombres propios del juego (MERCAPLAZA, VERDEMÁS, MEGA CENTRO). Código: `src/6zz9zzk_lima2.js`.
 
+21. **México y el borde de lo pintado** (v5.15). Después de Lima, la Ventisca pintó México: diez estados con sus plazas, catedrales, playas y pirámides, sin monstruos en las ciudades. Pero el silencio de Nihil siguió a la Ventisca hasta el borde de cada tierra nueva y se coló donde todavía no había color: el **Desierto de las Lomas** (al norte de Lima), el **Monte Osore** (yokais de ceniza en Japón) y el **Desierto de las Ánimas** (Chihuahua), donde vagan ecos con forma de leyendas del otro lado del cristal. Son tierras de nivel 410 a 500. Las tiendas y mascotas tienen nombres propios del juego (Doctor Bonachón). Código: `src/6zz9zzm_mexico.js`, `src/6zz9zzn_nivel500.js`.
+
 ## Armas ancestrales (v4.65)
 
 Armas hechas por los siete guardianes antes de que el Sello los torciera, o por reyes de la Edad de los Reyes. No suben con experiencia: despiertan restaurando su santuario (una estela antigua), hablando con quien conoció a su portador y venciendo a su creador. `ANC` en `src/6zz9g_vida.js`.

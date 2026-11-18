@@ -1,0 +1,55 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js window.__e=[];window.addEventListener('error',e=>window.__e.push(String(e.message)+' @ '+(e.error&&e.error.stack||'').slice(0,300)));1
+js (G.P.gold=500000, G.P.lv=420, goMexico(), 1)
+wait 3500
+js (()=>{ const M=G.map; return [M.id, M.w, M.h, M.objs.length, G.ents.filter(e=>e.map==='mexico').length, M.lcars.length]; })()
+shot
+js (()=>{ G.P.x=MX_ZOCALO.cx*16; G.P.y=(MX_ZOCALO.cy+4)*16; G.time=12*60; return 1; })()
+wait 2500
+shot
+js (()=>{ G.P.x=MX_REF.angel*16; G.P.y=(MX_REF.y+12)*16; return 1; })()
+wait 2000
+shot
+js (()=>{ G.P.x=MX_GDL.cx*16; G.P.y=(MX_GDL.y1+2)*16; return 1; })()
+wait 2000
+shot
+js (()=>{ G.P.x=MX_TAXCO.prisca[0]*16; G.P.y=(MX_TAXCO.prisca[1]+8)*16; return interactTarget() && interactTarget().label; })()
+wait 2000
+shot
+js (XACT.mx_vocho[2](), [G.P.drv, LM_DRV.st[0]])
+js (()=>{ const S=LM_DRV.st[0]; G.P.x=S.x; G.P.y=S.y; lmDrvEl._h=''; lmDrvUI(); document.querySelector('#drvNext').click(); return [G.P.drv, G.P.jobs.taxista]; })()
+js (()=>{ G.P.x=MX_PIR.cx*16; G.P.y=(MX_PIR.cy+20)*16; return 1; })()
+wait 2000
+shot
+js (()=>{ G.P.x=400*16; G.P.y=462*16; return 1; })()
+wait 1500
+shot
+js (()=>{ const o=G.map.objs.find(o=>o.xact==='lm_comida'&&o.ck==='mx_farmaceutica'); G.P.x=o.px; G.P.y=o.py+20; return [o.tx,o.ty]; })()
+wait 2000
+shot
+js (()=>{ const n={id:'mx_taquero',def:NPCS.mx_taquero,type:'npc',x:G.P.x,y:G.P.y,map:'mexico',atlas:npcAtlas('mx_taquero')}; openDialog(n); [...document.querySelectorAll('#dialog button')].find(b=>/taquero|taco cook/.test(b.textContent)).click(); return document.querySelector('#modal h2').textContent; })()
+js (closeModal(), XACT.mx_central[2]({st:'cdmx'}), [...document.querySelectorAll('#modal [data-xb]')].length)
+js (closeModal(), XACT.mx_desierto[2]({}), 1)
+wait 2500
+js [G.map.id, G.map.camps.length]
+js (()=>{ G.P.x=60*16; G.P.y=70*16; return 1; })()
+wait 3000
+js [G.ents.filter(e=>e.type==='mob'&&e.map===G.map.id).map(e=>e.id+':'+e.lv).slice(0,5)]
+shot
+js (XACT.cb_salir[2](), 1)
+wait 2500
+js [G.map.id]
+js (()=>{ openPanel('map'); MAPW=MAPW_LIST.findIndex(w=>w.id==='mexico_mapa'); renderPanel(); return 1; })()
+wait 1000
+shot
+js (()=>{ MAPW=MAPW_LIST.findIndex(w=>w.id==='mexico'); renderPanel(); return 1; })()
+wait 1500
+shot
+js (closePanel ? closePanel() : 0, goLima(), 1)
+wait 3000
+js (()=>{ G.P.x=505*16; G.P.y=66*16; return 1; })()
+wait 2000
+shot
+js (()=>{ makeLimaNorte(); return G.maps.lima_norte.cbGate; })()
+js (MAXLV)
+js (window.__e)

@@ -1,0 +1,37 @@
+// ================= v5.15: ROPA PERUANA EN GAMARRA, AMBULANTES =================
+// Camisetas de la selección (diseño propio, sin marcas ni escudo oficial): blanca con banda roja y negra con banda roja,
+// y el polo blanco «PERÚ» con un escudo pequeño. Se venden en la tienda «Ropa Peruana» de Gamarra (punto en el mapa).
+// Ambulantes de ropa con la mercadería en el suelo y ambulantes de comida por las calles de Gamarra.
+// Tipos nuevos con fitKind (ver 6zx_fit): pe_banda (banda diagonal) y pe_polo (escudo y letras en el pecho).
+fitKind('body', 'pe_banda', (p, A, s) => { const { tx0, tw, torsoTop: ty, th, side, up, d } = A, R = tx0 + tw - 1, b = s.b;
+  for (let y = ty; y < ty + th; y++) { const f = (y - ty) / Math.max(1, th - 1); let xc = side ? (d > 0 ? tx0 + Math.round(f * (tw - 1)) : R - Math.round(f * (tw - 1))) : (up ? tx0 + 1 + Math.round(f * (tw - 3)) : R - 1 - Math.round(f * (tw - 3)));
+    for (let k = -1; k <= 1; k++) { const x = xc + k; if (x < tx0 || x > R || !uA(p.get(x, y))) continue; p.set(x, y, b[k === -1 ? 3 : k === 1 ? 1 : 2]); } }
+  if (!up && !side) { const x = tx0 + 2, y = ty + 2; for (const [dx, dy, c] of [[0, 0, b[2]], [1, 0, s.m[4]], [0, 1, s.m[4]], [1, 1, b[2]]]) if (uA(p.get(x + dx, y + dy))) p.set(x + dx, y + dy, c); }
+  if (!up) for (let x = tx0 + 1; x < R; x++) if (uA(p.get(x, ty))) p.set(x, ty, s.c ? s.c[2] : s.m[1]); });
+fitKind('body', 'pe_polo', (p, A, s) => { const { tx0, tw, torsoTop: ty, th, cx, side, up } = A, R = tx0 + tw - 1, b = s.b, g = s.g;
+  if (up || side) return; const sy = ty + 2;
+  for (const [dx, dy, c] of [[-2, 0, g[3]], [2, 0, g[3]], [-2, 1, g[2]], [2, 1, g[2]], [-1, 0, b[2]], [0, 0, s.m[4]], [1, 0, b[2]], [-1, 1, g[3]], [0, 1, C('#e8c040')], [1, 1, b[2]], [0, 2, b[3]]]) { const x = cx - 1 + dx, y = sy + dy; if (x >= tx0 && x <= R && uA(p.get(x, y))) p.set(x, y, c); }
+  const ly = sy + 4; for (let x = tx0 + 1; x < R; x++) if (uA(p.get(x, ly)) && (x - tx0) % 3 !== 0) p.set(x, ly, b[2]); });
+const PE_CAMI = [['c_pe_camiseta', L2('Camiseta de Perú (blanca)', 'Peru shirt (white)'), () => ({ k: 'pe_banda', m: CLOTH.blanco, s: CLOTH.blanco, b: CLOTH.rojo }), 2500],
+  ['c_pe_camiseta_negra', L2('Camiseta de Perú (negra)', 'Peru shirt (black)'), () => ({ k: 'pe_banda', m: CLOTH.negro, s: CLOTH.negro, b: CLOTH.rojo, c: CLOTH.rojo }), 2500],
+  ['c_pe_polo', L2('Polo «PERÚ» con escudo', '«PERÚ» T-shirt with crest'), () => ({ k: 'pe_polo', m: CLOTH.blanco, s: CLOTH.blanco, b: CLOTH.rojo, g: CLOTH.verde }), 1500]];
+for (const [id, n, vis, price] of PE_CAMI) { cosm(id, n, 'body', vis, { src: L2('Gamarra (Lima)', 'Gamarra (Lima)') }); it('cosi_' + id, { n, t: 'cos', cos: id, price, icon: ['hanger'], rar: 3, d: L2('Ropa peruana de Gamarra. Solo cambia el aspecto.', 'Peruvian clothes from Gamarra. Appearance only.') }); if (typeof COS_SHOP !== 'undefined') COS_SHOP.push(id); }
+PE_SELL.pe_ropa = PE_CAMI.map(c => 'cosi_' + c[0]);
+NPCS.pe_ropa = { n: L2('Tienda «Ropa Peruana»', '«Peruvian Clothes» shop'), title: 'Gamarra', look: LK({ g: 'f' }), lines: [L2('¡Camisetas de la selección, polos de Perú! Para el partido, para el viaje, para regalar.', 'National team shirts, Peru T-shirts! For the match, for the trip, for a gift.')], quests: [], hat: null }; PE_NPC_LOOK.pe_ropa = 11;
+NPCS.pe_ambulante = { n: L2('Ambulante de ropa', 'Street clothes seller'), title: 'Gamarra', look: LK({ g: 'm' }), lines: [L2('¡A diez, a diez! ¡Llévate tres y te hago precio, casero!', 'Ten each, ten each! Take three and I will give you a price!')], quests: [], hat: 'gorra' }; PE_NPC_LOOK.pe_ambulante = 2; PE_SELL.pe_ambulante = ['cosi_c_pe_polo', 'cosi_c_pe_camiseta'];
+NPCS.pe_ambulante_c = { n: L2('Ambulante de comida', 'Street food seller'), title: 'Gamarra', look: LK({ g: 'f' }), lines: [L2('¡Papa rellena, causa, choclo con queso! ¡Calientito!', 'Stuffed potato, causa, corn with cheese! Nice and hot!')], quests: [], hat: 'bombin' }; PE_NPC_LOOK.pe_ambulante_c = 3; PE_SELL.pe_ambulante_c = ['pl_causa', 'pe_pan', 'pe_gaseosa', 'pl_anticuchos'].filter(i => ITEMS[i]);
+// mantas en el suelo con ropa doblada y colgada (cada una distinta)
+for (let v = 0; v < 4; v++) XSPR['lm_manta' + v] = () => { const [c, g] = XC(40, 26), cols = [['#c81e2a', '#ffffff', '#2a5ad8', '#1a1a1e'], ['#ffffff', '#c81e2a', '#ffd040', '#3ab86a'], ['#2a5ad8', '#1a1a1e', '#e8e4dc', '#c81e2a'], ['#ff8ab0', '#ffffff', '#8a3ab8', '#ffd040']][v];
+  g.fillStyle = ['#3a5aa8', '#a83a3a', '#3a8a5a', '#8a6a3a'][v]; g.fillRect(1, 12, 38, 13); g.fillStyle = 'rgba(255,255,255,0.25)'; for (let x = 1; x < 39; x += 4) g.fillRect(x, 12, 2, 13);
+  for (let k = 0; k < 6; k++) { const x = 3 + (k % 3) * 12, y = 13 + Math.floor(k / 3) * 6; g.fillStyle = cols[k % 4]; g.fillRect(x, y, 10, 5); g.fillStyle = 'rgba(0,0,0,0.25)'; g.fillRect(x, y + 4, 10, 1); if (cols[k % 4] === '#ffffff' && v < 2) { g.fillStyle = '#c81e2a'; g.fillRect(x + 6, y, 2, 2); g.fillRect(x + 4, y + 2, 2, 2); g.fillRect(x + 2, y + 3, 2, 1); } }
+  g.fillStyle = '#5a5e66'; g.fillRect(2, 0, 1, 12); g.fillRect(37, 0, 1, 12); g.fillRect(2, 0, 36, 1); for (let k = 0; k < 4; k++) { g.fillStyle = cols[(k + 1) % 4]; g.fillRect(5 + k * 8, 1, 7, 9); g.fillStyle = 'rgba(0,0,0,0.2)'; g.fillRect(5 + k * 8, 9, 7, 1); }
+  return { c, ax: 20, ay: 25 }; };
+XSPR.lm_tienda_ropa = () => { const [c, g] = XC(64, 56); g.fillStyle = '#f4f4f0'; g.fillRect(0, 8, 64, 48); g.fillStyle = '#c81e2a'; g.fillRect(0, 0, 64, 12); g.fillStyle = '#ffffff'; g.fillRect(16, 0, 32, 12); jpText(g, 'PERÚ', 20, 1, '#c81e2a', 10);
+  for (let k = 0; k < 3; k++) { const x = 6 + k * 19; g.fillStyle = ['#ffffff', '#1a1a1e', '#ffffff'][k]; g.fillRect(x, 18, 14, 16); g.fillRect(x - 3, 18, 3, 6); g.fillRect(x + 14, 18, 3, 6); g.fillStyle = '#c81e2a'; if (k < 2) for (let q = 0; q < 14; q++) g.fillRect(x + 13 - q, 18 + q, 3, 2); else { g.fillRect(x + 3, 28, 8, 2); g.fillStyle = '#3a8a3a'; g.fillRect(x + 4, 21, 6, 5); g.fillStyle = '#c81e2a'; g.fillRect(x + 6, 22, 2, 3); } }
+  g.fillStyle = '#3a2a1e'; g.fillRect(24, 40, 16, 16); g.fillStyle = '#8a7a6a'; g.fillRect(0, 52, 64, 4); return { c, ax: 32, ay: 55 }; };
+{ const _b2 = lmBuild2; lmBuild2 = function (M, H) { _b2.apply(this, arguments); if (M.id !== 'lima') return; const { F, Fs, sp } = H;
+  F('lm_tienda_ropa', 508, 59, [[0, 0], [1, 0], [2, 0], [3, 0]], { px: 510 * 16 }); F('lm_vacio', 510, 60, null, { solid: false, xact: 'lm_comida', ck: 'pe_ropa' }); sp('pe_ropa', 512, 61);
+  const R = new RNG(SEED + 9411); let a = 0, f = 0;
+  for (const y0 of [38, 66, 111, 129]) for (let x = 484; x < 590; x += 9) { const y = y0 + 5; if (M.lg[M.I(x, y)] !== LM_G.WALK) continue; if (R.f() < 0.55) { if (Fs('lm_manta' + (x % 4), x, y)) { if (a++ % 2 === 0) sp('pe_ambulante', x + 1, y, { face: 'down' }); } } else if (R.f() < 0.5 && Fs('lm_carrito_' + ['emoliente', 'anticuchos', 'picarones', 'chicha'][f % 4], x, y)) { sp('pe_ambulante_c', x + 1, y, { face: 'down' }); f++; } } }; }
+XACT.lm_comida[0] = (orig => o => o.ck === 'pe_ropa' ? '👕 ' + L2('Ropa Peruana', 'Peruvian Clothes') : o.ck === 'pe_ambulante' ? '👕 ' + L2('Ambulante', 'Street seller') : orig(o))(XACT.lm_comida[0]);
+{ const _op = otherPOI; otherPOI = function (M) { const out = _op.apply(this, arguments); if (M && M.id === 'lima') out.push({ c: 'peshop', x: 510, y: 59, t: L2('Ropa Peruana · camisetas de la selección y polos', 'Peruvian Clothes · national team shirts and T-shirts') }); return out; }; }
