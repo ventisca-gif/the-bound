@@ -24,6 +24,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.16 (bui
 - **Las ventanas no deben volver arriba** al elegir algo: conservar el desplazamiento (ver `6zz9zz9a_scroll.js`).
 - **Oficios**: que den cosas con sentido (productos, muebles, ropa, platos, oro) y no tarden demasiado; la fuerza que dan es pequeña (máximo +1 % en total).
 - **Iconos**: dibujos claros por habilidad; nada de manchas marrones.
+- **Trabajos y juegos sin ventanas (5.24-5.25):** los oficios y actividades se juegan **dentro del mapa**, moviéndote con el joystick y usando ⚔, con NPCs, objetos y efectos en el mundo (sandboard bajando la duna, partido real de fútbol, vóley en la cancha, bailes en la tarima, taquero, cajero, Tomatina, golf). **Nada de minijuegos en ventana/modal.** Excepciones que Sergio aceptó: lotería y piñata. Cada mecánica nueva debe ser propia (no reutilizar la misma). Los oficios de los países deben subir rápido (×3 de experiencia, `COUNTRY_JOBS`).
 - Cuando dice «si quieres», propón y hazlo si encaja; si no está claro qué quiere, pregunta en una línea.
 
 ## Cómo se trabaja en el código

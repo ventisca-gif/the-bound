@@ -1,26 +1,26 @@
 {
- "build": 145,
- "ver": "5.24",
+ "build": 146,
+ "ver": "5.25",
  "date": "2026-11-18",
  "file": "thebound.html",
- "size": 23516102,
- "sha256": "f89d147e4d964e8987d4869f2db8cc0e411d25b62efa3731bd2e1a4bbdd6ba31",
+ "size": 23540307,
+ "sha256": "a2afbeeb92ae78dfafa94d9485a52a5221504b72a5dc9bac6b6774c4eef39d7b",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🏂 Sandboard de verdad: en la cima del Cerro Carretas te pones la tabla y bajas la duna en el mapa, girando con el joystick entre banderas y piedras.",
-   "⚽ Partido real 3 contra 3 en el Gran Estadio de Madrid (2 minutos, con portero): conduce el balón y chuta con ⚔. Habla con el Entrenador.",
-   "🏐 Vóley en la plaza de Comas, 3 contra 3: corre hasta la sombra de la pelota para devolverla. Gana el primero en llegar a 7.",
-   "💃 Los bailes (Ballet Folklórico, marinera, flamenco y Concurso Nacional) se bailan en la tarima: las flechas caen sobre tu cabeza, sin ventanas.",
-   "📈 Los oficios de México, Perú y España dan el triple de experiencia."
+   "🌮 Taquero en el mapa: plancha con 5 estaciones de relleno y un «con todo». Los clientes llegan con su pedido en un globo; toma el relleno con ⚔ y entrégalo antes de que se cansen.",
+   "💳 Cajero en el mapa: los productos pasan por la cinta y los escaneas con ⚔ en el lector; luego te pones en la bandeja con el vuelto correcto.",
+   "🍅 Tomatina en la calle de Valencia: la gente corre, les lanzas tomates con ⚔ y te los tiran de vuelta. La calle se va manchando de rojo.",
+   "⛳ Golf en el campo de El Golf: apunta, mide la fuerza y la bola rueda de verdad; los búnkeres la frenan y si sale del campo es +1 golpe.",
+   "🎴 La lotería y la piñata siguen en su ventana."
   ],
   "en": [
-   "🏂 Real sandboarding: at the top of Cerro Carretas you strap on the board and ride down the dune on the map, steering with the joystick between flags and rocks.",
-   "⚽ Real 3-a-side match at Madrid's Great Stadium (2 minutes, with goalkeepers): dribble and shoot with ⚔. Talk to the Coach.",
-   "🏐 Volleyball on the Comas square, 3-a-side: run to the ball's shadow to return it. First to 7 wins.",
-   "💃 The dances (Folk Ballet, marinera, flamenco and the National Contest) are danced on the stage: the arrows fall above your head, with no windows.",
-   "📈 Mexico, Peru and Spain jobs give triple experience."
+   "🌮 Taco cook on the map: a grill with 5 filling stations and a «with everything». Customers arrive with their order in a bubble; grab the filling with ⚔ and hand it over before they get tired.",
+   "💳 Cashier on the map: items move along the belt and you scan them with ⚔ at the scanner; then stand on the tray with the right change.",
+   "🍅 La Tomatina on a Valencia street: people run around, you throw tomatoes with ⚔ and they throw them back. The street turns red.",
+   "⛳ Golf on the El Golf course: aim, judge the power and the ball really rolls; bunkers slow it down and going out of bounds is +1 stroke.",
+   "🎴 Lotería and piñata stay in their window."
   ]
  }
 }

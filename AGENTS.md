@@ -45,3 +45,7 @@ The Bound es un RPG 2D de mundo abierto con movimiento en cuatro direcciones.
 - El equilibrio entre clases a nivel máximo se mide con `python3 tools/dev/pvp.py file://$PWD/dist/test.html` (`--raw` sin ajustes, `--solve` sugiere multiplicadores).
 - Los ajustes solo de PvP están en `src/6zyb_pvp.js`: `PVP_CLS` (daño por clase), `PVP_HEAL` y `PVP_HEALC` (curas y escudos durante un duelo). No toques el daño contra monstruos para equilibrar el PvP.
 - Al añadir habilidades, armas o pasivas que cambien el daño, la vida o las curas, vuelve a pasar `pvp.py --solve` y actualiza `PVP_CLS`. La fuerza media de cada clase debe quedar entre 0,9 y 1,1.
+
+## Trabajos y actividades
+
+- Los oficios y actividades se juegan dentro del mapa (joystick, ⚔, NPCs y objetos en el mundo), nunca en ventanas/modales. Solo la lotería y la piñata pueden usar ventana. Usa el estado `ACT` de `src/6zz9zzzz_enjuego.js`.
