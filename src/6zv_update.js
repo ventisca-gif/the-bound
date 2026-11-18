@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.23', GAME_BUILD = 144;
+const GAME_VER = '5.24', GAME_BUILD = 145;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,25 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.24",
+  "b": 145,
+  "d": "2026-11-18",
+  "es": [
+   "🏂 Sandboard de verdad: en la cima del Cerro Carretas te pones la tabla y bajas la duna en el mapa, girando con el joystick entre banderas y piedras.",
+   "⚽ Partido real 3 contra 3 en el Gran Estadio de Madrid (2 minutos, con portero): conduce el balón y chuta con ⚔. Habla con el Entrenador.",
+   "🏐 Vóley en la plaza de Comas, 3 contra 3: corre hasta la sombra de la pelota para devolverla. Gana el primero en llegar a 7.",
+   "💃 Los bailes (Ballet Folklórico, marinera, flamenco y Concurso Nacional) se bailan en la tarima: las flechas caen sobre tu cabeza, sin ventanas.",
+   "📈 Los oficios de México, Perú y España dan el triple de experiencia."
+  ],
+  "en": [
+   "🏂 Real sandboarding: at the top of Cerro Carretas you strap on the board and ride down the dune on the map, steering with the joystick between flags and rocks.",
+   "⚽ Real 3-a-side match at Madrid's Great Stadium (2 minutes, with goalkeepers): dribble and shoot with ⚔. Talk to the Coach.",
+   "🏐 Volleyball on the Comas square, 3-a-side: run to the ball's shadow to return it. First to 7 wins.",
+   "💃 The dances (Folk Ballet, marinera, flamenco and the National Contest) are danced on the stage: the arrows fall above your head, with no windows.",
+   "📈 Mexico, Peru and Spain jobs give triple experience."
+  ]
+ },
  {
   "v": "5.23",
   "b": 144,
