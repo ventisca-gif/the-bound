@@ -1,24 +1,30 @@
 {
- "build": 143,
- "ver": "5.22",
+ "build": 144,
+ "ver": "5.23",
  "date": "2026-11-18",
  "file": "thebound.html",
- "size": 23402834,
- "sha256": "240df435bd64e40939740f7c31ede1a7523305c68007a5a70d6aeb6c6a726629",
+ "size": 23492064,
+ "sha256": "89969985a774add1ca5439756be385d9b28a9b324f77d90bb3b1f353c0776ae6",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🚌 El bus interprovincial tiene icono propio en el mapa (ya no es el del Metropolitano) y un cartel grande «BUS A TRUJILLO» en La Victoria (Lima) y en Plaza Norte (Lima Norte), y «BUS A LIMA» en Trujillo.",
-   "➜ En el mapa, toca cualquier lugar de la lista y la flecha dorada te lleva hasta él.",
-   "🏠 Si vives en otro país (tienes casa en Japón, Lima, México, España o Trujillo) y sales del juego allí, al volver apareces en tu casa de ese país.",
-   "🚇 La trinchera del Metropolitano ya no se puede pisar: ni tú ni los vecinos. Se cruza por los puentes."
+   "🐴 Monturas: caballo charro y vocho propio (México), caballo de paso (Lima y Trujillo), caballo andaluz y Vespa (España).",
+   "🐾 Mascotas: xoloitzcuintle, chihuahua con sombrerito, ajolote, alpaca, perro peruano sin pelo, cuy con chullo, pelícano, lince ibérico, torito de peluche y gato madrileño.",
+   "🇲🇽 Día de Muertos con ofrenda en el Zócalo (de noche se llena de velas) y maquillaje de catrina y catrín; lucha libre en la Arena con 4 máscaras; paseo en trajinera por Xochimilco con mariachi.",
+   "🇵🇪 Procesión de octubre en la Plaza de Armas con turrón de doña Pepa; Circuito Mágico del Agua; vóley y pollada bailable en Comas (aprendes cumbia).",
+   "🏜 Trujillo: rema en caballito de totora, surf en Huanchaco, Concurso Nacional de Marinera en el Coliseo y el misterio nocturno de Chan Chan.",
+   "🇪🇸 Fallas en Valencia, San Fermín con gigantes y cabezudos, cine de verano y verbena con chotis, y el Camino de Santiago con su Compostela.",
+   "📔 Tiendas de recuerdos en Japón, México, Lima, Trujillo y España con muebles típicos para tu casa, y un álbum de recuerdos."
   ],
   "en": [
-   "🚌 The intercity bus has its own map icon (no longer the Metropolitano one) and a big «BUS TO TRUJILLO» sign in La Victoria (Lima) and Plaza Norte (North Lima), and «BUS TO LIMA» in Trujillo.",
-   "➜ On the map, tap any place in the list and the golden arrow takes you there.",
-   "🏠 If you live in another country (you own a house in Japan, Lima, Mexico, Spain or Trujillo) and quit the game there, you come back at your house in that country.",
-   "🚇 The Metropolitano trench can no longer be walked on, by you or by locals. Cross it over the bridges."
+   "🐴 Mounts: charro horse and your own Beetle (Mexico), Paso horse (Lima and Trujillo), Andalusian horse and Vespa (Spain).",
+   "🐾 Pets: xoloitzcuintle, chihuahua with a tiny sombrero, axolotl, alpaca, Peruvian hairless dog, guinea pig in a chullo, pelican, Iberian lynx, plush little bull and Madrid cat.",
+   "🇲🇽 Day of the Dead altar in the Zócalo (full of candles at night) with catrina and catrín make-up; lucha libre at the Arena with 4 masks; trajinera ride through Xochimilco with mariachi.",
+   "🇵🇪 October procession in the Plaza de Armas with Doña Pepa nougat; Magic Water Circuit; volleyball and dance pollada in Comas (learn cumbia).",
+   "🏜 Trujillo: paddle a reed boat, surf in Huanchaco, the National Marinera Contest at the Coliseum and the night mystery of Chan Chan.",
+   "🇪🇸 Las Fallas in Valencia, San Fermín with giants and big-heads, summer cinema and verbena with chotis, and the Camino de Santiago with its Compostela.",
+   "📔 Souvenir shops in Japan, Mexico, Lima, Trujillo and Spain with typical furniture for your house, and a souvenir album."
   ]
  }
 }
