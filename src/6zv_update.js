@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.26', GAME_BUILD = 147;
+const GAME_VER = '5.27', GAME_BUILD = 148;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.27",
+  "b": 148,
+  "d": "2026-11-18",
+  "es": [
+   "🚶 Sin tirones al caminar entre la gente de Lima y los países: el limpiador de memoria borraba los dibujos de los peatones que seguían en pantalla y se volvían a crear cada pocos segundos. Ahora además se preparan al entrar al país.",
+   "🕯️ Procesión de la Plaza de Armas: los devotos ya no llenan la pantalla de carteles; su nombre sale al acercarte.",
+   "🏷️ Entre la multitud, los nombres de los NPCs cercanos ya no se montan unos sobre otros.",
+   "📈 Medido en un celular lento simulado tras 1 minuto en la Plaza de Armas: unas 45 imágenes por segundo (eran ~15 antes de la 5.26)."
+  ],
+  "en": [
+   "🚶 No more stutter walking through crowds in Lima and the countries: the memory cleaner was deleting pedestrian sprites still on screen and they were rebuilt every few seconds. They are now also prepared when you enter the country.",
+   "🕯️ Plaza de Armas procession: the devotees no longer fill the screen with name tags; their name shows when you get close.",
+   "🏷️ In crowds, nearby NPC names no longer pile on top of each other.",
+   "📈 Measured on a simulated slow phone after 1 minute in the Plaza de Armas: about 45 frames per second (it was ~15 before 5.26)."
+  ]
+ },
  {
   "v": "5.26",
   "b": 147,
