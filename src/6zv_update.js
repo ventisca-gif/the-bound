@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.21', GAME_BUILD = 142;
+const GAME_VER = '5.22', GAME_BUILD = 143;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.22",
+  "b": 143,
+  "d": "2026-11-18",
+  "es": [
+   "🚌 El bus interprovincial tiene icono propio en el mapa (ya no es el del Metropolitano) y un cartel grande «BUS A TRUJILLO» en La Victoria (Lima) y en Plaza Norte (Lima Norte), y «BUS A LIMA» en Trujillo.",
+   "➜ En el mapa, toca cualquier lugar de la lista y la flecha dorada te lleva hasta él.",
+   "🏠 Si vives en otro país (tienes casa en Japón, Lima, México, España o Trujillo) y sales del juego allí, al volver apareces en tu casa de ese país.",
+   "🚇 La trinchera del Metropolitano ya no se puede pisar: ni tú ni los vecinos. Se cruza por los puentes."
+  ],
+  "en": [
+   "🚌 The intercity bus has its own map icon (no longer the Metropolitano one) and a big «BUS TO TRUJILLO» sign in La Victoria (Lima) and Plaza Norte (North Lima), and «BUS TO LIMA» in Trujillo.",
+   "➜ On the map, tap any place in the list and the golden arrow takes you there.",
+   "🏠 If you live in another country (you own a house in Japan, Lima, Mexico, Spain or Trujillo) and quit the game there, you come back at your house in that country.",
+   "🚇 The Metropolitano trench can no longer be walked on, by you or by locals. Cross it over the bridges."
+  ]
+ },
  {
   "v": "5.21",
   "b": 142,
