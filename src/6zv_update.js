@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.11', GAME_BUILD = 132;
+const GAME_VER = '5.12', GAME_BUILD = 133;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,27 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.12",
+  "b": 133,
+  "d": "2026-11-18",
+  "es": [
+   "🚄 Japón crece: Bahía del Shinkansen al este y al sur con 6 puentes, y dos trenes bala dando la vuelta a toda la isla.",
+   "🚇 13 bocas de metro: baja al andén, espera entre la gente y sube al tren bala (5.000). Dentro paseas por los vagones y te avisa en cada estación.",
+   "🚝 Metro elevado sobre Tokio: ves la ciudad desde arriba y el interior del vagón. ✈ El avión ahora es una cabina con pasajeros y azafatas.",
+   "🏮 Mercadillo nocturno, cometas, cofres en la niebla, Pez de Crecida, animales domesticables, libro de sellos, acuario y jardín zen en casa.",
+   "📦 Oficios: cartero, fotógrafo, florista y restaurante en casa. 👥 Cartas entre jugadores, fiestas en casa, caza del tesoro en grupo y relevos.",
+   "📔 Tres historias de vecinos y el misterio del Cáliz de Arxar. Arreglado: el aviso «Siguiente» ya no tapa la Bitácora."
+  ],
+  "en": [
+   "🚄 Japan grows: Shinkansen Bay to the east and south with 6 bridges, and two bullet trains circling the whole island.",
+   "🚇 13 metro entrances: go down to the platform, wait among the crowd and board the bullet train (5,000). Inside you walk the carriages and it asks at every station.",
+   "🚝 Elevated metro over Tokyo: see the city from above and the inside of the carriage. ✈ The plane is now a cabin with passengers and attendants.",
+   "🏮 Night market, kites, fog chests, Flood Fish, tameable animals, stamp book, aquarium and zen garden at home.",
+   "📦 Jobs: postal worker, photographer, florist and home restaurant. 👥 Player cards, house parties, group treasure hunt and relays.",
+   "📔 Three neighbour stories and the Arxar Chalice mystery. Fixed: the «Next» notice no longer covers the Logbook."
+  ]
+ },
  {
   "v": "5.11",
   "b": 132,

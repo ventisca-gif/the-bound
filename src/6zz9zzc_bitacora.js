@@ -16,7 +16,7 @@ function bitC(k) { return (G.P && G.P.bit && G.P.bit.c && G.P.bit.c[k]) || 0; }
 
 // ---------- historial de misiones ----------
 { const _cq = completeQuest; completeQuest = function (id) { const Q = QD(id), P = G.P; const r = _cq.apply(this, arguments);
-  try { if (Q && P) { const c = questCat(Q); P.qlog = P.qlog || []; P.qlog.push({ id: Q.board ? null : id, n: Q.n, c, d: typeof calDate === 'function' ? String(calDate()).slice(0, 40) : '', xp: (Q.rew && Q.rew.xp) || 0, g: (Q.rew && Q.rew.gold) || 0 }); if (P.qlog.length > 250) P.qlog.splice(0, P.qlog.length - 250);
+  try { if (Q && P) { const c = questCat(Q); P.qlog = P.qlog || []; P.qlog.push({ id: Q.board ? null : id, n: Q.n, c, d: typeof calShort === 'function' ? calShort() : '', xp: (Q.rew && Q.rew.xp) || 0, g: (Q.rew && Q.rew.gold) || 0 }); if (P.qlog.length > 250) P.qlog.splice(0, P.qlog.length - 250);
     bitAdd('quest'); bitAdd('q_' + c); if (Q.chain) bitAdd('chain_' + Q.chain); } } catch (e) { console.warn(e); } return r; }; }
 
 // ---------- contadores para los logros ----------
@@ -245,7 +245,7 @@ function mailRecv(r, m) { const P = G.P; if (!P) return; const b = BIT(), from =
   else if (m.k === 'photo') { add({ k: 'note', txt: cleanStr(m.txt, 100) }); toast('📷 ' + cleanStr(m.txt, 60), 'info'); }
   else if (m.k === 'visreq') { add({ k: 'visreq', rid: r.id }); toast('🏠 ' + from + L2(' quiere visitar tu casa (mira el buzón de la Bitácora).', ' wants to visit your house (see the Logbook mailbox).'), 'info', 5); }
   else if (m.k === 'visno') { add({ k: 'note', txt: L2('Ahora no puede recibir visitas.', 'Can’t host visits right now.') }); }
-  else if (m.k === 'home' && m.cfg && typeof m.cfg === 'object') { VISIT.offer = { name: from, cfg: m.cfg, b: Array.isArray(m.b) ? m.b.slice(0, 400) : [], base: String(m.base || ''), lv: m.lv | 0 }; add({ k: 'home' }); toast('🏠 ' + from + L2(' te abre su casa. Entra desde el buzón de la Bitácora.', ' opens their house to you. Enter from the Logbook mailbox.'), 'quest', 6); }
+  else if (m.k === 'home' && m.cfg && typeof m.cfg === 'object') { VISIT.offer = { name: from, cfg: m.cfg, b: Array.isArray(m.b) ? m.b.slice(0, 400) : [], base: String(m.base || ''), lv: m.lv | 0, aq: Array.isArray(m.aq) ? m.aq.filter(x => typeof x === 'string').slice(0, 8) : [] }; add({ k: 'home' }); toast('🏠 ' + from + L2(' te abre su casa. Entra desde el buzón de la Bitácora.', ' opens their house to you. Enter from the Logbook mailbox.'), 'quest', 6); }
   else if (typeof JUEGOS_RECV === 'function') JUEGOS_RECV(r, m, from); }
 // regalos sin respuesta en 30 s: se devuelven
 V33_TICKS.push(() => { for (const [k, g] of MAILQ.pend) if (G.t - g.ts > 30) { MAILQ.pend.delete(k); giveItem(g.it, g.q, true); toast(L2('El regalo no llegó y ha vuelto a tu bolsa.', 'The gift did not arrive and is back in your bag.'), 'warn'); } });
@@ -277,7 +277,7 @@ BIT_WIRE.buzon = () => { const P = G.P, b = BIT(), on = mailOnline(), tgt = on.f
 const VISIT = { offer: null, host: 0, on: null };
 function visitOffer(r) { const P = G.P, hs = Object.keys(P.homes || {}).filter(k => HOUSES[k] && !isUpper(k)); if (!hs.length) { mailSend(r, { k: 'visno' }); toast(L2('No tienes casa todavía.', 'You don’t have a house yet.'), 'warn'); return; }
   const base = P.inside && hs.includes(homeBaseOf(P.inside)) ? homeBaseOf(P.inside) : hs[0], up = homeUpId(base);
-  const recs = (P.builds || []).filter(x => Array.isArray(x) && (x[0] === base || x[0] === up)); const pay = { k: 'home', cfg: P.homes[base], b: recs, base, lv: P.lv };
+  const recs = (P.builds || []).filter(x => Array.isArray(x) && (x[0] === base || x[0] === up)); const pay = { k: 'home', cfg: P.homes[base], b: recs, base, lv: P.lv, aq: (P.bit && P.bit.aq) || [] };
   if (JSON.stringify(pay).length > 24000) { toast(L2('Tu casa tiene demasiadas cosas para enviarla.', 'Your house has too many things to send.'), 'warn'); mailSend(r, { k: 'visno' }); return; }
   mailSend(r, pay); VISIT.host = G.t; bitAdd('visit'); toast('🏠 ' + r.name + L2(' puede entrar a tu casa.', ' can come into your house.'), 'info'); }
 function visitEnter() { const P = G.P, O = VISIT.offer; if (!O) return; if (P.map !== 'world') { toast(L2('Sal al exterior primero.', 'Go outside first.'), 'warn'); return; } if (!HOUSES[O.base]) { toast(L2('Esa casa no existe en tu versión del juego.', 'That house does not exist in your game version.'), 'warn'); return; }
