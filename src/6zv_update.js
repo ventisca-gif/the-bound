@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.24', GAME_BUILD = 145;
+const GAME_VER = '5.25', GAME_BUILD = 146;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,25 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.25",
+  "b": 146,
+  "d": "2026-11-18",
+  "es": [
+   "🌮 Taquero en el mapa: plancha con 5 estaciones de relleno y un «con todo». Los clientes llegan con su pedido en un globo; toma el relleno con ⚔ y entrégalo antes de que se cansen.",
+   "💳 Cajero en el mapa: los productos pasan por la cinta y los escaneas con ⚔ en el lector; luego te pones en la bandeja con el vuelto correcto.",
+   "🍅 Tomatina en la calle de Valencia: la gente corre, les lanzas tomates con ⚔ y te los tiran de vuelta. La calle se va manchando de rojo.",
+   "⛳ Golf en el campo de El Golf: apunta, mide la fuerza y la bola rueda de verdad; los búnkeres la frenan y si sale del campo es +1 golpe.",
+   "🎴 La lotería y la piñata siguen en su ventana."
+  ],
+  "en": [
+   "🌮 Taco cook on the map: a grill with 5 filling stations and a «with everything». Customers arrive with their order in a bubble; grab the filling with ⚔ and hand it over before they get tired.",
+   "💳 Cashier on the map: items move along the belt and you scan them with ⚔ at the scanner; then stand on the tray with the right change.",
+   "🍅 La Tomatina on a Valencia street: people run around, you throw tomatoes with ⚔ and they throw them back. The street turns red.",
+   "⛳ Golf on the El Golf course: aim, judge the power and the ball really rolls; bunkers slow it down and going out of bounds is +1 stroke.",
+   "🎴 Lotería and piñata stay in their window."
+  ]
+ },
  {
   "v": "5.24",
   "b": 145,

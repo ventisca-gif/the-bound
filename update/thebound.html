@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.24 · Juegos en el mapa</div>
+  <div class="tfoot">v5.25 · Trabajos en el mapa</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11794,7 +11794,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.24', GAME_BUILD = 145;
+const GAME_VER = '5.25', GAME_BUILD = 146;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11802,6 +11802,25 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.25",
+  "b": 146,
+  "d": "2026-11-18",
+  "es": [
+   "🌮 Taquero en el mapa: plancha con 5 estaciones de relleno y un «con todo». Los clientes llegan con su pedido en un globo; toma el relleno con ⚔ y entrégalo antes de que se cansen.",
+   "💳 Cajero en el mapa: los productos pasan por la cinta y los escaneas con ⚔ en el lector; luego te pones en la bandeja con el vuelto correcto.",
+   "🍅 Tomatina en la calle de Valencia: la gente corre, les lanzas tomates con ⚔ y te los tiran de vuelta. La calle se va manchando de rojo.",
+   "⛳ Golf en el campo de El Golf: apunta, mide la fuerza y la bola rueda de verdad; los búnkeres la frenan y si sale del campo es +1 golpe.",
+   "🎴 La lotería y la piñata siguen en su ventana."
+  ],
+  "en": [
+   "🌮 Taco cook on the map: a grill with 5 filling stations and a «with everything». Customers arrive with their order in a bubble; grab the filling with ⚔ and hand it over before they get tired.",
+   "💳 Cashier on the map: items move along the belt and you scan them with ⚔ at the scanner; then stand on the tray with the right change.",
+   "🍅 La Tomatina on a Valencia street: people run around, you throw tomatoes with ⚔ and they throw them back. The street turns red.",
+   "⛳ Golf on the El Golf course: aim, judge the power and the ball really rolls; bunkers slow it down and going out of bounds is +1 stroke.",
+   "🎴 Lotería and piñata stay in their window."
+  ]
+ },
  {
   "v": "5.24",
   "b": 145,
@@ -35058,6 +35077,96 @@ if (typeof GSIS !== 'undefined') GSIS.unshift(['enjuego524', '🎮 ' + L2('Juego
   L2('Vóley (Comas): 3 contra 3 en la cancha de la plaza. Corre hasta la sombra de la pelota antes de que caiga y la devuelves. Gana el primero en llegar a 7.', 'Volleyball (Comas): 3-a-side on the square court. Run to the ball\'s shadow before it lands to return it. First to 7 wins.'),
   L2('Bailes (Ballet Folklórico, marinera, flamenco y el Concurso Nacional): bailas en la tarima y las flechas caen sobre tu cabeza; pulsa los botones de flecha de abajo.', 'Dances (Folk Ballet, marinera, flamenco and the National Contest): you dance on the stage and the arrows fall above your head; tap the arrow buttons below.'),
   L2('Los oficios de México, Perú y España dan el triple de experiencia.', 'Mexico, Peru and Spain jobs give triple experience.')], () => null]);
+
+// ================= v5.25: TAQUERO, CAJERO, TOMATINA Y GOLF DENTRO DEL MAPA (mecánicas propias) =================
+const actHud = h => mgHud(h);
+const drawTxt = (t, x, y, col, sz) => { ctx.font = 'bold ' + (sz || 9) + 'px sans-serif'; ctx.textAlign = 'center'; ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(10,6,4,0.9)'; ctx.strokeText(t, x, y); ctx.fillStyle = col; ctx.fillText(t, x, y); };
+const bubble = (x, y, w, h) => { ctx.fillStyle = '#ffffff'; ctx.fillRect(x - w / 2, y - h, w, h); ctx.strokeStyle = '#1a1a1e'; ctx.lineWidth = 1; ctx.strokeRect(x - w / 2 + 0.5, y - h + 0.5, w - 1, h - 1); ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.moveTo(x - 3, y); ctx.lineTo(x + 3, y); ctx.lineTo(x, y + 4); ctx.fill(); };
+
+// ---------- TAQUERO: puesto con estaciones; los clientes piden con un globo ----------
+const TQ_ST = [['pastor', L2('Pastor', 'Pastor'), '#c8602a'], ['suadero', L2('Suadero', 'Suadero'), '#8a4a2a'], ['bistec', L2('Bistec', 'Steak'), '#6a3a2a'], ['carnitas', L2('Carnitas', 'Carnitas'), '#d8a060'], ['nopal', L2('Nopal', 'Cactus'), '#4a8a3a']];
+mxTacoRound = function () { const P = G.P, M = G.map; if (actBusy() || !M) return; if (P.mount) { P.mount = null; calcStats(P); mountBtn(); } const sx = P.x, sy = P.y;
+  const st = TQ_ST.map((s, k) => ({ k: s[0], n: s[1], col: s[2], x: sx - 72 + k * 36, y: sy - 34 })), todo = { x: sx + 108, y: sy };
+  Object.assign(ACT, { k: 'taco', sx, sy, st, todo, hand: null, q: [], served: 0, ok: 0, total: 8, next: 0.5, t: 0, onAtk: () => taqAtk() });
+  banner('🌮 ' + L2('¡A la plancha!', 'On the grill!'), L2('Toma el relleno con ⚔, pasa por el «con todo» si lo piden y entrega al cliente con ⚔.', 'Grab the filling with ⚔, go by «with everything» if asked and hand it to the customer with ⚔.')); };
+function taqAtk() { const A = ACT, P = G.P; for (const s of A.st) if (aDist(P, s) < 22) { A.hand = { k: s.k, todo: false }; sfx('ui'); floatText(P.x, P.y - 40, '🌮 ' + s.n, s.col); return true; }
+  if (aDist(P, A.todo) < 24) { if (!A.hand) { toast(L2('Primero el relleno', 'Filling first'), 'warn'); return true; } A.hand.todo = true; sfx('ui'); floatText(P.x, P.y - 40, L2('¡Con todo!', 'With everything!'), '#7ad07a'); return true; }
+  const c = A.q.filter(c => c.arr).sort((a, b) => aDist(P, a.e) - aDist(P, b.e))[0]; if (c && aDist(P, c.e) < 26) { if (!A.hand) { toast(L2('No llevas ningún taco', 'You are not carrying a taco'), 'warn'); return true; } const good = A.hand.k === c.want && A.hand.todo === c.todo; taqDone(c, good); A.hand = null; return true; } return true; }
+function taqDone(c, good) { const A = ACT, P = G.P; A.served++; if (good) { A.ok++; const tip = Math.round(140 * (0.6 + c.pat / c.pat0 * 0.6) * (1 + jobPerkSum('tqG') / 100)); A.gold = (A.gold || 0) + tip; sfx('coin'); floatText(c.e.x, c.e.y - 40, '😋 +' + tip, '#ffd040'); } else { sfx('hurt'); floatText(c.e.x, c.e.y - 40, '😠', '#ff8a8a'); } c.leave = 1; c.e.leaveT = 0; }
+V33_TICKS.push(dt => { if (ACT.k !== 'taco') return; dt = Math.min(0.05, dt || 0.016); const A = ACT, P = G.P, M = G.map; A.t += dt; A.next -= dt;
+  if (A.next <= 0 && A.q.filter(c => !c.leave).length < 3 && A.served + A.q.filter(c => !c.leave).length < A.total) { A.next = 3 + Math.random() * 3; const slot = [0, 1, 2].find(s => !A.q.some(c => !c.leave && c.slot === s)); if (slot !== undefined) { const id = 'mx_' + (1 + Math.floor(Math.random() * 140)), e = actNpc(id, A.sx - 40 + slot * 50, A.sy + 160, M.id); if (e) { const pat0 = 22; A.q.push({ e, slot, want: TQ_ST[Math.floor(Math.random() * 5)][0], todo: Math.random() < 0.6, pat: pat0, pat0, arr: false }); } } }
+  for (const c of A.q) { const e = c.e; if (c.leave) { e.leaveT = (e.leaveT || 0) + dt; npcStep(e, e.x, A.sy + 200, 70, dt); if (e.leaveT > 2.5) e.remove = true; continue; } const tx = A.sx - 40 + c.slot * 50, ty = A.sy + 40; if (!c.arr) { npcStep(e, tx, ty, 60, dt); if (aDist(e, { x: tx, y: ty }) < 3) { c.arr = true; e.anim = 'idle'; e.dir = 'up'; } } else { c.pat -= dt; if (c.pat <= 0) { A.served++; c.leave = 1; sfx('hurt'); floatText(e.x, e.y - 40, L2('¡Me voy!', 'I am leaving!'), '#ff8a8a'); } } }
+  A.q = A.q.filter(c => !c.e.remove); G.ents = G.ents.filter(e => !e.remove);
+  actHud(`🌮 ${A.ok}/${A.total} · ${A.hand ? L2('Llevas: ', 'Carrying: ') + TQ_ST.find(s => s[0] === A.hand.k)[1] + (A.hand.todo ? ' + ' + L2('todo', 'everything') : '') : L2('Manos libres', 'Empty hands')}`);
+  if (A.served >= A.total) { const g = A.gold || 0; P.gold += g; gainJobXp('taquero', 25 + A.ok * 20); actClean(); actEnd(); banner('🌮 ' + L2('Fin del turno', 'End of shift'), A.ok + '/' + A.total + L2(' tacos bien · +', ' tacos right · +') + g + L2(' de oro', ' gold')); sfx('quest'); markDirty(); } });
+WORLD_DRAW.push((cx, cy) => { if (ACT.k !== 'taco') return; const A = ACT; ctx.fillStyle = '#8a5a32'; ctx.fillRect(A.sx - 96 - cx, A.sy - 22 - cy, 230, 8); ctx.fillStyle = '#6a4022'; ctx.fillRect(A.sx - 96 - cx, A.sy - 14 - cy, 230, 3);
+  for (const s of A.st) { const x = s.x - cx, y = s.y - cy; ctx.fillStyle = '#3a3a40'; ctx.fillRect(x - 12, y - 4, 24, 10); ctx.fillStyle = s.col; if (s.k === 'pastor') { const w = 6 + Math.sin(G.t * 6) * 1.5; ctx.fillRect(x - w / 2, y - 22, w, 18); ctx.fillStyle = '#ffd040'; ctx.fillRect(x - 2, y - 26, 4, 4); } else { ctx.beginPath(); ctx.ellipse(x, y - 4, 9, 4, 0, 0, 7); ctx.fill(); } drawTxt(s.n, x, y + 16, '#ffe08a', 8); }
+  const tx = A.todo.x - cx, ty = A.todo.y - cy; ctx.fillStyle = '#e8e4dc'; ctx.beginPath(); ctx.ellipse(tx, ty, 12, 6, 0, 0, 7); ctx.fill(); for (const [dx, col] of [[-5, '#ffffff'], [0, '#4ac04a'], [5, '#c8302a']]) { ctx.fillStyle = col; ctx.fillRect(tx + dx - 2, ty - 3, 4, 3); } drawTxt(L2('CON TODO', 'EVERYTHING'), tx, ty + 16, '#7ad07a', 8);
+  for (const c of A.q) { if (!c.arr || c.leave) continue; const x = c.e.x - cx, y = c.e.y - cy - 46, s = TQ_ST.find(q => q[0] === c.want); bubble(x, y, 46, 22); ctx.fillStyle = s[2]; ctx.beginPath(); ctx.ellipse(x - 10, y - 11, 7, 4, 0, 0, 7); ctx.fill(); ctx.fillStyle = '#1a1a1e'; ctx.font = 'bold 8px sans-serif'; ctx.textAlign = 'left'; ctx.fillText(c.todo ? '✓' + L2('todo', 'all') : '✗', x - 1, y - 8); ctx.fillStyle = c.pat / c.pat0 > 0.4 ? '#3ac04a' : '#e83a3a'; ctx.fillRect(x - 20, y - 3, 40 * Math.max(0, c.pat / c.pat0), 2); }
+  if (A.hand) { const P = G.P, s = TQ_ST.find(q => q[0] === A.hand.k); ctx.fillStyle = '#e8c070'; ctx.beginPath(); ctx.ellipse(P.x - cx, P.y - cy - 52, 8, 4, 0, 0, 7); ctx.fill(); ctx.fillStyle = s[2]; ctx.fillRect(P.x - cx - 5, P.y - cy - 55, 10, 3); if (A.hand.todo) { ctx.fillStyle = '#4ac04a'; ctx.fillRect(P.x - cx - 3, P.y - cy - 57, 2, 2); ctx.fillStyle = '#c8302a'; ctx.fillRect(P.x - cx + 1, P.y - cy - 57, 2, 2); } } });
+
+// ---------- CAJERO: cinta transportadora y bandejas de vuelto ----------
+XACT.lm_caja[2] = () => cjStart();
+lmCajaRound = function () { cjStart(); };
+function cjStart() { const P = G.P, M = G.map; if (actBusy() || !M) return; Object.assign(ACT, { k: 'caja', sx: P.x, sy: P.y, cust: 0, ok: 0, total: 5, phase: 'wait', wait: 1, belt: [], scanned: 0, tot: 0, cur: null, gold: 0, onAtk: () => cjAtk() });
+  banner('💳 ' + L2('¡Caja abierta!', 'Till open!'), L2('Pulsa ⚔ cuando el producto pase por el lector. Luego ve a la bandeja del vuelto correcto y pulsa ⚔.', 'Press ⚔ when the item passes the scanner. Then walk to the tray with the right change and press ⚔.')); }
+function cjAtk() { const A = ACT, P = G.P; if (A.phase === 'scan') { const it = A.belt.find(b => !b.done && Math.abs(b.x - A.sx) < 14); if (it) { it.done = 1; A.tot += it.p; A.scanned++; sfx('coin'); floatText(A.sx, A.sy - 50, '¡Bip! S/ ' + it.p, '#7ad07a'); } else { sfx('hurt'); floatText(A.sx, A.sy - 50, L2('Nada en el lector', 'Nothing on the scanner'), '#ff8a8a'); } return true; }
+  if (A.phase === 'change') { const tr = A.trays.find(t => aDist(P, t) < 22); if (!tr) { toast(L2('Ponte sobre una bandeja', 'Stand on a tray'), 'warn'); return true; } const good = tr.v === A.change && A.miss === 0; if (good) { A.ok++; A.gold += Math.round(110 * (1 + jobPerkSum('cjG') / 100)); sfx('coin'); floatText(P.x, P.y - 40, '😊 ' + L2('¡Gracias, casero!', 'Thanks!'), '#ffd040'); } else { sfx('hurt'); floatText(P.x, P.y - 40, tr.v !== A.change ? L2('¡Vuelto mal!', 'Wrong change!') : L2('¡Me cobraste mal!', 'You rang it up wrong!'), '#ff8a8a'); }
+    A.cust++; if (A.cur) { A.cur.leave = 1; } A.phase = 'wait'; A.wait = 1.4; return true; } return true; }
+V33_TICKS.push(dt => { if (ACT.k !== 'caja') return; dt = Math.min(0.05, dt || 0.016); const A = ACT, P = G.P, M = G.map;
+  if (A.cur && A.cur.leave) { A.cur.e.leaveT = (A.cur.e.leaveT || 0) + dt; npcStep(A.cur.e, A.sx + 140, A.sy + 30, 70, dt); if (A.cur.e.leaveT > 2) { A.cur.e.remove = true; A.cur = null; G.ents = G.ents.filter(e => !e.remove); } }
+  if (A.phase === 'wait') { A.wait -= dt; if (A.wait <= 0) { if (A.cust >= A.total) { P.gold += A.gold; gainJobXp('cajero', 25 + A.ok * 20); actClean(); actEnd(); banner('💳 ' + L2('Fin del turno', 'End of shift'), A.ok + '/' + A.total + L2(' clientes bien · +', ' customers right · +') + A.gold + L2(' de oro', ' gold')); sfx('quest'); markDirty(); return; }
+    const e = actNpc('pe_' + (1 + Math.floor(Math.random() * 120)), A.sx - 120, A.sy + 30, M.id); A.cur = e ? { e } : null; const n = 3 + Math.floor(Math.random() * 3); A.belt = []; for (let k = 0; k < n; k++) { const pr = LM_PROD[Math.floor(Math.random() * LM_PROD.length)]; A.belt.push({ n: pr[0], p: pr[1], x: A.sx - 130 - k * 34, done: 0 }); } A.tot = 0; A.scanned = 0; A.miss = 0; A.phase = 'scan'; A.spd = 48 + A.cust * 6; } return; }
+  if (A.cur && !A.cur.leave) npcStep(A.cur.e, A.sx - 30, A.sy + 30, 60, dt);
+  if (A.phase === 'scan') { for (const b of A.belt) { b.x += A.spd * dt; if (!b.done && b.x > A.sx + 16) { b.done = 2; A.miss++; sfx('hurt'); floatText(A.sx + 20, A.sy - 40, L2('¡Se te pasó!', 'Missed it!'), '#ff8a8a'); } }
+    if (A.belt.every(b => b.done)) { const real = A.belt.reduce((s, b) => s + b.p, 0), bill = [10, 20, 50, 100, 200].find(b => b > real) || 200; A.change = bill - real; A.bill = bill; const vals = [A.change, A.change + 1 + Math.floor(Math.random() * 3), Math.max(0, A.change - 1 - Math.floor(Math.random() * 3))].sort(() => Math.random() - 0.5);
+      A.trays = vals.map((v, i) => ({ v, x: A.sx - 50 + i * 50, y: A.sy + 60 })); A.phase = 'change'; floatText(A.sx - 30, A.sy - 10, L2('Paga con S/ ', 'Pays with S/ ') + bill, '#ffd040'); } }
+  actHud(`💳 ${L2('Cliente', 'Customer')} ${Math.min(A.total, A.cust + 1)}/${A.total} · ${A.phase === 'scan' ? L2('Escanea: ', 'Scan: ') + A.scanned + '/' + A.belt.length + ' · S/ ' + A.tot : A.phase === 'change' ? L2('Paga con S/ ', 'Pays with S/ ') + A.bill + ' · ' + L2('total S/ ', 'total S/ ') + A.belt.reduce((s, b) => s + b.p, 0) + ' · ' + L2('elige el vuelto', 'pick the change') : '…'}`); });
+WORLD_DRAW.push((cx, cy) => { if (ACT.k !== 'caja') return; const A = ACT, y = A.sy - 24 - cy; ctx.fillStyle = '#2a2a30'; ctx.fillRect(A.sx - 150 - cx, y, 170, 10); ctx.fillStyle = '#4a4a54'; for (let x = A.sx - 150; x < A.sx + 20; x += 8) ctx.fillRect(x - cx + ((G.t * 40) % 8), y + 2, 2, 6);
+  ctx.fillStyle = '#c8302a'; ctx.fillRect(A.sx - 14 - cx, y - 6, 28, 3); ctx.fillStyle = A.phase === 'scan' ? (A.belt.some(b => !b.done && Math.abs(b.x - A.sx) < 14) ? '#3ae84a' : '#e83a3a') : '#6a6a70'; ctx.fillRect(A.sx - 3 - cx, y - 10, 6, 4);
+  if (A.phase === 'scan') for (const b of A.belt) { if (b.done || b.x < A.sx - 150) continue; const x = b.x - cx; ctx.fillStyle = ['#e8d890', '#8ad070', '#d87050', '#f0f0e8', '#7ab0e8'][b.p % 5]; ctx.fillRect(x - 6, y - 6, 12, 10); drawTxt('S/' + b.p, x, y - 9, '#ffffff', 7); }
+  if (A.phase === 'change') for (const t of A.trays) { const x = t.x - cx, yy = t.y - cy; ctx.fillStyle = '#5a5e6a'; ctx.fillRect(x - 14, yy - 6, 28, 12); ctx.fillStyle = '#ffd040'; for (let k = 0; k < 4; k++) { ctx.beginPath(); ctx.arc(x - 8 + k * 5, yy - 1, 2.5, 0, 7); ctx.fill(); } drawTxt('S/ ' + t.v, x, yy - 10, '#ffe08a', 9); } });
+
+// ---------- TOMATINA: guerra de tomates en la calle ----------
+fsTomatina = function () { const P = G.P, M = G.map; if (actBusy() || !M || M.id !== 'espana') return; if (P.mount) { P.mount = null; calcStats(P); mountBtn(); } const cx0 = P.x, cy0 = P.y, crowd = [];
+  for (let k = 0; k < 12; k++) { const e = actNpc('es_' + (1 + Math.floor(Math.random() * 160)), cx0 + (Math.random() - 0.5) * 220, cy0 + (Math.random() - 0.5) * 160, 'espana'); if (e) { e.tx = e.x; e.ty = e.y; e.splat = 0; e.thr = 1 + Math.random() * 3; crowd.push(e); } }
+  Object.assign(ACT, { k: 'tom', cx0, cy0, crowd, tom: [], hits: 0, got: 0, t: 45, stains: [], onAtk: () => { const v = DIRV[P.dir] || [0, 1], tg = crowd.filter(e => { const dx = e.x - P.x, dy = e.y - P.y, d = Math.hypot(dx, dy); return d < 180 && (dx * v[0] + dy * v[1]) / (d || 1) > 0.5; }).sort((a, b) => aDist(P, a) - aDist(P, b))[0];
+    const ang = tg ? Math.atan2(tg.y - P.y, tg.x - P.x) : Math.atan2(v[1], v[0]); ACT.tom.push({ x: P.x, y: P.y - 18, vx: Math.cos(ang) * 260, vy: Math.sin(ang) * 260, life: 0.8, me: 1 }); setAnim(P, 'atk'); sfx('ui'); return true; } });
+  banner('🍅 ' + L2('¡Empieza la Tomatina!', 'La Tomatina begins!'), L2('Lanza tomates con ⚔ (al que tengas delante) y esquiva los que te tiran. 45 segundos.', 'Throw tomatoes with ⚔ (at whoever is in front) and dodge the ones thrown at you. 45 seconds.')); };
+V33_TICKS.push(dt => { if (ACT.k !== 'tom') return; dt = Math.min(0.05, dt || 0.016); const A = ACT, P = G.P; A.t -= dt;
+  for (const e of A.crowd) { if (aDist(e, { x: e.tx, y: e.ty }) < 4) { e.tx = A.cx0 + (Math.random() - 0.5) * 240; e.ty = A.cy0 + (Math.random() - 0.5) * 170; } npcStep(e, e.tx, e.ty, 55, dt); e.thr -= dt; if (e.thr <= 0 && aDist(e, P) < 140) { e.thr = 2.8 + Math.random() * 3.2; const ang = Math.atan2(P.y - e.y + (Math.random() - 0.5) * 30, P.x - e.x + (Math.random() - 0.5) * 30); A.tom.push({ x: e.x, y: e.y - 18, vx: Math.cos(ang) * 170, vy: Math.sin(ang) * 170, life: 1.1 }); } }
+  for (const t of A.tom) { t.x += t.vx * dt; t.y += t.vy * dt; t.life -= dt; if (t.me) { const h = A.crowd.find(e => Math.hypot(e.x - t.x, e.y - 18 - t.y) < 12); if (h) { t.life = 0; h.splat = Math.min(6, h.splat + 1); A.hits++; sfx('hit'); floatText(h.x, h.y - 40, '🍅', '#ff4a3a'); A.stains.push([t.x, t.y + 18]); } } else if (Math.hypot(P.x - t.x, P.y - 18 - t.y) < 11) { t.life = 0; A.got++; sfx('hurt'); A.stains.push([t.x, t.y + 18]); } if (t.life <= 0 && t.life > -1) { if (!t.st) { t.st = 1; A.stains.push([t.x, t.y + 18]); } } }
+  A.tom = A.tom.filter(t => t.life > 0); if (A.stains.length > 160) A.stains.splice(0, A.stains.length - 160);
+  actHud(`🍅 ${L2('Aciertos', 'Hits')} ${A.hits} · ${L2('Te dieron', 'Hit you')} ${A.got} · ${Math.max(0, Math.ceil(A.t))} s`);
+  if (A.t <= 0) { const score = Math.max(0, A.hits - Math.floor(A.got / 2)), gold = 150 + score * 40; P.gold += gold; if (score >= 15) culGain('tomatina'); actClean(); actEnd(); banner('🍅 ' + L2('Fin de la Tomatina', 'End of La Tomatina'), A.hits + L2(' aciertos · ', ' hits · ') + A.got + L2(' tomatazos recibidos · +', ' tomatoes taken · +') + gold + L2(' de oro', ' gold') + (score < 15 ? ' · ' + L2('(15 para el sello)', '(15 for the seal)') : '')); sfx('quest'); markDirty(); } });
+WORLD_DRAW.push((cx, cy) => { if (ACT.k !== 'tom') return; const A = ACT; ctx.fillStyle = 'rgba(200,30,20,0.35)'; for (const [x, y] of A.stains) { ctx.beginPath(); ctx.ellipse(x - cx, y - cy, 6, 3, 0, 0, 7); ctx.fill(); }
+  for (const e of A.crowd) if (e.splat) { ctx.fillStyle = 'rgba(220,30,20,0.8)'; for (let k = 0; k < e.splat; k++) ctx.fillRect(e.x - cx - 6 + (k * 5) % 12, e.y - cy - 30 + (k * 7) % 16, 3, 3); }
+  if (A.got) { const P = G.P; ctx.fillStyle = 'rgba(220,30,20,0.8)'; for (let k = 0; k < Math.min(8, A.got); k++) ctx.fillRect(P.x - cx - 6 + (k * 5) % 12, P.y - cy - 30 + (k * 7) % 16, 3, 3); }
+  for (const t of A.tom) { ctx.fillStyle = '#e83a2a'; ctx.beginPath(); ctx.arc(t.x - cx, t.y - cy, 3.5, 0, 7); ctx.fill(); ctx.fillStyle = '#4ac04a'; ctx.fillRect(t.x - cx - 1, t.y - cy - 4, 2, 2); } });
+
+// ---------- GOLF: la bola rueda por el campo de El Golf ----------
+const GOLF_HOLES = [{ tee: [206, 268], hole: [222, 280] }, { tee: [252, 300], hole: [270, 312] }, { tee: [212, 326], hole: [196, 336] }];
+trGolf = function () { const P = G.P, M = G.map; if (actBusy() || !M || M.id !== 'trujillo') return; if (P.mount) { P.mount = null; calcStats(P); mountBtn(); } Object.assign(ACT, { k: 'golf', h: 0, strokes: 0, total: 0, phase: 'walk', ang: 0, pow: 0, onAtk: () => golfAtk() }); golfHole(); banner('⛳ ' + L2('Golf en El Golf', 'Golf in El Golf'), L2('Acércate a la bola y pulsa ⚔: apunta, mide la fuerza y golpea. Par 3.', 'Walk up to the ball and press ⚔: aim, judge the power and hit. Par 3.')); };
+function golfHole() { const A = ACT, H = GOLF_HOLES[A.h], P = G.P; A.ball = { x: H.tee[0] * 16 + 8, y: H.tee[1] * 16 + 8, vx: 0, vy: 0 }; A.last = { x: A.ball.x, y: A.ball.y }; A.hole = { x: H.hole[0] * 16 + 8, y: H.hole[1] * 16 + 8 }; A.strokes = 0; A.phase = 'walk'; P.x = A.ball.x - 18; P.y = A.ball.y + 4; }
+function golfAtk() { const A = ACT, P = G.P; if (A.phase === 'roll') return true; if (aDist(P, A.ball) > 30) { toast(L2('Acércate a la bola', 'Get close to the ball'), 'warn'); return true; }
+  if (A.phase === 'walk') { A.phase = 'aim'; A.ang = Math.atan2(A.hole.y - A.ball.y, A.hole.x - A.ball.x) - 0.9; } else if (A.phase === 'aim') A.phase = 'pow'; else if (A.phase === 'pow') { const sp = 60 + A.pow * 420; A.ball.vx = Math.cos(A.ang) * sp; A.ball.vy = Math.sin(A.ang) * sp; A.last = { x: A.ball.x, y: A.ball.y }; A.strokes++; A.phase = 'roll'; setAnim(P, 'atk'); sfx('hit'); } return true; }
+V33_TICKS.push(dt => { if (ACT.k !== 'golf') return; dt = Math.min(0.05, dt || 0.016); const A = ACT, P = G.P, M = G.map, b = A.ball;
+  if (A.phase === 'aim') A.ang += dt * 1.4; if (A.phase === 'pow') A.pow = (Math.sin(performance.now() / 280) + 1) / 2;
+  if (A.phase === 'roll') { b.x += b.vx * dt; b.y += b.vy * dt; const i = M.I(Math.floor(b.x / 16), Math.floor(b.y / 16)), sand = M.lg && M.lg[i] === LM_G.SAND, fr = Math.pow(sand ? 0.08 : 0.4, dt); b.vx *= fr; b.vy *= fr; const sp = Math.hypot(b.vx, b.vy), dh = aDist(b, A.hole);
+    if (dh < 9 && sp < 190) { A.total += A.strokes; sfx('coin'); floatText(A.hole.x, A.hole.y - 30, A.strokes === 1 ? L2('¡Hoyo en uno!', 'Hole in one!') : A.strokes <= 3 ? L2('¡Par o mejor!', 'Par or better!') : L2('Dentro', 'In'), '#ffd040'); A.h++; if (A.h >= 3) { const g = Math.max(150, 1500 - (A.total - 9) * 120); P.gold += g; if (A.total <= 12) culGain('golf'); actEnd(); banner('⛳ ' + L2('Fin del recorrido', 'Round over'), A.total + L2(' golpes · +', ' strokes · +') + g + L2(' de oro', ' gold')); markDirty(); return; } golfHole(); return; }
+    const out = b.x < TR_GOLF.x0 * 16 || b.x > (TR_GOLF.x1 + 1) * 16 || b.y < TR_GOLF.y0 * 16 || b.y > (TR_GOLF.y1 + 1) * 16; if (out) { A.strokes++; b.x = A.last.x; b.y = A.last.y; b.vx = b.vy = 0; toast(L2('Fuera del campo: +1 golpe', 'Out of bounds: +1 stroke'), 'warn'); A.phase = 'walk'; }
+    else if (sp < 8) { b.vx = b.vy = 0; A.phase = A.strokes >= 7 ? 'walk' : 'walk'; if (A.strokes >= 7) { A.total += 8; toast(L2('Demasiados golpes: 8', 'Too many strokes: 8'), 'warn'); A.h++; if (A.h >= 3) { actEnd(); banner('⛳ ' + L2('Fin del recorrido', 'Round over'), A.total + L2(' golpes', ' strokes')); return; } golfHole(); } } }
+  actHud(`⛳ ${L2('Hoyo', 'Hole')} ${A.h + 1}/3 · ${L2('golpes', 'strokes')} ${A.strokes} · total ${A.total} · ${{ walk: L2('ve a la bola y pulsa ⚔', 'go to the ball and press ⚔'), aim: L2('⚔ para fijar la dirección', '⚔ to set direction'), pow: L2('⚔ para golpear', '⚔ to hit'), roll: '…' }[A.phase]}`); });
+WORLD_DRAW.push((cx, cy) => { if (ACT.k !== 'golf' || G.map.id !== 'trujillo') return; const A = ACT, b = A.ball, h = A.hole; ctx.fillStyle = '#6aba5a'; ctx.beginPath(); ctx.ellipse(h.x - cx, h.y - cy, 30, 20, 0, 0, 7); ctx.fill(); ctx.fillStyle = '#111'; ctx.beginPath(); ctx.arc(h.x - cx, h.y - cy, 5, 0, 7); ctx.fill(); ctx.fillStyle = '#eee'; ctx.fillRect(h.x - cx, h.y - cy - 26, 1, 26); ctx.fillStyle = '#e83a3a'; ctx.fillRect(h.x - cx + 1, h.y - cy - 26, 9, 6);
+  if (A.phase === 'aim' || A.phase === 'pow') { ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2; ctx.setLineDash([4, 3]); ctx.beginPath(); ctx.moveTo(b.x - cx, b.y - cy); ctx.lineTo(b.x - cx + Math.cos(A.ang) * 60, b.y - cy + Math.sin(A.ang) * 60); ctx.stroke(); ctx.setLineDash([]); }
+  if (A.phase === 'pow') { const P = G.P; ctx.fillStyle = 'rgba(0,0,0,0.6)'; ctx.fillRect(P.x - cx - 22, P.y - cy - 60, 44, 6); ctx.fillStyle = A.pow > 0.75 ? '#e83a3a' : '#ffd040'; ctx.fillRect(P.x - cx - 22, P.y - cy - 60, 44 * A.pow, 6); }
+  ctx.fillStyle = 'rgba(0,0,0,0.3)'; ctx.beginPath(); ctx.ellipse(b.x - cx, b.y - cy + 2, 3, 1.5, 0, 0, 7); ctx.fill(); ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(b.x - cx, b.y - cy - 1, 2.6, 0, 7); ctx.fill(); });
+// al cambiar de mapa, cualquier actividad nueva también se cierra
+{ const _sm = setMap; setMap = function () { if (ACT.k === 'taco' || ACT.k === 'caja' || ACT.k === 'tom' || ACT.k === 'golf') { actClean(); actEnd(); } return _sm.apply(this, arguments); }; }
+GSIS.forEach(g => { if (g[0] === 'enjuego524') { const f = g[2]; g[2] = () => f().concat([
+  L2('Taquero (México): detrás de la plancha tomas el relleno con ⚔ en su estación, pasas por el «con todo» si el cliente lo pide (su globo lo dice) y se lo entregas con ⚔ antes de que se canse.', 'Taco cook (Mexico): behind the grill grab the filling with ⚔ at its station, go by «with everything» if the customer asks (their bubble says so) and hand it over with ⚔ before they get tired.'),
+  L2('Cajero (Lima): los productos pasan por la cinta; pulsa ⚔ cuando estén en el lector (luz verde). Luego el cliente paga: ponte en la bandeja con el vuelto correcto y pulsa ⚔.', 'Cashier (Lima): items move along the belt; press ⚔ when they are on the scanner (green light). Then the customer pays: stand on the tray with the right change and press ⚔.'),
+  L2('Tomatina (Valencia): la gente corre por la calle; lanza tomates con ⚔ al que tengas delante y esquiva los que te tiran. Golf (Trujillo): la bola rueda por el campo de verdad; los búnkeres la frenan y si sale del campo es +1 golpe. La lotería y la piñata siguen en su ventana.', 'La Tomatina (Valencia): people run around the street; throw tomatoes with ⚔ at whoever is in front and dodge the ones thrown at you. Golf (Trujillo): the ball rolls on the real course; bunkers slow it down and going out of bounds is +1 stroke. Lotería and piñata stay in their window.')]); } });
 
 // ================= v3.6: IDIOMA (Español / English) =================
 // Los textos del código se traducen al compilar (tools/i18n/tr.js + en.json): cada uno es (LANG_EN ? "inglés" : "español").
