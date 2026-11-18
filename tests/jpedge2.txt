@@ -1,0 +1,9 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (G.P.lv=400, goJapan(), 1)
+wait 3000
+js (()=>{ const M=G.maps.japon, o={}; for(let i=0;i<M.w*M.h;i++){ const k=M.jg[i]+'>'+M.ter[i]+'/'+M.lvl[i]+'/'+M.flags[i]+'/'+M.reg[i]; o[k]=(o[k]||0)+1; } return Object.entries(o).sort((a,b)=>b[1]-a[1]).slice(0,30); })()
+js Object.entries(T).filter(([k,v])=>v===17||v===1||v===12||v===2).map(([k,v])=>k+'='+v).join(' ')
+js (()=>{ const M=G.maps.japon; const keys=Object.keys(M).filter(k=>M[k]&&typeof M[k]==='object'&&!(M[k].length===M.w*M.h)).map(k=>k+':'+(Array.isArray(M[k])?'A'+M[k].length:M[k].constructor.name)); return keys.join(' '); })()
+js (()=>{ const M=G.maps.japon; return [M.gpal.length, typeof M.gpal[0], JSON.stringify(M.gpal[0]).slice(0,80), M.ftop[5000], M.mac[5000], M.jsh[5000]]; })()
+js JSON.stringify(G.maps.japon.objs.slice(0,3).map(o=>Object.keys(o)))
+js JSON.stringify({cars: (G.maps.japon.jpCars||[]).length, aeQ: !!G.maps.japon.aeQ, objGrid: G.maps.japon.objGrid && G.maps.japon.objGrid.length})

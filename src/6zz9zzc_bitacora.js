@@ -102,6 +102,8 @@ function bitHudInit() { const H = $('#hud'); if (!H || $('#bBit')) return;
 let bitHudT = 0;
 V33_TICKS.push(dt => { bitHudT -= dt || 0; if (bitHudT > 0) return; bitHudT = 0.8; const P = G.P; if (!P) return; bitHudInit(); bitFrameApply();
   const d = $('#bBit .bdot'); if (d && bitBadge) { bitBadge = false; const b = BIT(), n = bitReady().length + b.mail.filter(m => !m.r).length + (b.px && Date.now() >= b.px.end ? 1 : 0); d.hidden = !n; d.textContent = n > 9 ? '9+' : n || ''; }
+  try { const bb = $('#bBit'), tr = $('#tracker'), sc = $('#secChip'); if (bb) { let bot = 0; for (const el of [tr, sc]) if (el && !el.hidden) { const r = el.getBoundingClientRect(); if (r.height) bot = Math.max(bot, r.bottom); } const hr = $('#hud').getBoundingClientRect();
+    const top = bot ? bot - hr.top + 6 : null; const v = top === null ? '' : top + 'px'; if (bb.style.top !== v) { bb.style.top = v; const lb = $('#bLast'); if (lb) lb.style.top = v; } const pt = $('#party'); if (pt) { const r2 = bb.getBoundingClientRect(), nv = (r2.bottom - hr.top + 6) + 'px'; if (pt.style.top !== nv) pt.style.top = nv; } } } catch (e) { }
   const l = $('#bLast'); if (l) { const w = SETTINGS.lastW; l.hidden = !w; if (w && l.dataset.w !== w) { l.dataset.w = w; l.innerHTML = '↩ ' + (LASTW_IC[w.split(':')[1]] || '📖'); } } });
 setInterval(() => { bitBadge = true; }, 5000);
 // última ventana

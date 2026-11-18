@@ -1,0 +1,52 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js window.__e=[];window.addEventListener('error',e=>window.__e.push(String(e.message)+' @ '+(e.error&&e.error.stack||'').slice(0,400)));1
+js (G.P.lv=400, G.P.gold=1e6, goJapan(), 1)
+wait 3500
+js (()=>{ const M=G.map; return [M.id, M.w, M.h, (M.jpsEnt||[]).filter(Boolean).length, (M.elvSt||[]).filter(Boolean).length, M.objGrid.length, G.P.x|0, G.P.y|0]; })()
+shot
+js (()=>{ const P=G.P, M=G.map; P.x=440*16; P.y=150*16; return 1; })()
+wait 1500
+shot
+js (()=>{ const P=G.P; P.x=10*16; P.y=10*16; return 1; })()
+wait 1500
+shot
+js (()=>{ const P=G.P, M=G.map, E=M.jpsEnt[1]; P.x=E.x*16+16; P.y=(E.y+2)*16+6; P.dir='up'; return interactTarget() && interactTarget().label; })()
+wait 600
+shot
+js (jpsEnter(1, true), 1)
+wait 1500
+js [G.map.id, G.map.station, jpsWait(1)]
+shot
+js (()=>{ for (let k=0;k<3;k++){ const st=jpsState(k); } const P=G.P; P.x=18*16; P.y=6*16; const n=Date.now; const w=jpsWait(1); Date.now=()=>n()+ (w.here?0:w.s*1000+2500); window.__n=n; return w; })()
+wait 600
+js [interactTarget() && interactTarget().kind, jpsTrainAt(1)]
+shot
+js (()=>{ const it=interactTarget(); if(it) doInteract(it); return 1; })()
+wait 1500
+js [G.map.id, G.P.shin && G.P.shin.k, G.P.gold]
+shot
+js (Date.now=window.__n, shinAlight(5), 1)
+wait 1500
+js [G.map.id, G.P.jpRet]
+js (exitInterior(), 1)
+wait 1500
+js [G.map.id, G.P.x|0, G.P.y|0]
+shot
+js (()=>{ const P=G.P, M=G.map, q=M.elvSt[0]; P.x=q[0]*16+8; P.y=(q[1]+1)*16+6; const n=Date.now; let d=elevWait(0); Date.now=()=>n()+d*1000+1500; window.__n=n; const k=elevTrainAt(0); if(k!==null) elevBoard(k,0); return [d,k, !!G.P.elev]; })()
+wait 3000
+shot
+js (Date.now=window.__n, 1)
+wait 4000
+shot
+js [!!G.P.elev, G.P.x|0, G.P.y|0]
+js (G.P.elev && elevAlight(2), [!!G.P.elev, G.P.x|0, G.P.y|0])
+js (G.P.x=262*16, G.P.y=170*16, setMap(G.map,G.P.x,G.P.y), 1)
+wait 500
+js (()=>{ G.P.aeTk='al'; const o={}; flightCine('TOKIO · ALBOR', ()=>aeArriveAlbor()); return 1; })()
+wait 2000
+js [G.map.id, G.P.plane]
+shot
+js (planeArrive(), 1)
+wait 2000
+js [G.map.id, G.P.plane]
+js window.__e
