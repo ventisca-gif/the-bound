@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.07 (build 128)** (17-11-2026). El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.13 (build 134)** (18-11-2026). La 5.13 añadió Perú: Lima (`src/6zz9zzj_peru.js`). El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
 
 ## Quién es Sergio y cómo trabajar con él
 

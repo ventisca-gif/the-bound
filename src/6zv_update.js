@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.12', GAME_BUILD = 133;
+const GAME_VER = '5.13', GAME_BUILD = 134;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,27 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.13",
+  "b": 134,
+  "d": "2026-11-18",
+  "es": [
+   "🇵🇪 ¡Perú! En el Aeródromo de Albor ya se vende el billete a Lima por solo 1.000 de oro (sin nivel mínimo). La vuelta es gratis.",
+   "🗺 Mapa nuevo de Perú (tu imagen) con Lima marcada: tócala y se abre el mapa de la ciudad con todos sus lugares.",
+   "🏛 Lima, el mapa más grande del juego: Plaza de Armas con la pileta de bronce, palmeras, faroles y palomas; Palacio de Gobierno con cambio de guardia a mediodía; Catedral, Palacio Arzobispal, Municipalidad, portales y balcones de madera; Jirón de la Unión, Plaza San Martín, San Francisco, Cerro San Cristóbal y el Rímac.",
+   "🌴 Miraflores: Parque Kennedy con 16 gatos para acariciar, malecón con el Parque del Amor, el faro y el Puente Villena; escaleras a la Costa Verde con playa, tablistas y la Rosa Náutica; parapente sobre el acantilado (300 de oro).",
+   "🛍 Larcomar en el acantilado, con terraza al mar y por dentro: comida peruana, café y helados de lúcuma.",
+   "👥 Unos 120 limeños y limeñas, señoras y señores andinos con bombín y chullo, guardias, escolares, tablistas y carritos de emoliente, anticuchos, picarones, ceviche, helados y chicha. Autos, taxis y combis. Todo visible en el online."
+  ],
+  "en": [
+   "🇵🇪 Peru! Albor Aerodrome now sells tickets to Lima for only 1,000 gold (no minimum level). The flight back is free.",
+   "🗺 New map of Peru (your picture) with Lima marked: tap it to open the city map with all its places.",
+   "🏛 Lima, the largest map in the game: Main Square with the bronze fountain, palms, lamps and pigeons; Government Palace with the changing of the guard at noon; Cathedral, Archbishop's Palace, City Hall, arcades and wooden balconies; Jirón de la Unión, San Martín Square, San Francisco, San Cristóbal Hill and the Rímac.",
+   "🌴 Miraflores: Kennedy Park with 16 cats to pet, the boardwalk with the Park of Love, the lighthouse and Villena Bridge; stairs down to the Costa Verde with beach, surfers and the Rosa Náutica; paragliding over the cliff (300 gold).",
+   "🛍 Larcomar in the cliff, with a sea terrace and an inside: Peruvian food, coffee and lúcuma ice cream.",
+   "👥 About 120 Lima locals, Andean women and men with bowler hats and chullos, guards, schoolkids, surfers and carts selling emoliente, anticuchos, picarones, ceviche, ice cream and chicha. Cars, taxis and minibuses. All visible online."
+  ]
+ },
  {
   "v": "5.12",
   "b": 133,
