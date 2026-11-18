@@ -1,26 +1,24 @@
 {
- "build": 146,
- "ver": "5.25",
+ "build": 147,
+ "ver": "5.26",
  "date": "2026-11-18",
  "file": "thebound.html",
- "size": 23540307,
- "sha256": "a2afbeeb92ae78dfafa94d9485a52a5221504b72a5dc9bac6b6774c4eef39d7b",
+ "size": 23545442,
+ "sha256": "6d349cf4b80808423198432186869f3961a75942b6ce7321f6bbb0a55644e515",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🌮 Taquero en el mapa: plancha con 5 estaciones de relleno y un «con todo». Los clientes llegan con su pedido en un globo; toma el relleno con ⚔ y entrégalo antes de que se cansen.",
-   "💳 Cajero en el mapa: los productos pasan por la cinta y los escaneas con ⚔ en el lector; luego te pones en la bandeja con el vuelto correcto.",
-   "🍅 Tomatina en la calle de Valencia: la gente corre, les lanzas tomates con ⚔ y te los tiran de vuelta. La calle se va manchando de rojo.",
-   "⛳ Golf en el campo de El Golf: apunta, mide la fuerza y la bola rueda de verdad; los búnkeres la frenan y si sale del campo es +1 golpe.",
-   "🎴 La lotería y la piñata siguen en su ventana."
+   "⚡ Lima, México, España y Trujillo ya no se ponen lentos con el tiempo: el suelo de los escenarios de fiesta se dibujaba cada vez más veces por segundo mientras estabas en el mapa. En la Plaza de Armas, en un celular lento, pasa de unas 15 a unas 45 imágenes por segundo tras un minuto.",
+   "🚶 Sin tirones al caminar entre la gente: los dibujos de los peatones se preparan al entrar al país y el limpiador de memoria ya no borra los que están en pantalla.",
+   "✨ El detalle HD ya no se rehace en bucle cuando hay mucha gente a la vez (procesión, estaciones, plazas).",
+   "🕯️ Procesión de la Plaza de Armas: los devotos ya no llenan la pantalla de carteles; su nombre sale al acercarte. Entre la multitud, los nombres ya no se montan unos sobre otros."
   ],
   "en": [
-   "🌮 Taco cook on the map: a grill with 5 filling stations and a «with everything». Customers arrive with their order in a bubble; grab the filling with ⚔ and hand it over before they get tired.",
-   "💳 Cashier on the map: items move along the belt and you scan them with ⚔ at the scanner; then stand on the tray with the right change.",
-   "🍅 La Tomatina on a Valencia street: people run around, you throw tomatoes with ⚔ and they throw them back. The street turns red.",
-   "⛳ Golf on the El Golf course: aim, judge the power and the ball really rolls; bunkers slow it down and going out of bounds is +1 stroke.",
-   "🎴 Lotería and piñata stay in their window."
+   "⚡ Lima, Mexico, Spain and Trujillo no longer slow down over time: the festival stage floor was being drawn more and more times per second while you stayed on the map. In the Plaza de Armas, on a slow phone, it goes from about 15 to about 45 frames per second after one minute.",
+   "🚶 No more stutter walking through crowds: pedestrian sprites are prepared when you enter the country and the memory cleaner no longer deletes the ones on screen.",
+   "✨ HD detail no longer rebuilds in a loop when many people are on screen (procession, stations, plazas).",
+   "🕯️ Plaza de Armas procession: the devotees no longer fill the screen with name tags; their name shows when you get close. In crowds, names no longer pile on top of each other."
   ]
  }
 }

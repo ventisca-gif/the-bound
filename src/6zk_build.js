@@ -159,7 +159,8 @@ function bldDrawFloors(M, cx, cy) {
   const L = M.bfl; if (!L || !L.length) return;
   for (const r of L) { const x = r.x * 16 - cx, y = r.y * 16 - cy; if (x < -16 || y < -16 || x > VW || y > VH) continue; ctx.drawImage(floorSpr(r.k, (r.x * 7 + r.y * 3) % 2), x, y); }
 }
-function bldHookMap(M) { if (!M || M._bde === M.drawExtra && M._bde) return; const prev = M.drawExtra; const f = (cx, cy) => { if (prev) prev(cx, cy); bldDrawFloors(M, cx, cy); }; M.drawExtra = f; M._bde = f; }
+// 5.26: la marca .bld (y las de otras capas como .fs) pasa a cada envoltura para no envolver dos veces el mismo mapa
+function bldHookMap(M) { if (!M || (M.drawExtra && M.drawExtra.bld)) return; const prev = M.drawExtra; const f = (cx, cy) => { if (prev) prev(cx, cy); bldDrawFloors(M, cx, cy); }; if (prev) Object.assign(f, prev); f.bld = 1; M.drawExtra = f; M._bde = f; }
 // ---------- dónde se puede construir ----------
 const BLD_TOWN_R = 16;
 function bldHomeBase(id) { const H = HOUSES[id]; return H && H.upper ? H.upper : id; }

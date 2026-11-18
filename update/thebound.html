@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.25 · Trabajos en el mapa</div>
+  <div class="tfoot">v5.26 · Lima más fluida</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -3852,6 +3852,9 @@ function setAnim(e, a, keep) { if (e.anim === a && keep) return; e.anim = a; e.a
 function stepAnim(e, dt, fps) { e.at += dt; const n = animN(e, e.anim); const per = 1 / (fps || 6); while (e.at >= per) { e.at -= per; e.af++; if (e.af >= n) e.af = e.loopAnim === false ? n - 1 : 0; } }
 // ---------- drawing ----------
 // v4.0: dibuja un cuadro del atlas, en HD (ropa con píxeles finos) si el atlas lo tiene
+// 5.26: solo el NPC más cercano (a menos de 40 px) se salta el control de nombres encimados; antes lo hacían todos los
+// cercanos, y en la procesión o entre la multitud los nombres se montaban unos sobre otros
+function lblNearNpc() { if (LBL.nt === G.t) return LBL.ne; LBL.nt = G.t; let b = null, bd = 1600; const P = G.P; for (const o of G.ents) { if (o.type !== 'npc' || o.map !== P.map) continue; const d = dist2(o.x, o.y, P.x, P.y); if (d < bd) { bd = d; b = o; } } LBL.ne = b; return b; }
 function atlasBlit(c, A, col, row, x, y, w, h) { if (HDS > 1 && A.hdL && typeof hdEnsure === 'function' && hdEnsure(A, col, row)) { c.drawImage(A.hd, col * A.fw * 2, row * A.fh * 2, A.fw * 2, A.fh * 2, x, y, w, h); return; } c.drawImage(A.img, col * A.fw, row * A.fh, A.fw, A.fh, x, y, w, h); }
 function drawEnt(e, cx, cy) {
   if (e.type === 'proj') return drawProj(e, cx, cy);
@@ -3885,7 +3888,7 @@ function drawOverhead(e, cx, cy) {
     if (showBar && !e.boss) { const w = 20; ctx.fillStyle = '#1a0a0e'; ctx.fillRect(x - w / 2 - 1, top - 1, w + 2, 4); ctx.fillStyle = '#3a1418'; ctx.fillRect(x - w / 2, top, w, 2); ctx.fillStyle = e.hp / e.maxhp > 0.3 ? '#e83a3a' : '#ff8a2a'; ctx.fillRect(x - w / 2, top, Math.round(w * e.hp / e.maxhp), 2); }
     if (showBar || dist2(e.x, e.y, G.P.x, G.P.y) < 3600 || e.elite) { const lvc = e.elite ? '#ffd040' : e.lv > G.P.lv + 4 ? '#ff5050' : e.lv < G.P.lv - 6 ? '#a0a0a0' : '#ffffff'; const s = textSprite((e.boss ? '' : (LANG_EN ? "LV." : 'NV.') + e.lv + ' ') + e.name, lvc); { const lx = x - (s.width >> 1), ly = top - 10 - (e.boss ? 8 : 0); if (LBL.t !== G.t) { LBL.t = G.t; LBL.r = []; } if (e.boss || !LBL.r.some(r => lx < r[0] + r[2] && lx + s.width > r[0] && ly < r[1] + 8 && ly + 8 > r[1])) { ctx.drawImage(s, lx, ly); LBL.r.push([lx, ly, s.width]); } } }
   } else if (e.type === 'npc') {
-    if (!e.noTag || dist2(e.x, e.y, G.P.x, G.P.y) < 2500) { const s = textSprite(e.def.n, '#ffe8a0'), lx = x - (s.width >> 1), ly = top - 9; if (LBL.t !== G.t) { LBL.t = G.t; LBL.r = []; } const near = dist2(e.x, e.y, G.P.x, G.P.y) < 1600; if (near || !LBL.r.some(r => lx < r[0] + r[2] && lx + s.width > r[0] && ly < r[1] + 8 && ly + 8 > r[1])) { ctx.drawImage(s, lx, ly); LBL.r.push([lx, ly, s.width]); } }
+    if (!e.noTag || dist2(e.x, e.y, G.P.x, G.P.y) < 2500) { const s = textSprite(e.def.n, '#ffe8a0'), lx = x - (s.width >> 1), ly = top - 9; if (LBL.t !== G.t) { LBL.t = G.t; LBL.r = []; } const near = e === lblNearNpc(); if (near || !LBL.r.some(r => lx < r[0] + r[2] && lx + s.width > r[0] && ly < r[1] + 8 && ly + 8 > r[1])) { ctx.drawImage(s, lx, ly); LBL.r.push([lx, ly, s.width]); } }
     const mk = npcMarker(e.id); if (mk) { const ms = textSprite(mk[0], mk[1]); const bob = Math.round(Math.sin(G.t * 5) * 1.5); ctx.drawImage(ms, x - ms.width, top - 26 + bob, ms.width * 2, ms.height * 2); }
   } else if (e.type === 'remote') {
     const s = textSprite(e.name + (LANG_EN ? " LV." : ' NV.') + e.lv, '#8ae0ff'); ctx.drawImage(s, x - (s.width >> 1), top - 9);
@@ -9981,7 +9984,8 @@ function bldDrawFloors(M, cx, cy) {
   const L = M.bfl; if (!L || !L.length) return;
   for (const r of L) { const x = r.x * 16 - cx, y = r.y * 16 - cy; if (x < -16 || y < -16 || x > VW || y > VH) continue; ctx.drawImage(floorSpr(r.k, (r.x * 7 + r.y * 3) % 2), x, y); }
 }
-function bldHookMap(M) { if (!M || M._bde === M.drawExtra && M._bde) return; const prev = M.drawExtra; const f = (cx, cy) => { if (prev) prev(cx, cy); bldDrawFloors(M, cx, cy); }; M.drawExtra = f; M._bde = f; }
+// 5.26: la marca .bld (y las de otras capas como .fs) pasa a cada envoltura para no envolver dos veces el mismo mapa
+function bldHookMap(M) { if (!M || (M.drawExtra && M.drawExtra.bld)) return; const prev = M.drawExtra; const f = (cx, cy) => { if (prev) prev(cx, cy); bldDrawFloors(M, cx, cy); }; if (prev) Object.assign(f, prev); f.bld = 1; M.drawExtra = f; M._bde = f; }
 // ---------- dónde se puede construir ----------
 const BLD_TOWN_R = 16;
 function bldHomeBase(id) { const H = HOUSES[id]; return H && H.upper ? H.upper : id; }
@@ -11794,7 +11798,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.25', GAME_BUILD = 146;
+const GAME_VER = '5.26', GAME_BUILD = 147;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11802,6 +11806,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.26",
+  "b": 147,
+  "d": "2026-11-18",
+  "es": [
+   "⚡ Lima, México, España y Trujillo ya no se ponen lentos con el tiempo: el suelo de los escenarios de fiesta se dibujaba cada vez más veces por segundo mientras estabas en el mapa. En la Plaza de Armas, en un celular lento, pasa de unas 15 a unas 45 imágenes por segundo tras un minuto.",
+   "🚶 Sin tirones al caminar entre la gente: los dibujos de los peatones se preparan al entrar al país y el limpiador de memoria ya no borra los que están en pantalla.",
+   "✨ El detalle HD ya no se rehace en bucle cuando hay mucha gente a la vez (procesión, estaciones, plazas).",
+   "🕯️ Procesión de la Plaza de Armas: los devotos ya no llenan la pantalla de carteles; su nombre sale al acercarte. Entre la multitud, los nombres ya no se montan unos sobre otros."
+  ],
+  "en": [
+   "⚡ Lima, Mexico, Spain and Trujillo no longer slow down over time: the festival stage floor was being drawn more and more times per second while you stayed on the map. In the Plaza de Armas, on a slow phone, it goes from about 15 to about 45 frames per second after one minute.",
+   "🚶 No more stutter walking through crowds: pedestrian sprites are prepared when you enter the country and the memory cleaner no longer deletes the ones on screen.",
+   "✨ HD detail no longer rebuilds in a loop when many people are on screen (procession, stations, plazas).",
+   "🕯️ Plaza de Armas procession: the devotees no longer fill the screen with name tags; their name shows when you get close. In crowds, names no longer pile on top of each other."
+  ]
+ },
  {
   "v": "5.25",
   "b": 146,
@@ -33875,7 +33896,7 @@ WORLD_DRAW.push((cx, cy) => { const M = G.map; for (const S of FS_STG[M.id] || [
   ctx.strokeStyle = '#3a2a1a'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x0, y0); ctx.quadraticCurveTo(x0 + w / 2, y0 + 8, x0 + w, y0); ctx.stroke();
   const cs = S.k === 'tablao' ? ['#c81e2a', '#ffffff', '#1a1a1e'] : S.k === 'marinera' ? ['#ffffff', '#d8202a'] : ['#ff4a8a', '#ffd040', '#4ad06a', '#4aa8ff', '#ff8a2a', '#b06aff'];
   for (let k = 0; k * 10 < w; k++) { const t = (k * 10 + 5) / w, yy = y0 + 8 * 4 * t * (1 - t) + Math.sin(G.t * 2 + k) * 0.8; ctx.fillStyle = cs[k % cs.length]; ctx.fillRect(Math.round(x0 + k * 10 + 1), Math.round(yy), 8, 7); ctx.fillStyle = 'rgba(0,0,0,0.25)'; ctx.fillRect(Math.round(x0 + k * 10 + 3), Math.round(yy + 2), 2, 2); } } });
-V33_TICKS.push(() => { const M = G.map; if (!M || !FS_STG[M.id] || (M.drawExtra && M.drawExtra.fs)) return; const prev = M.drawExtra, f = (cx, cy) => { if (prev) prev(cx, cy); fsGround(M, cx, cy); }; f.fs = 1; M.drawExtra = f; });
+V33_TICKS.push(() => { const M = G.map; if (!M || !FS_STG[M.id] || (M.drawExtra && M.drawExtra.fs)) return; const prev = M.drawExtra, f = (cx, cy) => { if (prev) prev(cx, cy); fsGround(M, cx, cy); }; if (prev) Object.assign(f, prev); f.fs = 1; M.drawExtra = f; });
 function fsStage(M, cx, cy, w, h, k) { const S = { x0: cx - (w >> 1), y0: cy - (h >> 1), x1: cx - (w >> 1) + w - 1, y1: cy - (h >> 1) + h - 1, k }; (FS_STG[M.id] = FS_STG[M.id] || []).push(S); return S; }
 const fsPoi = (M, c, x, y, t) => (FS_POI[M.id] = FS_POI[M.id] || []).push({ c, x, y, t });
 { const _op = otherPOI; otherPOI = function (M) { const out = _op.apply(this, arguments); if (M && FS_POI[M.id]) for (const q of FS_POI[M.id]) out.push(Object.assign({}, q)); return out; }; }
@@ -35167,6 +35188,32 @@ GSIS.forEach(g => { if (g[0] === 'enjuego524') { const f = g[2]; g[2] = () => f(
   L2('Taquero (México): detrás de la plancha tomas el relleno con ⚔ en su estación, pasas por el «con todo» si el cliente lo pide (su globo lo dice) y se lo entregas con ⚔ antes de que se canse.', 'Taco cook (Mexico): behind the grill grab the filling with ⚔ at its station, go by «with everything» if the customer asks (their bubble says so) and hand it over with ⚔ before they get tired.'),
   L2('Cajero (Lima): los productos pasan por la cinta; pulsa ⚔ cuando estén en el lector (luz verde). Luego el cliente paga: ponte en la bandeja con el vuelto correcto y pulsa ⚔.', 'Cashier (Lima): items move along the belt; press ⚔ when they are on the scanner (green light). Then the customer pays: stand on the tray with the right change and press ⚔.'),
   L2('Tomatina (Valencia): la gente corre por la calle; lanza tomates con ⚔ al que tengas delante y esquiva los que te tiran. Golf (Trujillo): la bola rueda por el campo de verdad; los búnkeres la frenan y si sale del campo es +1 golpe. La lotería y la piñata siguen en su ventana.', 'La Tomatina (Valencia): people run around the street; throw tomatoes with ⚔ at whoever is in front and dodge the ones thrown at you. Golf (Trujillo): the ball rolls on the real course; bunkers slow it down and going out of bounds is +1 stroke. Lotería and piñata stay in their window.')]); } });
+
+// ================= 5.26: RENDIMIENTO EN LIMA Y LOS PAÍSES =================
+// - Limpieza de dibujos (optGC): antes borraba los atlas de los peatones, la gente del aeropuerto, los fans… porque no
+//   están en G.ents. Seguían en pantalla y, al salir el siguiente peatón, se volvía a dibujar entero (tirones cada pocos
+//   segundos en la Plaza de Armas). Ahora todo atlas dibujado en los últimos 45 s cuenta como en uso.
+{ const _ab = atlasBlit; atlasBlit = function (c, A) { if (A) A.lu = G.t; return _ab.apply(this, arguments); }; }
+optGC = function (force) {
+  const lim = OPT.on || OPT_LOWMEM ? 90 : 160; if (!force && ATL.size <= lim) return 0;
+  const use = new Set(); for (const e of G.ents) if (e.atlas) use.add(e.atlas); for (const r of G.remote.values()) if (r.atlas) use.add(r.atlas); if (G.P && G.P.atlas) use.add(G.P.atlas);
+  const now = G.t, old = []; for (const [k, a] of ATL) if (!use.has(a) && !(a && a.lu > now - 45)) old.push([k, a]); old.sort((p, q) => (p[1].lu || 0) - (q[1].lu || 0));
+  let n = 0; const keep = Math.round(lim * 0.7);
+  for (const [k, a] of old) { if (ATL.size <= keep) break; ATL.delete(k); const i = HD_LIVE.indexOf(a); if (i >= 0) HD_LIVE.splice(i, 1); a.hd = null; a.hdX = null; a.hdDone = null; n++; }
+  return n;
+};
+// - Detalle HD: con mucha gente en pantalla (Plaza de Armas, procesión, estaciones) había más personajes visibles que
+//   dibujos HD permitidos, así que se borraban y rehacían en bucle. Ahora solo se libera un dibujo HD que no se haya
+//   visto en 2 s; si todos están en pantalla, el personaje nuevo se ve normal (sin HD) hasta que haya hueco.
+{ const _he = hdEnsure; hdEnsure = function (A, col, row, force) {
+  if (A && A.hdL && !A.hd && !force) { const lim = OPT_LOWMEM ? 14 : 26; if (HD_LIVE.length >= lim) { const t0 = G.t - 2; let free = false; for (const o of HD_LIVE) if ((o.hdT || 0) < t0) { free = true; break; } if (!free) return false; } }
+  return _he.apply(this, arguments); }; }
+// - Peatones de Lima y los países: sus dibujos se preparan durante la transición al entrar (pantalla negra), no al
+//   aparecer cada uno (cada dibujo nuevo costaba ~70 ms en un celular lento: un tirón por peatón distinto).
+{ const _sm = setMap; setMap = function (M) { if (M && M.lima) { try { const AP = M.pedApps || PE_APPS_W, n = M.pedApps ? AP.length : PE_WALK_N; for (let i = 0; i < n; i++) xwAtlas(i, AP); } catch (e) { } } return _sm.apply(this, arguments); }; }
+// - Procesión de la Plaza de Armas: los 12 devotos llevaban cada uno su cartel «Devoto de octubre» todo el rato; ahora
+//   el nombre sale solo cuando estás al lado (como los parroquianos de la taberna). Sigue el letrero del anda.
+V33_TICKS.push(() => { if (typeof PROC === 'undefined' || !PROC.ents.length || PROC._tag) return; for (const e of PROC.ents) e.noTag = 1; PROC._tag = 1; });
 
 // ================= v3.6: IDIOMA (Español / English) =================
 // Los textos del código se traducen al compilar (tools/i18n/tr.js + en.json): cada uno es (LANG_EN ? "inglés" : "español").

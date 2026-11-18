@@ -148,7 +148,7 @@ WORLD_DRAW.push((cx, cy) => { const M = G.map; for (const S of FS_STG[M.id] || [
   ctx.strokeStyle = '#3a2a1a'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x0, y0); ctx.quadraticCurveTo(x0 + w / 2, y0 + 8, x0 + w, y0); ctx.stroke();
   const cs = S.k === 'tablao' ? ['#c81e2a', '#ffffff', '#1a1a1e'] : S.k === 'marinera' ? ['#ffffff', '#d8202a'] : ['#ff4a8a', '#ffd040', '#4ad06a', '#4aa8ff', '#ff8a2a', '#b06aff'];
   for (let k = 0; k * 10 < w; k++) { const t = (k * 10 + 5) / w, yy = y0 + 8 * 4 * t * (1 - t) + Math.sin(G.t * 2 + k) * 0.8; ctx.fillStyle = cs[k % cs.length]; ctx.fillRect(Math.round(x0 + k * 10 + 1), Math.round(yy), 8, 7); ctx.fillStyle = 'rgba(0,0,0,0.25)'; ctx.fillRect(Math.round(x0 + k * 10 + 3), Math.round(yy + 2), 2, 2); } } });
-V33_TICKS.push(() => { const M = G.map; if (!M || !FS_STG[M.id] || (M.drawExtra && M.drawExtra.fs)) return; const prev = M.drawExtra, f = (cx, cy) => { if (prev) prev(cx, cy); fsGround(M, cx, cy); }; f.fs = 1; M.drawExtra = f; });
+V33_TICKS.push(() => { const M = G.map; if (!M || !FS_STG[M.id] || (M.drawExtra && M.drawExtra.fs)) return; const prev = M.drawExtra, f = (cx, cy) => { if (prev) prev(cx, cy); fsGround(M, cx, cy); }; if (prev) Object.assign(f, prev); f.fs = 1; M.drawExtra = f; });
 function fsStage(M, cx, cy, w, h, k) { const S = { x0: cx - (w >> 1), y0: cy - (h >> 1), x1: cx - (w >> 1) + w - 1, y1: cy - (h >> 1) + h - 1, k }; (FS_STG[M.id] = FS_STG[M.id] || []).push(S); return S; }
 const fsPoi = (M, c, x, y, t) => (FS_POI[M.id] = FS_POI[M.id] || []).push({ c, x, y, t });
 { const _op = otherPOI; otherPOI = function (M) { const out = _op.apply(this, arguments); if (M && FS_POI[M.id]) for (const q of FS_POI[M.id]) out.push(Object.assign({}, q)); return out; }; }

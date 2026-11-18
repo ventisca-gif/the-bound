@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.25', GAME_BUILD = 146;
+const GAME_VER = '5.26', GAME_BUILD = 147;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.26",
+  "b": 147,
+  "d": "2026-11-18",
+  "es": [
+   "⚡ Lima, México, España y Trujillo ya no se ponen lentos con el tiempo: el suelo de los escenarios de fiesta se dibujaba cada vez más veces por segundo mientras estabas en el mapa. En la Plaza de Armas, en un celular lento, pasa de unas 15 a unas 45 imágenes por segundo tras un minuto.",
+   "🚶 Sin tirones al caminar entre la gente: los dibujos de los peatones se preparan al entrar al país y el limpiador de memoria ya no borra los que están en pantalla.",
+   "✨ El detalle HD ya no se rehace en bucle cuando hay mucha gente a la vez (procesión, estaciones, plazas).",
+   "🕯️ Procesión de la Plaza de Armas: los devotos ya no llenan la pantalla de carteles; su nombre sale al acercarte. Entre la multitud, los nombres ya no se montan unos sobre otros."
+  ],
+  "en": [
+   "⚡ Lima, Mexico, Spain and Trujillo no longer slow down over time: the festival stage floor was being drawn more and more times per second while you stayed on the map. In the Plaza de Armas, on a slow phone, it goes from about 15 to about 45 frames per second after one minute.",
+   "🚶 No more stutter walking through crowds: pedestrian sprites are prepared when you enter the country and the memory cleaner no longer deletes the ones on screen.",
+   "✨ HD detail no longer rebuilds in a loop when many people are on screen (procession, stations, plazas).",
+   "🕯️ Plaza de Armas procession: the devotees no longer fill the screen with name tags; their name shows when you get close. In crowds, names no longer pile on top of each other."
+  ]
+ },
  {
   "v": "5.25",
   "b": 146,

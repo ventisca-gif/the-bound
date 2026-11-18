@@ -21,6 +21,9 @@ function setAnim(e, a, keep) { if (e.anim === a && keep) return; e.anim = a; e.a
 function stepAnim(e, dt, fps) { e.at += dt; const n = animN(e, e.anim); const per = 1 / (fps || 6); while (e.at >= per) { e.at -= per; e.af++; if (e.af >= n) e.af = e.loopAnim === false ? n - 1 : 0; } }
 // ---------- drawing ----------
 // v4.0: dibuja un cuadro del atlas, en HD (ropa con píxeles finos) si el atlas lo tiene
+// 5.26: solo el NPC más cercano (a menos de 40 px) se salta el control de nombres encimados; antes lo hacían todos los
+// cercanos, y en la procesión o entre la multitud los nombres se montaban unos sobre otros
+function lblNearNpc() { if (LBL.nt === G.t) return LBL.ne; LBL.nt = G.t; let b = null, bd = 1600; const P = G.P; for (const o of G.ents) { if (o.type !== 'npc' || o.map !== P.map) continue; const d = dist2(o.x, o.y, P.x, P.y); if (d < bd) { bd = d; b = o; } } LBL.ne = b; return b; }
 function atlasBlit(c, A, col, row, x, y, w, h) { if (HDS > 1 && A.hdL && typeof hdEnsure === 'function' && hdEnsure(A, col, row)) { c.drawImage(A.hd, col * A.fw * 2, row * A.fh * 2, A.fw * 2, A.fh * 2, x, y, w, h); return; } c.drawImage(A.img, col * A.fw, row * A.fh, A.fw, A.fh, x, y, w, h); }
 function drawEnt(e, cx, cy) {
   if (e.type === 'proj') return drawProj(e, cx, cy);
@@ -54,7 +57,7 @@ function drawOverhead(e, cx, cy) {
     if (showBar && !e.boss) { const w = 20; ctx.fillStyle = '#1a0a0e'; ctx.fillRect(x - w / 2 - 1, top - 1, w + 2, 4); ctx.fillStyle = '#3a1418'; ctx.fillRect(x - w / 2, top, w, 2); ctx.fillStyle = e.hp / e.maxhp > 0.3 ? '#e83a3a' : '#ff8a2a'; ctx.fillRect(x - w / 2, top, Math.round(w * e.hp / e.maxhp), 2); }
     if (showBar || dist2(e.x, e.y, G.P.x, G.P.y) < 3600 || e.elite) { const lvc = e.elite ? '#ffd040' : e.lv > G.P.lv + 4 ? '#ff5050' : e.lv < G.P.lv - 6 ? '#a0a0a0' : '#ffffff'; const s = textSprite((e.boss ? '' : 'NV.' + e.lv + ' ') + e.name, lvc); { const lx = x - (s.width >> 1), ly = top - 10 - (e.boss ? 8 : 0); if (LBL.t !== G.t) { LBL.t = G.t; LBL.r = []; } if (e.boss || !LBL.r.some(r => lx < r[0] + r[2] && lx + s.width > r[0] && ly < r[1] + 8 && ly + 8 > r[1])) { ctx.drawImage(s, lx, ly); LBL.r.push([lx, ly, s.width]); } } }
   } else if (e.type === 'npc') {
-    if (!e.noTag || dist2(e.x, e.y, G.P.x, G.P.y) < 2500) { const s = textSprite(e.def.n, '#ffe8a0'), lx = x - (s.width >> 1), ly = top - 9; if (LBL.t !== G.t) { LBL.t = G.t; LBL.r = []; } const near = dist2(e.x, e.y, G.P.x, G.P.y) < 1600; if (near || !LBL.r.some(r => lx < r[0] + r[2] && lx + s.width > r[0] && ly < r[1] + 8 && ly + 8 > r[1])) { ctx.drawImage(s, lx, ly); LBL.r.push([lx, ly, s.width]); } }
+    if (!e.noTag || dist2(e.x, e.y, G.P.x, G.P.y) < 2500) { const s = textSprite(e.def.n, '#ffe8a0'), lx = x - (s.width >> 1), ly = top - 9; if (LBL.t !== G.t) { LBL.t = G.t; LBL.r = []; } const near = e === lblNearNpc(); if (near || !LBL.r.some(r => lx < r[0] + r[2] && lx + s.width > r[0] && ly < r[1] + 8 && ly + 8 > r[1])) { ctx.drawImage(s, lx, ly); LBL.r.push([lx, ly, s.width]); } }
     const mk = npcMarker(e.id); if (mk) { const ms = textSprite(mk[0], mk[1]); const bob = Math.round(Math.sin(G.t * 5) * 1.5); ctx.drawImage(ms, x - ms.width, top - 26 + bob, ms.width * 2, ms.height * 2); }
   } else if (e.type === 'remote') {
     const s = textSprite(e.name + ' NV.' + e.lv, '#8ae0ff'); ctx.drawImage(s, x - (s.width >> 1), top - 9);
