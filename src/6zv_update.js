@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.15', GAME_BUILD = 136;
+const GAME_VER = '5.16', GAME_BUILD = 137;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,27 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.16",
+  "b": 137,
+  "d": "2026-11-18",
+  "es": [
+   "🇪🇸 ¡España! Billete en Albor, Lima o México (2.000 de oro). Mapa de España con 10 comunidades y un mapa grande más grande que Perú y México. Entre comunidades se viaja en el AVE.",
+   "🏛 Madrid: la Cibeles con el Palacio de Comunicaciones y el Banco de España, la Gran Vía con el edificio Metrópolis y su estatua alada. Barcelona: Plaza de España, torres venecianas, fuentes y el Palacio Nacional. Sevilla: Plaza de España con canal, puentes de azulejos y torres.",
+   "🏰 También la Giralda, la Alhambra, Santiago, Bilbao, el acueducto de Segovia, el Pilar, Valencia, Mérida, Toledo, los molinos de La Mancha y playas.",
+   "⚽ Trabajo de futbolista: tanda de penaltis en el Gran Estadio de Madrid, con su estacionamiento. Camisetas de España y de México. Comida española: paella, tortilla, churros, jamón, gazpacho y más.",
+   "🏖 Acapulco crece: bahía con playa dorada, la Costera con palmeras y hoteles altos, cerros verdes, letras de colores, La Roqueta en lancha, Pie de la Cuesta y Puerto Marqués.",
+   "🥸 Botarga del Doctor Bonachón: cabezota con gafas y un bigotón. Las 18 criaturas de nivel 410-500 tienen dibujo propio y ahora pegan con toda su fuerza. Iconos propios para la comida de Perú, México, Japón y España."
+  ],
+  "en": [
+   "🇪🇸 Spain! Ticket at Albor, Lima or Mexico (2,000 gold). Map of Spain with 10 regions and a big map larger than Peru and Mexico. Travel between regions on the AVE train.",
+   "🏛 Madrid: Cibeles with the Palace of Communications and the Bank of Spain, Gran Vía with the Metrópolis building and its winged statue. Barcelona: Plaza de España, Venetian towers, fountains and the National Palace. Seville: Plaza de España with the canal, tiled bridges and towers.",
+   "🏰 Also the Giralda, the Alhambra, Santiago, Bilbao, the Segovia aqueduct, the Pilar, Valencia, Mérida, Toledo, the La Mancha windmills and beaches.",
+   "⚽ Footballer job: penalty shoot-out at the Great Stadium of Madrid, with its car park. Spain and Mexico shirts. Spanish food: paella, tortilla, churros, ham, gazpacho and more.",
+   "🏖 Acapulco grows: bay with a golden beach, the Costera with palm trees and tall hotels, green hills, colourful letters, La Roqueta by boat, Pie de la Cuesta and Puerto Marqués.",
+   "🥸 Doctor Bonachón mascot head: a big head with glasses and a huge moustache. The 18 level 410-500 creatures have their own art and now hit with full strength. Own icons for Peruvian, Mexican, Japanese and Spanish food."
+  ]
+ },
  {
   "v": "5.15",
   "b": 136,
