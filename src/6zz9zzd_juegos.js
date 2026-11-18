@@ -116,22 +116,23 @@ let cookT = 0; V33_TICKS.push(dt => { cookT -= dt || 0; if (cookT > 0) return; c
 
 // ================= CARRERA DE MONTURAS =================
 let MRACE = null;
-function mraceStart(npc) { const P = G.P; if (MRACE) return; if (P.map !== 'world') return;
+function mraceStart(npc, opt) { opt = opt || {}; const P = G.P; if (MRACE) return; if (P.map !== 'world') return;
   if ((P.mounts || []).length && !mountOf(P)) { xMsg('🏇', L2('Súbete a tu montura para correr (botón de montura).', 'Get on your mount to race (mount button).')); return; }
-  const W = G.world, cx = Math.floor(P.x / 16), cy = Math.floor(P.y / 16), n = 8, rings = [], obs = [];
+  const W = G.world, cx = Math.floor(P.x / 16), cy = Math.floor(P.y / 16), n = opt.n || 8, rings = [], obs = [];
   try {
   for (let i = 0; i < n; i++) { const a = i / n * Math.PI * 2 - Math.PI / 2, r = 16 + (i % 2) * 5; const [x, y] = freeTileNear(W, cx + Math.cos(a) * r, cy + Math.sin(a) * r * 0.8); rings.push([x * 16 + 8, y * 16 + 8]); }
   for (let i = 0; i < n; i++) { const A = rings[i], B = rings[(i + 1) % n]; for (const f of [0.35, 0.65]) { const [x, y] = freeTileNear(W, (A[0] + (B[0] - A[0]) * f) / 16 + (Math.random() - 0.5) * 2, (A[1] + (B[1] - A[1]) * f) / 16 + (Math.random() - 0.5) * 2); obs.push([x * 16 + 8, y * 16 + 8, 0]); } }
   } catch (e) { xMsg('🏇', L2('Aquí no hay sitio para la carrera.', 'No room for the race here.')); return; }
   let len = 0; for (let i = 0; i < n; i++) { const A = rings[i], B = rings[(i + 1) % n]; len += Math.hypot(A[0] - B[0], A[1] - B[1]); }
-  const sp = (P.S && P.S.spd) || 80; MRACE = { rings, obs, i: 0, t: 0, pen: 0, par: Math.round(len / sp * 1.35 + 4), id: Math.random().toString(36).slice(2, 6) };
+  const sp = (P.S && P.S.spd) || 80; MRACE = { rings, obs, i: 0, t: 0, pen: 0, par: Math.round(len / sp * 1.35 + 4), id: Math.random().toString(36).slice(2, 6), onEnd: opt.onEnd || null };
+  if (opt.onEnd) { sfx('quest'); return; }
   banner('🏇 ' + L2('¡Carrera de monturas!', 'Mount race!'), L2('Pasa por los 8 aros y vuelve al primero. Esquiva los toneles. Récord a batir: ', 'Go through the 8 rings and back to the first. Dodge the barrels. Time to beat: ') + MRACE.par + ' s'); sfx('quest'); }
 function mraceTick(dt) { const R = MRACE, P = G.P; if (!R) return; if (P.map !== 'world' || P.dead) { MRACE = null; mgHud(null); return; } R.t += dt;
   const tg = R.rings[R.i % R.rings.length]; if (Math.hypot(P.x - tg[0], P.y - tg[1]) < 26) { R.i++; sfx('coin'); burst(tg[0], tg[1] - 10, 10, { sp: 60, up: 40, g: 60, life: 0.5, c: ['#ffd040', '#ffffff'] }); }
   for (const o of R.obs) { if (o[2] > G.t) continue; if (Math.hypot(P.x - o[0], P.y - o[1]) < 13) { o[2] = G.t + 3; R.pen += 2; floatText(P.x, P.y - 40, L2('¡Tonel! +2 s', 'Barrel! +2 s'), '#ff8a5a'); sfx('hurt'); G.shake = 3; } }
   const others = [...G.remote.values()].filter(r => r.mr && r.map === P.map && Math.hypot(r.x - P.x, r.y - P.y) < 2000).map(r => `${esc(r.name)} ${r.mr.i}/${R.rings.length + 1}`).join(' · ');
   mgHud(`🏇 ${L2('Aro', 'Ring')} <b>${Math.min(R.i, R.rings.length + 1)}/${R.rings.length + 1}</b> · ${(R.t + R.pen).toFixed(1)} s / ${R.par} s${others ? '<br><small>' + others + '</small>' : ''}`);
-  if (R.i > R.rings.length) { const tt = R.t + R.pen, win = tt <= R.par; MRACE = null; mgHud(null); netPresence(true);
+  if (R.i > R.rings.length) { const tt = R.t + R.pen, win = tt <= R.par; MRACE = null; mgHud(null); netPresence(true); if (R.onEnd) { R.onEnd(tt, R.par); return; }
     if (win) { const g = 250 + P.lv * 35; P.gold += g; bitAdd('raceWin'); banner('🏇 ' + L2('¡Ganas la carrera!', 'You win the race!'), tt.toFixed(1) + ' s · +' + fmt(g) + ' ' + L2('oro', 'gold')); sfx('questdone'); } else banner('🏇 ' + L2('¡Meta!', 'Finish!'), tt.toFixed(1) + ' s — ' + L2('el récord era ', 'the record was ') + R.par + ' s'); markDirty(true); }
   else if (R.t > 180) { MRACE = null; mgHud(null); toast(L2('Carrera abandonada.', 'Race abandoned.'), 'info'); } }
 V33_TICKS.push(dt => mraceTick(Math.min(0.05, dt || 0)));

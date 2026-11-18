@@ -1,0 +1,53 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js window.__e=[];window.addEventListener('error',e=>window.__e.push(String(e.message)+' @ '+(e.error&&e.error.stack||'').slice(0,400)));1
+js (()=>{ const P=G.P; P.lv=60; P.gold=1e6; const ids=['correos_albor','fotografa','vivero','capitana_brisa','leo_pescador','m_guardia','m_panadera','m_nino']; return [ids.filter(i=>G.world.npcDefs.some(d=>d.id===i)).length, ['d_tom1','d_nor1','d_tob1','m_caliz','c_pez1'].filter(i=>QUESTS[i]).length, JOBS.cartero&&JOBS.fotografo&&JOBS.floristeria&&JOBS.restaurante ? 4:0, !!P.jobs.cartero, BIT_ACH.length, BIT_TABS.length]; })()
+js (P=>{ const t=G.time; G.time = Math.floor(t/1440)*1440 + 20*60; P.cal = P.cal || {y0:1,m0:2,dpm:7,d:0}; P.cal.d = 5; return [nmOpen(), (nmSpots()||[]).length]; })(G.P)
+js (()=>{ const s=nmSpots().find(s=>s.t==='albor'&&s.k==='peces'); G.P.x=s.x; G.P.y=s.y+8; return interactTarget() && interactTarget().label; })()
+wait 600
+shot
+js (()=>{ const s=nmSpots().find(s=>s.t==='albor'&&s.k==='tiro'); nmUse(s); return !!$('.nmgal'); })()
+wait 500
+shot
+js (closeModal(), 1)
+js (()=>{ const s=nmSpots().find(s=>s.t==='albor'&&s.k==='peces'); nmUse(s); return !!$('#nmPond'); })()
+wait 800
+shot
+js (closeModal(), REST=null, G.P.wstate.wx='fog', SETTINGS.weather=1, curWx())
+wait 7000
+js [curWx(), FOGCH.length, PUDDLES.length]
+js (G.P.wstate.wx='wind', giveItem('cometa',1), kiteStart(), !!KITE)
+wait 1500
+shot
+js (KITE.t=0, 1)
+wait 400
+js [KITE, BIT().kiteBest]
+js (()=>{ WILD.push({k:'ciervo', x:G.P.x+20, y:G.P.y, m:G.P.map, t:5, vx:0, vy:0}); giveItem('food1',5); const a=WILD[WILD.length-1]; tameFeed(a); const S=tameSt(); S.tame.ciervo.d=-5; tameFeed(a); S.tame.ciervo.d=-6; tameFeed(a); return [S.tamed, S.tame.ciervo]; })()
+js (BIT().fol='ciervo', 1)
+wait 1200
+shot
+js (stampAdd('t_albor'), openBitacora('sellos'), $$('#modal .bstamp').length)
+wait 400
+shot
+js (closeModal(), postStart('albor'), ofx2().post && ofx2().post.list.map(p=>p.npc))
+js (()=>{ const O=ofx2(); const p=O.post.list[0]; const npc={id:p.npc}; const opts=[]; DLG_HOOKS.forEach(h=>{try{h(npc,opts)}catch(e){}}); const o=opts.find(o=>/Entregar paquete|Deliver parcel/.test(o.label)); if(o) o.fn(); return [!!o, p.done, G.P.jobs.cartero]; })()
+js (closeDialog && closeDialog(), phDay().list)
+js (giveItem('flor_rojo',2), giveItem('flor_amarillo',2), openVivero(), 1)
+js (()=>{ const O=ofx2(); O.flSel=['rojo','amarillo']; openVivero(); $('#flX').click(); O.fl[0].end=Date.now()-1; openVivero(); $('#modal [data-fh]').click(); return [O.fl.length, Object.keys(O.flSeen||{})]; })()
+wait 300
+shot
+js (closeModal(), restOpen(), !!REST)
+js (()=>{ const R=REST, D=REST_DISH[R.cust.d][1]; for (const i of D) $('#modal [data-ri="'+i+'"]').click(); return R.served; })()
+wait 400
+shot
+js (restEnd(), [G.P.jobs.restaurante, bitC('restServed')])
+js (huntStart(), [HUNT2 && HUNT2.clues.length, HUNT2.x, HUNT2.y])
+js (closeModal(), G.P.x=HUNT2.x*16+8, G.P.y=HUNT2.y*16+8, interactTarget() && interactTarget().kind)
+js (doInteract(), bitC('treasure'))
+js (acceptQuest('m_caliz'), ['mys_w1','mys_w2','mys_w3','mys_c1','mys_c2','mys_c3'].forEach(f=>questEvent('flag',{f})), (()=>{ const npc={id:'darius'}, opts=[]; DLG_HOOKS.forEach(h=>{try{h(npc,opts)}catch(e){}}); return opts.map(o=>o.label).join(' | ').slice(0,200); })())
+js (()=>{ const npc={id:'darius'}, opts=[]; DLG_HOOKS.forEach(h=>{try{h(npc,opts)}catch(e){}}); const o=opts.find(o=>/Acusar|Accuse/.test(o.label)); o.fn(); $('#modal [data-sus="urraca"]').click(); return questReady('m_caliz'); })()
+js (acceptQuest('d_tom1'), completeQuest('d_tom1'), [canOffer('d_tom2'), BIT().qday.d_tom1])
+js (G.P.cal.d += 1, canOffer('d_tom2'))
+js (openBitacora('hoy'), $('#modal .bbody').children.length)
+wait 400
+shot
+js window.__e

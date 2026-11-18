@@ -1,0 +1,7 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (G.P.lv=400, goJapan(), 1)
+wait 3000
+js (()=>{ const M=G.maps.japon; const ks=Object.keys(M).filter(k=>M[k] && M[k].length===M.w*M.h).map(k=>k+':'+M[k].constructor.name); const row=(y)=>{ const o={}; for(let x=0;x<M.w;x++){ const i=M.I(x,y); const k=M.ter[i]+'/'+M.jg[i]; o[k]=(o[k]||0)+1;} return o; }; const col=(x)=>{ const o={}; for(let y=0;y<M.h;y++){ const i=M.I(x,y); const k=M.ter[i]+'/'+M.jg[i]; o[k]=(o[k]||0)+1;} return o; }; return {w:M.w,h:M.h,ks, top:[row(0),row(1),row(2),row(3)], left:[col(0),col(1),col(2)], right:[col(M.w-1),col(M.w-3)], bot:[row(M.h-1),row(M.h-3)], T:{WATER:T.WATER,DEEP:T.DEEP,SAND:T.SAND,GRASS:T.GRASS}, JG:JP_G}; })()
+js Object.keys(G.maps.japon).filter(k=>Array.isArray(G.maps.japon[k])).map(k=>k+':'+G.maps.japon[k].length).join(' ')
+js JSON.stringify(JP_Q).slice(0,600)
+js JP_ZONES.map(z=>z.k+':'+z.x0+'-'+z.x1+','+z.y0+'-'+z.y1).join(' | ')
