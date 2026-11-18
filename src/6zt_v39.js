@@ -137,7 +137,7 @@ function drawPOIs(x, sc, pois, dimFn) {
 }
 function legendHTML(pois) { const have = [...new Set(pois.map(q => q.c))]; return have.map(c => { const D = MAPC[c], i = mapIconIdx(D[3]); const spec = i !== undefined ? ICON.list[i] : ['bag']; return `<button class="mchip ${MAPF === c ? 'on' : ''}" data-mc="${c}" style="border-color:${D[2]}">${iconHTML(spec, 16)}<span>${esc(mapcN(c))}</span></button>`; }).join(''); }
 // mapas principales (6) y secundarios (el resto), con un botón para cambiar de grupo
-const MAPW_MAIN = ['world', 'japon', 'peru', 'espana_mapa', 'velo_roto', 'archipielago']; let MAPW_LAST = [0, -1];
+const MAPW_MAIN = ['world', 'japon', 'peru', 'mexico_mapa', 'espana_mapa', 'velo_roto', 'archipielago']; let MAPW_LAST = [0, -1];
 function mapGrp(i) { const w = MAPW_LIST[i]; return w && MAPW_MAIN.includes(w.id) ? 0 : 1; }
 function mapGrpList(g) { const all = MAPW_LIST.map((w, i) => i); return g ? all.filter(i => mapGrp(i) === 1) : MAPW_MAIN.map(id => MAPW_LIST.findIndex(w => w.id === id)).filter(i => i >= 0); }
 function mapArrowsHTML() { const Wd = MAPW_LIST[MAPW], g = mapGrp(MAPW), Li = mapGrpList(g), o = mapGrpList(1 - g).length;

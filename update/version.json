@@ -1,20 +1,22 @@
 {
- "build": 138,
- "ver": "5.17",
+ "build": 139,
+ "ver": "5.18",
  "date": "2026-11-18",
  "file": "thebound.html",
- "size": 23218669,
- "sha256": "8ea7a73509352d64272200a9d9f5342ce4868704f1b7d54b46d0db6efd8c0f57",
+ "size": 23225456,
+ "sha256": "11d23d2f3077e1591f9d6f8136ff3e3936eedee52365d455949a9ff0936b4ba9",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🗺 Mapa: botón nuevo «Mapas secundarios». Las flechas ahora solo pasan por los 6 mapas principales: Tierras del Vínculo, Japón, Perú, España, Velo Roto y el Archipiélago.",
-   "📚 Los otros 15 mapas (Fondo Marino, Nerea, Islas del Cielo, Lima, México y demás) están en «Mapas secundarios». El mismo botón te devuelve a los principales y recuerda el último mapa que viste."
+   "▦ Botón «Atajos» arriba a la derecha: junta en uno solo Mazmorras, Familia, Montura, Jugadores, Lupa, Libro, Mapa, Menú y demás. Tócalo para abrirlo; brilla si algo dentro tiene aviso.",
+   "🌀 Botón «Transformaciones» dentro de Atajos (sustituye al botón de subraza): elige Normal, Forma Híbrida, Lobo a cuatro patas o la forma de tu subraza. Las que no tienes salen bloqueadas 🔒 y dicen cómo conseguirlas.",
+   "🗺 México pasa a los mapas principales."
   ],
   "en": [
-   "🗺 Map: new «Secondary maps» button. The arrows now only cycle through the 6 main maps: Lands of the Bound, Japan, Peru, Spain, the Broken Veil and the Archipelago.",
-   "📚 The other 15 maps (Seabed, Nerea, Sky Isles, Lima, Mexico and more) are under «Secondary maps». The same button takes you back to the main ones and remembers the last map you viewed."
+   "▦ «Shortcuts» button at the top right: Dungeons, Family, Mount, Players, Magnifier, Book, Map, Menu and more are now inside one button. Tap it to open; it glows if something inside needs attention.",
+   "🌀 «Transformations» button inside Shortcuts (replaces the subrace button): choose Normal, Hybrid Form, four-legged Wolf or your subrace's form. The ones you don't have are locked 🔒 and say how to get them.",
+   "🗺 Mexico is now one of the main maps."
   ]
  }
 }

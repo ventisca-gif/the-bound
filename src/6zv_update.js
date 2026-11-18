@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.17', GAME_BUILD = 138;
+const GAME_VER = '5.18', GAME_BUILD = 139;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.18",
+  "b": 139,
+  "d": "2026-11-18",
+  "es": [
+   "▦ Botón «Atajos» arriba a la derecha: junta en uno solo Mazmorras, Familia, Montura, Jugadores, Lupa, Libro, Mapa, Menú y demás. Tócalo para abrirlo; brilla si algo dentro tiene aviso.",
+   "🌀 Botón «Transformaciones» dentro de Atajos (sustituye al botón de subraza): elige Normal, Forma Híbrida, Lobo a cuatro patas o la forma de tu subraza. Las que no tienes salen bloqueadas 🔒 y dicen cómo conseguirlas.",
+   "🗺 México pasa a los mapas principales."
+  ],
+  "en": [
+   "▦ «Shortcuts» button at the top right: Dungeons, Family, Mount, Players, Magnifier, Book, Map, Menu and more are now inside one button. Tap it to open; it glows if something inside needs attention.",
+   "🌀 «Transformations» button inside Shortcuts (replaces the subrace button): choose Normal, Hybrid Form, four-legged Wolf or your subrace's form. The ones you don't have are locked 🔒 and say how to get them.",
+   "🗺 Mexico is now one of the main maps."
+  ]
+ },
  {
   "v": "5.17",
   "b": 138,
