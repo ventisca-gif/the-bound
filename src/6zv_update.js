@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.18', GAME_BUILD = 139;
+const GAME_VER = '5.19', GAME_BUILD = 140;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,29 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.19",
+  "b": 140,
+  "d": "2026-11-18",
+  "es": [
+   "👗 Trajes Típicos de Doña Chayo en Guadalajara (México): Adelita (blusa blanca con faja, falda negra de cintas y rosa), Jalisco (blusa de cintas y falda de vuelo de colores), Chiapaneca (blusa y falda de flores bordadas y corona de flores), charro (sombrero rojo, sarape y pantalón), zapatos de baile y camiseta de México con el calendario.",
+   "💃 Ballet Folklórico en la tarima de Guadalajara con 6 bailarines: nuevo oficio de bailarín folklórico (juego de ritmo, aprendes el Jarabe Tapatío). Con ropa típica ganas un 50 % más.",
+   "🎴 Lotería mexicana con Don Chencho en el Zócalo y 🪅 piñata con Doña Mary en Cuernavaca.",
+   "🛍 Perú: oficio de vendedor ambulante en Gamarra. Alquila a Doña Rosa un puesto de ropa o un carrito de comida, la gente se acerca a comprarte, regateas el precio y recoges rápido cuando llega el serenazgo.",
+   "🤍 Concurso de marinera en la Plaza de Armas de Lima (aprendes la Marinera).",
+   "👏 España: tablao flamenco en la Plaza de España de Sevilla (aprendes el Flamenco y hay traje de flamenca a la venta) y 🍅 la Tomatina en Valencia.",
+   "⚔ Sellos culturales: la primera vez que trabajas en un oficio de México, Perú o España o ganas uno de sus eventos, +0,5 % de daño para siempre (13 sellos, hasta +6,5 %). No cuenta en duelos. Míralos en la Lupa › Sistemas › Fiestas y trabajos."
+  ],
+  "en": [
+   "👗 Doña Chayo's Folk Costumes in Guadalajara (Mexico): Adelita (white blouse with sash, black ribbon skirt and a rose), Jalisco (ribbon blouse and colourful full skirt), Chiapaneca (embroidered flower blouse and skirt with a flower crown), charro (red sombrero, sarape and trousers), dance shoes and a Mexico shirt with the calendar.",
+   "💃 Folk Ballet on the Guadalajara stage with 6 dancers: new folk dancer job (rhythm game, you learn the Jarabe Tapatío). In traditional clothing you earn 50% more.",
+   "🎴 Mexican lotería with Don Chencho in the Zócalo and 🪅 a piñata with Doña Mary in Cuernavaca.",
+   "🛍 Peru: street vendor job in Gamarra. Rent a clothes stall or food cart from Doña Rosa, people come to buy, you haggle and pack up fast when the inspectors arrive.",
+   "🤍 Marinera contest in Lima's Plaza de Armas (you learn the Marinera).",
+   "👏 Spain: flamenco tablao in Seville's Plaza de España (you learn Flamenco and a flamenca dress is on sale) and 🍅 La Tomatina in Valencia.",
+   "⚔ Cultural seals: the first time you work a job in Mexico, Peru or Spain or win one of their events, +0.5% damage forever (13 seals, up to +6.5%). Not in duels. See them in Magnifier › Systems › Festivals and jobs."
+  ]
+ },
  {
   "v": "5.18",
   "b": 139,
