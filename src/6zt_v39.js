@@ -136,10 +136,16 @@ function drawPOIs(x, sc, pois, dimFn) {
   x.globalAlpha = 1;
 }
 function legendHTML(pois) { const have = [...new Set(pois.map(q => q.c))]; return have.map(c => { const D = MAPC[c], i = mapIconIdx(D[3]); const spec = i !== undefined ? ICON.list[i] : ['bag']; return `<button class="mchip ${MAPF === c ? 'on' : ''}" data-mc="${c}" style="border-color:${D[2]}">${iconHTML(spec, 16)}<span>${esc(mapcN(c))}</span></button>`; }).join(''); }
-function mapArrowsHTML() { const Wd = MAPW_LIST[MAPW]; return `<div class="mworld"><button class="marr" id="mwPrev">◀</button><div class="mwt"><b>${esc(Wd.n)}</b><small>${MAPW + 1}/${MAPW_LIST.length} · ${L2('flechas: otros mundos', 'arrows: other worlds')}</small></div><button class="marr" id="mwNext">▶</button></div>`; }
+// mapas principales (6) y secundarios (el resto), con un botón para cambiar de grupo
+const MAPW_MAIN = ['world', 'japon', 'peru', 'espana_mapa', 'velo_roto', 'archipielago']; let MAPW_LAST = [0, -1];
+function mapGrp(i) { const w = MAPW_LIST[i]; return w && MAPW_MAIN.includes(w.id) ? 0 : 1; }
+function mapGrpList(g) { const all = MAPW_LIST.map((w, i) => i); return g ? all.filter(i => mapGrp(i) === 1) : MAPW_MAIN.map(id => MAPW_LIST.findIndex(w => w.id === id)).filter(i => i >= 0); }
+function mapArrowsHTML() { const Wd = MAPW_LIST[MAPW], g = mapGrp(MAPW), Li = mapGrpList(g), o = mapGrpList(1 - g).length;
+  return `<div class="mworld"><button class="marr" id="mwPrev">◀</button><div class="mwt"><b>${esc(Wd.n)}</b><small>${Li.indexOf(MAPW) + 1}/${Li.length} · ${g ? L2('mapas secundarios', 'secondary maps') : L2('mapas principales', 'main maps')}</small></div><button class="marr" id="mwNext">▶</button></div><div class="mwgrp"><button class="marr ${g ? 'on' : ''}" id="mwGrp">${g ? '🌍 ' + L2('Mapas principales', 'Main maps') : '🗺 ' + L2('Mapas secundarios', 'Secondary maps')} (${o})</button></div>`; }
 function mapWire(B, pois, sc, cvs, fallback) {
-  const go = dv => { MAPW = (MAPW + dv + MAPW_LIST.length) % MAPW_LIST.length; MAPF = null; renderPanel(); };
+  const g = mapGrp(MAPW), Li = mapGrpList(g), go = dv => { const k = Li.indexOf(MAPW); MAPW = Li[((k < 0 ? 0 : k) + dv + Li.length) % Li.length]; MAPF = null; renderPanel(); };
   const a = $('#mwPrev'), b = $('#mwNext'); if (a) a.onclick = () => go(-1); if (b) b.onclick = () => go(1);
+  const gb = $('#mwGrp'); if (gb) gb.onclick = () => { MAPW_LAST[g] = MAPW; const L2_ = mapGrpList(1 - g); const k = MAPW_LAST[1 - g]; MAPW = L2_.includes(k) ? k : L2_[0]; MAPF = null; renderPanel(); };
   B.querySelectorAll('[data-mc]').forEach(el => el.onclick = () => { MAPF = MAPF === el.dataset.mc ? null : el.dataset.mc; renderPanel(); });
   if (cvs) cvs.onclick = e => { const r = cvs.getBoundingClientRect(), mx = (e.clientX - r.left) * (cvs.width / r.width), my = (e.clientY - r.top) * (cvs.height / r.height); let best = null, bd = 11 * 11; for (const q of pois) { if (q.sx == null) continue; const dd = (q.sx - mx) ** 2 + (q.sy - my) ** 2; if (dd < bd) { bd = dd; best = q; } } if (best) { toast(best.t, 'info'); return; } if (fallback) fallback(e); };
 }
@@ -157,7 +163,7 @@ function mapWire(B, pois, sc, cvs, fallback) {
   let M = G.maps[Wd.id]; try { if (!M && Wd.mk) M = Wd.mk(); } catch (e) { M = null; }
   B.innerHTML = `<div class="frame mapwrap"><div class="mapmain">${mapArrowsHTML()}<div id="wmScroll" style="overflow:auto;max-width:100%;touch-action:pan-x pan-y;position:relative"><canvas id="wm"></canvas></div><div class="mwz"><button class="marr" id="wmZin">+</button><button class="marr" id="wmZout">−</button></div><div class="maplegend"><span><i style="background:#ffffff"></i>${L2('Tú', 'You')}</span>${G.remote.size ? `<span><i style="background:#5ae0ff"></i>${L2('Jugadores', 'Players')}</span>` : ''}</div></div><div class="mapregs"><h3>${esc(Wd.n)}</h3><p class="hint">${L2('Cómo llegar: ', 'How to get there: ')}${esc(Wd.how)}</p><div class="mchips" id="mwChips"></div><div id="mwList"></div></div></div>`;
   const cvs = $('#wm'); if (!M || !cvs) { mapWire(B, [], 1, null); return; }
-  const wrap = cvs.parentElement.parentElement, rw = wrap.clientWidth - 8, rh = Math.max(200, wrap.clientHeight - 110), sc = Math.max(0.3, Math.min(rw / M.w, rh / M.h)) * (MAPZO[M.id] || 1); const scr = $('#wmScroll'); scr.style.maxHeight = rh + 'px';
+  const wrap = cvs.parentElement.parentElement, rw = wrap.clientWidth - 8, rh = Math.max(200, wrap.clientHeight - 146), sc = Math.max(0.3, Math.min(rw / M.w, rh / M.h)) * (MAPZO[M.id] || 1); const scr = $('#wmScroll'); scr.style.maxHeight = rh + 'px';
   cvs.width = Math.floor(M.w * sc); cvs.height = Math.floor(M.h * sc); cvs.style.width = cvs.width + 'px'; cvs.style.height = cvs.height + 'px';
   const x = cvs.getContext('2d'); x.imageSmoothingEnabled = false; x.drawImage(mapOverview(M), 0, 0, cvs.width, cvs.height); x.font = `bold ${Math.round(9 + sc)}px 'Pixelify Sans', monospace`; x.textAlign = 'center';
   if (M.id === 'cielo' && typeof SKY_ISLES !== 'undefined') for (const I of SKY_ISLES) { x.lineWidth = 3; x.strokeStyle = 'rgba(10,6,4,0.9)'; x.strokeText(I.n, I.c[0] * sc, (I.c[1] - I.r * 0.6) * sc); x.fillStyle = '#fff4c0'; x.fillText(I.n, I.c[0] * sc, (I.c[1] - I.r * 0.6) * sc); }
@@ -175,4 +181,5 @@ function mapWire(B, pois, sc, cvs, fallback) {
 { const _op = openPanel; openPanel = function (tab) { if (tab === 'map' && G.P) { const k = MAPW_LIST.findIndex(w => w.id === G.P.map); MAPW = k >= 0 ? k : 0; MAPF = null; } return _op.apply(this, arguments); }; }
 { const st = document.createElement('style'); st.textContent = `.mworld{display:flex;align-items:center;gap:6px;margin-bottom:4px}.mworld .mwt{flex:1;text-align:center;display:flex;flex-direction:column;line-height:1.1}.mworld .mwt small{opacity:.7;font-size:11px}
 .marr{min-width:40px;height:34px;border-radius:8px;border:2px solid #c8a060;background:#2a1e14;color:#ffe8a0;font-size:16px;font-family:inherit}.marr:active{transform:scale(.94)}
+.mwgrp{display:flex;justify-content:center;margin-bottom:4px}.mwgrp .marr{height:30px;font-size:13px;padding:0 10px}.mwgrp .marr.on{background:#3a2a5a;border-color:#b08aff}
 .mwz{display:flex;gap:4px;justify-content:flex-end;margin-top:2px}.mchips{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}.mchip{display:flex;align-items:center;gap:4px;padding:2px 6px 2px 3px;border-radius:12px;border:1.5px solid #6a5a4a;background:rgba(20,14,10,.75);color:#f0e4c8;font:inherit;font-size:11px}.mchip.on{background:#5a4020;color:#fff}`; document.head.appendChild(st); }
