@@ -1,30 +1,30 @@
 {
- "build": 140,
- "ver": "5.19",
+ "build": 141,
+ "ver": "5.20",
  "date": "2026-11-18",
  "file": "thebound.html",
- "size": 23285927,
- "sha256": "95518c5941702875e36438cdefff9cdad256127db4fd46720eea05494ee37175",
+ "size": 23326688,
+ "sha256": "9b1dffc9618eec4d82826599f68874364fa38ae01c902a822fa893eb69d79183",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "👗 Trajes Típicos de Doña Chayo en Guadalajara (México): Adelita (blusa blanca con faja, falda negra de cintas y rosa), Jalisco (blusa de cintas y falda de vuelo de colores), Chiapaneca (blusa y falda de flores bordadas y corona de flores), charro (sombrero rojo, sarape y pantalón), zapatos de baile y camiseta de México con el calendario.",
-   "💃 Ballet Folklórico en la tarima de Guadalajara con 6 bailarines: nuevo oficio de bailarín folklórico (juego de ritmo, aprendes el Jarabe Tapatío). Con ropa típica ganas un 50 % más.",
-   "🎴 Lotería mexicana con Don Chencho en el Zócalo y 🪅 piñata con Doña Mary en Cuernavaca.",
-   "🛍 Perú: oficio de vendedor ambulante en Gamarra. Alquila a Doña Rosa un puesto de ropa o un carrito de comida, la gente se acerca a comprarte, regateas el precio y recoges rápido cuando llega el serenazgo.",
-   "🤍 Concurso de marinera en la Plaza de Armas de Lima (aprendes la Marinera).",
-   "👏 España: tablao flamenco en la Plaza de España de Sevilla (aprendes el Flamenco y hay traje de flamenca a la venta) y 🍅 la Tomatina en Valencia.",
-   "⚔ Sellos culturales: la primera vez que trabajas en un oficio de México, Perú o España o ganas uno de sus eventos, +0,5 % de daño para siempre (13 sellos, hasta +6,5 %). No cuenta en duelos. Míralos en la Lupa › Sistemas › Fiestas y trabajos."
+   "🛡 Seis armaduras nuevas para todas las clases: Heraldo de Castilla (nivel 400), Señor de Sipán (430), Guerrero Inca (440), Guerrero del Sol (460), Guerrero Jaguar (470) y Tercio de Toledo (490).",
+   "⛏ Minerales nuevos: Mineral de Inti (vetas del Desierto de las Lomas, Perú), Mineral de Tonatiuh (vetas del Desierto de las Ánimas, México) y Mena de Toledo (vetas de Castilla-La Mancha, España), más el Cordobán del curtidor de Córdoba. Las criaturas de esas zonas también sueltan el mineral.",
+   "⚒ Todas las armas y armaduras de la herrería se fabrican sin nivel de Herrería.",
+   "👹 Lupa › Enemigos: las criaturas de nivel 410-500 tienen flecha hasta su zona.",
+   "🤍 Ropa de marinera con la Profesora Milagros en la Plaza de Armas de Lima: vestido azul bordado, falda roja plisada, vestido celeste con encaje, flores para el moño, terno a rayas y sombrero de paja. Con ella ganas un 50 % más en el concurso. Los bailarines de la tarima ya la llevan.",
+   "🔎 Lupa › Sistemas: entradas nuevas de Atajos y mapas, marinera y armaduras de Perú, México y España.",
+   "⚖ Equilibrio PvP ajustado a nivel 500."
   ],
   "en": [
-   "👗 Doña Chayo's Folk Costumes in Guadalajara (Mexico): Adelita (white blouse with sash, black ribbon skirt and a rose), Jalisco (ribbon blouse and colourful full skirt), Chiapaneca (embroidered flower blouse and skirt with a flower crown), charro (red sombrero, sarape and trousers), dance shoes and a Mexico shirt with the calendar.",
-   "💃 Folk Ballet on the Guadalajara stage with 6 dancers: new folk dancer job (rhythm game, you learn the Jarabe Tapatío). In traditional clothing you earn 50% more.",
-   "🎴 Mexican lotería with Don Chencho in the Zócalo and 🪅 a piñata with Doña Mary in Cuernavaca.",
-   "🛍 Peru: street vendor job in Gamarra. Rent a clothes stall or food cart from Doña Rosa, people come to buy, you haggle and pack up fast when the inspectors arrive.",
-   "🤍 Marinera contest in Lima's Plaza de Armas (you learn the Marinera).",
-   "👏 Spain: flamenco tablao in Seville's Plaza de España (you learn Flamenco and a flamenca dress is on sale) and 🍅 La Tomatina in Valencia.",
-   "⚔ Cultural seals: the first time you work a job in Mexico, Peru or Spain or win one of their events, +0.5% damage forever (13 seals, up to +6.5%). Not in duels. See them in Magnifier › Systems › Festivals and jobs."
+   "🛡 Six new armour sets for every class: Herald of Castile (level 400), Lord of Sipán (430), Inca Warrior (440), Sun Warrior (460), Jaguar Warrior (470) and Toledo Tercio (490).",
+   "⛏ New ores: Inti Ore (veins in the Desert of the Lomas, Peru), Tonatiuh Ore (veins in the Desert of the Souls, Mexico) and Toledo Ore (veins in Castile-La Mancha, Spain), plus Cordovan from the Córdoba tanner. Creatures in those areas also drop the ore.",
+   "⚒ Every weapon and armour at the blacksmith can be made without a Smithing level.",
+   "👹 Magnifier › Enemies: level 410-500 creatures have an arrow to their area.",
+   "🤍 Marinera clothing from Teacher Milagros in Lima's Plaza de Armas: embroidered blue dress, pleated red skirt, sky-blue lace dress, bun flowers, pinstripe suit and straw hat. It earns 50% more in the contest. The stage dancers now wear it.",
+   "🔎 Magnifier › Systems: new entries for Shortcuts and maps, marinera and Peru, Mexico and Spain armour.",
+   "⚖ PvP balance adjusted for level 500."
   ]
  }
 }

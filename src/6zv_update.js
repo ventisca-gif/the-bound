@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.19', GAME_BUILD = 140;
+const GAME_VER = '5.20', GAME_BUILD = 141;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,29 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.20",
+  "b": 141,
+  "d": "2026-11-18",
+  "es": [
+   "🛡 Seis armaduras nuevas para todas las clases: Heraldo de Castilla (nivel 400), Señor de Sipán (430), Guerrero Inca (440), Guerrero del Sol (460), Guerrero Jaguar (470) y Tercio de Toledo (490).",
+   "⛏ Minerales nuevos: Mineral de Inti (vetas del Desierto de las Lomas, Perú), Mineral de Tonatiuh (vetas del Desierto de las Ánimas, México) y Mena de Toledo (vetas de Castilla-La Mancha, España), más el Cordobán del curtidor de Córdoba. Las criaturas de esas zonas también sueltan el mineral.",
+   "⚒ Todas las armas y armaduras de la herrería se fabrican sin nivel de Herrería.",
+   "👹 Lupa › Enemigos: las criaturas de nivel 410-500 tienen flecha hasta su zona.",
+   "🤍 Ropa de marinera con la Profesora Milagros en la Plaza de Armas de Lima: vestido azul bordado, falda roja plisada, vestido celeste con encaje, flores para el moño, terno a rayas y sombrero de paja. Con ella ganas un 50 % más en el concurso. Los bailarines de la tarima ya la llevan.",
+   "🔎 Lupa › Sistemas: entradas nuevas de Atajos y mapas, marinera y armaduras de Perú, México y España.",
+   "⚖ Equilibrio PvP ajustado a nivel 500."
+  ],
+  "en": [
+   "🛡 Six new armour sets for every class: Herald of Castile (level 400), Lord of Sipán (430), Inca Warrior (440), Sun Warrior (460), Jaguar Warrior (470) and Toledo Tercio (490).",
+   "⛏ New ores: Inti Ore (veins in the Desert of the Lomas, Peru), Tonatiuh Ore (veins in the Desert of the Souls, Mexico) and Toledo Ore (veins in Castile-La Mancha, Spain), plus Cordovan from the Córdoba tanner. Creatures in those areas also drop the ore.",
+   "⚒ Every weapon and armour at the blacksmith can be made without a Smithing level.",
+   "👹 Magnifier › Enemies: level 410-500 creatures have an arrow to their area.",
+   "🤍 Marinera clothing from Teacher Milagros in Lima's Plaza de Armas: embroidered blue dress, pleated red skirt, sky-blue lace dress, bun flowers, pinstripe suit and straw hat. It earns 50% more in the contest. The stage dancers now wear it.",
+   "🔎 Magnifier › Systems: new entries for Shortcuts and maps, marinera and Peru, Mexico and Spain armour.",
+   "⚖ PvP balance adjusted for level 500."
+  ]
+ },
  {
   "v": "5.19",
   "b": 140,
