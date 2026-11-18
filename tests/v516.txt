@@ -1,0 +1,65 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js window.__e=[];window.addEventListener('error',e=>window.__e.push(String(e.message)+' @ '+(e.error&&e.error.stack||'').slice(0,300)));1
+js (()=>{ const ks=Object.keys(CBX); const bad=ks.filter(k=>{ try { const a=mobAtlasFor(['cbx',k]); return !(a&&a.img); } catch(e){ return true; } }); return [ks.length, bad, MOBS.cb_jaguar.art.join(','), BOSSES.cb_coatl.art.join(','), cbF(500)]; })()
+js (()=>{ const ks=Object.keys(CMD); const bad=ks.filter(k=>{ try { return !genIcon(['comida',k]); } catch(e){ return true; } }); return [ks.length, bad, ITEMS.pe_pollo.icon.join(':'), ITEMS.mx_tacos.icon.join(':'), ITEMS.es_paella.icon.join(':')]; })()
+js (()=>{ const out=[]; for (const c of ['c_es_camiseta','c_es_camiseta_azul','c_mx_camiseta','c_mx_camiseta_blanca','c_mx_botarga']) { const L=heroLook('guerrero',{g:'m',skin:1,hair:'negro',hs:0,eyes:'cafe',top:[1,'blanco'],bot:[0,'azul'],shoe:[1,'negro'],bt:2},{weapon:0},COSM[c].slot==='head'?{head:c}:{body:c},{}); out.push(!!buildAtlas(L,['idle','walk'],drawHero)); } return out; })()
+js (G.P.gold=500000, G.P.lv=420, goMexico(), 1)
+wait 3500
+js (()=>{ const M=G.map; return [M.id, M.w, M.h, M.objs.filter(o=>o.f==='mx_letras_aca'||o.f==='mx_letras_gro').length, M.objs.filter(o=>/lmb_(torre|hotelcun)/.test(o.f)&&!o.hidden&&o.ty>480).length]; })()
+js (()=>{ G.P.x=470*16; G.P.y=505*16; G.time=12*60; return G.map.zoneAt(G.P.x,G.P.y).n; })()
+wait 2000
+shot
+js (()=>{ const n=G.ents.find(e=>e.type==='npc'&&e.id==='mx_lanchero'&&e.y/16<620); G.P.x=n.x; G.P.y=n.y+16; openDialog(n); return !!n; })()
+wait 600
+js (()=>{ const b=[...document.querySelectorAll('#dialog button, #dlgOpts button')].find(b=>/Roqueta/.test(b.textContent)); if(b) b.click(); return [!!b, Math.round(G.P.y/16)]; })()
+wait 800
+js [G.map.zoneAt(G.P.x,G.P.y).k]
+js (closeDialog&&closeDialog(), closeModal(), 1)
+js (()=>{ const n={id:'mx_farmaceutica',def:NPCS.mx_farmaceutica,type:'npc',x:G.P.x,y:G.P.y,map:'mexico',atlas:npcAtlas('mx_farmaceutica')}; openDialog(n); return PE_SELL.mx_farmaceutica; })()
+wait 500
+js (closeDialog(), 1)
+js (()=>{ for (const n of G.ents.filter(e=>e.type==='npc'&&e.id==='mx_taquilla')) { G.P.x=n.x; G.P.y=n.y+16; } return 1; })()
+js (()=>{ G.P.aeTk='es'; const M=makeTerminal('mx_terminal', AE_MX); return 1; })()
+js (goEspana(), 1)
+wait 3500
+js (()=>{ const M=G.map; return [M.id, M.w, M.h, M.objs.length, G.ents.filter(e=>e.map==='espana').length, M.lcars.length, ES_ST.filter(s=>s.at).length]; })()
+shot
+js (()=>{ G.P.x=ES_CIB.x*16; G.P.y=(ES_CIB.y+6)*16; G.time=12*60; return G.map.zoneAt(G.P.x,G.P.y).n; })()
+wait 2000
+shot
+js (()=>{ G.P.x=511*16; G.P.y=296*16; return G.map.zoneAt(G.P.x,G.P.y).n; })()
+wait 1500
+shot
+js (()=>{ G.P.x=ES_BCN.cx*16; G.P.y=(ES_BCN.y0+40)*16; return G.map.zoneAt(G.P.x,G.P.y).n; })()
+wait 1500
+shot
+js (()=>{ G.P.x=ES_SEV.cx*16; G.P.y=(ES_SEV.cy-2)*16; return G.map.zoneAt(G.P.x,G.P.y).n; })()
+wait 1500
+shot
+js (()=>{ const S=ES_STAD; G.P.x=((S.x0+S.x1)/2)*16; G.P.y=(S.y1-4)*16; return G.map.zoneAt(G.P.x,G.P.y).n; })()
+wait 1500
+shot
+js (()=>{ const n=G.ents.find(e=>e.type==='npc'&&e.id==='es_entrenador'); openDialog(n); const b=[...document.querySelectorAll('#dialog button, #dlgOpts button')].find(b=>/penaltis/.test(b.textContent)); if(b) b.click(); return !!b; })()
+wait 500
+js (()=>{ const b=[...document.querySelectorAll('#modal button')][0]; b.click(); return 1; })()
+wait 900
+js (()=>{ const b=document.querySelector('#esKick'); if(b) b.click(); return !!b; })()
+wait 900
+js (()=>{ for (let k=0;k<4;k++){ const b=[...document.querySelectorAll('#modal button')][k%6]; if(b) b.click(); const kk=document.querySelector('#esKick'); if(kk) kk.click(); } return 1; })()
+wait 1500
+js (()=>{ for (let k=0;k<8;k++){ const b=[...document.querySelectorAll('#modal button')][0]; if(b && !document.querySelector('#esKick')) b.click(); const kk=document.querySelector('#esKick'); if(kk) kk.click(); } return [G.P.jobs.futbolista]; })()
+wait 2000
+js (closeModal(), esPenalty({ n: 5, ok: 5 }), [G.P.jobs.futbolista.xp > 0 || G.P.jobs.futbolista.lv > 1, G.P.gold])
+js (closeModal(), 1)
+js (()=>{ const S=ES_ST.find(s=>s.k==='andalucia'); const o=G.map.objs.find(o=>o.xact==='es_ave'&&o.st==='madrid'); XACT.es_ave[2](o); const b=[...document.querySelectorAll('#modal button')].find(b=>/Andaluc/.test(b.textContent)); if(b) b.click(); return !!b; })()
+wait 2000
+js [G.map.zoneAt(G.P.x,G.P.y).k]
+js (()=>{ openPanel('map'); MAPW=MAPW_LIST.findIndex(w=>w.id==='espana_mapa'); renderPanel(); return 1; })()
+wait 1000
+shot
+js (()=>{ MAPW=MAPW_LIST.findIndex(w=>w.id==='espana'); renderPanel(); return 1; })()
+wait 1500
+shot
+js (closePanel ? closePanel() : 0, 1)
+js (()=>{ const M=makeTerminal('es_terminal', AE_ES); return [M.aeIn, M.objs.filter(o=>o.f==='es_panel').length]; })()
+js (window.__e)
