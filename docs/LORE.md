@@ -71,3 +71,12 @@ Los jefes de la historia principal no son jefes normales: salen como **Súper je
 7. **Cada lugar nuevo dice quién lo hizo**: Tejedores, Alados, un reino de la Edad de los Reyes, el pueblo Pez, Nihil (lugares al revés) o la Ventisca (tierras nuevas).
 8. **Bilingüe.** Todo texto de lore va con `L2('es', 'en')`.
 9. **Cada capítulo nuevo** lleva: entrada en `CRON` al final, su época en `ERAS`, al menos una pista (`CLUES`) o un NPC que lo cuente, y su escena en las cinemáticas. Actualiza este archivo con un resumen de una o dos líneas.
+
+## Historias extra (aparte del lore principal)
+
+Sergio (5.29): «es una historia extra aparte del lore principal de The Bound: la historia de Perú». No forman parte del canon de Nihil, el Telar ni los hilos, y **no** llevan `CRON`, `ERAS`, pistas ni cinemáticas. Cuentan la **historia real** de los lugares que la Ventisca pintó, con fechas verificables. Van en el Libro › **Historias extra** (`CZ_HIST` en `src/6zz9zzzzzzz_cusco.js`, guardado en `P.czH`) y se desbloquean visitando los lugares, con la guía de la Plaza de Armas del Cusco (`cz_guia`), el guardaparque de Machu Picchu (`mp_guardian`) y el oficio de guía de Machu Picchu.
+
+- **Perú: Cusco y Machu Picchu** (v5.29): Qosqo y la leyenda de Manco Cápac y Mama Ocllo; la piedra de los 12 ángulos (palacio del Inca Roca) y los terremotos de 1650 y 1950; la Catedral (1560-1654, sobre el palacio de Viracocha) y la Compañía (sobre el de Huayna Cápac), el Qorikancha bajo Santo Domingo (1533); Sacsayhuamán y el Inti Raymi (24 de junio, desde 1944); el Valle Sagrado (Pisac, Moray, Ollantaytambo y la victoria de Manco Inca en 1537); Vinicunca; Machu Picchu de Pachacútec (hacia 1450), Lizárraga (1902), Melchor Arteaga y Bingham (1911); UNESCO (1983) y las siete nuevas maravillas (2007).
+
+Reglas: una historia extra nueva va en su propia sección del Libro (no en `CRON`), con texto bilingüe `L2`, sin villanos ni hilos, y con datos reales que se puedan comprobar. En el mundo del juego, Cusco y Machu Picchu son tierras recién pintadas por la Ventisca (como Lima): sin monstruos.
+

@@ -1,28 +1,30 @@
 {
- "build": 149,
- "ver": "5.28",
+ "build": 150,
+ "ver": "5.29",
  "date": "2026-11-18",
  "file": "thebound.html",
- "size": 23664271,
- "sha256": "b46c888eac9c7caf90f7cf75f683595a57e0386c509f57570d14d364f69c9fb5",
+ "size": 23798059,
+ "sha256": "529cb57cb20ff06ac61b96ba92841c844d0705e137caba123688284bb0d999b8",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🇵🇪 Lima: lustrabotas en la Plaza de Armas (frota con el joystick y pule a tiempo), muralista de Barranco (pinta la pared copiando el boceto), cevichero (cortes al punto y limones exprimidos), cobrador de combi (¡sube, sube! y cobra antes de que se bajen) y lonja de Chorrillos (sube las cajas y subasta). Además, el Puente de los Suspiros: crúzalo sin pararte y pide un deseo.",
-   "🏜 Trujillo: restaurador de la Huaca de la Luna (quieto para limpiar, apártate si cruje), chalán de caballo de paso (conos y paso llano), corso de la primavera (flores desde el carro), pesca con red en caballito de totora y gruista del puerto de Salaverry.",
-   "🇲🇽 México: clavadista de La Quebrada (escala, salta con la ola y haz piruetas), juego de pelota maya (cadera y aro de piedra), voladores de Papantla (gira el joystick con la cuerda), mariachi en Garibaldi (balcón correcto, ¡ajúa! y monedas) y platero de Taxco (martilla la plata caliente).",
-   "🇪🇸 España: castells en Barcelona (equilibra la torre humana), paella gigante en Valencia (ingredientes en orden y despega lo que se pega), vareo de aceitunas en Andalucía, farolero de la Feria de Abril (enciende farolillos y esquiva coches de caballos) y pastor trashumante en Extremadura (lleva el rebaño al corral con tu perro).",
-   "💪 Los 20 son oficios: oro, experiencia de oficio ×3 y ventajas pequeñas que suman (+0,1 % de daño, +0,2 % de defensa, vida, crítico, esquiva o velocidad).",
-   "🗺 Todo se juega en el mapa, sin ventanas; cada puesto sale en su mapa (Trabajos) y en la Lupa › Sistemas hay una guía por país con flecha. Los demás jugadores ven a qué trabajas."
+   "🦙 ¡Cusco! Llegas en el Tren Andino desde Trujillo (Lima → bus a Trujillo → tren a Cusco). Plaza de Armas con la Catedral, la Compañía, la fuente del Inca y los portales; San Blas con sus puertas azules; la piedra de los 12 ángulos; Qorikancha; Mercado de San Pedro; Sacsayhuamán y el Cristo Blanco.",
+   "⛰ Valle Sagrado y más: Pisac con su mercado de tejidos y andenes, Moray con sus andenes circulares, Ollantaytambo y la Montaña de Siete Colores (Vinicunca). Andenes con muros y escaleras de verdad, gente con chullo y montera, y gente que va montada en llama.",
+   "🏯 Machu Picchu: tren a Aguas Calientes, camino en zigzag, andenes, casas de piedra con techo de paja, plaza, Templo del Sol, Tres Ventanas, Intihuatana y la escalada al Huayna Picchu entre nubes. Cuidado con el soroche: el mate de coca lo quita.",
+   "🧭 Oficios de Cusco que no dan fuerza: guía de Machu Picchu (llevas un grupo y cuentas la historia), arriero de llamas y tintorera de Pisac. Dan ropa andina nueva y ventajas de crítico, esquiva, vida y velocidad.",
+   "🧶 Ropa andina nueva para ti y para todos los cuerpos y peinados: chullos, montera, ponchos, lliclla, polleras y chaleco bordado (tienda de San Blas y premios de los oficios).",
+   "📜 Historia extra de Perú en el Libro (aparte del lore principal): Cusco, los incas, el Valle Sagrado y Machu Picchu.",
+   "🏎 Monturas cada vez más rápidas: llama de Cusco (2,0×) y el Superdeportivo «Toro Bravo» de Madrid (2,4×), el auto más caro. 🐾 Las mascotas de Perú, México y España ahora dan un bono pequeño."
   ],
   "en": [
-   "🇵🇪 Lima: shoeshiner in the Plaza de Armas (rub with the joystick and polish on time), Barranco muralist (paint the wall copying the sketch), ceviche cook (precise cuts and squeezed limes), combi fare collector (get on, get on! and charge before they get off) and the Chorrillos fish market (carry the crates and auction them). Plus the Bridge of Sighs: cross it without stopping and make a wish.",
-   "🏜 Trujillo: Huaca de la Luna restorer (keep still to clean, step away if it creaks), Paso horse rider (cones and smooth gait), spring parade (flowers from the float), reed-boat net fishing and Salaverry port crane operator.",
-   "🇲🇽 Mexico: La Quebrada cliff diver (climb, jump with the wave and spin), Maya ballgame (hip and stone ring), Papantla flyers (spin the joystick with the rope), Garibaldi mariachi (right balcony, ajúa! and coins) and Taxco silversmith (hammer the hot silver).",
-   "🇪🇸 Spain: castells in Barcelona (balance the human tower), giant paella in Valencia (ingredients in order and loosen what sticks), olive harvest in Andalusia, April Fair lamplighter (light lanterns and dodge horse carriages) and transhumant shepherd in Extremadura (take the flock to the pen with your dog).",
-   "💪 All 20 are jobs: gold, ×3 job experience and small stacking perks (+0.1% damage, +0.2% defense, HP, crit, dodge or speed).",
-   "🗺 Everything is played on the map, no windows; each stall shows on its map (Jobs) and Magnifier › Systems has a guide per country with an arrow. Other players see what job you are doing."
+   "🦙 Cusco! You arrive on the Andean Train from Trujillo (Lima → bus to Trujillo → train to Cusco). Main Square with the Cathedral, the Society of Jesus church, the Inca fountain and the arcades; San Blas with its blue doors; the twelve-angled stone; Qorikancha; San Pedro Market; Sacsayhuamán and the White Christ.",
+   "⛰ Sacred Valley and more: Pisac with its textile market and terraces, Moray with its circular terraces, Ollantaytambo and the Rainbow Mountain (Vinicunca). Terraces with real walls and stairs, people in chullos and monteras, and people riding llamas.",
+   "🏯 Machu Picchu: train to Aguas Calientes, zigzag path, terraces, stone houses with thatched roofs, plaza, Temple of the Sun, Three Windows, Intihuatana and the climb up Huayna Picchu among the clouds. Beware of altitude sickness: coca tea cures it.",
+   "🧭 Cusco jobs that give no strength: Machu Picchu guide (lead a group and tell the story), llama muleteer and Pisac dyer. They give new Andean clothes and crit, dodge, HP and speed perks.",
+   "🧶 New Andean clothes for you, fitting every body and hairstyle: chullos, montera, ponchos, lliclla, pollera skirts and an embroidered vest (San Blas shop and job rewards).",
+   "📜 Peru extra story in the Book (apart from the main lore): Cusco, the Incas, the Sacred Valley and Machu Picchu.",
+   "🏎 Ever faster mounts: Cusco llama (2.0×) and the «Toro Bravo» supercar in Madrid (2.4×), the most expensive car. 🐾 Peru, Mexico and Spain pets now give a small bonus."
   ]
  }
 }
