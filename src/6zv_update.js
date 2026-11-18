@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.28', GAME_BUILD = 149;
+const GAME_VER = '5.29', GAME_BUILD = 150;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,29 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.29",
+  "b": 150,
+  "d": "2026-11-18",
+  "es": [
+   "🦙 ¡Cusco! Llegas en el Tren Andino desde Trujillo (Lima → bus a Trujillo → tren a Cusco). Plaza de Armas con la Catedral, la Compañía, la fuente del Inca y los portales; San Blas con sus puertas azules; la piedra de los 12 ángulos; Qorikancha; Mercado de San Pedro; Sacsayhuamán y el Cristo Blanco.",
+   "⛰ Valle Sagrado y más: Pisac con su mercado de tejidos y andenes, Moray con sus andenes circulares, Ollantaytambo y la Montaña de Siete Colores (Vinicunca). Andenes con muros y escaleras de verdad, gente con chullo y montera, y gente que va montada en llama.",
+   "🏯 Machu Picchu: tren a Aguas Calientes, camino en zigzag, andenes, casas de piedra con techo de paja, plaza, Templo del Sol, Tres Ventanas, Intihuatana y la escalada al Huayna Picchu entre nubes. Cuidado con el soroche: el mate de coca lo quita.",
+   "🧭 Oficios de Cusco que no dan fuerza: guía de Machu Picchu (llevas un grupo y cuentas la historia), arriero de llamas y tintorera de Pisac. Dan ropa andina nueva y ventajas de crítico, esquiva, vida y velocidad.",
+   "🧶 Ropa andina nueva para ti y para todos los cuerpos y peinados: chullos, montera, ponchos, lliclla, polleras y chaleco bordado (tienda de San Blas y premios de los oficios).",
+   "📜 Historia extra de Perú en el Libro (aparte del lore principal): Cusco, los incas, el Valle Sagrado y Machu Picchu.",
+   "🏎 Monturas cada vez más rápidas: llama de Cusco (2,0×) y el Superdeportivo «Toro Bravo» de Madrid (2,4×), el auto más caro. 🐾 Las mascotas de Perú, México y España ahora dan un bono pequeño."
+  ],
+  "en": [
+   "🦙 Cusco! You arrive on the Andean Train from Trujillo (Lima → bus to Trujillo → train to Cusco). Main Square with the Cathedral, the Society of Jesus church, the Inca fountain and the arcades; San Blas with its blue doors; the twelve-angled stone; Qorikancha; San Pedro Market; Sacsayhuamán and the White Christ.",
+   "⛰ Sacred Valley and more: Pisac with its textile market and terraces, Moray with its circular terraces, Ollantaytambo and the Rainbow Mountain (Vinicunca). Terraces with real walls and stairs, people in chullos and monteras, and people riding llamas.",
+   "🏯 Machu Picchu: train to Aguas Calientes, zigzag path, terraces, stone houses with thatched roofs, plaza, Temple of the Sun, Three Windows, Intihuatana and the climb up Huayna Picchu among the clouds. Beware of altitude sickness: coca tea cures it.",
+   "🧭 Cusco jobs that give no strength: Machu Picchu guide (lead a group and tell the story), llama muleteer and Pisac dyer. They give new Andean clothes and crit, dodge, HP and speed perks.",
+   "🧶 New Andean clothes for you, fitting every body and hairstyle: chullos, montera, ponchos, lliclla, pollera skirts and an embroidered vest (San Blas shop and job rewards).",
+   "📜 Peru extra story in the Book (apart from the main lore): Cusco, the Incas, the Sacred Valley and Machu Picchu.",
+   "🏎 Ever faster mounts: Cusco llama (2.0×) and the «Toro Bravo» supercar in Madrid (2.4×), the most expensive car. 🐾 Peru, Mexico and Spain pets now give a small bonus."
+  ]
+ },
  {
   "v": "5.28",
   "b": 149,
