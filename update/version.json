@@ -1,28 +1,20 @@
 {
- "build": 137,
- "ver": "5.16",
+ "build": 138,
+ "ver": "5.17",
  "date": "2026-11-18",
  "file": "thebound.html",
- "size": 23216573,
- "sha256": "fb3f041c2ef2be325299fcf0f5f9c00137ca60494a61f4359a0c7f4de9c1c2af",
+ "size": 23218669,
+ "sha256": "8ea7a73509352d64272200a9d9f5342ce4868704f1b7d54b46d0db6efd8c0f57",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🇪🇸 ¡España! Billete en Albor, Lima o México (2.000 de oro). Mapa de España con 10 comunidades y un mapa grande más grande que Perú y México. Entre comunidades se viaja en el AVE.",
-   "🏛 Madrid: la Cibeles con el Palacio de Comunicaciones y el Banco de España, la Gran Vía con el edificio Metrópolis y su estatua alada. Barcelona: Plaza de España, torres venecianas, fuentes y el Palacio Nacional. Sevilla: Plaza de España con canal, puentes de azulejos y torres.",
-   "🏰 También la Giralda, la Alhambra, Santiago, Bilbao, el acueducto de Segovia, el Pilar, Valencia, Mérida, Toledo, los molinos de La Mancha y playas.",
-   "⚽ Trabajo de futbolista: tanda de penaltis en el Gran Estadio de Madrid, con su estacionamiento. Camisetas de España y de México. Comida española: paella, tortilla, churros, jamón, gazpacho y más.",
-   "🏖 Acapulco crece: bahía con playa dorada, la Costera con palmeras y hoteles altos, cerros verdes, letras de colores, La Roqueta en lancha, Pie de la Cuesta y Puerto Marqués.",
-   "🥸 Botarga del Doctor Bonachón: cabezota con gafas y un bigotón. Las 18 criaturas de nivel 410-500 tienen dibujo propio y ahora pegan con toda su fuerza. Iconos propios para la comida de Perú, México, Japón y España."
+   "🗺 Mapa: botón nuevo «Mapas secundarios». Las flechas ahora solo pasan por los 6 mapas principales: Tierras del Vínculo, Japón, Perú, España, Velo Roto y el Archipiélago.",
+   "📚 Los otros 15 mapas (Fondo Marino, Nerea, Islas del Cielo, Lima, México y demás) están en «Mapas secundarios». El mismo botón te devuelve a los principales y recuerda el último mapa que viste."
   ],
   "en": [
-   "🇪🇸 Spain! Ticket at Albor, Lima or Mexico (2,000 gold). Map of Spain with 10 regions and a big map larger than Peru and Mexico. Travel between regions on the AVE train.",
-   "🏛 Madrid: Cibeles with the Palace of Communications and the Bank of Spain, Gran Vía with the Metrópolis building and its winged statue. Barcelona: Plaza de España, Venetian towers, fountains and the National Palace. Seville: Plaza de España with the canal, tiled bridges and towers.",
-   "🏰 Also the Giralda, the Alhambra, Santiago, Bilbao, the Segovia aqueduct, the Pilar, Valencia, Mérida, Toledo, the La Mancha windmills and beaches.",
-   "⚽ Footballer job: penalty shoot-out at the Great Stadium of Madrid, with its car park. Spain and Mexico shirts. Spanish food: paella, tortilla, churros, ham, gazpacho and more.",
-   "🏖 Acapulco grows: bay with a golden beach, the Costera with palm trees and tall hotels, green hills, colourful letters, La Roqueta by boat, Pie de la Cuesta and Puerto Marqués.",
-   "🥸 Doctor Bonachón mascot head: a big head with glasses and a huge moustache. The 18 level 410-500 creatures have their own art and now hit with full strength. Own icons for Peruvian, Mexican, Japanese and Spanish food."
+   "🗺 Map: new «Secondary maps» button. The arrows now only cycle through the 6 main maps: Lands of the Bound, Japan, Peru, Spain, the Broken Veil and the Archipelago.",
+   "📚 The other 15 maps (Seabed, Nerea, Sky Isles, Lima, Mexico and more) are under «Secondary maps». The same button takes you back to the main ones and remembers the last map you viewed."
   ]
  }
 }
