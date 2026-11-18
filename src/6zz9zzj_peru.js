@@ -9,11 +9,11 @@
 // Suelo propio pintado por casilla (M.lg tipo, M.lm marcas, M.ld profundidad), edificios lmb_<tipo>_<ancho>_<variante>.
 // Peruanos sin nombre propio (Limeño 1, Limeña 2…), salvo los oficios (guía, guardias, vendedores).
 const PE_TICKET = 1000;
-const LM_W = 480, LM_H = 360;
+const LM_W = 720, LM_H = 360;   // 5.14: ampliado al este (Gamarra, San Borja, Surquillo, Surco)
 const LM_G = { GRASS: 0, ROAD: 1, WALK: 2, PLAZA: 3, SEA: 4, SAND: 5, CLIFF: 6, PATH: 7, RUN: 8, RIVER: 9, FLOWER: 10, STEP: 11, HILL: 12, TILE: 13, BRIDGE: 14, ADOBE: 15, COBBLE: 16, RAV: 17 };
-const LM_COAST = [[0, 128], [30, 170], [70, 222], [120, 262], [170, 282], [230, 292], [479, 292]];
+const LM_COAST = [[0, 128], [30, 170], [70, 222], [120, 262], [170, 282], [230, 292], [719, 292]];
 function lmCoast(x) { const C_ = LM_COAST; if (x <= C_[0][0]) return C_[0][1]; for (let i = 1; i < C_.length; i++) if (x <= C_[i][0]) { const [x0, y0] = C_[i - 1], [x1, y1] = C_[i]; return Math.round(y0 + (y1 - y0) * (x - x0) / (x1 - x0)); } return C_[C_.length - 1][1]; }
-const LM_HR = [20, 38, 66, 111, 129, 147, 180, 210, 236, 258], LM_VR = [24, 60, 96, 130, 166, 206, 240, 274, 296, 349, 384, 418, 452];
+const LM_HR = [20, 38, 66, 111, 129, 147, 180, 210, 236, 258], LM_VR = [24, 60, 96, 130, 166, 206, 240, 274, 296, 349, 384, 418, 452, 490, 526, 562, 598, 634, 670, 706];
 const LM_Q = { term: { x: 40, y: 30, w: 19, h: 4, door: 49 }, park: { x0: 36, x1: 70, y0: 34, y1: 40 }, apron: { x0: 22, x1: 122, y0: 44, y1: 48 }, run: { x0: 14, x1: 128, y0: 54, y1: 57 }, taxiE: 118, taxiW: 26, gates: [52, 68], side: 62, liv: 2 };
 const LM_PLAZA = { x0: 302, x1: 348, y0: 72, y1: 110, cx: 325, cy: 91 };
 const LM_RAV = { x0: 372, x1: 381, y0: 264, by0: 282, by1: 285 };   // quebrada bajo el Puente Villena
@@ -376,7 +376,7 @@ function makeLima() { if (G.maps.lima) return G.maps.lima; const w = LM_W, h = L
   // calles con aceras, línea central y pasos de cebra (se conduce por la derecha)
   const hc = new Uint8Array(N), vc = new Uint8Array(N);
   const road = (x0, y0, x1, y1, hz) => { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) { if (!inb(x, y) || y < 18 || lmD(x, y) > -13) continue; const i = I(x, y), al = hz ? y - y0 : x - x0; if (al === 0 || al === 5) { if (M.lg[i] !== J.ROAD) M.lg[i] = J.WALK; M.lm[i] = 0; continue; } M.lg[i] = J.ROAD; M.lm[i] = 0; (hz ? hc : vc)[i] = 1; if (al === 2) M.lm[i] = hz ? 1 : 2; } };
-  for (const y0 of LM_HR) road(y0 <= 38 ? 130 : 4, y0, 474, y0 + 5, true);
+  for (const y0 of LM_HR) road(y0 <= 38 ? 130 : 4, y0, w - 6, y0 + 5, true);
   for (const x0 of LM_VR) road(x0, x0 < 130 ? 66 : 18, x0 + 5, h - 1, false);
   road(70, 34, 135, 39, true);   // avenida del aeropuerto
   for (let i = 0; i < N; i++) if (hc[i] && vc[i]) M.lm[i] = 0;
@@ -413,6 +413,7 @@ function makeLima() { if (G.maps.lima) return G.maps.lima; const w = LM_W, h = L
   for (let x = LM_LARCO.x0; x <= LM_LARCO.x1; x++) { const c0 = lmCoast(x); for (let y = c0; y <= c0 + 8; y++) { M.lg[I(x, y)] = (x <= LM_LARCO.x0 + 2 || x >= LM_LARCO.x1 - 2) && y <= c0 + 2 ? J.STEP : J.TILE; M.lm[I(x, y)] = y === c0 + 8 ? 13 : 0; } }
   // muelle de la Rosa Náutica
   for (let x = LM_PIER.x0; x <= LM_PIER.x1; x++) { const c0 = lmCoast(x); for (let y = c0 + 18; y <= c0 + 41; y++) { M.lg[I(x, y)] = J.BRIDGE; M.lm[I(x, y)] = 0; } }
+  if (typeof lmGround2 === 'function') lmGround2(M, { I, J, S, SM, RG, road, hc, vc, inb });
   // colisiones
   for (let i = 0; i < N; i++) { const k = M.lg[i]; if (k === J.SEA || k === J.RIVER) M.ter[i] = T.WATER; else if (k === J.CLIFF || k === J.RAV || k === J.HILL) M.ter[i] = T.IWALL; }
   M.exit = { x: -9, y: -9 }; prepPalettes(M); initMapObjs(M);
@@ -472,11 +473,11 @@ function lmBuild(M) { const I = M.I, J = LM_G, w = M.w, h = M.h, inb = (x, y) =>
   for (const [k, x, y] of carts) { F('lm_carrito_' + k, x, y); sp('pe_cart_' + k, x + 1, y + 1); }
   // árboles y postes de las calles, edificios de cada manzana
   for (const y0 of LM_HR) for (let x = 6; x < 474; x += 11) { const y = y0 + 5; if (!inb(x, y) || M.lg[I(x, y)] !== J.WALK || lmReserved(x, y + 1) && y > 112) continue; Fs(y0 >= 180 ? (x % 22 < 11 ? 'lm_arbol' : 'lm_poste') : 'lm_poste', x, y, { jl: [[0, -50, 40, 'rgba(255,240,200,0.45)']] }); }
-  const VR = LM_VR.concat([475]), HR = LM_HR.concat([999]);
-  for (let i = 0; i < VR.length - 1; i++) for (let j = 0; j < HR.length - 1; j++) { const bx0 = VR[i] + 6, bx1 = VR[i + 1] - 1; let by0 = HR[j] + 6, by1 = HR[j + 1] - 1; if (bx0 < 4 || bx1 > 474) continue;
+  const VR = LM_VR.concat([w - 5]), HR = LM_HR.concat([999]);
+  for (let i = 0; i < VR.length - 1; i++) for (let j = 0; j < HR.length - 1; j++) { const bx0 = VR[i] + 6, bx1 = VR[i + 1] - 1; let by0 = HR[j] + 6, by1 = HR[j + 1] - 1; if (bx0 < 4 || bx1 > w - 6) continue;
     let cmin = 999; for (let x = bx0; x <= bx1; x++) cmin = Math.min(cmin, lmCoast(x) - 14); by1 = Math.min(by1, cmin); if (by1 - by0 < 3) continue;
-    const zc = by1 <= 152 && bx0 >= 130 ? 'centro' : bx1 < 130 ? 'callao' : by0 >= 236 ? 'mira' : 'si';
-    const KS = { centro: ['col'], callao: ['casa', 'casa', 'col'], mira: ['torre', 'depa', 'depa', 'casa', 'torre', 'ofi'], si: ['ofi', 'depa', 'casa', 'casa', 'col'] }[zc];
+    const zc = bx0 >= 480 ? (by1 <= 152 ? 'gamarra' : by0 >= 236 ? (bx0 < 590 ? 'surq' : 'surco') : 'si') : by1 <= 152 && bx0 >= 130 ? 'centro' : bx1 < 130 ? 'callao' : by0 >= 236 ? 'mira' : 'si';
+    const KS = { gamarra: ['gama', 'gama', 'casa', 'ofi', 'gama', 'chifa', 'bodega'], surq: ['casa', 'casa', 'depa', 'casa', 'pollo', 'bodega', 'chifa'], surco: ['depa', 'casa', 'torre', 'casa', 'depa', 'pollo'], centro: ['col'], callao: ['casa', 'casa', 'col'], mira: ['torre', 'depa', 'depa', 'casa', 'torre', 'ofi'], si: ['ofi', 'depa', 'casa', 'casa', 'col', 'pollo', 'bodega'] }[zc] || (M.blockKinds && M.blockKinds(zc, bx0, by0)) || ['casa'];
     const row = (by, res) => { let x = bx0; while (x <= bx1) { let wd = R.int(zc === 'centro' ? 5 : 4, zc === 'mira' ? 6 : 8); if (x + wd - 1 > bx1) { if (bx1 - x + 1 >= 3) wd = bx1 - x + 1; else break; } const kind = KS[R.int(0, KS.length - 1)], dp = LM_DEPTH[kind];
         if (free(x, by - dp + 1, x + wd - 1, by, true)) { bld(kind, x, by, wd, R.int(0, 15)); x += wd + (zc !== 'centro' && R.f() < 0.3 ? 1 : 0); } else x++; } };
     { const step = zc === 'mira' ? 7 : zc === 'centro' ? 5 : 6; for (let by = by1; by - 2 >= by0; by -= step) row(by); }
@@ -492,20 +493,21 @@ function lmBuild(M) { const I = M.I, J = LM_G, w = M.w, h = M.h, inb = (x, y) =>
   M.guards = []; for (let k = 0; k < 8; k++) M.guards.push({ k, x: (308 + k * 4.5) * 16 + 8, y: 63 * 16 + 10, A: null, dir: 'down', mv: 0, ph: k });
   M.doves = []; for (let k = 0; k < 22; k++) { const a = R.f() * 6.28, d = 4 + R.f() * 8; M.doves.push({ hx: (PZ.cx + Math.cos(a) * d * 1.2) * 16, hy: (PZ.cy + Math.sin(a) * d) * 16, x: 0, y: 0, z: 0, fly: 0, ph: R.f() * 6 }); }
   for (const d of M.doves) { d.x = d.hx; d.y = d.hy; }
+  if (typeof lmBuild2 === 'function') lmBuild2(M, { F, Fs, bld, sp, put, occ, free, R });
   lmCarsInit(M); }
 
 // ---------- tráfico: autos, taxis y combis (por la derecha; paran ante el jugador y ante el de delante) ----------
 const LM_CARS = [], LM_LANES = [], LM_CCOL = ['#e8ecf2', '#1a1c24', '#c8102e', '#2a5ad8', '#8a8e98', '#3aa04a', '#e8ecf2', '#7a1a2a', '#d8d0c0'];
-function lmCarsInit(M) { LM_CARS.length = 0; LM_LANES.length = 0; const R = new RNG(SEED + 9202), I = M.I, J = LM_G, isR = (x, y) => x >= 0 && y >= 0 && x < M.w && y < M.h && M.lg[I(x, y)] === J.ROAD;
+function lmCarsInit(M) { const LM_CARS = M.lcars = [], LM_LANES = M.llanes = [], HRs = M.HR || LM_HR, VRs = M.VR || LM_VR; const R = new RNG(SEED + 9202), I = M.I, J = LM_G, isR = (x, y) => x >= 0 && y >= 0 && x < M.w && y < M.h && M.lg[I(x, y)] === J.ROAD;
   const runs = (n, get) => { const out = []; let a = -1; for (let k = 0; k <= n; k++) { const ok = k < n && get(k); if (ok && a < 0) a = k; else if (!ok && a >= 0) { if (k - a > 12) out.push([a, k - 1]); a = -1; } } return out; };
-  for (const y0 of LM_HR) for (const [a, b] of runs(M.w, x => isR(x, y0 + 2) && isR(x, y0 + 3))) LM_LANES.push({ hz: 1, c: [(y0 + 2) * 16 + 4, (y0 + 4) * 16 - 2], a: a * 16 + 8, b: b * 16 + 8 });
-  for (const x0 of LM_VR) for (const [a, b] of runs(M.h, y => isR(x0 + 2, y) && isR(x0 + 3, y))) LM_LANES.push({ hz: 0, c: [(x0 + 4) * 16 - 2, (x0 + 2) * 16 + 2], a: a * 16 + 8, b: b * 16 + 8 });
-  LM_LANES.push({ hz: 1, coast: 1, c: [0, 0], a: 234 * 16, b: 470 * 16 });
+  for (const y0 of HRs) for (const [a, b] of runs(M.w, x => isR(x, y0 + 2) && isR(x, y0 + 3))) LM_LANES.push({ hz: 1, c: [(y0 + 2) * 16 + 4, (y0 + 4) * 16 - 2], a: a * 16 + 8, b: b * 16 + 8 });
+  for (const x0 of VRs) for (const [a, b] of runs(M.h, y => isR(x0 + 2, y) && isR(x0 + 3, y))) LM_LANES.push({ hz: 0, c: [(x0 + 4) * 16 - 2, (x0 + 2) * 16 + 2], a: a * 16 + 8, b: b * 16 + 8 });
+  if (M.id === 'lima') LM_LANES.push({ hz: 1, coast: 1, c: [0, 0], a: 234 * 16, b: 714 * 16 });
   const tot = LM_LANES.reduce((s, L) => s + (L.b - L.a), 0);
-  for (let k = 0; k < 64; k++) { let r = R.f() * tot, L = LM_LANES[0]; for (const q of LM_LANES) { r -= q.b - q.a; if (r <= 0) { L = q; break; } } const t = R.f();
+  for (let k = 0; k < (M.nCars || 96); k++) { let r = R.f() * tot, L = LM_LANES[0]; for (const q of LM_LANES) { r -= q.b - q.a; if (r <= 0) { L = q; break; } } const t = R.f();
     LM_CARS.push({ L, d: R.f() < 0.5 ? 1 : -1, s: L.a + R.f() * (L.b - L.a), v: 0, combi: t < 0.2, taxi: t >= 0.2 && t < 0.42, col: R.int(0, LM_CCOL.length - 1), rc: R.int(0, 4), hb: 0 }); } }
 const lmCarXY = c => { const L = c.L; if (L.coast) { const cc = lmCoast(Math.round(c.s / 16)); return [c.s, (cc + (c.d > 0 ? 16 : 14)) * 16 + (c.d > 0 ? -2 : 4)]; } return L.hz ? [c.s, L.c[c.d > 0 ? 1 : 0]] : [L.c[c.d > 0 ? 1 : 0], c.s]; };
-function lmCarsTick(dt) { const M = G.map, P = G.P; if (!M || !M.lima || !P) return;
+function lmCarsTick(dt) { const M = G.map, P = G.P; if (!M || !M.lima || !P || !M.lcars) return; const LM_CARS = M.lcars;
   for (const c of LM_CARS) { const [x, y] = lmCarXY(c), hz = c.L.hz; let stop = false; const px = P.x - x, py = P.y - y;
     if (hz ? (px * c.d > 0 && px * c.d < 44 && Math.abs(py) < 15) : (py * c.d > 0 && py * c.d < 48 && Math.abs(px) < 13)) stop = true;
     if (!stop) for (const o of LM_CARS) { if (o === c || o.L !== c.L || o.d !== c.d) continue; const ds = (o.s - c.s) * c.d; if (ds > 0 && ds < (c.combi || o.combi ? 60 : 46)) { stop = true; break; } }
@@ -517,9 +519,9 @@ function lmCombi(dir, rc) { return spr('lmcombi' + dir + rc, () => { const hz = 
   if (hz) { R(2, 22, 48, 4, 'rgba(0,0,0,0.3)'); R(2, 6, 48, 17, '#f2f2ec'); R(3, 4, 44, 3, '#ffffff'); R(2, 15, 48, 3, st); for (let x = 6; x < 40; x += 8) R(x, 8, 6, 5, '#2a3a4a'); R(42, 8, 7, 7, '#3a5a7a'); R(44, 9, 4, 2, '#ffd040'); g.fillStyle = '#1a1a1e'; g.beginPath(); g.arc(11, 23, 4, 0, 7); g.arc(41, 23, 4, 0, 7); g.fill(); R(49, 17, 2, 3, '#fff4c0'); R(1, 17, 2, 3, '#e83a2a');
     if (dir === 'left') { const [c2, g2] = XC(52, 28); g2.translate(52, 0); g2.scale(-1, 1); g2.drawImage(c, 0, 0); return { c: c2, ax: 26, ay: 25 }; } return { c, ax: 26, ay: 25 }; }
   R(3, 40, 20, 5, 'rgba(0,0,0,0.3)'); R(3, 4, 20, 38, '#f2f2ec'); R(3, 4, 3, 38, st); R(20, 4, 3, 38, st); R(6, dir === 'down' ? 32 : 6, 14, 7, '#3a5a7a'); R(6, 12, 14, 18, '#e8e8e2'); if (dir === 'down') { R(8, 34, 10, 2, '#ffd040'); R(4, 41, 3, 2, '#fff4c0'); R(19, 41, 3, 2, '#fff4c0'); } else { R(4, 3, 3, 2, '#e83a2a'); R(19, 3, 3, 2, '#e83a2a'); } return { c, ax: 13, ay: 43 }; }); }
-DL_HOOKS.push((list, cx, cy) => { const M = G.map; if (!M || !M.lima) return; const night = darkness() > 0.25;
-  for (const c of LM_CARS) { const [x, y] = lmCarXY(c); if (x < cx - 60 || x > cx + VW + 60 || y < cy - 60 || y > cy + VH + 60) continue; const hz = c.L.hz, dir = hz ? (c.d > 0 ? 'right' : 'left') : (c.d > 0 ? 'down' : 'up');
-    list.push({ type: 'xdraw', x, y: y + 6, noShadow: true, draw: (e, a, b) => { if (c.combi) { const S = lmCombi(dir, c.rc); ctx.drawImage(S.c, Math.round(x - S.ax - a), Math.round(y - S.ay - b)); }
+DL_HOOKS.push((list, cx, cy) => { const M = G.map; if (!M || !M.lima || !M.lcars) return; const night = darkness() > 0.25;
+  for (const c of M.lcars) { const [x, y] = lmCarXY(c); if (x < cx - 60 || x > cx + VW + 60 || y < cy - 60 || y > cy + VH + 60) continue; const hz = c.L.hz, dir = hz ? (c.d > 0 ? 'right' : 'left') : (c.d > 0 ? 'down' : 'up');
+    list.push({ type: 'xdraw', x, y: y + 6, noShadow: true, draw: (e, a, b) => { if (c.moto && typeof lmMoto === 'function') { const S = lmMoto(dir, c.rc); ctx.drawImage(S.c, Math.round(x - S.ax - a), Math.round(y - S.ay - b)); } else if (c.combi) { const S = lmCombi(dir, c.rc); ctx.drawImage(S.c, Math.round(x - S.ax - a), Math.round(y - S.ay - b)); }
       else { const col = c.taxi ? '#ffd040' : LM_CCOL[c.col], S = spr('lmcar' + col + dir, () => ({ c: carSprite(col, dir), ax: hz ? 17 : 10, ay: hz ? 16 : 24 })); ctx.drawImage(S.c, Math.round(x - S.ax - a), Math.round(y - S.ay - b)); if (c.taxi) { ctx.fillStyle = '#1a1a1e'; ctx.fillRect(Math.round(x - a - 5), Math.round(y - S.ay - b - 2), 10, 4); ctx.fillStyle = '#ffd040'; ctx.fillRect(Math.round(x - a - 4), Math.round(y - S.ay - b - 1), 8, 2); } }
       if (c.honk && G.t - c.honk < 1.2) { ctx.font = 'bold 8px monospace'; ctx.textAlign = 'center'; ctx.fillStyle = '#fff'; ctx.strokeStyle = '#1a1a1e'; ctx.lineWidth = 2; const t = c.combi ? L2('¡Sube, sube! ¡Larco!', 'Hop on! Larco!') : '¡Piii!'; ctx.strokeText(t, x - a, y - b - 30); ctx.fillText(t, x - a, y - b - 30); } },
       light: night ? { x: x + (hz ? c.d * 22 : 0), y: y + (hz ? -4 : c.d * 20), r: 30, c: 'rgba(255,240,190,0.5)' } : null }); } });
@@ -561,13 +563,13 @@ XACT.lm_gato = [L2('Acariciar al gato', 'Pet the cat'), ['heart'], o => { const 
   if (first && n === M.cats.length) { P.gold += 2000; toast('🐈 ' + L2('¡Acariciaste a todos los gatos del Parque Kennedy! +2.000 de oro', 'You petted every cat in Kennedy Park! +2,000 gold'), 'quest', 4); } markDirty(); }];
 
 // ---------- cielo y mar de la Costa Verde: parapentes, gaviotas, tablistas; Puente Villena ----------
-WORLD_DRAW.push((cx, cy) => { const M = G.map; if (!M || !M.lima) return; const t = G.t;
+WORLD_DRAW.push((cx, cy) => { const M = G.map; if (!M || M.id !== 'lima') return; const t = G.t;
   for (let k = 0; k < 4; k++) { const x = (250 + Math.sin(t * 0.025 + k * 1.7) * 110 + k * 30) * 16, c = lmCoast(Math.round(x / 16)), y = (c + 4 + Math.sin(t * 0.07 + k) * 6) * 16, alt = 90 + Math.sin(t * 0.3 + k * 2) * 10, X = Math.round(x - cx), Y = Math.round(y - cy - alt); if (X < -60 || X > VW + 60 || Y < -60 || Y > VH + 40) continue;
     const col = ['#ff7a1a', '#e83a8a', '#3ab8e8', '#ffd040'][k]; ctx.fillStyle = col; ctx.beginPath(); ctx.ellipse(X, Y, 18, 6, 0, Math.PI, 0); ctx.fill(); ctx.fillStyle = 'rgba(255,255,255,0.5)'; for (let q = -12; q <= 12; q += 6) ctx.fillRect(X + q, Y - 4, 1, 4); ctx.strokeStyle = 'rgba(40,40,40,0.6)'; ctx.lineWidth = 0.5; ctx.beginPath(); ctx.moveTo(X - 16, Y); ctx.lineTo(X, Y + 16); ctx.lineTo(X + 16, Y); ctx.stroke(); ctx.fillStyle = '#2a2a30'; ctx.fillRect(X - 2, Y + 15, 4, 5); ctx.fillStyle = '#e8b890'; ctx.fillRect(X - 1, Y + 13, 3, 2); }
   for (let k = 0; k < 6; k++) { const x = cx + ((t * (14 + k * 3) + k * 160) % (VW + 80)) - 40, y = cy + 20 + k * 22 + Math.sin(t + k) * 6, X = Math.round(x - cx), Y = Math.round(y - cy), wy = lmCoast(Math.round(x / 16)) * 16; if (y < wy) continue; const f = Math.floor(t * 6 + k) % 2; ctx.fillStyle = '#f4f4f4'; ctx.fillRect(X - 3, Y - f, 3, 1); ctx.fillRect(X + 1, Y - f, 3, 1); ctx.fillRect(X, Y, 1, 1); }
   const RV = LM_RAV, x0 = (RV.x0 - 2) * 16 - cx, x1 = (RV.x1 + 3) * 16 - cx, y0 = RV.by0 * 16 - cy, y1 = (RV.by1 + 1) * 16 - cy; if (x1 > 0 && x0 < VW && y1 > -40 && y0 < VH) { ctx.fillStyle = 'rgba(235,245,255,0.38)'; ctx.fillRect(x0, y0 - 26, x1 - x0, 22); ctx.fillStyle = 'rgba(235,245,255,0.12)'; ctx.fillRect(x0, y0 - 4, x1 - x0, y1 - y0 + 4); ctx.fillStyle = 'rgba(255,255,255,0.85)'; ctx.fillRect(x0, y0 - 26, x1 - x0, 2); ctx.fillRect(x0, y0 - 5, x1 - x0, 1);
     for (let x = x0; x <= x1; x += 12) { ctx.fillStyle = 'rgba(255,255,255,0.7)'; ctx.fillRect(x, y0 - 26, 1, 22); ctx.fillStyle = 'rgba(255,255,255,0.35)'; ctx.fillRect(x, y0 - 4, 1, y1 - y0 + 2); } } });
-DL_HOOKS.push((list, cx, cy) => { const M = G.map; if (!M || !M.lima) return; const t = G.t;
+DL_HOOKS.push((list, cx, cy) => { const M = G.map; if (!M || M.id !== 'lima') return; const t = G.t;
   for (let k = 0; k < 9; k++) { const x = (180 + k * 32 + Math.sin(t * 0.05 + k) * 6) * 16, c = lmCoast(Math.round(x / 16)), ride = (t * 0.08 + k * 0.37) % 1, y = (c + 34 - (ride > 0.7 ? (ride - 0.7) * 16 : 0)) * 16, X = x, Y = y + Math.sin(t * 2 + k) * 2; if (X < cx - 30 || X > cx + VW + 30 || Y < cy - 30 || Y > cy + VH + 30) continue;
     list.push({ type: 'xdraw', x: X, y: Y, noShadow: true, draw: (e, a, b) => { const sx = Math.round(X - a), sy = Math.round(Y - b), up = ride > 0.7; ctx.fillStyle = up ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.35)'; ctx.fillRect(sx - 12, sy + 2, 24, up ? 3 : 1); ctx.fillStyle = ['#ff8a3a', '#3ac8e8', '#ffd040', '#ffffff'][k % 4]; ctx.beginPath(); ctx.ellipse(sx, sy, 9, 2.5, 0, 0, 7); ctx.fill();
       ctx.fillStyle = '#1a1a22'; if (up) { ctx.fillRect(sx - 2, sy - 9, 4, 8); ctx.fillRect(sx - 5, sy - 7, 3, 1); ctx.fillRect(sx + 2, sy - 7, 3, 1); } else ctx.fillRect(sx - 3, sy - 3, 6, 3); ctx.fillStyle = '#b07a50'; ctx.fillRect(sx - 1, up ? sy - 12 : sy - 6, 3, 3); } }); } });
@@ -575,14 +577,14 @@ DL_HOOKS.push((list, cx, cy) => { const M = G.map; if (!M || !M.lima) return; co
 { const _mk = makeLima; makeLima = function () { const had = G.maps.lima, M = _mk.apply(this, arguments); if (!had && M) M.drawExtra = (cx, cy) => { const RV = LM_RAV; for (const bx of [RV.x0 + 3, RV.x1 - 3]) { const X = bx * 16 - cx, Y = (RV.by1 + 1) * 16 - cy; if (X < -40 || X > VW + 40 || Y < -60 || Y > VH + 200) continue; ctx.fillStyle = 'rgba(0,0,0,0.22)'; ctx.fillRect(X - 2, Y, 16, 70); ctx.fillStyle = '#a8a298'; ctx.fillRect(X, Y, 12, 64); ctx.fillStyle = '#c4beb2'; ctx.fillRect(X, Y, 3, 64); } }; return M; }; }
 
 // ---------- barrios: cartel al entrar ----------
-let lmZT = 0; V33_TICKS.push(dt => { const M = G.map, P = G.P; if (!M || !M.lima || !P) return; lmZT += dt || 0; if (lmZT < 0.3) return; lmZT = 0; const z = lmZoneAt(P.x, P.y); if (z && z.k !== P._lmZ) { P._lmZ = z.k; banner(z.n, z.s); } });
+let lmZT = 0; V33_TICKS.push(dt => { const M = G.map, P = G.P; if (!M || !M.lima || !P) return; lmZT += dt || 0; if (lmZT < 0.3) return; lmZT = 0; const z = M.zoneAt ? M.zoneAt(P.x, P.y) : lmZoneAt(P.x, P.y); if (z && z.k !== P._lmZ) { P._lmZ = z.k; banner(z.n, z.s); } });
 
 // ---------- parapente sobre la Costa Verde (300 de oro, 24 s, aterriza en la playa; los demás ven la vela) ----------
 let LM_PG = null; const PG_COST = 300, PG_T = 24;
 XACT.lm_parapente = [() => L2('Volar en parapente (', 'Paraglide (') + PG_COST + L2(' de oro)', ' gold)'), 'run', () => { const P = G.P; if (LM_PG) return; if (P.gold < PG_COST) { toast(L2('Te falta oro para el vuelo.', 'Not enough gold for the flight.'), 'warn'); return; }
   P.gold -= PG_COST; sfx('coin'); LM_PG = { t: 0, x0: P.x, y0: P.y, x1: 236 * 16 + 8, y1: (lmCoast(236) + 22) * 16 + 8 }; P.pg = 1; banner('🪂 ' + L2('¡A volar!', 'Take off!'), L2('Costa Verde', 'Costa Verde')); if (typeof stampAdd === 'function') stampAdd('pe_parapente'); markDirty(); }];
 const lmPgPos = u => { const G_ = LM_PG, e = u * u * (3 - 2 * u), x = G_.x0 + (G_.x1 - G_.x0) * e + Math.sin(u * Math.PI * 2) * 200, y = G_.y0 + (G_.y1 - G_.y0) * e + Math.sin(u * Math.PI) * 120; return [x, y, Math.sin(Math.min(1, u * 1.15) * Math.PI) * 80]; };
-{ const _up = updatePlayer; updatePlayer = function (dt) { const r = _up.apply(this, arguments); const P = G.P; if (LM_PG && P) { if (!G.map || !G.map.lima) { LM_PG = null; P.pg = 0; return r; } LM_PG.t += dt; const u = Math.min(1, LM_PG.t / PG_T), [x, y, alt] = lmPgPos(u); P.x = x; P.y = y; P.pgAlt = alt; P.dir = 'down';
+{ const _up = updatePlayer; updatePlayer = function (dt) { const r = _up.apply(this, arguments); const P = G.P; if (LM_PG && P) { if (!G.map || G.map.id !== 'lima') { LM_PG = null; P.pg = 0; return r; } LM_PG.t += dt; const u = Math.min(1, LM_PG.t / PG_T), [x, y, alt] = lmPgPos(u); P.x = x; P.y = y; P.pgAlt = alt; P.dir = 'down';
     if (u >= 1) { LM_PG = null; P.pg = 0; P.pgAlt = 0; banner('🏖 ' + L2('¡Aterrizaje perfecto!', 'Perfect landing!'), 'Costa Verde'); } } return r; }; }
 function lmDrawGlider(x, y, alt, k) { const X = Math.round(x), Y = Math.round(y - alt - 52); ctx.fillStyle = 'rgba(0,0,0,0.18)'; ctx.beginPath(); ctx.ellipse(X, Math.round(y + alt * 0.3), 16, 4, 0, 0, 7); ctx.fill();
   ctx.fillStyle = ['#ff7a1a', '#e83a8a', '#3ab8e8'][k % 3]; ctx.beginPath(); ctx.ellipse(X, Y, 26, 9, 0, Math.PI, 0); ctx.fill(); ctx.fillStyle = 'rgba(255,255,255,0.55)'; for (let q = -18; q <= 18; q += 9) ctx.fillRect(X + q, Y - 7, 2, 7); ctx.strokeStyle = 'rgba(30,30,30,0.6)'; ctx.lineWidth = 0.6; ctx.beginPath(); ctx.moveTo(X - 24, Y); ctx.lineTo(X, Y + 34); ctx.lineTo(X + 24, Y); ctx.stroke(); }
@@ -648,7 +650,7 @@ const PE_IMG = (() => { try { const im = new Image(); im.onload = () => { try { 
 const PE_K = 1, PE_LIMA = [74, 151];   // Lima en la imagen (píxeles de la imagen original)
 const PE_MAPM = { id: 'peru', w: 203 * PE_K, h: 248 * PE_K, objs: [], peru: 1 };
 const LM_GCOL = ['#4a9e36', '#45464c', '#c6c0b6', '#d9cfc2', '#2f7aa0', '#a89e8f', '#7a7a52', '#b8664a', '#36373d', '#7c6e56', '#d8283a', '#b0aa9e', '#a27e5a', '#ebe6dc', '#b4b0a6', '#b88a5c', '#cdb79a', '#5c8a3c'];
-function lmOverview(M) { const K = 3, W = M.w, H = M.h, c = mkCanvas(W * K, H * K), x = c.getContext('2d'), id = x.createImageData(W * K, H * K), d = new Uint32Array(id.data.buffer), pal = LM_GCOL.map(h => C(h));
+function lmOverview(M) { const K = 2, W = M.w, H = M.h, c = mkCanvas(W * K, H * K), x = c.getContext('2d'), id = x.createImageData(W * K, H * K), d = new Uint32Array(id.data.buffer), pal = LM_GCOL.map(h => C(h));
   for (let ty = 0; ty < H; ty++) for (let tx = 0; tx < W; tx++) { const i = ty * W + tx, k = M.lg[i]; let col = pal[k] || pal[0]; if (k === LM_G.SEA && M.ld[i] > 5) col = C('#24618c'); if (k === LM_G.HILL && hash2(tx, ty, 5) < 0.6) col = C(['#e8c868', '#7ab0d8', '#e88a6a', '#f0f0e0', '#9ad08a'][(hash2(tx, ty, 6) * 5) | 0]);
     for (let py = 0; py < K; py++) for (let px = 0; px < K; px++) { const r = hash2(tx * K + px, ty * K + py, 9); let p = col; if (r < 0.08) p = uMul(col, 0.88); else if (r > 0.95) p = uMix(col, C('#ffffff'), 0.14); if (k === LM_G.SEA && M.ld[i] === 0 && py === 0) p = C('#e8f4ff'); d[(ty * K + py) * W * K + tx * K + px] = p; } }
   x.putImageData(id, 0, 0); x.imageSmoothingEnabled = true; const s = K / 16, list = (M.objs || []).filter(o => o && !o.hidden && o.f !== 'lm_vacio' && o.f !== 'lm_reja').sort((a, b) => (a.py || a.ty * 16) - (b.py || b.ty * 16));
@@ -656,7 +658,7 @@ function lmOverview(M) { const K = 3, W = M.w, H = M.h, c = mkCanvas(W * K, H * 
     try { x.drawImage(sp.c, ox * s - (sp.ax || 0) * ss, oy * s - (sp.ay || 0) * ss, sp.c.width * ss, sp.c.height * ss); } catch (e) { } }
   return c; }
 { const _mo = mapOverview; mapOverview = function (M) { if (M && M.peru) { const c = mkCanvas(M.w, M.h), x = c.getContext('2d'); x.fillStyle = '#2a64ac'; x.fillRect(0, 0, M.w, M.h); if (PE_IMG && PE_IMG.complete && PE_IMG.naturalWidth) { x.imageSmoothingEnabled = false; x.drawImage(PE_IMG, 0, 0, M.w, M.h); } return c; }
-  if (M && M.lima) { if (!MAP_OV.lima || MAP_OV.lima.w !== M.w) MAP_OV.lima = { c: lmOverview(M), w: M.w }; return MAP_OV.lima.c; } return _mo.apply(this, arguments); }; }
+  if (M && M.lima) { if (!MAP_OV[M.id] || MAP_OV[M.id].w !== M.w) MAP_OV[M.id] = { c: lmOverview(M), w: M.w }; return MAP_OV[M.id].c; } return _mo.apply(this, arguments); }; }
 MAPC.pesight = [L2('Lugares de Lima', 'Lima landmarks'), 'Lima landmarks', '#ffd04a', 'star']; MAPC.pefood = [L2('Comida peruana', 'Peruvian food'), 'Peruvian food', '#ff9a4a', 'food']; MAPC.peplane = [L2('Aeropuerto (vuelo a Albor)', 'Airport (flight to Albor)'), 'Airport (flight to Albor)', '#9ad8ff', 'mk:airship'];
 MAPC.pefun = [L2('Actividades (parapente, gatos, playa)', 'Activities (paragliding, cats, beach)'), 'Activities', '#ff5ad8', 'note']; MAPC.pecity = [L2('Ciudad (toca para ver su mapa)', 'City (tap to see its map)'), 'City', '#ff4a4a', 'star'];
 const LM_POI = () => [['peplane', LM_Q.term.door, LM_Q.term.y + 3, L2('Aeropuerto Jorge Chávez · vuelo a Albor', 'Jorge Chávez Airport · flight to Albor')], ['pesight', 325, 91, L2('Plaza de Armas y pileta de 1651', 'Main Square and 1651 fountain')], ['pesight', 325, 58, L2('Palacio de Gobierno (cambio de guardia a las 12)', 'Government Palace (changing of the guard at 12)')],
@@ -665,7 +667,7 @@ const LM_POI = () => [['peplane', LM_Q.term.door, LM_Q.term.y + 3, L2('Aeropuert
   ['pesight', 307, 252, L2('Iglesia Virgen Milagrosa', 'Virgen Milagrosa Church')], ['pesight', 206, lmCoast(206) - 8, L2('Parque del Amor', 'Park of Love')], ['pesight', 236, lmCoast(236) - 7, L2('Faro de la Marina', 'Marina Lighthouse')], ['pefun', 190, lmCoast(190) - 4, L2('Parapente (300 de oro)', 'Paragliding (300 gold)')],
   ['pesight', 376, LM_RAV.by0, L2('Puente Villena', 'Villena Bridge')], ['pefun', LM_LARCO.door, lmCoast(LM_LARCO.door) + 3, L2('Larcomar (centro comercial)', 'Larcomar (shopping centre)')], ['pefood', 345, lmCoast(345) + 40, L2('Rosa Náutica (restaurante sobre el mar)', 'Rosa Náutica (restaurant over the sea)')],
   ...LM_STAIRS.map(x => ['pefun', x + 1, lmCoast(x) + 6, L2('Bajada a la playa', 'Stairs down to the beach')]), ['pefun', 300, lmCoast(300) + 23, L2('Playa y tablistas', 'Beach and surfers')]];
-{ const _op = otherPOI; otherPOI = function (M) { const out = _op.apply(this, arguments); if (M && M.peru) return [{ c: 'pecity', x: PE_LIMA[0] * PE_K, y: PE_LIMA[1] * PE_K, t: L2('Lima · toca para ver su mapa', 'Lima · tap to see its map') }]; if (!M || !M.lima) return out;
+{ const _op = otherPOI; otherPOI = function (M) { const out = _op.apply(this, arguments); if (M && M.peru) return [{ c: 'pecity', x: PE_LIMA[0] * PE_K, y: PE_LIMA[1] * PE_K, t: L2('Lima · toca para ver su mapa', 'Lima · tap to see its map') }]; if (!M || M.id !== 'lima') return out;
   for (const [c, x, y, t] of LM_POI()) out.push({ c, x, y, t }); for (const e of G.ents) if (e.type === 'npc' && e.map === 'lima' && /^pe_cart_/.test(e.id)) out.push({ c: 'pefood', x: e.x / 16, y: e.y / 16, t: e.def.n }); return out; }; }
 if (typeof MAPW_LIST !== 'undefined') { MAPW_LIST.push({ id: 'peru', n: L2('Perú', 'Peru'), mk: () => PE_MAPM, how: L2('Avión desde el Aeródromo de Albor (1.000 de oro). Toca Lima para ver su mapa.', 'Plane from Albor Aerodrome (1,000 gold). Tap Lima to see its map.') });
   MAPW_LIST.push({ id: 'lima', n: L2('Lima, Perú', 'Lima, Peru'), mk: () => makeLima(), how: L2('Avión desde el Aeródromo de Albor: billete a Lima por 1.000 de oro.', 'Plane from Albor Aerodrome: ticket to Lima for 1,000 gold.') }); }
@@ -692,8 +694,8 @@ if (typeof GSIS !== 'undefined') GSIS.unshift(['peru', '🇵🇪 ' + L2('Perú: 
   () => G.P && G.P.map === 'lima' ? { loc: [325, 91], t: L2('Plaza de Armas', 'Main Square'), m: 'lima' } : { loc: [SA.term.door, SA.term.y + SA.term.h + 1], t: L2('Aeródromo de Albor', 'Albor Aerodrome'), m: 'world' }]);
 
 // ---------- minimapa de Lima y nombre del barrio junto a la hora ----------
-{ const _dm = drawMinimap; drawMinimap = function () { _dm.apply(this, arguments); const P = G.P, M = G.map; if (!P || !M || !M.lima || P.map !== 'lima') return; const cvs = $('#mm'), x = cvs.getContext('2d'), S = cvs.width, tx = P.x / 16, ty = P.y / 16, ov = mapOverview(M);
-  x.fillStyle = '#24618c'; x.fillRect(0, 0, S, S); x.imageSmoothingEnabled = false; x.drawImage(ov, Math.round(-tx * 3 + S / 2), Math.round(-ty * 3 + S / 2));
-  for (const r of G.remote.values()) { if (r.map !== 'lima') continue; x.fillStyle = PARTY.id && r.pt === PARTY.id ? '#7aff8a' : '#5ae0ff'; x.fillRect(Math.round((r.x / 16 - tx) * 3 + S / 2) - 1, Math.round((r.y / 16 - ty) * 3 + S / 2) - 1, 3, 3); }
+{ const _dm = drawMinimap; drawMinimap = function () { _dm.apply(this, arguments); const P = G.P, M = G.map; if (!P || !M || !M.lima || P.map !== M.id) return; const cvs = $('#mm'), x = cvs.getContext('2d'), S = cvs.width, tx = P.x / 16, ty = P.y / 16, ov = mapOverview(M);
+  x.fillStyle = '#24618c'; x.fillRect(0, 0, S, S); x.imageSmoothingEnabled = false; x.drawImage(ov, Math.round(-tx * 3 + S / 2), Math.round(-ty * 3 + S / 2), ov.width * 1.5, ov.height * 1.5);
+  for (const r of G.remote.values()) { if (r.map !== M.id) continue; x.fillStyle = PARTY.id && r.pt === PARTY.id ? '#7aff8a' : '#5ae0ff'; x.fillRect(Math.round((r.x / 16 - tx) * 3 + S / 2) - 1, Math.round((r.y / 16 - ty) * 3 + S / 2) - 1, 3, 3); }
   x.fillStyle = '#ffffff'; x.fillRect(S / 2 - 2, S / 2 - 2, 4, 4); x.strokeStyle = '#1a1010'; x.strokeRect(S / 2 - 2.5, S / 2 - 2.5, 5, 5); }; }
-{ const _uh = updateHUD; updateHUD = function () { const r = _uh.apply(this, arguments); const P = G.P; if (P && P.map === 'lima') { const z = lmZoneAt(P.x, P.y), el = $('#zone'); if (z && el) { const t = el.textContent.replace(/ · [^·]*$/, ' · ' + z.n); if (t !== el.textContent) el.textContent = t; } } return r; }; }
+{ const _uh = updateHUD; updateHUD = function () { const r = _uh.apply(this, arguments); const P = G.P, M = G.map; if (P && M && M.lima && P.map === M.id) { const z = M.zoneAt ? M.zoneAt(P.x, P.y) : lmZoneAt(P.x, P.y), el = $('#zone'); if (z && el) { const t = el.textContent.replace(/ · [^·]*$/, ' · ' + z.n); if (t !== el.textContent) el.textContent = t; } } return r; }; }

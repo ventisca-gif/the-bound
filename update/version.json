@@ -1,28 +1,28 @@
 {
- "build": 134,
- "ver": "5.13",
+ "build": 135,
+ "ver": "5.14",
  "date": "2026-11-18",
  "file": "thebound.html",
- "size": 22874809,
- "sha256": "4bf7d1b8070be4a3969dfce9e15627d8dfa7936bcdd14faf5173327d13ff266b",
+ "size": 22959233,
+ "sha256": "b3e02c39f5d4dc49d650ba5586e7404ba7629fcc92a74b0d8ad11d3132a6864d",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🇵🇪 ¡Perú! En el Aeródromo de Albor ya se vende el billete a Lima por solo 1.000 de oro (sin nivel mínimo). La vuelta es gratis.",
-   "🗺 Mapa nuevo de Perú (tu imagen) con Lima marcada: tócala y se abre el mapa de la ciudad con todos sus lugares.",
-   "🏛 Lima, el mapa más grande del juego: Plaza de Armas con la pileta de bronce, palmeras, faroles y palomas; Palacio de Gobierno con cambio de guardia a mediodía; Catedral, Palacio Arzobispal, Municipalidad, portales y balcones de madera; Jirón de la Unión, Plaza San Martín, San Francisco, Cerro San Cristóbal y el Rímac.",
-   "🌴 Miraflores: Parque Kennedy con 16 gatos para acariciar, malecón con el Parque del Amor, el faro y el Puente Villena; escaleras a la Costa Verde con playa, tablistas y la Rosa Náutica; parapente sobre el acantilado (300 de oro).",
-   "🛍 Larcomar en el acantilado, con terraza al mar y por dentro: comida peruana, café y helados de lúcuma.",
-   "👥 Unos 120 limeños y limeñas, señoras y señores andinos con bombín y chullo, guardias, escolares, tablistas y carritos de emoliente, anticuchos, picarones, ceviche, helados y chicha. Autos, taxis y combis. Todo visible en el online."
+   "🏙 Lima crece al este: Gamarra, San Borja, Surquillo con su mercado y Surco con el Óvalo Higuereta.",
+   "🚌 Metropolitano: buses articulados por la Vía Expresa. Compra la tarjeta en la estación, sube y viaja por dentro del bus hasta donde quieras.",
+   "🚆 Tren Eléctrico (Línea 1) elevado sobre la Av. Aviación, de Cabitos a Grau y hasta Bayóvar.",
+   "🧱 Lima Norte nueva: Comas, Independencia, Los Olivos, Carabayllo y San Juan de Lurigancho, con casas de ladrillo, cerros con casitas, mototaxis y las letras de COMAS.",
+   "🛒 Supermercados MERCAPLAZA y VERDEMÁS por dentro, Mega Centro, mercados, pollerías, chifas y bodegas con comida nueva.",
+   "🚐 Trabajos: chofer de combi (grita «¡sube, sube!» y cobra el pasaje), mototaxista y cajero. Las monturas ya funcionan en Lima y Japón, y el mapa se ve entero."
   ],
   "en": [
-   "🇵🇪 Peru! Albor Aerodrome now sells tickets to Lima for only 1,000 gold (no minimum level). The flight back is free.",
-   "🗺 New map of Peru (your picture) with Lima marked: tap it to open the city map with all its places.",
-   "🏛 Lima, the largest map in the game: Main Square with the bronze fountain, palms, lamps and pigeons; Government Palace with the changing of the guard at noon; Cathedral, Archbishop's Palace, City Hall, arcades and wooden balconies; Jirón de la Unión, San Martín Square, San Francisco, San Cristóbal Hill and the Rímac.",
-   "🌴 Miraflores: Kennedy Park with 16 cats to pet, the boardwalk with the Park of Love, the lighthouse and Villena Bridge; stairs down to the Costa Verde with beach, surfers and the Rosa Náutica; paragliding over the cliff (300 gold).",
-   "🛍 Larcomar in the cliff, with a sea terrace and an inside: Peruvian food, coffee and lúcuma ice cream.",
-   "👥 About 120 Lima locals, Andean women and men with bowler hats and chullos, guards, schoolkids, surfers and carts selling emoliente, anticuchos, picarones, ceviche, ice cream and chicha. Cars, taxis and minibuses. All visible online."
+   "🏙 Lima grows east: Gamarra, San Borja, Surquillo with its market and Surco with the Higuereta Roundabout.",
+   "🚌 Metropolitano: articulated buses along the Vía Expresa. Buy the card at the station, board and ride inside the bus wherever you want.",
+   "🚆 Electric Train (Line 1) elevated above Aviación Avenue, from Cabitos to Grau and on to Bayóvar.",
+   "🧱 New North Lima: Comas, Independencia, Los Olivos, Carabayllo and San Juan de Lurigancho, with brick houses, hills full of houses, mototaxis and the COMAS letters.",
+   "🛒 MERCAPLAZA and VERDEMÁS supermarkets with interiors, Mega Centro, markets, chicken shops, chifas and corner shops with new food.",
+   "🚐 Jobs: minibus driver (shout «hop on!» and collect fares), mototaxi driver and cashier. Mounts now work in Lima and Japan, and the map shows whole."
   ]
  }
 }

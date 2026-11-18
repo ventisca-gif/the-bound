@@ -1,0 +1,55 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js window.__e=[];window.addEventListener('error',e=>window.__e.push(String(e.message)+' @ '+(e.error&&e.error.stack||'').slice(0,300)));1
+js (G.P.gold=50000, goLima(), 1)
+wait 3000
+js (()=>{ const M=G.map; return [M.w, M.h, M.objs.length, G.ents.filter(e=>e.map==='lima').length, M.lcars.length, M.vxOver]; })()
+js (()=>{ const P=G.P; P.x=258*16+8; P.y=121*16+8; const t=interactTarget(); return t && t.label; })()
+shot
+js (G.P.pe=G.P.pe||{}, G.P.pe.card=500, 1)
+js (G.P.pe=G.P.pe||{}, G.P.pe.card=500, 1)
+js (closeModal(), window.__n=Date.now, (()=>{ const a=lineArrive(LM_LINES.mt,4,Date.now()/1000); if(a.here==null){ const add=a.wait*1000+500; Date.now=()=>window.__n()+add; } return lineArrive(LM_LINES.mt,4,Date.now()/1000); })())
+js (lmBoard('mt', 4), G.P.pe.card)
+wait 2500
+js [G.map.id, !!G.P.ride]
+shot
+js (()=>{ for(let k=0;k<6;k++){ const R=G.P.ride, L=LM_LINES.mt, q=lineState(L,R.v,Date.now()/1000+R.skew); if(q.stop==null) R.skew+=q.left+0.2; else R.skew+=q.left+0.5; } const R=G.P.ride, q=lineState(LM_LINES.mt,R.v,Date.now()/1000+R.skew); return [q.stop, q.p]; })()
+js (()=>{ const R=G.P.ride, L=LM_LINES.mt; let q=lineState(L,R.v,Date.now()/1000+R.skew); let n=0; while(!(q.stop===6) && n++<40){ R.skew+= q.stop==null? q.left+0.2 : q.left+0.2; q=lineState(L,R.v,Date.now()/1000+R.skew);} return q.stop; })()
+js (lmAlight(), 1)
+wait 3000
+js (Date.now=window.__n, [G.map.id, G.P.x>>4, G.P.y>>4, G.ents.filter(e=>e.map==='lima_norte').length])
+shot
+js (()=>{ G.P.x=212*16; G.P.y=100*16; return 1; })()
+wait 2000
+shot
+js (()=>{ const P=G.P; P.x=169*16; P.y=141*16; return interactTarget() && interactTarget().label; })()
+js (lmDriveStart('combi'), [G.P.drv, LM_DRV.st.length])
+js (()=>{ const S=LM_DRV.st[0]; G.P.x=S.x; G.P.y=S.y-20; lmDrvUI(); document.querySelector('#drvSube').click(); document.querySelector('#drvPaga').click(); return [LM_DRV.pax, LM_DRV.cash]; })()
+wait 600
+shot
+js (()=>{ for(const S of LM_DRV.st){ G.P.x=S.x; G.P.y=S.y-20; LM_DRV._h=''; lmDrvEl._h=''; lmDrvUI(); const b=document.querySelector('#drvSube'); if(b && !b.disabled) b.click(); document.querySelector('#drvPaga').click(); lmDrvEl._h=''; lmDrvUI(); document.querySelector('#drvNext').click(); } return [G.P.drv, G.P.gold, G.P.jobs.chofer]; })()
+js (closeModal(), XACT.lm_super[2]({sv:0, px:G.P.x, py:G.P.y}), 1)
+wait 1800
+js [G.map.id]
+shot
+js (()=>{ XACT.lm_caja[2](); return document.querySelector('#modal h2').textContent; })()
+js (closeModal(), exitInterior(), 1)
+wait 1800
+js (()=>{ G.P.mounts=['caballo']; G.P.mount=null; toggleMount(); return [G.map.id, G.P.mount, !!mountOf(G.P)]; })()
+js (goLima(), 1)
+wait 3000
+js (()=>{ G.P.x=600*16; G.P.y=200*16; return [G.P.mount]; })()
+wait 1500
+shot
+js (()=>{ G.P.x=LM_OVAL.cx*16; G.P.y=(LM_OVAL.cy+12)*16; return 1; })()
+wait 1500
+shot
+js (()=>{ G.P.x=510*16; G.P.y=70*16; return 1; })()
+wait 1500
+shot
+js (()=>{ openPanel('map'); MAPW=MAPW_LIST.findIndex(w=>w.id==='lima'); renderPanel(); return 1; })()
+wait 1000
+shot
+js (()=>{ MAPW=MAPW_LIST.findIndex(w=>w.id==='lima_norte'); renderPanel(); return 1; })()
+wait 1000
+shot
+js (window.__e)
