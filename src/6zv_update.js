@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.20', GAME_BUILD = 141;
+const GAME_VER = '5.21', GAME_BUILD = 142;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,27 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.21",
+  "b": 142,
+  "d": "2026-11-18",
+  "es": [
+   "🏜 ¡Trujillo (La Libertad, Perú)! Mapa más grande que Lima: Plaza de Armas con la catedral amarilla y el Monumento a la Libertad, casonas de colores con rejas, Jirón Pizarro, Huanchaco con su muelle y caballitos de totora, Chan Chan, El Golf, Salaverry con su glorieta y puerto, y las dunas del Cerro Carretas.",
+   "🚌 Bus interprovincial (5.000 de oro) desde Lima (La Victoria) y Lima Norte (Plaza Norte): vas sentado y ves el mar y el desierto por la ventana. Trujillo aparece en el mapa de Perú.",
+   "🏂 Oficio de sandboard en las dunas de Salaverry y ⛳ golf de 3 hoyos en El Golf (los dos dan sello cultural).",
+   "🏠 Ya te puedes mudar: casas en Japón, Lima (Miraflores), Ciudad de México, Madrid y Trujillo. Funcionan como tu casa de siempre.",
+   "🎨 Los oficios de los países tienen icono propio (fútbol, baile, carrito, combi, mototaxi, caja, taco, vocho, sandboard) y dicen dónde se trabajan.",
+   "⚔ Habilidades revisadas: Lluvia de Runas (mago) y Tormenta de Plumas (arquero) ahora caen 3 y 4 veces como dicen, y la Lluvia del Fénix concentra sus flechas en el objetivo."
+  ],
+  "en": [
+   "🏜 Trujillo (La Libertad, Peru)! A map bigger than Lima: Main Square with the yellow cathedral and the Liberty Monument, colourful mansions with grilles, Jirón Pizarro, Huanchaco with its pier and reed boats, Chan Chan, El Golf, Salaverry with its gazebo and port, and the Cerro Carretas dunes.",
+   "🚌 Intercity bus (5,000 gold) from Lima (La Victoria) and North Lima (Plaza Norte): you ride seated and see the sea and the desert through the window. Trujillo appears on the Peru map.",
+   "🏂 Sandboarding job on the Salaverry dunes and ⛳ 3-hole golf in El Golf (both give a cultural seal).",
+   "🏠 You can now move: houses in Japan, Lima (Miraflores), Mexico City, Madrid and Trujillo. They work like your usual house.",
+   "🎨 The country jobs have their own icons (football, dance, cart, minibus, mototaxi, till, taco, Beetle, sandboard) and say where they are worked.",
+   "⚔ Skills reviewed: Rune Rain (mage) and Feather Storm (archer) now fall 3 and 4 times as described, and Phoenix Rain focuses its arrows on the target."
+  ]
+ },
  {
   "v": "5.20",
   "b": 141,
