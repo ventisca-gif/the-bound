@@ -1,28 +1,28 @@
 {
- "build": 133,
- "ver": "5.12",
+ "build": 134,
+ "ver": "5.13",
  "date": "2026-11-18",
  "file": "thebound.html",
- "size": 22720366,
- "sha256": "3f2bb49725ca65828f97918ba1e2acf464ce0baab451153ff5f7af7154186a20",
+ "size": 22874809,
+ "sha256": "4bf7d1b8070be4a3969dfce9e15627d8dfa7936bcdd14faf5173327d13ff266b",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🚄 Japón crece: Bahía del Shinkansen al este y al sur con 6 puentes, y dos trenes bala dando la vuelta a toda la isla.",
-   "🚇 13 bocas de metro: baja al andén, espera entre la gente y sube al tren bala (5.000). Dentro paseas por los vagones y te avisa en cada estación.",
-   "🚝 Metro elevado sobre Tokio: ves la ciudad desde arriba y el interior del vagón. ✈ El avión ahora es una cabina con pasajeros y azafatas.",
-   "🏮 Mercadillo nocturno, cometas, cofres en la niebla, Pez de Crecida, animales domesticables, libro de sellos, acuario y jardín zen en casa.",
-   "📦 Oficios: cartero, fotógrafo, florista y restaurante en casa. 👥 Cartas entre jugadores, fiestas en casa, caza del tesoro en grupo y relevos.",
-   "📔 Tres historias de vecinos y el misterio del Cáliz de Arxar. Arreglado: el aviso «Siguiente» ya no tapa la Bitácora."
+   "🇵🇪 ¡Perú! En el Aeródromo de Albor ya se vende el billete a Lima por solo 1.000 de oro (sin nivel mínimo). La vuelta es gratis.",
+   "🗺 Mapa nuevo de Perú (tu imagen) con Lima marcada: tócala y se abre el mapa de la ciudad con todos sus lugares.",
+   "🏛 Lima, el mapa más grande del juego: Plaza de Armas con la pileta de bronce, palmeras, faroles y palomas; Palacio de Gobierno con cambio de guardia a mediodía; Catedral, Palacio Arzobispal, Municipalidad, portales y balcones de madera; Jirón de la Unión, Plaza San Martín, San Francisco, Cerro San Cristóbal y el Rímac.",
+   "🌴 Miraflores: Parque Kennedy con 16 gatos para acariciar, malecón con el Parque del Amor, el faro y el Puente Villena; escaleras a la Costa Verde con playa, tablistas y la Rosa Náutica; parapente sobre el acantilado (300 de oro).",
+   "🛍 Larcomar en el acantilado, con terraza al mar y por dentro: comida peruana, café y helados de lúcuma.",
+   "👥 Unos 120 limeños y limeñas, señoras y señores andinos con bombín y chullo, guardias, escolares, tablistas y carritos de emoliente, anticuchos, picarones, ceviche, helados y chicha. Autos, taxis y combis. Todo visible en el online."
   ],
   "en": [
-   "🚄 Japan grows: Shinkansen Bay to the east and south with 6 bridges, and two bullet trains circling the whole island.",
-   "🚇 13 metro entrances: go down to the platform, wait among the crowd and board the bullet train (5,000). Inside you walk the carriages and it asks at every station.",
-   "🚝 Elevated metro over Tokyo: see the city from above and the inside of the carriage. ✈ The plane is now a cabin with passengers and attendants.",
-   "🏮 Night market, kites, fog chests, Flood Fish, tameable animals, stamp book, aquarium and zen garden at home.",
-   "📦 Jobs: postal worker, photographer, florist and home restaurant. 👥 Player cards, house parties, group treasure hunt and relays.",
-   "📔 Three neighbour stories and the Arxar Chalice mystery. Fixed: the «Next» notice no longer covers the Logbook."
+   "🇵🇪 Peru! Albor Aerodrome now sells tickets to Lima for only 1,000 gold (no minimum level). The flight back is free.",
+   "🗺 New map of Peru (your picture) with Lima marked: tap it to open the city map with all its places.",
+   "🏛 Lima, the largest map in the game: Main Square with the bronze fountain, palms, lamps and pigeons; Government Palace with the changing of the guard at noon; Cathedral, Archbishop's Palace, City Hall, arcades and wooden balconies; Jirón de la Unión, San Martín Square, San Francisco, San Cristóbal Hill and the Rímac.",
+   "🌴 Miraflores: Kennedy Park with 16 cats to pet, the boardwalk with the Park of Love, the lighthouse and Villena Bridge; stairs down to the Costa Verde with beach, surfers and the Rosa Náutica; paragliding over the cliff (300 gold).",
+   "🛍 Larcomar in the cliff, with a sea terrace and an inside: Peruvian food, coffee and lúcuma ice cream.",
+   "👥 About 120 Lima locals, Andean women and men with bowler hats and chullos, guards, schoolkids, surfers and carts selling emoliente, anticuchos, picarones, ceviche, ice cream and chicha. Cars, taxis and minibuses. All visible online."
   ]
  }
 }
