@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.27', GAME_BUILD = 148;
+const GAME_VER = '5.28', GAME_BUILD = 149;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,27 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.28",
+  "b": 149,
+  "d": "2026-11-18",
+  "es": [
+   "🇵🇪 Lima: lustrabotas en la Plaza de Armas (frota con el joystick y pule a tiempo), muralista de Barranco (pinta la pared copiando el boceto), cevichero (cortes al punto y limones exprimidos), cobrador de combi (¡sube, sube! y cobra antes de que se bajen) y lonja de Chorrillos (sube las cajas y subasta). Además, el Puente de los Suspiros: crúzalo sin pararte y pide un deseo.",
+   "🏜 Trujillo: restaurador de la Huaca de la Luna (quieto para limpiar, apártate si cruje), chalán de caballo de paso (conos y paso llano), corso de la primavera (flores desde el carro), pesca con red en caballito de totora y gruista del puerto de Salaverry.",
+   "🇲🇽 México: clavadista de La Quebrada (escala, salta con la ola y haz piruetas), juego de pelota maya (cadera y aro de piedra), voladores de Papantla (gira el joystick con la cuerda), mariachi en Garibaldi (balcón correcto, ¡ajúa! y monedas) y platero de Taxco (martilla la plata caliente).",
+   "🇪🇸 España: castells en Barcelona (equilibra la torre humana), paella gigante en Valencia (ingredientes en orden y despega lo que se pega), vareo de aceitunas en Andalucía, farolero de la Feria de Abril (enciende farolillos y esquiva coches de caballos) y pastor trashumante en Extremadura (lleva el rebaño al corral con tu perro).",
+   "💪 Los 20 son oficios: oro, experiencia de oficio ×3 y ventajas pequeñas que suman (+0,1 % de daño, +0,2 % de defensa, vida, crítico, esquiva o velocidad).",
+   "🗺 Todo se juega en el mapa, sin ventanas; cada puesto sale en su mapa (Trabajos) y en la Lupa › Sistemas hay una guía por país con flecha. Los demás jugadores ven a qué trabajas."
+  ],
+  "en": [
+   "🇵🇪 Lima: shoeshiner in the Plaza de Armas (rub with the joystick and polish on time), Barranco muralist (paint the wall copying the sketch), ceviche cook (precise cuts and squeezed limes), combi fare collector (get on, get on! and charge before they get off) and the Chorrillos fish market (carry the crates and auction them). Plus the Bridge of Sighs: cross it without stopping and make a wish.",
+   "🏜 Trujillo: Huaca de la Luna restorer (keep still to clean, step away if it creaks), Paso horse rider (cones and smooth gait), spring parade (flowers from the float), reed-boat net fishing and Salaverry port crane operator.",
+   "🇲🇽 Mexico: La Quebrada cliff diver (climb, jump with the wave and spin), Maya ballgame (hip and stone ring), Papantla flyers (spin the joystick with the rope), Garibaldi mariachi (right balcony, ajúa! and coins) and Taxco silversmith (hammer the hot silver).",
+   "🇪🇸 Spain: castells in Barcelona (balance the human tower), giant paella in Valencia (ingredients in order and loosen what sticks), olive harvest in Andalusia, April Fair lamplighter (light lanterns and dodge horse carriages) and transhumant shepherd in Extremadura (take the flock to the pen with your dog).",
+   "💪 All 20 are jobs: gold, ×3 job experience and small stacking perks (+0.1% damage, +0.2% defense, HP, crit, dodge or speed).",
+   "🗺 Everything is played on the map, no windows; each stall shows on its map (Jobs) and Magnifier › Systems has a guide per country with an arrow. Other players see what job you are doing."
+  ]
+ },
  {
   "v": "5.27",
   "b": 148,
