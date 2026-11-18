@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.25 · Trabajos en el mapa</div>
+  <div class="tfoot">v5.26 · Plaza sin lag</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11794,7 +11794,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.25', GAME_BUILD = 146;
+const GAME_VER = '5.26', GAME_BUILD = 147;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11802,6 +11802,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.26",
+  "b": 147,
+  "d": "2026-11-18",
+  "es": [
+   "⚡ Arreglado el lag de la Plaza de Armas: el suelo de los escenarios de baile se volvía a dibujar cada vez más veces por fotograma (miles por segundo a los pocos minutos). Pasaba también en Guadalajara y Sevilla.",
+   "⚡ Multitudes: con muchos personajes en pantalla, el modo HD ya no borra y vuelve a crear sus dibujos sin parar; los que no caben se dibujan en calidad normal.",
+   "📈 En un celular lento la Plaza pasa de ~11–16 fps a ~23–28 fps y ya no empeora con el tiempo."
+  ],
+  "en": [
+   "⚡ Fixed lag at Lima's Plaza de Armas: the dance stage floor was being redrawn more and more times per frame (thousands per second after a few minutes). It also happened in Guadalajara and Seville.",
+   "⚡ Crowds: with many characters on screen, HD mode no longer deletes and rebuilds their drawings non-stop; the ones that don't fit are drawn in normal quality.",
+   "📈 On a slow phone the Plaza goes from ~11–16 fps to ~23–28 fps and no longer gets worse over time."
+  ]
+ },
  {
   "v": "5.25",
   "b": 146,
@@ -15243,7 +15258,11 @@ function optGC(force) {
   return n;
 }
 // límite de dibujos HD más bajo en celulares con poca memoria (cada uno puede ocupar varios MB)
-{ const _he = hdEnsure; hdEnsure = function (A, col, row, force) { const r = _he(A, col, row, force); const lim = OPT_LOWMEM ? 14 : 26;
+// 5.26: si todos los dibujos HD se usaron hace poco (multitudes como la Plaza de Armas), el personaje nuevo se dibuja normal
+// en vez de borrar uno visible: así no se regeneran HD en bucle cada fotograma.
+{ const _he = hdEnsure; hdEnsure = function (A, col, row, force) { const lim = OPT_LOWMEM ? 14 : 26;
+  if (!A.hd && !force && A.hdL && HD_LIVE.length >= lim) { let old = 1e15; for (const o of HD_LIVE) old = Math.min(old, o.hdT || 0); if (G.t - old < 2) return false; }
+  const r = _he(A, col, row, force);
   while (HD_LIVE.length > lim) { let k = 0; for (let j = 1; j < HD_LIVE.length; j++) if ((HD_LIVE[j].hdT || 0) < (HD_LIVE[k].hdT || 0)) k = j; const o = HD_LIVE.splice(k, 1)[0]; if (o === A) { HD_LIVE.push(o); break; } o.hd = null; o.hdX = null; o.hdDone = null; }
   return r; }; }
 V33_TICKS.push(dt => { OPT_GCT += dt; if (OPT_GCT > 25) { OPT_GCT = 0; optGC(false); } });
@@ -33875,7 +33894,8 @@ WORLD_DRAW.push((cx, cy) => { const M = G.map; for (const S of FS_STG[M.id] || [
   ctx.strokeStyle = '#3a2a1a'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x0, y0); ctx.quadraticCurveTo(x0 + w / 2, y0 + 8, x0 + w, y0); ctx.stroke();
   const cs = S.k === 'tablao' ? ['#c81e2a', '#ffffff', '#1a1a1e'] : S.k === 'marinera' ? ['#ffffff', '#d8202a'] : ['#ff4a8a', '#ffd040', '#4ad06a', '#4aa8ff', '#ff8a2a', '#b06aff'];
   for (let k = 0; k * 10 < w; k++) { const t = (k * 10 + 5) / w, yy = y0 + 8 * 4 * t * (1 - t) + Math.sin(G.t * 2 + k) * 0.8; ctx.fillStyle = cs[k % cs.length]; ctx.fillRect(Math.round(x0 + k * 10 + 1), Math.round(yy), 8, 7); ctx.fillStyle = 'rgba(0,0,0,0.25)'; ctx.fillRect(Math.round(x0 + k * 10 + 3), Math.round(yy + 2), 2, 2); } } });
-V33_TICKS.push(() => { const M = G.map; if (!M || !FS_STG[M.id] || (M.drawExtra && M.drawExtra.fs)) return; const prev = M.drawExtra, f = (cx, cy) => { if (prev) prev(cx, cy); fsGround(M, cx, cy); }; f.fs = 1; M.drawExtra = f; });
+// 5.26: se envuelve una sola vez por mapa (antes otro gancho lo re-envolvía cada fotograma y el suelo se dibujaba miles de veces: lag creciente)
+V33_TICKS.push(() => { const M = G.map; if (!M || !FS_STG[M.id] || M._fsw) return; M._fsw = 1; const prev = M.drawExtra, f = (cx, cy) => { if (prev) prev(cx, cy); fsGround(M, cx, cy); }; f.fs = 1; M.drawExtra = f; if (M._bde && M._bde === prev) M._bde = f; });
 function fsStage(M, cx, cy, w, h, k) { const S = { x0: cx - (w >> 1), y0: cy - (h >> 1), x1: cx - (w >> 1) + w - 1, y1: cy - (h >> 1) + h - 1, k }; (FS_STG[M.id] = FS_STG[M.id] || []).push(S); return S; }
 const fsPoi = (M, c, x, y, t) => (FS_POI[M.id] = FS_POI[M.id] || []).push({ c, x, y, t });
 { const _op = otherPOI; otherPOI = function (M) { const out = _op.apply(this, arguments); if (M && FS_POI[M.id]) for (const q of FS_POI[M.id]) out.push(Object.assign({}, q)); return out; }; }

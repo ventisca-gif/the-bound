@@ -1,26 +1,22 @@
 {
- "build": 146,
- "ver": "5.25",
+ "build": 147,
+ "ver": "5.26",
  "date": "2026-11-18",
  "file": "thebound.html",
- "size": 23540307,
- "sha256": "a2afbeeb92ae78dfafa94d9485a52a5221504b72a5dc9bac6b6774c4eef39d7b",
+ "size": 23541919,
+ "sha256": "b1eb6f8c3720a1f16276011607821042e4b4c49a27bc1e9621012cc01b313f95",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🌮 Taquero en el mapa: plancha con 5 estaciones de relleno y un «con todo». Los clientes llegan con su pedido en un globo; toma el relleno con ⚔ y entrégalo antes de que se cansen.",
-   "💳 Cajero en el mapa: los productos pasan por la cinta y los escaneas con ⚔ en el lector; luego te pones en la bandeja con el vuelto correcto.",
-   "🍅 Tomatina en la calle de Valencia: la gente corre, les lanzas tomates con ⚔ y te los tiran de vuelta. La calle se va manchando de rojo.",
-   "⛳ Golf en el campo de El Golf: apunta, mide la fuerza y la bola rueda de verdad; los búnkeres la frenan y si sale del campo es +1 golpe.",
-   "🎴 La lotería y la piñata siguen en su ventana."
+   "⚡ Arreglado el lag de la Plaza de Armas: el suelo de los escenarios de baile se volvía a dibujar cada vez más veces por fotograma (miles por segundo a los pocos minutos). Pasaba también en Guadalajara y Sevilla.",
+   "⚡ Multitudes: con muchos personajes en pantalla, el modo HD ya no borra y vuelve a crear sus dibujos sin parar; los que no caben se dibujan en calidad normal.",
+   "📈 En un celular lento la Plaza pasa de ~11–16 fps a ~23–28 fps y ya no empeora con el tiempo."
   ],
   "en": [
-   "🌮 Taco cook on the map: a grill with 5 filling stations and a «with everything». Customers arrive with their order in a bubble; grab the filling with ⚔ and hand it over before they get tired.",
-   "💳 Cashier on the map: items move along the belt and you scan them with ⚔ at the scanner; then stand on the tray with the right change.",
-   "🍅 La Tomatina on a Valencia street: people run around, you throw tomatoes with ⚔ and they throw them back. The street turns red.",
-   "⛳ Golf on the El Golf course: aim, judge the power and the ball really rolls; bunkers slow it down and going out of bounds is +1 stroke.",
-   "🎴 Lotería and piñata stay in their window."
+   "⚡ Fixed lag at Lima's Plaza de Armas: the dance stage floor was being redrawn more and more times per frame (thousands per second after a few minutes). It also happened in Guadalajara and Seville.",
+   "⚡ Crowds: with many characters on screen, HD mode no longer deletes and rebuilds their drawings non-stop; the ones that don't fit are drawn in normal quality.",
+   "📈 On a slow phone the Plaza goes from ~11–16 fps to ~23–28 fps and no longer gets worse over time."
   ]
  }
 }
