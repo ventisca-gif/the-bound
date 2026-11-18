@@ -1,28 +1,24 @@
 {
- "build": 142,
- "ver": "5.21",
+ "build": 143,
+ "ver": "5.22",
  "date": "2026-11-18",
  "file": "thebound.html",
- "size": 23394532,
- "sha256": "174432a57ce88c987c258a4a93659c4ae7d83ba658eb1f0b60c64d836a67cc54",
+ "size": 23402834,
+ "sha256": "240df435bd64e40939740f7c31ede1a7523305c68007a5a70d6aeb6c6a726629",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🏜 ¡Trujillo (La Libertad, Perú)! Mapa más grande que Lima: Plaza de Armas con la catedral amarilla y el Monumento a la Libertad, casonas de colores con rejas, Jirón Pizarro, Huanchaco con su muelle y caballitos de totora, Chan Chan, El Golf, Salaverry con su glorieta y puerto, y las dunas del Cerro Carretas.",
-   "🚌 Bus interprovincial (5.000 de oro) desde Lima (La Victoria) y Lima Norte (Plaza Norte): vas sentado y ves el mar y el desierto por la ventana. Trujillo aparece en el mapa de Perú.",
-   "🏂 Oficio de sandboard en las dunas de Salaverry y ⛳ golf de 3 hoyos en El Golf (los dos dan sello cultural).",
-   "🏠 Ya te puedes mudar: casas en Japón, Lima (Miraflores), Ciudad de México, Madrid y Trujillo. Funcionan como tu casa de siempre.",
-   "🎨 Los oficios de los países tienen icono propio (fútbol, baile, carrito, combi, mototaxi, caja, taco, vocho, sandboard) y dicen dónde se trabajan.",
-   "⚔ Habilidades revisadas: Lluvia de Runas (mago) y Tormenta de Plumas (arquero) ahora caen 3 y 4 veces como dicen, y la Lluvia del Fénix concentra sus flechas en el objetivo."
+   "🚌 El bus interprovincial tiene icono propio en el mapa (ya no es el del Metropolitano) y un cartel grande «BUS A TRUJILLO» en La Victoria (Lima) y en Plaza Norte (Lima Norte), y «BUS A LIMA» en Trujillo.",
+   "➜ En el mapa, toca cualquier lugar de la lista y la flecha dorada te lleva hasta él.",
+   "🏠 Si vives en otro país (tienes casa en Japón, Lima, México, España o Trujillo) y sales del juego allí, al volver apareces en tu casa de ese país.",
+   "🚇 La trinchera del Metropolitano ya no se puede pisar: ni tú ni los vecinos. Se cruza por los puentes."
   ],
   "en": [
-   "🏜 Trujillo (La Libertad, Peru)! A map bigger than Lima: Main Square with the yellow cathedral and the Liberty Monument, colourful mansions with grilles, Jirón Pizarro, Huanchaco with its pier and reed boats, Chan Chan, El Golf, Salaverry with its gazebo and port, and the Cerro Carretas dunes.",
-   "🚌 Intercity bus (5,000 gold) from Lima (La Victoria) and North Lima (Plaza Norte): you ride seated and see the sea and the desert through the window. Trujillo appears on the Peru map.",
-   "🏂 Sandboarding job on the Salaverry dunes and ⛳ 3-hole golf in El Golf (both give a cultural seal).",
-   "🏠 You can now move: houses in Japan, Lima (Miraflores), Mexico City, Madrid and Trujillo. They work like your usual house.",
-   "🎨 The country jobs have their own icons (football, dance, cart, minibus, mototaxi, till, taco, Beetle, sandboard) and say where they are worked.",
-   "⚔ Skills reviewed: Rune Rain (mage) and Feather Storm (archer) now fall 3 and 4 times as described, and Phoenix Rain focuses its arrows on the target."
+   "🚌 The intercity bus has its own map icon (no longer the Metropolitano one) and a big «BUS TO TRUJILLO» sign in La Victoria (Lima) and Plaza Norte (North Lima), and «BUS TO LIMA» in Trujillo.",
+   "➜ On the map, tap any place in the list and the golden arrow takes you there.",
+   "🏠 If you live in another country (you own a house in Japan, Lima, Mexico, Spain or Trujillo) and quit the game there, you come back at your house in that country.",
+   "🚇 The Metropolitano trench can no longer be walked on, by you or by locals. Cross it over the bridges."
   ]
  }
 }
