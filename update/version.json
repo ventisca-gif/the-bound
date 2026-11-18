@@ -1,22 +1,24 @@
 {
- "build": 147,
- "ver": "5.26",
+ "build": 148,
+ "ver": "5.27",
  "date": "2026-11-18",
  "file": "thebound.html",
- "size": 23541919,
- "sha256": "b1eb6f8c3720a1f16276011607821042e4b4c49a27bc1e9621012cc01b313f95",
+ "size": 23545852,
+ "sha256": "b4b3fab1617255206388c6052e4f8c3eaada1464ff850706361c68c8c13f14ad",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "⚡ Arreglado el lag de la Plaza de Armas: el suelo de los escenarios de baile se volvía a dibujar cada vez más veces por fotograma (miles por segundo a los pocos minutos). Pasaba también en Guadalajara y Sevilla.",
-   "⚡ Multitudes: con muchos personajes en pantalla, el modo HD ya no borra y vuelve a crear sus dibujos sin parar; los que no caben se dibujan en calidad normal.",
-   "📈 En un celular lento la Plaza pasa de ~11–16 fps a ~23–28 fps y ya no empeora con el tiempo."
+   "🚶 Sin tirones al caminar entre la gente de Lima y los países: el limpiador de memoria borraba los dibujos de los peatones que seguían en pantalla y se volvían a crear cada pocos segundos. Ahora además se preparan al entrar al país.",
+   "🕯️ Procesión de la Plaza de Armas: los devotos ya no llenan la pantalla de carteles; su nombre sale al acercarte.",
+   "🏷️ Entre la multitud, los nombres de los NPCs cercanos ya no se montan unos sobre otros.",
+   "📈 Medido en un celular lento simulado tras 1 minuto en la Plaza de Armas: unas 45 imágenes por segundo (eran ~15 antes de la 5.26)."
   ],
   "en": [
-   "⚡ Fixed lag at Lima's Plaza de Armas: the dance stage floor was being redrawn more and more times per frame (thousands per second after a few minutes). It also happened in Guadalajara and Seville.",
-   "⚡ Crowds: with many characters on screen, HD mode no longer deletes and rebuilds their drawings non-stop; the ones that don't fit are drawn in normal quality.",
-   "📈 On a slow phone the Plaza goes from ~11–16 fps to ~23–28 fps and no longer gets worse over time."
+   "🚶 No more stutter walking through crowds in Lima and the countries: the memory cleaner was deleting pedestrian sprites still on screen and they were rebuilt every few seconds. They are now also prepared when you enter the country.",
+   "🕯️ Plaza de Armas procession: the devotees no longer fill the screen with name tags; their name shows when you get close.",
+   "🏷️ In crowds, nearby NPC names no longer pile on top of each other.",
+   "📈 Measured on a simulated slow phone after 1 minute in the Plaza de Armas: about 45 frames per second (it was ~15 before 5.26)."
   ]
  }
 }

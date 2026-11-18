@@ -318,3 +318,10 @@ Ado (`jp_ado`) usa los dos diseños aprobados extraídos de `tools/dev/ado_ref`:
 - Causa: el tick de `src/6zz9zzv_fiestas.js` envolvía `M.drawExtra` buscando `.fs` y `bldHookMap` lo re-envolvía (busca `M._bde`): ping-pong que añadía una capa por fotograma → `fsGround` miles de veces/seg (Lima, México, España). Ahora se envuelve una vez (`M._fsw`) y se actualiza `M._bde`.
 - `src/6zyi_optimo.js`: si los 26 (14 poca memoria) dibujos HD se usaron en los últimos 2 s, el personaje nuevo va sin HD en vez de expulsar uno visible.
 - Regla: al envolver `M.drawExtra` desde un tick, marca el mapa (no la función) para no re-envolver.
+
+## 5.27 · Más rendimiento en Lima (sigue a la 5.26, hecha en paralelo en otro chat)
+- Medido con CPU ×6 (Playwright + `Emulation.setCPUThrottlingRate`, 900×405) tras 1 minuto en la Plaza de Armas: 5.25 = 14,7 FPS y 40 ms de dibujo; con 5.26 + 5.27 = ~45 FPS y 5,4 ms.
+- `src/6zz9zzzzz_v527.js`: `atlasBlit` marca `A.lu`; `optGC` no borra atlas dibujados en los últimos 45 s (antes borraba los de peatones `xwAtlas`, gente del aeropuerto y fans, que no están en `G.ents`, y se redibujaban cada pocos segundos: ~12 ms cada uno, ~70 ms en celular lento). `setMap` prepara todos los atlas de peatones (`M.lima`) durante la transición. Devotos de la procesión (`PROC.ents`) con `noTag`.
+- `src/51_entities.js`: `lblNearNpc()` — solo el NPC más cercano (<40 px) se salta el control de nombres encimados (antes todos los de <40 px).
+- Comprobado 90 s en Lima: `V33_TICKS`, `WORLD_DRAW`, `DL_HOOKS`, `ATL`, `HD_LIVE` y la memoria no crecen.
+
