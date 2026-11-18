@@ -1,0 +1,61 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js window.__e=[];window.addEventListener('error',e=>window.__e.push(String(e.message)+' @ '+(e.error&&e.error.stack||'').slice(0,400)));1
+js (G.P.gold=5000, XACT.ae_entrar[2]({px:SA.term.door*16+8, py:(SA.term.y+SA.term.h)*16}), 1)
+wait 1500
+js [G.map.id, G.map.aeIn]
+js (()=>{ const n=G.ents.find(e=>e.id==='ae_taquilla'&&e.map===G.map.id); openDialog(n); return [...document.querySelectorAll('#dopts button, #dialog button')].map(b=>b.textContent).slice(0,6); })()
+shot
+js (()=>{ const b=[...document.querySelectorAll('#dialog button')].find(b=>/Perú|Peru/.test(b.textContent)); b.click(); return [G.P.aeTk, G.P.gold]; })()
+wait 800
+js (closeDialog(), window.__n=Date.now, (()=>{ const w=aeBoarding(); if(!w.open){ const add=(w.wait+1)*1000; Date.now=()=>window.__n()+add; } return aeBoarding(); })())
+js (XACT.ae_embarcar[2]({}), 1)
+wait 2500
+js [G.map.id, G.P.plane]
+js (planeArrive(), 1)
+wait 2500
+js [G.map.id, G.P.map, G.P.inside, G.P.x|0, G.P.y|0, G.P.retX|0]
+shot
+js (Date.now=window.__n, 1)
+js (()=>{ const P=G.P; P.x=LM_LARCO.door*16+8; P.y=(lmCoast(LM_LARCO.door)+3)*16; P.dir='up'; const t=interactTarget(); return t && t.label; })()
+js (XACT.lm_larcomar[2]({}), 1)
+wait 1800
+js [G.map.id, G.ents.filter(e=>e.map===G.map.id).length]
+js (()=>{ const P=G.P; P.x=20*16; P.y=12*16; G.time=18*60; return 1; })()
+wait 1200
+shot
+js (()=>{ const n=G.ents.find(e=>e.id==='pe_larco_comida'); openDialog(n); const b=[...document.querySelectorAll('#dialog button')].find(b=>/Ceviche/.test(b.textContent)); const g0=G.P.gold; b && b.click(); return [!!b, g0-G.P.gold, countItem('pl_ceviche')]; })()
+js (closeDialog(), exitInterior(), 1)
+wait 1800
+js [G.map.id, G.P.x|0, G.P.y|0]
+js (()=>{ const P=G.P, c=lmCoast(190); P.x=190*16+8; P.y=(c-3)*16+8; G.time=12*60; return interactTarget() && interactTarget().label; })()
+js (XACT.lm_parapente[2]({}), [G.P.pg, G.P.gold])
+wait 6000
+shot
+js [G.P.pg, G.P.x|0, G.P.y|0]
+wait 20000
+js [G.P.pg, Math.round(G.P.x/16), Math.round(G.P.y/16), lmD(Math.round(G.P.x/16), Math.round(G.P.y/16))]
+shot
+js (()=>{ const M=G.map, o=M.objs.find(o=>o.xact==='lm_gato'); XACT.lm_gato[2](o); return [G.P.pe.cats]; })()
+js (()=>{ G.time=12*60; G.P.x=325*16; G.P.y=67*16; return lmGuardOn(); })()
+wait 2000
+shot
+js (()=>{ openPanel('map'); return MAPW_LIST[MAPW].id; })()
+wait 800
+shot
+js (()=>{ MAPW=MAPW_LIST.findIndex(w=>w.id==='peru'); renderPanel(); return 1; })()
+wait 800
+shot
+js (()=>{ $('#peGoLima').click(); return MAPW_LIST[MAPW].id; })()
+wait 800
+js (closePanel ? closePanel() : 0, 1)
+js (()=>{ const P=G.P; P.x=LM_Q.term.door*16+8; P.y=(LM_Q.term.y+LM_Q.term.h+1)*16; XACT.lm_aeropuerto[2]({px:P.x, py:P.y}); return 1; })()
+wait 1500
+js [G.map.id, G.map.aeIn]
+js (()=>{ const n=G.ents.find(e=>e.id==='pe_taquilla'&&e.map===G.map.id); openDialog(n); const b=[...document.querySelectorAll('#dialog button')].find(b=>/Albor/.test(b.textContent)); b.click(); return G.P.aeTk; })()
+js (closeDialog(), window.__n=Date.now, (()=>{ const w=aeBoarding(); if(!w.open){ const add=(w.wait+1)*1000; Date.now=()=>window.__n()+add; } return aeBoarding(); })())
+js (XACT.ae_embarcar[2]({}), 1)
+wait 2500
+js (planeArrive(), 1)
+wait 2500
+js (Date.now=window.__n, [G.map.id, G.P.inside])
+js (window.__e)
