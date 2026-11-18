@@ -2,7 +2,7 @@
 
 > Resumen corto para pasar a otra cuenta de Claude: `docs/MEMORIA_CLAUDE.md`.
 
-Versión actual: **5.13 (build 134)** · Perú: Lima; anterior **5.12 (build 133)** · trenes de Japón, avión caminable y 17 ideas; anterior **5.11 (build 132)** · Bitácora, logros y juegos; anterior **5.10 (build 131)** · misiones separadas por tipo; anterior **5.09 (build 130)** · Peinado Ado nativo; anterior **5.08 (build 129)** · Ado en Japón publicada; anterior **5.07 (build 128)**, mapas bonitos en los 11 mundos, ventanas que no vuelven arriba y fans de idol; antes 5.06, mapa deslizable hasta los bordes y Lupa con lo nuevo; antes 5.05, ropa de oficio con formas propias; antes 5.04, oficios con desbloqueos cada 5 niveles, Gremio de Oficios, granja, tienda, museo, caravanas, mercado entre jugadores e historia de las idols, publicada en el actualizador interno.
+Versión actual: **5.14 (build 135)** · Metropolitano, Tren Eléctrico y Lima Norte; anterior **5.13 (build 134)** · Perú: Lima; anterior **5.12 (build 133)** · trenes de Japón, avión caminable y 17 ideas; anterior **5.11 (build 132)** · Bitácora, logros y juegos; anterior **5.10 (build 131)** · misiones separadas por tipo; anterior **5.09 (build 130)** · Peinado Ado nativo; anterior **5.08 (build 129)** · Ado en Japón publicada; anterior **5.07 (build 128)**, mapas bonitos en los 11 mundos, ventanas que no vuelven arriba y fans de idol; antes 5.06, mapa deslizable hasta los bordes y Lupa con lo nuevo; antes 5.05, ropa de oficio con formas propias; antes 5.04, oficios con desbloqueos cada 5 niveles, Gremio de Oficios, granja, tienda, museo, caravanas, mercado entre jugadores e historia de las idols, publicada en el actualizador interno.
 
 ## Cómo trabajar (lo que Sergio pidió)
 
@@ -232,3 +232,19 @@ Ado (`jp_ado`) usa los dos diseños aprobados extraídos de `tools/dev/ado_ref`:
   - Mapas: `MAPW_LIST` + `peru` (objeto falso `PE_MAPM`, `M.peru`; tocar Lima o el botón «Ver el mapa de Lima» abre `lima`) y `lima` (`lmOverview` a 3 px por casilla con miniaturas, `LM_POI`, `LM_LABELS`, `MAPC.pesight/pefood/peplane/pefun/pecity`). Minimapa y nombre del barrio junto a la hora en Lima.
   - Lupa › Sistemas `peru` (arriba), sellos `m_lima`, `pe_larcomar`, `pe_parapente`; `SAVEKEYS` `pe`. Lore en `docs/LORE.md` §19.
 - Pruebas: `tests/v513.txt` (billete, vuelo, Larcomar, compra, parapente, gatos, guardia, mapas, vuelta) y `tests/v513_rtc.py` (dos jugadores en Lima, parapente y Larcomar).
+
+## 5.14 · Lima crece: Metropolitano, Tren Eléctrico y Lima Norte (Sergio mandó fotos del Metropolitano, Plaza Vea y Comas)
+- `src/6zz9zzj_peru.js`: `LM_W` 720 (este nuevo), `LM_VR` con 490…706, enganches `lmGround2`/`lmBuild2`, vehículos por mapa (`M.lcars`, `M.llanes`, `M.HR`/`M.VR`, `c.moto`), lo propio de Lima centro comprueba `M.id === 'lima'` (parapentes, tablistas, puente, POI), `M.zoneAt` para otros mapas, panorámica a 2 px por casilla por mapa (`MAP_OV[M.id]`).
+- `src/6zt_v39.js`: el mapa de otros mundos se puede reducir (escala mínima 0,3) para verlo entero.
+- `src/6zz9zzk_lima2.js`:
+  - Suelo nuevo `LM_G2` (TRENCH 18 con columna en `M.lm & 15` y andén `& 16`, DIRT 19, ARID 20) pintado por envoltura de `lmPaint` (`lmPaint2`).
+  - Lima este: zonas (`LM_ZONES.unshift`: Vía Expresa, Óvalo Higuereta `LM_OVAL`, Gamarra, San Borja, Surquillo, Surco), trinchera `VX` con puentes (`M.vxOver`), Av. Aviación `LM_AVIA`, mercado de Surquillo, parque de San Borja, Gamarra.
+  - Edificios nuevos por envoltura de `lmBld` (`LM_BLD2`: gama, super, mega, mercado, pollo, chifa, bodega, ladrillo). Supermercados con nombre propio (`PE_SUPER`: MERCAPLAZA rojo, VERDEMÁS verde; MEGA CENTRO): no se usan las marcas reales.
+  - Líneas `LM_LINES` (mt: 8 estaciones de Plaza de Flores a Chimpu Ocllo; tren: 6 de Cabitos a Bayóvar). Reloj real `lineState(L, v, now)` (ida y vuelta, `seg`/`dwell`, `nv` vehículos), posición en cada mapa `linePosY`/`lineX`. Buses en la trinchera y autos de la Vía Expresa en `lmTrenchDraw` (M.drawExtra), viaducto con columnas (DL_HOOKS), tablero, estaciones y trenes en WORLD_DRAW (`VIA_LIFT`).
+  - Subir: XACT `lm_est` (`line`, `si`), tarjeta `P.pe.card` (100 de oro, recargas; mt 25, tren 20), interior `makeRideIn` (`mt_bus_in`/`tren_in`, `M.rideIn`, LED con la próxima estación), `P.ride` {lk, v, skew}, panel `#lmRide` (bajar / siguiente parada), `lmAlight` deja en la calle de la estación (Lima o Lima Norte).
+  - Lima Norte `makeLimaNorte` (380×280, `LN_*`, `M.lima = 1`, `M.npre = 'pn_'`): cerros áridos con casitas, avenida con berma de tierra, trinchera del ramal norte, viaducto hasta Bayóvar, plaza de Comas con letras (`ln_comas`, `ln_arco`), manzanas de ladrillo, mercado, MERCAPLAZA, VERDEMÁS, MEGA CENTRO, mototaxis. Vecinos `pn_1…pn_90` y `pe_121…pe_200` (`peMakeNPCs`, `lmNid`).
+  - Comida nueva (`pe_pollo`, `pe_chaufa`, `pe_wantan`, `pe_gaseosa`, `pe_pan`); puertas de pollerías, chifas y bodegas (`lm_comida`).
+  - Oficios (`addJob`): `chofer` (`LM_ROUTES`, `LM_DRV`, panel `#lmDrv`: «¡Sube, sube!», «¡Pasaje!», algunos no pagan; perk `cfG`), `mototaxi` (`LM_MOTO_DEST`, `mtG`), `cajero` (`makeSuper`, XACT `lm_caja`, `lmCajaRound`: total y vuelto, `cjG`). El vehículo se dibuja en lugar del jugador y viaja en la presencia (`o.dv`).
+  - Monturas: `lmMountMap` (Lima, Lima Norte, Japón) envolviendo `mountOf`, `toggleMount` y `setMap`.
+  - Mapas: `MAPW_LIST` + `lima_norte`, botón «Ver Lima Norte» en el mapa de Perú, `MAPC.petrans/peshop/pejob`, etiquetas `LM_LABELS2`. Sellos `pe_metro`, `pe_tren`, `m_limanorte`. Lupa `peru2`.
+- Pruebas: `tests/v514.txt` y `tests/v514_rtc.py` (dos jugadores: parapente, Larcomar y la combi).

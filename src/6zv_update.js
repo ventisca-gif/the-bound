@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.13', GAME_BUILD = 134;
+const GAME_VER = '5.14', GAME_BUILD = 135;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,27 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.14",
+  "b": 135,
+  "d": "2026-11-18",
+  "es": [
+   "🏙 Lima crece al este: Gamarra, San Borja, Surquillo con su mercado y Surco con el Óvalo Higuereta.",
+   "🚌 Metropolitano: buses articulados por la Vía Expresa. Compra la tarjeta en la estación, sube y viaja por dentro del bus hasta donde quieras.",
+   "🚆 Tren Eléctrico (Línea 1) elevado sobre la Av. Aviación, de Cabitos a Grau y hasta Bayóvar.",
+   "🧱 Lima Norte nueva: Comas, Independencia, Los Olivos, Carabayllo y San Juan de Lurigancho, con casas de ladrillo, cerros con casitas, mototaxis y las letras de COMAS.",
+   "🛒 Supermercados MERCAPLAZA y VERDEMÁS por dentro, Mega Centro, mercados, pollerías, chifas y bodegas con comida nueva.",
+   "🚐 Trabajos: chofer de combi (grita «¡sube, sube!» y cobra el pasaje), mototaxista y cajero. Las monturas ya funcionan en Lima y Japón, y el mapa se ve entero."
+  ],
+  "en": [
+   "🏙 Lima grows east: Gamarra, San Borja, Surquillo with its market and Surco with the Higuereta Roundabout.",
+   "🚌 Metropolitano: articulated buses along the Vía Expresa. Buy the card at the station, board and ride inside the bus wherever you want.",
+   "🚆 Electric Train (Line 1) elevated above Aviación Avenue, from Cabitos to Grau and on to Bayóvar.",
+   "🧱 New North Lima: Comas, Independencia, Los Olivos, Carabayllo and San Juan de Lurigancho, with brick houses, hills full of houses, mototaxis and the COMAS letters.",
+   "🛒 MERCAPLAZA and VERDEMÁS supermarkets with interiors, Mega Centro, markets, chicken shops, chifas and corner shops with new food.",
+   "🚐 Jobs: minibus driver (shout «hop on!» and collect fares), mototaxi driver and cashier. Mounts now work in Lima and Japan, and the map shows whole."
+  ]
+ },
  {
   "v": "5.13",
   "b": 134,
