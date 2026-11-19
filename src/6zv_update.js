@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.31', GAME_BUILD = 152;
+const GAME_VER = '5.32', GAME_BUILD = 153;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,25 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.32",
+  "b": 153,
+  "d": "2026-11-19",
+  "es": [
+   "🎭 Historia nueva «Las caras prestadas» (nivel 345, tras decir el nombre de Velmira): Velmira se queda como luz en el Camposanto del Alba. Devuelve sus 4 máscaras en altares del mundo y di su nombre ante la tumba de Edrin. Premio: Media máscara de Velmira.",
+   "☁ Historia nueva «La Escalera de Nubes» (nivel 230): Brisa, arquitecta alada, espera al norte de Albor. Pide los planos a Serafina, canta a 3 nidos de arpía sin pelear y teje 5 tramos que se ven subir al cielo. Al terminar, la escalera te sube a la Isla del Alba. Premio: Diadema de la Canción.",
+   "✨ Historia nueva «El eco de Aurel» (nivel 247, tras vencer a Nihil): el Telar recuerda a Aurel antes de su caída. Toca sus 3 recuerdos en las islas del cielo y descubre la frase entera de Nihil y por qué aparecen ecos donde la Ventisca pinta. Premio: Capa de Hilos de Aurel.",
+   "🧒 Nilo, joven aprendiz de los Vigías (en Albor, junto a la casa de Mira), te avisa al llegar al nivel de cada historia y te manda al sitio con la flecha dorada. Altares, nidos y recuerdos hechos con los sprites del juego (pedestal de piedra y poste de las aureolas).",
+   "📖 3 capítulos nuevos en el Libro del Vínculo (época «Hoy») con cinemáticas propias, pistas y personajes. Guía paso a paso en la Lupa › Sistemas › 📜 Historias."
+  ],
+  "en": [
+   "🎭 New story «The borrowed faces» (level 345, after saying Velmira's name): Velmira stays as light in the Dawn Graveyard. Return his 4 masks at altars around the world and say his name at Edrin's grave. Reward: Velmira's half mask.",
+   "☁ New story «The Cloud Stairway» (level 230): Brisa, a winged architect, waits north of Albor. Get the plans from Serafina, sing to 3 harpy nests without fighting and weave 5 sections you can see rising to the sky. When finished, the stairway takes you up to the Isle of Dawn. Reward: Diadem of the Song.",
+   "✨ New story «The echo of Aurel» (level 247, after defeating Nihil): the Loom remembers Aurel before his fall. Touch his 3 memories on the sky isles and learn Nihil's whole sentence and why echoes appear wherever Ventisca paints. Reward: Aurel's Thread Cape.",
+   "🧒 Nilo, a young Watchers apprentice (in Albor, next to Mira's house), alerts you when you reach each story's level and sends you to the place with the golden arrow. Altars, nests and memories built from the game's own sprites (stone pedestal and halo post).",
+   "📖 3 new chapters in the Book of the Bond (era «Today») with their own cutscenes, clues and characters. Step-by-step guide in the Magnifier › Systems › 📜 Stories."
+  ]
+ },
  {
   "v": "5.31",
   "b": 152,

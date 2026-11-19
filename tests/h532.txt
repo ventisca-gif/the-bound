@@ -1,0 +1,22 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), window._eo=[], (()=>{const oe=errOnce; errOnce=(t,e)=>{window._eo.push(t+' '+(e&&e.message)); return oe(t,e)}})(), 1)
+js (()=>{ const W=G.world; const o=W.objs.filter(o=>o.xact&&o.xact.startsWith('h31')).map(o=>o.xact+':'+o.tx+','+o.ty); const M=makeSky(); const s=M.objs.filter(o=>o.xact&&o.xact.startsWith('h31')).map(o=>o.xact+':'+o.tx+','+o.ty); return [o, s, CRON.length, CH_H31_CARAS] })()
+js (()=>{ const P=G.P; P.lv=350; for (const id of ['q41','q45','vh8']) P.quests.done[id]=1; P.gold=1e7; return 1 })()
+wait 5000
+js (()=>{ const r=[]; for (const [id,np] of [['hn_esc','brisa_alada'],['hn_aur','tejedora_ultima'],['hn_vel','velmira_luz']]) { r.push(id+':'+canOffer(id)); acceptQuest(id); questEvent('talk',{npc:np}); r.push(questReady(id)); completeQuest(id); } return r })()
+js (G.ents.filter(e=>e.type==='npc'&&/velmira_luz|brisa_alada|aurel_eco|nilo_vigia/.test(e.id)).map(e=>e.id+' '+e.map+' '+Math.round(e.x/16)+','+Math.round(e.y/16)))
+js (()=>{ acceptQuest('vm1'); const h=H31(); const W=G.world; const alt=W.objs.filter(o=>o.xact==='h31_cara'); return alt.map(o=>{ const X=XACT.h31_cara; return [o.hidden, X[0](o)]; }) })()
+wait 1700
+js (()=>{ const W=G.world; const alt=W.objs.filter(o=>o.xact==='h31_cara'); for (const o of alt){ XACT.h31_cara[2](o); closeModal(); } return [questReady('vm1'), alt.map(o=>o.hidden)] })()
+js (()=>{ completeQuest('vm1'); acceptQuest('vm2'); const W=G.world; const ed=W.objs.find(o=>o.xact==='cm_caido'&&(o.gi||0)===0); XACT.cm_caido[2](ed); const btn=document.querySelector('#modal button'); return [!!ed, document.querySelector('#modal').innerText.slice(0,200)] })()
+js (()=>{ const b=[...document.querySelectorAll('#modal button')].find(b=>/Velmira/.test(b.textContent)); b && b.click(); return [questReady('vm2')] })()
+js (()=>{ completeQuest('vm2'); return [G.P.wardrobe.includes('c_h31_mascara'), G.P.loreU.includes(CH_H31_CARAS)] })()
+js (()=>{ acceptQuest('es1'); questEvent('talk',{npc:'serafina'}); completeQuest('es1'); acceptQuest('es2'); const M=makeSky(); const n=M.objs.filter(o=>o.xact==='h31_nido'); for(const o of n){ XACT.h31_nido[2](o); closeModal(); } completeQuest('es2'); acceptQuest('es3'); return [n.length, n.map(o=>o.f)] })()
+js (()=>{ giveItem('pluma_alba', 30, true); const o=H31_W.esc; const out=[]; for(let i=0;i<5;i++){ out.push(XACT.h31_esc[0](o)); XACT.h31_esc[2](o); const b=[...document.querySelectorAll('#modal button')].find(b=>/Tejer/.test(b.textContent)); b&&b.click(); closeModal(); } return [out, H31().esc, questReady('es3'), XACT.h31_esc[0](o)] })()
+js (()=>{ completeQuest('es3'); const P=G.P; P.x=H31_W.esc.px; P.y=H31_W.esc.py+40; return [P.wardrobe.includes('c_h31_diadema'), P.loreU.includes(CH_H31_ESCALERA)] })()
+wait 800
+shot
+js (()=>{ acceptQuest('au1'); questEvent('talk',{npc:'aurel_eco'}); completeQuest('au1'); acceptQuest('au2'); const M=makeSky(); const m=M.objs.filter(o=>o.xact==='h31_mem'); for(const o of m){ XACT.h31_mem[2](o); closeModal(); } completeQuest('au2'); acceptQuest('au3'); questEvent('talk',{npc:'tejedora_ultima'}); completeQuest('au3'); return [m.length, G.P.wardrobe.includes('c_h31_capa_aurel'), G.P.loreU.includes(CH_H31_AUREL)] })()
+wait 2500
+js (()=>{ const out=[]; for (const ch of [CH_H31_CARAS, CH_H31_ESCALERA, CH_H31_AUREL]) { const L=cnChapter(ch); out.push(L.map(s=>s.s).join('+')); } return out })()
+js (window._errs.concat(window._eo))

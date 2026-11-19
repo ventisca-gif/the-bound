@@ -1,20 +1,26 @@
 {
- "build": 152,
- "ver": "5.31",
+ "build": 153,
+ "ver": "5.32",
  "date": "2026-11-19",
  "file": "thebound.html",
- "size": 23816993,
- "sha256": "9e29165c698e83409de3852d2ad1885cd51bea7a7a6ec0299a3bb4254d568719",
+ "size": 23875642,
+ "sha256": "7fe3fe839715c2015e9edf1c4ed292ba8f262206039994c8737a10f147a719ca",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🛠 Arreglado: al usar Avatar de Guerra (y otras habilidades con pose especial) con el poncho de Cusco, las blusas de marinera o la blusa de Chiapas puestas, tu personaje se volvía invisible y salía la barra roja.",
-   "🛡 Si una prenda falla al dibujarse, ahora se salta solo esa prenda: tu personaje nunca vuelve a quedar invisible."
+   "🎭 Historia nueva «Las caras prestadas» (nivel 345, tras decir el nombre de Velmira): Velmira se queda como luz en el Camposanto del Alba. Devuelve sus 4 máscaras en altares del mundo y di su nombre ante la tumba de Edrin. Premio: Media máscara de Velmira.",
+   "☁ Historia nueva «La Escalera de Nubes» (nivel 230): Brisa, arquitecta alada, espera al norte de Albor. Pide los planos a Serafina, canta a 3 nidos de arpía sin pelear y teje 5 tramos que se ven subir al cielo. Al terminar, la escalera te sube a la Isla del Alba. Premio: Diadema de la Canción.",
+   "✨ Historia nueva «El eco de Aurel» (nivel 247, tras vencer a Nihil): el Telar recuerda a Aurel antes de su caída. Toca sus 3 recuerdos en las islas del cielo y descubre la frase entera de Nihil y por qué aparecen ecos donde la Ventisca pinta. Premio: Capa de Hilos de Aurel.",
+   "🧒 Nilo, joven aprendiz de los Vigías (en Albor, junto a la casa de Mira), te avisa al llegar al nivel de cada historia y te manda al sitio con la flecha dorada. Altares, nidos y recuerdos hechos con los sprites del juego (pedestal de piedra y poste de las aureolas).",
+   "📖 3 capítulos nuevos en el Libro del Vínculo (época «Hoy») con cinemáticas propias, pistas y personajes. Guía paso a paso en la Lupa › Sistemas › 📜 Historias."
   ],
   "en": [
-   "🛠 Fixed: using War Avatar (and other skills with a special pose) while wearing the Cusco poncho, the marinera blouses or the Chiapas blouse made your character invisible and showed the red bar.",
-   "🛡 If a garment fails to draw, only that garment is skipped now: your character never turns invisible again."
+   "🎭 New story «The borrowed faces» (level 345, after saying Velmira's name): Velmira stays as light in the Dawn Graveyard. Return his 4 masks at altars around the world and say his name at Edrin's grave. Reward: Velmira's half mask.",
+   "☁ New story «The Cloud Stairway» (level 230): Brisa, a winged architect, waits north of Albor. Get the plans from Serafina, sing to 3 harpy nests without fighting and weave 5 sections you can see rising to the sky. When finished, the stairway takes you up to the Isle of Dawn. Reward: Diadem of the Song.",
+   "✨ New story «The echo of Aurel» (level 247, after defeating Nihil): the Loom remembers Aurel before his fall. Touch his 3 memories on the sky isles and learn Nihil's whole sentence and why echoes appear wherever Ventisca paints. Reward: Aurel's Thread Cape.",
+   "🧒 Nilo, a young Watchers apprentice (in Albor, next to Mira's house), alerts you when you reach each story's level and sends you to the place with the golden arrow. Altars, nests and memories built from the game's own sprites (stone pedestal and halo post).",
+   "📖 3 new chapters in the Book of the Bond (era «Today») with their own cutscenes, clues and characters. Step-by-step guide in the Magnifier › Systems › 📜 Stories."
   ]
  }
 }
