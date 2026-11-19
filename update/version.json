@@ -1,24 +1,20 @@
 {
- "build": 162,
- "ver": "5.41",
+ "build": 163,
+ "ver": "5.42",
  "date": "2026-11-19",
  "file": "thebound.html",
- "size": 24043988,
- "sha256": "d0fe3e79ef65e12ef634678f239727692ae248fd8d42730f6f22f592a4404e53",
+ "size": 24054850,
+ "sha256": "eb464227b60c1edba47b7561f8f9db91c5c64ce22dc1e312a8832854f2e33f83",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🌀 Tus formas se guardan: lobo, fantasma, vampiro y dragón que consigas se quedan para siempre. Elige cuál usar en 🌀 Transformaciones; cada una guarda su rango. Corvel te hace el ritual de las que te faltan aunque ya tengas otra. La Poción de Sangre Limpia solo te quita la que llevas.",
-   "🐉 Forma Híbrida del dragón: escamas en la piel y alas grandes, +16 % de ataque (10 % más que la Mitad Dragón). Toca 🐉: normal → híbrida → dragón a cuatro patas.",
-   "🐺 Arreglado: el lobo a cuatro patas no se veía (se quedaba en híbrido). Ahora se ve, también en el online.",
-   "💪 El porcentaje de cada forma es fijo (el dragón siempre +32 %), pero se calcula sobre tus estadísticas: con mejor armadura, espada o nivel, da más fuerza."
+   "🐉 Dragón Híbrido 2.0: escamas en toda la cara (mezcladas con tu piel), el cuerpo y el torso, ojos encendidos, colmillos, cresta de púas y cuernos largos, todo del color de tu pelo. +26 % de ataque (20 % más que la Mitad Dragón), +10 % de vida y +8 % de defensa.",
+   "Se desbloquea con la forma de dragón en rango 5 (venciendo enemigos transformado). Toca 🐉: normal → híbrida → híbrido 2.0 → dragón a cuatro patas. Guía en la Lupa › Subrazas y Sistemas."
   ],
   "en": [
-   "🌀 Your forms are saved: every wolf, ghost, vampire and dragon form you get stays forever. Choose which to use in 🌀 Transformations; each keeps its rank. Corvel performs the ritual for the ones you lack even if you already have one. The Clean Blood Potion only removes the one you wear.",
-   "🐉 Dragon Hybrid Form: scales on the skin and big wings, +16% attack (10% more than Half-Dragon). Tap 🐉: normal → hybrid → four-legged dragon.",
-   "🐺 Fixed: the four-legged wolf did not show (it stayed hybrid). Now it shows, online too.",
-   "💪 Each form's percentage is fixed (the dragon always +32%), but it is calculated on your stats: with better armour, sword or level, it gives more strength."
+   "🐉 Dragon Hybrid 2.0: scales on the whole face (blended with your skin), body and torso, glowing eyes, fangs, a spiked crest and long horns, all in your hair colour. +26% attack (20% more than Half-Dragon), +10% HP and +8% defense.",
+   "Unlocks with the dragon form at rank 5 (defeating enemies while transformed). Tap 🐉: normal → hybrid → hybrid 2.0 → four-legged dragon. Guide in Magnifier › Subraces and Systems."
   ]
  }
 }

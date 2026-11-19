@@ -1,0 +1,12 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{const P=G.P; P.lv=450; P.sr='dragon'; P.srOwn=['dragon']; P.srX=0; P.app=normApp(Object.assign({},P.app,{hair:'rojo'})); calcStats(P); srSet(3); return [P.srF, drg2Ok()]})()
+js (()=>{const P=G.P; P.srX=700; P.srTT=0; srToggle(); P.srTT=0; srToggle(); return [P.srF, gearTiers(P).sf, lkGear(gearTiers(P)).sf, P.atlas.fw]})()
+js (()=>{const P=G.P; const a3=P.S.atk, h3=P.S.maxhp; P.srF=0; P.sr=null; calcStats(P); const a=P.S.atk, h=P.S.maxhp; P.sr='dragon'; P.srF=3; calcStats(P); return ['2.0', +(a3/a).toFixed(3), +(h3/h).toFixed(3)]})()
+js (closeModal&&closeModal(), transOpen(), [!!document.querySelector('#modal [data-tf="3"]'), document.querySelector('#modal [data-tf="3"]').disabled])
+js (closeModal(), wdMode='cos', openPanel('wardrobe'), 1)
+wait 500
+shot
+js (closePanel(), G.P.srTT=0, srToggle(), [G.P.srF, G.P.atlas.fw])
+js (G.P.srTT=0, srToggle(), [G.P.srF])
+js window._errs
