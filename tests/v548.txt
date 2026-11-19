@@ -1,0 +1,44 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{const P=G.P; P.lv=460; P.gold=5e7; calcStats(P); P.srOwn=['hielo','dragon']; P.sr='hielo'; P.srX=2000; P.srXs={dragon:2000}; return 1})()
+wait 600
+js [G.P.mounts.includes('lobo_escarcha'), G.P.mounts.includes('draco_brasa')]
+js (()=>{const P=G.P; P.mount='lobo_escarcha'; calcStats(P); refreshLook(); const a=genMount('lobo_escarcha','left',1), b=genMount('draco_brasa','down',0); return [a.c.width,a.c.height,b.c.width,b.c.height]})()
+wait 300
+shot
+js (()=>{const P=G.P; P.mount=null; P.wstate.wx='snow'; P.srF=1; const sv=SETTINGS.weather; SETTINGS.weather=1; return [curWx(), myElem(), wxBoost()]})()
+js (()=>{const L=btyList(); return L.map(b=>b.mid+'@'+b.x+','+b.y)})()
+js (()=>{const P=G.P, b=P.bty.l[0]; b.on=1; P.x=b.x*16+8+60; P.y=b.y*16+8; return 1})()
+wait 800
+js (()=>{const e=G.ents.find(e=>e.bounty===0); if(!e) return 'no spawn'; const n=e.name, g0=G.P.gold; killMob(e); return [n, G.P.gold-g0>0, G.P.btyPts, G.P.bty.l[0].done]})()
+js (G.P.btyPts=50, btyOpen(), document.querySelectorAll('#modal [data-btys]:not([disabled])').length)
+js (document.querySelectorAll('#modal [data-btys]').forEach(b=>b.click()), closeModal(), [BIT().fr.includes('sebusca'), G.P.pets.includes('halcon'), G.P.wardrobe.includes('c_sombrero_cazador'), G.P.mounts.includes('corcel_cazador')])
+js (()=>{const M=makeMachuPicchu(); setMap(M, 70*16, 118*16); return [G.map.id, !!V8.at.fotografo]})()
+wait 800
+js (()=>{const A=V8.at.fotografo; G.P.x=A.px; G.P.y=A.py; v8Start('fotografo'); return [ACT.k, ACT.an.length]})()
+js (()=>{const B=ACT,P=G.P; const a=B.an[0]; P.dir='down'; a.x=P.x; a.y=P.y-8+26; a.flee=0; B.flash=0; fotoShot(); return [B.shots, B.score, Object.keys(P.album||{}).length]})()
+wait 500
+shot
+js (()=>{const P=G.P; for(const s of FOTO_SP) {P.album=P.album||{}; P.album[s[0]]=1;} fotoAlbumCheck(); return [P.albumDone, countItem('pluma_condor')]})()
+js (()=>{const B=ACT; B.shots=3; B.flash=0; fotoShot(); return [ACT.k, G.P.jobs.fotografo]})()
+js (()=>{const P=G.P; P.homes={casa_a3:{lv:1,f:{bed:'bed',table:'table'}}}; P.partner='marta'; const M=makeHome('casa_a3'); P.inside='casa_a3'; setMap(M, 7*16, 7*16); return [!!M.objs.find(o=>o.f==='fam_stove'), famHelpers().length]})()
+wait 500
+js (famStart(), [ACT.k, ACT.H.length])
+js (()=>{const B=ACT,P=G.P; for(let i=0;i<8;i++){ const s=B.st[B.cur]; P.x=s.x; P.y=s.y; famAtk(); } return [ACT.k, countItem('fam_guiso')+countItem('fam_banquete')+countItem('fam_pastel')+countItem('fam_sopa')]})()
+js (()=>{ const DB={}; const get=(p)=>p.split('/').filter(Boolean).reduce((o,k)=>o&&o[k],DB); const set=(p,v)=>{const ks=p.split('/').filter(Boolean); let o=DB; for(let i=0;i<ks.length-1;i++){o[ks[i]]=o[ks[i]]||{}; o=o[ks[i]];} if(v===null) delete o[ks[ks.length-1]]; else o[ks[ks.length-1]]=v;}; const fix=v=>{ if(v&&typeof v==='object'){ if(v['.sv']) return Date.now(); for(const k in v) v[k]=fix(v[k]); } return v; }; window.fetch=(url,o)=>{ const u=new URL(url), p=decodeURIComponent(u.pathname.replace(/\.json$/,'')); const m=(o&&o.method)||'GET'; let r=null; if(m==='GET'){ r=get(p); if(r&&u.searchParams.get('shallow')) { const s={}; for(const k in r) s[k]=true; r=s; } r=r===undefined?null:JSON.parse(JSON.stringify(r)); } else if(m==='PUT'){ set(p,fix(JSON.parse(o.body))); r=JSON.parse(o.body); } else if(m==='PATCH'){ const b=fix(JSON.parse(o.body)); for(const k in b) set(p+'/'+k,b[k]); r=b; } else if(m==='DELETE'){ set(p,null); } return Promise.resolve({ok:true,status:200,json:()=>Promise.resolve(r)}); }; window._DB=DB; return 1})()
+js (()=>{const P=G.P; P.clan=null; P.gold=5e7; return 1})()
+js (G.P.clan={id:'hh_x',n:'Hijos del Hielo',tg:'HH',ic:'❄',own:1,lv:1}, _DB.cl={hh_x:{n:'Hijos del Hielo',tg:'HH',ic:'❄',o:clanMe(),xp:0,m:1}}, _DB.cm={hh_x:{[clanMe()]:{n:'Sergio',lv:460}}}, 1)
+js (()=>{CG.pend={k:120,b:3}; cgPushT=0; return 1})()
+wait 800
+js [JSON.stringify(_DB.cg), CG.k, CG.b]
+js (G.P.inside=null, exitInterior&&1, sedeGo(), 1)
+wait 1500
+js [G.map.id, G.map.objs.filter(o=>o.xact==='cgslot').length]
+js (cgDecor('s1'), document.querySelector('#modal [data-sf="fireplace"]').click(), 1)
+wait 800
+js [_DB.cg.hh_x.d, G.map.objs.some(o=>o.f==='fireplace')]
+js (_DB.cg.hh_x.k=400, _DB.cg.other={wk:CW_WEEK()-1,k:10,b:0}, _DB.cg.hh_x.pw=CW_WEEK()-1, _DB.cg.hh_x.pk=900, cgBoard(), 1)
+wait 800
+shot
+js [G.P.cwWins, BIT().fr.includes('gremio_oro'), G.P.wardrobe.includes('c_estandarte_gremio'), document.querySelectorAll('#modal [data-cgm]:not([disabled])').length]
+js window._errs

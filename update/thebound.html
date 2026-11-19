@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.47 · Guardián de Hielo y Gremios</div>
+  <div class="tfoot">v5.48 · Sede y guerra de gremios</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11797,7 +11797,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.47', GAME_BUILD = 168;
+const GAME_VER = '5.48', GAME_BUILD = 169;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11805,6 +11805,29 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.48",
+  "b": 169,
+  "d": "2026-11-19",
+  "es": [
+   "🛡 Sede del gremio (Atajos › Gremios › «Ir a la sede»): un salón que decoran todos los miembros, con el estandarte de tu gremio y un tablón con misiones semanales comunes.",
+   "⚔ Guerra semanal de gremios: 1 punto por monstruo y 25 por jefe. El gremio ganador de la semana recibe el marco «Gremio campeón», el Estandarte del gremio campeón y 500.000 de oro por miembro.",
+   "❄🐉 Monturas nuevas: Lobo de Escarcha (Guardián de Hielo en rango 10) y Draco de Brasa volador (dragón en rango 10).",
+   "📷 Oficio nuevo en Machu Picchu: Fotógrafo de fauna. Acércate despacio a los animales y haz la foto con ⚔. Álbum de 10 especies (2 raras); al completarlo, montura Cóndor dorado. Marco, colibrí y título.",
+   "🌦 El clima cambia el combate: la nieve refuerza el hielo, el sol el fuego, la tormenta el rayo y la lluvia el agua (+10 % de daño con tu elemento).",
+   "★ Cazador de recompensas: Vera (Aldea Albor) cuelga 3 carteles de «se busca» al día. Objetivos élite con flecha roja; marcas de cazador para marco, halcón, sombrero y corcel.",
+   "🍲 Cocina en familia: en tu casa, con tu pareja o tus hijos, usa los fogones. Platos más fuertes que la comida normal (30 min)."
+  ],
+  "en": [
+   "🛡 Guild hall (Shortcuts › Guilds › «Go to the hall»): a hall every member decorates, with your guild banner and a board with shared weekly missions.",
+   "⚔ Weekly guild war: 1 point per monster and 25 per boss. The week's winning guild gets the «Champion guild» frame, the Champion guild banner and 500,000 gold per member.",
+   "❄🐉 New mounts: Frost Wolf (Ice Guardian at rank 10) and flying Ember Drake (dragon at rank 10).",
+   "📷 New job in Machu Picchu: Wildlife photographer. Approach animals slowly and take the photo with ⚔. Album of 10 species (2 rare); complete it for the Golden condor mount. Frame, hummingbird and title.",
+   "🌦 Weather changes combat: snow strengthens ice, sun fire, storm lightning and rain water (+10% damage with your element).",
+   "★ Bounty hunter: Vera (Albor Village) hangs 3 «wanted» posters a day. Elite targets with a red arrow; hunter marks for a frame, falcon, hat and steed.",
+   "🍲 Family cooking: at home, with your partner or kids, use the stove. Dishes stronger than normal food (30 min)."
+  ]
+ },
  {
   "v": "5.47",
   "b": 168,
@@ -38511,6 +38534,225 @@ if (typeof GSIS !== 'undefined') GSIS.unshift(['clan547', '🛡 ' + L2('Gremios 
   L2('▦ Atajos › 🛡 Gremios. Funcionan con internet (wifi o datos): sin conexión te avisa.', '▦ Shortcuts › 🛡 Guilds. They work with internet (wifi or data): offline it tells you.'),
   L2('Funda un gremio (' + fmt(CLAN_COST) + ' de oro: nombre, sigla y emblema) o busca uno y únete (hasta ' + CLAN_MAX + ' miembros).', 'Found a guild (' + fmt(CLAN_COST) + ' gold: name, tag and emblem) or search for one and join (up to ' + CLAN_MAX + ' members).'),
   L2('Dona oro para subir su nivel: cada nivel da +1 % de experiencia y oro de monstruos a todos (máximo 10 %). Chat del gremio y lista de miembros. Tu sigla sale junto a tu nombre en el online.', 'Donate gold to raise its level: each level gives everyone +1% monster experience and gold (up to 10%). Guild chat and member list. Your tag shows next to your name online.')], () => null]);
+
+// ================= v5.48: SEDE Y GUERRA DE GREMIOS · MONTURAS DE HIELO Y FUEGO · FOTÓGRAFO · CLIMA EN COMBATE ·
+// =================        CAZADOR DE RECOMPENSAS · COCINA EN FAMILIA =================
+// Sergio aceptó las ideas de la 5.47 (la fusión de formas va aparte: primero la muestra).
+
+// =====================================================================================
+// CLIMA QUE CAMBIA EL COMBATE: nieve → hielo, sol/calor → fuego, tormenta → rayo, lluvia → agua (+10 % de daño)
+// =====================================================================================
+const WX_EL = { snow: 'ice', clear: 'fire', hot: 'fire', storm: 'shock', rain: 'wet' };
+function myElem() { const P = G.P; if (!P) return ''; const k = typeof imbueOf === 'function' ? imbueOf(P) : ''; if (k) return k; if (P.srF && P.sr === 'hielo') return 'ice'; if (P.srF && P.sr === 'dragon') return 'fire'; return ''; }
+function wxBoost() { const P = G.P; if (!P || !G.map || !G.map.isWorld || typeof curWx !== 'function') return 0; const e = myElem(); return e && WX_EL[curWx()] === e ? 0.10 : 0; }
+{ const _hm = hitMob; hitMob = function (m, base, src) { const b = wxBoost(); if (b && typeof base === 'number') base *= 1 + b; return _hm.call(this, m, base, src); }; }
+V33_TICKS.push(() => { const P = G.P; if (!P || !G.map || !G.map.isWorld || typeof curWx !== 'function') return; const w = curWx(), e = myElem(), k = w + e; if (k === P._wxk) return; P._wxk = k;
+  if (e && WX_EL[w] === e) toast('🌦 ' + ({ ice: L2('La nieve refuerza tu hielo: +10 % de daño', 'Snow strengthens your ice: +10% damage'), fire: L2('El sol refuerza tu fuego: +10 % de daño', 'The sun strengthens your fire: +10% damage'), shock: L2('La tormenta refuerza tu rayo: +10 % de daño', 'The storm strengthens your lightning: +10% damage'), wet: L2('La lluvia refuerza tu agua: +10 % de daño', 'Rain strengthens your water: +10% damage') })[e], 'quest', 4); });
+
+// =====================================================================================
+// MONTURAS DE HIELO Y DE FUEGO (forma en rango 10)
+// =====================================================================================
+const MNT_ICE = ['#24507a', '#4a86b8', '#8ac8f0', '#dcf4ff', '#ffffff'], MNT_FIRE = ['#5a0a06', '#a8200e', '#e85a1a', '#ffb040', '#fff0a0'];
+Object.assign(MOUNTS, { lobo_escarcha: { n: L2('Lobo de Escarcha', 'Frost Wolf'), sp: 2.2, col: MNT_ICE.slice(0, 4), mane: '#ffffff', srm: 'hielo' },
+  draco_brasa: { n: L2('Draco de Brasa', 'Ember Drake'), sp: 2.35, fly: 1, col: MNT_FIRE.slice(0, 4), mane: '#ffd040', wing: '#e85a1a', srm: 'dragon' } });
+function srmAtlas(k) { const P = G.P; if (!P) return null; const key = '_srm' + k; if (srmAtlas[key]) return srmAtlas[key]; let L;
+  try { L = heroLook(P.cls, P.app, { weapon: 1, sr: k === 'lobo_escarcha' ? 'lobo' : 'dragon', sf: 2 }); } catch (e) { return null; }
+  if (k === 'lobo_escarcha') { L.srFur = MNT_ICE.map(c => C(c)); L.eyes = 'celeste'; srmAtlas[key] = wolfAtlas(L); }
+  else { L.hair = MNT_FIRE.map(c => C(c)); srmAtlas[key] = dragonAtlas(L); } return srmAtlas[key]; }
+{ const _gm = genMount; genMount = function (k, dir, f) { if (k !== 'lobo_escarcha' && k !== 'draco_brasa') return _gm.apply(this, arguments);
+  return spr('mntsr' + k + dir + f, () => { const A = srmAtlas(k); if (!A) return _gm.call(this, 'caballo', dir, f); const row = dir === 'up' ? 3 : dir === 'down' ? 0 : 1, col = A.idx.walk + (f % 4), sc = k === 'draco_brasa' ? 0.72 : 1.35, c = mkCanvas(Math.round(A.fw * sc), Math.round(A.fh * sc)), x = c.getContext('2d');
+    x.imageSmoothingEnabled = false; x.drawImage(A.img, col * A.fw, row * A.fh, A.fw, A.fh, 0, 0, c.width, c.height); return { c, ax: c.width >> 1, ay: c.height - 4 }; }); }; }
+const srRankOf = k => { const P = G.P; const x = P.sr === k ? (P.srX || 0) : ((P.srXs || {})[k] || 0); return Math.min(10, 1 + Math.floor(x / 150)); };
+V33_TICKS.push(() => { const P = G.P; if (!P || !P.sr && !(P.srOwn || []).length || typeof srOwned !== 'function') return; P.mounts = P.mounts || []; for (const [mk, sk_] of [['lobo_escarcha', 'hielo'], ['draco_brasa', 'dragon']]) { if (P.mounts.includes(mk) || !srOwned().includes(sk_) || srRankOf(sk_) < 10) continue;
+  P.mounts.push(mk); banner('🎁 ' + MOUNTS[mk].n, L2('Tu forma llegó al rango 10: nueva montura (botón Montar).', 'Your form reached rank 10: new mount (Mount button).')); sfx('level'); markDirty(true); } });
+
+// =====================================================================================
+// CAZADOR DE RECOMPENSAS: Vera y sus carteles de «se busca» (Aldea Albor)
+// =====================================================================================
+SAVEKEYS.push('bty', 'btyPts', 'btyGot');
+NPCS.cazadora_vera = { n: 'Vera', title: L2('Cazadora de Recompensas', 'Bounty Hunter'), look: LK({ outfit: 'ranger', hairStyle: 'long', hair: HAIRS.rojo, main: P5(['#2a1a10', '#4a2e1a', '#6a4426', '#8a5e36', '#b07e4c']), g: 'f' }),
+  lines: [L2('Cada día cuelgo tres carteles. Bichos que se han vuelto demasiado fuertes: alguien tiene que pararlos.', 'Every day I hang three posters. Beasts that have grown too strong: someone has to stop them.'), L2('Las marcas de cazador valen más que el oro. Pregúntame qué te doy por ellas.', 'Hunter marks are worth more than gold. Ask me what I give for them.')], quests: [] };
+{ const _pd = placeDiveSpots; placeDiveSpots = function (W) { _pd(W); try { const [x, y] = freeTileNear(W, 128, 152); W.npcDefs.push({ id: 'cazadora_vera', x, y, face: 'down' }); } catch (e) { console.warn(e); } }; }
+function btyList() { const P = G.P, d = calDay(); if (P.bty && P.bty.d === d) return P.bty.l; const R = new RNG(d * 977 + 31), W = G.world, regs = REGIONS.filter(r => r.k !== 'mar' && r.c && r.c[0]), out = [];
+  for (let i = 0; i < 3 && out.length < 3; i++) for (let t = 0; t < 30; t++) { const rg = regs[R.int(0, regs.length - 1)], mobs = Object.keys(MOBS).filter(k => { const D = MOBS[k]; return D.reg && D.reg.includes(rg.k) && D.ai !== 'passive' && !D.fly; }); if (!mobs.length) continue;
+    const mid = mobs[R.int(0, mobs.length - 1)]; if (out.some(o => o.mid === mid)) continue; let x = rg.c[0] + R.int(-8, 8), y = rg.c[1] + R.int(-8, 8); try { const q = freeTileNear(W, x, y); x = q[0]; y = q[1]; } catch (e) { }
+    out.push({ mid, r: rg.n, x, y, done: 0 }); break; }
+  P.bty = { d, l: out }; markDirty(); return out; }
+const btyName = b => '★ ' + L2('Se busca: ', 'Wanted: ') + (MOBS[b.mid] ? MOBS[b.mid].n : b.mid);
+const btyGold = () => 3000 + G.P.lv * 900;
+V33_TICKS.push(() => { const P = G.P; if (!P || P.map !== 'world' || !G.map || !G.map.isWorld || !P.bty || P.bty.d !== calDay()) return; P.bty.l.forEach((b, i) => { if (b.done || !b.on) return; const ex = G.ents.find(e => e.bounty === i && !e.dying && !e.remove); if (ex) return;
+  if (Math.hypot(b.x * 16 - P.x, b.y * 16 - P.y) > 420) return; const lv = Math.max(MOBS[b.mid].lv ? MOBS[b.mid].lv[0] : 1, P.lv); const m = spawnMob(b.mid, lv, b.x * 16 + 8, b.y * 16 + 8, 0, null); m.map = 'world'; m.bounty = i; m.name = btyName(b); m.hp = m.maxhp = Math.round(m.hp * 9); m.atk = Math.round(m.atk * 1.6); m.scale = 1.6; m.aggroR = 140; m.noLeash = 1;
+  toast('★ ' + L2('Has encontrado a tu objetivo: ', 'You found your target: ') + MOBS[b.mid].n, 'quest', 4); sfx('boss'); }); });
+{ const _km = killMob; killMob = function (m) { const r = _km.apply(this, arguments); try { const P = G.P; if (m && m.bounty !== undefined && P.bty && P.bty.d === calDay()) { const b = P.bty.l[m.bounty]; if (b && !b.done) { b.done = 1; const g = btyGold(); P.gold += g; gainXp(Math.round(xpToNext(P.lv) * 0.06)); P.btyPts = (P.btyPts || 0) + 1;
+  banner('★ ' + L2('¡Recompensa cobrada!', 'Bounty claimed!'), '+' + fmt(g) + L2(' de oro · +1 marca de cazador', ' gold · +1 hunter mark')); sfx('quest'); markDirty(true); } } } catch (e) { } return r; }; }
+// flecha hacia el objetivo
+WORLD_DRAW.push((cx, cy) => { const P = G.P; if (!P || !G.map || !G.map.isWorld || !P.bty || P.bty.d !== calDay()) return; const b = P.bty.l.filter(b => b.on && !b.done).sort((a, c) => Math.hypot(a.x * 16 - P.x, a.y * 16 - P.y) - Math.hypot(c.x * 16 - P.x, c.y * 16 - P.y))[0]; if (!b) return;
+  const dx = b.x * 16 + 8 - P.x, dy = b.y * 16 + 8 - P.y, d = Math.hypot(dx, dy); if (d < 120) return; const a = Math.atan2(dy, dx), x = P.x - cx + Math.cos(a) * 34, y = P.y - 14 - cy + Math.sin(a) * 26;
+  ctx.save(); ctx.translate(x, y); ctx.rotate(a); ctx.fillStyle = '#ff5a3a'; ctx.strokeStyle = '#1a0a04'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(8, 0); ctx.lineTo(-5, -6); ctx.lineTo(-2, 0); ctx.lineTo(-5, 6); ctx.closePath(); ctx.stroke(); ctx.fill(); ctx.restore(); drawTxt('★ ' + Math.round(d / 16) + 'm', x, y - 9, '#ffb08a', 8); });
+const BTY_SHOP = [[5, 'fr', 'sebusca', L2('Marco «Se busca»', '«Wanted» frame')], [12, 'pet', 'halcon', L2('Mascota: Halcón cazador', 'Pet: Hunting falcon')], [25, 'cos', 'c_sombrero_cazador', L2('Sombrero de cazadora', 'Hunter hat')], [40, 'mnt', 'corcel_cazador', L2('Montura: Corcel del cazador', 'Mount: Hunter\'s steed')]];
+Object.assign(BIT_FR, { sebusca: [L2('Se busca', 'Wanted'), '#c8902a'], gremio_oro: [L2('Gremio campeón', 'Champion guild'), '#ffd040'] });
+{ const st = document.createElement('style'); st.textContent = `.pframe.fr-sebusca,.bfrb.fr-sebusca i{box-shadow:0 0 0 2px #3a2410,0 0 0 4px #e8c890,0 0 0 6px #3a2410,0 0 0 7px #c8902a!important}
+.pframe.fr-gremio_oro,.bfrb.fr-gremio_oro i{box-shadow:0 0 0 2px #fff4b0,0 0 0 4px #c8901a,0 0 0 6px #fff4b0,0 0 14px 4px #ffd040!important;animation:frgo 2.4s ease-in-out infinite}@keyframes frgo{50%{box-shadow:0 0 0 2px #ffd040,0 0 0 4px #fff4b0,0 0 0 6px #c8901a,0 0 18px 6px #ffb020}}`; document.head.appendChild(st); }
+PETS.halcon = { n: L2('Halcón cazador', 'Hunting falcon'), d: '', price: 0, fly: 1, look: { kind: 'bird', b: '#6a4a2a', b2: '#e8d8b8', eye: '#ffd040' } };
+PETS.halcon.d = L2('El halcón de Vera te acompaña (12 marcas de cazador).', 'Vera\'s falcon keeps you company (12 hunter marks).');
+cosm('c_sombrero_cazador', L2('Sombrero de cazadora', 'Hunter hat'), 'head', () => ({ k: 'sunhat', m: pal(['#2a1a0e', '#4a2e18', '#6a4424', '#8a5e34', '#a87a48']), s: CLOTH.rojo, cover: 'hat' }), { src: L2('Vera, la cazadora (25 marcas)', 'Vera the hunter (25 marks)') });
+MOUNTS.corcel_cazador = { n: L2('Corcel del cazador', 'Hunter\'s steed'), sp: 1.95, col: ['#1a0e06', '#3a2010', '#5a3418', '#7a4a24'], mane: '#c8902a' };
+{ const cat = (TITLES.find(t => t[0] === 't_artesano') || [0, 0, 'natural'])[2]; for (const t of [['t_cazador', L2('Cazador de Recompensas', 'Bounty Hunter'), cat, P => (P.btyPts || 0) >= 15, L2('Consigue 15 marcas de cazador con Vera.', 'Earn 15 hunter marks with Vera.')], ['t_gremio_camp', L2('Campeón de Gremios', 'Guild Champion'), cat, P => (P.cwWins || 0) >= 1, L2('Gana una guerra semanal de gremios.', 'Win a weekly guild war.')]]) { TITLES.push(t); TIT_ID[t[0]] = t; } }
+function btyOpen() { const P = G.P, L_ = btyList(), pts = P.btyPts || 0; P.btyGot = P.btyGot || {};
+  openModal(`<div class="frame"><h3>★ ${L2('Carteles de «se busca»', '«Wanted» posters')}</h3><p class="hint">${L2('Tres objetivos al día, más fuertes que los normales. Acepta el cartel y sigue la flecha roja; véncelo para cobrar oro, experiencia y una marca de cazador.', 'Three targets a day, stronger than normal. Accept the poster and follow the red arrow; defeat it to claim gold, experience and a hunter mark.')}</p>
+    ${L_.map((b, i) => `<div class="gsrc"><span><b>${esc(btyName(b))}</b><br><small>${esc(b.r)} · ${L2('Recompensa: ', 'Reward: ')}${fmt(btyGold())} ${L2('de oro', 'gold')} + 1 ★</small></span>${b.done ? `<b>✓</b>` : b.on ? `<small>${L2('Aceptado', 'Accepted')}</small>` : `<button class="btn sm gold" data-bty="${i}">${L2('Aceptar', 'Accept')}</button>`}</div>`).join('')}
+    <h4>${L2('Marcas de cazador: ', 'Hunter marks: ')}${pts}</h4>${BTY_SHOP.map(([n, t, id, lab]) => { const got = P.btyGot[id]; return `<div class="gsrc"><span>${esc(lab)}<br><small>${n} ★</small></span>${got ? '<b>✓</b>' : `<button class="btn sm" data-btys="${id}" ${pts < n ? 'disabled' : ''}>${L2('Canjear', 'Redeem')}</button>`}</div>`; }).join('')}
+    <div class="row"><button class="btn" id="btyX">${L2('Cerrar', 'Close')}</button></div></div>`);
+  $('#btyX').onclick = closeModal; $$('#modal [data-bty]').forEach(b => b.onclick = () => { L_[+b.dataset.bty].on = 1; markDirty(); toast(L2('Cartel aceptado: sigue la flecha roja.', 'Poster accepted: follow the red arrow.'), 'quest'); btyOpen(); });
+  $$('#modal [data-btys]').forEach(b => b.onclick = () => { const r = BTY_SHOP.find(x => x[2] === b.dataset.btys); if (!r || pts < r[0] || P.btyGot[r[2]]) return; P.btyPts = pts - r[0]; P.btyGot[r[2]] = 1;
+    if (r[1] === 'fr') { const bb = BIT(); if (!bb.fr.includes(r[2])) bb.fr.push(r[2]); } else if (r[1] === 'pet') givePet(r[2], true); else if (r[1] === 'cos') giveCosmetic(r[2], true); else { P.mounts = P.mounts || []; if (!P.mounts.includes(r[2])) P.mounts.push(r[2]); }
+    banner('🎁 ' + r[3], ''); sfx('level'); markDirty(true); btyOpen(); }); }
+DLG_HOOKS.push((npc, opts) => { if (npc.id !== 'cazadora_vera') return; opts.unshift({ label: '★ ' + L2('Carteles de «se busca»', '«Wanted» posters'), icon: ['star', '#ff5a3a'], fn: () => { closeDialog(); btyOpen(); } }); });
+
+// =====================================================================================
+// FOTÓGRAFO DE FAUNA (Machu Picchu): fotos a criaturas raras y álbum
+// =====================================================================================
+SAVEKEYS.push('album');
+const FOTO_SP = [['condor', L2('Cóndor andino', 'Andean condor'), '#2a2a30', '#f0f0f0', 'ave', 1], ['vicuna', L2('Vicuña', 'Vicuña'), '#c88a4a', '#f4e8d0', 'cuad', 1], ['colibri', L2('Colibrí', 'Hummingbird'), '#2a9a6a', '#e83a6a', 'ave', 1], ['oso', L2('Oso de anteojos', 'Spectacled bear'), '#1a1410', '#e8d8a0', 'cuad', 1],
+  ['gallito', L2('Gallito de las rocas', 'Andean cock-of-the-rock'), '#ff5a1a', '#1a1a1a', 'ave', 1], ['vizcacha', L2('Vizcacha', 'Viscacha'), '#9a8a7a', '#e8e0d0', 'cuad', 1], ['zorro', L2('Zorro andino', 'Andean fox'), '#b0602a', '#f0e0c8', 'cuad', 1], ['llama', L2('Llama bebé', 'Baby llama'), '#f4ece0', '#8a5a3a', 'cuad', 1],
+  ['puma_b', L2('Puma blanco (raro)', 'White puma (rare)'), '#f4f4f8', '#a8b8d0', 'cuad', 0.12], ['condor_d', L2('Cóndor dorado (raro)', 'Golden condor (rare)'), '#c8901a', '#fff0a0', 'ave', 0.12]];
+Object.assign(BIT_FR, { foto: [L2('Fotógrafo', 'Photographer'), '#3a3a40'] });
+{ const st = document.createElement('style'); st.textContent = `.pframe.fr-foto,.bfrb.fr-foto i{box-shadow:0 0 0 2px #ffffff,0 0 0 5px #1a1a1e,0 0 0 6px #ffffff!important}`; document.head.appendChild(st); }
+PETS.colibri = { n: L2('Colibrí', 'Hummingbird'), d: L2('Un colibrí que revolotea a tu lado (fotógrafo, nivel 30).', 'A hummingbird fluttering beside you (photographer, level 30).'), price: 0, fly: 1, look: { kind: 'bird', b: '#2a9a6a', b2: '#e83a6a', eye: '#1a1a1a' } };
+it('pluma_condor', { n: L2('Pluma de Cóndor Dorado', 'Golden Condor Feather'), t: 'mat', stack: true, tier: 8, price: 0, icon: ['wing', '#ffd040'], rar: 5, d: L2('Premio por completar el álbum de fauna. Llévala al establo: el cóndor dorado será tu montura voladora.', 'Prize for completing the wildlife album. Take it to the stable: the golden condor will be your flying mount.') });
+MOUNTS.condor_dorado = { n: L2('Cóndor dorado', 'Golden condor'), sp: 2.15, fly: 1, egg: 'pluma_condor', col: ['#6a4a00', '#c8901a', '#ffd040', '#fff0a0'], mane: '#ffffff', wing: '#c8901a' };
+Object.assign(JP_REW, { fotografo: [[15, 'fr', 'foto'], [30, 'pet', 'colibri']] });
+v8Job('fotografo', 'machupicchu', '📷', 'Fotógrafo de fauna', 'Wildlife photographer', M => [70, 118], [12, 8], ['pe', 'm', 3, { head: 'c_cz_chullo' }],
+  'La montaña está llena de vida… si sabes acercarte sin asustarla.', 'The mountain is full of life… if you know how to get close without scaring it.',
+  'Entras a la zona de fauna. Entre la hierba se mueven animales (verás «?» cuando estés cerca). Acércate despacio (joystick suave): si corres, huyen. Cuando el animal esté dentro del visor, pulsa ⚔ para la foto: más cerca y centrado = mejor foto. 4 fotos por salida. Cada especie nueva va a tu álbum (10 especies, 2 raras). Recompensas: marco, colibrí, título, y al completar el álbum, el cóndor dorado.', 'You enter the wildlife zone. Animals move in the grass (you will see «?» when close). Approach slowly (soft joystick): if you run, they flee. When the animal is in the viewfinder, press ⚔ for the photo: closer and centred = better photo. 4 photos per outing. Each new species goes to your album (10 species, 2 rare). Rewards: frame, hummingbird, title, and when the album is complete, the golden condor.',
+  'Zona de fauna de Machu Picchu (entre las ruinas y Aguas Calientes)', 'Machu Picchu wildlife zone (between the ruins and Aguas Calientes)', 3);
+function fotoSpawn(B) { const [x0, y0, x1, y1] = B.box, rare = FOTO_SP.filter(s => s[5] < 1), pick = Math.random() < 0.12 ? rare[Math.floor(Math.random() * rare.length)] : v8Pick(FOTO_SP.filter(s => s[5] >= 1));
+  return { s: pick, x: x0 + Math.random() * (x1 - x0), y: y0 + Math.random() * (y1 - y0), vx: 0, vy: 0, t: 0, flee: 0, seen: 0 }; }
+V8_GO.fotografo = A => { const x0 = A.x0 * 16 + 8, y0 = A.y0 * 16 + 12, x1 = x0 + (A.w - 1) * 16 - 8, y1 = y0 + (A.h - 1) * 16 - 16, P = G.P; P.x = (x0 + x1) / 2; P.y = y1 - 6;
+  const B = { k: 'v8_fotografo', box: [x0, y0, x1, y1], an: [], shots: 0, score: 0, news: [], t: 90, flash: 0, onAtk: () => { fotoShot(); return true; } }; for (let i = 0; i < 3; i++) B.an.push(fotoSpawn(B)); Object.assign(ACT, B);
+  banner('📷 ' + L2('¡Safari de fotos!', 'Photo safari!'), L2('Acércate despacio a los animales y pulsa ⚔ con el visor encima.', 'Approach the animals slowly and press ⚔ with the viewfinder on them.')); };
+function fotoShot() { const B = ACT, P = G.P; if (B.flash > 0) return; B.flash = 0.35; sfx('ui'); const dv = DIRV[P.dir] || [0, 1], fx = P.x + dv[0] * 34, fy = P.y - 8 + dv[1] * 26;
+  let best = null, bd = 1e9; for (const a of B.an) { const d = Math.hypot(a.x - fx, a.y - fy); if (d < bd) { bd = d; best = a; } }
+  if (!best || bd > 34 || best.flee > 0) { floatText(P.x, P.y - 40, L2('Foto movida…', 'Blurry photo…'), '#c8c8c8'); B.shots++; }
+  else { const q = Math.max(1, Math.round(3 - bd / 14)), P_ = G.P; P_.album = P_.album || {}; const id = best.s[0], isNew = !P_.album[id]; P_.album[id] = Math.max(P_.album[id] || 0, q); B.shots++; B.score += q * (best.s[5] < 1 ? 3 : 1) + (isNew ? 2 : 0);
+    floatText(best.x, best.y - 30, '★'.repeat(q) + (isNew ? ' ' + L2('¡Nueva!', 'New!') : ''), '#ffd040'); if (isNew) { B.news.push(best.s[1]); sfx('quest'); } burst(best.x, best.y - 10, 10, { sp: 40, up: 30, life: 0.5, c: ['#ffffff', '#fff4b0'] });
+    const i = B.an.indexOf(best); B.an[i] = fotoSpawn(B); fotoAlbumCheck(); }
+  if (B.shots >= 4) fotoEnd(); }
+function fotoEnd() { const B = ACT; v8Pay('fotografo', 200 + B.score * 90, 25 + B.score * 6, B.shots + L2(' fotos', ' photos') + (B.news.length ? ' · ' + L2('nuevas: ', 'new: ') + B.news.join(', ') : '')); }
+function fotoAlbumCheck() { const P = G.P, n = Object.keys(P.album || {}).filter(k => FOTO_SP.some(s => s[0] === k)).length; if (n >= FOTO_SP.length && !P.albumDone) { P.albumDone = 1; giveItem('pluma_condor', 1, true); banner('📖 ' + L2('¡Álbum completo!', 'Album complete!'), L2('Pluma de Cóndor Dorado: llévala al establo.', 'Golden Condor Feather: take it to the stable.')); sfx('level'); markDirty(true); } }
+SAVEKEYS.push('albumDone');
+V33_TICKS.push(dt => { if (ACT.k !== 'v8_fotografo') return; dt = Math.min(0.05, dt || 0.016); const B = ACT, P = G.P, [x0, y0, x1, y1] = B.box, j = v8Joy(), fast = Math.hypot(j[0], j[1]) > 0.75; B.t -= dt; B.flash = Math.max(0, B.flash - dt); P.x = Math.max(x0, Math.min(x1, P.x)); P.y = Math.max(y0, Math.min(y1, P.y));
+  for (const a of B.an) { const d = Math.hypot(a.x - P.x, a.y - P.y); a.seen = d < 90; if (fast && d < 70 && a.flee <= 0) { a.flee = 1.6; const k = Math.atan2(a.y - P.y, a.x - P.x); a.vx = Math.cos(k); a.vy = Math.sin(k); floatText(a.x, a.y - 26, '!', '#ff8a8a'); }
+    a.t -= dt; if (a.flee > 0) a.flee -= dt; else if (a.t <= 0) { a.t = 1 + Math.random() * 2; const k = Math.random() * 6.28, mv = Math.random() < 0.5; a.vx = mv ? Math.cos(k) : 0; a.vy = mv ? Math.sin(k) : 0; }
+    const sp = a.flee > 0 ? 110 : 18; a.x = Math.max(x0, Math.min(x1, a.x + a.vx * sp * dt)); a.y = Math.max(y0, Math.min(y1, a.y + a.vy * sp * dt)); }
+  v8Hud(`📷 ${B.shots}/4 · ★ ${B.score} · ${Math.ceil(B.t)} s`); if (B.t <= 0) fotoEnd(); });
+V8_UNDER.push((cx, cy) => { if (ACT.k !== 'v8_fotografo') return; const [x0, y0, x1, y1] = ACT.box; ctx.fillStyle = 'rgba(60,120,40,0.28)'; ctx.fillRect(x0 - 12 - cx, y0 - 12 - cy, x1 - x0 + 24, y1 - y0 + 26);
+  for (let i = 0; i < 40; i++) { const gx = x0 + ((i * 53) % (x1 - x0 + 1)), gy = y0 + ((i * 37) % (y1 - y0 + 1)); ctx.fillStyle = i % 2 ? '#3a7a2a' : '#4a9a3a'; ctx.fillRect(gx - cx, gy - cy - 6, 2, 6); ctx.fillRect(gx + 3 - cx, gy - cy - 4, 2, 4); } });
+function fotoDrawAnimal(a, x, y) { const [id, , c1, c2, kind] = a.s, f = a.vx < 0 ? -1 : 1, bob = Math.sin(G.t * (a.flee > 0 ? 20 : 6) + x) * (kind === 'ave' ? 2 : 1);
+  if (kind === 'ave') { const big = id.startsWith('condor'), w = big ? 10 : id === 'colibri' ? 4 : 6, fl = Math.sin(G.t * (id === 'colibri' ? 40 : 10)) * 3; ctx.fillStyle = c1; ctx.beginPath(); ctx.ellipse(x, y - 14 + bob, w * 0.7, w * 0.45, 0, 0, 7); ctx.fill(); ctx.fillRect(x - w - 1, y - 16 + bob + fl, w, 2); ctx.fillRect(x + 1, y - 16 + bob - fl, w, 2); ctx.fillStyle = c2; ctx.beginPath(); ctx.arc(x + w * 0.6 * f, y - 16 + bob, big ? 3 : 2, 0, 7); ctx.fill(); ctx.fillStyle = '#ffb030'; ctx.fillRect(x + (w * 0.6 + 2) * f - (f < 0 ? 2 : 0), y - 16 + bob, 2, 1); }
+  else { const big = id === 'oso' || id === 'puma_b', s = big ? 1.3 : id === 'vizcacha' ? 0.7 : 1; ctx.fillStyle = c1; ctx.beginPath(); ctx.ellipse(x, y - 8 * s + bob, 9 * s, 5 * s, 0, 0, 7); ctx.fill(); ctx.fillRect(x - 6 * s, y - 5 * s, 2, 5 * s); ctx.fillRect(x + 4 * s, y - 5 * s, 2, 5 * s);
+    ctx.beginPath(); ctx.ellipse(x + 9 * s * f, y - 13 * s + bob, 4 * s, 3.5 * s, 0, 0, 7); ctx.fill(); ctx.fillStyle = c2; ctx.fillRect(x + 9 * s * f - 2, y - 12 * s + bob, 4, 2); ctx.fillStyle = '#1a1a1a'; ctx.fillRect(x + 10 * s * f, y - 14 * s + bob, 1, 1); if (id === 'llama' || id === 'vicuna') { ctx.fillStyle = c1; ctx.fillRect(x + 7 * s * f, y - 20 * s + bob, 3, 8 * s); } } }
+WORLD_DRAW.push((cx, cy) => { if (ACT.k !== 'v8_fotografo') return; const B = ACT, P = G.P;
+  for (const a of B.an) { const x = a.x - cx, y = a.y - cy; if (!a.seen && a.flee <= 0) { if (Math.sin(G.t * 5 + a.x) > 0.6) { ctx.fillStyle = '#5aaa3a'; ctx.fillRect(x - 3, y - 8, 2, 7); ctx.fillRect(x + 2, y - 7, 2, 6); } continue; } fotoDrawAnimal(a, x, y); if (a.seen && a.flee <= 0) drawTxt('?', x, y - 26, '#fff4b0', 9); }
+  const dv = DIRV[P.dir] || [0, 1], fx = P.x + dv[0] * 34 - cx, fy = P.y - 8 + dv[1] * 26 - cy; ctx.strokeStyle = B.flash > 0 ? '#ffffff' : 'rgba(255,255,255,0.8)'; ctx.lineWidth = 2;
+  for (const [sx, sy] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) { ctx.beginPath(); ctx.moveTo(fx + sx * 16, fy + sy * 10); ctx.lineTo(fx + sx * 16, fy + sy * 4); ctx.moveTo(fx + sx * 16, fy + sy * 10); ctx.lineTo(fx + sx * 9, fy + sy * 10); ctx.stroke(); } ctx.lineWidth = 1;
+  if (B.flash > 0.2) { ctx.fillStyle = 'rgba(255,255,255,' + (B.flash - 0.2) * 4 + ')'; ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height); } });
+{ const cat = (TITLES.find(t => t[0] === 't_artesano') || [0, 0, 'natural'])[2]; const t = ['t_fotografo', L2('Ojo de Cóndor', 'Condor Eye'), cat, P => (P.jobs.fotografo || {}).lv >= 50, L2('Sube el oficio de Fotógrafo de fauna a nivel 50.', 'Raise the Wildlife photographer job to level 50.')]; TITLES.push(t); TIT_ID[t[0]] = t; }
+jpPerks('fotografo'); JOB_PERKS.fotografo.push([50, '🏷 ' + TIT_ID.t_fotografo[1]]); JOBP2.fotografo.push([50, '🏷 ' + TIT_ID.t_fotografo[1], '🏷 ' + TIT_ID.t_fotografo[1], {}]); if (JOB_GUIDE.fotografo) JOB_GUIDE.fotografo.perks.push([50, '🏷 ' + TIT_ID.t_fotografo[1], '🏷 ' + TIT_ID.t_fotografo[1]]);
+function albumOpen() { const P = G.P, A = P.album || {}; openModal(`<div class="frame"><h3>📖 ${L2('Álbum de fauna', 'Wildlife album')} (${FOTO_SP.filter(s => A[s[0]]).length}/${FOTO_SP.length})</h3><div class="row wrap">${FOTO_SP.map(s => `<div class="gsrc" style="width:46%"><span><b>${A[s[0]] ? esc(s[1]) : '???'}</b><br><small>${A[s[0]] ? '★'.repeat(A[s[0]]) : L2('Sin foto', 'No photo')}</small></span></div>`).join('')}</div><p class="hint">${L2('Completa el álbum para la Pluma de Cóndor Dorado (montura voladora).', 'Complete the album for the Golden Condor Feather (flying mount).')}</p><div class="row"><button class="btn" id="alX">${L2('Cerrar', 'Close')}</button></div></div>`); $('#alX').onclick = closeModal; }
+DLG_HOOKS.push((npc, opts) => { if (npc.id !== 'v8_fotografo') return; opts.push({ label: '📖 ' + L2('Ver mi álbum de fauna', 'See my wildlife album'), icon: ['book'], fn: () => { closeDialog(); albumOpen(); } }); });
+
+// =====================================================================================
+// COCINA EN FAMILIA (en tu casa, con tu pareja o tus hijos)
+// =====================================================================================
+const FAM_DISH = [['fam_guiso', L2('Guiso de la familia', 'Family stew'), { atkP: 12, defP: 8 }, '#c8602a'], ['fam_pastel', L2('Pastel de los niños', 'Kids\' cake'), { atkP: 8, spdP: 8 }, '#ff9ac8'], ['fam_sopa', L2('Sopa de la abuela', 'Grandma\'s soup'), { defP: 15, atkP: 5 }, '#e8c040'], ['fam_banquete', L2('Banquete familiar', 'Family feast'), { atkP: 15, defP: 12, spdP: 5 }, '#ffd040']];
+for (const [id, n, tonic, col] of FAM_DISH) it(id, { n, t: 'cons', stack: true, tonic, dur: 1800, heal: 99999, price: 0, icon: ['food', col], rar: 4, d: L2('Cocinado en casa con tu familia. ', 'Cooked at home with your family. ') + Object.entries(tonic).map(([k, v]) => '+' + v + ' % ' + ({ atkP: L2('ataque', 'attack'), defP: L2('defensa', 'defence'), spdP: L2('velocidad', 'speed') })[k]).join(', ') + L2(' durante 30 min (más fuerte que la comida normal).', ' for 30 min (stronger than normal food).') });
+XSPR.fam_stove = () => { const [c, g] = XC(30, 30); g.fillStyle = '#3a3a42'; g.fillRect(2, 10, 26, 19); g.fillStyle = '#5a5a66'; g.fillRect(2, 8, 26, 4); g.fillStyle = '#1a1a1e'; g.fillRect(6, 16, 18, 10); g.fillStyle = '#ff7a2a'; g.fillRect(8, 21, 14, 3); g.fillStyle = '#ffd040'; g.fillRect(10, 22, 10, 1); g.fillStyle = '#8a8a96'; g.beginPath(); g.ellipse(10, 6, 5, 3, 0, 0, 7); g.ellipse(21, 6, 5, 3, 0, 0, 7); g.fill(); return { c, ax: 15, ay: 29 }; };
+{ const _mh = makeHome; makeHome = function (id) { const M = _mh.apply(this, arguments); try { if (homeCfg(id) && !M.objs.some(o => o.f === 'fam_stove')) ipObj(M, 'fam_stove', 3, 3, { xact: 'famcook' }); } catch (e) { console.warn(e); } return M; }; }
+const famHelpers = () => G.ents.filter(e => e.map === G.map.id && (e.type === 'kid' || (G.P.partner && e.id === G.P.partner)) && !e.remove);
+XACT.famcook = [() => '🍲 ' + L2('Cocinar en familia', 'Cook with your family'), 'heart', () => famStart()];
+function famStart() { const P = G.P, M = G.map; if (actBusy() || !M || !M.home) return; const H = famHelpers(); if (!H.length) { toast(L2('Necesitas a tu pareja o a tus hijos en casa para cocinar en familia.', 'You need your partner or your kids at home to cook as a family.'), 'warn'); return; }
+  const st = [['🔪', L2('Picar', 'Chop'), 5, 4], ['🍲', L2('Remover', 'Stir'), 3, 3], ['🔥', L2('Horno', 'Oven'), 9, 4], ['🍽', L2('Servir', 'Serve'), 8, 6]].map(([ic, n, x, y]) => ({ ic, n, x: x * 16 + 8, y: y * 16 + 12 }));
+  Object.assign(ACT, { k: 'famcook', st, H, cur: v8Pick([0, 1, 2, 3]), win: 2.2, done: 0, ok: 0, total: 8, t: 0, onAtk: () => { famAtk(); return true; } });
+  banner('🍲 ' + L2('¡A cocinar en familia!', 'Family cooking!'), L2('Ve al puesto que brilla y pulsa ⚔ a tiempo. Tu familia te ayuda.', 'Go to the glowing station and press ⚔ in time. Your family helps you.')); }
+function famAtk() { const B = ACT, P = G.P, s = B.st[B.cur]; if (Math.hypot(P.x - s.x, P.y - s.y) > 24) return; B.ok++; famNext(true); }
+function famNext(good) { const B = ACT, s = B.st[B.cur]; floatText(s.x, s.y - 26, good ? '✓' : '✗', good ? '#8aff8a' : '#ff8a8a'); sfx(good ? 'coin' : 'hurt'); B.done++; if (B.done >= B.total) return famEnd(); let n; do { n = Math.floor(Math.random() * 4); } while (n === B.cur); B.cur = n; B.win = Math.max(1.3, 2.2 - B.done * 0.1);
+  const h = B.H[B.done % B.H.length]; if (h) { h.tx = B.st[n].x + 14; h.ty = B.st[n].y + 4; } }
+function famEnd() { const B = ACT, P = G.P, H = B.H.length, r = B.ok / B.total, i = r >= 0.95 && H >= 2 ? 3 : r >= 0.75 ? (H >= 2 ? 1 : 0) : r >= 0.5 ? 2 : -1;
+  if (i >= 0) { const D = FAM_DISH[i]; giveItem(D[0], 1 + (H >= 2 ? 1 : 0), true); banner('🍲 ' + D[1], L2('¡Qué rico! ', 'Delicious! ') + B.ok + '/' + B.total + L2(' · en tu bolsa', ' · in your bag')); sfx('quest'); for (const h of B.H) floatText(h.x, h.y - 40, '♥', '#ff8aa8'); P.famCooks = (P.famCooks || 0) + 1; }
+  else { banner('🍲 ' + L2('Se quemó…', 'It burnt…'), L2('Otra vez será. ', 'Next time. ') + B.ok + '/' + B.total); sfx('ui'); }
+  for (const h of B.H) { h.tx = h.ty = undefined; } actEnd(); markDirty(); }
+SAVEKEYS.push('famCooks');
+V33_TICKS.push(dt => { if (ACT.k !== 'famcook') return; dt = Math.min(0.05, dt || 0.016); const B = ACT; B.win -= dt; B.t += dt; for (const h of B.H) if (h.tx !== undefined) npcStep(h, h.tx, h.ty, 60, dt); if (B.win <= 0) famNext(false); if (ACT.k === 'famcook') mgHud(`🍲 ${B.done}/${B.total} · ✓ ${B.ok} · ${B.st[B.cur].ic} ${B.st[B.cur].n}`); });
+WORLD_DRAW.push((cx, cy) => { if (ACT.k !== 'famcook') return; const B = ACT; B.st.forEach((s, i) => { const on = i === B.cur, x = s.x - cx, y = s.y - cy; ctx.fillStyle = on ? 'rgba(255,220,80,' + (0.35 + Math.sin(G.t * 10) * 0.15) + ')' : 'rgba(255,255,255,0.12)'; ctx.beginPath(); ctx.ellipse(x, y, 14, 7, 0, 0, 7); ctx.fill(); drawTxt(s.ic, x, y - 6, '#ffffff', on ? 14 : 10); if (on) { ctx.fillStyle = '#1a1a1e'; ctx.fillRect(x - 14, y + 9, 28, 3); ctx.fillStyle = '#ffd040'; ctx.fillRect(x - 14, y + 9, 28 * Math.max(0, B.win) / 2.2, 3); } }); });
+
+// =====================================================================================
+// SEDE DEL GREMIO, TABLÓN DE MISIONES Y GUERRA SEMANAL (Firebase: cg/{gremio})
+// =====================================================================================
+SAVEKEYS.push('cwWins', 'cwGot', 'cgClaim');
+const CW_WEEK = () => Math.floor((Date.now() / 86400000 + 3) / 7);   // semana que empieza el lunes
+const CG = { d: {}, wk: 0, k: 0, b: 0, pend: { k: 0, b: 0 }, at: 0, rank: null, busy: 0 };
+const SEDE_SLOTS = [['s1', 3, 4], ['s2', 7, 3], ['s3', 12, 3], ['s4', 16, 4], ['s5', 3, 8], ['s6', 16, 8], ['s7', 7, 8], ['s8', 12, 8]];
+const SEDE_CAT = { plant: [L2('Planta', 'Plant'), 2000], flowers: [L2('Jarrón de flores', 'Flower vase'), 3000], lamp: [L2('Lámpara', 'Lamp'), 4000], bookshelf: [L2('Estantería', 'Bookshelf'), 8000], fireplace: [L2('Chimenea', 'Fireplace'), 12000], sofa: [L2('Sofá', 'Sofa'), 10000], table: [L2('Mesa', 'Table'), 6000], wardrobe: [L2('Armario', 'Wardrobe'), 9000], toybox: [L2('Cofre de juguetes', 'Toy chest'), 5000] };
+const CG_MISS = [['k', 300, L2('Vencer 300 monstruos entre todos', 'Defeat 300 monsters together'), 30000], ['k', 1500, L2('Vencer 1.500 monstruos entre todos', 'Defeat 1,500 monsters together'), 120000], ['b', 10, L2('Vencer 10 jefes entre todos', 'Defeat 10 bosses together'), 80000], ['b', 40, L2('Vencer 40 jefes entre todos', 'Defeat 40 bosses together'), 250000]];
+const cgEnc = d => Object.entries(d).filter(([s, f]) => SEDE_CAT[f]).map(([s, f]) => s + ':' + f).join(',').slice(0, 400);
+const cgDec = s => { const o = {}; String(s || '').split(',').forEach(p => { const [a, b] = p.split(':'); if (a && SEDE_CAT[b]) o[a] = b; }); return o; };
+function cgFetch() { const c = G.P && G.P.clan; if (!c || !clanNet()) return Promise.resolve(null); return clanReq('cg/' + c.id).then(v => { v = v || {}; CG.d = cgDec(v.d); const w = CW_WEEK(); CG.wk = v.wk || 0; CG.k = CG.wk === w ? v.k || 0 : 0; CG.b = CG.wk === w ? v.b || 0 : 0; CG.raw = v; CG.at = Date.now(); return v; }); }
+// suma tus monstruos y jefes a la semana del gremio (cada minuto, si hay internet)
+{ const _km = killMob; killMob = function (m) { const r = _km.apply(this, arguments); try { if (G.P && G.P.clan && m) { if (m.boss) CG.pend.b++; else CG.pend.k++; } } catch (e) { } return r; }; }
+let cgPushT = 0;
+V33_TICKS.push(() => { const P = G.P; if (!P || !P.clan || CG.busy || (!CG.pend.k && !CG.pend.b) || Date.now() - cgPushT < 60000 || !clanNet()) return; cgPushT = Date.now(); CG.busy = 1; const add = { k: CG.pend.k, b: CG.pend.b }; CG.pend = { k: 0, b: 0 };
+  cgFetch().then(v => { const w = CW_WEEK(), o = {}; if ((v.wk || 0) !== w) { if (v.wk) { o.pw = v.wk; o.pk = (v.k || 0) + (v.b || 0) * 25; } o.wk = w; o.k = add.k; o.b = add.b; } else { o.k = (v.k || 0) + add.k; o.b = (v.b || 0) + add.b; } o.t = clanTs; return clanReq('cg/' + P.clan.id, { m: 'PATCH', b: o }).then(() => { CG.k = o.k; CG.b = o.b; CG.wk = w; }); })
+    .catch(() => { CG.pend.k += add.k; CG.pend.b += add.b; }).then(() => { CG.busy = 0; }); });
+const cgScore = (v, w) => !v ? 0 : v.wk === w ? (v.k || 0) + (v.b || 0) * 25 : v.pw === w ? v.pk || 0 : 0;
+function cwRank() { return clanReq('cg').then(all => { const w = CW_WEEK(), list = CLAN.list || {}; const row = (wk) => Object.entries(all || {}).map(([id, v]) => [id, cgScore(v, wk)]).filter(r => r[1] > 0).sort((a, b) => b[1] - a[1]); CG.rank = { now: row(w), last: row(w - 1) }; return CG.rank; }); }
+// premio de la guerra: el gremio que ganó la semana pasada
+function cwClaim() { const P = G.P, c = P.clan; if (!c || !CG.rank) return; const w = CW_WEEK() - 1, top = CG.rank.last[0]; if (!top || top[0] !== c.id || P.cwGot === w) return; P.cwGot = w; P.cwWins = (P.cwWins || 0) + 1; const b = BIT(); if (!b.fr.includes('gremio_oro')) b.fr.push('gremio_oro'); giveCosmetic('c_estandarte_gremio', true); P.gold += 500000;
+  banner('🏆 ' + L2('¡Tu gremio ganó la guerra semanal!', 'Your guild won the weekly war!'), L2('Marco «Gremio campeón», Estandarte del gremio y 500.000 de oro.', '«Champion guild» frame, Guild banner and 500,000 gold.')); sfx('level'); markDirty(true); }
+cosm('c_estandarte_gremio', L2('Estandarte del gremio campeón', 'Champion guild banner'), 'back', () => ({ k: 'cape', o: P5(['#4a3000', '#7a5200', '#b07a10', '#e0a820', '#ffd040']), i: P5(['#1a0a3a', '#2a1a5a', '#3a2a7a', '#4a3a9a', '#6a5ac0']), tr: GOLD.slice(1), emb: GOLD.slice(2) }), { src: L2('Guerra semanal de gremios (ganadores)', 'Weekly guild war (winners)') });
+// ---------- la sede: un salón que decoran todos ----------
+function makeSede() { const id = 'sede_gremio', w = 20, h = 12, N = w * h; G.ents = G.ents.filter(e => e.map !== id);
+  const M = { id, w, h, ter: new Uint8Array(N).fill(T.FLOOR), lvl: new Uint8Array(N), reg: new Uint8Array(N), flags: new Uint8Array(N), isWorld: false, chunks: new Map(), dark: 0.05, music: 'town', I: (x, y) => y * w + x, sede: 1 };
+  for (let y = 2; y < h - 1; y++) for (let x = 1; x < w - 1; x++) M.ter[y * w + x] = T.PLANK; for (let x = 0; x < w; x++) { M.ter[x] = T.IWALL; M.ter[w + x] = T.IWALL; M.ter[(h - 1) * w + x] = T.IWALL; } for (let y = 0; y < h; y++) { M.ter[y * w] = T.IWALL; M.ter[y * w + w - 1] = T.IWALL; }
+  const ex = w >> 1; M.ter[(h - 1) * w + ex] = T.PLANK; M.exit = { x: ex, y: h - 1 }; initMapObjs(M);
+  ipObj(M, 'sede_banner', 9, 1, { solid: false }); ipObj(M, 'sede_board', 5, 2, { xact: 'cgboard' }); ipObj(M, 'rug', 9, 6, { solid: false, fp: [] });
+  for (const [s, x, y] of SEDE_SLOTS) { const f = CG.d[s]; if (f) ipObj(M, f, x, y); else ipObj(M, 'sede_slot', x, y, { solid: false, xact: 'cgslot', slot: s }); if (f) M.objs[M.objs.length - 1].xact = 'cgslot', M.objs[M.objs.length - 1].slot = s; }
+  M.wdist = null; G.maps[id] = M; return M; }
+XSPR.sede_banner = () => { const c = G.P && G.P.clan, [cv, g] = XC(40, 40); g.fillStyle = '#5a3a1e'; g.fillRect(2, 2, 36, 3); g.fillStyle = '#2a1a5a'; g.beginPath(); g.moveTo(6, 5); g.lineTo(34, 5); g.lineTo(34, 32); g.lineTo(20, 38); g.lineTo(6, 32); g.fill(); g.strokeStyle = '#ffd040'; g.lineWidth = 2; g.stroke(); g.font = '16px sans-serif'; g.textAlign = 'center'; g.fillText(c ? c.ic : '🛡', 20, 24); g.fillStyle = '#ffd040'; g.font = 'bold 7px monospace'; g.fillText(c ? c.tg : '', 20, 33); return { c: cv, ax: 20, ay: 38 }; };
+XSPR.sede_board = () => { const [c, g] = XC(34, 36); g.fillStyle = '#5a3a1e'; g.fillRect(4, 20, 3, 16); g.fillRect(27, 20, 3, 16); g.fillStyle = '#3a2410'; g.fillRect(1, 2, 32, 22); g.fillStyle = '#c89a5a'; g.fillRect(3, 4, 28, 18); g.fillStyle = '#f4ecd8'; g.fillRect(5, 6, 10, 7); g.fillRect(18, 6, 10, 9); g.fillRect(7, 15, 9, 5); g.fillStyle = '#c03030'; g.fillRect(9, 6, 2, 1); g.fillRect(22, 6, 2, 1); return { c, ax: 17, ay: 35 }; };
+XSPR.sede_slot = () => { const [c, g] = XC(18, 12); g.strokeStyle = 'rgba(255,220,120,0.6)'; g.setLineDash([2, 2]); g.strokeRect(1, 1, 16, 10); g.fillStyle = 'rgba(255,220,120,0.8)'; g.font = 'bold 9px sans-serif'; g.textAlign = 'center'; g.fillText('+', 9, 10); return { c, ax: 9, ay: 10 }; };
+{ const _mi = makeInterior; makeInterior = function (id) { if (id === 'sede_gremio') return makeSede(); return _mi.apply(this, arguments); }; }
+function sedeGo() { const P = G.P; if (!P.clan) return; if (!clanNet()) { toast(L2('La sede necesita internet.', 'The hall needs internet.'), 'warn'); return; } if (actBusy()) return; closeModal();
+  cgFetch().then(() => { transition(() => { if (P.map === 'world') { P.retX = P.x; P.retY = P.y; } else if (!P.inside) { const ws = WAYSTONES[0]; P.retX = ws.x * 16 + 8; P.retY = (ws.y + 2) * 16 + 6; } P.inside = 'sede_gremio'; delete XSPR._c_sede_banner; const M = makeSede(); setMap(M, M.exit.x * 16 + 8, (M.exit.y - 1) * 16 + 10, 'up'); banner(P.clan.ic + ' ' + L2('Sede de ', 'Hall of ') + P.clan.n, L2('Toca los huecos ＋ para decorar y el tablón para las misiones.', 'Tap the ＋ spots to decorate and the board for missions.')); }); }).catch(() => toast(L2('No se pudo conectar con el gremio.', 'Could not reach the guild.'), 'warn')); }
+XACT.cgslot = [o => '🛋 ' + L2('Decorar', 'Decorate'), 'build', o => cgDecor(o.slot)];
+XACT.cgboard = [() => '📋 ' + L2('Tablón del gremio', 'Guild board'), 'board', () => cgBoard()];
+function cgDecor(slot) { const P = G.P, cur = CG.d[slot];
+  openModal(`<div class="frame"><h3>🛋 ${L2('Decorar la sede', 'Decorate the hall')}</h3><p class="hint">${L2('Lo que pongas lo ven todos los miembros. Se paga con tu oro.', 'What you place is seen by every member. Paid with your gold.')}</p>${Object.entries(SEDE_CAT).map(([f, [n, pr]]) => `<div class="gsrc"><span>${esc(n)}<br><small>${fmt(pr)} ${L2('de oro', 'gold')}</small></span><button class="btn sm ${cur === f ? 'gold' : ''}" data-sf="${f}">${cur === f ? '✓' : L2('Poner', 'Place')}</button></div>`).join('')}${cur ? `<div class="row"><button class="btn sm" id="sfR">${L2('Quitar', 'Remove')}</button></div>` : ''}<div class="row"><button class="btn" id="sfX">${L2('Cerrar', 'Close')}</button></div></div>`);
+  const save = (f) => { const d = Object.assign({}, CG.d); if (f) d[slot] = f; else delete d[slot]; return clanReq('cg/' + P.clan.id, { m: 'PATCH', b: { d: cgEnc(d), t: clanTs } }).then(() => { CG.d = d; const x = P.x, y = P.y; const M = makeSede(); G.map = M; setMap(M, x, y, P.dir); }); };
+  $('#sfX').onclick = closeModal; if ($('#sfR')) $('#sfR').onclick = () => { closeModal(); save(null).catch(() => toast(L2('Sin conexión', 'Offline'), 'warn')); };
+  $$('#modal [data-sf]').forEach(b => b.onclick = () => { const f = b.dataset.sf, pr = SEDE_CAT[f][1]; if (P.gold < pr) return toast(L2('No tienes oro suficiente', 'Not enough gold'), 'warn'); closeModal(); save(f).then(() => { P.gold -= pr; markDirty(true); sfx('coin'); clanSay(L2('decoró la sede: ', 'decorated the hall: ') + SEDE_CAT[f][0], true); }).catch(() => toast(L2('Sin conexión', 'Offline'), 'warn')); }); }
+function cgBoard() { const P = G.P, c = P.clan; if (!c) return; const w = CW_WEEK(); P.cgClaim = P.cgClaim && P.cgClaim.w === w ? P.cgClaim : { w, got: {} };
+  Promise.all([cgFetch(), cwRank()]).then(() => { cwClaim(); const v = { k: CG.k + CG.pend.k, b: CG.b + CG.pend.b }, R = CG.rank, nm = id => { const L_ = CLAN.list && CLAN.list[id]; return id === c.id ? c.ic + ' ' + c.n : L_ ? (L_.ic || '🛡') + ' ' + L_.n : id.split('_')[0].toUpperCase(); };
+    openModal(`<div class="frame"><h3>📋 ${L2('Tablón del gremio', 'Guild board')}</h3><p class="hint">${L2('Misiones de esta semana: cuentan los monstruos y jefes que vencéis todos los miembros. Cuando se cumple una, cada miembro cobra su premio.', 'This week\'s missions: the monsters and bosses every member defeats count. When one is done, each member claims their reward.')}</p>
+      ${CG_MISS.map(([k, n, lab, g], i) => { const p = Math.min(n, v[k]), done = p >= n, got = P.cgClaim.got[i]; return `<div class="gsrc"><span>${esc(lab)}<br><small>${fmt(p)}/${fmt(n)} · ${fmt(g)} ${L2('de oro', 'gold')}</small></span>${got ? '<b>✓</b>' : `<button class="btn sm gold" data-cgm="${i}" ${done ? '' : 'disabled'}>${L2('Cobrar', 'Claim')}</button>`}</div>`; }).join('')}
+      <h4>⚔ ${L2('Guerra de gremios (esta semana)', 'Guild war (this week)')}</h4><p class="hint">${L2('Puntos: 1 por monstruo y 25 por jefe. El lunes gana el primero: marco «Gremio campeón», Estandarte y 500.000 de oro para cada miembro.', 'Points: 1 per monster and 25 per boss. On Monday the first wins: «Champion guild» frame, Banner and 500,000 gold for every member.')}</p>
+      ${(R.now.slice(0, 10).map(([id, s], i) => `<div class="gsrc"><span>${i + 1}. ${esc(nm(id))}</span><b>${fmt(s)}</b></div>`).join('')) || `<p class="hint">${L2('Aún no hay puntos esta semana.', 'No points yet this week.')}</p>`}
+      ${R.last[0] ? `<p><small>🏆 ${L2('Ganó la semana pasada: ', 'Last week\'s winner: ')}${esc(nm(R.last[0][0]))}</small></p>` : ''}<div class="row"><button class="btn" id="cgX">${L2('Cerrar', 'Close')}</button></div></div>`);
+    $('#cgX').onclick = closeModal; $$('#modal [data-cgm]').forEach(b => b.onclick = () => { const i = +b.dataset.cgm, m = CG_MISS[i]; if (P.cgClaim.got[i] || v[m[0]] < m[1]) return; P.cgClaim.got[i] = 1; P.gold += m[3]; gainXp(Math.round(xpToNext(P.lv) * 0.03)); sfx('quest'); toast('+' + fmt(m[3]) + L2(' de oro', ' gold'), 'quest'); markDirty(true); cgBoard(); }); })
+  .catch(() => toast(L2('No se pudo conectar con el gremio.', 'Could not reach the guild.'), 'warn')); }
+// botones nuevos en la ventana del gremio
+{ const _co = clanOpen; clanOpen = function () { const r = _co.apply(this, arguments); try { const P = G.P; if (!P.clan || CLAN.busy || CLAN.err || !clanNet() || (CLAN.tab || 'info') !== 'info') return r; const row = document.querySelector('#modal .clan [data-cld]'); if (!row) return r;
+  row.parentElement.insertAdjacentHTML('beforebegin', `<div class="row wrap"><button class="btn gold" id="clSede">🏠 ${L2('Ir a la sede', 'Go to the hall')}</button><button class="btn" id="clWar">⚔ ${L2('Misiones y guerra', 'Missions and war')}</button></div>`);
+  $('#clSede').onclick = sedeGo; $('#clWar').onclick = () => { closeModal(); cgBoard(); }; } catch (e) { console.warn(e); } return r; }; }
+
+// ---------- Lupa ----------
+if (typeof GSIS !== 'undefined') GSIS.unshift(['v548', '🆕 ' + L2('Novedades 5.48', 'New in 5.48'), () => [
+  L2('🛡 Sede del gremio: Atajos › Gremios › «Ir a la sede». Decorad entre todos los huecos ＋ y mirad el tablón: misiones semanales comunes (monstruos y jefes) y la guerra de gremios. El ganador de la semana se lleva marco, estandarte y 500.000 de oro.', '🛡 Guild hall: Shortcuts › Guilds › «Go to the hall». Decorate the ＋ spots together and check the board: shared weekly missions (monsters and bosses) and the guild war. The week\'s winner gets a frame, banner and 500,000 gold.'),
+  L2('❄🐉 Monturas: Lobo de Escarcha (Guardián de Hielo en rango 10) y Draco de Brasa (dragón en rango 10).', '❄🐉 Mounts: Frost Wolf (Ice Guardian at rank 10) and Ember Drake (dragon at rank 10).'),
+  L2('📷 Oficio Fotógrafo de fauna en Machu Picchu: acércate despacio a los animales y haz la foto con ⚔. Álbum de 10 especies (2 raras); al completarlo, el cóndor dorado.', '📷 Wildlife photographer job in Machu Picchu: approach animals slowly and take the photo with ⚔. Album of 10 species (2 rare); complete it for the golden condor.'),
+  L2('🌦 El clima cambia el combate: nieve → hielo, sol → fuego, tormenta → rayo, lluvia → agua (+10 % de daño con tu elemento: arma imbuida, runa o transformación).', '🌦 Weather changes combat: snow → ice, sun → fire, storm → lightning, rain → water (+10% damage with your element: imbued weapon, rune or transformation).'),
+  L2('★ Cazador de recompensas: Vera, en Aldea Albor, cuelga 3 carteles al día. Acepta, sigue la flecha roja y vence al objetivo. Marcas de cazador: marco, halcón, sombrero y corcel.', '★ Bounty hunter: Vera, in Albor Village, hangs 3 posters a day. Accept, follow the red arrow and defeat the target. Hunter marks: frame, falcon, hat and steed.'),
+  L2('🍲 Cocina en familia: en tu casa, con tu pareja o tus hijos, usa los fogones. Ve al puesto que brilla y pulsa ⚔ a tiempo. Platos que dan más que la comida normal (30 min).', '🍲 Family cooking: at home, with your partner or kids, use the stove. Go to the glowing station and press ⚔ in time. Dishes stronger than normal food (30 min).')], () => null]);
 
 // ================= v3.6: IDIOMA (Español / English) =================
 // Los textos del código se traducen al compilar (tools/i18n/tr.js + en.json): cada uno es (LANG_EN ? "inglés" : "español").
