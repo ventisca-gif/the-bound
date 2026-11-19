@@ -18,9 +18,9 @@ const FORM_ATK = {
   eco: ['ink', L2('Trazo Final', 'Final Stroke'), L2('Una pincelada de tinta gigante que atraviesa todo.', 'A giant ink brushstroke that cuts through everything.')],
   hielo: ['spikes', L2('Estacas de Hielo', 'Ice Stakes'), L2('Estacas de hielo brotan en línea hasta el enemigo y ralentizan.', 'Ice stakes erupt in a line to the enemy and slow.')],
   fusion: ['frost', L2('Aliento Glacial', 'Glacial Breath'), L2('Un aliento de dragón helado con esquirlas: daño en cono y ralentiza.', 'An icy dragon breath with shards: cone damage and slows.')] };
-const ptKey = () => { const P = G.P; return !P || !P.sr ? null : P.sr === 'dragon' && P.fus ? 'fusion' : P.sr; };
-const ptRank = k => k === 'fusion' ? Math.min(fusRank('dragon'), fusRank('hielo')) : fusRank(k);
-const ptT = k => { const P = G.P; P.ptree = P.ptree || {}; return P.ptree[k] = P.ptree[k] || { s: [1, 1, 1], a: 0 }; };
+const ptKey = () => { const P = G.P; return !P || !P.sr ? null : P.fus2 ? 'fus_' + P.fus2 : P.sr === 'dragon' && P.fus ? 'fusion' : P.sr; };
+const ptRank = k => k === 'fusion' || /^fus_/.test(k) ? fusOwnRank(k) : fusRank(k);
+const ptT = k => { const P = G.P; P.ptree = P.ptree || {}; const T = P.ptree[k] = P.ptree[k] || { s: [1, 1, 1], a: 0 }; const n = (FORM_POW[k] || []).length; while (T.s.length < n) T.s.push(1); return T; };
 const ptCost = T => T.s.reduce((a, l) => a + (l - 1), 0) + (T.a ? 2 + (T.a - 1) : 0);
 const ptPts = k => Math.max(0, ptRank(k) - 2);
 const ptFree = k => ptPts(k) - ptCost(ptT(k));
@@ -53,8 +53,8 @@ function pfxDraw(g, f, cx, cy) { const R_ = (x, y, w, h, c) => { g.fillStyle = c
 WORLD_DRAW.push((cx, cy) => { for (const f of PFX) pfxDraw(ctx, f, cx, cy); });
 // ---------- ventana del árbol ----------
 let ptTab = null;
-function ptOpen(k) { const P = G.P; const own = srOwned().filter(x => FORM_POW[x]).concat(typeof fusOk === 'function' && fusOk() ? ['fusion'] : []); if (!own.length) { toast(L2('Primero consigue una transformación.', 'Get a transformation first.'), 'warn'); return; }
-  k = k || ptTab || ptKey() || own[0]; if (!own.includes(k)) k = own[0]; ptTab = k; const T = ptT(k), free = ptFree(k), nm = x => x === 'fusion' ? '🐉❄ ' + L2('Dragón de Hielo', 'Ice Dragon') : SR[x].ic + ' ' + SR[x].n, A = FORM_ATK[k];
+function ptOpen(k) { const P = G.P; const own = srOwned().filter(x => FORM_POW[x]).concat(fusTreeList()); if (!own.length) { toast(L2('Primero consigue una transformación.', 'Get a transformation first.'), 'warn'); return; }
+  k = k || ptTab || ptKey() || own[0]; if (!own.includes(k)) k = own[0]; ptTab = k; const T = ptT(k), free = ptFree(k), nm = x => fusTreeName(x), A = FORM_ATK[k];
   const dots = (l, mx) => '●'.repeat(l) + '○'.repeat(mx - l);
   openModal(`<div class="frame ptree"><h3>🌳 ${L2('Árbol de poderes', 'Power tree')}</h3><div class="row wrap">${own.map(x => `<button class="btn sm ${x === k ? 'gold' : ''}" data-ptk="${x}">${esc(nm(x))}</button>`).join('')}</div>
     <p class="hint">${L2('Maestría ', 'Mastery ')}${ptRank(k)}/12 · ${L2('Puntos libres: ', 'Free points: ')}<b>${free}</b> / ${ptPts(k)}. ${L2('Cada rango de maestría desde el 3 da un punto. Funciona solo transformado.', 'Each mastery rank from 3 gives a point. Works only while transformed.')}</p>
