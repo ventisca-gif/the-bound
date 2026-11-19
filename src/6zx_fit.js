@@ -28,7 +28,9 @@ const FIT_HEAD = { hrx: 7.5, hry: 8 };
 const FIT_FACE = new Set(['shades']), FIT_FLOAT = new Set(['halo']), FIT_SKIN = new Set(['swim', 'warpaint', 'hawaii', 'shorts', 'skirt']);
 function fitKind(slot, k, draw, opts) {
   if (!FITK[slot]) throw new Error('fitKind: ranura desconocida ' + slot);
-  opts = opts || {}; FITK[slot][k] = Object.assign({ draw }, opts);
+  // 5.31: si una prenda falla en una pose rara (anclajes fraccionarios de las habilidades), se avisa y se sigue dibujando el resto: el personaje nunca queda invisible
+  const safe = function (p, A, s) { try { return draw.apply(this, arguments); } catch (e) { if (typeof errOnce === 'function') errOnce('fit:' + slot + ':' + k, e); else console.warn('fit', slot, k, e); } };
+  opts = opts || {}; FITK[slot][k] = Object.assign({ draw: safe, raw: draw }, opts);
   if (opts.face) FIT_FACE.add(k); if (opts.float) FIT_FLOAT.add(k); if (opts.skin) FIT_SKIN.add(k);
 }
 // puntos de anclaje del fotograma (se añaden a p.meta, que también usa el detalle HD)

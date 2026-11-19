@@ -14,7 +14,7 @@ const MXP = { blanco: IDP.blanco, negro: IDP.negro, rojo: IDP.rojo, rosa: IDP.ro
 const MX_RIB = [MXP.rosa, MXP.naranja, MXP.amarillo, MXP.verde, MXP.turquesa, MXP.azul, MXP.morado, MXP.rojo];
 const fsDot = (x, y) => y % 3 === 0 && (x + ((y / 3) % 2 ? 2 : 0)) % 4 === 0;
 // blusa de hombros caídos con volante; cintas de colores (Jalisco), flores bordadas (Chiapas), lunares (flamenca) y faja
-idK('body', 'mx_blusa', (p, A, s) => { const { tx0, tw, torsoTop: ty, th, cx, side, up, d } = A, R = tx0 + tw - 1, m = s.m, r = s.r || m;
+idK('body', 'mx_blusa', (p, A, s) => { const { tx0, tw, th, cx, side, up, d } = A, ty = Math.round(A.torsoTop), R = tx0 + tw - 1, m = s.m, r = s.r || m;
   idBare(p, A, m, tx0 - 2, ty, R + 2, ty);
   const vy = ty + 1, x0 = side ? tx0 : tx0 - 1, x1 = side ? R : R + 1; for (let x = x0; x <= x1; x++) { p.set(x, vy, r[3]); p.set(x, vy + 1, x === x0 || x === x1 ? r[2] : r[4]); }
   if (!side) { p.set(x0, vy + 2, r[2]); p.set(x1, vy + 2, r[2]); }

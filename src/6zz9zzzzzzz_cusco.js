@@ -77,7 +77,7 @@ fitKind('head', 'cz_montera', (p, A, s) => { const { hx, hrx, headTop, side } = 
   for (let y = y0 - 3; y < y0; y++) for (let x = Math.round(hx - hrx + 2); x <= Math.round(hx + hrx - 2); x++) p.set(x, y, y === y0 - 3 ? m[4] : m[2]);
   const fr = [s.st[0][3], s.st[1][3], s.st[2][3], t[4]]; for (let x = x0; x <= x1; x++) if (x < x0 + 3 || x > x1 - 3) for (let y = y0 + 3; y <= y0 + 6; y++) if ((x + y) % 2 === 0) p.set(x, y, fr[(x + y) & 3]); });
 // poncho andino: color entero con franjas de pallay en los bordes, una banda de rombos y flecos abajo
-fitKind('body', 'cz_poncho', (p, A, s) => { const { tx0, tw, torsoTop: ty, cx, side, legTop } = A, R = tx0 + tw - 1, m = s.m, t = s.t, x0 = side ? cx - 5 : tx0 - 3, x1 = side ? cx + 4 : R + 3, bot = legTop + 3, mid = Math.round(ty + (bot - ty) * 0.55);
+fitKind('body', 'cz_poncho', (p, A, s) => { const { tx0, tw, cx, side } = A, ty = Math.round(A.torsoTop), R = tx0 + tw - 1, m = s.m, t = s.t, x0 = side ? cx - 5 : tx0 - 3, x1 = side ? cx + 4 : R + 3, bot = Math.round(A.legTop) + 3, mid = Math.round(ty + (bot - ty) * 0.55);
   for (let y = ty; y <= bot; y++) { const inset = y < ty + 2 ? 2 - (y - ty) : 0; for (let x = x0 + inset; x <= x1 - inset; x++) { const e = Math.min(x - x0, x1 - x); let c = e === 0 ? m[1] : m[2]; if (!side && (e === 1 || e === 2)) c = s.st[(y + e) % s.st.length][3]; if (Math.abs(y - mid) <= 1 && !side) c = (Math.abs(x - cx) + y) % 4 === 0 ? t[4] : t[2]; if (y === bot) c = (x % 2) ? t[3] : m[3]; p.set(x, y, c); } }
   for (let x = x0 + 1; x <= x1 - 1; x += 2) p.set(x, bot + 1, t[3]); p.set(cx - 1, ty, m[0]); p.set(cx, ty, m[0]); });
 // lliclla: manta tejida a rayas sobre los hombros, prendida con un tupu dorado; por detrás cubre la espalda
