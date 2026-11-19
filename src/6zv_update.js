@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.33', GAME_BUILD = 154;
+const GAME_VER = '5.34', GAME_BUILD = 155;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.34",
+  "b": 155,
+  "d": "2026-11-19",
+  "es": [
+   "📘 «Para qué sirve» ahora también copia lo que explica la Lupa (Sistemas y Oficios) sobre cada objeto: por ejemplo, la Hierba del sueño o el Polvo Arcano dicen lo mismo que su guía.",
+   "🔎 En el inventario sale también «Dónde conseguir» y un botón «Ver en la Lupa» que abre la Lupa con ese objeto marcado (con flecha dorada)."
+  ],
+  "en": [
+   "📘 «What it's for» now also copies what the Magnifier (Systems and Jobs) explains about each item: for example, Dream herb or Arcane Dust say the same as their guide.",
+   "🔎 The bag also shows «Where to get it» and an «Open in the Magnifier» button that opens it with that item selected (with the golden arrow)."
+  ]
+ },
  {
   "v": "5.33",
   "b": 154,
