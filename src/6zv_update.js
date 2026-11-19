@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.41', GAME_BUILD = 162;
+const GAME_VER = '5.42', GAME_BUILD = 163;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.42",
+  "b": 163,
+  "d": "2026-11-19",
+  "es": [
+   "🐉 Dragón Híbrido 2.0: escamas en toda la cara (mezcladas con tu piel), el cuerpo y el torso, ojos encendidos, colmillos, cresta de púas y cuernos largos, todo del color de tu pelo. +26 % de ataque (20 % más que la Mitad Dragón), +10 % de vida y +8 % de defensa.",
+   "Se desbloquea con la forma de dragón en rango 5 (venciendo enemigos transformado). Toca 🐉: normal → híbrida → híbrido 2.0 → dragón a cuatro patas. Guía en la Lupa › Subrazas y Sistemas."
+  ],
+  "en": [
+   "🐉 Dragon Hybrid 2.0: scales on the whole face (blended with your skin), body and torso, glowing eyes, fangs, a spiked crest and long horns, all in your hair colour. +26% attack (20% more than Half-Dragon), +10% HP and +8% defense.",
+   "Unlocks with the dragon form at rank 5 (defeating enemies while transformed). Tap 🐉: normal → hybrid → hybrid 2.0 → four-legged dragon. Guide in Magnifier › Subraces and Systems."
+  ]
+ },
  {
   "v": "5.41",
   "b": 162,
