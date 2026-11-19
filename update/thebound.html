@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.44 · Alado Caído y Eco sin Pintar</div>
+  <div class="tfoot">v5.45 · Escamas sobre la ropa</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11797,7 +11797,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.44', GAME_BUILD = 165;
+const GAME_VER = '5.45', GAME_BUILD = 166;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11805,6 +11805,13 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.45",
+  "b": 166,
+  "d": "2026-11-19",
+  "es": ["🐉 Las escamas del dragón ahora salen encima de tu ropa o armadura, sea cual sea: en la Forma Híbrida en brazos y hombros, y en el Híbrido 2.0 también en el pecho y las piernas, del color de tu pelo."],
+  "en": ["🐉 Dragon scales now appear over your clothes or armour, whatever you wear: in the Hybrid Form on arms and shoulders, and in Hybrid 2.0 also on the chest and legs, in your hair colour."]
+ },
  {
   "v": "5.44",
   "b": 165,
@@ -38158,6 +38165,22 @@ if (typeof SR_GUIDE !== 'undefined') Object.assign(SR_GUIDE, {
   eco: { how: () => [L2('1. Nivel 360: Nilo (Albor) te avisa. Misión «Un trazo sin color»: habla con Mael en las Tierras sin Pintar.', '1. Level 360: Nilo (Albor) tells you. Quest «A colourless stroke»: talk to Mael in the Unpainted Lands.'), L2('2. «Tinta para el boceto»: 12 Tintas Vivas y 4 Pigmentos Puros.', '2. «Ink for the sketch»: 12 Living Inks and 4 Pure Pigments.'), L2('3. «El que te dibuja»: vence al Eco del Vencido.', '3. «The one who draws you»: defeat the Echo of the Vanquished.'), L2('4. Ritual del pincel con Mael: 12 Tintas Vivas + 200.000 de oro.', '4. Brush ritual with Mael: 12 Living Inks + 200,000 gold.')],
     lore: () => L2('La Ventisca dibuja antes de pintar: todo lo que existe fue primero un boceto. En el borde del mundo, el Lienzo en Blanco quiere borrar esos bocetos y dibuja ecos de lo que venciste. Mael repasa con Tinta Viva el boceto de ti que la Ventisca dejó en tu página, para que el Lienzo no pueda copiarlo: así puedes volver a ser dibujo cuando quieras y luego recuperar tu color. No viene del silencio de Nihil: es el trazo de la Ventisca antes del color.', 'The Ventisca sketches before painting: everything that exists was first a sketch. At the edge of the world, the Blank Canvas wants to erase those sketches and draws echoes of what you defeated. Mael traces with Living Ink the sketch of you the Ventisca left on your page, so the Canvas cannot copy it: that way you can become a drawing whenever you like and then get your colour back. It does not come from Nihil\'s silence: it is the Ventisca\'s line before colour.') } });
 if (typeof GSIS !== 'undefined') GSIS.unshift(['ae544', '🪽🖌 ' + L2('Transformaciones Alado Caído y Eco sin Pintar', 'Fallen Winged and Unpainted Echo transformations'), () => SR_GUIDE.alado.how().concat(SR_GUIDE.eco.how()).concat([L2('Fuerza (a 1-2 % del dragón): Alado forma +24 %, plena +30 % de ataque y más velocidad; Eco forma +25 %, plena +31 % de ataque y esquiva. Se guardan con tus demás formas en 🌀 Transformaciones.', 'Strength (1-2% from the dragon): Winged form +24%, full +30% attack and more speed; Echo form +25%, full +31% attack and dodge. They are saved with your other forms in 🌀 Transformations.')]), () => null]);
+
+// ================= v5.45: ESCAMAS DEL DRAGÓN ENCIMA DE CUALQUIER ROPA =================
+// Sergio: «en las formas híbridas, que las escamas se pongan encima de tu ropa, cualquiera que uses».
+// Híbrida (srF 1): escamas en brazos y hombros encima de la ropa. Híbrido 2.0 (srF 3): brazos, hombros, pecho y piernas.
+// Usa las capas del dibujo (p.t: 1 piernas, 2 torso, 3 brazos) cuando están; si no, la zona del cuerpo con los anclajes.
+function drgClothScales(p, L, F) { const m = p.meta; if (!m || m.torsoTop === undefined) return; const Q = drgPal(L), SKN = new Set(Array.from(L.skin || []).map(c => typeof c === 'string' ? C(c) : c)), HAIR = new Set(Array.from(L.hair || []).map(c => typeof c === 'string' ? C(c) : c));
+  const t0 = Math.round(m.torsoTop), th = Math.round(m.th || 8), lt = Math.round(m.legTop), base = Math.round(m.base), tx0 = Math.round(m.tx0), tw = Math.round(m.tw || 10), two = F === 3;
+  const hash = (x, y) => ((x * 73856093) ^ (y * 19349663)) >>> 0;
+  for (let y = t0; y <= base; y++) for (let x = 0; x < p.w; x++) { const i = y * p.w + x, c = p.d[i]; if (!uA(c) || SKN.has(c) || HAIR.has(c)) continue; const tg = p.t ? p.t[i] : 0;
+    let zone = tg === 3 ? 'arm' : tg === 2 ? 'torso' : tg === 1 ? 'leg' : 0; if (tg === 8 || tg === 4 || tg === 6 || tg === 7) continue;
+    if (!p.t) zone = y >= lt ? 'leg' : (x < tx0 || x >= tx0 + tw) ? 'arm' : 'torso';
+    let dens = 0; const ry = (y - t0) / Math.max(1, th);
+    if (zone === 'arm') dens = two ? 0.85 : 0.6; else if (zone === 'torso') dens = (x <= tx0 + 1 || x >= tx0 + tw - 2 || ry < 0.3) ? (two ? 0.8 : 0.5) : (two ? 0.45 : 0); else if (zone === 'leg') dens = two ? 0.5 : 0;
+    if (!dens || (hash(x, y) % 100) / 100 > dens) continue;
+    const row = Math.floor(y / 2), sx = (x + (row % 2) * 2) % 4, sc = sx === 0 ? Q.sc[1] : (y % 2 === 0 && sx === 2) ? Q.sc[4] : Q.sc[2]; p.d[i] = uMix(c, sc, 0.72) | 0xff000000; } }
+{ const _dh = drawHero; drawHero = function (p, L, dir, anim, f) { const r = _dh.apply(this, arguments); if (L && L.sr === 'dragon' && (L.srF === 1 || L.srF === 3)) try { drgClothScales(p, L, L.srF); } catch (e) { if (typeof errOnce === 'function') errOnce('drgcl', e); } return r; }; }
 
 // ================= v3.6: IDIOMA (Español / English) =================
 // Los textos del código se traducen al compilar (tools/i18n/tr.js + en.json): cada uno es (LANG_EN ? "inglés" : "español").
