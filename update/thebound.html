@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.34 · Para qué sirve, con la Lupa</div>
+  <div class="tfoot">v5.35 · Dónde conseguir cada objeto</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11797,7 +11797,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.34', GAME_BUILD = 155;
+const GAME_VER = '5.35', GAME_BUILD = 156;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11805,6 +11805,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.35",
+  "b": 156,
+  "d": "2026-11-19",
+  "es": [
+   "🔎 Todos los objetos (1768) dicen ya dónde se consiguen: peces (dónde pescar, nivel y caña), peces legendarios (agua, clima y hora), accesorios y fragmentos de cada jefe, platos de la hoguera con sus ingredientes, piezas de construcción con su coste, ropa, cultivos, flores y ramos del vivero, excavación, granja, armas malditas y del Lienzo, anillos de cazador, tiendas del Coliseo, la Torre, Oniria y el Tendero Imposible, fiestas, recompensas de misiones y fenómenos (aurora, lluvia, meteoritos, eclipse, niebla maldita).",
+   "📋 En el inventario, debajo de «Para qué sirve», sale «Dónde conseguir» con hasta 6 formas; la Lupa › 🎒 Objetos las muestra todas con flecha dorada."
+  ],
+  "en": [
+   "🔎 Every item (1768) now says where to get it: fish (where to fish, level and rod), legendary fish (water, weather and time), each boss's accessories and fragments, campfire dishes with their ingredients, building pieces with their cost, clothes, crops, nursery flowers and bouquets, digging, farm, cursed and Canvas weapons, hunter rings, Colosseum, Tower, Oniria and Impossible Shopkeeper shops, festivals, quest rewards and phenomena (aurora, rain, meteors, eclipse, cursed fog).",
+   "📋 In the bag, under «What it's for», «Where to get it» lists up to 6 ways; Magnifier › 🎒 Items shows them all with the golden arrow."
+  ]
+ },
  {
   "v": "5.34",
   "b": 155,
@@ -36952,7 +36965,7 @@ function usoLupa(id) { const it = ITEMS[id]; if (!it) return []; const nm = Stri
   const longer = USO_L.longer.n.filter(n => n !== low && n.length > low.length && n.includes(low));
   for (const [t, f] of usoLupaLines()) { const fl = f.toLowerCase(); if (!re.test(fl) || seen.has(f) || longer.some(n => fl.includes(n) && !re.test(fl.split(n).join(' ')))) continue; seen.add(f); out.push([t, f]); if (out.length >= 4) break; } return out; }
 function usoSrcHTML(id) { let src = []; try { src = itemSources(id); } catch (e) { }
-  return `<div class="usos"><b>🔎 ${L2('Dónde conseguir', 'Where to get it')}</b>${src.length ? src.slice(0, 4).map(([t]) => `<div>${esc(t)}</div>`).join('') : `<div>${L2('Tiendas, cofres, eventos o recompensas (mira la Lupa).', 'Shops, chests, events or rewards (see the Magnifier).')}</div>`}<button class="btn sm" data-ulupa="${id}">🔎 ${L2('Ver en la Lupa (con flecha)', 'Open in the Magnifier (with arrow)')}</button></div>`; }
+  return `<div class="usos"><b>🔎 ${L2('Dónde conseguir', 'Where to get it')}</b>${src.length ? src.slice(0, 6).map(([t]) => `<div>${esc(t)}</div>`).join('') : `<div>${L2('Tiendas, cofres, eventos o recompensas (mira la Lupa).', 'Shops, chests, events or rewards (see the Magnifier).')}</div>`}<button class="btn sm" data-ulupa="${id}">🔎 ${L2('Ver en la Lupa (con flecha)', 'Open in the Magnifier (with arrow)')}</button></div>`; }
 function usoHTML(id, max) { const L_ = itemUses(id); if (!L_.length) return ''; const n = max || 99;
   return `<div class="usos"><b>📋 ${L2('Para qué sirve', 'What it\'s for')}</b>${L_.slice(0, n).map(t => `<div>${esc(t)}</div>`).join('')}</div>`; }
 { const st = document.createElement('style'); st.textContent = '.usos{margin:.4em 0;padding:.35em .5em;border:1px solid rgba(255,220,140,.25);border-radius:6px;background:rgba(0,0,0,.22);font-size:.82em;line-height:1.35;max-height:min(40vh,15em);overflow-y:auto}.usos b{display:block;color:#ffd040;margin-bottom:.15em}.usos div{margin:.12em 0}.usos .btn{margin-top:.3em}.gdet .usos{max-height:none}'; document.head.appendChild(st); }
@@ -37007,6 +37020,94 @@ if (typeof GSIS !== 'undefined') GSIS.unshift(['usos', '📋 ' + L2('Para qué s
   L2('Toca cualquier objeto del inventario: al lado sale «Para qué sirve» con todos sus usos (fabricar, cocinar, construir, forja, misiones, museo, regalos, tu tienda y cuánto vale).', 'Tap any item in your bag: next to it, «What it\'s for» lists all its uses (crafting, cooking, building, forge, quests, museum, gifts, your shop and how much it is worth).'),
   L2('Lupa › 🎒 Objetos: busca cualquier cosa que se pueda guardar (materiales, comida, pociones, picos, runas, gemas, piezas de construcción, objetos de misión) y mira para qué sirve y dónde se consigue, con flecha dorada.', 'Magnifier › 🎒 Items: search anything you can keep (materials, food, potions, picks, runes, gems, building pieces, quest items) and see what it is for and where to get it, with the golden arrow.'),
   L2('Los objetos con ✓ son los que ya tienes. Antes de tirar algo, mira si sirve para algo.', 'Items with ✓ are the ones you already have. Before dropping something, check whether it is useful.')], () => null]);
+
+// =====================================================================================
+// v5.35: «DÓNDE CONSEGUIR» PARA TODOS LOS OBJETOS
+// Fuentes que la Lupa no sabía: peces por hábitat, legendarios, accesorios y fragmentos de jefes, platos de la
+// hoguera, piezas de construcción, ropa, cultivos, excavación, granja, tiendas con moneda propia, fiestas,
+// recompensas de misiones, alquimia experimental… y una lista a mano (USO_SRC) para lo que sale en un sitio suelto.
+// =====================================================================================
+const USO_HAB = { mar: ['el mar', 'the sea'], rio: ['ríos', 'rivers'], lago: ['lagos', 'lakes'], oasis: ['el oasis del desierto', 'the desert oasis'], selva: ['la selva', 'the jungle'], cristal: ['las cuevas de cristal', 'crystal caves'], volcan: ['Isla Brasa (lava)', 'Ember Isle (lava)'], submarino: ['el fondo marino (buceando)', 'the seabed (diving)'], hielo: ['el hielo (Picos Helados)', 'the ice (Frozen Peaks)'], abismo: ['el abismo', 'the abyss'], cielo: ['el cielo', 'the sky'], pantano: ['el pantano', 'the swamp'], lava: ['la lava', 'lava'] };
+const USO_WX = { storm: ['con tormenta', 'in storms'], fog: ['con niebla', 'in fog'], rain: ['con lluvia', 'in rain'], snow: ['con nieve', 'in snow'], clear: ['con cielo despejado', 'in clear weather'], night: ['de noche', 'at night'] };
+const usoHab = h => USO_HAB[h] ? L2(USO_HAB[h][0], USO_HAB[h][1]) : h;
+// a mano: id → () => [[texto, destino|null]]
+const USO_SRC = {
+  saco_robado: () => [[L2('De noche, los ladrones roban de los almacenes de las casas: atrápalos para recuperar el saco.', 'At night thieves steal from house storage: catch them to get the sack back.')]],
+  ficha_coliseo: () => [[L2('Gana combates en el Coliseo (3 fichas, 5 en dúo).', 'Win fights at the Colosseum (3 tokens, 5 in duo).')]],
+  ficha_festival: () => [[L2('Juega en los puestos de los festivales de los pueblos.', 'Play at the town festival stalls.')]],
+  fragmento_eclipse: () => [[L2('Enemigos del Eclipse (cuando el sol se oscurece): 6 % al vencerlos.', 'Eclipse enemies (when the sun darkens): 6% when defeated.')]],
+  esencia_maldita: () => [[L2('Enemigos de la Niebla Maldita: 35 % al vencerlos.', 'Cursed Fog enemies: 35% when defeated.')]],
+  flor_aurora: () => [[L2('Fenómeno de la Aurora: recoge las Flores de Aurora que brotan esas noches.', 'Aurora phenomenon: pick the Aurora Flowers that sprout those nights.')]],
+  flor_lluvia: () => [[L2('Con lluvia brotan Flores de Lluvia: recógelas.', 'Rain Flowers sprout when it rains: pick them.')]],
+  hongo_sangre: () => [[L2('Luna de Sangre: recoge Hongos de Sangre y gana 3 al salvar un pueblo del asedio.', 'Blood Moon: pick Blood Mushrooms and get 3 for saving a town from the siege.')]],
+  hierro_estelar: () => [[L2('Lluvia de meteoritos: extrae los cráteres que caen. También en las minas profundas y del Gusano de Roca Ancestral.', 'Meteor shower: mine the craters that fall. Also in deep mines and from the Ancient Rock Worm.')]],
+  fragmento_mapa: () => [[L2('Excavando montículos (8 %) y venciendo enemigos de la Isla de las Ruinas (6 %).', 'Digging mounds (8%) and defeating enemies on the Isle of Ruins (6%).')]],
+  piedra: () => [[L2('Minería: cualquier roca con el pico. También al romper rocas y en cofres.', 'Mining: any rock with the pickaxe. Also from breaking rocks and chests.')]],
+  perla_rosa: () => [[L2('Almejas gigantes del fondo marino (buceo desde Isla Brasa).', 'Giant clams on the seabed (diving from Ember Isle).')]],
+  perla_dorada: () => [[L2('Almejas gigantes del fondo marino y perlas perdidas de Nerea.', 'Giant clams on the seabed and Nerea\'s lost pearls.')]],
+  perla_luna: () => [[L2('Almejas gigantes del fondo marino de noche (muy rara).', 'Giant clams on the seabed at night (very rare).')]],
+  polvo_sueno: () => [[L2('Supera las pruebas del Mundo de los Sueños (Espejos, Ecos y Sombra): 3-5 por prueba.', 'Clear the Dream World trials (Mirrors, Echoes and Shadow): 3-5 per trial.')]],
+  polvo_arcano: () => [[L2('Academia Arcana (Velo Roto): lecciones de los profesores, clases en los pupitres y libros nuevos de la biblioteca.', 'Arcane Academy (Broken Veil): teachers\' lessons, classes at the desks and new library books.')]],
+  ofm_medalla: () => [[L2('Gana el torneo del gremio venciendo a los 3 rivales.', 'Win the guild tournament by beating all 3 rivals.')]],
+  polvo_estelar: () => [[L2('De noche caen estrellas fugaces: corre a recoger el polvo donde caen.', 'At night shooting stars fall: run to pick up the dust where they land.')]],
+  golosina: () => [[L2('Puesto de comida del mercadillo nocturno (150 oro) y premio de la caseta de tiro.', 'Night market food stall (150 gold) and shooting gallery prize.')]],
+  pececito: () => [[L2('Caseta de pesca de peces del mercadillo nocturno.', 'Goldfish stall at the night market.')]],
+  pez_tormenta: () => [[L2('Pesca durante una tormenta (12 % por captura).', 'Fish during a storm (12% per catch).')]],
+  pez_crecida: () => [[L2('Pesca en los ríos crecidos tras la lluvia.', 'Fish in swollen rivers after rain.')]],
+  oricalco_celeste: () => [[L2('Celestia: vetas de oricalco en las islas del cielo (pico de nivel alto).', 'Celestia: orichalcum veins on the sky isles (high-level pickaxe).')]],
+  huevo_grifo: () => [[L2('1 % al vencer jefes y jefes de campamento élite. También en la tienda del Coliseo (120 fichas).', '1% from bosses and elite camp chiefs. Also at the Colosseum shop (120 tokens).')]],
+  huevo_dragon: () => [[L2('Muy raro al vencer jefes y jefes de campamento élite.', 'Very rare from bosses and elite camp chiefs.')]],
+  anillo_maldito: () => [[L2('Enemigos de la Niebla Maldita, fantasmas y jefes (2 %, 8 % los jefes).', 'Cursed Fog enemies, ghosts and bosses (2%, 8% bosses).')]],
+  collar_sangriento: () => [[L2('Enemigos de la Niebla Maldita, fantasmas y jefes (2 %, 8 % los jefes).', 'Cursed Fog enemies, ghosts and bosses (2%, 8% bosses).')]],
+  yelmo_vacio: () => [[L2('Enemigos de la Niebla Maldita, fantasmas y jefes (2 %, 8 % los jefes).', 'Cursed Fog enemies, ghosts and bosses (2%, 8% bosses).')]],
+  acc_sonador: () => [[L2('Supera las tres pruebas del Mundo de los Sueños: Oniria te lo regala.', 'Clear the three Dream World trials: Oniria gives it to you.')]],
+  acc_insignia: () => [[L2('Misión «Audiencia Real»: te la da el Rey Aldric en el castillo de Albor.', 'Quest «Royal Audience»: King Aldric gives it to you in Albor castle.')]],
+  tarjeta_tren: () => [[L2('Taquilla de la estación de tren.', 'Train station ticket office.')]],
+};
+function usoSrcExtra(id) { const it = ITEMS[id], out = [], add = (t, d) => { if (t && !out.some(o => o[0] === t)) out.push([t, d || null]); }; if (!it) return out; const T = f => { try { f(); } catch (e) { } };
+  let m;
+  if (USO_SRC[id]) T(() => USO_SRC[id]().forEach(([t, d]) => add(t, d)));
+  // peces
+  T(() => { const L_ = LEGF.find(L => L[0] === id); if (L_) add('🐟 ' + L2('Pez legendario: pesca en ', 'Legendary fish: fish in ') + L_[3].map(usoHab).join(', ') + (L_[4] && L_[4].length ? ' ' + L_[4].map(w => USO_WX[w] ? L2(USO_WX[w][0], USO_WX[w][1]) : w).join(L2(' o ', ' or ')) : '') + (L_[6] && !(L_[6][0] === 0 && L_[6][1] === 24) ? ' · ' + L_[6][0] + ':00-' + L_[6][1] + ':00' : '') + L2(' (pesca de nivel alto).', ' (high fishing level).')); });
+  if (it.fish && it.hab) add('🎣 ' + L2('Pesca en ', 'Fish in ') + it.hab.map(usoHab).join(', ') + (it.tier && typeof RESLV !== 'undefined' && RESLV[it.tier] ? L2(' · pesca nivel ', ' · fishing level ') + RESLV[it.tier] + L2(' y caña de potencia ', ' and rod power ') + Math.ceil(it.tier / 2) : '') + '.');
+  // jefes: accesorio propio y fragmentos del sello
+  T(() => { for (const b in BOSSES) { const B = BOSSES[b]; if (B.acc === id) { const w = bossWhere(b); add('👑 ' + L2('Lo suelta el jefe ', 'Dropped by the boss ') + B.n + ' · ' + w.where, w.loc ? { loc: w.loc, t: B.n } : null); } if ((m = /^frag(\d)$/.exec(id)) && +B.frag === +m[1]) { const w = bossWhere(b); add('🔱 ' + L2('Historia principal: vence a ', 'Main story: defeat ') + B.n + L2(' (guardián del Sello).', ' (Seal guardian).'), w.loc ? { loc: w.loc, t: B.n } : null); } } });
+  if (/^acc_cielo_|^col_cielo_/.test(id)) add('🛍 ' + L2('Tienda de armaduras de Celestia (solo el de tu clase).', 'Celestia armour shop (only your class\'s).'));
+  if (/^anillo_cazador_/.test(id)) add('⛩ ' + L2('Torre de los Portales: tienda de anillos de cazador (esencias) o al limpiar mazmorras (15 %, 30 % en equipo).', 'Portal Tower: hunter ring shop (essences) or clearing dungeons (15%, 30% in a team).'));
+  if (it.cursedW) add('💀 ' + L2('Arma maldita: desde el nivel 120, al vencer jefes (5 %) o fantasmas (0,4 %). Sale la de tu clase.', 'Cursed weapon: from level 120, defeating bosses (5%) or ghosts (0.4%). You get your class\'s.'));
+  if (/^wlz_/.test(id)) add('🎨 ' + L2('El Lienzo en Blanco (Tierras sin Pintar): 6 % al vencerlo. Sale la de tu clase.', 'The Blank Canvas (Unpainted Lands): 6% when defeated. You get your class\'s.'));
+  // platos de la hoguera
+  T(() => { const k = (m = /^plp?_(.+)$/.exec(id)) && m[1], d = k && PL.find(d => d[0] === k); if (d) add('🔥 ' + L2('Cocínalo en una hoguera (cocina): ', 'Cook it at a campfire (cooking): ') + d[8].map(([i, n]) => n + '× ' + usoN(i)).join(', ') + (/^plp_/.test(id) ? L2('. ★ = sírvelo en la zona dorada.', '. ★ = serve it in the golden zone.') : '.')); });
+  if (/^ig_/.test(id)) add('🧺 ' + L2('Cómpralo en la hoguera (pestaña Ingredientes, de 5 en 5).', 'Buy it at a campfire (Ingredients tab, 5 at a time).'));
+  // granja
+  T(() => { for (const F of FARM) if (F[6]().some(([i]) => i === id)) add('🐄 ' + L2('Granja de tu casa: ', 'Your home farm: ') + L2(F[1], F[2]) + L2(' (lo da cada día).', ' (produces it daily).')); });
+  // cultivos y flores
+  T(() => { const s = Object.values(ITEMS).find(i => i.seed === id); if (s) add('🌱 ' + L2('Cultívalo: siembra ', 'Grow it: plant ') + s.n + L2(' en un huerto.', ' in a field.')); });
+  T(() => { if ((m = /^flor_(.+)$/.exec(id)) && FLOR[m[1]]) add('🌸 ' + (['rojo', 'amarillo', 'blanco', 'azul'].includes(m[1]) ? L2('Vivero de Flor: compra la semilla (60 oro).', 'Flor\'s Nursery: buy the seed (60 gold).') : L2('Vivero de Flor: cruza dos flores (puede salir este color raro).', 'Flor\'s Nursery: cross two flowers (this rare colour may grow).'))); });
+  T(() => { if ((m = /^ramo_(.+)$/.exec(id)) && FLOR[m[1]]) add('💐 ' + L2('Vivero de Flor: junta 3 ', 'Flor\'s Nursery: gather 3 ') + usoN('flor_' + m[1]) + L2(' y haz el ramo.', ' and make the bouquet.')); });
+  // excavación
+  T(() => { if (DIG_LOOT.some(([lv, L_]) => L_.some(([i]) => i === id))) add('⛏ ' + L2('Excavación: cava en los montículos de tierra con la pala.', 'Digging: dig the dirt mounds with the shovel.')); });
+  // construcción
+  T(() => { const k = /^bk_(.+)$/.exec(id); const b = k && BK[k[1]]; if (b) add('🏠 ' + L2('Modo construcción (⌂ › Fabricar): ', 'Build mode (⌂ › Craft): ') + ((b.cost || []).map(([i, n]) => n + '× ' + (i === 'log' ? L2('troncos', 'logs') : usoN(i))).join(', ') || L2('gratis', 'free')) + (b.gold ? ' + ' + fmt(b.gold) + L2(' oro', ' gold') : '') + (b.ofjob ? ' · ' + usoJob(b.ofjob) + ' ' + b.ofjlv : '') + '.'); });
+  // ropa y cosméticos
+  T(() => { if (it.cos && COSM[it.cos]) cosSources(it.cos).forEach(([t, d]) => add('👗 ' + L2('Cómo se consigue: ', 'How to get it: ') + t, d)); });
+  // alquimia experimental, fiestas, tiendas con moneda propia
+  if (it.axp) add('⚗ ' + L2('Alquimia experimental (alquimista): mezcla 2-3 ingredientes y descubre esta poción.', 'Experimental alchemy (alchemist): mix 2-3 ingredients and discover this potion.'));
+  T(() => { const R = REL.find(r => r.item === id); if (R) add('🎉 ' + L2('Fiesta «', 'Festival «') + R.n + L2('»: se reparte en las plazas esos días del calendario.', '»: handed out in the plazas on those calendar days.')); });
+  T(() => { const a = ARENA_SHOP.find(x => x[0] === id); if (a) add('🏟 ' + L2('Tienda del Coliseo: ', 'Colosseum shop: ') + a[1] + L2(' fichas.', ' tokens.')); });
+  T(() => { const a = TP_SHOP.find(x => x[0] === id); if (a) add('⛩ ' + L2('Tienda de la Torre de los Portales: ', 'Portal Tower shop: ') + a[1] + L2(' esencias.', ' essences.')); });
+  T(() => { const a = DRM_SHOP.find(x => x[0] === id); if (a) add('☾ ' + L2('Tienda de Oniria: ', 'Oniria\'s shop: ') + a[1] + L2(' polvos de sueño.', ' dream dust.')); });
+  T(() => { const a = IMPOS.find(x => x[0] === id); if (a) add('🌙 ' + L2('Tendero Imposible (Velo Roto): ', 'Impossible Shopkeeper (Broken Veil): ') + fmt(a[1]) + L2(' oro + ', ' gold + ') + a[2] + ' ' + usoN('polvo_lunar') + '.'); });
+  T(() => { for (const L_ of ALCH) if (L_[0] === id) add('⚗ ' + L2('Mesa de alquimia: ', 'Alchemy table: ') + L_[4].map(([i, n]) => n + '× ' + usoN(i)).join(', ') + '.'); });
+  T(() => { for (const L_ of WORK) if (L_[0] === id) add('🔨 ' + L2('Taller del artesano: ', 'Artisan workshop: ') + L_[4].map(([i, n]) => n + '× ' + usoN(i)).join(', ') + '.'); });
+  // recompensas de misiones
+  T(() => { for (const q in QUESTS) { const Q = QUESTS[q], got = ((Q.rew && Q.rew.items) || []).concat(Q.give || []); if (got.some(([i]) => i === id)) add('📜 ' + L2('Recompensa de la misión «', 'Quest reward «') + Q.n + '»' + (Q.lv ? L2(' (nivel ', ' (level ') + Q.lv + ')' : '') + '.'); } });
+  // monstruos (todos, no solo los 4 primeros) — por si la lista de la lupa se cortó
+  T(() => { const mobs = Object.keys(MOBS).filter(k => (MOBS[k].drops || []).some(d => d[0] === id)); if (mobs.length > 4) add('👹 ' + L2('También lo sueltan: ', 'Also dropped by: ') + mobs.slice(4, 12).map(k => MOBS[k].n).join(', ') + (mobs.length > 12 ? '…' : '') + '.'); });
+  // lo que cuenta la Lupa
+  T(() => { for (const [t, f] of usoLupa(id)) if (/consig|suelt|gana|compr|da |dan |recomp|premio|regal|vend|caen|sale|recoge|pesca|excava|fabric|cocin|tienda|obtien|get|drop|earn|buy|reward|gives|sold|craft/i.test(f)) add('📘 ' + t + ': ' + f); });
+  return out; }
+{ const _is = itemSources; itemSources = function (id) { const out = _is.apply(this, arguments); try { for (const [t, d] of usoSrcExtra(id)) if (!out.some(o => o[0] === t)) out.push([t, d]); } catch (e) { } return out; }; }
 
 // ================= v3.6: IDIOMA (Español / English) =================
 // Los textos del código se traducen al compilar (tools/i18n/tr.js + en.json): cada uno es (LANG_EN ? "inglés" : "español").

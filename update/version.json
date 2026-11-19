@@ -1,20 +1,20 @@
 {
- "build": 155,
- "ver": "5.34",
+ "build": 156,
+ "ver": "5.35",
  "date": "2026-11-19",
  "file": "thebound.html",
- "size": 23908304,
- "sha256": "2208239e06654113856595c4842e5e4255866e666e389c3e41533ef4831f1ae6",
+ "size": 23924065,
+ "sha256": "d374b3cf771722ed37b5704161d4bfc81c7fa4015f58574d70f6028ce3cf96ff",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "📘 «Para qué sirve» ahora también copia lo que explica la Lupa (Sistemas y Oficios) sobre cada objeto: por ejemplo, la Hierba del sueño o el Polvo Arcano dicen lo mismo que su guía.",
-   "🔎 En el inventario sale también «Dónde conseguir» y un botón «Ver en la Lupa» que abre la Lupa con ese objeto marcado (con flecha dorada)."
+   "🔎 Todos los objetos (1768) dicen ya dónde se consiguen: peces (dónde pescar, nivel y caña), peces legendarios (agua, clima y hora), accesorios y fragmentos de cada jefe, platos de la hoguera con sus ingredientes, piezas de construcción con su coste, ropa, cultivos, flores y ramos del vivero, excavación, granja, armas malditas y del Lienzo, anillos de cazador, tiendas del Coliseo, la Torre, Oniria y el Tendero Imposible, fiestas, recompensas de misiones y fenómenos (aurora, lluvia, meteoritos, eclipse, niebla maldita).",
+   "📋 En el inventario, debajo de «Para qué sirve», sale «Dónde conseguir» con hasta 6 formas; la Lupa › 🎒 Objetos las muestra todas con flecha dorada."
   ],
   "en": [
-   "📘 «What it's for» now also copies what the Magnifier (Systems and Jobs) explains about each item: for example, Dream herb or Arcane Dust say the same as their guide.",
-   "🔎 The bag also shows «Where to get it» and an «Open in the Magnifier» button that opens it with that item selected (with the golden arrow)."
+   "🔎 Every item (1768) now says where to get it: fish (where to fish, level and rod), legendary fish (water, weather and time), each boss's accessories and fragments, campfire dishes with their ingredients, building pieces with their cost, clothes, crops, nursery flowers and bouquets, digging, farm, cursed and Canvas weapons, hunter rings, Colosseum, Tower, Oniria and Impossible Shopkeeper shops, festivals, quest rewards and phenomena (aurora, rain, meteors, eclipse, cursed fog).",
+   "📋 In the bag, under «What it's for», «Where to get it» lists up to 6 ways; Magnifier › 🎒 Items shows them all with the golden arrow."
   ]
  }
 }
