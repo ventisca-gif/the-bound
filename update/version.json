@@ -1,28 +1,18 @@
 {
- "build": 172,
- "ver": "5.51",
+ "build": 173,
+ "ver": "5.52",
  "date": "2026-11-19",
  "file": "thebound.html",
- "size": 24341487,
- "sha256": "9caef801a13d89c969b86bfac31f24e0a0d39940d39e8d1a265bbe2896cddec9",
+ "size": 24349818,
+ "sha256": "9060fc6730a61fe630c43a94156b00b04c23de43622852037d8034cba2a6d6c4",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🖌🐉 Fusión Boceto de Fuego (eco + dragón): el dragón dibujado a tinta con llamas. +11 / +25 / +35 / +43 % de ataque (un 1 % más que el Dragón de Hielo), 5 poderes y ataque «Trazo de Fuego».",
-   "🪽👻 Fusión Ángel de Niebla (alado + fantasma): alas pálidas, aureola rota y cuerpo de niebla. +10 / +30 / +42 % de ataque y ataque «Diluvio de Plumas».",
-   "🌳 Cada fusión tiene su propia maestría (1-12) y su árbol de poderes. Piden las dos formas en maestría 12 y nivel 500, y se ven en el online.",
-   "🔥 Furia: los enemigos de nivel 400 o más se transforman al bajar de la mitad de vida (los jefes al 60 %): aura roja, más ataque y defensa.",
-   "⚔ Los cazadores de portales se transforman en los duelos: Furia Desatada, Forma Rocosa, Forma Maga, Glacial, Ciclón, Marea, Sombría o Tormenta.",
-   "👪 Cada hijo (y nieto, bisnieto…) elige su propia forma al hacerse mayor y se transforma al pelear a tu lado."
+   "🧵 Nueva transformación a la vista en 🌀 Transformaciones: Tejedor Primordial (nivel 1000, aún no se puede conseguir). El cuerpo se vuelve negro como el Lienzo, el pelo es hilo blanco como una nube, sonrisa blanca y la rueca de los Tejedores como escudo."
   ],
   "en": [
-   "🖌🐉 Fire Sketch fusion (echo + dragon): the dragon drawn in ink with flames. +11 / +25 / +35 / +43% attack (1% more than the Ice Dragon), 5 powers and «Fire Stroke» attack.",
-   "🪽👻 Mist Angel fusion (winged + ghost): pale wings, a broken halo and a mist body. +10 / +30 / +42% attack and «Feather Deluge» attack.",
-   "🌳 Each fusion has its own mastery (1-12) and power tree. They need both forms at mastery 12 and level 500, and they show online.",
-   "🔥 Fury: level 400+ enemies transform when below half HP (bosses at 60%): red aura, more attack and defence.",
-   "⚔ Portal hunters transform in duels: Unleashed Fury, Rock Form, Mage Form, Glacial, Cyclone, Tide, Shadow or Storm.",
-   "👪 Each child (and grandchild, great-grandchild…) chooses their own form when they grow up and transforms when fighting beside you."
+   "🧵 New transformation in sight in 🌀 Transformations: Primordial Weaver (level 1000, cannot be obtained yet). The body turns black like the Canvas, the hair is white thread like a cloud, a white grin and the Weavers' spinning wheel as a shield."
   ]
  }
 }
