@@ -48,12 +48,23 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.32 (bui
 
 ## Qué tiene el juego (resumen)
 
+- Tierras de la Ventisca (sin monstruos, se llega en avión desde el Aeródromo de Albor): Japón, Perú (Lima, Lima Norte, Trujillo, Cusco y Machu Picchu), México (Acapulco incluido) y España.
 - Mundo principal con pueblos (Albor, Puerto Coral, Arxar, Sahrim…), tren, barcos, yate, monturas, casas, construcción, mascotas, oficios, festivales, reinos, coliseo, eventos (luna de sangre con asedio del Devorador Carmesí), online con chat, grupos y PvP.
 - Otros mapas: Fondo Marino y Nerea (buceo desde Isla Brasa), El Archipiélago (galeón, nivel 160), Islas del Cielo / Celestia (aeronave, nivel 200), Altavela (nivel 220), El Velo (mundo espiritual) y el Continente del Velo Roto (nivel 250-350, Nochebruma, subrazas lobo/fantasma/vampiro).
-- Nivel máximo 400 (desde la 4.70). Clases: guerrero, mago, arquero, asesino, bardo, invocador, pez. Ascensión y evoluciones.
+- Nivel máximo 500 (400 desde la 4.70; 500 desde la 5.15, con el Desierto de las Lomas, Monte Osore y Desierto de las Ánimas de nivel 410-500). Clases: guerrero, mago, arquero, asesino, bardo, invocador, pez. Ascensión y evoluciones.
 - Romance con dos medidores (Confianza y Amor, 10 corazones), regalos, pasear de la mano, llevar en brazos o a hombros, besos (normal y francés), pareja (hasta dos), boda, casa, hijos (3 por pareja) y escena de la cama con corazones.
 
-## Lo más reciente (4.79 – 4.87)
+## Versiones 5.08 – 5.32 (una línea cada una; detalle en `docs/NOTAS.md`)
+
+- **5.08-5.09** Ado en Japón y su peinado nativo. **5.10** misiones separadas por tipo. **5.11** Bitácora, logros y juegos. **5.12** trenes de Japón, avión caminable.
+- **5.13** Lima · **5.14** Lima Norte, Metropolitano y Tren Eléctrico · **5.15** México, Gamarra y nivel 500 · **5.16** España, Acapulco, criaturas y comidas.
+- **5.17** botón «Mapas secundarios» (`MAPW_MAIN` en `src/6zt_v39.js`). **5.18** botón ▦ Atajos (`src/6zz9zzu_atajos.js`) y 🌀 Transformaciones.
+- **5.19** fiestas y trabajos en México, Perú y España. **5.20** armaduras de los tres países, minerales y ropa de marinera. **5.21** Trujillo, bus interprovincial y casas en otros países. **5.22** arreglos de viaje y casa. **5.23** monturas, mascotas y fiestas de los países.
+- **5.24-5.25** juegos y oficios de los países dentro del mapa (sandboard, fútbol, vóley, bailes, taquero, cajero, Tomatina, golf). **5.26-5.27** rendimiento de Lima (Plaza de Armas, peatones, procesión). **5.28** 20 oficios en Lima, Trujillo, México y España.
+- **5.29** Cusco y Machu Picchu (historia extra real en el Libro), llama, superdeportivo, mascotas con bono. **5.30** juego a prueba de errores, cobrador de combi con interior, clientes que hablan.
+- **5.31** arreglo del personaje invisible (Avatar de Guerra + poncho/blusas). **5.32** historias de Velmira, Escalera de Nubes y eco de Aurel; Nilo, el joven aprendiz que avisa y guía a cada historia.
+
+## Versiones 4.79 – 4.96
 
 - **4.79-4.80** 30 peinados anime (`src/6zz9u_pelo_anime.js` y `6zz9v_v480.js`, marca `ah` en `HS_F`/`HS_M`, pincel de mechones `ahLock`/`ahCap`). Nevadas cortas (30-75 s).
 - **4.81** sur de Albor con el **Camposanto del Alba** y el **Aeródromo** (aviones animados, terminal, billete a Japón nivel 400); los descendientes **envejecen, se jubilan a los 65 y mueren de viejos** (tumba en el camposanto, árbol genealógico); **Japón** (`src/6zz9y_japon.js`, mapa 320×220: Fuji, Kioto, Akihabara, Tokio, Shinjuku, Asakusa, aeropuerto; coches, semáforos, 78 NPCs sin nombre, karaoke, ramen, konbini, recreativos). Sergio dijo que esto es **la primera parte de Japón**: después pedirá más (más edificios en los que entrar, más cosas japonesas).
@@ -67,7 +78,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.32 (bui
 - Carteles japoneses: `python3 tools/dev/jp_glyphs.py` regenera `src/6zz9w_jp_glyphs.js` (añade el texto nuevo a `JP_TEXTS` o úsalo en los archivos que escanea).
 - La pantalla del móvil mide unas 24×13 casillas: un dibujo más alto que ~12 casillas no se ve entero (por eso el Fuji y la torre son más pequeños y la cámara sube cerca).
 
-## Lo último (4.27 – 4.36)
+## Versiones antiguas (4.27 – 4.62)
 
 - **4.27** escena de la cama siempre visible (la cámara se centra en la cama).
 - **4.28** hijos con nivel propio hasta 350 y fuerza relativa a la tuya (50 % de tu daño), barra de vida siempre visible, los enemigos los atacan, esquivan, PvP con hijos, máximo 2 acompañando, expediciones (exploran solos, mochila propia que solo se mira, se equipan solos), cama con la familia completa, botones de Montar y armario de la pareja en la fila de iconos de arriba, lupa 🔎 → ⚒ Oficios con flecha.
