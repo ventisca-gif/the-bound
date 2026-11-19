@@ -1,0 +1,7 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{let bad=0,empty=0;for(const k in ITEMS){try{if(!itemUses(k).length)empty++}catch(x){bad++;window._errs.push(k+': '+x.message)}};return [bad,empty]})()
+js (renderGuia(), guiaObj(), USO_G.f='pot', guiaObj(), USO_G.f='rune', guiaObj(), USO_G.q='pico', USO_G.f='all', guiaObj(), document.querySelectorAll('[data-uo]').length)
+js (GUIA.tab='mat', GUIA.sel='ore2', renderGuia(), !!document.querySelector('.guia .gdet .usos'))
+js (closeModal(), giveItem('ore1',2,true), openPanel('inv'), invSel=G.P.inv.findIndex(s=>s.id==='ore1'), renderPanel(), [panelTab, invSel, !!document.querySelector('.invR .usos')])
+js window._errs

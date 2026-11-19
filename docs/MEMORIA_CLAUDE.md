@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.32 (build 153)** (19-11-2026). Lo de cada versión, en `docs/NOTAS.md` (al principio, la lista de versiones; al final, una sección por versión). La 5.13 añadió Perú (Lima), la 5.14 Lima Norte, la 5.15 México y el nivel 500, la 5.16 España (`src/6zz9zzs_espana.js`, `src/6zz9zzt_espana2.js`), la bahía de Acapulco y criaturas con dibujo propio. El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.33 (build 154)** (19-11-2026). Lo de cada versión, en `docs/NOTAS.md` (al principio, la lista de versiones; al final, una sección por versión). La 5.13 añadió Perú (Lima), la 5.14 Lima Norte, la 5.15 México y el nivel 500, la 5.16 España (`src/6zz9zzs_espana.js`, `src/6zz9zzt_espana2.js`), la bahía de Acapulco y criaturas con dibujo propio. El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -63,6 +63,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.32 (bui
 - **5.24-5.25** juegos y oficios de los países dentro del mapa (sandboard, fútbol, vóley, bailes, taquero, cajero, Tomatina, golf). **5.26-5.27** rendimiento de Lima (Plaza de Armas, peatones, procesión). **5.28** 20 oficios en Lima, Trujillo, México y España.
 - **5.29** Cusco y Machu Picchu (historia extra real en el Libro), llama, superdeportivo, mascotas con bono. **5.30** juego a prueba de errores, cobrador de combi con interior, clientes que hablan.
 - **5.31** arreglo del personaje invisible (Avatar de Guerra + poncho/blusas). **5.32** historias de Velmira, Escalera de Nubes y eco de Aurel; Nilo, el joven aprendiz que avisa y guía a cada historia.
+- **5.33** «📋 Para qué sirve» al tocar cualquier objeto del inventario y Lupa › 🎒 Objetos con buscador (`src/6zz9zzzzzzzzzz_usos.js`). Todo sistema nuevo que gaste objetos debe añadirse a `usoBuild` o `USO_X`.
 
 ## Versiones 4.79 – 4.96
 
@@ -127,7 +128,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.32 (bui
 - Las expediciones de los hijos son una simulación por minutos; el hijo solo aparece en el mapa principal (en su campamento). Si Sergio quiere que viaje de verdad por otros mapas, hay que hacerlo.
 - La APK no cambia desde la 4.11; todo llega por el actualizador interno.
 
-## Al empezar en otra cuenta (actualizado en la 5.32)
+## Al empezar en otra cuenta (actualizado en la 5.33)
 
 1. Lee `AGENTS.md`, `docs/NOTAS.md` (estado y cómo trabajar) y, si tocas historia, `docs/LORE.md` (canon + reglas).
 2. Preparar la sesión: `mkdir -p tools/i18n/vendor && npm pack acorn@8.14.0 && tar xzf acorn-8.14.0.tgz && cp package/dist/acorn.js tools/i18n/vendor/` (añade `tools/i18n/vendor/` a `.git/info/exclude`). `pip install playwright` y usa `PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers` delante de `tests/play.py`, `fitcheck.py`, `pvp.py`…
