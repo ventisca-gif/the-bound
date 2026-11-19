@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.16 (build 137)** (18-11-2026). La 5.13 añadió Perú (Lima), la 5.14 Lima Norte, la 5.15 México y el nivel 500, la 5.16 España (`src/6zz9zzs_espana.js`, `src/6zz9zzt_espana2.js`), la bahía de Acapulco y criaturas con dibujo propio. El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.32 (build 153)** (19-11-2026). Lo de cada versión, en `docs/NOTAS.md` (al principio, la lista de versiones; al final, una sección por versión). La 5.13 añadió Perú (Lima), la 5.14 Lima Norte, la 5.15 México y el nivel 500, la 5.16 España (`src/6zz9zzs_espana.js`, `src/6zz9zzt_espana2.js`), la bahía de Acapulco y criaturas con dibujo propio. El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -115,3 +115,24 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.16 (bui
 - «Cooperativo local» de la propuesta del Velo Roto (la captura venía cortada).
 - Las expediciones de los hijos son una simulación por minutos; el hijo solo aparece en el mapa principal (en su campamento). Si Sergio quiere que viaje de verdad por otros mapas, hay que hacerlo.
 - La APK no cambia desde la 4.11; todo llega por el actualizador interno.
+
+## Al empezar en otra cuenta (actualizado en la 5.32)
+
+1. Lee `AGENTS.md`, `docs/NOTAS.md` (estado y cómo trabajar) y, si tocas historia, `docs/LORE.md` (canon + reglas).
+2. Preparar la sesión: `mkdir -p tools/i18n/vendor && npm pack acorn@8.14.0 && tar xzf acorn-8.14.0.tgz && cp package/dist/acorn.js tools/i18n/vendor/` (añade `tools/i18n/vendor/` a `.git/info/exclude`). `pip install playwright` y usa `PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers` delante de `tests/play.py`, `fitcheck.py`, `pvp.py`…
+3. `python3 build.py` → `dist/test.html`. En los guiones de `tests/play.py` cada `js (...)` debe ir **en una sola línea**; `shot` hace capturas intermedias.
+4. Publicar: `GAME_VER`/`GAME_BUILD` + `CHANGELOG` (es/en) en `src/6zv_update.js`, pie `tfoot` de `template.html`, `python3 tools/dev/release.py`, `python3 tests/upd.py file://$PWD/dist/test.html out.png`, commit, push, PR a `main` y fusionar sin preguntar.
+
+## Lecciones recientes
+
+- **5.31 · personaje invisible**: la barra roja da archivo y línea de `dist/test.html` (`about:srcdoc:LÍNEA` = misma línea de `dist/test.html`). Las habilidades con pose especial (`sv_skill`) dan anclajes **con decimales**; una prenda que use `y` o `x` como índice de paleta (`pal[(x + y) % n]`) debe redondear antes (`Math.round(A.torsoTop)`). `fitKind` ya atrapa errores (`errOnce`) para que el personaje nunca desaparezca, pero la barra roja sigue saliendo: arréglalo en la prenda.
+- **Lupa › Sistemas** (`GSIS`): el texto se escapa (no uses `<b>`); el 4.º elemento es una función que devuelve `null` o `{ loc: [x, y], t, m }` para la flecha dorada.
+- **Historia**: capítulos nuevos solo al final de `CRON`; las pistas (`CLUES[id][3]`) abren su capítulo al descubrirse, así que apunta a un capítulo ya existente si no quieres adelantar la historia.
+- Sergio preguntó qué significaba «Nihil podría despertar»: en el canon Nihil **duerme y sueña**; sus sueños se cuelan por las grietas (Velo Roto, Lienzo en Blanco, ecos del borde). No despierta mientras alguien mire (juegue). Es un gancho para el futuro, no un jefe nuevo.
+
+## Ideas de historia pendientes (propuestas a Sergio en la 5.31, aún sin hacer)
+
+- **El Calco**: Nihil imita el pincel de la Ventisca y pinta copias falsas y sin color de Lima, México o España, llenas de ecos; hay que distinguir la ciudad real de la falsa.
+- **Los fragmentos huérfanos**: dónde acabaron los 7 fragmentos del Sello; cada uno torció a alguien nuevo (búsqueda en 7 partes).
+- **El hilo de tus hijos**: un descendiente nace con una chispa de luz (sin ser otro «elegido»: regla 3 del lore). Casa, Camposanto y Telar.
+
