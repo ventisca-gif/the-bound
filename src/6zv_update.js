@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.30', GAME_BUILD = 151;
+const GAME_VER = '5.31', GAME_BUILD = 152;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.31",
+  "b": 152,
+  "d": "2026-11-19",
+  "es": [
+   "🛠 Arreglado: al usar Avatar de Guerra (y otras habilidades con pose especial) con el poncho de Cusco, las blusas de marinera o la blusa de Chiapas puestas, tu personaje se volvía invisible y salía la barra roja.",
+   "🛡 Si una prenda falla al dibujarse, ahora se salta solo esa prenda: tu personaje nunca vuelve a quedar invisible."
+  ],
+  "en": [
+   "🛠 Fixed: using War Avatar (and other skills with a special pose) while wearing the Cusco poncho, the marinera blouses or the Chiapas blouse made your character invisible and showed the red bar.",
+   "🛡 If a garment fails to draw, only that garment is skipped now: your character never turns invisible again."
+  ]
+ },
  {
   "v": "5.30",
   "b": 151,

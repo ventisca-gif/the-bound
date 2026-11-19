@@ -1,26 +1,20 @@
 {
- "build": 151,
- "ver": "5.30",
+ "build": 152,
+ "ver": "5.31",
  "date": "2026-11-19",
  "file": "thebound.html",
- "size": 23815807,
- "sha256": "8fbd0aafc1834d0b9d0594c17bedb6e677ffa4e7521cd0e1016486979d38cc7b",
+ "size": 23816993,
+ "sha256": "9e29165c698e83409de3852d2ad1885cd51bea7a7a6ec0299a3bb4254d568719",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🛡 El juego ya no se congela si algo falla: se salta ese fotograma y sigue. La barra roja ahora dice dónde fue el error, para poder arreglarlo.",
-   "🚐 Cobrador de combi nuevo: 12 paraderos y unos 5.000 de oro. Afuera vas en la puerta y gritas «¡Sube, sube!» en los paraderos; con ⚔ entras a la combi y cobras asiento por asiento (te hablan: «busco sencillo…», «¿pasa por San Martín?»). En la puerta, ⚔ te saca otra vez. ¡Que nadie se baje sin pagar!",
-   "🛺 Mototaxi y vocho taxi: el cliente te habla durante el viaje y le respondes. Una buena respuesta te da propina.",
-   "🦙 Arriero de llamas más claro: banderas rojas numeradas en el camino, tus llamas van atadas con una cuerda, se cansan más despacio y el aviso dice qué hacer.",
-   "⭐ Los oficios de los países suben el doble de rápido (×6 de experiencia)."
+   "🛠 Arreglado: al usar Avatar de Guerra (y otras habilidades con pose especial) con el poncho de Cusco, las blusas de marinera o la blusa de Chiapas puestas, tu personaje se volvía invisible y salía la barra roja.",
+   "🛡 Si una prenda falla al dibujarse, ahora se salta solo esa prenda: tu personaje nunca vuelve a quedar invisible."
   ],
   "en": [
-   "🛡 The game no longer freezes if something fails: it skips that frame and keeps going. The red bar now says where the error happened, so it can be fixed.",
-   "🚐 New combi fare collector: 12 stops and about 5,000 gold. Outside you ride the door and shout «Get on, get on!» at the stops; with ⚔ you go into the combi and charge seat by seat (they talk to you: «looking for change…», «do you go by San Martín?»). At the door, ⚔ takes you back out. Don't let anyone get off without paying!",
-   "🛺 Mototaxi and Beetle taxi: the customer talks to you during the ride and you answer. A good answer earns a tip.",
-   "🦙 Clearer llama muleteer: numbered red flags on the path, your llamas are tied with a rope, they tire more slowly and the hint says what to do.",
-   "⭐ Country jobs level up twice as fast (×6 experience)."
+   "🛠 Fixed: using War Avatar (and other skills with a special pose) while wearing the Cusco poncho, the marinera blouses or the Chiapas blouse made your character invisible and showed the red bar.",
+   "🛡 If a garment fails to draw, only that garment is skipped now: your character never turns invisible again."
   ]
  }
 }
