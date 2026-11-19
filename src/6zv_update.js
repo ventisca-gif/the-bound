@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.47', GAME_BUILD = 168;
+const GAME_VER = '5.48', GAME_BUILD = 169;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,29 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.48",
+  "b": 169,
+  "d": "2026-11-19",
+  "es": [
+   "🛡 Sede del gremio (Atajos › Gremios › «Ir a la sede»): un salón que decoran todos los miembros, con el estandarte de tu gremio y un tablón con misiones semanales comunes.",
+   "⚔ Guerra semanal de gremios: 1 punto por monstruo y 25 por jefe. El gremio ganador de la semana recibe el marco «Gremio campeón», el Estandarte del gremio campeón y 500.000 de oro por miembro.",
+   "❄🐉 Monturas nuevas: Lobo de Escarcha (Guardián de Hielo en rango 10) y Draco de Brasa volador (dragón en rango 10).",
+   "📷 Oficio nuevo en Machu Picchu: Fotógrafo de fauna. Acércate despacio a los animales y haz la foto con ⚔. Álbum de 10 especies (2 raras); al completarlo, montura Cóndor dorado. Marco, colibrí y título.",
+   "🌦 El clima cambia el combate: la nieve refuerza el hielo, el sol el fuego, la tormenta el rayo y la lluvia el agua (+10 % de daño con tu elemento).",
+   "★ Cazador de recompensas: Vera (Aldea Albor) cuelga 3 carteles de «se busca» al día. Objetivos élite con flecha roja; marcas de cazador para marco, halcón, sombrero y corcel.",
+   "🍲 Cocina en familia: en tu casa, con tu pareja o tus hijos, usa los fogones. Platos más fuertes que la comida normal (30 min)."
+  ],
+  "en": [
+   "🛡 Guild hall (Shortcuts › Guilds › «Go to the hall»): a hall every member decorates, with your guild banner and a board with shared weekly missions.",
+   "⚔ Weekly guild war: 1 point per monster and 25 per boss. The week's winning guild gets the «Champion guild» frame, the Champion guild banner and 500,000 gold per member.",
+   "❄🐉 New mounts: Frost Wolf (Ice Guardian at rank 10) and flying Ember Drake (dragon at rank 10).",
+   "📷 New job in Machu Picchu: Wildlife photographer. Approach animals slowly and take the photo with ⚔. Album of 10 species (2 rare); complete it for the Golden condor mount. Frame, hummingbird and title.",
+   "🌦 Weather changes combat: snow strengthens ice, sun fire, storm lightning and rain water (+10% damage with your element).",
+   "★ Bounty hunter: Vera (Albor Village) hangs 3 «wanted» posters a day. Elite targets with a red arrow; hunter marks for a frame, falcon, hat and steed.",
+   "🍲 Family cooking: at home, with your partner or kids, use the stove. Dishes stronger than normal food (30 min)."
+  ]
+ },
  {
   "v": "5.47",
   "b": 168,

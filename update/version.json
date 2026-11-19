@@ -1,24 +1,30 @@
 {
- "build": 168,
- "ver": "5.47",
+ "build": 169,
+ "ver": "5.48",
  "date": "2026-11-19",
  "file": "thebound.html",
- "size": 24184263,
- "sha256": "48ff04da2883d2f55d3b4d976049ab288aab13780f6fc1cff975161b60a90af6",
+ "size": 24232623,
+ "sha256": "a83ff91fe04386c581721ee0ee413316a4ef0df52b924f652177c5a478e7b429",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "❄ Transformación nueva: Guardián de Hielo (nivel 450), igual de fuerte que el dragón. Nilo te avisa → Hilde, Vigía del Glaciar (Gruta Congelada, Picos Helados) → 8 Núcleos de Escarcha del Gólem de Escarcha → vence al Rey del Invierno Eterno y trae 20 Hielo Eterno y 5 Cristales Rúnicos → ritual de la escarcha.",
-   "❄ Mitad (+6 %) → Forma de Hielo con corona y placas de hielo (+16 %) → Forma de Cristal 2.0 con esquirlas en la espalda (+26 %, rango 5) → Forma plena con escarcha que cae (+32 %). 4 habilidades: Lanzas de Hielo, Ventisca, Deslizamiento Helado y Prisión de Escarcha.",
-   "🐺🐉 El pelo, las escamas y los cristales de las transformaciones ahora se ven encima de tu armadura o cosmético: el lobo híbrido lleva melena y mechones sobre la ropa y sus orejas ya no las tapa ningún casco ni sombrero.",
-   "🛡 Gremios online en ▦ Atajos: funda uno (nombre, sigla y emblema), busca y únete (hasta 30), chat del gremio, lista de miembros y donaciones para subir de nivel (+1 % de experiencia y oro de monstruos por nivel, hasta 10 %). Tu sigla sale junto a tu nombre en el online. Necesitan internet (wifi o datos)."
+   "🛡 Sede del gremio (Atajos › Gremios › «Ir a la sede»): un salón que decoran todos los miembros, con el estandarte de tu gremio y un tablón con misiones semanales comunes.",
+   "⚔ Guerra semanal de gremios: 1 punto por monstruo y 25 por jefe. El gremio ganador de la semana recibe el marco «Gremio campeón», el Estandarte del gremio campeón y 500.000 de oro por miembro.",
+   "❄🐉 Monturas nuevas: Lobo de Escarcha (Guardián de Hielo en rango 10) y Draco de Brasa volador (dragón en rango 10).",
+   "📷 Oficio nuevo en Machu Picchu: Fotógrafo de fauna. Acércate despacio a los animales y haz la foto con ⚔. Álbum de 10 especies (2 raras); al completarlo, montura Cóndor dorado. Marco, colibrí y título.",
+   "🌦 El clima cambia el combate: la nieve refuerza el hielo, el sol el fuego, la tormenta el rayo y la lluvia el agua (+10 % de daño con tu elemento).",
+   "★ Cazador de recompensas: Vera (Aldea Albor) cuelga 3 carteles de «se busca» al día. Objetivos élite con flecha roja; marcas de cazador para marco, halcón, sombrero y corcel.",
+   "🍲 Cocina en familia: en tu casa, con tu pareja o tus hijos, usa los fogones. Platos más fuertes que la comida normal (30 min)."
   ],
   "en": [
-   "❄ New transformation: Ice Guardian (level 450), as strong as the dragon. Nilo alerts you → Hilde, Glacier Watcher (Frozen Grotto, Frozen Peaks) → 8 Frost Cores from the Frost Golem → defeat the Eternal Winter King and bring 20 Eternal Ice and 5 Rune Crystals → frost ritual.",
-   "❄ Half (+6%) → Ice Form with crown and ice plates (+16%) → Crystal Form 2.0 with shards on the back (+26%, rank 5) → Full form with falling frost (+32%). 4 skills: Ice Lances, Blizzard, Ice Slide and Frost Prison.",
-   "🐺🐉 Transformation fur, scales and crystals now show over your armour or cosmetic: the hybrid wolf has a mane and tufts over the clothes and no helmet or hat covers its ears anymore.",
-   "🛡 Online guilds in ▦ Shortcuts: found one (name, tag and emblem), search and join (up to 30), guild chat, member list and donations to level up (+1% monster experience and gold per level, up to 10%). Your tag shows next to your name online. They need internet (wifi or data)."
+   "🛡 Guild hall (Shortcuts › Guilds › «Go to the hall»): a hall every member decorates, with your guild banner and a board with shared weekly missions.",
+   "⚔ Weekly guild war: 1 point per monster and 25 per boss. The week's winning guild gets the «Champion guild» frame, the Champion guild banner and 500,000 gold per member.",
+   "❄🐉 New mounts: Frost Wolf (Ice Guardian at rank 10) and flying Ember Drake (dragon at rank 10).",
+   "📷 New job in Machu Picchu: Wildlife photographer. Approach animals slowly and take the photo with ⚔. Album of 10 species (2 rare); complete it for the Golden condor mount. Frame, hummingbird and title.",
+   "🌦 Weather changes combat: snow strengthens ice, sun fire, storm lightning and rain water (+10% damage with your element).",
+   "★ Bounty hunter: Vera (Albor Village) hangs 3 «wanted» posters a day. Elite targets with a red arrow; hunter marks for a frame, falcon, hat and steed.",
+   "🍲 Family cooking: at home, with your partner or kids, use the stove. Dishes stronger than normal food (30 min)."
   ]
  }
 }
