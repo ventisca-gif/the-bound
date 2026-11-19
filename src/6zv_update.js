@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.34', GAME_BUILD = 155;
+const GAME_VER = '5.35', GAME_BUILD = 156;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.35",
+  "b": 156,
+  "d": "2026-11-19",
+  "es": [
+   "🔎 Todos los objetos (1768) dicen ya dónde se consiguen: peces (dónde pescar, nivel y caña), peces legendarios (agua, clima y hora), accesorios y fragmentos de cada jefe, platos de la hoguera con sus ingredientes, piezas de construcción con su coste, ropa, cultivos, flores y ramos del vivero, excavación, granja, armas malditas y del Lienzo, anillos de cazador, tiendas del Coliseo, la Torre, Oniria y el Tendero Imposible, fiestas, recompensas de misiones y fenómenos (aurora, lluvia, meteoritos, eclipse, niebla maldita).",
+   "📋 En el inventario, debajo de «Para qué sirve», sale «Dónde conseguir» con hasta 6 formas; la Lupa › 🎒 Objetos las muestra todas con flecha dorada."
+  ],
+  "en": [
+   "🔎 Every item (1768) now says where to get it: fish (where to fish, level and rod), legendary fish (water, weather and time), each boss's accessories and fragments, campfire dishes with their ingredients, building pieces with their cost, clothes, crops, nursery flowers and bouquets, digging, farm, cursed and Canvas weapons, hunter rings, Colosseum, Tower, Oniria and Impossible Shopkeeper shops, festivals, quest rewards and phenomena (aurora, rain, meteors, eclipse, cursed fog).",
+   "📋 In the bag, under «What it's for», «Where to get it» lists up to 6 ways; Magnifier › 🎒 Items shows them all with the golden arrow."
+  ]
+ },
  {
   "v": "5.34",
   "b": 155,
