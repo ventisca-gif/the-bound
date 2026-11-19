@@ -1,0 +1,30 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{const P=G.P; P.lv=449; calcStats(P); srRitual(); const t=document.querySelector('#modal [data-sr="hielo"]').textContent; closeModal(); P.lv=450; calcStats(P); return [t, canOffer('hn_hie'), !!NPCS.hilde_glaciar, G.world.npcDefs.some(d=>d.id==='hilde_glaciar')]})()
+js (()=>{const P=G.P; P.gold=1e7; for (const q of ['hn_hie','hie1','hie2']) P.quests.active[q]={p:[1,1,1]}; giveItem('nucleo_escarcha',8,true); giveItem('hielo_eterno',20,true); giveItem('ore7',5,true); const lv0=P.lv; for (const q of ['hn_hie','hie1','hie2']) completeQuest(q); return [P.lv-lv0, hieReady(), countItem('nucleo_escarcha'), countItem('hielo_eterno')]})()
+js (srRitual(), document.querySelector('#modal [data-sr="hielo"]').click(), closeModal(), [G.P.sr, srOwned().join(',')])
+js (()=>{const P=G.P, st={}; P.sr=null; P.srF=0; calcStats(P); const b=P.S.atk, h=P.S.maxhp; for (const k of ['dragon','hielo']) for (const f of [0,1,3,2]) { P.sr=k; P.srF=f; calcStats(P); st[k+f]=+(P.S.atk/b).toFixed(2)+'/'+(+(P.S.maxhp/h).toFixed(2)); } P.sr='hielo'; P.srF=0; calcStats(P); return st})()
+js (G.P.srTT=0, srToggle(), G.P.srTT=0, srToggle(), [G.P.srF])
+js (G.P.srTT=0, srToggle(), [G.P.srF], G.P.srXs={}, G.P.srX=99999, G.P.srTT=0, srToggle(), G.P.srTT=0, srToggle(), G.P.srTT=0, srToggle(), [G.P.srF, srRank()])
+js (closeModal&&closeModal(), transOpen(), [...document.querySelectorAll('#modal [data-tf]')].map(b=>b.textContent).join('|'))
+js (closeModal(), G.P.mp=999, srCast('sri1'), srCast('sri2'), srCast('sri4'), 1)
+wait 700
+shot
+js (()=>{ const DB={}; const get=(p)=>p.split('/').filter(Boolean).reduce((o,k)=>o&&o[k],DB); const set=(p,v)=>{const ks=p.split('/').filter(Boolean); let o=DB; for(let i=0;i<ks.length-1;i++){o[ks[i]]=o[ks[i]]||{}; o=o[ks[i]];} if(v===null) delete o[ks[ks.length-1]]; else o[ks[ks.length-1]]=v;}; const fix=v=>{ if(v&&typeof v==='object'){ if(v['.sv']) return Date.now(); for(const k in v) v[k]=fix(v[k]); } return v; }; window.fetch=(url,o)=>{ const u=new URL(url), p=decodeURIComponent(u.pathname.replace(/\.json$/,'')); const m=(o&&o.method)||'GET'; let r=null; if(m==='GET'){ r=get(p); if(r&&u.searchParams.get('shallow')) { const s={}; for(const k in r) s[k]=true; r=s; } r=r===undefined?null:JSON.parse(JSON.stringify(r)); } else if(m==='PUT'){ set(p,fix(JSON.parse(o.body))); r=JSON.parse(o.body); } else if(m==='PATCH'){ const b=fix(JSON.parse(o.body)); for(const k in b) set(p+'/'+k,b[k]); r=b; } else if(m==='DELETE'){ set(p,null); } return Promise.resolve({ok:true,status:200,json:()=>Promise.resolve(r)}); }; window._DB=DB; return 1})()
+js (hubOpen(true), !!document.querySelector('#bClan'))
+js (document.querySelector('#bClan').click(), 1)
+wait 400
+js (document.querySelector('#clN').value='Hijos del Hielo', document.querySelector('#clT').value='HH', document.querySelector('#modal [data-cle="❄"]').click(), document.querySelector('#clN').value='Hijos del Hielo', document.querySelector('#clT').value='hh', document.querySelector('#clC').click(), 1)
+wait 600
+js [G.P.clan&&G.P.clan.tg, Object.keys(_DB.cl||{}).length, document.querySelector('#modal .clan')&&document.querySelector('#modal .clan').textContent.slice(0,120)]
+js (document.querySelector('#modal [data-cld="100000"]').click(), 1)
+wait 500
+js (document.querySelector('#modal [data-clt="chat"]').click(), document.querySelector('#clM').value='Hola gremio', document.querySelector('#clMs').click(), 1)
+wait 500
+shot
+js [G.P.clan.lv, Object.values(_DB.cc[G.P.clan.id]).map(m=>m.x).join(' | '), (()=>{const o={}; socialPresence(o); return o.ct})()]
+js (()=>{const m={xp:100,gold:100,lv:1,x:0,y:0,def:{art:['slime','green'],drops:[]}}; const g0=G.P.gold, x0=G.P.xp; try{killMob(m)}catch(e){return 'err '+e.message} return [G.P.gold-g0, m.xp, m.gold]})()
+js (window.confirm=()=>true, document.querySelector('#modal [data-clt="info"]').click(), document.querySelector('#clL').click(), 1)
+wait 600
+js [G.P.clan, Object.keys(_DB.cl||{}).length]
+js window._errs

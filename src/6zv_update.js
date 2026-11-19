@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.46', GAME_BUILD = 167;
+const GAME_VER = '5.47', GAME_BUILD = 168;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.47",
+  "b": 168,
+  "d": "2026-11-19",
+  "es": [
+   "❄ Transformación nueva: Guardián de Hielo (nivel 450), igual de fuerte que el dragón. Nilo te avisa → Hilde, Vigía del Glaciar (Gruta Congelada, Picos Helados) → 8 Núcleos de Escarcha del Gólem de Escarcha → vence al Rey del Invierno Eterno y trae 20 Hielo Eterno y 5 Cristales Rúnicos → ritual de la escarcha.",
+   "❄ Mitad (+6 %) → Forma de Hielo con corona y placas de hielo (+16 %) → Forma de Cristal 2.0 con esquirlas en la espalda (+26 %, rango 5) → Forma plena con escarcha que cae (+32 %). 4 habilidades: Lanzas de Hielo, Ventisca, Deslizamiento Helado y Prisión de Escarcha.",
+   "🐺🐉 El pelo, las escamas y los cristales de las transformaciones ahora se ven encima de tu armadura o cosmético: el lobo híbrido lleva melena y mechones sobre la ropa y sus orejas ya no las tapa ningún casco ni sombrero.",
+   "🛡 Gremios online en ▦ Atajos: funda uno (nombre, sigla y emblema), busca y únete (hasta 30), chat del gremio, lista de miembros y donaciones para subir de nivel (+1 % de experiencia y oro de monstruos por nivel, hasta 10 %). Tu sigla sale junto a tu nombre en el online. Necesitan internet (wifi o datos)."
+  ],
+  "en": [
+   "❄ New transformation: Ice Guardian (level 450), as strong as the dragon. Nilo alerts you → Hilde, Glacier Watcher (Frozen Grotto, Frozen Peaks) → 8 Frost Cores from the Frost Golem → defeat the Eternal Winter King and bring 20 Eternal Ice and 5 Rune Crystals → frost ritual.",
+   "❄ Half (+6%) → Ice Form with crown and ice plates (+16%) → Crystal Form 2.0 with shards on the back (+26%, rank 5) → Full form with falling frost (+32%). 4 skills: Ice Lances, Blizzard, Ice Slide and Frost Prison.",
+   "🐺🐉 Transformation fur, scales and crystals now show over your armour or cosmetic: the hybrid wolf has a mane and tufts over the clothes and no helmet or hat covers its ears anymore.",
+   "🛡 Online guilds in ▦ Shortcuts: found one (name, tag and emblem), search and join (up to 30), guild chat, member list and donations to level up (+1% monster experience and gold per level, up to 10%). Your tag shows next to your name online. They need internet (wifi or data)."
+  ]
+ },
  {
   "v": "5.46",
   "b": 167,

@@ -18,7 +18,7 @@
           ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 576000 && (data.exists() ? (newData.val() >= data.val() && newData.val() <= data.val() + (now - data.parent().child('t').val()) / 60000 + 3) : newData.val() <= 6000)"
         },
         "lv": {
-          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 400"
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 500"
         },
         "c": {
           ".validate": "newData.isString() && newData.val().length <= 12"
@@ -43,7 +43,7 @@
           ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 20"
         },
         "lv": {
-          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 400"
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 500"
         },
         "c": {
           ".validate": "newData.isString() && newData.val().length <= 12"
@@ -59,6 +59,89 @@
         },
         "$other": {
           ".validate": false
+        }
+      }
+    },
+    "cl": {
+      ".read": true,
+      ".indexOn": [
+        "xp"
+      ],
+      "$cid": {
+        ".write": "$cid.length <= 32",
+        ".validate": "newData.hasChildren(['n', 'tg', 'o', 'xp', 'm'])",
+        "n": {
+          ".validate": "newData.isString() && newData.val().length >= 3 && newData.val().length <= 20"
+        },
+        "tg": {
+          ".validate": "newData.isString() && newData.val().length >= 2 && newData.val().length <= 4"
+        },
+        "ic": {
+          ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 4"
+        },
+        "o": {
+          ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 48"
+        },
+        "xp": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000000"
+        },
+        "m": {
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 30"
+        },
+        "t": {
+          ".validate": "newData.isNumber()"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "cm": {
+      ".read": true,
+      "$cid": {
+        "$pid": {
+          ".write": "$pid.length <= 48",
+          ".validate": "newData.hasChildren(['n', 'lv'])",
+          "n": {
+            ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 20"
+          },
+          "lv": {
+            ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 500"
+          },
+          "c": {
+            ".validate": "newData.isString() && newData.val().length <= 12"
+          },
+          "r": {
+            ".validate": "newData.isString() && newData.val().length <= 8"
+          },
+          "t": {
+            ".validate": "newData.val() == now"
+          },
+          "$other": {
+            ".validate": false
+          }
+        }
+      }
+    },
+    "cc": {
+      ".read": true,
+      "$cid": {
+        ".write": "!newData.exists()",
+        "$mid": {
+          ".write": "$mid.length <= 20 && !data.exists()",
+          ".validate": "newData.hasChildren(['n', 'x', 't'])",
+          "n": {
+            ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 20"
+          },
+          "x": {
+            ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 124"
+          },
+          "t": {
+            ".validate": "newData.val() == now"
+          },
+          "$other": {
+            ".validate": false
+          }
         }
       }
     }
