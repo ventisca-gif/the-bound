@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.35 (build 156)** (19-11-2026). Lo de cada versión, en `docs/NOTAS.md` (al principio, la lista de versiones; al final, una sección por versión). La 5.13 añadió Perú (Lima), la 5.14 Lima Norte, la 5.15 México y el nivel 500, la 5.16 España (`src/6zz9zzs_espana.js`, `src/6zz9zzt_espana2.js`), la bahía de Acapulco y criaturas con dibujo propio. El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.36 (build 157)** (19-11-2026). Lo de cada versión, en `docs/NOTAS.md` (al principio, la lista de versiones; al final, una sección por versión). La 5.13 añadió Perú (Lima), la 5.14 Lima Norte, la 5.15 México y el nivel 500, la 5.16 España (`src/6zz9zzs_espana.js`, `src/6zz9zzt_espana2.js`), la bahía de Acapulco y criaturas con dibujo propio. El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -64,6 +64,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.35 (bui
 - **5.29** Cusco y Machu Picchu (historia extra real en el Libro), llama, superdeportivo, mascotas con bono. **5.30** juego a prueba de errores, cobrador de combi con interior, clientes que hablan.
 - **5.31** arreglo del personaje invisible (Avatar de Guerra + poncho/blusas). **5.32** historias de Velmira, Escalera de Nubes y eco de Aurel; Nilo, el joven aprendiz que avisa y guía a cada historia.
 - **5.33** «📋 Para qué sirve» al tocar cualquier objeto del inventario y Lupa › 🎒 Objetos con buscador (`src/6zz9zzzzzzzzzz_usos.js`). Todo sistema nuevo que gaste objetos debe añadirse a `usoBuild` o `USO_X`. **5.34** también copia lo que dice la Lupa (Sistemas/Oficios) de cada objeto: Sergio dijo que la Lupa es la referencia («ahí dice todo»), así que explica bien cada sistema nuevo en la Lupa nombrando sus objetos. **5.35** todos los objetos tienen «Dónde conseguir» (`usoSrcExtra`/`USO_SRC`): un objeto nuevo debe tener fuente (`tests/v533.txt` → «sin fuente» 0).
+- **5.36** ordenar y favoritos (★ = `s.lock`), lista de la compra, baúl compartido entre héroes y 3 oficios en Japón (jardinero del Kinkaku-ji, pescador de barca en Asakusa, mensajero en bici en Tokio), en `src/6zz9zzzzzzzzzzz_v536.js`. Sergio ahora llama «transformaciones» a las subrazas (lobo, vampiro, fantasma).
 
 ## Versiones 4.79 – 4.96
 

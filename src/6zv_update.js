@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.35', GAME_BUILD = 156;
+const GAME_VER = '5.36', GAME_BUILD = 157;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.36",
+  "b": 157,
+  "d": "2026-11-19",
+  "es": [
+   "⇅ Inventario: botón «Ordenar» (tipo, valor o nivel) y ☆ Favorito: los objetos con ★ van primero, no se venden con «Vender basura» y no se pueden tirar.",
+   "📝 Lista de la compra: en la Lupa › 🎒 Objetos o en el inventario, apunta lo que quieres fabricar; ves cuánto te falta y un globito te avisa cuando lo tienes todo.",
+   "🏦 Baúl compartido: en el baúl de tu casa, un baúl de 60 huecos que comparten todos tus héroes.",
+   "🇯🇵 Oficios nuevos en Japón, dentro del mapa: 🪷 Jardinero del templo (Kinkaku-ji: rastrilla la arena zen y poda bonsáis), 🛶 Pescador de barca (estanque de Asakusa: rema, pesca en las ondas, lucha con los peces grandes y vende en la lonja) y 🚲 Mensajero en bici (Tokio: reparte 3 paquetes esquivando coches). Salen en el mapa de Japón y en la Lupa; los demás jugadores ven tu barca y tu bici."
+  ],
+  "en": [
+   "⇅ Bag: «Sort» button (type, value or level) and ☆ Favourite: ★ items go first, are not sold with «Sell junk» and can't be dropped.",
+   "📝 Shopping list: in Magnifier › 🎒 Items or the bag, note what you want to craft; see what you still need and a bubble tells you when you have it all.",
+   "🏦 Shared chest: in your house chest, a 60-slot chest shared by all your heroes.",
+   "🇯🇵 New jobs in Japan, played on the map: 🪷 Temple gardener (Kinkaku-ji: rake the zen sand and prune bonsais), 🛶 Boat fisher (Asakusa pond: row, fish the ripples, fight the big ones and sell at the market) and 🚲 Bike courier (Tokyo: deliver 3 parcels dodging cars). They are on the Japan map and in the Magnifier; other players see your boat and bike."
+  ]
+ },
  {
   "v": "5.35",
   "b": 156,

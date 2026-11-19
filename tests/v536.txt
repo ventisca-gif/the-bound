@@ -1,0 +1,45 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{['ore1','ore1','pocion1','herb1','w_guerrero_3','colmillo'].forEach(i=>giveItem(i,2,true)); const P=G.P; P.inv[2].lock=1; invSortNow('valor'); return [P.inv[0].lock, P.inv.map(s=>s.id).join(',')]})()
+js (openPanel('inv'), invSel=0, renderPanel(), [!!document.querySelector('#invSort'), !!document.querySelector('#invFav'), !!document.querySelector('.slot .fav'), !document.querySelector('.invR #idrop')])
+js (closePanel(), junkList().every(i=>!G.P.inv[i].lock))
+js (shopToggle('w_guerrero_2'), USO_G.f='list', renderGuia(), guiaObj(), USO_G.sel='w_guerrero_2', guiaObj(), [document.querySelectorAll('[data-uo]').length, !!document.querySelector('[data-shopl]')])
+js (closeModal(), G.P.gold=1e6, giveItem('ore1',20,true), giveItem('log1',20,true), G.P.shopN={}, 1)
+wait 2600
+js [G.P.shopN, usoReady('w_guerrero_2')]
+js (openStorage(), document.querySelector('#bkOpen').click(), document.querySelector('[data-bk="i:1"]').click(), [bankGet().length, G.P.inv.length])
+js (document.querySelector('[data-bk="b:0"]').click(), closeModal(), bankGet().length)
+js (G.P.lv=60, calcStats(G.P), goJapan(), 1)
+wait 800
+js [G.map.id, Object.keys(V8.at).filter(k=>['jardinero','barquero','mensajero'].includes(k)).map(k=>k+':'+V8.at[k].cx+','+V8.at[k].cy), !!V8.at.barquero && V8.at.barquero.dock]
+js (()=>{const A=V8.at.jardinero;G.P.x=A.px;G.P.y=A.py;v8Start('jardinero');return ACT.k})()
+js (()=>{const B=ACT;for(let r=0;r<B.rows;r++)for(let c=0;c<B.cols;c++){const i=r*B.cols+c;if(B.goal[i]!=='s')B.cell[i]=B.goal[i]};return B.goal.join('')})()
+wait 300
+shot
+js (()=>{ACT.bons[0].br=2; const b=ACT.bons[0]; G.P.x=b.x; G.P.y=b.y+10; ACT.onAtk(); return [ACT.ph, ACT.cuts]})()
+wait 300
+shot
+js (ACT.t=0.01, 1)
+wait 300
+js [ACT.k, G.P.jobs.jardinero]
+js (()=>{const A=V8.at.barquero;G.P.x=A.px;G.P.y=A.py;v8Start('barquero');return [ACT.k, G.P.x, G.P.y]})()
+wait 300
+js (()=>{const B=ACT,r=B.rip[0];G.P.x=r.x;G.P.y=r.y;B.vx=0;B.vy=0;return 1})()
+wait 3500
+js [ACT.st]
+js (ACT.st==='bite' ? ACT.onAtk() : 0, ACT.small=3, ACT.big=1, 1)
+wait 300
+shot
+js (ACT.st='row', ACT.bob=null, G.P.x=ACT.dx, G.P.y=ACT.dy, ACT.vx=0, ACT.vy=0, ACT.onAtk(), [ACT.k, G.P.jobs.barquero, countItem('koi')])
+js (()=>{const A=V8.at.mensajero;G.P.x=A.px;G.P.y=A.py;v8Start('mensajero');return [ACT.k, ACT.tg&&ACT.tg.length, G.P.S.spd]})()
+js (()=>{const o={};socialPresence(o);return ['red', o.v8]})()
+wait 400
+shot
+js (()=>{for(const t of ACT.tg){if(!t.done){G.P.x=t.x;G.P.y=t.y;break}}return 1})()
+wait 200
+js (()=>{for(const t of ACT.tg){if(!t.done){G.P.x=t.x;G.P.y=t.y;break}}return 1})()
+wait 200
+js (()=>{for(const t of ACT.tg){if(!t.done){G.P.x=t.x;G.P.y=t.y;break}}return 1})()
+wait 300
+js [ACT.k, G.P.jobs.mensajero, G.P.S.spd]
+js window._errs
