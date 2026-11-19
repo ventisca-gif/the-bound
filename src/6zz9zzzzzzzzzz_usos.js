@@ -132,16 +132,30 @@ function itemUses(id) {
   // 3) regalos, tienda y venta
   if ((it.t === 'mat' || it.t === 'cons' || it.slot === 'acc' || it.slot === 'neck') && !it.seed && id !== 'colgante_amor') push('💝 ' + L2('Puedes regalarlo a quien te guste o a tu pareja (los raros valen más).', 'You can gift it to someone you like or your partner (rare ones count more).'));
   if (it.t !== 'quest' && it.t !== 'cos' && (it.ofjob || it.plato || it.t === 'mat' || it.t === 'cons')) push('🛒 ' + L2('Ponlo a la venta en tu tienda de casa: los vecinos lo compran solos.', 'Put it on sale in your home shop: neighbours buy it on their own.'));
+  try { for (const [t, line] of usoLupa(id)) push('📘 ' + L2('Lupa', 'Magnifier') + ' › ' + t + ': ' + line); } catch (e) { }
   if (g.made) push(g.made.h + ': ' + [...g.made.s].slice(0, 3).join(', ') + '.');
   if (it.price && it.t !== 'quest') push('💰 ' + L2('Véndelo en cualquier tienda por ', 'Sell it at any shop for ') + fmt(Math.floor(it.price * 0.4)) + L2(' oro.', ' gold.'));
   return out;
 }
+// lo que explica la Lupa (Sistemas y Oficios) sobre este objeto: frases que lo nombran
+const USO_L = { lang: null, lines: null };
+function usoLupaLines() { const lg = L2('es', 'en'); if (USO_L.lines && USO_L.lang === lg) return USO_L.lines; const out = [];
+  try { for (const S of GSIS) { let L_ = []; try { L_ = S[2]() || []; } catch (e) { } for (const l of L_) for (const f of String(l).split(/(?<=[.!?])\s+/)) if (f.trim()) out.push([String(S[1]), f.trim()]); } } catch (e) { }
+  try { for (const k in JOB_GUIDE) { const J = JOB_GUIDE[k], t = '⚒ ' + usoJob(k); for (const a of [J.how, J.ben]) if (a) for (const f of L2(a[0], a[1]).split(/(?<=[.!?])\s+/)) if (f.trim()) out.push([t, f.trim()]); } } catch (e) { }
+  USO_L.lang = lg; USO_L.lines = out; return out; }
+function usoLupa(id) { const it = ITEMS[id]; if (!it) return []; const nm = String(it.n || '').replace(/\s*★$/, '').trim(); if (nm.length < 4) return [];
+  const low = nm.toLowerCase(), esc_ = low.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), re = new RegExp('(^|[^a-záéíóúñü])' + esc_ + '([^a-záéíóúñü]|$)', 'i'), out = [], seen = new Set();
+  if (!USO_L.longer || USO_L.longer.lang !== USO_L.lang) { USO_L.longer = { lang: USO_L.lang, n: [...new Set(Object.values(ITEMS).map(i => String(i.n || '').toLowerCase()))] }; }
+  const longer = USO_L.longer.n.filter(n => n !== low && n.length > low.length && n.includes(low));
+  for (const [t, f] of usoLupaLines()) { const fl = f.toLowerCase(); if (!re.test(fl) || seen.has(f) || longer.some(n => fl.includes(n) && !re.test(fl.split(n).join(' ')))) continue; seen.add(f); out.push([t, f]); if (out.length >= 4) break; } return out; }
+function usoSrcHTML(id) { let src = []; try { src = itemSources(id); } catch (e) { }
+  return `<div class="usos"><b>🔎 ${L2('Dónde conseguir', 'Where to get it')}</b>${src.length ? src.slice(0, 4).map(([t]) => `<div>${esc(t)}</div>`).join('') : `<div>${L2('Tiendas, cofres, eventos o recompensas (mira la Lupa).', 'Shops, chests, events or rewards (see the Magnifier).')}</div>`}<button class="btn sm" data-ulupa="${id}">🔎 ${L2('Ver en la Lupa (con flecha)', 'Open in the Magnifier (with arrow)')}</button></div>`; }
 function usoHTML(id, max) { const L_ = itemUses(id); if (!L_.length) return ''; const n = max || 99;
   return `<div class="usos"><b>📋 ${L2('Para qué sirve', 'What it\'s for')}</b>${L_.slice(0, n).map(t => `<div>${esc(t)}</div>`).join('')}</div>`; }
-{ const st = document.createElement('style'); st.textContent = '.usos{margin:.4em 0;padding:.35em .5em;border:1px solid rgba(255,220,140,.25);border-radius:6px;background:rgba(0,0,0,.22);font-size:.82em;line-height:1.35;max-height:min(40vh,15em);overflow-y:auto}.usos b{display:block;color:#ffd040;margin-bottom:.15em}.usos div{margin:.12em 0}.gdet .usos{max-height:none}'; document.head.appendChild(st); }
+{ const st = document.createElement('style'); st.textContent = '.usos{margin:.4em 0;padding:.35em .5em;border:1px solid rgba(255,220,140,.25);border-radius:6px;background:rgba(0,0,0,.22);font-size:.82em;line-height:1.35;max-height:min(40vh,15em);overflow-y:auto}.usos b{display:block;color:#ffd040;margin-bottom:.15em}.usos div{margin:.12em 0}.usos .btn{margin-top:.3em}.gdet .usos{max-height:none}'; document.head.appendChild(st); }
 
 // ---- inventario: «Para qué sirve» al lado de cada objeto ----
-{ const _ri = renderInv; renderInv = function (B) { const r = _ri.apply(this, arguments); try { const P = G.P, s = P.inv[invSel]; if (s && ITEMS[s.id]) { const R = (B || document).querySelector('.invR'); if (R && !R.querySelector('.usos')) { const val = R.querySelector('.val'); const h = usoHTML(s.id); if (val) val.insertAdjacentHTML('beforebegin', h); else R.insertAdjacentHTML('beforeend', h); } } } catch (e) { } return r; }; }
+{ const _ri = renderInv; renderInv = function (B) { const r = _ri.apply(this, arguments); try { const P = G.P, s = P.inv[invSel]; if (s && ITEMS[s.id]) { const R = (B || document).querySelector('.invR'); if (R && !R.querySelector('.usos')) { const val = R.querySelector('.val'); const h = usoHTML(s.id) + usoSrcHTML(s.id); if (val) val.insertAdjacentHTML('beforebegin', h); else R.insertAdjacentHTML('beforeend', h); const bl = R.querySelector('[data-ulupa]'); if (bl) bl.onclick = () => { const id = bl.dataset.ulupa; if (typeof closePanel === 'function') closePanel(); else { $('#panel').hidden = true; G.paused = false; } USO_G.f = 'all'; USO_G.q = ''; USO_G.sel = id; guiaObj(); }; } } } catch (e) { } return r; }; }
 
 // ---- Lupa: pestaña 🎒 Objetos con buscador ----
 const USO_F = [['all', L2('Todo', 'All')], ['mat', L2('Materiales', 'Materials')], ['food', L2('Comida', 'Food')], ['pot', L2('Pociones', 'Potions')], ['tool', L2('Herramientas', 'Tools')], ['rune', L2('Runas y gemas', 'Runes and gems')], ['bk', L2('Construcción', 'Building')], ['quest', L2('Misión', 'Quest')], ['eq', L2('Equipo', 'Gear')]];
@@ -160,7 +174,7 @@ function usoMatch(it, f) {
   } return true; }
 function usoList() { const q = USO_G.q.toLowerCase().trim(); const out = [];
   for (const id in ITEMS) { const it = ITEMS[id]; if (!usoMatch(it, USO_G.f)) continue; if (q && !String(it.n).toLowerCase().includes(q)) continue; if (it.cls && G.P.cls && it.cls !== G.P.cls && it.cls !== 'pez' && !q) continue; out.push(it); }
-  out.sort((a, b) => (countItem(b.id) > 0) - (countItem(a.id) > 0) || (a.lv || a.tier || 0) - (b.lv || b.tier || 0)); return out.slice(0, 300); }
+  out.sort((a, b) => (countItem(b.id) > 0) - (countItem(a.id) > 0) || (a.lv || a.tier || 0) - (b.lv || b.tier || 0)); const r = out.slice(0, 300); if (USO_G.sel && ITEMS[USO_G.sel] && !r.includes(ITEMS[USO_G.sel])) r.unshift(ITEMS[USO_G.sel]); return r; }
 function guiaObj() { const P = G.P; GUIA.tab = 'obj'; const list = usoList();
   const chips2 = USO_F.map(([k, n]) => `<button class="chip ${USO_G.f === k ? 'on' : ''}" data-uf="${k}">${n}</button>`).join('');
   let det = `<p class="hint">${L2('Todo lo que puedes guardar en el inventario: materiales, comida, pociones, picos, runas, gemas, piezas de construcción y objetos de misión. Elige uno para ver para qué sirve y dónde se consigue. ✓ = lo tienes.', 'Everything you can keep in your bag: materials, food, potions, picks, runes, gems, building pieces and quest items. Pick one to see what it is for and where to get it. ✓ = you have it.')}</p>`;

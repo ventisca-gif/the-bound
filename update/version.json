@@ -1,22 +1,20 @@
 {
- "build": 154,
- "ver": "5.33",
+ "build": 155,
+ "ver": "5.34",
  "date": "2026-11-19",
  "file": "thebound.html",
- "size": 23904802,
- "sha256": "ae4438dc8a673d19997ec4bbb193b14d554b694305bc1da5a5481316ab22c134",
+ "size": 23908304,
+ "sha256": "2208239e06654113856595c4842e5e4255866e666e389c3e41533ef4831f1ae6",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "📋 Para qué sirve cada objeto: toca cualquier cosa del inventario y al lado salen TODOS sus usos (fabricar en cada oficio, cocinar en la hoguera, alquimia, taller, construir, forja artesanal, maestría, subrazas, conjuros, monturas, misiones que lo piden, museo, acuario, regalos, tu tienda y cuánto vale).",
-   "🎒 Lupa › Objetos: nueva pestaña con buscador para todo lo que se puede guardar (materiales, comida, pociones, picos, runas y gemas, piezas de construcción, objetos de misión y equipo), con «Para qué sirve» y «Dónde conseguir» con flecha dorada. ✓ = ya lo tienes.",
-   "🔎 En las pestañas Materiales y Equipo de la Lupa también sale para qué sirve. Explicado en Lupa › Sistemas."
+   "📘 «Para qué sirve» ahora también copia lo que explica la Lupa (Sistemas y Oficios) sobre cada objeto: por ejemplo, la Hierba del sueño o el Polvo Arcano dicen lo mismo que su guía.",
+   "🔎 En el inventario sale también «Dónde conseguir» y un botón «Ver en la Lupa» que abre la Lupa con ese objeto marcado (con flecha dorada)."
   ],
   "en": [
-   "📋 What each item is for: tap anything in your bag and ALL its uses appear next to it (crafting in each job, campfire cooking, alchemy, workshop, building, artisan forge, mastery, subraces, spells, mounts, quests that need it, museum, aquarium, gifts, your shop and how much it is worth).",
-   "🎒 Magnifier › Items: new tab with a search box for everything you can keep (materials, food, potions, picks, runes and gems, building pieces, quest items and gear), with «What it's for» and «Where to get it» with the golden arrow. ✓ = you have it.",
-   "🔎 The Magnifier's Materials and Gear tabs also show what each thing is for. Explained in Magnifier › Systems."
+   "📘 «What it's for» now also copies what the Magnifier (Systems and Jobs) explains about each item: for example, Dream herb or Arcane Dust say the same as their guide.",
+   "🔎 The bag also shows «Where to get it» and an «Open in the Magnifier» button that opens it with that item selected (with the golden arrow)."
   ]
  }
 }
