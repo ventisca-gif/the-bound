@@ -1,0 +1,34 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (G.P.lv=100, calcStats(G.P), goJapan(), 1)
+wait 800
+js [Object.keys(V8.at).filter(k=>['takoyaki','hanabi'].includes(k)).map(k=>k+':'+V8.at[k].cx+','+V8.at[k].cy), JOB_PERKS.takoyaki.map(x=>x[0]+' '+x[1]).join(' | ')]
+js (()=>{const A=V8.at.takoyaki;G.P.x=A.px;G.P.y=A.py;v8Start('takoyaki');const h=ACT.holes[0];G.P.x=h.x;G.P.y=h.y;ACT.onAtk();h.t=2.5;ACT.onAtk();h.t=2.5;ACT.onAtk();return [ACT.k, ACT.plate, h.s]})()
+wait 1500
+shot
+js (ACT.plate=8, 1)
+wait 3000
+js (ACT.t=0.01, 1)
+wait 300
+js [ACT.k, G.P.jobs.takoyaki]
+js (()=>{const A=V8.at.hanabi;G.P.x=A.px;G.P.y=A.py;v8Start('hanabi');return ACT.k})()
+wait 1500
+js (()=>{const B=ACT; if(!B.cue) return 'nocue'; const cr=B.crates[B.cue.col]; G.P.x=cr.x; G.P.y=cr.y; B.onAtk(); const t=B.tubes[B.cue.tube]; G.P.x=t.x; G.P.y=t.y; B.onAtk(); return [B.ok, B.hand]})()
+wait 400
+shot
+js (ACT.n=99, ACT.cue=null, ACT.wait=0, 1)
+wait 300
+js [ACT.k, G.P.jobs.hanabi]
+js (G.P.jobs.takoyaki={lv:50,xp:0}, 1)
+wait 400
+js [(G.P.pets||[]).join(','), countItem('talisman_kirin'), BIT().fr.join(',')]
+js (()=>{const P=G.P; P.bonsai=null; FURN_ACT.zen_bonsai[2](); const a=P.bonsai.lv; FURN_ACT.zen_bonsai[2](); return [a, P.bonsai.lv]})()
+js (()=>{const P=G.P; P.kids=[{n:'Luna',born:calDay()-84}]; return [bdKid(P.kids[0]), BD_YEAR()]})()
+wait 5500
+js [JSON.stringify(G.P.bdDone)]
+js (()=>{const P=G.P; bdCelebrate('kLuna:'+calDay(),'Luna'); return countItem('tarta_cumple')})()
+js (()=>{const A=V8.at.barquero;G.P.x=A.px;G.P.y=A.py;BT_TOUR=true;v8Start('barquero');BT_TOUR=false;return [ACT.k, ACT.rivals&&ACT.rivals.length, ACT.t]})()
+wait 4000
+js (ACT.small=4, ACT.big=1, ACT.st='row', ACT.bob=null, G.P.x=ACT.dx, G.P.y=ACT.dy, ACT.vx=0, ACT.vy=0, ACT.onAtk(), [ACT.k])
+wait 1800
+js window._errs

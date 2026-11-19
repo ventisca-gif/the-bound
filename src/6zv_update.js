@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.42', GAME_BUILD = 163;
+const GAME_VER = '5.43', GAME_BUILD = 164;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.43",
+  "b": 164,
+  "d": "2026-11-19",
+  "es": [
+   "🐙 Oficio nuevo Takoyakero (Dōtonbori, Osaka): plancha de 9 huecos, masa → vuelta → al plato, con clientes que esperan. 🎆 Oficio nuevo Pirotécnico del río (Asakusa): carcasa del color pedido al tubo que brilla, y fuegos en el cielo.",
+   "🎁 Los 5 oficios de Japón dan +0,1 % de defensa, +0,1 % de crítico y recompensas: 7 marcos de retrato con diseño (Sakura, Gran Ola, Neón de Tokio, Farolillo rojo, Hanabi, Koi dorado, Dragón de oro), 5 mascotas japonesas (kitsune blanca, grulla, shiba, tanuki, maneki-neko) y 2 monturas (Ciervo de Nara, Kirin dorado).",
+   "🌳 Bonsái en casa: pódalo una vez al día; crece y da muebles zen. 🏆 Torneo de pesca en barca en Asakusa contra 3 pescadores.",
+   "🎂 Cumpleaños de tus hijos y parejas: aviso, felicitación con tarta y regalos que les encantan. 🐉 Montar en tu dragón: tu pareja e hijos que te acompañan suben a tu lomo."
+  ],
+  "en": [
+   "🐙 New job Takoyaki cook (Dōtonbori, Osaka): 9-hole griddle, batter → flip → plate, with waiting customers. 🎆 New job River fireworks master (Asakusa): shell of the asked colour to the glowing tube, and fireworks in the sky.",
+   "🎁 The 5 Japan jobs give +0.1% defense, +0.1% crit and rewards: 7 designed portrait frames (Sakura, Great Wave, Tokyo Neon, Red lantern, Hanabi, Golden koi, Golden dragon), 5 Japanese pets (white kitsune, crane, shiba, tanuki, maneki-neko) and 2 mounts (Nara deer, Golden kirin).",
+   "🌳 Bonsai at home: prune it once a day; it grows and gives zen furniture. 🏆 Boat fishing tournament in Asakusa against 3 fishers.",
+   "🎂 Birthdays for your kids and partners: a notice, congratulations with cake and gifts they love. 🐉 Dragon riding: your partner and kids who are with you ride on your back."
+  ]
+ },
  {
   "v": "5.42",
   "b": 163,

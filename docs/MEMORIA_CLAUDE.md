@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.42 (build 163)** (19-11-2026). Lo de cada versión, en `docs/NOTAS.md` (al principio, la lista de versiones; al final, una sección por versión). La 5.13 añadió Perú (Lima), la 5.14 Lima Norte, la 5.15 México y el nivel 500, la 5.16 España (`src/6zz9zzs_espana.js`, `src/6zz9zzt_espana2.js`), la bahía de Acapulco y criaturas con dibujo propio. El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.43 (build 164)** (19-11-2026). Lo de cada versión, en `docs/NOTAS.md` (al principio, la lista de versiones; al final, una sección por versión). La 5.13 añadió Perú (Lima), la 5.14 Lima Norte, la 5.15 México y el nivel 500, la 5.16 España (`src/6zz9zzs_espana.js`, `src/6zz9zzt_espana2.js`), la bahía de Acapulco y criaturas con dibujo propio. El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -17,6 +17,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.42 (bui
 ## Lo que Sergio pidió recordar (5.03-5.07 y después)
 
 - **Transformaciones (5.41):** todas las formas conseguidas (lobo, fantasma, vampiro, dragón…) se guardan en `P.srOwn` y se elige cuál usar en 🌀 Transformaciones. El porcentaje de cada forma es fijo (no sube), pero se aplica sobre las estadísticas finales: con mejor armadura, espada o nivel da más fuerza. Una forma nueva debe entrar en ese sistema, con misión, materiales y guía en la Lupa › Subrazas. Antes de añadir una forma, hacer muestra con el motor. Dragón (5.42): Mitad +6 %, Híbrida +16 %, Híbrido 2.0 +26 % (rango 5), Dragón +32 %; todo del color del pelo.
+- **Oficios (5.43):** dan solo +0,1 % de crítico y +0,1 % de defensa, y a cambio cosas nuevas por nivel: marcos de retrato con diseño, mascotas y monturas del país (Japón: `JP_REW`). Antes de añadir algo, comprobar que no exista (el fotógrafo con álbum y el mercado entre jugadores ya estaban). Pendiente: elegir transformación nueva (muestras Alado Caído y Eco sin Pintar).
 
 - **No borrar nada nunca.** Ampliar encima de lo que hay; si algo se rediseña, mismos ids y objetos.
 - **Ropa nueva que no se repita** con la existente: cada prenda con forma propia (`fitKind`), no solo otro color. Comprobarlo comparando con todos los `COSM` antes de publicar (ver 5.05). Muestra del motor antes de publicar ropa.
