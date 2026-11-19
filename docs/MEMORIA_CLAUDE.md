@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.40 (build 161)** (19-11-2026). Lo de cada versión, en `docs/NOTAS.md` (al principio, la lista de versiones; al final, una sección por versión). La 5.13 añadió Perú (Lima), la 5.14 Lima Norte, la 5.15 México y el nivel 500, la 5.16 España (`src/6zz9zzs_espana.js`, `src/6zz9zzt_espana2.js`), la bahía de Acapulco y criaturas con dibujo propio. El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.41 (build 162)** (19-11-2026). Lo de cada versión, en `docs/NOTAS.md` (al principio, la lista de versiones; al final, una sección por versión). La 5.13 añadió Perú (Lima), la 5.14 Lima Norte, la 5.15 México y el nivel 500, la 5.16 España (`src/6zz9zzs_espana.js`, `src/6zz9zzt_espana2.js`), la bahía de Acapulco y criaturas con dibujo propio. El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -14,7 +14,9 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.40 (bui
 - **Contenido nuevo (lo pidió en la 4.96):** prefiere actividades interactivas y oficios/trabajos (dan oro, objetos para vender o decorar, experiencia de oficio) en vez de más poder; nada de buffs de fuerza nuevos salvo que lo pida. Zonas nuevas con **mucha gente** (japonesas y japoneses, en kimono si encaja), con **subidas y bajadas** (terrazas, muros, escaleras), que **salgan en el mapa con sus puntos** y que el mapa se pueda **ampliar y mover** si la zona no entra.
 - Lo que Sergio añadió por su cuenta en otras versiones (personajes de otras franquicias) **no se toca**: es su juego. Claude no crea personajes de otras franquicias; propone una versión original.
 
-## Lo que Sergio pidió recordar (5.03-5.07)
+## Lo que Sergio pidió recordar (5.03-5.07 y después)
+
+- **Transformaciones (5.41):** todas las formas conseguidas (lobo, fantasma, vampiro, dragón…) se guardan en `P.srOwn` y se elige cuál usar en 🌀 Transformaciones. El porcentaje de cada forma es fijo (no sube), pero se aplica sobre las estadísticas finales: con mejor armadura, espada o nivel da más fuerza. Una forma nueva debe entrar en ese sistema, con misión, materiales y guía en la Lupa › Subrazas.
 
 - **No borrar nada nunca.** Ampliar encima de lo que hay; si algo se rediseña, mismos ids y objetos.
 - **Ropa nueva que no se repita** con la existente: cada prenda con forma propia (`fitKind`), no solo otro color. Comprobarlo comparando con todos los `COSM` antes de publicar (ver 5.05). Muestra del motor antes de publicar ropa.

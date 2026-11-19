@@ -1,22 +1,24 @@
 {
- "build": 161,
- "ver": "5.40",
+ "build": 162,
+ "ver": "5.41",
  "date": "2026-11-19",
  "file": "thebound.html",
- "size": 24031169,
- "sha256": "44f65ab3a291734970a260785be6db03a63eafd3b00fd2e448edeaab6f4c9b40",
+ "size": 24043988,
+ "sha256": "d0fe3e79ef65e12ef634678f239727692ae248fd8d42730f6f22f592a4404e53",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🐉 Misión de la Mitad Dragón (nivel 450): Nilo te avisa en Albor → «Una brasa que no se apaga» (habla con Corvel) → «Las brasas de Ignaroth» (8 brasas) → «Escamas para el hilo» (20 Escamas de Dragón y 5 Cristales Rúnicos) → ritual de la brasa con Corvel.",
-   "🐺 Lupa › Subrazas: cada transformación con «Cómo conseguirla» (pasos marcados ✅), la ofrenda y dónde sale, «Por qué (historia)» y «Cómo suma».",
-   "💪 Las transformaciones se suman encima de tu nivel, armadura, armas y accesorios: cuanto más fuerte seas, más dan."
+   "🌀 Tus formas se guardan: lobo, fantasma, vampiro y dragón que consigas se quedan para siempre. Elige cuál usar en 🌀 Transformaciones; cada una guarda su rango. Corvel te hace el ritual de las que te faltan aunque ya tengas otra. La Poción de Sangre Limpia solo te quita la que llevas.",
+   "🐉 Forma Híbrida del dragón: escamas en la piel y alas grandes, +16 % de ataque (10 % más que la Mitad Dragón). Toca 🐉: normal → híbrida → dragón a cuatro patas.",
+   "🐺 Arreglado: el lobo a cuatro patas no se veía (se quedaba en híbrido). Ahora se ve, también en el online.",
+   "💪 El porcentaje de cada forma es fijo (el dragón siempre +32 %), pero se calcula sobre tus estadísticas: con mejor armadura, espada o nivel, da más fuerza."
   ],
   "en": [
-   "🐉 Half-Dragon quest (level 450): Nilo alerts you in Albor → «An ember that will not go out» (talk to Corvel) → «Ignaroth's embers» (8 embers) → «Scales for the thread» (20 Dragon Scales and 5 Rune Crystals) → ember ritual with Corvel.",
-   "🐺 Magnifier › Subraces: each transformation with «How to get it» (steps ticked ✅), the offering and where it drops, «Why (story)» and «How it adds up».",
-   "💪 Transformations add on top of your level, armour, weapons and accessories: the stronger you are, the more they give."
+   "🌀 Your forms are saved: every wolf, ghost, vampire and dragon form you get stays forever. Choose which to use in 🌀 Transformations; each keeps its rank. Corvel performs the ritual for the ones you lack even if you already have one. The Clean Blood Potion only removes the one you wear.",
+   "🐉 Dragon Hybrid Form: scales on the skin and big wings, +16% attack (10% more than Half-Dragon). Tap 🐉: normal → hybrid → four-legged dragon.",
+   "🐺 Fixed: the four-legged wolf did not show (it stayed hybrid). Now it shows, online too.",
+   "💪 Each form's percentage is fixed (the dragon always +32%), but it is calculated on your stats: with better armour, sword or level, it gives more strength."
   ]
  }
 }
