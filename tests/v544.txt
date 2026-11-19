@@ -1,0 +1,16 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{const P=G.P; P.lv=229; calcStats(P); srRitual(); const a=document.querySelector('#modal [data-sr="alado"]').textContent, e=document.querySelector('#modal [data-sr="eco"]').textContent; closeModal(); return [a,e,canOffer('hn_ala')]})()
+js (()=>{const P=G.P; P.lv=400; P.gold=1e7; calcStats(P); for (const q of ['hn_ala','ala1','ala2','hn_eco','eco1','eco2']) { P.quests.active[q]={p:[1,1]}; } giveItem('pluma_alba',12,true); giveItem('aureola_rota',8,true); giveItem('tinta_viva',12,true); giveItem('pigmento_puro',4,true); const lv0=P.lv; for (const q of ['hn_ala','ala1','ala2','hn_eco','eco1','eco2']) completeQuest(q); return [P.lv-lv0, aeReady('alado'), aeReady('eco'), countItem('aureola_rota'), countItem('tinta_viva')]})()
+js (srRitual(), document.querySelector('#modal [data-sr="alado"]').click(), closeModal(), srRitual(), document.querySelector('#modal [data-sr="eco"]').click(), closeModal(), [G.P.sr, srOwned().join(',')])
+js (()=>{const P=G.P; const st={}; P.sr=null; P.srF=0; calcStats(P); const base=P.S.atk, bh=P.S.maxhp; for (const k of ['dragon','alado','eco']) for (const f of [1,2,3]) { if (k!=='dragon' && f===3) continue; P.sr=k; P.srF=f; calcStats(P); st[k+f]=+(P.S.atk/base).toFixed(2)+'/'+(+(P.S.maxhp/bh).toFixed(2)); } P.sr='eco'; P.srF=0; calcStats(P); return st})()
+js (G.P.srTT=0, srUse('alado'), G.P.srTT=0, srToggle(), G.P.srTT=0, srToggle(), wdMode='cos', openPanel('wardrobe'), [G.P.sr, G.P.srF])
+wait 500
+shot
+js (closePanel(), G.P.srTT=0, srUse('eco'), G.P.srTT=0, srSet(2), openPanel('wardrobe'), [G.P.sr, G.P.srF])
+wait 500
+shot
+js (closePanel(), G.P.mp=999, srCast('sre1'), srCast('sre3'), srCast('sre4'), G.P.srTT=0, srUse('alado'), srSet(1), srCast('sra1'), srCast('sra2'), 1)
+wait 600
+js (closeModal&&closeModal(), transOpen(), document.querySelectorAll('#modal [data-tf]').length)
+js window._errs

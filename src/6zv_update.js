@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.43', GAME_BUILD = 164;
+const GAME_VER = '5.44', GAME_BUILD = 165;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.44",
+  "b": 165,
+  "d": "2026-11-19",
+  "es": [
+   "🪽 Transformación Alado Caído (nivel 230): Nilo te avisa → Brisa → 12 Plumas del Alba y 8 Aureolas Rotas → vence a Seraviel → ritual de las plumas. Mitad (aureola rota y alitas) → Forma (alas de plumas, una gris) → Forma plena (alas grandes y plumas que caen).",
+   "🖌 Transformación Eco sin Pintar (nivel 360): Nilo te avisa → Mael → 12 Tintas Vivas y 4 Pigmentos Puros → vence al Eco del Vencido → ritual del pincel. Mitad (gotas de tinta) → Forma (piel de boceto) → Forma plena (todo en blanco y negro como un dibujo).",
+   "💪 Casi tan fuertes como el dragón (1-2 % menos): Alado +24 % / +30 % de ataque y velocidad; Eco +25 % / +31 % de ataque y esquiva. 4 habilidades propias cada una. Se guardan con tus demás formas; guía e historia en la Lupa › Subrazas."
+  ],
+  "en": [
+   "🪽 Fallen Winged transformation (level 230): Nilo alerts you → Brisa → 12 Dawn Feathers and 8 Broken Halos → defeat Seraviel → feather ritual. Half (broken halo, little wings) → Form (feathered wings, one grey) → Full form (big wings, falling feathers).",
+   "🖌 Unpainted Echo transformation (level 360): Nilo alerts you → Mael → 12 Living Inks and 4 Pure Pigments → defeat the Echo of the Vanquished → brush ritual. Half (ink drops) → Form (sketch skin) → Full form (all black and white like a drawing).",
+   "💪 Almost as strong as the dragon (1-2% less): Winged +24% / +30% attack and speed; Echo +25% / +31% attack and dodge. 4 skills each. Saved with your other forms; guide and story in Magnifier › Subraces."
+  ]
+ },
  {
   "v": "5.43",
   "b": 164,

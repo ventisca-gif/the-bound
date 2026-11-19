@@ -23,16 +23,16 @@ function srUse(k) { const P = G.P; if (!P || P.dead) return; if (k && !srOwned()
 { const _sr = srRitual; srRitual = function () { const r = _sr.apply(this, arguments); try { const P = G.P, own = srOwned();
   document.querySelectorAll('#modal [data-sr]').forEach(b => { const k = b.dataset.sr;
     if (own.includes(k)) { b.disabled = true; b.textContent = '✓ ' + L2('Ya la tienes', 'You have it'); return; }
-    if (k !== 'dragon' && !P.quests.done.sr1) { b.disabled = true; b.textContent = '🔒 ' + L2('Misión de Corvel', 'Corvel\'s quest'); return; }
+    if (['lobo', 'fantasma', 'vampiro'].includes(k) && !P.quests.done.sr1) { b.disabled = true; b.textContent = '🔒 ' + L2('Misión de Corvel', 'Corvel\'s quest'); return; }
     const h = b.onclick; if (!h || b.disabled) return; b.onclick = e => { const old = P.sr, oldX = P.srX || 0; if (old && P.srF) srSet(false); h(e); if (P.sr && P.sr !== old) { P.srXs = P.srXs || {}; if (old) P.srXs[old] = oldX; srOwned(); toast(L2('Forma guardada: la puedes cambiar cuando quieras en 🌀 Transformaciones.', 'Form saved: you can switch any time in 🌀 Transformations.'), 'quest', 5); markDirty(true); } }; });
   const hint = document.querySelector('#modal .hint'); if (hint) hint.textContent = L2('Las formas que consigues se guardan todas. Elige cuál usar en 🌀 Transformaciones.', 'Every form you get is kept. Choose which to use in 🌀 Transformations.'); } catch (e) { console.warn(e); } return r; }; }
-DLG_HOOKS.push((npc, opts) => { const P = G.P; if (npc.id !== 'corvel' || !P.sr) return; const own = srOwned(), can = Object.keys(SR).some(k => !own.includes(k) && (k === 'dragon' ? (typeof drgReady === 'function' && drgReady()) : P.quests.done.sr1));
+DLG_HOOKS.push((npc, opts) => { const P = G.P; if (npc.id !== 'corvel' || !P.sr) return; const own = srOwned(), can = Object.keys(SR).some(k => !own.includes(k) && (k === 'dragon' ? (typeof drgReady === 'function' && drgReady()) : ['lobo', 'fantasma', 'vampiro'].includes(k) && P.quests.done.sr1));
   if (can) opts.unshift({ label: L2('Ritual: conseguir otra forma', 'Ritual: get another form'), icon: ['talk'], fn: () => { closeDialog(); srRitual(); } }); });
 // la Poción de Sangre Limpia ya no borra tus formas guardadas: solo te quita la que llevas
 { const _ui = useItem; useItem = function (i) { const P = G.P, s = P && P.inv[i], I_ = s && ITEMS[s.id]; if (I_ && I_.clean && P.sr) srOwned(); return _ui.apply(this, arguments); }; }
 
 // ---------- el dragón tiene 3 estados, como el lobo ----------
-const SR_FORMS = k => k === 'lobo' ? [[1, L2('Forma Híbrida', 'Hybrid Form')], [2, L2('Lobo a cuatro patas', 'Four-legged wolf')]] : k === 'dragon' ? [[1, L2('Forma Híbrida', 'Hybrid Form')], [2, L2('Dragón a cuatro patas', 'Four-legged dragon')]] : [[1, SR[k].f]];
+const SR_FORMS = k => k === 'lobo' ? [[1, L2('Forma Híbrida', 'Hybrid Form')], [2, L2('Lobo a cuatro patas', 'Four-legged wolf')]] : k === 'dragon' ? [[1, L2('Forma Híbrida', 'Hybrid Form')], [2, L2('Dragón a cuatro patas', 'Four-legged dragon')]] : SR[k].forms ? SR[k].forms() : [[1, SR[k].f]];
 { const _st = srToggle; srToggle = function () { const P = G.P; if (!P || P.sr !== 'dragon') return _st.apply(this, arguments); if (P.dead || (P.srTT || 0) > G.t) return; P.srTT = G.t + 1.2;
   srSet(((P.srF || 0) + 1) % 3); const D = SR.dragon; addFx({ type: 'ring', x: P.x, y: P.y, r: 40, dur: 0.6, col: D.col }); burst(P.x, P.y - 14, 30, { sp: 80, up: 60, g: 20, life: 0.8, c: [D.col, '#ffffff', '#ffd040'] }); sfx(P.srF ? 'buff' : 'ui');
   if (P.srF) banner(P.srF === 1 ? L2('Forma Híbrida', 'Hybrid Form') : D.f, P.srF === 1 ? L2('Toca 🐉 otra vez: dragón a cuatro patas', 'Tap 🐉 again: four-legged dragon') : L2('Toca 🐉 otra vez para volver', 'Tap 🐉 again to change back')); }; }
@@ -41,6 +41,7 @@ const SR_FORMS = k => k === 'lobo' ? [[1, L2('Forma Híbrida', 'Hybrid Form')], 
 // ---------- 🌀 Transformaciones: tus formas guardadas ----------
 transOpen = function () { const P = G.P; if (!P) return; const own = srOwned();
   const lockWhy = k => { const D = SR[k], c = D.cost[0], off = c[1] + '× ' + esc(ITEMS[c[0]] ? ITEMS[c[0]].n : c[0]) + ' + ' + fmt(200000) + L2(' de oro', ' gold');
+    if (SR[k].why) return SR[k].why(off);
     if (k === 'dragon') return (P.lv < DRG_LV ? `<b>${L2('Requiere nivel ', 'Requires level ')}${DRG_LV} (${L2('tienes ', 'you are ')}${P.lv}).</b> ` : '') + L2('Misiones de Nilo y Corvel (Lupa › Subrazas) y ritual de la brasa: ', 'Nilo and Corvel quests (Magnifier › Subraces) and the ember ritual: ') + off + '.';
     return L2('Ritual de sangre con Corvel en el Velo Roto (tras la misión de las Rosas Azules). Ofrenda: ', 'Blood ritual with Corvel in the Broken Veil (after the Blue Roses quest). Offering: ') + off + '.'; };
   const rows = Object.keys(SR).map(k => { const D = SR[k];
