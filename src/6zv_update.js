@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.49', GAME_BUILD = 170;
+const GAME_VER = '5.50', GAME_BUILD = 171;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,29 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.50",
+  "b": 171,
+  "d": "2026-11-19",
+  "es": [
+   "🌳 Árbol de poderes (▦ Atajos › 🌳): cada rango de maestría desde el 3 da un punto. Sube los 3 poderes de cada forma y aprende su poder de ataque con dibujo propio, que salta solo al golpear: Garras de la Luna, Cadenas del Velo, Enjambre de Murciélagos, Aliento de Brasa, Lanza del Alba, Trazo Final, Estacas de Hielo y Aliento Glacial.",
+   "🌐 Jefe mundial: el Coloso del Telar aparece sábados y domingos en las Llanuras Doradas. Ranking semanal online de daño (Ulrich, el heraldo); el top 10 gana marco, título «Rompehilos» y 1.000.000 de oro.",
+   "🏆 Torneo de transformaciones (🌀 Transformaciones › Torneo de formas): duelos PvP online en los que los dos vais transformados. Temporada mensual; el top 3 gana marco, título y 2.000.000 de oro.",
+   "🏚 Sótano en tu casa: taller (banco de trabajo y herrería) y sala de trofeos con cada jefe que has vencido.",
+   "🎣 Pesca en el hielo en los Picos Helados: 6 peces nuevos, el Pez Escarcha Dorado es muy raro.",
+   "🗺 Diario de viaje (Bitácora › Diario): una postal por país y mundo; al completarlo, título «Trotamundos», marco «Postal» y 1.000.000 de oro. Nuevos sellos de Perú, México y España.",
+   "✨ Mascotas: nueva evolución Mítico (vínculo 600) con aura dorada y corona."
+  ],
+  "en": [
+   "🌳 Power tree (▦ Shortcuts › 🌳): each mastery rank from 3 gives a point. Raise each form's 3 powers and learn its attack power with its own drawing, which triggers on hit: Moon Claws, Veil Chains, Bat Swarm, Ember Breath, Dawn Spear, Final Stroke, Ice Stakes and Glacial Breath.",
+   "🌐 World boss: the Loom Colossus appears on Saturdays and Sundays in the Golden Plains. Online weekly damage ranking (Ulrich, the herald); the top 10 win a frame, the «Threadbreaker» title and 1,000,000 gold.",
+   "🏆 Transformation tournament (🌀 Transformations › Forms tournament): online PvP duels where both of you are transformed. Monthly season; the top 3 win a frame, title and 2,000,000 gold.",
+   "🏚 Basement in your house: workshop (workbench and smithing) and a trophy room with every boss you have defeated.",
+   "🎣 Ice fishing in the Frozen Peaks: 6 new fish; the Golden Frost Fish is very rare.",
+   "🗺 Travel diary (Logbook › Diary): one postcard per country and world; complete it for the «Globetrotter» title, «Postcard» frame and 1,000,000 gold. New stamps for Peru, Mexico and Spain.",
+   "✨ Pets: new Mythic evolution (bond 600) with a golden aura and crown."
+  ]
+ },
  {
   "v": "5.49",
   "b": 170,

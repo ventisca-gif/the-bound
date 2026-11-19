@@ -1,0 +1,27 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{ const DB={}; const get=(p)=>p.split('/').filter(Boolean).reduce((o,k)=>o&&o[k],DB); const set=(p,v)=>{const ks=p.split('/').filter(Boolean); let o=DB; for(let i=0;i<ks.length-1;i++){o[ks[i]]=o[ks[i]]||{}; o=o[ks[i]];} if(v===null) delete o[ks[ks.length-1]]; else o[ks[ks.length-1]]=v;}; const fix=v=>{ if(v&&typeof v==='object'){ if(v['.sv']) return Date.now(); for(const k in v) v[k]=fix(v[k]); } return v; }; window.fetch=(url,o)=>{ const u=new URL(url), p=decodeURIComponent(u.pathname.replace(/\.json$/,'')); const m=(o&&o.method)||'GET'; let r=null; if(m==='GET'){ r=get(p); if(r&&u.searchParams.get('shallow')) { const s={}; for(const k in r) s[k]=true; r=s; } r=r===undefined?null:JSON.parse(JSON.stringify(r)); } else if(m==='PUT'){ set(p,fix(JSON.parse(o.body))); r=JSON.parse(o.body); } else if(m==='PATCH'){ const b=fix(JSON.parse(o.body)); for(const k in b) set(p+'/'+k,b[k]); r=b; } else if(m==='DELETE'){ set(p,null); } return Promise.resolve({ok:true,status:200,json:()=>Promise.resolve(r)}); }; window._DB=DB; return 1})()
+js (()=>{const P=G.P; P.lv=500; calcStats(P); P.hp=P.S.maxhp; window._wbOn=wbOn; wbOn=()=>true; P.x=WB_AT[0]*16+60; P.y=WB_AT[1]*16; return [G.world.npcDefs.some(d=>d.id==='heraldo_coloso')]})()
+wait 800
+js (()=>{const e=G.ents.find(e=>e.wb); if(!e) return 'no boss'; for(let i=0;i<5;i++) hitMob(e, 50000, {}); const d=G.P.wb.d; killMob(e); return [e.name, d>0, G.P.wbDay===wbToday(), countItem('fragmento_coloso')]})()
+wait 600
+js [JSON.stringify(_DB.ev)]
+js (_DB.ev.wb[WB_WEEK()-1]={[evMe()]:{n:'Sergio',d:999}}, wbOpen(), 1)
+wait 500
+shot
+js [BIT().fr.includes('coloso'), G.P.wbTop]
+js (closeModal(), (()=>{const P=G.P; P.srOwn=['lobo']; P.sr='lobo'; P.srF=1; calcStats(P); PVP.on=true; upsertRemote({peer:'rv1', isMe:false, kind:'viewer', presence:{c:P.cls, a:P.app, g:{weapon:1,sr:'dragon',sf:1}, x:P.x+20, y:P.y, n:'Rival', d:'down', s:'idle', m:P.map, pvp:1}}); const R=G.remote.get('rv1'); R.id='rv1'; PVP.lastHit.set('rv1', G.t); socialRecv(R, {pvp:1, dn:1}); return [P.tt&&P.tt.w, ttRemoteForm(R)]})())
+wait 300
+js (()=>{const P=G.P; P._pvpT=G.t; P._pvpBy='Rival'; P.downed=true; return 1})()
+wait 300
+js [G.P.tt.w, G.P.tt.l, JSON.stringify(_DB.ev.tt)]
+js (G.P.downed=false, transOpen(), document.querySelector('#ttBtn').click(), 1)
+wait 500
+js (closeModal(), (()=>{const P=G.P; P.homes={casa_a3:{lv:1,f:{bed:'bed',table:'table'}}}; P.bossKills={reyslime:3, ent:1, ignaroth:2, golemhielo:4}; const M=makeHome('casa_a3'); P.inside='casa_a3'; setMap(M, 7*16, 7*16); const o=M.objs.find(o=>o.xact==='sotdown'); if(!o) return 'no stairs'; XACT.sotdown[2](o); return 1})())
+wait 1200
+js [G.map.id, G.map.objs.filter(o=>o.xact==='sottrophy').length, G.P.inside]
+shot
+js (XACT.sotup[2](), 1)
+wait 1200
+js [G.map.id, G.P.inside]
+js window._errs

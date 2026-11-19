@@ -1,0 +1,25 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{const P=G.P; P.lv=500; calcStats(P); P.srOwn=['dragon','hielo','lobo']; P.sr='lobo'; P.srX=1700; P.srXs={dragon:1700,hielo:900}; P.srF=1; calcStats(P); refreshLook(); return [ptPts('lobo'), ptPts('hielo'), ptFree('lobo')]})()
+js (hubOpen(true), !!document.querySelector('#bTree'))
+js (ptOpen('lobo'), document.querySelectorAll('#modal [data-ptk]').length)
+js (document.querySelector('#modal [data-pta]').click(), document.querySelector('#modal [data-pts="0"]').click(), document.querySelector('#modal [data-pts="0"]').click(), [JSON.stringify(G.P.ptree.lobo), ptFree('lobo'), powV('gold')])
+wait 600
+shot
+js (closeModal(), (()=>{ const P=G.P; let n=0; for (const k of ['claw','chain','bats','breath','spear','ink','spikes','frost']) { const m={x:P.x+60,y:P.y,lv:500,def:{},dying:0,hp:1e9,maxhp:1e9,type:'mob'}; const key=Object.keys(FORM_ATK).find(x=>FORM_ATK[x][0]===k); pfxCast(key, m, 3); n++; } return [n, PFX.length]})())
+wait 250
+shot
+js (()=>{const W=G.world; const o=W.objs.find(o=>o.xact==='icefish'); if(!o) return 'no hole'; G.P.x=o.px; G.P.y=o.py+16; icefStart(o); return [ACT.k]})()
+js (()=>{const B=ACT; B.t=0.01; return 1})()
+wait 200
+js (()=>{const B=ACT; const ph=B.ph; icefAtk(); B.bar=B.zone; icefAtk(); B.bar=B.zone; icefAtk(); B.bar=B.zone; icefAtk(); return [ph, B.casts, B.got.join(',')]})()
+wait 300
+shot
+js (()=>{const B=ACT; for (let i=0;i<4;i++){ B.ph='bite'; icefAtk(); B.bar=-5; icefAtk(); } return [ACT.k]})()
+js (()=>{const b=BIT(); b.stamps=b.stamps||{}; for (const d of DIARY) b.stamps[d[0]]='1 Mar'; return 1})()
+wait 400
+js [G.P.diaryDone, BIT().fr.includes('postal')]
+js (()=>{const P=G.P; P.pets=['gato']; setPet('gato'); P.petBond={gato:650}; return [petEvo('gato'), PET_EVO.length]})()
+wait 400
+js (openBitacora ? 1 : 0)
+js window._errs
