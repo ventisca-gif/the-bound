@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.29', GAME_BUILD = 150;
+const GAME_VER = '5.30', GAME_BUILD = 151;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,25 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.30",
+  "b": 151,
+  "d": "2026-11-19",
+  "es": [
+   "🛡 El juego ya no se congela si algo falla: se salta ese fotograma y sigue. La barra roja ahora dice dónde fue el error, para poder arreglarlo.",
+   "🚐 Cobrador de combi nuevo: 12 paraderos y unos 5.000 de oro. Afuera vas en la puerta y gritas «¡Sube, sube!» en los paraderos; con ⚔ entras a la combi y cobras asiento por asiento (te hablan: «busco sencillo…», «¿pasa por San Martín?»). En la puerta, ⚔ te saca otra vez. ¡Que nadie se baje sin pagar!",
+   "🛺 Mototaxi y vocho taxi: el cliente te habla durante el viaje y le respondes. Una buena respuesta te da propina.",
+   "🦙 Arriero de llamas más claro: banderas rojas numeradas en el camino, tus llamas van atadas con una cuerda, se cansan más despacio y el aviso dice qué hacer.",
+   "⭐ Los oficios de los países suben el doble de rápido (×6 de experiencia)."
+  ],
+  "en": [
+   "🛡 The game no longer freezes if something fails: it skips that frame and keeps going. The red bar now says where the error happened, so it can be fixed.",
+   "🚐 New combi fare collector: 12 stops and about 5,000 gold. Outside you ride the door and shout «Get on, get on!» at the stops; with ⚔ you go into the combi and charge seat by seat (they talk to you: «looking for change…», «do you go by San Martín?»). At the door, ⚔ takes you back out. Don't let anyone get off without paying!",
+   "🛺 Mototaxi and Beetle taxi: the customer talks to you during the ride and you answer. A good answer earns a tip.",
+   "🦙 Clearer llama muleteer: numbered red flags on the path, your llamas are tied with a rope, they tire more slowly and the hint says what to do.",
+   "⭐ Country jobs level up twice as fast (×6 experience)."
+  ]
+ },
  {
   "v": "5.29",
   "b": 150,

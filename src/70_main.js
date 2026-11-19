@@ -51,7 +51,10 @@ function startGame(save, isNew, name) {
   if (window.claude && window.claude.hot && window.claude.hot.snapshot) { try { window.claude.hot.snapshot(() => ({ save: G.P && !G.P.ghost ? serializeP(G.P) : null })); } catch (e) { } }
   if (!lastT) requestAnimationFrame(loop);
 }
-function loop(ts) {
+function loop(ts) { try { loopBody(ts); } catch (e) { errShow(e); } requestAnimationFrame(loop); }
+// 5.30: si algo falla en un fotograma, el juego sigue (antes se congelaba para siempre) y la barra roja dice dónde fue
+function errShow(e) { try { const el = document.getElementById('errlog'), at = ((e && e.stack) || '').split('\n').slice(1, 3).map(l => l.trim().replace(/^at /, '').replace(/\(?[^ ()]*\/([^/ ()]+:\d+):\d+\)?/, '$1')).join(' ← '), t = 'Error: ' + ((e && e.message) || e) + (at ? ' · ' + at : ''); if (el) { el.hidden = false; el.textContent = t; } try { localStorage.setItem('thebound.lasterr', t + ' · v' + (typeof GAME_VER !== 'undefined' ? GAME_VER : '')); } catch (q) { } } catch (q) { } }
+function loopBody(ts) {
   const dt = Math.min(0.05, ((ts - lastT) / 1000) || 0.016); lastT = ts; G.frame++;
   chunkBudget = 1; runWarm();
   if (titleMode) { titleT += dt; G.t += dt; const P = G.P; P.x = (112 + Math.sin(titleT * 0.05) * 14) * 16; P.y = (149 + Math.sin(titleT * 0.033) * 5) * 16; updateCamera(dt); render(); prewarm(G.map); drawCreatePreview(dt); for (const e of G.ents) if (e.type === 'npc' && e.map === 'world') updateNPC(e, dt); G.parts = G.parts.filter(p => (p.t += dt) < p.life); for (const p of G.parts) { p.x += p.vx * dt; p.y += p.vy * dt; } }
@@ -61,11 +64,10 @@ function loop(ts) {
     if (!$('#panel').hidden && panelTab === 'wardrobe') drawWardrobePreview(dt);
     if (chunkBudget > 0 || useWorker(G.map)) prewarm(G.map);
   }
-  requestAnimationFrame(loop);
 }
 document.addEventListener('visibilitychange', () => { if (document.hidden && G.P && !G.P.ghost) saveGame(true); try { if (AC) { if (document.hidden) AC.suspend(); else AC.resume(); } } catch (e) { } });
 // Android app: the system back button/gesture closes the open window, or opens the menu (never quits by accident)
 window.onAndroidBack = () => { if (!$('#modal').hidden && G.P) { closeModal(); return; } if (!$('#panel').hidden) { closePanel(); return; } if (!$('#dialog').hidden) { closeDialog(); return; } if (!$('#chatbox').hidden) { $('#chatbox').hidden = true; return; } if (G.P && !G.P.dead) openPanel('opts'); };
 addEventListener('pagehide', () => { if (G.P && !G.P.ghost) saveGame(true); });
-window.addEventListener('error', e => { const el = document.getElementById('errlog'); if (el) { el.hidden = false; el.textContent = 'Error: ' + (e.message || e.error); } });
+window.addEventListener('error', e => { if (e.error) errShow(e.error); else { const el = document.getElementById('errlog'); if (el) { el.hidden = false; el.textContent = 'Error: ' + (e.message || e.error); } } });
 (function start() { const go = () => { const h = window.claude && window.claude.hot; if (h && h.ready) { try { h.ready(d => boot(d || {})); return; } catch (e) { } } boot((h && h.data) || {}); }; if (typeof tbStart === 'function') tbStart(go); else go(); })();

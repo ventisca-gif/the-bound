@@ -1,30 +1,26 @@
 {
- "build": 150,
- "ver": "5.29",
- "date": "2026-11-18",
+ "build": 151,
+ "ver": "5.30",
+ "date": "2026-11-19",
  "file": "thebound.html",
- "size": 23798059,
- "sha256": "529cb57cb20ff06ac61b96ba92841c844d0705e137caba123688284bb0d999b8",
+ "size": 23815807,
+ "sha256": "8fbd0aafc1834d0b9d0594c17bedb6e677ffa4e7521cd0e1016486979d38cc7b",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🦙 ¡Cusco! Llegas en el Tren Andino desde Trujillo (Lima → bus a Trujillo → tren a Cusco). Plaza de Armas con la Catedral, la Compañía, la fuente del Inca y los portales; San Blas con sus puertas azules; la piedra de los 12 ángulos; Qorikancha; Mercado de San Pedro; Sacsayhuamán y el Cristo Blanco.",
-   "⛰ Valle Sagrado y más: Pisac con su mercado de tejidos y andenes, Moray con sus andenes circulares, Ollantaytambo y la Montaña de Siete Colores (Vinicunca). Andenes con muros y escaleras de verdad, gente con chullo y montera, y gente que va montada en llama.",
-   "🏯 Machu Picchu: tren a Aguas Calientes, camino en zigzag, andenes, casas de piedra con techo de paja, plaza, Templo del Sol, Tres Ventanas, Intihuatana y la escalada al Huayna Picchu entre nubes. Cuidado con el soroche: el mate de coca lo quita.",
-   "🧭 Oficios de Cusco que no dan fuerza: guía de Machu Picchu (llevas un grupo y cuentas la historia), arriero de llamas y tintorera de Pisac. Dan ropa andina nueva y ventajas de crítico, esquiva, vida y velocidad.",
-   "🧶 Ropa andina nueva para ti y para todos los cuerpos y peinados: chullos, montera, ponchos, lliclla, polleras y chaleco bordado (tienda de San Blas y premios de los oficios).",
-   "📜 Historia extra de Perú en el Libro (aparte del lore principal): Cusco, los incas, el Valle Sagrado y Machu Picchu.",
-   "🏎 Monturas cada vez más rápidas: llama de Cusco (2,0×) y el Superdeportivo «Toro Bravo» de Madrid (2,4×), el auto más caro. 🐾 Las mascotas de Perú, México y España ahora dan un bono pequeño."
+   "🛡 El juego ya no se congela si algo falla: se salta ese fotograma y sigue. La barra roja ahora dice dónde fue el error, para poder arreglarlo.",
+   "🚐 Cobrador de combi nuevo: 12 paraderos y unos 5.000 de oro. Afuera vas en la puerta y gritas «¡Sube, sube!» en los paraderos; con ⚔ entras a la combi y cobras asiento por asiento (te hablan: «busco sencillo…», «¿pasa por San Martín?»). En la puerta, ⚔ te saca otra vez. ¡Que nadie se baje sin pagar!",
+   "🛺 Mototaxi y vocho taxi: el cliente te habla durante el viaje y le respondes. Una buena respuesta te da propina.",
+   "🦙 Arriero de llamas más claro: banderas rojas numeradas en el camino, tus llamas van atadas con una cuerda, se cansan más despacio y el aviso dice qué hacer.",
+   "⭐ Los oficios de los países suben el doble de rápido (×6 de experiencia)."
   ],
   "en": [
-   "🦙 Cusco! You arrive on the Andean Train from Trujillo (Lima → bus to Trujillo → train to Cusco). Main Square with the Cathedral, the Society of Jesus church, the Inca fountain and the arcades; San Blas with its blue doors; the twelve-angled stone; Qorikancha; San Pedro Market; Sacsayhuamán and the White Christ.",
-   "⛰ Sacred Valley and more: Pisac with its textile market and terraces, Moray with its circular terraces, Ollantaytambo and the Rainbow Mountain (Vinicunca). Terraces with real walls and stairs, people in chullos and monteras, and people riding llamas.",
-   "🏯 Machu Picchu: train to Aguas Calientes, zigzag path, terraces, stone houses with thatched roofs, plaza, Temple of the Sun, Three Windows, Intihuatana and the climb up Huayna Picchu among the clouds. Beware of altitude sickness: coca tea cures it.",
-   "🧭 Cusco jobs that give no strength: Machu Picchu guide (lead a group and tell the story), llama muleteer and Pisac dyer. They give new Andean clothes and crit, dodge, HP and speed perks.",
-   "🧶 New Andean clothes for you, fitting every body and hairstyle: chullos, montera, ponchos, lliclla, pollera skirts and an embroidered vest (San Blas shop and job rewards).",
-   "📜 Peru extra story in the Book (apart from the main lore): Cusco, the Incas, the Sacred Valley and Machu Picchu.",
-   "🏎 Ever faster mounts: Cusco llama (2.0×) and the «Toro Bravo» supercar in Madrid (2.4×), the most expensive car. 🐾 Peru, Mexico and Spain pets now give a small bonus."
+   "🛡 The game no longer freezes if something fails: it skips that frame and keeps going. The red bar now says where the error happened, so it can be fixed.",
+   "🚐 New combi fare collector: 12 stops and about 5,000 gold. Outside you ride the door and shout «Get on, get on!» at the stops; with ⚔ you go into the combi and charge seat by seat (they talk to you: «looking for change…», «do you go by San Martín?»). At the door, ⚔ takes you back out. Don't let anyone get off without paying!",
+   "🛺 Mototaxi and Beetle taxi: the customer talks to you during the ride and you answer. A good answer earns a tip.",
+   "🦙 Clearer llama muleteer: numbered red flags on the path, your llamas are tied with a rope, they tire more slowly and the hint says what to do.",
+   "⭐ Country jobs level up twice as fast (×6 experience)."
   ]
  }
 }

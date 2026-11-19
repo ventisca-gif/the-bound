@@ -72,8 +72,8 @@ DLG_HOOKS.push((npc, opts) => { const k = npc.id && npc.id.startsWith('v8_') ? n
 // ---------- fin común ----------
 function v8Pay(k, gold, xp, line) { const P = G.P, J = V8J[k]; gold = Math.max(0, Math.round(gold * (1 + jobPerkSum('v8' + k) / 100))); P.gold += gold; gainJobXp(k, Math.round(xp)); v8Off(); banner(J.e + ' ' + J.n, line + ' · +' + gold + L2(' de oro', ' gold')); sfx('quest'); markDirty(); }
 function v8Off() { const A = ACT; if (A.horse !== undefined) { const P = G.P; P.mount = A.horse; A.horse = undefined; calcStats(P); try { mountBtn(); } catch (e) { } } actClean(); actEnd(); }
-{ const _sm = setMap; setMap = function () { if (v8K()) v8Off(); return _sm.apply(this, arguments); }; }
-V33_TICKS.push(() => { const k = v8K(); if (k && (G.P.dead || !G.map || G.map.id !== V8J[k].m)) v8Off(); });
+{ const _sm = setMap; setMap = function () { if (v8K() && !ACT.swap) v8Off(); return _sm.apply(this, arguments); }; }
+V33_TICKS.push(() => { const k = v8K(); if (k && (G.P.dead || !G.map || (G.map.id !== V8J[k].m && !(ACT.inMap && G.map.id === ACT.inMap)))) v8Off(); });
 const v8Hud = h => mgHud(V8J[v8K()].e + ' ' + h);
 
 // ---------- en multijugador: los demás ven a qué trabajas ----------
@@ -160,24 +160,10 @@ WORLD_DRAW.push((cx, cy) => { if (ACT.k !== 'v8_cevichero') return; const B = AC
 
 v8Job('cobrador', 'lima', '🚐', 'Cobrador de combi', 'Combi fare collector', M => [300, 150], [3, 2], ['pe', 'm', 8, null],
   '¡Sube, sube, hay sitio! Al fondo hay sitio, caserito.', 'Get on, get on, there\'s room! Room at the back, mate.',
-  'Vas colgado de la puerta de la combi. Cuando pases junto a un paradero con gente, pulsa ⚔ para gritar «¡Sube, sube!» y la combi frena. Entre paraderos pulsa ⚔ para cobrar al siguiente pasajero. Si alguien llega a su parada sin pagar, se baja sin pagarte.', 'You hang from the combi door. When you pass a stop with people, press ⚔ to shout «Get on, get on!» and the combi brakes. Between stops press ⚔ to charge the next passenger. If someone reaches their stop without paying, they get off without paying you.',
+  'Vas en la puerta de la combi por 12 paraderos. Afuera: cuando pases junto a un paradero con gente, pulsa ⚔ para gritar «¡Sube, sube!» y suben. Lejos de los paraderos, ⚔ te mete dentro de la combi. Adentro: acércate a cada pasajero sentado y pulsa ⚔ para cobrarle (te hablan); en la puerta, ⚔ te saca otra vez. Si alguien llega a su parada sin pagar, se baja sin pagarte. Paga unos 5.000.', 'You ride the combi door through 12 stops. Outside: when you pass a stop with people, press ⚔ to shout «Get on, get on!» and they board. Away from stops, ⚔ takes you inside the combi. Inside: go up to each seated passenger and press ⚔ to charge them (they talk to you); at the door, ⚔ takes you back out. If someone reaches their stop without paying, they get off without paying you. Pays about 5,000.',
   'Paradero de combis (Centro)', 'Combi stop (Downtown)', 3);
 V8_PLACE.cobrador = (M, A) => { let best = null; for (let d = 0; d < 14 && !best; d++) for (const s of [1, -1]) { const y = A.cy + d * s; if (y > 0 && y < M.h && M.lg[M.I(A.cx, y)] === LM_G.ROAD) { best = y; break; } } let y0 = best, y1 = best; if (best !== null) { while (y0 > 0 && M.lg[M.I(A.cx, y0 - 1)] === LM_G.ROAD) y0--; while (y1 < M.h - 1 && M.lg[M.I(A.cx, y1 + 1)] === LM_G.ROAD) y1++; A.lane = ((y0 + y1) / 2) * 16 + 8; } else A.lane = A.py + 40; };
-V8_GO.cobrador = A => { const M = G.map, dir = A.px / 16 < M.w - 130 ? 1 : -1, stops = []; for (let i = 0; i < 8; i++) { const sx = A.px + dir * (220 + i * 180), ppl = []; const n = 1 + Math.floor(Math.random() * 3); for (let q = 0; q < n; q++) { const e = actNpc(v8Ped('lima'), sx - 14 + q * 14, A.lane - 30, 'lima'); if (e) ppl.push(e); } stops.push({ x: sx, ppl, done: 0 }); }
-  Object.assign(ACT, { k: 'v8_cobrador', cx: A.px, cy: A.lane, dir, v: 70, brake: 0, stops, si: 0, pas: [], paid: 0, lost: 0, gold: 0,
-    onAtk: () => { const B = ACT, s = B.stops.find(s => !s.done && Math.abs(s.x - B.cx) < 60); if (s && !s.call) { s.call = 1; B.brake = 2.2; sfx('ui'); floatText(G.P.x, G.P.y - 44, L2('¡Sube, sube!', 'Get on!'), '#ffe08a'); return true; }
-      const p = B.pas.find(p => !p.paid); if (p) { p.paid = 1; B.paid++; B.gold += 45; sfx('coin'); floatText(G.P.x, G.P.y - 44, '🪙 S/ 1', '#ffd040'); } else floatText(G.P.x, G.P.y - 44, L2('Todos pagaron', 'Everyone paid'), '#c0c0c0'); return true; } });
-  banner('🚐 ' + L2('¡Al paradero!', 'To the stop!'), L2('⚔ junto al paradero para que suban; ⚔ entre paraderos para cobrar.', '⚔ by the stop so they get on; ⚔ between stops to charge.')); };
-V33_TICKS.push(dt => { if (ACT.k !== 'v8_cobrador') return; dt = Math.min(0.05, dt || 0.016); const B = ACT, P = G.P; B.brake = Math.max(0, B.brake - dt); const v = B.brake > 0 ? 14 : 75; B.cx += B.dir * v * dt; v8Lock(B.cx - B.dir * 10, B.cy - 4); P.dir = B.dir > 0 ? 'right' : 'left';
-  for (let i = 0; i < B.stops.length; i++) { const s = B.stops[i]; if (s.call && s.ppl.length) for (const e of s.ppl) { npcStep(e, B.cx - B.dir * 10, B.cy - 6, 80, dt); if (aDist(e, { x: B.cx - B.dir * 10, y: B.cy - 6 }) < 10) { e.remove = true; const d = i + 1 + Math.floor(Math.random() * 3); B.pas.push({ d, paid: 0 }); } }
-    if (s.call) s.ppl = s.ppl.filter(e => !e.remove);
-    if (!s.done && (B.cx - s.x) * B.dir > 60) { s.done = 1; if (!s.call && s.ppl.length) { B.lost += s.ppl.length; floatText(s.x, B.cy - 50, L2('¡Se quedaron!', 'They stayed behind!'), '#ff8a8a'); } for (const e of s.ppl) e.remove = true; s.ppl = []; B.si = i + 1;
-      for (const p of B.pas) if (p.d <= i) { p.off = 1; if (!p.paid) { B.lost++; sfx('hurt'); floatText(P.x, P.y - 54, L2('¡Se bajó sin pagar!', 'Got off without paying!'), '#ff8a8a'); } } B.pas = B.pas.filter(p => !p.off); } }
-  G.ents = G.ents.filter(e => !e.remove); v8Hud(`${L2('Paradero', 'Stop')} ${Math.min(8, B.si + 1)}/8 · 👥 ${B.pas.length} · ${L2('por cobrar', 'to charge')} ${B.pas.filter(p => !p.paid).length} · 🪙 ${B.paid}`);
-  if (B.si >= B.stops.length) v8Pay('cobrador', B.gold + 80, 25 + B.paid * 8, B.paid + L2(' pasajes cobrados · ', ' fares collected · ') + B.lost + L2(' perdidos', ' lost')); });
-V8_UNDER.push((cx, cy) => { if (ACT.k !== 'v8_cobrador') return; const B = ACT; for (const s of B.stops) { if (s.done) continue; const x = s.x - cx, y = B.cy - 26 - cy; if (x < -40 || x > VW + 40) continue; ctx.fillStyle = '#3a3a40'; ctx.fillRect(x - 1, y - 24, 3, 24); ctx.fillStyle = '#1a6aff'; ctx.fillRect(x - 8, y - 30, 18, 8); ctx.fillStyle = '#ffffff'; ctx.fillRect(x - 5, y - 28, 12, 1); ctx.fillRect(x - 5, y - 25, 9, 1); }
-  try { const S = lmCombi(B.dir > 0 ? 'right' : 'left', 0); ctx.drawImage(S.c, Math.round(B.cx - S.ax - cx), Math.round(B.cy + 6 - S.ay - cy)); } catch (e) { ctx.fillStyle = '#c81e3a'; ctx.fillRect(B.cx - 26 - cx, B.cy - 18 - cy, 52, 22); } });
-WORLD_DRAW.push((cx, cy) => { if (ACT.k !== 'v8_cobrador') return; const B = ACT; for (const s of B.stops) if (!s.done && !s.call && s.ppl.length && Math.abs(s.x - B.cx) < 60) drawTxt('⚔ ' + L2('¡Sube!', 'Get on!'), s.x - cx, B.cy - 70 - cy, '#7aff8a', 9); });
+// 5.30: la mecánica del cobrador está en src/6zz9zzzzzzzz_v530.js (combi con interior)
 
 v8Job('lonjero', 'lima', '🦐', 'Lonja de Chorrillos', 'Chorrillos fish market', M => [331, 289], [12, 8], ['pe', 'm', 9, null],
   '¡Llegó la pesca! Sube las cajas a la lonja y que empiece la subasta.', 'The catch is in! Carry the crates up to the market and let the auction begin.',
