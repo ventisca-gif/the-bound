@@ -1,30 +1,28 @@
 {
- "build": 169,
- "ver": "5.48",
+ "build": 170,
+ "ver": "5.49",
  "date": "2026-11-19",
  "file": "thebound.html",
- "size": 24232623,
- "sha256": "a83ff91fe04386c581721ee0ee413316a4ef0df52b924f652177c5a478e7b429",
+ "size": 24263288,
+ "sha256": "12e61ad4ec9c9ebb929d1e6b885e3e6782f23d3ca4f304766066113756c3bb5b",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🛡 Sede del gremio (Atajos › Gremios › «Ir a la sede»): un salón que decoran todos los miembros, con el estandarte de tu gremio y un tablón con misiones semanales comunes.",
-   "⚔ Guerra semanal de gremios: 1 punto por monstruo y 25 por jefe. El gremio ganador de la semana recibe el marco «Gremio campeón», el Estandarte del gremio campeón y 500.000 de oro por miembro.",
-   "❄🐉 Monturas nuevas: Lobo de Escarcha (Guardián de Hielo en rango 10) y Draco de Brasa volador (dragón en rango 10).",
-   "📷 Oficio nuevo en Machu Picchu: Fotógrafo de fauna. Acércate despacio a los animales y haz la foto con ⚔. Álbum de 10 especies (2 raras); al completarlo, montura Cóndor dorado. Marco, colibrí y título.",
-   "🌦 El clima cambia el combate: la nieve refuerza el hielo, el sol el fuego, la tormenta el rayo y la lluvia el agua (+10 % de daño con tu elemento).",
-   "★ Cazador de recompensas: Vera (Aldea Albor) cuelga 3 carteles de «se busca» al día. Objetivos élite con flecha roja; marcas de cazador para marco, halcón, sombrero y corcel.",
-   "🍲 Cocina en familia: en tu casa, con tu pareja o tus hijos, usa los fogones. Platos más fuertes que la comida normal (30 min)."
+   "🐉❄ Fusión Dragón de Hielo en 🌀 Transformaciones › Fusiones: necesitas el dragón y el Guardián de Hielo en maestría 12 y nivel 500. Mitad +10 %, Híbrida +24 %, 2.0 +34 %, Plena +42 % de ataque: la forma más fuerte. El pelo y el dragón son siempre celestes, uses el pelo que uses.",
+   "📈 Maestría hasta el rango 12 y el doble de rápida: 2 puntos por monstruo, 4 por élite y 15 por jefe (150 por rango).",
+   "⚡ Cada transformación tiene 3 poderes propios mientras estás transformado (por ejemplo, el lobo: Olfato de presa, Furia de la manada y Regeneración lunar).",
+   "★ Cazadores de recompensas también en Lima, Trujillo, México, España y Japón, con carteles propios de cada país. Las marcas se juntan con las de Vera.",
+   "🌐 Arreglo: los demás jugadores del online ahora ven tu transformación (antes no se veía).",
+   "📖 Nivel 500: nuevo capítulo de las Crónicas del Vínculo, «El hilo que aprende»."
   ],
   "en": [
-   "🛡 Guild hall (Shortcuts › Guilds › «Go to the hall»): a hall every member decorates, with your guild banner and a board with shared weekly missions.",
-   "⚔ Weekly guild war: 1 point per monster and 25 per boss. The week's winning guild gets the «Champion guild» frame, the Champion guild banner and 500,000 gold per member.",
-   "❄🐉 New mounts: Frost Wolf (Ice Guardian at rank 10) and flying Ember Drake (dragon at rank 10).",
-   "📷 New job in Machu Picchu: Wildlife photographer. Approach animals slowly and take the photo with ⚔. Album of 10 species (2 rare); complete it for the Golden condor mount. Frame, hummingbird and title.",
-   "🌦 Weather changes combat: snow strengthens ice, sun fire, storm lightning and rain water (+10% damage with your element).",
-   "★ Bounty hunter: Vera (Albor Village) hangs 3 «wanted» posters a day. Elite targets with a red arrow; hunter marks for a frame, falcon, hat and steed.",
-   "🍲 Family cooking: at home, with your partner or kids, use the stove. Dishes stronger than normal food (30 min)."
+   "🐉❄ Ice Dragon fusion in 🌀 Transformations › Fusions: you need the dragon and the Ice Guardian at mastery 12 and level 500. Half +10%, Hybrid +24%, 2.0 +34%, Full +42% attack: the strongest form. Hair and dragon are always sky-blue, whatever hair you use.",
+   "📈 Mastery up to rank 12 and twice as fast: 2 points per monster, 4 per elite and 15 per boss (150 per rank).",
+   "⚡ Every transformation has 3 powers of its own while transformed (e.g. the wolf: Prey scent, Pack fury and Lunar regeneration).",
+   "★ Bounty hunters also in Lima, Trujillo, Mexico, Spain and Japan, with each country's own posters. Marks add up with Vera's.",
+   "🌐 Fix: other online players now see your transformation (it did not show before).",
+   "📖 Level 500: new Chronicles of the Bond chapter, «The thread that learns»."
   ]
  }
 }

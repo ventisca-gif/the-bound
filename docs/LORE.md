@@ -57,6 +57,8 @@
 
 29. **El frío sin dueño** (v5.47, transformación Guardián de Hielo, nivel 450). Al vencer al Gólem de Escarcha (uno de los siete guardianes, regla 6), su frío quedó sin dueño bajo los Picos Helados: una parte se volvió el Rey del Invierno (regla 9) y otra se durmió en el hilo del héroe. Hilde, Vigía del Glaciar (de los Vigías del Alba), lo ata con Núcleos de Escarcha y Hielo Eterno. El héroe no es un gólem: guarda el frío para que proteja en vez de congelar. El Gólem vuelve como eco, no él.
 
+30. **El hilo que aprende** (v5.49, nivel 500, capítulo de las Crónicas del Vínculo). El hilo vacío que dejó el último Tejedor (regla 11) no tiene forma propia: cuando algo de otro ser vivo lo roza (la brasa de Ignaroth, la sangre del lobo, una pluma de Alado, el frío del Gólem, la tinta de un boceto) copia su patrón y lo teje mejor, porque no pelea con lo que ya era. Por eso el héroe consigue formas y poderes que ni sus dueños tenían, y dos patrones pueden anudarse (las fusiones, como el Dragón de Hielo). Los Tejedores temían que un hilo así acabara como Aurel; no pasa porque el otro extremo lo sostiene el jugador (el Vínculo). Toda transformación o fusión nueva debe explicarse así: el hilo aprende el patrón de un ser.
+
 ## Armas ancestrales (v4.65)
 
 Armas hechas por los siete guardianes antes de que el Sello los torciera, o por reyes de la Edad de los Reyes. No suben con experiencia: despiertan restaurando su santuario (una estela antigua), hablando con quien conoció a su portador y venciendo a su creador. `ANC` en `src/6zz9g_vida.js`.

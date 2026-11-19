@@ -187,10 +187,10 @@ const SRD = [
   ['srv4', 'vampiro', L2('Sed de Sangre', 'Bloodthirst'), 24, 40, ['drop', '#ff2040'], { k: 'blood', m: 0.9, mr: 0.08 }, L2('Durante 3 s bebes de todo lo que te rodea: {m}% cada medio segundo y te curas la mitad.', 'For 3 s you drink from everything around you: {m}% every half second and heal half of it.')],
 ];
 for (const [id, s, n, cd, mp, icon, eff, d] of SRD) sk(id, 'sr_' + s, 0, 0, n, 'act', 1, null, { mp, cd, icon, eff, d, srk: eff.k, max: 10 });
-function srRank() { return Math.min(10, 1 + Math.floor((G.P.srX || 0) / 150)); }
+function srRank() { return Math.min(12, 1 + Math.floor((G.P.srX || 0) / 150)); }
 function srOk() { return !(typeof pvpOn === 'function' && pvpOn()); }
 function srSet(on) { const P = G.P; if (!P || !P.sr) return; const ids = SRSK[P.sr];
-  if (on) { if (!P.srF) P.srSlots = P.slots.slice(); P.srF = on === 2 ? 2 : 1; P.slots = ids.slice(); for (const id of ids) P.skills[id] = srRank(); }
+  if (on) { if (!P.srF) P.srSlots = P.slots.slice(); P.srF = on === 2 ? 2 : 1; P.slots = ids.slice(); for (const id of ids) P.skills[id] = Math.min(10, srRank()); }
   else { if (P.srF && P.srSlots) P.slots = P.srSlots.slice(); P.srF = 0; P.srSlots = null; for (const s in SRSK) for (const id of SRSK[s]) delete P.skills[id]; }
   calcStats(P); refreshLook(); uiDirty.hud = true; markDirty(); }
 function srToggle() { const P = G.P; if (!P || !P.sr || P.dead) return; if ((P.srTT || 0) > G.t) return; P.srTT = G.t + 1.2;
@@ -199,7 +199,7 @@ function srToggle() { const P = G.P; if (!P || !P.sr || P.dead) return; if ((P.s
 V33_TICKS.push(() => { const P = G.P; if (!P) return; const tr = $('#tr .trbtns'); let b = $('#bSr'); if (!tr) return; if (!P.sr) { if (b) b.remove(); return; } if (!b) { b = document.createElement('button'); b.className = 'mini'; b.id = 'bSr'; b.onclick = srToggle; tr.insertBefore(b, tr.firstChild); }
   const t = SR[P.sr].ic + (P.srF === 2 ? '✓✓' : P.srF ? '✓' : ''); if (b.textContent !== t) { b.textContent = t; b.title = P.srF ? L2('Volver a tu forma', 'Change back') : SR[P.sr].f; }
   if (P.srF && P.slots[0] !== SRSK[P.sr][0]) srSet(P.srF); if (!P.srF && (P.skills.srl1 || P.skills.srf1 || P.skills.srv1)) srSet(false); });
-{ const _km = killMob; killMob = function (m, ...a) { const r = _km(m, ...a); const P = G.P; if (P && P.sr && P.srF && m) { const r0 = srRank(); P.srX = (P.srX || 0) + (m.boss ? 10 : 1); if (srRank() > r0) { for (const id of SRSK[P.sr]) P.skills[id] = srRank(); toast(SR[P.sr].f + L2(': habilidades a rango ', ': skills at rank ') + srRank(), 'quest', 3); } } return r; }; }
+{ const _km = killMob; killMob = function (m, ...a) { const r = _km(m, ...a); const P = G.P; if (P && P.sr && P.srF && m) { const r0 = srRank(); P.srX = (P.srX || 0) + (m.boss ? 10 : 1); if (srRank() > r0) { for (const id of SRSK[P.sr]) P.skills[id] = Math.min(10, srRank()); toast(SR[P.sr].f + L2(': habilidades a rango ', ': skills at rank ') + srRank(), 'quest', 3); } } return r; }; }
 // pasivas (no cuentan en los duelos)
 { const _cs = calcStats; calcStats = function (P, ...a) { const S = _cs(P, ...a); if (!P || !P.sr || !S || !srOk()) return S; const F = P.srF, night = typeof isNight === 'function' && isNight();
   if (P.sr === 'lobo') { S.spd *= F ? 1.18 : 1.06; S.crit = Math.min(70, S.crit + 4); if (F) { S.atk = Math.round(S.atk * 1.22); S.def = Math.round(S.def * 0.9); S.aspd /= 1.08; } }

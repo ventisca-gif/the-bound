@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.48 · Sede y guerra de gremios</div>
+  <div class="tfoot">v5.49 · Fusión Dragón de Hielo</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11797,7 +11797,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.48', GAME_BUILD = 169;
+const GAME_VER = '5.49', GAME_BUILD = 170;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11805,6 +11805,27 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.49",
+  "b": 170,
+  "d": "2026-11-19",
+  "es": [
+   "🐉❄ Fusión Dragón de Hielo en 🌀 Transformaciones › Fusiones: necesitas el dragón y el Guardián de Hielo en maestría 12 y nivel 500. Mitad +10 %, Híbrida +24 %, 2.0 +34 %, Plena +42 % de ataque: la forma más fuerte. El pelo y el dragón son siempre celestes, uses el pelo que uses.",
+   "📈 Maestría hasta el rango 12 y el doble de rápida: 2 puntos por monstruo, 4 por élite y 15 por jefe (150 por rango).",
+   "⚡ Cada transformación tiene 3 poderes propios mientras estás transformado (por ejemplo, el lobo: Olfato de presa, Furia de la manada y Regeneración lunar).",
+   "★ Cazadores de recompensas también en Lima, Trujillo, México, España y Japón, con carteles propios de cada país. Las marcas se juntan con las de Vera.",
+   "🌐 Arreglo: los demás jugadores del online ahora ven tu transformación (antes no se veía).",
+   "📖 Nivel 500: nuevo capítulo de las Crónicas del Vínculo, «El hilo que aprende»."
+  ],
+  "en": [
+   "🐉❄ Ice Dragon fusion in 🌀 Transformations › Fusions: you need the dragon and the Ice Guardian at mastery 12 and level 500. Half +10%, Hybrid +24%, 2.0 +34%, Full +42% attack: the strongest form. Hair and dragon are always sky-blue, whatever hair you use.",
+   "📈 Mastery up to rank 12 and twice as fast: 2 points per monster, 4 per elite and 15 per boss (150 per rank).",
+   "⚡ Every transformation has 3 powers of its own while transformed (e.g. the wolf: Prey scent, Pack fury and Lunar regeneration).",
+   "★ Bounty hunters also in Lima, Trujillo, Mexico, Spain and Japan, with each country's own posters. Marks add up with Vera's.",
+   "🌐 Fix: other online players now see your transformation (it did not show before).",
+   "📖 Level 500: new Chronicles of the Bond chapter, «The thread that learns»."
+  ]
+ },
  {
   "v": "5.48",
   "b": 169,
@@ -17160,10 +17181,10 @@ const SRD = [
   ['srv4', 'vampiro', L2('Sed de Sangre', 'Bloodthirst'), 24, 40, ['drop', '#ff2040'], { k: 'blood', m: 0.9, mr: 0.08 }, L2('Durante 3 s bebes de todo lo que te rodea: {m}% cada medio segundo y te curas la mitad.', 'For 3 s you drink from everything around you: {m}% every half second and heal half of it.')],
 ];
 for (const [id, s, n, cd, mp, icon, eff, d] of SRD) sk(id, 'sr_' + s, 0, 0, n, 'act', 1, null, { mp, cd, icon, eff, d, srk: eff.k, max: 10 });
-function srRank() { return Math.min(10, 1 + Math.floor((G.P.srX || 0) / 150)); }
+function srRank() { return Math.min(12, 1 + Math.floor((G.P.srX || 0) / 150)); }
 function srOk() { return !(typeof pvpOn === 'function' && pvpOn()); }
 function srSet(on) { const P = G.P; if (!P || !P.sr) return; const ids = SRSK[P.sr];
-  if (on) { if (!P.srF) P.srSlots = P.slots.slice(); P.srF = on === 2 ? 2 : 1; P.slots = ids.slice(); for (const id of ids) P.skills[id] = srRank(); }
+  if (on) { if (!P.srF) P.srSlots = P.slots.slice(); P.srF = on === 2 ? 2 : 1; P.slots = ids.slice(); for (const id of ids) P.skills[id] = Math.min(10, srRank()); }
   else { if (P.srF && P.srSlots) P.slots = P.srSlots.slice(); P.srF = 0; P.srSlots = null; for (const s in SRSK) for (const id of SRSK[s]) delete P.skills[id]; }
   calcStats(P); refreshLook(); uiDirty.hud = true; markDirty(); }
 function srToggle() { const P = G.P; if (!P || !P.sr || P.dead) return; if ((P.srTT || 0) > G.t) return; P.srTT = G.t + 1.2;
@@ -17172,7 +17193,7 @@ function srToggle() { const P = G.P; if (!P || !P.sr || P.dead) return; if ((P.s
 V33_TICKS.push(() => { const P = G.P; if (!P) return; const tr = $('#tr .trbtns'); let b = $('#bSr'); if (!tr) return; if (!P.sr) { if (b) b.remove(); return; } if (!b) { b = document.createElement('button'); b.className = 'mini'; b.id = 'bSr'; b.onclick = srToggle; tr.insertBefore(b, tr.firstChild); }
   const t = SR[P.sr].ic + (P.srF === 2 ? '✓✓' : P.srF ? '✓' : ''); if (b.textContent !== t) { b.textContent = t; b.title = P.srF ? L2('Volver a tu forma', 'Change back') : SR[P.sr].f; }
   if (P.srF && P.slots[0] !== SRSK[P.sr][0]) srSet(P.srF); if (!P.srF && (P.skills.srl1 || P.skills.srf1 || P.skills.srv1)) srSet(false); });
-{ const _km = killMob; killMob = function (m, ...a) { const r = _km(m, ...a); const P = G.P; if (P && P.sr && P.srF && m) { const r0 = srRank(); P.srX = (P.srX || 0) + (m.boss ? 10 : 1); if (srRank() > r0) { for (const id of SRSK[P.sr]) P.skills[id] = srRank(); toast(SR[P.sr].f + L2(': habilidades a rango ', ': skills at rank ') + srRank(), 'quest', 3); } } return r; }; }
+{ const _km = killMob; killMob = function (m, ...a) { const r = _km(m, ...a); const P = G.P; if (P && P.sr && P.srF && m) { const r0 = srRank(); P.srX = (P.srX || 0) + (m.boss ? 10 : 1); if (srRank() > r0) { for (const id of SRSK[P.sr]) P.skills[id] = Math.min(10, srRank()); toast(SR[P.sr].f + L2(': habilidades a rango ', ': skills at rank ') + srRank(), 'quest', 3); } } return r; }; }
 // pasivas (no cuentan en los duelos)
 { const _cs = calcStats; calcStats = function (P, ...a) { const S = _cs(P, ...a); if (!P || !P.sr || !S || !srOk()) return S; const F = P.srF, night = typeof isNight === 'function' && isNight();
   if (P.sr === 'lobo') { S.spd *= F ? 1.18 : 1.06; S.crit = Math.min(70, S.crit + 4); if (F) { S.atk = Math.round(S.atk * 1.22); S.def = Math.round(S.def * 0.9); S.aspd /= 1.08; } }
@@ -37877,7 +37898,7 @@ transOpen = function () { const P = G.P; if (!P) return; const own = srOwned();
     return L2('Ritual de sangre con Corvel en el Velo Roto (tras la misión de las Rosas Azules). Ofrenda: ', 'Blood ritual with Corvel in the Broken Veil (after the Blue Roses quest). Offering: ') + off + '.'; };
   const rows = Object.keys(SR).map(k => { const D = SR[k];
     if (!own.includes(k)) return `<div class="gsrc trlock"><span><b>🔒 ${D.ic} ${esc(D.n)}</b><br><small>${esc(D.pas)}</small><br><small class="trwhy">${lockWhy(k)}</small></span></div>`;
-    if (P.sr !== k) return `<div class="gsrc"><span><b>${D.ic} ${esc(D.n)}</b> <small>· ${L2('guardada', 'saved')} · ${L2('rango ', 'rank ')}${Math.min(10, 1 + Math.floor(((P.srXs || {})[k] || 0) / 150))}</small><br><small>${esc(D.pas)}</small></span><div class="row wrap"><button class="btn sm gold" data-tu="${k}">${L2('Usar esta forma', 'Use this form')}</button></div></div>`;
+    if (P.sr !== k) return `<div class="gsrc"><span><b>${D.ic} ${esc(D.n)}</b> <small>· ${L2('guardada', 'saved')} · ${L2('rango ', 'rank ')}${Math.min(12, 1 + Math.floor(((P.srXs || {})[k] || 0) / 150))}</small><br><small>${esc(D.pas)}</small></span><div class="row wrap"><button class="btn sm gold" data-tu="${k}">${L2('Usar esta forma', 'Use this form')}</button></div></div>`;
     return `<div class="gsrc"><span><b>${D.ic} ${esc(D.n)}</b> <small>· ${L2('la usas ahora', 'in use')} · ${L2('rango ', 'rank ')}${srRank()}</small><br><small>${esc(D.pas)}</small></span><div class="row wrap"><button class="btn sm ${!P.srF ? 'gold' : ''}" data-tf="0">${L2('Normal', 'Normal')}</button>${SR_FORMS(k).map(([f, n]) => `<button class="btn sm ${P.srF === f ? 'gold' : ''}" data-tf="${f}">${esc(n)}</button>`).join('')}<button class="btn sm" data-tu="">${L2('Quitármela', 'Take it off')}</button></div></div>`; }).join('');
   openModal(`<div class="frame"><h3>🌀 ${L2('Transformaciones', 'Transformations')}</h3><p class="hint">${L2('Todas las formas que consigues se quedan guardadas: elige cuál usar. Cada una guarda su rango. Las bloqueadas se consiguen con Corvel (Lupa › Subrazas).', 'Every form you get stays saved: choose which to use. Each keeps its rank. Locked ones come from Corvel (Magnifier › Subraces).')}</p>${rows}<div class="row"><button class="btn" id="trX">${L2('Cerrar', 'Close')}</button></div></div>`);
   $('#trX').onclick = closeModal; $$('#modal [data-tf]').forEach(b => b.onclick = () => { transSet(+b.dataset.tf); closeModal(); }); $$('#modal [data-tu]').forEach(b => b.onclick = () => { srUse(b.dataset.tu || null); transOpen(); }); };
@@ -38562,7 +38583,7 @@ function srmAtlas(k) { const P = G.P; if (!P) return null; const key = '_srm' + 
 { const _gm = genMount; genMount = function (k, dir, f) { if (k !== 'lobo_escarcha' && k !== 'draco_brasa') return _gm.apply(this, arguments);
   return spr('mntsr' + k + dir + f, () => { const A = srmAtlas(k); if (!A) return _gm.call(this, 'caballo', dir, f); const row = dir === 'up' ? 3 : dir === 'down' ? 0 : 1, col = A.idx.walk + (f % 4), sc = k === 'draco_brasa' ? 0.72 : 1.35, c = mkCanvas(Math.round(A.fw * sc), Math.round(A.fh * sc)), x = c.getContext('2d');
     x.imageSmoothingEnabled = false; x.drawImage(A.img, col * A.fw, row * A.fh, A.fw, A.fh, 0, 0, c.width, c.height); return { c, ax: c.width >> 1, ay: c.height - 4 }; }); }; }
-const srRankOf = k => { const P = G.P; const x = P.sr === k ? (P.srX || 0) : ((P.srXs || {})[k] || 0); return Math.min(10, 1 + Math.floor(x / 150)); };
+const srRankOf = k => { const P = G.P; const x = P.sr === k ? (P.srX || 0) : ((P.srXs || {})[k] || 0); return Math.min(12, 1 + Math.floor(x / 150)); };
 V33_TICKS.push(() => { const P = G.P; if (!P || !P.sr && !(P.srOwn || []).length || typeof srOwned !== 'function') return; P.mounts = P.mounts || []; for (const [mk, sk_] of [['lobo_escarcha', 'hielo'], ['draco_brasa', 'dragon']]) { if (P.mounts.includes(mk) || !srOwned().includes(sk_) || srRankOf(sk_) < 10) continue;
   P.mounts.push(mk); banner('🎁 ' + MOUNTS[mk].n, L2('Tu forma llegó al rango 10: nueva montura (botón Montar).', 'Your form reached rank 10: new mount (Mount button).')); sfx('level'); markDirty(true); } });
 
@@ -38753,6 +38774,138 @@ if (typeof GSIS !== 'undefined') GSIS.unshift(['v548', '🆕 ' + L2('Novedades 5
   L2('🌦 El clima cambia el combate: nieve → hielo, sol → fuego, tormenta → rayo, lluvia → agua (+10 % de daño con tu elemento: arma imbuida, runa o transformación).', '🌦 Weather changes combat: snow → ice, sun → fire, storm → lightning, rain → water (+10% damage with your element: imbued weapon, rune or transformation).'),
   L2('★ Cazador de recompensas: Vera, en Aldea Albor, cuelga 3 carteles al día. Acepta, sigue la flecha roja y vence al objetivo. Marcas de cazador: marco, halcón, sombrero y corcel.', '★ Bounty hunter: Vera, in Albor Village, hangs 3 posters a day. Accept, follow the red arrow and defeat the target. Hunter marks: frame, falcon, hat and steed.'),
   L2('🍲 Cocina en familia: en tu casa, con tu pareja o tus hijos, usa los fogones. Ve al puesto que brilla y pulsa ⚔ a tiempo. Platos que dan más que la comida normal (30 min).', '🍲 Family cooking: at home, with your partner or kids, use the stove. Go to the glowing station and press ⚔ in time. Dishes stronger than normal food (30 min).')], () => null]);
+
+// ================= v5.49: FUSIÓN DRAGÓN DE HIELO · MAESTRÍA 12 · PODERES DE CADA FORMA · CAZADORES EN CADA PAÍS ·
+// =================        LAS FORMAS SE VEN EN EL ONLINE · CAPÍTULO «EL HILO QUE APRENDE» (NIVEL 500) =================
+// Sergio aprobó la muestra (tools/art/muestras/muestra_fusion.js): «dentro de 🌀 Transformaciones habrá fusiones;
+// necesitas subir a maestría 12 cada forma; será la forma más fuerte; su pelo será celeste, uses el pelo que uses».
+
+// ---------- maestría: ahora hasta el rango 12, y sube el doble de rápido ----------
+// rango = 1 + puntos / 150. Antes: 1 punto por monstruo (rango 12 = 1.650 monstruos por forma). Ahora: 2 por monstruo,
+// 4 por élite y 15 por jefe (rango 12 ≈ 800 monstruos, o menos con jefes). Las habilidades siguen con tope 10.
+{ const _km = killMob; killMob = function (m) { const P = G.P, before = P && P.sr && P.srF && m && !m.dying ? srRank() : 0; const r = _km.apply(this, arguments);
+  try { if (before) { P.srX = (P.srX || 0) + (m.boss ? 5 : m.elite ? 3 : 1); const now = srRank(); if (now > before && now > 10) { toast((P.fus ? L2('Dragón de Hielo', 'Ice Dragon') : SR[P.sr].n) + L2(': maestría ', ': mastery ') + now + '/12', 'quest', 4); sfx('level'); } } } catch (e) { } return r; }; }
+
+// ---------- FUSIÓN: DRAGÓN DE HIELO (dragón + Guardián de Hielo) ----------
+SAVEKEYS.push('fus');
+const FUS_LV = 500, FUS_RANK = 12, FUS_HAIR = pal(['#24507a', '#3a7ab0', '#6ab0e0', '#a8e0ff']);
+const fusRank = k => { const P = G.P; const x = P.sr === k ? (P.srX || 0) : ((P.srXs || {})[k] || 0); return Math.min(12, 1 + Math.floor(x / 150)); };
+const fusOk = () => { const P = G.P; return P && P.lv >= FUS_LV && srOwned().includes('dragon') && srOwned().includes('hielo') && fusRank('dragon') >= FUS_RANK && fusRank('hielo') >= FUS_RANK; };
+// el aspecto: todo lo del dragón (escamas, alas, cuernos, cola, la forma a cuatro patas) de hielo, y el pelo celeste
+{ const _gt = gearTiers; gearTiers = function (P) { const g = _gt.apply(this, arguments); if (P && P.sr === 'dragon' && P.fus) g.fu = 1; return g; }; }
+{ const _lg = lkGear; lkGear = function (g) { const o = _lg.apply(this, arguments); if (o && o.sr === 'dragon' && g && g.fu) o.fu = 1; return o; }; }
+{ const _hl = heroLook; heroLook = function (cls, app, gear, ...a) { const L = _hl.call(this, cls, app, gear, ...a); if (L && gear && gear.fu && L.sr === 'dragon') { L.fus = 1; L.hair = FUS_HAIR; L.hair2 = null; L.eyes = 'hielo'; L.eyes2 = null; } return L; }; }
+function fusIce(p, L, dir, anim, f, F) { const m = p.meta; if (!m || m.hrx === undefined) return; const I = HIE_COL.map(c => C(c)), side = m.side, up = m.up, d = m.d, ey = Math.round(m.ey), sy = Math.round(m.shY), hx = Math.round(m.hx);
+  if (!up) for (const ex of m.eyes || []) { p.set(ex, ey, I[3]); p.set(ex + (side ? 0 : 1), ey, I[4]); p.blend(ex, ey + 1, I[2], 0.6); }
+  for (const s of side ? [-d] : [-1, 1]) { const x0 = side ? Math.round(m.cx) - d : (s < 0 ? Math.round(m.shL) : Math.round(m.shR)); for (let k = 0; k < 3; k++) for (let j = 0; j < 4 - k; j++) p.set(x0 + s * k, sy - 1 - j - k, j === 3 - k ? I[4] : I[2 + (j % 2)]); }
+  if (F === 3) iceClothCrystals(p, L, 1);
+  const n = F === 3 ? 6 : F === 1 ? 3 : 2; for (let i = 0; i < n; i++) { const x = hx - 12 + ((i * 29 + (f || 0) * 3) % 25), y = sy + ((i * 11) % 20); p.set(x, y, I[4]); p.set(x - 1, y, I[3]); p.set(x + 1, y, I[3]); p.set(x, y - 1, I[3]); p.set(x, y + 1, I[3]); }
+  if (!up && F) { const mx = side ? hx + d * 6 : hx, my = Math.round(m.hy) + FACE.ey + FACE.mouth + 2; for (let k = 0; k < 3; k++) p.blend(mx + (side ? d * k : (k - 1)), my + (side ? 0 : k), I[4], 0.7 - k * 0.15); } }
+{ const _dh = drawHero; drawHero = function (p, L, dir, anim, f) { const r = _dh.apply(this, arguments); if (L && L.fus && L.sr === 'dragon' && L.srF !== 2) try { const tg = p.tg; if (p.t) p.tg = 5; fusIce(p, L, dir, anim, f, L.srF | 0); p.tg = tg; } catch (e) { if (typeof errOnce === 'function') errOnce('fus', e); } return r; }; }
+// fuerza: la forma más fuerte por ahora (dragón: 1,06 / 1,16 / 1,26 / 1,32 → fusión: 1,10 / 1,24 / 1,34 / 1,42)
+{ const _cs = calcStats; calcStats = function (P, ...a) { const S = _cs.call(this, P, ...a); if (!P || !S || P.sr !== 'dragon' || !P.fus || !srOk()) return S; const F = P.srF || 0, i = F === 2 ? 3 : F === 3 ? 2 : F === 1 ? 1 : 0;
+  S.atk = Math.round(S.atk * [1.10 / 1.06, 1.24 / 1.16, 1.34 / 1.26, 1.42 / 1.32][i]); S.maxhp = Math.round(S.maxhp * [1.04, 1.04, 1.05, 1.06][i]); S.def = Math.round(S.def * [1.04, 1.05, 1.06, 1.06][i]);
+  if (P.hp > S.maxhp) P.hp = S.maxhp; S.power = Math.round(S.atk * 2 + S.def * 1.5 + S.maxhp / 10); P.S = S; return S; }; }
+// la fusión cuenta como fuego y como hielo para el clima
+{ const _me = myElem; myElem = function () { const P = G.P; if (P && P.sr === 'dragon' && P.fus && P.srF && typeof curWx === 'function') { const w = curWx(); if (w === 'snow') return 'ice'; if (w === 'clear' || w === 'hot') return 'fire'; } return _me.apply(this, arguments); }; }
+// cambiar de forma separa la fusión
+{ const _su = srUse; srUse = function (k) { const P = G.P, keep = P && P._fusUse; const r = _su.apply(this, arguments); if (P && !keep && P.fus) { P.fus = 0; calcStats(P); refreshLook(); } return r; }; }
+function fusUse(on) { const P = G.P; if (!P) return; if (on && !fusOk()) { toast(L2('Primero sube el dragón y el Guardián de Hielo a maestría 12 (nivel 500).', 'First raise the dragon and the Ice Guardian to mastery 12 (level 500).'), 'warn'); return; }
+  if (on) { if (P.sr !== 'dragon') { P._fusUse = 1; try { P.srTT = 0; srUse('dragon'); } finally { P._fusUse = 0; } } P.fus = 1; } else P.fus = 0;
+  calcStats(P); refreshLook(); markDirty(true); uiDirty.hud = true;
+  if (on) { addFx({ type: 'ring', x: P.x, y: P.y, r: 50, dur: 0.7, col: '#a8e0ff' }); burst(P.x, P.y - 14, 40, { sp: 100, up: 60, g: 20, life: 0.9, c: ['#ffffff', '#a8e0ff', '#ff7a2a'] }); banner('🐉❄ ' + L2('Fusión: Dragón de Hielo', 'Fusion: Ice Dragon'), L2('Toca 🐉 para transformarte: la forma más fuerte.', 'Tap 🐉 to transform: the strongest form.')); sfx('boss'); }
+  else banner(L2('Fusión separada', 'Fusion split'), ''); }
+V33_TICKS.push(() => { const P = G.P; if (P && P.fus && (P.sr !== 'dragon' || !fusOk())) { P.fus = 0; calcStats(P); refreshLook(); } });
+// 🐉 con la fusión: el icono lleva ❄
+V33_TICKS.push(() => { const P = G.P, t = $('#bTrans'); if (P && t && P.fus && P.sr === 'dragon') { const ic = '🐉❄' + (P.srF ? '✓' : ''); if (t.textContent !== ic) t.textContent = ic; } });
+// 🌀 Transformaciones: sección de fusiones
+{ const _to = transOpen; transOpen = function () { const r = _to.apply(this, arguments); try { const P = G.P, fr = document.querySelector('#modal .frame'); if (!fr) return r; const close = fr.querySelector('#trX'); const row = close ? close.parentElement : null; if (!row) return r;
+  const ok = fusOk(), on = P.fus && P.sr === 'dragon', rd = fusRank('dragon'), rh = fusRank('hielo'), has = srOwned().includes('dragon') && srOwned().includes('hielo');
+  const req = `<small class="trwhy">${L2('Necesitas: ', 'You need: ')}${has ? '' : L2('las dos formas · ', 'both forms · ')}🐉 ${L2('maestría ', 'mastery ')}${rd}/12 · ❄ ${L2('maestría ', 'mastery ')}${rh}/12 · ${L2('nivel ', 'level ')}${Math.min(P.lv, FUS_LV)}/${FUS_LV}</small>`;
+  const card = !ok ? `<div class="gsrc trlock" id="fusCard"><span><b>🔒 🐉❄ ${L2('Dragón de Hielo', 'Ice Dragon')}</b><br><small>${esc(FUS_TXT())}</small><br>${req}</span></div>`
+    : !on ? `<div class="gsrc" id="fusCard"><span><b>🐉❄ ${L2('Dragón de Hielo', 'Ice Dragon')}</b><br><small>${esc(FUS_TXT())}</small></span><div class="row wrap"><button class="btn sm gold" id="fusOn">${L2('Usar la fusión', 'Use the fusion')}</button></div></div>`
+    : `<div class="gsrc" id="fusCard"><span><b>🐉❄ ${L2('Dragón de Hielo', 'Ice Dragon')}</b> <small>· ${L2('la usas ahora', 'in use')}</small><br><small>${esc(FUS_TXT())}</small></span><div class="row wrap"><button class="btn sm ${!P.srF ? 'gold' : ''}" data-tf="0">${L2('Normal', 'Normal')}</button><button class="btn sm ${P.srF === 1 ? 'gold' : ''}" data-tf="1">${L2('Híbrida', 'Hybrid')}</button><button class="btn sm ${P.srF === 3 ? 'gold' : ''}" data-tf="3">2.0</button><button class="btn sm ${P.srF === 2 ? 'gold' : ''}" data-tf="2">${L2('Plena', 'Full')}</button><button class="btn sm" id="fusOff">${L2('Separar', 'Split')}</button></div></div>`;
+  row.insertAdjacentHTML('beforebegin', `<h4>✨ ${L2('Fusiones', 'Fusions')}</h4>` + card);
+  const b1 = $('#fusOn'); if (b1) b1.onclick = () => { fusUse(true); transOpen(); }; const b2 = $('#fusOff'); if (b2) b2.onclick = () => { fusUse(false); transOpen(); };
+  if (on) fr.querySelectorAll('#fusCard [data-tf]').forEach(b => b.onclick = () => { if (+b.dataset.tf === 3 && !drg2Ok()) return; transSet(+b.dataset.tf); closeModal(); }); } catch (e) { console.warn(e); } return r; }; }
+const FUS_TXT = () => L2('Escamas, alas, cuernos y cola de hielo, pelo celeste (no cambia con tu peinado), ojos de hielo y aliento helado. Mitad +10 %, Híbrida +24 %, 2.0 +34 %, Plena (dragón de hielo a cuatro patas) +42 % de ataque. La forma más fuerte. Usa las habilidades del dragón y cuenta como fuego y hielo para el clima.', 'Ice scales, wings, horns and tail, sky-blue hair (does not change with your hairstyle), ice eyes and icy breath. Half +10%, Hybrid +24%, 2.0 +34%, Full (four-legged ice dragon) +42% attack. The strongest form. Uses the dragon skills and counts as fire and ice for the weather.');
+
+// ---------- las formas se ven en el online ----------
+// Antes, al recibir el aspecto de otro jugador se perdía su transformación (cleanGear la quitaba): nadie veía tu forma.
+{ const _ur = upsertRemote; upsertRemote = function (p) { const res = _ur.apply(this, arguments); try { const pr = p && p.presence, R = G.remote.get(p.peer); if (R && pr && pr.g && typeof pr.g === 'object') { const g = lkGear(pr.g); if (g.sr && JSON.stringify(g) !== JSON.stringify(R.gear)) { R.gear = g; R.atlas = remoteAtlas(R); } } } catch (e) { } return res; }; }
+
+// ---------- PODERES DE CADA FORMA (3 por forma, mientras estás transformado) ----------
+const FORM_POW = {
+  lobo: [['gold', 15, L2('Olfato de presa', 'Prey scent'), L2('+15 % de oro de monstruos', '+15% monster gold')], ['low', 12, L2('Furia de la manada', 'Pack fury'), L2('+12 % de daño con menos de la mitad de vida', '+12% damage below half HP')], ['regen', 1, L2('Regeneración lunar', 'Lunar regeneration'), L2('recuperas 1 % de vida cada 3 s', 'recover 1% HP every 3 s')]],
+  fantasma: [['dr', 10, L2('Cuerpo de niebla', 'Mist body'), L2('−10 % de daño recibido', '−10% damage taken')], ['slow', 1, L2('Toque del Velo', 'Veil touch'), L2('tus golpes ralentizan', 'your hits slow')], ['dodge', 8, L2('Paso etéreo', 'Ethereal step'), L2('+8 de esquiva', '+8 dodge')]],
+  vampiro: [['steal', 3, L2('Sed de sangre', 'Bloodthirst'), L2('robas un 3 % del daño como vida', 'steal 3% of damage as HP')], ['night', 12, L2('Hijo de la noche', 'Child of the night'), L2('+12 % de daño de noche', '+12% damage at night')], ['spd', 8, L2('Alas de murciélago', 'Bat wings'), L2('+8 % de velocidad', '+8% speed')]],
+  dragon: [['dr', 8, L2('Piel de escamas', 'Scale skin'), L2('−8 % de daño recibido', '−8% damage taken')], ['crit', 5, L2('Corazón de brasa', 'Ember heart'), L2('+5 de crítico', '+5 crit')], ['gold', 15, L2('Tesoro del dragón', 'Dragon hoard'), L2('+15 % de oro de monstruos', '+15% monster gold')]],
+  alado: [['regen', 1, L2('Canción de luz', 'Song of light'), L2('recuperas 1 % de vida cada 3 s', 'recover 1% HP every 3 s')], ['spd', 10, L2('Plumas ligeras', 'Light feathers'), L2('+10 % de velocidad', '+10% speed')], ['boss', 10, L2('Juicio del alba', 'Dawn judgement'), L2('+10 % de daño a jefes', '+10% damage to bosses')]],
+  eco: [['dodge', 6, L2('Boceto previo', 'Prior sketch'), L2('+6 de esquiva', '+6 dodge')], ['slow', 1, L2('Tinta que borra', 'Erasing ink'), L2('tus golpes ralentizan', 'your hits slow')], ['xp', 10, L2('Copia del vencido', 'Copy of the vanquished'), L2('+10 % de experiencia de monstruos', '+10% monster experience')]],
+  hielo: [['dr', 10, L2('Coraza glacial', 'Glacial armour'), L2('−10 % de daño recibido', '−10% damage taken')], ['slow', 1, L2('Frío que frena', 'Slowing cold'), L2('tus golpes ralentizan', 'your hits slow')], ['crit', 5, L2('Sangre fría', 'Cold blood'), L2('+5 de crítico', '+5 crit')]],
+  fusion: [['dr', 12, L2('Escamas de escarcha', 'Frost scales'), L2('−12 % de daño recibido', '−12% damage taken')], ['slow', 1, L2('Aliento helado', 'Icy breath'), L2('tus golpes ralentizan', 'your hits slow')], ['gold', 20, L2('Tesoro de dos elementos', 'Two-element hoard'), L2('+20 % de oro de monstruos', '+20% monster gold')]] };
+function powNow() { const P = G.P; if (!P || !P.sr || !P.srF || !srOk()) return []; return FORM_POW[P.sr === 'dragon' && P.fus ? 'fusion' : P.sr] || []; }
+const powV = k => { let v = 0; for (const p of powNow()) if (p[0] === k) v += p[1]; return v; };
+{ const _cs = calcStats; calcStats = function (P, ...a) { const S = _cs.call(this, P, ...a); if (P !== G.P || !S) return S; const c = powV('crit'), dg = powV('dodge'), sp = powV('spd'); if (c) S.crit = Math.min(70, S.crit + c); if (dg) S.dodge = Math.min(60, (S.dodge || 0) + dg); if (sp) S.spd *= 1 + sp / 100; return S; }; }
+{ const _hm = hitMob; hitMob = function (m, base, src) { const P = G.P; let b = base; if (typeof b === 'number' && P && P.srF) { const lo = powV('low'), nt = powV('night'), bo = powV('boss'); if (lo && P.hp < P.S.maxhp / 2) b *= 1 + lo / 100; if (nt && typeof isNight === 'function' && isNight()) b *= 1 + nt / 100; if (bo && m && m.boss) b *= 1 + bo / 100; }
+  const d = _hm.call(this, m, b, src); try { if (P && P.srF && typeof d === 'number' && d > 0) { const st = powV('steal'); if (st) P.hp = Math.min(P.S.maxhp, P.hp + Math.round(d * st / 100)); if (powV('slow') && m && !m.boss) m.slow = Math.max(m.slow || 0, 1.2); } } catch (e) { } return d; }; }
+{ const _hp = hurtPlayer; hurtPlayer = function (base, ...a) { const dr = powV('dr'); if (dr && typeof base === 'number') base *= 1 - dr / 100; return _hp.call(this, base, ...a); }; }
+{ const _km = killMob; killMob = function (m) { const g = powV('gold'), x = powV('xp'); if (!m || m.dying || (!g && !x)) return _km.apply(this, arguments); const x0 = m.xp, g0 = m.gold; m.xp = Math.round((x0 || 0) * (1 + x / 100)); m.gold = Math.round((g0 || 0) * (1 + g / 100)); try { return _km.apply(this, arguments); } finally { m.xp = x0; m.gold = g0; } }; }
+let powRegT = 0; V33_TICKS.push(dt => { const r = powV('regen'); if (!r) return; powRegT += Math.min(0.1, dt || 0.016); if (powRegT < 3) return; powRegT = 0; const P = G.P; if (P.dead || P.hp >= P.S.maxhp) return; const h = Math.round(P.S.maxhp * r / 100); P.hp = Math.min(P.S.maxhp, P.hp + h); floatText(P.x, P.y - 40, '+' + h, '#8aff8a'); });
+// se ven en la descripción de cada forma
+for (const k in FORM_POW) if (SR[k]) SR[k].pas += L2(' ⚡ Poderes (transformado): ', ' ⚡ Powers (transformed): ') + FORM_POW[k].map(p => p[2] + ' (' + p[3] + ')').join(', ') + '.';
+
+// ---------- CAZADORES DE RECOMPENSAS EN CADA PAÍS ----------
+SAVEKEYS.push('btyC');
+const BTY_C = {
+  lima: { n: 'Ronald', t: L2('Cazador de Lima', 'Lima hunter'), pool: ['cb_escorpion', 'cb_momia', 'cb_espectro', 'cb_lagarto'], g: 'm', hair: 'negro', col: ['#3a2a1a', '#5a4028', '#7a5838', '#9a7450', '#c09a70'] },
+  trujillo: { n: 'Chabuca', t: L2('Cazadora de Trujillo', 'Trujillo hunter'), pool: ['cb_momia', 'cb_escorpion', 'cb_slime', 'cb_lagarto'], g: 'f', hair: 'negro', col: ['#4a1a10', '#7a2a1a', '#a83a22', '#d05a32', '#f08a5a'] },
+  mexico: { n: 'Valentín', t: L2('Cazador de México', 'Mexico hunter'), pool: ['cb_calaca', 'cb_alacran', 'cb_jaguar', 'cb_anima'], g: 'm', hair: 'castano', col: ['#1a1a10', '#3a3a20', '#5a5a30', '#7a7a48', '#a0a070'] },
+  espana: { n: 'Lucía', t: L2('Cazadora de España', 'Spain hunter'), pool: ['cb_golem', 'cb_anima', 'cb_espectro', 'cb_calaca'], g: 'f', hair: 'castano', col: ['#3a0a14', '#5a1420', '#7a1e2e', '#a02a3e', '#c84a5e'] },
+  japon: { n: 'Hanzo', t: L2('Cazador de Japón', 'Japan hunter'), pool: ['cb_oni', 'cb_kasa', 'cb_tengu', 'cb_kitsune', 'cb_hitodama'], g: 'm', hair: 'negro', col: ['#10141e', '#1e2636', '#2e3a50', '#465670', '#6a7a96'] } };
+const BTY_AT = {};
+for (const mk in BTY_C) { const D = BTY_C[mk]; NPCS['caz_' + mk] = { n: D.n, title: D.t, look: LK({ outfit: 'ranger', hairStyle: D.g === 'f' ? 'long' : 'short', hair: HAIRS[D.hair] || HAIRS.negro, main: P5(D.col), g: D.g }), lines: [L2('Aquí también hay bichos que se han vuelto demasiado fuertes. Mira los carteles.', 'There are beasts here too that have grown too strong. Check the posters.'), L2('Las marcas valen lo mismo que con Vera, en Albor.', 'Marks are worth the same as with Vera, in Albor.')], quests: [] }; }
+function btyCPlace(M, mk, tx, ty) { if (!M || M._btyc) return; M._btyc = 1; try { const e = ipSp(M, 'caz_' + mk, tx, ty, { face: 'down' }); if (e) { BTY_AT[mk] = { x: e.x, y: e.y }; ipPoi(M, 'pejob', Math.floor(e.x / 16), Math.floor(e.y / 16), '★ ' + BTY_C[mk].t); } } catch (e) { console.warn('caz', mk, e); } }
+const btyCenter = M => { const J = Object.values(V8J || {}).find(j => j.m === M.id && V8.at[j.k]); if (J) { const A = V8.at[J.k]; return [A.x0 + A.w + 3, A.y0 + 1]; } return [M.w >> 1, M.h >> 1]; };
+{ const _b = lmBuild2; lmBuild2 = function (M) { const r = _b.apply(this, arguments); if (M.id === 'lima') btyCPlace(M, 'lima', ...btyCenter(M)); return r; }; }
+{ const _b = trBuild; trBuild = function (M) { const r = _b.apply(this, arguments); btyCPlace(M, 'trujillo', ...btyCenter(M)); return r; }; }
+{ const _b = mxBuild; mxBuild = function (M) { const r = _b.apply(this, arguments); btyCPlace(M, 'mexico', ...btyCenter(M)); return r; }; }
+{ const _b = esBuild; esBuild = function (M) { const r = _b.apply(this, arguments); btyCPlace(M, 'espana', ...btyCenter(M)); return r; }; }
+{ const _mj = makeJapan; makeJapan = function () { const had = G.maps.japon, M = _mj.apply(this, arguments); if (!had && M) btyCPlace(M, 'japon', 152, 246); return M; }; }
+function btyCList(mk) { const P = G.P, d = calDay(); P.btyC = P.btyC || {}; const cur = P.btyC[mk]; if (cur && cur.d === d) return cur.l; const R = new RNG(d * 613 + mk.length * 97), D = BTY_C[mk], M = G.maps[mk], at = BTY_AT[mk], out = [];
+  const pool = D.pool.filter(k => MOBS[k]); const s0 = R.int(0, 99); for (let i = 0; i < 3 && pool.length; i++) { const mid = pool[(s0 + i) % pool.length]; let x = 0, y = 0; if (M && at) { const a = R.f() * 6.28, r = 12 + R.int(0, 10); try { const q = fsFree(M, Math.floor(at.x / 16 + Math.cos(a) * r), Math.floor(at.y / 16 + Math.sin(a) * r), 10); x = q[0]; y = q[1]; } catch (e) { x = Math.floor(at.x / 16); y = Math.floor(at.y / 16) + 12; } }
+    out.push({ mid, x, y, done: 0 }); }
+  P.btyC[mk] = { d, l: out }; markDirty(); return out; }
+V33_TICKS.push(() => { const P = G.P, mk = G.map && G.map.id; if (!P || !BTY_C[mk] || !P.btyC || !P.btyC[mk] || P.btyC[mk].d !== calDay()) return; P.btyC[mk].l.forEach((b, i) => { if (b.done || !b.on || !b.x) return; if (G.ents.find(e => e.btyc === mk && e.btyi === i && !e.dying && !e.remove)) return;
+  if (Math.hypot(b.x * 16 - P.x, b.y * 16 - P.y) > 420) return; const D = MOBS[b.mid], lv = Math.max(D.lv ? D.lv[0] : 1, P.lv), m = spawnMob(b.mid, lv, b.x * 16 + 8, b.y * 16 + 8, 0, null); m.map = mk; m.btyc = mk; m.btyi = i; m.name = '★ ' + L2('Se busca: ', 'Wanted: ') + D.n; m.hp = m.maxhp = Math.round(m.hp * 9); m.atk = Math.round(m.atk * 1.6); m.scale = 1.6; m.aggroR = 140; m.noLeash = 1;
+  toast('★ ' + L2('Has encontrado a tu objetivo: ', 'You found your target: ') + D.n, 'quest', 4); sfx('boss'); }); });
+{ const _km = killMob; killMob = function (m) { const r = _km.apply(this, arguments); try { const P = G.P; if (m && m.btyc && P.btyC && P.btyC[m.btyc] && P.btyC[m.btyc].d === calDay()) { const b = P.btyC[m.btyc].l[m.btyi]; if (b && !b.done) { b.done = 1; const g = btyGold(); P.gold += g; gainXp(Math.round(xpToNext(P.lv) * 0.06)); P.btyPts = (P.btyPts || 0) + 1;
+  banner('★ ' + L2('¡Recompensa cobrada!', 'Bounty claimed!'), '+' + fmt(g) + L2(' de oro · +1 marca de cazador', ' gold · +1 hunter mark')); sfx('quest'); markDirty(true); } } } catch (e) { } return r; }; }
+WORLD_DRAW.push((cx, cy) => { const P = G.P, mk = G.map && G.map.id; if (!P || !BTY_C[mk] || !P.btyC || !P.btyC[mk] || P.btyC[mk].d !== calDay()) return; const b = P.btyC[mk].l.filter(b => b.on && !b.done && b.x).sort((a, c) => Math.hypot(a.x * 16 - P.x, a.y * 16 - P.y) - Math.hypot(c.x * 16 - P.x, c.y * 16 - P.y))[0]; if (!b) return;
+  const dx = b.x * 16 + 8 - P.x, dy = b.y * 16 + 8 - P.y, d = Math.hypot(dx, dy); if (d < 120) return; const a = Math.atan2(dy, dx), x = P.x - cx + Math.cos(a) * 34, y = P.y - 14 - cy + Math.sin(a) * 26;
+  ctx.save(); ctx.translate(x, y); ctx.rotate(a); ctx.fillStyle = '#ff5a3a'; ctx.strokeStyle = '#1a0a04'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(8, 0); ctx.lineTo(-5, -6); ctx.lineTo(-2, 0); ctx.lineTo(-5, 6); ctx.closePath(); ctx.stroke(); ctx.fill(); ctx.restore(); drawTxt('★ ' + Math.round(d / 16) + 'm', x, y - 9, '#ffb08a', 8); });
+function btyCOpen(mk) { const P = G.P, D = BTY_C[mk], L_ = btyCList(mk), pts = P.btyPts || 0; P.btyGot = P.btyGot || {};
+  openModal(`<div class="frame"><h3>★ ${esc(D.t)}</h3><p class="hint">${L2('Tres objetivos al día por aquí cerca. Acepta y sigue la flecha roja. Las marcas se juntan con las de Vera (Albor).', 'Three targets a day nearby. Accept and follow the red arrow. Marks add up with Vera\'s (Albor).')}</p>
+    ${L_.map((b, i) => `<div class="gsrc"><span><b>★ ${L2('Se busca: ', 'Wanted: ')}${esc(MOBS[b.mid].n)}</b><br><small>${L2('Recompensa: ', 'Reward: ')}${fmt(btyGold())} ${L2('de oro', 'gold')} + 1 ★</small></span>${b.done ? '<b>✓</b>' : b.on ? `<small>${L2('Aceptado', 'Accepted')}</small>` : `<button class="btn sm gold" data-btc="${i}">${L2('Aceptar', 'Accept')}</button>`}</div>`).join('')}
+    <h4>${L2('Marcas de cazador: ', 'Hunter marks: ')}${pts}</h4>${BTY_SHOP.map(([n, t, id, lab]) => `<div class="gsrc"><span>${esc(lab)}<br><small>${n} ★</small></span>${P.btyGot[id] ? '<b>✓</b>' : `<small>${L2('Canjéalo con cualquier cazador', 'Redeem with any hunter')}</small>`}</div>`).join('')}
+    <div class="row"><button class="btn sm" id="btcS">${L2('Canjear marcas', 'Redeem marks')}</button><button class="btn" id="btcX">${L2('Cerrar', 'Close')}</button></div></div>`);
+  $('#btcX').onclick = closeModal; $('#btcS').onclick = () => btyOpen(); $$('#modal [data-btc]').forEach(b => b.onclick = () => { L_[+b.dataset.btc].on = 1; markDirty(); toast(L2('Cartel aceptado: sigue la flecha roja.', 'Poster accepted: follow the red arrow.'), 'quest'); btyCOpen(mk); }); }
+DLG_HOOKS.push((npc, opts) => { const mk = npc.id && npc.id.startsWith('caz_') ? npc.id.slice(4) : null; if (!mk || !BTY_C[mk]) return; opts.unshift({ label: '★ ' + L2('Carteles de «se busca»', '«Wanted» posters'), icon: ['star', '#ff5a3a'], fn: () => { closeDialog(); btyCOpen(mk); } }); });
+
+// ---------- Crónicas del Vínculo: «El hilo que aprende» (nivel 500) ----------
+const CH_HILO = CRON.length; CRON.push([L2('El hilo que aprende', 'The thread that learns'), L2('El último Tejedor no dejó en Albor un hilo terminado: dejó un hilo vacío, sin forma propia, para que lo terminara quien lo tocara. Por eso tu hilo no solo carga lo que recibe: lo aprende. Cuando algo de otro ser vivo lo roza —la brasa de Ignaroth, la sangre del lobo, una pluma de Alado, el frío del Gólem, la tinta de un boceto—, tu hilo copia su patrón como una tejedora aprende un punto con solo mirarlo. Y como no tiene forma propia, no se limita a imitarlo: lo teje mejor, porque no tiene que pelear con lo que ya era. Así consigues formas y poderes que ni sus dueños tenían, y por eso dos patrones aprendidos pueden anudarse en uno (la fusión). Los Tejedores temían algo así: un hilo que aprende podría acabar como Aurel y querer cortarse. Pero tu hilo tiene dos extremos, y el otro lo sostiene alguien desde el otro lado del cristal. Mientras alguien lo sostenga, todo lo que aprendas será tuyo y no te deshará.', 'The last Weaver did not leave a finished thread in Albor: they left an empty thread, with no shape of its own, to be finished by whoever touched it. That is why your thread does not just carry what it receives: it learns it. When something from another living being brushes it —Ignaroth\'s ember, the wolf\'s blood, a Winged One\'s feather, the Golem\'s cold, a sketch\'s ink—, your thread copies its pattern the way a weaver learns a stitch just by watching. And since it has no shape of its own, it does not merely imitate it: it weaves it better, because it does not have to fight what it already was. That is how you gain forms and powers their owners never had, and why two learned patterns can be knotted into one (fusion). The Weavers feared something like this: a learning thread could end up like Aurel and want to cut itself. But your thread has two ends, and the other is held by someone on the other side of the glass. As long as someone holds it, everything you learn will be yours and will not unravel you.')]);
+V33_TICKS.push(() => { const P = G.P; if (P && P.lv >= 500 && !(P.loreU || []).includes(CH_HILO)) { loreUnlock(CH_HILO); banner('📖 ' + CRON[CH_HILO][0], L2('Nuevo capítulo en las Crónicas del Vínculo (habla con la Anciana Mira).', 'New chapter in the Chronicles of the Bond (talk to Elder Mira).')); } });
+if (typeof SR_GUIDE !== 'undefined') SR_GUIDE.fusion = { how: () => [L2('1. Consigue el dragón y el Guardián de Hielo.', '1. Get the dragon and the Ice Guardian.'), L2('2. Sube los dos a maestría 12 venciendo enemigos transformado (2 puntos por monstruo, 15 por jefe; 150 por rango).', '2. Raise both to mastery 12 by defeating enemies while transformed (2 points per monster, 15 per boss; 150 per rank).'), L2('3. Nivel 500. En 🌀 Transformaciones › Fusiones: «Usar la fusión».', '3. Level 500. In 🌀 Transformations › Fusions: «Use the fusion».')], lore: () => CRON[CH_HILO][1] };
+
+// ---------- Lupa ----------
+if (typeof GSIS !== 'undefined') GSIS.unshift(['v549', '🐉❄ ' + L2('Fusión, maestría 12 y poderes', 'Fusion, mastery 12 and powers'), () => [
+  L2('🐉❄ Fusión Dragón de Hielo (🌀 Transformaciones › Fusiones): dragón y Guardián de Hielo en maestría 12 y nivel 500. Mitad +10 %, Híbrida +24 %, 2.0 +34 %, Plena +42 % de ataque: la forma más fuerte. Pelo celeste siempre.', '🐉❄ Ice Dragon fusion (🌀 Transformations › Fusions): dragon and Ice Guardian at mastery 12 and level 500. Half +10%, Hybrid +24%, 2.0 +34%, Full +42% attack: the strongest form. Always sky-blue hair.'),
+  L2('📈 Maestría: las formas suben hasta el rango 12 y el doble de rápido (2 puntos por monstruo, 4 por élite, 15 por jefe; 150 puntos por rango).', '📈 Mastery: forms now go up to rank 12 and twice as fast (2 points per monster, 4 per elite, 15 per boss; 150 points per rank).'),
+  L2('⚡ Poderes (mientras estás transformado): ', '⚡ Powers (while transformed): ') + Object.keys(FORM_POW).map(k => (k === 'fusion' ? '🐉❄' : SR[k] ? SR[k].ic : '') + ' ' + FORM_POW[k].map(p => p[2]).join(', ')).join(' · '),
+  L2('★ Cazadores de recompensas también en Lima, Trujillo, México, España y Japón (carteles de cada país; las marcas se juntan).', '★ Bounty hunters also in Lima, Trujillo, Mexico, Spain and Japan (each country\'s posters; marks add up).'),
+  L2('🌐 Online: ahora los demás jugadores ven tu transformación (antes no se veía).', '🌐 Online: other players now see your transformation (it did not show before).')], () => null]);
+{ const _ts = transSet; transSet = function (f) { const r = _ts.apply(this, arguments); const P = G.P; if (P && P.fus && P.sr === 'dragon' && P.srF) banner('🐉❄ ' + [0, L2('Dragón de Hielo · Híbrida', 'Ice Dragon · Hybrid'), L2('Dragón de Hielo · Plena', 'Ice Dragon · Full'), L2('Dragón de Hielo · 2.0', 'Ice Dragon · 2.0')][P.srF], ['', '+24 %', '+42 %', '+34 %'][P.srF] + L2(' de ataque', ' attack')); return r; }; }
+{ const _st = srToggle; srToggle = function () { const r = _st.apply(this, arguments); const P = G.P; if (P && P.fus && P.sr === 'dragon' && P.srF) banner('🐉❄ ' + [0, L2('Dragón de Hielo · Híbrida', 'Ice Dragon · Hybrid'), L2('Dragón de Hielo · Plena', 'Ice Dragon · Full'), L2('Dragón de Hielo · 2.0', 'Ice Dragon · 2.0')][P.srF], ['', '+24 %', '+42 %', '+34 %'][P.srF] + L2(' de ataque', ' attack')); return r; }; }
 
 // ================= v3.6: IDIOMA (Español / English) =================
 // Los textos del código se traducen al compilar (tools/i18n/tr.js + en.json): cada uno es (LANG_EN ? "inglés" : "español").

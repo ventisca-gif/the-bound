@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.48', GAME_BUILD = 169;
+const GAME_VER = '5.49', GAME_BUILD = 170;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,27 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.49",
+  "b": 170,
+  "d": "2026-11-19",
+  "es": [
+   "🐉❄ Fusión Dragón de Hielo en 🌀 Transformaciones › Fusiones: necesitas el dragón y el Guardián de Hielo en maestría 12 y nivel 500. Mitad +10 %, Híbrida +24 %, 2.0 +34 %, Plena +42 % de ataque: la forma más fuerte. El pelo y el dragón son siempre celestes, uses el pelo que uses.",
+   "📈 Maestría hasta el rango 12 y el doble de rápida: 2 puntos por monstruo, 4 por élite y 15 por jefe (150 por rango).",
+   "⚡ Cada transformación tiene 3 poderes propios mientras estás transformado (por ejemplo, el lobo: Olfato de presa, Furia de la manada y Regeneración lunar).",
+   "★ Cazadores de recompensas también en Lima, Trujillo, México, España y Japón, con carteles propios de cada país. Las marcas se juntan con las de Vera.",
+   "🌐 Arreglo: los demás jugadores del online ahora ven tu transformación (antes no se veía).",
+   "📖 Nivel 500: nuevo capítulo de las Crónicas del Vínculo, «El hilo que aprende»."
+  ],
+  "en": [
+   "🐉❄ Ice Dragon fusion in 🌀 Transformations › Fusions: you need the dragon and the Ice Guardian at mastery 12 and level 500. Half +10%, Hybrid +24%, 2.0 +34%, Full +42% attack: the strongest form. Hair and dragon are always sky-blue, whatever hair you use.",
+   "📈 Mastery up to rank 12 and twice as fast: 2 points per monster, 4 per elite and 15 per boss (150 per rank).",
+   "⚡ Every transformation has 3 powers of its own while transformed (e.g. the wolf: Prey scent, Pack fury and Lunar regeneration).",
+   "★ Bounty hunters also in Lima, Trujillo, Mexico, Spain and Japan, with each country's own posters. Marks add up with Vera's.",
+   "🌐 Fix: other online players now see your transformation (it did not show before).",
+   "📖 Level 500: new Chronicles of the Bond chapter, «The thread that learns»."
+  ]
+ },
  {
   "v": "5.48",
   "b": 169,
