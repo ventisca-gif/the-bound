@@ -1,0 +1,10 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{const P=G.P; P.lv=500; calcStats(P); libOpen(); const n=document.querySelectorAll('#modal [data-spec]').length; const t=document.querySelector('#modal .frame').textContent.slice(0,200); closeModal(); P.evo=P.cls; libOpen(); const n2=document.querySelectorAll('#modal [data-spec]').length; document.querySelector('#modal [data-spec]').click(); return [n, n2, P.spec, specOf()[1], t]})()
+wait 300
+shot
+js (closeModal(), (()=>{ const ids=['n_modos','n_fac','n_isla','n_ecl','n_despertar','n_carrera','n_hielo','n_coloso','n_pescahielo','n_cazadores']; const miss=ids.filter(i=>!GSIS.find(s=>s[0]===i)); const lumps=['v548','v550','v554'].filter(i=>GSIS.find(s=>s[0]===i)); const arrows=GSIS.filter(s=>s[0].startsWith('n_')).map(s=>{try{const w=s[3](); return w?s[0]:null}catch(e){return 'ERR '+s[0]}}).filter(Boolean); const lines=GSIS.filter(s=>s[0].startsWith('n_')).every(s=>s[2]().length>0); return [miss, lumps, arrows.join(','), lines, GSIS.length]})())
+js (GSIS_SEL='n_carrera', guiaSis(), 1)
+wait 400
+shot
+js window._errs

@@ -11,7 +11,7 @@ js [JSON.stringify(_DB.ev&&_DB.ev.fw)]
 js (facOpen(), 1)
 wait 600
 shot
-js (closeModal(), (()=>{const P=G.P; const atk0=P.S.atk; const s0=P.S.atk; P.spec=null; libOpen(); document.querySelector('#modal [data-spec]').click(); calcStats(P); return [P.spec, P.S.atk!==atk0 || P.S.def>0]})())
+js (closeModal(), (()=>{const P=G.P; const atk0=P.S.atk; P.spec=null; P.evo=P.cls; libOpen(); document.querySelector('#modal [data-spec]').click(); calcStats(P); return [P.spec, P.S.atk!==atk0 || P.S.def>0]})())
 js (()=>{const P=G.P; P.books={}; for (const b of TBOOKS.slice(0,6)) P.books[b[0]]=1; P.sr='lobo'; P.srOwn=['lobo']; P.srF=1; calcStats(P); const a=P.S.atk; P.books={}; calcStats(P); const b=P.S.atk; P.books={}; for (const b2 of TBOOKS.slice(0,6)) P.books[b2[0]]=1; return [a>b, bookSum('atkP')]})()
 js (libOpen(), 1)
 wait 300

@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.53', GAME_BUILD = 174;
+const GAME_VER = '5.54', GAME_BUILD = 175;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.54",
+  "b": 175,
+  "d": "2026-11-19",
+  "es": [
+   "⭐ La «clase avanzada» pasa a ser el Tercer despertar (nivel 500), después de la Ascensión (190) y la Evolución de clase (240). Tiene nombres nuevos (Guardián del Telar, Tejedor de Runas, Filo Invisible…) y pide la evolución hecha. Se ve en ▦ Atajos › 📚 Pasivas con los tres pasos.",
+   "🔎 Lupa › Sistemas ordenada: una entrada para cada novedad (facciones, isla, eclipse, fusiones, árbol, Coloso, carrera, pesca en hielo, cazadores…), con flecha dorada cuando hay un sitio al que ir."
+  ],
+  "en": [
+   "⭐ The «advanced class» becomes the Third awakening (level 500), after the Ascension (190) and the Class evolution (240). It has new names (Loom Guardian, Rune Weaver, Invisible Edge…) and needs the evolution done. Shown in ▦ Shortcuts › 📚 Passives with the three steps.",
+   "🔎 Magnifier › Systems tidied: one entry for each new feature (factions, island, eclipse, fusions, tree, Colossus, race, ice fishing, hunters…), with a golden arrow when there is a place to go."
+  ]
+ },
  {
   "v": "5.53",
   "b": 174,
