@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.37', GAME_BUILD = 158;
+const GAME_VER = '5.38', GAME_BUILD = 159;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.38",
+  "b": 159,
+  "d": "2026-11-19",
+  "es": [
+   "👓 Accesorios de cara combinables: lleva uno de cada tipo a la vez (ojos y gafas, nariz, boca/bigotes/barbas, orejas y mejillas). Ponerte uno solo cambia el de su mismo tipo.",
+   "🐶 Nuevos (40 en total, con oro): hocico de perrito, nariz de gatito con bigotes, nariz de Pinocho, nariz de cerdito, tirita en la nariz, rubor anime, rasguños de batalla, pintura de guerra, pintura deportiva, corazones bajo los ojos, calcomanías brillantes y tirita en la mejilla.",
+   "📡 Rastreador: auricular blanco con botón rojo y lente celeste sobre un ojo (6.000 oro)."
+  ],
+  "en": [
+   "👓 Combinable face accessories: wear one of each type at once (eyes and glasses, nose, mouth/moustaches/beards, ears and cheeks). Putting one on only replaces the one of its type.",
+   "🐶 New (40 in total, for gold): puppy snout, kitty nose and whiskers, long wooden nose, piggy nose, nose bandage, anime blush, battle scratches, war paint, eye black, hearts under the eyes, glitter stickers and cheek bandage.",
+   "📡 Tracker: white earpiece with a red button and a cyan lens over one eye (6,000 gold)."
+  ]
+ },
  {
   "v": "5.37",
   "b": 158,

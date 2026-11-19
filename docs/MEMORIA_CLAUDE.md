@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.37 (build 158)** (19-11-2026). Lo de cada versión, en `docs/NOTAS.md` (al principio, la lista de versiones; al final, una sección por versión). La 5.13 añadió Perú (Lima), la 5.14 Lima Norte, la 5.15 México y el nivel 500, la 5.16 España (`src/6zz9zzs_espana.js`, `src/6zz9zzt_espana2.js`), la bahía de Acapulco y criaturas con dibujo propio. El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.38 (build 159)** (19-11-2026). Lo de cada versión, en `docs/NOTAS.md` (al principio, la lista de versiones; al final, una sección por versión). La 5.13 añadió Perú (Lima), la 5.14 Lima Norte, la 5.15 México y el nivel 500, la 5.16 España (`src/6zz9zzs_espana.js`, `src/6zz9zzt_espana2.js`), la bahía de Acapulco y criaturas con dibujo propio. El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
 
 ## Quién es Sergio y cómo trabajar con él
 
@@ -65,7 +65,7 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.37 (bui
 - **5.31** arreglo del personaje invisible (Avatar de Guerra + poncho/blusas). **5.32** historias de Velmira, Escalera de Nubes y eco de Aurel; Nilo, el joven aprendiz que avisa y guía a cada historia.
 - **5.33** «📋 Para qué sirve» al tocar cualquier objeto del inventario y Lupa › 🎒 Objetos con buscador (`src/6zz9zzzzzzzzzz_usos.js`). Todo sistema nuevo que gaste objetos debe añadirse a `usoBuild` o `USO_X`. **5.34** también copia lo que dice la Lupa (Sistemas/Oficios) de cada objeto: Sergio dijo que la Lupa es la referencia («ahí dice todo»), así que explica bien cada sistema nuevo en la Lupa nombrando sus objetos. **5.35** todos los objetos tienen «Dónde conseguir» (`usoSrcExtra`/`USO_SRC`): un objeto nuevo debe tener fuente (`tests/v533.txt` → «sin fuente» 0).
 - **5.36** ordenar y favoritos (★ = `s.lock`), lista de la compra, baúl compartido entre héroes y 3 oficios en Japón (jardinero del Kinkaku-ji, pescador de barca en Asakusa, mensajero en bici en Tokio), en `src/6zz9zzzzzzzzzzz_v536.js`. Sergio ahora llama «transformaciones» a las subrazas (lobo, vampiro, fantasma).
-- **5.37** 27 accesorios de cara con hueco propio (`P.app.fa`, Armario › 👓 Cara), +0,1 % crítico y defensa. Sergio quiere ventajas mínimas (0,1 %) en oficios y ropa nueva.
+- **5.37** 27 accesorios de cara con hueco propio (`P.app.fa`, Armario › 👓 Cara), +0,1 % crítico y defensa. Sergio quiere ventajas mínimas (0,1 %) en oficios y ropa nueva. **5.38** se lleva uno de cada tipo a la vez (ojos, nariz, boca, orejas, mejillas), 40 accesorios, Rastreador propio (no copiar objetos de otras franquicias: se hace versión original).
 
 ## Versiones 4.79 – 4.96
 
