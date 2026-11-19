@@ -1,30 +1,28 @@
 {
- "build": 171,
- "ver": "5.50",
+ "build": 172,
+ "ver": "5.51",
  "date": "2026-11-19",
  "file": "thebound.html",
- "size": 24314338,
- "sha256": "f1c4ac1aeeaa802639d8e132e783d12a90196d6d7c4fe50f1049761a08d97b4f",
+ "size": 24341487,
+ "sha256": "9caef801a13d89c969b86bfac31f24e0a0d39940d39e8d1a265bbe2896cddec9",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🌳 Árbol de poderes (▦ Atajos › 🌳): cada rango de maestría desde el 3 da un punto. Sube los 3 poderes de cada forma y aprende su poder de ataque con dibujo propio, que salta solo al golpear: Garras de la Luna, Cadenas del Velo, Enjambre de Murciélagos, Aliento de Brasa, Lanza del Alba, Trazo Final, Estacas de Hielo y Aliento Glacial.",
-   "🌐 Jefe mundial: el Coloso del Telar aparece sábados y domingos en las Llanuras Doradas. Ranking semanal online de daño (Ulrich, el heraldo); el top 10 gana marco, título «Rompehilos» y 1.000.000 de oro.",
-   "🏆 Torneo de transformaciones (🌀 Transformaciones › Torneo de formas): duelos PvP online en los que los dos vais transformados. Temporada mensual; el top 3 gana marco, título y 2.000.000 de oro.",
-   "🏚 Sótano en tu casa: taller (banco de trabajo y herrería) y sala de trofeos con cada jefe que has vencido.",
-   "🎣 Pesca en el hielo en los Picos Helados: 6 peces nuevos, el Pez Escarcha Dorado es muy raro.",
-   "🗺 Diario de viaje (Bitácora › Diario): una postal por país y mundo; al completarlo, título «Trotamundos», marco «Postal» y 1.000.000 de oro. Nuevos sellos de Perú, México y España.",
-   "✨ Mascotas: nueva evolución Mítico (vínculo 600) con aura dorada y corona."
+   "🖌🐉 Fusión Boceto de Fuego (eco + dragón): el dragón dibujado a tinta con llamas. +11 / +25 / +35 / +43 % de ataque (un 1 % más que el Dragón de Hielo), 5 poderes y ataque «Trazo de Fuego».",
+   "🪽👻 Fusión Ángel de Niebla (alado + fantasma): alas pálidas, aureola rota y cuerpo de niebla. +10 / +30 / +42 % de ataque y ataque «Diluvio de Plumas».",
+   "🌳 Cada fusión tiene su propia maestría (1-12) y su árbol de poderes. Piden las dos formas en maestría 12 y nivel 500, y se ven en el online.",
+   "🔥 Furia: los enemigos de nivel 400 o más se transforman al bajar de la mitad de vida (los jefes al 60 %): aura roja, más ataque y defensa.",
+   "⚔ Los cazadores de portales se transforman en los duelos: Furia Desatada, Forma Rocosa, Forma Maga, Glacial, Ciclón, Marea, Sombría o Tormenta.",
+   "👪 Cada hijo (y nieto, bisnieto…) elige su propia forma al hacerse mayor y se transforma al pelear a tu lado."
   ],
   "en": [
-   "🌳 Power tree (▦ Shortcuts › 🌳): each mastery rank from 3 gives a point. Raise each form's 3 powers and learn its attack power with its own drawing, which triggers on hit: Moon Claws, Veil Chains, Bat Swarm, Ember Breath, Dawn Spear, Final Stroke, Ice Stakes and Glacial Breath.",
-   "🌐 World boss: the Loom Colossus appears on Saturdays and Sundays in the Golden Plains. Online weekly damage ranking (Ulrich, the herald); the top 10 win a frame, the «Threadbreaker» title and 1,000,000 gold.",
-   "🏆 Transformation tournament (🌀 Transformations › Forms tournament): online PvP duels where both of you are transformed. Monthly season; the top 3 win a frame, title and 2,000,000 gold.",
-   "🏚 Basement in your house: workshop (workbench and smithing) and a trophy room with every boss you have defeated.",
-   "🎣 Ice fishing in the Frozen Peaks: 6 new fish; the Golden Frost Fish is very rare.",
-   "🗺 Travel diary (Logbook › Diary): one postcard per country and world; complete it for the «Globetrotter» title, «Postcard» frame and 1,000,000 gold. New stamps for Peru, Mexico and Spain.",
-   "✨ Pets: new Mythic evolution (bond 600) with a golden aura and crown."
+   "🖌🐉 Fire Sketch fusion (echo + dragon): the dragon drawn in ink with flames. +11 / +25 / +35 / +43% attack (1% more than the Ice Dragon), 5 powers and «Fire Stroke» attack.",
+   "🪽👻 Mist Angel fusion (winged + ghost): pale wings, a broken halo and a mist body. +10 / +30 / +42% attack and «Feather Deluge» attack.",
+   "🌳 Each fusion has its own mastery (1-12) and power tree. They need both forms at mastery 12 and level 500, and they show online.",
+   "🔥 Fury: level 400+ enemies transform when below half HP (bosses at 60%): red aura, more attack and defence.",
+   "⚔ Portal hunters transform in duels: Unleashed Fury, Rock Form, Mage Form, Glacial, Cyclone, Tide, Shadow or Storm.",
+   "👪 Each child (and grandchild, great-grandchild…) chooses their own form when they grow up and transforms when fighting beside you."
   ]
  }
 }

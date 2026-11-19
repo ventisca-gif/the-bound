@@ -1,0 +1,23 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{const P=G.P; P.lv=500; calcStats(P); P.srOwn=['dragon','hielo','eco','alado','fantasma']; P.sr='eco'; P.srX=1700; P.srXs={dragon:1700,hielo:1700,alado:1700,fantasma:1700}; return [fus2Ok('bf'), fus2Ok('an'), fusTreeList().join(',')]})()
+js (transOpen(), [document.querySelectorAll('#modal [data-f2on]').length, !!document.querySelector('#fusCard')])
+js (document.querySelector('#modal [data-f2on="bf"]').click(), [G.P.fus2, G.P.sr, JSON.stringify(gearTiers(G.P))])
+js (()=>{const P=G.P, st={}; P.fus2=null; P.fus=0; P.sr=null; P.srF=0; calcStats(P); const b=P.S.atk; for (const [sr,f2,fus] of [['dragon',null,1],['dragon','bf',0],['alado','an',0],['alado',null,0]]) for (const f of [0,1,3,2]) { if (sr==='alado' && f===3) continue; P.sr=sr; P.fus2=f2; P.fus=fus; P.srF=f; calcStats(P); st[sr+'/'+(f2||(fus?'dh':'-'))+f]=+(P.S.atk/b).toFixed(2); } P.sr='dragon'; P.fus2='bf'; P.fus=0; P.srF=1; calcStats(P); refreshLook(); return st})()
+js (closeModal&&closeModal(), transOpen(), [...document.querySelectorAll('#modal [data-f2tf]')].map(b=>b.textContent).join('|'))
+js (closeModal(), [ptKey(), ptRank('fus_bf'), FORM_POW.fus_bf.length, JSON.stringify(ptT('fus_bf'))])
+js (()=>{const P=G.P; P.fusX={bf:1700, an:1700}; ptOpen('fus_bf'); return [ptFree('fus_bf'), document.querySelectorAll('#modal [data-pts]').length, document.querySelector('#modal .ptree h3') && fusTreeName('fus_bf')]})()
+wait 500
+shot
+js (closeModal(), (()=>{const P=G.P; const m={x:P.x+60,y:P.y,lv:500,def:{},dying:0,hp:1e9,maxhp:1e9,type:'mob'}; pfxCast('fus_bf', m, 3); pfxCast('fus_an', {x:P.x-60,y:P.y,lv:500,def:{},type:'mob'}, 3); return PFX.length})())
+wait 250
+shot
+js (()=>{const P=G.P; fus2Use('an', true); P.srF=2; calcStats(P); refreshLook(); const g=gearTiers(P); upsertRemote({peer:'rq', isMe:false, kind:'viewer', presence:{c:P.cls, a:P.app, g, x:P.x+30, y:P.y, n:'Ángel', d:'down', s:'idle', m:P.map}}); return [P.fus2, JSON.stringify(G.remote.get('rq').gear)]})()
+wait 300
+shot
+js (()=>{const P=G.P; const m=spawnMob('cb_golem', 480, P.x+80, P.y, 0, null); m.map=G.map.id; const a0=m.atk; m.hp=Math.round(m.maxhp*0.49); hitMob(m, 1, {}); return [m.furia, m.atk>a0, m.name]})()
+js (()=>{const P=G.P; P.kids=[{id:'k1', name:'Lía', born: calDay()-999, app:P.app, cls:'mago', follow:1}]; return 1})()
+wait 400
+js [G.P.kids[0].form, JSON.stringify(kidGear(G.P.kids[0]))]
+js (()=>{const P=G.P; DUEL={o:{pw:'roca',name:'Brutus'}}; const m=spawnMob('cb_golem', 450, P.x+60, P.y, 0, null); m.map=G.map.id; m.duel=1; const a0=m.atk; m.hp=Math.round(m.maxhp*0.59); hitMob(m, 1, {}); const r=[m.hform, m.atk>a0]; DUEL=null; m.remove=true; return r})()
+js window._errs

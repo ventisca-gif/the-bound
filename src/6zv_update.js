@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.50', GAME_BUILD = 171;
+const GAME_VER = '5.51', GAME_BUILD = 172;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,27 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.51",
+  "b": 172,
+  "d": "2026-11-19",
+  "es": [
+   "🖌🐉 Fusión Boceto de Fuego (eco + dragón): el dragón dibujado a tinta con llamas. +11 / +25 / +35 / +43 % de ataque (un 1 % más que el Dragón de Hielo), 5 poderes y ataque «Trazo de Fuego».",
+   "🪽👻 Fusión Ángel de Niebla (alado + fantasma): alas pálidas, aureola rota y cuerpo de niebla. +10 / +30 / +42 % de ataque y ataque «Diluvio de Plumas».",
+   "🌳 Cada fusión tiene su propia maestría (1-12) y su árbol de poderes. Piden las dos formas en maestría 12 y nivel 500, y se ven en el online.",
+   "🔥 Furia: los enemigos de nivel 400 o más se transforman al bajar de la mitad de vida (los jefes al 60 %): aura roja, más ataque y defensa.",
+   "⚔ Los cazadores de portales se transforman en los duelos: Furia Desatada, Forma Rocosa, Forma Maga, Glacial, Ciclón, Marea, Sombría o Tormenta.",
+   "👪 Cada hijo (y nieto, bisnieto…) elige su propia forma al hacerse mayor y se transforma al pelear a tu lado."
+  ],
+  "en": [
+   "🖌🐉 Fire Sketch fusion (echo + dragon): the dragon drawn in ink with flames. +11 / +25 / +35 / +43% attack (1% more than the Ice Dragon), 5 powers and «Fire Stroke» attack.",
+   "🪽👻 Mist Angel fusion (winged + ghost): pale wings, a broken halo and a mist body. +10 / +30 / +42% attack and «Feather Deluge» attack.",
+   "🌳 Each fusion has its own mastery (1-12) and power tree. They need both forms at mastery 12 and level 500, and they show online.",
+   "🔥 Fury: level 400+ enemies transform when below half HP (bosses at 60%): red aura, more attack and defence.",
+   "⚔ Portal hunters transform in duels: Unleashed Fury, Rock Form, Mage Form, Glacial, Cyclone, Tide, Shadow or Storm.",
+   "👪 Each child (and grandchild, great-grandchild…) chooses their own form when they grow up and transforms when fighting beside you."
+  ]
+ },
  {
   "v": "5.50",
   "b": 171,
