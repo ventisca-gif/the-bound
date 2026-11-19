@@ -49,6 +49,8 @@
 
 25. **El eco de Aurel** (v5.32, tras Nihil). Tras dormirse Nihil, el Telar tejió un eco de **Aurel antes de su caída** (no es el Desatado: regla 6). La frase entera de Nihil era: «Te están mirando… y cuando dejen de mirar, todo volverá a ser mío». Aurel entendió que la mirada lo mantenía vivo. **Nihil no duerme tranquilo: sueña**, y sus sueños se cuelan por las grietas (Velo Roto, Lienzo en Blanco, ecos del borde de lo pintado). Mientras alguien mire (juegue), solo son sueños. Esto explica los ecos de los capítulos 14, 16 y 21; **no** despierta a Nihil: si algún día vuelve, será por este hilo y habrá que decidirlo con Sergio. (`au1`-`au3`, `CH_H31_AUREL`).
 
+26. **La brasa de Ignaroth** (v5.39, transformación Mitad Dragón). Ignaroth fue un Alado antes de que el fragmento del Sello lo torciera en el Dragón Carmesí. Su brasa (el fuego que guardaba de Alado) no se apagó al vencerlo: quedó en el hilo del héroe. Al nivel 450, Corvel puede anudarla al hilo con un ritual (8 Brasas de Ignaroth). Así nace la cuarta transformación: Mitad Dragón (cuernos, escamas, alas pequeñas y cola) y Forma de Dragón, del color del pelo de quien la lleva. No es un poder nuevo ni otro dios: es un resto de algo ya vencido (regla 6) atado con hilos (regla 2). Código: `src/6zz9zzzzzzzzzzzzz_v539.js`.
+
 ## Armas ancestrales (v4.65)
 
 Armas hechas por los siete guardianes antes de que el Sello los torciera, o por reyes de la Edad de los Reyes. No suben con experiencia: despiertan restaurando su santuario (una estela antigua), hablando con quien conoció a su portador y venciendo a su creador. `ANC` en `src/6zz9g_vida.js`.

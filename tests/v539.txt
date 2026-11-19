@@ -1,0 +1,17 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (G.P.gold=1e6, giveItem('brasa_ignaroth',8,true), srRitual(), [document.querySelector('#modal [data-sr="dragon"]').disabled, document.querySelector('#modal [data-sr="dragon"]').textContent])
+js (closeModal(), G.P.lv=450, calcStats(G.P), srRitual(), document.querySelector('#modal [data-sr="dragon"]').click(), [G.P.sr, countItem('brasa_ignaroth'), G.P.gold])
+wait 300
+js (()=>{const P=G.P; calcStats(P); const a0=P.S.atk, h0=P.S.maxhp; P.sr=null; calcStats(P); const a=P.S.atk, h=P.S.maxhp; P.sr='dragon'; calcStats(P); return ['mitad', +(a0/a).toFixed(3), +(h0/h).toFixed(3)]})()
+shot
+js (srSet(1), [G.P.srF, G.P.slots.slice(0,4).join(','), G.P.atlas.fw, G.P.atlas.fh])
+js (()=>{const P=G.P; const a1=P.S.atk, d1=P.S.def; P.sr=null; P.srF=0; calcStats(P); const a=P.S.atk, d=P.S.def; P.sr='lobo'; P.srF=2; calcStats(P); const aw=P.S.atk; P.sr='dragon'; P.srF=1; calcStats(P); return ['forma', +(a1/a).toFixed(3), +(d1/d).toFixed(3), 'lobo', +(aw/a).toFixed(3)]})()
+wait 400
+shot
+js (spawnMob('slime_v', 1, G.P.x+40, G.P.y, 0, null, false), G.P.mp=999, srCast('srd1'), srCast('srd3'), srCast('srd2'), srCast('srd4'), 1)
+wait 700
+shot
+js (()=>{const o={};socialPresence&&0; return [gearTiers(G.P).sr, gearTiers(G.P).sf]})()
+js (srSet(false), [G.P.srF, G.P.atlas.fw, !!G.P.skills.srd1])
+js window._errs
