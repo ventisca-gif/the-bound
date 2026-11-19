@@ -1,0 +1,16 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{const P=G.P; P.lv=450; P.gold=1e7; P.quests.done.sr1=1; P.quests.done.dr2=1; giveItem('colmillo_lunar',8,true); giveItem('brasa_ignaroth',8,true); calcStats(P); srRitual(); document.querySelector('#modal [data-sr="lobo"]').click(); return [P.sr, srOwned().join(',')]})()
+js (()=>{const P=G.P; P.srX=400; closeModal(); srRitual(); const b=document.querySelector('#modal [data-sr="lobo"]'); const t=b.textContent; document.querySelector('#modal [data-sr="dragon"]').click(); return [t, P.sr, srOwned().join(','), (P.srXs||{}).lobo]})()
+js (closeModal(), transOpen(), [document.querySelectorAll('#modal [data-tu]').length, document.querySelectorAll('#modal [data-tf]').length])
+js (closeModal(), G.P.srTT=0, srSet(1), [G.P.srF, gearTiers(G.P).sf, G.P.atlas.fw])
+js (()=>{const P=G.P; const a1=P.S.atk; P.srF=0; calcStats(P); const a0=P.S.atk; P.sr=null; calcStats(P); const n=P.S.atk; P.sr='dragon'; P.srF=1; calcStats(P); return ['hibrida', +(a1/n).toFixed(3), 'mitad', +(a0/n).toFixed(3)]})()
+wait 300
+shot
+js (G.P.srTT=0, srSet(2), [G.P.srF, gearTiers(G.P).sf, G.P.atlas.fw])
+js (()=>{const P=G.P; P.srTT=0; srUse('lobo'); P.srTT=0; srSet(2); return [P.sr, P.srX, gearTiers(P).sf, heroLook(P.cls,P.app,gearTiers(P),P.cos,{}).srF, lkGear(gearTiers(P)).sf]})()
+wait 300
+shot
+js (()=>{const P=G.P; srSet(false); P.srTT=0; srUse('dragon'); P.srTT=0; srSet(2); calcStats(P); const base=P.S.atk; P.equip.weapon={id:'w_guerrero_20'}; calcStats(P); const strong=P.S.atk; P.sr=null; P.srF=0; calcStats(P); const sNo=P.S.atk; P.equip.weapon={id:'w_guerrero_1'}; calcStats(P); const bNo=P.S.atk; P.sr='dragon'; P.srF=2; calcStats(P); return ['arma debil', bNo, base, +(base/bNo).toFixed(2), 'arma fuerte', sNo, strong, +(strong/sNo).toFixed(2)]})()
+js (()=>{const P=G.P; giveItem('pocion_sangre_limpia',1,true); const i=P.inv.findIndex(s=>s.id==='pocion_sangre_limpia'); useItem(i); return [P.sr, srOwned().join(',')]})()
+js window._errs
