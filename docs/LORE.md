@@ -55,6 +55,8 @@
 
 28. **El boceto de la Ventisca** (v5.44, transformación Eco sin Pintar, nivel 360). La Ventisca dibuja antes de pintar: todo fue primero un boceto. El Lienzo en Blanco quiere borrar esos bocetos y dibuja ecos de lo vencido. Mael repasa con Tinta Viva el boceto del héroe que la Ventisca dejó en su página, para que el Lienzo no pueda copiarlo: así puede volver a ser dibujo y recuperar su color. No viene del silencio de Nihil (regla 1): es el trazo de la Ventisca antes del color. Misiones `hn_eco` (Nilo) → `eco1` (tinta y pigmento) → `eco2` (Eco del Vencido) → ritual del pincel. Código de las dos: `src/6zz9zzzzzzzzzzzzzzzzzz_v544.js`.
 
+29. **El frío sin dueño** (v5.47, transformación Guardián de Hielo, nivel 450). Al vencer al Gólem de Escarcha (uno de los siete guardianes, regla 6), su frío quedó sin dueño bajo los Picos Helados: una parte se volvió el Rey del Invierno (regla 9) y otra se durmió en el hilo del héroe. Hilde, Vigía del Glaciar (de los Vigías del Alba), lo ata con Núcleos de Escarcha y Hielo Eterno. El héroe no es un gólem: guarda el frío para que proteja en vez de congelar. El Gólem vuelve como eco, no él.
+
 ## Armas ancestrales (v4.65)
 
 Armas hechas por los siete guardianes antes de que el Sello los torciera, o por reyes de la Edad de los Reyes. No suben con experiencia: despiertan restaurando su santuario (una estela antigua), hablando con quien conoció a su portador y venciendo a su creador. `ANC` en `src/6zz9g_vida.js`.

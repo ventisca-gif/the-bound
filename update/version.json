@@ -1,22 +1,24 @@
 {
- "build": 167,
- "ver": "5.46",
+ "build": 168,
+ "ver": "5.47",
  "date": "2026-11-19",
  "file": "thebound.html",
- "size": 24141166,
- "sha256": "b318aa2096e4e6f2570d28f2d65920e2a3da0fbc3e73a5ed18a82b83aade253e",
+ "size": 24184263,
+ "sha256": "48ff04da2883d2f55d3b4d976049ab288aab13780f6fc1cff975161b60a90af6",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🐎 Oficio nuevo en Trujillo: Domador de caballos de paso. Entra al corral, acércate al potrillo y sigue sus señales ◀ ▶ para ganarte su confianza; doma 3 antes de que acabe el tiempo.",
-   "✉ Oficio nuevo en Celestia (Isla del Alba): Cartero del cielo. Métete en la corriente de viento del color de la carta, vuela sobre el vacío recogiendo plumas (propina), entrega con ⚔ en el buzón y vuelve por la corriente blanca.",
-   "🎁 Recompensas nuevas: marcos Marinera y Correo celeste, mascotas Potrillo de paso y Nube mensajera, y los títulos Domador de Oro y Mensajero de las Nubes (nivel 50). Además +0,1 % de defensa y +0,1 % de crítico."
+   "❄ Transformación nueva: Guardián de Hielo (nivel 450), igual de fuerte que el dragón. Nilo te avisa → Hilde, Vigía del Glaciar (Gruta Congelada, Picos Helados) → 8 Núcleos de Escarcha del Gólem de Escarcha → vence al Rey del Invierno Eterno y trae 20 Hielo Eterno y 5 Cristales Rúnicos → ritual de la escarcha.",
+   "❄ Mitad (+6 %) → Forma de Hielo con corona y placas de hielo (+16 %) → Forma de Cristal 2.0 con esquirlas en la espalda (+26 %, rango 5) → Forma plena con escarcha que cae (+32 %). 4 habilidades: Lanzas de Hielo, Ventisca, Deslizamiento Helado y Prisión de Escarcha.",
+   "🐺🐉 El pelo, las escamas y los cristales de las transformaciones ahora se ven encima de tu armadura o cosmético: el lobo híbrido lleva melena y mechones sobre la ropa y sus orejas ya no las tapa ningún casco ni sombrero.",
+   "🛡 Gremios online en ▦ Atajos: funda uno (nombre, sigla y emblema), busca y únete (hasta 30), chat del gremio, lista de miembros y donaciones para subir de nivel (+1 % de experiencia y oro de monstruos por nivel, hasta 10 %). Tu sigla sale junto a tu nombre en el online. Necesitan internet (wifi o datos)."
   ],
   "en": [
-   "🐎 New job in Trujillo: Paso horse tamer. Enter the corral, get close to the colt and follow its ◀ ▶ cues to win its trust; tame 3 before time runs out.",
-   "✉ New job in Celestia (Isle of Dawn): Sky courier. Step into the wind current of the letter colour, fly over the void collecting feathers (tips), deliver with ⚔ at the mailbox and come back on the white current.",
-   "🎁 New rewards: Marinera and Sky mail frames, Paso foal and Messenger cloud pets, and the Golden Tamer and Messenger of the Clouds titles (level 50). Plus +0.1% defence and +0.1% crit."
+   "❄ New transformation: Ice Guardian (level 450), as strong as the dragon. Nilo alerts you → Hilde, Glacier Watcher (Frozen Grotto, Frozen Peaks) → 8 Frost Cores from the Frost Golem → defeat the Eternal Winter King and bring 20 Eternal Ice and 5 Rune Crystals → frost ritual.",
+   "❄ Half (+6%) → Ice Form with crown and ice plates (+16%) → Crystal Form 2.0 with shards on the back (+26%, rank 5) → Full form with falling frost (+32%). 4 skills: Ice Lances, Blizzard, Ice Slide and Frost Prison.",
+   "🐺🐉 Transformation fur, scales and crystals now show over your armour or cosmetic: the hybrid wolf has a mane and tufts over the clothes and no helmet or hat covers its ears anymore.",
+   "🛡 Online guilds in ▦ Shortcuts: found one (name, tag and emblem), search and join (up to 30), guild chat, member list and donations to level up (+1% monster experience and gold per level, up to 10%). Your tag shows next to your name online. They need internet (wifi or data)."
   ]
  }
 }
