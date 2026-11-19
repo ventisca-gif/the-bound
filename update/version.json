@@ -1,22 +1,18 @@
 {
- "build": 165,
- "ver": "5.44",
+ "build": 166,
+ "ver": "5.45",
  "date": "2026-11-19",
  "file": "thebound.html",
- "size": 24119179,
- "sha256": "887880e2e7ea8013814d05e25733b142123b6783a7a5719df5c6cdd7b8b43b17",
+ "size": 24121839,
+ "sha256": "bba7128c290836749722deb8b53f35a108a3ca0dd882525d68ce0b09290dd30c",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🪽 Transformación Alado Caído (nivel 230): Nilo te avisa → Brisa → 12 Plumas del Alba y 8 Aureolas Rotas → vence a Seraviel → ritual de las plumas. Mitad (aureola rota y alitas) → Forma (alas de plumas, una gris) → Forma plena (alas grandes y plumas que caen).",
-   "🖌 Transformación Eco sin Pintar (nivel 360): Nilo te avisa → Mael → 12 Tintas Vivas y 4 Pigmentos Puros → vence al Eco del Vencido → ritual del pincel. Mitad (gotas de tinta) → Forma (piel de boceto) → Forma plena (todo en blanco y negro como un dibujo).",
-   "💪 Casi tan fuertes como el dragón (1-2 % menos): Alado +24 % / +30 % de ataque y velocidad; Eco +25 % / +31 % de ataque y esquiva. 4 habilidades propias cada una. Se guardan con tus demás formas; guía e historia en la Lupa › Subrazas."
+   "🐉 Las escamas del dragón ahora salen encima de tu ropa o armadura, sea cual sea: en la Forma Híbrida en brazos y hombros, y en el Híbrido 2.0 también en el pecho y las piernas, del color de tu pelo."
   ],
   "en": [
-   "🪽 Fallen Winged transformation (level 230): Nilo alerts you → Brisa → 12 Dawn Feathers and 8 Broken Halos → defeat Seraviel → feather ritual. Half (broken halo, little wings) → Form (feathered wings, one grey) → Full form (big wings, falling feathers).",
-   "🖌 Unpainted Echo transformation (level 360): Nilo alerts you → Mael → 12 Living Inks and 4 Pure Pigments → defeat the Echo of the Vanquished → brush ritual. Half (ink drops) → Form (sketch skin) → Full form (all black and white like a drawing).",
-   "💪 Almost as strong as the dragon (1-2% less): Winged +24% / +30% attack and speed; Echo +25% / +31% attack and dodge. 4 skills each. Saved with your other forms; guide and story in Magnifier › Subraces."
+   "🐉 Dragon scales now appear over your clothes or armour, whatever you wear: in the Hybrid Form on arms and shoulders, and in Hybrid 2.0 also on the chest and legs, in your hair colour."
   ]
  }
 }
