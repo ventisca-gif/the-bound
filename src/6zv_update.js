@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.52', GAME_BUILD = 173;
+const GAME_VER = '5.53', GAME_BUILD = 174;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,31 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.53",
+  "b": 174,
+  "d": "2026-11-19",
+  "es": [
+   "🌐 Modos online en ▦ Atajos: gremios, guerra de facciones, torneo de formas, Coloso, isla flotante y hermandad de sangre en un solo sitio.",
+   "⚔ Guerra de facciones: Vigías del Alba contra Hijos del Lienzo en Blanco. Tus monstruos suman a tu bando y a su región; el mapa se pinta del color de quien domina. El bando ganador de la semana recibe marco, 400.000 de oro y +5 % de experiencia.",
+   "🩸 Hermandad de sangre con otro jugador: juntos, +15 % de daño y un ataque doble cada 8 s.",
+   "🏝 Isla flotante propia (nivel 200): 5 niveles, cofre diario, y tus amigos online la pueden visitar.",
+   "🌑 Eclipse del Telar: algunos días durante una hora todos los monstruos entran en Furia y dan ×2,5 de experiencia, oro y botín.",
+   "⭐ Clases avanzadas (nivel 500): cada clase elige una de dos ramas. 📚 Biblioteca del Telar: 24 libros con pasivas para todas las formas (▦ Atajos › 📚 Pasivas).",
+   "👪 Herencia de formas: tus hijos heredan tu forma y, al crecer, la fusionan con la suya si forman una fusión.",
+   "🐉 Carrera de dragones en Altavela (juez Ignis): 10 anillos en el cielo; bajar de 60 s da el marco «Jinete del cielo»."
+  ],
+  "en": [
+   "🌐 Online modes in ▦ Shortcuts: guilds, faction war, forms tournament, Colossus, floating island and blood brotherhood in one place.",
+   "⚔ Faction war: Dawn Watchers vs Children of the Blank Canvas. Your monsters add to your side and their region; the map is painted the colour of whoever dominates. The week's winning side gets a frame, 400,000 gold and +5% experience.",
+   "🩸 Blood brotherhood with another player: together, +15% damage and a double attack every 8 s.",
+   "🏝 Your own floating island (level 200): 5 levels, daily chest, and your online friends can visit it.",
+   "🌑 Loom Eclipse: some days for an hour all monsters enter Fury and give ×2.5 experience, gold and loot.",
+   "⭐ Advanced classes (level 500): each class chooses one of two branches. 📚 Loom Library: 24 books with passives for all forms (▦ Shortcuts › 📚 Passives).",
+   "👪 Form inheritance: your children inherit your form and, as they grow, fuse it with theirs if they make a fusion.",
+   "🐉 Dragon race in Altavela (judge Ignis): 10 rings in the sky; under 60 s gives the «Sky rider» frame."
+  ]
+ },
  {
   "v": "5.52",
   "b": 173,

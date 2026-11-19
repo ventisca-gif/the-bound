@@ -1,0 +1,42 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{ const DB={}; const get=(p)=>p.split('/').filter(Boolean).reduce((o,k)=>o&&o[k],DB); const set=(p,v)=>{const ks=p.split('/').filter(Boolean); let o=DB; for(let i=0;i<ks.length-1;i++){o[ks[i]]=o[ks[i]]||{}; o=o[ks[i]];} if(v===null) delete o[ks[ks.length-1]]; else o[ks[ks.length-1]]=v;}; const fix=v=>{ if(v&&typeof v==='object'){ if(v['.sv']) return Date.now(); for(const k in v) v[k]=fix(v[k]); } return v; }; window.fetch=(url,o)=>{ const u=new URL(url), p=decodeURIComponent(u.pathname.replace(/\.json$/,'')); const m=(o&&o.method)||'GET'; let r=null; if(m==='GET'){ r=get(p); if(r&&u.searchParams.get('shallow')) { const s={}; for(const k in r) s[k]=true; r=s; } r=r===undefined?null:JSON.parse(JSON.stringify(r)); } else if(m==='PUT'){ set(p,fix(JSON.parse(o.body))); r=JSON.parse(o.body); } else if(m==='PATCH'){ const b=fix(JSON.parse(o.body)); for(const k in b) set(p+'/'+k,b[k]); r=b; } else if(m==='DELETE'){ set(p,null); } return Promise.resolve({ok:true,status:200,json:()=>Promise.resolve(r)}); }; window._DB=DB; return 1})()
+js (()=>{const P=G.P; P.lv=500; P.gold=5e7; calcStats(P); hubOpen(true); return [!!document.querySelector('#bOnl'), !!document.querySelector('#bLib'), eclTxt().length>0]})()
+js (onlOpen(), document.querySelectorAll('#modal [data-onl]').length)
+js (closeModal(), facOpen(), document.querySelector('#modal [data-fac="a"]').click(), G.P.fac)
+wait 400
+js (()=>{const P=G.P; const m={xp:10,gold:10,lv:100,x:120*16,y:150*16,def:{art:['slime','green'],drops:[]}}; for(let i=0;i<5;i++){ const q=Object.assign({},m); killMob(q);} facPushT=0; return FAC.pend})()
+wait 1500
+js [JSON.stringify(_DB.ev&&_DB.ev.fw)]
+js (facOpen(), 1)
+wait 600
+shot
+js (closeModal(), (()=>{const P=G.P; const atk0=P.S.atk; const s0=P.S.atk; P.spec=null; libOpen(); document.querySelector('#modal [data-spec]').click(); calcStats(P); return [P.spec, P.S.atk!==atk0 || P.S.def>0]})())
+js (()=>{const P=G.P; P.books={}; for (const b of TBOOKS.slice(0,6)) P.books[b[0]]=1; P.sr='lobo'; P.srOwn=['lobo']; P.srF=1; calcStats(P); const a=P.S.atk; P.books={}; calcStats(P); const b=P.S.atk; P.books={}; for (const b2 of TBOOKS.slice(0,6)) P.books[b2[0]]=1; return [a>b, bookSum('atkP')]})()
+js (libOpen(), 1)
+wait 300
+shot
+js (closeModal(), (()=>{const P=G.P; islOpen(); const t=document.querySelector('#modal h3').textContent; document.querySelector('#islGo').click(); return t})())
+wait 1500
+js [G.map.id, G.map.isla, G.P.isl.lv]
+js (()=>{const P=G.P; giveItem('pluma_alba',30,true); islOpen(); document.querySelector('#islUp').click(); return P.isl.lv})()
+wait 1500
+js [G.map.id, G.map._lv, G.map.objs.filter(o=>o.f==='isl_garden').length]
+shot
+js (XACT.islchest[2](), XACT.islexit[2](), 1)
+wait 1200
+js [G.map.id]
+js (()=>{const P=G.P; upsertRemote({peer:'b1', isMe:false, kind:'viewer', presence:{c:P.cls, a:P.app, g:{weapon:1}, x:P.x+30, y:P.y, n:'Hermano', d:'down', s:'idle', m:P.map, id:'idB1', hbq:NET.myId, isl:3, isn:'isla_hermano'}}); const R=G.remote.get('b1'); return [R.hbq===NET.myId, R.isl, R.isn]})()
+js (onlOpen(), document.querySelector('#modal [data-hba]').click(), [G.P.blood && G.P.blood.n, !!bloodNear()])
+js (()=>{const P=G.P; P.kids=[{id:'k1', name:'Lía', born: calDay()-9999, app:P.app, cls:'mago', form:'hielo'}]; P.sr='dragon'; P.srOwn=['dragon','hielo']; return 1})()
+wait 500
+js [G.P.kids[0].inh, G.P.kids[0].fus2, JSON.stringify(kidGear(G.P.kids[0]))]
+js (()=>{const M=makeSky(); setMap(M, SKY_ISLES[0].c[0]*16, SKY_ISLES[0].c[1]*16); return [!!RACE_NPC]})()
+wait 600
+js (()=>{const P=G.P; P.sr='dragon'; P.srF=1; calcStats(P); raceStart(); const B=ACT; for (let i=0;i<10;i++){ const R=B.rings[B.at]; P.x=R.x; P.y=R.y; window.dispatchEvent(new Event('x')); for (const f of V33_TICKS) {} } return [ACT.k, B.rings.length]})()
+wait 200
+js (()=>{const B=ACT, P=G.P; let n=0; const step=()=>{ if (ACT.k!=='race') return; const R=B.rings[B.at]; P.x=R.x; P.y=R.y; n++; if(n<12) setTimeout(step, 80); }; step(); return 1})()
+wait 1500
+js [ACT.k, G.P.raceBest>0, BIT().fr.includes('carrera')]
+js (()=>{ const I=eclInfo(); window._eo=eclOn; eclOn=()=>true; const m=spawnMob('cb_golem', 450, G.P.x+40, G.P.y, 0, null); m.map=G.map.id; const f=m.furia; eclOn=window._eo; return [f, m.ecl]})()
+js window._errs

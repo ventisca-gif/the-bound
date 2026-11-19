@@ -225,6 +225,35 @@
             }
           }
         }
+      },
+      "fw": {
+        "$w": {
+          ".indexOn": [
+            "p"
+          ],
+          "$pid": {
+            ".write": "$pid.length <= 48",
+            ".validate": "newData.hasChildren(['n', 'f', 'p'])",
+            "n": {
+              ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 20"
+            },
+            "f": {
+              ".validate": "newData.val() == 'a' || newData.val() == 'l'"
+            },
+            "p": {
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000000"
+            },
+            "rg": {
+              ".validate": "newData.isString() && newData.val().length <= 200"
+            },
+            "t": {
+              ".validate": "newData.val() == now"
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        }
       }
     }
   }
