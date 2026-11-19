@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.45', GAME_BUILD = 166;
+const GAME_VER = '5.46', GAME_BUILD = 167;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.46",
+  "b": 167,
+  "d": "2026-11-19",
+  "es": [
+   "🐎 Oficio nuevo en Trujillo: Domador de caballos de paso. Entra al corral, acércate al potrillo y sigue sus señales ◀ ▶ para ganarte su confianza; doma 3 antes de que acabe el tiempo.",
+   "✉ Oficio nuevo en Celestia (Isla del Alba): Cartero del cielo. Métete en la corriente de viento del color de la carta, vuela sobre el vacío recogiendo plumas (propina), entrega con ⚔ en el buzón y vuelve por la corriente blanca.",
+   "🎁 Recompensas nuevas: marcos Marinera y Correo celeste, mascotas Potrillo de paso y Nube mensajera, y los títulos Domador de Oro y Mensajero de las Nubes (nivel 50). Además +0,1 % de defensa y +0,1 % de crítico."
+  ],
+  "en": [
+   "🐎 New job in Trujillo: Paso horse tamer. Enter the corral, get close to the colt and follow its ◀ ▶ cues to win its trust; tame 3 before time runs out.",
+   "✉ New job in Celestia (Isle of Dawn): Sky courier. Step into the wind current of the letter colour, fly over the void collecting feathers (tips), deliver with ⚔ at the mailbox and come back on the white current.",
+   "🎁 New rewards: Marinera and Sky mail frames, Paso foal and Messenger cloud pets, and the Golden Tamer and Messenger of the Clouds titles (level 50). Plus +0.1% defence and +0.1% crit."
+  ]
+ },
  {
   "v": "5.45",
   "b": 166,
