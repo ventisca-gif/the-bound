@@ -1,22 +1,24 @@
 {
- "build": 159,
- "ver": "5.38",
+ "build": 160,
+ "ver": "5.39",
  "date": "2026-11-19",
  "file": "thebound.html",
- "size": 23997086,
- "sha256": "63c9d58ca347d899f0b20c74f4d5d7ce7a57700dd525f95aad36ba21c871705e",
+ "size": 24016762,
+ "sha256": "df5c5a79739523e95240a19d05708c23b8e538069b23b240a4dfb3c9985503ff",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "👓 Accesorios de cara combinables: lleva uno de cada tipo a la vez (ojos y gafas, nariz, boca/bigotes/barbas, orejas y mejillas). Ponerte uno solo cambia el de su mismo tipo.",
-   "🐶 Nuevos (40 en total, con oro): hocico de perrito, nariz de gatito con bigotes, nariz de Pinocho, nariz de cerdito, tirita en la nariz, rubor anime, rasguños de batalla, pintura de guerra, pintura deportiva, corazones bajo los ojos, calcomanías brillantes y tirita en la mejilla.",
-   "📡 Rastreador: auricular blanco con botón rojo y lente celeste sobre un ojo (6.000 oro)."
+   "🐉 Transformación nueva: Mitad Dragón (bloqueada hasta el nivel 450). Ritual con Corvel: 8 Brasas de Ignaroth (las suelta Ignaroth, el Dragón Carmesí) + 200.000 de oro.",
+   "Mitad Dragón (siempre): cuernos, escamas, ojos dorados, alas pequeñas y cola, todo del color de tu pelo. +6 % de ataque, +6 % de vida, +3 % de crítico.",
+   "Forma de Dragón: dragón a cuatro patas con alas de membrana, del color de tu pelo. La más fuerte: +32 % de ataque, +15 % de defensa, +15 % de vida y +12 % de velocidad. Habilidades: Aliento de Brasa, Garras de Dragón, Aleteo y Vuelo de Dragón.",
+   "📖 Historia: la brasa de Ignaroth (que fue un Alado) quedó en tu hilo. Explicado en la Lupa › Sistemas."
   ],
   "en": [
-   "👓 Combinable face accessories: wear one of each type at once (eyes and glasses, nose, mouth/moustaches/beards, ears and cheeks). Putting one on only replaces the one of its type.",
-   "🐶 New (40 in total, for gold): puppy snout, kitty nose and whiskers, long wooden nose, piggy nose, nose bandage, anime blush, battle scratches, war paint, eye black, hearts under the eyes, glitter stickers and cheek bandage.",
-   "📡 Tracker: white earpiece with a red button and a cyan lens over one eye (6,000 gold)."
+   "🐉 New transformation: Half-Dragon (locked until level 450). Ritual with Corvel: 8 Ignaroth's Embers (dropped by Ignaroth, the Crimson Dragon) + 200,000 gold.",
+   "Half-Dragon (always): horns, scales, golden eyes, small wings and a tail, all in your hair colour. +6% attack, +6% HP, +3% crit.",
+   "Dragon Form: four-legged dragon with membrane wings, in your hair colour. The strongest: +32% attack, +15% defense, +15% HP and +12% speed. Skills: Ember Breath, Dragon Claws, Wing Gust and Dragon Flight.",
+   "📖 Story: Ignaroth's ember (he was once a Winged One) stayed in your thread. Explained in Magnifier › Systems."
   ]
  }
 }

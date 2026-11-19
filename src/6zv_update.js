@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.38', GAME_BUILD = 159;
+const GAME_VER = '5.39', GAME_BUILD = 160;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.39",
+  "b": 160,
+  "d": "2026-11-19",
+  "es": [
+   "🐉 Transformación nueva: Mitad Dragón (bloqueada hasta el nivel 450). Ritual con Corvel: 8 Brasas de Ignaroth (las suelta Ignaroth, el Dragón Carmesí) + 200.000 de oro.",
+   "Mitad Dragón (siempre): cuernos, escamas, ojos dorados, alas pequeñas y cola, todo del color de tu pelo. +6 % de ataque, +6 % de vida, +3 % de crítico.",
+   "Forma de Dragón: dragón a cuatro patas con alas de membrana, del color de tu pelo. La más fuerte: +32 % de ataque, +15 % de defensa, +15 % de vida y +12 % de velocidad. Habilidades: Aliento de Brasa, Garras de Dragón, Aleteo y Vuelo de Dragón.",
+   "📖 Historia: la brasa de Ignaroth (que fue un Alado) quedó en tu hilo. Explicado en la Lupa › Sistemas."
+  ],
+  "en": [
+   "🐉 New transformation: Half-Dragon (locked until level 450). Ritual with Corvel: 8 Ignaroth's Embers (dropped by Ignaroth, the Crimson Dragon) + 200,000 gold.",
+   "Half-Dragon (always): horns, scales, golden eyes, small wings and a tail, all in your hair colour. +6% attack, +6% HP, +3% crit.",
+   "Dragon Form: four-legged dragon with membrane wings, in your hair colour. The strongest: +32% attack, +15% defense, +15% HP and +12% speed. Skills: Ember Breath, Dragon Claws, Wing Gust and Dragon Flight.",
+   "📖 Story: Ignaroth's ember (he was once a Winged One) stayed in your thread. Explained in Magnifier › Systems."
+  ]
+ },
  {
   "v": "5.38",
   "b": 159,
