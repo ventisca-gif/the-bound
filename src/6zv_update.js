@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.36', GAME_BUILD = 157;
+const GAME_VER = '5.37', GAME_BUILD = 158;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.37",
+  "b": 158,
+  "d": "2026-11-19",
+  "es": [
+   "👓 Accesorios de cara (27) en Armario › 👓 Cara o con un sastre: 10 gafas (pasta, aviador, corazón, estrella, media luna, ojo de gato, visor cibernético, 3D, monóculo, antifaz), 6 bigotes y barbas (clásico, enroscado, morsa, perilla, barba de mago, gafas con nariz y bigote), 4 pendientes y piercings y 7 de cara (lunar, pecas, estrellas, parche, mascarilla, nariz de payaso, piruleta).",
+   "Tienen su propio hueco: se combinan con cualquier sombrero, casco o peinado, se ven en las 4 estructuras de cuerpo y en el online. Llevar uno da +0,1 % de crítico y +0,1 % de defensa.",
+   "🇯🇵 Los oficios de Japón ahora solo dan +0,1 % de defensa (nivel 20) y +0,1 % de crítico (nivel 40), además de la paga."
+  ],
+  "en": [
+   "👓 Face accessories (27) in Wardrobe › 👓 Face or at a tailor: 10 glasses (thick-rim, aviator, heart, star, half-moon, cat-eye, cyber visor, 3D, monocle, masquerade), 6 moustaches and beards (classic, handlebar, walrus, goatee, wizard beard, nose-and-moustache glasses), 4 earrings and piercings and 7 face items (beauty mark, freckles, stars, eye patch, face mask, clown nose, lollipop).",
+   "They have their own slot: they go with any hat, helmet or hairstyle, look right on all 4 body types and online. Wearing one gives +0.1% crit and +0.1% defense.",
+   "🇯🇵 Japan jobs now only give +0.1% defense (level 20) and +0.1% crit (level 40), plus pay."
+  ]
+ },
  {
   "v": "5.36",
   "b": 157,

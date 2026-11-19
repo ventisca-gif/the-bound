@@ -1,0 +1,13 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js [FA.length, JOB_PERKS.jardinero.map(x=>x[1]).join(' | ')]
+js (G.P.gold=50000, calcStats(G.P), window._c0=G.P.S.crit, window._d0=G.P.S.def, wdMode='fa', openPanel('wardrobe'), document.querySelectorAll('[data-faw]').length)
+js (document.querySelector('[data-faw="fa_aviador"]').click(), [G.P.app.fa, G.P.gold, (G.P.faOwn||[]).join(','), G.P.S.crit - window._c0, G.P.S.def >= window._d0])
+wait 400
+shot
+js (()=>{const o={}; const pr={a:normApp(G.P.app)}; return [pr.a.fa, normApp({fa:'fa_xx'}).fa||null]})()
+js (closePanel(), G.P.faOwn.push('fa_barba_mago'), faWear('fa_barba_mago'), 1)
+wait 600
+shot
+js (faWear(null), [G.P.app.fa||null])
+js window._errs
