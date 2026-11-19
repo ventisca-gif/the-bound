@@ -1,24 +1,22 @@
 {
- "build": 160,
- "ver": "5.39",
+ "build": 161,
+ "ver": "5.40",
  "date": "2026-11-19",
  "file": "thebound.html",
- "size": 24016762,
- "sha256": "df5c5a79739523e95240a19d05708c23b8e538069b23b240a4dfb3c9985503ff",
+ "size": 24031169,
+ "sha256": "44f65ab3a291734970a260785be6db03a63eafd3b00fd2e448edeaab6f4c9b40",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🐉 Transformación nueva: Mitad Dragón (bloqueada hasta el nivel 450). Ritual con Corvel: 8 Brasas de Ignaroth (las suelta Ignaroth, el Dragón Carmesí) + 200.000 de oro.",
-   "Mitad Dragón (siempre): cuernos, escamas, ojos dorados, alas pequeñas y cola, todo del color de tu pelo. +6 % de ataque, +6 % de vida, +3 % de crítico.",
-   "Forma de Dragón: dragón a cuatro patas con alas de membrana, del color de tu pelo. La más fuerte: +32 % de ataque, +15 % de defensa, +15 % de vida y +12 % de velocidad. Habilidades: Aliento de Brasa, Garras de Dragón, Aleteo y Vuelo de Dragón.",
-   "📖 Historia: la brasa de Ignaroth (que fue un Alado) quedó en tu hilo. Explicado en la Lupa › Sistemas."
+   "🐉 Misión de la Mitad Dragón (nivel 450): Nilo te avisa en Albor → «Una brasa que no se apaga» (habla con Corvel) → «Las brasas de Ignaroth» (8 brasas) → «Escamas para el hilo» (20 Escamas de Dragón y 5 Cristales Rúnicos) → ritual de la brasa con Corvel.",
+   "🐺 Lupa › Subrazas: cada transformación con «Cómo conseguirla» (pasos marcados ✅), la ofrenda y dónde sale, «Por qué (historia)» y «Cómo suma».",
+   "💪 Las transformaciones se suman encima de tu nivel, armadura, armas y accesorios: cuanto más fuerte seas, más dan."
   ],
   "en": [
-   "🐉 New transformation: Half-Dragon (locked until level 450). Ritual with Corvel: 8 Ignaroth's Embers (dropped by Ignaroth, the Crimson Dragon) + 200,000 gold.",
-   "Half-Dragon (always): horns, scales, golden eyes, small wings and a tail, all in your hair colour. +6% attack, +6% HP, +3% crit.",
-   "Dragon Form: four-legged dragon with membrane wings, in your hair colour. The strongest: +32% attack, +15% defense, +15% HP and +12% speed. Skills: Ember Breath, Dragon Claws, Wing Gust and Dragon Flight.",
-   "📖 Story: Ignaroth's ember (he was once a Winged One) stayed in your thread. Explained in Magnifier › Systems."
+   "🐉 Half-Dragon quest (level 450): Nilo alerts you in Albor → «An ember that will not go out» (talk to Corvel) → «Ignaroth's embers» (8 embers) → «Scales for the thread» (20 Dragon Scales and 5 Rune Crystals) → ember ritual with Corvel.",
+   "🐺 Magnifier › Subraces: each transformation with «How to get it» (steps ticked ✅), the offering and where it drops, «Why (story)» and «How it adds up».",
+   "💪 Transformations add on top of your level, armour, weapons and accessories: the stronger you are, the more they give."
   ]
  }
 }

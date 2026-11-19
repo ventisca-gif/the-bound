@@ -1,0 +1,16 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (G.P.lv=450, calcStats(G.P), G.P.gold=1e6, [canOffer('hn_drg'), canOffer('dr1')])
+wait 4500
+js (()=>{const P=G.P; P.quests.active.hn_drg={p:[0]}; questEvent('talk',{npc:'corvel'}); return [questReady('hn_drg')]})()
+js (completeQuest ? (completeQuest('hn_drg'), 1) : 0, [!!G.P.quests.done.hn_drg, canOffer('dr1')])
+js (G.P.quests.active.dr1={p:[0]}, giveItem('brasa_ignaroth',8,true), [questReady('dr1')])
+js (completeQuest('dr1'), G.P.quests.active.dr2={p:[0,0]}, giveItem('escama',20,true), giveItem('ore7',5,true), [questReady('dr2')])
+js (completeQuest("dr2"), [G.P.lv, !!G.P.quests.done.dr2, countItem('escama'), countItem('brasa_ignaroth'), drgReady()])
+js (srRitual(), document.querySelector('#modal [data-sr="dragon"]').disabled)
+js (document.querySelector('#modal [data-sr="dragon"]').click(), [G.P.sr])
+js (closeModal(), GSUB='dragon', guiaX('sub'), document.querySelectorAll('.guia .gdet .usos').length)
+wait 300
+shot
+js (GSUB='lobo', guiaX('sub'), document.querySelector('.guia .gdet').textContent.includes('Fenrik'))
+js window._errs
