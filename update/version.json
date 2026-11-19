@@ -1,24 +1,22 @@
 {
- "build": 164,
- "ver": "5.43",
+ "build": 165,
+ "ver": "5.44",
  "date": "2026-11-19",
  "file": "thebound.html",
- "size": 24090124,
- "sha256": "e915deb2f07d9579a12bb3510cbdb2e30a8cab4caeb0a56300540818a06f30ff",
+ "size": 24119179,
+ "sha256": "887880e2e7ea8013814d05e25733b142123b6783a7a5719df5c6cdd7b8b43b17",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🐙 Oficio nuevo Takoyakero (Dōtonbori, Osaka): plancha de 9 huecos, masa → vuelta → al plato, con clientes que esperan. 🎆 Oficio nuevo Pirotécnico del río (Asakusa): carcasa del color pedido al tubo que brilla, y fuegos en el cielo.",
-   "🎁 Los 5 oficios de Japón dan +0,1 % de defensa, +0,1 % de crítico y recompensas: 7 marcos de retrato con diseño (Sakura, Gran Ola, Neón de Tokio, Farolillo rojo, Hanabi, Koi dorado, Dragón de oro), 5 mascotas japonesas (kitsune blanca, grulla, shiba, tanuki, maneki-neko) y 2 monturas (Ciervo de Nara, Kirin dorado).",
-   "🌳 Bonsái en casa: pódalo una vez al día; crece y da muebles zen. 🏆 Torneo de pesca en barca en Asakusa contra 3 pescadores.",
-   "🎂 Cumpleaños de tus hijos y parejas: aviso, felicitación con tarta y regalos que les encantan. 🐉 Montar en tu dragón: tu pareja e hijos que te acompañan suben a tu lomo."
+   "🪽 Transformación Alado Caído (nivel 230): Nilo te avisa → Brisa → 12 Plumas del Alba y 8 Aureolas Rotas → vence a Seraviel → ritual de las plumas. Mitad (aureola rota y alitas) → Forma (alas de plumas, una gris) → Forma plena (alas grandes y plumas que caen).",
+   "🖌 Transformación Eco sin Pintar (nivel 360): Nilo te avisa → Mael → 12 Tintas Vivas y 4 Pigmentos Puros → vence al Eco del Vencido → ritual del pincel. Mitad (gotas de tinta) → Forma (piel de boceto) → Forma plena (todo en blanco y negro como un dibujo).",
+   "💪 Casi tan fuertes como el dragón (1-2 % menos): Alado +24 % / +30 % de ataque y velocidad; Eco +25 % / +31 % de ataque y esquiva. 4 habilidades propias cada una. Se guardan con tus demás formas; guía e historia en la Lupa › Subrazas."
   ],
   "en": [
-   "🐙 New job Takoyaki cook (Dōtonbori, Osaka): 9-hole griddle, batter → flip → plate, with waiting customers. 🎆 New job River fireworks master (Asakusa): shell of the asked colour to the glowing tube, and fireworks in the sky.",
-   "🎁 The 5 Japan jobs give +0.1% defense, +0.1% crit and rewards: 7 designed portrait frames (Sakura, Great Wave, Tokyo Neon, Red lantern, Hanabi, Golden koi, Golden dragon), 5 Japanese pets (white kitsune, crane, shiba, tanuki, maneki-neko) and 2 mounts (Nara deer, Golden kirin).",
-   "🌳 Bonsai at home: prune it once a day; it grows and gives zen furniture. 🏆 Boat fishing tournament in Asakusa against 3 fishers.",
-   "🎂 Birthdays for your kids and partners: a notice, congratulations with cake and gifts they love. 🐉 Dragon riding: your partner and kids who are with you ride on your back."
+   "🪽 Fallen Winged transformation (level 230): Nilo alerts you → Brisa → 12 Dawn Feathers and 8 Broken Halos → defeat Seraviel → feather ritual. Half (broken halo, little wings) → Form (feathered wings, one grey) → Full form (big wings, falling feathers).",
+   "🖌 Unpainted Echo transformation (level 360): Nilo alerts you → Mael → 12 Living Inks and 4 Pure Pigments → defeat the Echo of the Vanquished → brush ritual. Half (ink drops) → Form (sketch skin) → Full form (all black and white like a drawing).",
+   "💪 Almost as strong as the dragon (1-2% less): Winged +24% / +30% attack and speed; Echo +25% / +31% attack and dodge. 4 skills each. Saved with your other forms; guide and story in Magnifier › Subraces."
   ]
  }
 }
