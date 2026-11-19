@@ -25,7 +25,7 @@ function srmAtlas(k) { const P = G.P; if (!P) return null; const key = '_srm' + 
 { const _gm = genMount; genMount = function (k, dir, f) { if (k !== 'lobo_escarcha' && k !== 'draco_brasa') return _gm.apply(this, arguments);
   return spr('mntsr' + k + dir + f, () => { const A = srmAtlas(k); if (!A) return _gm.call(this, 'caballo', dir, f); const row = dir === 'up' ? 3 : dir === 'down' ? 0 : 1, col = A.idx.walk + (f % 4), sc = k === 'draco_brasa' ? 0.72 : 1.35, c = mkCanvas(Math.round(A.fw * sc), Math.round(A.fh * sc)), x = c.getContext('2d');
     x.imageSmoothingEnabled = false; x.drawImage(A.img, col * A.fw, row * A.fh, A.fw, A.fh, 0, 0, c.width, c.height); return { c, ax: c.width >> 1, ay: c.height - 4 }; }); }; }
-const srRankOf = k => { const P = G.P; const x = P.sr === k ? (P.srX || 0) : ((P.srXs || {})[k] || 0); return Math.min(10, 1 + Math.floor(x / 150)); };
+const srRankOf = k => { const P = G.P; const x = P.sr === k ? (P.srX || 0) : ((P.srXs || {})[k] || 0); return Math.min(12, 1 + Math.floor(x / 150)); };
 V33_TICKS.push(() => { const P = G.P; if (!P || !P.sr && !(P.srOwn || []).length || typeof srOwned !== 'function') return; P.mounts = P.mounts || []; for (const [mk, sk_] of [['lobo_escarcha', 'hielo'], ['draco_brasa', 'dragon']]) { if (P.mounts.includes(mk) || !srOwned().includes(sk_) || srRankOf(sk_) < 10) continue;
   P.mounts.push(mk); banner('🎁 ' + MOUNTS[mk].n, L2('Tu forma llegó al rango 10: nueva montura (botón Montar).', 'Your form reached rank 10: new mount (Mount button).')); sfx('level'); markDirty(true); } });
 

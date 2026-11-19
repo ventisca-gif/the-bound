@@ -1,0 +1,28 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{const P=G.P; P.lv=499; calcStats(P); P.srOwn=['dragon','hielo']; P.sr='dragon'; P.srX=1700; P.srXs={hielo:1700}; transOpen(); const t=document.querySelector('#fusCard').textContent; closeModal(); return [fusOk(), t.slice(-60)]})()
+js (()=>{const P=G.P; P.lv=500; calcStats(P); return [fusOk(), (P.loreU||[]).includes(CH_HILO)]})()
+wait 400
+js (()=>{const P=G.P; return [(P.loreU||[]).includes(CH_HILO)]})()
+js (transOpen(), document.querySelector('#fusOn').click(), [G.P.fus, G.P.sr, JSON.stringify(gearTiers(G.P))])
+js (()=>{const P=G.P, st={}; const run=(sr,fus)=>{ for (const f of [0,1,3,2]) { P.sr=sr; P.fus=fus; P.srF=f; calcStats(P); st[sr+(fus?'+fus':'')+f]=P.S.atk; } }; P.sr=null; P.fus=0; P.srF=0; calcStats(P); const b=P.S.atk; run('dragon',0); run('hielo',0); run('dragon',1); for (const k in st) st[k]=+(st[k]/b).toFixed(2); P.sr='dragon'; P.fus=1; P.srF=0; calcStats(P); return st})()
+js (closeModal&&closeModal(), transOpen(), [...document.querySelectorAll('#fusCard [data-tf]')].map(b=>b.textContent).join('|'))
+js (document.querySelector('#fusCard [data-tf="1"]').click(), [G.P.srF, G.P.fus, document.querySelector('#bTrans')&&document.querySelector('#bTrans').textContent])
+wait 300
+shot
+js (()=>{const P=G.P; const g=gearTiers(P); upsertRemote({peer:'rx1', isMe:false, kind:'viewer', presence:{c:P.cls, a:P.app, g, x:P.x+30, y:P.y, n:'Amigo', d:'down', s:'idle', m:P.map}}); const R=G.remote.get('rx1'); return [!!R, R&&JSON.stringify(R.gear), R&&R.atlas===P.atlas]})()
+js (()=>{const P=G.P; P.sr='hielo'; P.fus=0; P.srF=3; calcStats(P); refreshLook(); const g=gearTiers(P); upsertRemote({peer:'rx2', isMe:false, kind:'viewer', presence:{c:P.cls, a:P.app, g, x:P.x-30, y:P.y, n:'Amiga', d:'down', s:'idle', m:P.map}}); const R=G.remote.get('rx2'); return [R&&R.gear.sr, R&&R.gear.sf]})()
+wait 300
+shot
+js (()=>{const P=G.P; P.sr='dragon'; P.fus=1; P.srF=1; calcStats(P); return [powNow().map(p=>p[0]).join(','), powV('dr'), powV('gold')]})()
+js (()=>{const P=G.P; P.sr='lobo'; P.fus=0; P.srF=1; P.srOwn.push('lobo'); calcStats(P); P.hp=10; const h0=P.hp; return [powV('regen'), powV('low'), h0]})()
+wait 3500
+js [G.P.hp>10]
+js (()=>{const P=G.P; const x0=P.srX||0; const m={xp:10,gold:10,lv:1,x:P.x,y:P.y,def:{art:['slime','green'],drops:[]}}; killMob(m); return [P.srX-x0]})()
+js (()=>{const M=makeLima(); setMap(M, M.w*8, M.h*8); return [!!BTY_AT.lima, G.ents.some(e=>e.id==='caz_lima')]})()
+wait 500
+js (()=>{const L=btyCList('lima'); L[0].on=1; const P=G.P; P.x=L[0].x*16+60; P.y=L[0].y*16; return L.map(b=>b.mid+'@'+b.x+','+b.y)})()
+wait 800
+js (()=>{const e=G.ents.find(e=>e.btyc==='lima'); if(!e) return 'no'; const p0=G.P.btyPts||0; killMob(e); return [e.name, (G.P.btyPts||0)-p0]})()
+js (()=>{const ids=Object.keys(BTY_C); const out={}; for (const k of ['trujillo','mexico','espana']) { try { const f={trujillo:'makeTrujillo',mexico:'makeMexico',espana:'makeEspana'}[k]; if (window[f]) window[f](); } catch(e) { out[k]='err '+e.message; continue } out[k]=!!BTY_AT[k]; } try { makeJapan(); out.japon=!!BTY_AT.japon } catch(e) { out.japon='err '+e.message } return out})()
+js window._errs
