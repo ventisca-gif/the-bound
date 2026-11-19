@@ -6,8 +6,8 @@ js (document.querySelector('[data-faw="fa_aviador"]').click(), [G.P.app.fa, G.P.
 wait 400
 shot
 js (()=>{const o={}; const pr={a:normApp(G.P.app)}; return [pr.a.fa, normApp({fa:'fa_xx'}).fa||null]})()
-js (closePanel(), G.P.faOwn.push('fa_barba_mago'), faWear('fa_barba_mago'), 1)
+js (closePanel(), G.P.faOwn.push('fa_barba_mago','fa_rastreador','fa_aros','fa_rubor','fa_cerdito'), faWear('fa_barba_mago'), faWear('fa_rastreador'), faWear('fa_aros'), faWear('fa_rubor'), faWear('fa_cerdito'), faWear('fa_pasta'), [G.P.app.fa, normApp({fa:'fa_aviador'}).fa, normApp({fa:'fa_pasta,fa_aviador'}).fa])
 wait 600
 shot
-js (faWear(null), [G.P.app.fa||null])
+js (faWear(null,'ojos'), faWear(null,'nariz'), [G.P.app.fa||null])
 js window._errs

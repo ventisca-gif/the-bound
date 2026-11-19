@@ -1,22 +1,22 @@
 {
- "build": 158,
- "ver": "5.37",
+ "build": 159,
+ "ver": "5.38",
  "date": "2026-11-19",
  "file": "thebound.html",
- "size": 23989075,
- "sha256": "32fcbeece31a3ee30abf18260562bf3d5a4ed15bc435a91b645dc4a5eb3f4446",
+ "size": 23997086,
+ "sha256": "63c9d58ca347d899f0b20c74f4d5d7ce7a57700dd525f95aad36ba21c871705e",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "👓 Accesorios de cara (27) en Armario › 👓 Cara o con un sastre: 10 gafas (pasta, aviador, corazón, estrella, media luna, ojo de gato, visor cibernético, 3D, monóculo, antifaz), 6 bigotes y barbas (clásico, enroscado, morsa, perilla, barba de mago, gafas con nariz y bigote), 4 pendientes y piercings y 7 de cara (lunar, pecas, estrellas, parche, mascarilla, nariz de payaso, piruleta).",
-   "Tienen su propio hueco: se combinan con cualquier sombrero, casco o peinado, se ven en las 4 estructuras de cuerpo y en el online. Llevar uno da +0,1 % de crítico y +0,1 % de defensa.",
-   "🇯🇵 Los oficios de Japón ahora solo dan +0,1 % de defensa (nivel 20) y +0,1 % de crítico (nivel 40), además de la paga."
+   "👓 Accesorios de cara combinables: lleva uno de cada tipo a la vez (ojos y gafas, nariz, boca/bigotes/barbas, orejas y mejillas). Ponerte uno solo cambia el de su mismo tipo.",
+   "🐶 Nuevos (40 en total, con oro): hocico de perrito, nariz de gatito con bigotes, nariz de Pinocho, nariz de cerdito, tirita en la nariz, rubor anime, rasguños de batalla, pintura de guerra, pintura deportiva, corazones bajo los ojos, calcomanías brillantes y tirita en la mejilla.",
+   "📡 Rastreador: auricular blanco con botón rojo y lente celeste sobre un ojo (6.000 oro)."
   ],
   "en": [
-   "👓 Face accessories (27) in Wardrobe › 👓 Face or at a tailor: 10 glasses (thick-rim, aviator, heart, star, half-moon, cat-eye, cyber visor, 3D, monocle, masquerade), 6 moustaches and beards (classic, handlebar, walrus, goatee, wizard beard, nose-and-moustache glasses), 4 earrings and piercings and 7 face items (beauty mark, freckles, stars, eye patch, face mask, clown nose, lollipop).",
-   "They have their own slot: they go with any hat, helmet or hairstyle, look right on all 4 body types and online. Wearing one gives +0.1% crit and +0.1% defense.",
-   "🇯🇵 Japan jobs now only give +0.1% defense (level 20) and +0.1% crit (level 40), plus pay."
+   "👓 Combinable face accessories: wear one of each type at once (eyes and glasses, nose, mouth/moustaches/beards, ears and cheeks). Putting one on only replaces the one of its type.",
+   "🐶 New (40 in total, for gold): puppy snout, kitty nose and whiskers, long wooden nose, piggy nose, nose bandage, anime blush, battle scratches, war paint, eye black, hearts under the eyes, glitter stickers and cheek bandage.",
+   "📡 Tracker: white earpiece with a red button and a cyan lens over one eye (6,000 gold)."
   ]
  }
 }
