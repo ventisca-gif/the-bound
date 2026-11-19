@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.32', GAME_BUILD = 153;
+const GAME_VER = '5.33', GAME_BUILD = 154;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.33",
+  "b": 154,
+  "d": "2026-11-19",
+  "es": [
+   "📋 Para qué sirve cada objeto: toca cualquier cosa del inventario y al lado salen TODOS sus usos (fabricar en cada oficio, cocinar en la hoguera, alquimia, taller, construir, forja artesanal, maestría, subrazas, conjuros, monturas, misiones que lo piden, museo, acuario, regalos, tu tienda y cuánto vale).",
+   "🎒 Lupa › Objetos: nueva pestaña con buscador para todo lo que se puede guardar (materiales, comida, pociones, picos, runas y gemas, piezas de construcción, objetos de misión y equipo), con «Para qué sirve» y «Dónde conseguir» con flecha dorada. ✓ = ya lo tienes.",
+   "🔎 En las pestañas Materiales y Equipo de la Lupa también sale para qué sirve. Explicado en Lupa › Sistemas."
+  ],
+  "en": [
+   "📋 What each item is for: tap anything in your bag and ALL its uses appear next to it (crafting in each job, campfire cooking, alchemy, workshop, building, artisan forge, mastery, subraces, spells, mounts, quests that need it, museum, aquarium, gifts, your shop and how much it is worth).",
+   "🎒 Magnifier › Items: new tab with a search box for everything you can keep (materials, food, potions, picks, runes and gems, building pieces, quest items and gear), with «What it's for» and «Where to get it» with the golden arrow. ✓ = you have it.",
+   "🔎 The Magnifier's Materials and Gear tabs also show what each thing is for. Explained in Magnifier › Systems."
+  ]
+ },
  {
   "v": "5.32",
   "b": 153,

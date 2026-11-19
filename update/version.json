@@ -1,26 +1,22 @@
 {
- "build": 153,
- "ver": "5.32",
+ "build": 154,
+ "ver": "5.33",
  "date": "2026-11-19",
  "file": "thebound.html",
- "size": 23875642,
- "sha256": "7fe3fe839715c2015e9edf1c4ed292ba8f262206039994c8737a10f147a719ca",
+ "size": 23904802,
+ "sha256": "ae4438dc8a673d19997ec4bbb193b14d554b694305bc1da5a5481316ab22c134",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🎭 Historia nueva «Las caras prestadas» (nivel 345, tras decir el nombre de Velmira): Velmira se queda como luz en el Camposanto del Alba. Devuelve sus 4 máscaras en altares del mundo y di su nombre ante la tumba de Edrin. Premio: Media máscara de Velmira.",
-   "☁ Historia nueva «La Escalera de Nubes» (nivel 230): Brisa, arquitecta alada, espera al norte de Albor. Pide los planos a Serafina, canta a 3 nidos de arpía sin pelear y teje 5 tramos que se ven subir al cielo. Al terminar, la escalera te sube a la Isla del Alba. Premio: Diadema de la Canción.",
-   "✨ Historia nueva «El eco de Aurel» (nivel 247, tras vencer a Nihil): el Telar recuerda a Aurel antes de su caída. Toca sus 3 recuerdos en las islas del cielo y descubre la frase entera de Nihil y por qué aparecen ecos donde la Ventisca pinta. Premio: Capa de Hilos de Aurel.",
-   "🧒 Nilo, joven aprendiz de los Vigías (en Albor, junto a la casa de Mira), te avisa al llegar al nivel de cada historia y te manda al sitio con la flecha dorada. Altares, nidos y recuerdos hechos con los sprites del juego (pedestal de piedra y poste de las aureolas).",
-   "📖 3 capítulos nuevos en el Libro del Vínculo (época «Hoy») con cinemáticas propias, pistas y personajes. Guía paso a paso en la Lupa › Sistemas › 📜 Historias."
+   "📋 Para qué sirve cada objeto: toca cualquier cosa del inventario y al lado salen TODOS sus usos (fabricar en cada oficio, cocinar en la hoguera, alquimia, taller, construir, forja artesanal, maestría, subrazas, conjuros, monturas, misiones que lo piden, museo, acuario, regalos, tu tienda y cuánto vale).",
+   "🎒 Lupa › Objetos: nueva pestaña con buscador para todo lo que se puede guardar (materiales, comida, pociones, picos, runas y gemas, piezas de construcción, objetos de misión y equipo), con «Para qué sirve» y «Dónde conseguir» con flecha dorada. ✓ = ya lo tienes.",
+   "🔎 En las pestañas Materiales y Equipo de la Lupa también sale para qué sirve. Explicado en Lupa › Sistemas."
   ],
   "en": [
-   "🎭 New story «The borrowed faces» (level 345, after saying Velmira's name): Velmira stays as light in the Dawn Graveyard. Return his 4 masks at altars around the world and say his name at Edrin's grave. Reward: Velmira's half mask.",
-   "☁ New story «The Cloud Stairway» (level 230): Brisa, a winged architect, waits north of Albor. Get the plans from Serafina, sing to 3 harpy nests without fighting and weave 5 sections you can see rising to the sky. When finished, the stairway takes you up to the Isle of Dawn. Reward: Diadem of the Song.",
-   "✨ New story «The echo of Aurel» (level 247, after defeating Nihil): the Loom remembers Aurel before his fall. Touch his 3 memories on the sky isles and learn Nihil's whole sentence and why echoes appear wherever Ventisca paints. Reward: Aurel's Thread Cape.",
-   "🧒 Nilo, a young Watchers apprentice (in Albor, next to Mira's house), alerts you when you reach each story's level and sends you to the place with the golden arrow. Altars, nests and memories built from the game's own sprites (stone pedestal and halo post).",
-   "📖 3 new chapters in the Book of the Bond (era «Today») with their own cutscenes, clues and characters. Step-by-step guide in the Magnifier › Systems › 📜 Stories."
+   "📋 What each item is for: tap anything in your bag and ALL its uses appear next to it (crafting in each job, campfire cooking, alchemy, workshop, building, artisan forge, mastery, subraces, spells, mounts, quests that need it, museum, aquarium, gifts, your shop and how much it is worth).",
+   "🎒 Magnifier › Items: new tab with a search box for everything you can keep (materials, food, potions, picks, runes and gems, building pieces, quest items and gear), with «What it's for» and «Where to get it» with the golden arrow. ✓ = you have it.",
+   "🔎 The Magnifier's Materials and Gear tabs also show what each thing is for. Explained in Magnifier › Systems."
   ]
  }
 }
