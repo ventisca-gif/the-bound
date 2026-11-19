@@ -2,8 +2,9 @@ click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #intro
 js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message+' @'+e.lineno)), window._eo=[], (()=>{const oe=errOnce; errOnce=(t,e)=>{window._eo.push(t+' '+(e&&e.message)); return oe(t,e)}})(), 1)
 js (()=>{ const W=G.world; const o=W.objs.filter(o=>o.xact&&o.xact.startsWith('h31')).map(o=>o.xact+':'+o.tx+','+o.ty); const M=makeSky(); const s=M.objs.filter(o=>o.xact&&o.xact.startsWith('h31')).map(o=>o.xact+':'+o.tx+','+o.ty); return [o, s, CRON.length, CH_H31_CARAS] })()
 js (()=>{ const P=G.P; P.lv=350; for (const id of ['q41','q45','vh8']) P.quests.done[id]=1; P.gold=1e7; return 1 })()
-wait 2000
-js (G.ents.filter(e=>e.type==='npc'&&/velmira_luz|brisa_alada|aurel_eco/.test(e.id)).map(e=>e.id+' '+e.map+' '+Math.round(e.x/16)+','+Math.round(e.y/16)))
+wait 5000
+js (()=>{ const r=[]; for (const [id,np] of [['hn_esc','brisa_alada'],['hn_aur','tejedora_ultima'],['hn_vel','velmira_luz']]) { r.push(id+':'+canOffer(id)); acceptQuest(id); questEvent('talk',{npc:np}); r.push(questReady(id)); completeQuest(id); } return r })()
+js (G.ents.filter(e=>e.type==='npc'&&/velmira_luz|brisa_alada|aurel_eco|nilo_vigia/.test(e.id)).map(e=>e.id+' '+e.map+' '+Math.round(e.x/16)+','+Math.round(e.y/16)))
 js (()=>{ acceptQuest('vm1'); const h=H31(); const W=G.world; const alt=W.objs.filter(o=>o.xact==='h31_cara'); return alt.map(o=>{ const X=XACT.h31_cara; return [o.hidden, X[0](o)]; }) })()
 wait 1700
 js (()=>{ const W=G.world; const alt=W.objs.filter(o=>o.xact==='h31_cara'); for (const o of alt){ XACT.h31_cara[2](o); closeModal(); } return [questReady('vm1'), alt.map(o=>o.hidden)] })()

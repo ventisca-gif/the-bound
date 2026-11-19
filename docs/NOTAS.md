@@ -373,4 +373,7 @@ Todo en `src/6zz9zzzzzzzzz_historias531.js` (estado `P.h31`: `esc` tramos, `nid`
 - **El eco de Aurel** (`au1` lo da `tejedora_ultima` tras `q45`, `au2` 3 recuerdos `h31_mem` en jardin/alba/corona, `au3` hablar con Lys): NPC `aurel_eco` en la Isla del Telar. Premio `c_h31_capa_aurel` (`fitKind back`).
 - Capítulos `CH_H31_CARAS`, `CH_H31_ESCALERA`, `CH_H31_AUREL` (época «Hoy»), escenas `CN_SC.h31_caras/h31_escalera/h31_aurel`, pistas `n_h31_velmira`, `p_h31_escalera`, `n_h31_aurel` (abren capítulos ya existentes), `BOOK_WHO` ×3, guía `GSIS` `h531` con flecha.
 - Probado: las tres historias de principio a fin por código (0 errores), `fitcheck` 0 avisos, captura de la escalera.
+- **Nilo** (`nilo_vigia`, joven aprendiz de los Vigías, en Albor cerca de Mira): da `hn_esc` (nivel 230, tras `q41` → hablar con Brisa), `hn_aur` (247, tras `q45` → hablar con Lys) y `hn_vel` (345, tras `vh8` → hablar con Velmira). Son el requisito de `es1`, `au1` y `vm1`. Al poder ofrecerse, cartel + aviso una vez (`P.h31.nt`). Sergio lo pidió: «un joven que, al llegar al nivel, pide ir a esos lugares».
+- Sprites: altares sobre el pedestal de piedra de los muebles (`nf_pedestal`), recuerdos sobre el poste de `skyhalo`, nidos con `WOOD`. Sergio pidió partir siempre de los sprites del juego para objetos nuevos.
+- Prueba: `tests/h532.txt` (debe acabar en `JS> []`).
 

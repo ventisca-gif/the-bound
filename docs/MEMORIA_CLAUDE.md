@@ -125,6 +125,8 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.32 (bui
 
 ## Lecciones recientes
 
+- **Historias nuevas**: Sergio quiere que un **NPC joven** (como Nilo en Albor) te avise al llegar al nivel y te mande al sitio con flecha; no esconder el inicio de una historia. Y los **objetos nuevos se hacen partiendo de sprites que ya existen** en el juego (pedestales, postes, madera `WOOD`), no con un estilo nuevo.
+
 - **5.31 · personaje invisible**: la barra roja da archivo y línea de `dist/test.html` (`about:srcdoc:LÍNEA` = misma línea de `dist/test.html`). Las habilidades con pose especial (`sv_skill`) dan anclajes **con decimales**; una prenda que use `y` o `x` como índice de paleta (`pal[(x + y) % n]`) debe redondear antes (`Math.round(A.torsoTop)`). `fitKind` ya atrapa errores (`errOnce`) para que el personaje nunca desaparezca, pero la barra roja sigue saliendo: arréglalo en la prenda.
 - **Lupa › Sistemas** (`GSIS`): el texto se escapa (no uses `<b>`); el 4.º elemento es una función que devuelve `null` o `{ loc: [x, y], t, m }` para la flecha dorada.
 - **Historia**: capítulos nuevos solo al final de `CRON`; las pistas (`CLUES[id][3]`) abren su capítulo al descubrirse, así que apunta a un capítulo ya existente si no quieres adelantar la historia.
