@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.39', GAME_BUILD = 160;
+const GAME_VER = '5.40', GAME_BUILD = 161;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.40",
+  "b": 161,
+  "d": "2026-11-19",
+  "es": [
+   "🐉 Misión de la Mitad Dragón (nivel 450): Nilo te avisa en Albor → «Una brasa que no se apaga» (habla con Corvel) → «Las brasas de Ignaroth» (8 brasas) → «Escamas para el hilo» (20 Escamas de Dragón y 5 Cristales Rúnicos) → ritual de la brasa con Corvel.",
+   "🐺 Lupa › Subrazas: cada transformación con «Cómo conseguirla» (pasos marcados ✅), la ofrenda y dónde sale, «Por qué (historia)» y «Cómo suma».",
+   "💪 Las transformaciones se suman encima de tu nivel, armadura, armas y accesorios: cuanto más fuerte seas, más dan."
+  ],
+  "en": [
+   "🐉 Half-Dragon quest (level 450): Nilo alerts you in Albor → «An ember that will not go out» (talk to Corvel) → «Ignaroth's embers» (8 embers) → «Scales for the thread» (20 Dragon Scales and 5 Rune Crystals) → ember ritual with Corvel.",
+   "🐺 Magnifier › Subraces: each transformation with «How to get it» (steps ticked ✅), the offering and where it drops, «Why (story)» and «How it adds up».",
+   "💪 Transformations add on top of your level, armour, weapons and accessories: the stronger you are, the more they give."
+  ]
+ },
  {
   "v": "5.39",
   "b": 160,
