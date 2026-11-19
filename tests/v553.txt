@@ -1,0 +1,7 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{const P=G.P; P.lv=500; calcStats(P); P.srOwn=['lobo']; P.sr='lobo'; transOpen(); const t=[...document.querySelectorAll('#modal .trlock')].map(e=>e.textContent).find(t=>/Tejedor/.test(t)); closeModal(); srRitual(); const b=document.querySelector('#modal [data-sr="tejedor"]'); const bt=b&&b.textContent, dis=b&&b.disabled; closeModal(); srUse('tejedor'); return [t&&t.slice(0,90), bt, dis, P.sr]})()
+js (transOpen(), 1)
+wait 400
+shot
+js window._errs

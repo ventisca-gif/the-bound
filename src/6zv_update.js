@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.51', GAME_BUILD = 172;
+const GAME_VER = '5.52', GAME_BUILD = 173;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,17 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.52",
+  "b": 173,
+  "d": "2026-11-19",
+  "es": [
+   "🧵 Nueva transformación a la vista en 🌀 Transformaciones: Tejedor Primordial (nivel 1000, aún no se puede conseguir). El cuerpo se vuelve negro como el Lienzo, el pelo es hilo blanco como una nube, sonrisa blanca y la rueca de los Tejedores como escudo."
+  ],
+  "en": [
+   "🧵 New transformation in sight in 🌀 Transformations: Primordial Weaver (level 1000, cannot be obtained yet). The body turns black like the Canvas, the hair is white thread like a cloud, a white grin and the Weavers' spinning wheel as a shield."
+  ]
+ },
  {
   "v": "5.51",
   "b": 172,
