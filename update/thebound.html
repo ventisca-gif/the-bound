@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.45 · Escamas sobre la ropa</div>
+  <div class="tfoot">v5.46 · Domador y Cartero del cielo</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11797,7 +11797,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.45', GAME_BUILD = 166;
+const GAME_VER = '5.46', GAME_BUILD = 167;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11805,6 +11805,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.46",
+  "b": 167,
+  "d": "2026-11-19",
+  "es": [
+   "🐎 Oficio nuevo en Trujillo: Domador de caballos de paso. Entra al corral, acércate al potrillo y sigue sus señales ◀ ▶ para ganarte su confianza; doma 3 antes de que acabe el tiempo.",
+   "✉ Oficio nuevo en Celestia (Isla del Alba): Cartero del cielo. Métete en la corriente de viento del color de la carta, vuela sobre el vacío recogiendo plumas (propina), entrega con ⚔ en el buzón y vuelve por la corriente blanca.",
+   "🎁 Recompensas nuevas: marcos Marinera y Correo celeste, mascotas Potrillo de paso y Nube mensajera, y los títulos Domador de Oro y Mensajero de las Nubes (nivel 50). Además +0,1 % de defensa y +0,1 % de crítico."
+  ],
+  "en": [
+   "🐎 New job in Trujillo: Paso horse tamer. Enter the corral, get close to the colt and follow its ◀ ▶ cues to win its trust; tame 3 before time runs out.",
+   "✉ New job in Celestia (Isle of Dawn): Sky courier. Step into the wind current of the letter colour, fly over the void collecting feathers (tips), deliver with ⚔ at the mailbox and come back on the white current.",
+   "🎁 New rewards: Marinera and Sky mail frames, Paso foal and Messenger cloud pets, and the Golden Tamer and Messenger of the Clouds titles (level 50). Plus +0.1% defence and +0.1% crit."
+  ]
+ },
  {
   "v": "5.45",
   "b": 166,
@@ -38181,6 +38196,89 @@ function drgClothScales(p, L, F) { const m = p.meta; if (!m || m.torsoTop === un
     if (!dens || (hash(x, y) % 100) / 100 > dens) continue;
     const row = Math.floor(y / 2), sx = (x + (row % 2) * 2) % 4, sc = sx === 0 ? Q.sc[1] : (y % 2 === 0 && sx === 2) ? Q.sc[4] : Q.sc[2]; p.d[i] = uMix(c, sc, 0.72) | 0xff000000; } }
 { const _dh = drawHero; drawHero = function (p, L, dir, anim, f) { const r = _dh.apply(this, arguments); if (L && L.sr === 'dragon' && (L.srF === 1 || L.srF === 3)) try { drgClothScales(p, L, L.srF); } catch (e) { if (typeof errOnce === 'function') errOnce('drgcl', e); } return r; }; }
+
+// ================= v5.46: DOMADOR DE CABALLOS DE PASO (TRUJILLO) Y CARTERO DEL CIELO (CELESTIA) =================
+// Sergio aceptó los dos oficios «pero que den algo nuevo». Cada uno, con mecánica propia dentro del mapa, da +0,1 % de
+// defensa y crítico, y por nivel: un marco de retrato nuevo (15), una mascota nueva (30) y un título propio (50).
+//  · Domador: en el corral un potro salvaje corre; acércate y sigue su ritmo con el joystick (◀ ▶ cuando lo pide) hasta
+//    que confíe en ti. Si fallas, se encabrita y se aleja. Tres potros.
+//  · Cartero del cielo: 3 cartas para 3 islas. En la Isla del Alba hay corrientes de viento de colores: métete en la del
+//    color de la carta y vuelas hasta su isla; entrega en el buzón (⚔) y vuelve con la corriente de regreso.
+
+Object.assign(BIT_FR, { marinera: [L2('Marinera', 'Marinera'), '#e8302a'], correo: [L2('Correo del Cielo', 'Sky Mail'), '#9ae0ff'] });
+{ const st = document.createElement('style'); st.textContent = `.pframe.fr-marinera,.bfrb.fr-marinera i{box-shadow:0 0 0 2px #fff,0 0 0 4px #d8202a,0 0 0 5px #fff,0 0 0 7px #d8202a,0 0 10px 2px #ff6a5a!important}
+.pframe.fr-correo,.bfrb.fr-correo i{box-shadow:0 0 0 2px #ffffff,0 0 0 4px #7ac8f0,0 0 0 6px #fff4b0,0 0 14px 4px #9ae0ff!important;animation:frcor 3s ease-in-out infinite}@keyframes frcor{50%{box-shadow:0 0 0 2px #fff4b0,0 0 0 4px #ffffff,0 0 0 6px #7ac8f0,0 0 16px 5px #fff4b0}}`; document.head.appendChild(st); }
+Object.assign(PETS, { potrillo: { n: L2('Potrillo de paso', 'Paso foal'), d: L2('Un potrillo peruano que te sigue a todas partes (domador, nivel 30).', 'A Peruvian foal that follows you everywhere (horse tamer, level 30).'), price: 0, look: { b: '#8a4a1a', b2: '#f0d8b0', ear: 'pointy', tail: 'thin', eye: '#1a0a04' } },
+  nube: { n: L2('Nube mensajera', 'Messenger cloud'), d: L2('Una nubecita con alas que lleva tus cartas (cartero del cielo, nivel 30).', 'A little winged cloud that carries your letters (sky courier, level 30).'), price: 0, fly: 1, look: { kind: 'bird', b: '#f4f8ff', b2: '#9ac8f0', eye: '#2a4a8a' } } });
+{ const cat = (TITLES.find(t => t[0] === 't_artesano') || [0, 0, 'natural'])[2]; for (const t of [['t_domador_oro', L2('Domador de Oro', 'Golden Tamer'), cat, P => (P.jobs.domador || {}).lv >= 50, L2('Sube el oficio de Domador de caballos de paso a nivel 50.', 'Raise the Paso horse tamer job to level 50.')], ['t_cartero_nubes', L2('Mensajero de las Nubes', 'Messenger of the Clouds'), cat, P => (P.jobs.cartero_cielo || {}).lv >= 50, L2('Sube el oficio de Cartero del cielo a nivel 50.', 'Raise the Sky courier job to level 50.')]]) { TITLES.push(t); TIT_ID[t[0]] = t; } }
+Object.assign(JP_REW, { domador: [[15, 'fr', 'marinera'], [30, 'pet', 'potrillo']], cartero_cielo: [[15, 'fr', 'correo'], [30, 'pet', 'nube']] });
+
+// =====================================================================================
+// DOMADOR DE CABALLOS DE PASO (Trujillo)
+// =====================================================================================
+v8Job('domador', 'trujillo', '🐎', 'Domador de caballos de paso', 'Paso horse tamer', M => [TR_HU.x1 + 20, TR_HU.y1 + 30], [12, 8], ['pe', 'm', 4, { head: 'c_pe_paja' }],
+  'El caballo de paso no se doma a la fuerza: se le gana con ritmo y paciencia.', 'A Paso horse is not tamed by force: you win it with rhythm and patience.',
+  'Entras al corral y un potro salvaje corre de un lado a otro. Acércate: cuando estés cerca, encima del potro sale una flecha ◀ o ▶. Mueve el joystick hacia ese lado a tiempo y su confianza sube. Si te equivocas o tardas, se encabrita y se aleja. Llena su confianza para domarlo. Tres potros.', 'You enter the corral and a wild colt runs back and forth. Get close: when you are near, an arrow ◀ or ▶ appears over the colt. Push the joystick that way in time and its trust rises. Miss or hesitate and it rears and runs off. Fill its trust to tame it. Three colts.',
+  'Corral de los caballos de paso (Trujillo)', 'Paso horse corral (Trujillo)', 2);
+V8_GO.domador = A => { const x0 = A.x0 * 16 + 8, y0 = A.y0 * 16 + 12, x1 = x0 + (A.w - 1) * 16 - 8, y1 = y0 + (A.h - 1) * 16 - 16, P = G.P; P.x = (x0 + x1) / 2; P.y = y1 - 6;
+  Object.assign(ACT, { k: 'v8_domador', box: [x0, y0, x1, y1], colt: { x: (x0 + x1) / 2, y: (y0 + y1) / 2, vx: 50, vy: 20, tr: 0, cue: null, cd: 0.6, rear: 0, col: v8Pick(['#8a4a1a', '#5a3018', '#c89a5a', '#2a1a10']) }, tamed: 0, n: 1, t: 80, onAtk: () => true });
+  banner('🐎 ' + L2('¡Al corral!', 'Into the corral!'), L2('Acércate al potro y sigue sus flechas ◀ ▶ con el joystick.', 'Get close to the colt and follow its ◀ ▶ arrows with the joystick.')); };
+V33_TICKS.push(dt => { if (ACT.k !== 'v8_domador') return; dt = Math.min(0.05, dt || 0.016); const B = ACT, P = G.P, c = B.colt, [x0, y0, x1, y1] = B.box, j = v8Joy(); B.t -= dt; P.x = Math.max(x0, Math.min(x1, P.x)); P.y = Math.max(y0, Math.min(y1, P.y));
+  const d = Math.hypot(c.x - P.x, c.y - P.y), spd = c.rear > 0 ? 120 : d < 40 ? 22 : 60 - c.tr * 0.3; c.rear = Math.max(0, c.rear - dt);
+  if (Math.random() < 0.02 || c.x < x0 || c.x > x1 || c.y < y0 || c.y > y1) { const a = Math.random() * 6.28; c.vx = Math.cos(a); c.vy = Math.sin(a); if (c.x < x0) c.vx = 1; if (c.x > x1) c.vx = -1; if (c.y < y0) c.vy = 1; if (c.y > y1) c.vy = -1; }
+  const L_ = Math.hypot(c.vx, c.vy) || 1; c.x += c.vx / L_ * spd * dt; c.y += c.vy / L_ * spd * dt; c.x = Math.max(x0, Math.min(x1, c.x)); c.y = Math.max(y0, Math.min(y1, c.y));
+  if (d < 40 && c.rear <= 0) { if (!c.cue) { c.cd -= dt; if (c.cd <= 0) c.cue = { s: Math.random() < 0.5 ? -1 : 1, t: Math.max(0.45, 0.9 - c.tr / 250) }; }
+    else { c.cue.t -= dt; const hit = c.cue.s < 0 ? j[0] < -0.5 : j[0] > 0.5, wrong = c.cue.s < 0 ? j[0] > 0.5 : j[0] < -0.5;
+      if (hit) { c.tr = Math.min(100, c.tr + 12); c.cue = null; c.cd = 0.35; sfx('ui'); floatText(c.x, c.y - 30, '♥', '#ff8aa8'); }
+      else if (wrong || c.cue.t <= 0) { c.tr = Math.max(0, c.tr - 10); c.cue = null; c.cd = 0.8; c.rear = 1.2; const a = Math.atan2(c.y - P.y, c.x - P.x); c.vx = Math.cos(a); c.vy = Math.sin(a); sfx('hurt'); floatText(c.x, c.y - 30, L2('¡Se encabrita!', 'It rears!'), '#ff8a8a'); } } }
+  else c.cue = null;
+  if (c.tr >= 100) { B.tamed++; sfx('quest'); floatText(c.x, c.y - 40, L2('¡Domado!', 'Tamed!'), '#ffd040'); burst(c.x, c.y - 10, 18, { sp: 60, up: 40, life: 0.7, c: ['#ffd040', '#ffffff'] }); if (B.n >= 3) { v8Pay('domador', 150 + B.tamed * 260 + Math.round(B.t * 3), 30 + B.tamed * 20, B.tamed + L2(' potros domados', ' colts tamed')); return; } B.n++; Object.assign(c, { x: (x0 + x1) / 2, y: y0 + 10, tr: 0, cue: null, rear: 0, col: v8Pick(['#8a4a1a', '#5a3018', '#c89a5a', '#2a1a10', '#e8e0d0']) }); }
+  v8Hud(`🐎 ${B.n}/3 · ♥ ${Math.round(c.tr)}% · ${Math.ceil(B.t)} s`); if (B.t <= 0) v8Pay('domador', 100 + B.tamed * 220 + Math.round(c.tr * 2), 20 + B.tamed * 18, B.tamed + L2(' potros domados', ' colts tamed')); });
+V8_UNDER.push((cx, cy) => { if (ACT.k !== 'v8_domador') return; const [x0, y0, x1, y1] = ACT.box; ctx.strokeStyle = '#8a5a2a'; ctx.lineWidth = 3; ctx.strokeRect(x0 - 14 - cx, y0 - 14 - cy, x1 - x0 + 28, y1 - y0 + 30); ctx.lineWidth = 1; ctx.fillStyle = '#6a4020'; for (let x = x0 - 14; x <= x1 + 14; x += 24) { ctx.fillRect(x - 1 - cx, y0 - 20 - cy, 3, 8); ctx.fillRect(x - 1 - cx, y1 + 12 - cy, 3, 8); } });
+WORLD_DRAW.push((cx, cy) => { if (ACT.k !== 'v8_domador') return; const c = ACT.colt, x = c.x - cx, y = c.y - cy, f = c.vx < 0 ? -1 : 1, leg = Math.sin(G.t * (c.rear ? 22 : 12)) * 3, up = c.rear ? -6 : 0; ctx.fillStyle = c.col;
+  ctx.beginPath(); ctx.ellipse(x, y - 12 + up / 2, 11, 6, 0, 0, 7); ctx.fill(); for (const [ox, s] of [[-7, 1], [-3, -1], [4, 1], [8, -1]]) ctx.fillRect(x + ox * f, y - 8 + (ox > 0 ? up : 0), 2, 9 + s * leg * 0.5);
+  ctx.beginPath(); ctx.ellipse(x + 11 * f, y - 20 + up, 4, 6, f * 0.5, 0, 7); ctx.fill(); ctx.fillStyle = '#1a0a04'; ctx.fillRect(x + 9 * f - (f < 0 ? 2 : 0), y - 26 + up, 2, 7); ctx.fillRect(x - 13 * f - (f < 0 ? 0 : 2), y - 14 + up / 2, 3, 6); ctx.fillRect(x + 12 * f, y - 22 + up, 1, 1);
+  if (c.cue) drawTxt(c.cue.s < 0 ? '◀' : '▶', x, y - 36, '#ffe040', 14); ctx.fillStyle = '#1a1a1e'; ctx.fillRect(x - 14, y - 32, 28, 3); ctx.fillStyle = '#ff6a9a'; ctx.fillRect(x - 14, y - 32, 28 * c.tr / 100, 3); });
+
+// =====================================================================================
+// CARTERO DEL CIELO (Celestia)
+// =====================================================================================
+v8Job('cartero_cielo', 'cielo', '✉', 'Cartero del cielo', 'Sky courier', M => [SKY_ISLES[0].c[0] + 4, SKY_ISLES[0].c[1] + 22], [6, 4], ['es', 'f', 0, null],
+  'Las cartas entre islas viajan con el viento. Elige bien la corriente.', 'Letters between isles travel on the wind. Choose the right current.',
+  'Te dan 3 cartas, cada una con el color de su isla. Junto al puesto hay corrientes de viento de colores: métete en la del color de la carta que quieras entregar y volarás hasta esa isla (mueve el joystick para coger las plumas doradas del camino: propina). Allí entrega en el buzón con ⚔ y vuelve por la corriente blanca de regreso.', 'You get 3 letters, each with its isle\'s colour. Next to the stall there are coloured wind currents: step into the one matching the letter you want to deliver and you fly to that isle (move the joystick to catch the golden feathers on the way: tip). There, deliver at the mailbox with ⚔ and come back through the white return current.',
+  'Correo de la Isla del Alba (Celestia)', 'Isle of Dawn post (Celestia)', 3);
+{ const id = 'v8_cartero_cielo'; delete FS_LOOK[id]; NPCS[id].look = ANGEL(HAIRS.celeste || HAIRS.azul, P5(['#1a3a6a', '#2a5a9a', '#4a8ad0', '#8ac0f0', '#d8f0ff'])); NPCS[id].title = 'Celestia'; }
+const CS_COL = ['#ff7a5a', '#5ad0ff', '#c88aff'];
+function csFree(M, x, y) { for (let d = 0; d <= 24; d++) for (let dy = -d; dy <= d; dy++) for (let dx = -d; dx <= d; dx++) { if (Math.max(Math.abs(dx), Math.abs(dy)) !== d) continue; const X = x + dx, Y = y + dy; if (X < 2 || Y < 2 || X >= M.w - 2 || Y >= M.h - 2) continue; const i = M.I(X, Y); if (!SOLID_T[M.ter[i]] && M.objAt[i] < 0) return [X, Y]; } return null; }
+function csPlace(M) { const J = V8J.cartero_cielo; if (!J || M._cs) return; M._cs = 1; const [tx, ty] = J.at(M), p = csFree(M, tx, ty); if (!p) return; const A = { x0: p[0], y0: p[1], w: 1, h: 1, cx: p[0], cy: p[1], px: p[0] * 16 + 8, py: p[1] * 16 + 8 }; V8.at.cartero_cielo = A;
+  XSPR.v8s_cartero_cielo = XSPR.v8s_cartero_cielo || v8Sign('cartero_cielo'); ipObj(M, 'v8s_cartero_cielo', p[0], p[1], { solid: false, xact: 'v8_cartero_cielo' }); ipSp(M, 'v8_cartero_cielo', p[0] + 1, p[1], { face: 'down' }); ipPoi(M, 'pejob', p[0], p[1], J.e + ' ' + J.n);
+  A.dest = SKY_ISLES.slice(1, 4).map(I => { const q = csFree(M, I.c[0], I.c[1]); return q ? { x: q[0] * 16 + 8, y: q[1] * 16 + 8, n: I.n } : null; }).filter(Boolean); }
+{ const _mk = makeSky; makeSky = function () { const M = _mk.apply(this, arguments); try { csPlace(M); } catch (e) { console.warn(e); } return M; }; }
+V8_GO.cartero_cielo = A => { if (!A.dest || A.dest.length < 3) { toast(L2('Hoy no hay correo.', 'No mail today.'), 'info'); return; } const P = G.P; P.x = A.px; P.y = A.py + 18;
+  const cur = A.dest.map((d, i) => ({ x: A.px - 40 + i * 40, y: A.py + 48, i })); Object.assign(ACT, { k: 'v8_cartero_cielo', A, cur, left: [0, 1, 2], at: null, fly: null, ret: null, tip: 0, t: 110, onAtk: () => { const B = ACT, P = G.P; if (B.at !== null && B.left.includes(B.at)) { const d = B.A.dest[B.at]; if (Math.hypot(P.x - d.x, P.y - d.y) < 28) { B.left = B.left.filter(i => i !== B.at); sfx('coin'); floatText(P.x, P.y - 44, L2('¡Entregada!', 'Delivered!'), '#ffd040'); B.ret = { x: d.x + 30, y: d.y + 10 }; } } return true; } });
+  banner('✉ ' + L2('¡Correo del cielo!', 'Sky mail!'), L2('Métete en la corriente del color de la carta. Entrega con ⚔ y vuelve por la blanca.', 'Step into the current of the letter\'s colour. Deliver with ⚔ and return via the white one.')); };
+function csFly(B, tx, ty, onEnd) { const P = G.P; B.fly = { x0: P.x, y0: P.y, x1: tx, y1: ty, t: 0, dur: Math.max(1.6, Math.hypot(tx - P.x, ty - P.y) / 220), off: 0, feathers: [0.3, 0.55, 0.8].map(u => ({ u, o: (Math.random() - 0.5) * 50, got: 0 })), onEnd }; sfx('dash'); }
+V33_TICKS.push(dt => { if (ACT.k !== 'v8_cartero_cielo') return; dt = Math.min(0.05, dt || 0.016); const B = ACT, P = G.P; B.t -= dt;
+  if (B.fly) { const F = B.fly; F.t += dt; const u = Math.min(1, F.t / F.dur), j = v8Joy(); F.off = Math.max(-40, Math.min(40, F.off + j[0] * 90 * dt)); const nx = -(F.y1 - F.y0), ny = F.x1 - F.x0, nl = Math.hypot(nx, ny) || 1;
+    P.x = F.x0 + (F.x1 - F.x0) * u + nx / nl * F.off * Math.sin(u * 3.14); P.y = F.y0 + (F.y1 - F.y0) * u + ny / nl * F.off * Math.sin(u * 3.14); P.z = Math.sin(u * 3.14) * 30; if (Math.random() < 0.5) part(P.x, P.y, { vz: 0, vx: (Math.random() - 0.5) * 30, g: 0, life: 0.5, c: '#ffffff', s: 2 });
+    for (const fe of F.feathers) if (!fe.got && Math.abs(u - fe.u) < 0.05 && Math.abs(F.off - fe.o) < 14) { fe.got = 1; B.tip += 60; sfx('coin'); floatText(P.x, P.y - 50, '+60', '#ffd040'); }
+    if (u >= 1) { P.z = 0; const cb = F.onEnd; B.fly = null; cb && cb(); } v8Hud(`✉ ${3 - B.left.length}/3 · 🪶 +${B.tip} · ${Math.ceil(B.t)} s`); return; }
+  if (B.at === null) { for (const c of B.cur) if (B.left.includes(c.i) && Math.hypot(P.x - c.x, P.y - c.y) < 14) { const d = B.A.dest[c.i]; B.at = c.i; csFly(B, d.x, d.y + 22); break; } }
+  else if (B.ret && Math.hypot(P.x - B.ret.x, P.y - B.ret.y) < 14) { B.ret = null; csFly(B, B.A.px, B.A.py + 26, () => { B.at = null; if (!B.left.length) v8Pay('cartero_cielo', 300 + B.tip + Math.round(B.t * 4), 40, L2('3 cartas entregadas', '3 letters delivered')); }); }
+  v8Hud(`✉ ${3 - B.left.length}/3 · 🪶 +${B.tip} · ${Math.ceil(B.t)} s`); if (B.t <= 0 && !B.fly) { const n = 3 - B.left.length; const A = B.A; P.x = A.px; P.y = A.py + 18; v8Pay('cartero_cielo', 80 + n * 90 + B.tip, 15 + n * 8, n + L2('/3 cartas entregadas', '/3 letters delivered')); } });
+V8_UNDER.push((cx, cy) => { if (ACT.k !== 'v8_cartero_cielo') return; const B = ACT; for (const c of B.cur) { if (!B.left.includes(c.i)) continue; const x = c.x - cx, y = c.y - cy; ctx.strokeStyle = CS_COL[c.i]; ctx.lineWidth = 2; for (let k = 0; k < 3; k++) { const r = 4 + ((G.t * 14 + k * 5) % 12); ctx.globalAlpha = 1 - r / 16; ctx.beginPath(); ctx.ellipse(x, y, r, r * 0.5, 0, 0, 7); ctx.stroke(); } ctx.globalAlpha = 1; ctx.lineWidth = 1; }
+  if (B.ret) { const x = B.ret.x - cx, y = B.ret.y - cy; ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2; for (let k = 0; k < 3; k++) { const r = 4 + ((G.t * 14 + k * 5) % 12); ctx.globalAlpha = 1 - r / 16; ctx.beginPath(); ctx.ellipse(x, y, r, r * 0.5, 0, 0, 7); ctx.stroke(); } ctx.globalAlpha = 1; ctx.lineWidth = 1; }
+  if (B.at !== null && B.left.includes(B.at)) { const d = B.A.dest[B.at], x = d.x - cx, y = d.y - cy; ctx.fillStyle = '#5a3a1a'; ctx.fillRect(x - 1, y - 18, 3, 18); ctx.fillStyle = CS_COL[B.at]; ctx.fillRect(x - 7, y - 26, 14, 9); ctx.fillStyle = '#ffffff'; ctx.fillRect(x - 4, y - 24, 8, 2); } });
+WORLD_DRAW.push((cx, cy) => { if (ACT.k !== 'v8_cartero_cielo') return; const B = ACT, P = G.P; B.left.forEach((i, k) => { ctx.fillStyle = CS_COL[i]; ctx.fillRect(P.x - cx - 10 + k * 7, P.y - cy - 34, 6, 4); }); if (B.fly) { const F = B.fly, nx = -(F.y1 - F.y0), ny = F.x1 - F.x0, nl = Math.hypot(nx, ny) || 1; for (const fe of F.feathers) { if (fe.got) continue; const x = F.x0 + (F.x1 - F.x0) * fe.u + nx / nl * fe.o * Math.sin(fe.u * 3.14) - cx, y = F.y0 + (F.y1 - F.y0) * fe.u + ny / nl * fe.o * Math.sin(fe.u * 3.14) - cy - 30 * Math.sin(fe.u * 3.14); drawTxt('🪶', x, y, '#ffd040', 10); } }
+  for (const c of B.cur) if (B.left.includes(c.i) && !B.fly) drawTxt(B.A.dest[c.i].n, c.x - cx, c.y - cy - 12, CS_COL[c.i], 7); });
+{ const _ts = V33_TICKS; } // (el cartero se cancela solo al salir del mapa: v8Off en la 5.28)
+for (const k of ['domador', 'cartero_cielo']) { jpPerks(k); const T = k === 'domador' ? 't_domador_oro' : 't_cartero_nubes'; JOB_PERKS[k].push([50, '🏷 ' + TIT_ID[T][1]]); JOBP2[k].push([50, '🏷 ' + TIT_ID[T][1], '🏷 ' + TIT_ID[T][1], {}]); if (JOB_GUIDE[k]) JOB_GUIDE[k].perks.push([50, '🏷 ' + TIT_ID[T][1], '🏷 ' + TIT_ID[T][1]]); }
+if (typeof GSIS !== 'undefined') GSIS.unshift(['v546', '🐎✉ ' + L2('Oficios: Domador y Cartero del cielo', 'Jobs: Tamer and Sky courier'), () => [
+  L2('🐎 Domador de caballos de paso (Trujillo, junto a Huanchaco): en el corral, acércate al potro y mueve el joystick ◀ ▶ cuando te lo pida. Si fallas, se encabrita. Doma 3 potros.', '🐎 Paso horse tamer (Trujillo, by Huanchaco): in the corral, get close to the colt and push the joystick ◀ ▶ when it asks. Miss and it rears. Tame 3 colts.'),
+  L2('✉ Cartero del cielo (Isla del Alba, Celestia): métete en la corriente de viento del color de la carta y vuela a su isla (coge plumas doradas con el joystick). Entrega en el buzón con ⚔ y vuelve por la corriente blanca.', '✉ Sky courier (Isle of Dawn, Celestia): step into the wind current of the letter\'s colour and fly to its isle (catch golden feathers with the joystick). Deliver at the mailbox with ⚔ and return via the white current.'),
+  L2('Recompensas nuevas: marco Marinera / Correo del Cielo (nivel 15), mascota Potrillo de paso / Nube mensajera (30) y título Domador de Oro / Mensajero de las Nubes (50). Además +0,1 % de defensa (20) y de crítico (40).', 'New rewards: Marinera / Sky Mail frame (level 15), Paso foal / Messenger cloud pet (30) and Golden Tamer / Messenger of the Clouds title (50). Plus +0.1% defense (20) and crit (40).')], () => null]);
+// durante el vuelo de la corriente no te pueden golpear (vas por el aire, lejos de los monstruos)
+{ const _hp = hurtPlayer; hurtPlayer = function () { if (ACT && ACT.k === 'v8_cartero_cielo' && ACT.fly) return 0; return _hp.apply(this, arguments); }; }
 
 // ================= v3.6: IDIOMA (Español / English) =================
 // Los textos del código se traducen al compilar (tools/i18n/tr.js + en.json): cada uno es (LANG_EN ? "inglés" : "español").

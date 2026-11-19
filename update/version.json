@@ -1,18 +1,22 @@
 {
- "build": 166,
- "ver": "5.45",
+ "build": 167,
+ "ver": "5.46",
  "date": "2026-11-19",
  "file": "thebound.html",
- "size": 24121839,
- "sha256": "bba7128c290836749722deb8b53f35a108a3ca0dd882525d68ce0b09290dd30c",
+ "size": 24141166,
+ "sha256": "b318aa2096e4e6f2570d28f2d65920e2a3da0fbc3e73a5ed18a82b83aade253e",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🐉 Las escamas del dragón ahora salen encima de tu ropa o armadura, sea cual sea: en la Forma Híbrida en brazos y hombros, y en el Híbrido 2.0 también en el pecho y las piernas, del color de tu pelo."
+   "🐎 Oficio nuevo en Trujillo: Domador de caballos de paso. Entra al corral, acércate al potrillo y sigue sus señales ◀ ▶ para ganarte su confianza; doma 3 antes de que acabe el tiempo.",
+   "✉ Oficio nuevo en Celestia (Isla del Alba): Cartero del cielo. Métete en la corriente de viento del color de la carta, vuela sobre el vacío recogiendo plumas (propina), entrega con ⚔ en el buzón y vuelve por la corriente blanca.",
+   "🎁 Recompensas nuevas: marcos Marinera y Correo celeste, mascotas Potrillo de paso y Nube mensajera, y los títulos Domador de Oro y Mensajero de las Nubes (nivel 50). Además +0,1 % de defensa y +0,1 % de crítico."
   ],
   "en": [
-   "🐉 Dragon scales now appear over your clothes or armour, whatever you wear: in the Hybrid Form on arms and shoulders, and in Hybrid 2.0 also on the chest and legs, in your hair colour."
+   "🐎 New job in Trujillo: Paso horse tamer. Enter the corral, get close to the colt and follow its ◀ ▶ cues to win its trust; tame 3 before time runs out.",
+   "✉ New job in Celestia (Isle of Dawn): Sky courier. Step into the wind current of the letter colour, fly over the void collecting feathers (tips), deliver with ⚔ at the mailbox and come back on the white current.",
+   "🎁 New rewards: Marinera and Sky mail frames, Paso foal and Messenger cloud pets, and the Golden Tamer and Messenger of the Clouds titles (level 50). Plus +0.1% defence and +0.1% crit."
   ]
  }
 }

@@ -1,0 +1,29 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (G.P.lv=250, calcStats(G.P), goTrujillo(), 1)
+wait 1500
+js [G.map.id, !!V8.at.domador, JOB_PERKS.domador.map(x=>x[0]+' '+x[1]).join(' | ')]
+js (()=>{const A=V8.at.domador;G.P.x=A.px;G.P.y=A.py;v8Start('domador');const c=ACT.colt;G.P.x=c.x;G.P.y=c.y;return [ACT.k]})()
+wait 1200
+shot
+js (()=>{const c=ACT.colt; c.tr=100; return 1})()
+wait 300
+js [ACT.n, ACT.tamed]
+js (ACT.t=0.01, 1)
+wait 300
+js [ACT.k, G.P.jobs.domador]
+js (()=>{const M=makeSky(); setMap(M, SKY_ISLES[0].c[0]*16, SKY_ISLES[0].c[1]*16); return [G.map.id, !!V8.at.cartero_cielo, V8.at.cartero_cielo&&V8.at.cartero_cielo.dest&&V8.at.cartero_cielo.dest.length]})()
+wait 800
+js (()=>{const A=V8.at.cartero_cielo;G.P.x=A.px;G.P.y=A.py;v8Start('cartero_cielo');const c=ACT.cur[0];G.P.x=c.x;G.P.y=c.y;return [ACT.k]})()
+wait 600
+shot
+wait 2500
+js (()=>{const B=ACT; return [B.at, !!B.fly, Math.round(G.P.x), Math.round(B.A.dest[0].x)]})()
+js (()=>{const B=ACT,d=B.A.dest[B.at];G.P.x=d.x;G.P.y=d.y;B.onAtk();return [B.left.length, !!B.ret]})()
+js (()=>{const B=ACT;G.P.x=B.ret.x;G.P.y=B.ret.y;return 1})()
+wait 3000
+js [ACT.at, ACT.left.length]
+js (ACT.t=0.01, 1)
+wait 400
+js [ACT.k, G.P.jobs.cartero_cielo]
+js window._errs
