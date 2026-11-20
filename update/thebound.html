@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.60 · El libro del héroe</div>
+  <div class="tfoot">v5.61 · Auras en el armario</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11797,7 +11797,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.60', GAME_BUILD = 181;
+const GAME_VER = '5.61', GAME_BUILD = 182;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11805,6 +11805,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.61",
+  "b": 182,
+  "d": "2026-11-20",
+  "es": [
+   "✦ Armario › Auras: seis auras de energía grandes. Prueba gratis, compra con oro, equipa o quita; colección permanente por personaje.",
+   "🎨 Adaptadas al motor original, las cinco estructuras femeninas y cinco masculinas, los peinados y las cuatro direcciones. Visibles en multijugador; sin cambiar estadísticas."
+  ],
+  "en": [
+   "✦ Wardrobe › Auras: six large energy auras. Preview for free, buy with gold, equip or remove; permanent collection per character.",
+   "🎨 Fitted to the original engine, all five female and five male bodies, hairstyles and four directions. Visible in multiplayer; no stat changes."
+  ]
+ },
  {
   "v": "5.60",
   "b": 181,
@@ -12110,8 +12123,12 @@ const CHANGELOG = /*CL*/
   "v": "5.45",
   "b": 166,
   "d": "2026-11-19",
-  "es": ["🐉 Las escamas del dragón ahora salen encima de tu ropa o armadura, sea cual sea: en la Forma Híbrida en brazos y hombros, y en el Híbrido 2.0 también en el pecho y las piernas, del color de tu pelo."],
-  "en": ["🐉 Dragon scales now appear over your clothes or armour, whatever you wear: in the Hybrid Form on arms and shoulders, and in Hybrid 2.0 also on the chest and legs, in your hair colour."]
+  "es": [
+   "🐉 Las escamas del dragón ahora salen encima de tu ropa o armadura, sea cual sea: en la Forma Híbrida en brazos y hombros, y en el Híbrido 2.0 también en el pecho y las piernas, del color de tu pelo."
+  ],
+  "en": [
+   "🐉 Dragon scales now appear over your clothes or armour, whatever you wear: in the Hybrid Form on arms and shoulders, and in Hybrid 2.0 also on the chest and legs, in your hair colour."
+  ]
  },
  {
   "v": "5.44",
@@ -41045,6 +41062,133 @@ if (LANG_EN) {
 // selector de idioma: en Opciones y en la pantalla de título
 { const _ro = renderOpts; renderOpts = function (B) { _ro(B); const f = B.querySelector('.opts') || B; f.insertAdjacentHTML('afterbegin', `<h3>Idioma · Language</h3><div class="row langrow"><button class="btn ${LANG_EN ? '' : 'gold'}" id="oLangEs">Español</button><button class="btn ${LANG_EN ? 'gold' : ''}" id="oLangEn">English</button></div>`); $('#oLangEs').onclick = () => { if (LANG_EN) setLang(false); }; $('#oLangEn').onclick = () => { if (!LANG_EN) setLang(true); }; }; }
 { const T = document.getElementById('title'); if (T && !document.getElementById('tLang')) { const d = document.createElement('div'); d.id = 'tLang'; d.innerHTML = `<button class="chip ${LANG_EN ? '' : 'on'}" data-lang="es">ES</button><button class="chip ${LANG_EN ? 'on' : ''}" data-lang="en">EN</button>`; T.appendChild(d); d.querySelectorAll('[data-lang]').forEach(b => b.onclick = () => { const en = b.dataset.lang === 'en'; if (en !== LANG_EN) setLang(en); }); } }
+
+/* Larger aura proposals. The final engine sprite remains untouched, composited above all VFX. */
+const COS_AURA_FX=(()=>{
+ const THEMES={
+ violeta:{name:'Energía violeta',subtitle:'Llamas de energía, pulsos y chispas',color:'#bc80ff'},
+ tormenta:{name:'Tormenta celeste',subtitle:'Rayos vivos y descargas que rodean el cuerpo',color:'#71eaff'},
+ solar:{name:'Corona solar',subtitle:'Fuego dorado y una corona de rayos',color:'#ffd56b'},
+ astral:{name:'Órbitas astrales',subtitle:'Anillos cruzados, satélites y constelaciones',color:'#9eeeff'},
+ eclipse:{name:'Eclipse fracturado',subtitle:'Media luna y fragmentos dimensionales',color:'#caa3ff'},
+ jardin:{name:'Jardín espectral',subtitle:'Pétalos de luz y mariposas flotantes',color:'#8fffd6'}
+ };
+ const W=192,H=176,PADX=48,PADY=32,CACHE=new Map(),TAU=Math.PI*2;
+ const make=(w,h)=>mkCanvas(w,h);
+ function maskOf(sprite,key){if(CACHE.has(key)){const r=CACHE.get(key);CACHE.delete(key);CACHE.set(key,r);return r;}
+  const a=sprite.getContext('2d').getImageData(0,0,96,96).data;let minX=96,maxX=0,minY=96,maxY=0;const rows=Array.from({length:96},()=>[96,-1]);
+  for(let y=0;y<96;y++)for(let x=0;x<96;x++)if(a[(y*96+x)*4+3]>100){minX=Math.min(minX,x);maxX=Math.max(maxX,x);minY=Math.min(minY,y);maxY=Math.max(maxY,y);rows[y][0]=Math.min(rows[y][0],x);rows[y][1]=Math.max(rows[y][1],x);}
+  const r={minX:minX+PADX,maxX:maxX+PADX,minY:minY+PADY,maxY:maxY+PADY,cx:(minX+maxX)/2+PADX,rows,bodyW:maxX-minX+1,bodyH:maxY-minY+1};CACHE.set(key,r);if(CACHE.size>80)CACHE.delete(CACHE.keys().next().value);return r;
+ }
+ const poly=(x,pts,col)=>{x.fillStyle=col;x.beginPath();pts.forEach((p,i)=>i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1]));x.closePath();x.fill();};
+ const line=(x,pts,col,w=1)=>{x.strokeStyle=col;x.lineWidth=w;x.beginPath();pts.forEach((p,i)=>i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1]));x.stroke();};
+ const star=(x,cx,cy,c,s=2)=>{x.fillStyle=c;x.fillRect(cx-s,cy-1,s*2+1,2);x.fillRect(cx-1,cy-s,2,s*2+1);x.fillStyle='#faffff';x.fillRect(cx,cy,1,1);};
+ const orbit=(x,cx,cy,rx,ry,rot,col,width=2,phase=0,broken=false)=>{let pts=[];for(let i=0;i<=64;i++){const a=i/64*TAU+phase,px=Math.cos(a)*rx,py=Math.sin(a)*ry;if(broken&&i%12>8){if(pts.length>1)line(x,pts,col,width);pts=[];continue;}pts.push([cx+px*Math.cos(rot)-py*Math.sin(rot),cy+px*Math.sin(rot)+py*Math.cos(rot)]);}if(pts.length>1)line(x,pts,col,width);};
+ function flame(x,M,t,w,h,colors){const cx=M.cx,base=M.maxY+3,top=base-h,points=[[cx-w*.50,base],[cx-w*.80,base-h*.13],[cx-w*.63,base-h*.29],[cx-w*.91,base-h*.43],[cx-w*.62,base-h*.48],[cx-w*.75,base-h*.70],[cx-w*.39,base-h*.61],[cx-w*.34,base-h*.84],[cx-w*.15,base-h*.77],[cx,top],[cx+w*.16,base-h*.77],[cx+w*.43,base-h*.90],[cx+w*.40,base-h*.64],[cx+w*.71,base-h*.73],[cx+w*.63,base-h*.46],[cx+w*.85,base-h*.50],[cx+w*.67,base-h*.28],[cx+w*.81,base-h*.13],[cx+w*.46,base]];
+  for(let band=0;band<3;band++){const scale=1-band*.13,pts=points.map(([xx,yy],i)=>[Math.round(cx+(xx-cx)*scale+Math.sin(t*4+i*1.65)*((i%3)+1)),Math.round(base+(yy-base)*(1-band*.08)+Math.cos(t*5+i*1.1)*2)]);poly(x,pts,colors[band]);}
+  for(let side of [-1,1])for(let k=0;k<3;k++){const p=(t*.46+k*.31)%1,yy=base-p*h*.86,xx=cx+side*w*(.39+.17*Math.sin(p*5+k));line(x,[[xx,yy+7],[xx+side*3,yy+1],[xx-side*2,yy-8],[xx+side*1,yy-14]],colors[3],1.5);}
+ }
+ function sparks(x,M,t,color,count=15,spread=40){for(let i=0;i<count;i++){const p=(t*(.25+i%3*.025)+i*.167)%1,side=i%2?-1:1,xx=M.cx+side*(12+(i*7)%spread)+Math.sin(p*8+i)*3,yy=M.maxY+3-p*(M.bodyH+33);x.fillStyle=color;x.fillRect(Math.round(xx),Math.round(yy),i%4===0?2:1,i%3===0?3:2);}}
+ function draw(sprite,key,kind,time,opts={}){const c=opts.target||make(W,H),x=c.getContext('2d'),M=maskOf(sprite,key);x.setTransform(1,0,0,1,0,0);x.clearRect(0,0,W,H);x.imageSmoothingEnabled=false;const T=THEMES[kind];if(T){const fx=opts.fx||make(W/2,H/2),g=fx.getContext('2d');g.setTransform(1,0,0,1,0,0);g.clearRect(0,0,W/2,H/2);g.scale(.5,.5);g.imageSmoothingEnabled=false;g.lineJoin='miter';g.lineCap='square';g.globalAlpha=Math.min(1,opts.strength??1);
+  const cx=M.cx,base=M.maxY+3,cy=(M.minY+M.maxY)/2,w=Math.min(50,Math.max(35,M.bodyW*.66+12)),h=Math.min(116,M.bodyH+34),pulse=1+.035*Math.sin(time*4);
+  if(kind==='violeta'){flame(g,M,time,w*pulse,h,['rgba(102,42,175,.17)','rgba(132,65,225,.25)','rgba(181,106,255,.22)','rgba(226,171,255,.88)']);orbit(g,cx,base,w*.71,5,0,'#b071f0',2);sparks(g,M,time,'#e2baff',19,34);for(let i=0;i<4;i++){const p=(time*.25+i*.23)%1,xx=cx+(i%2?1:-1)*(w*.72+Math.sin(p*7)*4),yy=base-p*h;poly(g,[[xx,yy-3],[xx+2,yy],[xx,yy+3],[xx-2,yy]],'#c49aff');}}
+  if(kind==='tormenta'){flame(g,M,time,w*.90,h,['rgba(20,72,148,.13)','rgba(28,139,217,.13)','rgba(82,207,255,.11)','rgba(173,249,255,.67)']);for(let side of [-1,1])for(let k=0;k<2;k++){const xx=cx+side*(w*.63+k*5),j=Math.sin(Math.floor(time*10)+k*3)*5,yy=base-6;const pts=[[xx-side*4,yy],[xx+side*3,yy-14],[xx-side*4+j,yy-27],[xx+side*7,yy-43],[xx-side*3,yy-59],[xx+side*5+j,yy-75],[xx-side*7,yy-h+8]];line(g,pts,'rgba(39,134,255,.38)',6);line(g,pts,'#80efff',2.5);line(g,pts,'#e2fdff',1);}orbit(g,cx,base,w*.8,5,0,'#5cbbfa',1.5,time,true);sparks(g,M,time,'#aaf6ff',9,39);}
+  if(kind==='solar'){flame(g,M,time,w*1.05,h,['rgba(209,67,16,.15)','rgba(255,137,30,.25)','rgba(255,220,91,.22)','rgba(255,239,160,.92)']);const yy=M.minY-10;orbit(g,cx,yy,13,13,0,'#ffd46b',2);for(let i=0;i<12;i++){const a=i/12*TAU+time*.23,r=17;line(g,[[cx+Math.cos(a)*r,yy+Math.sin(a)*r],[cx+Math.cos(a)*(r+4+(i%2)*3),yy+Math.sin(a)*(r+4+(i%2)*3)]],'#ffe397',1.5);}orbit(g,cx,base,w*.70,5,0,'#f7b246',2);sparks(g,M,time,'#fff2b5',21,37);}
+  if(kind==='astral'){const ry=Math.max(22,M.bodyH*.4),rx=Math.max(38,M.bodyW*.75+13);for(const [rot,col,a]of [[-.65,'#66dbed',0],[.65,'#b692fc',1],[0,'#83c4fc',2]]){orbit(g,cx,cy+2,rx,ry*.42,rot,col,2,time*.5+a);const p=time*(a%2?-1:1)+a*2,xx=cx+Math.cos(p)*rx*Math.cos(rot)-Math.sin(p)*ry*.42*Math.sin(rot),yy=cy+2+Math.cos(p)*rx*Math.sin(rot)+Math.sin(p)*ry*.42*Math.cos(rot);poly(g,[[xx,yy-4],[xx+4,yy],[xx,yy+4],[xx-4,yy]],a===1?'#dfbfff':'#a1f8ff');}for(let i=0;i<5;i++){const a=time*.14+i/5*TAU,xx=cx+Math.cos(a)*(rx+7),yy=cy+Math.sin(a)*(ry+12);star(g,xx,yy,'#c7dfff',2);}orbit(g,cx,base,26,6,0,'rgba(127,156,235,.6)',1.5);}
+  if(kind==='eclipse'){const yy=M.minY-10,r=17;g.fillStyle='rgba(59,35,103,.24)';g.beginPath();g.arc(cx,yy,r+5,0,TAU);g.fill();g.fillStyle='#a589eb';g.beginPath();g.arc(cx,yy,r,0,TAU);g.fill();g.fillStyle='#211730';g.beginPath();g.arc(cx+6,yy-4,r-2,0,TAU);g.fill();orbit(g,cx,cy,w,M.bodyH*.60,-.18,'#9b7ad5',1.5,time,true);for(let i=0;i<9;i++){const a=i/9*TAU+time*.24,xx=cx+Math.cos(a)*(w+2),yy=cy+Math.sin(a)*(M.bodyH*.65),q=3+(i%3);poly(g,[[xx-2,yy-q],[xx+q,yy],[xx,yy+q+2],[xx-3,yy+1]],i%2?'#8274bb':'#baa2ec');line(g,[[xx-1,yy-q+1],[xx+q-1,yy]],'#e7ccff',1);if(i%3===0)line(g,[[xx,yy+q+4],[xx+3,yy+q+7],[xx-1,yy+q+10]],'#7967b4');}sparks(g,M,time,'#c7a9ec',9,40);}
+  if(kind==='jardin'){const spread=Math.max(31,M.bodyW*.60+12);for(let i=0;i<7;i++){const a=Math.PI+i/6*Math.PI,xx=cx+Math.cos(a)*spread,yy=base+Math.sin(a)*12;poly(g,[[cx,base],[xx-8,yy-15],[xx,yy-26],[xx+8,yy-15]],'rgba(70,198,164,.22)');line(g,[[cx,base],[xx,yy-24],[xx+5,yy-13]],'#6fdab6',1.5);}for(let side of [-1,1]){const pts=[];for(let k=0;k<20;k++){const p=k/19;pts.push([cx+side*(spread+Math.sin(p*6+time)*5),base-p*(M.bodyH+13)]);}line(g,pts,'rgba(99,220,176,.65)',1.4);}for(let i=0;i<5;i++){const p=(time*.18+i*.19)%1,xx=cx+(i%2?1:-1)*(spread+Math.sin(time+i*3)*6),yy=base-p*(M.bodyH+28),flap=2+Math.floor(Math.sin(time*7+i)*2);poly(g,[[xx-1,yy],[xx-flap-3,yy-4],[xx-flap-4,yy+1],[xx-2,yy+3]],'#88e9da');poly(g,[[xx+1,yy],[xx+flap+3,yy-4],[xx+flap+4,yy+1],[xx+2,yy+3]],i%2?'#efb5ed':'#b8fbde');g.fillStyle='#f2f8db';g.fillRect(xx,yy-1,1,4);}sparks(g,M,time,'#bbffdf',12,31);}
+  x.drawImage(fx,0,0,W,H);
+ }
+ if(!opts.effectOnly)x.drawImage(sprite,PADX,PADY);
+ if(opts.contour){const a=sprite.getContext('2d').getImageData(0,0,96,96).data;x.fillStyle='#efffa0';for(let yy=1;yy<95;yy++)for(let xx=1;xx<95;xx++){const i=yy*96+xx;if(a[i*4+3]>128)continue;if([i-1,i+1,i-96,i+96].some(k=>a[k*4+3]>128))x.fillRect(PADX+xx,PADY+yy,1,1);}}
+ return c;
+ }
+ return {themes:THEMES,draw,maskOf,width:W,height:H,padX:PADX,padY:PADY,cache:CACHE};
+})();
+
+// Cosmetic auras live separately from P.auras, which already holds temporary combat buffs.
+const COS_AURAS={
+ violeta:{n:L2('Energía violeta','Violet energy'),d:L2('Llamas de energía, pulsos y chispas.','Energy flames, pulses and sparks.'),pr:25000},
+ tormenta:{n:L2('Tormenta celeste','Azure storm'),d:L2('Rayos vivos alrededor del cuerpo.','Living lightning around your body.'),pr:40000},
+ solar:{n:L2('Corona solar','Solar crown'),d:L2('Fuego dorado y una corona de luz.','Golden fire and a crown of light.'),pr:60000},
+ astral:{n:L2('Órbitas astrales','Astral orbits'),d:L2('Anillos cruzados, satélites y constelaciones.','Crossed rings, satellites and constellations.'),pr:80000},
+ eclipse:{n:L2('Eclipse fracturado','Fractured eclipse'),d:L2('Media luna y fragmentos dimensionales.','Crescent moon and dimensional fragments.'),pr:100000},
+ jardin:{n:L2('Jardín espectral','Spectral garden'),d:L2('Pétalos de luz y mariposas flotantes.','Light petals and floating butterflies.'),pr:50000}
+};
+const WDA={preview:null,active:null,capture:false,ids:new WeakMap(),nextId:0,frames:new Map(),effects:new Map(),scratch:mkCanvas(96,88),tick:-1,built:0};
+const WDA_BLIT=atlasBlit;
+const cosAuraValid=id=>typeof id==='string'&&Object.prototype.hasOwnProperty.call(COS_AURAS,id);
+function cosAuraState(P){
+ if(!P)return;const own=Array.isArray(P.cosAuraOwn)?P.cosAuraOwn:[];P.cosAuraOwn=[...new Set(own.filter(cosAuraValid))].slice(0,6);
+ if(!cosAuraValid(P.cosAura)||!P.cosAuraOwn.includes(P.cosAura))P.cosAura=null;
+}
+for(const key of ['cosAuraOwn','cosAura'])if(!SAVEKEYS.includes(key))SAVEKEYS.push(key);
+{const prev=initPlayerRuntime;initPlayerRuntime=function(P){cosAuraState(P);return prev.apply(this,arguments);};}
+function cosAuraEquip(id){const P=G.P;if(!P)return false;cosAuraState(P);if(id!==null&&(!cosAuraValid(id)||!P.cosAuraOwn.includes(id)))return false;P.cosAura=id;WDA.preview=id;uiDirty.hud=true;markDirty(true);netPresence(true);return true;}
+function cosAuraBuy(id){
+ const P=G.P,D=COS_AURAS[id];if(!P||!cosAuraValid(id))return false;cosAuraState(P);
+ if(!P.cosAuraOwn.includes(id)){if(!Number.isFinite(P.gold)||P.gold<D.pr){toast(L2('No tienes oro suficiente.','Not enough gold.'),'warn');return false;}
+  P.gold-=D.pr;P.cosAuraOwn.push(id);sfx('coin');toast(L2('Aura conseguida: ','Aura unlocked: ')+D.n,'quest');}
+ return cosAuraEquip(id);
+}
+// Bounded frame and effect caches. No aura is baked into a hero atlas or into a save.
+function cosAuraFrame(A,col,row){
+ if(!A||!A.img||!A.fw||!A.fh)return null;
+ const cols=Math.floor(A.img.width/A.fw);if(!Number.isInteger(col)||col<0||col>=cols||!Number.isInteger(row)||row<0||row>3)return null;
+ let id=WDA.ids.get(A);if(!id){id=++WDA.nextId;WDA.ids.set(A,id);}
+ let hd=HDS>1&&(A.hi||A.idolHD&&A.ready)?2:1;if(HDS>1&&A.hdL&&hdEnsure(A,col,row))hd=2;
+ const key=id+':'+col+':'+row+':'+hd;
+ if(WDA.frames.has(key)){const f=WDA.frames.get(key);WDA.frames.delete(key);WDA.frames.set(key,f);return f;}
+ let c;if(WDA.frames.size>=80){const k=WDA.frames.keys().next().value;c=WDA.frames.get(k).c;WDA.frames.delete(k);}else c=mkCanvas(96,96);
+ const x=c.getContext('2d');x.clearRect(0,0,96,96);x.imageSmoothingEnabled=false;
+ const scale=Math.min(1,96/(A.fw*2),96/(A.fh*2)),ox=(96-A.fw*2*scale)/2,oy=(96-A.fh*2*scale)/2;
+ WDA.capture=true;try{WDA_BLIT(x,A,col,row,ox,oy,A.fw*2*scale,A.fh*2*scale);}finally{WDA.capture=false;}
+ const out={c,key,scale,ox,oy};WDA.frames.set(key,out);return out;
+}
+function cosAuraEffect(frame,id,time,menu=false){
+ if(!frame||!cosAuraValid(id))return null;const hz=OPT.on?8:12,bucket=Math.floor(time*hz),key=frame.key+':'+id+':'+bucket;
+ if(WDA.effects.has(key)){const c=WDA.effects.get(key);WDA.effects.delete(key);WDA.effects.set(key,c);return c;}
+ if(!menu){if(WDA.tick!==G.frame){WDA.tick=G.frame;WDA.built=0;}if(WDA.built>=3&&WDA.active!==G.P)return null;WDA.built++;}
+ let target;if(WDA.effects.size>=24){const k=WDA.effects.keys().next().value;target=WDA.effects.get(k);WDA.effects.delete(k);}else target=mkCanvas(192,176);
+ const c=COS_AURA_FX.draw(frame.c,frame.key,id,bucket/hz,{target,fx:WDA.scratch,effectOnly:true});WDA.effects.set(key,c);return c;
+}
+function cosAuraWorld(c,A,col,row,x,y,w,h,e){
+ const id=e===G.P?G.P.cosAura:e.cosAura;if(!cosAuraValid(id)||e.dead||e.dying||e.invis)return;
+ const f=cosAuraFrame(A,col,row);if(!f)return;const fx=cosAuraEffect(f,id,G.t);if(!fx)return;
+ const sx=w/(A.fw*2*f.scale),sy=h/(A.fh*2*f.scale);
+ c.save();try{c.imageSmoothingEnabled=false;c.drawImage(fx,Math.round(x-(COS_AURA_FX.padX+f.ox)*sx),Math.round(y-(COS_AURA_FX.padY+f.oy)*sy),Math.round(192*sx),Math.round(176*sy));}finally{c.restore();}
+}
+{const prev=drawEnt;drawEnt=function(e){const old=WDA.active;WDA.active=e&&((e===G.P)||(e.type==='remote'))?e:null;try{return prev.apply(this,arguments);}finally{WDA.active=old;}};}
+{const prev=atlasBlit;atlasBlit=function(c,A,col,row,x,y,w,h){const e=WDA.active;if(!WDA.capture&&e&&A===e.atlas)cosAuraWorld(c,A,col,row,x,y,w,h,e);return prev.apply(this,arguments);};}
+// Every transport already uses extraPresence/extraRecv: LAN, WebRTC and internet rooms.
+{const prev=extraPresence;extraPresence=function(o){const r=prev.apply(this,arguments);if(G.P&&cosAuraValid(G.P.cosAura))o.cau=G.P.cosAura;return r;};}
+{const prev=extraRecv;extraRecv=function(r,pr){const v=prev.apply(this,arguments);r.cosAura=cosAuraValid(pr.cau)?pr.cau:null;return v;};}
+function cosAuraPaintPreview(cv,A,id,time,dir){
+ const anim=A.idx.walk===undefined?'idle':'walk',n=ANIMS[anim]?.[1]||1,col=A.idx[anim]+Math.floor(time*6)%n,row=DIRI[dir]||0,f=cosAuraFrame(A,col,row);if(!f)return;
+ const x=cv.getContext('2d');x.clearRect(0,0,cv.width,cv.height);x.imageSmoothingEnabled=false;
+ const fx=cosAuraEffect(f,id,time,true);if(fx)x.drawImage(fx,0,0,cv.width,cv.height);
+ x.drawImage(f.c,COS_AURA_FX.padX*cv.width/192,COS_AURA_FX.padY*cv.height/176,96*cv.width/192,96*cv.height/176);
+}
+{const prev=renderWardrobe;renderWardrobe=function(B){
+ const aura=wdMode==='aura';if(aura)wdMode='cos';let r;try{r=prev.apply(this,arguments);}finally{if(aura)wdMode='aura';}
+ const P=G.P;if(!P)return r;cosAuraState(P);const chips=B.querySelector('.wdL .chips');if(chips){const b=document.createElement('button');b.className='chip'+(aura?' on':'');b.dataset.waura='1';b.textContent='✦ '+L2('Auras','Auras');b.onclick=()=>{wdMode='aura';WDA.preview=P.cosAura;sfx('ui');renderPanel();};chips.appendChild(b);if(aura)chips.querySelectorAll('[data-wm],[data-wt],[data-wfa]').forEach(el=>el.classList.remove('on'));}
+ const cv=B.querySelector('#wdPrev');if(cv&&(aura||P.cosAura)){cv.width=192;cv.height=176;cv.classList.add('cosAuraPreview');}
+ if(!aura)return r;const R=B.querySelector('.wdR'),hint=B.querySelector('.wdL .hint');if(hint)hint.textContent=L2('Prueba las auras, cómpralas con tu oro y equípalas cuando quieras. Son solo cosméticas y se ven en el online.','Preview auras, buy them with your gold and equip them any time. They are cosmetic only and visible online.');
+ R.innerHTML=`<div class="caHead"><h3>✦ ${L2('Auras','Auras')} <small>${P.cosAuraOwn.length}/6</small></h3><span>${iconHTML(['coin'],18)} <b>${fmt(P.gold)}</b> ${L2('oro','gold')}</span><button class="btn sm" id="caNone">${L2('Quitar aura','Remove aura')}</button></div><p class="hint">${L2('«Ver» permite probar un aura sin gastar oro. Cada compra es permanente para este personaje.','Preview lets you try an aura without spending gold. Each purchase is permanent for this character.')}</p><div class="caGrid">${Object.entries(COS_AURAS).map(([id,D])=>{const own=P.cosAuraOwn.includes(id),on=P.cosAura===id;return `<article class="caCard ${on?'equipped':''}"><h4>${esc(D.n)}</h4><canvas width="192" height="176" data-cac="${id}" aria-label="${esc(D.n)}"></canvas><p>${esc(D.d)}</p><small>${own?L2('En tu colección','In your collection'):fmt(D.pr)+' '+L2('oro','gold')}</small><div class="row"><button class="btn sm" data-cap="${id}">${L2('Ver','Preview')}</button><button class="btn gold sm" data-cab="${id}" ${on?'disabled':''}>${on?L2('Equipada ✓','Equipped ✓'):own?L2('Equipar','Equip'):L2('Comprar y equipar','Buy and equip')}</button></div></article>`;}).join('')}</div><p id="caStatus" class="hint">${WDA.preview&&WDA.preview!==P.cosAura?L2('Vista previa: ','Preview: ')+esc(COS_AURAS[WDA.preview]?.n||''):P.cosAura?L2('Equipada: ','Equipped: ')+esc(COS_AURAS[P.cosAura].n):L2('No llevas aura.','No aura equipped.')}</p>`;
+ R.querySelectorAll('[data-cap]').forEach(b=>b.onclick=()=>{WDA.preview=b.dataset.cap;sfx('ui');const st=R.querySelector('#caStatus');st.textContent=L2('Vista previa: ','Preview: ')+COS_AURAS[WDA.preview].n;});
+ R.querySelectorAll('[data-cab]').forEach(b=>b.onclick=()=>{if(cosAuraBuy(b.dataset.cab))renderPanel();});R.querySelector('#caNone').onclick=()=>{cosAuraEquip(null);renderPanel();};return r;
+};}
+{const prev=drawWardrobePreview;drawWardrobePreview=function(dt){
+ const P=G.P,cv=$('#wdPrev');if(!P||!cv||$('#panel').hidden||panelTab!=='wardrobe'||!P.atlas)return prev.apply(this,arguments);
+ if(wdMode!=='aura'&&!P.cosAura)return prev.apply(this,arguments);wdPrevT+=dt;const frame=Math.floor(wdPrevT*12);if(cv._caTick===frame)return;cv._caTick=frame;
+ const id=wdMode==='aura'?WDA.preview:P.cosAura,dir=[0,1,3,2][wdDir];cosAuraPaintPreview(cv,P.atlas,id,wdPrevT,DIRS[dir]);
+ if(wdMode==='aura')$$('[data-cac]',$('#pbody')).forEach(c=>cosAuraPaintPreview(c,P.atlas,c.dataset.cac,wdPrevT,'down'));
+};}
+if(typeof GSIS!=='undefined')GSIS.unshift(['cos_auras','✦ '+L2('Auras cosméticas','Cosmetic auras'),()=>[
+ L2('Armario › Auras: seis efectos de energía, oro como moneda y colección permanente por personaje. Usa «Ver» para probar sin pagar.','Wardrobe › Auras: six energy effects, bought with gold and permanently collected per character. Use Preview to try without paying.'),
+ ...Object.values(COS_AURAS).map(D=>D.n+': '+fmt(D.pr)+' '+L2('oro','gold')+'.'),
+ L2('Se adaptan a las cinco estructuras femeninas y cinco masculinas y al fotograma final del pelo y la ropa. Puedes equipar una o quitarla. No cambian tus estadísticas; se ven en multijugador.','They adapt to all five female and five male bodies and the final hair and clothing frame. Equip one or remove it. No stat changes; visible in multiplayer.')],()=>null]);
+{const st=document.createElement('style');st.textContent='.caHead{display:flex;gap:.6em;align-items:center;flex-wrap:wrap}.caHead h3{margin:.2em 0;flex:1}.caGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6em}.caCard{border:1px solid #886740;border-radius:.55em;background:rgba(16,11,24,.65);padding:.6em;min-width:0}.caCard.equipped{border:2px solid #f4cc76}.caCard h4{margin:0;font-size:1em}.caCard canvas{display:block;width:100%;height:auto;image-rendering:pixelated}.caCard p{font-size:.8em;min-height:2.6em;margin:.3em 0}.caCard small{display:block;color:#ebca86;margin:.3em 0}.caCard .row{display:flex;gap:.3em;flex-wrap:wrap}.caCard .btn{white-space:normal;font-size:.75em;padding:.3em .55em}.wdL #wdPrev.cosAuraPreview{width:min(100%,13em);height:auto;aspect-ratio:12/11}@media(max-width:900px){.caGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:470px){.caGrid{grid-template-columns:1fr}.caCard canvas{max-width:12em;margin:auto}}';document.head.appendChild(st);}
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;
