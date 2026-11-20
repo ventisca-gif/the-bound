@@ -121,6 +121,9 @@ Versión actual: **5.58 (build 179)** · mejoras de comodidad (ver § 5.58); ant
 
 ## Pendiente o ideas que dejó abiertas
 
+- **Ideas propuestas aún sin hacer (5.56-5.58):** oficios (bombero, veterinario, apicultor, carpintero, relojero, zapatero, cervecero, alfarero, fontanero, electricista, pizzero, heladero, deshollinador, titiritero, escultor, tatuador, cartógrafo, espía, archivero, socorrista, piloto de globo, criador de dragones); constelaciones del héroe, ecos de jugadores, cápsula del tiempo, laberinto que cambia, pesadillas, cartas del Telar, adivina del Velo, estrellas fugaces, espejo de otros caminos, radio de Albor; barco pirata compartido, trineos, mercado nocturno, búsqueda de huevos, mapa del tesoro compartido, defensa del pueblo, tiro con arco, casa compartida entre jugadores; isla misteriosa, castillo de Vael restaurado, Turquía o Brasil. **La favorita para la próxima: «Diario del héroe»** (un libro que se escribe solo con tus hazañas reales: primer jefe, boda, hijos, formas, récords; con fechas y capturas dibujadas con el motor, y se puede enseñar a amigos online).
+- **Pendiente:** desbloquear el Despertar Dorado (nivel, misión, fuerza, online `sf` 2-3) y la fase 4; versión Play Store cuando Sergio lo pida.
+
 
 - El top mundial depende de las reglas de Firebase (`docs/firebase_rules.json`) pegadas en la consola del proyecto `the-bound-3afef`.
 - Los jefes no se reflejan desde el líder (cada uno ve su jefe con sus mecánicas); se comparten el daño (`o.bd`) y las partes vulnerables.
