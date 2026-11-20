@@ -50,7 +50,7 @@ function openMastery(job) {
 DLG_HOOKS.push((npc, opts) => { for (const job in MAST) if (MAST[job].npc === npc.id) opts.unshift({ label: 'Entrenamiento de maestría', icon: ['star', '#ffd040'], fn: () => { closeDialog(); openMastery(job); } }); });
 { const _g = gainJobXp; gainJobXp = function (job, n) {
   const P = G.P, J = P.jobs[job], rk = mastRank(job); if (rk) n = Math.round(n * (1 + 0.15 * rk)); if (!J || J.lv < JOBMAX) return _g(job, n);
-  const cap = JOBMAX + 10 * rk; if (J.lv >= cap) return; J.xp += n; floatText(P.x + 10, P.y - 46, '+' + n + ' ' + JOBS[job].n, '#9ae0ff');
+  const cap = JOBMAX + 10 * rk + (typeof JOB_EXT !== 'undefined' && JOB_EXT[job] || 0); if (J.lv >= cap) return; J.xp += n; floatText(P.x + 10, P.y - 46, '+' + n + ' ' + JOBS[job].n, '#9ae0ff');
   while (J.lv < cap && J.xp >= jobXpToNext(J.lv)) { J.xp -= jobXpToNext(J.lv); J.lv++; toast(JOBS[job].n + ' sube a nivel ' + J.lv, 'job'); sfx('level'); }
   if (typeof passEvent === 'function') passEvent('job', job); }; }
 let mastFarm = false;

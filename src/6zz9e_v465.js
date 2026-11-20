@@ -18,14 +18,14 @@ wmNeed = function (lv) { return Math.round(8 * Math.pow(lv, 1.3)); };
     return r; }; }
 
 // ---------- espera de pociones curativas ----------
-const POT_CD = 8;
+const POT_CD = 30; // 5.64: 30 s (Sergio)
 { const _ui = useItem; useItem = function (idx) { const P = G.P, s = P && P.inv[idx], it = s && ITEMS[s.id];
     if (it && it.t === 'cons' && (it.heal || (it.p && it.k === 'heal'))) {
       const left = (P.healCd || 0) - G.t; if (left > 0) { toast(L2('Poción curativa en espera: ', 'Healing potion cooling down: ') + Math.ceil(left) + ' s', 'warn', 1.2); return; }
       const r = _ui.apply(this, arguments); P.healCd = G.t + POT_CD; return r; }
     return _ui.apply(this, arguments); }; }
 if (!document.getElementById('potCss')) { const st = document.createElement('style'); st.id = 'potCss'; st.textContent = '#hbPot{position:relative}#hbPot .pcd{position:absolute;inset:0;border-radius:inherit;background:conic-gradient(rgba(0,0,0,.65) var(--a),transparent 0);display:flex;align-items:center;justify-content:center;color:#fff;font:bold 1em Verdana,sans-serif;text-shadow:0 1px 0 #000;pointer-events:none}'; document.head.appendChild(st); }
-V33_TICKS.push(() => { const b = $('#hbPot'), P = G.P; if (!b || !P) return; let o = b.querySelector('.pcd'); const left = (P.healCd || 0) - G.t;
+V33_TICKS.push(() => { const b = $('#hbPot'), P = G.P; if (!b || !P || typeof HB2 !== 'undefined') return; let o = b.querySelector('.pcd'); const left = (P.healCd || 0) - G.t;
   if (left <= 0) { if (o) o.remove(); return; } if (!o) { o = document.createElement('span'); o.className = 'pcd'; b.appendChild(o); }
   o.style.setProperty('--a', Math.round(left / POT_CD * 360) + 'deg'); const t = String(Math.ceil(left)); if (o.textContent !== t) o.textContent = t; });
 

@@ -91,7 +91,7 @@ function itemUses(id) {
     if (it.anc) push('✨ ' + L2('Arma ancestral: despierta restaurando su estela, hablando con quien conoció a su portador y venciendo a su creador.', 'Ancestral weapon: it awakens by restoring its stele, talking to someone who knew its bearer and defeating its maker.'));
     push('👨‍👩‍👧 ' + L2('También puedes dárselo a tus hijos o a tu pareja si tienen el nivel.', 'You can also give it to your kids or partner if they have the level.'));
   }
-  if (it.t === 'tool') push('⛏ ' + L2('Herramienta de ', 'Tool for ') + usoJob(it.tool) + ' (' + L2('potencia ', 'power ') + it.power + '): ' + L2('más potencia = recursos de más nivel y más rápido. Llévala en la mochila: se usa sola.', 'more power = higher-level resources, faster. Keep it in your bag: it is used automatically.'));
+  if (it.t === 'tool') push('⛏ ' + L2('Herramienta de ', 'Tool for ') + usoJob(it.tool) + ' (' + L2('potencia ', 'power ') + it.power + '): ' + L2('más potencia = recursos de más nivel y más rápido. Equípala en el inventario y úsala con su casilla de la barra de abajo (🪓 hacha, ⛏ pico, 🎣 caña).', 'more power = higher-level resources, faster. Equip it in the bag and use it with its slot on the bottom bar (🪓 axe, ⛏ pick, 🎣 rod).'));
   if (it.t === 'cos') push('👗 ' + L2('Úsalo para guardarlo en tu armario y ponértelo cuando quieras (se ve en el online).', 'Use it to store it in your wardrobe and wear it any time (visible online).'));
   if (it.t === 'cons') {
     if (it.d) push('✨ ' + it.d);

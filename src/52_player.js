@@ -87,6 +87,8 @@ function equipFromInv(idx) {
 function unequip(slot) { const P = G.P; const e = P.equip[slot]; if (!e) return; if (P.inv.length >= INV_MAX) { toast('Inventario lleno', 'warn'); return; } P.inv.push(e); P.equip[slot] = null; calcStats(P); P.atlas = playerAtlas(P); uiDirty.inv = uiDirty.hud = true; }
 function autoEquipHint(id) { const it = ITEMS[id], P = G.P; if (canEquip(id)) return; const cur = P.equip[it.slot]; const score = x => x ? (ITEMS[x.id].atk || 0) * 2 + (ITEMS[x.id].def || 0) * 2 + (ITEMS[x.id].hpB || 0) * 0.2 : -1; if (score({ id }) > score(cur)) toast('Nuevo equipo mejor: ' + it.n + ' (Inventario)', 'info'); }
 function missingTools() { return [['hacha1', 'tala'], ['cana1', 'pesca'], ['pico1', 'mineria']].filter(([, j]) => !bestTool(j)).map(([id]) => id); }
+// herramienta necesaria por nivel de recurso (5.64: los niveles 12-18 piden las herramientas nuevas)
+function toolNeed(job, t) { return t >= 12 ? t - (job === 'pesca' ? 4 : 5) : Math.ceil(t / 2); }
 function bestTool(job) { let best = 0; for (const s of G.P.inv) { const it = ITEMS[s.id]; if (it.t === 'tool' && it.tool === job) best = Math.max(best, it.power); } return best; }
 function useItem(idx) {
   const P = G.P, s = P.inv[idx]; if (!s) return; const it = ITEMS[s.id];
@@ -98,7 +100,7 @@ function useItem(idx) {
   if (it.cure) { P.poison = 0; P.burn = 0; }
   if (it.food) addBuff(P, 'food', { food: it.food }, 180), toast('Bien alimentado: +' + it.food + '% ataque (3 min)');
   if (it.xpB) { P.xpBT = Math.max(P.xpBT || 0, 0) + it.dur; toast('Sabiduría: +' + it.xpB + '% experiencia (' + Math.round(P.xpBT / 60) + ' min)', 'quest'); }
-  if (it.tonic) { addBuff(P, id, Object.assign({}, it.tonic), it.dur); toast(it.n + ': activo ' + Math.round(it.dur / 60) + ' min', 'quest'); }
+  if (it.tonic) { addBuff(P, s.id, Object.assign({}, it.tonic), it.dur); toast(it.n + ': activo ' + Math.round(it.dur / 60) + ' min', 'quest'); }
   sfx('potion'); s.q--; if (s.q <= 0) P.inv.splice(idx, 1); uiDirty.inv = uiDirty.hud = true;
 }
 function quickPotion() { const P = G.P; let id = P.potion; if (!countItem(id)) { const opts = ['pocion5', 'pocion4', 'pocion3', 'pocion2', 'pocion1', 'elixir'].filter(x => countItem(x) && (ITEMS[x].lv || 1) <= P.lv); id = opts[0]; } if (!id) { toast('No tienes pociones', 'warn'); return; } const idx = P.inv.findIndex(s => s.id === id); if (P.potCd > 0) return; P.potCd = 1; useItem(idx); }
@@ -272,7 +274,7 @@ function doInteract() {
   if (it.kind === 'furn' && (it.o.f === 'bed' || it.o.f === 'bigbed')) { if (G.map.home && isHome(G.map.id)) sleepHome(); else toast('Descansa en la posada hablando con el posadero', 'info'); return; }
   if (it.kind === 'furn' && FURN_ACT[it.o.f]) { FURN_ACT[it.o.f][2](); return; }
   if (it.kind === 'tree' || it.kind === 'ore') {
-    const job = it.kind === 'tree' ? 'tala' : 'mineria', tier = it.kind === 'tree' ? WOODT[it.o.sp] : it.o.tier, need = RESLV[tier], tool = bestTool(job), needTool = Math.ceil(tier / 2);
+    const job = it.kind === 'tree' ? 'tala' : 'mineria', tier = it.kind === 'tree' ? WOODT[it.o.sp] : it.o.tier, need = RESLV[tier], tool = bestTool(job), needTool = toolNeed(job, tier);
     if (!tool) { toast((it.kind === 'tree' ? 'Necesitas un hacha' : 'Necesitas un pico') + ': pídesela gratis a la Anciana Mira o cómprala en la tienda', 'warn'); tip('tools'); return; }
     if (P.jobs[job].lv < need) { toast('Requiere ' + JOBS[job].n + ' nivel ' + need, 'warn'); return; }
     if (tool < needTool) { toast('Necesitas una herramienta mejor (nivel ' + needTool + ')', 'warn'); return; }
@@ -302,7 +304,7 @@ function respawnResources(M) { for (const o of M.objs) { if (o.respawn && G.t > 
 // ---------- fishing ----------
 function habitatAt(tx, ty) { const W = G.world, i = W.I(tx, ty); const rk = REGIONS[W.reg[i]].k; if (rk === 'nhar') return 'nhar'; if (rk === 'desierto') return 'oasis'; if (rk === 'selva' || rk === 'cristal' || rk === 'eclipse') return rk; if (rk === 'picos') return 'hielo'; if (rk === 'pantano') return 'pantano'; if (rk === 'mar' || W.ter[i] === T.DEEP) return 'mar'; if (W.riverMask[i]) return 'rio'; return 'lago'; }
 function startFishing(tx, ty) { const P = G.P; P.dir = dirFromVec(tx * 16 + 8 - P.x, ty * 16 + 8 - P.y); P.fishing = { state: 'wait', t: (2 + Math.random() * 4) * (perk('pesca', 20) ? 0.65 : 1) * (petHas('fish') ? 0.7 : 1), bob: { x: tx * 16 + 8, y: ty * 16 + 8 }, hab: habitatAt(tx, ty) }; setAnim(P, 'fish'); P.loopAnim = false; sfx('cast'); burst(tx * 16 + 8, ty * 16 + 8, 6, { sp: 20, up: 20, g: 80, life: 0.4, c: '#d8f4ff' }); }
-function pickFish(hab) { const P = G.P, lv = P.jobs.pesca.lv, rod = bestTool('pesca'); const pool = FISH.filter(f => f[3].includes(hab) && RESLV[f[2]] <= lv && Math.ceil(f[2] / 2) <= rod); if (!pool.length) { const any = FISH.filter(f => f[3].includes(hab)).sort((a, b) => a[2] - b[2])[0]; return any ? any : FISH[0]; } const maxT = Math.max(...pool.map(f => f[2])); const ws = pool.map(f => ({ f, w: f[2] === maxT ? 1 : f[2] === 7 ? 0.2 : 2 })); return choiceW(new RNG((Math.random() * 1e9) | 0), ws).f; }
+function pickFish(hab) { const P = G.P, lv = P.jobs.pesca.lv, rod = bestTool('pesca'); const pool = FISH.filter(f => f[3].includes(hab) && RESLV[f[2]] <= lv && toolNeed('pesca', f[2]) <= rod); if (!pool.length) { const any = FISH.filter(f => f[3].includes(hab)).sort((a, b) => a[2] - b[2])[0]; return any ? any : FISH[0]; } const maxT = Math.max(...pool.map(f => f[2])); const ws = pool.map(f => ({ f, w: f[2] === maxT ? 1 : f[2] === 7 ? 0.2 : 2 })); return choiceW(new RNG((Math.random() * 1e9) | 0), ws).f; }
 function updateFishing(dt) {
   const P = G.P, F = P.fishing; if (!F) return;
   if (F.state === 'wait') { F.t -= dt; if (F.t <= 0) { F.state = 'bite'; F.t = 1.3; F.fish = pickFish(F.hab); sfx('bite'); vibrate(40); burst(F.bob.x, F.bob.y, 8, { sp: 30, up: 20, g: 80, life: 0.4, c: '#ffffff' }); } }
