@@ -1,22 +1,20 @@
 {
- "build": 183,
- "ver": "5.62",
+ "build": 184,
+ "ver": "5.63",
  "date": "2026-11-20",
  "file": "thebound.html",
- "size": 26833666,
- "sha256": "b71a8b20f9560423d37831826956ef5078bbcf4087786a61139a77c870a08272",
+ "size": 26847110,
+ "sha256": "c47adba3b833411e7e68c73d461417f81e81d19a405ab99afdb39f9735c74c70",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "⚓ Dawn / Villa Foosha: mapa de 720 × 360, pasto suave, molinos, Partys Bar, palmeras y tripulación de Shanks con cuerpos y animaciones nativas.",
-   "🔒 La Capitana Marina de Puerto Coral explica el futuro requisito de una fruta del diablo. Viaje todavía cerrado: no cobra oro ni consume objetos.",
-   "⚔ Piratas pendencieros de nivel 500 fuera del pueblo, con vida, EXP, oro y furia del equilibrio existente. Nivel máximo: 500. Escenario preparado para Romance Dawn; el capítulo completo llegará después."
+   "💃 Armario › Bailes: diez bailes nuevos con vista previa gratuita y compra permanente con el oro existente.",
+   "🎭 Se usan en el botón de gestos y bailes de siempre. Animación de 32 cuadros, diez cuerpos y cuatro direcciones; se ven online y conservan tu pelo, ropa y aura."
   ],
   "en": [
-   "⚓ Dawn / Foosha Village: 720 × 360 map, soft grass, windmills, Partys Bar, coastal palms and Shanks’s crew with native bodies and animation.",
-   "🔒 Captain Marina in Puerto Coral explains the future Devil Fruit requirement. Voyage still closed: no gold charged or items consumed.",
-   "⚔ Level-500 brawling pirates outside the village, using existing health, XP, gold and fury balance. Level cap: 500. Romance Dawn setting prepared; the full chapter comes later."
+   "💃 Wardrobe › Dances: ten new dances with free preview and permanent purchases using existing gold.",
+   "🎭 Use the existing gestures and dances button. 32-frame animation, ten bodies and four directions; visible online, preserving your hair, clothing and aura."
   ]
  }
 }
