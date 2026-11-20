@@ -1,20 +1,22 @@
 {
- "build": 182,
- "ver": "5.61",
+ "build": 183,
+ "ver": "5.62",
  "date": "2026-11-20",
  "file": "thebound.html",
- "size": 24728769,
- "sha256": "563fa74d6b2f37e24dbf6a0bf8d054184419b6aa15d12203ae6ec9685915183b",
+ "size": 26833666,
+ "sha256": "b71a8b20f9560423d37831826956ef5078bbcf4087786a61139a77c870a08272",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "✦ Armario › Auras: seis auras de energía grandes. Prueba gratis, compra con oro, equipa o quita; colección permanente por personaje.",
-   "🎨 Adaptadas al motor original, las cinco estructuras femeninas y cinco masculinas, los peinados y las cuatro direcciones. Visibles en multijugador; sin cambiar estadísticas."
+   "⚓ Dawn / Villa Foosha: mapa de 720 × 360, pasto suave, molinos, Partys Bar, palmeras y tripulación de Shanks con cuerpos y animaciones nativas.",
+   "🔒 La Capitana Marina de Puerto Coral explica el futuro requisito de una fruta del diablo. Viaje todavía cerrado: no cobra oro ni consume objetos.",
+   "⚔ Piratas pendencieros de nivel 500 fuera del pueblo, con vida, EXP, oro y furia del equilibrio existente. Nivel máximo: 500. Escenario preparado para Romance Dawn; el capítulo completo llegará después."
   ],
   "en": [
-   "✦ Wardrobe › Auras: six large energy auras. Preview for free, buy with gold, equip or remove; permanent collection per character.",
-   "🎨 Fitted to the original engine, all five female and five male bodies, hairstyles and four directions. Visible in multiplayer; no stat changes."
+   "⚓ Dawn / Foosha Village: 720 × 360 map, soft grass, windmills, Partys Bar, coastal palms and Shanks’s crew with native bodies and animation.",
+   "🔒 Captain Marina in Puerto Coral explains the future Devil Fruit requirement. Voyage still closed: no gold charged or items consumed.",
+   "⚔ Level-500 brawling pirates outside the village, using existing health, XP, gold and fury balance. Level cap: 500. Romance Dawn setting prepared; the full chapter comes later."
   ]
  }
 }
