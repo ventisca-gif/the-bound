@@ -186,6 +186,20 @@ function drawHero(p, L, dir, anim, f) {
   const sleeve = TOP.k === 'vest' ? CLOTH.blanco : (TOP.k === 'swim' || TOP.k === 'warpaint') ? [SK[0], SK[0], SK[1], SK[2], SK[3]] : TOP.m, handC = plateArm ? TOP.m[3] : SK[2];
   const shortSleeve = TOP.k === 'tunic' || TOP.k === 'dress' || TOP.k === 'hawaii' || TOP.k === 'swim';
   const drawArm = (sx, sy, dx, dy, back) => { TG(3);
+
+    if(ps.danceJoints){
+      const aw=B.aw,alen=B.al*1.08,tx=sx+dx,ty=sy+B.al+dy;
+      let vx=tx-sx,vy=ty-sy,dd=Math.hypot(vx,vy)||1;
+      const reach=Math.min(alen*.985,Math.max(1.4,dd));vx=vx/dd*reach;vy=vy/dd*reach;dd=reach;
+      const hx2=sx+vx,hy2=sy+vy,half=alen*.5,lift=Math.sqrt(Math.max(0,half*half-dd*dd*.25));
+      const bend=(sx<cx?(ps.elbowL||-1):(ps.elbowR||1))*(side&&back?-1:1),ex=sx+vx*.5-vy/dd*lift*bend,ey=sy+vy*.5+vx/dd*lift*bend;
+      const seg=(x0,y0,x1,y1,fore)=>{const n=Math.max(1,Math.ceil(Math.hypot(x1-x0,y1-y0)));for(let i=0;i<aw;i++)for(let j=0;j<=n;j++){const t=j/n,x=Math.round(lerp(x0,x1,t))+i,y=Math.round(lerp(y0,y1,t)),pal=shortSleeve&&(fore||t>.8)?SK:sleeve;p.set(x,y,back?pal[1]:pal[i===0?3:2]);}};
+      seg(sx,sy,ex,ey,false);seg(ex,ey,hx2,hy2-1,true);
+      if(TOP.cuff&&!shortSleeve)p.rect(Math.round(hx2),Math.round(hy2)-2,aw,1,TOP.cuff[back?1:3]);
+      p.rect(Math.round(hx2),Math.round(hy2)-1,aw,2,back?uMul(handC,.75):handC);
+      return [hx2+aw/2,hy2];
+    }
+
     const hx2 = sx + dx, hy2 = sy + B.al + dy, aw = B.aw;
     for (let k = 0; k < aw; k++) { const x0 = sx + k, y0 = sy, x1 = hx2 + k, y1 = hy2 - 1; const n = Math.max(1, Math.ceil(Math.hypot(x1 - x0, y1 - y0))); for (let s = 0; s <= n; s++) { const t = s / n, x = Math.round(lerp(x0, x1, t)), y = Math.round(lerp(y0, y1, t)); const P = shortSleeve && t > 0.4 ? SK : (TOP.band && y >= torsoTop + Math.max(3, Math.round(th * 0.5)) && y <= torsoTop + Math.max(3, Math.round(th * 0.5)) + 1 ? TOP.band : sleeve); p.set(x, y, back ? P[1] : P[k === 0 ? 3 : 2]); } }
     if (robeArm && !back) p.rect(Math.round(hx2) - 1, Math.round(hy2) - 2, aw + 1, 1, TOP.m[3]);
