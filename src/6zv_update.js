@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.54', GAME_BUILD = 175;
+const GAME_VER = '5.55', GAME_BUILD = 176;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,41 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.55",
+  "b": 176,
+  "d": "2026-11-20",
+  "es": [
+   "🌐 Modos online reunidos en ▦ Atajos › 🌐 en tres grupos (Competir, Juntos, Visitar y escribir), con todos los modos nuevos.",
+   "🏳 Conquista de territorios: un estandarte en cada pueblo. Sábados y domingos los gremios lo asaltan (60 s junto al estandarte contra 4 oleadas). El gremio con más puntos es el dueño la semana siguiente: su bandera sale en el mapa y sus miembros cobran el impuesto del mercado cada día.",
+   "🐫 Caravanas online: la caravana que escoltas se ve en el online y los jugadores en modo bandido 🏴 pueden asaltarla con ⚔ (si la vacían, se llevan el botín). Los escoltas pueden golpear a los bandidos.",
+   "🏮 Festival en vivo cada sábado a las 20:00 de Lima en Asakusa (Japón): torre yagura, gente bailando en corro, fuegos artificiales, Bon Odori con el taiko y concurso de disfraces votado por los jugadores.",
+   "🍜 Restaurante compartido en Aldea Albor: ábrelo con hasta 2 socios online, cocina en los fogones y sirve en las mesas; sube a nivel 5 con más mesas y decoración. En equipo, más rápido y +50 % de propinas.",
+   "📬 Correo con regalos: cartas, oro y objetos a quien hayas visto online o a tu gremio, aunque no esté conectado. Las trae el Cartero del cielo volando.",
+   "🎟 Apuestas en el Coliseo: apuesta Fichas del Coliseo por un jugador que pelea en PvP; si derriba a otro ganas el doble. Mientras apuestas eres espectador.",
+   "🐾 Cazar a la presa: un jugador se convierte en la Bestia del Telar y los demás (hasta 8) la cazan con ⚔ durante 150 s.",
+   "🚢 Oficio nuevo: Pescador de altura (Capitán Orza, Puerto Coral). Barco con el joystick, red para los bancos de peces y pulso con peces gigantes. 8 peces nuevos.",
+   "⛏ Oficio nuevo: Arqueólogo en Chan Chan (Trujillo) y Chichén Itzá (México): pala, pincel y mesa de restauración. 8 piezas para tu museo, que los jugadores online pueden visitar.",
+   "🔎 Misterio en el tren nocturno: en el tren bala de noche, busca 3 pistas, interroga a 4 pasajeros y acusa al culpable.",
+   "🌸 Estaciones del año: cada estación trae un pez de temporada, un plato y un accesorio (orejeras, sombrilla wagasa, máscara de zorro, orejas de tanuki) en el puesto de Tsubaki, y su paisaje en Japón.",
+   "🔎 Lupa › Sistemas: una entrada para cada novedad."
+  ],
+  "en": [
+   "🌐 Online modes gathered in ▦ Shortcuts › 🌐 in three groups (Compete, Together, Visit and write), with all the new modes.",
+   "🏳 Territory conquest: a banner in every town. On Saturdays and Sundays guilds assault it (60 s by the banner against 4 waves). The guild with the most points owns it the following week: its flag shows on the map and its members collect the market tax every day.",
+   "🐫 Online caravans: the caravan you escort shows online and players in bandit mode 🏴 can raid it with ⚔ (if they empty it, they take the loot). Escorts can hit the bandits.",
+   "🏮 Live festival every Saturday at 20:00 Lima time in Asakusa (Japan): yagura tower, people dancing in a ring, fireworks, Bon Odori with the taiko and a costume contest voted by the players.",
+   "🍜 Shared restaurant in Albor Village: open it with up to 2 online partners, cook at the stoves and serve at the tables; it reaches level 5 with more tables and decoration. As a team, faster and +50% tips.",
+   "📬 Mail with gifts: letters, gold and items to anyone you have seen online or to your guild, even if they are offline. The Sky Courier flies them over.",
+   "🎟 Coliseum bets: bet Coliseum tokens on a player fighting in PvP; if they down another you win double. While betting you are a spectator.",
+   "🐾 Hunt the prey: one player becomes the Loom Beast and the others (up to 8) hunt it with ⚔ for 150 s.",
+   "🚢 New job: Deep-sea fisher (Captain Orza, Puerto Coral). Boat with the joystick, net for the schools of fish and a tug-of-war with giant fish. 8 new fish.",
+   "⛏ New job: Archaeologist at Chan Chan (Trujillo) and Chichén Itzá (Mexico): shovel, brush and restoration table. 8 pieces for your museum, which online players can visit.",
+   "🔎 Night train mystery: on the bullet train at night, find 3 clues, question 4 passengers and accuse the culprit.",
+   "🌸 Seasons of the year: each season brings a seasonal fish, a dish and an accessory (earmuffs, wagasa parasol, fox mask, tanuki ears) at Tsubaki's stall, and its landscape in Japan.",
+   "🔎 Magnifier › Systems: one entry for each new feature."
+  ]
+ },
  {
   "v": "5.54",
   "b": 175,

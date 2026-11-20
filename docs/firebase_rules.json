@@ -254,6 +254,110 @@
             }
           }
         }
+      },
+      "tr": {
+        "$w": {
+          "$z": {
+            ".indexOn": [
+              "p"
+            ],
+            "$cid": {
+              ".write": "$cid.length <= 32",
+              ".validate": "newData.hasChildren(['n', 'p'])",
+              "n": {
+                ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 20"
+              },
+              "tg": {
+                ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 4"
+              },
+              "ic": {
+                ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 4"
+              },
+              "p": {
+                ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100000000"
+              },
+              "t": {
+                ".validate": "newData.val() == now"
+              },
+              "$other": {
+                ".validate": false
+              }
+            }
+          }
+        }
+      },
+      "fe": {
+        "$f": {
+          "$pid": {
+            ".write": "$pid.length <= 48 && !data.exists()",
+            ".validate": "newData.hasChildren(['n', 'v'])",
+            "n": {
+              ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 20"
+            },
+            "v": {
+              ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 20"
+            },
+            "t": {
+              ".validate": "newData.val() == now"
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        }
+      },
+      "rs": {
+        "$oid": {
+          ".write": "$oid.length <= 48",
+          ".validate": "newData.hasChildren(['n', 'xp'])",
+          "n": {
+            ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 20"
+          },
+          "xp": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000000"
+          },
+          "m": {
+            "$pid": {
+              ".validate": "$pid.length <= 48 && newData.isString() && newData.val().length <= 20"
+            }
+          },
+          "t": {
+            ".validate": "newData.val() == now"
+          },
+          "$other": {
+            ".validate": false
+          }
+        }
+      }
+    },
+    "ml": {
+      "$to": {
+        ".read": true,
+        "$mid": {
+          ".write": "$to.length <= 48 && $mid.length <= 24 && (!data.exists() || !newData.exists())",
+          ".validate": "newData.hasChildren(['f'])",
+          "f": {
+            ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 20"
+          },
+          "x": {
+            ".validate": "newData.isString() && newData.val().length <= 120"
+          },
+          "g": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 10000000"
+          },
+          "i": {
+            ".validate": "newData.isString() && newData.val().length <= 48"
+          },
+          "q": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 9999"
+          },
+          "t": {
+            ".validate": "newData.val() == now"
+          },
+          "$other": {
+            ".validate": false
+          }
+        }
       }
     }
   }
