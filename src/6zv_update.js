@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.64', GAME_BUILD = 185;
+const GAME_VER = '5.65', GAME_BUILD = 186;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.65",
+ "b": 186,
+ "d": "2026-11-20",
+ "es": [
+  "🐴 El botón de montura abre tus monturas compradas: elige la que quieras o cambia sin bajarte. En el online se ve la que llevas.",
+  "🧪 Curas equilibradas: pociones como mucho el 40 % de tu vida (elixir 60 %); platos y bebidas como mucho el 25 % y con 20 s de espera (antes se podían comer sin parar y curaban miles).",
+  "⛏ Las vetas y árboles nuevos de nivel alto vuelven a salir a los 3 s en el mismo sitio."
+ ],
+ "en": [
+  "🐴 The mount button opens your purchased mounts: pick any or switch without getting off. Online players see the one you ride.",
+  "🧪 Balanced healing: potions heal at most 40% of your HP (elixir 60%); dishes and drinks at most 25% with a 20 s cooldown (before they could be spammed for thousands).",
+  "⛏ The new high-level veins and trees grow back after 3 s in the same spot."
+ ]
+},
 {
  "v": "5.64",
  "b": 185,

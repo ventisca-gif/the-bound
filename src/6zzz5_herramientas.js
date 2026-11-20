@@ -123,12 +123,20 @@ const HB_JOBS = { tala: () => L2('Equípate un hacha en el inventario, acércate
   pesca: () => L2('Equípate una caña en el inventario, acércate al agua y pulsa la casilla 🎣 de la barra de abajo (vuelve a pulsarla cuando pique y mantenla para recoger).', 'Equip a rod in the bag, walk up to water and tap the 🎣 slot on the bottom bar (tap again when it bites and hold to reel in).') };
 
 // ---------- pociones: 30 s de espera (curar, maná y tónicos por separado) ----------
-function potGroup(I) { if (!I || I.t !== 'cons' || I.food || I.plato) return null; if (I.heal || (I.p && I.k === 'heal')) return 'heal'; if (I.mana) return 'mana'; if (I.tonic || I.buffE || (I.icon && I.icon[0] === 'potion')) return 'buff'; return null; }
-const POT_KEY = { heal: 'healCd', mana: 'manaCd', buff: 'buffCd' };
+// 5.65: los platos y bebidas que curan también tienen espera (20 s) y ninguna cura pasa de un % de tu vida máxima
+function potGroup(I) { if (!I || I.t !== 'cons') return null; const isPot = !!(I.icon && /^potion/.test(String(I.icon[0]))) || /^(pocion|eter|elixir)/.test(I.id || '');
+  if ((I.food || I.plato || (I.heal && !isPot)) && (I.heal || I.mana)) return 'food'; if (I.food || I.plato) return null;
+  if (I.heal || (I.p && I.k === 'heal')) return 'heal'; if (I.mana) return 'mana'; if (I.tonic || I.buffE || isPot) return 'buff'; return null; }
+const POT_KEY = { heal: 'healCd', mana: 'manaCd', buff: 'buffCd', food: 'foodCd' }, POT_DUR = { heal: 30, mana: 30, buff: 30, food: 20 };
+// tope de cura por uso (fracción de la vida/maná máximos): pociones 40 %, elixir 60 %, comida 25 %
+function healCapK(I, g) { return (I.heal >= 99999 || I.mana >= 99999) ? 0.6 : g === 'food' ? 0.25 : 0.4; }
 { const _ui = useItem; useItem = function (idx) { const P = G.P, s = P && P.inv[idx], I = s && ITEMS[s.id], g = potGroup(I); if (!g) return _ui.apply(this, arguments);
   if (I.lv && P.lv < I.lv) return _ui.apply(this, arguments);
-  const left = (P[POT_KEY[g]] || 0) - G.t; if (left > 0) { toast(L2('Poción en espera: ', 'Potion cooling down: ') + Math.ceil(left) + ' s', 'warn', 1.2); return; }
-  const id = s.id, before = countItem(id), r = _ui.apply(this, arguments); if (countItem(id) < before) P[POT_KEY[g]] = G.t + 30; return r; }; }
+  const left = (P[POT_KEY[g]] || 0) - G.t; if (left > 0) { toast((g === 'food' ? L2('Aún estás comiendo: ', 'Still eating: ') : L2('Poción en espera: ', 'Potion cooling down: ')) + Math.ceil(left) + ' s', 'warn', 1.2); return; }
+  const k = healCapK(I, g), h0 = I.heal, m0 = I.mana, S = P.S || {};
+  if (h0 && S.maxhp) I.heal = Math.max(1, Math.min(h0, Math.round(S.maxhp * k))); if (m0 && S.maxmp) I.mana = Math.max(1, Math.min(m0, Math.round(S.maxmp * k)));
+  const id = s.id, before = countItem(id); let r; try { r = _ui.apply(this, arguments); } finally { if (h0 !== undefined) I.heal = h0; if (m0 !== undefined) I.mana = m0; }
+  if (countItem(id) < before) P[POT_KEY[g]] = G.t + POT_DUR[g]; return r; }; }
 function potLeft(id) { const P = G.P, g = potGroup(ITEMS[id]); return g ? Math.max(0, (P[POT_KEY[g]] || 0) - G.t) : 0; }
 
 // ---------- barra de abajo ----------
@@ -145,7 +153,7 @@ function hbRefresh() { const P = G.P; if (!P || !$('#hbAxe')) return;
   if (ch && ch.dataset.k !== wk) { ch.dataset.k = wk; ch.innerHTML = hbIcon(w && ITEMS[w.id] ? ITEMS[w.id].icon : ['sword', 3]); } }
 function hbCdTick() { const P = G.P; if (!P) return;
   for (const [bid, id] of [['hbPot', P.potion], ['hbFree', P.hbFree]]) { const b = $('#' + bid); if (!b) continue; let o = b.querySelector('.pcd'); const left = id && ITEMS[id] ? potLeft(id) : 0;
-    if (left <= 0) { if (o) o.remove(); continue; } if (!o) { o = document.createElement('span'); o.className = 'pcd'; b.appendChild(o); } o.style.setProperty('--a', Math.round(left / 30 * 360) + 'deg'); const t = String(Math.ceil(left)); if (o.textContent !== t) o.textContent = t; } }
+    if (left <= 0) { if (o) o.remove(); continue; } if (!o) { o = document.createElement('span'); o.className = 'pcd'; b.appendChild(o); } o.style.setProperty('--a', Math.round(left / (POT_DUR[potGroup(ITEMS[id])] || 30) * 360) + 'deg'); const t = String(Math.ceil(left)); if (o.textContent !== t) o.textContent = t; } }
 function hbFreeUse() { const P = G.P, id = P.hbFree; if (!id || !ITEMS[id]) { hbFreePick(); return; } const i = P.inv.findIndex(s => s && s.id === id); if (i < 0) { toast(L2('No te quedan: ', 'None left: ') + ITEMS[id].n + L2(' (mantén pulsado para cambiar)', ' (long-press to change)'), 'warn', 2); return; }
   const I = ITEMS[id]; if (I.t === 'tool') { equipTool(id); return; } useItem(i); uiDirty.inv = uiDirty.hud = true; hbRefresh(); }
 function hbFreePick() { const P = G.P, seen = new Set(), list = []; for (const s of P.inv) { const I = s && ITEMS[s.id]; if (!I || seen.has(s.id)) continue; if (I.t === 'cons' || (I.t === 'tool' && HB_TOOLJOBS.includes(I.tool))) { seen.add(s.id); list.push(s.id); } }
@@ -208,8 +216,8 @@ function nvScatter(M, n, seed, used) { const R = new RNG(seed), out = [], bx = N
   return out; }
 function nvPlace(M) { if (!M || M._nv || !M.objs) return; const list = NV_RES.filter(r => r[6] === M.id); if (!list.length) return; M._nv = 1; M._nvPoi = [];
   try { const used = []; for (const [t, , , , sp] of list) { const n = t === 18 ? 6 : 10;
-      for (const [x, y] of nvScatter(M, n, 9100 + t * 31 + M.w, used)) { addObj(M, 'ore', x, y, { tier: t }); }
-      for (const [x, y] of nvScatter(M, n, 7700 + t * 17 + M.h, used)) { addObj(M, 'tree', x, y, { sp }); }
+      for (const [x, y] of nvScatter(M, n, 9100 + t * 31 + M.w, used)) { addObj(M, 'ore', x, y, { tier: t, nv: 1 }); }
+      for (const [x, y] of nvScatter(M, n, 7700 + t * 17 + M.h, used)) { addObj(M, 'tree', x, y, { sp, nv: 1 }); }
       const o1 = M.objs.find(o => o.k === 'ore' && o.tier === t), o2 = M.objs.find(o => o.k === 'tree' && o.sp === sp);
       if (o1) { M._nvPoi.push({ c: 'nvveta', x: o1.tx, y: o1.ty, t: '⛏ ' + ITEMS['ore' + t].n }); NV_AT['ore' + t] = { m: M.id, loc: [o1.tx, o1.ty] }; }
       if (o2) { M._nvPoi.push({ c: 'nvveta', x: o2.tx, y: o2.ty, t: '🪓 ' + ITEMS['log' + t].n }); NV_AT['log' + t] = { m: M.id, loc: [o2.tx, o2.ty] }; } } } catch (e) { console.warn('nvPlace', e); } }

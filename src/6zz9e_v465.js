@@ -20,7 +20,7 @@ wmNeed = function (lv) { return Math.round(8 * Math.pow(lv, 1.3)); };
 // ---------- espera de pociones curativas ----------
 const POT_CD = 30; // 5.64: 30 s (Sergio)
 { const _ui = useItem; useItem = function (idx) { const P = G.P, s = P && P.inv[idx], it = s && ITEMS[s.id];
-    if (it && it.t === 'cons' && (it.heal || (it.p && it.k === 'heal'))) {
+    if (it && it.t === 'cons' && (it.heal || (it.p && it.k === 'heal')) && typeof potGroup !== 'function') { // desde 5.64/5.65 la espera la lleva potGroup
       const left = (P.healCd || 0) - G.t; if (left > 0) { toast(L2('Poción curativa en espera: ', 'Healing potion cooling down: ') + Math.ceil(left) + ' s', 'warn', 1.2); return; }
       const r = _ui.apply(this, arguments); P.healCd = G.t + POT_CD; return r; }
     return _ui.apply(this, arguments); }; }
