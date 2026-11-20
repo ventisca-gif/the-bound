@@ -1,0 +1,93 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{ const P=G.P; P.lv=500; P.gold=5e7; calcStats(P); P.hp=P.S.maxhp; window._hp0=hurtPlayer; hurtPlayer=function(){}; onlOpen(); const n=document.querySelectorAll('#modal [data-onl]').length; return [n, Object.keys(TR6.flag).length, !!RS6.door, ALT_NPC, SEA_AT.world]; })()
+wait 300
+shot
+js (closeModal(), (()=>{ const P=G.P, F=TR6.flag.albor; P.x=F.x; P.y=F.y+20; const it=interactTarget(); return it && it.label; })())
+js (()=>{ const P=G.P; P.clan={id:'tst_1',n:'Prueba',tg:'PRB',ic:'🛡',own:1,lv:1}; V6DBG.terr=1; terrStart('albor'); V6DBG.terr=0; return [ACT.k, ACT.z]; })()
+wait 1500
+js (()=>{ const n=G.ents.filter(e=>e.terrMob).length; ACT.prog=60; return n; })()
+wait 400
+js [ACT.k, G.P.terrPts]
+js (()=>{ const P=G.P, F=TR6.flag.albor; P.x=F.x; P.y=F.y+20; const w={type:'deco',k2:'wagon',map:'world',x:P.x+30,y:P.y,f:0,v:0,hpW:100,caravan:1}; G.ents.push(w); CARAVAN={w,from:'albor',to:'puerto',dst:{x:P.x+3000,y:P.y},t:0,ambush:[0,0],hit:0}; const o={}; v6Pres(o); const r={id:'rem1',name:'Bandi',map:'world',x:P.x,y:P.y,bnd:true}; X6_RECV.cv(r,60); X6_RECV.cv(r,50); const o2={}; v6Pres(o2); return [o.cv, !!CARAVAN, o2.cvl]; })()
+js (()=>{ const P=G.P; P.bnd=1; const r={id:'rem2',name:'Escolta'}; v6Recv(r,{cvl:[NET.myId,1]}); const g=P.bndWins; P.bnd=0; return g; })()
+js (()=>{ const M=makeJapan(); return [FE6.at, M.objs.some(o=>o.xact==='fe_bon'), SEA_AT.japon]; })()
+js (()=>{ const P=G.P, M=makeJapan(); V6DBG.fe=1; transition(()=>{ P.inside='japon'; setMap(M, FE6.at.x, FE6.at.y+90, 'up'); }); return 1; })()
+wait 1800
+js (()=>{ feBon(); return [ACT.k, FE6.crowd.length]; })()
+wait 1200
+shot
+js (()=>{ ACT.t=0; return 1; })()
+wait 300
+js [ACT.k, G.P.feN, BIT().fr.includes('matsuri')]
+js (V6DBG.fe=0, (()=>{ const P=G.P; transition(()=>{ P.inside=null; setMap(G.world, RS6.door.x, RS6.door.y+24, 'down'); }); return 1; })())
+wait 1500
+js (()=>{ const P=G.P; rsOpen(); return 1; })()
+wait 500
+js (()=>{ const b=document.querySelector('#rsNew'); if(b) b.click(); return [G.P.rest && G.P.rest.on, G.P.gold]; })()
+wait 500
+js (()=>{ closeModal(); rsGo(G.P.rest.on, 1); return 1; })()
+wait 1500
+js (()=>{ const M=G.map; rsShift(); return [M.id, M.tables.length, M.stoves.length, ACT.k]; })()
+wait 6000
+js (()=>{ const M=G.map, P=G.P, tb=M.tables.find(t=>t.cust); if(!tb) return 'sin cliente'; const s=M.stoves[tb.cust.dish]; P.x=s.x; P.y=s.y; rsAtk(); return [tb.cust.dish, !!ACT.cook]; })()
+wait 2600
+js (()=>{ const M=G.map, P=G.P, tb=M.tables.find(t=>t.cust && t.cust.ph==='wait'); if(!tb) return ['no wait', ACT.hand]; P.x=tb.x; P.y=tb.y+4; const h=ACT.hand; rsAtk(); return [h, ACT.served, ACT.tips]; })()
+shot
+js (()=>{ ACT.t=0; return 1; })()
+wait 400
+js [ACT.k, G.P.restC]
+js (()=>{ BIT_FR; const P=G.P; P.mailBook={Amigo:'g_test'}; const ok=typeof mlOpen==='function'; const o={}; socialPresence(o); return [ok, typeof o.mk, X6.mk && X6.mk.length>0]; })()
+js (()=>{ ML6.bird={t:0,from:'Amigo',n:1}; return 1; })()
+wait 800
+shot
+js (()=>{ const P=G.P; transition(()=>{ setMap(makeArena(), 22*16, 20*16, 'up'); }); return 1; })()
+wait 1500
+js (()=>{ const P=G.P; P.betDay=0; betOpen(); document.querySelector('#btFree').click(); const r={id:'f1',name:'Luchador',map:'coliseo',x:P.x+40,y:P.y,pvp:true,lv:300}; G.remote.set('p1', Object.assign(r,{type:'remote'})); betOpen(); const b=document.querySelector('#modal [data-bet]'); if(b) b.click(); const cur=BET6.cur && BET6.cur.c; v6Recv({id:'f2',name:'Otro',map:'coliseo',dn:true},{kb:'Luchador'}); return [cur, countItem('ficha_coliseo'), P.betW, PVP.on]; })()
+js (closeModal(), G.remote.clear(), (()=>{ const P=G.P; transition(()=>{ setMap(G.world, ALT_NPC[0]*16+8, ALT_NPC[1]*16+24, 'down'); }); return 1; })())
+wait 1500
+js (()=>{ const P=G.P; G.remote.set('p2',{type:'remote',id:'h1',name:'Cazador',map:P.map,x:P.x+60,y:P.y,tx:P.x+60,ty:P.y,lv:300,anim:'idle',af:0,at:0}); preyStart(); const k=ACT.k; X6_RECV.ph({id:'h1'},50); X6_RECV.ph({id:'h1'},60); const o={}; v6Pres(o); return [k, ACT.k, o.prc, G.P.preyWin]; })()
+js (()=>{ const P=G.P; v6Recv(G.remote.get('p2'),{pry:[80,100]}); PREY.hunt.h1=G.t; const r=G.remote.get('p2'); r.id='h1'; v6Recv(r,{prc:[1,'h']}); return [P.preyHunt]; })()
+js (()=>{ const P=G.P; const r=G.remote.get('p2'); r.pry={hp:70,t:90}; return 1; })()
+wait 500
+shot
+js (G.remote.clear(), (()=>{ altStart(); return [ACT.k, Math.round(ACT.bx), Math.round(ACT.by)]; })())
+wait 800
+js (()=>{ const B=ACT; B.sh[0].x=B.bx+46; B.sh[0].y=B.by; G.P.dir='right'; altAtk(); return 1; })()
+wait 900
+js (()=>{ const B=ACT; B.big={x:B.bx+46,y:B.by,a:0}; altAtk(); return [B.got.length, B.net?1:0]; })()
+wait 900
+js [ACT.fight ? 'fight' : 'nofight', ACT.got.length]
+shot
+js (()=>{ if(ACT.fight){ ACT.fight.ten=0.4; for(let i=0;i<12;i++){ ACT.fight.ten=0.4; altAtk(); } } return [ACT.got.length, ACT.fight?1:0]; })()
+js (()=>{ ACT.t=0; return 1; })()
+wait 300
+js [ACT.k, G.P.jobs.altamar]
+js (()=>{ const P=G.P, M=makeTrujillo(); transition(()=>{ P.inside='trujillo'; const A=V8.at.arqueologo; setMap(M, A.px, A.py+40, 'up'); }); return 1; })()
+wait 2000
+js (()=>{ const A=V8.at.arqueologo; v8Start('arqueologo'); const B=ACT; const c=B.cells.find(q=>q.art); const P=G.P; P.x=c.x; P.y=c.y; arqAtk(); arqAtk(); return [B.k, !!B.br, A.cx]; })()
+wait 300
+js (()=>{ const R=ACT.br; if(!R) return 'nobr'; const real=moveInput; for(let i=0;i<4;i++){ const d=R.dir; moveInput=()=>({up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]})[d]; V33_TICKS.forEach(f=>{try{f(0.016)}catch(e){}}); moveInput=()=>[0,0]; V33_TICKS.forEach(f=>{try{f(0.016)}catch(e){}}); } moveInput=real; return [ACT.got, arqSt().pc]; })()
+shot
+js (()=>{ ACT.t=0; return 1; })()
+wait 300
+js (()=>{ const S=arqSt(); S.pc.huaco=3; const M=G.map, o=M.objs.find(q=>q.xact==='arq_mesa'); arqMesa(o); ACT.ang=0.05; ACT.onAtk(); ACT.ang=6.25; ACT.onAtk(); ACT.ang=0; ACT.onAtk(); return [ACT.k, S.mus]; })()
+js (()=>{ musGo(G.P.name, arqSt().mus); return 1; })()
+wait 1500
+shot
+js (()=>{ const o={}; v6Pres(o); musOut(); return [G.map.museo, o.mu]; })()
+wait 1500
+js [G.map.id, G.P.inside]
+js (()=>{ const P=G.P, M=makeShinTrain(0); transition(()=>{ P.inside=M.id; P.shin={k:0,last:null}; setMap(M, (M.cars[0]+5)*16+8, 4*16+12, 'down'); }); return 1; })()
+wait 1500
+js (()=>{ const P=G.P; P.tmDay=-1; tmStart(); const A=ACT; return [A.k, A.ents.filter(Boolean).length, A.clues.length, A.names[A.culprit]]; })()
+wait 400
+shot
+js (()=>{ const A=ACT, P=G.P, c=A.clues[0]; P.x=c.x; P.y=c.y; const it=interactTarget(); doInteract(it); const e=A.ents[A.culprit]; const opts=[]; DLG_HOOKS.forEach(h=>{try{h(e,opts)}catch(x){}}); const acc=opts.find(o=>/Fue usted/.test(o.label)); acc.fn(); return [it&&it.kind, P.tmSolved, ACT.k]; })()
+js (()=>{ const s=seasonNow(); const f=[]; for(let i=0;i<400;i++){ const x=pickFish(SEA_FISH[s][3][0]); if(x[0].startsWith('sf_')) f.push(x[0]); } return [s, f.length>0, f[0]]; })()
+js (()=>{ seaShop(); const n=document.querySelectorAll('#modal [data-sbuy]').length; return [n, Object.keys(COSM).filter(k=>k.startsWith('c_est_'))]; })()
+js (closeModal(), (()=>{ const ids=['n_terr','n_cvon','n_fest','n_rest','n_correo','n_apuestas','n_presa','n_altamar','n_arqueo','n_tren','n_estaciones','n_modos']; const miss=ids.filter(i=>!GSIS.find(s=>s[0]===i)); const lines=ids.every(i=>{const s=GSIS.find(q=>q[0]===i); return s && s[2]().length>0}); const arrows=ids.map(i=>{const s=GSIS.find(q=>q[0]===i); try{return s[3]()?i:null}catch(e){return 'ERR '+i}}).filter(Boolean); return [miss, lines, arrows.join(',')]; })())
+js (GSIS_SEL='n_fest', guiaSis(), 1)
+wait 400
+shot
+js window._errs
