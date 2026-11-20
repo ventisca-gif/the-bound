@@ -5,6 +5,8 @@ Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.60 (bui
 
 ## Quién es Sergio y cómo trabajar con él
 
+- **Nombre:** Sergio. Su apodo y alter ego es **Ventisca** (lo usa en todos sus juegos; en el lore de The Bound, la Ventisca es la creadora que pinta tierras nuevas). Se le puede llamar de las dos formas.
+
 - Sergio crea **The Bound**, un RPG 2D de mundo abierto en pixel art (estilo MMORPG para móvil, con online, PvP, romance, familia, oficios y muchos mapas). Juega en Android con una APK que se actualiza sola.
 - Escribe en español, con listas largas, capturas del móvil y faltas de ortografía. Quiere que se haga **todo lo que pide de una vez**.
 - Responde siempre en **español**, corto y concreto: qué se hizo, qué no y por qué. Sin jerga técnica.
