@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.55', GAME_BUILD = 176;
+const GAME_VER = '5.56', GAME_BUILD = 177;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,49 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.56",
+  "b": 177,
+  "d": "2026-11-20",
+  "es": [
+   "🌐 Modos online: 10 modos nuevos repartidos en Competir, Juntos y Visitar y escribir.",
+   "🧵 Telar de recuerdos: cada jefe vencido deja un hilo; en el telar de tu casa tejes un tapiz con tu historia, que tus amigos pueden visitar.",
+   "🌙 Sueños de cada noche: el Mundo de los Sueños cambia cada noche (al revés, rosa, de estrellas o de papel); tu mascota habla y hay 5 estrellas que recoger.",
+   "🌑 Tu sombra ladrona: a veces tu sombra se despega, se lleva oro y huye. Atrápala y te lo devuelve con propina.",
+   "🎨 Colores perdidos: cada día el Lienzo en Blanco borra 3 zonas del mundo; repíntalas caminando por ellas. Tinta, la aprendiz de Mael, cambia los pigmentos.",
+   "🕰 Recuerdo del Velo: visita Albor recién fundada hace 5.000 años, ayuda a Miren a plantar el primer árbol y aparece el Árbol de los Fundadores en el presente.",
+   "🍾 Cartas en botella: tira un mensaje al mar; le llega a otro jugador en una playa y puede contestarte.",
+   "🎲 Pueblo del día: un reto distinto cada día en un pueblo (lluvia de monedas, día del baile o día del verso).",
+   "🐾 Mascota con oficio: tu mascota aprende el oficio que haces con ella y te ayuda en él.",
+   "🏮 Linternas de deseos: cada semana sueltas una linterna; el deseo más pedido se cumple para todos.",
+   "🌉 Puentes entre islas: entre todos los jugadores se construyen el Puente de Nhar y el Puente de Brasa.",
+   "🏇 Jinetes del correo: relevos de 1 a 4 jugadores de Albor a Puerto Coral, con ranking semanal.",
+   "🎭 Teatro en vivo: representa una obra con otros jugadores en el escenario de Albor; el público vota.",
+   "🏖 Esculturas de arena en la playa de Puerto Coral, con concurso semanal votado.",
+   "🐉 Torneo de dragones: la Carrera de Dragones con ranking semanal online.",
+   "🍳 Duelo de cocina contra otro jugador o el chef Bruno, con jurado.",
+   "🔎 Lupa › Sistemas: una entrada para cada novedad."
+  ],
+  "en": [
+   "🌐 Online modes: 10 new modes spread over Compete, Together and Visit and write.",
+   "🧵 Loom of memories: each defeated boss leaves a thread; on your house loom you weave a tapestry of your story, which your friends can visit.",
+   "🌙 A dream every night: the Dream World changes each night (upside-down, pink, starry or paper); your pet talks and there are 5 stars to collect.",
+   "🌑 Your thieving shadow: sometimes your shadow comes loose, takes gold and runs away. Catch it and it returns it with a tip.",
+   "🎨 Lost colours: every day the Blank Canvas erases 3 zones of the world; repaint them by walking through. Tinta, Mael's apprentice, trades the pigments.",
+   "🕰 Veil memory: visit Albor newly founded 5,000 years ago, help Miren plant the first tree and the Founders' Tree appears in the present.",
+   "🍾 Messages in a bottle: throw a message into the sea; it washes up for another player, who can reply.",
+   "🎲 Town of the day: a different challenge each day in one town (coin rain, dance day or verse day).",
+   "🐾 Pet with a job: your pet learns the job you do with it and helps you in it.",
+   "🏮 Wish lanterns: each week you release a lantern; the most requested wish comes true for everyone.",
+   "🌉 Bridges between islands: all players together build the Nhar Bridge and the Brasa Bridge.",
+   "🏇 Relay riders: 1 to 4 player relays from Albor to Puerto Coral, with a weekly ranking.",
+   "🎭 Live theatre: perform a play with other players on the Albor stage; the audience votes.",
+   "🏖 Sand sculptures on the Puerto Coral beach, with a weekly voted contest.",
+   "🐉 Dragon tournament: the Dragon Race with a weekly online ranking.",
+   "🍳 Cooking duel against another player or chef Bruno, with a jury.",
+   "🔎 Magnifier › Systems: one entry for each new feature."
+  ]
+ },
  {
   "v": "5.55",
   "b": 176,

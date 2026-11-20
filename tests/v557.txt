@@ -1,0 +1,69 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{ const P=G.P; P.lv=500; P.gold=5e7; calcStats(P); P.hp=P.S.maxhp; hurtPlayer=function(){}; onlOpen(); const n=document.querySelectorAll('#modal .btn').length; closeModal(); return [n, TINTA_AT, HORAS_AT, !!PTREE, LN_AT, RL7.npc, !!TH7.stage, !!SA7.at, CD_AT, PT_B.nhar.sign]; })()
+js (()=>{ const P=G.P; P.bossKills={reyslime:1, ent:2, gruk:1}; const M=makeHome(Object.keys(HOUSES)[0]); return [tzThreads().length, typeof homeCfg]; })()
+js (()=>{ const o={px:G.P.x, py:G.P.y-18}; tzStart(o); ACT.sx=0; ACT.onAtk(); ACT.sx=0; ACT.onAtk(); ACT.sx=0.9; ACT.onAtk(); ACT.onAtk(); ACT.onAtk(); return [ACT.k, G.P.tapiz]; })()
+js (()=>{ const o={}; v6Pres(o); const r={}; v6Recv(r,{tz:o.tz}); tzVisit('Sergio', G.P.tapiz); return [o.tz, r.tz]; })()
+wait 1500
+shot
+js (musOut(), 1)
+wait 1500
+js (()=>{ const P=G.P; G.time=23*60; P.drm={}; dreamEnter(); return 1; })()
+wait 2800
+js (()=>{ const P=G.P; const s=DRM7.st; for(const q of s){ P.x=q.x; P.y=q.y; V33_TICKS.forEach(f=>{try{f(0.016)}catch(e){}}); } return [G.map.id, s.length, s.filter(q=>q.got).length, P.drmLog]; })()
+shot
+js (dreamWake(true), 1)
+wait 1500
+js (()=>{ const P=G.P; transition(()=>{ P.inside=null; setMap(G.world, WAYSTONES[0].x*16, WAYSTONES[0].y*16+30,'down'); }); return 1; })()
+wait 1500
+js (()=>{ const P=G.P; const g0=P.gold; sombSpawn(); const S=SOMB.e; return [!!S, g0-P.gold]; })()
+wait 300
+shot
+js (()=>{ const P=G.P, S=SOMB.e; P.x=S.x; P.y=S.y; V33_TICKS.forEach(f=>{try{f(0.016)}catch(e){}}); return [SOMB.e, P.sombraN]; })()
+js (()=>{ const Z=colzToday()[0], P=G.P; P.x=Z.x*16; P.y=Z.y*16; return [Z.n, colzToday().length]; })()
+wait 600
+shot
+js (()=>{ const A=ACT; if(A.k!=='colz') return ['no colz', A.k]; for(const k of A.cells) A.paint.add(k); return 1; })()
+wait 400
+js [ACT.k, G.P.colN, countItem('pigmento_lienzo')]
+js (()=>{ pastGo(); return 1; })()
+wait 1500
+js (()=>{ const M=G.map, P=G.P; for(const s of M.seeds){ P.x=s.x; P.y=s.y; V33_TICKS.forEach(f=>{try{f(0.016)}catch(e){}}); } XACT.past_plant[2](); return [M.id, P.pastTree, P.pastSeeds.length]; })()
+shot
+js (musOut(), 1)
+wait 1500
+js (()=>{ V33_TICKS.forEach(f=>{try{f(0.016)}catch(e){}}); return [G.map.id, PTREE.hidden]; })()
+js (()=>{ const D=pdToday(); const P=G.P, t=D.t; transition(()=>{ setMap(G.world, (t.x0+t.x1)*8, (t.y0+t.y1)*8,'down'); }); return [t.k, D.c[0]]; })()
+wait 1500
+js (()=>{ const S=pdSt(); return [S.seen, pdIn()]; })()
+js (()=>{ const P=G.P; P.pet=P.pet||'gato'; P.petJob={}; P.petJobP={}; PETE={map:G.map.id, x:P.x, y:P.y}; gainJobXp('pesca', 400); return [P.petJob]; })()
+js (()=>{ LN7.win='oro'; const c=curWx(); LN7.win='nieve'; const c2=curWx(); LN7.win=null; return [c2]; })()
+js (()=>{ PT7.built={}; ptBuild('nhar'); const W=G.world; const [x,y]=ptLine(PT_B.nhar).find(([x,y])=>W.ter[W.I(x,y)]===T.BRIDGE)||[0,0]; return [x,y, PT7.built.nhar]; })()
+js (()=>{ const P=G.P; RL7.team={L:NET.myId, s:Date.now()+500}; rlBegin(); return [ACT.k, ACT.legs]; })()
+wait 2500
+js (()=>{ const P=G.P; for(let i=1;i<=3;i++){ const c=RL_CP[i]; P.x=c.x; P.y=c.y; V33_TICKS.forEach(f=>{try{f(0.016)}catch(e){}}); } return [ACT.k, P.rlBest]; })()
+js (()=>{ const P=G.P, S=TH7.stage; transition(()=>{ setMap(G.world, S.x, S.y+40,'up'); }); return 1; })()
+wait 1500
+js (()=>{ TH7.team={L:NET.myId, p:0, s:Date.now()+300}; thBegin(); return [ACT.k, ACT.mine, ACT.npcs.filter(Boolean).length]; })()
+wait 1200
+shot
+js (()=>{ const A=ACT; let hits=0; A.play[2].forEach((l,i)=>{ if(l[0]===A.me){ TH7.team.s=Date.now()-i*TH_DT*1000-200; A.onAtk(); } }); return [A.hit, A.mine]; })()
+js (()=>{ ACT.end=1; TH7.team.s=Date.now()-60000; V33_TICKS.forEach(f=>{try{f(0.016)}catch(e){}}); return [ACT.k, G.P.thN]; })()
+js (()=>{ const P=G.P, A=SA7.at; transition(()=>{ setMap(G.world, A.x+8, A.y+8,'down'); }); return 1; })()
+wait 1500
+js (()=>{ saStart(); const B=ACT, P=G.P, A=SA7.at; for(let i=0;i<8;i++){ P.x=A.x+8+(i%8)*16; P.y=A.y+6+((i*3)%5)*13; B.onAtk(); B.onAtk(); } return [B.k, B.grid.filter(Boolean).length]; })()
+wait 300
+shot
+js (()=>{ ACT.t=0; return 1; })()
+wait 300
+js [ACT.k, SA7.mine && SA7.mine.length]
+js (()=>{ Object.assign(ACT,{k:'race', rings:[1], at:10, t:55.5}); V33_TICKS.forEach(f=>{try{f(0.016)}catch(e){}}); ACT.k=null; V33_TICKS.forEach(f=>{try{f(0.016)}catch(e){}}); return G.P.drW; })()
+js (()=>{ cdGo(); return 1; })()
+wait 1500
+js (()=>{ cdStart(Date.now()-10, 42, null); const A=ACT, M=G.map, P=G.P; for(const i of A.R.ids){ const s=M.ing[i]; P.x=s.x; P.y=s.y+14; A.onAtk(); } P.x=M.stove.px; P.y=M.stove.py+14; A.onAtk(); return [A.step, A.mist, A.R.dish]; })()
+js (()=>{ const A=ACT; A.cook=1; V33_TICKS.forEach(f=>{try{f(0.05)}catch(e){}}); const M=G.map, P=G.P; P.x=M.jury.x; P.y=M.jury.y; A.onAtk(); V33_TICKS.forEach(f=>{try{f(0.016)}catch(e){}}); return [ACT.k, G.P.cdWins]; })()
+shot
+js (()=>{ const ids=['n_tapiz','n_suenos','n_sombra','n_colores','n_pasado','n_botella','n_pueblodia','n_petjob','n_linternas','n_puentes','n_relevos','n_teatro','n_esculturas','n_torneodr','n_duelococina']; const miss=ids.filter(i=>!GSIS.find(s=>s[0]===i)); const lines=ids.every(i=>GSIS.find(q=>q[0]===i)[2]().length>0); const ar=ids.map(i=>{try{return GSIS.find(q=>q[0]===i)[3]()?i:null}catch(e){return 'ERR '+i}}).filter(Boolean); return [miss, lines, ar.join(',')]; })()
+js (musOut(), onlOpen(), document.querySelectorAll('#modal .btn').length)
+shot
+js window._errs
