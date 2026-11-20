@@ -328,6 +328,118 @@
             ".validate": false
           }
         }
+      },
+      "ln": {
+        "$w": {
+          "$pid": {
+            ".write": "$pid.length <= 48 && !data.exists()",
+            ".validate": "newData.hasChildren(['n', 'w'])",
+            "n": {
+              ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 20"
+            },
+            "w": {
+              ".validate": "newData.val() == 'oro' || newData.val() == 'oficio' || newData.val() == 'suerte' || newData.val() == 'nieve'"
+            },
+            "t": {
+              ".validate": "newData.val() == now"
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        }
+      },
+      "pt": {
+        "$b": {
+          ".write": "$b == 'nhar' || $b == 'brasa'",
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000 && (!data.exists() || newData.val() <= data.val() + 1)"
+        }
+      },
+      "rl": {
+        "$w": {
+          ".indexOn": [
+            "t"
+          ],
+          "$pid": {
+            ".write": "$pid.length <= 48",
+            ".validate": "newData.hasChildren(['n', 't'])",
+            "n": {
+              ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 20"
+            },
+            "t": {
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100000"
+            },
+            "t2": {
+              ".validate": "newData.val() == now"
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        }
+      },
+      "dr": {
+        "$w": {
+          ".indexOn": [
+            "t"
+          ],
+          "$pid": {
+            ".write": "$pid.length <= 48",
+            ".validate": "newData.hasChildren(['n', 't'])",
+            "n": {
+              ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 20"
+            },
+            "t": {
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100000"
+            },
+            "t2": {
+              ".validate": "newData.val() == now"
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        }
+      },
+      "sa": {
+        "$w": {
+          "$pid": {
+            ".write": "$pid.length <= 48",
+            ".validate": "newData.hasChildren(['n', 'g'])",
+            "n": {
+              ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 20"
+            },
+            "g": {
+              ".validate": "newData.isString() && newData.val().length == 40"
+            },
+            "t": {
+              ".validate": "newData.val() == now"
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        }
+      },
+      "sav": {
+        "$w": {
+          "$pid": {
+            ".write": "$pid.length <= 48 && !data.exists()",
+            ".validate": "newData.hasChildren(['n', 'v'])",
+            "n": {
+              ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 20"
+            },
+            "v": {
+              ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 48"
+            },
+            "t": {
+              ".validate": "newData.val() == now"
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        }
       }
     },
     "ml": {
@@ -357,6 +469,28 @@
           "$other": {
             ".validate": false
           }
+        }
+      }
+    },
+    "bt": {
+      ".read": true,
+      "$bid": {
+        ".write": "$bid.length <= 24 && !data.exists()",
+        ".validate": "newData.hasChildren(['f', 'fk', 'x'])",
+        "f": {
+          ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 20"
+        },
+        "fk": {
+          ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 48"
+        },
+        "x": {
+          ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 120"
+        },
+        "t": {
+          ".validate": "newData.val() == now"
+        },
+        "$other": {
+          ".validate": false
         }
       }
     }
