@@ -4,7 +4,7 @@ let DAWN_TERRAIN=null;
 function dawnTerrain(){if(DAWN_TERRAIN)return DAWN_TERRAIN;const out={};for(const k of ['field','pathField','grassNoise','terrain']){const raw=atob(DAWN_BAKED[k]),u=Uint8Array.from(raw,v=>v.charCodeAt(0));out[k]=k==='terrain'?u:k==='grassNoise'?Float32Array.from(u,v=>v/255):Float32Array.from(new Int16Array(u.buffer),v=>v/32);}return DAWN_TERRAIN=out;}
 let DAWN_ASSETS = null;
 function dawnAssets(){if(DAWN_ASSETS)return DAWN_ASSETS;const assets={};
-const addAsset=(key,s)=>{if(s.trunk){const c=createCanvas(s.w,s.h),g=c.getContext('2d');g.drawImage(s.trunk,0,0);g.drawImage(s.canopy,0,0);s.c=c;}assets[key]=s;return key;};
+const addAsset=(key,s)=>{if(s.trunk){const c=mkCanvas(s.w,s.h),g=c.getContext('2d');g.drawImage(s.trunk,0,0);g.drawImage(s.canopy,0,0);s.c=c;}assets[key]=s;return key;};
 for(const sp of ['palma','roble','ebano'])for(let i=0;i<4;i++)addAsset(sp+i,genTree(sp,i));
 for(let i=0;i<4;i++)addAsset('rock'+i,genRock(i%2?'m':'l',i,'normal'));
 for(let i=0;i<24;i++)addAsset('house'+i,genBuilding({w:5+i%3,h:5,wallH:40,style:i%3?'albor':'puerto',roof:['red','brown','green','thatch'][i%4],gable:1,box:true,chimney:i%4===0,sign:i%5===0?'inn':i%5===1?'store':null,awning:i%3===0?'#a83432':null,v:i}));

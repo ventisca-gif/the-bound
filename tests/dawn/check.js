@@ -1,6 +1,6 @@
 (()=>{const check=(c,m)=>{if(!c)throw Error(m);},out={frames:0};
 const before={map:G.map,P:G.P.x+':'+G.P.y,gold:G.P.gold,inv:JSON.stringify(G.P.inv)},t=performance.now(),M=makeDawn();out.mapMs=Math.round(performance.now()-t);
-check(M.w===720&&M.h===360,'Lima dimensions');check(M.camps.length===8,'eight pirate camps');check(M.npcDefs.length===10,'cast placements');check(M.objs.some(o=>o.k==='tree'&&o.sp==='palma'),'coastal palms');check(M.objs.some(o=>o.dawnKey==='windmill'),'approved windmills');check(M.chunks.size===0,'lazy terrain');check(out.mapMs<4000,'map creation hitch');
+check(M.w===720&&M.h===360,'Lima dimensions');check(M.camps.length===8,'eight pirate camps');check(M.npcDefs.length===10,'cast placements');check(M.objs.some(o=>o.k==='tree'&&o.sp==='palma'),'coastal palms');check(M.objs.some(o=>o.dawnKey==='windmill'),'approved windmills');check(M.chunks.size===0,'lazy terrain');for(const key of ['windmill','bar','house0','galleon','rock0']){const s=dawnSprite(key);check(s&&s.c.width>0&&s.c.height>0,'native object sprite '+key);}check(out.mapMs<4000,'map creation hitch');
 check(setMap(M,522*16,267*16)===false&&G.map===before.map,'closed setMap');check(G.P.gold===before.gold&&JSON.stringify(G.P.inv)===before.inv,'closed route charged player');check(!dawnTravelStatus().open&&!dawnTravelStatus().available,'gate status');
 G.P.inv.push({id:'dawn_fruta_diablo',q:1});try{check(setMap(M,0,0)===false&&G.map===before.map,'fruit bypassed route');}finally{G.P.inv.pop();}
 const golem=mobStats(MOBS.cb_golem,500,false),pirate=mobStats(MOBS.dawn_pirata,500,false);check(JSON.stringify(golem)===JSON.stringify(pirate),'500 balance');check(MAXLV===500,'level cap changed');out.stats=pirate;
@@ -10,4 +10,4 @@ for(const c of M.camps)check(c.lv===500&&c.n===3&&c.noElite,'camp level or densi
 for(const [cx,cy]of [[0,0],[89,44],[65,31]]){const c=renderChunk(M,cx,cy);check(c.width===CHP&&c.height===CHP,'chunk bounds');}
 dawnSpawnPeople(M);check(G.ents.filter(e=>e.type==='npc'&&e.map==='dawn'&&!e.remove).length===10,'spawn cast');dawnSpawnPeople(M);check(G.ents.filter(e=>e.type==='npc'&&e.map==='dawn'&&!e.remove).length===10,'duplicate cast');
 check(!Object.values(RECIPES).some(r=>(r.out||r.id)==='dawn_fruta_diablo'),'fruit craftable');for(const d of Object.values(MOBS))check(!(d.drops||[]).some(x=>x[0]==='dawn_fruta_diablo'),'fruit drops');
-check(otherPOI(M).every(q=>MAPC[q.c]),'unknown map category');out.ok=true;return out;})()
+check(otherPOI(M).every(q=>MAPC[q.c]),'unknown map category');check(ERR_SEEN.size===0,'caught engine errors: '+[...ERR_SEEN].join(';'));out.ok=true;return out;})()
