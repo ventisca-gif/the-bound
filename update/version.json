@@ -1,26 +1,18 @@
 {
- "build": 179,
- "ver": "5.58",
+ "build": 180,
+ "ver": "5.59",
  "date": "2026-11-20",
  "file": "thebound.html",
- "size": 24692646,
- "sha256": "4bcc9fecc4bb143affecd01fb414972f27127db328f7589e26a653142aaf0b44",
+ "size": 24699012,
+ "sha256": "66ad796ac226da2bb2ae0a8d87b4c485e7cece1e8e0714c0d7ca9dca5c3ee1c9",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🧭 ¿Qué hago ahora? (▦ Atajos): tu misión, dónde subir de nivel y qué pasa ahora en el mundo.",
-   "▦ Atajos por pestañas: Todo, Combate, Online y social, Ayuda y menús.",
-   "🔴 Puntito rojo en lo que tiene algo nuevo (correo, cofre de la isla, impuesto, invitaciones, linterna, hilos para tejer).",
-   "💡 Explicación corta la primera vez que abres cada sistema.",
-   "🎁 Regalo diario (racha de 7 días) y regalo semanal."
+   "📔 Diario del héroe (▦ Atajos): un libro que se escribe solo con tus hazañas reales (jefes vencidos, cada 50 niveles, pareja, hijos, formas, fusiones y marcos). Tus amigos online pueden leer tus últimas páginas."
   ],
   "en": [
-   "🧭 What do I do now? (▦ Shortcuts): your quest, where to level up and what is happening in the world now.",
-   "▦ Shortcuts in tabs: All, Combat, Online & social, Help & menus.",
-   "🔴 Red dot on whatever has something new (mail, island chest, tax, invitations, lantern, threads to weave).",
-   "💡 Short explanation the first time you open each system.",
-   "🎁 Daily gift (7-day streak) and weekly gift."
+   "📔 Hero's diary (▦ Shortcuts): a book that writes itself with your real deeds (bosses defeated, every 50 levels, partner, children, forms, fusions and frames). Your online friends can read your latest pages."
   ]
  }
 }

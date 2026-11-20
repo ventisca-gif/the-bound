@@ -1,0 +1,10 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+wait 3000
+js (()=>{ const P=G.P; P.bossKills=Object.assign({}, P.bossKills, {reyslime:1}); P.lv=50; P.srOwn=['lobo']; return 1; })()
+wait 2500
+js (()=>{ const L=G.P.heroLog||[]; $('#bHub').click(); return [L.length, L.map(e=>e.ic).join(''), !!$('#bDiary')]; })()
+js (hlOpen(), document.querySelectorAll('#modal .gsrc').length)
+shot
+js (()=>{ const o={}; v6Pres(o); const r={}; v6Recv(r,{dy:o.dy}); return [o.dy.length, r.dy.length]; })()
+js window._errs
