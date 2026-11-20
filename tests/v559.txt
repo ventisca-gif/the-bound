@@ -1,0 +1,18 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (G.P.lv=5, G.P.stats.kills=5, 1)
+wait 5000
+js [!$('#modal').hidden, document.querySelector('#modal h3') && document.querySelector('#modal h3').textContent]
+js (()=>{ const g0=G.P.gold; $('#dlOk').click(); return [G.P.gold-g0, G.P.dailyR, G.P.weeklyR]; })()
+js (()=>{ $('#bHub').click(); return [!!$('#bQh'), !!$('#trTabs')]; })()
+wait 600
+shot
+js (()=>{ document.querySelector('[data-trt="social"]').click(); const vis=[...document.querySelectorAll('#tr .trbtns button.mini')].filter(b=>b.style.display!=='none').map(b=>b.id); return vis; })()
+js (()=>{ document.querySelector('[data-trt="all"]').click(); qhOpen(); return document.querySelector('#modal').textContent.slice(0,300); })()
+shot
+js (closeModal(), G.P.tutSeen=[], onlOpen(), [!!document.querySelector('#modal .tut'), document.querySelector('#modal .tut') && document.querySelector('#modal .tut').textContent.slice(0,80)])
+js (closeModal(), onlOpen(), !!document.querySelector('#modal .tut'))
+js (closeModal(), G.P.isl={lv:1}, G.P.islChest=-1, 1)
+wait 2000
+js [$('#bOnl').classList.contains('hasdot'), $('#bHub').classList.contains('hasdot')]
+js window._errs
