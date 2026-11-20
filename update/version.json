@@ -1,18 +1,20 @@
 {
- "build": 181,
- "ver": "5.60",
+ "build": 182,
+ "ver": "5.61",
  "date": "2026-11-20",
  "file": "thebound.html",
- "size": 24708511,
- "sha256": "5ce3e149e69b4c0f1ae9d82fb0c206db9be96e4d1f5aa57f4f0ea68b1ecf6890",
+ "size": 24728769,
+ "sha256": "563fa74d6b2f37e24dbf6a0bf8d054184419b6aa15d12203ae6ec9685915183b",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "📔 El Diario del héroe ahora es un libro de verdad: portada de cuero con tu héroe dibujado, páginas de papel (dos a la vez en horizontal) y pasas página con las flechas, tocando el borde o deslizando el dedo, con animación de hoja."
+   "✦ Armario › Auras: seis auras de energía grandes. Prueba gratis, compra con oro, equipa o quita; colección permanente por personaje.",
+   "🎨 Adaptadas al motor original, las cinco estructuras femeninas y cinco masculinas, los peinados y las cuatro direcciones. Visibles en multijugador; sin cambiar estadísticas."
   ],
   "en": [
-   "📔 The Hero's diary is now a real book: leather cover with your hero drawn, paper pages (two at a time in landscape) and you turn pages with the arrows, by tapping the edge or swiping, with a page-flip animation."
+   "✦ Wardrobe › Auras: six large energy auras. Preview for free, buy with gold, equip or remove; permanent collection per character.",
+   "🎨 Fitted to the original engine, all five female and five male bodies, hairstyles and four directions. Visible in multiplayer; no stat changes."
   ]
  }
 }

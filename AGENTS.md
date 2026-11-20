@@ -25,7 +25,7 @@ The Bound es un RPG 2D de mundo abierto con movimiento en cuatro direcciones.
 - Respeta `FACE` en `src/32_art_chars.js` (cabeza 2 px más alta, ojos 2×3 bajo el flequillo, boca de 2 px, pelo con volumen y cintura en las mujeres) y las etiquetas de capa `TG(n)` para que el detalle HD se aplique.
 - Mantén el detalle HD suave y continuo: sin puntadas punteadas ni líneas claras en cada cambio de sombra (nada de "cuadrículas blancas").
 - Antes de un cambio visual grande, haz una muestra dibujada con el propio motor y compárala con la referencia.
-- Hay 4 estructuras de cuerpo por sexo (`BODY_T` en `src/6zw_bodies.js`; la 0 es la clásica). Ropa, armaduras, cosméticos, peinados y armas nuevos deben verse bien en todas: usa las medidas del dibujo (`tw`, `th`, `hx`, `hy`, `FACE.ey`, `B.*`), no números fijos. Revísalo con `tools/dev/grid.py` y `tools/dev/mock.py`.
+- Hay 5 estructuras de cuerpo por sexo (`BODY_T` en `src/6zw_bodies.js`; la 0 es la clásica). Ropa, armaduras, cosméticos, peinados y armas nuevos deben verse bien en todas: usa las medidas del dibujo (`tw`, `th`, `hx`, `hy`, `FACE.ey`, `B.*`), no números fijos. Revísalo con `tools/dev/grid.py` y `tools/dev/mock.py`.
 - Ajuste automático (`src/6zx_fit.js`): lo que va en la cabeza se dibuja para la cabeza clásica y se escala solo a cada estructura (y se encoge si un sombrero alto no cabe en el cuadro); lo pegado a la cara (gafas) usa la línea de los ojos. Un cosmético nuevo que reutiliza un tipo existente (`k`) se adapta sin hacer nada.
 - Para un tipo de prenda nuevo usa `fitKind(ranura, k, (p, A, spec) => ...)` y dibuja solo con los anclajes de `A` (`hx`, `hy`, `hrx`, `hry`, `headTop`, `ey`, `eyes`, `tx0`, `tw`, `torsoTop`, `th`, `waistY`, `shL`, `shR`, `shY`, `legTop`, `base`, `side`, `up`, `d`). Opciones `{ face }`, `{ float }` y `{ skin }`.
 - Antes de publicar ropa, armaduras, cosméticos o alas nuevas, pasa `python3 tools/dev/fitcheck.py file://$PWD/dist/test.html out` (también corre en `tools/dev/reg.sh`). Debe decir 0 avisos en estructuras nuevas.
@@ -49,3 +49,9 @@ The Bound es un RPG 2D de mundo abierto con movimiento en cuatro direcciones.
 ## Trabajos y actividades
 
 - Los oficios y actividades se juegan dentro del mapa (joystick, ⚔, NPCs y objetos en el mundo), nunca en ventanas/modales. Solo la lotería y la piñata pueden usar ventana. Usa el estado `ACT` de `src/6zz9zzzz_enjuego.js`.
+
+## Regla permanente de Ventisca: cuerpos, pelo y auras
+
+- Todo personaje, cosmético, pelo y aura debe seguir las **cinco estructuras femeninas y cinco masculinas**, en cuatro direcciones, con el motor original (`drawHero`, `hdDetail`, atlas y anclajes). No sustituir caras, proporciones ni sprites por figuras genéricas.
+- Las auras cosméticas usan el fotograma final del atlas y sus medidas; no hacer una máscara fija por peinado. Los peinados futuros deben adaptarse sin registrar otra aura. Mantener VFX y sprite en capas separadas, cachés limitadas y modo optimizado.
+- Guardar auras cosméticas en `cosAuraOwn`/`cosAura`. **No reutilizar `P.auras`**: contiene efectos temporales de habilidades. Usar el oro existente; no añadir otra moneda ni modificar estadísticas para estas auras.

@@ -1,0 +1,64 @@
+name: Validate cosmetic wardrobe auras
+on:
+  pull_request:
+    paths: ['src/**','template.html','tests/auras/**','.github/workflows/auras.yml']
+permissions:
+  contents: write
+concurrency:
+  group: auras-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'codex/wardrobe-auras'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build dependencies
+        run: |
+          pip install playwright pillow
+          mkdir -p tools/i18n/vendor
+          npm pack acorn@8.14.0
+          tar -xzf acorn-8.14.0.tgz package/dist/acorn.js
+          cp package/dist/acorn.js tools/i18n/vendor/acorn.js
+      - run: python3 build.py
+      - name: Validate currencies, saves, auras, all bodies and hairstyles, network and wardrobe UI
+        run: python3 tests/auras/browser.py
+      - name: Regress original hairstyles and online appearance
+        run: |
+          python3 tests/hair8/browser.py
+          python3 tests/net501/browser.py > /tmp/auras-network.json
+      - name: Verify internal updater
+        run: python3 tests/upd.py file://$PWD/dist/test.html /tmp/auras-updater.png > /tmp/auras-updater.log
+      - name: Package verified update
+        run: python3 tools/dev/release.py --no-build
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wardrobe-auras-validation
+          path: |
+            update/*
+            tests/auras/out/*
+            /tmp/auras-network.json
+            /tmp/auras-updater.log
+      - name: Commit verified package
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
+          TARGET_BRANCH: ${{ github.event.pull_request.head.ref }}
+        run: |
+          git fetch origin "$TARGET_BRANCH"
+          test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_HEAD"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add update/thebound.html update/version.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Package verified cosmetic auras update'
+          git push origin "HEAD:refs/heads/$TARGET_BRANCH"
