@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.58', GAME_BUILD = 179;
+const GAME_VER = '5.59', GAME_BUILD = 180;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,17 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.59",
+  "b": 180,
+  "d": "2026-11-20",
+  "es": [
+   "📔 Diario del héroe (▦ Atajos): un libro que se escribe solo con tus hazañas reales (jefes vencidos, cada 50 niveles, pareja, hijos, formas, fusiones y marcos). Tus amigos online pueden leer tus últimas páginas."
+  ],
+  "en": [
+   "📔 Hero's diary (▦ Shortcuts): a book that writes itself with your real deeds (bosses defeated, every 50 levels, partner, children, forms, fusions and frames). Your online friends can read your latest pages."
+  ]
+ },
  {
   "v": "5.58",
   "b": 179,
