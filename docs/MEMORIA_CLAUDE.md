@@ -1,7 +1,7 @@
 # The Bound: memoria para otra cuenta de Claude
 
 Pega este archivo al empezar un chat nuevo (o di «lee `docs/MEMORIA_CLAUDE.md` y `docs/NOTAS.md`»).
-Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.60 (build 181)** (20-11-2026). Lo de cada versión, en `docs/NOTAS.md` (al principio, la lista de versiones; al final, una sección por versión). La 5.13 añadió Perú (Lima), la 5.14 Lima Norte, la 5.15 México y el nivel 500, la 5.16 España (`src/6zz9zzs_espana.js`, `src/6zz9zzt_espana2.js`), la bahía de Acapulco y criaturas con dibujo propio. El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
+Repositorio: **github.com/ventisca-gif/the-bound**. Versión actual: **5.64 (build 185)** (20-11-2026). 5.64: herramientas equipables y barra de abajo con casillas (hacha, poción, pico, caña, libre), ⚔ ya no recolecta, pociones con 30 s de espera, minerales/maderas/peces nuevos (`src/6zzz5_herramientas.js`). Lo de cada versión, en `docs/NOTAS.md` (al principio, la lista de versiones; al final, una sección por versión). La 5.13 añadió Perú (Lima), la 5.14 Lima Norte, la 5.15 México y el nivel 500, la 5.16 España (`src/6zz9zzs_espana.js`, `src/6zz9zzt_espana2.js`), la bahía de Acapulco y criaturas con dibujo propio. El detalle de cada versión está en `docs/NOTAS.md` y el lore en `docs/LORE.md`.
 
 ## Quién es Sergio y cómo trabajar con él
 

@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.63', GAME_BUILD = 184;
+const GAME_VER = '5.64', GAME_BUILD = 185;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,31 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.64",
+ "b": 185,
+ "d": "2026-11-20",
+ "es": [
+  "🛠 Arreglado el error rojo «id is not defined» al usar el Tónico de Fuerza (y cualquier tónico).",
+  "🧪 Las pociones tienen 30 s de espera (curar, maná y tónicos por separado). La poción rápida puede ser cualquiera.",
+  "🪓 Hachas, picos y cañas ahora se equipan en el inventario (Equipar). Talar, picar y pescar ya no es automático con ⚔: se pulsa su casilla.",
+  "▦ Barra de abajo nueva: hacha · poción · pico · caña · ★ casilla libre (pon lo que quieras; mantén pulsado para cambiarla) · mochila · tu arma · misiones. La casilla brilla si tienes un árbol, una veta o agua al lado.",
+  "⛏ 7 minerales y 7 maderas nuevas de nivel alto en Celestia, Altavela, el Velo Roto, Lima Norte, Cusco (Vinicunca) y México, con su icono en el mapa.",
+  "⚒ 7 hachas, 7 picos y 7 cañas nuevas (nivel 170-450). Tala, Minería y Pesca suben hasta el nivel 120 (+30 con maestría).",
+  "🐟 40 peces nuevos (bestiario y acuario), también en Perú, México y Japón. 🎣 Don Anselmo, el cebero de Puerto Coral: lombrices y cebo dorado para pescar más rápido y peces por oro o lombrices.",
+  "🔎 Todo en la Lupa › Sistemas y en «Dónde conseguir» con flecha."
+ ],
+ "en": [
+  "🛠 Fixed the red error «id is not defined» when using the Strength Tonic (and any tonic).",
+  "🧪 Potions have a 30 s cooldown (healing, mana and tonics separately). The quick potion can be any of them.",
+  "🪓 Axes, pickaxes and rods are now equipped in the bag (Equip). Chopping, mining and fishing are no longer automatic with ⚔: tap their slot.",
+  "▦ New bottom bar: axe · potion · pickaxe · rod · ★ free slot (put anything; long-press to change) · bag · your weapon · quests. A slot glows when a tree, vein or water is next to you.",
+  "⛏ 7 new high-level ores and 7 woods in Celestia, Altavela, the Broken Veil, North Lima, Cusco (Vinicunca) and Mexico, with their map icon.",
+  "⚒ 7 new axes, 7 pickaxes and 7 rods (level 170-450). Woodcutting, Mining and Fishing go up to level 120 (+30 with mastery).",
+  "🐟 40 new fish (bestiary and aquarium), also in Peru, Mexico and Japan. 🎣 Old Anselmo, Puerto Coral's bait seller: worms and golden bait to fish faster, and fish for gold or worms.",
+  "🔎 Everything in Magnifier › Systems and «Where to get it» with an arrow."
+ ]
+},
 {
  "v": "5.63",
  "b": 184,
