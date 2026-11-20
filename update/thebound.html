@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.62 · Dawn: viaje cerrado</div>
+  <div class="tfoot">v5.63 · Bailes en el armario</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -2667,6 +2667,20 @@ function drawHero(p, L, dir, anim, f) {
   const sleeve = TOP.k === 'vest' ? CLOTH.blanco : (TOP.k === 'swim' || TOP.k === 'warpaint') ? [SK[0], SK[0], SK[1], SK[2], SK[3]] : TOP.m, handC = plateArm ? TOP.m[3] : SK[2];
   const shortSleeve = TOP.k === 'tunic' || TOP.k === 'dress' || TOP.k === 'hawaii' || TOP.k === 'swim';
   const drawArm = (sx, sy, dx, dy, back) => { TG(3);
+
+    if(ps.danceJoints){
+      const aw=B.aw,alen=B.al*1.08,tx=sx+dx,ty=sy+B.al+dy;
+      let vx=tx-sx,vy=ty-sy,dd=Math.hypot(vx,vy)||1;
+      const reach=Math.min(alen*.985,Math.max(1.4,dd));vx=vx/dd*reach;vy=vy/dd*reach;dd=reach;
+      const hx2=sx+vx,hy2=sy+vy,half=alen*.5,lift=Math.sqrt(Math.max(0,half*half-dd*dd*.25));
+      const bend=(sx<cx?(ps.elbowL||-1):(ps.elbowR||1))*(side&&back?-1:1),ex=sx+vx*.5-vy/dd*lift*bend,ey=sy+vy*.5+vx/dd*lift*bend;
+      const seg=(x0,y0,x1,y1,fore)=>{const n=Math.max(1,Math.ceil(Math.hypot(x1-x0,y1-y0)));for(let i=0;i<aw;i++)for(let j=0;j<=n;j++){const t=j/n,x=Math.round(lerp(x0,x1,t))+i,y=Math.round(lerp(y0,y1,t)),pal=shortSleeve&&(fore||t>.8)?SK:sleeve;p.set(x,y,back?pal[1]:pal[i===0?3:2]);}};
+      seg(sx,sy,ex,ey,false);seg(ex,ey,hx2,hy2-1,true);
+      if(TOP.cuff&&!shortSleeve)p.rect(Math.round(hx2),Math.round(hy2)-2,aw,1,TOP.cuff[back?1:3]);
+      p.rect(Math.round(hx2),Math.round(hy2)-1,aw,2,back?uMul(handC,.75):handC);
+      return [hx2+aw/2,hy2];
+    }
+
     const hx2 = sx + dx, hy2 = sy + B.al + dy, aw = B.aw;
     for (let k = 0; k < aw; k++) { const x0 = sx + k, y0 = sy, x1 = hx2 + k, y1 = hy2 - 1; const n = Math.max(1, Math.ceil(Math.hypot(x1 - x0, y1 - y0))); for (let s = 0; s <= n; s++) { const t = s / n, x = Math.round(lerp(x0, x1, t)), y = Math.round(lerp(y0, y1, t)); const P = shortSleeve && t > 0.4 ? SK : (TOP.band && y >= torsoTop + Math.max(3, Math.round(th * 0.5)) && y <= torsoTop + Math.max(3, Math.round(th * 0.5)) + 1 ? TOP.band : sleeve); p.set(x, y, back ? P[1] : P[k === 0 ? 3 : 2]); } }
     if (robeArm && !back) p.rect(Math.round(hx2) - 1, Math.round(hy2) - 2, aw + 1, 1, TOP.m[3]);
@@ -7115,13 +7129,13 @@ const DANCES = {
   hiphop: { n: (LANG_EN ? "Hip-Hop Step" : 'Paso Hip-Hop'), pose: (ps, f) => { ps.bob = f % 2 ? -2 : 0; ps.crouch = 1; ps.lax = 2; ps.rax = -2; ps.lay = -4; ps.ray = -4; ps.lfx = f === 1 ? -1 : 0; ps.rfx = f === 3 ? 1 : 0; } },
 };
 for (const k in DANCES) if (DANCES[k].pose) ANIMS['dz_' + k] = [0, 4];
-{ const _hp = heroPose; heroPose = function (dir, anim, f, L) { if (anim.startsWith('dz_')) { const D = DANCES[anim.slice(3)]; const ps = poseFor(dir, D.walk ? 'walk' : 'idle', D.walk ? f : 0, L); ps.noWeapon = 1; ps.wang = null; D.pose(ps, f); return ps; } return _hp(dir, anim, f, L); }; }
+{ const _hp = heroPose; heroPose = function (dir, anim, f, L) { if (anim.startsWith('dz_')) { const D = DANCES[anim.slice(3)]; if (!D || !D.pose) return _hp(dir, 'idle', 0, L); const ps = poseFor(dir, D.walk ? 'walk' : 'idle', D.walk ? f : 0, L); ps.noWeapon = 1; ps.wang = null; D.pose(ps, f, dir, L); return ps; } return _hp(dir, anim, f, L); }; }
 function danceAtlasFor(e, dk) { const app = normApp(e.app), gear = e.type === 'player' ? gearTiers(e) : e.gear, cos = e.cos || {}, hh = e.type === 'player' ? e.hideHelm : e.hh; return getAtlas('D' + dk + heroKey(e.cls, app, gear, cos, hh), () => buildAtlas(heroLook(e.cls, app, gear, cos, { hideHelm: hh }), ['dz_' + dk], drawHero)); }
 { const _de = drawEnt; drawEnt = function (e, cx, cy) {
-  if ((e.type === 'player' || e.type === 'remote') && e.anim === 'dance' && e.dk && DANCES[e.dk] && DANCES[e.dk].pose) { const A0 = e.atlas, an0 = e.anim, d0 = e.dir, f0 = e.af; e.atlas = danceAtlasFor(e, e.dk); e.anim = 'dz_' + e.dk; e.af = f0 % 4; if (DANCES[e.dk].spin) e.dir = DIRS[[0, 1, 3, 2][Math.floor(G.t * 8) % 4]]; try { _de(e, cx, cy); } finally { e.atlas = A0; e.anim = an0; e.dir = d0; e.af = f0; } return; }
+  if ((e.type === 'player' || e.type === 'remote') && e.anim === 'dance' && e.dk && DANCES[e.dk] && DANCES[e.dk].pose) { const A0 = e.atlas, an0 = e.anim, d0 = e.dir, f0 = e.af; e.atlas = danceAtlasFor(e, e.dk); e.anim = 'dz_' + e.dk; e.af = f0 % ANIMS[e.anim][1]; if (DANCES[e.dk].spin) e.dir = DIRS[[0, 1, 3, 2][Math.floor(G.t * 8) % 4]]; try { _de(e, cx, cy); } finally { e.atlas = A0; e.anim = an0; e.dir = d0; e.af = f0; } return; }
   if (e.type === 'pet' || e.type === 'rpet') { drawPetAura(e, cx, cy); }
   return _de(e, cx, cy); }; }
-function doDance(k) { const P = G.P; P.dances = P.dances || ['clasico']; if (!P.dances.includes(k)) return; P.dk = k === 'clasico' ? null : k; doEmote('dance'); if (typeof passEvent === 'function') passEvent('dance', 1); }
+function doDance(k) { const P = G.P; if (!P || P.dead || P.ghost || P.job || P.fishing || !Object.prototype.hasOwnProperty.call(DANCES, k)) return false; P.dances = Array.isArray(P.dances) ? P.dances : ['clasico']; if (!P.dances.includes(k)) return false; P.dk = k === 'clasico' ? null : k; doEmote('dance'); if (typeof passEvent === 'function') passEvent('dance', 1); return true; }
 // ---------- pets ----------
 const PETS = {
   gato: { n: (LANG_EN ? "Black Cat" : 'Gato Negro'), d: (LANG_EN ? "+5% critical chance." : '+5% de probabilidad de crítico.'), price: 3000, look: { b: '#1a1620', b2: '#3a3446', ear: 'pointy', tail: 'thin', eye: '#ffd040' } },
@@ -11797,7 +11811,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.62', GAME_BUILD = 183;
+const GAME_VER = '5.63', GAME_BUILD = 184;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11805,6 +11819,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.63",
+ "b": 184,
+ "d": "2026-11-20",
+ "es": [
+  "💃 Armario › Bailes: diez bailes nuevos con vista previa gratuita y compra permanente con el oro existente.",
+  "🎭 Se usan en el botón de gestos y bailes de siempre. Animación de 32 cuadros, diez cuerpos y cuatro direcciones; se ven online y conservan tu pelo, ropa y aura."
+ ],
+ "en": [
+  "💃 Wardrobe › Dances: ten new dances with free preview and permanent purchases using existing gold.",
+  "🎭 Use the existing gestures and dances button. 32-frame animation, ten bodies and four directions; visible online, preserving your hair, clothing and aura."
+ ]
+},
  {
  "v": "5.62",
  "b": 183,
@@ -41378,6 +41405,97 @@ MAPC.dawn=['Dawn · lugares','Dawn · locations','#9aca7b','house'];
 MAPW_LIST.push({id:'dawn',n:L2('Dawn · Villa Foosha (cerrado)','Dawn · Foosha Village (closed)'),mk:()=>makeDawn(),how:L2('Habla con la Capitana Marina en Puerto Coral. Fruta del diablo: requisito futuro; viaje todavía cerrado.','Talk to Captain Marina in Puerto Coral. Devil Fruit: future requirement; voyage still closed.')});
 {const old=otherPOI;otherPOI=function(M){const out=old.apply(this,arguments);if(M?.dawn){for(const p of M.dawnData.pois)out.push({c:'dawn',x:p.x,y:p.y,t:p.name});for(const c of M.camps)out.push({c:'boss',x:c.x,y:c.y,t:L2('Piratas · nivel 500','Pirates · level 500')});}return out;};}
 GSIS.push(['dawn','⚓ Dawn · Villa Foosha',()=>[L2('Mapa de 720 × 360 casillas, el mismo tamaño que Lima. Pasto suave, molinos, Partys Bar, puerto, palmeras costeras y caminos hacia Colubo y Goa.','720 × 360 tiles, the same size as Lima. Soft grass, windmills, Partys Bar, harbour, coastal palms and paths toward Colubo and Goa.'),dawnMarinaTalk(),L2('Shanks y su tripulación son amistosos. Los piratas pendencieros de nivel 500 están fuera del pueblo; usan el mismo equilibrio que el Gólem de Obsidiana actual. El nivel máximo sigue en 500.','Shanks and his crew are friendly. Level-500 brawling pirates are outside the village; they use the current Obsidian Golem balance. The level cap remains 500.'),L2('Primer escenario preparado para Romance Dawn. La ruta sigue cerrada y aún no se juega el capítulo completo.','First setting prepared for Romance Dawn. The route remains closed and the full chapter is not yet playable.')],()=>({m:'world',loc:[229,129],t:(LANG_EN ? "Captain Marina" : 'Capitana Marina')})]);
+
+// 5.63: approved native dance loops; preserve faces, bodies, clothing and hair.
+const DANCE_FRAMES=32;
+function danceShopPose(key,f,dir,L){
+ const ps=poseFor(dir,'idle',0,L),t=(f%DANCE_FRAMES)/DANCE_FRAMES*Math.PI*2,s=Math.sin(t),c=Math.cos(t),s2=Math.sin(t*2),beat=(f%8)/8,side=dir==='left'||dir==='right';
+ Object.assign(ps,{noWeapon:1,wang:null,bob:0,crouch:0,jump:0,lfx:0,rfx:0,lfy:0,rfy:0,lax:0,rax:0,lay:0,ray:0,sway:0,danceJoints:true});
+ if(key==='thriller'){ps.lax=-3+s*3;ps.rax=3+s*3;ps.lay=-6-Math.max(0,c)*3;ps.ray=-6+Math.min(0,c)*3;ps.crouch=1+Math.max(0,s2);ps.lfx=s*1.7;ps.rfx=s*1.7;ps.lfy=-Math.max(0,s2)*1.5;ps.rfy=-Math.max(0,-s2)*1.5;ps.lean=s;}
+ if(key==='single'){ps.lax=-3;ps.lay=-3+Math.max(0,s)*2;ps.rax=1+Math.sin(t*2)*2;ps.ray=-11;ps.crouch=Math.max(0,-c);ps.bob=-Math.max(0,s2);ps.lfx=s*2;ps.rfx=-s;ps.rfy=-Math.max(0,-c)*2;ps.lean=s;ps.elbowR=-1;}
+ if(key==='carlton'){ps.lax=s*5;ps.rax=s*5;ps.lay=-3-c*3;ps.ray=-3+c*3;ps.lfx=-s*2;ps.rfx=-s*2;ps.lfy=-Math.max(0,c)*2;ps.rfy=-Math.max(0,-c)*2;ps.bob=-Math.abs(s2);ps.lean=-s;}
+ if(key==='running'){ps.lfx=s2*2.6;ps.rfx=-s2*2.6;ps.lfy=-Math.max(0,c*2)*3;ps.rfy=-Math.max(0,-c*2)*3;ps.lax=-s2*2;ps.rax=s2*2;ps.lay=-3+c*2;ps.ray=-3-c*2;ps.bob=-Math.abs(s2);ps.lean=1;}
+ if(key==='shuffle'){ps.lfx=s*3;ps.rfx=-s*2;ps.lfy=-Math.max(0,s2)*2;ps.rfy=-Math.max(0,-s2)*2;ps.lax=-3-c*2;ps.rax=3+c*2;ps.lay=-1-Math.max(0,s)*3;ps.ray=-1-Math.max(0,-s)*3;ps.jump=Math.max(0,s2)*.8;ps.lean=-s;}
+ if(key==='charleston'){ps.lfx=s*3;ps.rfx=-s*3;ps.lfy=-Math.max(0,c)*3;ps.rfy=-Math.max(0,-c)*3;ps.lax=-3-c*2;ps.rax=3+c*2;ps.lay=-3-s*2;ps.ray=-3+s*2;ps.bob=-Math.abs(s2);ps.lean=c;}
+ if(key==='rasputin'){ps.crouch=4;ps.lax=-5;ps.rax=5;ps.lay=-6;ps.ray=-6;ps.lfx=-Math.max(0,c)*5;ps.rfx=Math.max(0,-c)*5;ps.lfy=-Math.max(0,c)*3;ps.rfy=-Math.max(0,-c)*3;ps.bob=-Math.abs(s2)*1.5;}
+ if(key==='ymca'){
+  const frames=[[-5,-13,5,-13],[-1,-10,1,-10],[-5,-10,-3,-3],[1,-13,-1,-13]],u=f/8,i=Math.floor(u)%4,n=(i+1)%4,transition=Math.max(0,(u%1-.6)/.4),q=transition*transition*(3-2*transition),v=frames[i].map((a,k)=>a+(frames[n][k]-a)*q);
+  [ps.lax,ps.lay,ps.rax,ps.ray]=v;ps.bob=-Math.max(0,s2);ps.lfx=s;ps.rfx=-s;
+ }
+ if(key==='disco'){const up=(1+Math.sin(t))/2;ps.rax=2+up*3;ps.ray=-1-up*12;ps.lax=-1;ps.lay=-2;ps.lfx=-s*1.5;ps.rfx=s*1.5;ps.bob=-Math.max(0,s2);ps.lean=-s;}
+ if(key==='merlina'){ps.lax=-5+c*2;ps.rax=5+c*2;ps.lay=-5+s*4;ps.ray=-5-s*4;ps.elbowL=f<16?-1:1;ps.elbowR=-ps.elbowL;ps.crouch=Math.max(0,s2);ps.lfx=s*1.5;ps.rfx=-s*1.5;ps.lfy=-Math.max(0,c)*1.5;ps.rfy=-Math.max(0,-c)*1.5;ps.lean=c;}
+ if(side){ps.lax*=.65;ps.rax*=.65;}
+ return ps;
+}
+// One registry and collection for the pass, festivals, emote button and shop.
+const DANCE_SHOP = {
+ thriller:{n:L2('Thriller · zombi','Thriller · zombie'),d:L2('Garras, pasos laterales y hombros.','Claws, side steps and shoulders.'),pr:8000},
+ single:{n:'Single Ladies',d:L2('Mano junto al rostro y paso de cadera.','Hand by the face and hip steps.'),pr:10000},
+ carlton:{n:'Carlton',d:L2('Balanceo de brazos y pasos cruzados.','Arm swings and crossing steps.'),pr:6000},
+ running:{n:'Running Man',d:L2('Rodillas alternadas y deslizamiento.','Alternating knees and sliding feet.'),pr:6000},
+ shuffle:{n:'Shuffle',d:L2('Paso en T y cambios de apoyo.','T-step and shifting weight.'),pr:7500},
+ charleston:{n:'Charleston',d:L2('Puntas, talones y patadas alternas.','Toes, heels and alternating kicks.'),pr:6000},
+ rasputin:{n:L2('Rasputin · cosaco','Rasputin · Cossack'),d:L2('Sentadilla y patadas laterales.','Squat and side kicks.'),pr:10000},
+ ymca:{n:'YMCA',d:L2('Cuatro figuras con los brazos.','Four arm shapes.'),pr:5000},
+ disco:{n:L2('Disco · años 70','Disco · 70s'),d:L2('Señalar arriba y abajo con pasos.','Point up and down while stepping.'),pr:5000},
+ merlina:{n:L2('Merlina','Wednesday'),d:L2('Manos rígidas y pasos cortos.','Stiff hands and short steps.'),pr:12000}
+};
+for(const [k,D] of Object.entries(DANCE_SHOP)){
+ DANCES[k]={n:D.n,frames:DANCE_FRAMES,fps:12.5,pose:(ps,f,dir,L)=>Object.assign(ps,danceShopPose(k,f,dir,L))};
+ ANIMS['dz_'+k]=[0,DANCE_FRAMES];
+}
+const danceShopValid=k=>typeof k==='string'&&Object.prototype.hasOwnProperty.call(DANCE_SHOP,k);
+function danceCollection(P){
+ if(!P)return;
+ P.dances=[...new Set(['clasico',...(Array.isArray(P.dances)?P.dances:[])].filter(k=>typeof k==='string'&&Object.prototype.hasOwnProperty.call(DANCES,k)))];
+}
+{const prev=initPlayerRuntime;initPlayerRuntime=function(P){danceCollection(P);return prev.apply(this,arguments);};}
+function danceShopBuy(k){
+ const P=G.P;if(!P||!danceShopValid(k))return false;danceCollection(P);
+ if(P.dances.includes(k))return true;
+ const D=DANCE_SHOP[k];if(!Number.isFinite(P.gold)||P.gold<D.pr){toast(L2('No tienes oro suficiente.','Not enough gold.'),'warn');return false;}
+ P.gold-=D.pr;P.dances.push(k);markDirty(true);sfx('coin');toast(L2('Baile conseguido: ','Dance unlocked: ')+D.n,'quest');return true;
+}
+// Advance all 32 frames through the existing local AND remote animation clocks.
+{const prev=animN;animN=function(e,a){return a==='dance'&&(e.type==='player'||e.type==='remote')&&danceShopValid(e.dk)?DANCE_FRAMES:prev.apply(this,arguments);};}
+{const prev=stepAnim;stepAnim=function(e,dt,fps){if(e.anim==='dance'&&(e.type==='player'||e.type==='remote')&&danceShopValid(e.dk))fps=DANCES[e.dk].fps;return prev.call(this,e,dt,fps);};}
+// Only the selected shop preview animates. At most three preview atlases are retained;
+// the world keeps using danceAtlasFor/getAtlas and the engine's normal GC.
+const WDB={preview:'thriller',cache:new Map()};
+function dancePreviewAtlas(P,k){
+ const app=normApp(P.app),gear=gearTiers(P),cos=P.cos||{},key=k+heroKey(P.cls,app,gear,cos,P.hideHelm);
+ let A=WDB.cache.get(key);if(A){WDB.cache.delete(key);WDB.cache.set(key,A);return A;}
+ A=buildAtlas(heroLook(P.cls,app,gear,cos,{hideHelm:P.hideHelm}),['dz_'+k],drawHero);WDB.cache.set(key,A);
+ while(WDB.cache.size>3){const old=WDB.cache.keys().next().value,a=WDB.cache.get(old),i=HD_LIVE.indexOf(a);if(i>=0)HD_LIVE.splice(i,1);WDB.cache.delete(old);}
+ return A;
+}
+function danceShopOpenEmotes(){closePanel();toggleEmoPop(true);}
+{const prev=renderWardrobe;renderWardrobe=function(B){
+ const dance=wdMode==='dance';if(dance)wdMode='cos';let r;try{r=prev.apply(this,arguments);}finally{if(dance)wdMode='dance';}
+ const P=G.P;if(!P)return r;danceCollection(P);const chips=B.querySelector('.wdL .chips');
+ if(chips){const b=document.createElement('button');b.className='chip'+(dance?' on':'');b.dataset.wdance='1';b.textContent='💃 '+L2('Bailes','Dances');b.onclick=()=>{wdMode='dance';sfx('ui');renderPanel();};chips.appendChild(b);if(dance)chips.querySelectorAll('[data-wm],[data-wt],[data-wfa],[data-waura]').forEach(el=>el.classList.remove('on'));}
+ if(!dance)return r;if(!danceShopValid(WDB.preview))WDB.preview='thriller';
+ const cv=B.querySelector('#wdPrev');cv.width=192;cv.height=176;cv.classList.add('dancePreview');
+ const hint=B.querySelector('.wdL .hint');if(hint)hint.textContent=L2('Prueba gratis y compra con tu oro. Después elige el baile en el botón de gestos y bailes de siempre.','Preview for free and buy with gold. Then choose your dance in the existing gestures and dances button.');
+ const R=B.querySelector('.wdR'),owned=Object.keys(DANCE_SHOP).filter(k=>P.dances.includes(k)).length;
+ R.innerHTML=`<div class="danceHead"><h3>💃 ${L2('Bailes','Dances')} <small>${owned}/10</small></h3><span>${iconHTML(['coin'],18)} <b>${fmt(P.gold)}</b> ${L2('oro','gold')}</span><button class="btn sm" id="wdMyDances">${L2('Abrir mis bailes','Open my dances')}</button></div><p class="hint">${L2('Compra permanente para este personaje. «Ver» no gasta oro. Los bailes que ya tienes se conservan.','Permanent purchase for this character. Preview spends no gold. Your existing dances are kept.')}</p><p class="danceSelected" id="wdDanceStatus" aria-live="polite">${L2('Vista previa: ','Preview: ')+esc(DANCE_SHOP[WDB.preview].n)}</p><div class="danceGrid">${Object.entries(DANCE_SHOP).map(([k,D])=>{const own=P.dances.includes(k);return `<article class="danceCard ${own?'owned':''}" data-dcard="${k}"><h4>${esc(D.n)}</h4><p>${esc(D.d)}</p><small>${own?L2('En tu colección ✓','In your collection ✓'):fmt(D.pr)+' '+L2('oro','gold')}</small><div class="row"><button class="btn sm" data-dpreview="${k}" aria-pressed="${WDB.preview===k}">${L2('Ver','Preview')}</button><button class="btn gold sm" data-dbuy="${k}" ${own?'disabled':''}>${own?L2('Comprado ✓','Owned ✓'):L2('Comprar','Buy')}</button></div></article>`;}).join('')}</div>`;
+ R.querySelectorAll('[data-dpreview]').forEach(b=>b.onclick=()=>{WDB.preview=b.dataset.dpreview;wdPrevT=0;cv._danceTick=-1;R.querySelector('#wdDanceStatus').textContent=L2('Vista previa: ','Preview: ')+DANCE_SHOP[WDB.preview].n;R.querySelectorAll('[data-dpreview]').forEach(el=>el.setAttribute('aria-pressed',String(el===b)));sfx('ui');});
+ R.querySelectorAll('[data-dbuy]').forEach(b=>b.onclick=()=>{if(danceShopBuy(b.dataset.dbuy))renderPanel();});R.querySelector('#wdMyDances').onclick=danceShopOpenEmotes;return r;
+};}
+{const prev=drawWardrobePreview;drawWardrobePreview=function(dt){
+ if(wdMode!=='dance')return prev.apply(this,arguments);
+ const P=G.P,cv=$('#wdPrev');if(!P||!cv||$('#panel').hidden||panelTab!=='wardrobe')return;
+ wdPrevT+=dt;const tick=Math.floor(wdPrevT*12.5);if(cv._danceTick===tick)return;cv._danceTick=tick;
+ const k=WDB.preview,A=dancePreviewAtlas(P,k),col=A.idx['dz_'+k]+tick%DANCE_FRAMES,row=[0,1,3,2][wdDir],x=cv.getContext('2d');x.clearRect(0,0,cv.width,cv.height);x.imageSmoothingEnabled=false;
+ // Same final atlas silhouette as world auras, including future hairstyles.
+ if(cosAuraValid(P.cosAura)){const f=cosAuraFrame(A,col,row),fx=f&&cosAuraEffect(f,P.cosAura,wdPrevT,true);if(fx)x.drawImage(fx,0,0,cv.width,cv.height);}
+ atlasBlit(x,A,col,row,48,32,96,96);
+};}
+if(typeof GSIS!=='undefined')GSIS.unshift(['dance_shop','💃 '+L2('Bailes del armario','Wardrobe dances'),()=>[
+ L2('Armario › Bailes: diez bailes nuevos, vista previa gratis y compra permanente con el oro existente.','Wardrobe › Dances: ten new dances, free preview and permanent purchase with existing gold.'),
+ ...Object.values(DANCE_SHOP).map(D=>D.n+': '+fmt(D.pr)+' '+L2('oro','gold')+'.'),
+ L2('Se usan en el botón de gestos y bailes existente. Funcionan con los cinco cuerpos femeninos y cinco masculinos, tu pelo y ropa, en cuatro direcciones; se ven online.','Use them in the existing gestures and dances button. They work with all five female and five male bodies, your hair and clothing, in four directions; visible online.')],()=>null]);
+{const st=document.createElement('style');st.textContent='.danceHead{display:flex;gap:.6em;align-items:center;flex-wrap:wrap}.danceHead h3{margin:.2em 0;flex:1}.danceHead span{white-space:nowrap}.danceGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65em}.danceCard{border:1px solid #886740;border-radius:.6em;padding:.75em;background:rgba(16,11,24,.65);min-width:0}.danceCard.owned{border-color:#dfba6b}.danceCard h4{margin:0;color:#f6d78b}.danceCard p{font-size:.85em;min-height:2.4em;margin:.45em 0}.danceCard small{display:block;color:#ebca86;margin:.4em 0}.danceCard .row{display:flex;flex-wrap:wrap;gap:.4em}.danceCard .btn{white-space:normal}.danceCard [aria-pressed=true]{box-shadow:0 0 0 2px #f5ce76}.danceSelected{color:#f6d78b}.wdL #wdPrev.dancePreview{width:min(100%,13em);height:auto;aspect-ratio:12/11}@media(max-width:470px){.danceGrid{grid-template-columns:1fr}}';document.head.appendChild(st);}
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;

@@ -47,13 +47,13 @@ const DANCES = {
   hiphop: { n: 'Paso Hip-Hop', pose: (ps, f) => { ps.bob = f % 2 ? -2 : 0; ps.crouch = 1; ps.lax = 2; ps.rax = -2; ps.lay = -4; ps.ray = -4; ps.lfx = f === 1 ? -1 : 0; ps.rfx = f === 3 ? 1 : 0; } },
 };
 for (const k in DANCES) if (DANCES[k].pose) ANIMS['dz_' + k] = [0, 4];
-{ const _hp = heroPose; heroPose = function (dir, anim, f, L) { if (anim.startsWith('dz_')) { const D = DANCES[anim.slice(3)]; const ps = poseFor(dir, D.walk ? 'walk' : 'idle', D.walk ? f : 0, L); ps.noWeapon = 1; ps.wang = null; D.pose(ps, f); return ps; } return _hp(dir, anim, f, L); }; }
+{ const _hp = heroPose; heroPose = function (dir, anim, f, L) { if (anim.startsWith('dz_')) { const D = DANCES[anim.slice(3)]; if (!D || !D.pose) return _hp(dir, 'idle', 0, L); const ps = poseFor(dir, D.walk ? 'walk' : 'idle', D.walk ? f : 0, L); ps.noWeapon = 1; ps.wang = null; D.pose(ps, f, dir, L); return ps; } return _hp(dir, anim, f, L); }; }
 function danceAtlasFor(e, dk) { const app = normApp(e.app), gear = e.type === 'player' ? gearTiers(e) : e.gear, cos = e.cos || {}, hh = e.type === 'player' ? e.hideHelm : e.hh; return getAtlas('D' + dk + heroKey(e.cls, app, gear, cos, hh), () => buildAtlas(heroLook(e.cls, app, gear, cos, { hideHelm: hh }), ['dz_' + dk], drawHero)); }
 { const _de = drawEnt; drawEnt = function (e, cx, cy) {
-  if ((e.type === 'player' || e.type === 'remote') && e.anim === 'dance' && e.dk && DANCES[e.dk] && DANCES[e.dk].pose) { const A0 = e.atlas, an0 = e.anim, d0 = e.dir, f0 = e.af; e.atlas = danceAtlasFor(e, e.dk); e.anim = 'dz_' + e.dk; e.af = f0 % 4; if (DANCES[e.dk].spin) e.dir = DIRS[[0, 1, 3, 2][Math.floor(G.t * 8) % 4]]; try { _de(e, cx, cy); } finally { e.atlas = A0; e.anim = an0; e.dir = d0; e.af = f0; } return; }
+  if ((e.type === 'player' || e.type === 'remote') && e.anim === 'dance' && e.dk && DANCES[e.dk] && DANCES[e.dk].pose) { const A0 = e.atlas, an0 = e.anim, d0 = e.dir, f0 = e.af; e.atlas = danceAtlasFor(e, e.dk); e.anim = 'dz_' + e.dk; e.af = f0 % ANIMS[e.anim][1]; if (DANCES[e.dk].spin) e.dir = DIRS[[0, 1, 3, 2][Math.floor(G.t * 8) % 4]]; try { _de(e, cx, cy); } finally { e.atlas = A0; e.anim = an0; e.dir = d0; e.af = f0; } return; }
   if (e.type === 'pet' || e.type === 'rpet') { drawPetAura(e, cx, cy); }
   return _de(e, cx, cy); }; }
-function doDance(k) { const P = G.P; P.dances = P.dances || ['clasico']; if (!P.dances.includes(k)) return; P.dk = k === 'clasico' ? null : k; doEmote('dance'); if (typeof passEvent === 'function') passEvent('dance', 1); }
+function doDance(k) { const P = G.P; if (!P || P.dead || P.ghost || P.job || P.fishing || !Object.prototype.hasOwnProperty.call(DANCES, k)) return false; P.dances = Array.isArray(P.dances) ? P.dances : ['clasico']; if (!P.dances.includes(k)) return false; P.dk = k === 'clasico' ? null : k; doEmote('dance'); if (typeof passEvent === 'function') passEvent('dance', 1); return true; }
 // ---------- pets ----------
 const PETS = {
   gato: { n: 'Gato Negro', d: '+5% de probabilidad de crítico.', price: 3000, look: { b: '#1a1620', b2: '#3a3446', ear: 'pointy', tail: 'thin', eye: '#ffd040' } },

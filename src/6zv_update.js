@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.62', GAME_BUILD = 183;
+const GAME_VER = '5.63', GAME_BUILD = 184;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.63",
+ "b": 184,
+ "d": "2026-11-20",
+ "es": [
+  "💃 Armario › Bailes: diez bailes nuevos con vista previa gratuita y compra permanente con el oro existente.",
+  "🎭 Se usan en el botón de gestos y bailes de siempre. Animación de 32 cuadros, diez cuerpos y cuatro direcciones; se ven online y conservan tu pelo, ropa y aura."
+ ],
+ "en": [
+  "💃 Wardrobe › Dances: ten new dances with free preview and permanent purchases using existing gold.",
+  "🎭 Use the existing gestures and dances button. 32-frame animation, ten bodies and four directions; visible online, preserving your hair, clothing and aura."
+ ]
+},
  {
  "v": "5.62",
  "b": 183,
