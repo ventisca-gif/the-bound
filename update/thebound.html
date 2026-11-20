@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.64 · Herramientas, barra nueva, minerales y peces</div>
+  <div class="tfoot">v5.65 · Elige tu montura y curas equilibradas</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11814,7 +11814,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.64', GAME_BUILD = 185;
+const GAME_VER = '5.65', GAME_BUILD = 186;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11822,6 +11822,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.65",
+ "b": 186,
+ "d": "2026-11-20",
+ "es": [
+  "🐴 El botón de montura abre tus monturas compradas: elige la que quieras o cambia sin bajarte. En el online se ve la que llevas.",
+  "🧪 Curas equilibradas: pociones como mucho el 40 % de tu vida (elixir 60 %); platos y bebidas como mucho el 25 % y con 20 s de espera (antes se podían comer sin parar y curaban miles).",
+  "⛏ Las vetas y árboles nuevos de nivel alto vuelven a salir a los 3 s en el mismo sitio."
+ ],
+ "en": [
+  "🐴 The mount button opens your purchased mounts: pick any or switch without getting off. Online players see the one you ride.",
+  "🧪 Balanced healing: potions heal at most 40% of your HP (elixir 60%); dishes and drinks at most 25% with a 20 s cooldown (before they could be spammed for thousands).",
+  "⛏ The new high-level veins and trees grow back after 3 s in the same spot."
+ ]
+},
 {
  "v": "5.64",
  "b": 185,
@@ -23194,7 +23209,7 @@ wmNeed = function (lv) { return Math.round(8 * Math.pow(lv, 1.3)); };
 // ---------- espera de pociones curativas ----------
 const POT_CD = 30; // 5.64: 30 s (Sergio)
 { const _ui = useItem; useItem = function (idx) { const P = G.P, s = P && P.inv[idx], it = s && ITEMS[s.id];
-    if (it && it.t === 'cons' && (it.heal || (it.p && it.k === 'heal'))) {
+    if (it && it.t === 'cons' && (it.heal || (it.p && it.k === 'heal')) && typeof potGroup !== 'function') { // desde 5.64/5.65 la espera la lleva potGroup
       const left = (P.healCd || 0) - G.t; if (left > 0) { toast(L2('Poción curativa en espera: ', 'Healing potion cooling down: ') + Math.ceil(left) + ' s', 'warn', 1.2); return; }
       const r = _ui.apply(this, arguments); P.healCd = G.t + POT_CD; return r; }
     return _ui.apply(this, arguments); }; }
@@ -41650,12 +41665,20 @@ const HB_JOBS = { tala: () => L2('Equípate un hacha en el inventario, acércate
   pesca: () => L2('Equípate una caña en el inventario, acércate al agua y pulsa la casilla 🎣 de la barra de abajo (vuelve a pulsarla cuando pique y mantenla para recoger).', 'Equip a rod in the bag, walk up to water and tap the 🎣 slot on the bottom bar (tap again when it bites and hold to reel in).') };
 
 // ---------- pociones: 30 s de espera (curar, maná y tónicos por separado) ----------
-function potGroup(I) { if (!I || I.t !== 'cons' || I.food || I.plato) return null; if (I.heal || (I.p && I.k === 'heal')) return 'heal'; if (I.mana) return 'mana'; if (I.tonic || I.buffE || (I.icon && I.icon[0] === 'potion')) return 'buff'; return null; }
-const POT_KEY = { heal: 'healCd', mana: 'manaCd', buff: 'buffCd' };
+// 5.65: los platos y bebidas que curan también tienen espera (20 s) y ninguna cura pasa de un % de tu vida máxima
+function potGroup(I) { if (!I || I.t !== 'cons') return null; const isPot = !!(I.icon && /^potion/.test(String(I.icon[0]))) || /^(pocion|eter|elixir)/.test(I.id || '');
+  if ((I.food || I.plato || (I.heal && !isPot)) && (I.heal || I.mana)) return 'food'; if (I.food || I.plato) return null;
+  if (I.heal || (I.p && I.k === 'heal')) return 'heal'; if (I.mana) return 'mana'; if (I.tonic || I.buffE || isPot) return 'buff'; return null; }
+const POT_KEY = { heal: 'healCd', mana: 'manaCd', buff: 'buffCd', food: 'foodCd' }, POT_DUR = { heal: 30, mana: 30, buff: 30, food: 20 };
+// tope de cura por uso (fracción de la vida/maná máximos): pociones 40 %, elixir 60 %, comida 25 %
+function healCapK(I, g) { return (I.heal >= 99999 || I.mana >= 99999) ? 0.6 : g === 'food' ? 0.25 : 0.4; }
 { const _ui = useItem; useItem = function (idx) { const P = G.P, s = P && P.inv[idx], I = s && ITEMS[s.id], g = potGroup(I); if (!g) return _ui.apply(this, arguments);
   if (I.lv && P.lv < I.lv) return _ui.apply(this, arguments);
-  const left = (P[POT_KEY[g]] || 0) - G.t; if (left > 0) { toast(L2('Poción en espera: ', 'Potion cooling down: ') + Math.ceil(left) + ' s', 'warn', 1.2); return; }
-  const id = s.id, before = countItem(id), r = _ui.apply(this, arguments); if (countItem(id) < before) P[POT_KEY[g]] = G.t + 30; return r; }; }
+  const left = (P[POT_KEY[g]] || 0) - G.t; if (left > 0) { toast((g === 'food' ? L2('Aún estás comiendo: ', 'Still eating: ') : L2('Poción en espera: ', 'Potion cooling down: ')) + Math.ceil(left) + ' s', 'warn', 1.2); return; }
+  const k = healCapK(I, g), h0 = I.heal, m0 = I.mana, S = P.S || {};
+  if (h0 && S.maxhp) I.heal = Math.max(1, Math.min(h0, Math.round(S.maxhp * k))); if (m0 && S.maxmp) I.mana = Math.max(1, Math.min(m0, Math.round(S.maxmp * k)));
+  const id = s.id, before = countItem(id); let r; try { r = _ui.apply(this, arguments); } finally { if (h0 !== undefined) I.heal = h0; if (m0 !== undefined) I.mana = m0; }
+  if (countItem(id) < before) P[POT_KEY[g]] = G.t + POT_DUR[g]; return r; }; }
 function potLeft(id) { const P = G.P, g = potGroup(ITEMS[id]); return g ? Math.max(0, (P[POT_KEY[g]] || 0) - G.t) : 0; }
 
 // ---------- barra de abajo ----------
@@ -41672,7 +41695,7 @@ function hbRefresh() { const P = G.P; if (!P || !$('#hbAxe')) return;
   if (ch && ch.dataset.k !== wk) { ch.dataset.k = wk; ch.innerHTML = hbIcon(w && ITEMS[w.id] ? ITEMS[w.id].icon : ['sword', 3]); } }
 function hbCdTick() { const P = G.P; if (!P) return;
   for (const [bid, id] of [['hbPot', P.potion], ['hbFree', P.hbFree]]) { const b = $('#' + bid); if (!b) continue; let o = b.querySelector('.pcd'); const left = id && ITEMS[id] ? potLeft(id) : 0;
-    if (left <= 0) { if (o) o.remove(); continue; } if (!o) { o = document.createElement('span'); o.className = 'pcd'; b.appendChild(o); } o.style.setProperty('--a', Math.round(left / 30 * 360) + 'deg'); const t = String(Math.ceil(left)); if (o.textContent !== t) o.textContent = t; } }
+    if (left <= 0) { if (o) o.remove(); continue; } if (!o) { o = document.createElement('span'); o.className = 'pcd'; b.appendChild(o); } o.style.setProperty('--a', Math.round(left / (POT_DUR[potGroup(ITEMS[id])] || 30) * 360) + 'deg'); const t = String(Math.ceil(left)); if (o.textContent !== t) o.textContent = t; } }
 function hbFreeUse() { const P = G.P, id = P.hbFree; if (!id || !ITEMS[id]) { hbFreePick(); return; } const i = P.inv.findIndex(s => s && s.id === id); if (i < 0) { toast(L2('No te quedan: ', 'None left: ') + ITEMS[id].n + L2(' (mantén pulsado para cambiar)', ' (long-press to change)'), 'warn', 2); return; }
   const I = ITEMS[id]; if (I.t === 'tool') { equipTool(id); return; } useItem(i); uiDirty.inv = uiDirty.hud = true; hbRefresh(); }
 function hbFreePick() { const P = G.P, seen = new Set(), list = []; for (const s of P.inv) { const I = s && ITEMS[s.id]; if (!I || seen.has(s.id)) continue; if (I.t === 'cons' || (I.t === 'tool' && HB_TOOLJOBS.includes(I.tool))) { seen.add(s.id); list.push(s.id); } }
@@ -41735,8 +41758,8 @@ function nvScatter(M, n, seed, used) { const R = new RNG(seed), out = [], bx = N
   return out; }
 function nvPlace(M) { if (!M || M._nv || !M.objs) return; const list = NV_RES.filter(r => r[6] === M.id); if (!list.length) return; M._nv = 1; M._nvPoi = [];
   try { const used = []; for (const [t, , , , sp] of list) { const n = t === 18 ? 6 : 10;
-      for (const [x, y] of nvScatter(M, n, 9100 + t * 31 + M.w, used)) { addObj(M, 'ore', x, y, { tier: t }); }
-      for (const [x, y] of nvScatter(M, n, 7700 + t * 17 + M.h, used)) { addObj(M, 'tree', x, y, { sp }); }
+      for (const [x, y] of nvScatter(M, n, 9100 + t * 31 + M.w, used)) { addObj(M, 'ore', x, y, { tier: t, nv: 1 }); }
+      for (const [x, y] of nvScatter(M, n, 7700 + t * 17 + M.h, used)) { addObj(M, 'tree', x, y, { sp, nv: 1 }); }
       const o1 = M.objs.find(o => o.k === 'ore' && o.tier === t), o2 = M.objs.find(o => o.k === 'tree' && o.sp === sp);
       if (o1) { M._nvPoi.push({ c: 'nvveta', x: o1.tx, y: o1.ty, t: '⛏ ' + ITEMS['ore' + t].n }); NV_AT['ore' + t] = { m: M.id, loc: [o1.tx, o1.ty] }; }
       if (o2) { M._nvPoi.push({ c: 'nvveta', x: o2.tx, y: o2.ty, t: '🪓 ' + ITEMS['log' + t].n }); NV_AT['log' + t] = { m: M.id, loc: [o2.tx, o2.ty] }; } } } catch (e) { console.warn('nvPlace', e); } }
@@ -41802,6 +41825,38 @@ if (typeof GSIS !== 'undefined') GSIS.unshift(['herram564', '🪓 ' + L2('Herram
   L2('📈 Tala, Minería y Pesca suben ahora hasta el nivel 120 (+30 con la maestría).', '📈 Woodcutting, Mining and Fishing now go up to level 120 (+30 with mastery).'),
   L2('🐟 40 peces nuevos (nivel 12-18) en el mundo, Perú, México y Japón: salen en el bestiario y van al acuario. 🎣 Don Anselmo, en el muelle de Puerto Coral, vende lombrices y cebo dorado (pescas más rápido, más experiencia y peces más grandes) y cambia peces por oro o lombrices.', '🐟 40 new fish (level 12-18) in the world, Peru, Mexico and Japan: they appear in the bestiary and go in the aquarium. 🎣 Old Anselmo, on the Puerto Coral dock, sells worms and golden bait (faster fishing, more XP and bigger fish) and trades fish for gold or worms.')
 ], () => CEB_AT ? { loc: CEB_AT, t: 'Don Anselmo' } : null]);
+
+// ================= v5.65: ELEGIR MONTURA, RECURSOS NUEVOS CADA 3 S =================
+// Sergio (5.65): «en el botón montura saldrán tus monturas compradas: ahora solo te pones la mejor (la última);
+// que puedas elegir la que quieras y que se vea en el online». La montura elegida ya viaja en la presencia (o.mt).
+// Las vetas y árboles de nivel 12-18 (5.64) vuelven a salir a los 3 s en el mismo sitio.
+
+// ---------- selector de montura ----------
+function mountList() { const P = G.P; return [...new Set((P.mounts || []).filter(k => MOUNTS[k] && k !== 'loba_kaela'))]; }
+function mountRide(k) { const P = G.P; if (!MOUNTS[k] || !(P.mounts || []).includes(k)) return;
+  if (P.mount && P.mount !== 'loba_kaela') { P.mount = k; P.lastMount = k; calcStats(P); mountBtn(); try { netPresence(true); } catch (e) { } sfx(MOUNTS[k].fly ? 'cast' : 'horn'); toast(L2('Montas: ', 'Riding: ') + MOUNTS[k].n, 'info'); markDirty(); return; }
+  P.lastMount = k; toggleMount(); markDirty(); }
+function mountPicker() { const P = G.P, L = mountList(), cur = P.mount;
+  openModal(`<div class="frame"><h3>🐴 ${L2('Tus monturas', 'Your mounts')}</h3><p class="hint">${L2('Elige con cuál montar. Los demás jugadores ven la que llevas.', 'Choose which one to ride. Other players see the one you ride.')}</p>
+    <div class="slist">${L.map(k => { const D = MOUNTS[k]; return `<div class="srow"><div class="sn"><b>${esc(D.n)}${cur === k ? ' ✓' : ''}</b><small>${L2('Velocidad', 'Speed')} ×${(D.sp || 1).toFixed(1)}${D.fly ? ' · ' + L2('vuela', 'flies') : ''}${D.car ? ' · ' + L2('vehículo', 'vehicle') : ''}</small></div><button class="btn sm ${cur === k ? 'gold' : ''}" data-mride="${k}">${cur === k ? L2('Montado', 'Riding') : L2('Montar', 'Ride')}</button></div>`; }).join('')}</div>
+    <div class="row">${cur ? `<button class="btn danger" id="mDown">${L2('Desmontar', 'Dismount')}</button>` : ''}<button class="btn" id="mX">${L2('Cerrar', 'Close')}</button></div></div>`);
+  $('#mX').onclick = closeModal; const d = $('#mDown'); if (d) d.onclick = () => { closeModal(); toggleMount(); };
+  $$('#modal [data-mride]').forEach(b => b.onclick = () => { const k = b.dataset.mride; closeModal(); if (P.mount === k) return; mountRide(k); }); }
+{ const _tm = toggleMount; toggleMount = function () { const P = G.P; if (!P || P.mount === 'loba_kaela' || mountList().length < 2) return _tm.apply(this, arguments);
+  if (window._mPick) { window._mPick = 0; return _tm.apply(this, arguments); }
+  mountPicker(); }; }
+// desde el selector, montar/desmontar usa la función de siempre (con sus comprobaciones de terreno)
+{ const _mr = mountRide; mountRide = function (k) { window._mPick = 1; try { return _mr.apply(this, arguments); } finally { window._mPick = 0; } }; }
+{ const _p = mountPicker; mountPicker = function () { const r = _p.apply(this, arguments); const d = $('#mDown'); if (d) d.onclick = () => { closeModal(); window._mPick = 1; try { toggleMount(); } finally { window._mPick = 0; } }; return r; }; }
+
+// ---------- vetas y árboles de nivel alto: vuelven a salir a los 3 s ----------
+{ const _rr = respawnResources; respawnResources = function (M) { if (M && M._nv && M.objs) for (const o of M.objs) if (o.nv && o.respawn && o.respawn - G.t > 3.05) o.respawn = G.t + 3; return _rr.apply(this, arguments); }; }
+
+if (typeof GSIS !== 'undefined') GSIS.unshift(['monturas565', '🐴 ' + L2('Elegir montura', 'Choose a mount'), () => [
+  L2('🐴 Si tienes varias monturas, el botón de montura abre la lista: elige la que quieras (o cambia de una a otra sin bajarte). Los demás jugadores ven la que llevas.', '🐴 If you own several mounts, the mount button opens the list: pick the one you want (or switch without getting off). Other players see the one you ride.'),
+  L2('🧪 Pociones: 30 s de espera y curan como mucho el 40 % de tu vida (elixir 60 %). Platos y bebidas: 20 s de espera y como mucho el 25 %.', '🧪 Potions: 30 s cooldown and heal at most 40% of your HP (elixir 60%). Dishes and drinks: 20 s cooldown and at most 25%.'),
+  L2('⛏ Las vetas y árboles de nivel alto vuelven a salir a los 3 s en el mismo sitio.', '⛏ High-level veins and trees grow back after 3 s in the same spot.')
+], () => null]);
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;

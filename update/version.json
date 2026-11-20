@@ -1,32 +1,22 @@
 {
- "build": 185,
- "ver": "5.64",
+ "build": 186,
+ "ver": "5.65",
  "date": "2026-11-20",
  "file": "thebound.html",
- "size": 26896135,
- "sha256": "e310037501289803602a86b301b51d79865200c83c3a68fffb8bdf6133013106",
+ "size": 26902353,
+ "sha256": "607b2db5470705e405a089051d08e40b0360ea861e29161f17f06102600b3f6f",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🛠 Arreglado el error rojo «id is not defined» al usar el Tónico de Fuerza (y cualquier tónico).",
-   "🧪 Las pociones tienen 30 s de espera (curar, maná y tónicos por separado). La poción rápida puede ser cualquiera.",
-   "🪓 Hachas, picos y cañas ahora se equipan en el inventario (Equipar). Talar, picar y pescar ya no es automático con ⚔: se pulsa su casilla.",
-   "▦ Barra de abajo nueva: hacha · poción · pico · caña · ★ casilla libre (pon lo que quieras; mantén pulsado para cambiarla) · mochila · tu arma · misiones. La casilla brilla si tienes un árbol, una veta o agua al lado.",
-   "⛏ 7 minerales y 7 maderas nuevas de nivel alto en Celestia, Altavela, el Velo Roto, Lima Norte, Cusco (Vinicunca) y México, con su icono en el mapa.",
-   "⚒ 7 hachas, 7 picos y 7 cañas nuevas (nivel 170-450). Tala, Minería y Pesca suben hasta el nivel 120 (+30 con maestría).",
-   "🐟 40 peces nuevos (bestiario y acuario), también en Perú, México y Japón. 🎣 Don Anselmo, el cebero de Puerto Coral: lombrices y cebo dorado para pescar más rápido y peces por oro o lombrices.",
-   "🔎 Todo en la Lupa › Sistemas y en «Dónde conseguir» con flecha."
+   "🐴 El botón de montura abre tus monturas compradas: elige la que quieras o cambia sin bajarte. En el online se ve la que llevas.",
+   "🧪 Curas equilibradas: pociones como mucho el 40 % de tu vida (elixir 60 %); platos y bebidas como mucho el 25 % y con 20 s de espera (antes se podían comer sin parar y curaban miles).",
+   "⛏ Las vetas y árboles nuevos de nivel alto vuelven a salir a los 3 s en el mismo sitio."
   ],
   "en": [
-   "🛠 Fixed the red error «id is not defined» when using the Strength Tonic (and any tonic).",
-   "🧪 Potions have a 30 s cooldown (healing, mana and tonics separately). The quick potion can be any of them.",
-   "🪓 Axes, pickaxes and rods are now equipped in the bag (Equip). Chopping, mining and fishing are no longer automatic with ⚔: tap their slot.",
-   "▦ New bottom bar: axe · potion · pickaxe · rod · ★ free slot (put anything; long-press to change) · bag · your weapon · quests. A slot glows when a tree, vein or water is next to you.",
-   "⛏ 7 new high-level ores and 7 woods in Celestia, Altavela, the Broken Veil, North Lima, Cusco (Vinicunca) and Mexico, with their map icon.",
-   "⚒ 7 new axes, 7 pickaxes and 7 rods (level 170-450). Woodcutting, Mining and Fishing go up to level 120 (+30 with mastery).",
-   "🐟 40 new fish (bestiary and aquarium), also in Peru, Mexico and Japan. 🎣 Old Anselmo, Puerto Coral's bait seller: worms and golden bait to fish faster, and fish for gold or worms.",
-   "🔎 Everything in Magnifier › Systems and «Where to get it» with an arrow."
+   "🐴 The mount button opens your purchased mounts: pick any or switch without getting off. Online players see the one you ride.",
+   "🧪 Balanced healing: potions heal at most 40% of your HP (elixir 60%); dishes and drinks at most 25% with a 20 s cooldown (before they could be spammed for thousands).",
+   "⛏ The new high-level veins and trees grow back after 3 s in the same spot."
   ]
  }
 }
