@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.56', GAME_BUILD = 177;
+const GAME_VER = '5.57', GAME_BUILD = 178;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.57",
+  "b": 178,
+  "d": "2026-11-20",
+  "es": [
+   "⚡ Despertar Dorado guardado en 🌀 Transformaciones (próximamente): Fase 1 · Despertar (pelo dorado y erizado), Fase 2 · Chispa del Hilo (puntas altas, aura dorada con hilos de luz y chispas) y Fase 3 · Corona de Luz (pelo hasta la cintura y mucha electricidad). Aún no se puede conseguir; sus poderes y su fuerza son un misterio.",
+   "🔎 Lupa › Sistemas: entrada del Despertar Dorado."
+  ],
+  "en": [
+   "⚡ Golden Awakening stored in 🌀 Transformations (coming soon): Phase 1 · Awakening (golden spiky hair), Phase 2 · Spark of the Thread (tall spikes, golden aura with threads of light and sparks) and Phase 3 · Crown of Light (waist-long hair and lots of electricity). It cannot be obtained yet; its powers and strength are a mystery.",
+   "🔎 Magnifier › Systems: Golden Awakening entry."
+  ]
+ },
  {
   "v": "5.56",
   "b": 177,

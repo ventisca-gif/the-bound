@@ -1,0 +1,16 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{ const P=G.P; P.lv=500; calcStats(P); P.hp=P.S.maxhp; srUse('dorado'); const blocked=P.sr!=='dorado'; transOpen(); const t=document.querySelector('#modal').textContent; const has=/Despertar Dorado/.test(t), soon=/Próximamente/.test(t); return [blocked, has, soon]; })()
+shot
+js (closeModal(), (()=>{ const P=G.P; P._dzTest=1; P.srOwn=(P.srOwn||[]).concat('dorado'); srUse('dorado'); P.srTT=0; transSet(1); return [P.sr, P.srF]; })())
+wait 1500
+shot
+js (()=>{ const P=G.P; P.srTT=0; transSet(2); return P.srF; })()
+wait 1500
+shot
+js (()=>{ const P=G.P; P.srTT=0; transSet(3); return P.srF; })()
+wait 1500
+shot
+js (()=>{ const P=G.P; P._dzTest=0; V33_TICKS.forEach(f=>{try{f(0.016)}catch(e){}}); return [P.sr, (P.srOwn||[]).includes('dorado')]; })()
+js (GSIS_SEL='n_dorado', guiaSis(), !!GSIS.find(s=>s[0]==='n_dorado'))
+js window._errs
