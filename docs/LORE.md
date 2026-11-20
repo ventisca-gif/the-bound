@@ -98,3 +98,7 @@ Sergio (5.29): «es una historia extra aparte del lore principal de The Bound: l
 
 Reglas: una historia extra nueva va en su propia sección del Libro (no en `CRON`), con texto bilingüe `L2`, sin villanos ni hilos, y con datos reales que se puedan comprobar. En el mundo del juego, Cusco y Machu Picchu son tierras recién pintadas por la Ventisca (como Lima): sin monstruos.
 
+
+## Escenario crossover preparado · Dawn (v5.62)
+
+A petición de Sergio se prepara Villa Foosha de One Piece: Shanks y su tripulación, Makino, Luffy y los piratas de la isla. Es un escenario crossover aparte de la historia principal y de las historias reales de los países: no modifica CRON/ERAS, Nihil, el Telar ni los guardianes. La Capitana Marina conoce una ruta futura y pide una fruta del diablo todavía imposible de obtener; el viaje permanece cerrado. Se prepara el escenario de Romance Dawn, no su capítulo completo ni sus cinemáticas.

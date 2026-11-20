@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.61', GAME_BUILD = 182;
+const GAME_VER = '5.62', GAME_BUILD = 183;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+ "v": "5.62",
+ "b": 183,
+ "d": "2026-11-20",
+ "es": [
+  "⚓ Dawn / Villa Foosha: mapa de 720 × 360, pasto suave, molinos, Partys Bar, palmeras y tripulación de Shanks con cuerpos y animaciones nativas.",
+  "🔒 La Capitana Marina de Puerto Coral explica el futuro requisito de una fruta del diablo. Viaje todavía cerrado: no cobra oro ni consume objetos.",
+  "⚔ Piratas pendencieros de nivel 500 fuera del pueblo, con vida, EXP, oro y furia del equilibrio existente. Nivel máximo: 500. Escenario preparado para Romance Dawn; el capítulo completo llegará después."
+ ],
+ "en": [
+  "⚓ Dawn / Foosha Village: 720 × 360 map, soft grass, windmills, Partys Bar, coastal palms and Shanks’s crew with native bodies and animation.",
+  "🔒 Captain Marina in Puerto Coral explains the future Devil Fruit requirement. Voyage still closed: no gold charged or items consumed.",
+  "⚔ Level-500 brawling pirates outside the village, using existing health, XP, gold and fury balance. Level cap: 500. Romance Dawn setting prepared; the full chapter comes later."
+ ]
+},
  {
   "v": "5.61",
   "b": 182,
