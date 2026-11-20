@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.66', GAME_BUILD = 187;
+const GAME_VER = '5.67', GAME_BUILD = 188;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.67",
+ "b": 188,
+ "d": "2026-11-20",
+ "es": [
+  "⚒ ▦ Atajos › ¿Qué hago ahora?: nueva sección de oficios. Primero Tala, Minería y Pesca (con tu herramienta equipada y sus casillas); al terminarlas te va mostrando el siguiente oficio, uno a uno, hasta los 68.",
+  "➜ «Llévame» pone la flecha dorada donde practicar y «Ver en la Lupa» abre la guía de ese oficio."
+ ],
+ "en": [
+  "⚒ ▦ Shortcuts › What do I do now?: new jobs section. First Woodcutting, Mining and Fishing (with your equipped tool and its slots); once done it shows the next job, one by one, up to all 68.",
+  "➜ «Take me» sets the golden arrow where to practise and «See in Magnifier» opens that job's guide."
+ ]
+},
 {
  "v": "5.66",
  "b": 187,
