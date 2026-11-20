@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.65 · Elige tu montura y curas equilibradas</div>
+  <div class="tfoot">v5.66 · Auras nuevas y bailes con brazos</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -2675,9 +2675,12 @@ function drawHero(p, L, dir, anim, f) {
       const hx2=sx+vx,hy2=sy+vy,half=alen*.5,lift=Math.sqrt(Math.max(0,half*half-dd*dd*.25));
       const bend=(sx<cx?(ps.elbowL||-1):(ps.elbowR||1))*(side&&back?-1:1),ex=sx+vx*.5-vy/dd*lift*bend,ey=sy+vy*.5+vx/dd*lift*bend;
       const seg=(x0,y0,x1,y1,fore)=>{const n=Math.max(1,Math.ceil(Math.hypot(x1-x0,y1-y0)));for(let i=0;i<aw;i++)for(let j=0;j<=n;j++){const t=j/n,x=Math.round(lerp(x0,x1,t))+i,y=Math.round(lerp(y0,y1,t)),pal=shortSleeve&&(fore||t>.8)?SK:sleeve;p.set(x,y,back?pal[1]:pal[i===0?3:2]);}};
-      seg(sx,sy,ex,ey,false);seg(ex,ey,hx2,hy2-1,true);
-      if(TOP.cuff&&!shortSleeve)p.rect(Math.round(hx2),Math.round(hy2)-2,aw,1,TOP.cuff[back?1:3]);
-      p.rect(Math.round(hx2),Math.round(hy2)-1,aw,2,back?uMul(handC,.75):handC);
+      // 5.66: se guardan los píxeles del brazo para volver a pintarlos al final del dibujo (la ropa no los tapa) con contorno
+      const rec=[],_set=p.set;p.set=function(x,y,c){rec.push([x,y,c]);return _set.call(this,x,y,c);};
+      try{seg(sx,sy,ex,ey,false);seg(ex,ey,hx2,hy2-1,true);
+        if(TOP.cuff&&!shortSleeve)for(let i=0;i<aw;i++)p.set(Math.round(hx2)+i,Math.round(hy2)-2,TOP.cuff[back?1:3]);
+        for(let i=0;i<aw;i++)for(let j=0;j<2;j++)p.set(Math.round(hx2)+i,Math.round(hy2)-1+j,back?uMul(handC,.75):handC);}finally{p.set=_set;}
+      if(!back){(p._dArms=p._dArms||[]).push(rec);}
       return [hx2+aw/2,hy2];
     }
 
@@ -11814,7 +11817,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.65', GAME_BUILD = 186;
+const GAME_VER = '5.66', GAME_BUILD = 187;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11822,6 +11825,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.66",
+ "b": 187,
+ "d": "2026-11-20",
+ "es": [
+  "▦ Barra de abajo más limpia: se quitan la casilla ＋ y el libro. Quedan hacha, poción, pico, caña, mochila y tu arma.",
+  "💃 Bailes: los brazos se dibujan encima de la ropa con contorno y se aclaran con prendas negras, así se ve el movimiento con cualquier atuendo.",
+  "✦ Armario › Auras: 5 auras nuevas con oro: Escarcha cristalina, Pacto carmesí, Humo de sombra, Prisma arcoíris y Fuegos fatuos."
+ ],
+ "en": [
+  "▦ Cleaner bottom bar: the ＋ slot and the book are gone. Axe, potion, pickaxe, rod, bag and your weapon remain.",
+  "💃 Dances: arms are drawn over clothes with an outline and brightened on black outfits, so the movement shows with any outfit.",
+  "✦ Wardrobe › Auras: 5 new auras for gold: Crystal frost, Crimson pact, Shadow smoke, Rainbow prism and Will-o'-wisps."
+ ]
+},
 {
  "v": "5.65",
  "b": 186,
@@ -41204,7 +41222,7 @@ const WDA={preview:null,active:null,capture:false,ids:new WeakMap(),nextId:0,fra
 const WDA_BLIT=atlasBlit;
 const cosAuraValid=id=>typeof id==='string'&&Object.prototype.hasOwnProperty.call(COS_AURAS,id);
 function cosAuraState(P){
- if(!P)return;const own=Array.isArray(P.cosAuraOwn)?P.cosAuraOwn:[];P.cosAuraOwn=[...new Set(own.filter(cosAuraValid))].slice(0,6);
+ if(!P)return;const own=Array.isArray(P.cosAuraOwn)?P.cosAuraOwn:[];P.cosAuraOwn=[...new Set(own.filter(cosAuraValid))].slice(0,Object.keys(COS_AURAS).length);
  if(!cosAuraValid(P.cosAura)||!P.cosAuraOwn.includes(P.cosAura))P.cosAura=null;
 }
 for(const key of ['cosAuraOwn','cosAura'])if(!SAVEKEYS.includes(key))SAVEKEYS.push(key);
@@ -41259,7 +41277,7 @@ function cosAuraPaintPreview(cv,A,id,time,dir){
  const P=G.P;if(!P)return r;cosAuraState(P);const chips=B.querySelector('.wdL .chips');if(chips){const b=document.createElement('button');b.className='chip'+(aura?' on':'');b.dataset.waura='1';b.textContent='✦ '+L2('Auras','Auras');b.onclick=()=>{wdMode='aura';WDA.preview=P.cosAura;sfx('ui');renderPanel();};chips.appendChild(b);if(aura)chips.querySelectorAll('[data-wm],[data-wt],[data-wfa]').forEach(el=>el.classList.remove('on'));}
  const cv=B.querySelector('#wdPrev');if(cv&&(aura||P.cosAura)){cv.width=192;cv.height=176;cv.classList.add('cosAuraPreview');}
  if(!aura)return r;const R=B.querySelector('.wdR'),hint=B.querySelector('.wdL .hint');if(hint)hint.textContent=L2('Prueba las auras, cómpralas con tu oro y equípalas cuando quieras. Son solo cosméticas y se ven en el online.','Preview auras, buy them with your gold and equip them any time. They are cosmetic only and visible online.');
- R.innerHTML=`<div class="caHead"><h3>✦ ${L2('Auras','Auras')} <small>${P.cosAuraOwn.length}/6</small></h3><span>${iconHTML(['coin'],18)} <b>${fmt(P.gold)}</b> ${L2('oro','gold')}</span><button class="btn sm" id="caNone">${L2('Quitar aura','Remove aura')}</button></div><p class="hint">${L2('«Ver» permite probar un aura sin gastar oro. Cada compra es permanente para este personaje.','Preview lets you try an aura without spending gold. Each purchase is permanent for this character.')}</p><div class="caGrid">${Object.entries(COS_AURAS).map(([id,D])=>{const own=P.cosAuraOwn.includes(id),on=P.cosAura===id;return `<article class="caCard ${on?'equipped':''}"><h4>${esc(D.n)}</h4><canvas width="192" height="176" data-cac="${id}" aria-label="${esc(D.n)}"></canvas><p>${esc(D.d)}</p><small>${own?L2('En tu colección','In your collection'):fmt(D.pr)+' '+L2('oro','gold')}</small><div class="row"><button class="btn sm" data-cap="${id}">${L2('Ver','Preview')}</button><button class="btn gold sm" data-cab="${id}" ${on?'disabled':''}>${on?L2('Equipada ✓','Equipped ✓'):own?L2('Equipar','Equip'):L2('Comprar y equipar','Buy and equip')}</button></div></article>`;}).join('')}</div><p id="caStatus" class="hint">${WDA.preview&&WDA.preview!==P.cosAura?L2('Vista previa: ','Preview: ')+esc(COS_AURAS[WDA.preview]?.n||''):P.cosAura?L2('Equipada: ','Equipped: ')+esc(COS_AURAS[P.cosAura].n):L2('No llevas aura.','No aura equipped.')}</p>`;
+ R.innerHTML=`<div class="caHead"><h3>✦ ${L2('Auras','Auras')} <small>${P.cosAuraOwn.length}/${Object.keys(COS_AURAS).length}</small></h3><span>${iconHTML(['coin'],18)} <b>${fmt(P.gold)}</b> ${L2('oro','gold')}</span><button class="btn sm" id="caNone">${L2('Quitar aura','Remove aura')}</button></div><p class="hint">${L2('«Ver» permite probar un aura sin gastar oro. Cada compra es permanente para este personaje.','Preview lets you try an aura without spending gold. Each purchase is permanent for this character.')}</p><div class="caGrid">${Object.entries(COS_AURAS).map(([id,D])=>{const own=P.cosAuraOwn.includes(id),on=P.cosAura===id;return `<article class="caCard ${on?'equipped':''}"><h4>${esc(D.n)}</h4><canvas width="192" height="176" data-cac="${id}" aria-label="${esc(D.n)}"></canvas><p>${esc(D.d)}</p><small>${own?L2('En tu colección','In your collection'):fmt(D.pr)+' '+L2('oro','gold')}</small><div class="row"><button class="btn sm" data-cap="${id}">${L2('Ver','Preview')}</button><button class="btn gold sm" data-cab="${id}" ${on?'disabled':''}>${on?L2('Equipada ✓','Equipped ✓'):own?L2('Equipar','Equip'):L2('Comprar y equipar','Buy and equip')}</button></div></article>`;}).join('')}</div><p id="caStatus" class="hint">${WDA.preview&&WDA.preview!==P.cosAura?L2('Vista previa: ','Preview: ')+esc(COS_AURAS[WDA.preview]?.n||''):P.cosAura?L2('Equipada: ','Equipped: ')+esc(COS_AURAS[P.cosAura].n):L2('No llevas aura.','No aura equipped.')}</p>`;
  R.querySelectorAll('[data-cap]').forEach(b=>b.onclick=()=>{WDA.preview=b.dataset.cap;sfx('ui');const st=R.querySelector('#caStatus');st.textContent=L2('Vista previa: ','Preview: ')+COS_AURAS[WDA.preview].n;});
  R.querySelectorAll('[data-cab]').forEach(b=>b.onclick=()=>{if(cosAuraBuy(b.dataset.cab))renderPanel();});R.querySelector('#caNone').onclick=()=>{cosAuraEquip(null);renderPanel();};return r;
 };}
@@ -41791,7 +41809,7 @@ function cebShop() { const P = G.P, wN = countItem('lombriz'), tab = CEB_TAB.t;
   if (tab === 'cebo') body = [['lombriz', 10, 200], ['lombriz', 50, 900], ['cebo_dorado', 1, 800], ['cebo_dorado', 5, 3600]].map(([id, n, g]) => `<div class="gsrc"><span>${iconHTML(ITEMS[id].icon, 18)} ${esc(ITEMS[id].n)} ×${n}<br><small>${esc(ITEMS[id].d)}</small></span><button class="btn sm gold" data-cb="${id},${n},${g}" ${P.gold < g ? 'disabled' : ''}>${fmt(g)} ${L2('oro', 'gold')}</button></div>`).join('')
     + `<p class="hint">${L2('También salen lombrices al talar árboles y al excavar montículos.', 'You also find worms when chopping trees and digging mounds.')}</p>`;
   else body = NV_FISH.map(f => f[0]).map(id => { const p = cebFishPrice(id), I = ITEMS[id]; return `<div class="gsrc"><span>${iconHTML(I.icon, 18)} ${esc(I.n)} <small>(${L2('nivel ', 'level ')}${I.tier})</small></span><span><button class="btn sm gold" data-cf="${id},g" ${P.gold < p.g ? 'disabled' : ''}>${fmt(p.g)} ${L2('oro', 'gold')}</button> <button class="btn sm" data-cf="${id},w" ${wN < p.w ? 'disabled' : ''}>${p.w} 🪱</button></span></div>`; }).join('');
-  openModal(`<div class="frame"><h3>🎣 ${L2('Don Anselmo, el cebero', 'Old Anselmo, bait seller')}</h3><p class="hint">${L2('Tienes ', 'You have ')}${fmt(P.gold)} ${L2('oro', 'gold')} · ${wN} 🪱. ${L2('Usa el cebo desde el inventario o la casilla libre ★ antes de pescar.', 'Use the bait from the bag or the ★ free slot before fishing.')}</p><div class="chips">${chips}</div><div class="slist">${body}</div><div class="row"><button class="btn" id="cbX">${L2('Cerrar', 'Close')}</button></div></div>`);
+  openModal(`<div class="frame"><h3>🎣 ${L2('Don Anselmo, el cebero', 'Old Anselmo, bait seller')}</h3><p class="hint">${L2('Tienes ', 'You have ')}${fmt(P.gold)} ${L2('oro', 'gold')} · ${wN} 🪱. ${L2('Usa el cebo desde el inventario antes de pescar.', 'Use the bait from the bag before fishing.')}</p><div class="chips">${chips}</div><div class="slist">${body}</div><div class="row"><button class="btn" id="cbX">${L2('Cerrar', 'Close')}</button></div></div>`);
   $('#cbX').onclick = closeModal; $$('#modal [data-ct]').forEach(b => b.onclick = () => { CEB_TAB.t = b.dataset.ct; cebShop(); });
   $$('#modal [data-cb]').forEach(b => b.onclick = () => { const [id, n, g] = b.dataset.cb.split(','); if (P.gold < +g) return; P.gold -= +g; giveItem(id, +n); sfx('coin'); markDirty(true); cebShop(); });
   $$('#modal [data-cf]').forEach(b => b.onclick = () => { const [id, k] = b.dataset.cf.split(','), p = cebFishPrice(id); if (k === 'g') { if (P.gold < p.g) return; P.gold -= p.g; } else { if (countItem('lombriz') < p.w) return; takeItem('lombriz', p.w); } giveItem(id, 1); if (P.seen) P.seen[id] = 1; sfx('coin'); markDirty(true); cebShop(); }); }
@@ -41856,6 +41874,86 @@ if (typeof GSIS !== 'undefined') GSIS.unshift(['monturas565', '🐴 ' + L2('Eleg
   L2('🐴 Si tienes varias monturas, el botón de montura abre la lista: elige la que quieras (o cambia de una a otra sin bajarte). Los demás jugadores ven la que llevas.', '🐴 If you own several mounts, the mount button opens the list: pick the one you want (or switch without getting off). Other players see the one you ride.'),
   L2('🧪 Pociones: 30 s de espera y curan como mucho el 40 % de tu vida (elixir 60 %). Platos y bebidas: 20 s de espera y como mucho el 25 %.', '🧪 Potions: 30 s cooldown and heal at most 40% of your HP (elixir 60%). Dishes and drinks: 20 s cooldown and at most 25%.'),
   L2('⛏ Las vetas y árboles de nivel alto vuelven a salir a los 3 s en el mismo sitio.', '⛏ High-level veins and trees grow back after 3 s in the same spot.')
+], () => null]);
+
+// ================= v5.66: BARRA MÁS LIMPIA, BRAZOS VISIBLES AL BAILAR, 5 AURAS NUEVAS =================
+// Sergio (5.66): «quita la casilla + y la del libro, hay muchos botones»; «los bailes no mueven los brazos con la ropa»;
+// «5 auras nuevas, distintas a las que hay, con mejor pixel art, compradas con oro en el armario».
+
+// ---------- barra de abajo: fuera ＋ (casilla libre) y 📖 (misiones). Siguen en el código por si se quieren volver a poner ----------
+const HB_HIDE = ['hbFree', 'hbBook', 'ihbf'];
+{ const st = document.createElement('style'); st.textContent = HB_HIDE.map(id => '#' + id).join(',') + '{display:none!important}body.hb8 #hotbar{transform:translateX(-50%)}@media (orientation:landscape){body.hb8 #hotbar{transform:translateX(calc(-50% - 2.4em))}}'; document.head.appendChild(st); }
+
+// ---------- bailes: los brazos se repintan al final, encima de la ropa, con contorno oscuro ----------
+// 35_art_hero guarda en p._dArms los píxeles de cada brazo delantero (solo con ps.danceJoints). Aquí, después de TODAS
+// las capas (ropa, cosméticos, mangas, busto, desgarros…), se vuelven a pintar para que el movimiento se vea con cualquier prenda.
+{ const _dh = drawHero; drawHero = function (p) { if (p) p._dArms = null; const r = _dh.apply(this, arguments);
+  try { const arms = p && p._dArms; if (arms && arms.length) { const tg = p.tg, top = p.meta && p.meta.torsoTop != null ? p.meta.torsoTop - 1 : -99; if (p.t) p.tg = 3;
+      const own = new Set(); for (const rec of arms) for (const [x, y] of rec) own.add(x + ',' + y);
+      for (const rec of arms) for (const [x, y] of rec) for (const [ox, oy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const X = x + ox, Y = y + oy; if (own.has(X + ',' + Y) || Y < top || !p.get(X, Y)) continue; p.set(X, Y, OUTL); }
+      // con ropa muy oscura (negra) el brazo se aclara un poco para que se distinga del torso del mismo color
+      const lift = c => { const r = uR(c), g = uG(c), b = uB(c), l = r * .3 + g * .59 + b * .11; return l < 70 ? rgbU(Math.min(255, r + 48), Math.min(255, g + 44), Math.min(255, b + 52), uA(c)) : c; };
+      for (const rec of arms) for (const [x, y, c] of rec) p.set(x, y, lift(c));
+      p.tg = tg; } } catch (e) { } if (p) p._dArms = null; return r; }; }
+
+// ---------- 5 auras nuevas (mismo sistema: cosAuraOwn/cosAura, oro, Armario › Auras) ----------
+Object.assign(COS_AURAS, {
+  escarcha: { n: L2('Escarcha cristalina', 'Crystal frost'), d: L2('Cristales de hielo que crecen del suelo y copos que giran.', 'Ice crystals growing from the ground and swirling snowflakes.'), pr: 45000 },
+  carmesi: { n: L2('Pacto carmesí', 'Crimson pact'), d: L2('Dos cintas rojas en espiral alrededor del cuerpo y gotas de luz.', 'Two red ribbons spiralling around the body and drops of light.'), pr: 70000 },
+  humo: { n: L2('Humo de sombra', 'Shadow smoke'), d: L2('Humo negro que sube desde los pies con brasas moradas.', 'Black smoke rising from your feet with purple embers.'), pr: 55000 },
+  prisma: { n: L2('Prisma arcoíris', 'Rainbow prism'), d: L2('Arcos de siete colores que suben como la montaña de Vinicunca.', 'Seven-colour arcs rising like the Vinicunca mountain.'), pr: 90000 },
+  fatuo: { n: L2('Fuegos fatuos', 'Will-o\'-wisps'), d: L2('Llamitas espectrales que giran a tu alrededor dejando estela.', 'Ghostly flames circling you and leaving a trail.'), pr: 65000 }
+});
+Object.assign(COS_AURA_FX.themes, { escarcha: { color: '#bfefff' }, carmesi: { color: '#ff4a5a' }, humo: { color: '#9a6aff' }, prisma: { color: '#ffd84a' }, fatuo: { color: '#7affd8' } });
+const AURA2 = {
+  // pixel art a media resolución (como las demás): g está escalado ×0,5 y luego se amplía ×2
+  escarcha(g, M, t) { const cx = M.cx, base = M.maxY + 3, w = Math.max(30, M.bodyW * .6 + 10);
+    // hexágono de escarcha en el suelo
+    const hx = []; for (let i = 0; i < 6; i++) { const a = i / 6 * Math.PI * 2 + t * .2; hx.push([cx + Math.cos(a) * w * .85, base + Math.sin(a) * 5]); } A2line(g, hx.concat([hx[0]]), 'rgba(160,230,255,.75)', 2);
+    // cristales que crecen y se encogen alrededor de la silueta
+    for (let i = 0; i < 8; i++) { const side = i % 2 ? 1 : -1, k = i >> 1, ph = (t * .5 + i * .37) % 1, hgt = 10 + 14 * Math.sin(ph * Math.PI), xx = cx + side * (w * .55 + k * 6), yy = base - k * 3;
+      A2poly(g, [[xx - 3, yy], [xx, yy - hgt], [xx + 3, yy]], i % 3 ? '#8fdcff' : '#d8f6ff'); A2line(g, [[xx, yy - 1], [xx, yy - hgt + 2]], '#ffffff', 1); }
+    // copos girando a la altura del cuerpo (usa las filas de la silueta)
+    for (let i = 0; i < 7; i++) { const a = t * .8 + i / 7 * Math.PI * 2, yy = M.minY + 10 + (i * 13) % Math.max(20, M.bodyH - 10), row = M.rows[Math.max(0, Math.min(95, Math.round(yy - 32)))] || [40, 56], half = Math.max(8, (row[1] - row[0]) / 2 + 9), xx = cx + Math.cos(a) * half;
+      if (Math.sin(a) < -.2) continue; A2flake(g, xx, yy); } },
+  carmesi(g, M, t) { const cx = M.cx, base = M.maxY + 2, top = M.minY - 8, h = base - top, half0 = Math.max(12, M.bodyW * .5 + 9);
+    for (const ph of [0, Math.PI]) { const pts = []; for (let k = 0; k <= 48; k++) { const p = k / 48, y = base - p * h, half = half0 * (0.75 + 0.35 * Math.sin(p * Math.PI)), a = p * Math.PI * 3 + t * 2.2 + ph; pts.push([cx + Math.cos(a) * half, y, Math.sin(a) > 0]); }
+      for (const front of [false, true]) { let run = []; const flush = () => { if (run.length > 1) { A2line(g, run, front ? '#8a0a1e' : 'rgba(90,0,20,.55)', front ? 5 : 4); if (front) { A2line(g, run, '#e8203a', 3); A2line(g, run.map(([x, y]) => [x, y - 1]), '#ff8a96', 1); } } run = []; };
+        for (const [x, y, f] of pts) { if (f === front) run.push([x, y]); else flush(); } flush(); } }
+    for (let i = 0; i < 6; i++) { const p = (t * .35 + i * .17) % 1, xx = cx + (i % 2 ? 1 : -1) * (8 + (i * 5) % 16), yy = top + p * (h + 6); g.fillStyle = '#ff3a4a'; g.fillRect(Math.round(xx), Math.round(yy), 2, 4); g.fillStyle = '#ffd0d4'; g.fillRect(Math.round(xx), Math.round(yy), 1, 1); } },
+  humo(g, M, t) { const cx = M.cx, base = M.maxY + 3, w = Math.max(30, M.bodyW * .6 + 10);
+    g.fillStyle = 'rgba(30,10,50,.6)'; g.beginPath(); g.ellipse(cx, base, w * .95, 7, 0, 0, Math.PI * 2); g.fill();
+    for (let i = 0; i < 16; i++) { const p = (t * .22 + i * .0625) % 1, side = i % 2 ? 1 : -1, r = 5 + 6 * (1 - p) + (i % 3), xx = cx + side * (w * (.4 + .25 * Math.sin(i * 1.7 + t))) + Math.sin(p * 6 + i) * 4, yy = base - 2 - p * (M.bodyH + 22), al = (.85 * (1 - p)).toFixed(2);
+      g.fillStyle = `rgba(${70 + i % 3 * 14},${40 + i % 2 * 10},${110 + i % 4 * 12},${al})`; g.fillRect(Math.round(xx - r - 1), Math.round(yy - r * .8 - 1), Math.round(r * 2 + 2), Math.round(r * 1.6 + 2));
+      g.fillStyle = `rgba(${26 + i % 3 * 8},${14 + i % 2 * 6},${40 + i % 4 * 8},${al})`; g.fillRect(Math.round(xx - r), Math.round(yy - r * .8), Math.round(r * 2), Math.round(r * 1.6)); }
+    for (let i = 0; i < 10; i++) { const p = (t * .4 + i * .1) % 1, xx = cx + (i % 2 ? 1 : -1) * (6 + (i * 7) % (w * .8)), yy = base - p * (M.bodyH + 30); g.fillStyle = i % 3 ? '#b06aff' : '#f0c8ff'; g.fillRect(Math.round(xx), Math.round(yy), 2, 2); } },
+  prisma(g, M, t) { const cx = M.cx, base = M.maxY + 3, cols = ['#ff3a3a', '#ff8a2a', '#ffd84a', '#5ad85a', '#3ab0ff', '#4a5aff', '#b05aff'], R = Math.max(26, M.bodyW * .55 + 14);
+    for (let i = 0; i < 7; i++) { const ph = (t * .3 + i / 7) % 1, r = R * (.55 + ph * .7), a0 = Math.PI * 1.05, a1 = Math.PI * 1.95, pts = []; for (let k = 0; k <= 22; k++) { const a = a0 + (a1 - a0) * k / 22; pts.push([cx + Math.cos(a) * r, base + Math.sin(a) * r * 1.25]); }
+      g.globalAlpha = Math.max(0, Math.min(1, (1 - ph) * 1.4)); A2line(g, pts, cols[i], 3); g.globalAlpha = 1; }
+    for (let i = 0; i < 9; i++) { const p = (t * .3 + i * .11) % 1, xx = cx + (i % 2 ? 1 : -1) * (8 + (i * 9) % (R * .9)), yy = base - p * (M.bodyH + 26); A2flake(g, xx, yy, cols[i % 7]); } },
+  fatuo(g, M, t) { const cx = M.cx, cy = (M.minY + M.maxY) / 2, rx = Math.max(32, M.bodyW * .62 + 16), ry = Math.max(18, M.bodyH * .42);
+    g.fillStyle = 'rgba(60,220,180,.18)'; g.beginPath(); g.ellipse(cx, M.maxY + 3, rx * .8, 6, 0, 0, Math.PI * 2); g.fill();
+    for (let i = 0; i < 5; i++) { const a = t * 1.2 + i / 5 * Math.PI * 2, front = Math.sin(a) > 0, bob = Math.sin(t * 3 + i) * 4, X = b => cx + Math.cos(b) * rx, Y = b => cy + Math.sin(b) * ry * .55 - bob;
+      for (let k = 9; k >= 1; k--) { const b = a - k * .1, s = Math.max(2, 7 - k * .6); g.fillStyle = `rgba(90,255,210,${(.62 - k * .06).toFixed(2)})`; g.fillRect(Math.round(X(b) - s / 2), Math.round(Y(b) - s / 2), Math.round(s), Math.round(s)); }
+      const x = X(a), y = Y(a), fl = Math.sin(t * 9 + i * 2) * 2;
+      g.fillStyle = front ? 'rgba(90,255,200,.35)' : 'rgba(60,200,160,.2)'; g.fillRect(Math.round(x - 7), Math.round(y - 9), 14, 16);
+      A2poly(g, [[x - 6, y + 5], [x - 4, y - 4], [x - 1 + fl, y - 14], [x + 2, y - 6], [x + 6, y + 5]], front ? '#3ae8b0' : 'rgba(50,190,150,.75)');
+      A2poly(g, [[x - 3, y + 4], [x, y - 8 + fl], [x + 3, y + 4]], front ? '#c8fff0' : 'rgba(170,255,230,.7)'); g.fillStyle = '#ffffff'; g.fillRect(Math.round(x) - 1, Math.round(y), 2, 2); } }
+};
+function A2poly(x, pts, col) { x.fillStyle = col; x.beginPath(); pts.forEach((p, i) => i ? x.lineTo(p[0], p[1]) : x.moveTo(p[0], p[1])); x.closePath(); x.fill(); }
+function A2line(x, pts, col, w = 1) { x.strokeStyle = col; x.lineWidth = w; x.beginPath(); pts.forEach((p, i) => i ? x.lineTo(p[0], p[1]) : x.moveTo(p[0], p[1])); x.stroke(); }
+function A2flake(x, cx, cy, col) { x.fillStyle = col || '#e8f8ff'; x.fillRect(Math.round(cx) - 2, Math.round(cy), 5, 1); x.fillRect(Math.round(cx), Math.round(cy) - 2, 1, 5); x.fillStyle = '#ffffff'; x.fillRect(Math.round(cx), Math.round(cy), 1, 1); }
+{ const _draw = COS_AURA_FX.draw; COS_AURA_FX.draw = function (sprite, key, kind, time, opts = {}) { if (!AURA2[kind]) return _draw.apply(this, arguments);
+  const W = COS_AURA_FX.width, H = COS_AURA_FX.height, c = opts.target || mkCanvas(W, H), x = c.getContext('2d'), M = COS_AURA_FX.maskOf(sprite, key);
+  x.setTransform(1, 0, 0, 1, 0, 0); x.clearRect(0, 0, W, H); x.imageSmoothingEnabled = false;
+  const fx = opts.fx || mkCanvas(W / 2, H / 2), g = fx.getContext('2d'); g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, W / 2, H / 2); g.scale(.5, .5); g.imageSmoothingEnabled = false; g.lineJoin = 'miter'; g.lineCap = 'square'; g.globalAlpha = Math.min(1, opts.strength ?? 1);
+  try { AURA2[kind](g, M, time); } catch (e) { } g.globalAlpha = 1; x.drawImage(fx, 0, 0, W, H);
+  if (!opts.effectOnly) x.drawImage(sprite, COS_AURA_FX.padX, COS_AURA_FX.padY); return c; }; }
+
+if (typeof GSIS !== 'undefined') GSIS.unshift(['auras566', '✦ ' + L2('Auras nuevas y bailes más claros', 'New auras and clearer dances'), () => [
+  L2('✦ Armario › Auras: 5 auras nuevas que se compran con oro y se equipan en el mismo sitio: ', '✦ Wardrobe › Auras: 5 new auras bought with gold and equipped in the same place: ') + ['escarcha', 'carmesi', 'humo', 'prisma', 'fatuo'].map(k => COS_AURAS[k].n + ' (' + fmt(COS_AURAS[k].pr) + ')').join(', ') + '.',
+  L2('💃 Al bailar, los brazos se dibujan encima de la ropa con contorno: se ve el movimiento con cualquier prenda.', '💃 While dancing, arms are drawn over your clothes with an outline: the movement shows with any outfit.'),
+  L2('▦ Barra de abajo: hacha · poción · pico · caña · mochila · tu arma. Las misiones siguen en el aviso de arriba y en la Bitácora.', '▦ Bottom bar: axe · potion · pickaxe · rod · bag · your weapon. Quests are still in the top tracker and the Logbook.')
 ], () => null]);
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================

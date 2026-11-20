@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.65', GAME_BUILD = 186;
+const GAME_VER = '5.66', GAME_BUILD = 187;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.66",
+ "b": 187,
+ "d": "2026-11-20",
+ "es": [
+  "▦ Barra de abajo más limpia: se quitan la casilla ＋ y el libro. Quedan hacha, poción, pico, caña, mochila y tu arma.",
+  "💃 Bailes: los brazos se dibujan encima de la ropa con contorno y se aclaran con prendas negras, así se ve el movimiento con cualquier atuendo.",
+  "✦ Armario › Auras: 5 auras nuevas con oro: Escarcha cristalina, Pacto carmesí, Humo de sombra, Prisma arcoíris y Fuegos fatuos."
+ ],
+ "en": [
+  "▦ Cleaner bottom bar: the ＋ slot and the book are gone. Axe, potion, pickaxe, rod, bag and your weapon remain.",
+  "💃 Dances: arms are drawn over clothes with an outline and brightened on black outfits, so the movement shows with any outfit.",
+  "✦ Wardrobe › Auras: 5 new auras for gold: Crystal frost, Crimson pact, Shadow smoke, Rainbow prism and Will-o'-wisps."
+ ]
+},
 {
  "v": "5.65",
  "b": 186,
