@@ -1,18 +1,18 @@
 {
- "build": 180,
- "ver": "5.59",
+ "build": 181,
+ "ver": "5.60",
  "date": "2026-11-20",
  "file": "thebound.html",
- "size": 24699012,
- "sha256": "66ad796ac226da2bb2ae0a8d87b4c485e7cece1e8e0714c0d7ca9dca5c3ee1c9",
+ "size": 24708511,
+ "sha256": "5ce3e149e69b4c0f1ae9d82fb0c206db9be96e4d1f5aa57f4f0ea68b1ecf6890",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "📔 Diario del héroe (▦ Atajos): un libro que se escribe solo con tus hazañas reales (jefes vencidos, cada 50 niveles, pareja, hijos, formas, fusiones y marcos). Tus amigos online pueden leer tus últimas páginas."
+   "📔 El Diario del héroe ahora es un libro de verdad: portada de cuero con tu héroe dibujado, páginas de papel (dos a la vez en horizontal) y pasas página con las flechas, tocando el borde o deslizando el dedo, con animación de hoja."
   ],
   "en": [
-   "📔 Hero's diary (▦ Shortcuts): a book that writes itself with your real deeds (bosses defeated, every 50 levels, partner, children, forms, fusions and frames). Your online friends can read your latest pages."
+   "📔 The Hero's diary is now a real book: leather cover with your hero drawn, paper pages (two at a time in landscape) and you turn pages with the arrows, by tapping the edge or swiping, with a page-flip animation."
   ]
  }
 }

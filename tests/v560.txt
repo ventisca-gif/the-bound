@@ -8,3 +8,10 @@ js (hlOpen(), document.querySelectorAll('#modal .gsrc').length)
 shot
 js (()=>{ const o={}; v6Pres(o); const r={}; v6Recv(r,{dy:o.dy}); return [o.dy.length, r.dy.length]; })()
 js window._errs
+js (closeModal(), hlOpen(), [!!$('#dyBook'), $('#dyNum').textContent])
+wait 400
+shot
+js (hbTurn(1), $('#dyNum').textContent)
+wait 600
+shot
+js window._errs
