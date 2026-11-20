@@ -194,9 +194,12 @@ function drawHero(p, L, dir, anim, f) {
       const hx2=sx+vx,hy2=sy+vy,half=alen*.5,lift=Math.sqrt(Math.max(0,half*half-dd*dd*.25));
       const bend=(sx<cx?(ps.elbowL||-1):(ps.elbowR||1))*(side&&back?-1:1),ex=sx+vx*.5-vy/dd*lift*bend,ey=sy+vy*.5+vx/dd*lift*bend;
       const seg=(x0,y0,x1,y1,fore)=>{const n=Math.max(1,Math.ceil(Math.hypot(x1-x0,y1-y0)));for(let i=0;i<aw;i++)for(let j=0;j<=n;j++){const t=j/n,x=Math.round(lerp(x0,x1,t))+i,y=Math.round(lerp(y0,y1,t)),pal=shortSleeve&&(fore||t>.8)?SK:sleeve;p.set(x,y,back?pal[1]:pal[i===0?3:2]);}};
-      seg(sx,sy,ex,ey,false);seg(ex,ey,hx2,hy2-1,true);
-      if(TOP.cuff&&!shortSleeve)p.rect(Math.round(hx2),Math.round(hy2)-2,aw,1,TOP.cuff[back?1:3]);
-      p.rect(Math.round(hx2),Math.round(hy2)-1,aw,2,back?uMul(handC,.75):handC);
+      // 5.66: se guardan los píxeles del brazo para volver a pintarlos al final del dibujo (la ropa no los tapa) con contorno
+      const rec=[],_set=p.set;p.set=function(x,y,c){rec.push([x,y,c]);return _set.call(this,x,y,c);};
+      try{seg(sx,sy,ex,ey,false);seg(ex,ey,hx2,hy2-1,true);
+        if(TOP.cuff&&!shortSleeve)for(let i=0;i<aw;i++)p.set(Math.round(hx2)+i,Math.round(hy2)-2,TOP.cuff[back?1:3]);
+        for(let i=0;i<aw;i++)for(let j=0;j<2;j++)p.set(Math.round(hx2)+i,Math.round(hy2)-1+j,back?uMul(handC,.75):handC);}finally{p.set=_set;}
+      if(!back){(p._dArms=p._dArms||[]).push(rec);}
       return [hx2+aw/2,hy2];
     }
 

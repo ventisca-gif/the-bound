@@ -1,22 +1,22 @@
 {
- "build": 186,
- "ver": "5.65",
+ "build": 187,
+ "ver": "5.66",
  "date": "2026-11-20",
  "file": "thebound.html",
- "size": 26902353,
- "sha256": "607b2db5470705e405a089051d08e40b0360ea861e29161f17f06102600b3f6f",
+ "size": 26915205,
+ "sha256": "f58aee059490c628c4ac85e2c84258adacba72eb735b3593785dfe603e1211b4",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🐴 El botón de montura abre tus monturas compradas: elige la que quieras o cambia sin bajarte. En el online se ve la que llevas.",
-   "🧪 Curas equilibradas: pociones como mucho el 40 % de tu vida (elixir 60 %); platos y bebidas como mucho el 25 % y con 20 s de espera (antes se podían comer sin parar y curaban miles).",
-   "⛏ Las vetas y árboles nuevos de nivel alto vuelven a salir a los 3 s en el mismo sitio."
+   "▦ Barra de abajo más limpia: se quitan la casilla ＋ y el libro. Quedan hacha, poción, pico, caña, mochila y tu arma.",
+   "💃 Bailes: los brazos se dibujan encima de la ropa con contorno y se aclaran con prendas negras, así se ve el movimiento con cualquier atuendo.",
+   "✦ Armario › Auras: 5 auras nuevas con oro: Escarcha cristalina, Pacto carmesí, Humo de sombra, Prisma arcoíris y Fuegos fatuos."
   ],
   "en": [
-   "🐴 The mount button opens your purchased mounts: pick any or switch without getting off. Online players see the one you ride.",
-   "🧪 Balanced healing: potions heal at most 40% of your HP (elixir 60%); dishes and drinks at most 25% with a 20 s cooldown (before they could be spammed for thousands).",
-   "⛏ The new high-level veins and trees grow back after 3 s in the same spot."
+   "▦ Cleaner bottom bar: the ＋ slot and the book are gone. Axe, potion, pickaxe, rod, bag and your weapon remain.",
+   "💃 Dances: arms are drawn over clothes with an outline and brightened on black outfits, so the movement shows with any outfit.",
+   "✦ Wardrobe › Auras: 5 new auras for gold: Crystal frost, Crimson pact, Shadow smoke, Rainbow prism and Will-o'-wisps."
   ]
  }
 }
