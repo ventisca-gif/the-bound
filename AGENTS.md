@@ -55,3 +55,9 @@ The Bound es un RPG 2D de mundo abierto con movimiento en cuatro direcciones.
 - Todo personaje, cosmético, pelo y aura debe seguir las **cinco estructuras femeninas y cinco masculinas**, en cuatro direcciones, con el motor original (`drawHero`, `hdDetail`, atlas y anclajes). No sustituir caras, proporciones ni sprites por figuras genéricas.
 - Las auras cosméticas usan el fotograma final del atlas y sus medidas; no hacer una máscara fija por peinado. Los peinados futuros deben adaptarse sin registrar otra aura. Mantener VFX y sprite en capas separadas, cachés limitadas y modo optimizado.
 - Guardar auras cosméticas en `cosAuraOwn`/`cosAura`. **No reutilizar `P.auras`**: contiene efectos temporales de habilidades. Usar el oro existente; no añadir otra moneda ni modificar estadísticas para estas auras.
+
+## Herramientas y barra de abajo (desde 5.64)
+
+- Hachas, picos y cañas se equipan en el inventario (`P.tEq`) y se usan con su casilla de la barra (🪓 `hbAxe`, ⛏ `hbPick`, 🎣 `hbRod`); ⚔ no recolecta. Toda herramienta nueva debe ser `it(id, { t: 'tool', tool: 'tala' | 'mineria' | 'pesca', power, lv, icon })` para que funcione sola con su casilla. Recursos de nivel 12+ piden `toolNeed(job, tier)`.
+- Al añadir oficios, aparecen solos en ▦ Atajos › ¿Qué hago ahora? (sección de oficios, `src/6zzz8_v567.js`); dales `JOB_GUIDE[k]` con `how` y `find` para que salga cómo y la flecha.
+

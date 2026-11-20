@@ -1,22 +1,20 @@
 {
- "build": 187,
- "ver": "5.66",
+ "build": 188,
+ "ver": "5.67",
  "date": "2026-11-20",
  "file": "thebound.html",
- "size": 26915205,
- "sha256": "f58aee059490c628c4ac85e2c84258adacba72eb735b3593785dfe603e1211b4",
+ "size": 26921894,
+ "sha256": "1f058cf8c2016f6982cf8cf834708ec0c4e8492c5d3933a8cbb68332d0756d4a",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "▦ Barra de abajo más limpia: se quitan la casilla ＋ y el libro. Quedan hacha, poción, pico, caña, mochila y tu arma.",
-   "💃 Bailes: los brazos se dibujan encima de la ropa con contorno y se aclaran con prendas negras, así se ve el movimiento con cualquier atuendo.",
-   "✦ Armario › Auras: 5 auras nuevas con oro: Escarcha cristalina, Pacto carmesí, Humo de sombra, Prisma arcoíris y Fuegos fatuos."
+   "⚒ ▦ Atajos › ¿Qué hago ahora?: nueva sección de oficios. Primero Tala, Minería y Pesca (con tu herramienta equipada y sus casillas); al terminarlas te va mostrando el siguiente oficio, uno a uno, hasta los 68.",
+   "➜ «Llévame» pone la flecha dorada donde practicar y «Ver en la Lupa» abre la guía de ese oficio."
   ],
   "en": [
-   "▦ Cleaner bottom bar: the ＋ slot and the book are gone. Axe, potion, pickaxe, rod, bag and your weapon remain.",
-   "💃 Dances: arms are drawn over clothes with an outline and brightened on black outfits, so the movement shows with any outfit.",
-   "✦ Wardrobe › Auras: 5 new auras for gold: Crystal frost, Crimson pact, Shadow smoke, Rainbow prism and Will-o'-wisps."
+   "⚒ ▦ Shortcuts › What do I do now?: new jobs section. First Woodcutting, Mining and Fishing (with your equipped tool and its slots); once done it shows the next job, one by one, up to all 68.",
+   "➜ «Take me» sets the golden arrow where to practise and «See in Magnifier» opens that job's guide."
   ]
  }
 }
