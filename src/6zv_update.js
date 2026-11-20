@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.57', GAME_BUILD = 178;
+const GAME_VER = '5.58', GAME_BUILD = 179;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,25 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+ {
+  "v": "5.58",
+  "b": 179,
+  "d": "2026-11-20",
+  "es": [
+   "🧭 ¿Qué hago ahora? (▦ Atajos): tu misión, dónde subir de nivel y qué pasa ahora en el mundo.",
+   "▦ Atajos por pestañas: Todo, Combate, Online y social, Ayuda y menús.",
+   "🔴 Puntito rojo en lo que tiene algo nuevo (correo, cofre de la isla, impuesto, invitaciones, linterna, hilos para tejer).",
+   "💡 Explicación corta la primera vez que abres cada sistema.",
+   "🎁 Regalo diario (racha de 7 días) y regalo semanal."
+  ],
+  "en": [
+   "🧭 What do I do now? (▦ Shortcuts): your quest, where to level up and what is happening in the world now.",
+   "▦ Shortcuts in tabs: All, Combat, Online & social, Help & menus.",
+   "🔴 Red dot on whatever has something new (mail, island chest, tax, invitations, lantern, threads to weave).",
+   "💡 Short explanation the first time you open each system.",
+   "🎁 Daily gift (7-day streak) and weekly gift."
+  ]
+ },
  {
   "v": "5.57",
   "b": 178,

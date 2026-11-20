@@ -1,20 +1,26 @@
 {
- "build": 178,
- "ver": "5.57",
+ "build": 179,
+ "ver": "5.58",
  "date": "2026-11-20",
  "file": "thebound.html",
- "size": 24680247,
- "sha256": "048e31f2d8ad69c0e1edcd85f12fa3cf73006512a782913ce343ad02bdc2c252",
+ "size": 24692646,
+ "sha256": "4bcc9fecc4bb143affecd01fb414972f27127db328f7589e26a653142aaf0b44",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "⚡ Despertar Dorado guardado en 🌀 Transformaciones (próximamente): Fase 1 · Despertar (pelo dorado y erizado), Fase 2 · Chispa del Hilo (puntas altas, aura dorada con hilos de luz y chispas) y Fase 3 · Corona de Luz (pelo hasta la cintura y mucha electricidad). Aún no se puede conseguir; sus poderes y su fuerza son un misterio.",
-   "🔎 Lupa › Sistemas: entrada del Despertar Dorado."
+   "🧭 ¿Qué hago ahora? (▦ Atajos): tu misión, dónde subir de nivel y qué pasa ahora en el mundo.",
+   "▦ Atajos por pestañas: Todo, Combate, Online y social, Ayuda y menús.",
+   "🔴 Puntito rojo en lo que tiene algo nuevo (correo, cofre de la isla, impuesto, invitaciones, linterna, hilos para tejer).",
+   "💡 Explicación corta la primera vez que abres cada sistema.",
+   "🎁 Regalo diario (racha de 7 días) y regalo semanal."
   ],
   "en": [
-   "⚡ Golden Awakening stored in 🌀 Transformations (coming soon): Phase 1 · Awakening (golden spiky hair), Phase 2 · Spark of the Thread (tall spikes, golden aura with threads of light and sparks) and Phase 3 · Crown of Light (waist-long hair and lots of electricity). It cannot be obtained yet; its powers and strength are a mystery.",
-   "🔎 Magnifier › Systems: Golden Awakening entry."
+   "🧭 What do I do now? (▦ Shortcuts): your quest, where to level up and what is happening in the world now.",
+   "▦ Shortcuts in tabs: All, Combat, Online & social, Help & menus.",
+   "🔴 Red dot on whatever has something new (mail, island chest, tax, invitations, lantern, threads to weave).",
+   "💡 Short explanation the first time you open each system.",
+   "🎁 Daily gift (7-day streak) and weekly gift."
   ]
  }
 }
