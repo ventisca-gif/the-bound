@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.68 · Selva peruana</div>
+  <div class="tfoot">v5.69 · Selva peruana sin errores</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -4585,7 +4585,7 @@ function updatePlayer(dt) {
   else { P.emote = null; setAnim(P, moving ? 'walk' : 'idle', true); P.loopAnim = true; stepAnim(P, dt, moving ? 8 + spd / 30 : 2); if (moving && P.af % 2 === 0 && Math.random() < 0.05) part(P.x + (Math.random() - 0.5) * 4, P.y, { vz: 6, life: 0.4, c: '#c8b898' }); }
   // doors
   if (M.isWorld && moving) { const tx = Math.floor(P.x / 16), ty = Math.floor(P.y / 16); for (const d of M.doors) if (d.x === tx && d.y === ty && my < -0.2) { enterInterior(d); break; } }
-  else if (!M.isWorld && moving && my > 0.2) { const tx = Math.floor(P.x / 16), ty = Math.floor((P.y + 4) / 16); if (ty >= M.exit.y && Math.abs(tx - M.exit.x) <= 0) exitInterior(); }
+  else if (!M.isWorld && M.exit && moving && my > 0.2) { const tx = Math.floor(P.x / 16), ty = Math.floor((P.y + 4) / 16); if (ty >= M.exit.y && Math.abs(tx - M.exit.x) <= 0) exitInterior(); }
 }
 function playerDie() { const P = G.P; if (P.dead) return; P.dead = true; P.hp = 0; setAnim(P, 'dead'); P.job = null; if (P.fishing) stopFishing(); P.stats.deaths++; sfx('die'); G.shake = 6; showBoss(null); setTimeout(() => showDeath(), 1200); setTimeout(() => tip('death'), 1300); }
 function revive() { const P = G.P; P.dead = false; const loss = Math.floor(P.xp * 0.1); P.xp -= loss; P.hp = Math.round(P.S.maxhp * 0.6); P.mp = Math.round(P.S.maxmp * 0.6); P.poison = P.burn = 0; setAnim(P, 'idle'); travelTo(P.lastTown || 'albor', () => { if (loss) toast((LANG_EN ? "You lost " : 'Has perdido ') + loss + ' XP', 'warn'); }); }
@@ -11825,7 +11825,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.68', GAME_BUILD = 189;
+const GAME_VER = '5.69', GAME_BUILD = 190;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11833,6 +11833,17 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.69",
+ "b": 190,
+ "d": "2026-11-21",
+ "es": [
+  "🛠 Selva peruana: arreglado el error rojo «reading 'y'» al caminar, que congelaba el juego y parecía teletransportarte. El juego ya no se rompe en ningún mapa sin salida a pie."
+ ],
+ "en": [
+  "🛠 Peruvian jungle: fixed the red error «reading 'y'» while walking, which froze the game and looked like teleporting. The game no longer breaks on any map without a walk-out exit."
+ ]
+},
 {
  "v": "5.68",
  "b": 189,
@@ -42201,6 +42212,7 @@ function makeSelva() {
   add('jaguar',232,183,1,[]);
   for (const [x,y] of [[218,150],[312,210],[569,266],[98,104],[535,82]]) add('guacamayo',x,y,1,[]);
   addObj(M,'furn',SELVA_AIR[0]-7,200,{f:'selva_plane',fp:[],solid:false});
+  if (!M.exit) M.exit = { x: -9, y: -9 };   // sin salida a pie (como Cusco): se sale en avión
   return G.maps.selva = M;
 }
 XSPR.selva_plane = () => planeSprite(0);
