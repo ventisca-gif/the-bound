@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.69 · Selva peruana sin errores</div>
+  <div class="tfoot">v5.70 · Galeón de Alvida</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -5048,7 +5048,7 @@ function renderBestiary(B) {
   let det = (LANG_EN ? "<p class=\"hint\">Defeat enemies to register them.</p>" : '<p class="hint">Derrota enemigos para registrarlos.</p>');
   if (cur) { const D = cur.def, lv = Array.isArray(D.lv) ? Math.round((D.lv[0] + D.lv[1]) / 2) : D.lv, st = mobStats(D, lv, cur.boss); const k = cur.kills;
     const where = D.where ? D.where : cur.boss ? (REGIONS.find(r => r.k === bossRegion(cur.bid)) || {}).n || '' : (D.reg || []).map(r => (REGIONS.find(x => x.k === r) || {}).n).filter(Boolean).join(', ');
-    const drops = (D.drops || []).map(([id, ch]) => `<span>${iconHTML(ITEMS[id].icon, 16)} ${k ? esc(ITEMS[id].n) : '???'}${cur.boss ? '' : ` <small>${k >= 5 ? (ch * 100).toFixed(ch < 0.05 ? 1 : 0) + '%' : ''}</small>`}</span>`).join('');
+    const drops = (D.reward ? [...(D.drops || []),[D.reward,1]] : (D.drops || [])).map(([id, ch]) => `<span>${iconHTML(ITEMS[id].icon, 16)} ${k ? esc(ITEMS[id].n) : '???'}${cur.boss ? '' : ` <small>${k >= 5 ? (ch * 100).toFixed(ch < 0.05 ? 1 : 0) + '%' : ''}</small>`}</span>`).join('');
     const extra = cur.boss ? `${D.acc ? `<span>${iconHTML(ITEMS[D.acc].icon, 16)} ${k ? esc(ITEMS[D.acc].n) : '???'}</span>` : ''}${(D.cos || []).map(c => `<span>${iconHTML(['hanger'], 16)} ${k ? esc(COSM[c].n) : '???'} <small>${(P.wardrobe || []).includes(c) ? '✓' : ''}</small></span>`).join('')}` : '';
     det = (LANG_EN ? `<div class="bhead"><canvas id="bBig" width="96" height="96"></canvas><div><h2>${k ? esc(D.n) : '???'}</h2><p class="sub">${cur.boss ? (LANG_EN ? "Boss" : 'Jefe') : AI_N[D.ai] || ''} · Level ${Array.isArray(D.lv) ? D.lv[0] + '–' + D.lv[1] : D.lv}</p><p class="sub">${esc(where)}</p></div></div>
       <div class="stats">${statLine((LANG_EN ? "Defeated" : 'Derrotados'), fmt(k))}${k ? statLine((LANG_EN ? "Health (lv. " : 'Vida (nv. ') + lv + ')', fmt(st.hp)) + statLine((LANG_EN ? "Attack" : 'Ataque'), fmt(st.atk)) + statLine((LANG_EN ? "Defense" : 'Defensa'), fmt(st.def)) + statLine((LANG_EN ? "Experience" : 'Experiencia'), fmt(cur.boss ? Math.round(st.xp * 1.6) : st.xp)) : ''}${D.poison ? statLine((LANG_EN ? "Effect" : 'Efecto'), (LANG_EN ? "Poison" : 'Veneno')) : D.burn ? statLine((LANG_EN ? "Effect" : 'Efecto'), (LANG_EN ? "Burn" : 'Quemadura')) : ''}</div>
@@ -11825,7 +11825,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.69', GAME_BUILD = 190;
+const GAME_VER = '5.70', GAME_BUILD = 191;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11833,6 +11833,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.70",
+ "b": 191,
+ "d": "2026-11-21",
+ "es": [
+  "Mar de Dawn ampliado a 1.168 × 360 casillas. Little Garden aparece en el mapa con el desembarco cerrado.",
+  "Desde nivel 500, Marina te da acceso a un bote que puedes manejar. Localiza el galeón, aborda y vence a la tripulación y a Alvida.",
+  "Gana el mazo de Alvida para guerrero, registra a la tripulación en el bestiario y toma el timón del galeón."
+ ],
+ "en": [
+  "The Dawn Sea covers 1,168 × 360 tiles. Little Garden is on the map with its landing closed.",
+  "At level 500, Marina grants access to a boat you can steer. Find the galleon, board and defeat the crew and Alvida.",
+  "Earn Alvida’s warrior mace, register the crew in the bestiary and take the galleon’s helm."
+ ]
+},
 {
  "v": "5.69",
  "b": 190,
@@ -41505,7 +41520,7 @@ function dawnTravelStatus(){return {open:DAWN_TRAVEL_OPEN,required:'dawn_fruta_d
 function dawnMarinaTalk(){return L2('He encontrado una ruta hacia Dawn, la isla de Villa Foosha. Para abrir ese paso necesitaré una fruta del diablo. Todavía no se puede conseguir: el viaje sigue cerrado. No entregarás objetos ni gastarás oro por ahora.','I have found a route to Dawn, the island of Foosha Village. Opening that passage will require a Devil Fruit. It cannot be obtained yet: the voyage remains closed. You will not hand in items or spend gold for now.');}
 DLG_HOOKS.push((npc,opts)=>{if(npc.id==='marina')opts.push({label:L2('Isla Dawn · viaje cerrado','Dawn Island · voyage closed'),icon:['ways'],fn:()=>typeText(dawnMarinaTalk())});if(npc.id==='dawn_shanks')opts.push({label:L2('Romance Dawn · el comienzo','Romance Dawn · the beginning'),icon:['talk'],fn:()=>typeText(L2('Esta es la primera escala de nuestra historia: Foosha, Makino, los molinos y el sueño de Luffy. Cuando se abra el viaje, nos encontrarás aquí.','This is the first stop in our story: Foosha, Makino, the windmills and Luffy’s dream. When the voyage opens, you will find us here.'))});});
 // One hard gate shared by every public arrival path: inventory or map browsing never bypasses it.
-{const old=setMap;setMap=function(M,x,y,dir){if(M?.dawn&&!DAWN_TRAVEL_OPEN){toast(L2('Dawn: viaje todavía cerrado. Habla con la Capitana Marina.','Dawn: voyage still closed. Talk to Captain Marina.'),'info',4);return false;}return old.apply(this,arguments);};}
+{const old=setMap;setMap=function(M,x,y,dir){if(M?.dawn&&!DAWN_TRAVEL_OPEN&&!G.P?.dawnHelm){toast(L2('Dawn: viaje todavía cerrado. Habla con la Capitana Marina.','Dawn: voyage still closed. Talk to Captain Marina.'),'info',4);return false;}return old.apply(this,arguments);};}
 function dawnSpawnPeople(M){for(const d of M.npcDefs)if(!G.ents.some(e=>e.type==='npc'&&e.map===M.id&&e.id===d.id&&!e.remove)){const at=freePxNear(M,d.x*16+8,d.y*16+12,5);if(at)spawnNPC(d.id,at[0],at[1],M.id,{face:d.face});}}
 // Kept separate so future opening requires an explicit release, not a saved variable.
 V33_TICKS.push(()=>{const M=G.map;if(!M?.dawn)return;dawnSpawnPeople(M);for(const c of M.camps){c.alive=c.alive.filter(e=>!e.remove&&e.hp>0);c.dead=c.dead.filter(t=>t>G.t);const d=Math.abs(c.x-G.P.x/16)+Math.abs(c.y-G.P.y/16);if(d>44){for(const m of c.alive)m.remove=true;c.alive=[];continue;}if(d>30||c.alive.length+c.dead.length>=c.n)continue;const at=freePxNear(M,(c.x+(Math.random()-.5)*4)*16,(c.y+(Math.random()-.5)*4)*16,3);if(!at)continue;const m=spawnMob(c.mob,500,at[0],at[1],0,c);m.map='dawn';c.alive.push(m);}});
@@ -42485,6 +42500,692 @@ GSIS.push(['selva','🌿 '+SELVA_NAME,() => [
   if (G.map.selva && wp.m !== 'selva') return SELVA_AIR;
   return previous.apply(this,arguments);
 }; }
+
+// Little Garden shares Dawn's map ID and leaves the original island at its existing coordinates.
+const GARDEN_W = 448;
+const GARDEN_LANDING = [139,230];
+const GARDEN_PLACES = [
+  ['Little Garden · cerrado', 'Little Garden · closed', ...GARDEN_LANDING],
+  ['Selva de los helechos', 'Fern jungle', 156,192],
+  ['Cavernas del Diente Verde', 'Green Tooth caves', 194,149],
+  ['Valle de los Fósiles', 'Fossil Valley', 239,194],
+  ['Mirador de las Calderas', 'Caldera Lookout', 276,152],
+  ['Laguna del Este', 'Eastern Lagoon', 301,213]
+];
+const GARDEN_TRAILS = [
+  [2.5, [GARDEN_LANDING,[142,212],[156,192],[178,179],[194,149],[218,159],[232,178],[239,194],[263,186],[276,152]]],
+  [2.0, [[239,194],[256,205],[279,212],[301,213]]]
+];
+const GARDEN_RIVER = [[3.5, [[232,110],[226,138],[239,163],[251,188],[266,215],[253,249],[250,313]]]];
+const GARDEN_LAND = [[201,172,103,92],[270,180,88,83],[175,212,53,50],[305,151,57,54]];
+const GARDEN_HILLS = [[185,129,42,23],[217,128,32,22],[280,119,31,25],[318,142,29,19]];
+const GARDEN_COLORS = Object.fromEntries([
+  ['grass',['#365632','#47743a','#558447','#66974d','#7aa555']],
+  ['stone',['#43534a','#546351','#768069','#9a9d81','#bbbca0']],
+  ['cliff',['#38473d','#515749','#646954','#858574','#aeaa91']],
+  ['lava',['#5c251c','#9e3a25','#c85228','#ed792e','#ffc355']],
+  ['sand',['#a99364','#b8a47a','#cbb889','#ddc99a','#ebd7ac']],
+  ['dirt',['#77613f','#91774e','#ab8e60','#b99d6b','#d0b282']],
+  ['water',['#416d60','#568776','#69a394','#7fb4a0','#a3c8aa']],
+  ['lagoon',['#235550','#326b5e','#3d8470','#579884','#82baa5']],
+  ['sea',['#2677a0','#3095b2','#4eb2c1','#75c6c7','#99d7ce']],
+  ['deep',['#3279a2','#347ca4','#357da5','#3881a8','#3b86ac']],
+  ['foam',['#88c9bd','#a2d9cb','#c3ead4','#d7ebd3','#e4f2db']]
+].map(([key,colors]) => [key,pal(colors)]));
+
+function gardenShape(x,y,ellipses) {
+  let edge = -999;
+  for (const [cx,cy,rx,ry] of ellipses) edge = Math.max(edge,(1-Math.hypot((x-cx)/rx,(y-cy)/ry))*Math.min(rx,ry));
+  return edge;
+}
+
+function expandDawnSea(M) {
+  const oldW = M.w, w = oldW + GARDEN_W, h = M.h, stride = GARDEN_W+1;
+  // Keep the original Dawn terrain at its original stride for dawnPaint().
+  for (const key of ['ter','lvl','reg','flags','solidO','objAt']) {
+    const old = M[key], data = new old.constructor(w*h);
+    if (key === 'objAt') data.fill(-1);
+    for (let y=0;y<h;y++) data.set(old.subarray(y*oldW,(y+1)*oldW),y*w);
+    M[key] = data;
+  }
+  M.w=w; M.I=(x,y)=>y*w+x; M.dawnW=oldW; M.cw=Math.ceil(w/CH);
+  M.objGrid=Array.from({length:M.cw*M.chh},()=>[]);
+  for (const o of M.objs) M.objGrid[(o.py>>7)*M.cw+(o.px>>7)].push(o.id);
+  M.xactObjs = M.objs.filter(o=>o.xact);
+  M.overviewMinimap = true;
+  M.hudName = L2('Mar de Dawn','Dawn Sea');
+
+  const coast=new Float32Array(stride*(h+1));
+  const river=selvaDistanceField(GARDEN_W,h,GARDEN_RIVER);
+  const trail=selvaDistanceField(GARDEN_W,h,GARDEN_TRAILS);
+  const landform = new Uint8Array(GARDEN_W*h);
+  for (let y=0;y<=h;y++) for (let x=0;x<=GARDEN_W;x++) {
+    const fi=y*stride+x;
+    const shore=gardenShape(x,y,GARDEN_LAND)+Math.sin(x*.149+y*.131)*2.9+Math.sin(x*.232-y*.148)*1.25;
+    coast[fi]=shore;
+    if (x===GARDEN_W||y===h) continue;
+    const lake=(Math.hypot((x-307)/21,(y-228)/13)-1)*13;
+    const bridge=shore>0 && trail[fi]<1.9 && river[fi]<1.7;
+    const hill=gardenShape(x,y,GARDEN_HILLS);
+    const lava=Math.hypot((x-280)/4.8,(y-119)/3.3)<1;
+    const cell=y*GARDEN_W+x;
+    const type=bridge?T.BRIDGE:shore<0?T.DEEP:lake<0||river[fi]<0?T.WATER:
+      lava?T.LAVA:trail[fi]<0?T.DIRT:hill>6?T.STONE:shore<4?T.SAND:T.GRASS;
+    M.ter[M.I(oldW+x,y)]=type;
+    landform[cell]=type===T.WATER?(lake<0?2:1):hill>6?3:0;
+  }
+  M.garden={coast,trail,landform,points:GARDEN_PLACES.map(([es,en,x,y])=>({name:L2(es,en),x:x+oldW,y}))};
+  gardenDecorate(M);
+  return M;
+}
+
+function gardenDecorate(M) {
+  const random=new RNG(90472), {coast,trail}=M.garden, stride=GARDEN_W+1;
+  const clearings=[[142,223,15,14],[157,184,13,9],[194,146,17,12],[239,192,21,12],[276,150,19,12],[301,213,15,9]];
+  const add = (name,x,y,fp=[]) => addObj(M,'garden',x+M.dawnW,y,{gardenSprite:name,fp,solid:fp.length>0});
+  for (let gy=77;gy<270;gy+=4) for (let gx=89;gx<362;gx+=4) {
+    const x=gx+random.int(-1,1),y=gy+random.int(-1,1),i=y*stride+x;
+    if (M.ter[M.I(x+M.dawnW,y)]!==T.GRASS || coast[i]<2 || trail[i]<2.7 ||
+      clearings.some(([cx,cy,rx,ry])=>Math.hypot((x-cx)/rx,(y-cy)/ry)<1) || random.f()>.76) continue;
+    if (random.f()<.15) add('fern'+random.int(0,2),x,y);
+    else add((coast[i]<10||random.f()<.28?'palm':'tree')+random.int(0,3),x,y,[[0,0]]);
+  }
+  for (const [s,x,y] of [
+    ['ridge0',187,145],['ridge1',204,147],['ridge0',216,138],['ridge1',171,137],
+    ['volcano0',276,140],['volcano1',288,135],['volcano1',301,143],
+    ['bone0',231,190],['bone1',243,190],['bone0',251,197],['bone1',232,199],
+    ['fern0',136,223],['fern1',144,225],['fern2',181,151],['fern1',204,152],['fern0',291,212],
+    ['fern0',190,148],['fern2',192,146],['fern1',198,147],['fern0',200,149],
+    ['fern2',273,142],['fern0',281,143],['fern1',284,144],['boulder0',269,144],
+    ['boulder1',282,148],['boulder0',274,151],['boulder1',287,146],['fern1',275,153]
+  ]) {
+    const t=M.ter[M.I(M.dawnW+x,y)];
+    const tall=s.startsWith('ridge')||s.startsWith('volcano');
+    const fp=tall?Array.from({length:7},(_,i)=>[i-3,0]):[[0,0]];
+    const safe=fp.filter(([offset])=>!blockedFor(M,M.dawnW+x+offset,y,0)&&trail[y*stride+x+offset]>1.8);
+    add(s,x,y,SOLID_T[t]||s.startsWith('fern')?[]:safe);
+  }
+  add('beacon',136,228);
+}
+
+function gardenPaint(M,cx,cy) {
+  const {coast,trail,landform}=M.garden, stride=GARDEN_W+1, c=mkCanvas(CHP,CHP),g=c.getContext('2d');
+  const im=g.createImageData(CHP,CHP), pixels=new Uint32Array(im.data.buffer), S=GARDEN_COLORS;
+  const ox=cx*CHP,oy=cy*CHP;
+  for(let yy=0;yy<CHP;yy++){
+    const py=oy+yy,y=py>>4, fy=(py&15)/16, row=y*stride, ti=(py&127)*128;
+    for(let xx=0;xx<CHP;xx++){
+      const px=ox+xx,gx=px>>4,x=gx-M.dawnW, fx=(px&15)/16,k=row+x, n=ti+(px&127), t=M.ter[M.I(gx,y)];
+      const d=lerp(lerp(coast[k],coast[k+1],fx),lerp(coast[k+stride],coast[k+stride+1],fx),fy);
+      const art=landform[y*GARDEN_W+x];
+      let col;
+      if(t===T.BRIDGE) col=WOOD[(py&7)===0?1:TEX.plank[n]];
+      else if(t===T.LAVA) col=S.lava[TEX.rock[n]];
+      else if(t===T.WATER) col=(art===2?S.lagoon:S.water)[TEX.mud[n]];
+      else if(d<0) {
+        const wave=(py+Math.round(Math.sin(px*.04)*4))%44===0 && (px%89)<22;
+        const colors=d>-.35?S.foam:d>-10?S.sea:S.deep;
+        col=colors[wave?Math.min(4,TEX.mud[n]+1):TEX.mud[n]];
+      } else if(t===T.STONE) col=(art===3&&((py+(px>>2))%29)<7?S.cliff:S.stone)[TEX.rock[n]];
+      else if(d<3.8) col=S.sand[TEX.sand[n]];
+      else if(lerp(lerp(trail[k],trail[k+1],fx),lerp(trail[k+stride],trail[k+stride+1],fx),fy)<0) col=S.dirt[TEX.dirt[n]];
+      else col=S.grass[clamp(TEX.grass[n]-1,0,4)];
+      pixels[yy*CHP+xx]=col;
+    }
+  }
+  g.putImageData(im,0,0);return c;
+}
+
+{const old=makeDawn;makeDawn=function(){
+  const M=old.apply(this,arguments);
+  return M.garden?M:expandDawnSea(M);
+};}
+{const old=dawnPaint;dawnPaint=function(M,cx,cy){
+  if(!M.garden)return old.apply(this,arguments);
+  if(cx*CH>=M.dawnW)return gardenPaint(M,cx,cy);
+  return old({w:M.dawnW,h:M.h,dawnData:M.dawnData},cx,cy);
+};}
+{const old=otherPOI;otherPOI=function(M){
+  const out=old.apply(this,arguments);
+  if(M.garden)for(const p of M.garden.points)out.push({c:'garden',x:p.x,y:p.y,t:p.name});
+  return out;
+};}
+MAPC.garden=[L2('Little Garden','Little Garden'),'Little Garden','#d9d898','star'];
+{
+  const entry=MAPW_LIST.find(m=>m.id==='dawn');
+  entry.n=L2('Mar de Dawn · Foosha y Little Garden','Dawn Sea · Foosha and Little Garden');
+}
+{const old=mapOverview;mapOverview=function(M){
+  if(!M.garden)return old.apply(this,arguments);
+  if(MAP_OV[M.id])return MAP_OV[M.id].c;
+  const {w,h,dawnW,garden}=M,c=mkCanvas(w,h),g=c.getContext('2d'),im=g.createImageData(w,h),p=new Uint32Array(im.data.buffer);
+  const S=GARDEN_COLORS;
+  for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+    const i=M.I(x,y),t=M.ter[i];
+    const d=x<dawnW?M.dawnData.field[y*(dawnW+1)+x]:garden.coast[y*(GARDEN_W+1)+x-dawnW];
+    p[i]=t===T.DEEP?(d>-9?S.sea[2]:S.deep[1]):t===T.WATER?S.water[2]:
+      t===T.LAVA?S.lava[3]:t===T.SAND?S.sand[3]:t===T.DIRT||t===T.BRIDGE?S.dirt[3]:
+      t===T.STONE||t===T.IWALL?S.stone[2]:x<dawnW?(M.solidO[i]?S.grass[2]:S.grass[4]):S.grass[M.solidO[i]?0:2];
+  }
+  g.putImageData(im,0,0);
+  MAP_OV[M.id]={c,w};return c;
+};}
+
+// Original pixel art, shared by the whole island via the engine's sprite cache.
+const GARDEN_SHALE=pal(['#28332e','#435144','#5b6350','#7c8067','#9b9d7e','#bbba95','#d8d2ab']);
+const GARDEN_LEAF=pal(['#23432f','#31583a','#417343','#578747','#79a154','#a0b96a']);
+const GARDEN_BONE=pal(['#524b38','#827556','#aa9870','#c8b58b','#e2d3ad','#f3e3be']);
+function gardenSprite(name) {
+  return spr('garden:'+name,()=>{
+    if(name.startsWith('tree')||name.startsWith('palm')){
+      const s=genTree(name.startsWith('tree')?'ancestral':'palma',+name.at(-1)), scale=name.startsWith('tree')?1.22:1.32;
+      const c=mkCanvas(Math.ceil(s.w*scale),Math.ceil(s.h*scale)),g=c.getContext('2d');
+      g.imageSmoothingEnabled=false;
+      g.drawImage(s.trunk,0,0,c.width,c.height);
+      g.drawImage(s.canopy,0,0,c.width,c.height);
+      return {c,ax:s.ax*scale,ay:s.ay*scale};
+    }
+    if(name.startsWith('boulder'))return genRock('m',+name.at(-1),'normal');
+    const [kind,variant]=[name.replace(/[0-9]+$/,''),Number(name.at(-1))||0];
+    const dims={ridge:[191,151],volcano:[155,145],bone:[73,43],fern:[36,32],beacon:[28,48]};
+    const [w,h]=dims[kind],p=new Pix(w,h), seed=272+variant*71;
+    const stone=GARDEN_SHALE,leaf=GARDEN_LEAF,bone=GARDEN_BONE;
+    if(kind==='ridge'){
+      const peak=variant?83:107, crown=variant?14:3;
+      p.poly([[3,140],[32,102],[48,63],[62,29],[peak,crown],[peak+27,30],[165,77],[188,137]],stone[3]);
+      for(let y=crown;y<143;y++)for(let x=3;x<w-3;x++){
+        if(!p.d[y*w+x])continue;
+        const q=hash2(x>>1,y>>1,seed), slope=x<peak?1:0;
+        let shade=clamp(2+slope+(((x+y*.53+Math.sin(y*.086)*11)/9)|0)%3+(q>.78?1:0),1,6);
+        if(y>104&&hash2(x>>2,y>>2,seed+3)>.83) p.set(x,y,leaf[1+(q*3|0)]);
+        else p.set(x,y,stone[shade]);
+      }
+      for (const [x,y,rx,ry] of variant?[[62,107,15,27],[109,103,18,33],[149,124,12,13]]:[[57,119,14,19],[91,92,21,37],[137,109,18,27]]){
+        p.ell(x,y,rx+4,ry+2,stone[5]);
+        p.ell(x+1,y+2,rx,ry,stone[1]);
+        p.ell(x+1,y+1,Math.max(4,rx-4),ry-2,C('#20292b'));
+        p.ell(x-2,y-4,Math.max(3,rx-6),Math.max(4,ry-6),C('#152226'));
+        p.hl(x-rx+2,y+ry-5,rx*2-4,stone[2]);
+      }
+      for(let i=0;i<44;i++){
+        const x=25+i*3.45,y=x<peak?crown+(peak-x)*.87:crown+(x-peak)*1.03,r=4+hash2(i,variant,seed)*8;
+        p.ball(x,y+11,r,r*.54,leaf,0);
+        if(i%3===0)p.ball(x+5,y+20,r*.75,r*.48,leaf,0);
+      }
+    }else if(kind==='volcano'){
+      const ash=pal(['#392f31','#58453b','#765648','#936c56','#b58a68','#d3a381']);
+      const top=variant?34:15, craterY=top+9;
+      p.poly([[3,139],[29,114],[51,78],[62,top+7],[86,top+2],[98,top+11],[110,73],[134,115],[151,137]],ash[3]);
+      for(let y=top;y<141;y++)for(let x=3;x<152;x++){
+        if(!p.d[y*w+x])continue;
+        const q=hash2(x>>1,y>>1,seed),rib=Math.sin((x-77)*3.2/Math.max(15,y-top)*8+Math.sin(y*.14)*.8);
+        p.set(x,y,ash[clamp((rib*1.15+3+(q-.5)*1.4+(x<71?.45:0))|0,0,5)]);
+      }
+      p.ell(79,craterY,17,7,ash[1]);p.ell(78,craterY+1,11,4,ash[0]);
+      p.ell(79,craterY+2,8,2,C('#e88649'));
+      if(!variant){
+        const lava=GARDEN_COLORS.lava;
+        for(let i=0;i<11;i++){const y=top+18+i*7,x=80+i*2+Math.sin(i*1.1)*4;p.line(x-2,y,x+2,y+8,lava[1]);p.line(x,y,x+3,y+7,lava[2+i%2]);}
+      }
+      for(let i=0;i<13;i++){const x=i*11+10,y=135-hash2(i,0,seed)*5;p.ball(x,y,9,4,leaf);}
+    }else if(kind==='bone'){
+      p.ell(37,37,34,5,stone[2]);
+      if(!variant){
+        for(let i=0;i<6;i++){const x=11+i*10,y=11+Math.abs(2-i)*3;p.line(x,y,x-4,32,bone[1]);p.line(x+2,y,x-1,34,bone[4]);p.line(x+2,y,x+6,y+3,bone[5]);}
+        p.line(7,18,61,20,bone[3]);p.line(9,17,59,19,bone[5]);
+      }else{
+        p.ball(30,19,16,13,bone);p.rect(29,17,25,10,bone[3]);p.ell(46,23,11,7,bone[2]);p.ell(34,16,5,4,stone[0]);
+        p.ell(51,19,3,2,stone[1]);p.hl(38,26,17,bone[5]);p.line(21,31,54,35,bone[4]);
+      }
+    }else if(kind==='fern'){
+      for(let i=0;i<8;i++){
+        const angle=-Math.PI+i*.43;
+        for(let d=1;d<16;d++){
+          const x=18+Math.cos(angle)*d,y=29+Math.sin(angle)*d-(d*d)/52;
+          const f=clamp((hash2(i,d,seed)*4|0)+1,1,5);
+          p.set(x|0,y|0,leaf[f]);
+          if(d%2===0){p.line(x,y,x+Math.cos(angle+1.15)*4,y+Math.sin(angle+1.15)*4,leaf[f]);p.line(x,y,x+Math.cos(angle-1.15)*3,y+Math.sin(angle-1.15)*3,leaf[f-1]);}
+        }
+      }
+    }else{
+      p.rect(12,11,4,35,WOOD[1]);p.vl(12,12,32,WOOD[4]);p.poly([[4,10],[23,10],[18,18],[4,18]],WOOD[3]);
+      p.hl(5,11,16,WOOD[4]);p.hl(7,14,8,C('#dfd3a3'));p.hl(17,14,3,C('#dfd3a3'));
+    }
+    p.outline(OUTL,false);
+    return {c:p.canvas(),ax:w/2,ay:h-3};
+  });
+}
+{const old=objSprite;objSprite=function(o){if(o.k!=='garden')return old.apply(this,arguments);
+  return gardenSprite(o.gardenSprite);};}
+
+// Alvida's first outfit, rigged to the game's stocky body and directional hand anchors.
+const ALVIDA_RED=pal(['#481726','#792337','#a42a43','#cb4056','#e66a75']);
+const ALVIDA_PINK=pal(['#672c4c','#9f4369','#c6628c','#e386aa','#efa5c1']);
+const ALVIDA_NAVY=pal(['#14192c','#263352','#344971','#49658e','#6582a2']);
+const ALVIDA_HAT=pal(['#5f6976','#9ea7ad','#c5cbcf','#e4e7e4','#fff9e9']);
+BODYP.alvida={...BODYP.normal,fw:60,fh:49};
+const ALVIDA_IRON=pal(['#182427','#2a3b3d','#435453','#6a7771','#a0a699']);
+fitKind('head','alvida_hat',(p,A)=>{
+  const x=A.hx,y=Math.round(A.headTop),b=Math.round(A.hrx)+4;
+  p.ball(x,y+1,b,2.8,ALVIDA_HAT);
+  p.poly([[x-5,y],[x-5,y-5],[x-2,y-7],[x+4,y-7],[x+6,y]],ALVIDA_HAT[3]);
+  p.line(x-5,y-4,x-3,y-6,ALVIDA_HAT[4]);p.hl(x-5,y-1,11,C('#56804a'));
+  p.ball(x+(A.side?-2:4),y-7,3.4,5.2,ALVIDA_RED);
+  p.ball(x+(A.side?-1:5),y-5,2.8,3.7,ALVIDA_RED);
+  p.line(x+2,y-4,x+5,y-11,ALVIDA_RED[1]);
+});
+fitKind('body','alvida_jacket',(p,A)=>{
+  const {tx0,tw,torsoTop:y,th,side,up,cx}=A;
+  for(let j=0;j<th;j++)for(let i=0;i<tw;i++){
+    const pink=clamp(3+(i<tw*.27?1:0)-(i>tw*.72?1:0)-(j>th*.65?1:0),1,4);
+    p.set(tx0+i,y+j,up?ALVIDA_NAVY[pink]:ALVIDA_PINK[pink]);
+    if(!up&&(j%4===3||i%5===4))p.set(tx0+i,y+j,ALVIDA_PINK[Math.max(1,pink-1)]);
+  }
+  if(!up){
+    const k=side?cx-3:cx;
+    p.poly([[k-4,y],[k+4,y],[k+1,y+4],[k+1,y+th-3],[k-1,y+5]],ALVIDA_RED[2]);
+    p.set(k,y+3,ALVIDA_RED[4]);
+  }
+  for(const x of side?[tx0+tw-3]:[tx0+1,tx0+tw-2]){
+    p.ell(x,y+1,3.8,1.6,GOLD[3]);p.hl(x-2,y,5,GOLD[4]);
+    for(let d=-2;d<=2;d+=2)p.vl(x+d,y+2,2+(d===0?1:0),GOLD[2]);
+  }
+  p.hl(tx0,y+th-2,tw,C('#53257c'));p.hl(tx0,y+th-1,tw,C('#7b3e96'));
+  if(!up){
+    for(let i=1;i<tw-1;i+=3)p.set(tx0+i,y+th-1,GOLD[4]);
+  }
+});
+function drawAlvidaClub(p,hx,hy,ang,length=1){
+  const ca=Math.cos(ang),sa=Math.sin(ang);
+  const at=(d,w=0)=>[hx+ca*d*length-sa*w*length,hy+sa*d*length+ca*w*length];
+  p.line(...at(-3),...at(8),ALVIDA_IRON[1]);
+  p.line(...at(-3,-.7),...at(8,-.7),ALVIDA_IRON[3]);
+  p.poly([at(5,-1.3),at(18,-4.5),at(22,-3),at(22,3),at(18,5),at(5,1.6)],ALVIDA_IRON[1]);
+  p.poly([at(7,-1),at(19,-3.2),at(21,-1),at(19,1.2),at(7,1)],ALVIDA_IRON[2]);
+  p.line(...at(8,-.8),...at(20,-2.3),ALVIDA_IRON[3]);
+  for(const [d,v] of [[11,-1],[14,1],[17,-2],[19,2],[21,-.5]]){
+    p.poly([at(d-1,v),at(d+1,v),at(d+.6,v+(v<0?-2.8:2.8))],ALVIDA_IRON[4]);
+  }
+}
+{const old=drawWeapon;drawWeapon=function(p,W,hx,hy,ang){
+  if(W?.k==='alvida_club')return drawAlvidaClub(p,hx,hy,ang,W.size||1);
+  return old.apply(this,arguments);
+};}
+{const old=genIcon;genIcon=function(spec){
+  if(spec[0]!=='alvida_club')return old.apply(this,arguments);
+  const p=new Pix(16,16);drawAlvidaClub(p,3,13,-.81,.76);p.outline(OUTL,false);return p;
+};}
+function alvidaLook(){
+  const app={...DEF_APP,g:'f',bt:2,skin:1,hs:4,hair:'negro',eyes:'cafe',top:[1,'rojo'],bot:[0,'blanco'],shoe:[1,'rojo']};
+  const L=heroLook('guerrero',app,{},{},{});
+  L.body='alvida';
+  L.btS={...BODY_T.f[2],tw:19,sw:14,aw:4,al:7,hrx:9.7,hry:7.9,jaw:4.5,belly:3,hips:2,waist:0,bust:2};
+  L.head={k:'alvida_hat',cover:'hat'}; L.top={k:'alvida_jacket',m:ALVIDA_PINK,s:ALVIDA_NAVY};
+  L.back={k:'cape',o:ALVIDA_NAVY,i:ALVIDA_RED,tr:GOLD};
+  L.weapon={k:'alvida_club',tier:1,size:1};
+  L.hd=true;return L;
+}
+function drawAlvida(p,L,dir,anim,f){
+  drawHero(p,L,dir,anim,f);
+  const A=p.meta;
+  if(!A||A.up||anim==='hurt')return;
+  if(p.t)p.tg=2;
+  if(A.side){
+    p.ball(A.hx+A.d*5,A.hy+4,3.4,2.5,A.sk);
+    p.hl(A.hx+A.d*4-1,A.hy+5,4,ALVIDA_RED[1]);
+    return;
+  }
+  if(p.t)p.tg=2;
+  const x=A.hx,y=A.hy+5;
+  for(const d of [-1,1])p.ball(x+d*5.8,y-1,3,2.5,A.sk);
+  p.poly([[x-3,y],[x+3,y],[x+2,y+2],[x-2,y+2]],ALVIDA_RED[1]);
+  p.hl(x-3,y,6,ALVIDA_HAT[4]);p.set(x-4,y-1,ALVIDA_RED[2]);p.set(x+4,y-1,ALVIDA_RED[2]);
+}
+{const old=heroPose;heroPose=function(dir,anim,f,L){
+  const pose=old.apply(this,arguments);
+  if(L.weapon?.k==='alvida_club'&&anim==='atk'){
+    const base={down:1.16,up:-1.5,left:2.85,right:.28}[dir];
+    pose.wang=base+[-1.6,-.66,.66,1.0][f];
+  }
+  return pose;
+};}
+{const old=mobAtlasFor;mobAtlasFor=function(art){
+  if(art[0]!=='hum')return old.apply(this,arguments);
+  if(art[1]==='dawn_alvida')return getAtlas('alvida:boss',()=>buildAtlas(alvidaLook(),['idle','walk','atk','hurt','dead'],drawAlvida));
+  if(art[1]==='dawn_deckhand'||art[1]==='dawn_boarder')return getAtlas(art[1],()=>{
+    const dark=art[1]==='dawn_boarder';
+    const L=heroLook('guerrero',{...DEF_APP,g:'m',bt:dark?3:1,hs:dark?7:2,skin:dark?3:1,
+      hair:dark?'negro':'marron',top:[1,dark?'verde':'rojo'],bot:[0,'gris'],shoe:[1,'marron']},{},{},{});
+    L.back=null;L.head={k:'dawn_hat',dawn:'band',cover:'hat'};
+    L.weapon={k:dark?'axe':'sword',tier:3};
+    return buildAtlas(L,['idle','walk','atk','hurt','dead'],drawHero);
+  });
+  return old.apply(this,arguments);
+};}
+
+// Access to the sea is independent of the closed island landings.
+const DAWN_BUOY=[646,302];
+const DAWN_PATROL=[[668,296],[790,269]];
+const DAWN_HELM_SPEED=460;
+const ALVIDA_SHIP_NAME=L2('Galeón de Alvida','Alvida’s galleon');
+const DAWN_SEA_NAME=L2('Mar de Dawn','Dawn Sea');
+const AD_DECK='alvida_deck';
+const AD_START=[5,11], AD_CLAIM=[26,11], AD_HATCH=[4,11];
+const AD_CREW=[['dawn_deckhand',9,9],['dawn_boarder',11,12],['dawn_deckhand',12,8],['dawn_boarder',14,11]];
+SAVEKEYS.push('alvidaMace');
+const dawnPx=([x,y])=>[x*16+8,y*16+8];
+function dawnSurface(M,x,y,r=8){
+  for(const [dx,dy] of [[0,0],[-r,-r],[r,-r],[-r,r],[r,r]]){
+    const i=tileAt(M,(x+dx)>>4,(y+dy)>>4);
+    if(i<0||M.ter[i]!==T.DEEP)return false;
+  }
+  return true;
+}
+function dawnPatrol(){
+  const a=dawnPx(DAWN_PATROL[0]),b=dawnPx(DAWN_PATROL[1]),dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy);
+  const phase=(G.t*415/len)%2, u=phase<=1?phase:2-phase;
+  return {x:a[0]+dx*u,y:a[1]+dy*u,dir:phase<=1?'right':'left'};
+}
+function dawnGalleon(){
+  const P=G.P;
+  return P.dawnHelm?.kind==='galleon'?{x:P.x,y:P.y,dir:P.dir}:P._alvidaBerth||dawnPatrol();
+}
+function dawnHelm(kind,returnAt){
+  return {kind,returnAt};
+}
+function dawnLaunch(){
+  const P=G.P;
+  if(G.map.id!=='world'||G.fading||P.dead)return;
+  if(P.lv<500){typeText(L2('La ruta del galeón de Alvida requiere nivel 500.','Alvida’s galleon route requires level 500.'));return;}
+  const [x,y]=dawnPx(DAWN_BUOY), M=makeDawn(), returnAt={x:P.x,y:P.y};
+  closeDialog();
+  transition(()=>{
+    P.retX=returnAt.x;P.retY=returnAt.y;P.inside=null;P.dawnHelm=dawnHelm('skiff',returnAt);
+    setMap(M,x,y,'right');
+    banner(DAWN_SEA_NAME,L2('Usa el joystick o las flechas para navegar.','Use the stick or arrow keys to sail.'));
+  });
+}
+DLG_HOOKS.push((npc,options)=>{
+  if(npc.id==='marina')options.push({label:L2('Navegar por el Mar de Dawn · nivel 500','Sail the Dawn Sea · level 500'),icon:['ways'],fn:dawnLaunch});
+});
+function dawnDeck(){
+  if(G.maps[AD_DECK])return G.maps[AD_DECK];
+  const w=32,h=22,N=w*h,I=(x,y)=>y*w+x;
+  const M={id:AD_DECK,w,h,I,ter:new Uint8Array(N).fill(T.DEEP),lvl:new Uint8Array(N),reg:new Uint8Array(N),flags:new Uint8Array(N),
+    dark:0,isWorld:false,chunks:new Map(),camps:[],exit:{x:-9,y:-9},hudName:ALVIDA_SHIP_NAME,overviewMinimap:true};
+  for(let y=4;y<=17;y++)for(let x=2;x<=29;x++){
+    const bow=Math.max(0,Math.abs(y-11)-3);
+    if(x>=2+bow&&x<=29-bow)M.ter[I(x,y)]=T.PLANK;
+  }
+  M.ter[I(16,10)]=T.IWALL;M.ter[I(24,10)]=T.IWALL;
+  prepPalettes(M);initMapObjs(M);
+  const prop=(f,x,y)=>addObj(M,'furn',x,y,{f});
+  for(const [x,y] of [[7,6],[8,6],[7,15],[13,6],[21,15],[23,6],[25,7]])prop(x%2?'barrels':'chest',x,y);
+  for(const [x,y] of [[16,10],[24,10]])prop('alvida_deck_mast',x,y);
+  const action=(x,y,xact)=>addObj(M,'furn',x,y,{f:'ae_vacio',xact,solid:false,fp:[]});
+  action(...AD_HATCH,'alvida_leave');
+  prop('chest',AD_CLAIM[0],AD_CLAIM[1]-1);
+  prop('alvida_wheel',28,10);
+  action(...AD_CLAIM,'alvida_claim');
+  action(28,11,'alvida_helm');
+  M.drawExtra=(cx,cy)=>{
+    ctx.fillStyle='#315f82';
+    for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+      const X=x*16-cx,Y=y*16-cy;
+      if(X<-16||X>VW||Y<-16||Y>VH)continue;
+      if(M.ter[I(x,y)]===T.DEEP){
+        ctx.fillStyle='#315f82';ctx.fillRect(X,Y,16,16);
+        if((y*17+x*13)%19<2){ctx.fillStyle='#508eab';ctx.fillRect(X+2,Y+4,10,1);}
+      }else if(M.ter[I(x,y-1)]===T.DEEP||M.ter[I(x,y+1)]===T.DEEP||M.ter[I(x-1,y)]===T.DEEP||M.ter[I(x+1,y)]===T.DEEP){
+        ctx.fillStyle='#4a2b2a';ctx.fillRect(X,Y+5,16,5);ctx.fillStyle='#cba064';ctx.fillRect(X,Y+4,16,2);
+      }
+    }
+  };
+  return G.maps[AD_DECK]=M;
+}
+XSPR.alvida_deck_mast=()=>{
+  const p=new Pix(108,124);
+  p.rect(52,12,6,111,WOOD[1]);p.vl(53,14,105,WOOD[4]);
+  p.line(11,22,97,22,WOOD[2]);
+  p.poly([[14,24],[94,24],[89,65],[67,72],[24,67]],ALVIDA_HAT[3]);
+  p.line(18,24,25,66,ALVIDA_HAT[1]);p.line(88,26,81,64,ALVIDA_HAT[2]);
+  p.poly([[51,30],[59,30],[57,40],[60,50],[53,54],[49,49],[54,41]],ALVIDA_RED[2]);
+  p.outline(OUTL,false);return {c:p.canvas(),ax:55,ay:122};
+};
+XSPR.alvida_wheel=()=>{
+  const p=new Pix(32,35),x=16,y=14;
+  p.rect(13,16,6,17,WOOD[1]);p.hl(9,32,14,WOOD[3]);
+  for(let d=0;d<8;d++){
+    const a=d*Math.PI/4,dx=Math.cos(a),dy=Math.sin(a);
+    p.line(x,y,x+dx*13,y+dy*13,WOOD[3]);
+  }
+  for(let d=0;d<32;d++){
+    const a=d*Math.PI/16;
+    p.ell(x+Math.cos(a)*9,y+Math.sin(a)*9,2,2,WOOD[2]);
+  }
+  p.ell(x,y,3,3,GOLD[3]);p.outline(OUTL,false);
+  return {c:p.canvas(),ax:x,ay:32};
+};
+XSPR.alvida_galleon=()=>{
+  const p=new Pix(332,224);
+  const wood=pal(['#34232c','#643d39','#8a5547','#ac744e','#cd9c66']);
+  p.poly([[8,164],[36,169],[68,149],[292,147],[323,121],[322,169],[298,195],[257,216],[65,212],[26,191]],wood[2]);
+  for(let y=159;y<215;y+=5)for(let x=7;x<325;x++)if(p.d[y*p.w+x]){p.set(x,y,wood[1]);if(p.d[(y+1)*p.w+x])p.set(x,y+1,wood[3]);}
+  p.line(11,162,73,174,GOLD[3]);p.line(73,174,302,167,GOLD[3]);p.line(302,167,321,144,GOLD[3]);
+  p.rect(242,125,56,34,wood[1]);p.rect(245,129,51,28,wood[3]);p.rect(235,122,64,7,ALVIDA_RED[2]);
+  for(let x=76;x<271;x+=24){p.ell(x,187,5,4,wood[0]);p.hl(x-3,184,6,GOLD[2]);}
+  for(const [x,y] of [[111,19],[202,7],[265,47]]){
+    p.rect(x,y,5,167-y,wood[1]);p.vl(x+1,y,167-y,wood[4]);
+    p.line(x-39,y+22,x+37,y+22,wood[1]);
+    p.poly([[x-36,y+23],[x+34,y+23],[x+31,y+61],[x+19,y+74],[x-29,y+66]],ALVIDA_HAT[3]);
+    p.line(x-35,y+23,x-29,y+64,ALVIDA_HAT[1]);p.line(x+26,y+26,x+21,y+63,ALVIDA_HAT[2]);
+    p.poly([[x,y+32],[x+7,y+36],[x+5,y+43],[x-4,y+47],[x-9,y+40]],ALVIDA_RED[2]);
+    p.line(x,y+5,26,161,wood[0]);p.poly([[x+4,y],[x+42,y+4],[x+28,y+18],[x+4,y+12]],ALVIDA_RED[1]);
+  }
+  p.poly([[13,149],[31,151],[25,166],[16,167],[8,159]],GOLD[3]);
+  p.outline(OUTL,false);return {c:p.canvas(),ax:163,ay:196};
+};
+function dawnShipSprite(cx,cy,s,x,y,dir){
+  if(x<cx-220||x>cx+VW+220||y<cy-32||y>cy+VH+220)return;
+  ctx.save();ctx.translate(Math.round(x-cx),Math.round(y-cy));if(dir==='left')ctx.scale(-1,1);
+  ctx.drawImage(s.c,-s.ax,-s.ay);ctx.restore();
+}
+{const old=makeDawn;makeDawn=function(){
+  const M=old.apply(this,arguments);
+  if(M.maritime)return M;
+  M.maritime=true;
+  M.drawExtra=(cx,cy)=>{
+    const P=G.P,S=dawnGalleon(),large=spr('dawn:alvida:galleon',XSPR.alvida_galleon);
+    dawnShipSprite(cx,cy,large,S.x,S.y+24,S.dir);
+    if(P.dawnHelm?.kind==='skiff')dawnShipSprite(cx,cy,dawnSprite('boat'),P.x,P.y+16,P.dir);
+    const [x,y]=dawnPx(DAWN_BUOY);
+    if(x>=cx-16&&x<=cx+VW+16&&y>=cy-16&&y<=cy+VH+16){
+      ctx.fillStyle='#e08353';ctx.fillRect(x-cx-4,y-cy-4,8,7);
+      ctx.fillStyle='#ffe1a5';ctx.fillRect(x-cx-3,y-cy-5,6,2);
+    }
+  };
+  return M;
+};}
+{const old=setMap;setMap=function(M,x,y){
+  const P=G.P;
+  if(M?.dawn&&P?.dawnHelm&&!dawnSurface(M,x,y))return false;
+  if(P&&!M?.dawn)P.dawnHelm=null;
+  return old.apply(this,arguments);
+};}
+{const old=updatePlayer;updatePlayer=function(dt){
+  const P=G.P,M=G.map,H=P.dawnHelm;
+  if(!M.dawn||!H||P.dead)return old.apply(this,arguments);
+  const [dx,dy]=moveInput(),speed=H.kind==='galleon'?DAWN_HELM_SPEED*.82:DAWN_HELM_SPEED;
+  if(dx||dy){
+    const r=H.kind==='galleon'?22:8, distance=speed*dt, steps=Math.max(1,Math.ceil(distance/8));
+    const sx=dx*distance/steps,sy=dy*distance/steps;
+    for(let i=0;i<steps;i++){
+      if(dawnSurface(M,P.x+sx,P.y,r))P.x+=sx;
+      if(dawnSurface(M,P.x,P.y+sy,r))P.y+=sy;
+    }
+    P.dir=dirFromVec(dx,dy);
+    if(H.kind==='galleon')P._alvidaBerth={x:P.x,y:P.y,dir:P.dir};
+  }
+  setAnim(P,'idle',true);
+};}
+{const old=basicAttack;basicAttack=function(){if(!G.P?.dawnHelm)return old.apply(this,arguments);};}
+{const old=useSkill;useSkill=function(){if(!G.P?.dawnHelm)return old.apply(this,arguments);};}
+
+function dawnBoard(){
+  const P=G.P,H=P.dawnHelm;
+  if(!H||G.fading||P.dead)return;
+  const ship=dawnGalleon();
+  if(H.kind!=='galleon'&&dist2(P.x,P.y,ship.x,ship.y)>=112**2)return;
+  transition(()=>{
+    P._alvidaTrip={returnAt:H.returnAt,ship,skiff:{x:P.x,y:P.y},kind:H.kind};
+    P.inside=AD_DECK;const M=dawnDeck();
+    setMap(M,...dawnPx(AD_START),'right');
+    alvidaStart(M);
+    banner(ALVIDA_SHIP_NAME,P.alvidaMace?L2('Cubierta despejada','Deck cleared'):L2('Derrota primero a la tripulación.','Defeat the crew first.'));
+  });
+}
+function dawnLeaveDeck(takeHelm){
+  const P=G.P,S=P._alvidaTrip;
+  if(!S||G.fading||P.dead)return;
+  if(takeHelm&&!P.alvidaMace){toast(L2('Derrota a Alvida antes de tomar el timón.','Defeat Alvida before taking the helm.'),'warn');return;}
+  transition(()=>{
+    P.inside=null;P._alvidaTrip=null;
+    const kind=takeHelm?'galleon':'skiff';
+    const at=takeHelm?S.ship:S.skiff;
+    P.dawnHelm=dawnHelm(kind,S.returnAt);
+    if(takeHelm)P._alvidaBerth={x:at.x,y:at.y,dir:S.ship.dir};
+    setMap(makeDawn(),at.x,at.y,S.ship.dir);
+  });
+}
+XACT.alvida_leave=[L2('Volver al bote','Return to the boat'),'ways',()=>dawnLeaveDeck(false)];
+XACT.alvida_helm=[()=>G.P.alvidaMace?L2('Tomar el timón del galeón','Take the galleon’s helm'):null,'ways',()=>dawnLeaveDeck(true)];
+XACT.alvida_claim=[()=>G.P.alvidaMace===1?L2('Recoger el mazo de Alvida','Claim Alvida’s mace'):null,'bag',()=>alvidaClaim()];
+XACT.alvida_board=[L2('Abordar el galeón','Board the galleon'),'ways',dawnBoard];
+XACT.alvida_deck=[L2('Bajar a la cubierta','Go down to the deck'),'ways',dawnBoard];
+XACT.dawn_return=[L2('Regresar a Puerto Coral','Return to Coral Port'),'ways',()=>{
+  const P=G.P,S=P.dawnHelm?.returnAt;
+  if(!S||G.fading)return;
+  transition(()=>{P.inside=null;setMap(G.world,S.x,S.y,'down');markDirty(true);});
+}];
+{const old=interactTarget;interactTarget=function(){
+  const P=G.P;
+  if(!G.map?.dawn||!P?.dawnHelm||P.dead)return old.apply(this,arguments);
+  const [bx,by]=dawnPx(DAWN_BUOY), ship=dawnGalleon();
+  const action=P.dawnHelm.kind==='galleon'?'alvida_deck':dist2(P.x,P.y,ship.x,ship.y)<96**2?'alvida_board':null;
+  const key=dist2(P.x,P.y,bx,by)<66**2?'dawn_return':action;
+  return key?{kind:'xact',label:XACT[key][0],icon:'ways',o:{xact:key}}:null;
+};}
+{const old=otherPOI;otherPOI=function(M){
+  const out=old.apply(this,arguments);
+  if(M.dawn){
+    const s=dawnGalleon();
+    out.push({c:'boss',x:s.x/16,y:s.y/16,t:ALVIDA_SHIP_NAME},{c:'dawn',x:DAWN_BUOY[0],y:DAWN_BUOY[1],t:L2('Boya de retorno a Puerto Coral','Return buoy to Coral Port')});
+  }
+  return out;
+};}
+{
+  const entry=MAPW_LIST.find(m=>m.id==='dawn');
+  entry.how=L2('Habla con Marina en Puerto Coral para navegar al nivel 500. Los desembarcos en las islas siguen cerrados.','Talk to Marina at Coral Port to sail at level 500. The island landings remain closed.');
+}
+
+const ALVIDA_BOSS='dawn_alvida';
+const ALVIDA_MACE='w_alvida_mace';
+const ALVIDA_CREW_WHERE=L2('Cubierta del galeón de Alvida, en el Mar de Dawn','Alvida’s galleon deck, in the Dawn Sea');
+const obsidianGolem=MOBS.cb_golem;
+for(const [id,es,en,hp] of [['dawn_deckhand','Marinero del galeón','Galleon deckhand',.67],['dawn_boarder','Pirata de abordaje','Galleon boarder',.75]]){
+  MOBS[id]={...obsidianGolem,n:L2(es,en),art:['hum',id],lv:[500,500],reg:['dawn'],fam:'alvida_crew',
+    where:ALVIDA_CREW_WHERE,hp:obsidianGolem.hp*hp,atk:obsidianGolem.atk*.8,drops:[]};
+}
+BOSSES[ALVIDA_BOSS]={n:L2('Alvida, Maza de Hierro','Iron Mace Alvida'),where:ALVIDA_CREW_WHERE,lv:500,
+  art:['hum',ALVIDA_BOSS],hp:obsidianGolem.hp*1.24,atk:obsidianGolem.atk*1.13,def:obsidianGolem.def*1.08,
+  r:33,spd:62,moves:['slam'],drops:[],reward:ALVIDA_MACE};
+const ALVIDA_WEAPON_BASE=Object.values(ITEMS).filter(i=>i.t==='weapon'&&i.slot==='weapon'&&i.cls==='guerrero'&&(i.lv||1)<=500)
+  .reduce((best,i)=>!best||i.atk>best.atk?i:best,null);
+it(ALVIDA_MACE,{n:L2('Mazo de Hierro de Alvida','Alvida’s Iron Mace'),t:'weapon',slot:'weapon',cls:'guerrero',lv:500,
+  tier:ALVIDA_WEAPON_BASE.tier,atk:Math.ceil(ALVIDA_WEAPON_BASE.atk*1.055),rar:ALVIDA_WEAPON_BASE.rar,
+  icon:['alvida_club'],price:ALVIDA_WEAPON_BASE.price,
+  d:L2('Recompensa única por vencer a Alvida. Recógela en la cubierta del galeón.','One-time reward for defeating Alvida. Claim it on the galleon deck.')});
+{const old=gearTiers;gearTiers=function(P){
+  const gear=old.apply(this,arguments);
+  if(P.equip.weapon?.id===ALVIDA_MACE)gear.alvidaClub=1;
+  return gear;
+};}
+{const old=heroLook;heroLook=function(cls,app,gear){
+  const L=old.apply(this,arguments);
+  if(gear?.alvidaClub)L.weapon={k:'alvida_club',tier:1,size:.83};
+  return L;
+};}
+{const old=itemSources;itemSources=function(id){
+  if(id===ALVIDA_MACE)return [[ITEMS[id].d,{loc:[229,129],m:'world',t:L2('Capitana Marina','Captain Marina')}]];
+  return old.apply(this,arguments);
+};}
+{const old=bossWhere;bossWhere=function(id){
+  return id===ALVIDA_BOSS?{loc:[229,129],where:ALVIDA_CREW_WHERE}:old.apply(this,arguments);
+};}
+{const old=mobWhere;mobWhere=function(id){
+  return MOBS[id]?.fam==='alvida_crew'?{loc:[229,129],where:ALVIDA_CREW_WHERE}:old.apply(this,arguments);
+};}
+function alvidaClearFight(M){
+  if(!M?.alvidaRun)return;
+  for(const m of [...M.alvidaRun.crew,M.alvidaRun.boss])if(m)m.remove=true;
+  M.alvidaRun=null;
+  if(G.bossBar?.mid===ALVIDA_BOSS)showBoss(null);
+}
+function alvidaStart(M){
+  alvidaClearFight(M);
+  if(G.P.alvidaMace)return;
+  const crew=AD_CREW.map(([id,x,y])=>{
+    const e=spawnMob(id,500,...dawnPx([x,y]),0,null,false);
+    e.state='chase';return e;
+  });
+  M.alvidaRun={crew,boss:null};
+}
+V33_TICKS.push(()=>{
+  const M=G.map,R=M?.alvidaRun;
+  if(M?.id!==AD_DECK||!R||R.boss||G.P.alvidaMace||G.P.dead||R.crew.some(e=>!e.dying&&!e.remove))return;
+  R.boss=spawnMob(ALVIDA_BOSS,500,...dawnPx([22,11]),0,null,true);
+  R.boss.state='fight';R.boss.cd=.55;
+  showBoss(R.boss);sfx('boss');banner(BOSSES[ALVIDA_BOSS].n,L2('Esquiva el mazo cuando levante el brazo.','Dodge the mace as she raises her arm.'));
+});
+{const previous=setMap;setMap=function(M){
+  if(G.map?.id===AD_DECK&&M.id!==AD_DECK)alvidaClearFight(G.map);
+  return previous.apply(this,arguments);
+};}
+function alvidaClaim(){
+  const P=G.P;
+  if(G.map.id!==AD_DECK||P.alvidaMace!==1)return;
+  if(giveItem(ALVIDA_MACE,1)) {P.alvidaMace=2;markDirty(true);}
+  else toast(L2('Haz espacio en el inventario. El mazo seguirá en la cubierta.','Make room in your inventory. The mace will stay on the deck.'),'info');
+}
+{const previous=bossKilled;bossKilled=function(m){
+  if(m.mid!==ALVIDA_BOSS)return previous.apply(this,arguments);
+  if(!G.P.alvidaMace)G.P.alvidaMace=1;
+  const result=previous.apply(this,arguments);
+  toast(L2('El mazo está en el cofre junto al timón.','The mace is in the chest by the helm.'),'quest',5);
+  return result;
+};}
+{const previous=updateBoss;updateBoss=function(m,dt,d,dh,speed,moveTo){
+  if(m.mid!==ALVIDA_BOSS)return previous.apply(this,arguments);
+  const P=G.P;
+  if(P.dead){setAnim(m,'idle',true);return;}
+  if(m.alvidaStrike>0){
+    m.alvidaStrike-=dt;
+    m.af=clamp(Math.floor((m.windup-m.alvidaStrike)/m.windup*4),0,3);
+    return;
+  }
+  if(d>m.range+9){moveTo(P.x,P.y,speed);return;}
+  if(m.cd>0){setAnim(m,'idle',true);return;}
+  const ang=Math.atan2(P.y-m.y,P.x-m.x), sweep=m.alvidaSweep=!m.alvidaSweep;
+  const x=m.x+Math.cos(ang)*24,y=m.y+Math.sin(ang)*24,r=sweep?48:32,dur=sweep?.72:.54;
+  m.windup=m.alvidaStrike=dur;m.cd=dur+(sweep?1.05:.63);
+  mobFace(m,P.x-m.x,P.y-m.y);setAnim(m,'atk');
+  telegraph({shape:'circle',x,y,r,dur,cb:()=>{
+    if(G.map.id!==AD_DECK||m.dying||m.remove)return;
+    if(dist2(P.x,P.y,x,y)<r*r)hurtPlayer(m.atk*(sweep?1.08:1),{lv:m.lv});
+    G.shake=Math.max(3,G.shake);
+    burst(x,y,11,{sp:82,up:33,g:100,life:.35,c:['#a78a72','#dec4a1']});sfx('swing');
+  }});
+};}
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;
