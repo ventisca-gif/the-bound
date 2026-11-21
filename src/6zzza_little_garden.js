@@ -154,11 +154,12 @@ MAPC.garden=[L2('Little Garden','Little Garden'),'Little Garden','#d9d898','star
 }
 {const old=mapOverview;mapOverview=function(M){
   if(!M.garden)return old.apply(this,arguments);
-  if(MAP_OV[M.id])return MAP_OV[M.id].c;
+  if(MAP_OV[M.id]?.w===M.w)return MAP_OV[M.id].c;
   const {w,h,dawnW,garden}=M,c=mkCanvas(w,h),g=c.getContext('2d'),im=g.createImageData(w,h),p=new Uint32Array(im.data.buffer);
   const S=GARDEN_COLORS;
   for(let y=0;y<h;y++)for(let x=0;x<w;x++){
     const i=M.I(x,y),t=M.ter[i];
+    if(M.shells&&x>=M.shells.start){p[i]=shellsOverviewColor(M,x,y,i);continue;}
     const d=x<dawnW?M.dawnData.field[y*(dawnW+1)+x]:garden.coast[y*(GARDEN_W+1)+x-dawnW];
     p[i]=t===T.DEEP?(d>-9?S.sea[2]:S.deep[1]):t===T.WATER?S.water[2]:
       t===T.LAVA?S.lava[3]:t===T.SAND?S.sand[3]:t===T.DIRT||t===T.BRIDGE?S.dirt[3]:
