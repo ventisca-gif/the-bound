@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.69', GAME_BUILD = 190;
+const GAME_VER = '5.70', GAME_BUILD = 191;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.70",
+ "b": 191,
+ "d": "2026-11-21",
+ "es": [
+  "Mar de Dawn ampliado a 1.168 × 360 casillas. Little Garden aparece en el mapa con el desembarco cerrado.",
+  "Desde nivel 500, Marina te da acceso a un bote que puedes manejar. Localiza el galeón, aborda y vence a la tripulación y a Alvida.",
+  "Gana el mazo de Alvida para guerrero, registra a la tripulación en el bestiario y toma el timón del galeón."
+ ],
+ "en": [
+  "The Dawn Sea covers 1,168 × 360 tiles. Little Garden is on the map with its landing closed.",
+  "At level 500, Marina grants access to a boat you can steer. Find the galleon, board and defeat the crew and Alvida.",
+  "Earn Alvida’s warrior mace, register the crew in the bestiary and take the galleon’s helm."
+ ]
+},
 {
  "v": "5.69",
  "b": 190,
