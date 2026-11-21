@@ -5,7 +5,7 @@
 // Objetos con los que se interactúa en cualquier mapa: o.xact = clave de XACT → [etiqueta, icono, función(o)]
 const XACT = {};
 { const _it = interactTarget; interactTarget = function () { const P = G.P, M = G.map; if (P && M && M.objs && !P.dead) { let b = null, bd = 30 * 30;
-    for (const o of M.objs) { if (!o.xact || o.hidden || !XACT[o.xact]) continue; const d = dist2(o.px, o.py, P.x, P.y); if (d < bd) { bd = d; b = o; } }
+    for (const o of M.xactObjs || M.objs) { if (!o.xact || o.hidden || !XACT[o.xact]) continue; const d = dist2(o.px, o.py, P.x, P.y); if (d < bd) { bd = d; b = o; } }
     if (b) { const X = XACT[b.xact], lab = typeof X[0] === 'function' ? X[0](b) : X[0]; if (lab) return { kind: 'xact', label: lab, icon: X[1], o: b }; } }
   return _it.apply(this, arguments); }; }
 { const _di = doInteract; doInteract = function (it) { it = it || interactTarget(); if (it && it.kind === 'xact') { XACT[it.o.xact][2](it.o); return; } return _di.apply(this, arguments); }; }
