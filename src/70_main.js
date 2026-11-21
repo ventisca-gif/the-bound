@@ -43,8 +43,12 @@ function startGame(save, isNew, name) {
   if (save) { P = Object.assign(newPlayer(save.name, save.cls, save.app), save); } else { P = newPlayer(name, CC.cls, Object.assign({}, CC.app)); }
   initPlayerRuntime(P); G.P = P; G.time = P.time || 8 * 60; titleMode = false;
   $('#title').hidden = true; $('#hud').hidden = false;
-  const i = W.I(clamp(Math.floor(P.x / 16), 0, W.w - 1), clamp(Math.floor(P.y / 16), 0, W.h - 1)); if (SOLID_T[W.ter[i]] || W.solidO[i]) { const t = WAYSTONES.find(w => w.k === (P.lastTown || 'albor')); P.x = t.x * 16 + 8; P.y = (t.y + 2) * 16 + 6; }
-  setMap(W, P.x, P.y, P.dir); uiDirty.hud = uiDirty.quest = true; updateTracker(); uiOnline();
+  const stay = !isNew && selvaRestoreStay(P);
+  if (!stay) {
+    const i = W.I(clamp(Math.floor(P.x / 16), 0, W.w - 1), clamp(Math.floor(P.y / 16), 0, W.h - 1));
+    if (SOLID_T[W.ter[i]] || W.solidO[i]) { const t = WAYSTONES.find(w => w.k === (P.lastTown || 'albor')); P.x = t.x * 16 + 8; P.y = (t.y + 2) * 16 + 6; }
+  }
+  setMap(stay ? stay.map : W, stay ? stay.x : P.x, stay ? stay.y : P.y, P.dir); uiDirty.hud = uiDirty.quest = true; updateTracker(); uiOnline();
   if (isNew) { saveGame(true); openModal(`<div class="intro">${STORY_INTRO.map(s => `<p>${esc(s)}</p>`).join('')}<p class="hint">Habla con la <b>Anciana Mira</b> (tiene un <b class="exc">!</b> sobre la cabeza) para comenzar.</p><button class="btn gold big" id="introOk">Comenzar</button></div>`, 'introm'); $('#introOk').onclick = () => { closeModal(); banner('The Bound', 'Valle de Albor'); setTimeout(() => tip('move'), 2600); }; }
   else banner('Bienvenido de nuevo', P.name);
   roomInit(); netHero();

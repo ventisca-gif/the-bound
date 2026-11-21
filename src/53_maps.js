@@ -112,7 +112,14 @@ function revive() { const P = G.P; P.dead = false; const loss = Math.floor(P.xp 
 // ---------- main update ----------
 let tick5 = 0, saveT = 0;
 function update(dt) {
-  if (G.fadeTarget !== undefined) { const sp = dt * 4; if (G.fade < G.fadeTarget) { G.fade = Math.min(G.fadeTarget, G.fade + sp); if (G.fade >= 1 && G.fadeCb) { const cb = G.fadeCb; G.fadeCb = null; cb(); } } else if (G.fade > G.fadeTarget) G.fade = Math.max(G.fadeTarget, G.fade - sp); }
+  if (G.fadeTarget !== undefined) {
+    const sp = dt * 4;
+    if (G.fade < G.fadeTarget) G.fade = Math.min(G.fadeTarget, G.fade + sp);
+    else if (G.fade > G.fadeTarget) G.fade = Math.max(G.fadeTarget, G.fade - sp);
+    if (G.fade === 1 && G.fadeTarget === 1 && G.fadeCb) {
+      const cb = G.fadeCb; G.fadeCb = null; cb();
+    }
+  }
   if (G.P && G.paused && netOnline()) { presT += dt; if (presT > 1) { presT = 0; lastPresT = -99; netPresence(false); } }
   if (!G.P || G.paused) return;
   G.t += dt; { const pt = G.time; G.time = (G.time + dt * 4.8) % 1440; if (G.time < pt) newDay(); } worldTick(dt); townTick(dt); islandTick(dt); trainTick(dt); vehicleTick(dt); subTick(dt); wedRemoteTick(dt); nightLifeTick(dt); kingdomTick(dt); familyTick(dt); arenaFullTick(dt); phenAllTick(dt); archiTick(dt); legacyTick(dt); v33Tick(dt);

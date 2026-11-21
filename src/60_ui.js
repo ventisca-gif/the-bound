@@ -72,7 +72,7 @@ function updateHUD(dt) {
     if (key !== lastAct) { lastAct = key; const b = $('#bAct'); if (P.fishing) { b.hidden = false; b.innerHTML = iconHTML(['rod', 2], 24) + `<span>${P.fishing.state === 'bite' ? '¡Tira!' : P.fishing.state === 'reel' ? 'Mantén' : 'Recoger'}</span>`; b.classList.toggle('alert', P.fishing.state === 'bite'); } else if (it) { b.hidden = false; b.classList.remove('alert'); b.innerHTML = iconHTML(it.icon === 'axe' ? ['axe', 2] : it.icon === 'pick' ? ['pick', 2] : it.icon === 'rod' ? ['rod', 2] : it.icon === 'herb' ? ['herb', 1] : [it.icon], 24) + `<span>${it.label}</span>`; } else b.hidden = true; }
     // time / zone
     const hh = Math.floor(G.time / 60), mm = Math.floor(G.time % 60);
-    const zn = P.map === 'world' ? (() => { const W = G.world, i = W.I(clamp(Math.floor(P.x / 16), 0, W.w - 1), clamp(Math.floor(P.y / 16), 0, W.h - 1)); return W.townAt[i] >= 0 ? TOWNS[W.townAt[i]].n : REGIONS[W.reg[i]].n; })() : CAVES[P.map] ? CAVES[P.map].n : 'Interior';
+    const zn = P.map === 'world' ? (() => { const W = G.world, i = W.I(clamp(Math.floor(P.x / 16), 0, W.w - 1), clamp(Math.floor(P.y / 16), 0, W.h - 1)); return W.townAt[i] >= 0 ? TOWNS[W.townAt[i]].n : REGIONS[W.reg[i]].n; })() : G.map.hudName || (CAVES[P.map] ? CAVES[P.map].n : 'Interior');
     const zt = `${calShort()} · ${String(hh).padStart(2, '0')}:${String(mm).padStart(2, '0')} · ${zn}`; if ($('#zone').textContent !== zt) $('#zone').textContent = zt;
     $('#goldT').textContent = fmt(P.gold);
     if (G.bossBar) { const b = G.bossBar; $('#bossbar i').style.width = (100 * Math.max(0, b.hp) / b.maxhp) + '%'; if (b.hp <= 0 || b.remove) showBoss(null); }
@@ -111,13 +111,14 @@ function buildMinimapBase() {
   x.putImageData(id, 0, 0); mmBase = c;
 }
 function drawMinimap() {
-  const P = G.P, cvs = $('#mm'), x = cvs.getContext('2d'); x.imageSmoothingEnabled = false; const S = cvs.width, sc = 3;
+  const P = G.P, M = G.map, cvs = $('#mm'), x = cvs.getContext('2d'); x.imageSmoothingEnabled = false; const S = cvs.width, sc = 3;
   x.fillStyle = '#0c0a10'; x.fillRect(0, 0, S, S);
-  if (P.map === 'world') {
-    const tx = P.x / 16, ty = P.y / 16; x.drawImage(mmBase, Math.round(-tx * sc + S / 2), Math.round(-ty * sc + S / 2), mmBase.width * sc, mmBase.height * sc);
-    for (const e of G.ents) { if (e.map !== 'world' || (e.type !== 'mob' && e.type !== 'npc')) continue; const dx = (e.x / 16 - tx) * sc + S / 2, dy = (e.y / 16 - ty) * sc + S / 2; if (dx < 0 || dy < 0 || dx > S || dy > S) continue; x.fillStyle = e.type === 'npc' ? (npcMarker(e.id) ? '#ffe040' : '#f0e0b0') : e.boss ? '#ff40a0' : '#ff4040'; x.fillRect(Math.round(dx) - 1, Math.round(dy) - 1, e.boss ? 4 : 2, e.boss ? 4 : 2); }
-    for (const r of G.remote.values()) { if (r.map !== 'world') continue; const dx = (r.x / 16 - tx) * sc + S / 2, dy = (r.y / 16 - ty) * sc + S / 2; x.fillStyle = PARTY.id && r.pt === PARTY.id ? '#7aff8a' : '#5ae0ff'; x.fillRect(Math.round(dx) - 1, Math.round(dy) - 1, 3, 3); }
-    const tg = guideTarget(); if (tg) { const loc = guidePos(tg); if (loc) { let dx = (loc[0] - tx) * sc, dy = (loc[1] - ty) * sc; const L = Math.hypot(dx, dy), R = S / 2 - 7; const inside = L < R; if (!inside) { dx = dx / L * R; dy = dy / L * R; } const t2 = textSprite(inside ? '!' : '>', '#ffd23a'); x.save(); x.translate(Math.round(dx + S / 2), Math.round(dy + S / 2)); if (!inside) x.rotate(Math.atan2(dy, dx)); x.drawImage(t2, -t2.width, -t2.height, t2.width * 2, t2.height * 2); x.restore(); } }
+  if (M.isWorld || M.overviewMinimap) {
+    const tx = P.x / 16, ty = P.y / 16, base = M.isWorld ? mmBase : mapOverview(M);
+    x.drawImage(base, Math.round(-tx * sc + S / 2), Math.round(-ty * sc + S / 2), base.width * sc, base.height * sc);
+    for (const e of G.ents) { if (e.map !== M.id || (e.type !== 'mob' && e.type !== 'npc')) continue; const dx = (e.x / 16 - tx) * sc + S / 2, dy = (e.y / 16 - ty) * sc + S / 2; if (dx < 0 || dy < 0 || dx > S || dy > S) continue; x.fillStyle = e.type === 'npc' ? (npcMarker(e.id) ? '#ffe040' : '#f0e0b0') : e.boss ? '#ff40a0' : '#ff4040'; x.fillRect(Math.round(dx) - 1, Math.round(dy) - 1, e.boss ? 4 : 2, e.boss ? 4 : 2); }
+    for (const r of G.remote.values()) { if (r.map !== M.id) continue; const dx = (r.x / 16 - tx) * sc + S / 2, dy = (r.y / 16 - ty) * sc + S / 2; x.fillStyle = PARTY.id && r.pt === PARTY.id ? '#7aff8a' : '#5ae0ff'; x.fillRect(Math.round(dx) - 1, Math.round(dy) - 1, 3, 3); }
+    const tg = (M.isWorld || P.wp?.m === M.id) && guideTarget(); if (tg) { const loc = guidePos(tg); if (loc) { let dx = (loc[0] - tx) * sc, dy = (loc[1] - ty) * sc; const L = Math.hypot(dx, dy), R = S / 2 - 7; const inside = L < R; if (!inside) { dx = dx / L * R; dy = dy / L * R; } const t2 = textSprite(inside ? '!' : '>', '#ffd23a'); x.save(); x.translate(Math.round(dx + S / 2), Math.round(dy + S / 2)); if (!inside) x.rotate(Math.atan2(dy, dx)); x.drawImage(t2, -t2.width, -t2.height, t2.width * 2, t2.height * 2); x.restore(); } }
   } else { x.fillStyle = '#2a1e16'; x.fillRect(S * 0.2, S * 0.25, S * 0.6, S * 0.5); x.fillStyle = '#a89c88'; const t = textSprite('INTERIOR', '#d8c8a8'); x.drawImage(t, (S - t.width) / 2, S / 2 - 4); }
   // player arrow
   x.save(); x.translate(S / 2, S / 2); x.rotate({ up: 0, right: Math.PI / 2, down: Math.PI, left: -Math.PI / 2 }[P.dir]); x.fillStyle = '#ffffff'; x.strokeStyle = '#1a1010'; x.lineWidth = 1.5; x.beginPath(); x.moveTo(0, -6); x.lineTo(4.5, 5); x.lineTo(0, 2.5); x.lineTo(-4.5, 5); x.closePath(); x.stroke(); x.fill(); x.restore();

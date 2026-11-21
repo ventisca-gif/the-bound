@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.67', GAME_BUILD = 188;
+const GAME_VER = '5.68', GAME_BUILD = 189;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.68",
+ "b": 189,
+ "d": "2026-11-20",
+ "es": [
+  "Selva peruana de 720 × 360 casillas: río, bosque de lupunas, cascada, aguajal, cocha y dos comunidades conectadas por senderos.",
+  "Compra el billete de 10.000 de oro en Jorge Chávez, embarca por la Puerta 2 y regresa gratis con Daniela.",
+  "Aprende y practica shipibo-konibo y asháninka con Luz y Elena."
+ ],
+ "en": [
+  "720 × 360 Peruvian Amazon map: river, lupuna forest, waterfall, aguaje palms, oxbow lake and two communities connected by trails.",
+  "Buy the 10,000 gold ticket at Jorge Chávez, board at Gate 2 and fly back free with Daniela.",
+  "Learn and practice Shipibo-Konibo and Ashaninka with Luz and Elena."
+ ]
+},
 {
  "v": "5.67",
  "b": 188,

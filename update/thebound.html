@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.67 · Guía de los 68 oficios</div>
+  <div class="tfoot">v5.68 · Selva peruana</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -4592,7 +4592,14 @@ function revive() { const P = G.P; P.dead = false; const loss = Math.floor(P.xp 
 // ---------- main update ----------
 let tick5 = 0, saveT = 0;
 function update(dt) {
-  if (G.fadeTarget !== undefined) { const sp = dt * 4; if (G.fade < G.fadeTarget) { G.fade = Math.min(G.fadeTarget, G.fade + sp); if (G.fade >= 1 && G.fadeCb) { const cb = G.fadeCb; G.fadeCb = null; cb(); } } else if (G.fade > G.fadeTarget) G.fade = Math.max(G.fadeTarget, G.fade - sp); }
+  if (G.fadeTarget !== undefined) {
+    const sp = dt * 4;
+    if (G.fade < G.fadeTarget) G.fade = Math.min(G.fadeTarget, G.fade + sp);
+    else if (G.fade > G.fadeTarget) G.fade = Math.max(G.fadeTarget, G.fade - sp);
+    if (G.fade === 1 && G.fadeTarget === 1 && G.fadeCb) {
+      const cb = G.fadeCb; G.fadeCb = null; cb();
+    }
+  }
   if (G.P && G.paused && netOnline()) { presT += dt; if (presT > 1) { presT = 0; lastPresT = -99; netPresence(false); } }
   if (!G.P || G.paused) return;
   G.t += dt; { const pt = G.time; G.time = (G.time + dt * 4.8) % 1440; if (G.time < pt) newDay(); } worldTick(dt); townTick(dt); islandTick(dt); trainTick(dt); vehicleTick(dt); subTick(dt); wedRemoteTick(dt); nightLifeTick(dt); kingdomTick(dt); familyTick(dt); arenaFullTick(dt); phenAllTick(dt); archiTick(dt); legacyTick(dt); v33Tick(dt);
@@ -4786,7 +4793,7 @@ function updateHUD(dt) {
     if (key !== lastAct) { lastAct = key; const b = $('#bAct'); if (P.fishing) { b.hidden = false; b.innerHTML = iconHTML(['rod', 2], 24) + `<span>${P.fishing.state === 'bite' ? (LANG_EN ? "Pull!" : '¡Tira!') : P.fishing.state === 'reel' ? (LANG_EN ? "Hold" : 'Mantén') : (LANG_EN ? "Gather" : 'Recoger')}</span>`; b.classList.toggle('alert', P.fishing.state === 'bite'); } else if (it) { b.hidden = false; b.classList.remove('alert'); b.innerHTML = iconHTML(it.icon === 'axe' ? ['axe', 2] : it.icon === 'pick' ? ['pick', 2] : it.icon === 'rod' ? ['rod', 2] : it.icon === 'herb' ? ['herb', 1] : [it.icon], 24) + `<span>${it.label}</span>`; } else b.hidden = true; }
     // time / zone
     const hh = Math.floor(G.time / 60), mm = Math.floor(G.time % 60);
-    const zn = P.map === 'world' ? (() => { const W = G.world, i = W.I(clamp(Math.floor(P.x / 16), 0, W.w - 1), clamp(Math.floor(P.y / 16), 0, W.h - 1)); return W.townAt[i] >= 0 ? TOWNS[W.townAt[i]].n : REGIONS[W.reg[i]].n; })() : CAVES[P.map] ? CAVES[P.map].n : (LANG_EN ? "Interior" : 'Interior');
+    const zn = P.map === 'world' ? (() => { const W = G.world, i = W.I(clamp(Math.floor(P.x / 16), 0, W.w - 1), clamp(Math.floor(P.y / 16), 0, W.h - 1)); return W.townAt[i] >= 0 ? TOWNS[W.townAt[i]].n : REGIONS[W.reg[i]].n; })() : G.map.hudName || (CAVES[P.map] ? CAVES[P.map].n : (LANG_EN ? "Interior" : 'Interior'));
     const zt = `${calShort()} · ${String(hh).padStart(2, '0')}:${String(mm).padStart(2, '0')} · ${zn}`; if ($('#zone').textContent !== zt) $('#zone').textContent = zt;
     $('#goldT').textContent = fmt(P.gold);
     if (G.bossBar) { const b = G.bossBar; $('#bossbar i').style.width = (100 * Math.max(0, b.hp) / b.maxhp) + '%'; if (b.hp <= 0 || b.remove) showBoss(null); }
@@ -4825,13 +4832,14 @@ function buildMinimapBase() {
   x.putImageData(id, 0, 0); mmBase = c;
 }
 function drawMinimap() {
-  const P = G.P, cvs = $('#mm'), x = cvs.getContext('2d'); x.imageSmoothingEnabled = false; const S = cvs.width, sc = 3;
+  const P = G.P, M = G.map, cvs = $('#mm'), x = cvs.getContext('2d'); x.imageSmoothingEnabled = false; const S = cvs.width, sc = 3;
   x.fillStyle = '#0c0a10'; x.fillRect(0, 0, S, S);
-  if (P.map === 'world') {
-    const tx = P.x / 16, ty = P.y / 16; x.drawImage(mmBase, Math.round(-tx * sc + S / 2), Math.round(-ty * sc + S / 2), mmBase.width * sc, mmBase.height * sc);
-    for (const e of G.ents) { if (e.map !== 'world' || (e.type !== 'mob' && e.type !== 'npc')) continue; const dx = (e.x / 16 - tx) * sc + S / 2, dy = (e.y / 16 - ty) * sc + S / 2; if (dx < 0 || dy < 0 || dx > S || dy > S) continue; x.fillStyle = e.type === 'npc' ? (npcMarker(e.id) ? '#ffe040' : '#f0e0b0') : e.boss ? '#ff40a0' : '#ff4040'; x.fillRect(Math.round(dx) - 1, Math.round(dy) - 1, e.boss ? 4 : 2, e.boss ? 4 : 2); }
-    for (const r of G.remote.values()) { if (r.map !== 'world') continue; const dx = (r.x / 16 - tx) * sc + S / 2, dy = (r.y / 16 - ty) * sc + S / 2; x.fillStyle = PARTY.id && r.pt === PARTY.id ? '#7aff8a' : '#5ae0ff'; x.fillRect(Math.round(dx) - 1, Math.round(dy) - 1, 3, 3); }
-    const tg = guideTarget(); if (tg) { const loc = guidePos(tg); if (loc) { let dx = (loc[0] - tx) * sc, dy = (loc[1] - ty) * sc; const L = Math.hypot(dx, dy), R = S / 2 - 7; const inside = L < R; if (!inside) { dx = dx / L * R; dy = dy / L * R; } const t2 = textSprite(inside ? '!' : '>', '#ffd23a'); x.save(); x.translate(Math.round(dx + S / 2), Math.round(dy + S / 2)); if (!inside) x.rotate(Math.atan2(dy, dx)); x.drawImage(t2, -t2.width, -t2.height, t2.width * 2, t2.height * 2); x.restore(); } }
+  if (M.isWorld || M.overviewMinimap) {
+    const tx = P.x / 16, ty = P.y / 16, base = M.isWorld ? mmBase : mapOverview(M);
+    x.drawImage(base, Math.round(-tx * sc + S / 2), Math.round(-ty * sc + S / 2), base.width * sc, base.height * sc);
+    for (const e of G.ents) { if (e.map !== M.id || (e.type !== 'mob' && e.type !== 'npc')) continue; const dx = (e.x / 16 - tx) * sc + S / 2, dy = (e.y / 16 - ty) * sc + S / 2; if (dx < 0 || dy < 0 || dx > S || dy > S) continue; x.fillStyle = e.type === 'npc' ? (npcMarker(e.id) ? '#ffe040' : '#f0e0b0') : e.boss ? '#ff40a0' : '#ff4040'; x.fillRect(Math.round(dx) - 1, Math.round(dy) - 1, e.boss ? 4 : 2, e.boss ? 4 : 2); }
+    for (const r of G.remote.values()) { if (r.map !== M.id) continue; const dx = (r.x / 16 - tx) * sc + S / 2, dy = (r.y / 16 - ty) * sc + S / 2; x.fillStyle = PARTY.id && r.pt === PARTY.id ? '#7aff8a' : '#5ae0ff'; x.fillRect(Math.round(dx) - 1, Math.round(dy) - 1, 3, 3); }
+    const tg = (M.isWorld || P.wp?.m === M.id) && guideTarget(); if (tg) { const loc = guidePos(tg); if (loc) { let dx = (loc[0] - tx) * sc, dy = (loc[1] - ty) * sc; const L = Math.hypot(dx, dy), R = S / 2 - 7; const inside = L < R; if (!inside) { dx = dx / L * R; dy = dy / L * R; } const t2 = textSprite(inside ? '!' : '>', '#ffd23a'); x.save(); x.translate(Math.round(dx + S / 2), Math.round(dy + S / 2)); if (!inside) x.rotate(Math.atan2(dy, dx)); x.drawImage(t2, -t2.width, -t2.height, t2.width * 2, t2.height * 2); x.restore(); } }
   } else { x.fillStyle = '#2a1e16'; x.fillRect(S * 0.2, S * 0.25, S * 0.6, S * 0.5); x.fillStyle = '#a89c88'; const t = textSprite((LANG_EN ? "INSIDE" : 'INTERIOR'), '#d8c8a8'); x.drawImage(t, (S - t.width) / 2, S / 2 - 4); }
   // player arrow
   x.save(); x.translate(S / 2, S / 2); x.rotate({ up: 0, right: Math.PI / 2, down: Math.PI, left: -Math.PI / 2 }[P.dir]); x.fillStyle = '#ffffff'; x.strokeStyle = '#1a1010'; x.lineWidth = 1.5; x.beginPath(); x.moveTo(0, -6); x.lineTo(4.5, 5); x.lineTo(0, 2.5); x.lineTo(-4.5, 5); x.closePath(); x.stroke(); x.fill(); x.restore();
@@ -11817,7 +11825,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.67', GAME_BUILD = 188;
+const GAME_VER = '5.68', GAME_BUILD = 189;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11825,6 +11833,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.68",
+ "b": 189,
+ "d": "2026-11-20",
+ "es": [
+  "Selva peruana de 720 × 360 casillas: río, bosque de lupunas, cascada, aguajal, cocha y dos comunidades conectadas por senderos.",
+  "Compra el billete de 10.000 de oro en Jorge Chávez, embarca por la Puerta 2 y regresa gratis con Daniela.",
+  "Aprende y practica shipibo-konibo y asháninka con Luz y Elena."
+ ],
+ "en": [
+  "720 × 360 Peruvian Amazon map: river, lupuna forest, waterfall, aguaje palms, oxbow lake and two communities connected by trails.",
+  "Buy the 10,000 gold ticket at Jorge Chávez, board at Gate 2 and fly back free with Daniela.",
+  "Learn and practice Shipibo-Konibo and Ashaninka with Luz and Elena."
+ ]
+},
 {
  "v": "5.67",
  "b": 188,
@@ -18541,7 +18564,7 @@ function guiaAddJobChip() { const ch = $('.guia .chips'); if (!ch || ch.querySel
 // Objetos con los que se interactúa en cualquier mapa: o.xact = clave de XACT → [etiqueta, icono, función(o)]
 const XACT = {};
 { const _it = interactTarget; interactTarget = function () { const P = G.P, M = G.map; if (P && M && M.objs && !P.dead) { let b = null, bd = 30 * 30;
-    for (const o of M.objs) { if (!o.xact || o.hidden || !XACT[o.xact]) continue; const d = dist2(o.px, o.py, P.x, P.y); if (d < bd) { bd = d; b = o; } }
+    for (const o of M.xactObjs || M.objs) { if (!o.xact || o.hidden || !XACT[o.xact]) continue; const d = dist2(o.px, o.py, P.x, P.y); if (d < bd) { bd = d; b = o; } }
     if (b) { const X = XACT[b.xact], lab = typeof X[0] === 'function' ? X[0](b) : X[0]; if (lab) return { kind: 'xact', label: lab, icon: X[1], o: b }; } }
   return _it.apply(this, arguments); }; }
 { const _di = doInteract; doInteract = function (it) { it = it || interactTarget(); if (it && it.kind === 'xact') { XACT[it.o.xact][2](it.o); return; } return _di.apply(this, arguments); }; }
@@ -32533,7 +32556,7 @@ XSPR.lm_puesto = () => { const [c, g] = XC(42, 40), cols = ['#e83a3a', '#ffd040'
   g.fillStyle = '#8a6a44'; g.fillRect(2, 24, 38, 4); for (let k = 0; k < 6; k++) { g.fillStyle = cols[(k * 3) % cols.length]; g.fillRect(5 + k * 5, 12, 4, 12); g.fillStyle = 'rgba(255,255,255,0.35)'; g.fillRect(5 + k * 5, 14, 4, 1); } return { c, ax: 21, ay: 39 }; };
 XSPR.lm_parapente = () => { const [c, g] = XC(30, 56); g.fillStyle = '#d8d8dc'; g.fillRect(4, 4, 2, 52); g.fillStyle = '#ff7a1a'; g.beginPath(); g.moveTo(6, 6); g.lineTo(26, 10); g.lineTo(26, 14); g.lineTo(6, 16); g.fill(); g.fillStyle = '#ffffff'; g.fillRect(12, 7, 4, 8); g.fillRect(20, 9, 3, 5); return { c, ax: 5, ay: 55 }; };
 XSPR.lm_cartel = () => { const [c, g] = XC(64, 40); g.fillStyle = '#4a3a2a'; g.fillRect(8, 20, 3, 20); g.fillRect(53, 20, 3, 20); g.fillStyle = '#c8102e'; g.fillRect(0, 2, 64, 20); g.fillStyle = '#f4f4f4'; g.fillRect(21, 2, 22, 20); return { c, ax: 32, ay: 39 }; };
-XSPR.lm_panel = () => { const [c, g] = XC(56, 36); g.fillStyle = '#121418'; g.fillRect(0, 0, 56, 30); g.fillStyle = '#4a4e58'; g.fillRect(26, 30, 4, 6); g.fillStyle = '#ffd040'; g.fillRect(0, 0, 56, 9); jpText(g, 'SALIDAS', 3, 0, '#121418', 10); jpText(g, 'ALBOR 13:40', 3, 10, '#ffffff', 10); jpText(g, 'TOKIO 18:15', 3, 20, '#7ad0ff', 10); return { c, ax: 8, ay: 35 }; };
+XSPR.lm_panel = () => { const [c, g] = XC(56, 36); g.fillStyle = '#121418'; g.fillRect(0, 0, 56, 30); g.fillStyle = '#4a4e58'; g.fillRect(26, 30, 4, 6); g.fillStyle = '#ffd040'; g.fillRect(0, 0, 56, 9); jpText(g, 'SALIDAS', 3, 0, '#121418', 10); jpText(g, 'ALBOR 13:40', 3, 10, '#ffffff', 10); jpText(g, 'SELVA P2', 3, 20, '#7ad0ff', 10); return { c, ax: 8, ay: 35 }; };
 XSPR.ae_panel = () => { const [c, g] = XC(56, 36); g.fillStyle = '#121418'; g.fillRect(0, 0, 56, 30); g.fillStyle = '#4a4e58'; g.fillRect(26, 30, 4, 6); g.fillStyle = '#ffd040'; g.fillRect(0, 0, 56, 9); jpText(g, 'SALIDAS', 3, 0, '#121418', 10); jpText(g, 'TOKIO 13:40', 3, 10, '#ffffff', 10); jpText(g, 'LIMA 14:10', 3, 20, '#ff8a8a', 10); return { c, ax: 8, ay: 35 }; };
 XSPR.lm_terminal = () => { const r = XSPR.ae_terminal(), g = r.c.getContext('2d'), W = r.c.width, base = r.c.height - 64, s = 'AEROPUERTO JORGE CHAVEZ · LIMA', w0 = jpW(s); g.fillStyle = '#1a2a40'; g.fillRect(W / 2 - w0 / 2 - 6, base - 21, w0 + 12, 17); jpText(g, s, Math.round(W / 2 - w0 / 2), base - 18, '#ffe8a0', 10); g.fillStyle = '#d8102e'; g.fillRect(W / 2 - w0 / 2 - 6, base - 5, (w0 + 12) / 3, 2); g.fillRect(W / 2 + w0 / 6 + 2, base - 5, (w0 + 12) / 3, 2); return r; };
 
@@ -32584,7 +32607,7 @@ const PE_NPC_N = 120, PE_NPC_LOOK = {};
     const lines = kind === 'andina' || kind === 'andino' ? [peTx(PE_LA[n % 3]), peTx(PE_L[(n * 3) % PE_L.length])] : [peTx(PE_L[n % PE_L.length]), peTx(PE_L[(n * 7 + 3) % PE_L.length])];
     NPCS['pe_' + n] = { n: BASE[kk] + ' ' + cnt[kk], title: L2('Vecino de Lima', 'Lima local'), look: LK({ g }), lines, quests: [], hat: PE_LOOKS[li][4] }; PE_NPC_LOOK['pe_' + n] = li; } }
 const PE_STAFF = {
-  pe_taquilla: [L2('Azafata de tierra', 'Ground staff'), 1, L2('Bienvenido al Aeropuerto Jorge Chávez. El vuelo de vuelta a Albor es gratis.', 'Welcome to Jorge Chávez Airport. The flight back to Albor is free.')],
+  pe_taquilla: [L2('Azafata de tierra', 'Ground staff'), 1, L2('Bienvenido a Jorge Chávez. Aquí puedes comprar tu billete para la Selva peruana o pedir el de vuelta a Albor.', 'Welcome to Jorge Chávez. You can buy a ticket to the Peruvian Amazon or ask for a return ticket to Albor.')],
   pe_cafetera: [L2('Barista del aeropuerto', 'Airport barista'), 9, L2('¿Un cafecito pasado antes de volar? Es de la selva central.', 'A drip coffee before your flight? It comes from the central jungle.')],
   pe_guia: [L2('Guía de la Plaza', 'Square guide'), 5, L2('¡Bienvenido a la Plaza de Armas! Pregúntame lo que quieras de Lima.', 'Welcome to the Main Square! Ask me anything about Lima.')],
   pe_guardia: [L2('Guardia del Palacio', 'Palace guard'), PE_GUARD_LOOK, L2('Prohibido el paso. El cambio de guardia es a las doce en punto.', 'No entry. The changing of the guard is at twelve sharp.')],
@@ -32860,7 +32883,7 @@ function lmDrawGlider(x, y, alt, k) { const X = Math.round(x), Y = Math.round(y 
 const AE_PE = { k: 'pe', clerk: 'pe_taquilla', cafe: 'pe_cafetera', travellers: ['pe_3', 'ae_us', 'pe_14', 'ae_fr', 'pe_25', 'ae_br', 'pe_36', 'ae_ar', 'pe_47', 'ae_kr'] };
 function goLima() { const P = G.P, M = makeLima(), Q = LM_Q; if (P.map === 'world' || !P.retX) { P.retX = SA.term.door * 16 + 8; P.retY = (SA.term.y + SA.term.h + 1) * 16 + 8; }
   transition(() => { P.inside = 'lima'; setMap(M, Q.term.door * 16 + 8, (Q.term.y + Q.term.h + 2) * 16, 'down'); P._lmZ = null; P.pe = P.pe || {}; if (!P.pe.seen) { P.pe.seen = 1; banner(L2('¡Bienvenido a Lima!', 'Welcome to Lima!'), L2('Aeropuerto Internacional Jorge Chávez', 'Jorge Chávez International Airport')); } else banner('Lima', L2('Aeropuerto Jorge Chávez', 'Jorge Chávez Airport')); if (typeof stampAdd === 'function') stampAdd('m_lima'); markDirty(true); }); }
-XACT.lm_aeropuerto = [L2('Entrar al aeropuerto', 'Enter the airport'), 'run', o => { const P = G.P, M = makeTerminal('pe_terminal', AE_PE); for (const ob of M.objs) if (ob.f === 'ae_panel') { ob.f = 'lm_panel'; } P.peRet = { x: o.px, y: o.py + 18 }; transition(() => { P.inside = 'pe_terminal'; setMap(M, M.exit.x * 16 + 8, (M.exit.y - 2) * 16 + 8, 'up'); banner('Jorge Chávez', L2('Vuelos a Albor', 'Flights to Albor')); }); }];
+XACT.lm_aeropuerto = [L2('Entrar al aeropuerto', 'Enter the airport'), 'run', o => { const P = G.P, M = makeTerminal('pe_terminal', AE_PE); for (const ob of M.objs) if (ob.f === 'ae_panel') { ob.f = 'lm_panel'; } P.peRet = { x: o.px, y: o.py + 18 }; transition(() => { P.inside = 'pe_terminal'; setMap(M, M.exit.x * 16 + 8, (M.exit.y - 2) * 16 + 8, 'up'); banner('Jorge Chávez', L2('Vuelos a Albor y a la Selva peruana', 'Flights to Albor and the Peruvian Amazon')); }); }];
 { const _ei = exitInterior; exitInterior = function () { const M = G.map, P = G.P; if (M && (M.aeIn === 'pe' || M.peIn)) { const Rt = M.peIn === 'larco' ? { x: LM_LARCO.door * 16 + 8, y: (lmCoast(LM_LARCO.door) + 3) * 16 + 8 } : (P.peRet || { x: LM_Q.term.door * 16 + 8, y: (LM_Q.term.y + LM_Q.term.h + 2) * 16 }); transition(() => { P.inside = 'lima'; setMap(makeLima(), Rt.x, Rt.y, 'down'); }); return; } return _ei.apply(this, arguments); }; }
 DLG_HOOKS.push((npc, opts) => { const P = G.P;
   if (npc.id === 'ae_taquilla') opts.splice(1, 0, { label: '🎫 ' + L2('Billete a Perú (Lima) · ', 'Ticket to Peru (Lima) · ') + PE_TICKET.toLocaleString() + L2(' de oro', ' gold'), icon: ['coin'], fn: () => {
@@ -32923,9 +32946,9 @@ function lmOverview(M) { const K = 2, W = M.w, H = M.h, c = mkCanvas(W * K, H * 
   return c; }
 { const _mo = mapOverview; mapOverview = function (M) { if (M && M.peru) { const c = mkCanvas(M.w, M.h), x = c.getContext('2d'); x.fillStyle = '#2a64ac'; x.fillRect(0, 0, M.w, M.h); if (PE_IMG && PE_IMG.complete && PE_IMG.naturalWidth) { x.imageSmoothingEnabled = false; x.drawImage(PE_IMG, 0, 0, M.w, M.h); } return c; }
   if (M && M.lima) { if (!MAP_OV[M.id] || MAP_OV[M.id].w !== M.w) MAP_OV[M.id] = { c: lmOverview(M), w: M.w }; return MAP_OV[M.id].c; } return _mo.apply(this, arguments); }; }
-MAPC.pesight = [L2('Lugares famosos', 'Landmarks'), 'Landmarks', '#ffd04a', 'star']; MAPC.pefood = [L2('Comida peruana', 'Peruvian food'), 'Peruvian food', '#ff9a4a', 'food']; MAPC.peplane = [L2('Aeropuerto (vuelo a Albor)', 'Airport (flight to Albor)'), 'Airport (flight to Albor)', '#9ad8ff', 'mk:airship'];
+MAPC.pesight = [L2('Lugares famosos', 'Landmarks'), 'Landmarks', '#ffd04a', 'star']; MAPC.pefood = [L2('Comida peruana', 'Peruvian food'), 'Peruvian food', '#ff9a4a', 'food']; MAPC.peplane = [L2('Aeropuerto', 'Airport'), 'Airport', '#9ad8ff', 'mk:airship'];
 MAPC.pefun = [L2('Actividades (parapente, gatos, playa)', 'Activities (paragliding, cats, beach)'), 'Activities', '#ff5ad8', 'note']; MAPC.pecity = [L2('Ciudad (toca para ver su mapa)', 'City (tap to see its map)'), 'City', '#ff4a4a', 'star'];
-const LM_POI = () => [['peplane', LM_Q.term.door, LM_Q.term.y + 3, L2('Aeropuerto Jorge Chávez · vuelo a Albor', 'Jorge Chávez Airport · flight to Albor')], ['pesight', 325, 91, L2('Plaza de Armas y pileta de 1651', 'Main Square and 1651 fountain')], ['pesight', 325, 58, L2('Palacio de Gobierno (cambio de guardia a las 12)', 'Government Palace (changing of the guard at 12)')],
+const LM_POI = () => [['peplane', LM_Q.term.door, LM_Q.term.y + 3, L2('Aeropuerto Jorge Chávez · vuelos', 'Jorge Chávez Airport · flights')], ['pesight', 325, 91, L2('Plaza de Armas y pileta de 1651', 'Main Square and 1651 fountain')], ['pesight', 325, 58, L2('Palacio de Gobierno (cambio de guardia a las 12)', 'Government Palace (changing of the guard at 12)')],
   ['pesight', 369, 86, L2('Catedral de Lima', 'Lima Cathedral')], ['pesight', 369, 105, L2('Palacio Arzobispal', 'Archbishop\'s Palace')], ['pesight', 288, 91, L2('Municipalidad de Lima', 'Lima City Hall')], ['pesight', 404, 57, L2('Iglesia de San Francisco', 'San Francisco Church')], ['pesight', 330, 4, L2('Cerro San Cristóbal', 'San Cristóbal Hill')],
   ['pesight', 325, 135, L2('Jirón de la Unión', 'Jirón de la Unión')], ['pesight', 325, 166, L2('Plaza San Martín', 'San Martín Square')], ['pesight', 205, 197, L2('Bosque El Olivar', 'El Olivar Grove')], ['pesight', 226, 228, 'Huaca Pucllana'], ['pefun', 330, 250, L2('Parque Kennedy (acaricia a los gatos)', 'Kennedy Park (pet the cats)')],
   ['pesight', 307, 252, L2('Iglesia Virgen Milagrosa', 'Virgen Milagrosa Church')], ['pesight', 206, lmCoast(206) - 8, L2('Parque del Amor', 'Park of Love')], ['pesight', 236, lmCoast(236) - 7, L2('Faro de la Marina', 'Marina Lighthouse')], ['pefun', 190, lmCoast(190) - 4, L2('Parapente (300 de oro)', 'Paragliding (300 gold)')],
@@ -42008,6 +42031,449 @@ if (typeof GSIS !== 'undefined') GSIS.unshift(['oficios567', '⚒ ' + L2('Oficio
   L2('➜ Llévame pone la flecha dorada donde practicarlo; 🔍 Ver en la Lupa abre la guía de ese oficio.', '➜ Take me sets the golden arrow where to practise it; 🔍 See in Magnifier opens that job\'s guide.')
 ], () => null]);
 
+// Amazonian scenery from the original Selva preview, drawn on the game's Pix grid.
+let SELVA_ART;
+function selvaArt() {
+  if (SELVA_ART) return SELVA_ART;
+  const assets = {}, R = new RNG(265671);
+  function asset(k,s){if(s.trunk){const c=mkCanvas(s.w,s.h),x=c.getContext('2d');x.drawImage(s.trunk,0,0);x.drawImage(s.canopy,0,0);s.c=c;}assets[k]={...s};return s;}
+  for(const sp of ['caoba','ebano','roble','palma','ancestral'])for(let i=0;i<4;i++){
+   const t=genTree(sp,i),g=t.canopy.getContext('2d'),im=g.getImageData(0,0,t.w,t.h),d=im.data;
+   for(let n=0;n<d.length;n+=4)if(d[n+3]){const l=d[n]*.23+d[n+1]*.63+d[n+2]*.14;d[n]=Math.round(l*(.58+i*.035));d[n+1]=Math.round(l*(.90+i*.025));d[n+2]=Math.round(l*.39);}
+   g.putImageData(im,0,0);asset(sp+i,t);
+  }
+
+  asset('stall',genStall('#aa653e'));
+  function custom(k,w,h,fn,ax=w/2,ay=h-2){const p=new Pix(w,h);fn(p);p.outline(OUTL,false);return asset(k,{c:p.canvas(),ax,ay});}
+  custom('boat',93,44,p=>{p.ell(46,32,41,9,C('#405b4d'));p.poly([[4,25],[79,25],[91,18],[81,36],[23,38]],WOOD[1]);p.poly([[9,25],[77,25],[83,21],[75,31],[24,32]],WOOD[3]);p.line(10,25,78,25,WOOD[4]);for(const x of [31,64])p.rect(x,8,2,21,WOOD[1]);p.poly([[23,9],[31,1],[67,1],[76,9]],C('#4c6d6b'));p.hl(25,9,50,C('#8aaba0'));for(let y=29;y<35;y+=3)p.hl(20,y,56,WOOD[0]);p.line(80,28,87,34,C('#343c35'));},46,36);
+  // Palm-roofed wooden stilt houses with open veranda: original Pix grid, native palettes.
+  for(let v=0;v<5;v++)custom('casa'+v,116,128,p=>{
+   const wall=pal([['#443528','#705034','#9f7545','#bd9155','#d8b377'],['#273f37','#41644d','#628764','#83a478','#b1c697'],['#4c332c','#80523c','#b4784b','#d49961','#e5bc82'],['#30494b','#4a7470','#70a397','#a0bcb1','#c6d7c4'],['#443c29','#706044','#9d875b','#bba16c','#ddc28c']][v]),roof=pal(['#4a3b2c','#746045','#958057','#b29a68','#ceb785']);
+   for(const x of [20,47,83,98]){p.rect(x,85,4,37,WOOD[1]);p.vl(x,87,35,WOOD[3]);p.ell(x+2,122,6,2,C('#263e30'));}
+   p.rect(16,64,88,31,wall[2]);for(let x=17;x<104;x+=7){p.vl(x,64,31,wall[1]);p.vl(x+1,64,31,wall[3]);}
+   p.poly([[8,66],[24,20],[85,17],[110,65]],roof[2]);p.poly([[24,20],[85,17],[60,3]],roof[3]);
+   for(let y=20;y<64;y++){const f=(y-20)/44,l=24-16*f,r=85+25*f;for(let x=Math.round(l);x<r;x++){if(hash2(x,y,199+v)>.56)p.set(x,y,roof[hash2(x>>1,y,4)>.6?3:1]);}if(y%6===0)p.line(l,y,r,y-1,roof[1]);}
+   for(let x=12;x<108;x+=3)p.vl(x,64+(x%3),3,roof[3]);
+   p.rect(31,73,18,16,wall[0]);p.rect(69,70,14,25,wall[0]);p.vl(70,71,23,wall[4]);
+   p.rect(10,94,99,6,WOOD[2]);for(let x=12;x<109;x+=8)p.vl(x,94,6,WOOD[4]);
+   for(const x of [15,57,101])p.rect(x,81,2,16,WOOD[1]);p.hl(15,81,88,WOOD[3]);p.line(16,82,56,94,WOOD[3]);p.line(57,94,100,82,WOOD[3]);
+   for(let i=0;i<5;i++){p.rect(65-i*2,101+i*4,16+i*2,3,WOOD[2]);p.hl(65-i*2,101+i*4,16+i*2,WOOD[4]);}
+  });
+  custom('maloca',180,145,p=>{const roof=pal(['#3d3023','#665035','#947348','#b59760','#d1b57b']);for(const x of [25,75,125,155]){p.rect(x,90,5,51,WOOD[1]);p.vl(x,91,48,WOOD[3]);}p.rect(20,112,140,7,WOOD[2]);for(let x=22;x<160;x+=7)p.vl(x,113,6,WOOD[4]);p.poly([[8,94],[90,5],[173,94]],roof[2]);p.poly([[90,5],[119,94],[173,94]],roof[1]);for(let y=10;y<94;y++){const half=(y-5)*.93;for(let x=90-half;x<90+half;x++)if(hash2(x,y,98)>.62)p.set(x|0,y,roof[x<100?3:2]);}for(let y=30;y<94;y+=8)p.hl(92-(y-5)*.93,y,(y-5)*1.86,roof[1]);p.rect(53,92,71,20,C('#3a3828'));p.line(20,95,90,19,WOOD[2]);p.line(160,95,90,19,WOOD[2]);p.rect(86,46,4,67,WOOD[2]);});
+  custom('banano',70,83,p=>{const stem=pal(['#24492e','#3d6936','#609348','#91b65b']);p.rect(33,39,5,42,stem[1]);for(let i=0;i<8;i++){const a=-Math.PI+.42*i,dx=Math.cos(a)*31,dy=Math.sin(a)*21;p.poly([[35,44],[35+dx*.45,25+dy*.8],[35+dx,24+dy],[35+dx*.9,35+dy],[35,49]],stem[i%2?2:1]);p.line(35,45,35+dx,24+dy,stem[3]);}p.ell(42,56,4,7,C('#b3b74e'));});
+  custom('helecho',40,26,p=>{const q=pal(['#214a31','#376c3c','#588c46','#8bb65b']);for(let k=0;k<9;k++){const a=-Math.PI+k*Math.PI/8;for(let t=0;t<15;t++){const x=20+Math.cos(a)*t,y=24+Math.sin(a)*t-2;p.set(x|0,y|0,q[2]);if(t%2){p.line(x,y,x+Math.cos(a+1.2)*4,y+Math.sin(a+1.2)*4,q[k%2?1:2]);p.line(x,y,x+Math.cos(a-1.2)*4,y+Math.sin(a-1.2)*4,q[1]);}}}});
+  custom('lirio',27,19,p=>{p.ell(13,10,12,7,C('#315d3e'));p.ell(13,9,10,6,C('#719657'));p.line(13,9,24,12,C('#294c35'));p.ball(10,6,3,2,pal(['#d6beab','#eadac5','#fff0de']));});
+  custom('ruina',220,170,p=>{const stone=pal(['#384e43','#5e6d55','#84916e','#a7ad88','#c8c7a1']);p.poly([[10,151],[31,92],[183,92],[210,151]],stone[0]);p.rect(24,91,167,57,stone[2]);for(let y=95;y<148;y+=7)for(let x=26;x<189;x+=11){p.hl(x+(y%14?5:0),y,10,stone[1]);p.vl(x+(y%14?5:0),y,6,stone[1]);}for(const [x,y]of [[52,82],[120,63],[169,97]]){p.ell(x,y,24,8,stone[1]);p.rect(x-24,y-38,48,39,stone[2]);p.ell(x,y-38,24,8,stone[3]);for(let yy=y-31;yy<y;yy+=7){p.hl(x-22,yy,44,stone[1]);for(let xx=x-21;xx<x+22;xx+=9)p.vl(xx,yy,7,stone[1]);}p.poly([[x-29,y-39],[x,y-83],[x+29,y-39]],C('#807756'));p.rect(x-5,y-23,10,21,C('#283e34'));}for(let i=0;i<7;i++){p.rect(82-i*3,147+i*3,34+i*6,3,stone[i%2?1:3]);}for(let i=0;i<80;i++){const x=R.int(26,187),y=R.int(96,143);p.hl(x,y,3,C('#667f47'));}},110,166);
+  custom('guacamayo',26,24,p=>{p.ball(13,13,4,7,pal(['#682827','#a93d32','#d55b3d','#ed9254']));p.poly([[10,12],[3,20],[10,19]],C('#3d6a8f'));p.poly([[16,13],[23,21],[16,19]],C('#547b8c'));p.line(12,17,9,23,C('#bd5739'));p.line(15,17,18,23,C('#bd5739'));p.ball(14,5,4,4,pal(['#6c322d','#b54c37','#e2774c']));p.rect(16,4,4,4,C('#ded2ad'));p.set(17,4,C('#202e28'));});
+  custom('jaguar',45,31,p=>{const fur=pal(['#5e472b','#967944','#bc9a55','#d3b76b','#e2cf91']);p.ball(23,17,14,7,fur);for(const x of [13,31])p.rect(x,18,5,11,fur[1]);p.ball(10,12,8,7,fur);p.ball(5,8,3,3,fur);p.ball(14,7,3,3,fur);p.rect(3,14,8,4,fur[3]);p.set(5,11,C('#202b23'));p.set(3,15,C('#202b23'));for(let i=0;i<15;i++){const x=R.int(12,34),y=R.int(12,20);p.ell(x,y,2,1,C('#55422d'));p.set(x,y,fur[2]);}p.line(35,17,42,10,fur[2]);p.line(42,10,40,4,fur[1]);});
+  return SELVA_ART = assets;
+}
+{ const previous = objSprite; objSprite = function (o) {
+  if (o.k !== 'selva') return previous.apply(this, arguments);
+  const source = selvaArt()[o.selvaArt], scale = o.selvaScale;
+  if (scale === 1) return source;
+  return spr('selva:' + o.selvaArt + ':' + scale, () => {
+    const c = mkCanvas(Math.ceil(source.c.width * scale), Math.ceil(source.c.height * scale));
+    const g = c.getContext('2d'); g.imageSmoothingEnabled = false; g.drawImage(source.c, 0, 0, c.width, c.height);
+    return { c, ax: source.ax * scale, ay: source.ay * scale };
+  });
+}; }
+
+// Selva peruana · same dimensions and 16 px tile grid as Lima.
+const SELVA_AIR = [298, 207];
+const SELVA_PORT = [345, 235];
+const SELVA_TAMBO = [530, 78];
+const SELVA_NAME = L2('Selva peruana', 'Peruvian Amazon');
+const SELVA_POI = [
+  ['peplane', ...SELVA_AIR, L2('Aeródromo del Aguaje · regreso a Lima', 'Aguaje Airstrip · return to Lima')],
+  ['selvaPueblo', ...SELVA_PORT, L2('Puerto del Aguaje · comunidad shipibo-konibo', 'Aguaje Port · Shipibo-Konibo community')],
+  ['selvaPueblo', ...SELVA_TAMBO, L2('Tambo del Bosque · comunidad asháninka', 'Forest Tambo · Ashaninka community')],
+  ['selvaNature', 572, 226, 'Cocha Espejo'],
+  ['selvaNature', 225, 160, L2('Bosque de lupunas', 'Lupuna Forest')],
+  ['selvaNature', 70, 78, L2('Mirador de la Neblina', 'Mist Lookout')],
+  ['selvaNature', 590, 69, 'Aguajal'],
+  ['selvaNature', 107, 176, L2('Cascada del Bosque', 'Forest Waterfall')]
+];
+const SELVA_RIVERS = [
+  [20, [[0,248],[115,234],[250,283],[386,257],[490,180],[610,135],[720,160]]],
+  [9, [[375,0],[325,65],[349,118],[415,157],[490,180]]],
+  [8, [[470,360],[424,318],[386,257]]]
+];
+const SELVA_PATHS = [
+  [2.1, [[70,78],[129,106],[185,145],[225,160],[234,188],[298,207],[318,221],SELVA_PORT]],
+  [2.1, [SELVA_PORT,[370,225],[406,204],[444,190],[455,166],[454,132],[482,98],SELVA_TAMBO]],
+  [1.6, [SELVA_TAMBO,[562,74],[590,69],[631,79]]],
+  [1.6, [[185,145],[143,161],[107,176]]],
+  [2.0, [SELVA_TAMBO,[554,102],[565,127],[567,157],[553,193],[572,226]]]
+];
+function selvaSpline(points) {
+  const curve = [];
+  for (let i = 0; i < points.length - 1; i++) {
+    const a = points[Math.max(0, i - 1)], b = points[i], c = points[i + 1], d = points[Math.min(points.length - 1, i + 2)];
+    for (let j = 0; j < 6; j++) {
+      const t = j / 6, t2 = t * t, t3 = t2 * t;
+      curve.push([0, 1].map(k => b[k] + .5 * ((c[k] - a[k]) * t + (2*a[k] - 5*b[k] + 4*c[k] - d[k]) * t2 + (-a[k] + 3*b[k] - 3*c[k] + d[k]) * t3)));
+    }
+  }
+  curve.push(points[points.length - 1]);
+  return curve;
+}
+function selvaDistanceField(w, h, lines, lake = false) {
+  // Retain only the band the renderer needs. Each segment visits its own bounding box.
+  const stride = w + 1, F = new Float32Array(stride * (h + 1)).fill(12);
+  for (const [width, points] of lines) {
+    const curve = selvaSpline(points), padding = width + 10;
+    for (let j = 1; j < curve.length; j++) {
+      const [ax, ay] = curve[j - 1], [bx, by] = curve[j], dx = bx - ax, dy = by - ay;
+      const inv = 1 / (dx * dx + dy * dy);
+      const x0 = Math.max(0, Math.floor(Math.min(ax, bx) - padding)), x1 = Math.min(w, Math.ceil(Math.max(ax, bx) + padding));
+      const y0 = Math.max(0, Math.floor(Math.min(ay, by) - padding)), y1 = Math.min(h, Math.ceil(Math.max(ay, by) + padding));
+      for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) {
+        const u = clamp(((x - ax) * dx + (y - ay) * dy) * inv, 0, 1);
+        const fx = x - ax - u * dx, fy = y - ay - u * dy, i = y * stride + x;
+        F[i] = Math.min(F[i], Math.sqrt(fx * fx + fy * fy) - width);
+      }
+    }
+  }
+  if (lake) for (let y = 218; y <= 294; y++) for (let x = 505; x <= 639; x++) {
+    const i = y * stride + x;
+    F[i] = Math.min(F[i], (Math.hypot((x - 572) / 43, (y - 256) / 25) - 1) * 25);
+  }
+  return F;
+}
+const SELVA_PALETTE = {
+  grass: pal(['#375c35','#476c3c','#567c43','#668c4d','#759953']),
+  high: pal(['#365842','#44694b','#527d55','#668c66','#7f9e78']),
+  mud: pal(['#495543','#5d6247','#73704d','#8a8159','#a1986c']),
+  dirt: pal(['#795d40','#94744f','#a98b5c','#b89c6b','#c8ad7c']),
+  river: pal(['#788b78','#82917c','#8e9982','#9da48c','#b6b69c']),
+  lake: pal(['#244940','#315d4f','#3c6b58','#527d62','#719276']),
+  rock: pal(['#3a5047','#4f6456','#677a62','#819273','#a4ac8a']),
+  plank: pal(['#3f3324','#665035','#94754b','#b08f5b','#d0b57b'])
+};
+function makeSelva() {
+  if (G.maps.selva) return G.maps.selva;
+  const w = LM_W, h = LM_H, N = w * h, stride = w + 1, rng = new RNG(265671);
+  const water = selvaDistanceField(w, h, SELVA_RIVERS, true), path = selvaDistanceField(w, h, SELVA_PATHS);
+  for (let y = 0; y <= h; y++) for (let x = 0; x <= w; x++) {
+    const i = y * stride + x;
+    if (Math.abs(water[i]) < 6) water[i] += (Math.sin(x*.25 + y*.17) + Math.sin(x*.09 - y*.31)) * .45;
+  }
+  const M = { id:'selva', w, h, I:(x,y) => y*w+x, ter:new Uint8Array(N), lvl:new Uint8Array(N), reg:new Uint8Array(N), flags:new Uint8Array(N),
+    isWorld:false, chunks:new Map(), dark:0, music:'field', camps:[], xactObjs:[], water, path, selva:true, hudName:SELVA_NAME, overviewMinimap:true };
+  initMapObjs(M);
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const d = water[y * stride + x], p = path[y * stride + x];
+    const deck = (y >= 239 && y <= 241 && x >= 310 && x <= 375) ||
+      (x >= 351 && x <= 354 && y >= 239 && y <= 265) ||
+      (x >= 368 && x <= 371 && y >= 236 && y <= 256) ||
+      (x >= 325 && x <= 328 && y >= 235 && y <= 241);
+    const runway = x >= 280 && x <= 310 && y >= 197 && y <= 203;
+    const cascade = x >= 102 && x <= 109 && y >= 167 && y <= 175;
+    M.ter[M.I(x,y)] = runway ? T.STONE : cascade ? T.FALL : deck || (p < 1 && d < 1) ? T.BRIDGE :
+      d < 0 ? T.DEEP : p < 0 ? T.DIRT : d < 1.2 ? T.MUD : T.GRASS;
+  }
+  const add = (key, x, y, scale = 1, fp = [[0,0]]) => addObj(M, 'selva', Math.floor(x), Math.floor(y), {
+    selvaArt:key, selvaScale:scale, px:Math.round(x*16)+8, py:Math.round(y*16)+12, fp, solid:fp.length > 0
+  });
+  const clearing = (x, y) => [[342,226,42,25],[70,75,26,18],[530,78,30,22],[295,201,24,13]]
+    .some(([cx,cy,rx,ry]) => Math.hypot((x-cx)/rx,(y-cy)/ry)<1);
+  for (let gy = 5; gy < h - 4; gy += 5) for (let gx = 5; gx < w - 4; gx += 5) {
+    const x = gx + rng.int(-1,1), y = gy + rng.int(-1,1), i = y * stride + x;
+    if (M.ter[M.I(x,y)] !== T.GRASS || water[i] < 1.6 || path[i] < 2.8 || clearing(x,y) || rng.f() > .76) continue;
+    const species = x > 515 && y < 116 ? 'palma' : ['caoba','ebano','ebano','palma'][rng.int(0,3)];
+    add(species + rng.int(0,3), x, y, rng.f() < .3 ? 1.25 : 1.75);
+    if (rng.f() < .045) add('helecho',x+1,y+1,1,[]);
+  }
+  for (const [x,y] of [[221,161],[234,164],[203,155],[212,177],[196,170]]) add('ancestral'+rng.int(0,3),x,y,1.5);
+  const footprint = radius => Array.from({length:radius*2+1}, (_,i) => [i-radius,0]);
+  for (const [x,y] of [[311,226],[323,223],[338,220],[353,216],[367,212],[319,238],[335,235],[351,232],[364,228],
+    [510,68],[522,65],[536,64],[550,69],[509,84],[522,89],[539,88],[551,83]]) add('casa'+rng.int(0,4),x,y,1,footprint(2));
+  add('maloca',342,208,1,footprint(4)); add('maloca',530,70,1,footprint(4));
+  for (const [x,y] of [[328,229],[344,227],[359,222],[519,77],[543,76],[305,205]]) add('stall',x,y,1,footprint(1));
+  for (const [x,y] of [[301,221],[313,216],[375,213],[376,228],[328,203],[363,203],[506,66],[549,90]]) add('banano',x,y,1,[]);
+  for (const [x,y] of [[355,263],[371,254],[447,213],[594,247]]) add('boat',x,y,1,[]);
+  add('ruina',70,74,1,footprint(4)); add('ruina',89,85,.65,footprint(2));
+  for (let i = 0; i < 60; i++) {
+    const x = rng.int(537,608), y = rng.int(236,274);
+    if (M.ter[M.I(x,y)] === T.DEEP) add('lirio',x,y,1,[]);
+  }
+  add('jaguar',232,183,1,[]);
+  for (const [x,y] of [[218,150],[312,210],[569,266],[98,104],[535,82]]) add('guacamayo',x,y,1,[]);
+  addObj(M,'furn',SELVA_AIR[0]-7,200,{f:'selva_plane',fp:[],solid:false});
+  return G.maps.selva = M;
+}
+XSPR.selva_plane = () => planeSprite(0);
+
+function selvaChunk(M, cx, cy) {
+  const c = mkCanvas(CHP, CHP), g = c.getContext('2d'), im = g.createImageData(CHP, CHP);
+  const buf = new Uint32Array(im.data.buffer), S = SELVA_PALETTE, stride = M.w + 1;
+  const ox = cx * CHP, oy = cy * CHP;
+  for (let qy = 0; qy < CHP; qy++) {
+    const py = oy + qy, y = Math.min(py >> 4, M.h - 1), fy = (py & 15) / 16;
+    const row = y * stride, texRow = (py & 127) * 128;
+    for (let qx = 0; qx < CHP; qx++) {
+      const px = ox + qx, x = Math.min(px >> 4, M.w - 1), fx = (px & 15) / 16, i = row + x, j = texRow + (px & 127);
+      const type = M.ter[M.I(x,y)], d = lerp(lerp(M.water[i],M.water[i+1],fx),lerp(M.water[i+stride],M.water[i+stride+1],fx),fy);
+      const p = lerp(lerp(M.path[i],M.path[i+1],fx),lerp(M.path[i+stride],M.path[i+stride+1],fx),fy);
+      let col;
+      if (type === T.BRIDGE) col = (py & 7) === 0 ? S.plank[1] : S.plank[TEX.plank[j]];
+      else if (type === T.STONE) col = ((py>>4)===200 && x%4<2 && (py&15)>5 && (py&15)<9) ? S.rock[4] : S.rock[TEX.rock[j]];
+      else if (type === T.FALL) col = py % 9 === 0 || px % 7 < 2 ? S.river[4] : S.river[0];
+      else if (d < -.2) {
+        const water = x > 522 && y > 219 ? S.lake : S.river;
+        col = py % 61 === 0 && (px % 79) < 28 ? water[4] : water[TEX.mud[j]];
+      } else if (d < .9) col = S.mud[TEX.sand[j]];
+      else if (p < 0) col = S.dirt[TEX.dirt[j]];
+      else if (d < 3.2) col = S.mud[Math.min(4,TEX.grass[j])];
+      else if (x < 240 && y < 190) {
+        const elev = (1-Math.hypot((x-75)/180,(y-45)/135))*15;
+        col = elev > 1 && elev % 3 < .65 ? S.rock[TEX.rock[j]] : S.high[clamp(TEX.grass[j]-1,0,4)];
+      } else col = S.grass[clamp(TEX.grass[j]-1,0,4)];
+      buf[qy * CHP + qx] = col;
+    }
+  }
+  g.putImageData(im,0,0);
+  return c;
+}
+{ const previous = renderChunk; renderChunk = function (M,cx,cy) { return M.selva ? selvaChunk(M,cx,cy) : previous.apply(this,arguments); }; }
+
+MAPC.selvaPueblo = [L2('Comunidades', 'Communities'), 'Communities', '#e6b96b', 'house'];
+MAPC.selvaNature = [L2('Paisajes amazónicos', 'Amazonian landmarks'), 'Amazonian landmarks', '#a0d388', 'star'];
+MAPW_LIST.push({id:'selva', n:SELVA_NAME, mk:makeSelva,
+  how:L2('En Lima, compra el billete a la Selva en el aeropuerto Jorge Chávez por 10.000 de oro y embarca por la Puerta 2.',
+    'In Lima, buy your ticket to the Amazon at Jorge Chávez Airport for 10,000 gold and board at Gate 2.')});
+{ const previous = otherPOI; otherPOI = function(M) {
+  const out = previous.apply(this,arguments);
+  if (M.selva) for (const [c,x,y,t] of SELVA_POI) out.push({c,x,y,t});
+  return out;
+}; }
+{ const previous = mapOverview; mapOverview = function (M) {
+  if (!M.selva) return previous.apply(this,arguments);
+  if (MAP_OV[M.id]) return MAP_OV[M.id].c;
+  const c = mkCanvas(M.w,M.h), g = c.getContext('2d'), im = g.createImageData(M.w,M.h), out = new Uint32Array(im.data.buffer), S = SELVA_PALETTE;
+  for (let y = 0; y < M.h; y++) for (let x = 0; x < M.w; x++) {
+    const i = M.I(x,y), t = M.ter[i];
+    out[i] = t === T.DEEP ? (x > 522 && y > 219 ? S.lake[2] : S.river[2]) : t === T.BRIDGE || t === T.DIRT ? S.dirt[4] :
+      t === T.STONE || t === T.FALL ? S.rock[4] : t === T.MUD ? S.mud[3] : (x < 240 && y < 190 ? S.high : S.grass)[M.solidO[i] ? 0 : 2];
+  }
+  g.putImageData(im,0,0); MAP_OV[M.id] = {c,w:M.w};
+  return c;
+}; }
+
+// Native bodies and walk atlases for the residents of both fictional settlements.
+const SELVA_PEOPLE = [
+  ['ag_luz',(LANG_EN ? "Light" : 'Luz'), 'f',0,344,233,'verde',L2('Maestra shipibo-konibo','Shipibo-Konibo teacher'),L2('En casa y en la escuela usamos nuestra lengua. Si quieres, te enseño dos palabras del río y la tierra.','We use our language at home and at school. I can teach you two words for the river and the land.')],
+  ['ag_rosa',(LANG_EN ? "Pink" : 'Rosa'),'f',1,332,229,'rojo',L2('Artesana del puerto','Port artisan'),L2('Trabajo el kené, un arte shipibo-konibo de diseños geométricos que se plasma en textiles, cerámica y otras superficies. Cada artesana toma sus propias decisiones al trazarlo.','I make kené, a Shipibo-Konibo art of geometric designs used on textiles, ceramics and other surfaces. Each artist makes her own choices when drawing it.')],
+  ['ag_mara','Mara','f',2,351,238,'beige',L2('Vendedora del mercado','Market vendor'),L2('Prueba el aguaje del mercado. La pulpa se usa para preparar aguajina, una bebida que servimos bien fría.','Try the aguaje at the market. We use its pulp to make aguajina, a drink we serve well chilled.')],
+  ['ag_ana','Ana','f',3,323,228,'azul',L2('Bióloga de la cocha','Lake biologist'),L2('Cuando baja el río quedan cochas, como la del Espejo. Busca aves desde el mirador de la orilla y deja el agua tranquila.','When the river drops, oxbow lakes such as Mirror Lake remain. Look for birds from the shore viewpoint and give the water some space.')],
+  ['ag_ines','Inés','f',4,357,229,'blanco',L2('Carpintera del puerto','Port carpenter'),L2('Ajusto las tablas antes de la creciente. Los pilotes mantienen el piso por encima del barro cuando sube el agua.','I tighten the boards before the high-water season. The stilts keep the floor above the mud when the water rises.')],
+  ['ag_elias','Elías','m',0,353,246,'azul',L2('Motorista fluvial','Riverboat pilot'),L2('Fíjate en las marcas del muelle. Ayer el agua tocaba una tabla más arriba. Aquí el río decide a qué altura amarramos.','Look at the marks on the pier. Yesterday the water reached one board higher. The river decides where we tie up.')],
+  ['ag_tomas','Tomás','m',1,336,211,'gris',L2('Vecino del puerto','Port resident'),L2('Tenemos familias aquí y en Lima. Mi prima también habla shipibo-konibo en la ciudad, junto al Rímac.','We have family here and in Lima. My cousin speaks Shipibo-Konibo in the city too, near the Rímac.')],
+  ['ag_julio',(LANG_EN ? "July" : 'Julio'),'m',2,348,223,'amarillo',L2('Cocinero del puerto','Port cook'),L2('Hoy hago patarashca. Envuelvo el pescado y lo cocino sobre las brasas para que conserve su jugo.','Today I’m making patarashca. I wrap the fish and cook it over embers so it stays juicy.')],
+  ['ag_dario','Darío','m',3,329,237,'marron',L2('Reparador de canoas','Canoe repairer'),L2('Antes de salir reviso el fondo y el remo de repuesto. Si solo vienes a mirar, toma la pasarela: se llega a pie.','Before setting out, I check the hull and the spare paddle. If you’re sightseeing, take the boardwalk. You can get there on foot.')],
+  ['ag_luis','Luis','m',4,317,225,'verde',L2('Mensajero del puerto','Port courier'),L2('Para encontrar el Tambo, sigue el sendero al noreste y cruza el puente. Luego el bosque se abre antes del mercado.','To find the Tambo, follow the trail northeast and cross the bridge. The forest opens out just before the market.')],
+  ['ta_elena','Elena','f',0,529,78,'azul',L2('Maestra asháninka','Ashaninka teacher'),L2('Soy maestra del Tambo. En la escuela dibujamos el río y la comunidad, y escribimos sus nombres en asháninka. ¿Quieres probar?','I teach here in the Tambo. At school we draw the river and community and write their names in Ashaninka. Want to try?')],
+  ['ta_nora','Nora','f',1,524,75,'verde',L2('Agricultora del Tambo','Tambo farmer'),L2('Mi familia cultiva yuca y plátano. La yuca de la chacra llega hoy a la cocina comunal.','My family grows cassava and bananas. Cassava from our plot is coming into the community kitchen today.')],
+  ['ta_rita','Rita','f',2,533,84,'rojo',L2('Guardiana del sendero','Trail steward'),L2('Si quieres ver la cascada, ve hacia el oeste y toma el desvío del bosque. Con lluvia, camina despacio cerca de las piedras.','For the waterfall, head west and take the forest turnoff. In the rain, go slowly near the rocks.')],
+  ['ta_julia','Julia','f',3,546,81,'beige',L2('Cartógrafa del Tambo','Tambo mapmaker'),L2('Los mapas de la escuela llevan nuestros propios nombres para los caminos. Así recordamos por dónde íbamos con los abuelos.','Our school maps use our own names for the paths. That way we remember where we used to walk with our grandparents.')],
+  ['ta_milagros','Milagros','f',4,515,82,'marron',L2('Cocinera del Tambo','Tambo cook'),L2('Al mediodía servimos pescado y yuca. Si todavía tienes camino por delante, el mercado queda justo al este de la casa comunal.','At midday we serve fish and cassava. If you still have a long walk ahead, the market is just east of the community hall.')],
+  ['ta_raul','Raúl','m',0,537,75,'verde',L2('Vecino del Tambo','Tambo resident'),L2('Mi abuelo vivió junto al Ene. En el camino de vuelta cruzamos varias cuencas donde se habla asháninka.','My grandfather lived by the Ene. On the way back we cross several river basins where Ashaninka is spoken.')],
+  ['ta_abel','Abel','m',1,511,76,'gris',L2('Constructor del Tambo','Tambo builder'),L2('Dejamos espacio debajo del alero para que corra el aire. Cuando empieza a llover, ese mismo alero protege a los vecinos.','We leave space under the eaves for air to circulate. When rain starts, those same eaves shelter the neighbors.')],
+  ['ta_alex','Álex','m',2,548,72,'azul',L2('Guía del aguajal','Aguajal guide'),L2('El aguajal está al este. El aguaje reúne a muchos animales alrededor de sus frutos, desde guacamayos hasta tapires.','The aguaje palm swamp lies to the east. Its fruit attracts all sorts of animals, from macaws to tapirs.')],
+  ['ta_oscar','Óscar','m',3,524,84,'amarillo',L2('Vendedor del Tambo','Tambo vendor'),L2('Si buscas camino para la Cocha Espejo, baja por el sendero del sureste. El puente te deja en la orilla norte.','For Mirror Lake, head down the southeast trail. The bridge takes you to the north shore.')],
+  ['ta_pedro','Pedro','m',4,535,79,'blanco',L2('Vecino del Tambo','Tambo resident'),L2('Mi tía usa palabras un poco distintas a las mías. Las formas de hablar el asháninka varían según la región.','My aunt uses slightly different words from mine. Ashaninka varies from region to region.')],
+  ['selva_piloto','Daniela','f',2,...SELVA_AIR,'azul',L2('Piloto del Aeródromo del Aguaje','Aguaje Airstrip pilot'),L2('Bienvenido a la Selva peruana. Sigue el camino hacia el sureste para llegar al Puerto del Aguaje. Si vas de vuelta a Lima, dímelo.','Welcome to the Peruvian Amazon. Follow the trail southeast to Aguaje Port. Let me know when you’re heading back to Lima.')]
+];
+const SELVA_LOOKS = {};
+for (const [id,n,g,bt,x,y,top,title,line] of SELVA_PEOPLE) {
+  const app = {...DEF_APP, g, bt, skin:1+bt%3, hs:(g === 'f' ? [6,3,2,9,5] : [3,9,0,2,5])[bt],
+    hair:'negro', eyes:'marron', top:[1,top], bot:[g === 'f' ? 1 : 0,bt%2 ? 'beige' : 'gris'], shoe:[1,'marron']};
+  SELVA_LOOKS[id] = app;
+  NPCS[id] = {n,title,look:LK({}),quests:[],lines:[line]};
+}
+{ const previous = npcAtlas; npcAtlas = function (id) {
+  const app = SELVA_LOOKS[id];
+  if (!app) return previous.apply(this,arguments);
+  return getAtlas('selva:' + id, () => {
+    const look = heroLook('guerrero',app,{}, {}, {});
+    look.weapon = null; look.back = null;
+    return buildAtlas(look,['idle','walk'],drawHero);
+  });
+}; }
+function selvaLocalPeople(M) {
+  if (M.residents) return;
+  M.residents = true;
+  for (const [id,,,,x,y] of SELVA_PEOPLE) {
+    const at = blockedFor(M,x,y,0) ? freePxNear(M,x*16+8,y*16+8,5) : [x*16+8,y*16+10];
+    if (at) spawnNPC(id,at[0],at[1],M.id,{face:'down',wander:id === 'selva_piloto' ? 0 : 1});
+  }
+}
+
+const SELVA_LESSONS = {
+  ag_luz: {
+    title:L2('Aprender shipibo-konibo','Learn Shipibo-Konibo'),
+    text:L2('En shipibo-konibo, «jene» es agua de río y «mai» es tierra. Esta lengua pertenece a la familia pano y se habla en comunidades a lo largo del Ucayali y en otros lugares, incluida Lima.','In Shipibo-Konibo, “jene” means river water and “mai” means earth or soil. This Panoan language is spoken in communities along the Ucayali and elsewhere, including Lima.'),
+    question:L2('Practicar: ¿qué significa «jene»?','Practice: What does “jene” mean?'),
+    right:L2('Agua de río','River water'), wrong:L2('Tierra','Earth')
+  },
+  ta_elena: {
+    title:L2('Aprender asháninka','Learn Ashaninka'),
+    text:L2('En asháninka, «nija» puede referirse al río y «nampi» a la comunidad. El asháninka pertenece a la familia arawak y se habla en varias cuencas, entre ellas la del Ene, el Tambo y el Perené.','In Ashaninka, “nija” can refer to the river and “nampi” to the community. Ashaninka is an Arawakan language spoken in several river basins, including the Ene, Tambo and Perené.'),
+    question:L2('Practicar: ¿qué significa «nampi»?','Practice: What does “nampi” mean?'),
+    right:L2('Comunidad','Community'), wrong:L2('Río','River')
+  }
+};
+DLG_HOOKS.push((npc,opts) => {
+  const l = SELVA_LESSONS[npc.id];
+  if (!l) return;
+  opts.unshift({label:l.title, icon:['book'], fn:() => typeText(l.text)}, {
+    label:l.question, icon:['talk'], fn:() => {
+      closeDialog();
+      xMsg(NPCS[npc.id].n, l.question, [
+        [l.wrong, () => xMsg(l.title,L2('Inténtalo de nuevo con la maestra.','Try again with the teacher.'))],
+        [l.right, () => xMsg(l.title,L2('¡Correcto! ','Correct! ') + l.text)]
+      ]);
+    }
+  });
+});
+
+// Gate 2 is independent of the tickets used by the other international routes.
+const SELVA_FARE = 10000;
+const SELVA_GATE = [23,5];
+const SELVA_AIR_SPAWN = [SELVA_AIR[0]+2,SELVA_AIR[1]+1];
+SAVEKEYS.push('selvaTicket');
+{ const previous = makeTerminal; makeTerminal = function (id, config) {
+  const M = previous.apply(this,arguments);
+  if (id !== 'pe_terminal' || M.selvaGate) return M;
+  M.selvaGate = true;
+  addObj(M,'furn',SELVA_GATE[0],3,{f:'selva_gate',fp:[[-1,0],[0,0],[1,0]]});
+  addObj(M,'furn',...SELVA_GATE,{f:'ae_vacio',solid:false,xact:'selva_embarcar'});
+  for (const ob of M.objs) if (ob.f === 'ae_panel') ob.f = 'lm_panel';
+  return M;
+}; }
+XSPR.selva_gate = () => {
+  const s = XSPR.ae_puerta_emb(), g = s.c.getContext('2d');
+  g.fillStyle = '#9dd58b'; g.fillRect(0,0,52,9);
+  jpText(g, 'PUERTA 2',4,-1,'#121418',10);
+  return s;
+};
+
+function selvaFly(title, arrive) {
+  const P = G.P;
+  if (G.fading || P.plane || P._selvaFlight) return;
+  P._selvaFlight = {m:P.map,x:P.x,y:P.y};
+  closeDialog();
+  flightCine(title,() => transition(() => {
+    arrive(P);
+    P._selvaFlight = null;
+    markDirty(true);
+  }));
+}
+
+function selvaBuyTicket() {
+  const P = G.P;
+  if (G.map.id !== 'pe_terminal' || G.fading || P._selvaFlight) return;
+  if (P.selvaTicket) { typeText(L2('Ya tienes tu billete. Ve a la Puerta 2.','You already have your ticket. Go to Gate 2.')); return; }
+  if (P.gold < SELVA_FARE) { typeText(L2('Te falta oro. El billete cuesta 10.000 de oro.','You need 10,000 gold for the ticket.')); return; }
+  P.gold -= SELVA_FARE; P.selvaTicket = true;
+  markDirty(true); sfx('coin');
+  const b = aeBoarding();
+  typeText(b.open ? L2('Billete comprado. Ya puedes embarcar por la Puerta 2.','Ticket purchased. You can board at Gate 2 now.') :
+    L2('Billete comprado. La Puerta 2 abre en ','Ticket purchased. Gate 2 opens in ') + b.wait + L2(' segundos.',' seconds.'));
+}
+DLG_HOOKS.push((npc,opts) => {
+  if (npc.id === 'pe_taquilla' && G.map.id === 'pe_terminal') opts.unshift({
+    label:L2('✈ Billete a la Selva peruana · 10.000 de oro','✈ Peruvian Amazon ticket · 10,000 gold'),icon:['coin'],fn:selvaBuyTicket
+  });
+  if (npc.id === 'selva_piloto') opts.unshift({
+    label:L2('✈ Volver a Lima (gratis)','✈ Fly back to Lima (free)'),icon:['ways'],
+    fn:() => {
+      if (!G.map.selva) return;
+      selvaFly('SELVA · LIMA',P => {
+        const M = makeTerminal('pe_terminal',AE_PE);
+        P.inside = M.id; P._selvaReturned = true;
+        setMap(M,SELVA_GATE[0]*16+8,(SELVA_GATE[1]+2)*16+8,'down');
+        banner('Jorge Chávez',L2('Llegada de la Selva peruana','Arrival from the Peruvian Amazon'));
+      });
+    }
+  });
+});
+XACT.selva_embarcar = [
+  () => {
+    const b = aeBoarding();
+    return b.open ? L2('✈ Puerta 2 · Embarcar a la Selva','✈ Gate 2 · Board for the Amazon') :
+      L2('✈ Puerta 2 · Embarque en ','✈ Gate 2 · Boarding in ') + b.wait + ' s';
+  },
+  'run',
+  () => {
+    const P = G.P;
+    if (G.map.id !== 'pe_terminal' || G.fading || P._selvaFlight) return;
+    if (!P.selvaTicket) { xMsg(L2('Puerta 2','Gate 2'),L2('Compra el billete a la Selva en el mostrador.','Buy your Amazon ticket at the counter.')); return; }
+    const b = aeBoarding();
+    if (!b.open) { xMsg(L2('Puerta 2','Gate 2'),L2('El embarque empieza en ','Boarding begins in ') + b.wait + L2(' segundos.',' seconds.')); return; }
+    selvaFly('LIMA · SELVA',P => {
+      const M = makeSelva();
+      P.inside = M.id;
+      setMap(M,SELVA_AIR_SPAWN[0]*16+8,SELVA_AIR_SPAWN[1]*16+8,'down');
+      P.selvaTicket = false;
+      banner(SELVA_NAME,L2('Aeródromo del Aguaje','Aguaje Airstrip'));
+    });
+  }
+];
+{ const previous = setMap; setMap = function (M) {
+  if (M.selva) selvaLocalPeople(M);
+  return previous.apply(this,arguments);
+}; }
+
+// Keep the world fallback for older builds and restore the actual position in 5.68+.
+{ const previous = serializeP; serializeP = function(P) {
+  const save = previous.apply(this,arguments);
+  if (P._selvaFlight || P.map === 'selva' || (P.map === 'pe_terminal' && (P.selvaTicket || P._selvaReturned)) || (P.map === 'lima' && P.selvaTicket)) {
+    save.selvaStay = P._selvaFlight || {m:P.map,x:P.x,y:P.y};
+    save.abLast = null;
+    save.x = P.retX || SA.term.door*16+8;
+    save.y = P.retY || (SA.term.y+SA.term.h+1)*16+8;
+  }
+  return save;
+}; }
+function selvaRestoreStay(P) {
+  const S = P.selvaStay;
+  if (!S) return null;
+  let M, fallback;
+  if (S.m === 'selva') { M = makeSelva(); fallback = SELVA_AIR_SPAWN; }
+  else if (S.m === 'pe_terminal') {
+    M = makeTerminal('pe_terminal',AE_PE); fallback = [M.exit.x,M.exit.y-2]; P._selvaReturned = true;
+  } else if (S.m === 'lima' && P.selvaTicket) {
+    M = makeLima(); fallback = [LM_Q.term.door,LM_Q.term.y+LM_Q.term.h+2];
+  } else return null;
+  P.retX = P.x; P.retY = P.y; P.inside = M.id;
+  if (Number.isFinite(S.x) && Number.isFinite(S.y) && !blockedFor(M,S.x>>4,S.y>>4,0)) return {map:M,x:S.x,y:S.y};
+  return {map:M,x:fallback[0]*16+8,y:fallback[1]*16+8};
+}
+
+GSIS.push(['selva','🌿 '+SELVA_NAME,() => [
+  L2('Desde el Aeropuerto Jorge Chávez en Lima, habla con la azafata de tierra. El billete cuesta 10.000 de oro y se embarca por la Puerta 2. La vuelta con Daniela es gratis.',
+    'Talk to the ground agent at Jorge Chávez Airport in Lima. The ticket costs 10,000 gold and you board at Gate 2. The return with Daniela is free.'),
+  L2('Luz enseña shipibo-konibo en el Puerto del Aguaje y Elena enseña asháninka en el Tambo del Bosque. Ambas ofrecen una práctica breve.',
+    'Luz teaches Shipibo-Konibo in Aguaje Port and Elena teaches Ashaninka in the Forest Tambo. Both offer a short exercise.')
+], () => {
+  const m = G.P?.map;
+  if (m === 'selva') return {loc:SELVA_PORT,t:NPCS.ag_luz.title,m};
+  if (m === 'pe_terminal') return {loc:[8,5],t:NPCS.pe_taquilla.n,m};
+  if (m === 'lima') return {loc:[LM_Q.term.door,LM_Q.term.y+LM_Q.term.h+1],t:'Aeropuerto Jorge Chávez',m};
+  return {loc:[SA.term.door,SA.term.y+SA.term.h+1],t:L2('Aeródromo de Albor','Albor Aerodrome'),m:'world'};
+}]);
+{ const previous = wpRoute; wpRoute = function (wp) {
+  if (wp.m === 'selva') {
+    if (G.map.id === 'lima') return [LM_Q.term.door,LM_Q.term.y+LM_Q.term.h+1];
+    if (G.map.id === 'pe_terminal') return G.P.selvaTicket ? SELVA_GATE : [8,5];
+    if (G.map.id === 'world') return [SA.term.door,SA.term.y+SA.term.h+1];
+  }
+  if (G.map.selva && wp.m !== 'selva') return SELVA_AIR;
+  return previous.apply(this,arguments);
+}; }
+
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;
 const warmQ = []; // sprite atlases built a few at a time so new mobs never cause a hitch
@@ -42053,8 +42519,12 @@ function startGame(save, isNew, name) {
   if (save) { P = Object.assign(newPlayer(save.name, save.cls, save.app), save); } else { P = newPlayer(name, CC.cls, Object.assign({}, CC.app)); }
   initPlayerRuntime(P); G.P = P; G.time = P.time || 8 * 60; titleMode = false;
   $('#title').hidden = true; $('#hud').hidden = false;
-  const i = W.I(clamp(Math.floor(P.x / 16), 0, W.w - 1), clamp(Math.floor(P.y / 16), 0, W.h - 1)); if (SOLID_T[W.ter[i]] || W.solidO[i]) { const t = WAYSTONES.find(w => w.k === (P.lastTown || 'albor')); P.x = t.x * 16 + 8; P.y = (t.y + 2) * 16 + 6; }
-  setMap(W, P.x, P.y, P.dir); uiDirty.hud = uiDirty.quest = true; updateTracker(); uiOnline();
+  const stay = !isNew && selvaRestoreStay(P);
+  if (!stay) {
+    const i = W.I(clamp(Math.floor(P.x / 16), 0, W.w - 1), clamp(Math.floor(P.y / 16), 0, W.h - 1));
+    if (SOLID_T[W.ter[i]] || W.solidO[i]) { const t = WAYSTONES.find(w => w.k === (P.lastTown || 'albor')); P.x = t.x * 16 + 8; P.y = (t.y + 2) * 16 + 6; }
+  }
+  setMap(stay ? stay.map : W, stay ? stay.x : P.x, stay ? stay.y : P.y, P.dir); uiDirty.hud = uiDirty.quest = true; updateTracker(); uiOnline();
   if (isNew) { saveGame(true); openModal((LANG_EN ? `<div class="intro">${STORY_INTRO.map(s => `<p>${esc(s)}</p>`).join('')}<p class="hint">Talk to <b>Elder Mira</b> (they have a <b class="exc">!</b> above their head) to begin.</p><button class="btn gold big" id="introOk">Start</button></div>` : `<div class="intro">${STORY_INTRO.map(s => `<p>${esc(s)}</p>`).join('')}<p class="hint">Habla con la <b>Anciana Mira</b> (tiene un <b class="exc">!</b> sobre la cabeza) para comenzar.</p><button class="btn gold big" id="introOk">Comenzar</button></div>`), 'introm'); $('#introOk').onclick = () => { closeModal(); banner('The Bound', (LANG_EN ? "Albor Valley" : 'Valle de Albor')); setTimeout(() => tip('move'), 2600); }; }
   else banner((LANG_EN ? "Welcome back" : 'Bienvenido de nuevo'), P.name);
   roomInit(); netHero();
