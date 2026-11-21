@@ -1,20 +1,22 @@
 {
- "build": 188,
- "ver": "5.67",
+ "build": 189,
+ "ver": "5.68",
  "date": "2026-11-20",
  "file": "thebound.html",
- "size": 26921894,
- "sha256": "1f058cf8c2016f6982cf8cf834708ec0c4e8492c5d3933a8cbb68332d0756d4a",
+ "size": 26956602,
+ "sha256": "6541018e19547f209d8b5f37cc091f29fbfd96b4f9b26024773f49aae56aeecf",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "⚒ ▦ Atajos › ¿Qué hago ahora?: nueva sección de oficios. Primero Tala, Minería y Pesca (con tu herramienta equipada y sus casillas); al terminarlas te va mostrando el siguiente oficio, uno a uno, hasta los 68.",
-   "➜ «Llévame» pone la flecha dorada donde practicar y «Ver en la Lupa» abre la guía de ese oficio."
+   "Selva peruana de 720 × 360 casillas: río, bosque de lupunas, cascada, aguajal, cocha y dos comunidades conectadas por senderos.",
+   "Compra el billete de 10.000 de oro en Jorge Chávez, embarca por la Puerta 2 y regresa gratis con Daniela.",
+   "Aprende y practica shipibo-konibo y asháninka con Luz y Elena."
   ],
   "en": [
-   "⚒ ▦ Shortcuts › What do I do now?: new jobs section. First Woodcutting, Mining and Fishing (with your equipped tool and its slots); once done it shows the next job, one by one, up to all 68.",
-   "➜ «Take me» sets the golden arrow where to practise and «See in Magnifier» opens that job's guide."
+   "720 × 360 Peruvian Amazon map: river, lupuna forest, waterfall, aguaje palms, oxbow lake and two communities connected by trails.",
+   "Buy the 10,000 gold ticket at Jorge Chávez, board at Gate 2 and fly back free with Daniela.",
+   "Learn and practice Shipibo-Konibo and Ashaninka with Luz and Elena."
   ]
  }
 }
