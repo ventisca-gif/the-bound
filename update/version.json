@@ -1,20 +1,20 @@
 {
- "build": 192,
- "ver": "5.71",
+ "build": 193,
+ "ver": "5.72",
  "date": "2026-11-21",
  "file": "thebound.html",
- "size": 27426561,
- "sha256": "03be8354557bec5363cc705b3c1dfc377adc512e7373c695a26ba7729d0eeb14",
+ "size": 27442602,
+ "sha256": "f4a293fff94c40acb1bc869d23085c28d696663cb3a86334d475626bb0084ab4",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Luffy niño usa su nuevo sprite en Foosha y saluda cuando te acercas.",
-   "En Ajustes → Sprites de Dawn puedes alternar entre los dos sprites de Alvida."
+   "Shells Town abre al este de Little Garden, en el mismo Mar de Dawn de 1.648 × 360 casillas.",
+   "Desembarca en el muelle central y explora las calles de adoquín y el exterior de la Base 153. Puedes volver a tu embarcación desde el mismo muelle."
   ],
   "en": [
-   "Young Luffy has a new sprite in Foosha and waves when you approach.",
-   "Switch between Alvida’s two sprites in Settings → Dawn sprites."
+   "Shells Town opens east of Little Garden on the same 1,648 × 360 tile Dawn Sea map.",
+   "Land at the central pier to explore the cobbled streets and the outside of the 153rd Branch Base. Return to your ship from the same pier."
   ]
  }
 }
