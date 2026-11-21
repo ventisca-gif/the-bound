@@ -1,22 +1,20 @@
 {
- "build": 191,
- "ver": "5.70",
+ "build": 192,
+ "ver": "5.71",
  "date": "2026-11-21",
  "file": "thebound.html",
- "size": 26991685,
- "sha256": "d8569161ccb7697602a7296eacb0156f921a8bf1e2b36111724d899e81f9bea5",
+ "size": 27426561,
+ "sha256": "03be8354557bec5363cc705b3c1dfc377adc512e7373c695a26ba7729d0eeb14",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Mar de Dawn ampliado a 1.168 × 360 casillas. Little Garden aparece en el mapa con el desembarco cerrado.",
-   "Desde nivel 500, Marina te da acceso a un bote que puedes manejar. Localiza el galeón, aborda y vence a la tripulación y a Alvida.",
-   "Gana el mazo de Alvida para guerrero, registra a la tripulación en el bestiario y toma el timón del galeón."
+   "Luffy niño usa su nuevo sprite en Foosha y saluda cuando te acercas.",
+   "En Ajustes → Sprites de Dawn puedes alternar entre los dos sprites de Alvida."
   ],
   "en": [
-   "The Dawn Sea covers 1,168 × 360 tiles. Little Garden is on the map with its landing closed.",
-   "At level 500, Marina grants access to a boat you can steer. Find the galleon, board and defeat the crew and Alvida.",
-   "Earn Alvida’s warrior mace, register the crew in the bestiary and take the galleon’s helm."
+   "Young Luffy has a new sprite in Foosha and waves when you approach.",
+   "Switch between Alvida’s two sprites in Settings → Dawn sprites."
   ]
  }
 }
