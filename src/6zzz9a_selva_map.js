@@ -120,6 +120,7 @@ function makeSelva() {
   add('jaguar',232,183,1,[]);
   for (const [x,y] of [[218,150],[312,210],[569,266],[98,104],[535,82]]) add('guacamayo',x,y,1,[]);
   addObj(M,'furn',SELVA_AIR[0]-7,200,{f:'selva_plane',fp:[],solid:false});
+  if (!M.exit) M.exit = { x: -9, y: -9 };   // sin salida a pie (como Cusco): se sale en avión
   return G.maps.selva = M;
 }
 XSPR.selva_plane = () => planeSprite(0);

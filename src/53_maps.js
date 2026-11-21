@@ -105,7 +105,7 @@ function updatePlayer(dt) {
   else { P.emote = null; setAnim(P, moving ? 'walk' : 'idle', true); P.loopAnim = true; stepAnim(P, dt, moving ? 8 + spd / 30 : 2); if (moving && P.af % 2 === 0 && Math.random() < 0.05) part(P.x + (Math.random() - 0.5) * 4, P.y, { vz: 6, life: 0.4, c: '#c8b898' }); }
   // doors
   if (M.isWorld && moving) { const tx = Math.floor(P.x / 16), ty = Math.floor(P.y / 16); for (const d of M.doors) if (d.x === tx && d.y === ty && my < -0.2) { enterInterior(d); break; } }
-  else if (!M.isWorld && moving && my > 0.2) { const tx = Math.floor(P.x / 16), ty = Math.floor((P.y + 4) / 16); if (ty >= M.exit.y && Math.abs(tx - M.exit.x) <= 0) exitInterior(); }
+  else if (!M.isWorld && M.exit && moving && my > 0.2) { const tx = Math.floor(P.x / 16), ty = Math.floor((P.y + 4) / 16); if (ty >= M.exit.y && Math.abs(tx - M.exit.x) <= 0) exitInterior(); }
 }
 function playerDie() { const P = G.P; if (P.dead) return; P.dead = true; P.hp = 0; setAnim(P, 'dead'); P.job = null; if (P.fishing) stopFishing(); P.stats.deaths++; sfx('die'); G.shake = 6; showBoss(null); setTimeout(() => showDeath(), 1200); setTimeout(() => tip('death'), 1300); }
 function revive() { const P = G.P; P.dead = false; const loss = Math.floor(P.xp * 0.1); P.xp -= loss; P.hp = Math.round(P.S.maxhp * 0.6); P.mp = Math.round(P.S.maxmp * 0.6); P.poison = P.burn = 0; setAnim(P, 'idle'); travelTo(P.lastTown || 'albor', () => { if (loss) toast('Has perdido ' + loss + ' XP', 'warn'); }); }

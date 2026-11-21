@@ -1,22 +1,18 @@
 {
- "build": 189,
- "ver": "5.68",
- "date": "2026-11-20",
+ "build": 190,
+ "ver": "5.69",
+ "date": "2026-11-21",
  "file": "thebound.html",
- "size": 26956602,
- "sha256": "6541018e19547f209d8b5f37cc091f29fbfd96b4f9b26024773f49aae56aeecf",
+ "size": 26957171,
+ "sha256": "f5ea2cfb4d31f920c3700d15a77a336ff32748796c28258d783a676506b54efb",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Selva peruana de 720 × 360 casillas: río, bosque de lupunas, cascada, aguajal, cocha y dos comunidades conectadas por senderos.",
-   "Compra el billete de 10.000 de oro en Jorge Chávez, embarca por la Puerta 2 y regresa gratis con Daniela.",
-   "Aprende y practica shipibo-konibo y asháninka con Luz y Elena."
+   "🛠 Selva peruana: arreglado el error rojo «reading 'y'» al caminar, que congelaba el juego y parecía teletransportarte. El juego ya no se rompe en ningún mapa sin salida a pie."
   ],
   "en": [
-   "720 × 360 Peruvian Amazon map: river, lupuna forest, waterfall, aguaje palms, oxbow lake and two communities connected by trails.",
-   "Buy the 10,000 gold ticket at Jorge Chávez, board at Gate 2 and fly back free with Daniela.",
-   "Learn and practice Shipibo-Konibo and Ashaninka with Luz and Elena."
+   "🛠 Peruvian jungle: fixed the red error «reading 'y'» while walking, which froze the game and looked like teleporting. The game no longer breaks on any map without a walk-out exit."
   ]
  }
 }
