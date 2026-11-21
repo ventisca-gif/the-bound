@@ -1,18 +1,22 @@
 {
- "build": 190,
- "ver": "5.69",
+ "build": 191,
+ "ver": "5.70",
  "date": "2026-11-21",
  "file": "thebound.html",
- "size": 26957171,
- "sha256": "f5ea2cfb4d31f920c3700d15a77a336ff32748796c28258d783a676506b54efb",
+ "size": 26991685,
+ "sha256": "d8569161ccb7697602a7296eacb0156f921a8bf1e2b36111724d899e81f9bea5",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🛠 Selva peruana: arreglado el error rojo «reading 'y'» al caminar, que congelaba el juego y parecía teletransportarte. El juego ya no se rompe en ningún mapa sin salida a pie."
+   "Mar de Dawn ampliado a 1.168 × 360 casillas. Little Garden aparece en el mapa con el desembarco cerrado.",
+   "Desde nivel 500, Marina te da acceso a un bote que puedes manejar. Localiza el galeón, aborda y vence a la tripulación y a Alvida.",
+   "Gana el mazo de Alvida para guerrero, registra a la tripulación en el bestiario y toma el timón del galeón."
   ],
   "en": [
-   "🛠 Peruvian jungle: fixed the red error «reading 'y'» while walking, which froze the game and looked like teleporting. The game no longer breaks on any map without a walk-out exit."
+   "The Dawn Sea covers 1,168 × 360 tiles. Little Garden is on the map with its landing closed.",
+   "At level 500, Marina grants access to a boat you can steer. Find the galleon, board and defeat the crew and Alvida.",
+   "Earn Alvida’s warrior mace, register the crew in the bestiary and take the galleon’s helm."
   ]
  }
 }
