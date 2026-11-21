@@ -28,7 +28,7 @@ function renderEncyclo(B) {
   if (encTab === 'mobs') { B.innerHTML = head + '<div id="encMobs"></div>'; renderBestiary($('#encMobs')); bindEnc(B); return; }
   let body = '';
   if (encTab === 'npcs') {
-    const ids = Object.keys(NPCS).filter(id => id !== 'marina_nhar' && !/^guardia_x\d/.test(id) && NPCS[id].look);
+    const ids = Object.keys(NPCS).filter(id => id !== 'marina_nhar' && !/^guardia_x\d/.test(id) && (NPCS[id].look || NPCS[id].atlas));
     body = `<div class="enclist">${ids.map(id => { const N = NPCS[id], q = (N.quests || []).length, rom = typeof ROM !== 'undefined' && ROM[id];
       return `<div class="srow encnpc"><div class="sn"><b>${esc(N.n)} ${rom ? '<span class="pt">♥</span>' : ''}</b><small>${esc(N.title || '')} · ${esc(npcWhere(id))}</small><small class="sum">«${esc((N.lines || [''])[0])}»</small><small>${[N.shop ? (SHOP_N[N.shop] || 'Tienda') : '', q ? q + ' misión' + (q > 1 ? 'es' : '') : '', rom ? 'Se puede tener una relación' : ''].filter(Boolean).join(' · ') || 'Vecino'}</small></div></div>`; }).join('')}</div>`;
   } else {

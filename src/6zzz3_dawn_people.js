@@ -1,4 +1,4 @@
-// Native hero bodies, clothes fitted to current frame anchors; no external sprite replacements.
+// El reparto humanoide usa los cuerpos y anclajes nativos.
 const DAWN_CAST={
  dawn_shanks:{n:'Shanks',bt:2,hair:'rojo',skin:1,hs:5,top:'blanco',bot:'marron',kind:'shanks',hat:'straw',cape:true},
  dawn_benn:{n:'Benn Beckman',bt:2,hair:'negro',skin:1,hs:9,top:'negro',bot:'verde',kind:'benn'},
@@ -9,7 +9,6 @@ const DAWN_CAST={
  dawn_crew1:{n:L2('Marinero del Pelirrojo','Red Hair sailor'),bt:1,hair:'rojo',skin:1,hs:0,top:'gris',bot:'beige'},
  dawn_crew2:{n:L2('Vigía del Pelirrojo','Red Hair lookout'),bt:2,hair:'negro',skin:2,hs:0,top:'amarillo',bot:'gris'},
  dawn_makino:{n:'Makino',g:'f',bt:1,hair:'verde',skin:0,hs:5,top:'verde',bot:'beige',hat:'band'},
- dawn_luffy:{n:'Luffy',bt:1,hair:'negro',skin:1,hs:0,top:'rojo',bot:'azul'},
  dawn_pirata:{n:L2('Pirata pendenciero','Brawling pirate'),bt:2,hair:'negro',skin:3,hs:0,top:'amarillo',bot:'gris',kind:'pirate'}
 };
 const DAWN_PLACEMENTS=[['dawn_shanks',527,252],['dawn_benn',530,254],['dawn_roux',524,254],['dawn_yasopp',533,253],['dawn_limejuice',535,255],['dawn_snake',521,255],['dawn_crew1',518,257],['dawn_crew2',537,257],['dawn_makino',526,250],['dawn_luffy',523,252]];
@@ -50,7 +49,8 @@ NPCS.dawn_benn.lines=[L2('Mantén los problemas lejos del pueblo. Aquí hay fami
 NPCS.dawn_roux.lines=[L2('¡Primero la comida! Luego ya hablaremos de aventuras.','Food first! We can talk about adventure afterwards.')];
 NPCS.dawn_yasopp.lines=[L2('Desde estos muelles se ve dónde empieza una buena historia.','From these docks you can see where a good story begins.')];
 NPCS.dawn_makino.lines=[L2('Bienvenido a Partys Bar. Shanks y su tripulación están descansando junto al puerto.','Welcome to Partys Bar. Shanks and his crew are resting by the harbour.')];
-NPCS.dawn_luffy.lines=[L2('¡Algún día tendré mi propio barco y mi propia tripulación!','One day I will have my own ship and crew!')];
+NPCS.dawn_luffy={n:'Luffy',title:L2('Dawn · Villa Foosha','Dawn · Foosha Village'),quests:[],
+ lines:[L2('¡Algún día tendré mi propio barco y mi propia tripulación!','One day I will have my own ship and crew!')]};
 {const old=npcAtlas;npcAtlas=function(id){return DAWN_CAST[id]?getAtlas('Dawn:'+id,()=>buildAtlas(dawnLook(id),['idle','walk'],drawHero)):old.apply(this,arguments);};}
 {const old=mobAtlasFor;mobAtlasFor=function(art){return art[0]==='hum'&&art[1]==='dawn_pirata'?getAtlas('Dawn:pirate',()=>buildAtlas(dawnLook('dawn_pirata'),['idle','walk','atk','hurt','dead'],drawHero)):old.apply(this,arguments);};}
 // Match the current level-490–500 Obsidian Golem exactly, using final shared mobStats (+40% XP above 250).
