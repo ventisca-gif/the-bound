@@ -3,7 +3,7 @@ const LBL = { t: -1, r: [] }; // etiquetas de nivel ya dibujadas en este fotogra
 const ATL = new Map();
 function getAtlas(key, fn) { let a = ATL.get(key); if (!a) { a = fn(); ATL.set(key, a); } return a; }
 function equipTier(P, slot) { const e = P.equip[slot]; return e ? (ITEMS[e.id].tier || 1) : 1; }
-function npcAtlas(id) { const d = NPCS[id], rom = typeof ROM !== 'undefined' && ROM[id === 'marina_nhar' ? 'marina' : id]; return getAtlas('N' + (d.look === NPCS.guardia_x1.look ? 'guard' : d.look === NPCS.marina.look ? 'marina' : id) + (rom ? 'R' : ''), () => buildAtlas(Object.assign({}, d.look), rom ? ['idle', 'walk', 'hug', 'kiss'] : d.tf ? ['idle', 'walk', 'sit', 'dance', 'cheer'] : ['idle', 'walk'])); }
+function npcAtlas(id) { const d = NPCS[id]; if (d.atlas) return d.atlas(); const rom = typeof ROM !== 'undefined' && ROM[id === 'marina_nhar' ? 'marina' : id]; return getAtlas('N' + (d.look === NPCS.guardia_x1.look ? 'guard' : d.look === NPCS.marina.look ? 'marina' : id) + (rom ? 'R' : ''), () => buildAtlas(Object.assign({}, d.look), rom ? ['idle', 'walk', 'hug', 'kiss'] : d.tf ? ['idle', 'walk', 'sit', 'dance', 'cheer'] : ['idle', 'walk'])); }
 function mobAtlasFor(art) {
   const key = 'M' + art.join(',');
   return getAtlas(key, () => {
@@ -16,7 +16,7 @@ function mobAtlasFor(art) {
   });
 }
 const DIRI = { down: 0, left: 1, right: 2, up: 3 };
-function animN(e, a) { if (e.hum) return ANIMS[a] ? ANIMS[a][1] : 1; return MOBANIM[a] ? MOBANIM[a][1] : 1; }
+function animN(e, a) { const frames = e.atlas?.frames?.[a]; if (frames) return frames; if (e.hum) return ANIMS[a] ? ANIMS[a][1] : 1; return MOBANIM[a] ? MOBANIM[a][1] : 1; }
 function setAnim(e, a, keep) { if (e.anim === a && keep) return; e.anim = a; e.af = 0; e.at = 0; }
 function stepAnim(e, dt, fps) { e.at += dt; const n = animN(e, e.anim); const per = 1 / (fps || 6); while (e.at >= per) { e.at -= per; e.af++; if (e.af >= n) e.af = e.loopAnim === false ? n - 1 : 0; } }
 // ---------- drawing ----------
