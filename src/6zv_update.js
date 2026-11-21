@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.72', GAME_BUILD = 193;
+const GAME_VER = '5.73', GAME_BUILD = 194;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.73",
+ "b": 194,
+ "d": "2026-11-21",
+ "es": [
+  "El desembarco en Foosha, Little Garden y Shells Town requiere una Fruta del Diablo, que aún no se puede conseguir.",
+  "Desde nivel 500 sigue disponible la navegación por el Mar de Dawn."
+ ],
+ "en": [
+  "Landing at Foosha, Little Garden and Shells Town requires a Devil Fruit, which cannot be obtained yet.",
+  "Sailing the Dawn Sea remains available from level 500."
+ ]
+},
 {
  "v": "5.72",
  "b": 193,

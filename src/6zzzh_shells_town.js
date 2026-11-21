@@ -12,7 +12,7 @@ const SHELL_PALETTES=Object.fromEntries(Object.entries({
  tower:['#294978','#355a96','#4479b2','#5796ce','#74afe0','#a2cbe5']
 }).map(([key,values])=>[key,pal(values)]));
 const SHELL_POINTS=[
- [...SHELL_PIER,'Puerto de Shells Town','Shells Town Harbour'],
+ [...SHELL_PIER,'Shells Town · desembarco cerrado','Shells Town · landing closed'],
  [207,198,'Barrio de los tejados','Rooftop Quarter'],[208,180,'Escalinata','Town Stairs'],
  [212,161,'Patio de la Marina','Marine Courtyard'],[221,146,'Base 153','153rd Branch Base']
 ];
@@ -259,7 +259,7 @@ MAPC.shells=['Shells Town','Shells Town','#b2d0d4','house'];
 {
  const entry=MAPW_LIST.find(m=>m.id==='dawn');
  entry.n=L2('Mar de Dawn · Foosha, Little Garden y Shells Town','Dawn Sea · Foosha, Little Garden and Shells Town');
- entry.how=L2('Desde nivel 500, habla con Marina en Puerto Coral. Navega al este de Little Garden y desembarca en el muelle central de Shells Town.','At level 500, talk to Marina in Coral Port. Sail east of Little Garden and land at the central pier in Shells Town.');
+ entry.how=L2('Desde nivel 500, habla con Marina en Puerto Coral para navegar. Foosha, Little Garden y Shells Town requieren una Fruta del Diablo para desembarcar.','At level 500, talk to Marina in Coral Port to sail. Landing at Foosha, Little Garden and Shells Town requires a Devil Fruit.');
 }
 
 function shellsDockPoint(M,[x,y]){
@@ -270,7 +270,8 @@ function shellsDockAction(){
  if(!M?.shells||!P||P.dead||G.fading)return null;
  if(P.dawnHelm){
   const [x,y]=shellsDockPoint(M,SHELL_MOORING);
-  return dist2(P.x,P.y,x,y)<62**2?'shells_land':null;
+  if(dist2(P.x,P.y,x,y)>=62**2)return null;
+  return dawnTravelStatus().open?'shells_land':'shells_closed';
  }
  if(!P.shellBerth)return null;
  const [x,y]=shellsDockPoint(M,SHELL_PIER);
@@ -299,6 +300,7 @@ function shellsChangeDeck(action){
   markDirty(true);
  });
 }
+XACT.shells_closed=[L2('Desembarco cerrado · Fruta del Diablo','Landing closed · Devil Fruit'),'ways',()=>toast(dawnLandingNotice(),'info',5)];
 XACT.shells_land=[L2('Desembarcar en Shells Town','Land at Shells Town'),'ways',()=>shellsChangeDeck('shells_land')];
 XACT.shells_sail=[L2('Volver a la embarcación','Return to your ship'),'ways',()=>shellsChangeDeck('shells_sail')];
 {const old=interactTarget;interactTarget=function(){

@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.72 · Shells Town</div>
+  <div class="tfoot">v5.73 · Mar de Dawn</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11825,7 +11825,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.72', GAME_BUILD = 193;
+const GAME_VER = '5.73', GAME_BUILD = 194;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11833,6 +11833,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.73",
+ "b": 194,
+ "d": "2026-11-21",
+ "es": [
+  "El desembarco en Foosha, Little Garden y Shells Town requiere una Fruta del Diablo, que aún no se puede conseguir.",
+  "Desde nivel 500 sigue disponible la navegación por el Mar de Dawn."
+ ],
+ "en": [
+  "Landing at Foosha, Little Garden and Shells Town requires a Devil Fruit, which cannot be obtained yet.",
+  "Sailing the Dawn Sea remains available from level 500."
+ ]
+},
 {
  "v": "5.72",
  "b": 193,
@@ -41541,12 +41554,13 @@ NPCS.dawn_luffy={n:'Luffy',title:L2('Dawn · Villa Foosha','Dawn · Foosha Villa
 // Match the current level-490–500 Obsidian Golem exactly, using final shared mobStats (+40% XP above 250).
 MOBS.dawn_pirata={...MOBS.cb_golem,n:DAWN_CAST.dawn_pirata.n,art:['hum','dawn_pirata'],reg:['dawn'],lv:[500,500],fam:'dawn_pirate',spd:56,ai:'aggro',drops:[]};
 
-it('dawn_fruta_diablo',{n:L2('Fruta del diablo · Dawn','Devil Fruit · Dawn'),t:'quest',stack:true,price:0,icon:['fruit',1],rar:5,d:L2('Requisito futuro del viaje de Marina. Todavía no se puede obtener ni entregar.','Future requirement for Marina’s voyage. It cannot be obtained or handed in yet.')});
+it('dawn_fruta_diablo',{n:L2('Fruta del diablo · Dawn','Devil Fruit · Dawn'),t:'quest',stack:true,price:0,icon:['fruit',1],rar:5,d:L2('Requisito futuro para desembarcar en Foosha, Little Garden y Shells Town. Todavía no se puede obtener ni entregar.','Future requirement for landing at Foosha, Little Garden and Shells Town. It cannot be obtained or handed in yet.')});
 function dawnTravelStatus(){return {open:DAWN_TRAVEL_OPEN,required:'dawn_fruta_diablo',available:false,minLv:500};}
-function dawnMarinaTalk(){return L2('He encontrado una ruta hacia Dawn, la isla de Villa Foosha. Para abrir ese paso necesitaré una fruta del diablo. Todavía no se puede conseguir: el viaje sigue cerrado. No entregarás objetos ni gastarás oro por ahora.','I have found a route to Dawn, the island of Foosha Village. Opening that passage will require a Devil Fruit. It cannot be obtained yet: the voyage remains closed. You will not hand in items or spend gold for now.');}
-DLG_HOOKS.push((npc,opts)=>{if(npc.id==='marina')opts.push({label:L2('Isla Dawn · viaje cerrado','Dawn Island · voyage closed'),icon:['ways'],fn:()=>typeText(dawnMarinaTalk())});if(npc.id==='dawn_shanks')opts.push({label:L2('Romance Dawn · el comienzo','Romance Dawn · the beginning'),icon:['talk'],fn:()=>typeText(L2('Esta es la primera escala de nuestra historia: Foosha, Makino, los molinos y el sueño de Luffy. Cuando se abra el viaje, nos encontrarás aquí.','This is the first stop in our story: Foosha, Makino, the windmills and Luffy’s dream. When the voyage opens, you will find us here.'))});});
+function dawnLandingNotice(){return L2('Para desembarcar en Foosha, Little Garden o Shells Town hace falta una Fruta del Diablo. Todavía no se puede conseguir ni entregar.','A Devil Fruit is required to land at Foosha, Little Garden or Shells Town. It cannot be obtained or handed in yet.');}
+function dawnMarinaTalk(){return dawnLandingNotice()+' '+L2('Puedes navegar por el Mar de Dawn desde nivel 500.','You can sail the Dawn Sea at level 500.');}
+DLG_HOOKS.push((npc,opts)=>{if(npc.id==='marina')opts.push({label:L2('Islas de Dawn · Fruta del Diablo','Dawn islands · Devil Fruit'),icon:['ways'],fn:()=>typeText(dawnMarinaTalk())});if(npc.id==='dawn_shanks')opts.push({label:L2('Romance Dawn · el comienzo','Romance Dawn · the beginning'),icon:['talk'],fn:()=>typeText(L2('Esta es la primera escala de nuestra historia: Foosha, Makino, los molinos y el sueño de Luffy. Cuando se abra el viaje, nos encontrarás aquí.','This is the first stop in our story: Foosha, Makino, the windmills and Luffy’s dream. When the voyage opens, you will find us here.'))});});
 // One hard gate shared by every public arrival path: inventory or map browsing never bypasses it.
-{const old=setMap;setMap=function(M,x,y,dir){if(M?.dawn&&!DAWN_TRAVEL_OPEN&&!G.P?.dawnHelm){toast(L2('Dawn: viaje todavía cerrado. Habla con la Capitana Marina.','Dawn: voyage still closed. Talk to Captain Marina.'),'info',4);return false;}return old.apply(this,arguments);};}
+{const old=setMap;setMap=function(M,x,y,dir){if(M?.dawn&&!DAWN_TRAVEL_OPEN&&!G.P?.dawnHelm){toast(dawnLandingNotice(),'info',5);return false;}return old.apply(this,arguments);};}
 function dawnSpawnPeople(M){for(const d of M.npcDefs)if(!G.ents.some(e=>e.type==='npc'&&e.map===M.id&&e.id===d.id&&!e.remove)){const at=freePxNear(M,d.x*16+8,d.y*16+12,5);if(at)spawnNPC(d.id,at[0],at[1],M.id,{face:d.face});}}
 // Kept separate so future opening requires an explicit release, not a saved variable.
 V33_TICKS.push(()=>{const M=G.map;if(!M?.dawn)return;dawnSpawnPeople(M);for(const c of M.camps){c.alive=c.alive.filter(e=>!e.remove&&e.hp>0);c.dead=c.dead.filter(t=>t>G.t);const d=Math.abs(c.x-G.P.x/16)+Math.abs(c.y-G.P.y/16);if(d>44){for(const m of c.alive)m.remove=true;c.alive=[];continue;}if(d>30||c.alive.length+c.dead.length>=c.n)continue;const at=freePxNear(M,(c.x+(Math.random()-.5)*4)*16,(c.y+(Math.random()-.5)*4)*16,3);if(!at)continue;const m=spawnMob(c.mob,500,at[0],at[1],0,c);m.map='dawn';c.alive.push(m);}});
@@ -43326,7 +43340,7 @@ const SHELL_PALETTES=Object.fromEntries(Object.entries({
  tower:['#294978','#355a96','#4479b2','#5796ce','#74afe0','#a2cbe5']
 }).map(([key,values])=>[key,pal(values)]));
 const SHELL_POINTS=[
- [...SHELL_PIER,'Puerto de Shells Town','Shells Town Harbour'],
+ [...SHELL_PIER,'Shells Town · desembarco cerrado','Shells Town · landing closed'],
  [207,198,'Barrio de los tejados','Rooftop Quarter'],[208,180,'Escalinata','Town Stairs'],
  [212,161,'Patio de la Marina','Marine Courtyard'],[221,146,'Base 153','153rd Branch Base']
 ];
@@ -43573,7 +43587,7 @@ MAPC.shells=['Shells Town','Shells Town','#b2d0d4','house'];
 {
  const entry=MAPW_LIST.find(m=>m.id==='dawn');
  entry.n=L2('Mar de Dawn · Foosha, Little Garden y Shells Town','Dawn Sea · Foosha, Little Garden and Shells Town');
- entry.how=L2('Desde nivel 500, habla con Marina en Puerto Coral. Navega al este de Little Garden y desembarca en el muelle central de Shells Town.','At level 500, talk to Marina in Coral Port. Sail east of Little Garden and land at the central pier in Shells Town.');
+ entry.how=L2('Desde nivel 500, habla con Marina en Puerto Coral para navegar. Foosha, Little Garden y Shells Town requieren una Fruta del Diablo para desembarcar.','At level 500, talk to Marina in Coral Port to sail. Landing at Foosha, Little Garden and Shells Town requires a Devil Fruit.');
 }
 
 function shellsDockPoint(M,[x,y]){
@@ -43584,7 +43598,8 @@ function shellsDockAction(){
  if(!M?.shells||!P||P.dead||G.fading)return null;
  if(P.dawnHelm){
   const [x,y]=shellsDockPoint(M,SHELL_MOORING);
-  return dist2(P.x,P.y,x,y)<62**2?'shells_land':null;
+  if(dist2(P.x,P.y,x,y)>=62**2)return null;
+  return dawnTravelStatus().open?'shells_land':'shells_closed';
  }
  if(!P.shellBerth)return null;
  const [x,y]=shellsDockPoint(M,SHELL_PIER);
@@ -43613,6 +43628,7 @@ function shellsChangeDeck(action){
   markDirty(true);
  });
 }
+XACT.shells_closed=[L2('Desembarco cerrado · Fruta del Diablo','Landing closed · Devil Fruit'),'ways',()=>toast(dawnLandingNotice(),'info',5)];
 XACT.shells_land=[L2('Desembarcar en Shells Town','Land at Shells Town'),'ways',()=>shellsChangeDeck('shells_land')];
 XACT.shells_sail=[L2('Volver a la embarcación','Return to your ship'),'ways',()=>shellsChangeDeck('shells_sail')];
 {const old=interactTarget;interactTarget=function(){

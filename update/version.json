@@ -1,20 +1,20 @@
 {
- "build": 193,
- "ver": "5.72",
+ "build": 194,
+ "ver": "5.73",
  "date": "2026-11-21",
  "file": "thebound.html",
- "size": 27442602,
- "sha256": "f4a293fff94c40acb1bc869d23085c28d696663cb3a86334d475626bb0084ab4",
+ "size": 27443233,
+ "sha256": "976356b90bfcfe6e6ee054b8730133bbe01fd5d46258cafe9737a73d568c65f5",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Shells Town abre al este de Little Garden, en el mismo Mar de Dawn de 1.648 × 360 casillas.",
-   "Desembarca en el muelle central y explora las calles de adoquín y el exterior de la Base 153. Puedes volver a tu embarcación desde el mismo muelle."
+   "El desembarco en Foosha, Little Garden y Shells Town requiere una Fruta del Diablo, que aún no se puede conseguir.",
+   "Desde nivel 500 sigue disponible la navegación por el Mar de Dawn."
   ],
   "en": [
-   "Shells Town opens east of Little Garden on the same 1,648 × 360 tile Dawn Sea map.",
-   "Land at the central pier to explore the cobbled streets and the outside of the 153rd Branch Base. Return to your ship from the same pier."
+   "Landing at Foosha, Little Garden and Shells Town requires a Devil Fruit, which cannot be obtained yet.",
+   "Sailing the Dawn Sea remains available from level 500."
   ]
  }
 }
