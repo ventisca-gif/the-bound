@@ -362,7 +362,9 @@ const TJ_SLOT = { head: 'head', body: 'top', legs: 'bot', feet: 'feet' };
 { const _gv = gearVis; gearVis = function (cls, slot, t) { if (TJ_LV[t] && slot !== 'weapon') { const S_ = tjSet(cls, t), v = S_ && S_[TJ_SLOT[slot]]; if (v) return Object.assign({ t }, v); } return _gv.apply(this, arguments); }; }
 { const _hl = heroLook; heroLook = function (cls, app, gear, cos, o) { const L = _hl.apply(this, arguments); const t = gear && +gear.body; if (!TJ_LV[t] || !L) return L; cos = cos || {};
     const S_ = tjSet(cls, t), evo = app && app.evo && typeof EVO !== 'undefined' && EVO[app.evo]; if (!S_) return L;
-    if (!(cos.back && COSM[cos.back]) && !evo) L.back = S_.back ? Object.assign({}, S_.back) : null; if (cls === 'asesino' && !(cos.back && COSM[cos.back])) L.scarf = null; return L; }; }
+    if (!(cos.back && COSM[cos.back]) && !evo) L.back = S_.back ? Object.assign({}, S_.back) : null; if (cls === 'asesino' && !(cos.back && COSM[cos.back])) L.scarf = null;
+    // transformado: las capuchas nuevas no esconden el pelo de la forma (pelo dorado, pelaje del lobo…); orejas, cuernos y escamas ya van encima
+    if (L.sr && L.head && String(L.head.k).startsWith('tj_') && L.head.cover === 'hood') { L.head = Object.assign({}, L.head); delete L.head.cover; } return L; }; }
 { const _cg = cleanGear; cleanGear = function (g) { const o = _cg.apply(this, arguments); for (const k of ['weapon', 'head', 'body', 'legs', 'feet']) { const v = g && +g[k]; if (isFinite(v) && v >= 37 && v <= 43) o[k] = v | 0; } return o; }; }
 { const _fi = fitItems; fitItems = function (only) { const out = _fi.apply(this, arguments); for (const c of AP_CLASSES) for (const t of TJ_TIERS) for (const slot of ['head', 'body', 'legs', 'feet']) { const it_ = { id: `${c}:${slot}:${t}`, kind: 'gear', cls: c, slot, t }; if (!only || it_.id.includes(only)) out.push(it_); } return out; }; }
 
