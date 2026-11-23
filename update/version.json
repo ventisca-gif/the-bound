@@ -1,18 +1,22 @@
 {
- "build": 201,
- "ver": "5.80",
+ "build": 202,
+ "ver": "5.81",
  "date": "2026-11-23",
  "file": "thebound.html",
- "size": 29176101,
- "sha256": "131f8a14756bff2a1088393e9eeeda02bde49ea6597984bd526e16ba6b4cb296",
+ "size": 29197167,
+ "sha256": "c0ffd414671152fd142b0465177ee1da957c92ef9196982d26f1a48324a9fe8c",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🐺 Transformaciones con las armaduras de nivel 505-600: orejas, cuernos, pelaje, escamas, alas y cristales siempre por encima de la armadura. Las capuchas nuevas ya no tapan el pelo de la forma (por ejemplo, el pelo dorado del Despertar Dorado)."
+   "♨ Transformación nueva: Engranaje 2 (nivel 600). Piel roja pálida, vapor que sale de todo el cuerpo y estela al correr. Es la forma más fuerte, un poco por encima de las fusiones: +45 % de ataque y +25 % de velocidad. Con espada, dagas o guadaña el brazo se estira con el arma y golpea a distancia.",
+   "⚔ Se consigue con Shanks en Villa Foosha: te dice si estás listo (nivel 600 y haber vencido a la Rueca Desbocada) y te enfrentas a él, el enemigo más fuerte de momento. 🔒 Foosha sigue cerrada, así que por ahora no se puede conseguir.",
+   "Habilidades: Puño Hirviente, Paso de Vapor, Lluvia de Puños y Estallido Hirviente. Todo en la Lupa › Sistemas."
   ],
   "en": [
-   "🐺 Transformations with level 505-600 armour: ears, horns, fur, scales, wings and crystals always on top of the armour. The new hoods no longer hide the form's hair (for example, the Golden Awakening's golden hair)."
+   "♨ New transformation: Gear 2 (level 600). Pale red skin, steam rising from the whole body and an afterimage when running. The strongest form, just above the fusions: +45% attack and +25% speed. With a sword, daggers or scythe your arm stretches with the weapon and hits at range.",
+   "⚔ Obtained from Shanks in Foosha Village: he tells you if you are ready (level 600 and the Runaway Spinning Wheel defeated) and you fight him, the strongest enemy for now. 🔒 Foosha is still closed, so it can't be obtained yet.",
+   "Skills: Boiling Fist, Steam Step, Rain of Fists and Boiling Burst. All in the Magnifier › Systems."
   ]
  }
 }

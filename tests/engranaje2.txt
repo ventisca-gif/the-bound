@@ -1,0 +1,12 @@
+click #tNew;;wait 400;;type #ccName|Vapor;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (()=>{ const P=G.P; window.hurtPlayer=()=>{}; window.__err=[]; window.addEventListener('error',e=>__err.push(String(e.message))); P.lv=600; P.equip={weapon:{id:'w_guerrero_42'},body:{id:'b_42'},legs:{id:'l_42'},feet:{id:'f_42'},head:{id:'h_42'}}; P.srOwn=['vapor']; P.sr='vapor'; P.srF=0; calcStats(P); const a0=P.S.atk; P.srF=1; calcStats(P); P.atlas=playerAtlas(P); P.x=262*16; P.y=212*16; for(const id of ['srh1','srh2','srh3','srh4']) P.skills[id]=1; return {ratio:(P.S.atk/a0).toFixed(3), sr:SR.vapor.n}; })()
+wait 2500
+js (()=>{ const P=G.P; P.dead=false; P.hp=P.S.maxhp; P.busy=0; const m=spawnMob('tj_ovillo',520,P.x+90,P.y,0,null,false); m.state='idle'; P.dir='right'; P.atkCd=0; basicAttack(); return VAP_ARMS.length; })()
+wait 150
+shot
+js (()=>{ const P=G.P; P.anim='walk'; for(const id of ['srh1','srh3','srh4']) srCast(id); return __err; })()
+wait 1200
+js (()=>{ const P=G.P; const b=spawnMob('dawn_shanks_boss',600,P.x+60,P.y,0,null,true); b.state='fight'; for(const mv of BOSSES.dawn_shanks_boss.moves) bossMove(b,mv); return {hp:b.maxhp, hil:mobStats(BOSSES.tj_hilandera,600,true).hp, err:__err}; })()
+wait 2500
+shot
+js (()=>({err:__err, ritualBlocked:(()=>{srRitual(); const b=document.querySelector('#modal [data-sr="vapor"]'); const t=b&&b.textContent; closeModal(); return t;})()}))

@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.80', GAME_BUILD = 201;
+const GAME_VER = '5.81', GAME_BUILD = 202;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.81",
+ "b": 202,
+ "d": "2026-11-23",
+ "es": [
+  "♨ Transformación nueva: Engranaje 2 (nivel 600). Piel roja pálida, vapor que sale de todo el cuerpo y estela al correr. Es la forma más fuerte, un poco por encima de las fusiones: +45 % de ataque y +25 % de velocidad. Con espada, dagas o guadaña el brazo se estira con el arma y golpea a distancia.",
+  "⚔ Se consigue con Shanks en Villa Foosha: te dice si estás listo (nivel 600 y haber vencido a la Rueca Desbocada) y te enfrentas a él, el enemigo más fuerte de momento. 🔒 Foosha sigue cerrada, así que por ahora no se puede conseguir.",
+  "Habilidades: Puño Hirviente, Paso de Vapor, Lluvia de Puños y Estallido Hirviente. Todo en la Lupa › Sistemas."
+ ],
+ "en": [
+  "♨ New transformation: Gear 2 (level 600). Pale red skin, steam rising from the whole body and an afterimage when running. The strongest form, just above the fusions: +45% attack and +25% speed. With a sword, daggers or scythe your arm stretches with the weapon and hits at range.",
+  "⚔ Obtained from Shanks in Foosha Village: he tells you if you are ready (level 600 and the Runaway Spinning Wheel defeated) and you fight him, the strongest enemy for now. 🔒 Foosha is still closed, so it can't be obtained yet.",
+  "Skills: Boiling Fist, Steam Step, Rain of Fists and Boiling Burst. All in the Magnifier › Systems."
+ ]
+},
 {
  "v": "5.80",
  "b": 201,
