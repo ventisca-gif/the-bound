@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.75', GAME_BUILD = 196;
+const GAME_VER = '5.76', GAME_BUILD = 197;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,27 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.76",
+ "b": 197,
+ "d": "2026-11-23",
+ "es": [
+  "🔎 Lupa › 🏙 Ciudades y vida: nueva pestaña con todo lo de las ciudades, la familia y la vida diaria explicado, y «Hoy en las ciudades» (fiestas, mercado, cumpleaños, partidos, apagones y bodas de hoy).",
+  "🚐 Súbete a una combi en la calle (5 de oro): el cobrador vocea las paradas y bajas con ⚔ donde quieras. 👛 De día, carteristas: atrápalos antes de 40 s.",
+  "🏘 Barrios con personalidad: corredores al amanecer, pintores y músicos de noche, mariachis en el Zócalo, flamenco en Andalucía. Al almuerzo, colas y humito en los puestos de comida.",
+  "⚡ Apagones algunas noches (velas en las ventanas y más loquitos). ⚽ Partidos de la selección con goles en toda la ciudad y caravana si gana. 📰 Canillita con el periódico del día.",
+  "🏖 Bañistas en verano y chubascos de verano. 💒 Bodas y bautizos en la plaza. 🧺 Abre tu propio puesto en el mercado de los sábados.",
+  "🏫 Recreo en la escuela de Albor: ve a ver a tus hijos al patio. 🐓 Gallos al amanecer, grillos y luciérnagas de noche, mariposas de día."
+ ],
+ "en": [
+  "🔎 Magnifier › 🏙 Cities & life: a new tab explaining everything about cities, family and daily life, plus «Today in the cities» (today's festivals, market, birthdays, matches, power cuts and weddings).",
+  "🚐 Hop on a combi in the street (5 gold): the conductor shouts the stops and you get off with ⚔ wherever you like. 👛 Pickpockets by day: catch them within 40 s.",
+  "🏘 Neighbourhoods with character: dawn joggers, painters and musicians at night, mariachis in the Zócalo, flamenco in Andalusia. At lunch, queues and steam at the food stalls.",
+  "⚡ Power cuts some nights (candles in the windows and more nutters). ⚽ National team matches with goals across the city and a caravan if they win. 📰 Newspaper boy with the daily paper.",
+  "🏖 Summer beachgoers and summer showers. 💒 Weddings and christenings in the square. 🧺 Open your own stall at the Saturday market.",
+  "🏫 Break time at the Albor school: visit your children in the yard. 🐓 Roosters at dawn, crickets and fireflies at night, butterflies by day."
+ ]
+},
 {
  "v": "5.75",
  "b": 196,

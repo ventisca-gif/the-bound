@@ -61,3 +61,8 @@ The Bound es un RPG 2D de mundo abierto con movimiento en cuatro direcciones.
 - Hachas, picos y cañas se equipan en el inventario (`P.tEq`) y se usan con su casilla de la barra (🪓 `hbAxe`, ⛏ `hbPick`, 🎣 `hbRod`); ⚔ no recolecta. Toda herramienta nueva debe ser `it(id, { t: 'tool', tool: 'tala' | 'mineria' | 'pesca', power, lv, icon })` para que funcione sola con su casilla. Recursos de nivel 12+ piden `toolNeed(job, tier)`.
 - Al añadir oficios, aparecen solos en ▦ Atajos › ¿Qué hago ahora? (sección de oficios, `src/6zzz8_v567.js`); dales `JOB_GUIDE[k]` con `how` y `find` para que salga cómo y la flecha.
 
+
+## Ciudades y vida diaria (desde 5.74-5.76)
+
+- Lo de las ciudades (Lima, Lima Norte, Trujillo, Cusco, Machu Picchu, México, España), la familia y la vida diaria se explica en Lupa › 🏙 Ciudades y vida (`LUPA_CIU` en `src/6zzzk_v576_barrios.js`). Todo evento o sistema nuevo de ese tipo debe tener su entrada ahí y, si pasa hoy, salir en «Hoy en las ciudades».
+- Horarios y multitud: `V74_CITY` y `v74Dens` (`src/6zzzi_v574_vida.js`); un mapa de ciudad nuevo se añade a `V74_CITY` con la expresión de sus NPCs de multitud y su NPC ancla. Las entidades nuevas que no sean objetos del mapa no deben tener el campo `k` (el render lo trata como objeto).

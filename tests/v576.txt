@@ -1,0 +1,48 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{ guiaCiu(); return [document.querySelectorAll('[data-gci]').length, !!document.querySelector('[data-gx="ciu"].on')] })()
+shot
+js (()=>{ document.querySelector('[data-gx="mat"]').click(); const b=document.querySelector('[data-gx="ciu"]'); return !!b })()
+js (closeModal(),1)
+js (()=>{const P=G.P; P.lv=150; calcStats(P); P.hp=P.S.maxhp; P.gold=100000; G.time=8*60; const M=makeLima(); P.inside='lima'; setMap(M, 330*16, 160*16, 'down'); return M.id})()
+wait 2500
+js (()=>{ const M=G.map, P=G.P; const c=M.lcars.find(c=>c.combi); const [x,y]=lmCarXY(c); P.x=x+10; P.y=y; for(const e of G.ents) if(e.type==='npc'&&e.map===M.id&&dist2(e.x,e.y,P.x,P.y)<1600) e.x+=400; const it=interactTarget(); const l=it&&it.label; it&&it.fn&&it.fn(); return [l, !!V76.ride] })()
+wait 3000
+js (()=>{ const P=G.P, [x,y]=lmCarXY(V76.ride.c); return [Math.round(P.x-x), Math.round(P.y-y)] })()
+shot
+js (()=>{ doInteract(); return [!!V76.ride] })()
+js (()=>{ G.time=7*60; const P=G.P; const z=v76Zone(); return z&&z.k })()
+js (()=>{ G.P.x=330*16; G.P.y=(lmCoast(330)-8)*16; v76T=0; return v76Zone().k })()
+wait 1500
+js ([G.ents.filter(e=>e.v76a&&e.map==='lima').map(e=>e.id)])
+shot
+js (()=>{ G.time=12.5*60; v76T=0; const a=v75Anchor(G.map); G.P.x=a.x; G.P.y=a.y+40; return 1 })()
+wait 2500
+js ([G.ents.filter(e=>e._v76q).length])
+js (()=>{ G.time=7*60; v76T=0; return 1 })()
+wait 1500
+js (()=>{ const e=G.ents.find(q=>q.id==='v76_canillita'&&q.map==='lima'); G.P.x=e.x; G.P.y=e.y+20; openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/peri|news/.test(b.textContent)); b.click(); return document.querySelectorAll('#modal .gsrc').length })()
+shot
+js (closeModal(),1)
+js (()=>{ V76.ppT=0; G.time=11*60; const M=G.map; for(let i=0;i<30&&!V76.pp;i++){ V76.ppT=0; v76PickTick(M,0.016); } const m=V76.pp; return m?[m.v76g, m.hp]:'none' })()
+wait 1500
+js (()=>{ const m=V76.pp; if(!m) return 'gone'; const g=G.P.gold; m.hp=1; hitMob(m, 99999); return g })()
+wait 800
+js ([!!V76.pp, G.P.gold])
+js (()=>{ const P=G.P; P.cal.d=P.cal.d-(P.cal.d%7)+5+7; G.time=9*60; v75T=0; giveItem('trucha',3); giveItem('tomate',4); const a=v75Anchor(G.map); P.x=a.x+2.5*44; P.y=a.y+56+8; return v75Sat() })()
+wait 1500
+js (()=>{ const it=interactTarget(); const l=it&&it.label; if(it&&/puesto|stall/.test(l)) it.fn(); return [l, !!V76.stall] })()
+wait 9000
+js ([V76.stall&&V76.stall.sold, countItem('trucha')+countItem('tomate')])
+shot
+js (()=>{ doInteract(); return !!V76.stall })()
+js (()=>{ G.time=21*60; for(let d=0; d<60; d++){ if(v76Blackout()) break; G.P.cal.d++; } return [v76Blackout(), calDay()] })()
+wait 1500
+shot
+js (()=>{ G.time=22.5*60; return 1 })()
+wait 1000
+js (()=>{ const M=G.world; G.P.inside=null; const c=townCenter('albor'); setMap(M, (c.x+8)*16, (c.y+12)*16, 'down'); G.P.cal.d=G.P.cal.d-(G.P.cal.d%7)+1+7; G.time=10.1*60; v76T=0; return v76Recess() })()
+wait 2000
+js ([G.ents.filter(e=>e.v76sc&&e.map==='world').length, V76.buzz.length])
+shot
+js (window._errs)
