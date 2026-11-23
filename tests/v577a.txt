@@ -1,0 +1,14 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{ const r=document.querySelector('#tr .trbtns'); for(let i=0;i<10;i++){ const b=document.createElement('button'); b.className='mini'; b.id='dummy'+i; b.title='Prueba '+i; b.textContent='★'; r.appendChild(b);} hubOpen(true); return 1 })()
+wait 600
+js (()=>{ const r=document.querySelector('#tr .trbtns'); const nav=document.querySelector('#v77nav'); const vis=[...r.querySelectorAll('button.mini')].filter(b=>b.offsetParent); const lb=vis[vis.length-1].getBoundingClientRect(); return [!!nav, nav&&nav.textContent, vis.length, Math.round(lb.bottom), innerHeight, Math.round(r.getBoundingClientRect().bottom)] })()
+shot
+js (()=>{ document.querySelector('#v77nav [data-v77="1"]').click(); return [document.body.classList.contains('hubOpen'), document.querySelector('#v77nav .v77p').textContent] })()
+wait 300
+shot
+js (()=>{ const r=document.querySelector('#tr .trbtns'); const vis=[...r.querySelectorAll('button.mini')].filter(b=>b.offsetParent).map(b=>b.id); return vis })()
+js (()=>{ document.querySelector('#trTabs [data-trt="info"]').click(); return document.querySelector('#v77nav')?document.querySelector('#v77nav .v77p').textContent:'sin paginas' })()
+wait 300
+shot
+js (window._errs)

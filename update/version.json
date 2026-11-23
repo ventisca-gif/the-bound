@@ -1,28 +1,28 @@
 {
- "build": 197,
- "ver": "5.76",
+ "build": 198,
+ "ver": "5.77",
  "date": "2026-11-23",
  "file": "thebound.html",
- "size": 27631109,
- "sha256": "a2c8f1d2fdcbc0b38d7988804078e8047f180e53219bee146cae27f45d17d55c",
+ "size": 27694796,
+ "sha256": "0922b3ce6314981006b69f66c67a340625684d31a796313e391313b3536f3b96",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🔎 Lupa › 🏙 Ciudades y vida: nueva pestaña con todo lo de las ciudades, la familia y la vida diaria explicado, y «Hoy en las ciudades» (fiestas, mercado, cumpleaños, partidos, apagones y bodas de hoy).",
-   "🚐 Súbete a una combi en la calle (5 de oro): el cobrador vocea las paradas y bajas con ⚔ donde quieras. 👛 De día, carteristas: atrápalos antes de 40 s.",
-   "🏘 Barrios con personalidad: corredores al amanecer, pintores y músicos de noche, mariachis en el Zócalo, flamenco en Andalucía. Al almuerzo, colas y humito en los puestos de comida.",
-   "⚡ Apagones algunas noches (velas en las ventanas y más loquitos). ⚽ Partidos de la selección con goles en toda la ciudad y caravana si gana. 📰 Canillita con el periódico del día.",
-   "🏖 Bañistas en verano y chubascos de verano. 💒 Bodas y bautizos en la plaza. 🧺 Abre tu propio puesto en el mercado de los sábados.",
-   "🏫 Recreo en la escuela de Albor: ve a ver a tus hijos al patio. 🐓 Gallos al amanecer, grillos y luciérnagas de noche, mariposas de día."
+   "▦ Atajos por páginas: los botones se acomodan en páginas con ◀ ▶ (o deslizando a los lados) y ya no se salen de la pantalla.",
+   "🚕 Taxi por app (▦ Atajos, solo dentro de una ciudad): eliges una zona, el taxi te recoge y te deja allí.",
+   "🎤 Conciertos en la plaza algunas noches (⚔ para bailar). 🚚 Vecinos nuevos que se mudan cada semana. 🪧 Huelgas de combis.",
+   "🗿 Con 25 de reputación el alcalde te nombra Vecino Ilustre: título y estatua de bronce en la plaza.",
+   "🔍 Un misterio en cada ciudad: pistas, testigo y sospechosos (marco «Detective»). 👻 Leyendas urbanas de madrugada: la Llorona, la Santa Compaña, el duende de Chan Chan…",
+   "📷 Álbum de fauna con el modo foto. 🍽 Tu fonda a la hora del almuerzo: sirve tus platos a los vecinos. 🐾 Michi y Firulais aprenden trucos (traer cosas y buscar tesoros)."
   ],
   "en": [
-   "🔎 Magnifier › 🏙 Cities & life: a new tab explaining everything about cities, family and daily life, plus «Today in the cities» (today's festivals, market, birthdays, matches, power cuts and weddings).",
-   "🚐 Hop on a combi in the street (5 gold): the conductor shouts the stops and you get off with ⚔ wherever you like. 👛 Pickpockets by day: catch them within 40 s.",
-   "🏘 Neighbourhoods with character: dawn joggers, painters and musicians at night, mariachis in the Zócalo, flamenco in Andalusia. At lunch, queues and steam at the food stalls.",
-   "⚡ Power cuts some nights (candles in the windows and more nutters). ⚽ National team matches with goals across the city and a caravan if they win. 📰 Newspaper boy with the daily paper.",
-   "🏖 Summer beachgoers and summer showers. 💒 Weddings and christenings in the square. 🧺 Open your own stall at the Saturday market.",
-   "🏫 Break time at the Albor school: visit your children in the yard. 🐓 Roosters at dawn, crickets and fireflies at night, butterflies by day."
+   "▦ Shortcuts in pages: buttons are arranged in pages with ◀ ▶ (or swipe sideways) and no longer go off screen.",
+   "🚕 Taxi app (▦ Shortcuts, only inside a city): pick an area, the taxi picks you up and drops you there.",
+   "🎤 Concerts in the square some nights (⚔ to dance). 🚚 New neighbours moving in every week. 🪧 Combi strikes.",
+   "🗿 With 25 reputation the mayor names you Distinguished Neighbour: title and a bronze statue in the square.",
+   "🔍 A mystery in each city: clues, a witness and suspects («Detective» frame). 👻 Late-night urban legends: La Llorona, the Holy Company, the goblin of Chan Chan…",
+   "📷 Wildlife album with photo mode. 🍽 Your eatery at lunch time: serve your dishes to the neighbours. 🐾 Kitty and Firulais learn tricks (fetching and digging for treasure)."
   ]
  }
 }

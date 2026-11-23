@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.76', GAME_BUILD = 197;
+const GAME_VER = '5.77', GAME_BUILD = 198;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,27 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.77",
+ "b": 198,
+ "d": "2026-11-23",
+ "es": [
+  "▦ Atajos por páginas: los botones se acomodan en páginas con ◀ ▶ (o deslizando a los lados) y ya no se salen de la pantalla.",
+  "🚕 Taxi por app (▦ Atajos, solo dentro de una ciudad): eliges una zona, el taxi te recoge y te deja allí.",
+  "🎤 Conciertos en la plaza algunas noches (⚔ para bailar). 🚚 Vecinos nuevos que se mudan cada semana. 🪧 Huelgas de combis.",
+  "🗿 Con 25 de reputación el alcalde te nombra Vecino Ilustre: título y estatua de bronce en la plaza.",
+  "🔍 Un misterio en cada ciudad: pistas, testigo y sospechosos (marco «Detective»). 👻 Leyendas urbanas de madrugada: la Llorona, la Santa Compaña, el duende de Chan Chan…",
+  "📷 Álbum de fauna con el modo foto. 🍽 Tu fonda a la hora del almuerzo: sirve tus platos a los vecinos. 🐾 Michi y Firulais aprenden trucos (traer cosas y buscar tesoros)."
+ ],
+ "en": [
+  "▦ Shortcuts in pages: buttons are arranged in pages with ◀ ▶ (or swipe sideways) and no longer go off screen.",
+  "🚕 Taxi app (▦ Shortcuts, only inside a city): pick an area, the taxi picks you up and drops you there.",
+  "🎤 Concerts in the square some nights (⚔ to dance). 🚚 New neighbours moving in every week. 🪧 Combi strikes.",
+  "🗿 With 25 reputation the mayor names you Distinguished Neighbour: title and a bronze statue in the square.",
+  "🔍 A mystery in each city: clues, a witness and suspects («Detective» frame). 👻 Late-night urban legends: La Llorona, the Holy Company, the goblin of Chan Chan…",
+  "📷 Wildlife album with photo mode. 🍽 Your eatery at lunch time: serve your dishes to the neighbours. 🐾 Kitty and Firulais learn tricks (fetching and digging for treasure)."
+ ]
+},
 {
  "v": "5.76",
  "b": 197,

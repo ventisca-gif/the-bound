@@ -1,0 +1,49 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js ([v77TaxiOk(), document.querySelector('#bV77Taxi').classList.contains('v77hide')])
+js (()=>{const P=G.P; P.lv=150; calcStats(P); P.hp=P.S.maxhp; P.gold=200000; G.time=10*60; const M=makeLima(); P.inside='lima'; setMap(M, 330*16, 160*16, 'down'); return M.id})()
+wait 2500
+js ([v77TaxiOk(), document.querySelector('#bV77Taxi').classList.contains('v77hide'), v77Zones(G.map).length])
+js (()=>{ v77TaxiOpen(); const b=document.querySelector('#modal [data-v77tx]:not([disabled])'); const t=b&&b.parentNode.textContent; b.click(); return t })()
+wait 4500
+js ([!!V77.taxi && V77.taxi.st, Math.round(G.P.x/16), Math.round(G.P.y/16), v76Zone()&&v76Zone().n])
+wait 2000
+js (()=>{ let d=0; for(;d<80;d++){ if(v76Day('concierto'+'lima')<0.25) break; G.P.cal.d++; } G.time=21*60; v77T=0; const st=v77Stage(G.map); G.P.x=st.x; G.P.y=st.y+40; return [d, v77Concert(G.map)] })()
+wait 2000
+js (()=>{ const it=interactTarget(); const l=it&&it.label; it&&it.fn(); return [l, V74().concert&&V74().concert.lima===calDay()] })()
+shot
+js (()=>{ V75().rep.lima=30; G.time=10*60; v77T=0; return 1 })()
+wait 1500
+js (()=>{ const e=G.ents.find(q=>q.id==='v77_alc_pe'&&q.map==='lima'); G.P.x=e.x; G.P.y=e.y+20; openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/Ilustre/.test(b.textContent)); b&&b.click(); closeDialog(); return [!!V74().ilustre.lima, titOwned(G.P).length] })()
+js (()=>{ const st=v77StatueAt(G.map); G.P.x=st.x; G.P.y=st.y+50; return 1 })()
+wait 800
+shot
+js (()=>{ const e=G.ents.find(q=>q.id==='v77_mys_pe'&&q.map==='lima'); G.P.x=e.x; G.P.y=e.y+20; openDialog(e); [...document.querySelectorAll('#dopts .dopt')].find(b=>/pasó/.test(b.textContent)).click(); closeDialog(); return V74().mys.lima.st })()
+js (()=>{ const M=G.map, sp=v77MysSpots(M); G.P.x=sp[0].x; G.P.y=sp[0].y+10; let it=interactTarget(); const l=it&&it.label; it&&it.fn(); G.P.x=sp[2].x; G.P.y=sp[2].y+10; it=interactTarget(); it&&it.fn(); return [l, V74().mys.lima.f] })()
+wait 1500
+js (()=>{ const e=G.ents.find(q=>q.id==='v77_tes_pe'&&q.map==='lima'); if(!e) return 'notes'; G.P.x=e.x; G.P.y=e.y+20; openDialog(e); [...document.querySelectorAll('#dopts .dopt')].find(b=>/viste/.test(b.textContent)).click(); closeDialog(); return V74().mys.lima.f })()
+js (()=>{ const D=v77MysData('lima'); const a=v75Anchor(G.map); G.P.x=a.x; G.P.y=a.y+90; return [D.culp, D.tr.map(t=>t.join('-')).join(' | '), D.ct.join('-')] })()
+wait 1500
+js (()=>{ const D=v77MysData('lima'); const e=G.ents.find(q=>q.id==='v77_sus_pe'+D.culp&&q.map==='lima'); openDialog(e); const g=G.P.gold; [...document.querySelectorAll('#dopts .dopt')].find(b=>/Fuiste/.test(b.textContent)).click(); closeDialog(); return [V74().mys.lima.st, G.P.gold-g, BIT().fr.includes('detective')] })()
+js (()=>{ G.time=13*60; v77T=0; giveItem('ensalada',3); giveItem('pan',3); const F=v77FondaAt(G.map); G.P.x=F.x; G.P.y=F.y+10; const it=interactTarget(); const l=it&&it.label; it&&it.fn(); return [l, !!V77.fonda] })()
+wait 7000
+js (()=>{ const Fd=V77.fonda; const c=Fd&&Fd.cl.find(c=>c.st==='wait'); if(!c) return ['nowait', Fd&&Fd.cl.map(c=>c.st)]; G.P.x=c.e.x; G.P.y=c.e.y+14; const it=interactTarget(); const l=it&&it.label; it&&it.fn(); return [l, Fd.n, Fd.g] })()
+shot
+js (()=>{ G.P.x+=600; return 1 })()
+wait 600
+js ([!!V77.fonda])
+js (()=>{ let d=0; for(;d<80;d++){ if(v76Day('leyenda'+'lima')<0.3) break; G.P.cal.d++; } G.time=2*60; v77T=0; return d })()
+wait 1500
+js (()=>{ const e=G.ents.find(q=>q.v77g&&q.map==='lima'); if(!e) return 'noghost'; G.P.x=e.x; G.P.y=e.y+20; openDialog(e); [...document.querySelectorAll('#dopts .dopt')].find(b=>/ayudo|help/i.test(b.textContent)).click(); closeDialog(); const st=V74().leg.dama; G.P.x=st.x; G.P.y=st.y; return 1 })()
+wait 1500
+js (()=>{ const e=G.ents.find(q=>q.v77g&&q.map==='lima'); G.P.x=e.x; G.P.y=e.y+20; openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/Devolver|Give/.test(b.textContent)); b&&b.click(); return [!!b, V74().leg.dama] })()
+shot
+js (closeDialog&&closeDialog(), 1)
+js (()=>{ G.time=12*60; const a=V74_ANS.filter(e=>e.map==='lima').slice(0,3); a.forEach((e,i)=>{ e.x=G.P.x+20+i*10; e.y=G.P.y+10; }); photoMode(true); photoShot(); photoMode(false); return Object.keys(V74().fauna) })()
+js (()=>{ givePet('v75_firulais'); setPet('v75_firulais'); V74().pt.v75_firulais=179*60; v77PtT=11; return 1 })()
+wait 500
+js ([Math.floor(V74().pt.v75_firulais/60)])
+js (()=>{ for(let d=0;d<80;d++){ if(v76Day('huelga'+'lima')<0.1) break; G.P.cal.d++; } G.time=10*60; v75T=0; return v77Strike(G.map) })()
+wait 1500
+js ([G.map.lcars.filter(c=>c.combi).length])
+js (window._errs)
