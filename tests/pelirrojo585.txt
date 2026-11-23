@@ -1,0 +1,8 @@
+click #tNew;;wait 400;;type #ccName|Rojo;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (()=>{ const P=G.P; window.__err=[]; window.addEventListener('error',e=>__err.push(String(e.message))); window.hurtPlayer=()=>{}; P.lv=600; P.cos={body:'c_pel_camisa',legs:'c_pel_bermuda',back:'c_pel_capa'}; P.wardrobe=(P.wardrobe||[]).concat(['c_pel_camisa','c_pel_bermuda','c_pel_capa']); P.atlas=playerAtlas(P); P.x=300*16; P.y=199*16; return [COSM.c_pel_camisa.n, COSM.c_pel_capa.n, ITEMS.cosi_c_pel_bermuda.n]; })()
+wait 2500
+shot
+js (()=>{ const P=G.P; P.wardrobe=P.wardrobe.filter(c=>!/^c_pel_/.test(c)); P.skPity={}; P.vaporOk=1; P.ppGot=1; const _r=Math.random; Math.random=()=>0.99; const k0={}; for(let k=0;k<14;k++) bossKilled({mid:SH_BOSS,x:P.x,y:P.y,def:BOSSES[SH_BOSS],name:'Shanks',lv:600}); const before=JSON.stringify(P.skPity), miss=skrMiss().length; const ex=BOSS_EXTRA[SH_BOSS]().map(x=>x[0]+':'+x[2]).join('|'); bossKilled({mid:SH_BOSS,x:P.x,y:P.y,def:BOSSES[SH_BOSS],name:'Shanks',lv:600}); Math.random=_r; return {before, miss, ex, after:skrMiss().length, own:P.wardrobe.filter(c=>/^c_pel_/.test(c))}; })()
+js (()=>{ const P=G.P; P.wardrobe=P.wardrobe.filter(c=>!/^c_pel_/.test(c)); P.skPity={}; const _r=Math.random; Math.random=()=>0.1; bossKilled({mid:SH_BOSS,x:P.x,y:P.y,def:BOSSES[SH_BOSS],name:'Shanks',lv:600}); Math.random=_r; const o=[]; DLG_HOOKS.forEach(h=>{try{h({id:'dawn_shanks'},o)}catch(e){}}); return {own:skrMiss().length, src:itemSources('cosi_c_pel_capa')[0][0], lupa:GSIS.find(x=>x[0]==='crossover583')[2]().slice(-1)[0].slice(0,40)}; })()
+wait 3500
+js (window.__err)
