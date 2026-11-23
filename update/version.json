@@ -1,28 +1,28 @@
 {
- "build": 196,
- "ver": "5.75",
+ "build": 197,
+ "ver": "5.76",
  "date": "2026-11-23",
  "file": "thebound.html",
- "size": 27573500,
- "sha256": "a58e0c96f11cf9078c6765bac3c8dbe4cb80bf81d5e554426ee7c73fd5a3016f",
+ "size": 27631109,
+ "sha256": "a2c8f1d2fdcbc0b38d7988804078e8047f180e53219bee146cae27f45d17d55c",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "▦ Atajos se desliza hacia abajo: ya se pueden tocar los últimos botones (un brillo abajo avisa de que hay más).",
-   "☔ Las ciudades tienen clima: con lluvia la gente se refugia y saca paraguas (en Lima es garúa). 🚗 Hora punta con combis voceando y calles vacías de madrugada.",
-   "🎉 Fiestas de cada país con guirnaldas, más gente y un regalo diario: Día de Muertos, Inti Raymi, Fiestas Patrias, Concurso de Marinera, San Fermín y Feria de Abril.",
-   "🗓 Vecinos con nombre y rutina (casa, trabajo, almuerzo en la plaza) y sus cumpleaños con fiesta. 👮 Serenos y policías de noche que te ayudan con los loquitos y te dan recompensa.",
-   "🔒 Los puestos cierran de noche (algunos abren 24 horas). 🌅 Surfistas y pescadores al amanecer. 🧺 Mercado de los sábados.",
-   "🐾 Adopta al gato o al perro de la calle que acaricias 3 días. 💼 Los hijos mayores trabajan en un oficio y te traen oro y materiales. 😊 Reputación por ciudad: te saludan por tu nombre y te hacen descuento."
+   "🔎 Lupa › 🏙 Ciudades y vida: nueva pestaña con todo lo de las ciudades, la familia y la vida diaria explicado, y «Hoy en las ciudades» (fiestas, mercado, cumpleaños, partidos, apagones y bodas de hoy).",
+   "🚐 Súbete a una combi en la calle (5 de oro): el cobrador vocea las paradas y bajas con ⚔ donde quieras. 👛 De día, carteristas: atrápalos antes de 40 s.",
+   "🏘 Barrios con personalidad: corredores al amanecer, pintores y músicos de noche, mariachis en el Zócalo, flamenco en Andalucía. Al almuerzo, colas y humito en los puestos de comida.",
+   "⚡ Apagones algunas noches (velas en las ventanas y más loquitos). ⚽ Partidos de la selección con goles en toda la ciudad y caravana si gana. 📰 Canillita con el periódico del día.",
+   "🏖 Bañistas en verano y chubascos de verano. 💒 Bodas y bautizos en la plaza. 🧺 Abre tu propio puesto en el mercado de los sábados.",
+   "🏫 Recreo en la escuela de Albor: ve a ver a tus hijos al patio. 🐓 Gallos al amanecer, grillos y luciérnagas de noche, mariposas de día."
   ],
   "en": [
-   "▦ Shortcuts now scroll down: the last buttons can be tapped (a glow at the bottom shows there is more).",
-   "☔ Cities have weather: when it rains people take shelter and open umbrellas (in Lima it is drizzle). 🚗 Rush hour with shouting combis and empty streets late at night.",
-   "🎉 Each country's festivals with garlands, more people and a daily gift: Day of the Dead, Inti Raymi, National Holidays, Marinera Contest, San Fermín and April Fair.",
-   "🗓 Named neighbours with a routine (home, work, lunch in the square) and birthday parties. 👮 Night watchmen and police who help you with the nutters and pay a reward.",
-   "🔒 Stalls close at night (some are open 24 hours). 🌅 Surfers and fishermen at dawn. 🧺 Saturday market.",
-   "🐾 Adopt the street cat or dog you pet on 3 days. 💼 Grown-up children work a job and bring you gold and materials. 😊 Reputation per city: people greet you by name and give you a discount."
+   "🔎 Magnifier › 🏙 Cities & life: a new tab explaining everything about cities, family and daily life, plus «Today in the cities» (today's festivals, market, birthdays, matches, power cuts and weddings).",
+   "🚐 Hop on a combi in the street (5 gold): the conductor shouts the stops and you get off with ⚔ wherever you like. 👛 Pickpockets by day: catch them within 40 s.",
+   "🏘 Neighbourhoods with character: dawn joggers, painters and musicians at night, mariachis in the Zócalo, flamenco in Andalusia. At lunch, queues and steam at the food stalls.",
+   "⚡ Power cuts some nights (candles in the windows and more nutters). ⚽ National team matches with goals across the city and a caravan if they win. 📰 Newspaper boy with the daily paper.",
+   "🏖 Summer beachgoers and summer showers. 💒 Weddings and christenings in the square. 🧺 Open your own stall at the Saturday market.",
+   "🏫 Break time at the Albor school: visit your children in the yard. 🐓 Roosters at dawn, crickets and fireflies at night, butterflies by day."
   ]
  }
 }
