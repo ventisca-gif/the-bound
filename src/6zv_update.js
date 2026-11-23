@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.82', GAME_BUILD = 203;
+const GAME_VER = '5.83', GAME_BUILD = 204;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,25 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.83",
+ "b": 204,
+ "d": "2026-11-23",
+ "es": [
+  "🍇 La Fruta del Diablo de Goma (Hilandera Muda: 5 %, segura a los 20 intentos) sigue abriendo las islas de Dawn y ahora se puede comer: cuerpo de goma con 5 técnicas animadas en Habilidades › Fruta (Pistola, Ametralladora, Hacha, Bazuca y Globo) y tus golpes cuerpo a cuerpo estiran el brazo con el arma.",
+  "🍐 Fruta Transparente: aparece a veces en las islas de Dawn con aviso y flecha. Comida: invisibilidad 6 s, los enemigos no te ven.",
+  "⚠ Con una fruta no puedes nadar (pierdes vida en el Fondo Marino y en Nerea). Solo puedes tener una: si te comes otra, mueres. Shanks te la puede quitar.",
+  "🎁 Todos los jefes enseñan encima de su barra de vida lo que sueltan y con qué probabilidad.",
+  "🔍 Lupa › Sistemas: Progresión crossover (Dawn, frutas y Engranaje 2)."
+ ],
+ "en": [
+  "🍇 The Rubber Devil Fruit (Mute Spinner: 5%, guaranteed by the 20th try) still opens the Dawn islands and can now be eaten: a rubber body with 5 animated techniques in Skills › Fruit (Pistol, Gatling, Axe, Bazooka and Balloon), and your melee hits stretch your arm with the weapon.",
+  "🍐 Clear Fruit: it sometimes appears on the Dawn islands with a warning and an arrow. Eaten: 6 s invisibility, enemies cannot see you.",
+  "⚠ With a fruit you cannot swim (you lose HP on the Seabed and in Nerea). You can only have one: eat another and you die. Shanks can remove it.",
+  "🎁 Every boss shows above its health bar what it drops and how likely it is.",
+  "🔍 Magnifier › Systems: Crossover progression (Dawn, fruits and Gear 2)."
+ ]
+},
 {
  "v": "5.82",
  "b": 203,

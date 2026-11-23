@@ -1,0 +1,24 @@
+click #tNew;;wait 400;;type #ccName|Goma;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (()=>{ const P=G.P; window.__err=[]; window.addEventListener('error',e=>__err.push(String(e.message))); window.hurtPlayer=()=>{}; P.lv=600; P.equip={weapon:{id:'w_guerrero_42'},body:{id:'b_42'},legs:{id:'l_42'},feet:{id:'f_42'},head:{id:'h_42'}}; calcStats(P); P.atlas=playerAtlas(P); P.x=262*16; P.y=212*16; giveItem('dawn_fruta_diablo',1); const i=P.inv.findIndex(s=>s&&s.id==='dawn_fruta_diablo'); useItem(i); const b=[...document.querySelectorAll('#modal [data-xb]')].find(x=>x.dataset.xb==='0'); b&&b.click(); return {fruit:P.fruit, slots:P.slots, key:dfHas(), skills:['gom1','gom2','gom3','gom4','gom5'].map(k=>P.skills[k])}; })()
+wait 2500
+js (()=>{ const P=G.P; P.dead=false; P.hp=P.S.maxhp; P.mp=P.S.maxmp; for(let k=0;k<3;k++){const m=spawnMob('tj_ovillo',520,P.x+80+k*10,P.y-10+k*12,0,null,false); m.state='idle';} P.slots=['gom1','gom2','gom3','gom4']; P.busy=0; useSkill(0); return 1; })()
+wait 200
+shot
+js (()=>{ const P=G.P; P.busy=0; P.mp=P.S.maxmp; P.cds={}; useSkill(1); return 1; })()
+wait 400
+shot
+js (()=>{ const P=G.P; P.busy=0; P.mp=P.S.maxmp; P.cds={}; useSkill(2); return 1; })()
+wait 350
+shot
+wait 1200
+js (()=>{ const P=G.P; P.busy=0; P.mp=P.S.maxmp; P.cds={}; P.slots[3]='gom5'; useSkill(3); const t=P.gfusen>G.t; P.slots[3]='gom4'; return t; })()
+wait 300
+shot
+js (()=>{ const P=G.P; openPanel('skills'); return !!document.querySelector('.dfsk'); })()
+wait 400
+shot
+js (()=>{ closePanel(); const P=G.P; const b=spawnMob('tj_hilandera',600,P.x+60,P.y,0,null,true); showBoss(b); return document.querySelector('#bossbar .bdrops').textContent; })()
+wait 300
+shot
+js (()=>{ const P=G.P; giveItem('df_transparente',1); const i=P.inv.findIndex(s=>s&&s.id==='df_transparente'); useItem(i); return document.querySelector('#modal') && !document.querySelector('#modal').hidden ? document.querySelector('#modal h2').textContent : 'nomodal'; })()
+js (()=>{ closeModal(); const P=G.P; P.map='submarino'; P._dfWarn=0; const h=P.hp; for(let k=0;k<70;k++) V33_TICKS.forEach(f=>{try{f(0.016)}catch(e){}}); P.map='world'; return {lost:h-P.hp, err:__err}; })()

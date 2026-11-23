@@ -1,0 +1,9 @@
+click #tNew;;wait 400;;type #ccName|Clara;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (()=>{ const P=G.P; window.__err=[]; window.addEventListener('error',e=>__err.push(String(e.message))); window.hurtPlayer=()=>{}; P.lv=600; calcStats(P); P.dfPity=7; const b=spawnMob('tj_hilandera',600,P.x+60,P.y,0,null,true); showBoss(b); const t=document.querySelector('#bossbar .bdrops').textContent; b.remove=true; showBoss(null); return t; })()
+js (()=>{ const P=G.P; let got=0; for(let k=0;k<25&&!got;k++){ const m={mid:'tj_hilandera',x:P.x,y:P.y,def:BOSSES.tj_hilandera,name:'h',lv:600}; try{bossKilled(m);}catch(e){} got=countItem('dawn_fruta_diablo'); } return {got, pity:P.dfPity}; })()
+js (dawnLaunch(), 1)
+wait 2500
+js (()=>{ const P=G.P,M=G.map; const [px,py]=fooshaPier(M); let best=null; for(let r=1;r<8&&!best;r++)for(let a=0;a<16;a++){const x=px+Math.cos(a/16*6.283)*r*10,y=py+Math.sin(a/16*6.283)*r*10; if(dawnSurface(M,x,y)){best=[x,y];break;}} P.x=best[0];P.y=best[1]; fooshaChange('foosha_land'); return 1; })()
+wait 1500
+js (()=>{ for(let k=0;k<300&&!DF_SPAWN.f;k++){ DF_SPAWN.t=-999; dfTrySpawn(); } const F=DF_SPAWN.f; if(!F) return 'nospawn'; const P=G.P; P.x=F.x; P.y=F.y+6; const t=interactTarget(); XACT.df_pick[2](); return {t:t&&t.label, has:countItem('df_transparente')}; })()
+js (()=>{ const P=G.P; const i=P.inv.findIndex(s=>s&&s.id==='df_transparente'); useItem(i); const b=[...document.querySelectorAll('#modal [data-xb]')].find(x=>x.dataset.xb==='0'); b&&b.click(); P.slots[0]='tra1'; P.mp=P.S.maxmp; P.busy=0; useSkill(0); return {fruit:P.fruit, invis:P.invis, key:dfHas(), err:__err}; })()
