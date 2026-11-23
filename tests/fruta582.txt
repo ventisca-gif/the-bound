@@ -1,0 +1,14 @@
+click #tNew;;wait 400;;type #ccName|Fruta;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (()=>{ const P=G.P; window.__err=[]; window.addEventListener('error',e=>__err.push(String(e.message))); window.hurtPlayer=()=>{}; P.lv=600; P.bossKills=P.bossKills||{}; P.bossKills.tj_rueca=1; const st0=dawnTravelStatus().open; giveItem('dawn_fruta_diablo',1); return {st0, st1:dawnTravelStatus().open, icon:ITEMS.dawn_fruta_diablo.icon}; })()
+js (dawnLaunch(), 1)
+wait 2500
+js (()=>{ const P=G.P,M=G.map; const [px,py]=fooshaPier(M); let best=null; for(let r=1;r<8&&!best;r++)for(let a=0;a<16;a++){const x=px+Math.cos(a/16*6.283)*r*10,y=py+Math.sin(a/16*6.283)*r*10; if(dawnSurface(M,x,y)){best=[x,y];break;}} P.x=best[0];P.y=best[1]; return {map:M.id, act:fooshaAction(), pier:[px/16|0,py/16|0], helm:!!P.dawnHelm}; })()
+js (fooshaChange('foosha_land'), 1)
+wait 1500
+js (()=>{ const P=G.P; const sh=G.ents.find(e=>e.type==='npc'&&e.id==='dawn_shanks'); return {helm:!!P.dawnHelm, land:[P.x/16|0,P.y/16|0], shanks: sh?[sh.x/16|0,sh.y/16|0]:null, act:fooshaAction()}; })()
+js (()=>{ const P=G.P; const sh=G.ents.find(e=>e.type==='npc'&&e.id==='dawn_shanks'); P.x=sh.x-30; P.y=sh.y+10; const o=[]; DLG_HOOKS.forEach(h=>{try{h({id:'dawn_shanks'},o)}catch(e){}}); const d=o.find(x=>/Duelo/.test(x.label)); if(d) d.fn(); return {opts:o.map(x=>x.label), fight:!!SH_FIGHT}; })()
+wait 2500
+shot
+js (()=>{ const b=SH_FIGHT&&SH_FIGHT.b; if(b){ b.hp=1; killMob(b);} return 1; })()
+wait 1500
+js (()=>({vaporOk:G.P.vaporOk, fight:!!SH_FIGHT, err:__err}))

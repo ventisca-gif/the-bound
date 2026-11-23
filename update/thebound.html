@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.81 · Engranaje 2</div>
+  <div class="tfoot">v5.82 · Fruta del Diablo</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11825,7 +11825,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.81', GAME_BUILD = 202;
+const GAME_VER = '5.82', GAME_BUILD = 203;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11833,6 +11833,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.82",
+ "b": 203,
+ "d": "2026-11-23",
+ "es": [
+  "🍇 La Fruta del Diablo ya se puede conseguir: la suelta la Hilandera Muda (nivel 600, Tierras Tejidas) con un 10 %. No se come: llévala en la mochila.",
+  "⛵ Con la fruta puedes desembarcar en Foosha (muelle del puerto) y en Shells Town desde tu bote del Mar de Dawn. Little Garden aún no tiene desembarco.",
+  "♨ Así ya se llega a Shanks y a Engranaje 2: duelo en Foosha y luego el ritual."
+ ],
+ "en": [
+  "🍇 The Devil Fruit can now be obtained: the Mute Spinner (level 600, Woven Lands) drops it with a 10% chance. It is not eaten: carry it in your bag.",
+  "⛵ With the fruit you can land at Foosha (harbour pier) and Shells Town from your Dawn Sea boat. Little Garden has no landing yet.",
+  "♨ This opens the way to Shanks and Gear 2: a duel in Foosha and then the ritual."
+ ]
+},
 {
  "v": "5.81",
  "b": 202,
@@ -45948,11 +45963,11 @@ FAR.push('sh_corte', 'sh_presion'); NEAR.push('sh_presion');
   if (mv === 'sh_corte') { telegraph({ shape: 'line', x: m.x, y: m.y, ang: a, len: 230, w: 26, dur: 0.7, cb: () => { const vx = P.x - m.x, vy = P.y - m.y, along = vx * Math.cos(a) + vy * Math.sin(a), perp = Math.abs(-vx * Math.sin(a) + vy * Math.cos(a)); if (along > 0 && along < 230 && perp < 15) hurtPlayer(m.atk * 2.1, { lv: m.lv }); burst(m.x + Math.cos(a) * 120, m.y + Math.sin(a) * 120, 18, { sp: 120, up: 20, g: 20, life: 0.5, c: ['#ffffff', '#c8e0ff'] }); } }); m.busyT = 0.9; }
   else { const r = 140; telegraph({ shape: 'circle', x: m.x, y: m.y, r, dur: 1.3, col: 'rgba(40,10,10,0.3)', cb: () => { if (dist2(P.x, P.y, m.x, m.y) < r * r) { hurtPlayer(m.atk * 1.5, { slow: 3, lv: m.lv }); floatText(P.x, P.y - 46, L2('¡Presión!', 'Pressure!'), '#ff5a5a', true); } G.shake = 8; } }); m.busyT = 1.3; } }; }
 let SH_FIGHT = null;
-function shNpc() { return G.ents.find(e => e.type === 'npc' && e.id === 'dawn_shanks' && (e.map === G.map.id || e.map === 'hidden')); }
+function shNpc() { return G.ents.find(e => e.type === 'npc' && e.id === 'dawn_shanks' && e.map === G.map.id && !e.remove); }
 function shStart() { const P = G.P, n = shNpc(); if (!n || SH_FIGHT) return; closeDialog();
-  const b = spawnMob(SH_BOSS, 600, n.x + 22, n.y + 6, 0, null, true); b.map = G.map.id; b.home = { x: b.x, y: b.y }; b.state = 'fight'; b.cd = 0.8; n._shMap = n.map; n.map = 'hidden'; SH_FIGHT = { b, n };
+  const b = spawnMob(SH_BOSS, 600, n.x + 22, n.y + 6, 0, null, true); b.map = G.map.id; b.home = { x: b.x, y: b.y }; b.state = 'fight'; b.cd = 0.8; n._shPos = [n.x, n.y]; n.x = n.y = -99999; SH_FIGHT = { b, n };
   showBoss(b); sfx('boss'); banner('Shanks', L2('Demuéstrale que controlas tu sangre.', 'Show him you control your blood.')); }
-function shEnd() { if (!SH_FIGHT) return; const { b, n } = SH_FIGHT; if (b && !b.dying) b.remove = true; if (n && n._shMap) { n.map = n._shMap; n._shMap = null; } SH_FIGHT = null; if (G.bossBar && G.bossBar.mid === SH_BOSS) showBoss(null); }
+function shEnd() { if (!SH_FIGHT) return; const { b, n } = SH_FIGHT; if (b && !b.dying) b.remove = true; if (n && n._shPos) { [n.x, n.y] = n._shPos; n._shPos = null; } SH_FIGHT = null; if (G.bossBar && G.bossBar.mid === SH_BOSS) showBoss(null); }
 V33_TICKS.push(() => { if (!SH_FIGHT) return; const P = G.P, { b } = SH_FIGHT; if (!b || b.remove || (G.map && b.map !== G.map.id) || (P.dead && !b.dying)) { if (P.dead) toast(L2('Shanks: «Todavía no. Vuelve cuando estés listo.»', 'Shanks: "Not yet. Come back when you are ready."'), 'info', 4); if (!b || !b.dying) shEnd(); } });
 { const _bk = bossKilled; bossKilled = function (m) { const r = _bk.apply(this, arguments); try { if (m && m.mid === SH_BOSS) { const P = G.P; P.vaporOk = 1; markDirty(true); setTimeout(shEnd, 800);
   banner(L2('¡Estás listo!', 'You are ready!'), L2('Habla con Shanks para el ritual de Engranaje 2.', 'Talk to Shanks for the Gear 2 ritual.')); } } catch (e) { } return r; }; }
@@ -45989,6 +46004,49 @@ if (typeof DL_HOOKS !== 'undefined') DL_HOOKS.push((list, cx, cy) => { const P =
     ctx.strokeStyle = 'rgba(255,220,212,0.8)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(sx, sy - 1); ctx.lineTo(ex, ey - 1); ctx.stroke();
     if (A.w) { ctx.save(); ctx.translate(Math.round(ex), Math.round(ey)); ctx.rotate(A.ang + Math.PI / 4); ctx.drawImage(A.w.cv, -A.w.piv[0], -A.w.piv[1]); ctx.restore(); }
     ctx.fillStyle = '#2a1214'; ctx.fillRect(Math.round(ex) - 3, Math.round(ey) - 3, 6, 6); ctx.fillStyle = '#e8847a'; ctx.fillRect(Math.round(ex) - 2, Math.round(ey) - 2, 4, 4); } } }); });
+
+// ================= v5.82: LA FRUTA DEL DIABLO SE PUEDE CONSEGUIR =================
+// Sergio (5.82): la primera fruta del diablo (morada, con espirales y rabito amarillo) la suelta el jefe más difícil de
+// nivel 600, la Hilandera Muda (Tierras Tejidas), con un 10 %. Con la fruta en la mochila se puede desembarcar en
+// Foosha (muelle del puerto) y en Shells Town; así ya se llega a Shanks y a Engranaje 2. Little Garden sigue sin
+// desembarco (no tiene contenido todavía). La fruta no se gasta: es la llave de las islas.
+const DF_ID = 'dawn_fruta_diablo', DF_CH = 0.10;
+const dfHas = () => !!(G.P && countItem(DF_ID) > 0);
+Object.assign(ITEMS[DF_ID], { icon: ['dfruit'], price: 0, d: L2('Fruta morada con espirales. La suelta la Hilandera Muda (nivel 600, Tierras Tejidas) con un 10 %. No se come: llévala en la mochila para desembarcar en Foosha y en Shells Town (Mar de Dawn).', 'A purple fruit with swirls. Dropped by the Mute Spinner (level 600, Woven Lands) with a 10% chance. It is not eaten: carry it to land at Foosha and Shells Town (Dawn Sea).') });
+// icono: bola morada con espirales en relieve y rabito amarillo enroscado
+{ const _gi = genIcon; genIcon = function (spec) { if (spec[0] !== 'dfruit') return _gi.apply(this, arguments); const p = new Pix(16, 16), V = [C('#3a1a6a'), C('#5a2a9a'), C('#7a46c8'), C('#9a6ae0'), C('#c4a0f4')], Y = [C('#8a6a10'), C('#d0a828'), C('#f0d060')];
+  p.ball(8, 10, 6, 5.6, [V[0], V[1], V[2], V[3]]);
+  for (const [cx, cy] of [[5, 8], [10, 8], [7, 12], [12, 12], [4, 12]]) { p.set(cx, cy, V[4]); p.set(cx + 1, cy, V[3]); p.set(cx + 1, cy + 1, V[1]); p.set(cx, cy + 1, V[1]); p.set(cx - 1, cy, V[3]); p.set(cx, cy - 1, V[4]); }
+  p.vl(8, 3, 2, Y[1]); p.hl(5, 3, 3, Y[1]); p.hl(9, 2, 3, Y[2]); p.set(12, 3, Y[2]); p.set(12, 4, Y[1]); p.set(11, 4, Y[0]); p.set(4, 3, Y[0]);
+  p.outline(OUTL); return p; }; }
+// botín: 10 % al vencer a la Hilandera Muda (solo si aún no tienes la fruta)
+{ const _bk = bossKilled; bossKilled = function (m) { const r = _bk.apply(this, arguments); try { if (m && m.mid === 'tj_hilandera' && !dfHas() && Math.random() < DF_CH * (typeof dropEventMul === 'function' ? dropEventMul() : 1)) {
+  giveItem(DF_ID, 1, true); lootFx(m.x, m.y, DF_ID); banner('🍇 ' + ITEMS[DF_ID].n, L2('¡Ya puedes desembarcar en Foosha y Shells Town!', 'You can now land at Foosha and Shells Town!')); sfx('quest'); markDirty(true); } } catch (e) { } return r; }; }
+// con la fruta, los desembarcos se abren (Shells Town ya lo comprueba con dawnTravelStatus)
+{ const _ts = dawnTravelStatus; dawnTravelStatus = function () { const s = _ts.apply(this, arguments); return Object.assign({}, s, { open: s.open || dfHas(), available: true }); }; }
+dawnLandingNotice = function () { return dfHas() ? L2('Llevas la Fruta del Diablo: acércate al muelle de Foosha o de Shells Town con tu bote para desembarcar.', 'You carry the Devil Fruit: bring your boat to the Foosha or Shells Town pier to land.')
+  : L2('Para desembarcar en Foosha o Shells Town hace falta una Fruta del Diablo. La suelta la Hilandera Muda (nivel 600, Tierras Tejidas) con un 10 %.', 'A Devil Fruit is required to land at Foosha or Shells Town. The Mute Spinner (level 600, Woven Lands) drops it with a 10% chance.'); };
+// ---------- desembarco en Foosha (muelle del puerto, M.port) ----------
+function fooshaPier(M) { const [px, py] = M.port || [522, 267]; for (let r = 0; r < 10; r++) for (let dy = -r; dy <= r; dy++) for (let dx = -r; dx <= r; dx++) { const x = px + dx, y = py + dy, i = M.I(x, y); if (x < 0 || y < 0 || x >= M.w || y >= M.h) continue; if (!SOLID_T[M.ter[i]] && !WATERY[M.ter[i]] && M.ter[i] !== T.DEEP && !(M.solidO && M.solidO[i])) return [x * 16 + 8, y * 16 + 8]; } return [px * 16 + 8, py * 16 + 8]; }
+function fooshaAction() { const P = G.P, M = G.map; if (!M || M.id !== 'dawn' || !P || P.dead || G.fading) return null; const [px, py] = fooshaPier(M);
+  if (P.dawnHelm && P.dawnHelm.kind === 'skiff') return dist2(P.x, P.y, px, py) < 72 * 72 ? (dfHas() ? 'foosha_land' : 'foosha_closed') : null;
+  if (P.fooshaBerth && !P.dawnHelm) return dist2(P.x, P.y, px, py) < 40 * 40 ? 'foosha_sail' : null; return null; }
+function fooshaChange(action) { if (fooshaAction() !== action) return; transition(() => { const P = G.P, M = G.map, [px, py] = fooshaPier(M);
+  if (action === 'foosha_land') { P.fooshaBerth = { x: P.x, y: P.y, dir: P.dir, h: P.dawnHelm }; P.dawnHelm = null; P.x = px; P.y = py; P.dir = 'up'; banner('Villa Foosha', L2('Molinos, el Partys Bar y la tripulación de Shanks', 'Windmills, the Partys Bar and Shanks\'s crew')); }
+  else { const B = P.fooshaBerth; P.dawnHelm = B.h; P.x = B.x; P.y = B.y; P.dir = 'down'; P.fooshaBerth = null; }
+  P.target = null; updateCamera(0, true); prewarm(M); netPresence(true); markDirty(true); }); }
+XACT.foosha_closed = [L2('Desembarco cerrado · Fruta del Diablo', 'Landing closed · Devil Fruit'), 'ways', () => toast(dawnLandingNotice(), 'info', 5)];
+XACT.foosha_land = [L2('Desembarcar en Foosha', 'Land at Foosha'), 'ways', () => fooshaChange('foosha_land')];
+XACT.foosha_sail = [L2('Volver al bote', 'Return to your boat'), 'ways', () => fooshaChange('foosha_sail')];
+{ const _it = interactTarget; interactTarget = function () { const k = fooshaAction(); return k ? { kind: 'xact', label: XACT[k][0], icon: 'ways', o: { xact: k } } : _it.apply(this, arguments); }; }
+{ const _sm = setMap; setMap = function (M) { const r = _sm.apply(this, arguments); if (r !== false && G.P && G.map === M && M.id !== 'dawn') G.P.fooshaBerth = null; return r; }; }
+// Engranaje 2 ya se puede conseguir: textos al día
+SR.vapor.why = off => (G.P.lv < VAP_LV ? `<b>${L2('Requiere nivel ', 'Requires level ')}${VAP_LV}.</b> ` : '') + L2('Vence a la Rueca Desbocada (Tierras Tejidas), consigue la Fruta del Diablo (Hilandera Muda, 10 %), desembarca en Foosha y vence a Shanks. Luego Shanks hace el ritual: ', 'Defeat the Runaway Spinning Wheel (Woven Lands), get the Devil Fruit (Mute Spinner, 10%), land at Foosha and defeat Shanks. Then Shanks performs the ritual: ') + off + '.';
+if (typeof GSIS !== 'undefined') { const g = GSIS.find(x => x[0] === 'engranaje2'); if (g) { const f = g[2]; g[2] = () => f().map(l => /🔒/.test(l) ? L2('🍇 Para llegar a Foosha necesitas la Fruta del Diablo: la suelta la Hilandera Muda (nivel 600, Tierras Tejidas) con un 10 %. Luego navega con Marina (Puerto Coral) y acércate al muelle de Foosha.', '🍇 To reach Foosha you need the Devil Fruit: the Mute Spinner (level 600, Woven Lands) drops it with a 10% chance. Then sail with Marina (Coral Port) and approach the Foosha pier.') : l); }
+  GSIS.unshift(['fruta582', '🍇 ' + L2('Fruta del Diablo', 'Devil Fruit'), () => [ITEMS[DF_ID].d, L2('Con la fruta: navega desde Puerto Coral (Capitana Marina, nivel 500) y acércate con el bote al muelle de Foosha o de Shells Town. Little Garden aún no tiene desembarco.', 'With the fruit: sail from Coral Port (Captain Marina, level 500) and bring the boat to the Foosha or Shells Town pier. Little Garden has no landing yet.')],
+    () => dfHas() ? { loc: [229, 129], m: 'world', t: L2('Capitana Marina', 'Captain Marina') } : { loc: TJ_BOSS_AT.tj_hilandera, m: 'world', t: BOSSES.tj_hilandera.n }]); }
+{ const _is = itemSources; itemSources = function (id) { if (id === DF_ID) return [[L2('Lo suelta la Hilandera Muda (10 %) · Tierras Tejidas', 'Dropped by the Mute Spinner (10%) · Woven Lands'), { loc: TJ_BOSS_AT.tj_hilandera, m: 'world', t: BOSSES.tj_hilandera.n }]]; return _is.apply(this, arguments); }; }
+SAVEKEYS.push('fooshaBerth');
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;

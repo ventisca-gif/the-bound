@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.81', GAME_BUILD = 202;
+const GAME_VER = '5.82', GAME_BUILD = 203;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.82",
+ "b": 203,
+ "d": "2026-11-23",
+ "es": [
+  "🍇 La Fruta del Diablo ya se puede conseguir: la suelta la Hilandera Muda (nivel 600, Tierras Tejidas) con un 10 %. No se come: llévala en la mochila.",
+  "⛵ Con la fruta puedes desembarcar en Foosha (muelle del puerto) y en Shells Town desde tu bote del Mar de Dawn. Little Garden aún no tiene desembarco.",
+  "♨ Así ya se llega a Shanks y a Engranaje 2: duelo en Foosha y luego el ritual."
+ ],
+ "en": [
+  "🍇 The Devil Fruit can now be obtained: the Mute Spinner (level 600, Woven Lands) drops it with a 10% chance. It is not eaten: carry it in your bag.",
+  "⛵ With the fruit you can land at Foosha (harbour pier) and Shells Town from your Dawn Sea boat. Little Garden has no landing yet.",
+  "♨ This opens the way to Shanks and Gear 2: a duel in Foosha and then the ritual."
+ ]
+},
 {
  "v": "5.81",
  "b": 202,
