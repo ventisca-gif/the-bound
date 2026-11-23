@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.74', GAME_BUILD = 195;
+const GAME_VER = '5.75', GAME_BUILD = 196;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,27 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.75",
+ "b": 196,
+ "d": "2026-11-23",
+ "es": [
+  "▦ Atajos se desliza hacia abajo: ya se pueden tocar los últimos botones (un brillo abajo avisa de que hay más).",
+  "☔ Las ciudades tienen clima: con lluvia la gente se refugia y saca paraguas (en Lima es garúa). 🚗 Hora punta con combis voceando y calles vacías de madrugada.",
+  "🎉 Fiestas de cada país con guirnaldas, más gente y un regalo diario: Día de Muertos, Inti Raymi, Fiestas Patrias, Concurso de Marinera, San Fermín y Feria de Abril.",
+  "🗓 Vecinos con nombre y rutina (casa, trabajo, almuerzo en la plaza) y sus cumpleaños con fiesta. 👮 Serenos y policías de noche que te ayudan con los loquitos y te dan recompensa.",
+  "🔒 Los puestos cierran de noche (algunos abren 24 horas). 🌅 Surfistas y pescadores al amanecer. 🧺 Mercado de los sábados.",
+  "🐾 Adopta al gato o al perro de la calle que acaricias 3 días. 💼 Los hijos mayores trabajan en un oficio y te traen oro y materiales. 😊 Reputación por ciudad: te saludan por tu nombre y te hacen descuento."
+ ],
+ "en": [
+  "▦ Shortcuts now scroll down: the last buttons can be tapped (a glow at the bottom shows there is more).",
+  "☔ Cities have weather: when it rains people take shelter and open umbrellas (in Lima it is drizzle). 🚗 Rush hour with shouting combis and empty streets late at night.",
+  "🎉 Each country's festivals with garlands, more people and a daily gift: Day of the Dead, Inti Raymi, National Holidays, Marinera Contest, San Fermín and April Fair.",
+  "🗓 Named neighbours with a routine (home, work, lunch in the square) and birthday parties. 👮 Night watchmen and police who help you with the nutters and pay a reward.",
+  "🔒 Stalls close at night (some are open 24 hours). 🌅 Surfers and fishermen at dawn. 🧺 Saturday market.",
+  "🐾 Adopt the street cat or dog you pet on 3 days. 💼 Grown-up children work a job and bring you gold and materials. 😊 Reputation per city: people greet you by name and give you a discount."
+ ]
+},
 {
  "v": "5.74",
  "b": 195,

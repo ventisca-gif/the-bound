@@ -1,0 +1,49 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (hubOpen(true), 1)
+wait 400
+js (()=>{ const r=document.querySelector('#tr .trbtns'); const b=r.getBoundingClientRect(); return [Math.round(b.bottom), innerHeight, r.scrollHeight>r.clientHeight, getComputedStyle(r).overflowY] })()
+shot
+js (()=>{ const r=document.querySelector('#tr .trbtns'); r.scrollTop=9999; return r.scrollTop>0 })()
+wait 300
+shot
+js (hubOpen(false), 1)
+js (()=>{const P=G.P; P.lv=150; calcStats(P); P.hp=P.S.maxhp; P.gold=1e6; G.time=12*60; const M=makeLima(); P.inside='lima'; setMap(M, 330*16, 160*16, 'down'); return M.id})()
+wait 2500
+js (()=>{ const M=G.map; return [M._v75r&&M._v75r.length, M.lcars.length, M._v75cars&&M._v75cars.length, v75Anchor(M)&&1] })()
+js (()=>{ const M=G.map; const R=M._v75r[0]; const e=G.ents.find(q=>q.id===R.id); window._r0=e&&[Math.round(e.x),Math.round(e.y)]; return [R.id, e&&e.map, e&&e.v75ph, Math.round(Math.hypot(R.work.x-R.home.x,R.work.y-R.home.y)/16)] })()
+wait 3000
+js (()=>{ const e=G.ents.find(q=>q.id===G.map._v75r[0].id); return [window._r0, [Math.round(e.x),Math.round(e.y)], e.anim] })()
+js (()=>{ G.time=3*60; V74_SCH.t=0; v75T=0; return 1 })()
+wait 1500
+js (()=>{ const M=G.map; const ser=G.ents.filter(e=>e.v75s&&e.map===M.id).length; const cart=G.ents.find(e=>e.type==='npc'&&e.map===M.id&&PE_SELL[e.id]&&!e.v74nv&&!/^v75_/.test(e.id)&&!v75Is24(e.id)); openDialog(cart); const o=[...document.querySelectorAll('#dopts .dopt')].map(b=>b.textContent); closeDialog(); return [M.lcars.length, ser, cart.id, o.slice(0,3)] })()
+js (()=>{ const P=G.P; let m=null; for(let i=0;i<20&&!m;i++) m=v74LqSpawn(G.map, V74_CITY.lima); const s=G.ents.find(e=>e.v75s&&e.map===G.map.id); s.x=m.x+60; s.y=m.y; m.aggroR=0; m.spd=0; window._lm=m; return [m.hp, Math.round(Math.hypot(s.x-m.x,s.y-m.y))] })()
+wait 4000
+js (()=>{ const m=window._lm; return [m.hp, m.maxhp, !!m.v75help] })()
+shot
+js (()=>{ const m=window._lm; m.hp=1; hitMob(m, 9999); return 1 })()
+wait 600
+js (()=>{ const s=G.ents.find(e=>e.v75s&&e.map===G.map.id); openDialog(s); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/Recompensa/.test(b.textContent)); const g=G.P.gold; b&&b.click(); closeDialog(); return [!!b, G.P.gold-g, V75().rep.lima] })()
+js (()=>{ G.time=6*60; v75T=0; return 1 })()
+wait 1500
+js ([G.ents.filter(e=>e.map==='lima'&&/^v75_(surf|pesc)/.test(e.id)).length])
+js (()=>{ const P=G.P; P.cal.d=P.cal.d-(P.cal.d%7)+5+7; G.time=9*60; v75T=0; return [calDay()%7, v75Sat()] })()
+wait 1500
+js ([G.ents.filter(e=>e.map==='lima'&&e.v75mk!==undefined).length])
+js (()=>{ const a=v75Anchor(G.map); G.P.x=a.x; G.P.y=a.y+90; return 1 })()
+wait 500
+shot
+js (()=>{ G.P.cal.d = 7*6 + 2 - (G.P.cal.m0||0)*7; return [calDate().m, (v75FestNow('lima')||{}).k] })()
+js (()=>{ G.time=19*60; v75T=0; return 1 })()
+wait 1500
+js ([G.ents.filter(e=>e.map==='lima'&&/^v75_fest/.test(e.id)).map(e=>e.id)])
+js (()=>{ const e=G.ents.find(q=>q.map==='lima'&&/^v75_fest/.test(q.id)); G.P.x=e.x; G.P.y=e.y+30; openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/Regalo/.test(b.textContent)); const g=G.P.gold; b&&b.click(); closeDialog(); return [!!b, G.P.gold-g] })()
+wait 600
+shot
+js (()=>{ const P=G.P; G.time=12*60; const save=G.P.wstate.wx; G.P.wstate.wx='rain'; V74_SCH.t=0; window._wxs=save; return curWx() })()
+wait 1500
+js (()=>{ G.P.x+=20; return [curWx(), G.ents.filter(e=>e.type==='npc'&&e.map==='lima'&&/^pe_\d+$/.test(e.id)).length] })()
+shot
+js (()=>{ G.P.wstate.wx='clear'; const b=V74_ANS.find(e=>e.map==='lima'&&e.ak==='perro'); for(const d of [1,2,3]) { G.P.cal.d+=1; v75PetHook(b);} G.P.x=b.x-10; G.P.y=b.y; for(const e of G.ents) if((e.type==='npc'||e.type==='kid')&&e.map==='lima'&&dist2(e.x,e.y,G.P.x,G.P.y)<900) e.x+=300; const it=interactTarget(); const l=it&&it.label; it&&it.fn(); return [l, (G.P.pets||[]).includes('v75_firulais')] })()
+js (()=>{ V75().rep.lima=10; const cart=G.ents.find(e=>e.type==='npc'&&e.map==='lima'&&PE_SELL[e.id]&&!/^v75_|^nv_/.test(e.id)); G.time=12*60; openDialog(cart); const o=[...document.querySelectorAll('#dopts .dopt')].map(b=>b.textContent).filter(t=>/🛒/.test(t)); closeDialog(); return o })()
+js (window._errs)

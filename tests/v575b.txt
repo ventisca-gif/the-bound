@@ -1,0 +1,15 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), window.hurtPlayer=()=>{}, G.P.gold=500000, G.P.partner='lia', G.P.rel={lia:{t:1000,a:1000}}, G.P.homes={casa_a3:{floor:0,f:{bed:'bigbed',table:'table',deco1:'plant',crib:'crib'}, lv:1}}, 1)
+js (()=>{ const P=G.P; P.kids=[{id:1,name:'Luna',born:calDay()-30,app:JSON.parse(JSON.stringify(P.app)),equip:{},parent:'lia',cls:'guerrero'}]; G.time=15*60; V74().homeT=0; v74GoHome(); return kidStage(P.kids[0]) })()
+wait 2500
+js (()=>{ const e=G.ents.find(q=>q.type==='kid'&&q.map===G.map.id); openKid(e); const b=document.querySelector('[data-v75kj="pesca"]'); b&&b.click(); return [!!b, G.P.kids[0].v75j] })()
+js (()=>{ const k=G.P.kids[0]; closeModal(); k.v75t=Date.now()-60*60000; v75KT=99; return [kidStage(k), !!k.explore, !!k.follow, !!k.ret, k.v75j] })()
+wait 300
+js (()=>{ const k=G.P.kids[0]; const e=G.ents.find(q=>q.type==='kid'&&q.map===G.map.id); openKid(e); const c=document.querySelector('#v75kc'); const t=c&&c.textContent; const g=G.P.gold; c&&c.click(); return [t, G.P.gold-g, k.v75g] })()
+shot
+js (closeModal(),1)
+js (()=>{ v74LifeOpen('wish'); $('#v75ct').click(); return document.querySelectorAll('#modal .gsrc').length })()
+shot
+js (closeModal(),1)
+js (()=>{ givePet('v75_michi'); openPanel('pets'); return document.querySelector('[data-petc="v75_michi"]')?1:0 })()
+js (closePanel&&closePanel(), window._errs)

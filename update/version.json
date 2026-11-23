@@ -1,30 +1,28 @@
 {
- "build": 195,
- "ver": "5.74",
+ "build": 196,
+ "ver": "5.75",
  "date": "2026-11-23",
  "file": "thebound.html",
- "size": 27519041,
- "sha256": "77bc5ef27fca1cc3dfb5dd1a868454cf23a130139e4a56da479ee45c7e63fdfb",
+ "size": 27573500,
+ "sha256": "a58e0c96f11cf9078c6765bac3c8dbe4cb80bf81d5e554426ee7c73fd5a3016f",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🌆 Lima, Lima Norte, Trujillo, Cusco, Machu Picchu, México y España siguen la hora: de día las calles están llenas, al anochecer la gente se va a casa y de madrugada casi no queda nadie. Los domingos sale todo el mundo; España tiene siesta y cena tarde.",
-   "🌙 Vendedores que solo abren de noche (anticuchos, picarones, emoliente, tacos, churros…) y, de 22:00 a 5:00, loquitos que buscan pleito. Su fuerza se adapta a la tuya.",
-   "👂 La gente comenta lo que de verdad has hecho («¿Qué se dice por aquí?») y a veces cuchichea cuando pasas. 🤝 Cada día un vecino te pide un favor, y a veces te visitan en casa con un regalo.",
-   "🐾 Gatos, perros y palomas por las calles: acarícialos con ⚔; las palomas vuelan si te acercas y el gato te sigue si le das pescado.",
-   "🌸 Huerto por estaciones: 8 cultivos de temporada. Al cosechar un huerto se cosechan todos los que están listos y se vuelven a sembrar.",
-   "🏡 Rutina de los hijos (escuela, jardín, cena y cama), cena en familia, diario de cada hijo y fotos de familia en la pared del salón.",
-   "🏠 Volver a casa (▦ Atajos), buscador y filtro de oficio en el inventario, 🧺 Vida diaria (lista de compra con flecha, Bolsa de rescate cuando la mochila está llena, favor del día y avisos) y temporizador de 3 s en el modo foto."
+   "▦ Atajos se desliza hacia abajo: ya se pueden tocar los últimos botones (un brillo abajo avisa de que hay más).",
+   "☔ Las ciudades tienen clima: con lluvia la gente se refugia y saca paraguas (en Lima es garúa). 🚗 Hora punta con combis voceando y calles vacías de madrugada.",
+   "🎉 Fiestas de cada país con guirnaldas, más gente y un regalo diario: Día de Muertos, Inti Raymi, Fiestas Patrias, Concurso de Marinera, San Fermín y Feria de Abril.",
+   "🗓 Vecinos con nombre y rutina (casa, trabajo, almuerzo en la plaza) y sus cumpleaños con fiesta. 👮 Serenos y policías de noche que te ayudan con los loquitos y te dan recompensa.",
+   "🔒 Los puestos cierran de noche (algunos abren 24 horas). 🌅 Surfistas y pescadores al amanecer. 🧺 Mercado de los sábados.",
+   "🐾 Adopta al gato o al perro de la calle que acaricias 3 días. 💼 Los hijos mayores trabajan en un oficio y te traen oro y materiales. 😊 Reputación por ciudad: te saludan por tu nombre y te hacen descuento."
   ],
   "en": [
-   "🌆 Lima, North Lima, Trujillo, Cusco, Machu Picchu, Mexico and Spain follow the clock: streets are busy by day, people go home at dusk and hardly anyone is left late at night. On Sundays everyone is out; Spain has a siesta and late dinners.",
-   "🌙 Vendors who only open at night (anticuchos, picarones, emoliente, tacos, churros…) and, from 22:00 to 5:00, nutters looking for a fight. Their strength adapts to yours.",
-   "👂 People talk about what you have really done («What is the word around here?») and sometimes whisper as you pass. 🤝 Every day a neighbour asks you a favour, and sometimes they visit your house with a gift.",
-   "🐾 Cats, dogs and pigeons on the streets: pet them with ⚔; pigeons fly off if you get close and the cat follows you if you give it fish.",
-   "🌸 Seasonal garden: 8 seasonal crops. Harvesting one plot harvests every ripe plot and replants them.",
-   "🏡 Children's routine (school, garden, dinner and bed), family dinner, a diary for each child and family photos on the living room wall.",
-   "🏠 Go home (▦ Shortcuts), search and jobs filter in the bag, 🧺 Daily life (shopping list with arrow, Rescue bag when your bag is full, favour of the day and alerts) and a 3 s timer in photo mode."
+   "▦ Shortcuts now scroll down: the last buttons can be tapped (a glow at the bottom shows there is more).",
+   "☔ Cities have weather: when it rains people take shelter and open umbrellas (in Lima it is drizzle). 🚗 Rush hour with shouting combis and empty streets late at night.",
+   "🎉 Each country's festivals with garlands, more people and a daily gift: Day of the Dead, Inti Raymi, National Holidays, Marinera Contest, San Fermín and April Fair.",
+   "🗓 Named neighbours with a routine (home, work, lunch in the square) and birthday parties. 👮 Night watchmen and police who help you with the nutters and pay a reward.",
+   "🔒 Stalls close at night (some are open 24 hours). 🌅 Surfers and fishermen at dawn. 🧺 Saturday market.",
+   "🐾 Adopt the street cat or dog you pet on 3 days. 💼 Grown-up children work a job and bring you gold and materials. 😊 Reputation per city: people greet you by name and give you a discount."
   ]
  }
 }
