@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.84', GAME_BUILD = 205;
+const GAME_VER = '5.85', GAME_BUILD = 206;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.85",
+ "b": 206,
+ "d": "2026-11-23",
+ "es": [
+  "🧥 Ropa del Pelirrojo (cosméticos): Camisa Abierta con botones y mangas remangadas, Pantalón Corto malva con enredaderas y estrellas, y Capa Negra sobre los hombros con el cuello levantado. Se ven en las 5 estructuras de hombre y de mujer y en las 4 direcciones.",
+  "⚔ Caen al vencer a Shanks (duelo o revancha): 30 % por cada prenda que te falte, y cada una es segura a las 15 victorias sin ella. La barra de Shanks enseña cuántas faltan. Se ponen en el Armario."
+ ],
+ "en": [
+  "🧥 Red Hair's clothes (cosmetics): Open Shirt with buttons and rolled sleeves, mauve Knee Shorts with vines and stars, and a Black Cloak over the shoulders with a raised collar. They fit the 5 male and 5 female builds in all 4 directions.",
+  "⚔ They drop when you beat Shanks (duel or rematch): 30% for each piece you are missing, and each one is guaranteed by the 15th win without it. Shanks's bar shows how many are left. Wear them from the Wardrobe."
+ ]
+},
 {
  "v": "5.84",
  "b": 205,
