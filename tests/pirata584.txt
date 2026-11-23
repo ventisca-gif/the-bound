@@ -1,0 +1,5 @@
+click #tNew;;wait 400;;type #ccName|Paja;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (()=>{ const P=G.P; window.__err=[]; window.addEventListener('error',e=>__err.push(String(e.message))); window.hurtPlayer=()=>{}; P.lv=600; P.equip={weapon:{id:'w_guerrero_43'},body:{id:'b_44'},legs:{id:'l_44'},feet:{id:'f_44'},head:{id:'h_44'}}; calcStats(P); P.atlas=playerAtlas(P); P.x=300*16; P.y=199*16; return {def:P.S.def, b43:ITEMS.b_43.def, b44:ITEMS.b_44.def, n:ITEMS.b_44.n}; })()
+wait 2500
+shot
+js (()=>{ const P=G.P; P.vaporOk=1; let got=0,k=0; for(;k<20&&!P.ppGot;k++){ bossKilled({mid:SH_BOSS,x:P.x,y:P.y,def:BOSSES[SH_BOSS],name:'Shanks',lv:600}); } const b=spawnMob(SH_BOSS,600,P.x+60,P.y,0,null,true); P.ppGot=0; P.ppPity=4; showBoss(b); const t=document.querySelector('#bossbar .bdrops').textContent; b.remove=true; showBoss(null); const o=[]; DLG_HOOKS.forEach(h=>{try{h({id:'dawn_shanks'},o)}catch(e){}}); return {kills:k, have:countItem('b_44'), bar:t, opts:o.map(x=>x.label), err:__err}; })()

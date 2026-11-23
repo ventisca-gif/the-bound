@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.83', GAME_BUILD = 204;
+const GAME_VER = '5.84', GAME_BUILD = 205;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.84",
+ "b": 205,
+ "d": "2026-11-23",
+ "es": [
+  "👒 Conjunto de Pirata de Paja (tier 44, nivel 600, cualquier clase): sombrero de paja, chaleco rojo abierto sin mangas, faja amarilla, pantalón corto azul y sandalias. Un 5 % más fuerte que la Aurora Divina.",
+  "⚔ Es el premio del duelo con Shanks en Foosha: 10 % por victoria y seguro a las 15. Después del primer duelo puedes pedirle la revancha. La barra de Shanks enseña cuántas victorias faltan."
+ ],
+ "en": [
+  "👒 Straw Pirate set (tier 44, level 600, any class): straw hat, open sleeveless red vest, yellow sash, blue shorts and sandals. 5% stronger than the Divine Aurora.",
+  "⚔ It is the reward for the duel with Shanks in Foosha: 10% per win and guaranteed by the 15th. After the first duel you can ask him for a rematch. Shanks's bar shows how many wins are left."
+ ]
+},
 {
  "v": "5.83",
  "b": 204,
