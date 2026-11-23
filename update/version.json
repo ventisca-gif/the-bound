@@ -1,28 +1,18 @@
 {
- "build": 200,
- "ver": "5.79",
+ "build": 201,
+ "ver": "5.80",
  "date": "2026-11-23",
  "file": "thebound.html",
- "size": 29175256,
- "sha256": "1a6960fa44c837dfe8420c89a3918a445fbd00768e84b69e7af657124b4c82f2",
+ "size": 29176101,
+ "sha256": "131f8a14756bff2a1088393e9eeeda02bde49ea6597984bd526e16ba6b4cb296",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🎨 Las 15 criaturas y los 4 jefes de las Tierras Tejidas tienen sus dibujos nuevos (las mismas mecánicas).",
-   "⚔ Las 49 armas de nivel 505 a 600 tienen sus dibujos nuevos, cada una con el tema de su tier.",
-   "🎵 Música propia en las Tierras Tejidas (caja de música) y otra para sus jefes.",
-   "🎣 Cuatro peces nuevos en los estanques de tinte: Pez Hilo, Carpa de Tinte, Anguila de Huso y Koi de Seda (cañas 15 a 18).",
-   "🧭 ▦ Atajos › ¿Qué hago ahora? › Tierras Tejidas: te dice qué pico, hacha o caña forjar, te lleva a la veta, árbol o estanque que ya puedes usar, al siguiente jefe y a la forja.",
-   "🔍 Lupa › Sistemas: Tierras Tejidas (jefes, recursos y herramientas, forja), cada uno con flecha."
+   "🐺 Transformaciones con las armaduras de nivel 505-600: orejas, cuernos, pelaje, escamas, alas y cristales siempre por encima de la armadura. Las capuchas nuevas ya no tapan el pelo de la forma (por ejemplo, el pelo dorado del Despertar Dorado)."
   ],
   "en": [
-   "🎨 The 15 creatures and 4 bosses of the Woven Lands have their new artwork (same mechanics).",
-   "⚔ The 49 level 505-600 weapons have their new artwork, each matching its tier's theme.",
-   "🎵 Own music in the Woven Lands (music box) and another for its bosses.",
-   "🎣 Four new fish in the dye ponds: Thread Fish, Dye Carp, Spindle Eel and Silk Koi (rods 15 to 18).",
-   "🧭 ▦ Shortcuts › What do I do now? › Woven Lands: tells you which pickaxe, axe or rod to forge, takes you to the vein, tree or pond you can already use, to the next boss and to the forge.",
-   "🔍 Magnifier › Systems: Woven Lands (bosses, resources and tools, forge), each with an arrow."
+   "🐺 Transformations with level 505-600 armour: ears, horns, fur, scales, wings and crystals always on top of the armour. The new hoods no longer hide the form's hair (for example, the Golden Awakening's golden hair)."
   ]
  }
 }
