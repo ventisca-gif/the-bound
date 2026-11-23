@@ -1,0 +1,44 @@
+click #tNew;;wait 400;;type #ccName|Bocona;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (()=>{ const P=G.P; window.__err=[]; window.addEventListener('error',e=>__err.push(String(e.message))); window.hurtPlayer=()=>{}; P.lv=600; P.S.maxhp=P.hp=99999; const M=makeDawn(); P.dawnHelm=dawnHelm('skiff',{x:P.x,y:P.y}); P.retX=P.x; P.retY=P.y; setMap(M,(TG_DOCK[0]+1)*16+8,(TG_DOCK[1]+2)*16+8,'left'); return [G.map.id, tgBoardAction(), interactTarget()&&interactTarget().label]; })()
+wait 2000
+shot
+js (()=>{ const P=G.P; P.x=(TG_AT[0])*16; P.y=(TG_AT[1]+8)*16; updateCamera(0,true); return 1; })()
+wait 1200
+shot
+js (()=>{ const P=G.P; P.x=(TG_DOCK[0]+1)*16+8; P.y=(TG_DOCK[1]+2)*16+8; doInteract(); return 1; })()
+wait 1500
+js [G.map.id, G.ents.filter(e=>e.map==='tortuga').length, interactTarget()&&interactTarget().label]
+shot
+js (()=>{ const P=G.P; P.x=8*16; P.y=24*16; updateCamera(0,true); return 1; })()
+wait 2500
+shot
+js (()=>{ const P=G.P; P.x=23*16; P.y=10*16; updateCamera(0,true); return 1; })()
+wait 1200
+shot
+js (()=>{ const P=G.P; P.x=39*16; P.y=22*16; updateCamera(0,true); return 1; })()
+wait 1200
+shot
+js (()=>{ const P=G.P; P.x=10*16; P.y=10*16; updateCamera(0,true); return 1; })()
+wait 1200
+shot
+js (()=>{ const P=G.P; P.x=38*16; P.y=10*16; updateCamera(0,true); return 1; })()
+wait 1200
+shot
+js (()=>{ const P=G.P; P.x=TG_PASS[0]*16+8; P.y=TG_PASS[1]*16+8; tgmStart(); ACT.next=0; return ACT.k; })()
+wait 800
+js (()=>{ const P=G.P, g0=P.gold; basicAttack(); const o=ACT.orders.find(o=>o.taken); const t=TG_TABLES[o.t]; P.x=t[0]*16+8; P.y=(t[1]+1)*16+8; basicAttack(); return {served:ACT.served, gold:P.gold-g0, plate:P.tgPlate}; })()
+wait 600
+shot
+js (()=>{ ACT.t=0.01; return 1; })()
+wait 600
+js (()=>{ const P=G.P; P.x=23.5*16; P.y=33.6*16; const it=interactTarget(); const lab=it&&it.label; doInteract(); return lab; })()
+wait 1500
+js (()=>{ const P=G.P; return [G.map.id, P.dawnHelm&&P.dawnHelm.kind, P.tgServe]; })()
+js (()=>{ const P=G.P; swimIn(true); return 1; })()
+wait 1500
+js (()=>{ const P=G.P; return [P.dawnHelm&&P.dawnHelm.kind, !!P.dawnBoat, interactTarget()&&interactTarget().label]; })()
+shot
+js (()=>{ const P=G.P; P.fruit='goma'; P.hp=P.S.maxhp*0.09; return 1; })()
+wait 1800
+js (()=>{ const P=G.P; return [P.dawnHelm&&P.dawnHelm.kind, Math.round(P.hp/P.S.maxhp*100), !!P.dawnBoat]; })()
+js (window.__err)

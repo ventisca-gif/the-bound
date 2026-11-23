@@ -1,20 +1,24 @@
 {
- "build": 206,
- "ver": "5.85",
+ "build": 207,
+ "ver": "5.86",
  "date": "2026-11-23",
  "file": "thebound.html",
- "size": 29256338,
- "sha256": "c7b48e299c8037318f12be8ecdaa915733f9cde71da80d9c66b842d3915a91f3",
+ "size": 29309190,
+ "sha256": "aac56ac501ddc176d5b1f324985b31f8ebd2c06ceba3f7ca685a435c1dc079ea",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🧥 Ropa del Pelirrojo (cosméticos): Camisa Abierta con botones y mangas remangadas, Pantalón Corto malva con enredaderas y estrellas, y Capa Negra sobre los hombros con el cuello levantado. Se ven en las 5 estructuras de hombre y de mujer y en las 4 direcciones.",
-   "⚔ Caen al vencer a Shanks (duelo o revancha): 30 % por cada prenda que te falte, y cada una es segura a las 15 victorias sin ella. La barra de Shanks enseña cuántas faltan. Se ponen en el Armario."
+   "🐢 La Tortuga Glotona: restaurante flotante sobre una tortuga gigante, cerca de Foosha en el Mar de Dawn. Acércate con el bote al muelle de popa y sube (no hace falta la Fruta del Diablo).",
+   "🍽 Por dentro: Bar Pirata, Jardín del Caparazón con fuente, Terraza con sombrillas, Gran Comedor, Recepción con una vitrina de comida gigante y Cocina. Piratas y clientes comiendo, meseros que llevan platos a las mesas, cocineros y la chef Brígida.",
+   "🧑‍🍳 Turno de mesero con Madame Perla (90 s, dentro del mapa): coge platos en el pase con ⚔ y llévalos a las mesas que piden. Da oro, propinas y experiencia del oficio Restaurante. La chef sirve el plato del día (vida y maná al máximo).",
+   "🏊 Nadar en el Mar de Dawn: tírate al agua desde el bote (⚔) o desde la orilla. Vuelve a tu bote, sube a la tortuga o sal en la costa de Foosha (pide la Fruta del Diablo). Si comiste una fruta, el mar te hunde y te rescatan con un salvavidas."
   ],
   "en": [
-   "🧥 Red Hair's clothes (cosmetics): Open Shirt with buttons and rolled sleeves, mauve Knee Shorts with vines and stars, and a Black Cloak over the shoulders with a raised collar. They fit the 5 male and 5 female builds in all 4 directions.",
-   "⚔ They drop when you beat Shanks (duel or rematch): 30% for each piece you are missing, and each one is guaranteed by the 15th win without it. Shanks's bar shows how many are left. Wear them from the Wardrobe."
+   "🐢 The Gluttonous Turtle: a floating restaurant on a giant turtle near Foosha in the Dawn Sea. Bring your boat to the stern dock and board (no Devil Fruit needed).",
+   "🍽 Inside: Pirate Bar, Shell Garden with a fountain, Terrace with parasols, Great Dining Room, Reception with a giant food showcase and Kitchen. Pirates and diners eating, waiters carrying plates to the tables, cooks and Chef Brígida.",
+   "🧑‍🍳 Waiter shift with Madame Perla (90 s, on the map): take plates at the pass with ⚔ and bring them to the tables ordering. Gives gold, tips and Restaurant job experience. The chef serves the dish of the day (full health and mana).",
+   "🏊 Swimming in the Dawn Sea: jump in from the boat (⚔) or from the shore. Get back to your boat, climb onto the turtle or come ashore on Foosha's coast (needs the Devil Fruit). If you ate a fruit, the sea drags you down and you get rescued with a lifebuoy."
   ]
  }
 }

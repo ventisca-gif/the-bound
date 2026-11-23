@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.85', GAME_BUILD = 206;
+const GAME_VER = '5.86', GAME_BUILD = 207;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.86",
+ "b": 207,
+ "d": "2026-11-23",
+ "es": [
+  "🐢 La Tortuga Glotona: restaurante flotante sobre una tortuga gigante, cerca de Foosha en el Mar de Dawn. Acércate con el bote al muelle de popa y sube (no hace falta la Fruta del Diablo).",
+  "🍽 Por dentro: Bar Pirata, Jardín del Caparazón con fuente, Terraza con sombrillas, Gran Comedor, Recepción con una vitrina de comida gigante y Cocina. Piratas y clientes comiendo, meseros que llevan platos a las mesas, cocineros y la chef Brígida.",
+  "🧑‍🍳 Turno de mesero con Madame Perla (90 s, dentro del mapa): coge platos en el pase con ⚔ y llévalos a las mesas que piden. Da oro, propinas y experiencia del oficio Restaurante. La chef sirve el plato del día (vida y maná al máximo).",
+  "🏊 Nadar en el Mar de Dawn: tírate al agua desde el bote (⚔) o desde la orilla. Vuelve a tu bote, sube a la tortuga o sal en la costa de Foosha (pide la Fruta del Diablo). Si comiste una fruta, el mar te hunde y te rescatan con un salvavidas."
+ ],
+ "en": [
+  "🐢 The Gluttonous Turtle: a floating restaurant on a giant turtle near Foosha in the Dawn Sea. Bring your boat to the stern dock and board (no Devil Fruit needed).",
+  "🍽 Inside: Pirate Bar, Shell Garden with a fountain, Terrace with parasols, Great Dining Room, Reception with a giant food showcase and Kitchen. Pirates and diners eating, waiters carrying plates to the tables, cooks and Chef Brígida.",
+  "🧑‍🍳 Waiter shift with Madame Perla (90 s, on the map): take plates at the pass with ⚔ and bring them to the tables ordering. Gives gold, tips and Restaurant job experience. The chef serves the dish of the day (full health and mana).",
+  "🏊 Swimming in the Dawn Sea: jump in from the boat (⚔) or from the shore. Get back to your boat, climb onto the turtle or come ashore on Foosha's coast (needs the Devil Fruit). If you ate a fruit, the sea drags you down and you get rescued with a lifebuoy."
+ ]
+},
 {
  "v": "5.85",
  "b": 206,
