@@ -1,28 +1,28 @@
 {
- "build": 199,
- "ver": "5.78",
+ "build": 200,
+ "ver": "5.79",
  "date": "2026-11-23",
  "file": "thebound.html",
- "size": 27826952,
- "sha256": "058aea2a3eede1d5d5c6e5ad0a437508b5638b4941d2af75ada7501b70cebe77",
+ "size": 29175256,
+ "sha256": "1a6960fa44c837dfe8420c89a3918a445fbd00768e84b69e7af657124b4c82f2",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🧶 Las Tierras del Vínculo crecen: al sur de Sahrim y Yarakai (y al este de Nhar) hay una región nueva, las Tierras Tejidas, con un bioma nuevo de algodón rosado, ovillos gigantes, carretes y ciénagas de tinte. Se llega por los andenes de las estaciones Sahrim y Yarakai.",
-   "⬆ El nivel máximo sube a 600. Cuatro zonas: Pradera de Algodón, Bosque de Ovillos, Ciénaga de Tinte e Hilandería Rota (nivel 500 a 600).",
-   "👾 15 criaturas nuevas, cada una con su mecánica (se deshacen en ovillitos, se recosen, lanzan telarañas, aparecen a tu espalda, curan a las demás, te arrastran…) y 4 jefes: la Reina Polilla, el Nudo Ciego, la Rueca Desbocada y la Hilandera Muda.",
-   "🏕 Campamento de las Hebras con 6 NPCs: Ovidia, Maese Hilario (forja), Cora, Fray Lino, Pip y Brígida. Piedra de viaje nueva.",
-   "⛏ Minerales nuevos (Hebrita, Tintolita, Plata de Huso y Sedalita), cuatro maderas nuevas y picos, hachas y cañas 14 a 17.",
-   "🛡 7 tiers de equipo de nivel 505 a 600: armaduras con un diseño distinto para cada clase (49 aspectos) y 49 armas nuevas. Todo en la Lupa › Sistemas."
+   "🎨 Las 15 criaturas y los 4 jefes de las Tierras Tejidas tienen sus dibujos nuevos (las mismas mecánicas).",
+   "⚔ Las 49 armas de nivel 505 a 600 tienen sus dibujos nuevos, cada una con el tema de su tier.",
+   "🎵 Música propia en las Tierras Tejidas (caja de música) y otra para sus jefes.",
+   "🎣 Cuatro peces nuevos en los estanques de tinte: Pez Hilo, Carpa de Tinte, Anguila de Huso y Koi de Seda (cañas 15 a 18).",
+   "🧭 ▦ Atajos › ¿Qué hago ahora? › Tierras Tejidas: te dice qué pico, hacha o caña forjar, te lleva a la veta, árbol o estanque que ya puedes usar, al siguiente jefe y a la forja.",
+   "🔍 Lupa › Sistemas: Tierras Tejidas (jefes, recursos y herramientas, forja), cada uno con flecha."
   ],
   "en": [
-   "🧶 The Lands of the Bound grow: south of Sahrim and Yarakai (and east of Nhar) there is a new region, the Woven Lands, with a new biome of pink cotton, giant yarnballs, spools and dye marshes. Reach it from the Sahrim and Yarakai station platforms.",
-   "⬆ The level cap rises to 600. Four zones: Cotton Meadow, Yarnball Wood, Dye Marsh and Broken Spinning Mill (level 500 to 600).",
-   "👾 15 new creatures, each with its own mechanic (they unravel into small yarnballs, sew themselves back up, shoot webs, appear behind you, heal the others, drag you…) and 4 bosses: the Moth Queen, the Blind Knot, the Runaway Spinning Wheel and the Mute Spinner.",
-   "🏕 Thread Camp with 6 NPCs: Ovidia, Master Hilario (forge), Cora, Brother Lino, Pip and Brígida. New waystone.",
-   "⛏ New ores (Threadite, Dyestone, Spindle Silver and Silkstone), four new woods and pickaxes, axes and rods 14 to 17.",
-   "🛡 7 tiers of level 505-600 gear: armour with a different design for each class (49 looks) and 49 new weapons. All in the Magnifier › Systems."
+   "🎨 The 15 creatures and 4 bosses of the Woven Lands have their new artwork (same mechanics).",
+   "⚔ The 49 level 505-600 weapons have their new artwork, each matching its tier's theme.",
+   "🎵 Own music in the Woven Lands (music box) and another for its bosses.",
+   "🎣 Four new fish in the dye ponds: Thread Fish, Dye Carp, Spindle Eel and Silk Koi (rods 15 to 18).",
+   "🧭 ▦ Shortcuts › What do I do now? › Woven Lands: tells you which pickaxe, axe or rod to forge, takes you to the vein, tree or pond you can already use, to the next boss and to the forge.",
+   "🔍 Magnifier › Systems: Woven Lands (bosses, resources and tools, forge), each with an arrow."
   ]
  }
 }
