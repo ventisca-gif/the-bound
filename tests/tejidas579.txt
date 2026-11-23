@@ -1,0 +1,11 @@
+click #tNew;;wait 400;;type #ccName|Tejida;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (()=>{ const P=G.P; window.__err=[]; window.addEventListener('error',e=>__err.push(String(e.message))); P.lv=560; P.equip={weapon:{id:'w_invocador_43'},body:{id:'b_41'},legs:{id:'l_41'},feet:{id:'f_41'},head:{id:'h_41'}}; P.cls='invocador'; calcStats(P); P.atlas=playerAtlas(P); P.x=300*16+8; P.y=214*16+8; regionCheck(true); return [currentMusic(), habitatAt(300,213), MOBS.tj_ovillo.art, BOSSES.tj_reina.art, !!ARM_HDP.pez_40]; })()
+wait 3500
+shot
+js (()=>{ qhOpen(); return !!document.querySelector('.qhtej'); })()
+wait 500
+shot
+js (()=>{ closeModal(); const P=G.P; P.x=331*16; P.y=209*16; return 1; })()
+wait 3000
+shot
+js (()=>({err:__err, music:currentMusic(), steps:['mineria','tala','pesca'].map(j=>JSON.stringify(tjJobStep(j))), lupa:GSIS.slice(0,4).map(g=>g[0]+':'+JSON.stringify(g[3]()))}))

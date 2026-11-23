@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.78', GAME_BUILD = 199;
+const GAME_VER = '5.79', GAME_BUILD = 200;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,27 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.79",
+ "b": 200,
+ "d": "2026-11-23",
+ "es": [
+  "🎨 Las 15 criaturas y los 4 jefes de las Tierras Tejidas tienen sus dibujos nuevos (las mismas mecánicas).",
+  "⚔ Las 49 armas de nivel 505 a 600 tienen sus dibujos nuevos, cada una con el tema de su tier.",
+  "🎵 Música propia en las Tierras Tejidas (caja de música) y otra para sus jefes.",
+  "🎣 Cuatro peces nuevos en los estanques de tinte: Pez Hilo, Carpa de Tinte, Anguila de Huso y Koi de Seda (cañas 15 a 18).",
+  "🧭 ▦ Atajos › ¿Qué hago ahora? › Tierras Tejidas: te dice qué pico, hacha o caña forjar, te lleva a la veta, árbol o estanque que ya puedes usar, al siguiente jefe y a la forja.",
+  "🔍 Lupa › Sistemas: Tierras Tejidas (jefes, recursos y herramientas, forja), cada uno con flecha."
+ ],
+ "en": [
+  "🎨 The 15 creatures and 4 bosses of the Woven Lands have their new artwork (same mechanics).",
+  "⚔ The 49 level 505-600 weapons have their new artwork, each matching its tier's theme.",
+  "🎵 Own music in the Woven Lands (music box) and another for its bosses.",
+  "🎣 Four new fish in the dye ponds: Thread Fish, Dye Carp, Spindle Eel and Silk Koi (rods 15 to 18).",
+  "🧭 ▦ Shortcuts › What do I do now? › Woven Lands: tells you which pickaxe, axe or rod to forge, takes you to the vein, tree or pond you can already use, to the next boss and to the forge.",
+  "🔍 Magnifier › Systems: Woven Lands (bosses, resources and tools, forge), each with an arrow."
+ ]
+},
 {
  "v": "5.78",
  "b": 199,
