@@ -1,0 +1,30 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), G.P.lv=200, calcStats(G.P), 1)
+js (()=>{ window._R={}; window._go=(mk,id)=>{ const M=mk(); G.P.inside=id; const a=G.ents.find(e=>e.type==='npc'&&V74_CITY[id].re.test(e.id)&&(e.map===id||e._v74h===id)); setMap(M, a.home.x, a.home.y+20, 'down'); return M.id; }; return 1 })()
+js (G.time=13*60, _go(makeMexico,'mexico'))
+wait 2000
+js (()=>{ const M=G.map; G.time=1*60; V74_SCH.t=0; return [M.id, G.ents.filter(e=>e.type==='npc'&&e.map===M.id&&V74_CITY[M.id].re.test(e.id)).length, G.ents.filter(e=>e.type==='san'&&e.map===M.id).length] })()
+wait 1500
+js (()=>{ const M=G.map; let m=null; for(let i=0;i<20&&!m;i++) m=v74LqSpawn(M, V74_CITY[M.id]); const nv=G.ents.find(e=>e.v74nv&&e.map===M.id); return [M.id, G.ents.filter(e=>e.type==='npc'&&e.map===M.id&&V74_CITY[M.id].re.test(e.id)).length, m&&m.name, nv&&nv.id] })()
+shot
+js (G.time=13*60, _go(makeEspana,'espana'))
+wait 2000
+js (()=>{ const M=G.map; G.time=15.5*60; V74_SCH.t=0; return [M.id, G.ents.filter(e=>e.type==='npc'&&e.map===M.id&&V74_CITY[M.id].re.test(e.id)).length] })()
+wait 1500
+js (()=>{ const M=G.map; G.time=2*60; let m=null; for(let i=0;i<20&&!m;i++) m=v74LqSpawn(M, V74_CITY[M.id]); return [M.id, G.ents.filter(e=>e.type==='npc'&&e.map===M.id&&V74_CITY[M.id].re.test(e.id)).length, m&&m.name] })()
+wait 1500
+shot
+js (G.time=13*60, _go(makeTrujillo,'trujillo'))
+wait 2000
+js (()=>{ const M=G.map; G.time=23*60; let m=null; for(let i=0;i<20&&!m;i++) m=v74LqSpawn(M, V74_CITY[M.id]); return [M.id, m&&m.name, G.ents.filter(e=>e.type==='san'&&e.map===M.id).length] })()
+wait 1500
+js (G.time=13*60, _go(makeLimaNorte,'lima_norte'))
+wait 2000
+js (()=>{ const M=G.map; G.time=23*60; let m=null; for(let i=0;i<20&&!m;i++) m=v74LqSpawn(M, V74_CITY[M.id]); return [M.id, m&&m.name, G.ents.filter(e=>e.type==='san'&&e.map===M.id).length] })()
+wait 1500
+js (G.time=13*60, _go(makeCusco,'cusco'))
+wait 2500
+js (()=>{ const M=G.map; G.time=23*60; let m=null; for(let i=0;i<20&&!m;i++) m=v74LqSpawn(M, V74_CITY[M.id]); return [M.id, m&&m.name, G.ents.filter(e=>e.type==='san'&&e.map===M.id).length, G.ents.filter(e=>e.v74nv&&e.map===M.id).length] })()
+wait 2500
+shot
+js (window._errs)

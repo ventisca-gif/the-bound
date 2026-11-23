@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.73', GAME_BUILD = 194;
+const GAME_VER = '5.74', GAME_BUILD = 195;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,29 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.74",
+ "b": 195,
+ "d": "2026-11-23",
+ "es": [
+  "🌆 Lima, Lima Norte, Trujillo, Cusco, Machu Picchu, México y España siguen la hora: de día las calles están llenas, al anochecer la gente se va a casa y de madrugada casi no queda nadie. Los domingos sale todo el mundo; España tiene siesta y cena tarde.",
+  "🌙 Vendedores que solo abren de noche (anticuchos, picarones, emoliente, tacos, churros…) y, de 22:00 a 5:00, loquitos que buscan pleito. Su fuerza se adapta a la tuya.",
+  "👂 La gente comenta lo que de verdad has hecho («¿Qué se dice por aquí?») y a veces cuchichea cuando pasas. 🤝 Cada día un vecino te pide un favor, y a veces te visitan en casa con un regalo.",
+  "🐾 Gatos, perros y palomas por las calles: acarícialos con ⚔; las palomas vuelan si te acercas y el gato te sigue si le das pescado.",
+  "🌸 Huerto por estaciones: 8 cultivos de temporada. Al cosechar un huerto se cosechan todos los que están listos y se vuelven a sembrar.",
+  "🏡 Rutina de los hijos (escuela, jardín, cena y cama), cena en familia, diario de cada hijo y fotos de familia en la pared del salón.",
+  "🏠 Volver a casa (▦ Atajos), buscador y filtro de oficio en el inventario, 🧺 Vida diaria (lista de compra con flecha, Bolsa de rescate cuando la mochila está llena, favor del día y avisos) y temporizador de 3 s en el modo foto."
+ ],
+ "en": [
+  "🌆 Lima, North Lima, Trujillo, Cusco, Machu Picchu, Mexico and Spain follow the clock: streets are busy by day, people go home at dusk and hardly anyone is left late at night. On Sundays everyone is out; Spain has a siesta and late dinners.",
+  "🌙 Vendors who only open at night (anticuchos, picarones, emoliente, tacos, churros…) and, from 22:00 to 5:00, nutters looking for a fight. Their strength adapts to yours.",
+  "👂 People talk about what you have really done («What is the word around here?») and sometimes whisper as you pass. 🤝 Every day a neighbour asks you a favour, and sometimes they visit your house with a gift.",
+  "🐾 Cats, dogs and pigeons on the streets: pet them with ⚔; pigeons fly off if you get close and the cat follows you if you give it fish.",
+  "🌸 Seasonal garden: 8 seasonal crops. Harvesting one plot harvests every ripe plot and replants them.",
+  "🏡 Children's routine (school, garden, dinner and bed), family dinner, a diary for each child and family photos on the living room wall.",
+  "🏠 Go home (▦ Shortcuts), search and jobs filter in the bag, 🧺 Daily life (shopping list with arrow, Rescue bag when your bag is full, favour of the day and alerts) and a 3 s timer in photo mode."
+ ]
+},
 {
  "v": "5.73",
  "b": 194,

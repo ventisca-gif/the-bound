@@ -1,0 +1,25 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{const P=G.P; P.lv=120; calcStats(P); P.hp=P.S.maxhp; G.time=12*60; const M=makeLima(); P.inside='lima'; setMap(M, 330*16, 160*16, 'down'); return M.id})()
+wait 1500
+js (()=>{const M=G.map; const vis=G.ents.filter(e=>e.type==='npc'&&e.map===M.id&&/^pe_\d+$/.test(e.id)).length, hid=G.ents.filter(e=>e._v74h===M.id).length; return ['dia', vis, hid, G.ents.filter(e=>e.type==='san'&&e.map===M.id).length]})()
+shot
+js (()=>{G.time=1*60; V74_SCH.t=0; G.P.x+=600; return 1})()
+wait 2500
+js (()=>{const M=G.map; G.P.x-=600; const vis=G.ents.filter(e=>e.type==='npc'&&e.map===M.id&&/^pe_\d+$/.test(e.id)).length, hid=G.ents.filter(e=>e._v74h===M.id).length; const nv=G.ents.find(e=>e.v74nv); return ['noche', vis, hid, nv&&nv.map]})()
+js (()=>{V74_SCH.lq=0; let m=null; for(let i=0;i<10&&!m;i++) m=v74LqSpawn(G.map, V74_CITY.lima); const P=G.P; return m?[m.name, m.hp, m.atk, P.S.atk, P.S.maxhp, Math.round(m.hp/(P.S.atk*dmgRedM(m.df,P.lv))), Math.round(P.S.maxhp/Math.max(1,m.atk*dmgRedP(P.S.def,P.lv)))]:'nospawn'})()
+wait 3000
+js (()=>{const m=G.ents.find(e=>e.lq); const P=G.P; return m?[Math.round(Math.hypot(m.x-P.x,m.y-P.y)), m.state, P.hp+'/'+P.S.maxhp]:'none'})()
+shot
+js (()=>{const m=G.ents.find(e=>e.lq); if(!m) return 'none'; G.P.x=m.x-14; G.P.y=m.y; G.P.dir='right'; for(let i=0;i<14;i++){ hitMob(m, G.P.S.atk*3); } return [m.hp, !!m.dying]})()
+wait 800
+js ([V74().lq, G.ents.filter(e=>e.lq&&!e.dying).length])
+js (()=>{const c=v74Facts(); return c})()
+js (()=>{const e=G.ents.find(q=>q.type==='npc'&&q.map===G.map.id&&/^pe_\d+$/.test(q.id)); openDialog(e); const o=[...document.querySelectorAll('#dopts .dopt')].map(b=>b.textContent); return o})()
+js (()=>{const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/Qué se dice/.test(b.textContent)); b.click(); return 1})()
+wait 1500
+js ($('#dmsg').textContent)
+js (closeDialog(), 1)
+js (()=>{G.time=10*60; V74().fav=null; v74FavTick(); const F=V74().fav; return F?[F.id,F.it,F.q,F.gold]:'nofav'})()
+js (()=>{const F=V74().fav; giveItem(F.it,F.q); const e=G.ents.find(q=>q.type==='npc'&&q.id===F.id); openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/Favor/.test(b.textContent)); b.click(); return [V74().fav.done, V74().favN]})()
+js (closeDialog(), window._errs)

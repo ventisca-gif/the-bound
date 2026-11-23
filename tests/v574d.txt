@@ -1,0 +1,19 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), window.hurtPlayer=()=>{}, G.P.gold=500000, G.P.partner='lia', G.P.rel={lia:{t:1000,a:1000}}, G.P.homes={casa_a3:{floor:0,f:{bed:'bigbed',table:'table',deco1:'plant',crib:'crib'}, lv:1}}, 1)
+js (()=>{ const P=G.P; P.kids=[{id:1,name:'Luna',born:calDay()-KID_STAGES[1][1]-1,app:JSON.parse(JSON.stringify(P.app)),equip:{},parent:'lia'}]; G.time=10*60; P.cal.d=(P.cal.d - P.cal.d%7) + 7 + 2; P.kids[0].born=calDay()-KID_STAGES[1][1]-1; return [kidStage(P.kids[0]), calDay()%7] })()
+js (()=>{ V74().homeT=0; v74GoHome(); return 1 })()
+wait 2500
+js ([G.map.id, v74KidPhase(), G.ents.filter(e=>e.type==='kid'&&e.map===G.map.id&&!e.remove).length, (G.P.kids[0].dia||[]).map(e=>e.t)])
+js (()=>{ G.time=15*60; v74KidRoutine(); return [v74KidPhase(), G.ents.filter(e=>e.type==='kid'&&e.map===G.map.id&&!e.remove).map(e=>[Math.round(e.x/16),Math.round(e.y/16), e.chat])] })()
+js (()=>{ const P=G.P, M=G.map; const plots=M.objs.filter(o=>o.k==='plot'); P.jobs.agricultura.lv=30; giveItem('sem_fresa',3); giveItem('sem_trigo',5); const t=Date.now()-3600e3; plots.slice(0,4).forEach(o=>P.farm[o.pid]={c:'fresa',t}); P.x=plots[0].px; P.y=plots[0].py+10; return [plots.length, seasonNow()] })()
+wait 3500
+js (()=>{ const P=G.P, M=G.map; const n0=countItem('fresa'); const o=M.objs.find(o=>o.k==='plot'); farmAction(o); const plots=M.objs.filter(o=>o.k==='plot'); return [countItem('fresa')-n0, plots.filter(o=>P.farm[o.pid]).length, countItem('sem_fresa'), countItem('sem_trigo')] })()
+js (()=>{ const P=G.P; const o=G.map.objs.find(o=>o.k==='plot'&&P.farm[o.pid]&&P.farm[o.pid].c==='fresa'); if(!o) return 'nofresa'; const F=P.farm[o.pid]; const t0=F.t; return [t0] })()
+js (()=>{ v74LifeOpen('ntf'); return document.querySelectorAll('#modal [data-v74n]').length })()
+shot
+js (closeModal(),1)
+js (()=>{ photoMode(true); return !!$('#v74tm') })()
+js ($('#v74tm').click(), 1)
+wait 3800
+js ([!!$('#photoBar'), $('#photoBar').style.visibility])
+js (photoMode(false), window._errs)
