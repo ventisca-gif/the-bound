@@ -167,8 +167,8 @@ const V74_AN = { gato: [{ b: '#e8a050', b2: '#fff0d8', ear: 'pointy', tail: 'thi
 function v74AnAtlas(k, v) { return getAtlas('V74AN' + k + v, () => { PETS.__v74 = { n: '', look: V74_AN[k][v] }; try { return genPet('__v74'); } finally { delete PETS.__v74; } }); }
 function v74AnPlace(M, C) { if (M._v74an) return; M._v74an = 1; const P = G.P, R = new RNG(v74H(M.id) * 1e6 | 0);
   const homes = G.ents.filter(e => e.type === 'npc' && (e.map === M.id || e._v74h === M.id) && C.re.test(e.id)).map(e => ({ x: e.home.x, y: e.home.y, L: e.L || 0 })); if (!homes.length) return;
-  const put = (k, n) => { for (let i = 0; i < n; i++) { const h = homes[R.int(0, homes.length - 1)], v = R.int(0, V74_AN[k].length - 1), x = h.x + R.int(-20, 20), y = h.y + R.int(-14, 14); if (blockedFor(M, Math.floor(x / 16), Math.floor(y / 16), h.L)) continue;
-    V74_ANS.push({ type: 'san', ak: k, v, atlas: v74AnAtlas(k, v), x, y, L: h.L, map: M.id, dir: 'down', anim: 'idle', af: 0, at: 0, shR: k === 'paloma' ? 3 : 4, home: { x, y }, st: R.f() * 3, z: 0, hw: 3, hh: 2, scale: k === 'paloma' ? 0.6 : 0.78 }); } };
+  let ai = 0; const put = (k, n) => { for (let i = 0; i < n; i++) { const akey = M.id + '#' + (ai++); const h = homes[R.int(0, homes.length - 1)], v = R.int(0, V74_AN[k].length - 1), x = h.x + R.int(-20, 20), y = h.y + R.int(-14, 14); if (blockedFor(M, Math.floor(x / 16), Math.floor(y / 16), h.L)) continue;
+    V74_ANS.push({ type: 'san', ak: k, akey, v, atlas: v74AnAtlas(k, v), x, y, L: h.L, map: M.id, dir: 'down', anim: 'idle', af: 0, at: 0, shR: k === 'paloma' ? 3 : 4, home: { x, y }, st: R.f() * 3, z: 0, hw: 3, hh: 2, scale: k === 'paloma' ? 0.6 : 0.78 }); } };
   put('gato', 8); put('perro', 7); put('paloma', 14); for (const e of V74_ANS) if (e.map === M.id && !G.ents.includes(e)) G.ents.push(e);
   if (M.id === 'cusco' && NPCS.cz_llamita) for (let i = 0; i < 4; i++) { const a = G.ents.find(e => e.type === 'npc' && e.id === 'cz_1'); if (a) spawnNPC('cz_llamita', a.home.x + R.int(-40, 40), a.home.y + R.int(-20, 20), M.id, { wander: 3, noTag: 1 }); } }
 const V74_ANS = [];
@@ -195,7 +195,7 @@ V74_X.push(() => { const P = G.P, M = G.map; if (!M._v74an) return null; let b =
     if (fish) { takeItem(fish.id, 1); b.fol = G.t + 45; toast('🐟 ' + L2('Le diste ', 'You gave it ') + gName(fish.id) + L2(': el gato te sigue un rato.', ': the cat follows you for a while.'), 'info'); }
     else if (b.ak === 'perro') { b.fol = G.t + 30; b.folT = 0; }
     if (!b.petD || b.petD !== calDay()) { b.petD = calDay(); S.pets++; markDirty(); if (S.pets === 5 || S.pets === 25 || S.pets === 100) toast('🐾 ' + L2('¡Has hecho ' + S.pets + ' amigos peludos en la calle!', 'You have made ' + S.pets + ' furry friends on the street!'), 'quest'); }
-    sfx('ui'); } }; });
+    if (typeof v75PetHook === 'function') v75PetHook(b); sfx('ui'); } }; });
 
 // =====================================================================================
 // 5) HUERTO POR ESTACIONES
