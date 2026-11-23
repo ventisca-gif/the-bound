@@ -1,28 +1,28 @@
 {
- "build": 198,
- "ver": "5.77",
+ "build": 199,
+ "ver": "5.78",
  "date": "2026-11-23",
  "file": "thebound.html",
- "size": 27694796,
- "sha256": "0922b3ce6314981006b69f66c67a340625684d31a796313e391313b3536f3b96",
+ "size": 27826952,
+ "sha256": "058aea2a3eede1d5d5c6e5ad0a437508b5638b4941d2af75ada7501b70cebe77",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "▦ Atajos por páginas: los botones se acomodan en páginas con ◀ ▶ (o deslizando a los lados) y ya no se salen de la pantalla.",
-   "🚕 Taxi por app (▦ Atajos, solo dentro de una ciudad): eliges una zona, el taxi te recoge y te deja allí.",
-   "🎤 Conciertos en la plaza algunas noches (⚔ para bailar). 🚚 Vecinos nuevos que se mudan cada semana. 🪧 Huelgas de combis.",
-   "🗿 Con 25 de reputación el alcalde te nombra Vecino Ilustre: título y estatua de bronce en la plaza.",
-   "🔍 Un misterio en cada ciudad: pistas, testigo y sospechosos (marco «Detective»). 👻 Leyendas urbanas de madrugada: la Llorona, la Santa Compaña, el duende de Chan Chan…",
-   "📷 Álbum de fauna con el modo foto. 🍽 Tu fonda a la hora del almuerzo: sirve tus platos a los vecinos. 🐾 Michi y Firulais aprenden trucos (traer cosas y buscar tesoros)."
+   "🧶 Las Tierras del Vínculo crecen: al sur de Sahrim y Yarakai (y al este de Nhar) hay una región nueva, las Tierras Tejidas, con un bioma nuevo de algodón rosado, ovillos gigantes, carretes y ciénagas de tinte. Se llega por los andenes de las estaciones Sahrim y Yarakai.",
+   "⬆ El nivel máximo sube a 600. Cuatro zonas: Pradera de Algodón, Bosque de Ovillos, Ciénaga de Tinte e Hilandería Rota (nivel 500 a 600).",
+   "👾 15 criaturas nuevas, cada una con su mecánica (se deshacen en ovillitos, se recosen, lanzan telarañas, aparecen a tu espalda, curan a las demás, te arrastran…) y 4 jefes: la Reina Polilla, el Nudo Ciego, la Rueca Desbocada y la Hilandera Muda.",
+   "🏕 Campamento de las Hebras con 6 NPCs: Ovidia, Maese Hilario (forja), Cora, Fray Lino, Pip y Brígida. Piedra de viaje nueva.",
+   "⛏ Minerales nuevos (Hebrita, Tintolita, Plata de Huso y Sedalita), cuatro maderas nuevas y picos, hachas y cañas 14 a 17.",
+   "🛡 7 tiers de equipo de nivel 505 a 600: armaduras con un diseño distinto para cada clase (49 aspectos) y 49 armas nuevas. Todo en la Lupa › Sistemas."
   ],
   "en": [
-   "▦ Shortcuts in pages: buttons are arranged in pages with ◀ ▶ (or swipe sideways) and no longer go off screen.",
-   "🚕 Taxi app (▦ Shortcuts, only inside a city): pick an area, the taxi picks you up and drops you there.",
-   "🎤 Concerts in the square some nights (⚔ to dance). 🚚 New neighbours moving in every week. 🪧 Combi strikes.",
-   "🗿 With 25 reputation the mayor names you Distinguished Neighbour: title and a bronze statue in the square.",
-   "🔍 A mystery in each city: clues, a witness and suspects («Detective» frame). 👻 Late-night urban legends: La Llorona, the Holy Company, the goblin of Chan Chan…",
-   "📷 Wildlife album with photo mode. 🍽 Your eatery at lunch time: serve your dishes to the neighbours. 🐾 Kitty and Firulais learn tricks (fetching and digging for treasure)."
+   "🧶 The Lands of the Bound grow: south of Sahrim and Yarakai (and east of Nhar) there is a new region, the Woven Lands, with a new biome of pink cotton, giant yarnballs, spools and dye marshes. Reach it from the Sahrim and Yarakai station platforms.",
+   "⬆ The level cap rises to 600. Four zones: Cotton Meadow, Yarnball Wood, Dye Marsh and Broken Spinning Mill (level 500 to 600).",
+   "👾 15 new creatures, each with its own mechanic (they unravel into small yarnballs, sew themselves back up, shoot webs, appear behind you, heal the others, drag you…) and 4 bosses: the Moth Queen, the Blind Knot, the Runaway Spinning Wheel and the Mute Spinner.",
+   "🏕 Thread Camp with 6 NPCs: Ovidia, Master Hilario (forge), Cora, Brother Lino, Pip and Brígida. New waystone.",
+   "⛏ New ores (Threadite, Dyestone, Spindle Silver and Silkstone), four new woods and pickaxes, axes and rods 14 to 17.",
+   "🛡 7 tiers of level 505-600 gear: armour with a different design for each class (49 looks) and 49 new weapons. All in the Magnifier › Systems."
   ]
  }
 }
