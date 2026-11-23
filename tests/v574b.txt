@@ -1,0 +1,24 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{const P=G.P; P.lv=120; calcStats(P); P.hp=P.S.maxhp; G.time=23*60; const M=makeLima(); P.inside='lima'; setMap(M, 330*16, 160*16, 'down'); return M.id})()
+wait 1500
+js (()=>{const nv=G.ents.find(e=>e.v74nv); G.P.x=nv.x; G.P.y=nv.y+30; let m=null; for(let i=0;i<20&&!m;i++) m=v74LqSpawn(G.map, V74_CITY.lima); if(m){m.x=G.P.x+50; m.y=G.P.y; m.state='idle';} const a=G.ents.filter(e=>e.type==='san'&&e.map===G.map.id&&e.ak!=='paloma').slice(0,3); a.forEach((e,i)=>{e.x=G.P.x-60+i*20; e.y=G.P.y+30; e.home={x:e.x,y:e.y}}); return [nv.id, !!m]})()
+wait 700
+shot
+js (()=>{G.time=10*60; V74_SCH.t=0; const a=G.ents.filter(e=>e.type==='san'&&e.map===G.map.id&&e.ak==='paloma').slice(0,4); a.forEach((e,i)=>{e.x=G.P.x+40+i*12; e.y=G.P.y-30; e.home={x:e.x,y:e.y}}); return a.length})()
+wait 1500
+shot
+js (()=>{const P=G.P; const s=G.ents.find(e=>e.type==='san'&&e.map===G.map.id&&e.ak==='gato'); P.x=s.x-12; P.y=s.y; P.dir='right'; for(const e of G.ents) if(e.type==='npc'&&e.map===G.map.id&&dist2(e.x,e.y,P.x,P.y)<900){e.x+=200;} const it=interactTarget(); if(it&&it.kind==='v74x') it.fn(); return it&&it.label})()
+js ([V74().pets])
+js (()=>{openPanel&&openPanel('inv'); return 1})()
+wait 400
+js (()=>{const q=document.querySelector('#v74q'); if(!q) return 'noq'; q.value='poc'; q.oninput(); return [...document.querySelectorAll('.invL .slot')].filter(b=>b.style.display!=='none').length})()
+shot
+js (closePanel(),1)
+js (()=>{v74LifeOpen('wish'); const i=$('#v74wq'); i.value='trucha'; i.oninput(); const b=$('#v74wr [data-v74add]'); b&&b.click(); return [V74().wish, document.querySelectorAll('#modal [data-v74go]').length]})()
+shot
+js (closeModal(),1)
+js (()=>{const P=G.P; while(P.inv.length<INV_MAX) P.inv.push({id:'h_1'}); giveItem('trucha',2); giveItem('h_2',1); return [V74().bag.length, P.inv.length]})()
+js (()=>{G.P.inv.splice(0,5); v74BagTake(); return [V74().bag.length]})()
+js (()=>{G.P.inv=G.P.inv.filter(s=>s.id!=='h_1'); return [V74_SEEDS(), seasonNow()]})()
+js (window._errs)

@@ -1,0 +1,34 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1200;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), window.hurtPlayer=()=>{}, G.P.gold=500000, G.P.partner='lia', G.P.rel={lia:{t:1000,a:1000}}, G.P.homes={casa_a3:{floor:0,f:{bed:'bigbed',table:'table',deco1:'plant',crib:'crib'}, lv:1}}, 1)
+js (()=>{ const P=G.P; P.kids=[{id:1,name:'Luna',born:calDay()-12,app:JSON.parse(JSON.stringify(P.app)),equip:{},parent:'lia'},{id:2,name:'Teo',born:calDay()-12,app:JSON.parse(JSON.stringify(P.app)),equip:{},parent:'lia'}]; return P.kids.map(k=>kidStage(k)) })()
+js (()=>{ G.time=19.2*60; V74().homeT=0; v74GoHome(); return 1 })()
+wait 2500
+js (()=>{ const M=G.map; return [M.id, G.ents.filter(e=>e.type==='kid'&&e.map===M.id).map(e=>[Math.round(e.x/16),Math.round(e.y/16)]), V74().pics.length] })()
+js (()=>{ const P=G.P; P.x=16.5*16; P.y=8*16; P.dir='up'; const it=interactTarget(); return it&&it.label })()
+js (()=>{ const it=interactTarget(); it.fn(); return [V74().din===calDay(), V74().pics.length, (G.P.kids[0].dia||[]).length] })()
+wait 800
+shot
+js (()=>{ G.time=10*60; V74().homeT=0; for(const e of G.ents) if(e.type==='kid') e._v74ph=null; v74KidRoutine(); return [hourNow(), v74KidPhase(), calDay()%7, G.ents.filter(e=>e.type==='kid'&&e.map===G.map.id&&!e.remove).length] })()
+wait 300
+js (()=>{ G.time=15*60; for(const e of G.ents) if(e.type==='kid') e._v74ph=null; v74KidRoutine(); return [v74KidPhase(), G.ents.filter(e=>e.type==='kid'&&e.map===G.map.id&&!e.remove).map(e=>[Math.round(e.x/16),Math.round(e.y/16)])] })()
+js (()=>{ G.time=23*60; for(const e of G.ents) if(e.type==='kid') e._v74ph=null; v74KidRoutine(); return [v74KidPhase(), G.ents.filter(e=>e.type==='kid'&&e.map===G.map.id&&!e.remove).map(e=>[Math.round(e.x/16),Math.round(e.y/16),e._sleep])] })()
+wait 600
+js (()=>{ const P=G.P; P.x=22*16; P.y=4.6*16+6; P.dir='up'; const it=interactTarget(); return it&&it.label })()
+shot
+js (()=>{ v74PicsOpen(); return document.querySelectorAll('#modal img').length })()
+shot
+js (closeModal(), 1)
+js (()=>{ const e=G.ents.find(e=>e.type==='kid'&&e.map===G.map.id); openKid(e); const b=$('#v74kd'); b&&b.click(); return [!!b, document.querySelectorAll('#modal .gsrc').length] })()
+shot
+js (closeModal(), 1)
+js (()=>{ G.time=12*60; const d=G.world.doors.find(d=>d.to==='casa_a3'); exitInterior(); return 1 })()
+wait 1500
+js (()=>{ V74().homeT=0; v74GoHome(); return 1 })()
+wait 2000
+js ([G.map.id, V74().homeT>0])
+js (()=>{ V74().homeT=0; exitInterior(); return 1 })()
+wait 1500
+js (()=>{ v74GoHome(); return 1 })()
+wait 1500
+js ([G.map.id])
+js (window._errs)
