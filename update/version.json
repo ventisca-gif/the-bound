@@ -1,22 +1,26 @@
 {
- "build": 203,
- "ver": "5.82",
+ "build": 204,
+ "ver": "5.83",
  "date": "2026-11-23",
  "file": "thebound.html",
- "size": 29205602,
- "sha256": "81e2ba488437db35db6c20a00c07af32b1df07967d819d26aacbf110e67d57ff",
+ "size": 29233327,
+ "sha256": "32e4c36d29c442f8ef5e7e14959832c4e5d821d4f05d7d5c93f0871924d2738d",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🍇 La Fruta del Diablo ya se puede conseguir: la suelta la Hilandera Muda (nivel 600, Tierras Tejidas) con un 10 %. No se come: llévala en la mochila.",
-   "⛵ Con la fruta puedes desembarcar en Foosha (muelle del puerto) y en Shells Town desde tu bote del Mar de Dawn. Little Garden aún no tiene desembarco.",
-   "♨ Así ya se llega a Shanks y a Engranaje 2: duelo en Foosha y luego el ritual."
+   "🍇 La Fruta del Diablo de Goma (Hilandera Muda: 5 %, segura a los 20 intentos) sigue abriendo las islas de Dawn y ahora se puede comer: cuerpo de goma con 5 técnicas animadas en Habilidades › Fruta (Pistola, Ametralladora, Hacha, Bazuca y Globo) y tus golpes cuerpo a cuerpo estiran el brazo con el arma.",
+   "🍐 Fruta Transparente: aparece a veces en las islas de Dawn con aviso y flecha. Comida: invisibilidad 6 s, los enemigos no te ven.",
+   "⚠ Con una fruta no puedes nadar (pierdes vida en el Fondo Marino y en Nerea). Solo puedes tener una: si te comes otra, mueres. Shanks te la puede quitar.",
+   "🎁 Todos los jefes enseñan encima de su barra de vida lo que sueltan y con qué probabilidad.",
+   "🔍 Lupa › Sistemas: Progresión crossover (Dawn, frutas y Engranaje 2)."
   ],
   "en": [
-   "🍇 The Devil Fruit can now be obtained: the Mute Spinner (level 600, Woven Lands) drops it with a 10% chance. It is not eaten: carry it in your bag.",
-   "⛵ With the fruit you can land at Foosha (harbour pier) and Shells Town from your Dawn Sea boat. Little Garden has no landing yet.",
-   "♨ This opens the way to Shanks and Gear 2: a duel in Foosha and then the ritual."
+   "🍇 The Rubber Devil Fruit (Mute Spinner: 5%, guaranteed by the 20th try) still opens the Dawn islands and can now be eaten: a rubber body with 5 animated techniques in Skills › Fruit (Pistol, Gatling, Axe, Bazooka and Balloon), and your melee hits stretch your arm with the weapon.",
+   "🍐 Clear Fruit: it sometimes appears on the Dawn islands with a warning and an arrow. Eaten: 6 s invisibility, enemies cannot see you.",
+   "⚠ With a fruit you cannot swim (you lose HP on the Seabed and in Nerea). You can only have one: eat another and you die. Shanks can remove it.",
+   "🎁 Every boss shows above its health bar what it drops and how likely it is.",
+   "🔍 Magnifier › Systems: Crossover progression (Dawn, fruits and Gear 2)."
   ]
  }
 }
