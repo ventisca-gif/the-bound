@@ -1,26 +1,20 @@
 {
- "build": 204,
- "ver": "5.83",
+ "build": 205,
+ "ver": "5.84",
  "date": "2026-11-23",
  "file": "thebound.html",
- "size": 29233327,
- "sha256": "32e4c36d29c442f8ef5e7e14959832c4e5d821d4f05d7d5c93f0871924d2738d",
+ "size": 29243291,
+ "sha256": "9b2a93c80f6767a6a0648ac9a5ce6187e2ea6c2eef8db823a19343c59221cda6",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🍇 La Fruta del Diablo de Goma (Hilandera Muda: 5 %, segura a los 20 intentos) sigue abriendo las islas de Dawn y ahora se puede comer: cuerpo de goma con 5 técnicas animadas en Habilidades › Fruta (Pistola, Ametralladora, Hacha, Bazuca y Globo) y tus golpes cuerpo a cuerpo estiran el brazo con el arma.",
-   "🍐 Fruta Transparente: aparece a veces en las islas de Dawn con aviso y flecha. Comida: invisibilidad 6 s, los enemigos no te ven.",
-   "⚠ Con una fruta no puedes nadar (pierdes vida en el Fondo Marino y en Nerea). Solo puedes tener una: si te comes otra, mueres. Shanks te la puede quitar.",
-   "🎁 Todos los jefes enseñan encima de su barra de vida lo que sueltan y con qué probabilidad.",
-   "🔍 Lupa › Sistemas: Progresión crossover (Dawn, frutas y Engranaje 2)."
+   "👒 Conjunto de Pirata de Paja (tier 44, nivel 600, cualquier clase): sombrero de paja, chaleco rojo abierto sin mangas, faja amarilla, pantalón corto azul y sandalias. Un 5 % más fuerte que la Aurora Divina.",
+   "⚔ Es el premio del duelo con Shanks en Foosha: 10 % por victoria y seguro a las 15. Después del primer duelo puedes pedirle la revancha. La barra de Shanks enseña cuántas victorias faltan."
   ],
   "en": [
-   "🍇 The Rubber Devil Fruit (Mute Spinner: 5%, guaranteed by the 20th try) still opens the Dawn islands and can now be eaten: a rubber body with 5 animated techniques in Skills › Fruit (Pistol, Gatling, Axe, Bazooka and Balloon), and your melee hits stretch your arm with the weapon.",
-   "🍐 Clear Fruit: it sometimes appears on the Dawn islands with a warning and an arrow. Eaten: 6 s invisibility, enemies cannot see you.",
-   "⚠ With a fruit you cannot swim (you lose HP on the Seabed and in Nerea). You can only have one: eat another and you die. Shanks can remove it.",
-   "🎁 Every boss shows above its health bar what it drops and how likely it is.",
-   "🔍 Magnifier › Systems: Crossover progression (Dawn, fruits and Gear 2)."
+   "👒 Straw Pirate set (tier 44, level 600, any class): straw hat, open sleeveless red vest, yellow sash, blue shorts and sandals. 5% stronger than the Divine Aurora.",
+   "⚔ It is the reward for the duel with Shanks in Foosha: 10% per win and guaranteed by the 15th. After the first duel you can ask him for a rematch. Shanks's bar shows how many wins are left."
   ]
  }
 }
