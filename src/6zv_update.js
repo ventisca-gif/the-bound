@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.77', GAME_BUILD = 198;
+const GAME_VER = '5.78', GAME_BUILD = 199;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,27 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.78",
+ "b": 199,
+ "d": "2026-11-23",
+ "es": [
+  "🧶 Las Tierras del Vínculo crecen: al sur de Sahrim y Yarakai (y al este de Nhar) hay una región nueva, las Tierras Tejidas, con un bioma nuevo de algodón rosado, ovillos gigantes, carretes y ciénagas de tinte. Se llega por los andenes de las estaciones Sahrim y Yarakai.",
+  "⬆ El nivel máximo sube a 600. Cuatro zonas: Pradera de Algodón, Bosque de Ovillos, Ciénaga de Tinte e Hilandería Rota (nivel 500 a 600).",
+  "👾 15 criaturas nuevas, cada una con su mecánica (se deshacen en ovillitos, se recosen, lanzan telarañas, aparecen a tu espalda, curan a las demás, te arrastran…) y 4 jefes: la Reina Polilla, el Nudo Ciego, la Rueca Desbocada y la Hilandera Muda.",
+  "🏕 Campamento de las Hebras con 6 NPCs: Ovidia, Maese Hilario (forja), Cora, Fray Lino, Pip y Brígida. Piedra de viaje nueva.",
+  "⛏ Minerales nuevos (Hebrita, Tintolita, Plata de Huso y Sedalita), cuatro maderas nuevas y picos, hachas y cañas 14 a 17.",
+  "🛡 7 tiers de equipo de nivel 505 a 600: armaduras con un diseño distinto para cada clase (49 aspectos) y 49 armas nuevas. Todo en la Lupa › Sistemas."
+ ],
+ "en": [
+  "🧶 The Lands of the Bound grow: south of Sahrim and Yarakai (and east of Nhar) there is a new region, the Woven Lands, with a new biome of pink cotton, giant yarnballs, spools and dye marshes. Reach it from the Sahrim and Yarakai station platforms.",
+  "⬆ The level cap rises to 600. Four zones: Cotton Meadow, Yarnball Wood, Dye Marsh and Broken Spinning Mill (level 500 to 600).",
+  "👾 15 new creatures, each with its own mechanic (they unravel into small yarnballs, sew themselves back up, shoot webs, appear behind you, heal the others, drag you…) and 4 bosses: the Moth Queen, the Blind Knot, the Runaway Spinning Wheel and the Mute Spinner.",
+  "🏕 Thread Camp with 6 NPCs: Ovidia, Master Hilario (forge), Cora, Brother Lino, Pip and Brígida. New waystone.",
+  "⛏ New ores (Threadite, Dyestone, Spindle Silver and Silkstone), four new woods and pickaxes, axes and rods 14 to 17.",
+  "🛡 7 tiers of level 505-600 gear: armour with a different design for each class (49 looks) and 49 new weapons. All in the Magnifier › Systems."
+ ]
+},
 {
  "v": "5.77",
  "b": 198,

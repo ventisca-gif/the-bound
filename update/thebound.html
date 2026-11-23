@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.77 · Misterios y leyendas</div>
+  <div class="tfoot">v5.78 · Las Tierras Tejidas</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -747,7 +747,7 @@ function genWorld() {
     if (y > 190) { reg[i] = RI.volcan; continue; }
     const wx = x + (fbm(x / 26, y / 26, 21, 3) - 0.5) * 56 + (fbm(x / 6, y / 6, 23, 2) - 0.5) * 18, wy = y + (fbm(x / 26, y / 26, 22, 3) - 0.5) * 56 + (fbm(x / 6, y / 6, 24, 2) - 0.5) * 18;
     let best = 0, bd = 1e9;
-    const far = x > 252; for (let r = 0; r < REGIONS.length; r++) { const R = REGIONS[r]; if (R.k === 'mar' || R.k === 'nhar' || R.k === 'volcan' || !!R.isle !== far) continue; const d = dist2(wx, wy, R.c[0], R.c[1]) * (R.k === 'valle' ? 0.8 : 1); if (d < bd) { bd = d; best = r; } }
+    const far = x > 252; for (let r = 0; r < REGIONS.length; r++) { const R = REGIONS[r]; if (R.k === 'mar' || R.k === 'nhar' || R.k === 'volcan' || R.noGen || !!R.isle !== far) continue; const d = dist2(wx, wy, R.c[0], R.c[1]) * (R.k === 'valle' ? 0.8 : 1); if (d < bd) { bd = d; best = r; } }
     reg[i] = best;
   }
   // elevation
@@ -3081,7 +3081,7 @@ Object.assign(HLOOKS, {
 });
 
 // ================= GAME DATA =================
-const MAXLV = 500;   // v4.18: Velo Roto → 350; v4.70: Las Tierras sin Pintar → 400; v5.15: arenas, yokais y desierto mexicano → 500
+const MAXLV = 600;   // v4.18: Velo Roto → 350; v4.70: Las Tierras sin Pintar → 400; v5.15: arenas, yokais y desierto mexicano → 500; v5.78: Tierras Tejidas → 600
 const xpToNext = L => Math.floor(40 * Math.pow(L, 1.5) + 60);
 const jobXpToNext = L => Math.floor(26 * Math.pow(L, 1.45) + 24);
 const JOBS = {
@@ -11825,7 +11825,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.77', GAME_BUILD = 198;
+const GAME_VER = '5.78', GAME_BUILD = 199;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11833,6 +11833,27 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.78",
+ "b": 199,
+ "d": "2026-11-23",
+ "es": [
+  "🧶 Las Tierras del Vínculo crecen: al sur de Sahrim y Yarakai (y al este de Nhar) hay una región nueva, las Tierras Tejidas, con un bioma nuevo de algodón rosado, ovillos gigantes, carretes y ciénagas de tinte. Se llega por los andenes de las estaciones Sahrim y Yarakai.",
+  "⬆ El nivel máximo sube a 600. Cuatro zonas: Pradera de Algodón, Bosque de Ovillos, Ciénaga de Tinte e Hilandería Rota (nivel 500 a 600).",
+  "👾 15 criaturas nuevas, cada una con su mecánica (se deshacen en ovillitos, se recosen, lanzan telarañas, aparecen a tu espalda, curan a las demás, te arrastran…) y 4 jefes: la Reina Polilla, el Nudo Ciego, la Rueca Desbocada y la Hilandera Muda.",
+  "🏕 Campamento de las Hebras con 6 NPCs: Ovidia, Maese Hilario (forja), Cora, Fray Lino, Pip y Brígida. Piedra de viaje nueva.",
+  "⛏ Minerales nuevos (Hebrita, Tintolita, Plata de Huso y Sedalita), cuatro maderas nuevas y picos, hachas y cañas 14 a 17.",
+  "🛡 7 tiers de equipo de nivel 505 a 600: armaduras con un diseño distinto para cada clase (49 aspectos) y 49 armas nuevas. Todo en la Lupa › Sistemas."
+ ],
+ "en": [
+  "🧶 The Lands of the Bound grow: south of Sahrim and Yarakai (and east of Nhar) there is a new region, the Woven Lands, with a new biome of pink cotton, giant yarnballs, spools and dye marshes. Reach it from the Sahrim and Yarakai station platforms.",
+  "⬆ The level cap rises to 600. Four zones: Cotton Meadow, Yarnball Wood, Dye Marsh and Broken Spinning Mill (level 500 to 600).",
+  "👾 15 new creatures, each with its own mechanic (they unravel into small yarnballs, sew themselves back up, shoot webs, appear behind you, heal the others, drag you…) and 4 bosses: the Moth Queen, the Blind Knot, the Runaway Spinning Wheel and the Mute Spinner.",
+  "🏕 Thread Camp with 6 NPCs: Ovidia, Master Hilario (forge), Cora, Brother Lino, Pip and Brígida. New waystone.",
+  "⛏ New ores (Threadite, Dyestone, Spindle Silver and Silkstone), four new woods and pickaxes, axes and rods 14 to 17.",
+  "🛡 7 tiers of level 505-600 gear: armour with a different design for each class (49 looks) and 49 new weapons. All in the Magnifier › Systems."
+ ]
+},
 {
  "v": "5.77",
  "b": 198,
@@ -15765,7 +15786,7 @@ function bufandinAtlas() {
 // - Multiplicador de daño PvP por clase (PVP_CLS) calculado con tools/dev/pvp.py --solve para que, a nivel máximo,
 //   todas las clases puedan hacerse frente.
 const PVP_HEAL = 0.4, PVP_WINDOW = 8, PVP_HEALC = { bardo: 0.12 };   // el Bardo cura muchísimo: en PvP sus curas cuentan menos que las del resto
-const PVP_CLS = { guerrero: 0.63, mago: 1.0, arquero: 1.33, asesino: 1.64, bardo: 0.55, invocador: 1.75, pez: 0.75 };   // tools/dev/pvp.py --solve (v5.20, nivel 500 con las armaduras 31-36)
+const PVP_CLS = { guerrero: 0.61, mago: 1.01, arquero: 1.15, asesino: 1.67, bardo: 0.6, invocador: 1.89, pez: 0.75 };   // tools/dev/pvp.py --solve (v5.78, nivel 600 con el equipo 37-43)
 function pvpActive() { const P = G.P; return !!(P && P.pvpT && G.t - P.pvpT < PVP_WINDOW); }
 { const _ph = pvpHit; pvpHit = function (r, dmg) { const P = G.P; if (P) P.pvpT = G.t; return _ph(r, dmg * (PVP_CLS[P && P.cls] || 1)); }; }
 { const _hp = hurtPlayer; hurtPlayer = function (base, src) { if (src && src.pvp && G.P) G.P.pvpT = G.t; return _hp(base, src); }; }
@@ -44943,6 +44964,772 @@ LUPA_CIU.push(
   ['leyendas', '👻 ' + L2('Leyendas urbanas', 'Urban legends'), () => [L2('Algunas madrugadas (1:00-4:00) aparece una leyenda: la Llorona (México), la dama del puente (Lima), el silbido del Tunche (Lima Norte), el duende de Chan Chan (Trujillo), el condenado de los Andes (Cusco) y la Santa Compaña (España). Ayúdala a encontrar lo que perdió antes del amanecer: oro y una página en tu diario.', 'Some nights (1:00-4:00) a legend appears: La Llorona (Mexico), the lady of the bridge (Lima), the Tunche\'s whistle (North Lima), the goblin of Chan Chan (Trujillo), the damned one of the Andes (Cusco) and the Holy Company (Spain). Help it find what it lost before dawn: gold and a page in your diary.')].concat(Object.keys(V77_LEG).map(mid => '· ' + V77_LEG[mid][1] + ': ' + (G.P && G.P.v74 && G.P.v74.leg && G.P.v74.leg[V77_LEG[mid][0]] === 2 ? '✓' : '—'))), () => null],
   ['trucos', '🐾 ' + L2('Trucos de tu mascota adoptada', 'Your adopted pet\'s tricks'), () => [L2('Michi o Firulais aprenden mientras te acompañan: 30 min → se sienta y saluda; 90 min → te trae cosas (pescado o comida, cada 8 min); 180 min → busca tesoros (oro y a veces una moneda antigua, cada 15 min).', 'Kitty or Firulais learn while they are with you: 30 min → sits and greets; 90 min → fetches things (fish or food, every 8 min); 180 min → digs for treasure (gold and sometimes an ancient coin, every 15 min).')].concat(['v75_michi', 'v75_firulais'].map(k => '· ' + PETS[k].n + ': ' + Math.floor(((G.P && G.P.v74 && G.P.v74.pt && G.P.v74.pt[k]) || 0) / 60) + ' min')), () => null]);
 if (typeof GSIS !== 'undefined') GSIS.unshift(['v77_ciudad', '🚕 ' + L2('Taxi, conciertos, misterios y leyendas (5.77)', 'Taxi, concerts, mysteries and legends (5.77)'), () => [L2('Todo está explicado en la Lupa › 🏙 Ciudades y vida.', 'Everything is explained in the Magnifier › 🏙 Cities & life.')], () => null]);
+
+// ================= v5.78: LAS TIERRAS TEJIDAS (nivel 500-600) =================
+// Sergio (5.78): las Tierras del Vínculo crecen. Al sur del continente del este (bajo Sahrim y Yarakai, al este de Nhar)
+// el mar se vuelve una región nueva con un bioma que no existía: campos de algodón rosado, ovillos gigantes, carretes,
+// ciénagas de tinte y las ruinas de una hilandería. 15 criaturas con mecánicas propias, 4 jefes, 6 NPCs, minerales y
+// maderas nuevas (Hebrita, Tintolita, Plata de Huso y Sedalita) y el nivel máximo sube a 600.
+// Lore (LORE.md §32): cuando el Gran Telar se soltó, algunos hilos cayeron al mar del sur y se tejieron solos hasta
+// hacerse tierra; la Ventisca los pintó. Lo que se teje sin Tejedor a veces sale mal: los nudos ciegos se llenan de los
+// sueños de Nihil (regla 25) y de ahí salen las criaturas y la Hilandera Muda, que quiere deshilarlo todo.
+// Se añade al final de buildWorld (envoltura de makeCamps), así no cambia ni un árbol ni una roca del resto del mundo.
+
+// ---------- región ----------
+REGIONS.push({ k: 'tejidas', n: L2('Tierras Tejidas', 'Woven Lands'), lv: [500, 600], c: [306, 211], music: 'wild', noGen: 1 });
+RI.tejidas = REGIONS.length - 1;
+GRASSP.tejidas = ['#4a2a40', '#6a3a5a', '#8a5276', '#aa7096', '#cc98b6'];
+const TJZ = { x0: 240, x1: 371, y0: 192, y1: 229,
+  zones: [{ k: 'pradera', n: L2('Pradera de Algodón', 'Cotton Meadow'), x0: 240, x1: 283, lv: [500, 528] }, { k: 'ovillos', n: L2('Bosque de Ovillos', 'Yarnball Wood'), x0: 283, x1: 318, lv: [520, 552] },
+    { k: 'cienaga', n: L2('Ciénaga de Tinte', 'Dye Marsh'), x0: 318, x1: 346, lv: [545, 578] }, { k: 'hilanderia', n: L2('Hilandería Rota', 'Broken Spinning Mill'), x0: 346, x1: 372, lv: [572, 600] }],
+  camp: { x0: 290, x1: 307, y0: 195, y1: 203 }, ws: [304, 199] };
+WAYSTONES.push({ k: 'tejidas', n: L2('Campamento de las Hebras', 'Thread Camp'), x: TJZ.ws[0], y: TJZ.ws[1] });
+const tjZoneAt = x => TJZ.zones.find(z => x >= z.x0 && x < z.x1) || TJZ.zones[TJZ.zones.length - 1];
+function tjLand(x, y) { if (x < TJZ.x0 - 2 || x > TJZ.x1 + 2 || y < TJZ.y0 - 2 || y > TJZ.y1 + 2) return false;
+  const n = k => fbm(x / 9, y / 9, 900 + k, 3) - 0.5;
+  const m = k => fbm(x / 4, y / 4, 950 + k, 2) - 0.5;
+  if (y < TJZ.y0 + 1 + n(1) * 9 + m(1) * 3 || y > TJZ.y1 - 2 + n(2) * 5 + m(2) * 2 || x < TJZ.x0 + 3 + n(3) * 10 + m(3) * 3 || x > TJZ.x1 - 2 + n(4) * 5) return false;
+  return Math.hypot(x - 229, y - 171) > 27 + n(5) * 4; }
+
+// ---------- minerales, maderas y herramientas (tiers de recurso 19-22) ----------
+const TJ_RES = [
+  [19, ['Hebrita', 'Threadite Ore'], ['#7a2a5a', '#e070b0', '#ffd8f0'], ['Tronco de Árbol de Algodón', 'Cotton Tree Log'], 'arbolalgodon', ['#4a3a40', '#7a6a70', '#b8a8b0', '#e0d4da', '#f4ecf0', '#ffffff'], 500, 116],
+  [20, ['Tintolita', 'Dyestone Ore'], ['#1a3a8a', '#3a8ae0', '#ffe060'], ['Tronco de Sauce Hilandero', 'Spinner Willow Log'], 'saucehilo', ['#2a1438', '#4a2260', '#6a3488', '#8a4ab0', '#b070d0', '#d8a8f0'], 530, 122],
+  [21, ['Plata de Huso', 'Spindle Silver'], ['#5a6070', '#c8d0e0', '#ffffff'], ['Tronco de Roble de Ovillos', 'Yarnball Oak Log'], 'robleovillo', ['#3a0a1a', '#5a1428', '#8a2038', '#b03a50', '#d06070', '#f098a0'], 560, 128],
+  [22, ['Sedalita', 'Silkstone Ore'], ['#6a5a2a', '#f0d890', '#fffaf0'], ['Tronco de Ceiba de Seda', 'Silk Ceiba Log'], 'ceibaseda', ['#1a3a3a', '#24584e', '#3a7a6a', '#5aa08a', '#8ac8b0', '#c8f0e0'], 585, 134]];
+for (const [t, on, oc, ln, sp, leaf, , jl] of TJ_RES) {
+  ORE[t] = oc; OREN[t] = on[0]; LOGN[t] = ln[0].replace(/^Tronco (de |del )/, ''); WOODT[sp] = t; LEAF[sp] = pal(leaf); RESLV[t] = jl;
+  it('ore' + t, { n: L2(on[0], on[1]), t: 'mat', stack: true, tier: t, price: 6 * t * t, icon: ['ore', t], rar: 5, d: L2('Mineral de las Tierras Tejidas. Sirve para forjar el equipo de nivel 505 a 600 con Maese Hilario.', 'Ore from the Woven Lands. Used to forge level 505-600 gear with Master Hilario.') });
+  it('log' + t, { n: L2(ln[0], ln[1]), t: 'mat', stack: true, tier: t, price: 5 * t * t, icon: ['log', t], rar: 5, d: L2('Madera de las Tierras Tejidas.', 'Wood from the Woven Lands.') }); }
+// el pico de potencia p abre el mineral p+5: picos 14-17 para Hebrita, Tintolita, Plata de Huso y Sedalita
+[[14, 'Hebrita', 'Threadite', 500, 18], [15, 'Tintolita', 'Dyestone', 530, 19], [16, 'Plata de Huso', 'Spindle Silver', 560, 20], [17, 'Sedalita', 'Silkstone', 585, 21]].forEach(([p, es, en, lv, om], i) => {
+  const de = /^[AEIOUÁÉÍÓÚ]/i.test(es) ? (LANG_EN ? "of " : 'de ') : (LANG_EN ? "of " : 'de ');
+  it('hacha' + p, { n: L2((LANG_EN ? "Axe " : 'Hacha ') + de + es, en + ' Axe'), t: 'tool', tool: 'tala', power: p, lv, price: 4000 * p * p, icon: ['axe', 22], rar: 5 });
+  it('pico' + p, { n: L2((LANG_EN ? "Pickaxe " : 'Pico ') + de + es, en + ' Pickaxe'), t: 'tool', tool: 'mineria', power: p, lv, price: 4000 * p * p, icon: ['pick', 22], rar: 5 });
+  it('cana' + (p + 1), { n: L2((LANG_EN ? "Rod " : 'Caña ') + de + es, en + ' Rod'), t: 'tool', tool: 'pesca', power: p + 1, lv, price: 4000 * p * p, icon: ['rod', 22], rar: 5 });
+  const g = 120000 * (i + 1), m = [['ore' + om, 8], ['log' + om, 6]];
+  RECIPES.push({ id: 'r_hacha' + p, job: 'herreria', out: 'hacha' + p, n: 1, lv, jlv: 75, gold: g, mats: [['ore' + om, 6], ['log' + om, 8]], cat: 'herramienta' });
+  RECIPES.push({ id: 'r_pico' + p, job: 'herreria', out: 'pico' + p, n: 1, lv, jlv: 75, gold: g, mats: m, cat: 'herramienta' });
+  RECIPES.push({ id: 'r_cana' + (p + 1), job: 'herreria', out: 'cana' + (p + 1), n: 1, lv, jlv: 75, gold: g, mats: m, cat: 'herramienta' }); });
+
+// ---------- materiales de criaturas y jefes ----------
+for (const [id, n, en, col, price, d] of [
+  ['hebra_suelta', 'Hebra Suelta', 'Loose Thread', '#f0a0d0', 9000, L2('Hilo que se soltó del Gran Telar. Lo sueltan las criaturas de las Tierras Tejidas. Cora te cambia 20 por una Hebrita.', 'A thread that came loose from the Great Loom. Dropped by Woven Lands creatures. Cora trades 20 for one Threadite.')],
+  ['tj_ala_polilla', 'Ala de la Reina Polilla', 'Moth Queen Wing', '#e8d8a0', 60000, L2('Polvo de seda que no se apaga. Lo suelta la Reina Polilla.', 'Silk dust that never fades. Dropped by the Moth Queen.')],
+  ['tj_nudo', 'Nudo Ciego', 'Blind Knot', '#a04a7a', 90000, L2('Un nudo tan apretado que nadie sabe deshacerlo. Lo suelta El Nudo Ciego.', 'A knot so tight no one knows how to undo it. Dropped by The Blind Knot.')],
+  ['tj_engranaje', 'Engranaje de la Rueca', 'Spinning Wheel Gear', '#d0a050', 130000, L2('Sigue girando en la mano. Lo suelta la Rueca Desbocada.', 'It keeps spinning in your hand. Dropped by the Runaway Spinning Wheel.')],
+  ['tj_hebra_silencio', 'Hebra del Silencio', 'Thread of Silence', '#2a2a3a', 200000, L2('Un hilo negro que no hace ruido al caer. Lo suelta la Hilandera Muda.', 'A black thread that makes no sound when it falls. Dropped by the Mute Spinner.')]])
+  it(id, { n: L2(n, en), t: 'mat', stack: true, tier: 22, price, icon: ['gem', col], rar: 5, d });
+
+// ---------- criaturas ----------
+// [id, es, en, arte cbx, ia, nivel, mecánica, explicación de la mecánica (Lupa)]
+const TJ_MOBS = [
+  ['tj_ovillo', 'Ovillo Saltarín', 'Bouncing Yarnball', 'ovillo', 'aggro', [500, 526], 'split', ['Al caer se deshace en dos ovillitos.', 'When it falls it unravels into two small yarnballs.']],
+  ['tj_polilla', 'Polilla de Seda', 'Silk Moth', 'polilla', 'ranged', [502, 528], 'dust', ['Suelta polvo de seda que te frena.', 'Drops silk dust that slows you.']],
+  ['tj_aguja', 'Aguja Viviente', 'Living Needle', 'aguja', 'charge', [505, 528], 'pierce', ['Embiste y te deja sangrando.', 'Charges and leaves you bleeding.']],
+  ['tj_muneco', 'Muñeco de Trapo', 'Rag Doll', 'muneco', 'aggro', [508, 530], 'resew', ['Se recose una vez cuando lo vences.', 'Sews itself back together once when defeated.']],
+  ['tj_arana', 'Araña Tejedora', 'Weaver Spider', 'arana', 'ranged', [520, 548], 'web', ['Lanza telarañas que te atan los pies.', 'Shoots webs that bind your feet.']],
+  ['tj_carrete', 'Carrete Rodante', 'Rolling Spool', 'carrete', 'charge', [522, 550], 'trail', ['Rueda y deja un rastro de hilo que frena.', 'Rolls and leaves a thread trail that slows.']],
+  ['tj_oveja', 'Oveja de Lana Negra', 'Black Wool Sheep', 'oveja', 'aggro', [525, 552], 'wool', ['Su lana para los tres primeros golpes.', 'Its wool stops the first three hits.']],
+  ['tj_lince', 'Lince de Tapiz', 'Tapestry Lynx', 'lince', 'charge', [528, 552], 'ambush', ['Se esconde en el tapiz: su primer zarpazo hace el doble.', 'Hides in the tapestry: its first swipe deals double.']],
+  ['tj_fantasma', 'Fantasma de Tinte', 'Dye Ghost', 'fantasma', 'ranged', [545, 575], 'puddle', ['Deja charcos de tinte que envenenan.', 'Leaves dye puddles that poison.']],
+  ['tj_rana', 'Rana de Tinte', 'Dye Frog', 'rana', 'aggro', [548, 576], 'splash', ['Al caer revienta en tinte: ¡aléjate!', 'Bursts into dye when it falls: get away!']],
+  ['tj_mantis', 'Mantis Costurera', 'Seamstress Mantis', 'mantis', 'aggro', [550, 578], 'double', ['Da dos puntadas seguidas.', 'Strikes twice in a row.']],
+  ['tj_tijera', 'Tijera Errante', 'Wandering Shears', 'tijera', 'aggro', [552, 578], 'snip', ['Corta: a veces golpea muy fuerte y te hace sangrar.', 'Snips: sometimes hits very hard and makes you bleed.']],
+  ['tj_maniqui', 'Maniquí sin Rostro', 'Faceless Mannequin', 'maniqui', 'aggro', [572, 598], 'blink', ['Aparece a tu espalda.', 'Appears behind you.']],
+  ['tj_guardian', 'Guardián de Bobina', 'Bobbin Guardian', 'guardian', 'aggro', [575, 600], 'mend', ['Cose las heridas de las criaturas cercanas.', 'Sews up the wounds of nearby creatures.']],
+  ['tj_telar', 'Telar Animado', 'Animated Loom', 'telar', 'aggro', [578, 600], 'pull', ['Tira de un hilo y te arrastra hacia él.', 'Pulls a thread and drags you towards it.']]];
+const TJ_ORE_OF = z => z === 'pradera' ? 'ore19' : z === 'ovillos' ? 'ore20' : z === 'cienaga' ? 'ore21' : 'ore22';
+for (const [id, n, en, art, ai, lv, mech, mh] of TJ_MOBS) { const zk = tjZoneAt(TJZ.zones.find(z => lv[0] >= z.lv[0] && lv[0] <= z.lv[1]).x0).k;
+  MOBS[id] = { n: L2(n, en), art: ['cbx', 'tj_' + art], reg: ['tejidas'], lv, hp: 1.6 + (lv[0] - 300) / 400, atk: 1.95 + (lv[0] - 300) / 500, def: 1.85, spd: ai === 'charge' ? 76 : ai === 'ranged' ? 52 : 58, ai, fam: 'tejida', fly: art === 'polilla' || art === 'fantasma' ? 1 : 0,
+    mech, mechD: L2(mh[0], mh[1]), zone: zk, poison: mech === 'snip' || mech === 'pierce' ? 1 : 0, drops: [['hebra_suelta', 0.35], [TJ_ORE_OF(zk), 0.05], ['pocion3', 0.04]] }; }
+// jefes (con sus movimientos propios, ver bossMove más abajo)
+Object.assign(BOSSES, {
+  tj_reina: { n: L2('La Reina Polilla', 'The Moth Queen'), lv: 540, art: ['cbx', 'tj_reina'], scale: 2.4, hp: 44, atk: 3.3, def: 3.2, spd: 46, moves: ['volley', 'rain', 'field', 'summon', 'blink', 'tj_polvo'], minion: 'tj_polilla', drops: [['tj_ala_polilla', 1, 3], ['hebra_suelta', 1, 12]], r: 40, fly: 1 },
+  tj_nudo: { n: L2('El Nudo Ciego', 'The Blind Knot'), lv: 565, art: ['cbx', 'tj_nudo'], scale: 2.6, hp: 48, atk: 3.4, def: 3.35, spd: 38, moves: ['slam', 'hop', 'roots', 'summon', 'tj_atadura'], minion: 'tj_ovillo', drops: [['tj_nudo', 1, 3], ['hebra_suelta', 1, 14]], r: 42 },
+  tj_rueca: { n: L2('La Rueca Desbocada', 'The Runaway Spinning Wheel'), lv: 585, art: ['cbx', 'tj_rueca'], scale: 2.6, hp: 50, atk: 3.5, def: 3.4, spd: 50, moves: ['charge', 'nova', 'volley', 'summon', 'tj_giro'], minion: 'tj_carrete', drops: [['tj_engranaje', 1, 3], ['hebra_suelta', 1, 16]], r: 42 },
+  tj_hilandera: { n: L2('La Hilandera Muda', 'The Mute Spinner'), lv: 600, art: ['cbx', 'tj_hilandera'], scale: 2.6, hp: 56, atk: 3.6, def: 3.5, spd: 48, moves: ['blink', 'volley', 'rain', 'summon', 'field', 'tj_deshilar', 'tj_silencio'], minion: 'tj_maniqui', drops: [['tj_hebra_silencio', 1, 2], ['tj_engranaje', 0.5, 1], ['hebra_suelta', 1, 20]], r: 44 } });
+const TJ_BOSS_AT = { tj_reina: [300, 221], tj_nudo: [331, 214], tj_rueca: [354, 203], tj_hilandera: [364, 222] };
+const TJ_BOSS_D = { tj_reina: L2('Polvo de seda en anillo (te frena), lluvia, campo, polillas y parpadeo.', 'Ring of silk dust (slows you), rain, field, moths and blink.'),
+  tj_nudo: L2('La Atadura: te arrastra hasta él y te ata los pies antes de aplastarte.', 'The Binding: drags you to it and binds your feet before crushing you.'),
+  tj_rueca: L2('El Giro: dos coronas de hilo que salen girando en todas direcciones.', 'The Spin: two crowns of thread spinning out in every direction.'),
+  tj_hilandera: L2('Deshilar (cuatro hilos que se cierran sobre ti) y Silencio (te quita maná y te frena).', 'Unravel (four threads closing in on you) and Silence (drains mana and slows you).') };
+
+// ---------- mapa: la tierra nueva, decorado, vetas, campamentos y jefes ----------
+const tjMark = (W, x, y) => { const i = W.I(x, y); W.flags[i] |= 4; };
+function tjExpand(W) { const I = W.I, ok = (x, y) => W.inb(x, y), R = new RNG(SEED + 578);
+  const clear = (x, y) => { const i = I(x, y), oi = W.objAt[i]; if (oi >= 0) { const o = W.objs[oi]; if (!o.xact && o.k !== 'bld' && o.k !== 'waystone') { o.hidden = true; for (const [dx, dy] of o.fp || [[0, 0]]) { const j = I(o.tx + dx, o.ty + dy); if (W.objAt[j] === oi) { W.objAt[j] = -1; W.solidO[j] = 0; } } } } };
+  // tierra
+  for (let y = TJZ.y0 - 3; y <= TJZ.y1 + 3; y++) for (let x = TJZ.x0 - 3; x <= TJZ.x1 + 3; x++) { if (!ok(x, y) || !tjLand(x, y)) continue; const i = I(x, y);
+    if (W.rail && W.rail[i]) continue; if (W.land[i] && W.reg[i] !== RI.mar) continue;
+    W.land[i] = 1; W.lvl[i] = 0; W.reg[i] = RI.tejidas; W.townAt[i] = -1; W.flags[i] = W.flags[i] & 64; if (W.riverMask) W.riverMask[i] = 0;
+    const z = tjZoneAt(x).k, n = fbm(x / 7, y / 7, 911, 3); let t = T.GRASS;
+    if (z === 'cienaga' && n > 0.56) t = T.MUD; else if (z === 'hilanderia' && n > 0.6) t = T.STONE; else if (z === 'ovillos' && n > 0.7) t = T.DIRT; W.ter[i] = t; }
+  // estanques de tinte
+  for (let y = TJZ.y0 + 3; y <= TJZ.y1 - 3; y++) for (let x = TJZ.x0 + 4; x <= TJZ.x1 - 4; x++) { const i = I(x, y); if (W.reg[i] !== RI.tejidas) continue; const z = tjZoneAt(x).k;
+    if (fbm(x / 11, y / 11, 933, 3) > (z === 'cienaga' ? 0.62 : 0.74) && x > TJZ.camp.x1 + 3 || fbm(x / 11, y / 11, 933, 3) > 0.74 && x < TJZ.camp.x0 - 3) { let all = true; for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) if (W.reg[I(x + dx, y + dy)] !== RI.tejidas) all = false; if (all) W.ter[i] = T.WATER; } }
+  // playa
+  for (let y = TJZ.y0 - 3; y <= TJZ.y1 + 3; y++) for (let x = TJZ.x0 - 3; x <= TJZ.x1 + 3; x++) { if (!ok(x, y)) continue; const i = I(x, y); if (W.reg[i] !== RI.tejidas || WATERY[W.ter[i]]) continue;
+    let near = false; for (let dy = -2; dy <= 2 && !near; dy++) for (let dx = -2; dx <= 2; dx++) { if (!ok(x + dx, y + dy)) continue; if (!W.land[I(x + dx, y + dy)]) { near = Math.max(Math.abs(dx), Math.abs(dy)) <= (hash2(x, y, 4) < 0.4 ? 1 : 2); break; } }
+    if (near) W.ter[i] = T.SAND; }
+  // profundidad del agua alrededor
+  { const N = W.w * W.h, q = []; for (let i = 0; i < N; i++) { if (!WATERY[W.ter[i]] && W.ter[i] !== T.LAVA) { W.wdist[i] = 0; q.push(i); } else W.wdist[i] = 255; }
+    let qi = 0; while (qi < q.length) { const c = q[qi++], cx = c % W.w, cy = (c / W.w) | 0; for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const nx = cx + dx, ny = cy + dy; if (!ok(nx, ny)) continue; const j = I(nx, ny); if (W.wdist[j] > W.wdist[c] + 1) { W.wdist[j] = W.wdist[c] + 1; q.push(j); } } }
+    for (let y = TJZ.y0 - 10; y <= TJZ.y1 + 6; y++) for (let x = TJZ.x0 - 10; x <= TJZ.x1 + 6; x++) { if (!ok(x, y)) continue; const i = I(x, y); if (W.ter[i] === T.DEEP && W.wdist[i] <= 3) W.ter[i] = T.WATER; } }
+  // puentes desde los andenes de Sahrim y Yarakai (línea central del tren) y desde Nhar
+  const cy0 = (typeof RAIL !== 'undefined' && RAIL.crossY) || 182;
+  for (const bx of [298, 345]) for (let y = cy0 + 2; y <= TJZ.y0 + 8; y++) { let reached = false; for (const x of [bx - 1, bx, bx + 1]) { if (!ok(x, y)) continue; const i = I(x, y); if (W.rail && W.rail[i]) continue; if (W.reg[i] === RI.tejidas && !WATERY[W.ter[i]]) { reached = true; continue; } if (WATERY[W.ter[i]] || W.ter[i] === T.FACE) { W.ter[i] = T.BRIDGE; W.flags[i] |= 8 | 1 | 4; } } if (reached) break; }
+  // caminos de piedra: campamento ↔ cada zona
+  const road = (x, y) => { if (!ok(x, y)) return; const i = I(x, y); if (W.reg[i] !== RI.tejidas || WATERY[W.ter[i]] || (W.rail && W.rail[i])) return; clear(x, y); W.ter[i] = T.COBBLE; W.flags[i] |= 1 | 4; };
+  const path = (ax, ay, bx, by) => { let x = ax, y = ay; for (let k = 0; k < 400 && (x !== bx || y !== by); k++) { road(x, y); road(x, y + 1); if (x !== bx && (k % 3 || y === by)) x += Math.sign(bx - x); else y += Math.sign(by - y); } };
+  path(298, TJZ.y0 + 1, 298, 199); path(345, TJZ.y0 + 2, 345, 205); path(290, 199, 248, 207); path(307, 199, 345, 205); path(345, 205, 362, 214); path(298, 203, 300, 215);
+  // campamento de las hebras (zona segura)
+  const C0 = TJZ.camp; for (let y = C0.y0; y <= C0.y1; y++) for (let x = C0.x0; x <= C0.x1; x++) { if (!ok(x, y)) continue; const i = I(x, y); if (W.reg[i] !== RI.tejidas) continue; clear(x, y); if (!WATERY[W.ter[i]]) W.ter[i] = (x + y) % 5 ? T.GRASS : T.DIRT; W.flags[i] |= 4 | 16; }
+  for (let y = C0.y0 - 4; y <= C0.y1 + 4; y++) for (let x = C0.x0 - 4; x <= C0.x1 + 4; x++) if (ok(x, y)) tjMark(W, x, y);
+  const F = (f, x, y, fp, o) => { if (!ok(x, y)) return null; for (const [dx, dy] of fp || [[0, 0]]) clear(x + dx, y + dy); return addObj(W, 'furn', x, y, Object.assign({ f, fp: fp || [[0, 0]] }, o || {})); };
+  const O = (k, x, y, o) => { for (const [dx, dy] of (o && o.fp) || [[0, 0]]) clear(x + dx, y + dy); return addObj(W, k, x, y, o || {}); };
+  O('tent', C0.x0 + 2, C0.y0 + 2, { col: '#8a3a6a', fp: [[0, 0], [1, 0]] }); O('tent', C0.x1 - 3, C0.y0 + 2, { col: '#3a5a8a', fp: [[0, 0], [1, 0]] }); O('campfire', C0.x0 + 8, C0.y0 + 4);
+  F('tj_telar_c', C0.x0 + 5, C0.y1 - 1, [[0, 0], [1, 0]]); O('anvil', C0.x1 - 5, C0.y1 - 2); F('tj_cubas', C0.x0 + 11, C0.y1 - 1, [[0, 0], [1, 0]]); F('tj_carrete', C0.x0 + 1, C0.y1 - 2);
+  for (const [id, dx, dy, wd] of [['tj_ovidia', 7, 3, 1], ['tj_hilario', C0.x1 - C0.x0 - 4, C0.y1 - C0.y0 - 3, 0], ['tj_cora', 11, C0.y1 - C0.y0 - 3, 1], ['tj_lino', 3, 5, 1], ['tj_pip', 9, 6, 3], ['tj_brigida', 14, 4, 1]])
+    W.npcDefs.push({ id, x: C0.x0 + dx, y: C0.y0 + dy, wander: wd });
+  // decorado por zona
+  const deco = { pradera: ['tj_algodon', 'tj_algodon', 'tj_ovillo', 'tj_algodon', 'tj_huso'], ovillos: ['tj_ovillo', 'tj_ovillo_g', 'tj_carrete', 'tj_algodon', 'tj_ovillo'], cienaga: ['tj_cubas', 'tj_juncos', 'tj_juncos', 'tj_ovillo', 'tj_huso'], hilanderia: ['tj_telar_r', 'tj_huso', 'tj_carrete', 'tj_columna', 'tj_ovillo'] };
+  const FP2 = { tj_ovillo_g: [[0, 0], [1, 0]], tj_telar_r: [[0, 0], [1, 0]], tj_cubas: [[0, 0], [1, 0]] };
+  const free = (x, y) => { if (!ok(x, y)) return false; const i = I(x, y); return W.reg[i] === RI.tejidas && !SOLID_T[W.ter[i]] && !WATERY[W.ter[i]] && W.objAt[i] < 0 && !(W.flags[i] & 5) && W.ter[i] !== T.BRIDGE; };
+  for (let k = 0; k < 1900; k++) { const x = R.int(TJZ.x0, TJZ.x1), y = R.int(TJZ.y0, TJZ.y1); if (!free(x, y) || !free(x, y + 1)) continue; const z = tjZoneAt(x).k, f = deco[z][k % 5], fp = FP2[f]; if (fp && !fp.every(([dx, dy]) => free(x + dx, y + dy))) continue;
+    if (k % 4 === 0) { const sp = z === 'pradera' ? 'arbolalgodon' : z === 'ovillos' ? 'robleovillo' : z === 'cienaga' ? 'saucehilo' : 'ceibaseda'; addObj(W, 'tree', x, y, { sp, v: R.int(0, 3), nv: 1 }); continue; }
+    if (k % 9 === 0 && k < 1800) { const tier = z === 'pradera' ? 19 : z === 'ovillos' ? 20 : z === 'cienaga' ? 21 : 22; addObj(W, 'ore', x, y, { tier, v: R.int(0, 3), nv: 1 }); continue; }
+    F(f, x, y, fp, { solid: f === 'tj_juncos' ? false : undefined }); }
+  W._nv = 1;
+  // jefes con su arena
+  for (const id in TJ_BOSS_AT) { const [bx, by] = TJ_BOSS_AT[id]; for (let y = by - 4; y <= by + 4; y++) for (let x = bx - 5; x <= bx + 5; x++) if (ok(x, y) && W.reg[I(x, y)] === RI.tejidas) { clear(x, y); const i = I(x, y); if (WATERY[W.ter[i]]) W.ter[i] = T.GRASS; W.flags[i] |= 16; }
+    for (let k = 0; k < 6; k++) { const a = k / 6 * 6.283, x = Math.round(bx + Math.cos(a) * 6), y = Math.round(by + Math.sin(a) * 5); if (free(x, y)) F(id === 'tj_hilandera' ? 'tj_columna' : id === 'tj_rueca' ? 'tj_huso' : 'tj_ovillo', x, y); }
+    W.bosses.push({ id, x: bx, y: by }); }
+  // campamentos de criaturas
+  const byZone = {}; for (const [id] of TJ_MOBS) (byZone[MOBS[id].zone] = byZone[MOBS[id].zone] || []).push(id);
+  const pts = []; for (let k = 0; k < 6000 && pts.length < 64; k++) { const x = R.int(TJZ.x0 + 2, TJZ.x1 - 2), y = R.int(TJZ.y0 + 2, TJZ.y1 - 2), i = I(x, y);
+    if (!free(x, y) || W.flags[i] & 4) continue; if (pts.some(p => (p[0] - x) ** 2 + (p[1] - y) ** 2 < 49)) continue; if (Object.values(TJ_BOSS_AT).some(([bx, by]) => (bx - x) ** 2 + (by - y) ** 2 < 120)) continue;
+    const z = tjZoneAt(x), list = byZone[z.k] || [], mob = list[pts.length % list.length], m = MOBS[mob]; if (!m) continue; pts.push([x, y]);
+    const t = (x - z.x0) / Math.max(1, z.x1 - z.x0), lv = clamp(Math.round(lerp(Math.max(z.lv[0], m.lv[0]), Math.min(z.lv[1], m.lv[1]), Math.min(1, t * 0.7 + R.f() * 0.3))), 1, MAXLV);
+    W.camps.push({ x, y, mob, lv, n: 3, r: 4, alive: [], dead: [], L: 0 }); }
+}
+{ const _mc = makeCamps; makeCamps = function (W) { const r = _mc.apply(this, arguments); try { if (W && W.isWorld && !W.tjDone) { W.tjDone = 1; tjExpand(W); } } catch (e) { console.warn('tjExpand', e); } return r; }; }
+
+// ---------- dibujos del decorado ----------
+const TJD = { rosa: P5(['#4a1a3a', '#7a2a5a', '#b04a84', '#e07ab0', '#ffc0e0']), crema: P5(['#6a5a4a', '#9a8a78', '#cabaa8', '#ece0d2', '#fffaf2']), madera: P5(['#2a160c', '#4a2a16', '#6a4022', '#8a5a32', '#b07a4a']),
+  azul: P5(['#0a1a4a', '#14307a', '#2250b0', '#4a80e0', '#90c0ff']), ambar: P5(['#5a3a08', '#9a6a10', '#d0a020', '#f0d050', '#fff0a0']), piedra: P5(['#3a3640', '#5a5664', '#7e7a88', '#a6a2b0', '#cecad8']) };
+const tjPx = (w, h, fn) => { const p = new Pix(w, h); fn(p); p.outline(OUTL); return p.canvas(); };
+function tjYarn(p, cx, cy, r, P) { p.ball(cx, cy, r, r, [P[1], P[2], P[3], P[4]]); for (let k = -2; k <= 2; k++) { for (let a = -1.2; a <= 1.2; a += 0.08) { const x = Math.round(cx + Math.sin(a) * r * 0.9 + k * r * 0.28), y = Math.round(cy + Math.cos(a) * r * 0.9 * (k % 2 ? 1 : -1) * 0.6); if ((x - cx) ** 2 + (y - cy) ** 2 < r * r * 0.9) p.set(x, y, P[k % 2 ? 1 : 2]); } } }
+XSPR.tj_ovillo = () => ({ c: tjPx(16, 14, p => { tjYarn(p, 8, 8, 5.5, TJD.rosa); p.line(12, 11, 15, 13, TJD.rosa[3]); }), ax: 8, ay: 13 });
+XSPR.tj_ovillo_g = () => ({ c: tjPx(32, 28, p => { tjYarn(p, 16, 15, 11.5, TJD.azul); p.line(25, 22, 31, 27, TJD.azul[3]); p.line(26, 22, 30, 27, TJD.azul[2]); }), ax: 9, ay: 27 });
+XSPR.tj_carrete = () => ({ c: tjPx(18, 24, p => { const M = TJD.madera; p.ell(9, 4, 8, 3, M[3]); p.ell(9, 20, 8, 3, M[2]); p.rect(4, 4, 10, 16, TJD.ambar[2]); for (let y = 5; y < 20; y += 2) p.hl(4, y, 10, TJD.ambar[3]); p.rect(4, 4, 2, 16, TJD.ambar[4]); p.ell(9, 4, 2, 1, M[1]); }), ax: 9, ay: 23 });
+XSPR.tj_algodon = () => ({ c: tjPx(20, 26, p => { const M = TJD.madera; p.rect(9, 12, 2, 13, M[2]); p.line(10, 16, 4, 10, M[2]); p.line(10, 14, 16, 8, M[2]); for (const [x, y, r] of [[4, 8, 3.4], [16, 6, 3.6], [10, 5, 4], [7, 13, 2.6], [14, 13, 2.8]]) p.ball(x, y, r, r, [TJD.crema[2], TJD.crema[3], TJD.crema[4], C('#ffffff')]); }), ax: 10, ay: 25 });
+XSPR.tj_huso = () => ({ c: tjPx(14, 34, p => { const S_ = TJD.piedra; p.rect(3, 6, 8, 26, S_[2]); p.rect(3, 6, 2, 26, S_[3]); p.rect(10, 6, 1, 26, S_[1]); p.poly([[3, 6], [7, 0], [11, 6]], S_[3]); for (let y = 10; y < 30; y += 3) p.hl(3, y, 8, TJD.rosa[3]); p.rect(1, 31, 12, 3, S_[1]); }), ax: 7, ay: 33 });
+XSPR.tj_columna = () => ({ c: tjPx(14, 34, p => { const S_ = TJD.piedra; p.rect(3, 4, 8, 28, S_[2]); p.rect(3, 4, 2, 28, S_[3]); p.rect(1, 2, 12, 3, S_[3]); p.rect(1, 31, 12, 3, S_[1]); p.line(4, 12, 10, 18, S_[1]); p.set(7, 9, TJD.rosa[3]); p.set(8, 22, TJD.rosa[3]); }), ax: 7, ay: 33 });
+XSPR.tj_juncos = () => ({ c: tjPx(16, 18, p => { for (let k = 0; k < 6; k++) { const x = 2 + k * 2.4, h = 9 + (k * 5) % 7; p.vl(Math.round(x), 17 - h, h, TJD.azul[k % 2 ? 2 : 3]); p.set(Math.round(x), 17 - h, TJD.rosa[4]); } }), ax: 8, ay: 17 });
+XSPR.tj_cubas = () => ({ c: tjPx(30, 20, p => { for (const [x, P] of [[7, TJD.azul], [22, TJD.rosa]]) { p.rect(x - 6, 6, 12, 12, TJD.madera[2]); for (let y = 8; y < 18; y += 4) p.hl(x - 6, y, 12, TJD.madera[1]); p.ell(x, 6, 6, 2, P[3]); p.set(x - 2, 6, P[4]); } }), ax: 7, ay: 19 });
+XSPR.tj_telar_r = () => ({ c: tjPx(32, 30, p => { const M = TJD.madera; p.rect(2, 4, 3, 24, M[2]); p.rect(26, 8, 3, 20, M[2]); p.rect(2, 4, 16, 3, M[3]); p.line(18, 5, 28, 9, M[1]); for (let x = 6; x < 25; x += 2) p.line(x, 8, x + 1, 24, x % 4 ? TJD.rosa[3] : TJD.crema[3]); p.rect(5, 20, 20, 4, TJD.rosa[2]); p.hl(5, 20, 20, TJD.rosa[4]); }), ax: 9, ay: 29 });
+XSPR.tj_telar_c = () => ({ c: tjPx(32, 30, p => { const M = TJD.madera; p.rect(2, 2, 3, 26, M[3]); p.rect(27, 2, 3, 26, M[3]); p.rect(2, 2, 28, 3, M[4]); for (let x = 6; x < 27; x += 2) p.vl(x, 5, 16, x % 4 ? TJD.azul[3] : TJD.crema[3]); p.rect(5, 12, 22, 9, TJD.rosa[2]); for (let x = 6; x < 26; x += 3) p.set(x, 15, TJD.ambar[4]); p.rect(4, 24, 24, 4, M[2]); }), ax: 9, ay: 29 });
+
+// ---------- NPCs del Campamento de las Hebras ----------
+const tjLook = (g, hair, hs, outfit, main) => LK({ g, hair, hairStyle: hs, outfit, main: P5(main) });
+NPCS.tj_ovidia = { n: L2('Ovidia', 'Ovidia'), title: L2('Vigía de las Hebras', 'Thread Watcher'), look: tjLook('f', HAIRS.gris, 'long', 'robe', ['#2a1a2a', '#4a2a48', '#6a3a68', '#8a5288', '#b078aa']), quests: [], lines: [
+  L2('Bienvenido al Campamento de las Hebras. Los Vigías del Alba me mandaron a vigilar esta tierra el día que salió del mar.', 'Welcome to the Thread Camp. The Dawn Watchers sent me to watch over this land the day it rose from the sea.'),
+  L2('Cuando el Gran Telar se soltó, sus hilos sueltos cayeron por todas partes. Unos levantan tormentas. Estos cayeron al mar del sur y se tejieron solos, hasta hacerse tierra.', 'When the Great Loom came loose, its loose threads fell everywhere. Some raise storms. These fell into the southern sea and wove themselves, until they became land.'),
+  L2('La Ventisca la pintó de algodón y rosa. Pero lo que se teje sin Tejedor a veces sale mal: en los nudos ciegos se cuelan los sueños de Nihil.', 'The Ventisca painted it cotton and pink. But what is woven without a Weaver sometimes goes wrong: Nihil\'s dreams seep into the blind knots.'),
+  L2('Al oeste, la Pradera de Algodón. Al sur, el Bosque de Ovillos. Al este, la Ciénaga de Tinte y la Hilandería Rota. Cuanto más al este, más fuertes (nivel 500 a 600).', 'To the west, the Cotton Meadow. To the south, the Yarnball Wood. To the east, the Dye Marsh and the Broken Spinning Mill. The further east, the stronger (level 500 to 600).')] };
+NPCS.tj_hilario = { n: L2('Maese Hilario', 'Master Hilario'), title: L2('Forjador de hebras', 'Thread smith'), look: tjLook('m', HAIRS.castano, 'short', 'smith', ['#2a1a10', '#4a2e18', '#6a4426', '#8a6038', '#ae8052']), quests: [], lines: [
+  L2('El hilo de un héroe aprende el patrón de lo que toca. Yo hago lo mismo con el metal: lo tejo con hebras que recuerdan.', 'A hero\'s thread learns the pattern of whatever it touches. I do the same with metal: I weave it with threads that remember.'),
+  L2('Tráeme Hebrita, Tintolita, Plata de Huso o Sedalita y los restos de los jefes, y te forjo armaduras y armas de nivel 505 a 600. Cada clase con su propio diseño.', 'Bring me Threadite, Dyestone, Spindle Silver or Silkstone and the remains of the bosses, and I\'ll forge you level 505 to 600 armour and weapons. Each class with its own design.')] };
+NPCS.tj_cora = { n: L2('Cora', 'Cora'), title: L2('Tintorera', 'Dyer'), look: tjLook('f', HAIRS.rojo, 'long', 'apron', ['#0a1a4a', '#14307a', '#2250b0', '#4a80e0', '#90c0ff']), quests: [], lines: [
+  L2('Mis tintes salen de la ciénaga. ¡Cuidado con las ranas: revientan en tinte!', 'My dyes come from the marsh. Careful with the frogs: they burst into dye!'),
+  L2('¿Tienes Hebras Sueltas? Te cambio veinte por una Hebrita. Así no tienes que picar tanto.', 'Got Loose Threads? I\'ll trade twenty for one Threadite. That way you don\'t have to mine as much.')] };
+NPCS.tj_lino = { n: L2('Fray Lino', 'Brother Lino'), title: L2('Estudioso del Telar', 'Scholar of the Loom'), look: tjLook('m', HAIRS.blanco, 'short', 'robe', ['#3a3020', '#5a4a30', '#7a6a48', '#9a8a68', '#c0b090']), quests: [], lines: [
+  L2('He contado cuatro nudos que no se deshacen. En cada uno vive algo: la Reina Polilla, el Nudo Ciego, la Rueca Desbocada y, en la hilandería, la Hilandera Muda.', 'I have counted four knots that will not come undone. Something lives in each: the Moth Queen, the Blind Knot, the Runaway Spinning Wheel and, in the mill, the Mute Spinner.'),
+  L2('La Hilandera no es un dios ni un Tejedor: es un sueño de Nihil que se quedó enredado en un huso. Quiere deshilar esta tierra y devolverla al Lienzo.', 'The Spinner is no god and no Weaver: she is a dream of Nihil that got tangled in a spindle. She wants to unravel this land and return it to the Canvas.'),
+  L2('Mientras alguien mire, los sueños de Nihil solo son sueños. Por eso te necesitamos aquí.', 'As long as someone is watching, Nihil\'s dreams are only dreams. That is why we need you here.')] };
+NPCS.tj_pip = { n: L2('Pip', 'Pip'), title: L2('Aprendiz de devanadora', 'Apprentice winder'), look: tjLook('m', HAIRS.rubio, 'spiky', 'tunic', ['#4a1a3a', '#7a2a5a', '#b04a84', '#e07ab0', '#ffc0e0']), quests: [], kid: 1, lines: [
+  L2('¡Yo enrollo los hilos que se sueltan! Si ves un ovillo que salta, no es un juguete.', 'I wind up the threads that come loose! If you see a yarnball jumping, it\'s not a toy.'),
+  L2('La Reina Polilla vive al sur, en el Bosque de Ovillos. ¡De noche sus alas brillan!', 'The Moth Queen lives to the south, in the Yarnball Wood. At night her wings glow!')] };
+NPCS.tj_brigida = { n: L2('Brígida', 'Brígida'), title: L2('Minera de hebras', 'Thread miner'), look: tjLook('f', HAIRS.castano, 'short', 'smith', ['#3a3020', '#5a4a30', '#7a6a48', '#9a8a68', '#c0b090']), quests: [], lines: [
+  L2('Aquí las rocas tienen hilos dentro. Hebrita en la pradera, Tintolita en el bosque, Plata de Huso en la ciénaga y Sedalita en la hilandería.', 'Here the rocks have threads inside. Threadite in the meadow, Dyestone in the wood, Spindle Silver in the marsh and Silkstone in the mill.'),
+  L2('Cada una pide un pico mejor: los de Hebrita, Tintolita, Plata de Huso y Sedalita se forjan con el mineral y la madera de antes.', 'Each needs a better pickaxe: the Threadite, Dyestone, Spindle Silver and Silkstone ones are forged from the previous ore and wood.')] };
+DLG_HOOKS.push((npc, opts) => { const P = G.P; if (!P) return;
+  if (npc.id === 'tj_hilario') opts.unshift({ label: '⚒ ' + L2('Forja de las Tierras Tejidas', 'Woven Lands forge'), icon: ['anvil'], fn: () => { closeDialog(); openCraft('herreria'); } });
+  if (npc.id === 'tj_cora') opts.unshift({ label: '🧵 ' + L2('Cambiar 20 Hebras Sueltas por 1 Hebrita', 'Trade 20 Loose Threads for 1 Threadite'), icon: ['gem', '#f0a0d0'], fn: () => {
+    if (countItem('hebra_suelta') < 20) { typeText(L2('Te faltan hebras. Las criaturas de aquí las sueltan al caer.', 'You need more threads. The creatures here drop them when they fall.')); return; }
+    takeItem('hebra_suelta', 20); giveItem('ore19', 1); sfx('coin'); typeText(L2('¡Trato hecho! Hebrita recién salida del tinte.', 'Deal! Threadite fresh out of the dye.')); markDirty(); } }); });
+
+// ---------- mecánicas propias de las criaturas ----------
+const tjNear = (m, r) => { const P = G.P; return P && !P.dead && P.map === m.map && dist2(m.x, m.y, P.x, P.y) < r * r; };
+function tjMech(m, dt) { const P = G.P, k = m.def.mech; if (!k || m.dying || m.ghost || !P || m.state === 'idle' || m.state === 'return') return; m.mt = (m.mt || 0) - dt; const d = Math.sqrt(dist2(m.x, m.y, P.x, P.y));
+  switch (k) {
+    case 'dust': if (m.mt <= 0 && d < 100) { m.mt = 4; const x = P.x, y = P.y; telegraph({ shape: 'circle', x, y, r: 26, dur: 0.8, col: 'rgba(240,230,190,0.28)', cb: () => { if (dist2(P.x, P.y, x, y) < 26 * 26) hurtPlayer(m.atk * 0.6, { slow: 2, lv: m.lv }); burst(x, y, 14, { sp: 40, up: 30, g: 20, life: 0.8, c: ['#f4ecc8', '#e8d8a0', '#ffffff'] }); } }); } break;
+    case 'web': if (m.mt <= 0 && d < 130) { m.mt = 4.5; const a = Math.atan2(P.y - 8 - (m.y - 6), P.x - m.x); spawnProj('m', m.x, m.y - 6, a, { spd: 130, dmg: m.atk * 0.5, art: 'orb', life: 1.6, slow: 2.5 }); sfx('cast'); } break;
+    case 'trail': if (m.state === 'dash' && (m.tt = (m.tt || 0) - dt) <= 0) { m.tt = 0.12; addFx({ type: 'field', ground: true, x: m.x, y: m.y, r: 12, dur: 2.5, col: '#e07ab0', pc: '#ffc0e0', tick: 0.5, cbTick: f => { if (dist2(P.x, P.y, f.x, f.y) < f.r * f.r) hurtPlayer(m.atk * 0.2, { slow: 1.2, lv: m.lv }); } }); } break;
+    case 'puddle': if (m.mt <= 0 && d < 140) { m.mt = 5; const x = P.x, y = P.y; addFx({ type: 'field', ground: true, x, y, r: 26, dur: 4, col: '#2250b0', pc: '#90c0ff', tick: 0.5, cbTick: f => { if (dist2(P.x, P.y, f.x, f.y) < f.r * f.r) hurtPlayer(m.atk * 0.25, { poison: 1, lv: m.lv }); } }); } break;
+    case 'blink': if (m.mt <= 0 && d < 160 && d > 40) { m.mt = 5.5; const dx = { left: -1, right: 1 }[P.dir] || 0, dy = { up: -1, down: 1 }[P.dir] || 0, nx = P.x - dx * 26, ny = P.y - dy * 22;
+      if (!blockedFor(G.map, Math.floor(nx / 16), Math.floor(ny / 16), m.L)) { addFx({ type: 'ring', x: m.x, y: m.y, r: 18, dur: 0.4, col: '#e8e0f0' }); m.x = nx; m.y = ny; addFx({ type: 'ring', x: m.x, y: m.y, r: 18, dur: 0.4, col: '#e8e0f0' }); m.cd = Math.min(m.cd, 0.2); } } break;
+    case 'mend': if (m.mt <= 0) { m.mt = 6; let n = 0; for (const e of G.ents) if (e.type === 'mob' && !e.dying && e !== m && e.map === m.map && !e.boss && dist2(e.x, e.y, m.x, m.y) < 90 * 90 && e.hp < e.maxhp) { e.hp = Math.min(e.maxhp, e.hp + e.maxhp * 0.12); n++; floatText(e.x, e.y - (e.hgt || 28), '+', '#7ae04a'); }
+      if (n) addFx({ type: 'ring', x: m.x, y: m.y, r: 90, dur: 0.6, col: '#7ae04a' }); } break;
+    case 'pull': if (m.mt <= 0 && d < 150 && d > 34) { m.mt = 6.5; telegraph({ shape: 'line', x: m.x, y: m.y, ang: Math.atan2(P.y - m.y, P.x - m.x), len: d, w: 8, dur: 0.6, cb: () => { if (P.dead || P.map !== m.map) return; const a = Math.atan2(m.y - P.y, m.x - P.x), L = Math.min(60, Math.max(0, Math.hypot(m.x - P.x, m.y - P.y) - 22));
+      for (let s = 0; s < 6; s++) moveEnt(G.map, P, Math.cos(a) * L / 6, Math.sin(a) * L / 6); P.slowT = Math.max(P.slowT || 0, 1.2); floatText(P.x, P.y - 40, L2('¡Hilo!', 'Thread!'), '#e07ab0'); } }); } break;
+  } }
+{ const _um = updateMob; updateMob = function (m, dt) { const st0 = m.state, r = _um.apply(this, arguments); try { const k = m.def && m.def.mech; if (k && !m.boss) { tjMech(m, dt);
+    // golpe doble de la mantis, ataque sorpresa del lince y corte fuerte de la tijera (justo al acabar la preparación)
+    if (st0 === 'windup' && m.state === 'chase' && !m.dying) { const P = G.P, near = dist2(m.x, m.y, P.x, P.y) < (m.range + 14) ** 2;
+      if (k === 'double' && near) setTimeout(() => { if (!m.dying && !P.dead && dist2(m.x, m.y, P.x, P.y) < (m.range + 16) ** 2) { hurtPlayer(m.atk * 0.7, { lv: m.lv }); sfx('swing'); } }, 260);
+      if (k === 'ambush' && !m.ambushed && near) { m.ambushed = 1; hurtPlayer(m.atk, { lv: m.lv }); floatText(P.x, P.y - 46, L2('¡Emboscada!', 'Ambush!'), '#ffb040'); }
+      if (k === 'snip' && near && Math.random() < 0.25) { hurtPlayer(m.atk * 0.6, { poison: 1, lv: m.lv }); floatText(P.x, P.y - 46, L2('¡Tijeretazo!', 'Snip!'), '#ff5a5a'); } }
+    if (k === 'wool' && m.wool === undefined) m.wool = 3; if (k === 'wool' && m.wool < 3 && (m.woolT = (m.woolT || 0) + dt) > 8) { m.wool = 3; m.woolT = 0; } } } catch (e) { } return r; }; }
+{ const _hm = hitMob; hitMob = function (m, base, src) { try { if (m && m.def && m.def.mech === 'wool' && m.wool > 0 && !m.dying) { m.wool--; m.woolT = 0; base *= 0.2; floatText(m.x, m.y - (m.hgt || 28) - 8, L2('lana', 'wool'), '#c8c0d0'); } } catch (e) { } return _hm.call(this, m, base, src); }; }
+{ const _km = killMob; killMob = function (m) {
+    if (m && m.def && m.def.mech === 'resew' && !m.resewn && !m.ghost) { m.resewn = 1; m.hp = Math.round(m.maxhp * 0.4); m.dying = 0; floatText(m.x, m.y - (m.hgt || 28) - 10, L2('¡Se recose!', 'It sews itself up!'), '#e07ab0', true); addFx({ type: 'ring', x: m.x, y: m.y, r: 22, dur: 0.5, col: '#e07ab0' }); return; }
+    const r = _km.apply(this, arguments);
+    try { const k = m && m.def && m.def.mech, P = G.P;
+      if (k === 'split' && !m.small && !m.ghost) for (let s = 0; s < 2; s++) { const e = spawnMob(m.mid, Math.max(1, m.lv - 3), m.x + (s ? 10 : -10), m.y + 4, m.L, null, false); e.map = m.map; e.small = 1; e.hp = e.maxhp = Math.round(e.maxhp * 0.3); e.xp = Math.round(e.xp * 0.2); e.gold = 0; e.def = Object.assign({}, e.def, { drops: [] }); e.name = L2('Ovillito', 'Small Yarnball'); e.state = 'chase'; e.home = { x: e.x, y: e.y }; }
+      if (k === 'splash' && !m.ghost) { const x = m.x, y = m.y; telegraph({ shape: 'circle', x, y, r: 40, dur: 0.7, col: 'rgba(40,90,200,0.25)', cb: () => { if (dist2(P.x, P.y, x, y) < 40 * 40) hurtPlayer(m.atk * 1.1, { slow: 2, poison: 1, lv: m.lv }); burst(x, y, 20, { sp: 90, up: 40, g: 120, life: 0.6, c: ['#2250b0', '#4a80e0', '#e07ab0'] }); } }); }  } catch (e) { }
+    return r; }; }
+
+// ---------- movimientos propios de los jefes ----------
+FAR.push('tj_polvo', 'tj_atadura', 'tj_giro', 'tj_deshilar', 'tj_silencio'); NEAR.push('tj_polvo', 'tj_giro', 'tj_silencio');
+{ const _bm = bossMove; bossMove = function (m, mv) { if (!mv || !mv.startsWith('tj_')) return _bm.apply(this, arguments); const P = G.P; setAnim(m, 'atk'); mobFace(m, P.x - m.x, P.y - m.y);
+  switch (mv) {
+    case 'tj_polvo': { const r = 110; telegraph({ shape: 'circle', x: m.x, y: m.y, r, dur: 1.1, col: 'rgba(240,230,190,0.22)', cb: () => { if (dist2(P.x, P.y, m.x, m.y) < r * r) hurtPlayer(m.atk * 1.4, { slow: 3, lv: m.lv }); for (let k = 0; k < 30; k++) part(m.x + (Math.random() - 0.5) * r * 2, m.y + (Math.random() - 0.5) * r * 1.4, { vz: 20, g: -4, life: 1.2, c: pick(['#f4ecc8', '#ffffff', '#e8d8a0']) }); } }); m.busyT = 1.1; break; }
+    case 'tj_atadura': { const a = Math.atan2(P.y - m.y, P.x - m.x), d = Math.hypot(P.x - m.x, P.y - m.y); telegraph({ shape: 'line', x: m.x, y: m.y, ang: a, len: Math.min(220, d + 10), w: 12, dur: 0.8, cb: () => {
+        if (P.dead || P.map !== m.map || Math.hypot(P.x - m.x, P.y - m.y) > 240) return; const b = Math.atan2(m.y - P.y, m.x - P.x), L = Math.max(0, Math.hypot(m.x - P.x, m.y - P.y) - 30); for (let s = 0; s < 10; s++) moveEnt(G.map, P, Math.cos(b) * L / 10, Math.sin(b) * L / 10);
+        P.slowT = Math.max(P.slowT || 0, 2.5); floatText(P.x, P.y - 42, L2('¡Atado!', 'Bound!'), '#e07ab0', true); setTimeout(() => { if (!m.dying) bossMove(m, 'slam'); }, 350); } }); m.busyT = 1.3; break; }
+    case 'tj_giro': { for (const w of [0, 1]) setTimeout(() => { if (m.dying) return; const n = 14; for (let k = 0; k < n; k++) spawnProj('m', m.x, m.y - 10, (k + w * 0.5) / n * Math.PI * 2 + G.t, { spd: 95 + w * 20, dmg: m.atk * 0.7, art: 'orb', life: 2.2, slow: 1 }); sfx('cast'); }, w * 450); m.busyT = 1; break; }
+    case 'tj_deshilar': { const px = P.x, py = P.y; for (let k = 0; k < 4; k++) { const ang = k * Math.PI / 2 + Math.PI / 4, sx = px - Math.cos(ang) * 120, sy = py - Math.sin(ang) * 120;
+        setTimeout(() => telegraph({ shape: 'line', x: sx, y: sy, ang, len: 240, w: 16, dur: 0.9, col: 'rgba(30,30,40,0.3)', cb: () => { const vx = P.x - sx, vy = P.y - sy, along = vx * Math.cos(ang) + vy * Math.sin(ang), perp = Math.abs(-vx * Math.sin(ang) + vy * Math.cos(ang)); if (along > 0 && along < 240 && perp < 12) hurtPlayer(m.atk * 1.3, { lv: m.lv }); } }), k * 120); }
+      m.busyT = 1.2; break; }
+    case 'tj_silencio': { const x = P.x, y = P.y, r = 70; telegraph({ shape: 'circle', x, y, r, dur: 1.3, col: 'rgba(20,20,30,0.35)', cb: () => { if (dist2(P.x, P.y, x, y) < r * r) { hurtPlayer(m.atk * 1.6, { slow: 2.5, lv: m.lv }); const lost = Math.round(P.mp * 0.3); P.mp -= lost; if (lost) floatText(P.x, P.y - 52, '−' + lost + ' MP', '#8aa0ff'); } } }); m.busyT = 1.2; break; }
+  } }; }
+// los jefes vencidos dejan un brillo de hilo donde estaban
+{ const _bk = bossKilled; bossKilled = function (m) { const r = _bk.apply(this, arguments); try { if (m && TJ_BOSS_AT[m.mid]) { banner(m.name, L2('El nudo se deshace', 'The knot comes undone')); for (let k = 0; k < 40; k++) part(m.x + (Math.random() - 0.5) * 60, m.y - 20, { vz: 30, g: -6, life: 1.6, c: pick(['#ffc0e0', '#f0d890', '#ffffff', '#90c0ff']) }); } } catch (e) { } return r; }; }
+
+// ---------- Lupa ----------
+if (typeof GSIS !== 'undefined') GSIS.unshift(['tejidas578', '🧶 ' + L2('Tierras Tejidas y nivel 600 (5.78)', 'Woven Lands and level 600 (5.78)'), () => [
+  L2('El nivel máximo sube a 600. Al sur de Sahrim y Yarakai (y al este de Nhar) hay una región nueva: las Tierras Tejidas (nivel 500 a 600). Se llega por los andenes de las estaciones Sahrim y Yarakai, que bajan al mar.', 'The level cap rises to 600. South of Sahrim and Yarakai (and east of Nhar) there is a new region: the Woven Lands (level 500 to 600). Reach it from the Sahrim and Yarakai station platforms, which lead down to the sea.'),
+  L2('Zonas: Pradera de Algodón (500-528), Bosque de Ovillos (520-552), Ciénaga de Tinte (545-578) y Hilandería Rota (572-600). En el Campamento de las Hebras están Ovidia, Maese Hilario (forja), Cora, Fray Lino, Pip y Brígida.', 'Zones: Cotton Meadow (500-528), Yarnball Wood (520-552), Dye Marsh (545-578) and Broken Spinning Mill (572-600). At the Thread Camp you will find Ovidia, Master Hilario (forge), Cora, Brother Lino, Pip and Brígida.'),
+  ...TJ_MOBS.map(([id]) => '• ' + MOBS[id].n + ' (' + MOBS[id].lv[0] + '-' + MOBS[id].lv[1] + '): ' + MOBS[id].mechD),
+  ...Object.keys(TJ_BOSS_AT).map(id => '👑 ' + BOSSES[id].n + ' (' + L2('nivel ', 'level ') + BOSSES[id].lv + '): ' + TJ_BOSS_D[id]),
+  L2('Minerales nuevos: Hebrita (pradera), Tintolita (bosque), Plata de Huso (ciénaga) y Sedalita (hilandería), cada uno con su pico (14 a 17). Maderas: Árbol de Algodón, Sauce Hilandero, Roble de Ovillos y Ceiba de Seda.', 'New ores: Threadite (meadow), Dyestone (wood), Spindle Silver (marsh) and Silkstone (mill), each with its own pickaxe (14 to 17). Woods: Cotton Tree, Spinner Willow, Yarnball Oak and Silk Ceiba.'),
+  L2('Equipo nuevo de nivel 505 a 600 (7 tiers): armaduras con un diseño distinto para cada clase y 49 armas nuevas. Se forjan con Maese Hilario usando los minerales y lo que sueltan los cuatro jefes.', 'New level 505 to 600 gear (7 tiers): armour with a different design for each class and 49 new weapons. Forged with Master Hilario using the ores and what the four bosses drop.')
+], () => G.P && G.P.map === 'world' ? { loc: TJZ.ws, m: 'world', t: L2('Campamento de las Hebras', 'Thread Camp') } : null]);
+// «Dónde conseguir»: las maderas nuevas apuntan a sus árboles de las Tierras Tejidas
+{ const _is = itemSources; itemSources = function (id) { const out = _is.apply(this, arguments); try { const m = /^log(\d+)$/.exec(id), R_ = m && TJ_RES.find(r => r[0] === +m[1]);
+  if (R_ && Array.isArray(out)) { const W = G.world, o = W && W.objs.find(o => o.k === 'tree' && o.sp === R_[4]); for (const s of out) if (s && s[1] && o && /^(Tala|Woodcutting)/.test(s[0])) s[1].loc = [o.tx, o.ty]; } } catch (e) { } return out; }; }
+
+// ================= v5.78: DIBUJOS DE LAS CRIATURAS Y JEFES DE LAS TIERRAS TEJIDAS =================
+// Arte 'cbx' (como las criaturas de nivel 410-500): cada una se dibuja con Pix en las 4 direcciones y los fotogramas de
+// reposo, caminata, ataque y golpe. Sergio las rediseñará después: aquí está la primera versión.
+const TJP = { rosa: cbP(['#4a1a3a', '#7a2a5a', '#b04a84', '#e07ab0', '#ffc0e0']), crema: cbP(['#6a5a4a', '#9a8a78', '#cabaa8', '#ece0d2', '#fffaf2']), madera: cbP(['#2a160c', '#4a2a16', '#6a4022', '#8a5a32', '#b07a4a']),
+  azul: cbP(['#0a1a4a', '#14307a', '#2250b0', '#4a80e0', '#90c0ff']), ambar: cbP(['#5a3a08', '#9a6a10', '#d0a020', '#f0d050', '#fff0a0']), negro: cbP(['#0a0a10', '#16161e', '#26262e', '#3a3a44', '#55555e']),
+  plata: cbP(['#3a3e48', '#6a707c', '#a0a8b4', '#d0d6de', '#f4f6fa']), verde: cbP(['#0e2a10', '#1a4a1c', '#2a6e2a', '#4a9a3a', '#88c860']), lila: cbP(['#2a1438', '#4a2260', '#6a3488', '#8a4ab0', '#c8a0f0']), seda: cbP(['#5a4a2a', '#9a8a5a', '#d8c890', '#f0e6c0', '#fffaf0']) };
+const tjEyes = (p, x, y, side, col, gap) => { const c = col || C('#1a0a14'); if (side) { p.rect(Math.round(x - 1), Math.round(y), 2, 2, c); return; } for (const sx of [-gap || -3, gap || 3]) p.rect(Math.round(x + sx - (sx > 0 ? 1 : 0)), Math.round(y), 2, 2, c); };
+const tjBob = (a, f) => a === 'walk' ? [0, 1, 0, -1][f] : a === 'atk' ? [0, -2, 1][f] : a === 'hurt' ? 1 : f % 2 ? 0.5 : 0;
+// ovillo con vueltas de hilo
+function tjBall(p, cx, cy, r, P) { p.ball(cx, cy, r, r * 0.95, [P[1], P[2], P[3], P[4]]); for (let k = -2; k <= 2; k++) for (let a = -1.3; a <= 1.3; a += 0.06) { const x = Math.round(cx + Math.sin(a) * r * 0.85 + k * r * 0.26), y = Math.round(cy + Math.cos(a) * r * 0.55 * (k % 2 ? 1 : -1)); if ((x - cx) ** 2 + (y - cy) ** 2 < r * r * 0.85) p.set(x, y, P[k % 2 ? 1 : 2]); } }
+CBX.tj_ovillo = (p, d, a, f) => { const P = TJP.rosa, cx = 24, base = 38, j = a === 'walk' ? [0, 4, 0, 2][f] : a === 'atk' ? [0, 6, 1][f] : 0, sq = a === 'walk' && f % 2 === 0 ? 1 : 0;
+  tjBall(p, cx, base - 9 - j, 9 + sq, P); for (let k = 0; k < 7; k++) p.set(cx + 8 + k, base - 4 - j + Math.round(Math.sin(k * 0.9 + f) * 1.5), P[3]);
+  if (d !== 'up') { tjEyes(p, cx + (d === 'left' ? -4 : 0), base - 12 - j, d === 'left', C('#2a0a1a'), 3); p.hl(cx - 2 + (d === 'left' ? -4 : 0), base - 7 - j, 3, P[0]); } };
+CBX.tj_polilla = (p, d, a, f) => { const W_ = TJP.seda, B = TJP.madera, cx = 24, cy = 20 + Math.sin(f * 1.6) * 1.5, flap = a === 'atk' ? [3, 8, 5][f] : [2, 6, 3, 7][f % 4], side = d === 'left';
+  for (const sx of side ? [1] : [-1, 1]) { const w = side ? 9 : 12; p.poly([[cx, cy - 2], [cx + sx * w, cy - 8 - flap * 0.6], [cx + sx * (w + 3), cy + 1], [cx + sx * 4, cy + 3]], W_[3]); p.poly([[cx, cy + 1], [cx + sx * (w - 2), cy + 4], [cx + sx * (w - 3), cy + 10 - flap * 0.3], [cx + sx * 3, cy + 6]], W_[2]);
+    p.ball(cx + sx * (w - 3), cy - 3, 2, 2, [TJP.rosa[2], TJP.rosa[3], TJP.rosa[4], C('#ffffff')]); }
+  p.ball(cx, cy + 2, 3, 7, [B[1], B[2], B[3], W_[4]]); for (let k = 0; k < 3; k++) p.hl(cx - 2, cy + 1 + k * 3, 5, B[1]); p.ball(cx, cy - 5, 3, 2.6, [B[1], B[2], B[3], B[4]]);
+  for (const sx of [-1, 1]) p.line(cx + sx, cy - 7, cx + sx * 4, cy - 12, W_[3]); if (d !== 'up') tjEyes(p, cx, cy - 6, side, C('#ff5aa0'), 2); };
+CBX.tj_aguja = (p, d, a, f) => { const S_ = TJP.plata, cx = 24, base = 40, hop = a === 'walk' ? [0, 3, 0, 2][f] : 0, lean = a === 'atk' ? [0, 6, 2][f] : 0, side = d === 'left', up = d === 'up';
+  const tipX = side ? cx - 12 - lean : cx, tipY = side ? base - 8 - hop : base - 2 - hop, eyeX = side ? cx + 12 : cx, eyeY = side ? base - 14 - hop : base - 30 - hop + lean * 0.3;
+  p.line(tipX, tipY, eyeX, eyeY, S_[3]); p.line(tipX + (side ? 0 : 1), tipY + (side ? 1 : 0), eyeX + (side ? 0 : 1), eyeY + (side ? 1 : 0), S_[2]); p.ball(eyeX, eyeY, 3, 3.5, [S_[1], S_[2], S_[3], S_[4]]); p.ball(eyeX, eyeY, 1.2, 1.8, [C('#20202a'), C('#20202a'), C('#20202a'), C('#20202a')]);
+  for (let k = 0; k < 14; k++) p.set(Math.round(eyeX + (side ? k : Math.sin(k * 0.7) * 3)), Math.round(eyeY + (side ? Math.sin(k * 0.8) * 2 : k)), TJP.rosa[3]);
+  if (!up) { const mx = (tipX + eyeX) / 2, my = (tipY + eyeY) / 2; tjEyes(p, mx, my - 2, side, C('#ff3a5a'), 2); } };
+CBX.tj_muneco = (p, d, a, f) => { const P = TJP.crema; cbxHum(p, d, a, f, { P, th: 10, tw: 6, hr: 5,
+  body: (p2, cx, sh, hip, side) => { p2.rect(Math.round(cx - 4), Math.round(sh + 2), 4, 4, TJP.rosa[2]); p2.rect(Math.round(cx + 1), Math.round(sh + 6), 3, 3, TJP.azul[3]); for (let y = sh + 1; y < hip; y += 2) p2.set(Math.round(cx), y, TJP.madera[1]); },
+  head: (p2, cx, hy, side, up) => { for (let k = -4; k <= 4; k += 2) p2.set(Math.round(cx + k), Math.round(hy - 5), TJP.ambar[3]); if (up) return; const ex = side ? [cx - 3] : [cx - 3, cx + 2];
+    for (const x of ex) { p2.ball(x, hy - 1, 1.4, 1.4, [C('#101018'), C('#2a2a3a'), C('#4a4a5a'), C('#8a8a9a')]); } p2.hl(Math.round(cx - 3), Math.round(hy + 3), side ? 3 : 6, TJP.rosa[1]); for (let k = 0; k < 3; k++) p2.set(Math.round(cx - 2 + k * 2), Math.round(hy + 2), TJP.rosa[1]); } }); };
+CBX.tj_arana = (p, d, a, f) => { const P = TJP.lila, cx = 24, base = 38, side = d === 'left', up = d === 'up', lunge = a === 'atk' ? [0, 3, 1][f] : 0, by = base - 7;
+  for (let k = 0; k < 4; k++) for (const sx of side ? [-1, 1] : [-1, 1]) { const ph = a === 'walk' ? ((k + f) % 2) * 2 - 1 : 0, kx = side ? cx - 8 + k * 5 : cx + sx * (5 + k * 1.6), ky = by - 2; const ex = side ? kx + sx * 2 + ph : kx + sx * 8, ey = base - (k % 2) + (side && sx < 0 ? 0 : 0);
+    p.line(kx, ky, (kx + ex) / 2, ky - 5, P[2]); p.line((kx + ex) / 2, ky - 5, ex, ey, P[1]); }
+  p.ball(cx + (side ? 4 : 0), by - 3 + (up ? -3 : 0), 8, 6, [P[1], P[2], P[3], P[4]]); for (let k = 0; k < 4; k++) p.set(cx - 3 + k * 2 + (side ? 4 : 0), by - 5, TJP.rosa[3]);
+  if (!up) { const hx = side ? cx - 6 - lunge : cx, hy = side ? by - 3 : by + 1 + lunge * 0.5; p.ball(hx, hy, 4, 3.4, [P[0], P[1], P[2], P[3]]); for (const sx of side ? [-1] : [-1, 1]) { p.set(Math.round(hx + sx * 2), Math.round(hy - 1), C('#ffd040')); p.set(Math.round(hx + sx * 1), Math.round(hy - 2), C('#ffd040')); } }
+  if (a === 'atk' && f === 1) for (let k = 0; k < 6; k++) p.set(cx + (side ? -14 - k : 0), by + (side ? 0 : 4 + k), C('#f4f0e8')); };
+CBX.tj_carrete = (p, d, a, f) => { const M = TJP.madera, Y = TJP.ambar, cx = 24, base = 38, side = d === 'left', rot = (a === 'walk' || a === 'atk' ? f : 0) * 2;
+  if (side) { p.ball(cx, base - 10, 10, 10, [M[1], M[2], M[3], M[4]]); p.ball(cx, base - 10, 7, 7, [Y[1], Y[2], Y[3], Y[4]]); for (let k = 0; k < 4; k++) { const ang = (k / 4 + rot * 0.06) * Math.PI * 2; p.line(cx, base - 10, Math.round(cx + Math.cos(ang) * 6), Math.round(base - 10 + Math.sin(ang) * 6), Y[1]); } p.ball(cx, base - 10, 2, 2, [M[0], M[1], M[1], M[2]]); tjEyes(p, cx - 5, base - 13, true, C('#2a1010')); return; }
+  p.ell(cx, base - 20, 10, 3, M[3]); p.ell(cx, base - 3, 10, 3, M[2]); p.rect(cx - 8, base - 20, 16, 17, Y[2]); for (let y = base - 19 + (rot % 2); y < base - 3; y += 2) p.hl(cx - 8, y, 16, Y[3]); p.rect(cx - 8, base - 20, 2, 17, Y[4]); p.rect(cx + 6, base - 20, 2, 17, Y[1]);
+  if (d !== 'up') { tjEyes(p, cx, base - 14, false, C('#2a1010'), 3); p.hl(cx - 2, base - 9, 4, Y[0]); } for (let k = 0; k < 8; k++) p.set(cx + 8 + k, base - 6 + (k % 2), TJP.rosa[3]); };
+CBX.tj_oveja = (p, d, a, f) => { const P = TJP.negro; cbxQuad(p, d, a, f, { P, s: 1.05,
+  marks: (p2, x, y) => { for (let k = 0; k < 9; k++) p2.ball(x - 8 + ((k * 7) % 17), y - 4 + ((k * 5) % 8), 2.4, 2.2, [P[2], P[3], P[4], C('#6a6a74')]); },
+  head: (p2, x, y, side, up) => { if (up) return; p2.ball(x, y + 1, 3.4, 3, [C('#c8b8a8'), C('#e0d4c8'), C('#f0e8e0'), C('#ffffff')]); tjEyes(p2, x + (side ? -1 : 0), y, side, C('#ff4a4a'), 2); },
+  ears: (p2, x, y) => { for (const sg of [-1, 1]) p2.ball(x + sg * 5, y - 1, 2, 1.4, [C('#c8b8a8'), C('#e0d4c8'), C('#f0e8e0'), C('#ffffff')]); } }); };
+CBX.tj_lince = (p, d, a, f) => { const P = cbP(['#3a1a0a', '#7a3a1a', '#b06a3a', '#d8a070', '#f8d8b0']); cbxQuad(p, d, a, f, { P, s: 1.1,
+  tail: (p2, x, y, side) => { for (let k = 0; k < 5; k++) p2.ball(x + (side ? k * 1.4 : 0), y - (side ? 0 : k * 1.3), 1.6, 1.4, P.slice(1)); },
+  marks: (p2, x, y) => { for (let k = -2; k <= 2; k++) { const dx = x + k * 4; p2.set(Math.round(dx), Math.round(y - 2), TJP.rosa[3]); p2.set(Math.round(dx + 1), Math.round(y - 1), TJP.azul[3]); p2.set(Math.round(dx), Math.round(y), TJP.rosa[3]); p2.set(Math.round(dx - 1), Math.round(y - 1), TJP.azul[3]); } },
+  head: (p2, x, y, side, up) => { if (up) return; tjEyes(p2, x + (side ? -2 : 0), y - 1, side, C('#40ff9a'), 2); p2.set(Math.round(x + (side ? -5 : 0)), Math.round(y + 2), C('#ff7a9a')); },
+  ears: (p2, x, y) => { for (const sg of [-1, 1]) { p2.vl(Math.round(x + sg * 4), Math.round(y - 7), 4, P[1]); p2.set(Math.round(x + sg * 4), Math.round(y - 8), C('#1a0a0a')); } } }); };
+CBX.tj_fantasma = (p, d, a, f) => cbxGhost(p, d, a, f, { P: TJP.azul, eye: C('#ffe0f0'), deco: (p2, cx, cy, side, up) => { for (let k = 0; k < 5; k++) { const x = Math.round(cx - 8 + k * 4), l = 3 + ((k * 3 + f) % 4); p2.vl(x, Math.round(cy + 6), l, TJP.rosa[k % 2 ? 2 : 3]); p2.set(x, Math.round(cy + 6 + l), TJP.rosa[4]); } },
+  mouth: (p2, cx, y, at) => p2.ball(cx, y, 2, 1 + at * 0.6, [C('#0a0a20'), C('#0a0a20'), C('#1a1a40'), C('#1a1a40')]) });
+CBX.tj_rana = (p, d, a, f) => { const P = TJP.azul, cx = 24, base = 38, side = d === 'left', up = d === 'up', hop = a === 'walk' ? [0, 5, 2, 0][f] : a === 'atk' ? [0, 2, 0][f] : 0, puff = a === 'atk' ? [0, 2, 3][f] : 0;
+  for (const sx of side ? [1] : [-1, 1]) { p.ball(cx + sx * 8, base - 3, 4, 2.5, [P[0], P[1], P[2], P[3]]); p.hl(cx + sx * 8 - 3, base - 1, 6, P[0]); }
+  p.ball(cx, base - 9 - hop, 10 + puff, 8 + puff, [P[1], P[2], P[3], P[4]]); for (const [x, y] of [[-5, -3], [4, -6], [6, 1], [-2, 2]]) p.ball(cx + x, base - 9 - hop + y, 1.6, 1.4, [TJP.rosa[1], TJP.rosa[2], TJP.rosa[3], TJP.rosa[4]]);
+  if (!up) { for (const sx of side ? [-1] : [-1, 1]) { p.ball(cx + sx * 5 + (side ? -3 : 0), base - 17 - hop, 3, 3, [C('#e8e8f0'), C('#ffffff'), C('#ffffff'), C('#ffffff')]); p.rect(cx + sx * 5 + (side ? -3 : 0), base - 17 - hop, 1, 2, C('#101018')); } p.hl(cx - 5 + (side ? -4 : 0), base - 6 - hop, side ? 5 : 10, P[0]); } };
+CBX.tj_mantis = (p, d, a, f) => { const P = TJP.verde; cbxHum(p, d, a, f, { P, th: 12, tw: 4, hr: 4,
+  hand: (p2, ex, ey, sg, at) => { const len = 7 + at * 2; p2.line(ex, ey, ex + sg * 2, ey - len, TJP.plata[3]); p2.set(Math.round(ex + sg * 2), Math.round(ey - len), TJP.plata[4]); p2.set(Math.round(ex + sg * 2), Math.round(ey - len + 2), TJP.rosa[3]); },
+  body: (p2, cx, sh, hip) => { for (let y = sh + 3; y < hip; y += 3) p2.hl(Math.round(cx - 3), y, 6, P[1]); },
+  head: (p2, cx, hy, side, up) => { for (const sx of [-1, 1]) p2.line(cx + sx * 2, hy - 3, cx + sx * 5, hy - 9, P[3]); if (up) return; for (const sx of side ? [-1] : [-1, 1]) p2.ball(cx + sx * 3, hy - 1, 1.8, 2, [C('#a0a020'), C('#e0e040'), C('#ffff80'), C('#ffffff')]); } }); };
+CBX.tj_tijera = (p, d, a, f) => { const S_ = TJP.plata, R_ = TJP.rosa, cx = 24, base = 40, side = d === 'left', snip = a === 'atk' ? [0.5, 0.05, 0.3][f] : a === 'walk' ? 0.3 + (f % 2) * 0.1 : 0.35, step = a === 'walk' ? [1, 0, -1, 0][f] : 0;
+  for (const sg of [-1, 1]) { p.line(cx + sg * 3, base - 10, cx + sg * 3 + step * sg * 2, base, S_[1]); p.hl(cx + sg * 3 + step * sg * 2 - 1, base, 3, S_[0]); }
+  const piv = [cx, base - 16]; for (const sg of [-1, 1]) { const ang = -Math.PI / 2 + sg * snip + (side ? -0.9 : 0), L = 16; p.line(piv[0], piv[1], Math.round(piv[0] + Math.cos(ang) * L), Math.round(piv[1] + Math.sin(ang) * L), S_[3]); p.line(piv[0] + 1, piv[1], Math.round(piv[0] + 1 + Math.cos(ang) * (L - 2)), Math.round(piv[1] + Math.sin(ang) * (L - 2)), S_[4]);
+    const ra = Math.PI / 2 - sg * 0.6; p.ball(piv[0] + Math.cos(ra) * 5 * sg * 0.9, piv[1] + 5, 3.2, 2.6, [R_[1], R_[2], R_[3], R_[4]]); }
+  p.ball(piv[0], piv[1], 1.6, 1.6, [S_[0], S_[1], S_[2], S_[3]]); if (d !== 'up') tjEyes(p, cx, base - 13, side, C('#ff3a3a'), 2); };
+CBX.tj_maniqui = (p, d, a, f) => { const P = TJP.crema; cbxHum(p, d, a, f, { P, th: 12, tw: 6, hr: 5,
+  body: (p2, cx, sh, hip) => { p2.hl(Math.round(cx - 5), Math.round(sh + 4), 10, TJP.madera[2]); p2.vl(Math.round(cx), Math.round(sh + 1), Math.round(hip - sh - 1), P[1]); for (let y = sh + 6; y < hip; y += 3) p2.set(Math.round(cx - 3), y, TJP.rosa[2]); },
+  head: (p2, cx, hy, side, up) => { p2.vl(Math.round(cx), Math.round(hy - 8), 3, TJP.madera[2]); p2.ball(cx, hy - 9, 1.4, 1.4, [TJP.madera[1], TJP.madera[2], TJP.madera[3], TJP.madera[4]]); if (!up && !side) p2.hl(Math.round(cx - 2), Math.round(hy), 4, P[1]); } }); };
+CBX.tj_guardian = (p, d, a, f) => { const P = TJP.ambar, M = TJP.madera; cbxHum(p, d, a, f, { P: M, th: 12, tw: 8, hr: 5, s: 1,
+  body: (p2, cx, sh, hip, side, up) => { p2.rect(Math.round(cx - 7), Math.round(sh + 1), 14, 4, P[2]); p2.hl(Math.round(cx - 7), Math.round(sh + 1), 14, P[4]); if (!up) { p2.ball(cx, (sh + hip) / 2 + 2, 3, 3, [P[1], P[2], P[3], P[4]]); p2.set(Math.round(cx), Math.round((sh + hip) / 2 + 2), TJP.rosa[3]); }
+    if (up || side) { const bx = side ? cx + 6 : cx; p2.ell(bx, sh + 2, 5, 2, M[3]); p2.rect(Math.round(bx - 4), Math.round(sh + 2), 8, 10, TJP.rosa[2]); for (let y = sh + 3; y < sh + 12; y += 2) p2.hl(Math.round(bx - 4), y, 8, TJP.rosa[3]); p2.ell(bx, sh + 12, 5, 2, M[2]); } },
+  head: (p2, cx, hy, side, up) => { p2.ball(cx, hy - 1, 6, 5, [P[1], P[2], P[3], P[4]]); if (up) return; p2.hl(Math.round(cx - 4), Math.round(hy), side ? 4 : 8, C('#1a1010')); p2.hl(Math.round(cx - 3), Math.round(hy), side ? 2 : 6, C('#7ae04a')); } }); };
+CBX.tj_telar = (p, d, a, f) => { const M = TJP.madera, cx = 24, base = 46, side = d === 'left', up = d === 'up', step = a === 'walk' ? [1, 0, -1, 0][f] : 0, at = a === 'atk' ? [0, 2, 1][f] : 0, w = side ? 8 : 15;
+  for (const sg of side ? [0] : [-1, 1]) { const x = cx + sg * (w - 3); p.rect(x - 1, base - 10, 3, 10 - Math.abs(step), M[2]); p.hl(x - 2, base, 5, M[1]); }
+  p.rect(cx - w, base - 36, 3, 27, M[3]); p.rect(cx + w - 3, base - 36, 3, 27, M[2]); p.rect(cx - w, base - 38, w * 2, 3, M[4]); p.rect(cx - w, base - 12, w * 2, 3, M[2]);
+  if (!side) for (let x = cx - w + 4; x < cx + w - 3; x += 2) p.vl(x, base - 35, 23, x % 4 ? TJP.rosa[3] : TJP.azul[3]); else for (let y = base - 34; y < base - 13; y += 3) p.hl(cx - w + 3, y, w * 2 - 6, TJP.rosa[3]);
+  if (!up) { p.rect(cx - 5, base - 30, 10, 6, TJP.negro[2]); tjEyes(p, cx, base - 28, side, C('#ff5ac0'), 3); }
+  for (const sg of side ? [-1] : [-1, 1]) { const x0 = cx + sg * w, y0 = base - 30; p.line(x0, y0, x0 + sg * (4 + at * 3), y0 + 8 - at * 3, M[3]); p.ball(x0 + sg * (4 + at * 3), y0 + 9 - at * 3, 2, 2, [M[1], M[2], M[3], M[4]]); } };
+// ---------- jefes ----------
+CBX.tj_reina = (p, d, a, f) => { const W_ = TJP.seda, B = TJP.lila, G_ = TJP.ambar, cx = 24, cy = 24 + Math.sin(f * 1.4) * 1.5, flap = a === 'atk' ? [4, 10, 6][f] : [3, 7, 4, 8][f % 4], side = d === 'left';
+  for (const sx of side ? [1] : [-1, 1]) { const w = side ? 13 : 20; p.poly([[cx, cy - 3], [cx + sx * w, cy - 14 - flap * 0.5], [cx + sx * (w + 3), cy], [cx + sx * 5, cy + 3]], W_[3]); p.poly([[cx, cy], [cx + sx * (w - 3), cy + 4], [cx + sx * (w - 5), cy + 15 - flap * 0.3], [cx + sx * 4, cy + 8]], W_[2]);
+    p.ball(cx + sx * (w - 6), cy - 6, 3, 3, [TJP.rosa[1], TJP.rosa[2], TJP.rosa[3], C('#ffffff')]); p.ball(cx + sx * (w - 8), cy + 8, 2, 2, [TJP.azul[2], TJP.azul[3], TJP.azul[4], C('#ffffff')]); for (let k = 0; k < 5; k++) p.set(Math.round(cx + sx * (6 + k * 2.5)), Math.round(cy - 4 - k * 1.5), W_[1]); }
+  p.ball(cx, cy + 3, 4, 10, [B[1], B[2], B[3], B[4]]); for (let k = 0; k < 4; k++) p.hl(cx - 3, cy + 1 + k * 3, 7, B[1]); p.ball(cx, cy - 8, 4, 3.4, [B[1], B[2], B[3], B[4]]);
+  for (let k = -2; k <= 2; k++) p.vl(cx + k * 2, cy - 14 + Math.abs(k), 3 - Math.abs(k) + 1, G_[k % 2 ? 3 : 4]); p.hl(cx - 4, cy - 11, 9, G_[3]);
+  for (const sx of [-1, 1]) { p.line(cx + sx, cy - 11, cx + sx * 6, cy - 18, W_[3]); p.set(cx + sx * 6, cy - 19, W_[4]); } if (d !== 'up') tjEyes(p, cx, cy - 9, side, C('#ff5aa0'), 2); };
+CBX.tj_nudo = (p, d, a, f) => { const P = TJP.rosa, Q = TJP.lila, cx = 24, base = 44, pul = a === 'atk' ? [0, 3, 1][f] : a === 'walk' ? f % 2 : 0, side = d === 'left';
+  p.ball(cx, base - 16, 15 + pul, 14 + pul, [P[0], P[1], P[2], P[3]]);
+  for (let k = 0; k < 9; k++) { const ang = k * 0.7 + f * 0.1; for (let t = 0; t < 6.3; t += 0.08) { const r = 11 + Math.sin(t * 3 + k) * 3, x = Math.round(cx + Math.cos(t + ang) * r * 0.9), y = Math.round(base - 16 + Math.sin(t * 1.3 + ang) * r * 0.75); if ((x - cx) ** 2 + (y - base + 16) ** 2 < 196) p.set(x, y, (k % 3 === 0 ? Q : P)[k % 2 ? 2 : 4]); } }
+  for (let k = 0; k < 5; k++) { const x0 = cx - 12 + k * 6; for (let j = 0; j < 6; j++) p.set(x0 + Math.round(Math.sin(j + k + f) * 1.5), base - 3 + j % 3, P[2]); }
+  if (d !== 'up') { const ex = side ? cx - 6 : cx; p.ball(ex, base - 18, 5, 4, [C('#e8e0e8'), C('#ffffff'), C('#ffffff'), C('#ffffff')]); p.ball(ex + (side ? -1 : 0), base - 18, 2, 3, [C('#1a0a14'), C('#1a0a14'), C('#3a1a2a'), C('#3a1a2a')]); } };
+CBX.tj_rueca = (p, d, a, f) => { const M = TJP.madera, Y = TJP.ambar, cx = 24, base = 46, side = d === 'left', up = d === 'up', rot = (a === 'idle' ? f * 0.3 : f * 0.8) + (a === 'atk' ? 1 : 0), wx = side ? cx + 4 : cx, wy = base - 24, R = side ? 7 : 15;
+  for (const sg of side ? [-1, 1] : [-1, 1]) { p.line(cx + sg * 8, base - 8, cx + sg * 11, base, M[2]); p.hl(cx + sg * 11 - 1, base, 3, M[1]); } p.rect(cx - 10, base - 10, 20, 3, M[3]);
+  for (let k = 0; k < 64; k++) { const t = k / 64 * Math.PI * 2; p.set(Math.round(wx + Math.cos(t) * R), Math.round(wy + Math.sin(t) * 15), M[k % 8 < 4 ? 3 : 4]); p.set(Math.round(wx + Math.cos(t) * (R - 1)), Math.round(wy + Math.sin(t) * 14), M[2]); }
+  for (let k = 0; k < 8; k++) { const t = rot + k / 8 * Math.PI * 2; p.line(wx, wy, Math.round(wx + Math.cos(t) * (R - 1)), Math.round(wy + Math.sin(t) * 14), M[2]); }
+  p.ball(wx, wy, 3, 3, [Y[1], Y[2], Y[3], Y[4]]); const hx = side ? cx - 9 : cx, hy = base - 9; p.ell(hx, hy - 2, 4, 2, Y[3]); for (let k = 0; k < 10; k++) p.set(Math.round(hx + Math.cos(rot * 3 + k) * 3), Math.round(hy - 2 + Math.sin(rot * 3 + k) * 1), TJP.rosa[3]);
+  if (!up) { p.ball(wx, wy, 5, 5, [TJP.negro[1], TJP.negro[2], TJP.negro[3], TJP.negro[3]]); tjEyes(p, wx, wy - 1, side, C('#ffb040'), 2); } };
+CBX.tj_hilandera = (p, d, a, f) => { const P = TJP.negro; const r = cbxHum(p, d, a, f, { P, th: 15, tw: 6, hr: 5,
+  hand: (p2, ex, ey, sg, at) => { if (sg < 0) return; p2.line(ex, ey + 4, ex + 1, ey - 12 - at, TJP.madera[3]); p2.ball(ex + 1, ey - 4, 2.4, 3.4, [TJP.lila[1], TJP.lila[2], TJP.lila[3], TJP.lila[4]]); for (let k = 0; k < 8; k++) p2.set(Math.round(ex + 1 - k * 1.5), Math.round(ey - 4 + Math.sin(k + at) * 2), C('#e8e8f0')); },
+  body: (p2, cx, sh, hip, side, up) => { for (let y = hip - 2; y < hip + 8; y++) { const w = 6 + (y - hip) * 0.7; p2.hl(Math.round(cx - w), y, Math.round(w * 2), P[(y + f) % 3 ? 1 : 2]); } for (let y = sh + 2; y < hip; y += 3) p2.set(Math.round(cx - 1), y, TJP.lila[3]); },
+  head: (p2, cx, hy, side, up) => { for (let k = 0; k < 9; k++) { const x = Math.round(cx - 6 + k * 1.5); for (let j = 0; j < 9 + (k % 3) * 2; j++) p2.set(x + Math.round(Math.sin(j * 0.5 + k) * 0.8), Math.round(hy - 5 + j), P[k % 2 ? 0 : 1]); }
+    if (up) return; p2.ball(cx + (side ? -2 : 0), hy, 3.6, 4.2, [C('#cac4d4'), C('#e2dcea'), C('#f4f0fa'), C('#ffffff')]); for (const sx of side ? [-1] : [-1, 1]) p2.set(Math.round(cx + sx * 2 + (side ? -2 : 0)), Math.round(hy - 1), C('#2a1a3a')); p2.hl(Math.round(cx - 2 + (side ? -2 : 0)), Math.round(hy + 2), 3, C('#a098b0')); } }); };
+{ const _ma = mobAtlasFor; mobAtlasFor = function (art) { if (art && art[0] === 'cbx' && typeof art[1] === 'string' && art[1].startsWith('tj_') && CBX[art[1]]) { const big = ['tj_telar', 'tj_guardian', 'tj_reina', 'tj_nudo', 'tj_rueca', 'tj_hilandera', 'tj_maniqui', 'tj_mantis'].includes(art[1]);
+  return getAtlas('M' + art.join(','), () => mobAtlas(48, big ? 52 : 44, CBX[art[1]])); } return _ma.apply(this, arguments); }; }
+
+// ================= v5.78: EQUIPO DE NIVEL 505-600 (tiers 37-43) =================
+// 49 armaduras (7 tiers x 7 clases) y 49 armas, cada una con su propio diseño. Las armaduras se dibujan con fitKind y las
+// medidas del cuerpo (se ajustan solas a las 10 estructuras); las armas se dibujan en código (mano 16 px, HD 32 px e icono)
+// y usan el efecto de ataque del tier 26 con los colores de su tier. Se forjan con Maese Hilario (Tierras Tejidas).
+//   37 Legado (505): un tema por clase · 38 Escarcha Eterna (520) · 39 Raíz Ancestral (535) · 40 Engranaje del Tiempo (550)
+//   41 Prisma Velado (565) · 42 Fénix de Ceniza (580) · 43 Aurora Divina (600)
+// Lore: el hilo aprende el patrón de lo que toca (LORE §30); Hilario forja el metal con hebras que recuerdan ese patrón.
+const TJC = {
+  lino: P5(['#4a3a24', '#7a6440', '#a89068', '#cdb890', '#eadcb8']), cuero: P5(['#2a160c', '#4a2a16', '#6a4022', '#8a5a32', '#b07a4a']),
+  lana: P5(['#1e2432', '#344058', '#4e6080', '#7488a8', '#a8b8d0']), hoja: P5(['#14280e', '#24461a', '#3a6a2a', '#5a9a3e', '#90c868']),
+  gris: P5(['#1c1c22', '#2e2e36', '#44444e', '#62626e', '#8a8a96']), rojo: P5(['#3a0a08', '#6a1410', '#a02418', '#d0402a', '#f07a5a']),
+  amar: P5(['#5a3a08', '#9a6a10', '#d0a020', '#f0d050', '#fff0a0']), papel: P5(['#6a6458', '#9a9486', '#cac4b4', '#ece6d6', '#fffcf0']),
+  mar: P5(['#08283a', '#104a5e', '#1a7080', '#3aa0a8', '#8ad8d8']), arena: P5(['#5a4a2a', '#8a7448', '#b8a070', '#dccaa0', '#f6ecd0']),
+  obs: P5(['#08080c', '#121218', '#1e1e28', '#2e2e3a', '#464656']), lava: P5(['#5a1004', '#a02a06', '#e05a10', '#ff9a2a', '#ffe08a']),
+  noche: P5(['#06081a', '#0e1230', '#1a2050', '#2c3478', '#4a56a8']), oro: P5(['#5a3a0a', '#9a6a14', '#d0a030', '#f0d060', '#fff4b0']),
+  torm: P5(['#0a1a30', '#163056', '#24508a', '#3c7ac0', '#7ab0e8']), plata: P5(['#3a3e48', '#6a707c', '#a0a8b4', '#d0d6de', '#f4f6fa']),
+  carm: P5(['#2a0206', '#5a0610', '#9a0e1e', '#e0203a', '#ff7088']), blanco: P5(['#7a7480', '#aca6b2', '#d4d0da', '#eeecf2', '#ffffff']),
+  viol: P5(['#12061e', '#240c3a', '#3c1660', '#5e2a90', '#9a5ad0']), verdeV: P5(['#06301a', '#0a5a30', '#14a050', '#40e080', '#b0ffc8']),
+  abis: P5(['#020c1a', '#061a34', '#0c2c54', '#164a7a', '#2a70a8']), bio: P5(['#044a4a', '#0a8a8a', '#20d0c8', '#70fff0', '#e0fffc']),
+  coral: P5(['#4a0e1a', '#8a1e2a', '#c83a3a', '#f07060', '#ffb0a0']), hueso: P5(['#5a5040', '#8a806a', '#bab098', '#e0d8c4', '#fcf8ec']),
+};
+const TJ4 = P => [P[1], P[2], P[3], P[4]];
+const tjSh = (p, A, P, r, oneSide) => { const { tx0, tw, torsoTop: ty, cx, side, d, up } = A; if (side) { if (oneSide === undefined || oneSide === d * (up ? -1 : 1) || true) p.ball(cx - 1 - d, ty + 1.5, r, r * 0.8, TJ4(P)); return; }
+  const L = [tx0 - 1, tx0 + tw]; const which = oneSide ? [up ? L[1] : L[0]] : L; for (const sx of which) p.ball(sx, ty + 1.5, r, r * 0.8, TJ4(P)); };
+const tjBelt = (p, A, P, buckle) => { const { tx0, tw, torsoTop: ty, th, cx, side, up } = A; p.hl(tx0, ty + th - 2, tw, P[1]); if (buckle && !up && !side) p.set(cx, ty + th - 2, buckle); };
+const tjTails = (p, A, P, len, inner, split) => { const { tx0, tw, torsoTop: ty, th, legTop, base, side, up, cx, d } = A, R = tx0 + tw - 1, y1 = Math.min(base - 1, legTop + len);
+  for (let y = ty + th - 1; y < y1; y++) { const w = Math.floor((y - ty - th) / 3); if (up) { for (let x = tx0 - 1 - (w > 0 ? 1 : 0); x <= R + 1 + (w > 0 ? 1 : 0); x++) p.set(x, y, P[(x + y) % 5 ? 2 : 1]); continue; }
+    if (side) { for (let i = -1; i < 4; i++) p.set(cx - d * i, y, P[i <= 0 ? 3 : 2]); continue; }
+    for (let x = tx0 - 1 - (w > 0 ? 1 : 0); x <= R + 1 + (w > 0 ? 1 : 0); x++) { const c = Math.abs(x - cx + 0.5); if (split && c < 1.5) { if (inner) p.set(x, y, inner[2]); continue; } p.set(x, y, x <= tx0 - 1 ? P[3] : x >= R + 1 ? P[1] : P[2]); } }
+  if (!side) p.hl(tx0 - 2, y1 - 1, tw + 4, P[1]); };
+const tjHood = (p, A, P, opts = {}) => { const { hx: cx, hy, headTop: top, hrx, side, up, d, ey } = A, rx = hrx + 1.5;
+  for (let y = top - 1; y <= ey + 5; y++) for (let x = Math.floor(cx - rx - 1); x <= Math.ceil(cx + rx + 1); x++) {
+    const q = ((x - cx) / rx) ** 2 + ((y - (top + 6)) / 8) ** 2; if (q > 1) continue;
+    const inFace = !up && (side ? (x - cx) * d > -1 && y > top + 3 : Math.abs(x - cx + 0.5) < hrx - 1.5 && y > top + 3);
+    if (inFace) continue; p.set(x, y, q > 0.8 ? P[1] : (x < cx - rx / 2) ? P[3] : P[2]); }
+  if (!up && !side) p.hl(Math.round(cx - hrx + 1.5), top + 3, Math.round(hrx * 2 - 2), P[1]);
+  if (opts.point && up) { p.set(cx, ey + 6, P[1]); p.set(cx, ey + 7, P[1]); } };
+
+// ===================== NIVEL 500 =====================
+// Guerrero · Coloso de Obsidiana: placas negras con grietas de lava, hombreras enormes, yelmo con cuernos
+const tjCracks = (p, x0, y0, x1, y1, seed) => { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) { const h = (x * 73856093 ^ y * 19349663 ^ seed) >>> 0; if (h % 11 === 0) { p.set(x, y, TJC.lava[3]); if (h % 3 === 0) p.set(x + 1, y + 1, TJC.lava[2]); } } };
+fitKind('body', 'tj_coloso', (p, A, s) => { const { tx0, tw, torsoTop: ty, th, cx, side, up, d } = A, O = TJC.obs, R = tx0 + tw - 1;
+  for (let y = ty + 2; y < ty + th - 2; y += 3) p.hl(tx0, y, tw, O[1]);
+  if (!up && !side) { p.vl(cx - 1, ty + 1, th - 3, TJC.lava[2]); p.vl(cx, ty + 1, th - 3, TJC.lava[3]); p.ball(cx - 0.5, ty + 3, 1.5, 1.5, [TJC.lava[1], TJC.lava[2], TJC.lava[3], TJC.lava[4]]); }
+  tjCracks(p, tx0, ty + 2, R, ty + th - 3, 7);
+  const { torsoTop } = A; if (side) { p.ball(cx - 1 - d, ty + 1, 4, 3.2, TJ4(O)); p.set(cx - 1 - d, ty - 1, TJC.lava[3]); p.set(cx - 1 - d * 2, ty - 2, O[3]); }
+  else for (const sx of [tx0 - 2, R + 2]) { p.ball(sx, ty + 1, 4, 3.2, TJ4(O)); p.hl(sx - 3, ty + 3, 7, TJC.lava[2]); const sp = sx < cx ? -1 : 1; p.set(sx + sp * 2, ty - 2, O[3]); p.set(sx + sp * 3, ty - 3, O[4]); }
+  p.hl(tx0, ty + th - 2, tw, TJC.oro[2]); if (!up && !side) p.ball(cx - 0.5, ty + th - 2, 1.4, 1, TJ4(TJC.lava)); });
+fitKind('head', 'tj_coloso_h', (p, A) => { const { hx: cx, hy, headTop: top, hrx, side, up, d, ey } = A, O = TJC.obs;
+  p.ball(cx, top + 3.5, hrx + 1, 5.5, TJ4(O)); p.hl(Math.round(cx - hrx) - 1, top + 6, Math.round(hrx * 2) + 3, O[1]);
+  if (!up && !side) { p.vl(cx, top - 1, 6, TJC.lava[3]); p.vl(cx - 1, top, 5, TJC.lava[2]); }
+  for (const sx of side ? [-d] : [-1, 1]) { let x = cx + sx * (hrx - 1), y = top + 2; for (let k = 0; k < 7; k++) { x += sx * (k < 3 ? 1 : 0.4); y -= k < 3 ? 0.6 : 1.2; p.set(Math.round(x), Math.round(y), k > 4 ? TJC.lava[3] : O[3]); p.set(Math.round(x), Math.round(y) + 1, O[2]); } }
+  if (!up) for (const sx of side ? [-d] : [-1, 1]) for (let y = top + 6; y <= ey + 4; y++) { p.set(Math.round(cx + sx * (hrx + 0.5)), y, O[2]); p.set(Math.round(cx + sx * (hrx + 1.5)), y, O[1]); }
+  if (up) for (let y = top + 6; y <= ey + 4; y++) for (let x = Math.round(cx - hrx); x <= cx + hrx; x++) p.set(x, y, O[(x + y) % 5 ? 2 : 1]); });
+fitKind('legs', 'tj_placas', (p, A, s) => { const { legTop, base } = A, cols = new Set(s.m);
+  for (let y = legTop; y < base - 1; y++) for (let x = 0; x < p.w; x++) if (cols.has(p.get(x, y))) { if ((y - legTop) % 3 === 2) p.set(x, y, s.m[0]); else if ((x * 7 + y * 13) % 17 === 0) p.set(x, y, TJC.lava[3]); } });
+
+// Mago · Arcanista Estelar: túnica de cielo nocturno con estrellas y constelación, cuello alto, anillo orbital
+fitKind('body', 'tj_estelar', (p, A, s) => { const { tx0, tw, torsoTop: ty, th, cx, side, up, d } = A, N = TJC.noche, R = tx0 + tw - 1;
+  tjTails(p, A, N, 9, TJC.viol, !up && !side);
+  const y1 = Math.min(A.base - 1, A.legTop + 9);
+  for (let y = ty + 1; y < y1; y++) for (let x = tx0 - 3; x <= R + 3; x++) { const c = p.get(x, y); if ((c === N[2] || c === N[1] || c === N[3]) && ((x * 31 + y * 17) % 23 === 0)) p.set(x, y, TJC.oro[4]); }
+  if (!up && !side) { p.line(tx0 + 1, ty + 3, cx - 2, ty + 6, TJC.oro[2]); p.line(cx - 2, ty + 6, tx0 + 2, ty + th - 2, TJC.oro[2]); p.set(tx0 + 1, ty + 3, TJC.oro[4]); p.set(cx - 2, ty + 6, TJC.oro[4]); p.set(tx0 + 2, ty + th - 2, TJC.oro[4]);
+    for (let y = ty; y < y1; y++) { p.set(cx - 2, y, TJC.oro[3]); p.set(cx + 1, y, TJC.oro[3]); } }
+  for (let x = tx0 - 2; x <= R + 2; x++) { p.set(x, ty - 1, N[3]); p.set(x, ty, TJC.oro[x % 2 ? 3 : 2]); }
+  if (!side) { p.set(tx0 - 2, ty - 2, N[4]); p.set(R + 2, ty - 2, N[4]); } });
+fitKind('head', 'tj_orbita', (p, A) => { const { hx: cx, headTop: top, hrx, side, up, d } = A, cy = top - 1;
+  for (let a = 0; a < 40; a++) { const t = a / 40 * 6.283, x = Math.round(cx + Math.cos(t) * (side ? 5 : 9)), y = Math.round(cy + Math.sin(t) * 2.2); const back = Math.sin(t) < 0; if (back && p.get(x, y) !== 1) continue; p.set(x, y, TJC.oro[back ? 2 : 3]); }
+  p.ball(Math.round(cx + (side ? d * 4 : 8)), cy + 1, 1.3, 1.3, TJ4(TJC.torm)); p.ball(Math.round(cx - (side ? d * 4 : 8)), cy - 1, 1, 1, TJ4(TJC.viol));
+  if (!up) { const x = side ? Math.round(cx + d * 3) : cx; p.set(x, top + 3, TJC.oro[4]); p.set(x - 1, top + 3, TJC.oro[2]); p.set(x + 1, top + 3, TJC.oro[2]); p.set(x, top + 2, TJC.oro[2]); p.set(x, top + 4, TJC.oro[2]); } }, { float: true });
+
+// Arquero · Halcón de la Tormenta: hombreras de plumas de acero, rayos dorados, diadema alada
+fitKind('body', 'tj_halcon', (p, A, s) => { const { tx0, tw, torsoTop: ty, th, cx, side, up, d } = A, T = TJC.torm, Pl = TJC.plata, R = tx0 + tw - 1;
+  if (!up && !side) { p.ball(cx - 0.5, ty + 4, 3, 3, TJ4(Pl)); p.line(cx - 2, ty + 3, cx, ty + 5, TJC.oro[3]); p.line(cx, ty + 5, cx - 1, ty + 6, TJC.oro[3]); p.line(cx - 1, ty + 6, cx + 1, ty + 8, TJC.oro[4]); }
+  const feathers = (x, sx) => { for (let k = 0; k < 4; k++) { const fx = x + sx * k, fy = ty - 1 + k; p.vl(fx, fy, 4 - (k >> 1), Pl[k % 2 ? 2 : 3]); p.set(fx, fy + 4 - (k >> 1), T[3]); } };
+  if (side) feathers(cx - d * 2, -d); else { feathers(tx0 - 1, -1); feathers(R + 1, 1); }
+  if (up) { p.line(tx0, ty + 2, R, ty + th - 2, TJC.cuero[3]); p.rect(R - 2, ty - 3, 3, 7, T[1]); p.hl(R - 2, ty - 3, 3, TJC.oro[3]); p.set(R - 2, ty - 4, Pl[4]); p.set(R, ty - 4, Pl[4]); }
+  tjBelt(p, A, T, TJC.oro[4]); p.hl(tx0, ty + th - 3, tw, TJC.oro[2]); });
+fitKind('head', 'tj_alas', (p, A) => { const { hx: cx, headTop: top, hrx, side, up, d } = A, Pl = TJC.plata;
+  p.hl(Math.round(cx - hrx), top + 4, Math.round(hrx * 2) + 1, TJC.oro[2]); p.hl(Math.round(cx - hrx) + 1, top + 3, Math.round(hrx * 2) - 1, TJC.oro[3]);
+  if (!up && !side) { p.ball(cx - 0.5, top + 3.5, 1.4, 1.4, TJ4(TJC.torm)); }
+  for (const sx of side ? [-d] : [-1, 1]) { const x0 = Math.round(cx + sx * hrx); for (let k = 0; k < 5; k++) { const x = x0 + sx * k, y0 = top + 3 - k; p.vl(x, y0, 2 + (k >> 1), Pl[k === 4 ? 4 : 3]); p.set(x, y0 + 2 + (k >> 1), Pl[1]); } } });
+
+// Asesino · Hoja Carmesí: traje negro con líneas carmesí que brillan, bufanda roja larga, media máscara con colmillos
+fitKind('body', 'tj_carmesi', (p, A, s) => { const { tx0, tw, torsoTop: ty, th, cx, side, up, d } = A, Cr = TJC.carm, R = tx0 + tw - 1;
+  if (!side) { p.line(tx0, ty + 2, R, ty + th - 3, Cr[3]); p.line(R, ty + 2, tx0, ty + th - 3, Cr[3]); } else p.vl(cx, ty + 2, th - 4, Cr[3]);
+  for (let x = tx0 - 1; x <= R + 1; x++) { p.set(x, ty - 1, Cr[x & 1 ? 3 : 2]); p.set(x, ty, Cr[x & 1 ? 2 : 1]); }
+  const tail = (x, sx) => { for (let k = 0; k < 9; k++) { p.set(x + sx * (k >> 2), ty + 1 + k, Cr[k & 1 ? 2 : 3]); p.set(x + sx * (k >> 2) + sx, ty + 1 + k, Cr[1]); } };
+  if (side) tail(cx - d * 2, -d); else if (up) { tail(cx - 1, 1); } else tail(R, 1);
+  p.hl(tx0, ty + th - 2, tw, TJC.obs[3]); if (!up && !side) p.set(cx, ty + th - 2, Cr[4]); });
+fitKind('head', 'tj_oni', (p, A) => { const { hx: cx, headTop: top, hrx, side, up, d, ey } = A; tjHood(p, A, TJC.obs, {});
+  for (const sx of side ? [-d] : [-1, 1]) { const x = Math.round(cx + sx * (hrx - 2)); p.set(x, top - 1, TJC.carm[3]); p.set(x, top - 2, TJC.carm[3]); p.set(x + sx, top - 3, TJC.carm[4]); }
+  if (!up) { const y0 = ey + 3; const xs = side ? [Math.round(cx), Math.round(cx + d * (hrx + 1))] : [Math.round(cx - hrx + 1), Math.round(cx + hrx - 1)];
+    for (let y = y0; y <= y0 + 3; y++) for (let x = Math.min(...xs); x <= Math.max(...xs); x++) p.set(x, y, y === y0 ? TJC.obs[3] : TJC.obs[2]);
+    if (!side) { for (const x of [cx - 3, cx - 1, cx + 1, cx + 3]) p.set(x, y0 + 2, TJC.papel[4]); p.hl(cx - 3, y0 + 1, 7, TJC.carm[3]); } else { p.set(Math.round(cx + d * 3), y0 + 2, TJC.papel[4]); p.set(Math.round(cx + d * 2), y0 + 1, TJC.carm[3]); } } });
+fitKind('legs', 'tj_lineas', (p, A, s) => { const { legTop, base } = A, cols = new Set(s.m); for (let y = legTop + 1; y < base - 1; y++) for (let x = 0; x < p.w; x++) if (cols.has(p.get(x, y)) && !cols.has(p.get(x - 1, y))) p.set(x, y, TJC.carm[3]); });
+
+// Bardo · Sinfonía Áurea: levita blanca con faldones, pentagrama dorado con notas, charreteras con borlas, corona de lira
+fitKind('body', 'tj_sinfonia', (p, A, s) => { const { tx0, tw, torsoTop: ty, th, cx, side, up, d } = A, B = TJC.blanco, R = tx0 + tw - 1, G_ = TJC.oro;
+  const { legTop, base } = A, y1 = Math.min(base - 2, legTop + 7);
+  for (let y = ty + th - 1; y < y1; y++) { if (up) { for (let x = tx0; x <= R; x++) if (Math.abs(x - cx + 0.5) > 0.6 || y < ty + th + 1) p.set(x, y, B[(x + y) % 6 ? 2 : 1]); continue; }
+    if (side) { for (let i = 1; i < 4; i++) p.set(cx - d * i, y, B[i === 1 ? 3 : 2]); continue; } for (const x of [tx0, tx0 + 1, R - 1, R]) p.set(x, y, B[x === tx0 || x === R ? 2 : 3]); }
+  if (!up && !side) { for (let y = ty + 1; y < ty + th - 2; y++) { p.set(cx - 1, y, TJC.noche[2]); p.set(cx, y, TJC.noche[1]); } for (let y = ty + 2; y < ty + th - 2; y += 2) { p.set(cx - 2, y, G_[4]); p.set(cx + 1, y, G_[4]); } }
+  if (up || side) { for (let k = 0; k < 3; k++) p.hl(tx0 + 1, ty + 2 + k * 2, tw - 2, G_[2]); p.set(tx0 + 2, ty + 3, TJC.noche[1]); p.set(tx0 + 2, ty + 2, TJC.noche[1]); p.set(R - 3, ty + 5, TJC.noche[1]); p.set(R - 2, ty + 4, TJC.noche[1]); }
+  const epa = (x) => { p.hl(x - 2, ty, 5, G_[3]); p.hl(x - 2, ty + 1, 5, G_[2]); for (let i = -2; i <= 2; i += 2) p.vl(x + i, ty + 2, 2, G_[1]); };
+  if (side) epa(cx - 1 - d); else { epa(tx0 - 1); epa(R + 1); }
+  p.hl(tx0, ty + th - 2, tw, G_[2]); });
+fitKind('head', 'tj_lira', (p, A) => { const { hx: cx, headTop: top, hrx, side, up, d } = A, G_ = TJC.oro, V = TJC.hoja;
+  for (let x = Math.round(cx - hrx + 1); x <= cx + hrx - 1; x++) { p.set(x, top + 4, V[(x % 2) ? 3 : 2]); if (x % 2 === 0) p.set(x, top + 3, V[4]); }
+  if (!side) { const xs = [cx - 3, cx + 2]; for (const [i, x] of xs.entries()) { for (let y = top - 3; y <= top + 3; y++) p.set(x + (y < top - 1 ? (i ? 1 : -1) : 0), y, G_[3]); } p.hl(cx - 4, top - 3, 2, G_[4]); p.hl(cx + 3, top - 3, 2, G_[4]); p.hl(cx - 3, top + 2, 6, G_[2]); for (const x of [cx - 1, cx, cx + 1]) p.vl(x, top - 2, 4, TJC.blanco[3]); }
+  else { p.vl(Math.round(cx), top - 3, 6, G_[3]); p.set(Math.round(cx - d), top - 4, G_[4]); } });
+
+// Invocador · Señor de los Pactos: túnica violeta con ojo rúnico, cadenas, corona de hueso con tercer ojo, círculo flotante a la espalda
+fitKind('body', 'tj_pactos', (p, A, s) => { const { tx0, tw, torsoTop: ty, th, cx, side, up, d } = A, V = TJC.viol, G = TJC.verdeV, R = tx0 + tw - 1;
+  tjTails(p, A, V, 9, TJC.obs, !up && !side);
+  if (!side) { const cy = ty + Math.round(th / 2) - 1; for (let x = cx - 3; x <= cx + 2; x++) { const e = Math.abs(x - cx + 0.5); p.set(x, cy - (e < 2 ? 1 : 0), G[3]); p.set(x, cy + (e < 2 ? 1 : 0), G[3]); } if (!up) { p.set(cx - 1, cy, G[4]); p.set(cx, cy, TJC.obs[0]); } else { p.set(cx - 1, cy, G[2]); p.set(cx, cy, G[2]); } }
+  if (!up && !side) { for (let k = 0; k < tw; k++) p.set(tx0 + k, ty + 1 + Math.round(Math.sin(k / tw * 3.14) * 2), k % 2 ? TJC.plata[3] : TJC.plata[1]); }
+  for (let x = tx0 - 2; x <= R + 2; x++) p.set(x, ty, TJC.hueso[x % 2 ? 3 : 2]); if (!side) for (const x of [tx0 - 2, R + 2]) { p.set(x, ty - 1, TJC.hueso[4]); p.set(x, ty - 2, TJC.hueso[3]); }
+  p.hl(tx0, ty + th - 2, tw, TJC.obs[3]); if (!up && !side) p.set(cx, ty + th - 2, G[4]); });
+fitKind('head', 'tj_corona_hueso', (p, A) => { const { hx: cx, headTop: top, hrx, side, up, d } = A, Hu = TJC.hueso;
+  p.hl(Math.round(cx - hrx), top + 3, Math.round(hrx * 2) + 1, Hu[2]); p.hl(Math.round(cx - hrx), top + 4, Math.round(hrx * 2) + 1, Hu[1]);
+  for (let x = Math.round(cx - hrx) + 1; x < cx + hrx; x += 3) { p.set(x, top + 2, Hu[3]); p.set(x, top + 1, Hu[4]); }
+  for (const sx of side ? [-d] : [-1, 1]) { let x = cx + sx * (hrx - 0.5), y = top + 3; for (let k = 0; k < 6; k++) { x += sx * (k < 2 ? 1 : 0.2); y -= k < 2 ? 0.8 : 1.2; p.set(Math.round(x), Math.round(y), Hu[k > 3 ? 4 : 3]); p.set(Math.round(x) + sx, Math.round(y) + 1, Hu[1]); } }
+  if (!up) { const x = side ? Math.round(cx + d * (hrx - 2)) : cx; p.ball(x - (side ? 0 : 0.5), top + 3, 1.4, 1.3, TJ4(TJC.verdeV)); p.set(x, top + 3, TJC.obs[0]); } });
+fitKind('back', 'tj_circulo', (p, A, s) => { const { tx0, tw, torsoTop: ty, cx, side, up } = A, G = TJC.verdeV, cy = ty + 2, r = side ? 4 : 10, ry = 10;
+  for (let a = 0; a < 64; a++) { const t = a / 64 * 6.283, x = Math.round(cx - 0.5 + Math.cos(t) * r), y = Math.round(cy + Math.sin(t) * ry); if (p.get(x, y) === 1) p.set(x, y, G[a % 4 ? 2 : 4]); }
+  for (let a = 0; a < 6; a++) { const t = a / 6 * 6.283, x = Math.round(cx - 0.5 + Math.cos(t) * r * 0.75), y = Math.round(cy + Math.sin(t) * ry * 0.75); if (p.get(x, y) === 1) p.set(x, y, G[3]); } }, { float: true });
+
+// Pez · Leviatán Abisal: escamas azul abismo con luces bioluminiscentes, aletas en los hombros, cresta de aleta
+fitKind('body', 'tj_leviatan', (p, A, s) => { const { tx0, tw, torsoTop: ty, th, cx, side, up, d } = A, Ab = TJC.abis, B = TJC.bio, R = tx0 + tw - 1;
+  for (let y = ty + 1; y < ty + th - 1; y++) for (let x = tx0; x <= R; x++) if ((y - ty) % 2 === 0 ? (x % 2 === 0) : (x % 2 === 1)) p.set(x, y, Ab[(y - ty) % 4 < 2 ? 3 : 1]);
+  for (const [dx, dy] of [[1, 3], [-2, 5], [2, 7], [-1, 1]]) if (!side || dx * d > 0) p.set(cx + dx, ty + dy, B[3]);
+  const fin = (x, sx) => { for (let k = 0; k < 5; k++) { p.vl(x + sx * k, ty - 2 + k, 4 - (k >> 1), k % 2 ? B[2] : B[1]); p.set(x + sx * k, ty - 2 + k, B[4]); } };
+  if (side) fin(cx - 1 - d, -d); else { fin(tx0 - 1, -1); fin(R + 1, 1); }
+  for (let x = tx0 - 1; x <= R + 1; x++) p.set(x, ty, TJC.coral[x % 2 ? 3 : 2]);
+  p.hl(tx0, ty + th - 2, tw, TJC.coral[2]); if (!up && !side) p.ball(cx - 0.5, ty + th - 2, 1.3, 1, TJ4(TJC.bio)); });
+fitKind('head', 'tj_cresta', (p, A) => { const { hx: cx, headTop: top, hrx, side, up, d, ey } = A, B = TJC.bio, Ab = TJC.abis;
+  p.ball(cx, top + 3, hrx + 0.5, 4.5, TJ4(Ab)); p.hl(Math.round(cx - hrx), top + 5, Math.round(hrx * 2) + 1, TJC.coral[2]);
+  if (side) { for (let k = 0; k < 9; k++) { const x = Math.round(cx + d * 3 - d * k), h = 5 - Math.abs(k - 3) * 0.6; p.vl(x, Math.round(top - h + 1), Math.max(1, Math.round(h)), k % 2 ? B[2] : B[3]); } }
+  else { for (let y = top - 6; y <= top + 1; y++) { p.set(cx - 1, y, B[2]); p.set(cx, y, B[3]); } for (const sx of [-1, 1]) for (let k = 0; k < 4; k++) p.vl(Math.round(cx + sx * (hrx + 1 + k * 0.5)), tjHy(A) - 1 + k, 4 - k, k % 2 ? B[1] : B[2]); }
+  for (const [dx, dy] of [[-4, 2], [3, 1], [5, 3]]) if (!side || dx * d > 0) p.set(cx + dx, top + dy, B[4]); });
+function tjHy(A) { return Math.round(A.hy) - 2; }
+
+
+// ---------- tiers 38-43: un tema por tier y un diseño propio por clase ----------
+const TJT = [
+  { id: 'escarcha', n: 'Escarcha Eterna', lv: 520, m: P5(['#2a3a5a', '#4a6a96', '#7aa4cc', '#b4daf0', '#eefaff']), a: P5(['#0a1a3a', '#12306a', '#1e4ea0', '#3a7ad0', '#7ab4f0']), g: P5(['#1a6a8a', '#3aa8c8', '#7ae0f0', '#c0f8ff', '#ffffff']) },
+  { id: 'raiz', n: 'Raíz Ancestral', lv: 535, m: P5(['#2a1a0e', '#4a2e18', '#6a4426', '#8a6038', '#ae8052']), a: P5(['#0e2a10', '#1a4a1c', '#2a6e2a', '#4a9a3a', '#88c860']), g: P5(['#6a3a00', '#b06a00', '#f0a020', '#ffd060', '#fff4b0']) },
+  { id: 'engranaje', n: 'Engranaje del Tiempo', lv: 550, m: P5(['#3a2410', '#6a4220', '#a06a30', '#d09a4a', '#f4d08a']), a: P5(['#0a2a2a', '#124848', '#1e6e6a', '#3a9a90', '#7ad0c4']), g: P5(['#1a4a5a', '#2a8aa0', '#5ad0e0', '#a8f4ff', '#ffffff']) },
+  { id: 'prisma', n: 'Prisma Velado', lv: 565, m: P5(['#4a3a6a', '#7a6aa0', '#aa9ad0', '#d8ccf0', '#fbf6ff']), a: P5(['#5a1a4a', '#902a74', '#c84aa0', '#f080c8', '#ffc0ea']), g: P5(['#1a6a7a', '#2aa8b8', '#5ae0e8', '#b0fcff', '#ffffff']) },
+  { id: 'fenix', n: 'Fénix de Ceniza', lv: 580, m: P5(['#1a1616', '#2e2828', '#463e3c', '#645a56', '#8a807a']), a: P5(['#5a0a04', '#a01a08', '#e04010', '#ff8020', '#ffd060']), g: P5(['#8a2a00', '#e06000', '#ffa020', '#ffe060', '#fffce0']) },
+  { id: 'aurora', n: 'Aurora Divina', lv: 600, m: P5(['#8a8496', '#b8b2c4', '#dcd8e6', '#f2f0f8', '#ffffff']), a: P5(['#5a3a0a', '#9a6a14', '#d0a030', '#f0d060', '#fff4b0']), g: P5(['#2a8a6a', '#4ad0a0', '#a0f0c8', '#f8b0e0', '#fff0fa']) },
+];
+const TJTI = id => TJT.findIndex(t => t.id === id);
+// ---------- motivos ----------
+function tjEmblem(p, x, y, T) { const g = T.g, a = T.a, m = T.m; switch (T.id) {
+  case 'escarcha': for (const [dx, dy] of [[0, -2], [0, -1], [0, 1], [0, 2], [-2, 0], [-1, 0], [1, 0], [2, 0], [-1, -1], [1, 1], [1, -1], [-1, 1]]) p.set(x + dx, y + dy, Math.abs(dx) + Math.abs(dy) > 1 ? g[2] : g[3]); p.set(x, y, g[4]); break;
+  case 'raiz': p.set(x, y + 2, m[1]); p.set(x, y + 1, a[2]); for (const [dx, dy] of [[-1, 0], [0, 0], [1, 0], [-1, -1], [0, -1], [0, -2], [1, -1]]) p.set(x + dx, y + dy, a[dy === -2 ? 4 : 3]); p.set(x, y, g[3]); break;
+  case 'engranaje': for (let k = 0; k < 8; k++) { const t = k / 8 * 6.283; p.set(Math.round(x + Math.cos(t) * 2.2), Math.round(y + Math.sin(t) * 2.2), m[k % 2 ? 3 : 4]); } p.set(x, y, g[3]); p.set(x, y - 1, a[2]); p.set(x + 1, y, a[2]); break;
+  case 'prisma': for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) if (Math.abs(dx) + Math.abs(dy) <= 2) p.set(x + dx, y + dy, dx < 0 ? a[3] : dx > 0 ? g[2] : (dy < 0 ? m[4] : a[2])); break;
+  case 'fenix': for (const [dx, dy, c] of [[0, -2, 4], [0, -1, 3], [-1, 0, 3], [0, 0, 4], [1, 0, 2], [-1, 1, 2], [0, 1, 3], [1, 1, 2], [0, 2, 1], [-1, -1, 2], [1, -2, 3]]) p.set(x + dx, y + dy, (c > 2 ? g : a)[c]); break;
+  case 'aurora': p.ball(x, y, 1.6, 1.6, [a[1], a[2], a[3], a[4]]); for (let k = 0; k < 8; k++) { const t = k / 8 * 6.283; p.set(Math.round(x + Math.cos(t) * 3), Math.round(y + Math.sin(t) * 3), k % 2 ? g[3] : a[4]); } break; } }
+// hombrera según el tema; sx = hacia fuera (-1 izquierda, 1 derecha)
+function tjPad(p, x, y, sx, T, r) { const m = T.m, a = T.a, g = T.g; switch (T.id) {
+  case 'escarcha': p.ball(x, y, r, r * 0.8, TJ4(m)); for (let k = 0; k < 3; k++) { const ox = x + sx * (k - 1) * 1.3, h = 2 + (k === 1 ? 2 : 1) + (r > 3 ? 1 : 0); for (let j = 0; j < h; j++) p.set(Math.round(ox + sx * j * 0.3), Math.round(y - r * 0.6 - j), j === h - 1 ? g[4] : g[2 + (j & 1)]); } break;
+  case 'raiz': p.ball(x, y, r, r * 0.8, TJ4(m)); for (let k = -1; k <= 1; k++) p.set(Math.round(x + k), Math.round(y - r * 0.4), m[1]); p.set(Math.round(x + sx), Math.round(y - r * 0.8) - 1, a[3]); p.set(Math.round(x + sx * 2), Math.round(y - r * 0.8) - 1, a[4]); p.set(Math.round(x + sx * 2), Math.round(y - r * 0.8), a[2]); p.set(Math.round(x), Math.round(y), g[3]); break;
+  case 'engranaje': for (let k = 0; k < 10; k++) { const t = k / 10 * 6.283; p.set(Math.round(x + Math.cos(t) * (r + 1)), Math.round(y + Math.sin(t) * (r + 0.6)), m[2]); } p.ball(x, y, r, r * 0.85, TJ4(m)); p.set(Math.round(x), Math.round(y), a[1]); p.set(Math.round(x) + 1, Math.round(y), g[3]); break;
+  case 'prisma': for (let dy = -Math.ceil(r); dy <= Math.ceil(r); dy++) for (let dx = -Math.ceil(r); dx <= Math.ceil(r); dx++) if (Math.abs(dx) + Math.abs(dy) * 1.2 <= r + 0.5) p.set(Math.round(x) + dx, Math.round(y) + dy, dx * sx > 0 ? a[2] : dy < 0 ? m[4] : m[3]); p.set(Math.round(x + sx * 2), Math.round(y - r - 2), g[3]); p.set(Math.round(x + sx * 2), Math.round(y - r - 3), g[4]); break;
+  case 'fenix': p.ball(x, y, r * 0.8, r * 0.7, TJ4(m)); for (let k = 0; k < 4; k++) { const ang = -1.9 + sx * 0.0 + k * 0.32 * sx, len = r + 2 + (k === 1 ? 1 : 0); for (let j = 1; j <= len; j++) p.set(Math.round(x + Math.cos(-Math.PI / 2 + sx * (0.4 + k * 0.35)) * j), Math.round(y + Math.sin(-Math.PI / 2 + sx * (0.4 + k * 0.35)) * j), j > len - 2 ? g[3] : a[2 + (j & 1)]); } break;
+  case 'aurora': for (let k = 0; k < 6; k++) { const t = -Math.PI / 2 + sx * (k - 2.5) * 0.45; p.set(Math.round(x + Math.cos(t) * (r + 2)), Math.round(y + Math.sin(t) * (r + 1.5)), k % 2 ? g[3] : a[4]); } p.ball(x, y, r, r * 0.8, TJ4(m)); p.hl(Math.round(x - r + 1), Math.round(y + 1), Math.round(r * 2) - 1, a[3]); break; } }
+function tjPads(p, A, T, r, one) { const { tx0, tw, torsoTop: ty, cx, side, d, up } = A; if (side) { tjPad(p, cx - 1 - d, ty + 1.5, -d, T, r); return; } const R = tx0 + tw; if (one) { const left = !up; left ? tjPad(p, tx0 - 1, ty + 1.5, -1, T, r) : tjPad(p, R, ty + 1.5, 1, T, r); return; } tjPad(p, tx0 - 1, ty + 1.5, -1, T, r); tjPad(p, R, ty + 1.5, 1, T, r); }
+// adorno de cabeza según el tema (arriba de la cabeza)
+function tjCrest(p, A, T, big) { const { hx: cx, headTop: top, hrx, side, up, d } = A, m = T.m, a = T.a, g = T.g, s = side ? 0.45 : 1;
+  switch (T.id) {
+    case 'escarcha': for (const [k, h] of [[-2, 3], [-1, 5], [0, 7], [1, 5], [2, 3]]) { if (side && k * -d > 0 && k !== 0) continue; const x = Math.round(cx + k * 2.4 * s); for (let j = 0; j < h + (big ? 1 : 0); j++) p.set(x, top + 1 - j, j > h - 2 ? g[4] : g[2 + (j & 1)]); } break;
+    case 'raiz': for (const sx of side ? [-d] : [-1, 1]) { let x = cx + sx * 3 * s, y = top + 1; for (let j = 0; j < 7; j++) { x += sx * (j < 3 ? 0.6 : 0.3) * (side ? 0.6 : 1); y -= 1; p.set(Math.round(x), Math.round(y), m[3]); if (j === 3) { p.set(Math.round(x) + sx * 1, Math.round(y) - 1, m[3]); p.set(Math.round(x) + sx * 2, Math.round(y) - 2, a[4]); } } p.set(Math.round(x), Math.round(y) - 1, a[3]); } break;
+    case 'engranaje': { const y = top - 2, x = side ? Math.round(cx - d * 2) : cx; for (let k = 0; k < 10; k++) { const t = Math.PI + k / 9 * Math.PI; p.set(Math.round(x + Math.cos(t) * 4 * (side ? 0.6 : 1)), Math.round(y + 2 + Math.sin(t) * 4), m[k % 2 ? 2 : 4]); } p.set(x, y - 1, g[4]); p.set(x, y, a[2]); p.vl(x, y + 1, 2, m[3]); break; }
+    case 'prisma': { const x = cx, y = top - 6; for (let dy = -3; dy <= 3; dy++) for (let dx = -2; dx <= 2; dx++) if (Math.abs(dx) * 1.5 + Math.abs(dy) <= 3) p.set(x + dx, y + dy, dx < 0 ? a[3] : dx > 0 ? g[2] : m[4]); if (!side) { p.set(x - 6, y + 2, g[3]); p.set(x + 6, y + 3, a[3]); } break; }
+    case 'fenix': for (let k = 0; k < 5; k++) { const dir = side ? -d : 0, x0 = Math.round(cx + (side ? 0 : (k - 2) * 1.6)), len = 7 - Math.abs(k - 2); for (let j = 0; j < len; j++) p.set(Math.round(x0 + dir * j * 0.5 + (side ? 0 : (k - 2) * j * 0.25)), top + 3 - j, j > len - 3 ? g[3 + (j === len - 1 ? 1 : 0)] : a[2 + (j & 1)]); } break;
+    case 'aurora': { for (let k = -3; k <= 3; k++) { if (side && k * -d > 1) continue; const x = Math.round(cx + k * 2.2 * s), h = 4 - Math.abs(k) * 0.8; for (let j = 0; j < h; j++) p.set(x, top + 1 - j, j > h - 2 ? g[4] : a[3 + (j & 1)]); } p.hl(Math.round(cx - hrx + 1), top + 2, Math.round(hrx * 2) - 1, a[2]); break; } } }
+
+// ---------- cascos base (por clase, rotan con el tier) ----------
+const TJH = {
+  helm(p, A, T) { const { hx: cx, headTop: top, hrx, side, up, d, ey } = A, m = T.m; p.ball(cx, top + 3.5, hrx + 1, 5.5, TJ4(m)); p.hl(Math.round(cx - hrx) - 1, top + 6, Math.round(hrx * 2) + 3, T.a[2]);
+    if (!up) for (const sx of side ? [-d] : [-1, 1]) for (let y = top + 6; y <= ey + 4; y++) { p.set(Math.round(cx + sx * (hrx + 0.5)), y, m[2]); p.set(Math.round(cx + sx * (hrx + 1.5)), y, m[1]); }
+    if (up) for (let y = top + 6; y <= ey + 4; y++) for (let x = Math.round(cx - hrx); x <= cx + hrx; x++) p.set(x, y, m[(x + y) % 4 ? 2 : 1]); if (!up && !side) { p.vl(cx, top + 6, 3, m[3]); } },
+  helmOpen(p, A, T) { const { hx: cx, headTop: top, hrx, side, up, d } = A, m = T.m; p.ball(cx, top + 3, hrx + 0.6, 4.5, TJ4(m)); p.hl(Math.round(cx - hrx), top + 5, Math.round(hrx * 2) + 1, T.a[3]); for (let x = Math.round(cx - hrx) + 1; x < cx + hrx; x += 3) p.set(x, top + 5, T.g[3]); },
+  crown(p, A, T) { const { hx: cx, headTop: top, hrx } = A, m = T.a; p.hl(Math.round(cx - hrx), top + 3, Math.round(hrx * 2) + 1, m[2]); p.hl(Math.round(cx - hrx), top + 4, Math.round(hrx * 2) + 1, m[1]); for (let x = Math.round(cx - hrx); x <= cx + hrx; x += 2) { p.set(x, top + 2, m[3]); p.set(x, top + 1, m[4]); } p.set(cx, top + 3, T.g[3]); },
+  hat(p, A, T) { const { hx: cx, headTop: top, hrx, side, up, d } = A, m = T.a; for (let x = -11; x <= 11; x++) { p.set(cx + x, top + 4, m[Math.abs(x) > 9 ? 1 : 2]); p.set(cx + x, top + 5, m[1]); } const tilt = side ? -d : 1; for (let j = 0; j < 11; j++) { const w = Math.max(0, 6 - j * 0.55), x0 = cx + tilt * j * j * 0.04; for (let x = Math.floor(x0 - w); x <= Math.ceil(x0 + w); x++) p.set(x, top + 3 - j, x < x0 - w / 2 ? m[3] : x > x0 + w / 2 ? m[1] : m[2]); } p.hl(cx - 6, top + 3, 13, T.m[3]); },
+  hood(p, A, T) { tjHood(p, A, T.a, {}); },
+  circlet(p, A, T) { const { hx: cx, headTop: top, hrx, side, up } = A, m = T.a; p.hl(Math.round(cx - hrx), top + 4, Math.round(hrx * 2) + 1, m[3]); p.hl(Math.round(cx - hrx) + 1, top + 3, Math.round(hrx * 2) - 1, m[2]); if (!up && !side) p.ball(cx - 0.5, top + 3.5, 1.3, 1.3, TJ4(T.g)); },
+  visor(p, A, T) { const { hx: cx, headTop: top, hrx, side, up, d } = A, m = T.m; p.ball(cx, top + 3, hrx + 0.6, 4.2, TJ4(m)); for (let x = Math.round(cx - hrx - 1); x <= cx + hrx + 1; x++) { if (side && (x - cx) * d < -3) continue; p.set(x, top + 5, T.g[2]); p.set(x, top + 6, T.g[1]); } },
+  hoodMask(p, A, T) { const { hx: cx, side, up, d, ey, hrx } = A; tjHood(p, A, T.m, {}); if (!up) { const y0 = ey + 3, x0 = side ? Math.min(Math.round(cx), Math.round(cx + d * (hrx + 1))) : Math.round(cx - hrx + 1), x1 = side ? Math.max(Math.round(cx), Math.round(cx + d * (hrx + 1))) : Math.round(cx + hrx - 1); for (let y = y0; y <= y0 + 3; y++) for (let x = x0; x <= x1; x++) p.set(x, y, y === y0 ? T.a[3] : T.a[(x + y) % 3 ? 2 : 1]); } },
+  maskBand(p, A, T) { const { hx: cx, headTop: top, hrx, side, up, d, ey } = A; p.hl(Math.round(cx - hrx), top + 4, Math.round(hrx * 2) + 1, T.a[2]); const tx = side ? Math.round(cx - d * hrx) : Math.round(cx + hrx); for (let k = 0; k < 6; k++) p.set(tx + (side ? -d : 1) * (k >> 1), top + 4 + k, T.a[k & 1 ? 1 : 3]);
+    if (!up) { const y0 = ey + 3, x0 = side ? Math.min(Math.round(cx), Math.round(cx + d * (hrx + 1))) : Math.round(cx - hrx + 1), x1 = side ? Math.max(Math.round(cx), Math.round(cx + d * (hrx + 1))) : Math.round(cx + hrx - 1); for (let y = y0; y <= y0 + 3; y++) for (let x = x0; x <= x1; x++) p.set(x, y, T.m[y === y0 ? 3 : 2]); } },
+  brim(p, A, T) { const { hx: cx, headTop: top, hrx, side, up, d } = A, m = T.a; for (let x = -12; x <= 12; x++) { p.set(cx + x, top + 3, m[Math.abs(x) > 10 ? 3 : 2]); p.set(cx + x, top + 4, m[1]); } for (let y = top - 2; y < top + 3; y++) for (let x = cx - 6; x <= cx + 6; x++) p.set(x, y, x < cx - 4 ? m[3] : x > cx + 4 ? m[1] : m[2]); p.hl(cx - 6, top + 2, 13, T.m[3]); const sx = side ? -d : 1; for (let j = 0; j < 8; j++) p.set(cx + sx * (5 + (j >> 1)), top + 1 - j, T.g[j > 5 ? 4 : 2 + (j & 1)]); },
+  beret(p, A, T) { const { hx: cx, headTop: top, hrx, side, d } = A, m = T.a, sx = side ? -d : 1; p.ball(cx + sx * 2, top + 1.5, hrx + 1.5, 3.5, TJ4(m)); p.hl(Math.round(cx - hrx), top + 4, Math.round(hrx * 2) + 1, T.m[2]); for (let j = 0; j < 7; j++) p.set(Math.round(cx + sx * (hrx - 1 + j * 0.6)), top + 1 - j, T.g[j > 4 ? 4 : 2 + (j & 1)]); },
+  veil(p, A, T) { const { hx: cx, headTop: top, hrx, side, up, d, ey } = A; for (const sx of side ? [-d] : up ? [] : [-1, 1]) for (let y = top + 3; y <= ey + 7; y++) for (let k = 0; k < 2; k++) p.set(Math.round(cx + sx * (hrx + k)), y, T.m[(y + k) % 3 ? 2 : 1]);
+    if (up) for (let y = top + 3; y <= ey + 7; y++) for (let x = Math.round(cx - hrx); x <= cx + hrx; x++) p.set(x, y, T.m[(x + y) % 5 ? 2 : 3]); TJH.crown(p, A, T); },
+  fin(p, A, T) { const { hx: cx, headTop: top, hrx, side, d } = A, m = T.m; p.ball(cx, top + 3, hrx + 0.5, 4.5, TJ4(m)); p.hl(Math.round(cx - hrx), top + 5, Math.round(hrx * 2) + 1, T.a[3]);
+    if (!side) for (const sx of [-1, 1]) for (let k = 0; k < 3; k++) p.vl(Math.round(cx + sx * (hrx + 1 + k * 0.6)), top + 4 + k, 4 - k, T.g[k % 2 ? 1 : 2]); else for (let k = 0; k < 3; k++) p.vl(Math.round(cx - d * (hrx + 1 + k * 0.6)), top + 4 + k, 4 - k, T.g[2]); },
+};
+const TJ_HEADS = { guerrero: ['helm', 'helmOpen', 'crown', 'helm', 'helmOpen', 'crown'], mago: ['hat', 'circlet', 'hood', 'hat', 'veil', 'circlet'], arquero: ['visor', 'hood', 'circlet', 'visor', 'hood', 'circlet'],
+  asesino: ['hoodMask', 'maskBand', 'hoodMask', 'maskBand', 'hoodMask', 'maskBand'], bardo: ['brim', 'beret', 'circlet', 'beret', 'brim', 'crown'], invocador: ['veil', 'hood', 'crown', 'veil', 'hood', 'crown'], pez: ['fin', 'circlet', 'fin', 'helmOpen', 'fin', 'circlet'] };
+for (const cls in TJ_HEADS) TJT.forEach((T, i) => fitKind('head', `tj_${cls}_${T.id}`, (p, A) => { const base = TJ_HEADS[cls][i]; const crestFirst = T.id === 'aurora'; if (crestFirst) tjCrest(p, A, T); TJH[base](p, A, T); if (!crestFirst && base !== 'hood' && base !== 'hoodMask') tjCrest(p, A, T, cls === 'guerrero'); else if (!crestFirst) tjCrest(p, A, T); }, T.id === 'prisma' || T.id === 'aurora' ? { float: true } : undefined));
+
+// ---------- pecheras por clase ----------
+const TJB = {
+  guerrero(p, A, T, i) { const { tx0, tw, torsoTop: ty, th, cx, side, up } = A, m = T.m, R = tx0 + tw - 1; for (let y = ty + 2; y < ty + th - 2; y += 3) p.hl(tx0, y, tw, m[1]);
+    if (!up && !side) { for (let y = ty + 1; y < ty + th - 2; y++) p.set(cx - 1 + (i & 1), y, m[4]); tjEmblem(p, cx - (i & 1 ? 0 : 1), ty + 4, T); }
+    tjPads(p, A, T, 3.6); p.hl(tx0, ty + th - 2, tw, T.a[2]); if (!up && !side) p.set(cx, ty + th - 2, T.g[4]); },
+  mago(p, A, T, i) { const { tx0, tw, torsoTop: ty, th, cx, side, up } = A, R = tx0 + tw - 1; tjTails(p, A, T.m, 7 + (i % 3), T.a, !up && !side && i % 2 === 0);
+    if (!up && !side) { if (i % 2) for (let y = ty + 1; y < ty + th; y++) { p.set(cx - 1, y, T.a[2]); p.set(cx, y, T.a[1]); } tjEmblem(p, cx - (i % 2 ? 0 : 1), ty + 3, T); }
+    if (up) tjEmblem(p, cx, ty + th + 2, T); for (let x = tx0 - 2; x <= R + 2; x++) { p.set(x, ty, T.a[x & 1 ? 3 : 2]); if (i % 3 === 1) p.set(x, ty + 1, T.a[2]); } if (i % 3 === 2) tjPads(p, A, T, 2.2); p.hl(tx0, ty + th - 2, tw, T.a[3]); },
+  arquero(p, A, T, i) { const { tx0, tw, torsoTop: ty, th, cx, side, up, d } = A, R = tx0 + tw - 1;
+    if (!side) { const a = up ? [tx0, R] : [R, tx0]; p.line(a[0], ty + 1, a[1], ty + th - 3, T.a[3]); p.line(a[0], ty + 2, a[1], ty + th - 2, T.a[1]); }
+    if (!up && !side) tjEmblem(p, i % 2 ? tx0 + 2 : R - 2, ty + 3, T);
+    // media capa en un hombro
+    { const sxL = up ? R + 1 : tx0 - 1; if (!side) for (let y = ty; y < ty + th; y++) for (let k = 0; k < 3; k++) p.set(sxL + (up ? -k : k) * (up ? 1 : 1) * (k ? 1 : 0) - (up ? 0 : 0), y, T.m[(y + k) % 3 ? 2 : 3]); }
+    tjPads(p, A, T, 2.4, true); if (up) { p.rect(R - 2, ty - 3, 3, 7, T.m[1]); p.hl(R - 2, ty - 3, 3, T.a[3]); p.set(R - 2, ty - 4, T.g[4]); p.set(R, ty - 4, T.g[3]); } tjBelt(p, A, T.m, T.g[3]); },
+  asesino(p, A, T, i) { const { tx0, tw, torsoTop: ty, th, cx, side, up, d } = A, R = tx0 + tw - 1, S = T.a;
+    if (!side) { if (i % 2) { p.line(tx0, ty + 2, R, ty + th - 3, T.g[2]); p.line(R, ty + 2, tx0, ty + th - 3, T.g[2]); } else { p.vl(tx0 + 1, ty + 1, th - 3, T.g[2]); p.vl(R - 1, ty + 1, th - 3, T.g[2]); } }
+    for (let x = tx0 - 1; x <= R + 1; x++) { p.set(x, ty - 1, S[x & 1 ? 3 : 2]); p.set(x, ty, S[x & 1 ? 2 : 1]); }
+    const tail = (x, sx) => { for (let k = 0; k < 8; k++) { p.set(x + sx * (k >> 2), ty + 1 + k, S[k & 1 ? 2 : 3]); p.set(x + sx * (k >> 2) + sx, ty + 1 + k, S[1]); } }; if (side) tail(cx - d * 2, -d); else if (up) tail(cx - 1, 1); else tail(i % 2 ? tx0 : R, i % 2 ? -1 : 1);
+    tjPads(p, A, T, 2, true); p.hl(tx0, ty + th - 2, tw, T.m[1]); if (!up && !side) tjEmblem(p, cx - 1, ty + th - 2, T); },
+  bardo(p, A, T, i) { const { tx0, tw, torsoTop: ty, th, cx, side, up, d, legTop, base } = A, R = tx0 + tw - 1, B = T.m, y1 = Math.min(base - 2, legTop + 6);
+    for (let y = ty + th - 1; y < y1; y++) { if (up) { for (let x = tx0; x <= R; x++) if (Math.abs(x - cx + 0.5) > 0.6) p.set(x, y, B[(x + y) % 6 ? 2 : 1]); continue; } if (side) { for (let k = 1; k < 4; k++) p.set(cx - d * k, y, B[k === 1 ? 3 : 2]); continue; } for (const x of [tx0, tx0 + 1, R - 1, R]) p.set(x, y, B[x === tx0 || x === R ? 2 : 3]); }
+    if (!up && !side) { for (let y = ty + 1; y < ty + th - 2; y++) { p.set(cx - 1, y, T.a[1]); p.set(cx, y, T.a[2]); } for (let y = ty + 2; y < ty + th - 2; y += 2) { p.set(cx - 2, y, T.g[3]); p.set(cx + 1, y, T.g[3]); } }
+    if (up) tjEmblem(p, cx, ty + 4, T); for (let x = tx0 - 1; x <= R + 1; x++) { p.set(x, ty - 1, T.g[x & 1 ? 4 : 3]); p.set(x, ty, T.g[x & 1 ? 3 : 2]); }
+    if (i % 2) tjPads(p, A, T, 2); else { if (!side) { p.line(tx0, ty + 1, R, ty + th - 2, T.a[3]); } } p.hl(tx0, ty + th - 2, tw, T.a[2]); },
+  invocador(p, A, T, i) { const { tx0, tw, torsoTop: ty, th, cx, side, up } = A, R = tx0 + tw - 1; tjTails(p, A, T.m, 8 + (i % 2), T.a, !up && !side);
+    if (!side) { const cy = ty + Math.round(th / 2) - 1; for (let a = 0; a < 18; a++) { const x = Math.round(cx - 0.5 + Math.cos(a / 18 * 6.283) * 3.2), y = Math.round(cy + Math.sin(a / 18 * 6.283) * 3.2); p.set(x, y, T.g[2]); } tjEmblem(p, cx - (up ? 0 : 1), cy, T); }
+    if (!up && !side) for (const x of [tx0, R]) { p.rect(x, ty + th - 1, 2, 4, T.g[4]); p.set(x, ty + th, T.a[2]); p.set(x + 1, ty + th + 2, T.a[2]); }
+    for (let x = tx0 - 2; x <= R + 2; x++) p.set(x, ty, T.a[x % 2 ? 3 : 2]); if (i % 2 === 0) tjPads(p, A, T, 2.2); p.hl(tx0, ty + th - 2, tw, T.a[1]); },
+  pez(p, A, T, i) { const { tx0, tw, torsoTop: ty, th, cx, side, up, d } = A, R = tx0 + tw - 1, m = T.m;
+    for (let y = ty + 1; y < ty + th - 1; y++) for (let x = tx0; x <= R; x++) if ((y - ty) % 2 === 0 ? x % 2 === 0 : x % 2 === 1) p.set(x, y, m[(y - ty) % 4 < 2 ? 3 : 1]);
+    if (!up && !side) tjEmblem(p, cx - 1, ty + 4, T); const fin = (x, sx) => { for (let k = 0; k < 4; k++) { p.vl(x + sx * k, ty - 1 + k, 4 - (k >> 1), T.g[k % 2 ? 2 : 1]); p.set(x + sx * k, ty - 1 + k, T.g[4]); } };
+    if (i % 2) { if (side) fin(cx - 1 - d, -d); else { fin(tx0 - 1, -1); fin(R + 1, 1); } } else tjPads(p, A, T, 2.6);
+    for (let x = tx0 - 1; x <= R + 1; x++) p.set(x, ty, T.a[x % 2 ? 3 : 2]); p.hl(tx0, ty + th - 2, tw, T.a[2]); for (let x = tx0 + 1; x < R; x += 3) p.set(x, ty + th - 2, C('#f4f0ff')); },
+};
+for (const cls in TJB) TJT.forEach((T, i) => fitKind('body', `tj_${cls}_${T.id}_b`, (p, A, s) => TJB[cls](p, A, T, i)));
+// piernas: placas o franjas con el color del tema
+TJT.forEach((T, i) => fitKind('legs', `tj_${T.id}_l`, (p, A, s) => { const { legTop, base } = A, cols = new Set(s.m), heavy = s.heavy;
+  for (let y = legTop; y < base - 1; y++) for (let x = 0; x < p.w; x++) if (cols.has(p.get(x, y))) { const left = !cols.has(p.get(x - 1, y));
+    if (heavy && (y - legTop) % 3 === 2) p.set(x, y, s.m[0]); else if (left && !heavy) p.set(x, y, T.a[3]); else if (y === legTop + Math.round((base - legTop) * 0.5) && heavy) p.set(x, y, T.g[3]); } }));
+// espaldas especiales flotantes
+TJT.forEach(T => fitKind('back', `tj_${T.id}_esp`, (p, A) => { const { tx0, tw, torsoTop: ty, cx, side, up } = A, cy = ty + 1, w = side ? 0.4 : 1;
+  const put = (x, y, c) => { x = Math.round(x); y = Math.round(y); if (p.get(x, y) === 1 || up) p.set(x, y, c); };
+  if (T.id === 'engranaje') { for (let k = 0; k < 24; k++) { const t = k / 24 * 6.283, r = k % 2 ? 8 : 9; put(cx - 0.5 + Math.cos(t) * r * w, cy + Math.sin(t) * r, T.m[k % 2 ? 2 : 4]); } for (let k = 0; k < 12; k++) { const t = k / 12 * 6.283; put(cx - 0.5 + Math.cos(t) * 5 * w, cy + Math.sin(t) * 5, T.a[3]); } }
+  else if (T.id === 'prisma') { for (const [dx, dy, r] of [[-10, -4, 2], [10, -2, 2], [-8, 6, 1.5], [9, 8, 1.5], [0, -10, 1.5]]) for (let yy = -Math.ceil(r * 1.5); yy <= Math.ceil(r * 1.5); yy++) for (let xx = -Math.ceil(r); xx <= Math.ceil(r); xx++) if (Math.abs(xx) / r + Math.abs(yy) / (r * 1.5) <= 1) put(cx + dx * w + xx, cy + dy + yy, xx < 0 ? T.a[3] : T.g[2]); }
+  else if (T.id === 'fenix') { for (const sx of side ? [-A.d] : [-1, 1]) for (let k = 0; k < 6; k++) { const len = 9 - k, t = -0.6 + k * 0.32; for (let j = 2; j < len + 2; j++) put(cx - 0.5 + sx * Math.cos(t) * j * (side ? 0.6 : 1), cy - Math.sin(-t) * j * 0.9 + 1, j > len ? T.g[3] : T.a[2 + (j & 1)]); } }
+  else if (T.id === 'aurora') { for (let k = 0; k < 40; k++) { const t = k / 40 * 6.283; put(cx - 0.5 + Math.cos(t) * 9 * w, cy - 1 + Math.sin(t) * 9, k % 3 ? T.a[3] : T.g[3]); if (k % 4 === 0) put(cx - 0.5 + Math.cos(t) * 11 * w, cy - 1 + Math.sin(t) * 11, T.a[4]); } }
+  else if (T.id === 'escarcha') { for (let k = -4; k <= 4; k++) { const h = 6 - Math.abs(k); for (let j = 0; j < h; j++) put(cx - 0.5 + k * 2.2 * w, cy - 3 - j, j === h - 1 ? T.g[4] : T.g[2 + (j & 1)]); } }
+  else if (T.id === 'raiz') { for (const sx of side ? [-A.d] : [-1, 1]) { let x = cx - 0.5, y = cy + 6; for (let j = 0; j < 12; j++) { x += sx * 0.8 * w; y -= 1; put(x, y, T.m[3]); if (j % 3 === 2) { put(x + sx, y - 1, T.a[3]); put(x + sx * 2, y - 1, T.a[4]); } } } } }, { float: true }));
+
+const TJ_FEET = { guerrero: 'sabatons', mago: 'shoes', arquero: 'boots', asesino: 'boots', bardo: 'boots', invocador: 'shoes', pez: 'sandals' };
+// qué lleva cada clase en la espalda: capa del tema o adorno flotante
+const TJ_BACK = { guerrero: i => 'cape', mago: i => (i % 2 ? 'esp' : 'cape'), arquero: i => (i % 2 ? 'cape' : 'esp'), asesino: i => null, bardo: i => (i % 2 ? 'esp' : null), invocador: i => (i % 2 ? 'cape' : 'esp'), pez: i => (i % 2 ? 'cape' : null) };
+
+// ---------- armas 37-43: dibujo propio por clase y tier (vertical, luego girado a la diagonal del juego) ----------
+// Cada arma se dibuja derecha (empuñadura abajo) con la escala s (1 = mano de 16 px, 2 = HD de 32 px) y se gira 45°
+// hacia arriba a la derecha, como las armas de la hoja de Sergio. El punto de agarre queda en ARM_PIVK16/32.
+const TJ_WLEG = {   // paletas del tier 37 (legado de cada clase): metal, acento, brillo
+  guerrero: { id: 'obsidiana', m: TJC.obs, a: TJC.lava, g: TJC.lava }, mago: { id: 'estelar', m: TJC.noche, a: TJC.oro, g: TJC.torm },
+  arquero: { id: 'tormenta', m: TJC.plata, a: TJC.torm, g: TJC.oro }, asesino: { id: 'carmesi', m: TJC.obs, a: TJC.carm, g: TJC.carm },
+  bardo: { id: 'aurea', m: TJC.blanco, a: TJC.oro, g: TJC.oro }, invocador: { id: 'pactos', m: TJC.hueso, a: TJC.viol, g: TJC.verdeV },
+  pez: { id: 'abisal', m: TJC.abis, a: TJC.bio, g: TJC.coral } };
+const tjWT = (cls, t) => t === 37 ? TJ_WLEG[cls] : TJT[t - 38];
+const TJ_WOOD = P5(['#2a1a0e', '#4a2e18', '#6a4426', '#8a6038', '#ae8052']);
+// adorno pequeño del tema (punta de báculo, pomo, extremos del arco)
+function tjWGem(p, x, y, T, s, big) { const r = (big ? 2.2 : 1.4) * s, g = T.g, a = T.a, m = T.m; x = Math.round(x); y = Math.round(y);
+  switch (T.id) {
+    case 'escarcha': for (let k = -2; k <= 2; k++) { const h = (3 - Math.abs(k)) * s * (big ? 1.4 : 1); for (let j = 0; j < h; j++) p.set(x + k * s, y - j, j > h - 2 ? g[4] : g[2 + (j & 1)]); } p.ball(x, y + s, r, r, TJ4(g)); break;
+    case 'raiz': p.ball(x, y, r, r, TJ4(g)); for (const sx of [-1, 1]) { for (let j = 0; j < 3 * s + (big ? 2 : 0); j++) p.set(x + sx * (1 + (j >> 1)), y - 1 - j, m[3]); p.set(x + sx * (2 + s), y - 2 - 2 * s, a[4]); p.set(x + sx * (1 + s), y - 2 - 2 * s, a[3]); } break;
+    case 'engranaje': for (let k = 0; k < 10; k++) { const t = k / 10 * 6.283; p.set(Math.round(x + Math.cos(t) * (r + s)), Math.round(y + Math.sin(t) * (r + s)), m[k % 2 ? 2 : 4]); } p.ball(x, y, r, r, TJ4(m)); p.set(x, y, g[3]); break;
+    case 'prisma': for (let dy = -Math.ceil(r * 1.6); dy <= Math.ceil(r * 1.6); dy++) for (let dx = -Math.ceil(r); dx <= Math.ceil(r); dx++) if (Math.abs(dx) / r + Math.abs(dy) / (r * 1.6) <= 1) p.set(x + dx, y + dy, dx < 0 ? a[3] : dx > 0 ? g[2] : m[4]); break;
+    case 'fenix': for (let k = -2; k <= 2; k++) { const h = (4 - Math.abs(k)) * s * (big ? 1.3 : 1); for (let j = 0; j < h; j++) p.set(x + k * s, y - j, j > h - 2 ? g[4] : a[2 + (j & 1)]); } p.ball(x, y + s, r, r, TJ4(g)); break;
+    case 'aurora': p.ball(x, y, r, r, TJ4(a)); for (let k = 0; k < 8; k++) { const t = k / 8 * 6.283; p.set(Math.round(x + Math.cos(t) * (r + 2 * s)), Math.round(y + Math.sin(t) * (r + 2 * s)), k % 2 ? g[3] : a[4]); } break;
+    default: p.ball(x, y, r, r, TJ4(g)); p.set(x - 1, y - 1, g[4]); } }
+// hoja recta con estilo de filo: 'straight', 'jagged', 'wavy', 'crystal'
+function tjBlade(p, cx, y0, y1, w0, w1, T, style, core) { const m = T.m, len = y0 - y1;
+  for (let y = y1; y <= y0; y++) { const t = (y0 - y) / len; let hw = w0 + (w1 - w0) * t; if (style === 'wavy') hw += Math.sin(t * 9) * 0.9; if (style === 'jagged' && (y % 4) === 0) hw += 1.2;
+    const tip = y < y1 + 3 ? (y - y1) / 3 : 1; hw *= Math.max(0.25, tip);
+    for (let x = Math.floor(cx - hw); x <= Math.ceil(cx + hw - 1); x++) { const e = (x - cx + 0.5) / Math.max(0.6, hw); let c = e < -0.45 ? m[4] : e > 0.45 ? m[1] : m[2 + (y & 1 && style === 'crystal' ? 1 : 0)]; if (style === 'crystal') c = e < 0 ? (y % 6 < 3 ? m[4] : T.a[3]) : (y % 6 < 3 ? T.g[2] : m[2]); p.set(x, y, c); }
+    if (core && y > y1 + 2 && y < y0 - 1) p.set(Math.round(cx - 0.5), y, core[(y >> 1) % 2 ? 3 : 2]); } }
+const TJ_WDRAW = {
+  guerrero(p, T, s, i) { const cx = p.w / 2, gy = p.h - 3 * s, hilt = 5 * s, guardY = gy - hilt;
+    for (let y = guardY; y <= gy + 2 * s; y++) for (let x = Math.round(cx - s); x < cx + s; x++) p.set(x, y, (y >> s) % 2 ? TJC.cuero[2] : TJC.cuero[3]);
+    tjWGem(p, cx - 0.5, gy + 2 * s, T, s, false);
+    const style = ['wavy', 'jagged', 'straight', 'straight', 'crystal', 'wavy', 'straight'][i], w = [2.6, 2.4, 2.2, 2.4, 2.6, 2.4, 2.8][i] * s;
+    tjBlade(p, cx, guardY - s, 2 * s, w, w * 0.7, T, style, i === 0 || i === 6 ? T.a : T.g);
+    if (i === 2) for (let y = guardY - 2 * s; y > 4 * s; y -= 3 * s) { p.set(Math.round(cx + w), y, T.a[3]); p.set(Math.round(cx + w) + 1, y - 1, T.a[4]); }
+    if (i === 3) { tjWGem(p, cx - 0.5, guardY, T, s, true); } else { p.hl(Math.round(cx - 4 * s), guardY, Math.round(8 * s), T.a[2]); p.hl(Math.round(cx - 4 * s), guardY - 1, Math.round(8 * s), T.a[3]); if (i === 6 || i === 5) tjWGem(p, cx - 0.5, guardY - 1, T, s, false); } },
+  mago(p, T, s, i) { const cx = Math.round(p.w / 2), gy = p.h - 3 * s, top = 7 * s;
+    for (let y = top; y <= gy + 3 * s; y++) { p.set(cx - 1, y, (i === 1 || i === 2 ? TJ_WOOD : T.m)[2]); if (s > 1) p.set(cx, y, (i === 1 || i === 2 ? TJ_WOOD : T.m)[1]); }
+    for (let y = top + 4 * s; y < gy; y += 5 * s) p.hl(cx - s, y, 2 * s, T.a[3]);
+    if (i === 3) { for (let k = 0; k < 5 * s; k++) { const hw = Math.abs(k - 2.5 * s) * 0.8; p.hl(Math.round(cx - 0.5 - hw), top - 5 * s + k, Math.round(hw * 2) + 1, k < 2.5 * s ? T.g[3] : T.a[3]); } p.hl(cx - 3 * s, top - 5 * s, 6 * s, T.m[3]); p.hl(cx - 3 * s, top, 6 * s, T.m[3]); }
+    else if (i === 0) { for (let a = 0; a < 24; a++) { const t = a / 24 * 6.283; p.set(Math.round(cx - 0.5 + Math.cos(t) * 4 * s), Math.round(top - 3 * s + Math.sin(t) * 4 * s), T.a[a % 3 ? 3 : 4]); } tjWGem(p, cx - 0.5, top - 3 * s, T, s, true); }
+    else tjWGem(p, cx - 0.5, top - 2 * s, T, s, true); },
+  arquero(p, T, s, i) { const cx = p.w / 2, h = p.h, cy = h / 2, R = h / 2 - 2 * s, bend = (i % 2 ? 3.6 : 4.4) * s;
+    for (let y = 2 * s; y <= h - 2 * s; y++) { const t = (y - cy) / R, x = Math.round(cx + 1 - bend * (1 - t * t) * 0.9); p.set(x, y, Math.abs(y - cy) < 2 * s ? TJC.cuero[3] : T.m[(y >> 1) % 2 ? 3 : 2]); p.set(x - 1, y, T.m[1]); if (i === 4 && y % 3 === 0) p.set(x - 2, y, T.a[3]); }
+    for (let y = 2 * s; y <= h - 2 * s; y++) p.set(Math.round(cx + 1), y, C('#e8e4d8'));
+    for (const y of [2 * s, h - 2 * s]) tjWGem(p, cx + 1, y, T, s * 0.8, false); p.rect(Math.round(cx - bend * 0.9), Math.round(cy - s), 2, 2 * s, T.a[3]); },
+  asesino(p, T, s, i) { const cx = p.w / 2, gy = p.h - 3 * s, hilt = 4 * s, guardY = gy - hilt;
+    for (let y = guardY; y <= gy + s; y++) for (let x = Math.round(cx - s * 0.6); x < cx + s * 0.6; x++) p.set(x, y, (y >> s) % 2 ? TJC.obs[2] : T.a[1]);
+    const style = ['straight', 'crystal', 'jagged', 'straight', 'crystal', 'wavy', 'straight'][i], top = p.h - 18 * s; tjBlade(p, cx, guardY - s, top, 1.9 * s, 1.1 * s, T, style, T.a);
+    if (i === 5 || i === 0) for (let y = top + 2 * s; y < guardY - s; y += 3 * s) p.set(Math.round(cx + 2 * s), y, T.g[3]);
+    p.hl(Math.round(cx - 3 * s), guardY, 6 * s, T.a[2]); tjWGem(p, cx - 0.5, gy + s, T, s * 0.7, false); },
+  bardo(p, T, s, i) { const cx = p.w / 2, harp = i === 1 || i === 6, by = p.h - 7 * s;
+    if (harp) { const x0 = Math.round(cx - 4 * s), x1 = Math.round(cx + 3 * s); for (let y = 3 * s; y < p.h - 2 * s; y++) p.set(x0, y, T.a[3]); for (let x = x0; x <= x1; x++) p.set(x, p.h - 2 * s, T.a[2]); for (let k = 0; k <= 7 * s; k++) p.set(Math.round(x0 + k), Math.round(3 * s + k * 0.4 * s / s * 1.2), T.a[4]);
+      for (let x = x0 + 2; x <= x1; x += 2) for (let y = Math.round(3 * s + (x - x0) * 0.5) + 1; y < p.h - 2 * s; y++) p.set(x, y, C('#f0eadc')); tjWGem(p, x0, 3 * s, T, s, false); return; }
+    for (let y = 2 * s; y < by - 3 * s; y++) { p.set(Math.round(cx - 1), y, TJ_WOOD[2]); if (s > 1) p.set(Math.round(cx), y, TJ_WOOD[1]); }
+    p.ball(cx - 0.5, by, 4.6 * s, 5.2 * s, TJ4(T.m)); p.ball(cx - 0.5, by + s, 1.5 * s, 1.5 * s, [TJC.obs[0], TJC.obs[1], TJC.obs[1], TJC.obs[2]]);
+    for (let y = 3 * s; y < by + 3 * s; y++) p.set(Math.round(cx - 0.5), y, y < by - s || y > by + 2 * s ? C('#f0eadc') : TJC.obs[0]);
+    tjWGem(p, cx - 0.5, 2 * s, T, s * 0.8, false); if (i === 3) for (let k = 0; k < 6; k++) { const t = k / 6 * 6.283; p.set(Math.round(cx - 0.5 + Math.cos(t) * 3.3 * s), Math.round(by + Math.sin(t) * 3.8 * s), T.a[4]); } },
+  invocador(p, T, s, i) { const cx = 3 * s, gy = p.h - 3 * s, top = 3 * s;
+    for (let y = top; y <= gy; y++) p.set(cx, y, (i === 2 ? TJ_WOOD : T.m)[(y >> 1) % 2 ? 2 : 3]);
+    const blen = 9 * s; for (let k = 0; k < blen; k++) { const t = k / blen, x = Math.round(cx + 1 + k), y = Math.round(top + 1 + Math.sin(t * Math.PI) * -2 * s + t * t * 4 * s), w = Math.max(1, Math.round((1 - t) * 2.4 * s)); for (let j = 0; j < w; j++) p.set(x, y + j, j === 0 ? T.a[4] : T.a[j === w - 1 ? 1 : 2]); }
+    tjWGem(p, cx, top - s, T, s, false); if (i % 2 === 0) for (let y = top + 6 * s; y < gy - 4 * s; y += 4 * s) { p.set(cx - 1, y, T.g[3]); p.set(cx - 1, y + 1, T.g[2]); } },
+  pez(p, T, s, i) { const cx = p.w / 2, gy = p.h - 3 * s;
+    for (let y = gy - 2 * s; y <= gy + 2 * s; y++) p.set(Math.round(cx - 1), y, TJC.cuero[3]);
+    const top = p.h - 18 * s, rib = Math.max(1, s); for (let y = top; y < gy - 2 * s; y++) { const t = (y - top) / (gy - 2 * s - top), hw = (Math.sin(t * Math.PI) * 4.2 + 0.6) * s + (i === 5 && y % 4 === 0 ? s : 0);
+      for (let x = Math.floor(cx - hw); x <= Math.ceil(cx + hw * 0.6); x++) { const e = (x - cx) / hw; p.set(x, y, e < -0.6 ? T.m[4] : (x - Math.round(cx)) % (3 * rib) === 0 ? T.a[2] : T.m[e < 0 ? 3 : 2]); } }
+    tjWGem(p, cx - 0.5, top + 2 * s, T, s * 0.7, false); },
+};
+// gira el dibujo vertical a la diagonal: (gx, gy) = agarre en la salida, (sx0, sy0) = agarre en el dibujo
+function tjRot(src, out, sx0, sy0, gx, gy) { const r2 = Math.SQRT1_2;
+  for (let y = 0; y < out.h; y++) for (let x = 0; x < out.w; x++) { const dx = x + 0.5 - gx, dy = y + 0.5 - gy, along = (dx - dy) * r2, perp = (dx + dy) * r2;
+    const sx = Math.floor(sx0 + perp), sy = Math.floor(sy0 - along); if (sx < 0 || sy < 0 || sx >= src.w || sy >= src.h) continue; const c = src.d[sy * src.w + sx]; if (uA(c) > 100) out.d[y * out.w + x] = c; } }
+const TJ_WGRIP = { guerrero: [3, 13], mago: [4.5, 11.5], arquero: [8, 8], asesino: [3, 12], bardo: [5, 11], invocador: [2.5, 13], pez: [4, 11.5] };
+function tjWeaponPix(cls, t, s) { const T = tjWT(cls, t), i = t - 37, len = cls === 'arquero' ? 21 : cls === 'asesino' || cls === 'pez' ? 20 : cls === 'invocador' ? 20 : 23;
+  const src = new Pix((cls === 'invocador' ? 14 : 12) * s, len * s); TJ_WDRAW[cls](src, T, s, i); src.outline(OUTL);
+  const sgy = cls === 'arquero' ? src.h / 2 : src.h - 3 * s, sgx = cls === 'arquero' ? src.w / 2 : cls === 'invocador' ? 3 * s + 0.5 : src.w / 2;
+  const out = new Pix(16 * s, 16 * s), [gx, gy] = TJ_WGRIP[cls]; tjRot(src, out, sgx, sgy, gx * s, gy * s); return { pix: out, piv: [gx * s, gy * s] }; }
+
+// ---------- sets por clase y tier ----------
+// 37: el legado de cada clase (un tema distinto por clase). 38-43: un tema por tier, un diseño propio por clase.
+const TJ_TIERS = [37, 38, 39, 40, 41, 42, 43], TJ_LV = { 37: 505, 38: 520, 39: 535, 40: 550, 41: 565, 42: 580, 43: 600 };
+const TJ_LEG = {
+  guerrero: { head: { k: 'tj_coloso_h', m: TJC.obs, cover: 'hat' }, top: { k: 'tj_coloso', m: TJC.obs }, bot: { k: 'tj_placas', m: TJC.obs }, feet: { k: 'sabatons', m: TJC.obs }, back: { k: 'cape', o: TJC.obs, i: TJC.lava, tr: TJC.lava.slice(1) } },
+  mago: { head: { k: 'tj_orbita', m: TJC.oro }, top: { k: 'tj_estelar', m: TJC.noche }, bot: { k: 'pants', m: TJC.noche }, feet: { k: 'shoes', m: TJC.oro }, back: { k: 'cape', o: TJC.noche, i: TJC.viol, tr: TJC.oro.slice(1) } },
+  arquero: { head: { k: 'tj_alas', m: TJC.plata }, top: { k: 'tj_halcon', m: TJC.torm }, bot: { k: 'pants', m: TJC.plata }, feet: { k: 'boots', m: TJC.torm }, back: { k: 'cape', o: TJC.torm, i: TJC.plata, tr: TJC.oro.slice(1) } },
+  asesino: { head: { k: 'tj_oni', m: TJC.obs, cover: 'hood' }, top: { k: 'tj_carmesi', m: TJC.obs }, bot: { k: 'tj_lineas', m: TJC.obs }, feet: { k: 'boots', m: TJC.obs }, back: null },
+  bardo: { head: { k: 'tj_lira', m: TJC.oro }, top: { k: 'tj_sinfonia', m: TJC.blanco }, bot: { k: 'pants', m: TJC.noche }, feet: { k: 'boots', m: TJC.blanco }, back: null },
+  invocador: { head: { k: 'tj_corona_hueso', m: TJC.hueso }, top: { k: 'tj_pactos', m: TJC.viol }, bot: { k: 'pants', m: TJC.obs }, feet: { k: 'boots', m: TJC.obs }, back: { k: 'tj_circulo' } },
+  pez: { head: { k: 'tj_cresta', m: TJC.abis, cover: 'hat' }, top: { k: 'tj_leviatan', m: TJC.abis }, bot: { k: 'tj_placas', m: TJC.abis }, feet: { k: 'boots', m: TJC.abis }, back: { k: 'cape', o: TJC.abis, i: TJC.bio, tr: TJC.coral.slice(1) } } };
+// nombre del aspecto de cada clase (sale en la descripción de la pieza y en la Lupa)
+const TJ_SETN = {
+  guerrero: [['Coloso de Obsidiana', 'Obsidian Colossus'], ['Bastión de Escarcha', 'Frost Bastion'], ['Guardián de Raíz', 'Root Guardian'], ['Coloso de Engranajes', 'Gear Colossus'], ['Égida Prismática', 'Prismatic Aegis'], ['Paladín del Fénix', 'Phoenix Paladin'], ['Campeón de la Aurora', 'Aurora Champion']],
+  mago: [['Arcanista Estelar', 'Stellar Arcanist'], ['Sabio del Invierno', 'Winter Sage'], ['Druida de la Raíz', 'Root Druid'], ['Cronomante', 'Chronomancer'], ['Hechicero Prisma', 'Prism Sorcerer'], ['Piromante de Ceniza', 'Ash Pyromancer'], ['Archimago de la Aurora', 'Aurora Archmage']],
+  arquero: [['Halcón de la Tormenta', 'Storm Falcon'], ['Cazador del Glaciar', 'Glacier Hunter'], ['Ranger del Bosque Viejo', 'Old Forest Ranger'], ['Tirador de Relojería', 'Clockwork Marksman'], ['Arquero del Arcoíris', 'Rainbow Archer'], ['Ala de Brasa', 'Ember Wing'], ['Flecha del Alba', 'Dawn Arrow']],
+  asesino: [[(LANG_EN ? "Crimson Blade" : 'Hoja Carmesí'), 'Crimson Blade'], ['Filo de Hielo', 'Ice Edge'], ['Sombra del Musgo', 'Moss Shadow'], ['Mecanismo Silencioso', 'Silent Mechanism'], ['Reflejo Roto', 'Broken Reflection'], ['Ceniza Errante', 'Wandering Ash'], ['Eclipse del Alba', 'Dawn Eclipse']],
+  bardo: [['Sinfonía Áurea', 'Golden Symphony'], ['Balada de Invierno', 'Winter Ballad'], ['Trovador del Roble', 'Oak Troubadour'], ['Maestro de la Caja de Música', 'Music Box Maestro'], ['Canción de Cristal', 'Crystal Song'], ['Himno del Fénix', 'Phoenix Hymn'], ['Coro de la Aurora', 'Aurora Choir']],
+  invocador: [['Señor de los Pactos', 'Lord of Pacts'], ['Pactante del Frío', 'Frost Pactbinder'], ['Hierofante de la Raíz', 'Root Hierophant'], ['Relojero de Almas', 'Soul Clockmaker'], ['Vidente del Prisma', 'Prism Seer'], ['Sacerdote de Ceniza', 'Ash Priest'], ['Oráculo de la Aurora', 'Aurora Oracle']],
+  pez: [['Leviatán Abisal', 'Abyssal Leviathan'], ['Narval Polar', 'Polar Narwhal'], ['Tortuga de Manglar', 'Mangrove Turtle'], ['Nautilo de Latón', 'Brass Nautilus'], ['Perla Prismática', 'Prismatic Pearl'], ['Pez Volcán', 'Volcano Fish'], ['Ballena de la Aurora', 'Aurora Whale']] };
+function tjSet(cls, t) { if (!TJ_LV[t] || !TJ_LEG[cls]) return null; if (t === 37) return TJ_LEG[cls];
+  const i = t - 38, T = TJT[i], hk = TJ_HEADS[cls][i], heavy = cls === 'guerrero' || cls === 'pez', b = i === 5 && cls !== 'guerrero' ? 'esp' : TJ_BACK[cls](i);
+  const head = { k: `tj_${cls}_${T.id}`, m: T.m }; if (hk === 'helm' || hk === 'veil') head.cover = 'hat'; if (hk === 'hood' || hk === 'hoodMask') head.cover = 'hood';
+  return { head, top: { k: `tj_${cls}_${T.id}_b`, m: T.m }, bot: { k: `tj_${T.id}_l`, m: cls === 'bardo' || cls === 'asesino' ? T.a : T.m, heavy }, feet: { k: TJ_FEET[cls], m: cls === 'guerrero' ? T.m : T.a },
+    back: b === 'cape' ? { k: 'cape', o: T.a, i: T.m, tr: T.g.slice(1) } : b === 'esp' ? { k: `tj_${T.id}_esp` } : null }; }
+const TJ_SLOT = { head: 'head', body: 'top', legs: 'bot', feet: 'feet' };
+{ const _gv = gearVis; gearVis = function (cls, slot, t) { if (TJ_LV[t] && slot !== 'weapon') { const S_ = tjSet(cls, t), v = S_ && S_[TJ_SLOT[slot]]; if (v) return Object.assign({ t }, v); } return _gv.apply(this, arguments); }; }
+{ const _hl = heroLook; heroLook = function (cls, app, gear, cos, o) { const L = _hl.apply(this, arguments); const t = gear && +gear.body; if (!TJ_LV[t] || !L) return L; cos = cos || {};
+    const S_ = tjSet(cls, t), evo = app && app.evo && typeof EVO !== 'undefined' && EVO[app.evo]; if (!S_) return L;
+    if (!(cos.back && COSM[cos.back]) && !evo) L.back = S_.back ? Object.assign({}, S_.back) : null; if (cls === 'asesino' && !(cos.back && COSM[cos.back])) L.scarf = null; return L; }; }
+{ const _cg = cleanGear; cleanGear = function (g) { const o = _cg.apply(this, arguments); for (const k of ['weapon', 'head', 'body', 'legs', 'feet']) { const v = g && +g[k]; if (isFinite(v) && v >= 37 && v <= 43) o[k] = v | 0; } return o; }; }
+{ const _fi = fitItems; fitItems = function (only) { const out = _fi.apply(this, arguments); for (const c of AP_CLASSES) for (const t of TJ_TIERS) for (const slot of ['head', 'body', 'legs', 'feet']) { const it_ = { id: `${c}:${slot}:${t}`, kind: 'gear', cls: c, slot, t }; if (!only || it_.id.includes(only)) out.push(it_); } return out; }; }
+
+// ---------- tiers, objetos y recetas ----------
+const TJ_TN = { 37: ['del Legado', 'of the Legacy'], 38: ['de Escarcha Eterna', 'of Eternal Frost'], 39: ['de Raíz Ancestral', 'of the Ancestral Root'], 40: ['del Engranaje del Tiempo', 'of the Gear of Time'],
+  41: ['del Prisma Velado', 'of the Veiled Prism'], 42: ['del Fénix de Ceniza', 'of the Ash Phoenix'], 43: ['de la Aurora Divina', 'of the Divine Aurora'] };
+const TJ_PN = [['Yelmo', 'Helm'], ['Coraza', 'Cuirass'], [(LANG_EN ? "Greaves" : 'Grebas'), 'Greaves'], [(LANG_EN ? "Boots" : 'Botas'), 'Boots']];
+// materiales: minerales nuevos (vetas de las Tierras Tejidas) y restos de los cuatro jefes
+const TJ_REC = { 37: [['ore19', 10], ['hebra_suelta', 6]], 38: [['ore19', 14], ['ore20', 4], ['tj_ala_polilla', 1]], 39: [['ore20', 12], ['ore19', 6], ['tj_ala_polilla', 2]], 40: [['ore20', 14], ['ore21', 4], ['tj_nudo', 1]],
+  41: [['ore21', 12], ['tj_nudo', 2], ['hebra_suelta', 10]], 42: [['ore21', 14], ['ore22', 4], ['tj_engranaje', 1]], 43: [['ore22', 14], ['tj_engranaje', 2], ['tj_hebra_silencio', 1]] };
+const TJ_WN = {
+  guerrero: [['Mandoble de Obsidiana', 'Obsidian Greatsword'], ['Espadón del Glaciar', 'Glacier Greatsword'], ['Hoja de Raíz Viva', 'Living Root Blade'], ['Espada de Engranajes', 'Geared Sword'], ['Hoja Prismática', 'Prismatic Blade'], ['Espada del Fénix', 'Phoenix Sword'], ['Espada del Alba Divina', 'Sword of the Divine Dawn']],
+  mago: [['Báculo de las Constelaciones', 'Staff of Constellations'], ['Cetro de Escarcha', 'Frost Sceptre'], ['Báculo de Raíz Ancestral', 'Ancestral Root Staff'], ['Báculo del Reloj de Arena', 'Hourglass Staff'], ['Cetro Prisma', 'Prism Sceptre'], ['Báculo de Ceniza Ardiente', 'Burning Ash Staff'], ['Báculo de la Aurora', 'Aurora Staff']],
+  arquero: [['Arco de la Tormenta', 'Storm Bow'], ['Arco del Carámbano', 'Icicle Bow'], ['Arco de Rama Viva', 'Living Branch Bow'], ['Arco de Relojería', 'Clockwork Bow'], ['Arco del Arcoíris', 'Rainbow Bow'], ['Arco de Brasas', 'Ember Bow'], ['Arco del Alba', 'Dawn Bow']],
+  asesino: [['Dagas Carmesí', 'Crimson Daggers'], ['Colmillos de Hielo', 'Ice Fangs'], ['Espinas de Musgo', 'Moss Thorns'], ['Cuchillas de Resorte', 'Spring Blades'], ['Esquirlas de Espejo', 'Mirror Shards'], ['Garras de Ceniza', 'Ash Claws'], ['Dagas del Eclipse del Alba', 'Dawn Eclipse Daggers']],
+  bardo: [['Lira Áurea', 'Golden Lyre'], ['Arpa de Hielo', 'Ice Harp'], ['Laúd de Roble', 'Oak Lute'], ['Laúd de Cuerda de Reloj', 'Clockspring Lute'], ['Laúd de Cristal', 'Crystal Lute'], ['Laúd del Fénix', 'Phoenix Lute'], ['Arpa de la Aurora', 'Aurora Harp']],
+  invocador: [['Guadaña de los Pactos', 'Scythe of Pacts'], ['Guadaña de Escarcha', 'Frost Scythe'], ['Guadaña de Raíz', 'Root Scythe'], ['Guadaña del Péndulo', 'Pendulum Scythe'], ['Guadaña Prismática', 'Prismatic Scythe'], ['Guadaña de Ceniza', 'Ash Scythe'], ['Guadaña del Oráculo', "Oracle's Scythe"]],
+  pez: [['Aletas Abisales', 'Abyssal Fins'], ['Aletas de Narval', 'Narwhal Fins'], ['Aletas de Manglar', 'Mangrove Fins'], ['Aletas de Latón', 'Brass Fins'], ['Aletas de Nácar Prisma', 'Prism Nacre Fins'], ['Aletas de Magma', 'Magma Fins'], ['Aletas de la Ballena Aurora', 'Aurora Whale Fins']] };
+const TJ_TPAL = { 37: P5(['#1a1420', '#3a2a40', '#6a4a70', '#a07aa8', '#e0c8e8']), 38: TJT[0].g, 39: TJT[1].a, 40: TJT[2].m, 41: TJT[3].a, 42: TJT[4].a, 43: TJT[5].a };
+for (const t of TJ_TIERS) { const lv = TJ_LV[t], [tn, te] = TJ_TN[t], nm = L2(tn, te), i = t - 37;
+  TIER[t] = { k: 'tj' + t, m: nm, f: nm, mp: nm, fp: nm, lv, p: t }; TIERP[t] = TJ_TPAL[t];
+  const looks = AP_CLASSES.map(c => CLASSES[c].n + ': ' + L2(TJ_SETN[c][i][0], TJ_SETN[c][i][1])).join(' · ');
+  const d = L2('Armadura de las Tierras Tejidas. Cada clase la lleva con su propio diseño. ', 'Armour of the Woven Lands. Each class wears it with its own design. ') + looks;
+  const def = 3 + lv * 1.4 + t * 2, price = k => Math.round(k * Math.pow(t, 2.3));
+  [['h', 'head', 0.45, 1.5, 14, ['helm', 15]], ['b', 'body', 1, 3.5, 20, ['armor', 15]], ['l', 'legs', 0.6, 2, 16, ['legs', 15]], ['f', 'feet', 0.35, 0, 12, ['boots', 15]]].forEach(([s, slot, dm, hm, pk, icon], k) => {
+    const o = { n: L2(TJ_PN[k][0] + ' ' + tn, TJ_PN[k][1] + ' ' + te), t: 'armor', slot, lv, tier: t, def: Math.round(def * dm), price: price(pk), icon, rar: 5, d, tj: 1 };
+    if (hm) o.hpB = Math.round(lv * hm); else o.spdB = 10; it(`${s}_${t}`, o);
+    RECIPES.push({ id: `r_${s}_${t}`, job: 'herreria', out: `${s}_${t}`, n: 1, lv, jlv: 1, gold: 140000 * (t - 20), mats: TJ_REC[t], cat: 'armadura' }); });
+  for (const c of AP_CLASSES) { const [, , , mul] = WBASE[c === 'pez' ? 'guerrero' : c], wn = TJ_WN[c][i], id = `w_${c}_${t}`;
+    it(id, { n: L2(wn[0], wn[1]), t: 'weapon', slot: 'weapon', cls: c, lv, tier: t, atk: Math.round((8 + lv * 3.1 + t * 5) * mul * (c === 'pez' ? 0.98 : 1)), crit: c === 'arquero' ? t : c === 'asesino' ? Math.round(t * 1.5) : c === 'pez' ? Math.round(t * 0.6) : 0,
+      mpB: c === 'mago' || c === 'invocador' ? t * 12 : c === 'bardo' ? t * 8 : 0, price: Math.round(30 * Math.pow(t, 2.4)), icon: ['arm', c, t], rar: 5, tj: 1, d: L2('Arma de las Tierras Tejidas (', 'Weapon of the Woven Lands (') + nm + ').' });
+    RECIPES.push({ id: `r_w_${c}_${t}`, job: 'herreria', out: id, n: 1, lv, jlv: 1, gold: 180000 * (t - 20), mats: TJ_REC[t], cat: 'arma', cls: c }); } }
+
+// ---------- dibujo de las armas en la mano, en HD y en el inventario ----------
+for (const c of AP_CLASSES) for (const t of TJ_TIERS) { const key = c + '_' + t; try { const a = tjWeaponPix(c, t, 1), b = tjWeaponPix(c, t, 2); ARM_HPIX[key] = a.pix; ARM_PIX[key] = a.pix; ARM_HDP[key] = b.pix; ARM_PIVK16[key] = a.piv; ARM_PIVK32[key] = b.piv; } catch (e) { console.warn('arma', key, e); } }
+// efectos de ataque: el atlas del tier 26 con los colores de cada tier (fila = clase)
+const TJ_ATL = {};
+function tjAtlas(t) { if (TJ_ATL[t]) return TJ_ATL[t]; const src = WSPR_IMG.arm26; if (!src || !src.complete || !src.naturalWidth) return null;
+  const c = mkCanvas(src.naturalWidth, src.naturalHeight), x = c.getContext('2d'); x.drawImage(src, 0, 0); const D = x.getImageData(0, 0, c.width, c.height), d = D.data, rh = c.height / 7;
+  const ramps = AP_CLASSES.map(cl => { const T = tjWT(cl, t); return [T.m[1], T.a[2], T.a[3], T.g[3], T.g[4]].map(v => [uR(v), uG(v), uB(v)]); });
+  for (let y = 0; y < c.height; y++) { const R = ramps[Math.min(6, Math.floor(y / rh))]; for (let xx = 0; xx < c.width; xx++) { const i = (y * c.width + xx) * 4; if (d[i + 3] < 8) continue; const l = (d[i] * 0.3 + d[i + 1] * 0.59 + d[i + 2] * 0.11) / 255 * 4, j = Math.min(3, l | 0), f = l - j;
+      for (let k = 0; k < 3; k++) d[i + k] = Math.round(R[j][k] * (1 - f) + R[j + 1][k] * f); } }
+  x.putImageData(D, 0, 0); const im = new Image(); im.src = c.toDataURL(); TJ_ATL[t] = im; WSPR_IMG['arm' + t] = im; return im; }
+{ const _ws = wsprSetItem; wsprSetItem = function (it) { const t = it && (it.tier | 0); if (it && it.tj && TJ_LV[t] && !it.ws) { tjAtlas(t); const row = WSPR_ROW[it.cls === 'pez' ? 'pez' : it.cls]; if (WSPR_IMG['arm' + t] && row !== undefined) return { img: 'arm' + t, row, bow: row === 2, cw: ARM_CW, ch: ARM_CH, s: 2 }; } return _ws.apply(this, arguments); }; }
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;
