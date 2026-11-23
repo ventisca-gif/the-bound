@@ -70,7 +70,7 @@ function genWorld() {
     if (y > 190) { reg[i] = RI.volcan; continue; }
     const wx = x + (fbm(x / 26, y / 26, 21, 3) - 0.5) * 56 + (fbm(x / 6, y / 6, 23, 2) - 0.5) * 18, wy = y + (fbm(x / 26, y / 26, 22, 3) - 0.5) * 56 + (fbm(x / 6, y / 6, 24, 2) - 0.5) * 18;
     let best = 0, bd = 1e9;
-    const far = x > 252; for (let r = 0; r < REGIONS.length; r++) { const R = REGIONS[r]; if (R.k === 'mar' || R.k === 'nhar' || R.k === 'volcan' || !!R.isle !== far) continue; const d = dist2(wx, wy, R.c[0], R.c[1]) * (R.k === 'valle' ? 0.8 : 1); if (d < bd) { bd = d; best = r; } }
+    const far = x > 252; for (let r = 0; r < REGIONS.length; r++) { const R = REGIONS[r]; if (R.k === 'mar' || R.k === 'nhar' || R.k === 'volcan' || R.noGen || !!R.isle !== far) continue; const d = dist2(wx, wy, R.c[0], R.c[1]) * (R.k === 'valle' ? 0.8 : 1); if (d < bd) { bd = d; best = r; } }
     reg[i] = best;
   }
   // elevation

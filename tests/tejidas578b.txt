@@ -1,0 +1,9 @@
+click #tNew;;wait 400;;type #ccName|Mecanicas;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (()=>{ const P=G.P; P.lv=600; P.equip={weapon:{id:'w_mago_43'},body:{id:'b_43'},legs:{id:'l_43'},feet:{id:'f_43'},head:{id:'h_43'}}; calcStats(P); P.atlas=playerAtlas(P); P.x=262*16; P.y=212*16; regionCheck(true); window.__err=[]; window.addEventListener('error',e=>__err.push(String(e.message))); for (const [id] of TJ_MOBS) { const m=spawnMob(id, MOBS[id].lv[0], P.x+40+Math.random()*40, P.y+Math.random()*40, 0, null, false); m.state='chase'; } return G.ents.filter(e=>e.type==='mob').length; })()
+wait 6000
+js (()=>{ const P=G.P; P.hp=P.S.maxhp; const out=[]; for (const e of G.ents.filter(e=>e.type==='mob'&&e.mid.startsWith('tj_'))) { if (e.def.mech==='resew'||e.def.mech==='split'||e.def.mech==='splash'||e.def.mech==='wool') { hitMob(e, 1e7, {}); if (e.hp<=0&&!e.dying) killMob(e); hitMob(e, 1e9, {}); out.push(e.mid+':'+e.hp+':'+(e.dying?'d':'a')); } } return out.concat(__err); })()
+wait 3000
+js (()=>{ const P=G.P; P.hp=P.S.maxhp; for (const id of Object.keys(TJ_BOSS_AT)) { const b=spawnMob(id, BOSSES[id].lv, P.x+60, P.y, 0, null, true); for (const mv of BOSSES[id].moves) bossMove(b, mv); } return __err; })()
+wait 5000
+shot
+js (()=>({err:__err, hp:G.P.hp, ovillitos:G.ents.filter(e=>e.small).length}))
