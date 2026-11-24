@@ -68,16 +68,18 @@ function genCaveMouth(v) {
 }
 // ---------- interior generation ----------
 function makeCave(id) {
-  const D = CAVES[id], w = 64, h = 46, N = w * h, R = new RNG(D.seed), I = (x, y) => y * w + x;
+  const D = CAVES[id], w = D.w || 64, h = D.h || 46, N = w * h, R = new RNG(D.seed), I = (x, y) => y * w + x;
   const M = { id, w, h, ter: new Uint8Array(N).fill(T.CWALL), lvl: new Uint8Array(N), reg: new Uint8Array(N).fill(Math.max(0, REGIONS.findIndex(r => r.k === D.reg))), flags: new Uint8Array(N), isWorld: false, chunks: new Map(), dark: D.dark, music: 'cave', I, cave: id, camps: [] };
   const inside = (x, y) => x >= 2 && y >= 2 && x < w - 2 && y < h - 2;
   const carve = (cx, cy, r) => { for (let y = Math.floor(cy - r); y <= cy + r; y++) for (let x = Math.floor(cx - r); x <= cx + r; x++) if (inside(x, y) && ((x - cx) ** 2 + ((y - cy) / 0.8) ** 2) <= r * r) M.ter[I(x, y)] = D.floor; };
   const ex = w >> 1, start = [ex, h - 7];
-  const pts = [start]; for (let k = 0; k < 8; k++) { let p, tries = 0; do { p = [R.int(8, w - 9), R.int(6, h - 14)]; tries++; } while (tries < 40 && pts.some(q => Math.hypot(q[0] - p[0], q[1] - p[1]) < 13)); pts.push(p); }
-  const chain = [pts[0]], rest = pts.slice(1); while (rest.length) { const l = chain[chain.length - 1]; rest.sort((a, b) => Math.hypot(a[0] - l[0], a[1] - l[1]) - Math.hypot(b[0] - l[0], b[1] - l[1])); chain.push(rest.shift()); }
+  // 5.99: una mazmorra puede traer su propio plano (caveLayout en 6zzzzo_v599_portales.js); si no, la cueva de siempre
+  const custom = D.layout && typeof caveLayout === 'function' ? caveLayout(M, D, R, carve, start) : null;
+  const pts = [start]; if (!custom) for (let k = 0; k < 8; k++) { let p, tries = 0; do { p = [R.int(8, w - 9), R.int(6, h - 14)]; tries++; } while (tries < 40 && pts.some(q => Math.hypot(q[0] - p[0], q[1] - p[1]) < 13)); pts.push(p); }
+  const chain = custom || [pts[0]], rest = custom ? [] : pts.slice(1); while (rest.length) { const l = chain[chain.length - 1]; rest.sort((a, b) => Math.hypot(a[0] - l[0], a[1] - l[1]) - Math.hypot(b[0] - l[0], b[1] - l[1])); chain.push(rest.shift()); }
   const tunnel = (a, b) => { let x = a[0], y = a[1]; for (let s = 0; s < 400; s++) { const dx = b[0] - x, dy = b[1] - y, L = Math.hypot(dx, dy); if (L < 1.5) break; x += dx / L + (R.f() - 0.5) * 1.1; y += dy / L + (R.f() - 0.5) * 1.1; carve(x, y, 1.6 + R.f() * 0.9); } };
-  for (let k = 0; k < chain.length; k++) { carve(chain[k][0], chain[k][1], k === 0 ? 4 : R.int(4, 7)); if (k) tunnel(chain[k - 1], chain[k]); }
-  tunnel(chain[2], chain[chain.length - 1]); // a loop so it isn't a single line
+  if (!custom) { for (let k = 0; k < chain.length; k++) { carve(chain[k][0], chain[k][1], k === 0 ? 4 : R.int(4, 7)); if (k) tunnel(chain[k - 1], chain[k]); }
+  tunnel(chain[2], chain[chain.length - 1]); } // a loop so it isn't a single line
   for (let y = h - 7; y < h; y++) for (let x = ex - 1; x <= ex + 1; x++) M.ter[I(x, y)] = y === h - 1 && x !== ex ? T.CWALL : D.floor;
   for (let y = h - 3; y < h - 1; y++) { M.ter[I(ex - 2, y)] = T.CWALL; M.ter[I(ex + 2, y)] = T.CWALL; }
   M.exit = { x: ex, y: h - 1 };

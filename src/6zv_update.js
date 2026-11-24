@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.98', GAME_BUILD = 219;
+const GAME_VER = '5.99', GAME_BUILD = 220;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.99",
+ "b": 220,
+ "d": "2026-11-24",
+ "es": [
+  "Torre de los Portales: 5 portales nuevos de nivel alto con más enemigos — Fortaleza de Obsidiana (400), Jardín de Cristal Negro (450), Ciudad Hundida del Portal (500), Forja del Dios Caído (550) y Trono del Último Portal (600), con 12 enemigos y 5 jefes nuevos.",
+  "Las mazmorras ya no son todas la misma cueva: fortaleza de salas, anillo con cámara central, gran salón de columnas, catedral con capillas y sala del trono.",
+  "Los cazadores suben de nivel hasta el máximo: peleando contigo, al cerrar portales y entrenando solos cada día.",
+  "14 cazadores de élite (nivel 400-600) con armaduras de los tiers altos y transformaciones te esperan en la Antesala."
+ ],
+ "en": [
+  "Portal Tower: 5 new high-level portals with more enemies — Obsidian Fortress (400), Black Crystal Garden (450), Sunken Portal City (500), Fallen God’s Forge (550) and Throne of the Last Portal (600), with 12 new enemies and 5 new bosses.",
+  "Dungeons are no longer all the same cave: hall fortress, ring with a central chamber, pillared great hall, cathedral with chapels and throne room.",
+  "Hunters level up to the cap: fighting with you, closing portals and training on their own every day.",
+  "14 elite hunters (level 400-600) with high-tier armour and transformations wait in the Antechamber."
+ ]
+},
 {
  "v": "5.98",
  "b": 219,
