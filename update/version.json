@@ -1,24 +1,20 @@
 {
- "build": 220,
- "ver": "5.99",
+ "build": 221,
+ "ver": "6.00",
  "date": "2026-11-24",
  "file": "thebound.html",
- "size": 32312089,
- "sha256": "4495f8c06925b9ac5d08e07446107e8935170c149affc9371ddfccbaf304c463",
+ "size": 32314995,
+ "sha256": "a182d5a65ab25967abec33ff0146a835639c8679306cdd0a696efc403deebeaa",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Torre de los Portales: 5 portales nuevos de nivel alto con más enemigos — Fortaleza de Obsidiana (400), Jardín de Cristal Negro (450), Ciudad Hundida del Portal (500), Forja del Dios Caído (550) y Trono del Último Portal (600), con 12 enemigos y 5 jefes nuevos.",
-   "Las mazmorras ya no son todas la misma cueva: fortaleza de salas, anillo con cámara central, gran salón de columnas, catedral con capillas y sala del trono.",
-   "Los cazadores suben de nivel hasta el máximo: peleando contigo, al cerrar portales y entrenando solos cada día.",
-   "14 cazadores de élite (nivel 400-600) con armaduras de los tiers altos y transformaciones te esperan en la Antesala."
+   "Cazadores de élite: van con su forma normal y se transforman en batalla (en las mazmorras cuando hay enemigos cerca, +15 % de ataque; en los duelos al bajar del 60 % de vida).",
+   "Valeria, Taro y Dorian llevaban formas que aún no se pueden conseguir (Despertar Dorado y Tejedor Primordial, sin estadísticas): ahora usan Mitad Dragón, Alado Caído y Eco sin Pintar."
   ],
   "en": [
-   "Portal Tower: 5 new high-level portals with more enemies — Obsidian Fortress (400), Black Crystal Garden (450), Sunken Portal City (500), Fallen God’s Forge (550) and Throne of the Last Portal (600), with 12 new enemies and 5 new bosses.",
-   "Dungeons are no longer all the same cave: hall fortress, ring with a central chamber, pillared great hall, cathedral with chapels and throne room.",
-   "Hunters level up to the cap: fighting with you, closing portals and training on their own every day.",
-   "14 elite hunters (level 400-600) with high-tier armour and transformations wait in the Antechamber."
+   "Elite hunters: they walk in their normal look and transform in battle (in dungeons when enemies are near, +15% attack; in duels below 60% HP).",
+   "Valeria, Taro and Dorian had forms that cannot be obtained yet (Golden Awakening and Primordial Weaver, no stats): they now use Half-Dragon, Fallen Winged and Unpainted Echo."
   ]
  }
 }

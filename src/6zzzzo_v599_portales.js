@@ -113,18 +113,18 @@ function hnGainLv(h, n) { const s = hnState(h); const before = s.lv; s.lv = Math
 // =====================================================================================
 // [nombre, sexo, estructura, clase, poder, nivel, tier de armadura, forma, pelo, piel, título]
 const HN_ELITE = [
-  ['Valeria Corona Rota', 'f', 1, 'guerrero', 'fuego', 600, 44, 'dorado', 'rubio', 1, L2('La campeona sin rival', 'The unrivalled champion')],
+  ['Valeria Corona Rota', 'f', 1, 'guerrero', 'fuego', 600, 44, 'dragon', 'rubio', 1, L2('La campeona sin rival', 'The unrivalled champion')],
   ['Ashur el Último', 'm', 2, 'guerrero', 'roca', 592, 43, 'dragon', 'negro', 3, L2('Escamas de obsidiana', 'Obsidian scales')],
   ['Nyx Medianoche', 'f', 4, 'asesino', 'mente', 585, 42, 'fantasma', 'platino', 0, L2('Nadie oye sus pasos', 'Nobody hears her steps')],
   ['Kael Ventisca', 'm', 0, 'arquero', 'hielo', 570, 41, 'hielo', 'blanco', 2, L2('Flechas que congelan el aire', 'Arrows that freeze the air')],
   ['Seraphine Alba', 'f', 2, 'bardo', 'aire', 560, 40, 'alado', 'rosa', 1, L2('Canta y caen las tormentas', 'She sings and storms fall')],
-  ['Dorian Telar', 'm', 4, 'invocador', 'mente', 548, 39, 'tejedor', 'morado', 2, L2('Teje portales con los dedos', 'Weaves portals with his fingers')],
+  ['Dorian Telar', 'm', 4, 'invocador', 'mente', 548, 39, 'eco', 'morado', 2, L2('Teje portales con los dedos', 'Weaves portals with his fingers')],
   ['Ilse Boceto', 'f', 3, 'mago', 'agua', 530, 38, 'eco', 'azul', 0, L2('Pinta hechizos en el aire', 'Paints spells in the air')],
   ['Bram Colmillo', 'm', 3, 'guerrero', 'roca', 515, 37, 'lobo', 'castano', 3, L2('Aúlla antes de cada portal', 'Howls before every portal')],
   ['Mei Brasa', 'f', 0, 'mago', 'fuego', 498, 36, 'dragon', 'rojo', 1, L2('Llamas con forma de dragón', 'Dragon-shaped flames')],
   ['Oskar Hierro', 'm', 1, 'arquero', 'aire', 470, 35, 'alado', 'gris', 2, L2('Vuela sobre los portales', 'Flies over the portals')],
   ['Lysa Espejo', 'f', 1, 'asesino', 'agua', 452, 34, 'fantasma', 'turquesa', 0, L2('Su reflejo ataca primero', 'Her reflection strikes first')],
-  ['Taro Granito', 'm', 2, 'invocador', 'roca', 436, 33, 'dorado', 'negro', 4, L2('Invoca gólems de luz', 'Summons golems of light')],
+  ['Taro Granito', 'm', 2, 'invocador', 'roca', 436, 33, 'alado', 'negro', 4, L2('Invoca gólems de luz', 'Summons golems of light')],
   ['Inés Escarcha', 'f', 3, 'bardo', 'hielo', 418, 32, 'hielo', 'blanco', 1, L2('Un laúd de hielo eterno', 'A lute of eternal ice')],
   ['Rurik Ceniza', 'm', 0, 'guerrero', 'fuego', 400, 31, 'lobo', 'castano', 2, L2('Corre entre el humo', 'Runs through the smoke')]];
 const HN_ELITE0 = HN.length;
@@ -132,9 +132,23 @@ HN_ELITE.forEach(([name, g, bt, cls, pw, lv, tier, form, hair, skin, title], j) 
   const h = { i, id, name, g, big: false, lv, cls, pw, pers: j % HN_LINES.length, elite: 1, tier, form: SR[form] ? form : null, hair: HAIRS[hair] ? hair : 'negro', bt, skin, etitle: title, body: 'normal' }; HN.push(h);
   NPCS[id] = { n: name, title: '', look: null, lines: [title].concat(HN_LINES[i % HN_LINES.length] || []), atlas: () => hnAtlas(h) };
   Object.defineProperty(NPCS[id], 'title', { get: () => '★ ' + hnTitle(h), configurable: true }); });
-function hnEliteLook(h) { const app = Object.assign({}, DEF_APP, { g: h.g, bt: h.bt || 0, hair: h.hair, skin: h.skin || 0 }), t = h.tier, gear = { weapon: t, head: t, body: t, legs: t, feet: t };
-  if (h.form) { gear.sr = h.form; gear.sf = h.form === 'lobo' ? 0 : 1; if (h.form === 'lobo') gear.sc = h.hair; } const L = heroLook(h.cls, app, gear, {}, {}); return L; }
-{ const _ha = hnAtlas; hnAtlas = function (h) { if (h && h.elite) return HN_ATL[h.id] || (HN_ATL[h.id] = buildHeroAtlas(hnEliteLook(h))); return _ha.apply(this, arguments); }; }
+// solo formas que se pueden conseguir (Tejedor y Despertar Dorado están bloqueadas y no dan estadísticas)
+const HN_FORM_OK = f => !!(SR[f] && !(SR[f].lv >= 1000));
+function hnEliteLook(h, on) { const app = Object.assign({}, DEF_APP, { g: h.g, bt: h.bt || 0, hair: h.hair, skin: h.skin || 0 }), t = h.tier, gear = { weapon: t, head: t, body: t, legs: t, feet: t };
+  if (on && h.form && HN_FORM_OK(h.form)) { gear.sr = h.form; gear.sf = h.form === 'lobo' ? 0 : 1; if (h.form === 'lobo') gear.sc = h.hair; } return heroLook(h.cls, app, gear, {}, {}); }
+// forma normal fuera de combate; transformado en batalla
+const hnEliteAtlas = (h, on) => { const k = h.id + (on ? ':f' : ''); return HN_ATL[k] || (HN_ATL[k] = buildHeroAtlas(hnEliteLook(h, on))); };
+{ const _ha = hnAtlas; hnAtlas = function (h) { if (h && h.elite) return hnEliteAtlas(h, false); return _ha.apply(this, arguments); }; }
+function hnEliteForm(e, h, on) { if (!!e.eliteOn === on) return; e.eliteOn = on; e.atlas = hnEliteAtlas(h, on);
+  if (on) { const S = SR[h.form]; floatText(e.x, e.y - 46, (S ? S.ic + ' ' + (S.f || S.n) : L2('¡Transformación!', 'Transformation!')), (S && S.col) || '#ffd040', true); burst(e.x, e.y - 16, 22, { sp: 90, up: 40, life: 0.6, c: [(S && S.col) || '#ffd040', '#ffffff'] }); addFx({ type: 'ring', x: e.x, y: e.y, r: 26, dur: 0.45, col: (S && S.col) || '#ffd040' }); } }
+// aliados en la mazmorra: se transforman si hay enemigos cerca (+15 % de ataque mientras dura)
+{ let t = 0; V33_TICKS.push(dt => { t += dt || 0.016; if (t < 0.4) return; t = 0; const M = G.map; if (!M || !HUNT.allies.length) return;
+  for (const a of HUNT.allies) { if (!a || !a.h || !a.h.elite || a.remove) continue; const fight = G.ents.some(m => m.type === 'mob' && !m.dying && !m.remove && m.map === M.id && dist2(m.x, m.y, a.x, a.y) < 150 * 150);
+    if (fight !== !!a.eliteOn) { hnEliteForm(a, a.h, fight); } } }); }
+{ const _ha = huntAtk; huntAtk = function (a) { const d = _ha.apply(this, arguments); return a && a.eliteOn ? Math.round(d * 1.15) : d; }; }
+// duelo contra un cazador de élite: su forma normal al empezar y se transforma al 60 % (hnFormOn)
+{ const _ma = mobAtlasFor; mobAtlasFor = function (art) { if (art && art[0] === 'hum' && /^duel_/.test(art[1] || '') && typeof DUEL !== 'undefined' && DUEL && DUEL.o && DUEL.o.h && DUEL.o.h.elite) return hnEliteAtlas(DUEL.o.h, false); return _ma.apply(this, arguments); }; }
+{ const _fo = hnFormOn; hnFormOn = function (m) { const r = _fo.apply(this, arguments); try { const h = typeof DUEL !== 'undefined' && DUEL && DUEL.o && DUEL.o.h; if (h && h.elite) { m.eliteOn = false; hnEliteForm(m, h, true); } } catch (e) { } return r; }; }
 // en la antesala: los de élite esperan junto a los portales altos
 { const _tm = tprMake; tprMake = function (id) { const fresh = !G.maps[id], M = _tm.apply(this, arguments); try { if (fresh && id === 'tp_antesala') HN.filter(h => h.elite).forEach((h, k) => { const x = 5 + (8 + (k % 5)) * 7 - 2 + (k >= 5 ? 3 : 0), y = 12 + Math.floor(k / 5) * 4; const e = spawnNPC(h.id, Math.min(M.w - 4, x) * 16 + 8, y * 16 + 8, id, { wander: 1, face: 'down' }); if (e) e.hn = h; }); } catch (e) { } return M; }; }
 
