@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.88', GAME_BUILD = 209;
+const GAME_VER = '5.89', GAME_BUILD = 210;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.89",
+ "b": 210,
+ "d": "2026-11-24",
+ "es": [
+  "Rescata a Zoro en el patio de la Base 153 de Shells Town y lucha con él y Luffy contra Morgan Mano de Hacha, jefe de nivel 550.",
+  "Luffy, Zoro y Morgan tienen sprites nuevos y caminatas en cuatro direcciones. Morgan llama a dos marines cuando le queda el 65 % de vida."
+ ],
+ "en": [
+  "Rescue Zoro in the courtyard of the 153rd Branch Base in Shells Town and fight alongside him and Luffy against Axe-Hand Morgan, a level 550 boss.",
+  "Luffy, Zoro and Morgan have new sprites and four-direction walking cycles. Morgan calls two marines at 65% health."
+ ]
+},
 {
  "v": "5.88",
  "b": 209,
