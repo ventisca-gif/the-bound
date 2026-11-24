@@ -1,20 +1,20 @@
 {
- "build": 215,
- "ver": "5.94",
+ "build": 216,
+ "ver": "5.95",
  "date": "2026-11-24",
  "file": "thebound.html",
- "size": 32197215,
- "sha256": "2a23968a85280df6ce07d07b57aa4a1048bd9d6bfbbf0891a96d36898d992f9b",
+ "size": 32206810,
+ "sha256": "0581fa4eb3c0a9bd27d81ce648589392a3e66d73f207edc99feca99861467e18",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "El inventario bloquea comer una segunda Fruta del Diablo mientras tienes un poder. La fruta permanece en tu bolsa. Shanks puede retirar el poder en Foosha.",
-   "Mera Mera y Hana Hana tienen sprites animados propios en sus nueve técnicas. El fuego, la Logia, los brazos y los pétalos se dibujan con fotogramas pixel art en el motor."
+   "Nueva pestaña 🍇 Frutas en el menú: todas las Frutas del Diablo del juego (Goma, Transparente, Bara Bara, Mera Mera y Hana Hana) con su icono, su poder, sus técnicas, dónde aparecen, su probabilidad y cuántas victorias te faltan como mucho. Con «Marcar en el mapa» te lleva hasta ellas.",
+   "Arreglo: cuando una fruta del Mar de Dawn desaparecía a los 4 minutos, la flecha seguía apuntando a ese sitio."
   ],
   "en": [
-   "The bag blocks eating a second Devil Fruit while you have a power. The fruit stays in your bag. Shanks can remove your power in Foosha.",
-   "Flame-Flame and Flower-Flower have custom animated sprites across all nine techniques. Fire, Logia, arms and petals use pixel art frames in the game engine."
+   "New 🍇 Fruits tab in the menu: every Devil Fruit in the game (Rubber, Clear, Chop-Chop, Flame-Flame and Flower-Flower) with its icon, power, techniques, where it appears, its chance and how many wins you need at most. “Mark on the map” guides you there.",
+   "Fix: when a Dawn Sea fruit vanished after 4 minutes, the arrow kept pointing at that spot."
   ]
  }
 }

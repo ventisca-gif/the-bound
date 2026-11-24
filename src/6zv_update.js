@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.94', GAME_BUILD = 215;
+const GAME_VER = '5.95', GAME_BUILD = 216;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.95",
+ "b": 216,
+ "d": "2026-11-24",
+ "es": [
+  "Nueva pestaña 🍇 Frutas en el menú: todas las Frutas del Diablo del juego (Goma, Transparente, Bara Bara, Mera Mera y Hana Hana) con su icono, su poder, sus técnicas, dónde aparecen, su probabilidad y cuántas victorias te faltan como mucho. Con «Marcar en el mapa» te lleva hasta ellas.",
+  "Arreglo: cuando una fruta del Mar de Dawn desaparecía a los 4 minutos, la flecha seguía apuntando a ese sitio."
+ ],
+ "en": [
+  "New 🍇 Fruits tab in the menu: every Devil Fruit in the game (Rubber, Clear, Chop-Chop, Flame-Flame and Flower-Flower) with its icon, power, techniques, where it appears, its chance and how many wins you need at most. “Mark on the map” guides you there.",
+  "Fix: when a Dawn Sea fruit vanished after 4 minutes, the arrow kept pointing at that spot."
+ ]
+},
 {
  "v": "5.94",
  "b": 215,
