@@ -1,0 +1,20 @@
+click #tNew;;wait 400;;type #ccName|Marea;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (()=>{ const P=G.P; window.__err=[]; window.addEventListener('error',e=>__err.push(String(e.message))); P.lv=600; P.gold=500000; const M=makeDawn(); P.dawnHelm=dawnHelm('skiff',{x:P.x,y:P.y}); setMap(M,(TG_DOCK[0]+1)*16+8,(TG_DOCK[1]+2)*16+8,'left'); return G.map.id; })()
+wait 800
+js (()=>{ MAPW=MAPW_LIST.findIndex(m=>m.id==='dawn'); openPanel('map'); return [MAPW, document.querySelectorAll('#panel canvas').length]; })()
+wait 800
+shot
+js (()=>{ const b=document.querySelector('#mwNext'); if(b) b.click(); return MAPW; })()
+wait 400
+js (()=>{ closePanel ? closePanel() : 0; const P=G.P; P.x=(TG_DOCK[0]+1)*16+8; P.y=(TG_DOCK[1]+2)*16+8; doInteract(); return 1; })()
+wait 1500
+js (()=>{ const P=G.P, m=G.ents.find(e=>e.id==='tg_modista'&&e.map==='tortuga'); P.x=m.x; P.y=m.y+20; openDialog(m); const o=[...document.querySelectorAll('#dlg button, #dialog button, .dopt')].map(b=>b.textContent); return [G.map.id, o.slice(0,3)]; })()
+js (()=>{ closeDialog(); openShop('tgmoda','tortuga'); openModal; const n=document.querySelectorAll('[data-buy]').length; const b=document.querySelector('[data-buy="cosi_c_rm_esp_panuelo"]'); if(b) b.click(); return n; })()
+wait 400
+js (()=>{ const c=document.querySelector('[data-buy="cosi_c_rm_esp_panuelo"]'); if(c) c.click(); const y=[...document.querySelectorAll('#modal button,.modal button')].find(b=>/Comprar|Buy|Sí|Yes|Confirm/.test(b.textContent)); if(y) y.click(); return [G.P.wardrobe.includes('c_rm_esp_panuelo'), G.P.gold]; })()
+js (()=>{ try{closeModal()}catch(e){} const P=G.P; P.x=27*16+8; P.y=32*16+8; updateCamera(0,true); MAPW=0; openPanel('map'); return 1; })()
+wait 800
+js (()=>{ try{closePanel()}catch(e){} return 1; })()
+wait 1500
+shot
+js (window.__err)
