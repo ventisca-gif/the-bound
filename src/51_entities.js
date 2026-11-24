@@ -166,6 +166,7 @@ function hurtPlayer(base, src = {}) {
   if (Math.random() * 100 < P.S.dodge) { floatText(P.x, P.y - 34, 'ESQUIVA', '#a0e0ff'); return; }
   let d = base * dmgRedP(P.S.def, (src && src.lv) || P.lv) * (0.9 + Math.random() * 0.2); d = Math.max(1, Math.round(d)); if (P.hp - d < P.S.maxhp * 0.35) tip('potion');
   if (P.shield > 0) { const ab = Math.min(P.shield, d); P.shield -= ab; d -= ab; if (ab) floatText(P.x, P.y - 34, 'ESCUDO', '#c0a0ff'); }
+  if (d > 0 && typeof dfNewAbsorb === 'function') d = dfNewAbsorb(P, src, d);
   if (d <= 0) return;
   P.hp -= d; P.flash = 0.15; P.lastHurt = G.t; P.combatT = G.t; floatText(P.x, P.y - 34, d, '#ff5a5a'); G.shake = Math.max(G.shake, 3); sfx('hurt'); vibrate(20);
   if (src.poison) { P.poison = 5; P.poisonD = Math.round(base * 0.08); }
@@ -245,12 +246,12 @@ function updateMob(m, dt) {
       if (m.wu <= 0) {
         if (m.charge) { m.state = 'dash'; m.dt2 = 0.45; m.charge = 0; setAnim(m, 'walk'); break; }
         setAnim(m, 'atk'); m.state = 'chase'; m.cd = 1.1 + Math.random() * 0.5;
-        if (d <= m.range + 12 && (P.L === m.L || P.L < 0 || m.L < 0)) hurtPlayer(m.atk, { poison: m.def.poison, burn: m.def.burn });
+        if (d <= m.range + 12 && (P.L === m.L || P.L < 0 || m.L < 0)) hurtPlayer(m.atk, { poison: m.def.poison, burn: m.def.burn, dfPhysical: true });
         sfx('swing');
       }
       break;
     }
-    case 'dash': { m.dt2 -= dt; moveEnt(M, m, Math.cos(m.cang) * m.spd * 3.6 * dt, Math.sin(m.cang) * m.spd * 3.6 * dt); if (d < 16 && !m.dHit) { m.dHit = 1; hurtPlayer(m.atk * 1.3); } if (m.dt2 <= 0) { m.state = 'chase'; m.cd = 2; m.dHit = 0; } break; }
+    case 'dash': { m.dt2 -= dt; moveEnt(M, m, Math.cos(m.cang) * m.spd * 3.6 * dt, Math.sin(m.cang) * m.spd * 3.6 * dt); if (d < 16 && !m.dHit) { m.dHit = 1; hurtPlayer(m.atk * 1.3, {dfPhysical:true,lv:m.lv}); } if (m.dt2 <= 0) { m.state = 'chase'; m.cd = 2; m.dHit = 0; } break; }
     case 'return': { if (moveTo(m.home.x, m.home.y, spd * 1.4) || m.stuck > 3) { m.state = 'idle'; m.stuck = 0; if (m.stuck > 3) { m.x = m.home.x; m.y = m.home.y; } } m.hp = Math.min(m.maxhp, m.hp + m.maxhp * 0.2 * dt); break; }
   }
 }

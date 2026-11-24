@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.92', GAME_BUILD = 213;
+const GAME_VER = '5.93', GAME_BUILD = 214;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.93",
+ "b": 214,
+ "d": "2026-11-24",
+ "es": [
+  "Mera Mera de Ace: Puño de Fuego, Pistolas de Fuego, Pilar de Fuego, Gran Entei y Cuerpo de Fuego. La Logia dura 6 segundos y evita hasta 3 golpes físicos de monstruos comunes.",
+  "Hana Hana de Robin: Clutch, Seis Fleur, Ochenta Fleur y Cien Fleur. Usa brazos a distancia, control de grupos y una barrera temporal. Las dos frutas usan la sección Habilidades › Fruta y progresan con el nivel.",
+  "Aparecen ocasionalmente en el Mar de Dawn. El aviso indica la isla y deja un marcador durante 4 minutos. Shanks retira Hana Hana con Voluntad 1 y Mera Mera con Voluntad 2, o cualquiera si ganaste su duelo."
+ ],
+ "en": [
+  "Ace’s Flame-Flame Fruit: Fire Fist, Fire Gun, Flame Pillar, Great Flame Emperor and Flame Body. Logia lasts 6 seconds and disperses up to 3 physical hits from ordinary monsters.",
+  "Robin’s Flower-Flower Fruit: Clutch, Seis Fleur, Ochenta Fleur and Cien Fleur. Use arms at a distance, crowd control and a temporary barrier. Both fruits use Skills › Fruit and scale with your level.",
+  "They occasionally appear in the Dawn Sea. The alert names the island and marks the spot for 4 minutes. Shanks removes Flower-Flower at Will rank 1 and Flame-Flame at Will rank 2, or either after you win his duel."
+ ]
+},
 {
  "v": "5.92",
  "b": 213,
