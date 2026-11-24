@@ -1,20 +1,24 @@
 {
- "build": 212,
- "ver": "5.91",
+ "build": 213,
+ "ver": "5.92",
  "date": "2026-11-24",
  "file": "thebound.html",
- "size": 31561428,
- "sha256": "ed2bb136000cd197766fb51293623edd66ec4e054161db02cb1e5359ca4671ea",
+ "size": 31987619,
+ "sha256": "07aaab6229166a5e307ea6616a518d04bfd1441d5ad35eed8bebfc61422d4262",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Los jefes del Mar de Dawn ahora pegan de verdad: Alvida, Morgan, Cabaji, Buggy y Shanks hacen bastante más daño, incluso con despertares, transformación y oficios. Esquiva sus ataques marcados y lleva pociones.",
-   "Solo sube el daño que te hacen a ti: Luffy, Zoro y Nami, los piratas, la Marina, la vida de los jefes y los duelos PvP no cambian."
+   "Villa Syrup se conecta al sur del Mar de Dawn. Tras terminar la historia de Gaimon, desembarca, habla con Usopp y avisa a Kaya en su mansión.",
+   "Zoro te ayuda contra Sham y Buchi (nivel 572). Enfrenta a Jango (572) con Nami y Usopp, y a Kuro (580) con Luffy.",
+   "Recluta a Usopp como tirador de nivel 580. Nuevos sprites proporcionados a la referencia, con caminata y tirachinas en cuatro direcciones. Alterna proyectiles normales con la Estrella de Pólvora.",
+   "Habla con Luffy, Zoro, Nami y Usopp en tierra y en el Going Merry. Hay temas nuevos sobre su pasado, la navegación, el combate y lo que pasó en Villa Syrup."
   ],
   "en": [
-   "Dawn Sea bosses now hit for real: Alvida, Morgan, Cabaji, Buggy and Shanks deal much more damage, even with awakenings, transformations and jobs. Dodge their marked attacks and bring potions.",
-   "Only the damage they deal to you goes up: Luffy, Zoro and Nami, pirates, the Navy, boss HP and PvP duels are unchanged."
+   "Syrup Village joins the southern Dawn Sea. Finish Gaimon’s story, go ashore, talk to Usopp and warn Kaya at her manor.",
+   "Zoro helps you fight Sham and Buchi (level 572). Face Jango (572) with Nami and Usopp, then fight Kuro (580) with Luffy.",
+   "Recruit Usopp as a level 580 sharpshooter. New reference-proportioned sprites with four-direction walking and slingshot attacks. He mixes regular projectiles with Gunpowder Star.",
+   "Talk to Luffy, Zoro, Nami and Usopp on land or aboard the Going Merry. New topics cover their past, navigation, combat and what happened at Syrup Village."
   ]
  }
 }
