@@ -84,14 +84,17 @@ XSPR.hielo_hoyo = () => { const [c, g] = XC(34, 22); g.fillStyle = '#dcf0ff'; g.
 XACT.icefish = [() => '🎣 ' + L2('Pescar en el hielo', 'Ice fishing'), 'fish', o => icefStart(o)];
 function icefStart(o) { if (actBusy()) return; const P = G.P; P.x = o.px; P.y = o.py + 16; P.dir = 'up';
   Object.assign(ACT, { k: 'icefish', o, casts: 0, got: [], ph: 'wait', t: 1.5 + Math.random() * 2.5, bar: 0, bv: 1.4, hits: 0, onAtk: () => { icefAtk(); return true; } });
-  banner('🎣 ' + L2('Pesca en el hielo', 'Ice fishing'), L2('Cuando el corcho se hunda, pulsa ⚔. Luego pulsa ⚔ con la marca en la zona verde (3 veces).', 'When the float sinks, press ⚔. Then press ⚔ with the marker in the green zone (3 times).')); }
+  banner('🎣 ' + L2('Pesca en el hielo', 'Ice fishing'), L2('Cuando el corcho se hunda, toca ⚔. Luego toca ⚔ con la marca en la zona verde (3 veces). Mueve el joystick para irte.', 'When the float sinks, tap ⚔. Then tap ⚔ with the marker in the green zone (3 times). Move the joystick to leave.')); }
 function icefPick() { const tot = ICEF.reduce((a, f) => a + f[2], 0); let r = Math.random() * tot; for (const f of ICEF) { r -= f[2]; if (r <= 0) return f; } return ICEF[0]; }
-function icefAtk() { const B = ACT; if (B.ph === 'wait') { floatText(G.P.x, G.P.y - 40, L2('¡Muy pronto!', 'Too early!'), '#c8c8c8'); B.t += 1; return; }
+function icefAtk() { const B = ACT; const held = G.t - (B.lastAtk || -9) < 0.25; B.lastAtk = G.t; if (held) return; // 5.97: mantener ⚔ pulsado repite el ataque cada fotograma: solo cuenta el primer toque
+  if (B.ph === 'wait') { floatText(G.P.x, G.P.y - 40, L2('¡Muy pronto!', 'Too early!'), '#c8c8c8'); B.t = Math.min(B.t + 0.5, 4); return; }
   if (B.ph === 'bite') { B.ph = 'reel'; B.fish = icefPick(); B.bar = 0; B.bv = 1.2 + ICEF.indexOf(B.fish) * 0.25; B.hits = 0; B.zone = 0.25 + Math.random() * 0.4; sfx('ui'); return; }
   if (B.ph === 'reel') { const ok = Math.abs(B.bar - B.zone) < 0.1; if (ok) { B.hits++; sfx('coin'); B.zone = 0.15 + Math.random() * 0.7; if (B.hits >= 3) { giveItem(B.fish[0], 1, true); B.got.push(B.fish[1]); floatText(G.P.x, G.P.y - 44, B.fish[1], B.fish[3]); gainJobXp('pesca', 12 + ICEF.indexOf(B.fish) * 10); icefNext(); } } else { floatText(G.P.x, G.P.y - 40, L2('¡Se escapó!', 'It got away!'), '#ff8a8a'); sfx('hurt'); icefNext(); } } }
 function icefNext() { const B = ACT; B.casts++; if (B.casts >= 5) { banner('🎣 ' + L2('Pesca en el hielo', 'Ice fishing'), B.got.length ? B.got.join(', ') : L2('Hoy no picaron…', 'Nothing bit today…')); actEnd(); markDirty(); return; } B.ph = 'wait'; B.t = 1.5 + Math.random() * 2.5; }
 V33_TICKS.push(dt => { if (ACT.k !== 'icefish') return; dt = Math.min(0.05, dt || 0.016); const B = ACT, P = G.P; P.x = B.o.px; P.y = B.o.py + 16;
-  if (B.ph === 'wait') { B.t -= dt; if (B.t <= 0) { B.ph = 'bite'; B.t = 0.8; sfx('ui'); } } else if (B.ph === 'bite') { B.t -= dt; if (B.t <= 0) { floatText(P.x, P.y - 40, L2('Se fue…', 'Gone…'), '#c8c8c8'); icefNext(); } }
+  try { const [mx, my] = moveInput(); B.leave = Math.hypot(mx, my) > 0.5 ? (B.leave || 0) + dt : 0; } catch (e) { } // 5.97: mover el joystick 0,6 s = dejar de pescar
+  if (B.leave > 0.6 || P.dead) { banner('🎣 ' + L2('Dejas de pescar', 'You stop fishing'), B.got.length ? B.got.join(', ') : L2('Sin capturas', 'No catch')); actEnd(); P.y += 10; markDirty(); return; }
+  if (B.ph === 'wait') { B.t -= dt; if (B.t <= 0) { B.ph = 'bite'; B.t = 1.4; sfx('quest'); floatText(P.x, P.y - 46, L2('¡PICA! ⚔', 'BITE! ⚔'), '#ffe08a', true); vibrate(40); } } else if (B.ph === 'bite') { B.t -= dt; if (B.t <= 0) { floatText(P.x, P.y - 40, L2('Se fue…', 'Gone…'), '#c8c8c8'); icefNext(); } }
   else if (B.ph === 'reel') { B.bar += B.bv * dt; if (B.bar > 1) { B.bar = 1; B.bv = -Math.abs(B.bv); } if (B.bar < 0) { B.bar = 0; B.bv = Math.abs(B.bv); } }
   mgHud(`🎣 ${B.casts + 1}/5 · ${B.ph === 'wait' ? L2('esperando…', 'waiting…') : B.ph === 'bite' ? L2('¡PICA! ⚔', 'BITE! ⚔') : '✓ ' + B.hits + '/3'}`); });
 WORLD_DRAW.push((cx, cy) => { if (ACT.k !== 'icefish') return; const B = ACT, x = B.o.px - cx, y = B.o.py - cy - 2, dip = B.ph === 'bite' ? 3 + Math.sin(G.t * 30) * 2 : Math.sin(G.t * 3);

@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.96', GAME_BUILD = 217;
+const GAME_VER = '5.97', GAME_BUILD = 218;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,29 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.97",
+ "b": 218,
+ "d": "2026-11-24",
+ "es": [
+  "Arreglo: en la pesca en el hielo, mantener pulsado ⚔ retrasaba al pez para siempre («esperando…») y no se podía salir. Ahora cuenta un solo toque, el pez pica más tiempo con aviso y vibración, y moviendo el joystick dejas de pescar.",
+  "Arreglo: Zoltan el Errante se duplicaba cada 2 segundos durante el evento del mercader ambulante.",
+  "Goma + Engranaje 2: si tienes la fruta de goma y usas Engranaje 2, +12 % de crítico y +30 % de daño crítico.",
+  "Bara Bara: 4 técnicas nuevas (Cañón, Festival, Pies Saltarines y Cuchillas Voladoras): te partes en pedazos y tus pedazos atacan.",
+  "Fruta Transparente: 2 técnicas nuevas (Golpe Fantasma y Velo Espejo), 3 en total.",
+  "Destino de tu familia: cada hijo, nieto o bisnieto tiene el suyo. Unos nunca llegan al 500, otros aceptan su destino, otros encuentran la cura de la vejez (viven hasta 300 años) y otros te acompañan hasta el 500. Ninguno pasa del 500, y desde el 300 solo suben peleando contigo.",
+  "En el Mar de Dawn no puedes llamar a tu familia: te espera en casa."
+ ],
+ "en": [
+  "Fix: in ice fishing, holding ⚔ delayed the fish forever (“waiting…”) and you could not leave. Now it counts as one tap, the fish bites for longer with a notice and vibration, and moving the joystick ends fishing.",
+  "Fix: Zoltan the Wanderer duplicated every 2 seconds during the travelling merchant event.",
+  "Rubber + Gear 2: with the rubber fruit and Gear 2 active, +12% crit and +30% crit damage.",
+  "Chop-Chop: 4 new techniques (Cannon, Festival, Hopping Feet and Flying Blades): you split into pieces and your pieces attack.",
+  "Clear Fruit: 2 new techniques (Phantom Strike and Mirror Veil), 3 in total.",
+  "Your family’s fate: every child, grandchild or great-grandchild has their own. Some never reach 500, some accept their fate, some find the cure for old age (living up to 300 years) and some follow you to 500. None go past 500, and from 300 they only level up fighting with you.",
+  "You cannot call your family in the Dawn Sea: they wait at home."
+ ]
+},
 {
  "v": "5.96",
  "b": 217,

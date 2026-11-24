@@ -111,7 +111,7 @@ function evLevel(town) { return Math.max(TOWN_LV[town] || 1, Math.min(MAXLV, G.P
 function townCenter(k) { const t = TOWNS.find(t => t.k === k); return { x: (t.x0 + t.x1) / 2, y: (t.y0 + t.y1) / 2 }; }
 function freeSpot(cx, cy, r) { const W = G.world; for (let k = 0; k < 40; k++) { const x = Math.round(cx + (Math.random() - 0.5) * r * 2), y = Math.round(cy + (Math.random() - 0.5) * r * 2); if (!blockedFor(W, x, y, W.lvl[W.I(x, y)])) return { x: x * 16 + 8, y: y * 16 + 8, L: W.lvl[W.I(x, y)] }; } return null; }
 function spawnEventMobs(ev) {
-  if (G.ents.some(m => m.ev === ev.id)) return; const lv = evLevel(ev.town || 'albor');
+  if (G.ents.some(m => m.ev === ev.id || m.evNpc === ev.id)) return; const lv = evLevel(ev.town || 'albor'); // 5.97: Zoltan (evNpc) también cuenta, antes se duplicaba
   if (ev.type === 'asalto' || ev.type === 'horda') { const c = townCenter(ev.town), n = ev.type === 'asalto' ? 6 : 8, mid = ev.type === 'asalto' ? 'bandido' : pick(['orco', 'goblin']);
     ev.left = ev.left || n; for (let i = 0; i < ev.left; i++) { const s = freeSpot(c.x, c.y, 7); if (!s) continue; const m = spawnMob(mid, lv, s.x, s.y, s.L, null, false); m.ev = ev.id; m.aggroR = 120; m.evMob = 1; m.noSafe = 1; } }
   if (ev.type === 'mercader') { const c = townCenter(ev.town), s = freeSpot(c.x, c.y, 4); if (s) { const e = spawnNPC('mercader_amb', s.x, s.y + 4, 'world', { wander: 1, L: s.L }); if (e) e.evNpc = ev.id; } }
