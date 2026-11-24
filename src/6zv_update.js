@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.00', GAME_BUILD = 221;
+const GAME_VER = '6.01', GAME_BUILD = 222;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.01",
+ "b": 222,
+ "d": "2026-11-24",
+ "es": [
+  "Nivel máximo 700.",
+  "Minerales y maderas nuevos en las islas del Mar de Dawn que reaparecen a los 5 segundos: Coralita y Palma de Coral, Nacarita y Árbol Frutal Raro, Piedra del Mar y Árbol Rey. Con sus picos, hachas y cañas (620-680).",
+  "5 armaduras de los mares para cualquier clase, en la Herrería con materiales de Dawn: Bailarina del Desierto (620), Emperatriz Serpiente (640), Capitán del Abrigo Negro (660), Kimono del Rey del Mar (680) y Traje del Futuro (700).",
+  "Ranking mundial: acepta niveles hasta 700 (antes el servidor rechazaba más de 500)."
+ ],
+ "en": [
+  "Level cap 700.",
+  "New ores and woods on the Dawn Sea islands that respawn after 5 seconds: Coralite and Coral Palm, Nacrite and Rare Fruit Tree, Seastone and King Tree. With their pickaxes, axes and rods (620-680).",
+  "5 sea armours for any class, at the Forge with Dawn materials: Desert Dancer (620), Serpent Empress (640), Black-Coat Captain (660), Sea King’s Kimono (680) and Future Suit (700).",
+  "World ranking: accepts levels up to 700 (the server used to reject anything above 500)."
+ ]
+},
 {
  "v": "6.00",
  "b": 221,
