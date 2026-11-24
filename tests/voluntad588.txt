@@ -1,0 +1,37 @@
+click #tNew;;wait 400;;type #ccName|Ventisca;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (()=>{ const P=G.P; window.__err=[]; window.addEventListener('error',e=>__err.push(String(e.message))); P.lv=600; calcStats(P); P.hp=P.S.maxhp; P.mp=P.S.maxmp; P.vol=140; return [volRank(), !!P.skills.cqa]; })()
+js (()=>{ const P=G.P; for(let k=0;k<12;k++){ const m=spawnMob('dawn_pirata',500,P.x+30,P.y,0,null,false); killMob(m); } return [P.vol, volRank(), Math.round(P.bounty)]; })()
+wait 600
+js (()=>{ const P=G.P; cqSync(); P.slots[0]='cqa'; P.vol=12000; const a=spawnMob('dawn_pirata',590,P.x+50,P.y,0,null,false), b=spawnMob('dawn_pirata',500,P.x-50,P.y,0,null,false), c=spawnMob('dawn_pirata',650,P.x,P.y+50,0,null,false); window._m=[a,b,c]; useSkill(0); return [volRank(), a.stun>0, !!b.dying, c.stun>0, P.cds.cqa]; })()
+wait 400
+shot
+js (()=>{ for(const m of window._m) m.remove=true; const P=G.P; P.vol=600; const sh=spawnMob(SH_BOSS,600,P.x+60,P.y,0,null,true); bossMove(sh,'sh_conquista'); window._sh=sh; return 1; })()
+wait 1700
+js (()=>{ const P=G.P; const ko=P.cqKO; window._sh.remove=true; return [Math.round(ko*10)/10, volRank()]; })()
+shot
+wait 2600
+js (()=>{ const P=G.P; P.bounty=0; P.bntTier=0; bntGain(1.2e6); return [bntTier(), Math.round(P.bounty)]; })()
+wait 1800
+shot
+js (()=>{ try{closeModal()}catch(e){} window.hurtPlayer=()=>{}; const P=G.P; P.hp=P.S.maxhp; P.vol=12000; P.bounty=2.5e7; const M=makeDawn(); P.dawnHelm=dawnHelm('skiff',{x:P.x,y:P.y}); setMap(M,600*16,300*16,'left'); MR.nextSea=0; window._r0=Math.random; Math.random=()=>0.2; return [G.map.id, bntTier()]; })()
+wait 1500
+js (()=>{ Math.random=window._r0; if(!MR.boat) MR.boat={x:G.P.x+300,y:G.P.y,dir:-1,t:G.t-5,lost:0}; return [!!MR.boat, MR.boat&&Math.round(Math.hypot(MR.boat.x-G.P.x,MR.boat.y-G.P.y))]; })()
+shot
+js (()=>{ if(MR.boat){ MR.boat.x=G.P.x+20; MR.boat.y=G.P.y; } return 1; })()
+wait 2000
+js (()=>{ return [G.map.id, MR.hunt&&MR.hunt.mobs.length]; })()
+shot
+js (()=>{ for(const m of MR.hunt.mobs) killMob(m); return 1; })()
+wait 1500
+js (()=>{ const P=G.P; P.x=4*16+8; P.y=9*16+8; const it=interactTarget(); const l=it&&it.label; doInteract(); return l; })()
+wait 1500
+js (()=>{ const P=G.P; return [G.map.id, P.dawnHelm&&P.dawnHelm.kind]; })()
+js (()=>{ try{closeModal()}catch(e){} const P=G.P, M=G.map; P.dawnHelm=null; P.x=522*16+8; P.y=258*16+8; updateCamera(0,true); MR.nextLand=0; MR.hunt=null; window._r=Math.random; let _f=1; Math.random=()=>_f?(_f=0,0.3):window._r(); return 1; })()
+wait 1500
+js (()=>{ Math.random=window._r; const e=MR.spy; return [!!e, e&&e.id, G.P.dead, MR.nextLand, G.t, G.map.id, !!G.P.dawnHelm, !!MR.hunt, !!MR.boat, G.fading, G.paused, document.querySelector("#modal")&&!document.querySelector("#modal").hidden]; })()
+js (()=>{ const e=MR.spy; if(!e) return 'no spy'; G.P.x=e.x; G.P.y=e.y+20; openDialog(e); const o=[...document.querySelectorAll('#dlg button, .dopt, #dialog button')].map(b=>b.textContent).slice(0,3); return o; })()
+shot
+js (()=>{ const e=MR.spy; closeDialog(); if(e) mrSpyEnd(false,'test'); return [MR.hunt&&MR.hunt.mobs.length]; })()
+wait 1500
+shot
+js (window.__err)
