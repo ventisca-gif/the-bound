@@ -7,7 +7,7 @@ function hubMount() {
   const tr = $('#tr'), row = $('#tr .trbtns'); if (!tr || !row) return;
   if (!$('#bHub')) { const b = document.createElement('button'); b.className = 'mini'; b.id = 'bHub'; b.title = L2('Atajos', 'Shortcuts'); b.setAttribute('aria-label', b.title); b.innerHTML = '<span class="hubic">▦</span><span class="hubt">' + L2('Atajos', 'Shortcuts') + '</span>'; b.onclick = e => { e.stopPropagation(); hubOpen(); }; tr.insertBefore(b, row);
     row.addEventListener('click', e => { if (e.target.closest('button')) setTimeout(() => hubOpen(false), 0); });
-    document.addEventListener('pointerdown', e => { if (document.body.classList.contains('hubOpen') && !e.target.closest('#tr .trbtns') && !e.target.closest('#bHub')) hubOpen(false); }, true); }
+    document.addEventListener('pointerdown', e => { if (document.body.classList.contains('hubOpen') && !e.target.closest('#tr .trbtns') && !e.target.closest('#bHub') && !e.target.closest('#trTabs')) hubOpen(false); }, true); }
   let t = $('#bTrans'); if (!t) { t = document.createElement('button'); t.className = 'mini'; t.id = 'bTrans'; t.title = L2('Transformaciones', 'Transformations'); t.textContent = '🌀'; t.onclick = transOpen; row.insertBefore(t, row.firstChild); }
   { const hb = $('#bHub'), pg = !!row.querySelector('.ping'); if (hb && hb.classList.contains('ping') !== pg) hb.classList.toggle('ping', pg); }
   const P = G.P, ic = P && P.sr && SR[P.sr] ? SR[P.sr].ic + (P.srF ? '✓' : '') : '🌀'; if (t.textContent !== ic) t.textContent = ic;
