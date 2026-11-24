@@ -1,24 +1,20 @@
 {
- "build": 222,
- "ver": "6.01",
+ "build": 223,
+ "ver": "6.02",
  "date": "2026-11-24",
  "file": "thebound.html",
- "size": 32334257,
- "sha256": "353ba57b1f4c3933cef1ef9afc001bd0847ac55296758875d9049e76f1677823",
+ "size": 32355182,
+ "sha256": "b2f68beec6e0a424215c55c56cc107d17bcfbf73b22ba1b7609022f288fd0dff",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Nivel máximo 700.",
-   "Minerales y maderas nuevos en las islas del Mar de Dawn que reaparecen a los 5 segundos: Coralita y Palma de Coral, Nacarita y Árbol Frutal Raro, Piedra del Mar y Árbol Rey. Con sus picos, hachas y cañas (620-680).",
-   "5 armaduras de los mares para cualquier clase, en la Herrería con materiales de Dawn: Bailarina del Desierto (620), Emperatriz Serpiente (640), Capitán del Abrigo Negro (660), Kimono del Rey del Mar (680) y Traje del Futuro (700).",
-   "Ranking mundial: acepta niveles hasta 700 (antes el servidor rechazaba más de 500)."
+   "Armadura de Clase de los Mares (nivel 700, la más fuerte): cada clase con su diseño — Vicealmirante del Mar Blanco, Navegante de Tormentas, Francotirador de Ultramar, Agente de la Sombra Blanca, Caballero del Barco Fantasma, Doctora del Invierno y Maestro del Karate Marino.",
+   "5 combinaciones de las armaduras de los mares (nivel 630-690): Pirata del Desierto, Emperatriz del Kimono, Capitán del Futuro, Bailarina del Rey del Mar y Serpiente del Futuro. Se forjan con la mitad de los materiales de los dos conjuntos que mezclan."
   ],
   "en": [
-   "Level cap 700.",
-   "New ores and woods on the Dawn Sea islands that respawn after 5 seconds: Coralite and Coral Palm, Nacrite and Rare Fruit Tree, Seastone and King Tree. With their pickaxes, axes and rods (620-680).",
-   "5 sea armours for any class, at the Forge with Dawn materials: Desert Dancer (620), Serpent Empress (640), Black-Coat Captain (660), Sea King’s Kimono (680) and Future Suit (700).",
-   "World ranking: accepts levels up to 700 (the server used to reject anything above 500)."
+   "Sea Class armour (level 700, the strongest): each class with its own design — White Sea Vice Admiral, Storm Navigator, Overseas Sharpshooter, White Shadow Agent, Ghost Ship Gentleman, Winter Doctor and Sea Karate Master.",
+   "5 sea armour combinations (level 630-690): Desert Pirate, Kimono Empress, Future Captain, Sea King’s Dancer and Future Serpent. Forged with half the materials of the two sets they mix."
   ]
  }
 }
