@@ -1,24 +1,30 @@
 {
- "build": 217,
- "ver": "5.96",
+ "build": 218,
+ "ver": "5.97",
  "date": "2026-11-24",
  "file": "thebound.html",
- "size": 32225031,
- "sha256": "1e7a84f0239dce7f0abbaf3e065965ce637c61a05bda26d8929dd7e96867d2ae",
+ "size": 32251150,
+ "sha256": "a468c1e19301adf3ed740614f03bc18836fe1f00949ac8d70ee36aecc47010e9",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Tripulación: si Luffy, Zoro, Nami o Usopp caen en una pelea de la historia, se levantan a los 15 s con un tercio de su vida.",
-   "Recompensas de la tripulación: Luffy, Zoro, Nami y Usopp tienen su cartel de «se busca». Sube al vencer juntos a los jefes de la historia (más quien lleva la pelea) y con cada enemigo de Dawn si van contigo. Míralos en Habilidades › Voluntad o en tu cartel › 🏴‍☠️ Tripulación.",
-   "Lupa › 🏴‍☠️ Mar de Dawn: la ruta de la historia paso a paso con ✅ y flecha, la tripulación, las frutas y todo el crossover.",
-   "Arreglo: en Atajos, tocar las pestañas ⚔ 🌐 🔍 cerraba el panel y parecía que desaparecían los botones."
+   "Arreglo: en la pesca en el hielo, mantener pulsado ⚔ retrasaba al pez para siempre («esperando…») y no se podía salir. Ahora cuenta un solo toque, el pez pica más tiempo con aviso y vibración, y moviendo el joystick dejas de pescar.",
+   "Arreglo: Zoltan el Errante se duplicaba cada 2 segundos durante el evento del mercader ambulante.",
+   "Goma + Engranaje 2: si tienes la fruta de goma y usas Engranaje 2, +12 % de crítico y +30 % de daño crítico.",
+   "Bara Bara: 4 técnicas nuevas (Cañón, Festival, Pies Saltarines y Cuchillas Voladoras): te partes en pedazos y tus pedazos atacan.",
+   "Fruta Transparente: 2 técnicas nuevas (Golpe Fantasma y Velo Espejo), 3 en total.",
+   "Destino de tu familia: cada hijo, nieto o bisnieto tiene el suyo. Unos nunca llegan al 500, otros aceptan su destino, otros encuentran la cura de la vejez (viven hasta 300 años) y otros te acompañan hasta el 500. Ninguno pasa del 500, y desde el 300 solo suben peleando contigo.",
+   "En el Mar de Dawn no puedes llamar a tu familia: te espera en casa."
   ],
   "en": [
-   "Crew: if Luffy, Zoro, Nami or Usopp fall in a story fight, they get back up after 15 s with a third of their HP.",
-   "Crew bounties: Luffy, Zoro, Nami and Usopp have their own wanted posters. They rise when you beat the story bosses together (more for whoever leads the fight) and with every Dawn enemy while they sail with you. See them in Skills › Will or in your poster › 🏴‍☠️ Crew.",
-   "Magnifier › 🏴‍☠️ Dawn Sea: the story route step by step with ✅ and an arrow, the crew, the fruits and the whole crossover.",
-   "Fix: in Shortcuts, tapping the ⚔ 🌐 🔍 tabs closed the panel, so the buttons seemed to vanish."
+   "Fix: in ice fishing, holding ⚔ delayed the fish forever (“waiting…”) and you could not leave. Now it counts as one tap, the fish bites for longer with a notice and vibration, and moving the joystick ends fishing.",
+   "Fix: Zoltan the Wanderer duplicated every 2 seconds during the travelling merchant event.",
+   "Rubber + Gear 2: with the rubber fruit and Gear 2 active, +12% crit and +30% crit damage.",
+   "Chop-Chop: 4 new techniques (Cannon, Festival, Hopping Feet and Flying Blades): you split into pieces and your pieces attack.",
+   "Clear Fruit: 2 new techniques (Phantom Strike and Mirror Veil), 3 in total.",
+   "Your family’s fate: every child, grandchild or great-grandchild has their own. Some never reach 500, some accept their fate, some find the cure for old age (living up to 300 years) and some follow you to 500. None go past 500, and from 300 they only level up fighting with you.",
+   "You cannot call your family in the Dawn Sea: they wait at home."
   ]
  }
 }

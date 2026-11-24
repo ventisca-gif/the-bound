@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v5.96 · Tripulación, carteles y Lupa del Mar de Dawn</div>
+  <div class="tfoot">v5.97 · Bara Bara, destino de la familia y arreglos</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -6363,7 +6363,7 @@ function evLevel(town) { return Math.max(TOWN_LV[town] || 1, Math.min(MAXLV, G.P
 function townCenter(k) { const t = TOWNS.find(t => t.k === k); return { x: (t.x0 + t.x1) / 2, y: (t.y0 + t.y1) / 2 }; }
 function freeSpot(cx, cy, r) { const W = G.world; for (let k = 0; k < 40; k++) { const x = Math.round(cx + (Math.random() - 0.5) * r * 2), y = Math.round(cy + (Math.random() - 0.5) * r * 2); if (!blockedFor(W, x, y, W.lvl[W.I(x, y)])) return { x: x * 16 + 8, y: y * 16 + 8, L: W.lvl[W.I(x, y)] }; } return null; }
 function spawnEventMobs(ev) {
-  if (G.ents.some(m => m.ev === ev.id)) return; const lv = evLevel(ev.town || 'albor');
+  if (G.ents.some(m => m.ev === ev.id || m.evNpc === ev.id)) return; const lv = evLevel(ev.town || 'albor'); // 5.97: Zoltan (evNpc) también cuenta, antes se duplicaba
   if (ev.type === 'asalto' || ev.type === 'horda') { const c = townCenter(ev.town), n = ev.type === 'asalto' ? 6 : 8, mid = ev.type === 'asalto' ? 'bandido' : pick(['orco', 'goblin']);
     ev.left = ev.left || n; for (let i = 0; i < ev.left; i++) { const s = freeSpot(c.x, c.y, 7); if (!s) continue; const m = spawnMob(mid, lv, s.x, s.y, s.L, null, false); m.ev = ev.id; m.aggroR = 120; m.evMob = 1; m.noSafe = 1; } }
   if (ev.type === 'mercader') { const c = townCenter(ev.town), s = freeSpot(c.x, c.y, 4); if (s) { const e = spawnNPC('mercader_amb', s.x, s.y + 4, 'world', { wander: 1, L: s.L }); if (e) e.evNpc = ev.id; } }
@@ -11834,7 +11834,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.96', GAME_BUILD = 217;
+const GAME_VER = '5.97', GAME_BUILD = 218;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11842,6 +11842,29 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.97",
+ "b": 218,
+ "d": "2026-11-24",
+ "es": [
+  "Arreglo: en la pesca en el hielo, mantener pulsado ⚔ retrasaba al pez para siempre («esperando…») y no se podía salir. Ahora cuenta un solo toque, el pez pica más tiempo con aviso y vibración, y moviendo el joystick dejas de pescar.",
+  "Arreglo: Zoltan el Errante se duplicaba cada 2 segundos durante el evento del mercader ambulante.",
+  "Goma + Engranaje 2: si tienes la fruta de goma y usas Engranaje 2, +12 % de crítico y +30 % de daño crítico.",
+  "Bara Bara: 4 técnicas nuevas (Cañón, Festival, Pies Saltarines y Cuchillas Voladoras): te partes en pedazos y tus pedazos atacan.",
+  "Fruta Transparente: 2 técnicas nuevas (Golpe Fantasma y Velo Espejo), 3 en total.",
+  "Destino de tu familia: cada hijo, nieto o bisnieto tiene el suyo. Unos nunca llegan al 500, otros aceptan su destino, otros encuentran la cura de la vejez (viven hasta 300 años) y otros te acompañan hasta el 500. Ninguno pasa del 500, y desde el 300 solo suben peleando contigo.",
+  "En el Mar de Dawn no puedes llamar a tu familia: te espera en casa."
+ ],
+ "en": [
+  "Fix: in ice fishing, holding ⚔ delayed the fish forever (“waiting…”) and you could not leave. Now it counts as one tap, the fish bites for longer with a notice and vibration, and moving the joystick ends fishing.",
+  "Fix: Zoltan the Wanderer duplicated every 2 seconds during the travelling merchant event.",
+  "Rubber + Gear 2: with the rubber fruit and Gear 2 active, +12% crit and +30% crit damage.",
+  "Chop-Chop: 4 new techniques (Cannon, Festival, Hopping Feet and Flying Blades): you split into pieces and your pieces attack.",
+  "Clear Fruit: 2 new techniques (Phantom Strike and Mirror Veil), 3 in total.",
+  "Your family’s fate: every child, grandchild or great-grandchild has their own. Some never reach 500, some accept their fate, some find the cure for old age (living up to 300 years) and some follow you to 500. None go past 500, and from 300 they only level up fighting with you.",
+  "You cannot call your family in the Dawn Sea: they wait at home."
+ ]
+},
 {
  "v": "5.96",
  "b": 217,
@@ -39833,14 +39856,17 @@ XSPR.hielo_hoyo = () => { const [c, g] = XC(34, 22); g.fillStyle = '#dcf0ff'; g.
 XACT.icefish = [() => '🎣 ' + L2('Pescar en el hielo', 'Ice fishing'), 'fish', o => icefStart(o)];
 function icefStart(o) { if (actBusy()) return; const P = G.P; P.x = o.px; P.y = o.py + 16; P.dir = 'up';
   Object.assign(ACT, { k: 'icefish', o, casts: 0, got: [], ph: 'wait', t: 1.5 + Math.random() * 2.5, bar: 0, bv: 1.4, hits: 0, onAtk: () => { icefAtk(); return true; } });
-  banner('🎣 ' + L2('Pesca en el hielo', 'Ice fishing'), L2('Cuando el corcho se hunda, pulsa ⚔. Luego pulsa ⚔ con la marca en la zona verde (3 veces).', 'When the float sinks, press ⚔. Then press ⚔ with the marker in the green zone (3 times).')); }
+  banner('🎣 ' + L2('Pesca en el hielo', 'Ice fishing'), L2('Cuando el corcho se hunda, toca ⚔. Luego toca ⚔ con la marca en la zona verde (3 veces). Mueve el joystick para irte.', 'When the float sinks, tap ⚔. Then tap ⚔ with the marker in the green zone (3 times). Move the joystick to leave.')); }
 function icefPick() { const tot = ICEF.reduce((a, f) => a + f[2], 0); let r = Math.random() * tot; for (const f of ICEF) { r -= f[2]; if (r <= 0) return f; } return ICEF[0]; }
-function icefAtk() { const B = ACT; if (B.ph === 'wait') { floatText(G.P.x, G.P.y - 40, L2('¡Muy pronto!', 'Too early!'), '#c8c8c8'); B.t += 1; return; }
+function icefAtk() { const B = ACT; const held = G.t - (B.lastAtk || -9) < 0.25; B.lastAtk = G.t; if (held) return; // 5.97: mantener ⚔ pulsado repite el ataque cada fotograma: solo cuenta el primer toque
+  if (B.ph === 'wait') { floatText(G.P.x, G.P.y - 40, L2('¡Muy pronto!', 'Too early!'), '#c8c8c8'); B.t = Math.min(B.t + 0.5, 4); return; }
   if (B.ph === 'bite') { B.ph = 'reel'; B.fish = icefPick(); B.bar = 0; B.bv = 1.2 + ICEF.indexOf(B.fish) * 0.25; B.hits = 0; B.zone = 0.25 + Math.random() * 0.4; sfx('ui'); return; }
   if (B.ph === 'reel') { const ok = Math.abs(B.bar - B.zone) < 0.1; if (ok) { B.hits++; sfx('coin'); B.zone = 0.15 + Math.random() * 0.7; if (B.hits >= 3) { giveItem(B.fish[0], 1, true); B.got.push(B.fish[1]); floatText(G.P.x, G.P.y - 44, B.fish[1], B.fish[3]); gainJobXp('pesca', 12 + ICEF.indexOf(B.fish) * 10); icefNext(); } } else { floatText(G.P.x, G.P.y - 40, L2('¡Se escapó!', 'It got away!'), '#ff8a8a'); sfx('hurt'); icefNext(); } } }
 function icefNext() { const B = ACT; B.casts++; if (B.casts >= 5) { banner('🎣 ' + L2('Pesca en el hielo', 'Ice fishing'), B.got.length ? B.got.join(', ') : L2('Hoy no picaron…', 'Nothing bit today…')); actEnd(); markDirty(); return; } B.ph = 'wait'; B.t = 1.5 + Math.random() * 2.5; }
 V33_TICKS.push(dt => { if (ACT.k !== 'icefish') return; dt = Math.min(0.05, dt || 0.016); const B = ACT, P = G.P; P.x = B.o.px; P.y = B.o.py + 16;
-  if (B.ph === 'wait') { B.t -= dt; if (B.t <= 0) { B.ph = 'bite'; B.t = 0.8; sfx('ui'); } } else if (B.ph === 'bite') { B.t -= dt; if (B.t <= 0) { floatText(P.x, P.y - 40, L2('Se fue…', 'Gone…'), '#c8c8c8'); icefNext(); } }
+  try { const [mx, my] = moveInput(); B.leave = Math.hypot(mx, my) > 0.5 ? (B.leave || 0) + dt : 0; } catch (e) { } // 5.97: mover el joystick 0,6 s = dejar de pescar
+  if (B.leave > 0.6 || P.dead) { banner('🎣 ' + L2('Dejas de pescar', 'You stop fishing'), B.got.length ? B.got.join(', ') : L2('Sin capturas', 'No catch')); actEnd(); P.y += 10; markDirty(); return; }
+  if (B.ph === 'wait') { B.t -= dt; if (B.t <= 0) { B.ph = 'bite'; B.t = 1.4; sfx('quest'); floatText(P.x, P.y - 46, L2('¡PICA! ⚔', 'BITE! ⚔'), '#ffe08a', true); vibrate(40); } } else if (B.ph === 'bite') { B.t -= dt; if (B.t <= 0) { floatText(P.x, P.y - 40, L2('Se fue…', 'Gone…'), '#c8c8c8'); icefNext(); } }
   else if (B.ph === 'reel') { B.bar += B.bv * dt; if (B.bar > 1) { B.bar = 1; B.bv = -Math.abs(B.bv); } if (B.bar < 0) { B.bar = 0; B.bv = Math.abs(B.bv); } }
   mgHud(`🎣 ${B.casts + 1}/5 · ${B.ph === 'wait' ? L2('esperando…', 'waiting…') : B.ph === 'bite' ? L2('¡PICA! ⚔', 'BITE! ⚔') : '✓ ' + B.hits + '/3'}`); });
 WORLD_DRAW.push((cx, cy) => { if (ACT.k !== 'icefish') return; const B = ACT, x = B.o.px - cx, y = B.o.py - cy - 2, dip = B.ph === 'bite' ? 3 + Math.sin(G.t * 30) * 2 : Math.sin(G.t * 3);
@@ -50731,6 +50757,150 @@ function guiaDawn() { GUIA.tab = 'dawn'; const P = G.P, list = LUPA_DAWN.map(([k
 { const _ga = guiaAddJobChip; guiaAddJobChip = function () { _ga.apply(this, arguments); const ch = $('.guia .chips'); if (!ch || ch.querySelector('[data-gx="dawn"]')) return; const b = document.createElement('button'); b.className = 'chip'; b.dataset.gx = 'dawn'; b.textContent = '🏴‍☠️ ' + L2('Mar de Dawn', 'Dawn Sea'); b.onclick = () => guiaDawn(); ch.insertBefore(b, ch.firstChild); }; }
 { const _gx = guiaX; guiaX = function (tab) { if (tab === 'dawn') return guiaDawn(); return _gx.apply(this, arguments); }; }
 { const _rg = renderGuia; renderGuia = function () { if (GUIA.tab === 'dawn') return guiaDawn(); return _rg.apply(this, arguments); }; }
+
+// 5.97 · Sergio: «buff de crítico si tienes Goma con Engranaje 2», «Bara Bara: 4 habilidades con sprites animados (nos
+// cortamos en pedazos y los pedazos atacan)» y «3 habilidades de la fruta de invisibilidad».
+// Los pedazos se recortan del fotograma real del personaje (atlas del jugador, también en HD), así sirven para las 5
+// estructuras de cuerpo, cualquier ropa y cualquier dirección. Efectos en capa aparte (DL_HOOKS), nunca en el sprite.
+
+// ---------- Goma + Engranaje 2 ----------
+const GOMA_VAPOR = { crit: 12, critD: 30 };
+const gomaVapor = P => !!(P && P.fruit === 'goma' && P.sr === 'vapor' && P.srF && srOk());
+{ const _cs = calcStats; calcStats = function (P) { const r = _cs.apply(this, arguments); try { if (P === G.P && P.S && gomaVapor(P)) { P.S.crit = Math.min(75, P.S.crit + GOMA_VAPOR.crit); P.S.critD += GOMA_VAPOR.critD; } } catch (e) { } return r; }; }
+{ let was = false; V33_TICKS.push(() => { const P = G.P; if (!P) return; const on = gomaVapor(P); if (on !== was) { was = on; calcStats(P); if (on) banner('♨ ' + L2('Goma + Engranaje 2', 'Rubber + Gear 2'), L2('+12 % de crítico y +30 % de daño crítico', '+12% crit and +30% crit damage')); } }); }
+
+// ---------- utilidades: pedazos del cuerpo ----------
+const BARA_FX = [];
+function baraFrame(P) { const A = P.atlas || playerAtlas(P), col = A.idx.idle || 0, row = DIRI[P.dir] || 0; return { A, col, row }; }
+// pedazo: [y0, y1] en fracción del alto del fotograma; [x0, x1] en fracción del ancho
+const BARA_PIECES = [{ n: 'head', y: [0, 0.42], x: [0, 1] }, { n: 'body', y: [0.42, 0.66], x: [0, 1] }, { n: 'armL', y: [0.4, 0.68], x: [0, 0.42] }, { n: 'armR', y: [0.4, 0.68], x: [0.58, 1] }, { n: 'legs', y: [0.66, 1], x: [0, 1] }];
+function baraDrawPiece(F, pc, x, y, ang, alpha) { const { A, col, row } = F, hd = HDS > 1 && A.hdL && typeof hdEnsure === 'function' && hdEnsure(A, col, row), k = hd ? 2 : 1, img = hd ? A.hd : A.img;
+  const sx = (col * A.fw + pc.x[0] * A.fw) * k, sy = (row * A.fh + pc.y[0] * A.fh) * k, sw = (pc.x[1] - pc.x[0]) * A.fw, sh = (pc.y[1] - pc.y[0]) * A.fh;
+  ctx.save(); ctx.globalAlpha *= alpha; ctx.translate(Math.round(x), Math.round(y)); if (ang) ctx.rotate(ang); ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(img, sx, sy, sw * k, sh * k, Math.round(-sw / 2), Math.round(-sh / 2), sw, sh);
+  ctx.restore();
+  ctx.save(); ctx.globalAlpha *= alpha * 0.55; ctx.strokeStyle = '#d587e6'; ctx.lineWidth = 1; ctx.translate(Math.round(x), Math.round(y)); if (ang) ctx.rotate(ang);
+  ctx.setLineDash([2, 2]); ctx.strokeRect(Math.round(-sw / 2) - 0.5, Math.round(-sh / 2) - 0.5, sw + 1, sh + 1); ctx.restore(); }
+function baraKnife(x, y, ang, s) { ctx.save(); ctx.translate(Math.round(x), Math.round(y)); ctx.rotate(ang); ctx.fillStyle = '#5e7688'; ctx.fillRect(-2 * s, -1, 3 * s, 2); ctx.fillStyle = '#d8e7e7'; ctx.fillRect(s, -1, 6 * s, 2); ctx.fillStyle = '#fff9df'; ctx.fillRect(s, -1, 6 * s, 1); ctx.restore(); }
+// cuerpo partido: no se dibuja el personaje entero mientras los pedazos están fuera
+{ const _de = drawEnt; drawEnt = function (e) { if (e === G.P && e.baraSplit > G.t) return; return _de.apply(this, arguments); }; }
+DL_HOOKS.push((list, cx, cy) => { const P = G.P; if (!P || !BARA_FX.length) return; for (let i = BARA_FX.length - 1; i >= 0; i--) if (G.t - BARA_FX[i].t0 > BARA_FX[i].dur) BARA_FX.splice(i, 1);
+  for (const f of BARA_FX) { if (f.map !== G.map.id) continue; list.push({ type: 'xdraw', x: P.x, y: (f.y || P.y) + 1, noShadow: true, draw: () => { try { BARA_C = [cx, cy]; f.draw(clamp((G.t - f.t0) / f.dur, 0, 1), cx, cy); } catch (e) { } } }); } });
+const baraDmg = (P, e, r) => P.S.atk * ((e.m || 1) + (e.mr || 0) * (r - 1)) * (1 + (P.S.skillP || 0) / 100);
+const ease = t => 1 - (1 - t) * (1 - t);
+// recibir menos daño con el cuerpo partido (no en PvP ni el daño del agua)
+{ const _hp = hurtPlayer; hurtPlayer = function (base, src) { const P = G.P; if (P && P.baraSplit > G.t && typeof base === 'number' && !(src && src.pvp)) base *= 0.6; if (P && P.traVeil > G.t && typeof base === 'number' && !(src && src.pvp)) base *= 0.65; return _hp.call(this, base, ...Array.prototype.slice.call(arguments, 1)); }; }
+
+// ---------- técnicas ----------
+const DF2 = [
+  ['bara1', 'bara', L2('Bara Bara: Cañón', 'Chop-Chop: Cannon'), 4, 16, ['star', '#d587e6'], { k: 'bcanon', m: 2.5, mr: 0.12 }, L2('Separas el puño y lo disparas en línea recta (170 px): atraviesa a todos los enemigos, {m}% de daño.', 'You detach your fist and fire it in a straight line (170 px): it pierces every enemy, {m}% damage.')],
+  ['bara2', 'bara', L2('Bara Bara: Festival', 'Chop-Chop: Festival'), 18, 34, ['spin', '#d587e6'], { k: 'bfest', m: 0.55, mr: 0.03 }, L2('Te partes en pedazos 3 s: giran a tu alrededor y golpean a todo lo cercano 10 veces ({m}% cada una). Partido recibes 40 % menos de daño.', 'You split apart for 3 s: your pieces spin around you and hit everything nearby 10 times ({m}% each). While split you take 40% less damage.')],
+  ['bara3', 'bara', L2('Bara Bara: Pies Saltarines', 'Chop-Chop: Hopping Feet'), 12, 28, ['slam', '#d587e6'], { k: 'bpies', m: 1.05, mr: 0.06 }, L2('Tus piernas se separan y pisotean al objetivo 4 veces ({m}% cada una); el último pisotón aturde a los enemigos comunes.', 'Your legs detach and stomp the target 4 times ({m}% each); the last stomp stuns ordinary enemies.')],
+  ['bara4', 'bara', L2('Bara Bara: Cuchillas Voladoras', 'Chop-Chop: Flying Blades'), 26, 48, ['multi', '#d587e6'], { k: 'bcuch', m: 3.4, mr: 0.2 }, L2('Tu cuerpo se deshace y cada pedazo vuela con un cuchillo hacia un enemigo distinto (hasta 5): {m}% de daño a cada uno.', 'Your body comes apart and each piece flies with a knife at a different enemy (up to 5): {m}% damage each.')],
+  ['tra2', 'transparente', L2('Golpe Fantasma', 'Phantom Strike'), 9, 24, ['eye', '#5ad8c8'], { k: 'tfant', m: 3.0, mr: 0.15 }, L2('Desapareces, apareces detrás del enemigo más cercano y lo golpeas: {m}% de daño y aturde 0,6 s a los comunes. Quedas invisible 1,5 s.', 'You vanish, appear behind the nearest enemy and strike: {m}% damage and 0.6 s stun on ordinary foes. You stay invisible for 1.5 s.')],
+  ['tra3', 'transparente', L2('Velo Espejo', 'Mirror Veil'), 22, 34, ['shield', '#5ad8c8'], { k: 'tvelo', m: 1.6, mr: 0.1 }, L2('Una onda transparente: {m}% de daño alrededor, los enemigos comunes pierden tu rastro y 4 s recibes 35 % menos de daño.', 'A transparent wave: {m}% damage around you, ordinary enemies lose your trail and for 4 s you take 35% less damage.')]];
+for (const [id, kind, n, cd, mp, icon, eff, d] of DF2) { sk(id, 'fruta', 0, 0, n, 'act', 500, null, { mp, cd, icon, eff, d, fruit: 1, max: 10 }); if (!DFS[kind].includes(id)) DFS[kind].push(id); }
+const DF2_IDS = new Set(DF2.map(r => r[0]));
+DFR.bara.passive = L2('Pasiva · 10 % de esquivar al separarte. Técnicas en Habilidades › Fruta.', 'Passive · 10% dodge by splitting. Techniques in Skills › Fruit.');
+
+function df2Cast(id) { const P = G.P, s = SK[id], e = s.eff, r = P.skills[id] || 1, dmg = baraDmg(P, e, r), M = G.map, F = baraFrame(P);
+  const tgt = nearestMob(P.x, P.y, 190, m => !m.remove), ang = tgt ? Math.atan2(tgt.y - P.y, tgt.x - P.x) : Math.atan2(DIRV[P.dir][1], DIRV[P.dir][0]); if (tgt) P.dir = dirFromVec(tgt.x - P.x, tgt.y - P.y);
+  const add = (dur, draw, y) => BARA_FX.push({ t0: G.t, dur, draw, map: M.id, y });
+  switch (e.k) {
+    case 'bcanon': { setAnim(P, 'atk'); const L = 170, ox = P.x, oy = P.y - 22, arm = BARA_PIECES[ang > -Math.PI / 2 && ang < Math.PI / 2 ? 3 : 2]; sfx('swing');
+      add(0.62, (p) => { const t = p < 0.55 ? ease(p / 0.55) : 1 - (p - 0.55) / 0.45, x = ox + Math.cos(ang) * L * t, y = oy + Math.sin(ang) * L * t; baraDrawPiece(F, arm, x - cxW(), y - cyW(), ang + Math.PI / 2, 1);
+        for (let k = 1; k < 4; k++) baraDrawPiece(F, arm, ox + Math.cos(ang) * L * t * (1 - k * 0.12) - cxW(), oy + Math.sin(ang) * L * t * (1 - k * 0.12) - cyW(), ang + Math.PI / 2, 0.18 / k); });
+      delayAct(0.2, () => { const hit = new Set(); for (let k = 1; k <= 7; k++) { const x = ox + Math.cos(ang) * L * k / 7, y = oy + 22 + Math.sin(ang) * L * k / 7; for (const m of G.ents) if (m.type === 'mob' && !m.dying && m.map === M.id && !hit.has(m) && dist2(m.x, m.y, x, y) < (20 + (m.rad || 8)) ** 2) { hit.add(m); hitMob(m, dmg, { kb: 60 }); } }
+        burst(ox + Math.cos(ang) * L, oy + Math.sin(ang) * L, 12, { sp: 80, up: 20, life: 0.4, c: DFR.bara.colors }); G.shake = 3; }); break; }
+    case 'bfest': { P.baraSplit = G.t + 3; setAnim(P, 'cast'); sfx('buff'); burst(P.x, P.y - 16, 22, { sp: 90, up: 40, life: 0.5, c: DFR.bara.colors });
+      add(3, (p) => { const T = p * 3, px = G.P.x - cxW(), py = G.P.y - cyW(); BARA_PIECES.forEach((pc, i) => { const a = T * 4.2 + i * 2 * Math.PI / 5, rr = 14 + 32 * Math.min(1, T * 3, (3 - T) * 3), x = px + Math.cos(a) * rr, y = py - 18 + Math.sin(a) * rr * 0.6;
+        baraDrawPiece(F, pc, x, y, a * 0.6, 1); if (pc.n.startsWith('arm')) baraKnife(x + Math.cos(a + 1.6) * 6, y + Math.sin(a + 1.6) * 6, a + 1.6, 1); }); });
+      for (let k = 0; k < 10; k++) delayAct(0.25 + k * 0.28, () => { if (G.map !== M) return; hitCircle(P.x, P.y, 58, dmg); if (k % 2) sfx('swing'); }); break; }
+    case 'bpies': { const tx = tgt ? tgt.x : P.x + Math.cos(ang) * 70, ty = tgt ? tgt.y : P.y + Math.sin(ang) * 50, ox = P.x, oy = P.y - 8; P.busy = 0.5; setAnim(P, 'cast'); telegraph({ shape: 'circle', x: tx, y: ty, r: 40, dur: 0.5, col: 'rgba(213,135,230,0.18)' });
+      add(2.2, (p) => { const T = p * 2.2, legs = BARA_PIECES[4]; let x, y; if (T < 0.35) { const t = ease(T / 0.35); x = ox + (tx - ox) * t; y = oy + (ty - 8 - oy) * t - Math.sin(t * Math.PI) * 30; }
+        else if (T < 1.95) { const q = ((T - 0.35) / 0.4) % 1; x = tx; y = ty - 8 - Math.abs(Math.sin(q * Math.PI)) * 22; } else { const t = (T - 1.95) / 0.25; x = tx + (G.P.x - tx) * t; y = ty - 8 + (G.P.y - 8 - (ty - 8)) * t; }
+        baraDrawPiece(F, legs, x - cxW(), y - cyW(), 0, 1); });
+      for (let k = 0; k < 4; k++) delayAct(0.55 + k * 0.4, () => { if (G.map !== M) return; hitCircle(tx, ty, 40, dmg, k === 3 ? { stun: 0.8 } : {}); addFx({ type: 'ring', x: tx, y: ty, r: 30, dur: 0.3, col: '#d587e6' }); burst(tx, ty, 8, { sp: 70, up: 20, life: 0.35, c: ['#d8c8b0', '#874aac'] }); G.shake = 2; }); break; }
+    case 'bcuch': { const foes = G.ents.filter(m => m.type === 'mob' && !m.dying && !m.remove && m.map === M.id && dist2(m.x, m.y, P.x, P.y) < 190 * 190).sort((a, b) => dist2(a.x, a.y, P.x, P.y) - dist2(b.x, b.y, P.x, P.y)).slice(0, 5);
+      P.baraSplit = G.t + 1.2; P.busy = 1.1; sfx('boom'); burst(P.x, P.y - 16, 26, { sp: 110, up: 50, life: 0.5, c: DFR.bara.colors }); const ox = P.x, oy = P.y - 18;
+      BARA_PIECES.forEach((pc, i) => { const m = foes[i % Math.max(1, foes.length)]; const tx = m ? m.x : ox + Math.cos(i * 1.26) * 80, ty = m ? m.y - 14 : oy + Math.sin(i * 1.26) * 60;
+        add(1.2, (p) => { const t = p < 0.5 ? ease(p / 0.5) : 1 - ease((p - 0.5) / 0.5), x = ox + (tx - ox) * t, y = oy + (ty - oy) * t - Math.sin(t * Math.PI) * 20, a = Math.atan2(ty - oy, tx - ox);
+          baraDrawPiece(F, pc, x - cxW(), y - cyW(), p * 9, 1); baraKnife(x - cxW() + Math.cos(a) * 8, y - cyW() + Math.sin(a) * 8, a, 1.2); }, ty); });
+      delayAct(0.6, () => { if (G.map !== M) return; for (const m of foes) if (!m.dying) { hitMob(m, dmg, { kb: 40 }); addFx({ type: 'ring', x: m.x, y: m.y, r: 18, dur: 0.3, col: '#ebacff' }); } G.shake = 4; }); break; }
+    case 'tfant': { const m = tgt; if (!m) { toast(L2('No hay ningún enemigo cerca.', 'No enemy nearby.'), 'info', 2); P.cds[id] = 1; P.mp += s.mp; return; }
+      const bx = m.x + Math.cos(ang) * 22, by = m.y + Math.sin(ang) * 14, ox = P.x, oy = P.y, F0 = baraFrame(P);
+      add(0.55, (p) => { for (let k = 0; k < 4; k++) { const t = Math.min(1, p * 1.8 - k * 0.12); if (t < 0) continue; const x = ox + (bx - ox) * t, y = oy + (by - oy) * t; ctx.save(); ctx.globalAlpha = (1 - p) * 0.4 / (k + 1); ctx.filter = 'hue-rotate(140deg) saturate(1.6)';
+        try { atlasBlit(ctx, F0.A, F0.col, F0.row, Math.round(x - F0.A.ax - cxW()), Math.round(y - F0.A.ay - cyW()), F0.A.fw, F0.A.fh); } catch (e) { } ctx.restore(); } });
+      if (!blockedFor(M, bx >> 4, by >> 4, P.L || 0)) { P.x = bx; P.y = by; } else moveEnt(M, P, bx - P.x, by - P.y); P.dir = dirFromVec(m.x - P.x, m.y - P.y); setAnim(P, 'atk'); sfx('swing');
+      delayAct(0.12, () => { if (m.dying || G.map !== M) return; hitMob(m, dmg, m.boss ? {} : { stun: 0.6 }); addFx({ type: 'ring', x: m.x, y: m.y, r: 22, dur: 0.35, col: '#a8f4e4' }); burst(m.x, m.y - 12, 14, { sp: 90, up: 30, life: 0.4, c: ['#a8f4e4', '#5ad8c8', '#ffffff'] }); });
+      addBuff(P, 'df_invis', { invis: 1, ambush: 0 }, 1.5); break; }
+    case 'tvelo': { setAnim(P, 'cast'); sfx('buff'); P.traVeil = G.t + 4; hitCircle(P.x, P.y, 110, dmg);
+      for (const m of G.ents) if (m.type === 'mob' && !m.boss && !m.dying && m.map === M.id && dist2(m.x, m.y, P.x, P.y) < 160 * 160) { m.state = 'return'; m.cd = Math.max(m.cd || 0, 1.5); }
+      addBuff(P, 'df_invis', { invis: 1, ambush: 0 }, 2); const ox = P.x, oy = P.y;
+      add(0.9, (p) => { for (let k = 0; k < 3; k++) { const q = clamp(p * 1.3 - k * 0.15, 0, 1); if (!q) continue; ctx.save(); ctx.globalAlpha = (1 - q) * 0.7; ctx.strokeStyle = k === 1 ? '#ffffff' : '#7ae8d8'; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.ellipse(Math.round(ox - cxW()), Math.round(oy - cyW()), 110 * q, 66 * q, 0, 0, Math.PI * 2); ctx.stroke(); ctx.restore(); } });
+      add(4, (p) => { const P_ = G.P; ctx.save(); ctx.globalAlpha = 0.22 + Math.sin(G.t * 6) * 0.08; ctx.strokeStyle = '#a8f4e4'; ctx.lineWidth = 1; ctx.beginPath(); ctx.ellipse(Math.round(P_.x - cxW()), Math.round(P_.y - 14 - cyW()), 15, 22, 0, 0, Math.PI * 2); ctx.stroke(); ctx.restore(); }); break; } } }
+// coordenadas de cámara del fotograma que se está dibujando (las pasa DL_HOOKS)
+let BARA_C = [0, 0]; function cxW() { return BARA_C[0]; } function cyW() { return BARA_C[1]; }
+{ const _dc = dfCast; dfCast = function (id) { if (!DF2_IDS.has(id)) return _dc.apply(this, arguments); const P = G.P; if (DFS[P.fruit] && DFS[P.fruit].includes(id) && !P.dawnHelm) df2Cast(id); }; }
+{ const _pd = playerDie; playerDie = function () { if (G.P) { G.P.baraSplit = 0; G.P.traVeil = 0; } BARA_FX.length = 0; return _pd.apply(this, arguments); }; }
+{ const _sm = setMap; setMap = function () { const r = _sm.apply(this, arguments); if (G.P) { G.P.baraSplit = 0; } BARA_FX.length = 0; return r; }; }
+
+// 5.97 · Destino de los descendientes (Sergio: «que se jubilen; algunos jamás llegarán al nivel 500, otros encuentran la
+// cura de la vejez y viven hasta 300 años, otros aceptan su destino y mueren, otros te acompañan hasta el 500 por
+// probabilidad; que sigan subiendo de nivel pero que no puedan llegar solos al nivel máximo; en el Mar de Dawn no se les
+// puede llamar»). Vale para hijos, nietos, bisnietos y siguientes (todos están en P.kids).
+const KID_LV_MAX = 500, KID_SOLO_LV = 300;
+// [clave, probabilidad, icono, nombre, explicación]
+const KID_FATES = [
+  ['humilde', 0.40, '🌾', L2('Vida sencilla', 'Simple life'), L2('Nunca llegará al nivel 500: tiene su propio tope. Se jubila a los 65 y vive hasta los 82-98.', 'Will never reach level 500: has a personal cap. Retires at 65 and lives to 82-98.')],
+  ['destino', 0.30, '🕯', L2('Acepta su destino', 'Accepts their fate'), L2('Puede llegar al 500, pero no busca alargar su vida: se jubila a los 65 y muere de viejo (82-98).', 'Can reach 500 but does not seek a longer life: retires at 65 and dies of old age (82-98).')],
+  ['cura', 0.15, '⚗', L2('Cura de la vejez', 'Cure for old age'), L2('A los 60 encuentra la cura de la vejez: se jubila a los 200 y vive hasta los 260-300 años.', 'At 60 they find the cure for old age: retires at 200 and lives to 260-300.')],
+  ['leyenda', 0.15, '⭐', L2('Te acompaña hasta el 500', 'Follows you to 500'), L2('No se jubila hasta llegar al nivel 500 contigo (o a los 120 años) y vive hasta los 122-138.', 'Will not retire until reaching level 500 with you (or turning 120) and lives to 122-138.')]];
+const kidSeed = k => String(k.id || k.name || '').split('').reduce((a, c) => a * 31 + c.charCodeAt(0) | 0, 7);
+function kidFate(k) { if (!k) return KID_FATES[1]; if (!k.fate) { const r = hash2(kidSeed(k), 11, 433); let acc = 0; k.fate = 'destino'; for (const f of KID_FATES) { acc += f[1]; if (r < acc) { k.fate = f[0]; break; } } }
+  return KID_FATES.find(f => f[0] === k.fate) || KID_FATES[1]; }
+function kidLvCap(k) { const f = kidFate(k)[0]; return f === 'humilde' ? 120 + Math.floor(hash2(kidSeed(k), 13, 71) * 361) : KID_LV_MAX; }
+function kidRetireAge(k) { const f = kidFate(k)[0]; if (f === 'cura') return 200; if (f === 'leyenda') return (k.lv || 1) >= KID_LV_MAX ? Math.max(AGE_RET, Math.min(kidAgeY(k), 120)) : 120; return AGE_RET; }
+
+// ---------- nivel: tope propio, nunca más de 500, y desde el 300 solo contigo ----------
+let KID_XP_WITH_YOU = false;
+{ const _gx = gainXp; gainXp = function () { KID_XP_WITH_YOU = true; try { return _gx.apply(this, arguments); } finally { KID_XP_WITH_YOU = false; } }; }
+{ const _kg = kidGainXp; kidGainXp = function (k, n) { if (!k) return; const cap = kidLvCap(k);
+  const lv0 = kidLv(k); if (lv0 >= cap) { k.xp = 0; if (!k.capSaid) { k.capSaid = 1; toast(kidFate(k)[2] + ' ' + k.name + L2(' llegó a su límite: nivel ', ' reached their limit: level ') + cap, 'info', 5); } return; }
+  if (lv0 >= KID_SOLO_LV && !KID_XP_WITH_YOU) return;
+  const r = _kg.apply(this, arguments); const top = KID_XP_WITH_YOU ? cap : Math.min(cap, Math.max(lv0, KID_SOLO_LV)); if ((k.lv || 1) > top) { k.lv = top; k.xp = 0; } return r; }; }
+// por si algún hijo ya pasó su tope en una partida vieja: se queda donde está (no se le baja), solo deja de subir
+
+// ---------- edad: jubilación y muerte según el destino ----------
+{ const _da = kidDeathAge; kidDeathAge = function (k) { const f = kidFate(k)[0], b = _da.apply(this, arguments); return f === 'cura' ? 260 + Math.floor(hash2(kidSeed(k), 17, 9) * 41) : f === 'leyenda' ? b + 40 : b; }; }
+ageDay = function () { const P = G.P; if (!P || !P.kids) return; for (const k of P.kids.slice()) { const a = kidAgeY(k), d = kidDeathAge(k), f = kidFate(k)[0];
+  if (a >= d) { kidDie(k); continue; }
+  if (f === 'cura' && a >= 60 && !k.cureSaid) { k.cureSaid = 1; banner('⚗ ' + k.name + L2(' encontró la cura de la vejez', ' found the cure for old age'), L2('Vivirá hasta los ', 'Will live until ') + d + L2(' años.', ' years old.')); sfx('quest'); }
+  if (a >= kidRetireAge(k) && !k.ret) kidRetire(k); else if (a === d - 3 && !k.oldW) { k.oldW = 1; toast('👴 ' + k.name + L2(' está muy mayor. Visítale.', ' is very old. Go see them.'), 'info', 6); } } };
+// al hacerse adulto descubre su destino
+{ let t = 0; V33_TICKS.push(dt => { t += dt || 0.016; if (t < 3) return; t = 0; const P = G.P; if (!P || !P.kids) return;
+  for (const k of P.kids) { if (k.fateSaid || kidStage(k) < 2) continue; k.fateSaid = 1; const F = kidFate(k); if (k.ag0 === undefined || kidAgeY(k) < 40) toast(F[2] + ' ' + k.name + ': ' + F[3], 'info', 6); } }); }
+
+// ---------- en el Mar de Dawn no se puede llamar a la familia ----------
+const FAM_NO_MAPS = new Set(['dawn', 'alvida_deck', 'marina_deck', 'tortuga']);
+const famBlockedHere = () => !!(G.map && (FAM_NO_MAPS.has(G.map.id) || G.map.dawn || G.map.tortuga));
+{ const _fc = famCall; famCall = function () { if (famBlockedHere()) { toast('⛵ ' + L2('En el Mar de Dawn no puedes llamar a tu familia: te espera en casa.', 'You cannot call your family in the Dawn Sea: they wait at home.'), 'info', 4); return; } return _fc.apply(this, arguments); }; }
+{ const _fm = familyOnMap; familyOnMap = function (M) { if (M && (FAM_NO_MAPS.has(M.id) || M.dawn || M.tortuga)) { for (const q of G.ents) if (q.type === 'kid' && !q.fam) q.remove = true; FOLLOW_KIDS = []; return; } return _fm.apply(this, arguments); }; }
+V33_TICKS.push(() => { if (!famBlockedHere()) return; let n = 0; for (const q of G.ents) if (q.type === 'kid' && !q.remove && q.map === G.map.id) { q.remove = true; n++; } if (n) FOLLOW_KIDS = FOLLOW_KIDS.filter(e => !e.remove); });
+
+// ---------- cómo se ve en la familia ----------
+function kidFateLine(k) { const F = kidFate(k), cap = kidLvCap(k); return `${F[2]} <b>${esc(F[3])}</b> · ${L2('tope nivel ', 'cap level ')}${cap} · ${L2('jubilación ', 'retires at ')}${kidFate(k)[0] === 'leyenda' ? L2('al llegar al 500', 'on reaching 500') : kidRetireAge(k)} · ${L2('vida hasta ', 'lives to ')}${kidDeathAge(k)}`; }
+{ const _ok = openKid; openKid = function (e) { const r = _ok.apply(this, arguments); try { const k = e && e.kid, body = $('#mbody'); if (!k || !body || e.fam || !(G.P.kids || []).includes(k)) return r;
+  body.querySelectorAll('.legBox small').forEach(s => { if (/82-98/.test(s.textContent)) s.textContent = kidFate(k)[4]; });
+  const d = document.createElement('div'); d.className = 'legBox'; d.innerHTML = `<div class="srow"><div class="sn"><span>${kidFateLine(k)}</span><small>${esc(L2('Desde el nivel ', 'From level ') + KID_SOLO_LV + L2(' solo sube peleando contigo. Ningún descendiente pasa del ', ' they only level up fighting with you. No descendant goes past level ') + KID_LV_MAX + '.')}</small></div></div>`; body.appendChild(d); } catch (er) { } return r; }; }
+{ const _ft = famTree; famTree = function () { const r = _ft.apply(this, arguments); try { const h = $('#modal .hint'); if (h) h.textContent = L2('Cada descendiente tiene su destino: 🌾 vida sencilla (no llega al 500), 🕯 acepta su destino (65 / 82-98), ⚗ cura de la vejez (200 / 260-300) o ⭐ te acompaña hasta el 500. Nadie pasa del 500 y desde el 300 solo suben contigo. Los que se van descansan en el Camposanto del Alba, al sur de Albor.', 'Each descendant has a fate: 🌾 simple life (never reaches 500), 🕯 accepts their fate (65 / 82-98), ⚗ cure for old age (200 / 260-300) or ⭐ follows you to 500. Nobody goes past 500 and from 300 they only level up with you. Those who pass rest in the Dawn Graveyard, south of Albor.');
+  $$('#modal .ftN').forEach(n => { const b = n.querySelector('b'); if (!b || n.classList.contains('dead')) return; const k = (G.P.kids || []).find(k => b.textContent.includes(k.name)); if (k && !n.dataset.fate) { n.dataset.fate = 1; b.insertAdjacentText('afterbegin', kidFate(k)[2] + ' '); } }); } catch (e) { } return r; }; }
+// Lupa › 🏙 Ciudades y vida
+if (typeof LUPA_CIU !== 'undefined') LUPA_CIU.push(['destino', '🌳 ' + L2('Destino de tu familia', 'Your family’s fate'), () => KID_FATES.map(f => `${f[2]} ${f[3]} (${Math.round(f[1] * 100)} %): ${f[4]}`).concat([
+  L2('Ningún descendiente pasa del nivel 500. Desde el 300 solo suben peleando contigo; antes también con su oficio y sus expediciones.', 'No descendant goes past level 500. From 300 they only level up fighting with you; before that also with their job and expeditions.'),
+  L2('En el Mar de Dawn (islas, barcos y la tortuga) no puedes llamar a tu familia: te esperan en casa y vuelven contigo al salir.', 'In the Dawn Sea (islands, ships and the turtle) you cannot call your family: they wait at home and rejoin you when you leave.')]),
+  () => null]);
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;
