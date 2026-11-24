@@ -1,22 +1,20 @@
 {
- "build": 214,
- "ver": "5.93",
+ "build": 215,
+ "ver": "5.94",
  "date": "2026-11-24",
  "file": "thebound.html",
- "size": 32007837,
- "sha256": "dee99dad929a4d9ea82f38659c3c84f08149b5bcf5badfee418efb4f1ed364de",
+ "size": 32197215,
+ "sha256": "2a23968a85280df6ce07d07b57aa4a1048bd9d6bfbbf0891a96d36898d992f9b",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Mera Mera de Ace: Puño de Fuego, Pistolas de Fuego, Pilar de Fuego, Gran Entei y Cuerpo de Fuego. La Logia dura 6 segundos y evita hasta 3 golpes físicos de monstruos comunes.",
-   "Hana Hana de Robin: Clutch, Seis Fleur, Ochenta Fleur y Cien Fleur. Usa brazos a distancia, control de grupos y una barrera temporal. Las dos frutas usan la sección Habilidades › Fruta y progresan con el nivel.",
-   "Aparecen ocasionalmente en el Mar de Dawn. El aviso indica la isla y deja un marcador durante 4 minutos. Shanks retira Hana Hana con Voluntad 1 y Mera Mera con Voluntad 2, o cualquiera si ganaste su duelo."
+   "El inventario bloquea comer una segunda Fruta del Diablo mientras tienes un poder. La fruta permanece en tu bolsa. Shanks puede retirar el poder en Foosha.",
+   "Mera Mera y Hana Hana tienen sprites animados propios en sus nueve técnicas. El fuego, la Logia, los brazos y los pétalos se dibujan con fotogramas pixel art en el motor."
   ],
   "en": [
-   "Ace’s Flame-Flame Fruit: Fire Fist, Fire Gun, Flame Pillar, Great Flame Emperor and Flame Body. Logia lasts 6 seconds and disperses up to 3 physical hits from ordinary monsters.",
-   "Robin’s Flower-Flower Fruit: Clutch, Seis Fleur, Ochenta Fleur and Cien Fleur. Use arms at a distance, crowd control and a temporary barrier. Both fruits use Skills › Fruit and scale with your level.",
-   "They occasionally appear in the Dawn Sea. The alert names the island and marks the spot for 4 minutes. Shanks removes Flower-Flower at Will rank 1 and Flame-Flame at Will rank 2, or either after you win his duel."
+   "The bag blocks eating a second Devil Fruit while you have a power. The fruit stays in your bag. Shanks can remove your power in Foosha.",
+   "Flame-Flame and Flower-Flower have custom animated sprites across all nine techniques. Fire, Logia, arms and petals use pixel art frames in the game engine."
   ]
  }
 }
