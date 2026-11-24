@@ -1,14 +1,25 @@
 // The stop after Orange Town follows manga chapter 22. Gaimon stays with the animals.
+const SYRUP_USOPP='syrup_usopp';
 const DAWN_CREW=[
  [SHELLS_CAST_IDS.luffy,'Luffy',L2('Capitán','Captain')],
  [SHELLS_CAST_IDS.zoro,'Zoro',L2('Espadachín','Swordsman')],
- [ORANGE_NAMI,'Nami',L2('Navegante','Navigator')]
+ [ORANGE_NAMI,'Nami',L2('Navegante','Navigator')],
+ [SYRUP_USOPP,'Usopp',L2('Tirador','Sniper')]
 ];
 const GAIMON_ID='rare_gaimon';
-const CREW_LANDING_LIMIT=(1<<DAWN_CREW.length)-1;
+const CREW_LANDING_LIMIT=7;
+const dawnCrewAvailable=P=>P.syrupUsopp?15:7;
+const dawnCrewCount=mask=>DAWN_CREW.reduce((n,_,i)=>n+Number(!!(mask&(1<<i))),0);
 SAVEKEYS.push('dawnCrewJoined','dawnCrewAshore','rareClue','rareChestMask','rareDone');
-const dawnCrewMask=P=>P.dawnCrewAshore==null?CREW_LANDING_LIMIT:P.dawnCrewAshore&CREW_LANDING_LIMIT;
+const dawnCrewMask=P=>P.dawnCrewAshore==null?CREW_LANDING_LIMIT:P.dawnCrewAshore&dawnCrewAvailable(P);
 function dawnCrewLines(id,aboard=false){
+ if(id===SYRUP_USOPP)return aboard?[
+  L2('¡El gran capitán Usopp vigila desde cubierta! Si ves una vela desconocida, avísame antes de acercarte.','The great Captain Usopp is keeping watch! If you spot a strange sail, tell me before you get close.'),
+  L2('Voy a guardar mis piedras de repuesto lejos de la cocina. Luffy se las comería por error.','I’m keeping my spare stones well away from the galley. Luffy might eat them by mistake.')
+ ]:[
+  L2('Desde aquí puedo cubrirte con el tirachinas. Procura dejarme un buen ángulo.','I can cover you from here with my slingshot. Try to give me a clear shot.'),
+  L2('Me asusta un poco lo que viene. También me da curiosidad. Supongo que eso es ser pirata.','I’m a little scared of what’s next. Curious too. I guess that’s what being a pirate feels like.')
+ ];
  if(aboard){
   if(id===SHELLS_CAST_IDS.luffy)return [
    L2('¡Mira qué velas! Con el Merry podemos seguir navegando hasta que se nos acabe el mapa.','Look at those sails! On the Merry we can keep sailing until we run out of map.'),
@@ -64,11 +75,15 @@ function dawnCrewMenu(){
  const P=G.P;
  if(!P?.dawnCrewJoined||G.map?.id!=='dawn')return;
  const mask=dawnCrewMask(P);
- const labels=DAWN_CREW.map(([,name,role],i)=>[
+ const labels=DAWN_CREW.slice(0,P.syrupUsopp?4:3).map(([,name,role],i)=>[
   name+' · '+((mask&(1<<i))?L2('A tierra','Ashore'):L2('A bordo','On board'))+' · '+role,
   ()=>{
    if(G.P!==P||P.dead)return;
-   P.dawnCrewAshore=dawnCrewMask(P)^(1<<i);
+   const next=dawnCrewMask(P)^(1<<i);
+   if(dawnCrewCount(next)>3){
+    toast(L2('Hay tres plazas en tierra. Envía a alguien a bordo primero.','There are three shore slots. Send someone aboard first.'),'info',4);return;
+   }
+   P.dawnCrewAshore=next;
    markDirty(true);dawnCrewMenu();
   }
  ]);
@@ -85,7 +100,7 @@ function dawnCrewAtHelm(){
 function dawnTalkAboard(){
  if(!dawnCrewAtHelm())return;
  xMsg(L2('Tripulación a bordo','Crew aboard'),L2('¿Con quién quieres hablar?','Who would you like to speak with?'),
-  DAWN_CREW.map(([id,name,role])=>[name+' · '+role,()=>{
+  DAWN_CREW.slice(0,G.P.syrupUsopp?4:3).map(([id,name,role])=>[name+' · '+role,()=>{
    if(!dawnCrewAtHelm())return;
    openDialog({id,type:'npc',map:'dawn',dawnCrew:true,aboard:true,atlas:npcAtlas(id),
     def:{...NPCS[id],title:role,lines:dawnCrewLines(id,true)}});
@@ -97,8 +112,8 @@ function dawnNavigatorMark(){
  const quay=P.shellBerth?[M.shells.start+SHELL_PIER[0],SHELL_PIER[1]]:
   P.fooshaBerth?fooshaPier(M).map(n=>n>>4):ORANGE_QUAY;
  const quayName=P.shellBerth?'Shells Town':P.fooshaBerth?'Villa Foosha':ORANGE_NAME;
- const [loc,t]=aboard?[P.rareDone?ORANGE_MOORING:RARE_MOORING,P.rareDone?ORANGE_NAME:RARE_NAME]:
-  rareLandHere(M,P)?[P.rareClue&&!P.rareDone&&P.rareChestMask!==31?RARE_TERRACE:RARE_CLEARING,RARE_NAME]:[quay,quayName];
+ const [loc,t]=typeof syrupCrewWaypoint==='function'&&syrupCrewWaypoint(M,P,aboard)|| (aboard?[P.rareDone?ORANGE_MOORING:RARE_MOORING,P.rareDone?ORANGE_NAME:RARE_NAME]:
+  rareLandHere(M,P)?[P.rareClue&&!P.rareDone&&P.rareChestMask!==31?RARE_TERRACE:RARE_CLEARING,RARE_NAME]:[quay,quayName]);
  setWp({loc,m:'dawn',t});
  typeText(aboard?L2('Te marqué el fondeadero. Busca la flecha dorada y acércate desde mar abierto.','I’ve marked the mooring. Follow the golden arrow and approach from open water.'):
   L2('Ya está marcado en la carta. Sígueme la flecha dorada.','It’s marked on the chart now. Follow the golden arrow.'));
@@ -137,7 +152,7 @@ function rareAction(key){return {kind:'xact',label:XACT[key][0],icon:XACT[key][1
  if(P.dawnHelm){
   return old.apply(this,arguments)||(dawnCrewAtHelm()?rareAction('dawn_crew_talk'):null);
  }
- if([RARE_BOARD,ORANGE_BOARD].some(at=>dist2(P.x,P.y,...dawnPx(at))<28**2))return rareAction('rare_crew');
+ if([RARE_BOARD,ORANGE_BOARD,...(M.syrup?[SYRUP_BOARD]:[])].some(at=>dist2(P.x,P.y,...dawnPx(at))<28**2))return rareAction('rare_crew');
  if(rareNearestChest(M,P))return rareAction('rare_chest');
  const it=old.apply(this,arguments);
  return it?.e?.rareAnimal?null:it;
@@ -223,18 +238,21 @@ function dawnCrewFollow(M,P,dt){
   if(points.length>48)points.pop();
  }
  const settled=G.t-S.lastTrail>.42;
+ const activeSyrup=M.syrup?.run;
  const [fx,fy]=DIRV[P.dir]||DIRV.down;
  const crew=S.crew||(S.crew=[null,null,null]);
  const orange=M.orange?.run,shells=M.shellsRescue?.run;
  DAWN_CREW.forEach(([id,,role],i)=>{
-  const scripted=id!==ORANGE_NAMI&&(orange||shells);
+  const sceneLead=M.syrup?.lead;
+  const scripted=activeSyrup||(sceneLead?.id===id&&d2(P,sceneLead)<180**2)||(id!==ORANGE_NAMI&&id!==SYRUP_USOPP&&(orange||shells));
   if(!(mask&(1<<i))||scripted){
    if(crew[i])crew[i].remove=true;
    crew[i]=null;return;
   }
-  let [x,y]=points[Math.min(points.length-1,3+i*3)];
+  let [x,y]=points[Math.min(points.length-1,3+dawnCrewCount(mask&((1<<i)-1))*3)];
   if(settled){
-   const side=[-19,19,0][i],back=i===2?25:13;
+   const slot=dawnCrewCount(mask&((1<<i)-1));
+   const side=[-19,19,0][slot],back=slot===2?25:13;
    const tx=P.x-fx*back-fy*side,ty=P.y-fy*back+fx*side;
    const clear=[[-4,-3],[-4,3],[4,-3],[4,3]].every(([dx,dy])=>!blockedFor(M,(tx+dx)>>4,(ty+dy)>>4,P.L));
    if(clear){x=tx;y=ty;}
