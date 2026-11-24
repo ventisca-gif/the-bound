@@ -183,7 +183,7 @@ function drawHero(p, L, dir, anim, f) {
   };
   // ---------- arms ----------
   const plateArm = TOP.k === 'plate', robeArm = TOP.k === 'robe' || TOP.k === 'kimono';
-  const sleeve = TOP.k === 'vest' ? CLOTH.blanco : (TOP.k === 'swim' || TOP.k === 'warpaint') ? [SK[0], SK[0], SK[1], SK[2], SK[3]] : TOP.m, handC = plateArm ? TOP.m[3] : SK[2];
+  const sleeve = TOP.k === 'vest' ? CLOTH.blanco : (TOP.k === 'swim' || TOP.k === 'warpaint') ? [SK[0], SK[0], SK[1], SK[2], SK[3]] : TOP.m, handC = TOP.hand ? TOP.hand[3] : plateArm ? TOP.m[3] : SK[2];
   const shortSleeve = TOP.k === 'tunic' || TOP.k === 'dress' || TOP.k === 'hawaii' || TOP.k === 'swim';
   const drawArm = (sx, sy, dx, dy, back) => { TG(3);
 

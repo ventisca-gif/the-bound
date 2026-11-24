@@ -324,7 +324,7 @@ XACT.swim_out = [L2('Salir del agua', 'Climb out of the water'), 'ways', () => s
     const r = _it.apply(this, arguments); if (r) return r; if (!H) { const k = swimAction(); if (k) return { kind: 'xact', label: tgLab(k), icon: 'ways', o: { xact: k } }; } return r; } } catch (e) { }
   return _it.apply(this, arguments); }; }
 // desde el bote: botón para tirarse al agua (en el bote ⚔ no hace nada)
-{ const _ba = basicAttack; basicAttack = function () { const P = G.P; if (P && P.dawnHelm && P.dawnHelm.kind === 'skiff' && G.map && G.map.dawn && !tgBoardAction()) { const it = interactTarget(); if (!it) { swimIn(true); return; } } return _ba.apply(this, arguments); }; }
+{ const _ba = basicAttack; basicAttack = function () { const P = G.P; if (P && P.dawnHelm && P.dawnHelm.kind === 'skiff' && G.map && G.map.dawn && !tgBoardAction()) { const it = interactTarget(); if (!it || it.o?.xact === 'dawn_crew_talk') { swimIn(true); return; } } return _ba.apply(this, arguments); }; }
 // nadar: más lento que el bote, con la fruta pierdes vida y te rescatan
 { const _up = updatePlayer; updatePlayer = function (dt) { const P = G.P, M = G.map, H = P && P.dawnHelm; if (!M || !M.dawn || !H || H.kind !== 'swim' || P.dead) return _up.apply(this, arguments);
   const [dx, dy] = moveInput(); if (dx || dy) { const d = SWIM_SPEED * dt, st = Math.max(1, Math.ceil(d / 6)), sx = dx * d / st, sy = dy * d / st; for (let i = 0; i < st; i++) { if (dawnSurface(M, P.x + sx, P.y, 6)) P.x += sx; if (dawnSurface(M, P.x, P.y + sy, 6)) P.y += sy; } P.dir = dirFromVec(dx, dy); setAnim(P, 'walk', true); stepAnim(P, dt, 6); } else setAnim(P, 'idle', true);

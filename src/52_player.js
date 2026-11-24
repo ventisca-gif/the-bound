@@ -223,9 +223,11 @@ function hitCircle(x, y, r, dmg, src, silent) { pvpCircle(x, y, r, dmg); let n =
 function delayAct(t, fn) { G.P.acts = G.P.acts || []; G.P.acts.push({ t, fn }); }
 function basicAttack() {
   const P = G.P; if (P.dead || P.busy > 0 || P.atkCd > 0 || P.job || P.fishing) return; const C = CLASSES[P.cls];
-  const tgt = nearestMob(P.x, P.y, C.range + 60); if (tgt) { P.dir = dirFromVec(tgt.x - P.x, tgt.y - P.y); P.target = tgt; }
+  const claws = ITEMS[P.equip.weapon?.id]?.buggyClaws;
+  const tgt = nearestMob(P.x, P.y, (claws ? 42 : C.range) + 60); if (tgt) { P.dir = dirFromVec(tgt.x - P.x, tgt.y - P.y); P.target = tgt; }
   const ang = tgt ? Math.atan2(tgt.y - P.y, tgt.x - P.x) : Math.atan2(DIRV[P.dir][1], DIRV[P.dir][0]);
   setAnim(P, 'atk'); P.loopAnim = false; P.atkCd = P.S.aspd; P.busy = Math.min(0.28, P.S.aspd * 0.8); P.combatT = G.t;
+  if (claws) return buggyGloveBasic(P, ang);
   if (P.invis) { /* ambush applies on hit */ }
   if (C.weapon === 'sword' || C.weapon === 'dagger' || C.weapon === 'scythe') {
     const sc = C.weapon === 'scythe', arc = C.weapon === 'dagger' ? 1.5 : sc ? 2.7 : 2.1;

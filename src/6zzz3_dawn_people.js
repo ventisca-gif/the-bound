@@ -63,7 +63,14 @@ function dawnMarinaTalk(){return dawnLandingNotice()+' '+L2('Puedes navegar por 
 DLG_HOOKS.push((npc,opts)=>{if(npc.id==='marina')opts.push({label:L2('Islas de Dawn · Fruta del Diablo','Dawn islands · Devil Fruit'),icon:['ways'],fn:()=>typeText(dawnMarinaTalk())});if(npc.id==='dawn_shanks')opts.push({label:L2('Romance Dawn · el comienzo','Romance Dawn · the beginning'),icon:['talk'],fn:()=>typeText(L2('Esta es la primera escala de nuestra historia: Foosha, Makino, los molinos y el sueño de Luffy. Cuando se abra el viaje, nos encontrarás aquí.','This is the first stop in our story: Foosha, Makino, the windmills and Luffy’s dream. When the voyage opens, you will find us here.'))});});
 // One hard gate shared by every public arrival path: inventory or map browsing never bypasses it.
 {const old=setMap;setMap=function(M,x,y,dir){if(M?.dawn&&!DAWN_TRAVEL_OPEN&&!G.P?.dawnHelm){toast(dawnLandingNotice(),'info',5);return false;}return old.apply(this,arguments);};}
-function dawnSpawnPeople(M){for(const d of M.npcDefs)if(!G.ents.some(e=>e.type==='npc'&&e.map===M.id&&e.id===d.id&&!e.remove)){const at=freePxNear(M,d.x*16+8,d.y*16+12,5);if(at)spawnNPC(d.id,at[0],at[1],M.id,{face:d.face});}}
+function dawnSpawnPeople(M){
+ for(const d of M.npcDefs){
+  if(d.id==='dawn_luffy'&&G.P.dawnCrewJoined)continue;
+  if(G.ents.some(e=>e.type==='npc'&&e.map===M.id&&e.id===d.id&&!e.remove))continue;
+  const at=freePxNear(M,d.x*16+8,d.y*16+12,5);
+  if(at)spawnNPC(d.id,at[0],at[1],M.id,{face:d.face});
+ }
+}
 // Kept separate so future opening requires an explicit release, not a saved variable.
 V33_TICKS.push(()=>{const M=G.map;if(!M?.dawn)return;dawnSpawnPeople(M);for(const c of M.camps){c.alive=c.alive.filter(e=>!e.remove&&e.hp>0);c.dead=c.dead.filter(t=>t>G.t);const d=Math.abs(c.x-G.P.x/16)+Math.abs(c.y-G.P.y/16);if(d>44){for(const m of c.alive)m.remove=true;c.alive=[];continue;}if(d>30||c.alive.length+c.dead.length>=c.n)continue;const at=freePxNear(M,(c.x+(Math.random()-.5)*4)*16,(c.y+(Math.random()-.5)*4)*16,3);if(!at)continue;const m=spawnMob(c.mob,500,at[0],at[1],0,c);m.map='dawn';c.alive.push(m);}});
 MAPC.dawn=['Dawn · lugares','Dawn · locations','#9aca7b','house'];

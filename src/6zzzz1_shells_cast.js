@@ -202,7 +202,7 @@ function shellsDrawApproved(g,image,id,col,row){
  if(col===12&&id==='zoro'){sourceRow=3;sourceCol=2;}
  else if(walking&&side){sourceRow=1;sourceCol=col-2;mirror=row===1;}
  else if(walking){
-  shellsWalkStraight(g,image,id,sourceCol,col-2,row===3);
+  if(!drawDawnWalkFrame(g,id,row,col-2))shellsWalkStraight(g,image,id,sourceCol,col-2,row===3);
   return;
  }else if(attack){
   const frame=col<10?col-6:col<17?col-13:col<21?col-17:col-21;
@@ -222,7 +222,7 @@ function shellsDrawApproved(g,image,id,col,row){
  shellsCastAtlas=function(id){
   const image=SHELLS_NEW_IMAGES[id];
   if(!image?.naturalWidth)return original(id);
-  return getAtlas('Shells:approved:'+id,()=>{
+  return getAtlas('Shells:approved:'+id+':'+Number(dawnWalkReady(id)),()=>{
    const atlas=dawnPixelAtlas(86,72,SHELLS_NEW_SEQUENCES,25,(g,col,row)=>shellsDrawApproved(g,image,id,col,row));
    atlas.frames={bound:1,gatling:4,charge:4,sweep:4};
    atlas.shellsApproved=true;
