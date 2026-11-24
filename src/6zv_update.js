@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.01', GAME_BUILD = 222;
+const GAME_VER = '6.02', GAME_BUILD = 223;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.02",
+ "b": 223,
+ "d": "2026-11-24",
+ "es": [
+  "Armadura de Clase de los Mares (nivel 700, la más fuerte): cada clase con su diseño — Vicealmirante del Mar Blanco, Navegante de Tormentas, Francotirador de Ultramar, Agente de la Sombra Blanca, Caballero del Barco Fantasma, Doctora del Invierno y Maestro del Karate Marino.",
+  "5 combinaciones de las armaduras de los mares (nivel 630-690): Pirata del Desierto, Emperatriz del Kimono, Capitán del Futuro, Bailarina del Rey del Mar y Serpiente del Futuro. Se forjan con la mitad de los materiales de los dos conjuntos que mezclan."
+ ],
+ "en": [
+  "Sea Class armour (level 700, the strongest): each class with its own design — White Sea Vice Admiral, Storm Navigator, Overseas Sharpshooter, White Shadow Agent, Ghost Ship Gentleman, Winter Doctor and Sea Karate Master.",
+  "5 sea armour combinations (level 630-690): Desert Pirate, Kimono Empress, Future Captain, Sea King’s Dancer and Future Serpent. Forged with half the materials of the two sets they mix."
+ ]
+},
 {
  "v": "6.01",
  "b": 222,
