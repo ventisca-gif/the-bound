@@ -1,30 +1,24 @@
 {
- "build": 218,
- "ver": "5.97",
+ "build": 219,
+ "ver": "5.98",
  "date": "2026-11-24",
  "file": "thebound.html",
- "size": 32251150,
- "sha256": "a468c1e19301adf3ed740614f03bc18836fe1f00949ac8d70ee36aecc47010e9",
+ "size": 32289387,
+ "sha256": "13a6ccc79df22b1ffd690e5174136179f08550a4ff9a54637f915c00dbe0f568",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Arreglo: en la pesca en el hielo, mantener pulsado ⚔ retrasaba al pez para siempre («esperando…») y no se podía salir. Ahora cuenta un solo toque, el pez pica más tiempo con aviso y vibración, y moviendo el joystick dejas de pescar.",
-   "Arreglo: Zoltan el Errante se duplicaba cada 2 segundos durante el evento del mercader ambulante.",
-   "Goma + Engranaje 2: si tienes la fruta de goma y usas Engranaje 2, +12 % de crítico y +30 % de daño crítico.",
-   "Bara Bara: 4 técnicas nuevas (Cañón, Festival, Pies Saltarines y Cuchillas Voladoras): te partes en pedazos y tus pedazos atacan.",
-   "Fruta Transparente: 2 técnicas nuevas (Golpe Fantasma y Velo Espejo), 3 en total.",
-   "Destino de tu familia: cada hijo, nieto o bisnieto tiene el suyo. Unos nunca llegan al 500, otros aceptan su destino, otros encuentran la cura de la vejez (viven hasta 300 años) y otros te acompañan hasta el 500. Ninguno pasa del 500, y desde el 300 solo suben peleando contigo.",
-   "En el Mar de Dawn no puedes llamar a tu familia: te espera en casa."
+   "Minijuegos: en todos los que se juegan con ⚔, mantenerlo pulsado ya no cuenta como muchos toques (igual que se arregló la pesca en el hielo).",
+   "Kuro suelta su botín: Garras del Gato (arma para todas las clases a nivel 580: dos zarpazos por golpe y cada cuarto golpe «Paso sin sonido», un tajo en línea sin recibir daño), sus gafas redondas y su frac, pantalón y zapatos. Revancha: habla con Kaya al terminar la historia.",
+   "Villa Syrup: todos sus personajes hablan del arco según el momento de la historia (antes, durante y después del ataque).",
+   "Merry vende la ropa de toda la isla por piezas como cosméticos: Dama de la Mansión, Hipnotista del Péndulo, Mayordomo Carnero, Gato Ligero, Gato Pesado y Piratas Pequeños (y el conjunto de Kuro cuando ya lo venciste). Gafas de corazón del hipnotista en Armario › 👓 Cara."
   ],
   "en": [
-   "Fix: in ice fishing, holding ⚔ delayed the fish forever (“waiting…”) and you could not leave. Now it counts as one tap, the fish bites for longer with a notice and vibration, and moving the joystick ends fishing.",
-   "Fix: Zoltan the Wanderer duplicated every 2 seconds during the travelling merchant event.",
-   "Rubber + Gear 2: with the rubber fruit and Gear 2 active, +12% crit and +30% crit damage.",
-   "Chop-Chop: 4 new techniques (Cannon, Festival, Hopping Feet and Flying Blades): you split into pieces and your pieces attack.",
-   "Clear Fruit: 2 new techniques (Phantom Strike and Mirror Veil), 3 in total.",
-   "Your family’s fate: every child, grandchild or great-grandchild has their own. Some never reach 500, some accept their fate, some find the cure for old age (living up to 300 years) and some follow you to 500. None go past 500, and from 300 they only level up fighting with you.",
-   "You cannot call your family in the Dawn Sea: they wait at home."
+   "Minigames: in every one played with ⚔, holding it no longer counts as many taps (like the ice fishing fix).",
+   "Kuro drops his loot: Cat Claws (all-class weapon at level 580: two swipes per attack and every fourth attack “Silent Step”, a line slash while untouchable), his round glasses and his tailcoat, trousers and shoes. Rematch: talk to Kaya after the story.",
+   "Syrup Village: every character talks about the arc depending on the story moment (before, during and after the attack).",
+   "Merry sells the whole island’s clothes piece by piece as cosmetics: Lady of the Manor, Pendulum Hypnotist, Ram Steward, Nimble Cat, Heavy Cat and Little Pirates (and Kuro’s set once you have beaten him). Hypnotist’s heart glasses in Wardrobe › 👓 Face."
   ]
  }
 }

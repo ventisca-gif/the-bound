@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.97', GAME_BUILD = 218;
+const GAME_VER = '5.98', GAME_BUILD = 219;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.98",
+ "b": 219,
+ "d": "2026-11-24",
+ "es": [
+  "Minijuegos: en todos los que se juegan con ⚔, mantenerlo pulsado ya no cuenta como muchos toques (igual que se arregló la pesca en el hielo).",
+  "Kuro suelta su botín: Garras del Gato (arma para todas las clases a nivel 580: dos zarpazos por golpe y cada cuarto golpe «Paso sin sonido», un tajo en línea sin recibir daño), sus gafas redondas y su frac, pantalón y zapatos. Revancha: habla con Kaya al terminar la historia.",
+  "Villa Syrup: todos sus personajes hablan del arco según el momento de la historia (antes, durante y después del ataque).",
+  "Merry vende la ropa de toda la isla por piezas como cosméticos: Dama de la Mansión, Hipnotista del Péndulo, Mayordomo Carnero, Gato Ligero, Gato Pesado y Piratas Pequeños (y el conjunto de Kuro cuando ya lo venciste). Gafas de corazón del hipnotista en Armario › 👓 Cara."
+ ],
+ "en": [
+  "Minigames: in every one played with ⚔, holding it no longer counts as many taps (like the ice fishing fix).",
+  "Kuro drops his loot: Cat Claws (all-class weapon at level 580: two swipes per attack and every fourth attack “Silent Step”, a line slash while untouchable), his round glasses and his tailcoat, trousers and shoes. Rematch: talk to Kaya after the story.",
+  "Syrup Village: every character talks about the arc depending on the story moment (before, during and after the attack).",
+  "Merry sells the whole island’s clothes piece by piece as cosmetics: Lady of the Manor, Pendulum Hypnotist, Ram Steward, Nimble Cat, Heavy Cat and Little Pirates (and Kuro’s set once you have beaten him). Hypnotist’s heart glasses in Wardrobe › 👓 Face."
+ ]
+},
 {
  "v": "5.97",
  "b": 218,
