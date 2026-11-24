@@ -83,8 +83,14 @@ function shellsResetRescue(M){
  S.swords.hidden=shellsRescueDone(G.P);
 }
 function shellsFreeDialogue(luffy,zoro){
- luffy.def={...luffy.def,lines:[L2('¡Zoro ya está libre! Gracias por luchar con nosotros.','Zoro is free! Thanks for fighting with us.')]};
- zoro.def={...zoro.def,lines:[L2('Me diste la oportunidad de volver al mar con mis espadas.','You gave me a chance to return to sea with my swords.')]};
+ luffy.def={...luffy.def,lines:[
+  L2('¡Gracias por traer las espadas y pelear con nosotros! Sin ti todavía estaríamos en ese patio. Ahora sí, ¿quién tiene hambre?','Thanks for bringing the swords and fighting with us! Without you, we’d still be in that courtyard. Now, who’s hungry?'),
+  L2('Le dije a Zoro que viniera conmigo. ¡Con las tres espadas, por supuesto! Para la próxima pelea te guardo un sitio al frente.','I asked Zoro to come along. All three swords included, of course! I’ll save you a spot up front in our next fight.')
+ ]};
+ zoro.def={...zoro.def,lines:[
+  L2('Recuperaste mis espadas y no saliste corriendo cuando llegó el hacha. Gracias. Si peleamos juntos otra vez, yo te cubro la espalda.','You got my swords back and held your ground when the axe came down. Thanks. Next time we fight together, I’ll watch your back.'),
+  L2('Ese del sombrero ya está hablando de comida. Dile que espere a que encuentre el muelle.','The guy with the hat is already talking about food. Tell him to wait until I find the docks.')
+ ]};
 }
 function shellsRescueActors(M){
  const S=M.shellsRescue,done=shellsRescueDone(G.P);
@@ -149,7 +155,7 @@ function shellsAssistHit(M,R,b,base){
  if(b===R.morgan&&b.hp<=b.maxhp*.25)return;
  hitMob(b,Math.min(base,b.maxhp*.012),{summon:true});
 }
-function shellsAssistAttack(M,R,e,isZoro,b){
+function shellsAssistAttack(M,R,e,isZoro,b,onHit=shellsAssistHit){
  e.dir=dirFromVec(b.x-e.x,b.y-e.y);
  const count=isZoro?3:e.useGatling?7:1;
  setAnim(e,!isZoro&&count>1&&e.atlas.shellsApproved?'gatling':'atk');
@@ -164,7 +170,7 @@ function shellsAssistAttack(M,R,e,isZoro,b){
    index:i,count,dur:t+(isZoro?.24:.19),tick:t,fired:false,cbTick(f){
     if(f.fired||e.hp<=0||b.remove||b.dying)return;f.fired=true;
     if(dist2(e.x,e.y,b.x,b.y)>reach**2)return;
-    shellsAssistHit(M,R,b,b.maxhp*(isZoro?.01:count>1?.0035:.015));
+    onHit(M,R,b,b.maxhp*(isZoro?.01:count>1?.0035:.015));
     burst(b.x,b.y-14,5,{sp:80,up:16,g:70,life:.25,c:isZoro?['#e3fff2','#75d9bc']:['#fff5d6','#edb878']});
    }});
  }
@@ -286,7 +292,8 @@ function shellsCallMarines(M,R){
   for(const marine of R.marines)if(!marine.dying)marine.remove=true;
   for(const ally of [R.luffy,R.zoro]){ally.hp=ally.maxhp;setAnim(ally,'idle');}
   shellsFreeDialogue(R.luffy,R.zoro);
-  shellsRescueSpeak(R.zoro,'Le debo una a tu tripulación. Yo también saldré al mar.','I owe your crew one. I am heading out to sea too.');
+  shellsRescueSpeak(R.luffy,'¡Lo logramos! Gracias por quedarte a pelear.','We did it! Thanks for staying to fight.');
+  R.thanksAt=G.t+3.8;
   banner(SHELLS_RESCUE_TITLE,L2('Zoro está libre · Morgan derrotado','Zoro is free · Morgan defeated'));
  }
  return result;
@@ -315,6 +322,9 @@ V33_TICKS.push(dt=>{
   }
  }else if(R.phase==='fight'){
   shellsAllyTick(M,R,R.luffy,false,dt);shellsAllyTick(M,R,R.zoro,true,dt);
+ }else if(R.thanksAt&&G.t>=R.thanksAt){
+  R.thanksAt=0;R.luffy.chat=null;
+  shellsRescueSpeak(R.zoro,'Gracias por mis espadas. La próxima pelea te cubro yo.','Thanks for getting my swords. I’ve got your back in the next fight.');
  }
 });
 {const old=otherPOI;otherPOI=function(M){

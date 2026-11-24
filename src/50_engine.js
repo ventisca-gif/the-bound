@@ -125,6 +125,7 @@ function glowSprite(r, col) { const k = r + col; if (GLOW[k]) return GLOW[k]; co
 // ---------- camera ----------
 function updateCamera(dt, snap) {
   const P = G.P, M = G.map; let tx = P.x - VW / 2, ty = P.y - 12 - VH / 2;
+  if (M.dawn && P.dawnCrewJoined && P.dawnHelm?.kind === 'skiff') ty -= Math.max(0, 150 - VH / 2);
   const mw = M.w * 16, mh = M.h * 16;
   tx = mw < VW ? (mw - VW) / 2 : clamp(tx, 0, mw - VW); ty = mh < VH ? (mh - VH) / 2 : clamp(ty, 0, mh - VH);
   if (snap) { G.cam.x = tx; G.cam.y = ty; } else { const k = 1 - Math.pow(0.0005, dt); G.cam.x += (tx - G.cam.x) * k; G.cam.y += (ty - G.cam.y) * k; }

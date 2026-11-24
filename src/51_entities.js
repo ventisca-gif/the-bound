@@ -158,6 +158,11 @@ function hitMob(m, base, src = {}) {
 }
 function hurtPlayer(base, src = {}) {
   const P = G.P; if (P.dead || P.ifr > 0 || G.paused) return;
+  if (src?.orangeBoss) {
+    if (G.t < (src.orangeBoss.orangePlayerSafeUntil || 0)) return;
+    src.orangeBoss.orangePlayerSafeUntil = G.t + .53;
+  }
+  if (baraDodge(P)) return;
   if (Math.random() * 100 < P.S.dodge) { floatText(P.x, P.y - 34, 'ESQUIVA', '#a0e0ff'); return; }
   let d = base * dmgRedP(P.S.def, (src && src.lv) || P.lv) * (0.9 + Math.random() * 0.2); d = Math.max(1, Math.round(d)); if (P.hp - d < P.S.maxhp * 0.35) tip('potion');
   if (P.shield > 0) { const ab = Math.min(P.shield, d); P.shield -= ab; d -= ab; if (ab) floatText(P.x, P.y - 34, 'ESCUDO', '#c0a0ff'); }

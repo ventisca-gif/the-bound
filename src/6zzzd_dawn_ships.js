@@ -25,6 +25,9 @@ function dawnGalleon(){
   const P=G.P;
   return P.dawnHelm?.kind==='galleon'?{x:P.x,y:P.y,dir:P.dir}:P._alvidaBerth||dawnPatrol();
 }
+function dawnShipRadius(P,H){
+  return H.kind==='galleon'?22:H.kind==='skiff'&&P.dawnCrewJoined?18:8;
+}
 function dawnHelm(kind,returnAt){
   return {kind,returnAt};
 }
@@ -143,16 +146,16 @@ function dawnShipSprite(cx,cy,s,x,y,dir){
 };}
 {const old=setMap;setMap=function(M,x,y){
   const P=G.P;
-  if(M?.dawn&&P?.dawnHelm&&!dawnSurface(M,x,y))return false;
+  if(M?.dawn&&P?.dawnHelm&&!dawnSurface(M,x,y,dawnShipRadius(P,P.dawnHelm)))return false;
   if(P&&!M?.dawn)P.dawnHelm=null;
   return old.apply(this,arguments);
 };}
 {const old=updatePlayer;updatePlayer=function(dt){
   const P=G.P,M=G.map,H=P.dawnHelm;
   if(!M.dawn||!H||P.dead)return old.apply(this,arguments);
-  const [dx,dy]=moveInput(),speed=H.kind==='galleon'?DAWN_HELM_SPEED*.82:DAWN_HELM_SPEED;
+  const [dx,dy]=moveInput(),speed=DAWN_HELM_SPEED*(H.kind==='galleon'?.82:P.dawnCrewJoined?.88:1);
   if(dx||dy){
-    const r=H.kind==='galleon'?22:8, distance=speed*dt, steps=Math.max(1,Math.ceil(distance/8));
+    const r=dawnShipRadius(P,H), distance=speed*dt, steps=Math.max(1,Math.ceil(distance/8));
     const sx=dx*distance/steps,sy=dy*distance/steps;
     for(let i=0;i<steps;i++){
       if(dawnSurface(M,P.x+sx,P.y,r))P.x+=sx;
