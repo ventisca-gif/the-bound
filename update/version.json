@@ -1,24 +1,22 @@
 {
- "build": 213,
- "ver": "5.92",
+ "build": 214,
+ "ver": "5.93",
  "date": "2026-11-24",
  "file": "thebound.html",
- "size": 31987790,
- "sha256": "835b44e921c4b74f3df3cbdf989a97ebd2ee2af45c2b0b8643e2c61104798a03",
+ "size": 32007837,
+ "sha256": "dee99dad929a4d9ea82f38659c3c84f08149b5bcf5badfee418efb4f1ed364de",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Villa Syrup se conecta al sur del Mar de Dawn. Tras terminar la historia de Gaimon, desembarca, habla con Usopp y avisa a Kaya en su mansión.",
-   "Zoro te ayuda contra Sham y Buchi (nivel 572). Enfrenta a Jango (572) con Nami y Usopp, y a Kuro (580) con Luffy.",
-   "Recluta a Usopp como tirador de nivel 580. Nuevos sprites proporcionados a la referencia, con caminata y tirachinas en cuatro direcciones. Alterna proyectiles normales con la Estrella de Pólvora.",
-   "Habla con Luffy, Zoro, Nami y Usopp en tierra y en el Going Merry. Hay temas nuevos sobre su pasado, la navegación, el combate y lo que pasó en Villa Syrup."
+   "Mera Mera de Ace: Puño de Fuego, Pistolas de Fuego, Pilar de Fuego, Gran Entei y Cuerpo de Fuego. La Logia dura 6 segundos y evita hasta 3 golpes físicos de monstruos comunes.",
+   "Hana Hana de Robin: Clutch, Seis Fleur, Ochenta Fleur y Cien Fleur. Usa brazos a distancia, control de grupos y una barrera temporal. Las dos frutas usan la sección Habilidades › Fruta y progresan con el nivel.",
+   "Aparecen ocasionalmente en el Mar de Dawn. El aviso indica la isla y deja un marcador durante 4 minutos. Shanks retira Hana Hana con Voluntad 1 y Mera Mera con Voluntad 2, o cualquiera si ganaste su duelo."
   ],
   "en": [
-   "Syrup Village joins the southern Dawn Sea. Finish Gaimon’s story, go ashore, talk to Usopp and warn Kaya at her manor.",
-   "Zoro helps you fight Sham and Buchi (level 572). Face Jango (572) with Nami and Usopp, then fight Kuro (580) with Luffy.",
-   "Recruit Usopp as a level 580 sharpshooter. New reference-proportioned sprites with four-direction walking and slingshot attacks. He mixes regular projectiles with Gunpowder Star.",
-   "Talk to Luffy, Zoro, Nami and Usopp on land or aboard the Going Merry. New topics cover their past, navigation, combat and what happened at Syrup Village."
+   "Ace’s Flame-Flame Fruit: Fire Fist, Fire Gun, Flame Pillar, Great Flame Emperor and Flame Body. Logia lasts 6 seconds and disperses up to 3 physical hits from ordinary monsters.",
+   "Robin’s Flower-Flower Fruit: Clutch, Seis Fleur, Ochenta Fleur and Cien Fleur. Use arms at a distance, crowd control and a temporary barrier. Both fruits use Skills › Fruit and scale with your level.",
+   "They occasionally appear in the Dawn Sea. The alert names the island and marks the spot for 4 minutes. Shanks removes Flower-Flower at Will rank 1 and Flame-Flame at Will rank 2, or either after you win his duel."
   ]
  }
 }
