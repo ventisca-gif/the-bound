@@ -1,26 +1,20 @@
 {
- "build": 209,
- "ver": "5.88",
+ "build": 210,
+ "ver": "5.89",
  "date": "2026-11-24",
  "file": "thebound.html",
- "size": 29368752,
- "sha256": "4c4da35eebe5818f909eaa095c777ea6e494fa019104bede26006ce5dc24d994",
+ "size": 30138380,
+ "sha256": "15d122076a3638df3f0a2f7f0a348151c63fc628a820c3895419b8f3f2f4ed2a",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "👑 Voluntad: sube al vencer enemigos (+1, jefes +25) con 10 rangos. Con el rango 1 despiertas el Aura del Conquistador (ponla en una casilla en Habilidades): onda roja con rayos negros que desmaya a los enemigos según tu rango y tumba a los muy débiles. Los jefes aguantan hasta el rango 8.",
-   "😵 Shanks ahora usa su aura: si tu voluntad es menor que rango 6, te desmayas unos segundos en el duelo.",
-   "📜 Recompensa y carteles de búsqueda: sube al vencer cualquier enemigo; cada nivel de peligro saca un cartel «Se busca · vivo o muerto» con tu cara. Lo ves en Habilidades y en carteles de Foosha y La Tortuga Glotona.",
-   "⚓ La Marina en el Mar de Dawn: sus barcos te persiguen y, si te alcanzan, te abordan y peleas en su cubierta. En las islas un marine pregunta por ti: puedes mentir o pelear; con mucho peligro hay emboscadas. Si te derrotan pagas una multa.",
-   "🛠 Arreglo: el botón de nadar mostraba un texto raro en vez de «Nadar»."
+   "Rescata a Zoro en el patio de la Base 153 de Shells Town y lucha con él y Luffy contra Morgan Mano de Hacha, jefe de nivel 550.",
+   "Luffy, Zoro y Morgan tienen sprites nuevos y caminatas en cuatro direcciones. Morgan llama a dos marines cuando le queda el 65 % de vida."
   ],
   "en": [
-   "👑 Will: rises by defeating enemies (+1, bosses +25) with 10 ranks. At rank 1 you awaken the Conqueror's Aura (put it in a slot in Skills): a red wave with black lightning that knocks enemies out depending on your rank and drops very weak ones. Bosses resist until rank 8.",
-   "😵 Shanks now uses his aura: if your will is below rank 6, you faint for a few seconds in the duel.",
-   "📜 Bounty and wanted posters: it rises with any defeated enemy; each danger level brings a 'Wanted · dead or alive' poster with your face. See it in Skills and on posters in Foosha and the Gluttonous Turtle.",
-   "⚓ The Navy in the Dawn Sea: their ships chase you and, if they catch you, they board you and you fight on their deck. On the islands a marine asks about you: you can lie or fight; with high danger there are ambushes. If they beat you, you pay a fine.",
-   "🛠 Fix: the swim button showed odd text instead of 'Swim'."
+   "Rescue Zoro in the courtyard of the 153rd Branch Base in Shells Town and fight alongside him and Luffy against Axe-Hand Morgan, a level 550 boss.",
+   "Luffy, Zoro and Morgan have new sprites and four-direction walking cycles. Morgan calls two marines at 65% health."
   ]
  }
 }
