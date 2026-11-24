@@ -1,20 +1,24 @@
 {
- "build": 210,
- "ver": "5.89",
+ "build": 211,
+ "ver": "5.90",
  "date": "2026-11-24",
  "file": "thebound.html",
- "size": 30138380,
- "sha256": "15d122076a3638df3f0a2f7f0a348151c63fc628a820c3895419b8f3f2f4ed2a",
+ "size": 31558714,
+ "sha256": "89429d815b6a6bec790aca63053dfa62189ecf371fb75dbd1ca276b998fc017e",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Rescata a Zoro en el patio de la Base 153 de Shells Town y lucha con él y Luffy contra Morgan Mano de Hacha, jefe de nivel 550.",
-   "Luffy, Zoro y Morgan tienen sprites nuevos y caminatas en cuatro direcciones. Morgan llama a dos marines cuando le queda el 65 % de vida."
+   "Tras derrotar a Morgan en Shells Town, navega a Orange Town y lucha junto a Luffy y Zoro contra Cabaji (nivel 567) y Buggy (nivel 570), en ese orden.",
+   "Buggy se divide en varios fragmentos que persiguen al grupo y vuelve a ensamblarse tras los cortes. Su botín incluye la Fruta Bara Bara, que da 10 % de probabilidad de esquivar ataques, las Garras de Buggy para todas las clases y su vestuario por piezas, con intentos garantizados.",
+   "Recluta a Nami tras vencer a Buggy y el bote se convierte en el Going Merry. Habla con la tripulación en tierra o a bordo y pídele a Nami que marque el rumbo.",
+   "Desembarca en la Isla de los Animales Raros, ayuda a Gaimon a buscar cinco cofres y elige a quién llevar contigo o dejar en el barco. Luffy, Zoro y Nami se quedan en el Mar de Dawn y tienen nuevos pasos de frente y de espaldas."
   ],
   "en": [
-   "Rescue Zoro in the courtyard of the 153rd Branch Base in Shells Town and fight alongside him and Luffy against Axe-Hand Morgan, a level 550 boss.",
-   "Luffy, Zoro and Morgan have new sprites and four-direction walking cycles. Morgan calls two marines at 65% health."
+   "After defeating Morgan in Shells Town, sail to Orange Town and fight alongside Luffy and Zoro against Cabaji (level 567) and Buggy (level 570), in that order.",
+   "Buggy splits into pieces that chase the party and reassembles after sword strikes. His drops include the Chop-Chop Fruit, which grants a 10% chance to dodge attacks, Buggy's Claws for all classes, and individual costume pieces, with guaranteed drops after enough attempts.",
+   "Recruit Nami after beating Buggy to turn the small boat into the Going Merry. Talk to the crew on land or aboard and ask Nami to set a waypoint.",
+   "Land on the Island of Rare Animals, help Gaimon search five chests, and choose who goes ashore or stays on the ship. Luffy, Zoro and Nami stay in the Dawn Sea and have new walking frames for facing forward and backward."
   ]
  }
 }
