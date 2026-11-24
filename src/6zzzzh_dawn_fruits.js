@@ -164,96 +164,50 @@ function dfNewAbsorb(P,src,damage){
  return old.apply(this,arguments);
 };}
 
-function dfRenderArm(x,y,anchor,progress,col){
- const h=13+progress*16;
- ctx.save();ctx.fillStyle=col;ctx.strokeStyle='#8c4a58';ctx.lineWidth=2;
- ctx.translate(x,y);ctx.rotate(anchor);
- ctx.beginPath();ctx.roundRect(-2,-h,5,h,2);ctx.fill();ctx.stroke();
- ctx.fillRect(-2,-h-4,5,7);
- for(let i=0;i<3;i++)ctx.fillRect(-3+i*2,-h-7+(i%2),2,5);
+const DF_VFX_ROWS={
+ mera_hiken:0,mera_higan:1,mera_hibashira:2,mera_entei:3,
+ hana_clutch:4,hana_twist:5,hana_delphinium:6,hana_wall:7,mera_logia:8
+};
+const DF_VFX_IMAGE=new Image();
+function dfDrawSprite(id,frame,x,y,w,h,alpha=1){
+ const row=DF_VFX_ROWS[id];
+ if(row===undefined||!DF_VFX_IMAGE.complete||!DF_VFX_IMAGE.naturalWidth)return;
+ ctx.save();ctx.globalAlpha*=alpha;ctx.imageSmoothingEnabled=false;
+ ctx.drawImage(DF_VFX_IMAGE,frame*96,row*96,96,96,Math.round(x-w/2),Math.round(y-h),w,h);
  ctx.restore();
 }
-function dfFlameTongue(x,y,w,h,time,tone){
- const curl=Math.sin(time)*w*.33;
- const colors=['#9d3033','#d3452c','#ff7533','#ffb83c','#fff0a3'];
- ctx.save();ctx.translate(x,y);
- ctx.fillStyle=colors[tone];
- ctx.beginPath();
- ctx.moveTo(-w*.53,0);
- ctx.bezierCurveTo(-w*.71,-h*.31,-w*.16,-h*.37,-w*.23,-h*.64);
- ctx.quadraticCurveTo(-w*.03,-h*.46,w*.08,-h*.54);
- ctx.quadraticCurveTo(w*.37+curl,-h*.78,curl,-h);
- ctx.bezierCurveTo(w*.68+curl,-h*.74,w*.74,-h*.3,w*.48,0);
- ctx.closePath();ctx.fill();
+function dfAreaOutline(x,y,r,col,p){
+ ctx.save();ctx.strokeStyle=col;ctx.lineWidth=1.5;ctx.globalAlpha=.72*(1-p*.55);
+ ctx.beginPath();ctx.ellipse(x,y,r,r*.61,0,0,Math.PI*2);ctx.stroke();
  ctx.restore();
 }
+const dfVfxFrames=(p)=>p<.13?0:p<.34?1:p<.76?2:3;
 {const old=drawFx;drawFx=function(f,cx,cy){
  if(f.type!=='df_new')return old.apply(this,arguments);
- const x=f.x-cx,y=f.y-cy,p=clamp(f.t/f.dur,0,1);
- const flame=f.id.startsWith('mera'),r=f.r;
- ctx.save();ctx.globalAlpha=Math.min(1,p*15,(1-p)*6);
- if(flame){
-  if(f.id==='mera_entei'){
-   const thump=f.t>.99,grow=thump?1:clamp(f.t,0,1);
-   ctx.fillStyle='#b7463540';ctx.strokeStyle='#ffbe64';ctx.lineWidth=2;
-   ctx.beginPath();ctx.ellipse(x,y,r,r*.61,0,0,Math.PI*2);ctx.fill();ctx.stroke();
-   const ball=(thump?56:10+grow*19),yy=y-(thump?6:56-grow*21);
-   for(const [color,size] of [['#a43229',1],['#e65b2a',.87],['#ff9f32',.71],['#ffde7c',.53],['#fff1b1',.32]]){
-    ctx.fillStyle=color;ctx.beginPath();ctx.arc(x,yy,ball*size,0,Math.PI*2);ctx.fill();
-   }
-   for(let i=0;i<9;i++){
-    const a=i*Math.PI*2/9+f.t*2,l=ball*(.87+Math.sin(a*6+f.t*11)*.09);
-    const ax=x+Math.cos(a)*l,ay=yy+Math.sin(a)*l;
-    ctx.save();ctx.translate(ax,ay);ctx.rotate(a+Math.PI*.5);
-    dfFlameTongue(0,0,9+grow*7,8+grow*15,f.t*11+i,2+i%3);
-    ctx.restore();
-   }
-  }else if(f.id==='mera_hibashira'){
-   const pulse=.62+Math.sin(f.t*18)*.16;
-   ctx.strokeStyle='#f6b359';ctx.beginPath();ctx.ellipse(x,y,r,r*.56,0,0,Math.PI*2);ctx.stroke();
-   for(let i=0;i<11;i++){
-    const a=i*2.4+f.t*9,xx=x+Math.cos(a)*r*.52;
-    const hh=(16+((i*27+f.t*105)%68))*pulse;
-    dfFlameTongue(Math.round(xx),Math.round(y+Math.sin(a)*10),10+(i%3)*4,hh,f.t*9+i,i%4);
-    if(i%2===0)dfFlameTongue(Math.round(xx+1),y,7,hh*.58,f.t*9+i,4);
-   }
-  }else{
-   ctx.translate(x,y-15);ctx.rotate(f.angle);
-   const end=f.id==='mera_higan'?f.length*p:f.length*Math.min(1,p*2.8);
-   const width=f.id==='mera_higan'?2:9+12*Math.sin(p*Math.PI);
-   for(let i=6;i>=0;i--){
-    const small=f.id==='mera_higan',pos=end-i*(small?4:9);
-    if(pos<0)continue;
-    const ww=width*(1-i*.095);
-    ctx.save();ctx.translate(Math.round(pos),Math.sin(f.t*18+i)*ww*.14);ctx.rotate(Math.PI/2);
-    dfFlameTongue(0,-10,ww*(small?2.1:1.42),small?12:28,f.t*11+i,Math.max(0,4-Math.floor(i*.75)));
-    ctx.restore();
-   }
-   if(f.id==='mera_hiken')for(let i=0;i<10;i++){
-    const sx=end-6-i*6,sy=Math.sin(i*3.5+p*13)*width;
-    if(sx>0){ctx.fillStyle=i%2?'#ff8a38':'#ffe994';ctx.fillRect(sx,sy,i%3+2,2);}
-   }
-  }
- }else{
-  const stage=Math.min(1,p*2.5),col='#f3b3b7';
-  if(f.id==='hana_delphinium'){
-   for(let i=0;i<10;i++){
-    const s=i*13,delay=p-s/240;if(delay<0)continue;
-    const side=i%2?10:-10;
-    dfRenderArm(x+Math.cos(f.angle)*s-Math.sin(f.angle)*side,y+Math.sin(f.angle)*s+Math.cos(f.angle)*side,
-     f.angle+side*.036,Math.min(1,delay*3),col);
-   }
-  }else{
-   const count=f.id==='hana_clutch'?4:f.id==='hana_wall'?10:6;
-   for(let i=0;i<count;i++){
-    const a=i*Math.PI*2/count,k=r*(f.id==='hana_clutch'?.57:.67);
-    dfRenderArm(x+Math.cos(a)*k,y+Math.sin(a)*k*.57,a*.27,stage,col);
-   }
-  }
-  ctx.fillStyle='#f9bfdc';
-  for(let i=0;i<7;i++)ctx.fillRect(Math.round(x+Math.cos(i*2.35+p)*r*.9),Math.round(y+Math.sin(i*2+p)*r*.38-p*19),3,2);
+ const x=f.x-cx,y=f.y-cy,p=clamp(f.t/f.dur,0,1),r=f.r,frame=dfVfxFrames(p);
+ if(f.angle!==undefined){
+  const gun=f.id==='mera_higan',wave=f.id==='hana_delphinium';
+  const travel=wave?Math.min(f.length*.56,p*f.length*.85):f.length*Math.min(1,p*(gun?1:1.95));
+  const width=wave?112:gun?42:80,height=wave?37:gun?19:53;
+  ctx.save();ctx.translate(x,y-(wave?0:15));ctx.rotate(f.angle);
+  ctx.beginPath();ctx.rect(-12,-65,f.length+28,128);ctx.clip();
+  dfDrawSprite(f.id,frame,travel-(wave?0:width*.42),height*.53,width,height,p>.88?Math.max(0,(1-p)*9):1);
+  ctx.restore();return;
  }
- ctx.restore();
+ if(f.id==='mera_entei'){
+  const impact=f.t>=.99,build=clamp(f.t/.99,0,1);
+  dfAreaOutline(x,y,r,'#ffc666',p);
+  const size=impact?Math.round(146+(f.t-.99)*33):Math.round(50+build*55);
+  dfDrawSprite(f.id,impact?3:Math.min(2,Math.floor(build*3)),x,y-(impact?0:Math.round(42*(1-build))),size,size);
+ }else if(f.id==='mera_hibashira'){
+  dfAreaOutline(x,y,r,'#ffc666',p);
+  const loop=f.t>=.34&&p<.85?(Math.floor(f.t*7)%2)+1:frame;
+  dfDrawSprite(f.id,loop,x,y+12,82,106);
+ }else{
+  const close=f.id==='hana_clutch',wall=f.id==='hana_wall';
+  const width=close?53:wall?84:91,height=close?39:wall?61:66;
+  dfDrawSprite(f.id,frame,x,y+(close?0:7),width,height);
+ }
 };}
 DL_HOOKS.push((list,cx,cy)=>{
  const P=G.P;if(!dfNewCombatReady(P))return;
@@ -262,18 +216,8 @@ DL_HOOKS.push((list,cx,cy)=>{
  if(!fire&&!wall)return;
  list.push({type:'xdraw',x:P.x,y:P.y+2,noShadow:true,draw:()=>{
   const x=P.x-cx,y=P.y-cy;
-  ctx.save();ctx.globalAlpha=.74;
-  if(fire)for(let i=0;i<8;i++){
-   const a=i*.83+G.t*5,xx=Math.round(x+Math.cos(a)*15),yy=Math.round(y+Math.sin(a)*7-4);
-   const h=7+Math.round((1+Math.sin(a*2+G.t*17))*6);
-   dfFlameTongue(xx,yy,6+(i%3),h,a,i%3+1);
-   dfFlameTongue(xx+1,yy,3,h*.65,a,4);
-  }
-  if(wall)for(let i=0;i<6;i++){
-   const a=i*Math.PI/3+G.t*.8;
-   dfRenderArm(x+Math.cos(a)*20,y+Math.sin(a)*12,.18,1,'#f3b3b7');
-  }
-  ctx.restore();
+  if(fire)dfDrawSprite('mera_logia',Math.floor(G.t*10)%4,x,y+8,48,61,.92);
+  if(wall)dfDrawSprite('hana_wall',2,x,y+8,64,51,.68+Math.sin(G.t*5)*.12);
  }});
 });
 

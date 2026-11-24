@@ -3,7 +3,7 @@
 // - La Fruta del Diablo de la Hilandera Muda (5 % con pity) sigue siendo la llave de las islas, y además se puede COMER:
 //   tu cuerpo se vuelve de goma y salen técnicas nuevas en tu árbol (sección 🍇 Fruta), todas con animación.
 // - Con una fruta no puedes nadar: en el Fondo Marino y en Nerea pierdes vida. Shanks te la quita (para frutas futuras).
-//   Si te comes una segunda fruta, mueres.
+//   Mientras tengas un poder, el inventario bloquea comer otra fruta.
 // - Fruta Transparente (pera verde agua): invisibilidad unos segundos con recarga. Aparece a veces en las islas de Dawn,
 //   con aviso.
 // - Todos los jefes enseñan encima de su barra de vida lo que sueltan y con qué probabilidad.
@@ -77,14 +77,37 @@ function dfCast(id) { const P = G.P, s = SK[id], e = s.eff, r = P.skills[id] || 
     const tgt = nearestMob(P.x, P.y, 150), ang = tgt ? Math.atan2(tgt.y - 6 - (P.y - 14), tgt.x - P.x) : Math.atan2(DIRV[P.dir][1], DIRV[P.dir][0]), reach = tgt ? clamp(Math.hypot(tgt.x - P.x, tgt.y - P.y) - 6, 40, 125) : 85;
     VAP_ARMS.push({ t: G.t, dur: 0.32, ang, reach, w: vapWeaponCv(P) }); delayAct(0.12, () => { const x = P.x + Math.cos(ang) * reach, y = P.y - 8 + Math.sin(ang) * reach; hitCircle(x, y, 22, P.S.atk * 0.7, { kb: 30 }); }); } } catch (e) { } return r; }; }
 
-// ---------- comer una fruta (y morir si ya tienes otra) ----------
-function dfEat(id) { const P = G.P, k = dfrOf(id); if (!k || !countItem(id)) return;
-  if (P.fruit) { xMsg('☠ ' + L2('Dos frutas', 'Two fruits'), L2('Ya tienes los poderes de una fruta. Si te comes otra, tu cuerpo no lo aguanta y <b>mueres</b> (pierdes la fruta). Shanks puede quitarte la que tienes.', 'You already have a fruit\'s powers. If you eat another, your body cannot take it and <b>you die</b> (the fruit is lost). Shanks can remove the one you have.'),
-      [['☠ ' + L2('Comerla igualmente', 'Eat it anyway'), () => { takeItem(id, 1); P.dfKey = 1; burst(P.x, P.y - 14, 30, { sp: 90, up: 50, g: 30, life: 0.9, c: ['#3a1a6a', '#000000', '#ff3a3a'] }); toast(L2('Tu cuerpo no aguanta dos frutas…', 'Your body cannot take two fruits…'), 'warn', 5); playerDie(); markDirty(true); }]]); return; }
-  xMsg(DFR[k].ic + ' ' + ITEMS[id].n, (k === 'goma' ? L2('Tu cuerpo se volverá de <b>goma</b>: cinco técnicas nuevas (Pistola, Ametralladora, Hacha, Bazuca y Globo) en tu árbol, y tus golpes cuerpo a cuerpo estirarán el brazo.', 'Your body will turn to <b>rubber</b>: five new techniques (Pistol, Gatling, Axe, Bazooka and Balloon) in your tree, and your melee hits will stretch your arm.') : DFR[k].desc || L2('Podrás volverte <b>invisible</b> 6 s (los enemigos no te ven) con una técnica nueva en tu árbol.', 'You will be able to turn <b>invisible</b> for 6 s (enemies cannot see you) with a new technique in your tree.'))
-    + '<br><br>⚠ ' + L2('Ya no podrás nadar: en el Fondo Marino y en Nerea perderás vida. Solo puedes tener una fruta (Shanks te la puede quitar). Los desembarcos de Dawn siguen abiertos.', 'You will no longer be able to swim: on the Seabed and in Nerea you will lose HP. You can only have one fruit (Shanks can remove it). The Dawn landings stay open.'),
-    [['😋 ' + L2('Comérmela', 'Eat it'), () => { takeItem(id, 1); P.fruit = k; P.dfKey = 1; dfSyncSkills(); for (const sid of DFS[k]) { const free = P.slots.findIndex(x => !x); if (free >= 0 && !P.slots.includes(sid)) P.slots[free] = sid; }
-      burst(P.x, P.y - 14, 40, { sp: 100, up: 70, g: 10, life: 1, c: k === 'goma' ? ['#7a46c8', '#ffd040', '#ffffff'] : DFR[k].colors || ['#a8f4e4', '#5ad8c8', '#ffffff'] }); sfx('quest'); banner(DFR[k].ic + ' ' + L2('Fruta ', 'Fruit: ') + DFR[k].n, DFR[k].passive || L2('Mira tus técnicas en Habilidades › Fruta', 'See your techniques in Skills › Fruit')); uiDirty.hud = true; markDirty(true); }]]); }
+// Keep the item in the bag until a living owner without a fruit confirms it.
+function dfEat(id) {
+ const P=G.P,kind=dfrOf(id);
+ if(!P||P.dead||!kind||!countItem(id))return;
+ const D=DFR[kind];
+ if(P.fruit){
+  xMsg('🍇 '+L2('Ya tienes una fruta','You already have a fruit'),
+   L2('Solo puedes comer una Fruta del Diablo a la vez. Si quieres cambiar de poder, visita a Shanks en Foosha. Esta fruta se queda en tu inventario.',
+      'You can only eat one Devil Fruit at a time. To switch powers, visit Shanks in Foosha. This fruit stays in your inventory.'),[]);
+  return;
+ }
+ const description=kind==='goma'
+  ?L2('Tu cuerpo se volverá de <b>goma</b>. Tendrás cinco técnicas nuevas y tus golpes cuerpo a cuerpo estirarán el brazo.',
+      'Your body will turn to <b>rubber</b>. You gain five new techniques, and melee hits stretch your arm.')
+  :D.desc||L2('Podrás volverte <b>invisible</b> durante seis segundos.','You can turn <b>invisible</b> for six seconds.');
+ xMsg(D.ic+' '+ITEMS[id].n,description+'<br><br>'+
+  L2('Con el poder de una fruta perderás vida bajo el agua. Shanks puede retirarlo. Conservas tu permiso de desembarco.',
+     'With a fruit power, you lose HP underwater. Shanks can remove it. You keep your landing permit.'),[
+   ['😋 '+L2('Comérmela','Eat it'),()=>{
+    if(G.P!==P||P.dead||P.fruit||!takeItem(id,1))return;
+    P.fruit=kind;P.dfKey=1;dfSyncSkills();
+    for(const sid of DFS[kind]){
+     const free=P.slots.findIndex(x=>!x);
+     if(free>=0&&!P.slots.includes(sid))P.slots[free]=sid;
+    }
+    burst(P.x,P.y-14,40,{sp:100,up:70,g:10,life:1,c:kind==='goma'?['#7a46c8','#ffd040','#ffffff']:D.colors||['#a8f4e4','#5ad8c8','#ffffff']});
+    sfx('quest');banner(D.ic+' '+L2('Fruta ','Fruit: ')+D.n,D.passive||L2('Mira tus técnicas en Habilidades › Fruta','See your techniques in Skills › Fruit'));
+    uiDirty.hud=true;markDirty(true);
+   }]
+  ]);
+}
 { const _ui = useItem; useItem = function (idx) { const P = G.P, s = P && P.inv[idx]; if (s && dfrOf(s.id)) { dfEat(s.id); return; } return _ui.apply(this, arguments); }; }
 // no puedes nadar: en los mapas submarinos pierdes vida
 const DF_WATER_MAPS = new Set(['submarino', 'nerea']);
@@ -167,7 +190,7 @@ if (typeof GSIS !== 'undefined') GSIS.unshift(['crossover583', '🏴‍☠️ ' 
   L2('2. Fruta del Diablo: la Hilandera Muda (nivel 600, Tierras Tejidas) la suelta con un 5 % y es segura a los 20 intentos (la barra del jefe enseña cuántos faltan). Abre para siempre los desembarcos de Foosha y Shells Town.', '2. Devil Fruit: the Mute Spinner (level 600, Woven Lands) drops it at 5% and it is guaranteed by the 20th try (the boss bar shows how many are left). It opens the Foosha and Shells Town landings for good.'),
   L2('3. Si te la comes: cuerpo de goma. Técnicas en Habilidades › Fruta: Pistola, Ametralladora, Hacha, Bazuca y Globo; además tus golpes cuerpo a cuerpo estiran el brazo con el arma.', '3. If you eat it: rubber body. Techniques in Skills › Fruit: Pistol, Gatling, Axe, Bazooka and Balloon; and your melee hits stretch your arm with the weapon.'),
   L2('4. Fruta Transparente: aparece a veces en las islas de Dawn (con aviso y flecha, 4 minutos). Comida: invisibilidad 6 s.', '4. Clear Fruit: it sometimes appears on the Dawn islands (with a warning and an arrow, 4 minutes). Eaten: 6 s invisibility.'),
-  L2('⚠ Con una fruta no puedes nadar (pierdes vida en el Fondo Marino y en Nerea). Solo una fruta: si te comes otra, mueres. Shanks (Foosha) te la quita.', '⚠ With a fruit you cannot swim (you lose HP on the Seabed and in Nerea). Only one fruit: eat another and you die. Shanks (Foosha) removes it.'),
+  L2('⚠ Con una fruta no puedes nadar (pierdes vida en el Fondo Marino y en Nerea). El inventario impide comer otra hasta que Shanks (Foosha) retire el poder.', '⚠ With a fruit you cannot swim (you lose HP on the Seabed and in Nerea). The bag blocks eating another until Shanks (Foosha) removes your power.'),
   L2('5. Engranaje 2 (nivel 600): vence a la Rueca Desbocada, desembarca en Foosha y gana el duelo contra Shanks; luego él hace el ritual.', '5. Gear 2 (level 600): defeat the Runaway Spinning Wheel, land at Foosha and win the duel against Shanks; then he performs the ritual.'),
   L2('🎁 Todos los jefes enseñan encima de su barra de vida lo que sueltan y con qué probabilidad.', '🎁 Every boss shows above its health bar what it drops and how likely it is.')
 ], () => { const P = G.P; if (!P) return null; return dfHas() ? { loc: [229, 129], m: 'world', t: L2('Capitana Marina', 'Captain Marina') } : { loc: TJ_BOSS_AT.tj_hilandera, m: 'world', t: BOSSES.tj_hilandera.n }; }]);
