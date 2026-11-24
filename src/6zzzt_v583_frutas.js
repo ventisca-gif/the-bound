@@ -31,7 +31,7 @@ const dfRank = () => clamp(Math.floor((((G.P && G.P.lv) || 500) - 500) / 10) + 1
 function dfSyncSkills() { const P = G.P; if (!P) return; const own = P.fruit ? DFS[P.fruit] || [] : []; for (const k in DFS) for (const id of DFS[k]) { if (own.includes(id)) P.skills[id] = dfRank(); else if (P.skills[id]) { delete P.skills[id]; P.slots = P.slots.map(s => s === id ? null : s); } } }
 V33_TICKS.push(() => { try { dfSyncSkills(); } catch (e) { } });
 // el árbol: sección de la fruta debajo de las ramas de tu clase
-{ const _rs = renderSkills; renderSkills = function (B) { const r = _rs.apply(this, arguments); try { const P = G.P; if (!P.fruit) return r; const D = DFR[P.fruit], ids = DFS[P.fruit];
+{ const _rs = renderSkills; renderSkills = function (B) { const r = _rs.apply(this, arguments); try { const P = G.P; if (!DFR[P.fruit]) return r; const D = DFR[P.fruit], ids = DFS[P.fruit];
     const h = `<div class="frame dfsk"><h3>${D.ic} ${L2('Fruta ', 'Fruit: ')}${esc(D.n)} · ${L2('rango ', 'rank ')}${dfRank()}/10</h3><p class="hint">${L2('Técnicas de tu fruta. El rango sube con tu nivel. Equípalas en una casilla.', 'Your fruit\'s techniques. Their rank rises with your level. Put them in a slot.')}</p>${ids.map(id => { const s = SK[id];
       return `<div class="gsrc"><span>${iconHTML(s.icon, 22)} <b>${esc(s.n)}</b> · ${s.cd} s · ${s.mp} ${L2('maná', 'mana')}<br><small>${esc(skillDesc(id, dfRank()))}</small><div class="row">${[0, 1, 2, 3].map(i => `<button class="btn sm" data-dfq="${id}:${i}">${i + 1}${P.slots[i] === id ? ' ✓' : ''}</button>`).join('')}</div></span></div>`; }).join('')}${P.fruit === 'goma' ? `<p class="hint">🥊 ${L2('Pasiva: tus ataques cuerpo a cuerpo estiran el brazo con el arma y golpean a distancia. No puedes nadar.', 'Passive: your melee attacks stretch your arm with the weapon and hit at range. You cannot swim.')}</p>` : `<p class="hint">${L2('No puedes nadar.', 'You cannot swim.')}</p>`}</div>`;
     const R = B.querySelector('.skR'); if (R) R.insertAdjacentHTML('afterbegin', h.replace('class="frame dfsk"', 'class="dfsk"')); else B.insertAdjacentHTML('beforeend', h); B.querySelectorAll('[data-dfq]').forEach(b => b.onclick = () => { const [id, i] = b.dataset.dfq.split(':'); const prev = P.slots.indexOf(id); if (prev >= 0) P.slots[prev] = null; P.slots[+i] = id; uiDirty.hud = true; sfx('equip'); renderPanel(); }); } catch (e) { console.warn('df skills', e); } return r; }; }
@@ -91,10 +91,32 @@ const DF_WATER_MAPS = new Set(['submarino', 'nerea']);
 V33_TICKS.push(dt => { const P = G.P; if (!P || !P.fruit || P.dead || !DF_WATER_MAPS.has(P.map)) return; P._dfW = (P._dfW || 0) + (dt || 0.016);
   if (!P._dfWarn || G.t - P._dfWarn > 20) { P._dfWarn = G.t; toast(L2('¡Tu fruta no te deja nadar! Pierdes vida bajo el agua.', 'Your fruit will not let you swim! You lose HP underwater.'), 'warn', 4); }
   if (P._dfW >= 1) { P._dfW = 0; const d = Math.max(1, Math.round(P.S.maxhp * 0.04)); P.hp -= d; floatText(P.x, P.y - 34, d, '#5aa8ff'); if (P.hp <= 0) playerDie(); } });
-// Shanks quita la fruta
-DLG_HOOKS.push((npc, opts) => { const P = G.P; if (!P || npc.id !== 'dawn_shanks' || !P.fruit) return;
-  opts.push({ label: '🍇 ' + L2('Quitarme la fruta', 'Remove my fruit'), icon: ['star', '#7a46c8'], fn: () => { closeDialog(); xMsg('🍇 ' + L2('Quitar la fruta', 'Remove the fruit'), L2('Shanks: «Puedo sacarte el poder de la fruta. Perderás sus técnicas, pero podrás comerte otra y volver a nadar.»', 'Shanks: "I can draw the fruit\'s power out of you. You will lose its techniques, but you will be able to eat another and swim again."'),
-    [['✔ ' + L2('Sí, quítamela', 'Yes, remove it'), () => { P.fruit = null; dfSyncSkills(); uiDirty.hud = true; burst(P.x, P.y - 14, 30, { sp: 80, up: 50, g: 20, life: 0.8, c: ['#ffffff', '#c8c8d0'] }); toast(L2('Ya no tienes poderes de fruta.', 'You no longer have fruit powers.'), 'info', 4); markDirty(true); }]]); } }); });
+// The existing Shanks option handles all fruits and preserves the landing permit.
+function dfConfirmRemove(P){
+ const kind=P.fruit,D=DFR[kind],rank=D?.rank||0;
+ const ready=()=>G.P===P&&P.fruit===kind&&(!rank||volRank()>=rank||P.bossKills?.[SH_BOSS]);
+ if(!ready()){
+  typeText(L2('Shanks: Desarrolla tu Voluntad hasta el rango ','Shanks: Raise your Will to rank ')+rank+
+   L2(' o gana mi duelo. Entonces podré quitarte este poder.',' or win my duel. Then I can remove this power.'));
+  return;
+ }
+ closeDialog();
+ xMsg('🍇 '+L2('Quitar la fruta','Remove the fruit'),
+  L2('Shanks: Perderás las técnicas de la fruta. Podrás comerte otra y volver a nadar.','Shanks: You’ll lose the fruit techniques. You can eat another fruit and swim again.'),[
+   ['✔ '+L2('Sí, quítamela','Yes, remove it'),()=>{
+    if(!ready())return;
+    dfClearNewEffects(P);
+    if(kind==='transparente')removeBuff(P,'df_invis');
+    P.gfusen=0;P.fruit=null;dfSyncSkills();uiDirty.hud=true;
+    burst(P.x,P.y-14,30,{sp:80,up:50,g:20,life:.8,c:['#ffffff','#c8c8d0']});
+    toast(L2('Ya no tienes poderes de fruta.','You no longer have fruit powers.'),'info',4);markDirty(true);
+   }]
+  ]);
+}
+DLG_HOOKS.push((npc,opts)=>{
+ const P=G.P;
+ if(P?.fruit&&npc.id==='dawn_shanks')opts.push({label:'🍇 '+L2('Quitarme la fruta','Remove my fruit'),icon:['star','#7a46c8'],fn:()=>dfConfirmRemove(P)});
+});
 
 // ---------- la Fruta Transparente aparece en las islas de Dawn ----------
 const DF_SPAWN = { t: 0, f: null };
@@ -105,10 +127,27 @@ function dfTrySpawn() { const P = G.P, M = G.map; if (!P || !M || M.id !== 'dawn
     DF_SPAWN.f = { x: x * 16 + 8, y: y * 16 + 10, t: G.t }; banner('🍐 ' + L2('¡Una fruta extraña!', 'A strange fruit!'), L2('Ha aparecido cerca. Búscala antes de que desaparezca (4 min).', 'It appeared nearby. Find it before it vanishes (4 min).')); sfx('quest');
     try { setWp({ loc: [x, y], m: 'dawn', t: ITEMS.df_transparente.n }); } catch (e) { } return; } }
 V33_TICKS.push(() => { try { dfTrySpawn(); const F = DF_SPAWN.f; if (F && (G.t - F.t > 240 || !G.map || G.map.id !== 'dawn')) DF_SPAWN.f = null; } catch (e) { } });
-let DF_ICV = null;
-if (typeof DL_HOOKS !== 'undefined') DL_HOOKS.push((list, cx, cy) => { const F = DF_SPAWN.f; if (!F || !G.map || G.map.id !== 'dawn') return; DF_ICV = DF_ICV || genIcon(['dfruit2']).canvas();
-  list.push({ type: 'xdraw', x: F.x, y: F.y, draw: () => { const b = Math.sin(G.t * 3) * 2, x = Math.round(F.x - cx - 8), y = Math.round(F.y - cy - 18 + b); ctx.globalAlpha = 0.55 + Math.sin(G.t * 4) * 0.25; ctx.drawImage(DF_ICV, x, y); ctx.globalAlpha = 1; if (Math.random() < 0.1) part(F.x + (Math.random() - 0.5) * 12, F.y - 10, { vz: 14, g: -4, life: 0.8, c: '#a8f4e4' }); } }); });
-XACT.df_pick = [L2('Coger la fruta', 'Pick up the fruit'), 'star', () => { const P = G.P, F = DF_SPAWN.f; if (!F || dist2(P.x, P.y, F.x, F.y) > 30 * 30) return; DF_SPAWN.f = null; giveItem('df_transparente', 1, true); P.dfKey = 1; sfx('quest'); banner('🍐 ' + ITEMS.df_transparente.n, L2('Cómela desde el inventario (solo puedes tener una fruta).', 'Eat it from the bag (you can only have one fruit).')); markDirty(true); }];
+const DF_ICV={};
+DL_HOOKS.push((list,cx,cy)=>{
+ const F=DF_SPAWN.f;if(!F||G.map?.id!=='dawn')return;
+ const D=DFR[F.kind||'transparente'],key=ITEMS[D.item].icon[0];
+ const sprite=DF_ICV[key]||(DF_ICV[key]=genIcon([key]).canvas());
+ list.push({type:'xdraw',x:F.x,y:F.y,draw:()=>{
+  const bob=Math.sin(G.t*3)*2,xx=Math.round(F.x-cx-8),yy=Math.round(F.y-cy-18+bob);
+  ctx.save();ctx.globalAlpha=F.kind?1:.55+Math.sin(G.t*4)*.25;
+  ctx.drawImage(sprite,xx,yy,16,16);ctx.restore();
+ }});
+});
+XACT.df_pick=[L2('Coger la fruta','Pick up the fruit'),'star',()=>{
+ const P=G.P,F=DF_SPAWN.f;
+ if(!F||P.dawnHelm||P.dead||G.map?.id!=='dawn'||dist2(P.x,P.y,F.x,F.y)>30**2)return;
+ const D=DFR[F.kind||'transparente'];
+ if(!giveItem(D.item,1,true))return;
+ DF_SPAWN.f=null;P.dfKey=1;
+ if(P.wp?.m==='dawn'&&P.wp.x===(F.x>>4)&&P.wp.y===(F.y>>4))P.wp=null;
+ sfx('quest');banner(D.ic+' '+ITEMS[D.item].n,L2('Cómela desde el inventario.','Eat it from the inventory.'));
+ markDirty(true);
+}];
 { const _it = interactTarget; interactTarget = function () { const P = G.P, F = DF_SPAWN.f; if (F && P && G.map && G.map.id === 'dawn' && !P.dawnHelm && dist2(P.x, P.y, F.x, F.y) < 30 * 30) return { kind: 'xact', label: XACT.df_pick[0], icon: 'star', o: { xact: 'df_pick' } }; return _it.apply(this, arguments); }; }
 
 // ---------- botín de cada jefe encima de su barra de vida ----------
