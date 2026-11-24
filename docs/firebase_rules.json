@@ -18,7 +18,7 @@
           ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 576000 && (data.exists() ? (newData.val() >= data.val() && newData.val() <= data.val() + (now - data.parent().child('t').val()) / 60000 + 3) : newData.val() <= 6000)"
         },
         "lv": {
-          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 500"
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 700"
         },
         "c": {
           ".validate": "newData.isString() && newData.val().length <= 12"
@@ -43,7 +43,7 @@
           ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 20"
         },
         "lv": {
-          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 500"
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 700"
         },
         "c": {
           ".validate": "newData.isString() && newData.val().length <= 12"
@@ -106,7 +106,7 @@
             ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 20"
           },
           "lv": {
-            ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 500"
+            ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 700"
           },
           "c": {
             ".validate": "newData.isString() && newData.val().length <= 12"

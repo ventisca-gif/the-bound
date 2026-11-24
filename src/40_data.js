@@ -1,5 +1,5 @@
 // ================= GAME DATA =================
-const MAXLV = 600;   // v4.18: Velo Roto → 350; v4.70: Las Tierras sin Pintar → 400; v5.15: arenas, yokais y desierto mexicano → 500; v5.78: Tierras Tejidas → 600
+const MAXLV = 700;   // v6.01: Mar de Dawn → 700; v4.18: Velo Roto → 350; v4.70: Las Tierras sin Pintar → 400; v5.15: arenas, yokais y desierto mexicano → 500; v5.78: Tierras Tejidas → 600
 const xpToNext = L => Math.floor(40 * Math.pow(L, 1.5) + 60);
 const jobXpToNext = L => Math.floor(26 * Math.pow(L, 1.45) + 24);
 const JOBS = {
