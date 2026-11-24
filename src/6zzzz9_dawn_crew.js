@@ -4,15 +4,21 @@ const DAWN_CREW=[
  [SHELLS_CAST_IDS.luffy,'Luffy',L2('Capitán','Captain')],
  [SHELLS_CAST_IDS.zoro,'Zoro',L2('Espadachín','Swordsman')],
  [ORANGE_NAMI,'Nami',L2('Navegante','Navigator')],
- [SYRUP_USOPP,'Usopp',L2('Tirador','Sniper')]
+ [SYRUP_USOPP,'Usopp',L2('Tirador','Sniper')],
+ ['baratie_sanji','Sanji',L2('Cocinero','Cook')]
 ];
 const GAIMON_ID='rare_gaimon';
 const CREW_LANDING_LIMIT=7;
-const dawnCrewAvailable=P=>P.syrupUsopp?15:7;
+const dawnCrewAvailable=P=>P.baratieSanji?31:P.syrupUsopp?15:7;
 const dawnCrewCount=mask=>DAWN_CREW.reduce((n,_,i)=>n+Number(!!(mask&(1<<i))),0);
 SAVEKEYS.push('dawnCrewJoined','dawnCrewAshore','rareClue','rareChestMask','rareDone');
 const dawnCrewMask=P=>P.dawnCrewAshore==null?CREW_LANDING_LIMIT:P.dawnCrewAshore&dawnCrewAvailable(P);
 function dawnCrewLines(id,aboard=false){
+ if(id==='baratie_sanji')return [
+  aboard?L2('La cena está en la cocina. Si Luffy pregunta por el postre, dile que todavía se enfría.','Dinner is in the galley. If Luffy asks for dessert, tell him it is still cooling.'):
+    L2('Yo te cubro. Después buscamos un sitio donde cocinar con calma.','I’ll cover you. After that, let’s find somewhere quiet to cook.'),
+  L2('En algún lugar está el All Blue. Imagínate lo que podríamos preparar con pescado de los cuatro mares.','The All Blue is out there. Imagine what we could cook with fish from all four seas.')
+ ];
  if(id===SYRUP_USOPP)return aboard?[
   L2('¡El gran capitán Usopp vigila desde cubierta! Si ves una vela desconocida, avísame antes de acercarte.','The great Captain Usopp is keeping watch! If you spot a strange sail, tell me before you get close.'),
   L2('Voy a guardar mis piedras de repuesto lejos de la cocina. Luffy se las comería por error.','I’m keeping my spare stones well away from the galley. Luffy might eat them by mistake.')
@@ -75,7 +81,7 @@ function dawnCrewMenu(){
  const P=G.P;
  if(!P?.dawnCrewJoined||G.map?.id!=='dawn')return;
  const mask=dawnCrewMask(P);
- const labels=DAWN_CREW.slice(0,P.syrupUsopp?4:3).map(([,name,role],i)=>[
+ const labels=DAWN_CREW.slice(0,P.baratieSanji?5:P.syrupUsopp?4:3).map(([,name,role],i)=>[
   name+' · '+((mask&(1<<i))?L2('A tierra','Ashore'):L2('A bordo','On board'))+' · '+role,
   ()=>{
    if(G.P!==P||P.dead)return;
@@ -100,7 +106,7 @@ function dawnCrewAtHelm(){
 function dawnTalkAboard(){
  if(!dawnCrewAtHelm())return;
  xMsg(L2('Tripulación a bordo','Crew aboard'),L2('¿Con quién quieres hablar?','Who would you like to speak with?'),
-  DAWN_CREW.slice(0,G.P.syrupUsopp?4:3).map(([id,name,role])=>[name+' · '+role,()=>{
+  DAWN_CREW.slice(0,G.P.baratieSanji?5:G.P.syrupUsopp?4:3).map(([id,name,role])=>[name+' · '+role,()=>{
    if(!dawnCrewAtHelm())return;
    openDialog({id,type:'npc',map:'dawn',dawnCrew:true,aboard:true,atlas:npcAtlas(id),
     def:{...NPCS[id],title:role,lines:dawnCrewLines(id,true)}});
@@ -112,7 +118,7 @@ function dawnNavigatorMark(){
  const quay=P.shellBerth?[M.shells.start+SHELL_PIER[0],SHELL_PIER[1]]:
   P.fooshaBerth?fooshaPier(M).map(n=>n>>4):ORANGE_QUAY;
  const quayName=P.shellBerth?'Shells Town':P.fooshaBerth?'Villa Foosha':ORANGE_NAME;
- const [loc,t]=typeof syrupCrewWaypoint==='function'&&syrupCrewWaypoint(M,P,aboard)|| (aboard?[P.rareDone?ORANGE_MOORING:RARE_MOORING,P.rareDone?ORANGE_NAME:RARE_NAME]:
+ const [loc,t]=baratieDestination(M,P,aboard)||typeof syrupCrewWaypoint==='function'&&syrupCrewWaypoint(M,P,aboard)|| (aboard?[P.rareDone?ORANGE_MOORING:RARE_MOORING,P.rareDone?ORANGE_NAME:RARE_NAME]:
   rareLandHere(M,P)?[P.rareClue&&!P.rareDone&&P.rareChestMask!==31?RARE_TERRACE:RARE_CLEARING,RARE_NAME]:[quay,quayName]);
  setWp({loc,m:'dawn',t});
  typeText(aboard?L2('Te marqué el fondeadero. Busca la flecha dorada y acércate desde mar abierto.','I’ve marked the mooring. Follow the golden arrow and approach from open water.'):
@@ -244,7 +250,7 @@ function dawnCrewFollow(M,P,dt){
  const orange=M.orange?.run,shells=M.shellsRescue?.run;
  DAWN_CREW.forEach(([id,,role],i)=>{
   const sceneLead=M.syrup?.lead;
-  const scripted=activeSyrup||(sceneLead?.id===id&&d2(P,sceneLead)<180**2)||(id!==ORANGE_NAMI&&id!==SYRUP_USOPP&&(orange||shells));
+  const scripted=M.baratie?.run||activeSyrup||(sceneLead?.id===id&&d2(P,sceneLead)<180**2)||(id!==ORANGE_NAMI&&id!==SYRUP_USOPP&&(orange||shells));
   if(!(mask&(1<<i))||scripted){
    if(crew[i])crew[i].remove=true;
    crew[i]=null;return;

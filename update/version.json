@@ -1,20 +1,20 @@
 {
- "build": 224,
- "ver": "6.03",
+ "build": 225,
+ "ver": "6.04",
  "date": "2026-11-24",
  "file": "thebound.html",
- "size": 33286569,
- "sha256": "7ff7470a6c46d76cba455b7753e696011612fd92d7a895abc187345c866439b9",
+ "size": 34868581,
+ "sha256": "95d7d8566224ea86b04a114236aeb3291338a233230e7ea84a31ce8445a804a0",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Los 12 enemigos y los 5 jefes de los portales 400-600 de la Torre ya usan los dibujos nuevos del bestiario: en las 4 direcciones, andando y atacando.",
-   "Lupa › Sistemas: guía de los materiales y armaduras nuevas del nivel 700."
+   "Nuevo restaurante marítimo Baratie después de Villa Syrup. Defiende la cubierta contra Pearl (590), Gin (592) y Don Krieg (595), y recluta a Sanji.",
+   "Duelo de 40 segundos entre Zoro y Mihawk. Mihawk tiene un sprite de proporciones adultas, caminata en cuatro direcciones y ataques con cuchillo y espada."
   ],
   "en": [
-   "The 12 enemies and 5 bosses of the Tower’s 400-600 portals now use the new bestiary drawings: in 4 directions, walking and attacking.",
-   "Magnifier › Systems: guide to the new level-700 materials and armours."
+   "The Baratie floating restaurant opens after Syrup Village. Defend the deck against Pearl (590), Gin (592) and Don Krieg (595), then recruit Sanji.",
+   "Zoro and Mihawk’s 40-second duel. Mihawk has an adult-proportioned sprite, four-direction movement and dagger and sword attacks."
   ]
  }
 }
