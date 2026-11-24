@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.04 · Baratie y el duelo de Mihawk</div>
+  <div class="tfoot">v6.05 · Armas y botín de Baratie</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11836,7 +11836,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.04', GAME_BUILD = 225;
+const GAME_VER = '6.05', GAME_BUILD = 226;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11844,6 +11844,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.05",
+ "b": 226,
+ "d": "2026-11-24",
+ "es": [
+  "Pearl, Gin y Don Krieg sueltan 13 piezas para el Armario y cuatro armas de nivel 600–605 para todas las clases.",
+  "Cada pieza y arma tiene su propia garantía a las 10 victorias contra su jefe. Habla con Zeff para repetir los combates tras reclutar a Sanji."
+ ],
+ "en": [
+  "Pearl, Gin and Don Krieg drop 13 Wardrobe pieces and four level 600–605 weapons for all classes.",
+  "Each piece and weapon has its own guarantee after 10 wins against its boss. Talk to Zeff for rematches after recruiting Sanji."
+ ]
+},
 {
  "v": "6.04",
  "b": 225,
@@ -51885,6 +51898,8 @@ function mihawkAtlas(){
  });
 }
 
+const BAR_LOOT_WEAPON_ART={"w_bar_spear":["AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABLQy0Aj3dIAMKZW/9mTCv/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAAqlVVAGZJJwCCXzb/lms7/9OgVv+fcT//TjIaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaEAkAgVoy/8WPTP9+WDD/XDof/z8kEgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAFU/KgCFYzn/jGY5/6N2Qf9yUDD/bEUn/2xIJv8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//AAA5IhcAPysa/39ZNP9vTC3/MR4U/1Q4IP9YOyEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPy0SAHlZNv9hRCr/QSoZ/z4sGQArHRAAKR8PAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/VVUAXz8fAFhAKv+Waz//MCAU/wAAAABFLhcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/fz8AAAAAAEw3Jv9oSS//HRAN/x8fHwAAAAAAAAAAAP8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//38AAAAAAE00JQBLMSf/KBsS/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///8AAAAAAFNBNQBTNyv/JxoWAAAAAABVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/fz8AAAAAAG5fT/+Icl//LyQgAAAAAABmMzMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACqqlUAAAAAADwnHwBzXk7/TkI3/wAAAAA/Pz8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEMuIwBNMin/IBQS/wAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGlNLv97WTf/JhkU/wAAAAD/f38AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABQOSb/RzEf/wAAAACqVVUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",[3.8,12]],"w_bar_gin":["AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/f38AAAAAAFc9IwBDNCz/Ylpd/01FRv8eGhoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////ABMTEwBiRy//dVtB/25maf9aUVH/JCAh/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP8AAAAPDwcAOCgh/4RfOv9KOCr/JiIl/yMfIf8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFVVVQAAAAAAAAAAAE9GRf83KST/TTUj/0IyKP8hHSH/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH9/fwABAQEAAAAAAHlxd/9ZT1L/Hxwe/y4jHf8vIhv/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH9/fwABAQEAAAAAAH11ef9jXGL/HBkgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFVVVQABAQEALhcXAHxzeP9gWmD/FxUaAAAAAAD///8A/wAAAH9/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAFVVVQABAQEAIiIiAHRucv9gWV//EhIYAAAAAAA/Pz8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH9/fwAAAAAAHg8PAHJoaf9iWlv/AAAAAAAAAAAzMzMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH9/fwACAgIAOzM7AGNaXv9PR0v/eGZV/4d7bP8AAAAAAQEBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFZOTf9SS07/BAIJAF9TTf/Muqj/hnpt/wAAAAAAAQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIiIiAGFVSP8+NzX/GxUbAAABAAAAAAAAWk5J/8Gxn/+RhXn/FQAAAP///wAAAAAAAAAAAAAAAAAAAAAAbUgkAGBWSv92Z1f/JRwWAAAAAABVODgAAAAAAGJbUQBsYlv/k3tj/0s5Jv8AAAAA/39/AAAAAAAAAAAAAAAAAEg0Hv84LSP/KCUgAAAAAABVKioAAAAAACcnHQCKfnL/YFVO/yQZEv8tJiQAAAAAAH8AAAAAAAAAAAAAAAAAAAAyIRT/KBkPAAAAAAB/AAAAAAAAAAAAAAAMDAwASEE7/3huYwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",[4,12]],"w_bar_pearl":["AAAAAAAAAAD///8AAgICAAAAAAAAAAAATEVIAK+nsv9/d4H/ST5CAAAAAAAAAAAAAgICAP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABTTVMAe3B3/6ufrP/Er6b/hnNv/3Rpd/9zZm3/UUtRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHVsdQCGe4f/lIWR/8u9x/+5rrz/aFZY/1BBRP9yZ3b/qZii/4J1gf9zanb/bGNsAAAAAAAAAAAAAAAAAAAAAABvZnD/w7O4/35vff+Ieov/wKrO/7CbzP+ll7X/loeg/3lrgP9rYGz/tKKq/19XYf8AAAAAAAAAAAAAAAAAAAAAUkhP/2FJNP98bYP/z7PX/+ve/v/eyPX/29Po/7qryf+um8v/cWR6/2hPO/9FO0H/AAAAAAAAAAAAAAAAAAAAAEE6Q/9VTFn/sKC5/+bX6//w5fH/79Lm/8220v+1nsz/vKPQ/4p4mf9YTlz/PjdA/wAAAAAAAAAAAAAAAAAAAABLRE3/loaU/7msw//Hvcz/ybDL/82z3v+3pdX/wLPd/6eSvv+SgaH/iHqJ/0xDTv8AAAAAAAAAAAAAAAAAAAAAUkpT/4+Bjf+Xi6L/ooyu/7Caxv/Hwe3/1tnw/7+v2f+1rNj/jICZ/39xfv9MQ07/AAAAAAAAAAAAAAAAAAAAADo0PgBcU2D/f3KP/7WgwP+5rcn/wcDc/9jC4//dwuz/uLPa/3Ztif9fV2T/My04AAAAAAAAAAAAAAAAAAAAAAAqJi4AWlFZ/3dgVP+Hd47/r5u9/76x2P/Iu9j/vqzh/5GCrP9wWk//TEVO/y0oLQAAAAAAAAAAAAAAAAAAAAAAAAAAAEQ8Rf9TQjz/c2V8/7yuzv+9tMz/sJy//6aTwP9rYHT/U0I8/zUwOP8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVFR0APzxJ/3dqeP+ViZ//mYqv/6eUuv+Nfpj/bWNv/zo1Q/8WFh4AAQEBAAAAAAAAAAAAAAAAAAAAAABVVVUAAAAAACYiJgBbUVr/kYKS/4tzcf9uXFz/em9//1xTXf8bFxsAAAAAAFVVVQAAAAAAAAAAAAAAAAAAAAAAAAAAAFVVVQAAAAAAIh4mAEhCTP9cTUv/TUBB/zs3Qv8lICkAAAAAAFVVVQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVVVVAAAAAAAAAAAAODVA/zs2Q/8AAAAAAAAAAFVVVQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",[8,8]],"w_bar_sabre":["AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMzMzAAAAAAA0REIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVVVVAAAAAAA1TU0ATmhl/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH9/AAAAAAAhNDQAN1BQ/z9YVQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFVVAAAAAAAiMzMAMUhI/1Fsav88S0sAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wA/Pz8AGSgr/01rav9zkIsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/fwAAAAAAGSYo/zZQUf9UdHD/AAAAAH9/fwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAITI0/y5GSP9MaWf/P0xMAP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAP//AAAAAAAAAFVVAAAAAAAAAAAAJjo8/y1ERv83T0//NUo/AAAAAAAAf38AAAAAAAAAAAAAAAAAf1UqACIiEQAAAAAA////AAAAAAAuRS4ALUNC/y9GSP8wREb/AAAAAAAAAAB/f38AAAAAAAAAAAAAAAAA/wAAADgrGgBzWDP/ZkwoAAAAAAAaNDkAKT9B/y1BQ/8rPz8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABYQiYAfWA3/2hPLf9+XjX/Skc3/zA7Nv8pNDQAAAAAAAB/fwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABkTS0AZk0r/2xTMf98Xzn/clIu/1w/JP9qFQAAAAAAAD8/PwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUzse/xIZIgA1LSn/cVAr/1Y7Iv9CLRkAAAAAACoqKgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGxPLf8/Myn/NiYZ/1c7If9JMh0AACoAAH8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABWPST/PysZ/0gwHAA7KBkAAAAAAP8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",[3.8,12]]};
+
 const BAR_SANJI='baratie_sanji',BAR_MIHAWK='baratie_mihawk';
 const BAR_FOES={
  baratie_pearl:{n:'Pearl',lv:590,hp:46,atk:3.67,def:3.8,spd:68,color:'#f69061'},
@@ -51957,9 +51972,10 @@ function baratieRunClear(M){
  B.run=null;B.stage=null;
 }
 const baratieLive=(M,R)=>G.map===M&&M.baratie.run===R&&R.owner===G.P&&!G.P.dead;
-function baratieStart(stage){
+function baratieStart(stage,rematch=false){
  const M=G.map,P=G.P,B=M?.baratie;
- if(!B||B.run||P.dead||!baratieHere(M,P)||baratieStage(P)!==stage)return;
+ if(!B||B.run||P.dead||!baratieHere(M,P))return;
+ if(rematch?!(BAR_FOES[stage]&&P.baratieSanji&&syrupWon(stage,P)):baratieStage(P)!==stage)return;
  const duel=stage==='duel',at=duel?BARATIE_DUEL:BARATIE_ARENA;
  baratieMovePlayer(M,[at[0],at[1]+4]);
  const [x,y]=dawnPx(at);
@@ -51970,7 +51986,7 @@ function baratieStart(stage){
  st.hp=Math.round(st.hp*(1+.075*victories));
  st.def=Math.round(st.def*(1+.045*victories));
  st.boost*=1+.05*victories;
- const R=B.run={stage,crew:[],foes:[],at,owner:P,start:G.t,beat:0};
+ const R=B.run={stage,rematch,crew:[],foes:[],at,owner:P,start:G.t,beat:0};
  const z=duel?baratieActor(M,SHELLS_CAST_IDS.zoro,x-46,y+2,st.hp):null;
  if(duel){
   R.crew.push(z);R.foes.push(baratieActor(M,BAR_MIHAWK,x+28,y-9));
@@ -52151,6 +52167,7 @@ V33_TICKS.push(dt=>{
  const result=old.apply(this,arguments);
  if(R?.foes.includes(m)){
   baratieRunClear(M);markDirty(true);
+  if(R.rematch)return result;
   const s=baratieStage(P);
   setWp({loc:BAR_FOES[s]?BARATIE_ARENA:BARATIE_GALLEY,m:'dawn',t:BARATIE_NAME});
   if(m.mid==='baratie_pearl')xMsg(L2('Gin rompe el escudo','Gin breaks the shield'),L2('Pearl levanta el escudo por última vez. Gin se lo parte con una de sus tonfas y se planta frente a Sanji.','Pearl raises his shield one last time. Gin shatters it with a tonfa and stands in front of Sanji.'));
@@ -52240,6 +52257,134 @@ GSIS.push(['baratie',BARATIE_NAME,()=>[
   return loc?{loc,m:'dawn',t}:next();
  };
 }
+
+const BAR_LOOT_PITY=10;
+const BAR_WEAPONS=[
+ ['baratie_pearl','w_bar_pearl','Escudo de Nácar','Mother-of-Pearl Shield',600,.08,1.025],
+ ['baratie_gin','w_bar_gin','Tonfa de Contrapeso','Counterweight Tonfa',600,.07,1.04],
+ ['baratie_krieg','w_bar_spear','Lanza de Asedio Dorada','Golden Siege Spear',605,.06,1.065],
+ ['baratie_krieg','w_bar_sabre','Sable de la Flota','Fleet Sabre',605,.04,1.09]
+];
+const BAR_BASE_ATK=Math.max(...Object.values(ITEMS).filter(i=>i.slot==='weapon'&&i.lv<=605).map(i=>i.atk||0));
+const BAR_LOOT=Object.fromEntries(Object.keys(BAR_FOES).map(id=>[id,[]]));
+const BAR_WEAPON_PX={};
+for(const [boss,id,es,en,lv,ch,mul] of BAR_WEAPONS){
+ const art=BAR_LOOT_WEAPON_ART[id];
+ BAR_WEAPON_PX[id]={pix:wsprPix(art[0]),pivot:art[1]};
+ it(id,{n:L2(es,en),t:'weapon',slot:'weapon',lv,tier:44,atk:Math.ceil(BAR_BASE_ATK*mul),rar:5,
+  price:68000,icon:['baratie_weapon',id],d:L2('Arma de Baratie para cualquier clase. Mantiene las habilidades de tu clase.','Baratie weapon for any class. Retains your class skills.')});
+ BAR_LOOT[boss].push({id,ch,pity:BAR_LOOT_PITY});
+}
+const BAR_LAV=P5(['#292439','#443951','#675373','#9280a3','#b4a1c2']);
+const BAR_PEARL=P5(['#3c3549','#665a75','#9887a8','#c2b2d3','#e5d6ee']);
+fitKind('head','baratie_wrap',(p,A,s)=>{
+ const {hx,hrx,ey,side}=A,m=s.m,y=ey-3;
+ const left=Math.round(hx-hrx+1),width=Math.round(2*hrx-1);
+ p.hl(left,y,width,m[1]);p.hl(left,y+1,width,m[3]);p.hl(left+1,y+2,width-2,m[2]);
+ if(s.stripe)p.hl(left+1,y+2,width-2,m[0]);
+ if(side)p.set(left+width-2,y+1,m[4]);
+},{face:true});
+fitKind('body','baratie_plate',(p,A,s)=>{
+ const {tx0,tw,torsoTop:y,th,cx,up,side}=A,m=s.m;
+ p.hl(tx0,y+1,tw,m[3]);
+ for(let i=2;i<th-1;i+=2)p.hl(tx0+1,y+i,tw-2,m[2]);
+ if(up)return;
+ if(side){p.vl(cx,y+2,th-3,m[3]);return;}
+ p.ell(cx,y+th*.48,Math.max(2,tw*.36),Math.max(2,th*.36),m[0]);
+ p.ell(cx,y+th*.48,Math.max(1,tw*.28),Math.max(1,th*.28),m[3]);
+ p.set(cx,y+Math.floor(th*.48),m[4]);
+});
+const BAR_WARDROBE={
+ baratie_pearl:[
+  ['head','Casco de Nácar','Pearl Helm',{k:'of_hardhat',cover:'hat',m:BAR_PEARL}],
+  ['body','Coraza de Nácar','Pearl Breastplate',{k:'baratie_plate',m:BAR_PEARL}],
+  ['legs','Pantalón acolchado de Pearl','Pearl’s Padded Trousers',{k:'rm_pantalon',m:BAR_LAV}],
+  ['feet','Botas de guardia de Pearl','Pearl’s Guard Boots',{k:'boots',m:SY.negro}]
+ ],
+ baratie_gin:[
+  ['head','Venda rayada de Gin','Gin’s Striped Bandage',{k:'baratie_wrap',m:BAR_PEARL,stripe:true}],
+  ['body','Chaqueta de Gin','Gin’s Jacket',{k:'sy_frac',m:SY.blanco,vest:SY.oliva,gold:false}],
+  ['legs','Pantalón blanco de Gin','Gin’s White Trousers',{k:'sy_rayas',m:SY.blanco,s:BAR_LAV}],
+  ['feet','Botas de Gin','Gin’s Boots',{k:'boots',m:SY.negro}]
+ ],
+ baratie_krieg:[
+  ['head','Venda de Don Krieg','Don Krieg’s Bandage',{k:'baratie_wrap',m:SY.blanco}],
+  ['body','Coraza dorada de Don Krieg','Don Krieg’s Golden Breastplate',{k:'baratie_plate',m:SY.oro}],
+  ['legs','Pantalón de Don Krieg','Don Krieg’s Trousers',{k:'rm_pantalon',m:BAR_LAV}],
+  ['feet','Botas blindadas de Don Krieg','Don Krieg’s Armored Boots',{k:'boots',m:SY.oro}],
+  ['back','Capa de almirante de Don Krieg','Don Krieg’s Admiral Cape',{k:'cape',o:BAR_LAV,i:SY.morado,tr:SY.blanco}]
+ ]
+};
+const BAR_SOURCES={};
+for(const [boss,pieces] of Object.entries(BAR_WARDROBE)){
+ for(const [slot,es,en,vis] of pieces){
+  const id='c_'+boss+'_'+slot, item='cosi_'+id,n=L2(es,en);
+  const src=L2('Botín de ','Dropped by ')+BAR_FOES[boss].n+' · Baratie';
+  const ch=slot==='back'?.14:slot==='body'?.18:.22;
+  cosm(id,n,slot,()=>vis,{src});
+  it(item,{n,t:'cos',cos:id,price:26000,icon:['hanger'],rar:4,d:L2('Pieza cosmética del Armario. ','Wardrobe cosmetic. ')+src});
+  BAR_LOOT[boss].push({id:item,cos:id,ch,pity:BAR_LOOT_PITY});
+ }
+ for(const item of BAR_LOOT[boss])BAR_SOURCES[item.id]=boss;
+}
+SAVEKEYS.push('baratiePity');
+const baratieOwn=(P,r)=>r.cos?(P.wardrobe||[]).includes(r.cos):P.equip.weapon?.id===r.id||countItem(r.id)>0;
+for(const boss of Object.keys(BAR_LOOT))BOSS_EXTRA[boss]=()=>{
+ const P=G.P;
+ return P?BAR_LOOT[boss].filter(r=>!baratieOwn(P,r)).map(r=>[
+  r.id,r.ch,L2('seguro en ','sure in ')+Math.max(1,r.pity-(P.baratiePity?.[r.id]||0))
+ ]):[];
+};
+{const old=bossKilled;bossKilled=function(m){
+ const P=G.P,R=G.map?.baratie?.run,items=R?.foes.includes(m)?BAR_LOOT[m.mid]:null;
+ const result=old.apply(this,arguments);
+ if(!items)return result;
+ const counters=P.baratiePity||(P.baratiePity={});
+ for(const r of items){
+  if(baratieOwn(P,r))continue;
+  const n=Math.min(r.pity,(counters[r.id]||0)+1);
+  counters[r.id]=n;
+  if(n<r.pity&&Math.random()>=Math.min(1,r.ch*dropEventMul()))continue;
+  if(giveItem(r.id,1,true)){delete counters[r.id];lootFx(m.x,m.y,r.id);}
+ }
+ markDirty(true);return result;
+};}
+DLG_HOOKS.push((npc,opts)=>{
+ const P=G.P,M=G.map;
+ if(npc?.id!=='baratie_zeff'||!P.baratieSanji||!baratieHere(M,P)||M.baratie.run)return;
+ for(const id of Object.keys(BAR_FOES))opts.push({
+  label:L2('Revancha · ','Rematch · ')+BAR_FOES[id].n,icon:['sword'],
+  fn:()=>{closeDialog();baratieStart(id,true);}
+ });
+});
+{const old=itemSources;itemSources=function(id){
+ const key=BAR_SOURCES[id]?id:'cosi_'+id,boss=BAR_SOURCES[key];
+ if(!boss)return old.apply(this,arguments);
+ const {ch,pity}=BAR_LOOT[boss].find(r=>r.id===key);
+ return [[BAR_FOES[boss].n+' · '+Math.round(ch*100)+'% · '+L2('seguro a las ','guaranteed after ')+pity+L2(' victorias',' wins'),
+  {loc:BARATIE_ARENA,m:'dawn',t:BARATIE_NAME}]];
+};}
+{const old=genIcon;genIcon=function(spec){return spec[0]==='baratie_weapon'?BAR_WEAPON_PX[spec[1]].pix:old.apply(this,arguments);};}
+{const old=gearTiers;gearTiers=function(P){
+ const gear=old.apply(this,arguments),id=P.equip.weapon?.id;
+ if(BAR_WEAPON_PX[id])gear.barWeapon=id;
+ return gear;
+};}
+{const old=cleanGear;cleanGear=function(g){
+ const gear=old.apply(this,arguments);
+ if(g&&Object.hasOwn(BAR_WEAPON_PX,g.barWeapon))gear.barWeapon=g.barWeapon;
+ return gear;
+};}
+{const old=heroLook;heroLook=function(cls,app,gear){
+ const look=old.apply(this,arguments);
+ if(gear&&BAR_WEAPON_PX[gear.barWeapon])look.weapon={...look.weapon,barWeapon:gear.barWeapon};
+ return look;
+};}
+{const old=drawWeapon;drawWeapon=function(p,w,x,y,angle){
+ const art=BAR_WEAPON_PX[w?.barWeapon];
+ if(!art)return old.apply(this,arguments);
+ drawSpriteRot(p,art.pix,x,y,w.barWeapon==='w_bar_pearl'?-Math.PI/4:angle,art.pivot);
+};}
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;

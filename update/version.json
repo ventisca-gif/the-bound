@@ -1,20 +1,20 @@
 {
- "build": 225,
- "ver": "6.04",
+ "build": 226,
+ "ver": "6.05",
  "date": "2026-11-24",
  "file": "thebound.html",
- "size": 34868581,
- "sha256": "95d7d8566224ea86b04a114236aeb3291338a233230e7ea84a31ce8445a804a0",
+ "size": 34881288,
+ "sha256": "cb4ff8bc61b0081b05eb9c6007134b8f858e40f163482d78957cf0cf581e5223",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Nuevo restaurante marítimo Baratie después de Villa Syrup. Defiende la cubierta contra Pearl (590), Gin (592) y Don Krieg (595), y recluta a Sanji.",
-   "Duelo de 40 segundos entre Zoro y Mihawk. Mihawk tiene un sprite de proporciones adultas, caminata en cuatro direcciones y ataques con cuchillo y espada."
+   "Pearl, Gin y Don Krieg sueltan 13 piezas para el Armario y cuatro armas de nivel 600–605 para todas las clases.",
+   "Cada pieza y arma tiene su propia garantía a las 10 victorias contra su jefe. Habla con Zeff para repetir los combates tras reclutar a Sanji."
   ],
   "en": [
-   "The Baratie floating restaurant opens after Syrup Village. Defend the deck against Pearl (590), Gin (592) and Don Krieg (595), then recruit Sanji.",
-   "Zoro and Mihawk’s 40-second duel. Mihawk has an adult-proportioned sprite, four-direction movement and dagger and sword attacks."
+   "Pearl, Gin and Don Krieg drop 13 Wardrobe pieces and four level 600–605 weapons for all classes.",
+   "Each piece and weapon has its own guarantee after 10 wins against its boss. Talk to Zeff for rematches after recruiting Sanji."
   ]
  }
 }
