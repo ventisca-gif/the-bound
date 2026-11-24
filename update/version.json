@@ -1,24 +1,24 @@
 {
- "build": 219,
- "ver": "5.98",
+ "build": 220,
+ "ver": "5.99",
  "date": "2026-11-24",
  "file": "thebound.html",
- "size": 32289387,
- "sha256": "13a6ccc79df22b1ffd690e5174136179f08550a4ff9a54637f915c00dbe0f568",
+ "size": 32312089,
+ "sha256": "4495f8c06925b9ac5d08e07446107e8935170c149affc9371ddfccbaf304c463",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Minijuegos: en todos los que se juegan con ⚔, mantenerlo pulsado ya no cuenta como muchos toques (igual que se arregló la pesca en el hielo).",
-   "Kuro suelta su botín: Garras del Gato (arma para todas las clases a nivel 580: dos zarpazos por golpe y cada cuarto golpe «Paso sin sonido», un tajo en línea sin recibir daño), sus gafas redondas y su frac, pantalón y zapatos. Revancha: habla con Kaya al terminar la historia.",
-   "Villa Syrup: todos sus personajes hablan del arco según el momento de la historia (antes, durante y después del ataque).",
-   "Merry vende la ropa de toda la isla por piezas como cosméticos: Dama de la Mansión, Hipnotista del Péndulo, Mayordomo Carnero, Gato Ligero, Gato Pesado y Piratas Pequeños (y el conjunto de Kuro cuando ya lo venciste). Gafas de corazón del hipnotista en Armario › 👓 Cara."
+   "Torre de los Portales: 5 portales nuevos de nivel alto con más enemigos — Fortaleza de Obsidiana (400), Jardín de Cristal Negro (450), Ciudad Hundida del Portal (500), Forja del Dios Caído (550) y Trono del Último Portal (600), con 12 enemigos y 5 jefes nuevos.",
+   "Las mazmorras ya no son todas la misma cueva: fortaleza de salas, anillo con cámara central, gran salón de columnas, catedral con capillas y sala del trono.",
+   "Los cazadores suben de nivel hasta el máximo: peleando contigo, al cerrar portales y entrenando solos cada día.",
+   "14 cazadores de élite (nivel 400-600) con armaduras de los tiers altos y transformaciones te esperan en la Antesala."
   ],
   "en": [
-   "Minigames: in every one played with ⚔, holding it no longer counts as many taps (like the ice fishing fix).",
-   "Kuro drops his loot: Cat Claws (all-class weapon at level 580: two swipes per attack and every fourth attack “Silent Step”, a line slash while untouchable), his round glasses and his tailcoat, trousers and shoes. Rematch: talk to Kaya after the story.",
-   "Syrup Village: every character talks about the arc depending on the story moment (before, during and after the attack).",
-   "Merry sells the whole island’s clothes piece by piece as cosmetics: Lady of the Manor, Pendulum Hypnotist, Ram Steward, Nimble Cat, Heavy Cat and Little Pirates (and Kuro’s set once you have beaten him). Hypnotist’s heart glasses in Wardrobe › 👓 Face."
+   "Portal Tower: 5 new high-level portals with more enemies — Obsidian Fortress (400), Black Crystal Garden (450), Sunken Portal City (500), Fallen God’s Forge (550) and Throne of the Last Portal (600), with 12 new enemies and 5 new bosses.",
+   "Dungeons are no longer all the same cave: hall fortress, ring with a central chamber, pillared great hall, cathedral with chapels and throne room.",
+   "Hunters level up to the cap: fighting with you, closing portals and training on their own every day.",
+   "14 elite hunters (level 400-600) with high-tier armour and transformations wait in the Antechamber."
   ]
  }
 }
