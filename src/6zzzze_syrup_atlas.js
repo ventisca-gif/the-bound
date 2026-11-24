@@ -1,6 +1,7 @@
 const SYRUP_CAST_ROWS=['usopp','kuro','jango','kaya','sham','buchi','merry','ninjin','piman','tamanegi'];
 const SYRUP_ATTACK_ROWS=['usopp','kuro','jango','sham','buchi'];
 const SYRUP_ATLAS_W=172,SYRUP_ATLAS_H=152;
+const SYRUP_STANCE_COLUMNS=[0,2,3,1];
 const SYRUP_IMAGES=[new Image(),new Image(),new Image()];
 SYRUP_IMAGES[0].src=SYRUP_STANCES;
 SYRUP_IMAGES[1].src=SYRUP_STRIKES;
@@ -14,7 +15,7 @@ function syrupAtlas(id){
  const strike=SYRUP_ATTACK_ROWS.indexOf(kind);
  return getAtlas('syrup:'+id+':'+Number(hasStrikes),()=>{
   const result=dawnPixelAtlas(W/2,H/2,DAWN_ALT_ANIMS,12,(g,col,row)=>{
-   const sx=ORANGE_DIR_CELL[row]*W,sy=index*H,body=H-6;
+   const sx=SYRUP_STANCE_COLUMNS[row]*W,sy=index*H,body=H-6;
    const frame=(dx=0,dy=0)=>g.drawImage(image,sx,sy,W,H,dx,dy,W,H);
    if(col===11){
     g.translate(W/2,body);g.rotate(-Math.PI/2);g.scale(.72,.72);g.translate(-W/2,-body);frame();return;
