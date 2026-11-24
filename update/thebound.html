@@ -49574,7 +49574,13 @@ function syrupAtlas(id){
    for(let leg=0;leg<2;leg++){
     const phase=(leg===0)===(step<2),lift=phase?(step%2===0?7:3):0;
     const x=leg*W/2,shift=side?(phase?-1:1)*(step%2===0?6:3):0;
-    g.drawImage(image,sx+x,sy+cut,W/2,H-cut,x+shift,cut+bob,W/2,H-cut-lift);
+    g.save();
+    if(shift){
+     const tilt=shift/(body-cut);
+     g.transform(1,0,tilt,1,-tilt*(cut+bob),0);
+    }
+    g.drawImage(image,sx+x,sy+cut,W/2,H-cut,x,cut+bob,W/2,H-cut-lift);
+    g.restore();
    }
    g.drawImage(image,sx,sy,W,cut+1,0,bob,W,cut+1);
   });
