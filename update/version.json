@@ -1,24 +1,20 @@
 {
- "build": 211,
- "ver": "5.90",
+ "build": 212,
+ "ver": "5.91",
  "date": "2026-11-24",
  "file": "thebound.html",
- "size": 31558714,
- "sha256": "89429d815b6a6bec790aca63053dfa62189ecf371fb75dbd1ca276b998fc017e",
+ "size": 31561428,
+ "sha256": "ed2bb136000cd197766fb51293623edd66ec4e054161db02cb1e5359ca4671ea",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Tras derrotar a Morgan en Shells Town, navega a Orange Town y lucha junto a Luffy y Zoro contra Cabaji (nivel 567) y Buggy (nivel 570), en ese orden.",
-   "Buggy se divide en varios fragmentos que persiguen al grupo y vuelve a ensamblarse tras los cortes. Su botín incluye la Fruta Bara Bara, que da 10 % de probabilidad de esquivar ataques, las Garras de Buggy para todas las clases y su vestuario por piezas, con intentos garantizados.",
-   "Recluta a Nami tras vencer a Buggy y el bote se convierte en el Going Merry. Habla con la tripulación en tierra o a bordo y pídele a Nami que marque el rumbo.",
-   "Desembarca en la Isla de los Animales Raros, ayuda a Gaimon a buscar cinco cofres y elige a quién llevar contigo o dejar en el barco. Luffy, Zoro y Nami se quedan en el Mar de Dawn y tienen nuevos pasos de frente y de espaldas."
+   "Los jefes del Mar de Dawn ahora pegan de verdad: Alvida, Morgan, Cabaji, Buggy y Shanks hacen bastante más daño, incluso con despertares, transformación y oficios. Esquiva sus ataques marcados y lleva pociones.",
+   "Solo sube el daño que te hacen a ti: Luffy, Zoro y Nami, los piratas, la Marina, la vida de los jefes y los duelos PvP no cambian."
   ],
   "en": [
-   "After defeating Morgan in Shells Town, sail to Orange Town and fight alongside Luffy and Zoro against Cabaji (level 567) and Buggy (level 570), in that order.",
-   "Buggy splits into pieces that chase the party and reassembles after sword strikes. His drops include the Chop-Chop Fruit, which grants a 10% chance to dodge attacks, Buggy's Claws for all classes, and individual costume pieces, with guaranteed drops after enough attempts.",
-   "Recruit Nami after beating Buggy to turn the small boat into the Going Merry. Talk to the crew on land or aboard and ask Nami to set a waypoint.",
-   "Land on the Island of Rare Animals, help Gaimon search five chests, and choose who goes ashore or stays on the ship. Luffy, Zoro and Nami stay in the Dawn Sea and have new walking frames for facing forward and backward."
+   "Dawn Sea bosses now hit for real: Alvida, Morgan, Cabaji, Buggy and Shanks deal much more damage, even with awakenings, transformations and jobs. Dodge their marked attacks and bring potions.",
+   "Only the damage they deal to you goes up: Luffy, Zoro and Nami, pirates, the Navy, boss HP and PvP duels are unchanged."
   ]
  }
 }

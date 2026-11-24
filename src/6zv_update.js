@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.90', GAME_BUILD = 211;
+const GAME_VER = '5.91', GAME_BUILD = 212;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.91",
+ "b": 212,
+ "d": "2026-11-24",
+ "es": [
+  "Los jefes del Mar de Dawn ahora pegan de verdad: Alvida, Morgan, Cabaji, Buggy y Shanks hacen bastante más daño, incluso con despertares, transformación y oficios. Esquiva sus ataques marcados y lleva pociones.",
+  "Solo sube el daño que te hacen a ti: Luffy, Zoro y Nami, los piratas, la Marina, la vida de los jefes y los duelos PvP no cambian."
+ ],
+ "en": [
+  "Dawn Sea bosses now hit for real: Alvida, Morgan, Cabaji, Buggy and Shanks deal much more damage, even with awakenings, transformations and jobs. Dodge their marked attacks and bring potions.",
+  "Only the damage they deal to you goes up: Luffy, Zoro and Nami, pirates, the Navy, boss HP and PvP duels are unchanged."
+ ]
+},
 {
  "v": "5.90",
  "b": 211,
