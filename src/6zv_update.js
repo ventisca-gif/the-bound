@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.91', GAME_BUILD = 212;
+const GAME_VER = '5.92', GAME_BUILD = 213;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.92",
+ "b": 213,
+ "d": "2026-11-24",
+ "es": [
+  "Villa Syrup se conecta al sur del Mar de Dawn. Tras terminar la historia de Gaimon, desembarca, habla con Usopp y avisa a Kaya en su mansión.",
+  "Zoro te ayuda contra Sham y Buchi (nivel 572). Enfrenta a Jango (572) con Nami y Usopp, y a Kuro (580) con Luffy.",
+  "Recluta a Usopp como tirador de nivel 580. Nuevos sprites proporcionados a la referencia, con caminata y tirachinas en cuatro direcciones. Alterna proyectiles normales con la Estrella de Pólvora.",
+  "Habla con Luffy, Zoro, Nami y Usopp en tierra y en el Going Merry. Hay temas nuevos sobre su pasado, la navegación, el combate y lo que pasó en Villa Syrup."
+ ],
+ "en": [
+  "Syrup Village joins the southern Dawn Sea. Finish Gaimon’s story, go ashore, talk to Usopp and warn Kaya at her manor.",
+  "Zoro helps you fight Sham and Buchi (level 572). Face Jango (572) with Nami and Usopp, then fight Kuro (580) with Luffy.",
+  "Recruit Usopp as a level 580 sharpshooter. New reference-proportioned sprites with four-direction walking and slingshot attacks. He mixes regular projectiles with Gunpowder Star.",
+  "Talk to Luffy, Zoro, Nami and Usopp on land or aboard the Going Merry. New topics cover their past, navigation, combat and what happened at Syrup Village."
+ ]
+},
 {
  "v": "5.91",
  "b": 212,

@@ -1,0 +1,39 @@
+name: Package The Bound 5.92
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches: [main]
+    paths: ['.github/workflows/package-592.yml']
+permissions: {}
+jobs:
+  package:
+    if: github.actor == 'ventisca-gif' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'codex/villa-syrup-592'
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Build and verify the approved updater package
+        run: |
+          mkdir -p tools/i18n/vendor
+          npm pack acorn@8.14.0 --pack-destination /tmp
+          tar -xOzf /tmp/acorn-8.14.0.tgz package/dist/acorn.js > tools/i18n/vendor/acorn.js
+          python3 tools/dev/release.py
+          python3 -c "import json,hashlib,pathlib; j=json.load(open('update/version.json')); payload=pathlib.Path('update/thebound.html').read_bytes(); sha=hashlib.sha256(payload).hexdigest(); assert (j['build'],j['ver'],j['sha256'],sha,j['size'])==(213,'5.92','07aaab6229166a5e307ea6616a518d04bfd1441d5ad35eed8bebfc61422d4262','07aaab6229166a5e307ea6616a518d04bfd1441d5ad35eed8bebfc61422d4262',len(payload))"
+      - name: Commit the two updater files to the PR branch
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git fetch origin refs/heads/codex/villa-syrup-592
+          test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_HEAD"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add update/thebound.html update/version.json
+          git commit -m 'Package verified The Bound 5.92 updater'
+          git push origin HEAD:refs/heads/codex/villa-syrup-592
