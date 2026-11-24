@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.87', GAME_BUILD = 208;
+const GAME_VER = '5.88', GAME_BUILD = 209;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,25 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.88",
+ "b": 209,
+ "d": "2026-11-24",
+ "es": [
+  "👑 Voluntad: sube al vencer enemigos (+1, jefes +25) con 10 rangos. Con el rango 1 despiertas el Aura del Conquistador (ponla en una casilla en Habilidades): onda roja con rayos negros que desmaya a los enemigos según tu rango y tumba a los muy débiles. Los jefes aguantan hasta el rango 8.",
+  "😵 Shanks ahora usa su aura: si tu voluntad es menor que rango 6, te desmayas unos segundos en el duelo.",
+  "📜 Recompensa y carteles de búsqueda: sube al vencer cualquier enemigo; cada nivel de peligro saca un cartel «Se busca · vivo o muerto» con tu cara. Lo ves en Habilidades y en carteles de Foosha y La Tortuga Glotona.",
+  "⚓ La Marina en el Mar de Dawn: sus barcos te persiguen y, si te alcanzan, te abordan y peleas en su cubierta. En las islas un marine pregunta por ti: puedes mentir o pelear; con mucho peligro hay emboscadas. Si te derrotan pagas una multa.",
+  "🛠 Arreglo: el botón de nadar mostraba un texto raro en vez de «Nadar»."
+ ],
+ "en": [
+  "👑 Will: rises by defeating enemies (+1, bosses +25) with 10 ranks. At rank 1 you awaken the Conqueror's Aura (put it in a slot in Skills): a red wave with black lightning that knocks enemies out depending on your rank and drops very weak ones. Bosses resist until rank 8.",
+  "😵 Shanks now uses his aura: if your will is below rank 6, you faint for a few seconds in the duel.",
+  "📜 Bounty and wanted posters: it rises with any defeated enemy; each danger level brings a 'Wanted · dead or alive' poster with your face. See it in Skills and on posters in Foosha and the Gluttonous Turtle.",
+  "⚓ The Navy in the Dawn Sea: their ships chase you and, if they catch you, they board you and you fight on their deck. On the islands a marine asks about you: you can lie or fight; with high danger there are ambushes. If they beat you, you pay a fine.",
+  "🛠 Fix: the swim button showed odd text instead of 'Swim'."
+ ]
+},
 {
  "v": "5.87",
  "b": 208,

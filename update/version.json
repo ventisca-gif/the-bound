@@ -1,24 +1,26 @@
 {
- "build": 208,
- "ver": "5.87",
+ "build": 209,
+ "ver": "5.88",
  "date": "2026-11-24",
  "file": "thebound.html",
- "size": 29330947,
- "sha256": "dee60cd7efaffe7d12f8ce75a0576917bbea2c012d021e715064663fa49cc976",
+ "size": 29368752,
+ "sha256": "4c4da35eebe5818f909eaa095c777ea6e494fa019104bede26006ce5dc24d994",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🛠 Arreglo: el mapa del Mar de Dawn daba un error rojo y no dejaba cambiar de mapa con las flechas (un punto de La Tortuga Glotona tenía una categoría que no existía). Ahora el mapa ignora cualquier punto así.",
-   "👕 Ropa de los mares (cosméticos por piezas) en La Tortuga Glotona: la Modista Marea, en la recepción, la vende y hay maniquíes con la ropa puesta.",
-   "🗡 Espadachín: pañuelo negro atado, camiseta de botones con faja verde (y pañuelo en el brazo), pantalón negro, botas negras y tres katanas al cinto. 🎯 Francotirador: pañuelo con gafas, peto marrón con faja blanca, correa y muñequera de rayas, pantalón y bolsa de lona.",
-   "🧭 Navegante: camiseta blanca de franjas azules, minifalda naranja y sandalias. 🍳 Cocinero: chaqueta negra cruzada con botones dorados, camisa celeste y corbata, pantalón de traje y zapatos negros. Todo se ve en las 10 estructuras de cuerpo."
+   "👑 Voluntad: sube al vencer enemigos (+1, jefes +25) con 10 rangos. Con el rango 1 despiertas el Aura del Conquistador (ponla en una casilla en Habilidades): onda roja con rayos negros que desmaya a los enemigos según tu rango y tumba a los muy débiles. Los jefes aguantan hasta el rango 8.",
+   "😵 Shanks ahora usa su aura: si tu voluntad es menor que rango 6, te desmayas unos segundos en el duelo.",
+   "📜 Recompensa y carteles de búsqueda: sube al vencer cualquier enemigo; cada nivel de peligro saca un cartel «Se busca · vivo o muerto» con tu cara. Lo ves en Habilidades y en carteles de Foosha y La Tortuga Glotona.",
+   "⚓ La Marina en el Mar de Dawn: sus barcos te persiguen y, si te alcanzan, te abordan y peleas en su cubierta. En las islas un marine pregunta por ti: puedes mentir o pelear; con mucho peligro hay emboscadas. Si te derrotan pagas una multa.",
+   "🛠 Arreglo: el botón de nadar mostraba un texto raro en vez de «Nadar»."
   ],
   "en": [
-   "🛠 Fix: the Dawn Sea map showed a red error and the arrows stopped switching maps (a Gluttonous Turtle marker had a category that did not exist). The map now ignores any such marker.",
-   "👕 Sea clothes (cosmetics, piece by piece) at the Gluttonous Turtle: Marea the dressmaker sells them at the reception, with mannequins wearing them.",
-   "🗡 Swordsman: tied black headscarf, button tee with green belly band (and an arm scarf), black trousers, black boots and three katanas at the hip. 🎯 Sharpshooter: headscarf with goggles, brown bib with white sash, strap and striped wristband, trousers and canvas bag.",
-   "🧭 Navigator: white tee with blue stripes, orange miniskirt and sandals. 🍳 Cook: black double-breasted jacket with gold buttons, light blue shirt and tie, suit trousers and black shoes. Everything fits all 10 body builds."
+   "👑 Will: rises by defeating enemies (+1, bosses +25) with 10 ranks. At rank 1 you awaken the Conqueror's Aura (put it in a slot in Skills): a red wave with black lightning that knocks enemies out depending on your rank and drops very weak ones. Bosses resist until rank 8.",
+   "😵 Shanks now uses his aura: if your will is below rank 6, you faint for a few seconds in the duel.",
+   "📜 Bounty and wanted posters: it rises with any defeated enemy; each danger level brings a 'Wanted · dead or alive' poster with your face. See it in Skills and on posters in Foosha and the Gluttonous Turtle.",
+   "⚓ The Navy in the Dawn Sea: their ships chase you and, if they catch you, they board you and you fight on their deck. On the islands a marine asks about you: you can lie or fight; with high danger there are ambushes. If they beat you, you pay a fine.",
+   "🛠 Fix: the swim button showed odd text instead of 'Swim'."
   ]
  }
 }

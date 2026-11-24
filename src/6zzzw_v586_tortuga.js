@@ -230,6 +230,7 @@ function tgPaint(M, cx, cy) {
 { const old = renderChunk; renderChunk = function (M, cx, cy) { return M && M.tortuga ? tgPaint(M, cx, cy) : old.apply(this, arguments); }; }
 
 // ---------- subir y bajar ----------
+const tgLab = k => { const X = XACT[k] && XACT[k][0]; return typeof X === 'function' ? X() : X; };
 const tgDockPx = () => [TG_DOCK[0] * 16 + 8, TG_DOCK[1] * 16 + 8];
 function tgBoardAction() { const P = G.P, M = G.map; if (!M || !M.dawn || !P || !P.dawnHelm || P.dead || G.fading) return null; const [x, y] = tgDockPx(); return dist2(P.x, P.y, x, y) < (P.dawnHelm.kind === 'galleon' ? 130 : 70) ** 2 ? 'tort_board' : null; }
 function tgBoard() { const P = G.P; if (tgBoardAction() !== 'tort_board') return; transition(() => { P._tortTrip = { h: P.dawnHelm, x: P.x, y: P.y, dir: P.dir }; P.inside = 'tortuga'; const M = makeTortuga(); setMap(M, 23.5 * 16, 32 * 16 + 8, 'up');
@@ -318,9 +319,9 @@ XACT.swim_boat = [L2('Subir al bote', 'Climb into the boat'), 'ways', () => swim
 XACT.swim_out = [L2('Salir del agua', 'Climb out of the water'), 'ways', () => swimOut(false)];
 // prioridad: subir a la tortuga > acciones de nado > lo demás
 { const _it = interactTarget; interactTarget = function () { const P = G.P, M = G.map;
-  try { if (M && M.dawn && P && !P.dead) { const b = tgBoardAction(); if (b) return { kind: 'xact', label: XACT[b][0], icon: 'ways', o: { xact: b } };
-    const H = P.dawnHelm; if (H && H.kind === 'swim') { const k = swimAction(); if (k) return { kind: 'xact', label: XACT[k][0], icon: 'ways', o: { xact: k } }; const r = _it.apply(this, arguments); return r && r.o && /alvida_(board|deck)/.test(r.o.xact) ? null : r; }
-    const r = _it.apply(this, arguments); if (r) return r; if (!H) { const k = swimAction(); if (k) return { kind: 'xact', label: XACT[k][0], icon: 'ways', o: { xact: k } }; } return r; } } catch (e) { }
+  try { if (M && M.dawn && P && !P.dead) { const b = tgBoardAction(); if (b) return { kind: 'xact', label: tgLab(b), icon: 'ways', o: { xact: b } };
+    const H = P.dawnHelm; if (H && H.kind === 'swim') { const k = swimAction(); if (k) return { kind: 'xact', label: tgLab(k), icon: 'ways', o: { xact: k } }; const r = _it.apply(this, arguments); return r && r.o && /alvida_(board|deck)/.test(r.o.xact) ? null : r; }
+    const r = _it.apply(this, arguments); if (r) return r; if (!H) { const k = swimAction(); if (k) return { kind: 'xact', label: tgLab(k), icon: 'ways', o: { xact: k } }; } return r; } } catch (e) { }
   return _it.apply(this, arguments); }; }
 // desde el bote: botón para tirarse al agua (en el bote ⚔ no hace nada)
 { const _ba = basicAttack; basicAttack = function () { const P = G.P; if (P && P.dawnHelm && P.dawnHelm.kind === 'skiff' && G.map && G.map.dawn && !tgBoardAction()) { const it = interactTarget(); if (!it) { swimIn(true); return; } } return _ba.apply(this, arguments); }; }
