@@ -32,7 +32,7 @@ DL_HOOKS.push((list,cx,cy)=>{
  if(H&&H.kind!=='swim'){vessel=P;kind=H.kind;}
  else if(B){
   vessel=B;kind=B.h?.kind;
-  if(!H&&(B.rare||B.orange||B.syrup))mask&=~dawnCrewMask(P);
+  if(!H&&(B.rare||B.orange||B.syrup||B.baratie))mask&=~dawnCrewMask(P);
  }else if(P.shellBerth&&M.shells){
   const [x,y]=shellsDockPoint(M,SHELL_MOORING);
   vessel={x,y,dir:'down'};kind=P.shellBerth.kind;
@@ -51,7 +51,7 @@ DL_HOOKS.push((list,cx,cy)=>{
  }
  DAWN_CREW.forEach(([id],i)=>{
   if(!(mask&(1<<i)))return;
-  const dx=(merry?[-56,49,91,-90]:[-37,-16,37,13])[i]*side,dy=(merry?[7,11,6,11]:[7,12,6,9])[i];
+  const dx=(merry?[-56,49,91,-90,18]:[-37,-16,37,13,55])[i]*side,dy=(merry?[7,11,6,11,4]:[7,12,6,9,2])[i];
   const x=vessel.x+dx,y=vessel.y+dy;
   list.push({x,y,noShadow:true,type:'xdraw',draw:()=>{
    const A=npcAtlas(id),zoom=merry?.72:.62;

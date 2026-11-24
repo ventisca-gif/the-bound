@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.03', GAME_BUILD = 224;
+const GAME_VER = '6.04', GAME_BUILD = 225;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.04",
+ "b": 225,
+ "d": "2026-11-24",
+ "es": [
+  "Nuevo restaurante marítimo Baratie después de Villa Syrup. Defiende la cubierta contra Pearl (590), Gin (592) y Don Krieg (595), y recluta a Sanji.",
+  "Duelo de 40 segundos entre Zoro y Mihawk. Mihawk tiene un sprite de proporciones adultas, caminata en cuatro direcciones y ataques con cuchillo y espada."
+ ],
+ "en": [
+  "The Baratie floating restaurant opens after Syrup Village. Defend the deck against Pearl (590), Gin (592) and Don Krieg (595), then recruit Sanji.",
+  "Zoro and Mihawk’s 40-second duel. Mihawk has an adult-proportioned sprite, four-direction movement and dagger and sword attacks."
+ ]
+},
 {
  "v": "6.03",
  "b": 224,
