@@ -1,13 +1,13 @@
-name: Package Baratie 6.04
+name: Package Baratie 6.05
 on:
   pull_request:
     branches: [main]
-    paths: ['src/6zzzzv_baratie_story.js']
+    paths: ['src/6zzzzw_baratie_loot.js']
 permissions:
   contents: write
 jobs:
   package:
-    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'codex/baratie-604'
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'codex/baratie-605'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -28,18 +28,18 @@ jobs:
           folder = pathlib.Path('update')
           manifest = json.loads((folder / 'version.json').read_text())
           page = (folder / manifest['file']).read_bytes()
-          assert manifest['build'] == 225 and manifest['ver'] == '6.04'
+          assert manifest['build'] == 226 and manifest['ver'] == '6.05'
           assert len(page) == manifest['size']
           assert hashlib.sha256(page).hexdigest() == manifest['sha256']
-          assert b'function mihawkAtlas' in page and b'const BAR_MIHAWK_IMAGE' in page
+          assert b'const BAR_LOOT_PITY=10' in page and b'w_bar_sabre' in page
           PY
       - name: Commit verified package to the release branch
         run: |
-          git fetch origin codex/baratie-604
+          git fetch origin codex/baratie-605
           test "$(git rev-parse FETCH_HEAD)" = "$(git rev-parse HEAD)"
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add update/thebound.html update/version.json
           git diff --cached --quiet && exit 0
-          git commit -m 'Package The Bound 6.04 for the internal updater'
-          git push origin HEAD:refs/heads/codex/baratie-604
+          git commit -m 'Package The Bound 6.05 for the internal updater'
+          git push origin HEAD:refs/heads/codex/baratie-605

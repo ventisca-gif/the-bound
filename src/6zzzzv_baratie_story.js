@@ -70,9 +70,10 @@ function baratieRunClear(M){
  B.run=null;B.stage=null;
 }
 const baratieLive=(M,R)=>G.map===M&&M.baratie.run===R&&R.owner===G.P&&!G.P.dead;
-function baratieStart(stage){
+function baratieStart(stage,rematch=false){
  const M=G.map,P=G.P,B=M?.baratie;
- if(!B||B.run||P.dead||!baratieHere(M,P)||baratieStage(P)!==stage)return;
+ if(!B||B.run||P.dead||!baratieHere(M,P))return;
+ if(rematch?!(BAR_FOES[stage]&&P.baratieSanji&&syrupWon(stage,P)):baratieStage(P)!==stage)return;
  const duel=stage==='duel',at=duel?BARATIE_DUEL:BARATIE_ARENA;
  baratieMovePlayer(M,[at[0],at[1]+4]);
  const [x,y]=dawnPx(at);
@@ -83,7 +84,7 @@ function baratieStart(stage){
  st.hp=Math.round(st.hp*(1+.075*victories));
  st.def=Math.round(st.def*(1+.045*victories));
  st.boost*=1+.05*victories;
- const R=B.run={stage,crew:[],foes:[],at,owner:P,start:G.t,beat:0};
+ const R=B.run={stage,rematch,crew:[],foes:[],at,owner:P,start:G.t,beat:0};
  const z=duel?baratieActor(M,SHELLS_CAST_IDS.zoro,x-46,y+2,st.hp):null;
  if(duel){
   R.crew.push(z);R.foes.push(baratieActor(M,BAR_MIHAWK,x+28,y-9));
@@ -264,6 +265,7 @@ V33_TICKS.push(dt=>{
  const result=old.apply(this,arguments);
  if(R?.foes.includes(m)){
   baratieRunClear(M);markDirty(true);
+  if(R.rematch)return result;
   const s=baratieStage(P);
   setWp({loc:BAR_FOES[s]?BARATIE_ARENA:BARATIE_GALLEY,m:'dawn',t:BARATIE_NAME});
   if(m.mid==='baratie_pearl')xMsg(L2('Gin rompe el escudo','Gin breaks the shield'),L2('Pearl levanta el escudo por última vez. Gin se lo parte con una de sus tonfas y se planta frente a Sanji.','Pearl raises his shield one last time. Gin shatters it with a tonfa and stands in front of Sanji.'));
