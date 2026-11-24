@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.86', GAME_BUILD = 207;
+const GAME_VER = '5.87', GAME_BUILD = 208;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.87",
+ "b": 208,
+ "d": "2026-11-24",
+ "es": [
+  "🛠 Arreglo: el mapa del Mar de Dawn daba un error rojo y no dejaba cambiar de mapa con las flechas (un punto de La Tortuga Glotona tenía una categoría que no existía). Ahora el mapa ignora cualquier punto así.",
+  "👕 Ropa de los mares (cosméticos por piezas) en La Tortuga Glotona: la Modista Marea, en la recepción, la vende y hay maniquíes con la ropa puesta.",
+  "🗡 Espadachín: pañuelo negro atado, camiseta de botones con faja verde (y pañuelo en el brazo), pantalón negro, botas negras y tres katanas al cinto. 🎯 Francotirador: pañuelo con gafas, peto marrón con faja blanca, correa y muñequera de rayas, pantalón y bolsa de lona.",
+  "🧭 Navegante: camiseta blanca de franjas azules, minifalda naranja y sandalias. 🍳 Cocinero: chaqueta negra cruzada con botones dorados, camisa celeste y corbata, pantalón de traje y zapatos negros. Todo se ve en las 10 estructuras de cuerpo."
+ ],
+ "en": [
+  "🛠 Fix: the Dawn Sea map showed a red error and the arrows stopped switching maps (a Gluttonous Turtle marker had a category that did not exist). The map now ignores any such marker.",
+  "👕 Sea clothes (cosmetics, piece by piece) at the Gluttonous Turtle: Marea the dressmaker sells them at the reception, with mannequins wearing them.",
+  "🗡 Swordsman: tied black headscarf, button tee with green belly band (and an arm scarf), black trousers, black boots and three katanas at the hip. 🎯 Sharpshooter: headscarf with goggles, brown bib with white sash, strap and striped wristband, trousers and canvas bag.",
+  "🧭 Navigator: white tee with blue stripes, orange miniskirt and sandals. 🍳 Cook: black double-breasted jacket with gold buttons, light blue shirt and tie, suit trousers and black shoes. Everything fits all 10 body builds."
+ ]
+},
 {
  "v": "5.86",
  "b": 207,
