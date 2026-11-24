@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '5.95', GAME_BUILD = 216;
+const GAME_VER = '5.96', GAME_BUILD = 217;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "5.96",
+ "b": 217,
+ "d": "2026-11-24",
+ "es": [
+  "Tripulación: si Luffy, Zoro, Nami o Usopp caen en una pelea de la historia, se levantan a los 15 s con un tercio de su vida.",
+  "Recompensas de la tripulación: Luffy, Zoro, Nami y Usopp tienen su cartel de «se busca». Sube al vencer juntos a los jefes de la historia (más quien lleva la pelea) y con cada enemigo de Dawn si van contigo. Míralos en Habilidades › Voluntad o en tu cartel › 🏴‍☠️ Tripulación.",
+  "Lupa › 🏴‍☠️ Mar de Dawn: la ruta de la historia paso a paso con ✅ y flecha, la tripulación, las frutas y todo el crossover.",
+  "Arreglo: en Atajos, tocar las pestañas ⚔ 🌐 🔍 cerraba el panel y parecía que desaparecían los botones."
+ ],
+ "en": [
+  "Crew: if Luffy, Zoro, Nami or Usopp fall in a story fight, they get back up after 15 s with a third of their HP.",
+  "Crew bounties: Luffy, Zoro, Nami and Usopp have their own wanted posters. They rise when you beat the story bosses together (more for whoever leads the fight) and with every Dawn enemy while they sail with you. See them in Skills › Will or in your poster › 🏴‍☠️ Crew.",
+  "Magnifier › 🏴‍☠️ Dawn Sea: the story route step by step with ✅ and an arrow, the crew, the fruits and the whole crossover.",
+  "Fix: in Shortcuts, tapping the ⚔ 🌐 🔍 tabs closed the panel, so the buttons seemed to vanish."
+ ]
+},
 {
  "v": "5.95",
  "b": 216,
