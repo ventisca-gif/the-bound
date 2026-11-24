@@ -9,7 +9,8 @@
 const ACT = { k: null };
 const COUNTRY_JOBS = new Set(['taquero', 'taxista', 'chofer', 'mototaxi', 'cajero', 'futbolista', 'folklorico', 'ambulante', 'sandboard']);
 { const _gj = gainJobXp; gainJobXp = function (job, n) { return _gj.call(this, job, COUNTRY_JOBS.has(job) ? Math.round((n || 0) * 3) : n); }; }
-{ const _ba = basicAttack; basicAttack = function () { if (ACT.k && ACT.onAtk && ACT.onAtk()) return; return _ba.apply(this, arguments); }; }
+// 5.98: mantener ⚔ pulsado llama a basicAttack en cada fotograma; en un minijuego solo cuenta el toque (no la repetición)
+{ const _ba = basicAttack; basicAttack = function () { if (ACT.k && ACT.onAtk) { const held = G.t - (ACT._atkT === undefined ? -9 : ACT._atkT) < 0.09; ACT._atkT = G.t; if (held) return; if (ACT.onAtk()) return; } return _ba.apply(this, arguments); }; }
 const actBusy = () => { if (ACT.k) { toast(L2('Termina primero lo que estás haciendo.', 'Finish what you are doing first.'), 'warn'); return true; } return false; };
 function actEnd() { ACT.k = null; ACT.onAtk = null; mgHud(null); }
 const aDist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
