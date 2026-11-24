@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.02', GAME_BUILD = 223;
+const GAME_VER = '6.03', GAME_BUILD = 224;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.03",
+ "b": 224,
+ "d": "2026-11-24",
+ "es": [
+  "Los 12 enemigos y los 5 jefes de los portales 400-600 de la Torre ya usan los dibujos nuevos del bestiario: en las 4 direcciones, andando y atacando.",
+  "Lupa › Sistemas: guía de los materiales y armaduras nuevas del nivel 700."
+ ],
+ "en": [
+  "The 12 enemies and 5 bosses of the Tower’s 400-600 portals now use the new bestiary drawings: in 4 directions, walking and attacking.",
+  "Magnifier › Systems: guide to the new level-700 materials and armours."
+ ]
+},
 {
  "v": "6.02",
  "b": 223,

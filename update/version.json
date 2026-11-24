@@ -1,20 +1,20 @@
 {
- "build": 223,
- "ver": "6.02",
+ "build": 224,
+ "ver": "6.03",
  "date": "2026-11-24",
  "file": "thebound.html",
- "size": 32355182,
- "sha256": "b2f68beec6e0a424215c55c56cc107d17bcfbf73b22ba1b7609022f288fd0dff",
+ "size": 33286569,
+ "sha256": "7ff7470a6c46d76cba455b7753e696011612fd92d7a895abc187345c866439b9",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Armadura de Clase de los Mares (nivel 700, la más fuerte): cada clase con su diseño — Vicealmirante del Mar Blanco, Navegante de Tormentas, Francotirador de Ultramar, Agente de la Sombra Blanca, Caballero del Barco Fantasma, Doctora del Invierno y Maestro del Karate Marino.",
-   "5 combinaciones de las armaduras de los mares (nivel 630-690): Pirata del Desierto, Emperatriz del Kimono, Capitán del Futuro, Bailarina del Rey del Mar y Serpiente del Futuro. Se forjan con la mitad de los materiales de los dos conjuntos que mezclan."
+   "Los 12 enemigos y los 5 jefes de los portales 400-600 de la Torre ya usan los dibujos nuevos del bestiario: en las 4 direcciones, andando y atacando.",
+   "Lupa › Sistemas: guía de los materiales y armaduras nuevas del nivel 700."
   ],
   "en": [
-   "Sea Class armour (level 700, the strongest): each class with its own design — White Sea Vice Admiral, Storm Navigator, Overseas Sharpshooter, White Shadow Agent, Ghost Ship Gentleman, Winter Doctor and Sea Karate Master.",
-   "5 sea armour combinations (level 630-690): Desert Pirate, Kimono Empress, Future Captain, Sea King’s Dancer and Future Serpent. Forged with half the materials of the two sets they mix."
+   "The 12 enemies and 5 bosses of the Tower’s 400-600 portals now use the new bestiary drawings: in 4 directions, walking and attacking.",
+   "Magnifier › Systems: guide to the new level-700 materials and armours."
   ]
  }
 }
