@@ -4,3 +4,5 @@
 *.keystore
 *.apk
 __pycache__/
+/tools/i18n/vendor/
+/tests/loguetown/out/
