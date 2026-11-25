@@ -1,22 +1,22 @@
 {
- "build": 227,
- "ver": "6.06",
+ "build": 228,
+ "ver": "6.07",
  "date": "2026-11-24",
  "file": "thebound.html",
- "size": 35113839,
- "sha256": "f78049b99a879ae937003ceb60f7eea74dd4ee24c36118863bb7da535eeac819",
+ "size": 36005243,
+ "sha256": "22f657233de4c29ddb360108406b4cfe63816590fdab7373aaa7bbb9ea10c91b",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Cinco técnicas para Luffy, Zoro, Usopp y Sanji. Habla con ellos para elegir una técnica prioritaria.",
-   "El Going Merry tiene una cubierta más ancha y caminable. Nami puede mantener el rumbo mientras paseas.",
-   "Nuevas poses de ataque y diálogos. Usopp conserva la ropa de Villa Syrup."
+   "Islas Conomi después de Baratie. Explora Cocoyashi y Arlong Park y enfréntate a Arlong de nivel 605.",
+   "El hachazo de Luffy atraviesa cuatro pisos. Tras la victoria quedan las ruinas y se abren nuevos diálogos con la tripulación.",
+   "Puedes repetir los arcos del Mar de Dawn."
   ],
   "en": [
-   "Five techniques each for Luffy, Zoro, Usopp and Sanji. Talk to them to select a preferred technique.",
-   "The Going Merry has a wider walkable deck. Nami can hold course while you explore.",
-   "New attack poses and dialogue. Usopp retains his Syrup Village outfit."
+   "Conomi Islands after Baratie. Explore Cocoyashi and Arlong Park and fight level 605 Arlong.",
+   "Luffy’s axe kick breaks through four floors. After the victory, revisit the ruins and talk to the crew for new dialogue.",
+   "Replay the Dawn Sea story arcs."
   ]
  }
 }
