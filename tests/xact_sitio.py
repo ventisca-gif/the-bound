@@ -15,7 +15,12 @@ RUN = r"""async (args) => { const [mid, from, to] = args; const out = []; const 
   const e = MAPW_LIST.find(x => x.id === mid); const getM = () => mid === 'world' ? G.world : (G.maps[mid] || e.mk());
   let M = getM(); const objs = (() => { const seen = {}; return M.objs.filter(o => { if (!o || !o.xact || !XACT[o.xact]) return false; seen[o.xact] = (seen[o.xact] || 0) + 1; return seen[o.xact] <= 2; }); })().slice(from, to);
   for (const o of objs) { const e0 = window.__E.length; let err = '';
-    try { M = getM(); if (G.map !== M) setMap(M, o.px || (o.x * 16 + 8), (o.py || (o.y * 16 + 8)) + 18, 'up'); else { G.P.x = o.px || (o.x * 16 + 8); G.P.y = (o.py || (o.y * 16 + 8)) + 18; } } catch (x) { err = 'SETMAP ' + x.message; }
+    try { M = getM(); const tx = o.px || (o.x * 16 + 8), ty = (o.py || (o.y * 16 + 8)) + 18;
+      if (G.map !== M) { if (M.dawn) { /* a Dawn solo se entra en barco y sobre agua (src/6zzzd_dawn_ships.js): se entra así y se desembarca */
+          const P = G.P; P.dawnHelm = dawnHelm('skiff', { x: P.x, y: P.y }); let w = null; for (let r = 1; r < 120 && !w; r++) for (let a = 0; a < 24 && !w; a++) { const x = tx + Math.round(Math.cos(a / 24 * 6.28) * r) * 16, y = ty + Math.round(Math.sin(a / 24 * 6.28) * r) * 16; if (dawnSurface(M, x, y, dawnShipRadius(P, P.dawnHelm))) w = [x, y]; }
+          if (w) setMap(M, w[0], w[1], 'down'); P.dawnHelm = null; if (G.map !== M) err = 'NO ENTRA EN DAWN'; }
+        else setMap(M, tx, ty, 'up'); }
+      G.P.x = tx; G.P.y = ty; } catch (x) { err = 'SETMAP ' + x.message; }
     await sleep(150);
     try { doInteract({ kind: 'xact', o }); } catch (x) { err += ' THROW ' + x.message + ' @ ' + (x.stack || '').split('\n')[1]; }
     for (let i = 0; i < 6; i++) { await sleep(200); try { if (ACT.k && ACT.onAtk) ACT.onAtk(); else basicAttack(); } catch (x) { err += ' ATK ' + x.message; } }
@@ -29,11 +34,13 @@ with sync_playwright() as p:
         pg.on('pageerror', lambda e: pe.append(str(e)[:300]))
         pg.goto(url); pg.wait_for_timeout(2500)
         pg.click('#tNew'); pg.wait_for_timeout(400); pg.fill('#ccName', 'Sergio'); pg.click('#ccGo'); pg.wait_for_timeout(1200); pg.click('#introOk'); pg.wait_for_timeout(300)
-        pg.evaluate("(()=>{ const P=G.P; while(P.lv<650) gainXp(1e9); P.gold=1e9; for(const k in JOBS) P.jobs[k]={lv:60,xp:0}; window.hurtPlayer=()=>{}; return 1; })()")
+        pg.evaluate("(()=>{ const P=G.P; while(P.lv<650) gainXp(1e9); P.gold=1e9; giveItem('dawn_fruta_diablo',1); for(const k in JOBS) P.jobs[k]={lv:60,xp:0}; window.hurtPlayer=()=>{}; return 1; })()")
         pg.evaluate(HOOK); return ctx, pg, pe
     ctx, pg, pe = fresh(); maps = pg.evaluate(LIST); ctx.close()
     print('MAPS', maps, flush=True); res = []
+    only = sys.argv[2:]
     for mid, n, err in maps:
+        if only and mid not in only: continue
         if err: res.append(mid + ' MK ' + err); continue
         for i in range(0, n, 25):
             ctx, pg, pe = fresh()

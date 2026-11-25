@@ -16,7 +16,7 @@ function mobAtlasFor(art) {
   });
 }
 const DIRI = { down: 0, left: 1, right: 2, up: 3 };
-function animN(e, a) { const frames = e.atlas?.frames?.[a]; if (frames) return frames; if (e.hum) return ANIMS[a] ? ANIMS[a][1] : 1; return MOBANIM[a] ? MOBANIM[a][1] : 1; }
+function animN(e, a) { const frames = (e._atlP ? null : e.atlas)?.frames?.[a]; /* 6.13: no genera el sprite de un NPC que aún no se ha dibujado */ if (frames) return frames; if (e.hum) return ANIMS[a] ? ANIMS[a][1] : 1; return MOBANIM[a] ? MOBANIM[a][1] : 1; }
 function setAnim(e, a, keep) { if (e.anim === a && keep) return; e.anim = a; e.af = 0; e.at = 0; }
 function stepAnim(e, dt, fps) { e.at += dt; const n = animN(e, e.anim); const per = 1 / (fps || 6); while (e.at >= per) { e.at -= per; e.af++; if (e.af >= n) e.af = e.loopAnim === false ? n - 1 : 0; } }
 // ---------- drawing ----------
@@ -309,7 +309,11 @@ function bossMove(m, mv) {
 }
 function d2(a, b) { return dist2(a.x, a.y, b.x, b.y); }
 // ---------- NPCs ----------
-function spawnNPC(id, x, y, mapId, o = {}) { const def = NPCS[id]; if (!def) return null; const e = Object.assign({ type: 'npc', id, def, x, y, L: o.L !== undefined ? o.L : 0, map: mapId, dir: o.face || 'down', anim: 'idle', af: 0, at: Math.random(), home: { x, y }, wander: o.wander || 0, st: Math.random() * 3, hum: true, shR: 6 }, o); e.atlas = npcAtlas(id); G.ents.push(e); return e; }
+function spawnNPC(id, x, y, mapId, o = {}) { const def = NPCS[id]; if (!def) return null; const e = Object.assign({ type: 'npc', id, def, x, y, L: o.L !== undefined ? o.L : 0, map: mapId, dir: o.face || 'down', anim: 'idle', af: 0, at: Math.random(), home: { x, y }, wander: o.wander || 0, st: Math.random() * 3, hum: true, shR: 6 }, o);
+  // 6.13: el sprite se genera la primera vez que se usa (al dibujarse), no al crear el mapa: Japón generaba ~190 de golpe.
+  let A0; Object.defineProperty(e, '_atlP', { value: true, writable: true, configurable: true, enumerable: false });
+  Object.defineProperty(e, 'atlas', { configurable: true, enumerable: true, get() { if (A0 === undefined) { A0 = npcAtlas(id); e._atlP = false; const n = A0 && A0.frames && A0.frames[e.anim]; if (n && e.af >= n) e.af = 0; } return A0; }, set(v) { A0 = v; e._atlP = false; } });
+  G.ents.push(e); return e; }
 function updateNPC(e, dt) {
   if (e.scene) return; if (e.follow && COMP && COMP.e === e) { compUpdate(e, dt); return; }
   if (e.life) { lifeUpdate(e, dt); return; }

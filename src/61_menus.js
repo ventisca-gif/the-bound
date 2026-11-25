@@ -138,12 +138,21 @@ let qAbandon = null;
 // ---------- bestiary ----------
 let bSel = null, bReg = 'all';
 const AI_N = { passive: 'Pacífico', aggro: 'Agresivo', ranged: 'A distancia', charge: 'Embiste' };
+const BEST_MINI = new Map(); let BEST_TOK = 0;
+// retratos que pinta otra capa con los dibujos de Sergio (r133 / r143): aquí no se tocan
+// trabajo por trozos: lo que cabe en 8 ms al momento y el resto en los fotogramas siguientes; devuelve una promesa
+function bestChunk(items, fn) { let i = 0; return new Promise(res => { const step = () => { const t0 = performance.now(); while (i < items.length && performance.now() - t0 < 8) { const it = items[i++]; if (!it || it.isConnected === false) continue; try { fn(it); } catch (e) { } } if (i < items.length) requestAnimationFrame(step); else res(); }; step(); }); }
+const BEST_OWN = id => (typeof R133_OF !== 'undefined' && R133_OF.has(id)) || (typeof R143_OF !== 'undefined' && R143_OF.has(id));
 function renderBestiary(B) {
   const P = G.P, best = P.best || {};
-  const regs = REGIONS.filter(R => R.k !== 'mar').concat([{ k: 'cueva', n: 'Cuevas' }]);
+  // 6.13: 221 de 361 enemigos (fondo marino, Archipiélago, Cielo, Velo, países, portales, Mar de Dawn) solo salían en «Todos».
+  // Ahora hay pestañas por nivel (todos caen en una) y una del Mar de Dawn.
+  const regs = REGIONS.filter(R => R.k !== 'mar').concat([{ k: 'cueva', n: 'Cuevas' }, { k: 'dawn', n: '🏴‍☠️ ' + L2('Mar de Dawn', 'Dawn Sea') }]).concat([0, 100, 200, 300, 400, 500, 600].map(l => ({ k: 'lv' + l, n: L2('Nv. ', 'Lv. ') + Math.max(1, l) + (l === 600 ? '+' : '-' + (l + 99)) })));
   const entries = []; for (const id in MOBS) entries.push({ id, def: MOBS[id], boss: false, kills: best[id] || 0 });
   for (const id in BOSSES) entries.push({ id: 'B_' + id, bid: id, def: BOSSES[id], boss: true, kills: best['B_' + id] || (P.bossKills[id] || 0) });
-  const inReg = e => bReg === 'all' || (bReg === 'cueva' && e.def.cave) || (e.boss ? bossRegion(e.bid) === bReg : (e.def.reg || []).includes(bReg));
+  const lv0 = e => Array.isArray(e.def.lv) ? e.def.lv[0] : (e.def.lv || 1);
+  const isDawn = e => { const id = e.boss ? e.bid : e.id; return /^(dawn_|shells_|orange_|syrup_|baratie_|con_|rare_|alvida)/.test(id) || (typeof DAWN_RETO !== 'undefined' && !!DAWN_RETO[id]); };
+  const inReg = e => bReg === 'all' || (bReg === 'cueva' && e.def.cave) || (bReg === 'dawn' && isDawn(e)) || (/^lv\d+$/.test(bReg) && (l => { const s = +bReg.slice(2); return s === 600 ? l >= 600 : l >= s && l < s + 100; })(lv0(e))) || (e.boss ? bossRegion(e.bid) === bReg : (e.def.reg || []).includes(bReg));
   const list = entries.filter(inReg).sort((a, b) => (a.boss - b.boss) || ((a.def.lv[0] || a.def.lv) - (b.def.lv[0] || b.def.lv)));
   const known = entries.filter(e => e.kills > 0).length;
   if (!bSel || !entries.find(e => e.id === bSel)) bSel = list[0] && list[0].id;
@@ -161,7 +170,12 @@ function renderBestiary(B) {
   $$('[data-br]', B).forEach(b => b.onclick = () => { bReg = b.dataset.br; bSel = null; sfx('ui'); renderPanel(); });
   $$('[data-b]', B).forEach(b => b.onclick = () => { bSel = b.dataset.b; sfx('ui'); renderPanel(); });
   const drawMob = (cv, e, big) => { const A = mobAtlasFor(e.def.art); const x = cv.getContext('2d'); x.imageSmoothingEnabled = false; const s = Math.min(cv.width / A.fw, cv.height / A.fh) * (big ? 1 : 1.1); x.clearRect(0, 0, cv.width, cv.height); if (!e.kills) x.filter = 'brightness(0)'; x.drawImage(A.img, A.idx.idle * A.fw, 0, A.fw, A.fh, (cv.width - A.fw * s) / 2, cv.height - A.fh * s, A.fw * s, A.fh * s); x.filter = 'none'; };
-  $$('[data-bc]', B).forEach(cv => { const e = entries.find(x => x.id === cv.dataset.bc); if (e) drawMob(cv, e); });
+  // 6.13: los retratos se dibujaban todos de golpe (~260 sprites, 2 s al abrir). Ahora se guardan ya dibujados (BEST_MINI)
+  // y se pintan poco a poco: lo que cabe en 8 ms al momento y el resto en los fotogramas siguientes, sin congelar la ventana.
+  const byId = new Map(entries.map(e => [e.id, e])), cvs = $$('[data-bc]', B), tok = ++BEST_TOK;
+  const drawMini = (cv, e) => { const key = e.id + (e.kills ? '' : ':?'); let c = BEST_MINI.get(key); if (!c) { c = document.createElement('canvas'); c.width = cv.width; c.height = cv.height; drawMob(c, e); BEST_MINI.set(key, c); } const x = cv.getContext('2d'); x.clearRect(0, 0, cv.width, cv.height); x.drawImage(c, 0, 0); };
+  let bi = 0; const step = () => { if (tok !== BEST_TOK) return; const t0 = performance.now(); while (bi < cvs.length && performance.now() - t0 < 8) { const cv = cvs[bi++]; const id = cv.dataset.bc, e = cv.isConnected && byId.get(id); if (e && !BEST_OWN(id)) drawMini(cv, e); } if (bi < cvs.length) requestAnimationFrame(step); };
+  step();
   const bb = $('#bBig'); if (bb && cur) drawMob(bb, cur, true);
 }
 function bossRegion(id) { const b = G.world.bosses.find(x => x.id === id); return b ? (regionAt(b.x, b.y) || {}).k : null; }

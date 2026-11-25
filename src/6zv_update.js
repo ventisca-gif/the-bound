@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.12', GAME_BUILD = 233;
+const GAME_VER = '6.13', GAME_BUILD = 234;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.13",
+ "b": 234,
+ "d": "2026-11-25",
+ "es": [
+  "La enciclopedia se abre al instante (antes 2 segundos) y tocar un enemigo ya no la congela. Los retratos se dibujan poco a poco sin parar la ventana.",
+  "Los mapas grandes cargan mucho más rápido: Japón, México, Lima y Trujillo unas 4 veces más rápido; España y Dawn, el doble.",
+  "Enciclopedia: pestañas por nivel (1-99 hasta 600+) y del Mar de Dawn, con Alvida, Buggy, Kuro, Baratie, Shanks y Arlong. Ahora todos los enemigos salen en alguna pestaña, no solo en «Todos».",
+  "Inglés: descripciones de todas las habilidades, ventajas de los oficios, recuerdos y trofeos de oficio y la ayuda de Misiones."
+ ],
+ "en": [
+  "The encyclopedia opens instantly (it took 2 seconds) and tapping an enemy no longer freezes it. Portraits are drawn bit by bit without stalling the window.",
+  "Big maps load much faster: Japan, Mexico, Lima and Trujillo about 4 times faster; Spain and Dawn, twice as fast.",
+  "Encyclopedia: level tabs (1-99 up to 600+) and a Dawn Sea tab with Alvida, Buggy, Kuro, Baratie, Shanks and Arlong. Every enemy now shows up in some tab, not only in \"All\".",
+  "English: descriptions of every skill, job perks, job keepsakes and trophies, and the Quests help."
+ ]
+},
 {
  "v": "6.12",
  "b": 233,

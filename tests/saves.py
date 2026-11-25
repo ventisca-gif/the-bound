@@ -40,7 +40,10 @@ with sync_playwright() as p, tempfile.TemporaryDirectory() as td:
         ctx = b.new_context(viewport={'width': 900, 'height': 500}); pg = ctx.new_page(); pe2 = []
         pg.on('pageerror', lambda e: pe2.append(str(e)[:200]))
         pg.goto(new); pg.wait_for_timeout(1500); pg.evaluate("(d)=>{ for(const k in d) localStorage.setItem(k,d[k]); return 1; }", old['dump'])
-        pg.reload(); pg.wait_for_timeout(3000); pg.evaluate(HOOK); pg.click('[data-slot]'); pg.wait_for_timeout(3000)
+        pg.reload(); pg.wait_for_timeout(3000); pg.evaluate(HOOK)
+        pg.evaluate("(()=>{ try { closeModal(); } catch (e) {} return 1; })()")  # ventana de Novedades al venir de una versión vieja (normal)
+        pg.click('[data-slot]'); pg.wait_for_timeout(3000)
+        pg.evaluate("(()=>{ try { closeModal(); } catch (e) {} return 1; })()")
         r = pg.evaluate(NEW); ctx.close()
         same = r['lv'] == old['lv'] and r['gold'] == old['gold'] and r['inv'] == old['inv']
         good = same and not r['bad'] and not r['errs'] and not pe2
