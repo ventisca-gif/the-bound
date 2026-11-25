@@ -159,7 +159,7 @@ function diveTarget(o) { return o.k === 'dive' && !o.hidden; }
 function startDive(o) { const P = G.P; P.job = { kind: 'buceo', o, t: 0, tier: o.tier || 1 }; setAnim(P, 'gather'); P.loopAnim = true; sfx('cast'); burst(o.px, o.py - 4, 12, { sp: 30, up: 30, g: 60, life: 0.6, c: ['#d8f4ff', '#ffffff'] }); }
 function updateDive(dt) { const P = G.P, J = P.job; if (!J || J.kind !== 'buceo') return false; J.t += dt; if (Math.random() < dt * 10) part(J.o.px + (Math.random() - 0.5) * 10, J.o.py - 4, { vz: 20, g: -10, life: 0.8, c: '#e0f8ff', s: 2 });
   if (J.t >= 2.6 * (perk('buceo', 15) ? 0.8 : 1)) { finishDive(J); P.job = null; setAnim(P, 'idle'); } return true; }
-function finishDive(J) { const P = G.P, o = J.o, t = J.tier, lv = P.jobs.buceo.lv; o.hidden = true; o.respawn = G.t + 70;
+function finishDive(J) { const P = G.P, o = J.o, t = J.tier, lv = P.jobs.buceo.lv; o.hidden = true; o.respawn = G.t + 5;
   const r = Math.random(); let got;
   if (r < 0.02 + (t > 1 ? 0.03 : 0) + (perk('buceo', 35) ? 0.05 : 0)) got = 'perla_negra'; else if (r < 0.22 + lv * 0.002) got = 'perla'; else if (r < 0.5) got = 'coral'; else if (r < 0.75) got = 'concha'; else got = null;
   if (got) giveItem(got, 1); else { const g = Math.round((60 + lv * 20) * t * (0.6 + Math.random())); P.gold += g; toast('¡Un cofre hundido! +' + fmt(g) + ' oro', 'loot', 3); sfx('coin'); }
