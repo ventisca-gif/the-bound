@@ -1,24 +1,24 @@
 {
- "build": 242,
- "ver": "6.20",
+ "build": 243,
+ "ver": "6.21",
  "date": "2026-11-25",
  "file": "thebound.html",
- "size": 37849407,
- "sha256": "8aeb6775e0f6b87571a6bb4fd8cc4222254560f37ba835cfe9fc1b88d92ad5e2",
+ "size": 37855297,
+ "sha256": "03d3f507e16c69c7274bf85e94054f371955d790602328a470dacaa304f30516",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "La tripulación se hace más fuerte al completar cada arco del Mar de Dawn y al vencer por primera vez a cada jefe de la historia. Antes solo contaban los jefes hasta Villa Syrup; ahora también Baratie, Arlong Park y Loguetown. Repetir un arco no la sube.",
-   "Cada arco completado da +15 % de poder y cada jefe vencido +2 % (todo: +126 %): más vida, defensa y daño en sus técnicas.",
-   "Nueva opción al hablar con Luffy, Zoro, Usopp o Sanji: «Desafiar» para un duelo con su poder actual, con su caminata, sus ataques y sus técnicas de siempre. Nadie muere, no da XP ni botín y da oro la primera vez que ganas a cada poder nuevo. Nami no pelea.",
-   "«Poder de la tripulación» al hablarles: arcos completados, batallas y el poder de cada uno."
+   "Se nota el poder al subir: contra monstruos y jefes de nivel más bajo que tú haces +1,5 % de daño por nivel de ventaja (hasta +75 %) y recibes −1 % por nivel (hasta −50 %). A nivel 500 con 60 niveles de ventaja: 6 golpes en vez de 17. A tu nivel o contra más fuertes no cambia; el PvP tampoco.",
+   "Ritmo de nivel alto: los monstruos normales desde nivel 450 tienen menos vida y algo menos de ataque (a nivel 500: unos 13 golpes en vez de 20, y aguantas 16 en vez de 12). Los jefes no cambian.",
+   "Inicio más limpio: hasta terminar «Despertar» ya no salen encima el sello de viaje, la prosperidad del pueblo, el pueblo del día ni «Historia nueva»; aparecen después, de uno en uno.",
+   "Arreglo: en una partida nueva salía abajo una barra roja de error (gearTiers)."
   ],
   "en": [
-   "The crew grows stronger when you complete each Dawn Sea arc and the first time you beat each story boss. Before, only the bosses up to Syrup Village counted; now Baratie, Arlong Park and Loguetown do too. Replaying an arc does not raise it.",
-   "Each completed arc gives +15 % power and each boss beaten +2 % (everything: +126 %): more HP, defense and technique damage.",
-   "New option when talking to Luffy, Zoro, Usopp or Sanji: “Challenge” for a duel at their current power, with their usual walk, attacks and techniques. Nobody dies, it gives no XP or loot, and it pays gold the first time you beat each new power level. Nami doesn’t fight.",
-   "“Crew power” when talking to them: completed arcs, battles and each member’s power."
+   "You feel your power as you level: against monsters and bosses below your level you deal +1.5 % damage per level of advantage (up to +75 %) and take −1 % per level (up to −50 %). At level 500 with a 60-level lead: 6 hits instead of 17. At your level or against stronger foes nothing changes; PvP neither.",
+   "High-level pace: normal monsters from level 450 have less HP and slightly less attack (at level 500: about 13 hits instead of 20, and you survive 16 instead of 12). Bosses are unchanged.",
+   "Cleaner start: until you finish “Awakening”, the travel stamp, town prosperity, town of the day and “New story” no longer pile on top; they show up afterwards, one at a time.",
+   "Fix: a red error bar (gearTiers) showed at the bottom in a new game."
   ]
  }
 }
