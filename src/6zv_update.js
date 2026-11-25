@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.14', GAME_BUILD = 235;
+const GAME_VER = '6.15', GAME_BUILD = 236;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.15",
+ "b": 236,
+ "d": "2026-11-25",
+ "es": [
+  "Loguetown: nueva isla explorable en el Mar de Dawn, al este de Animales Raros y al norte de Conomi.",
+  "Puerto para desembarcar y volver al barco, arco de entrada, plaza de Roger y patíbulo, torre del reloj, armería, mercado y base de la Marina.",
+  "Primera etapa del mapa: edificios exteriores y caminos; los combates y la historia de Loguetown llegarán después."
+ ],
+ "en": [
+  "Loguetown: a new explorable island in the Dawn Sea, east of Rare Animals and north of Conomi.",
+  "Working harbor for landing and returning to your ship, entrance arch, Roger’s square and scaffold, clock tower, arms shop, market and Marine base.",
+  "First map stage: exterior buildings and paths; Loguetown battles and story will follow later."
+ ]
+},
 {
  "v": "6.14",
  "b": 235,
