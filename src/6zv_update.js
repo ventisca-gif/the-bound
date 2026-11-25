@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.11', GAME_BUILD = 232;
+const GAME_VER = '6.12', GAME_BUILD = 233;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.12",
+ "b": 233,
+ "d": "2026-11-25",
+ "es": [
+  "Mejoras por dentro para que el juego pueda seguir creciendo (más niveles y más crossovers) sin romperse: lo nuevo ya no se apila encima de lo anterior.",
+  "Revisión completa: más de 200 actividades y minijuegos probados en su sitio, partidas de versiones antiguas, 10 minutos de juego seguido y toda la Lupa, sin errores."
+ ],
+ "en": [
+  "Under-the-hood improvements so the game can keep growing (more levels and more crossovers) without breaking: new content no longer stacks on top of the old.",
+  "Full review: over 200 activities and minigames tested in place, saves from old versions, 10 minutes of continuous play and the whole Magnifier, with no errors."
+ ]
+},
 {
  "v": "6.11",
  "b": 232,

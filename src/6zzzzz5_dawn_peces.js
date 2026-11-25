@@ -24,10 +24,10 @@ FISH_MAP.dawn = 'dawn';
   '• ' + L2(`Pez de Nácar y Pez Espada Rayado: Pesca ${RESLV[24]} y Caña de Nacarita.`, `Nacre Fish and Striped Swordfish: Fishing ${RESLV[24]} and Nacrite Rod.`),
   '• ' + L2(`Anguila de Piedra del Mar y Cría de Rey del Mar: Pesca ${RESLV[25]} y Caña de Piedra del Mar.`, `Seastone Eel and Sea King Hatchling: Fishing ${RESLV[25]} and Seastone Rod.`)]); } }
 // si puedes pescar alguno de Dawn, la mitad de las veces pica uno de Dawn (si no, se perderían entre más de 20 peces de mar)
-{ const _pf = pickFish; pickFish = function (hab) { if (hab === 'dawn' && Math.random() < 0.5) { const P = G.P, lv = P.jobs.pesca.lv, rod = bestTool('pesca');
+hookAround('pickFish', function (next, hab) { if (hab === 'dawn' && Math.random() < 0.5) { const P = G.P, lv = P.jobs.pesca.lv, rod = bestTool('pesca');
     const ok = FISH.filter(f => f[3].length === 1 && f[3][0] === 'dawn' && RESLV[f[2]] <= lv && toolNeed('pesca', f[2]) <= rod);
     if (ok.length) { const maxT = Math.max(...ok.map(f => f[2])); return choiceW(new RNG((Math.random() * 1e9) | 0), ok.map(f => ({ f, w: f[2] === maxT ? 1 : 2 }))).f; } }
-  return _pf.apply(this, arguments); }; }
+  return next(hab); });
 
 // «¿Qué hago ahora?» / guía de oficios: la flecha «Árbol/Veta para tu nivel» solo miraba el nivel de oficio y podía
 // llevarte a un recurso que tu herramienta no puede recoger. Ahora mira también la herramienta.

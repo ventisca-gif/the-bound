@@ -66,3 +66,16 @@ The Bound es un RPG 2D de mundo abierto con movimiento en cuatro direcciones.
 
 - Lo de las ciudades (Lima, Lima Norte, Trujillo, Cusco, Machu Picchu, México, España), la familia y la vida diaria se explica en Lupa › 🏙 Ciudades y vida (`LUPA_CIU` en `src/6zzzk_v576_barrios.js`). Todo evento o sistema nuevo de ese tipo debe tener su entrada ahí y, si pasa hoy, salir en «Hoy en las ciudades».
 - Horarios y multitud: `V74_CITY` y `v74Dens` (`src/6zzzi_v574_vida.js`); un mapa de ciudad nuevo se añade a `V74_CITY` con la expresión de sus NPCs de multitud y su NPC ancla. Las entidades nuevas que no sean objetos del mapa no deben tener el campo `k` (el render lo trata como objeto).
+
+## Código sin apilar: ganchos (desde 6.12)
+
+- No añadas envolturas nuevas del tipo `calcStats = function () { const r = _cs(...) ... }`. Muchas funciones ya tienen 40-70 capas (`drawEnt`, `killMob`, `calcStats`, `interactTarget`…).
+- Usa los ganchos de `src/00h_hooks.js`: `hookBefore(nombre, f)` (devuelve `HOOK_SKIP` para no ejecutar la función), `hookAfter(nombre, (resultado, ...args) => …)` (si devuelve algo, sustituye el resultado) y `hookAround(nombre, (next, ...args) => …)`. `src/zz_hooks_fin.js` los instala en una sola capa al final; se comportan como la envoltura más externa. Un gancho que falla no rompe el juego (avisa con `errOnce`).
+- Solo sirven para funciones globales declaradas con `function`. No cambies envolturas antiguas que funcionan solo por cambiarlas.
+- `python3 tools/dev/capas.py` (también en `tools/dev/reg.sh`) avisa si una función gana envolturas sobre `tools/dev/capas_ref.json`.
+
+## Pruebas antes de publicar (desde 6.12)
+
+- `bash tools/dev/reg.sh out` (regresión, ropa y capas) y `python3 tests/upd.py file://$PWD/dist/test.html out.png`.
+- Partidas antiguas: `python3 tests/saves.py file://$PWD/dist/test.html` carga partidas de versiones viejas (de `update/thebound.html` del historial) y comprueba que se juegan y se vuelven a guardar.
+- Acciones del mapa en su sitio: `python3 tests/xact_sitio.py file://$PWD/dist/test.html` va a cada objeto con acción de cada mapa y la usa.

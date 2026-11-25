@@ -1,24 +1,20 @@
 {
- "build": 232,
- "ver": "6.11",
+ "build": 233,
+ "ver": "6.12",
  "date": "2026-11-25",
  "file": "thebound.html",
- "size": 36033460,
- "sha256": "b8e23d20d0b2dbb0eb19549e7398d4fd8823b6f15f4d1fe4e8ffb89aff0dde6f",
+ "size": 36037550,
+ "sha256": "837f1a928ffa0be60220c42292fd30b62d79c9c5e597822e018049a10c26a83b",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Árboles, vetas (rocas con mineral), hierbas, puntos de buceo y montículos reaparecen a los 5 segundos en todo el mundo.",
-   "Las herramientas piden menos nivel de personaje: un 25 % menos desde la potencia 5, y las de Dawn 500 (Coralita), 520 (Nacarita) y 540 (Piedra del Mar).",
-   "Avisos claros: si te falta nivel de oficio por encima de tu tope, te dice qué maestro te entrena y dónde; si te falta herramienta, cuál es y qué nivel de personaje pide. Al llegar al tope te avisa y pone la flecha al maestro.",
-   "Lupa › Oficios: «Siguiente paso» con tu tope real, el tier al que llegas, la herramienta que te falta y la maestría."
+   "Mejoras por dentro para que el juego pueda seguir creciendo (más niveles y más crossovers) sin romperse: lo nuevo ya no se apila encima de lo anterior.",
+   "Revisión completa: más de 200 actividades y minijuegos probados en su sitio, partidas de versiones antiguas, 10 minutos de juego seguido y toda la Lupa, sin errores."
   ],
   "en": [
-   "Trees, ore veins, herbs, dive spots and dig mounds respawn after 5 seconds everywhere.",
-   "Tools need a lower character level: 25% less from power 5, and the Dawn ones 500 (Coralite), 520 (Nacrite) and 540 (Seastone).",
-   "Clear warnings: if you need a job level above your cap, it tells you which master trains you and where; if you need a tool, which one and its character level. When you reach the cap it warns you and points the arrow at the master.",
-   "Magnifier › Jobs: \"Next step\" with your real cap, the tier you reach, the tool you are missing and the mastery."
+   "Under-the-hood improvements so the game can keep growing (more levels and more crossovers) without breaking: new content no longer stacks on top of the old.",
+   "Full review: over 200 activities and minigames tested in place, saves from old versions, 10 minutes of continuous play and the whole Magnifier, with no errors."
   ]
  }
 }
