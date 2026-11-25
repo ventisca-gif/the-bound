@@ -1,20 +1,24 @@
 {
- "build": 231,
- "ver": "6.10",
+ "build": 232,
+ "ver": "6.11",
  "date": "2026-11-25",
  "file": "thebound.html",
- "size": 36023835,
- "sha256": "bce34b8a16811fe2cb9b59ef142f55ee61b4b692c9baf5faf31b72ce136211e4",
+ "size": 36033460,
+ "sha256": "b8e23d20d0b2dbb0eb19549e7398d4fd8823b6f15f4d1fe4e8ffb89aff0dde6f",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Peces del Mar de Dawn: se pesca en cualquier orilla de Dawn. Salen los peces de mar de siempre y seis nuevos: Pez Coralino y Barracuda del Este (caña de Coralita), Pez de Nácar y Pez Espada Rayado (caña de Nacarita), Anguila de Piedra del Mar y Cría de Rey del Mar (caña de Piedra del Mar).",
-   "Lupa › Crossovers › Minerales, maderas y dónde talar: ahora también dice dónde y con qué se pesca."
+   "Árboles, vetas (rocas con mineral), hierbas, puntos de buceo y montículos reaparecen a los 5 segundos en todo el mundo.",
+   "Las herramientas piden menos nivel de personaje: un 25 % menos desde la potencia 5, y las de Dawn 500 (Coralita), 520 (Nacarita) y 540 (Piedra del Mar).",
+   "Avisos claros: si te falta nivel de oficio por encima de tu tope, te dice qué maestro te entrena y dónde; si te falta herramienta, cuál es y qué nivel de personaje pide. Al llegar al tope te avisa y pone la flecha al maestro.",
+   "Lupa › Oficios: «Siguiente paso» con tu tope real, el tier al que llegas, la herramienta que te falta y la maestría."
   ],
   "en": [
-   "Dawn Sea fish: you can fish from any Dawn shore. You get the usual sea fish and six new ones: Coral Fish and East Barracuda (Coralite rod), Nacre Fish and Striped Swordfish (Nacrite rod), Seastone Eel and Sea King Hatchling (Seastone rod).",
-   "Magnifier › Crossovers › Ores, woods and where to chop: now also says where and with what to fish."
+   "Trees, ore veins, herbs, dive spots and dig mounds respawn after 5 seconds everywhere.",
+   "Tools need a lower character level: 25% less from power 5, and the Dawn ones 500 (Coralite), 520 (Nacrite) and 540 (Seastone).",
+   "Clear warnings: if you need a job level above your cap, it tells you which master trains you and where; if you need a tool, which one and its character level. When you reach the cap it warns you and points the arrow at the master.",
+   "Magnifier › Jobs: \"Next step\" with your real cap, the tier you reach, the tool you are missing and the mastery."
   ]
  }
 }

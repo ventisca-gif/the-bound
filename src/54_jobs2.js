@@ -43,7 +43,7 @@ function digLoot(tier) {
   return pick;
 }
 function finishDig(J) {
-  const P = G.P, o = J.o; o.hidden = true; o.respawn = G.t + 90;
+  const P = G.P, o = J.o; o.hidden = true; o.respawn = G.t + 5;
   const id = digLoot(J.tier); giveItem(id, id === 'moneda_antigua' ? 1 + ((Math.random() * 3) | 0) : 1); lootFx(o.px, o.py, id);
   if (Math.random() < 0.006 + P.jobs.excavacion.lv * 0.0002) { const pool = Object.keys(COSM).filter(c => !(P.wardrobe || []).includes(c) && COS_SHOP.includes(c)); if (pool.length) giveCosmetic(pool[(Math.random() * pool.length) | 0]); }
   if (Math.random() < 0.12) { const g = 5 + J.tier * J.tier * 6; P.gold += g; floatText(P.x, P.y - 40, '+' + g + ' ORO', '#ffd040'); }

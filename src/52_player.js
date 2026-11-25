@@ -290,14 +290,14 @@ function doInteract() {
 }
 function updateJob(dt) {
   const P = G.P, J = P.job; if (!J) return; if (J.kind === 'buceo') { updateDive(dt); return; } J.t += dt;
-  if (J.kind === 'herbo') { if (J.t > 1) { const o = J.o; o.hidden = true; o.respawn = G.t + 50; const n = 1 + (Math.random() < 0.25 + P.jobs.herbo.lv * 0.01 + (perk('herbo', 15) ? 0.1 : 0) ? 1 : 0); giveItem('herb' + J.tier, n); petOnHarvest('herbo', J.tier); if (perk('herbo', 35) && Math.random() < 0.06 && ITEMS['herb' + (J.tier + 1)]) giveItem('herb' + (J.tier + 1), 1); gainJobXp('herbo', 8 + J.tier * 9); questEvent('job', { job: 'herbo', tier: J.tier, n: 1 }); burst(o.px, o.py - 6, 8, { sp: 30, up: 30, g: 60, life: 0.5, c: ['#8ad050', '#ffffff'] }); sfx('pickup'); P.job = null; setAnim(P, 'idle'); } return; }
+  if (J.kind === 'herbo') { if (J.t > 1) { const o = J.o; o.hidden = true; o.respawn = G.t + 5; const n = 1 + (Math.random() < 0.25 + P.jobs.herbo.lv * 0.01 + (perk('herbo', 15) ? 0.1 : 0) ? 1 : 0); giveItem('herb' + J.tier, n); petOnHarvest('herbo', J.tier); if (perk('herbo', 35) && Math.random() < 0.06 && ITEMS['herb' + (J.tier + 1)]) giveItem('herb' + (J.tier + 1), 1); gainJobXp('herbo', 8 + J.tier * 9); questEvent('job', { job: 'herbo', tier: J.tier, n: 1 }); burst(o.px, o.py - 6, 8, { sp: 30, up: 30, g: 60, life: 0.5, c: ['#8ad050', '#ffffff'] }); sfx('pickup'); P.job = null; setAnim(P, 'idle'); } return; }
   if (J.kind === 'excavacion') { if (Math.floor(J.t / 0.55) !== Math.floor((J.t - dt) / 0.55)) { burst(J.o.px, J.o.py - 4, 5, { sp: 40, up: 40, g: 140, life: 0.5, c: ['#8a6436', '#6a4a26'] }); sfx('mine'); } if (J.t > Math.max(0.9, 2.2 - J.tool * 0.15 - P.jobs.excavacion.lv * 0.01) * (perk('excavacion', 15) ? 0.85 : 1)) { finishDig(J); P.job = null; setAnim(P, 'idle'); } return; }
   const per = 0.62 * (perk(J.kind, 10) ? 0.85 : 1); if (J.t >= per) {
     J.t -= per; const o = J.o; const pow = J.tool + Math.floor(P.jobs[J.kind].lv / 12); o.hp -= pow; o.hit = 0.2; G.shake = 1;
     if (J.kind === 'tala') { burst(o.px, o.py - 20, 6, { sp: 50, up: 30, g: 100, life: 0.6, c: ['#3a7a2a', '#5aa040', '#8a6040'] }); sfx('chop'); } else { burst(o.px, o.py - 8, 6, { sp: 50, up: 40, g: 140, life: 0.5, c: ['#a0a0a8', '#ffffff', uCss(C(ORE[J.tier][1]))] }); sfx('mine'); }
     if (o.hp <= 0) {
       const item = (J.kind === 'tala' ? 'log' : 'ore') + J.tier; const n = 1 + (Math.random() < 0.2 + P.jobs[J.kind].lv * 0.012 ? 1 : 0); giveItem(item, n); gainJobXp(J.kind, 10 + J.tier * 11); questEvent('job', { job: J.kind, tier: J.tier, n: 1 }); jobHarvestBonus(J.kind, J.tier, o);
-      if (J.kind === 'tala') { o.st = 'stump'; o.respawn = G.t + 70; } else { o.st = 'dep'; o.respawn = G.t + 80; }
+      if (J.kind === 'tala') { o.st = 'stump'; o.respawn = G.t + 5; } else { o.st = 'dep'; o.respawn = G.t + 5; } // 6.11: antes 70 s / 80 s (Sergio: «que salgan cada 5 segundos, como todo»)
       P.job = null; setAnim(P, 'idle'); sfx('pickup'); markDirty();
     }
   }

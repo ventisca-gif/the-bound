@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.10', GAME_BUILD = 231;
+const GAME_VER = '6.11', GAME_BUILD = 232;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.11",
+ "b": 232,
+ "d": "2026-11-25",
+ "es": [
+  "Árboles, vetas (rocas con mineral), hierbas, puntos de buceo y montículos reaparecen a los 5 segundos en todo el mundo.",
+  "Las herramientas piden menos nivel de personaje: un 25 % menos desde la potencia 5, y las de Dawn 500 (Coralita), 520 (Nacarita) y 540 (Piedra del Mar).",
+  "Avisos claros: si te falta nivel de oficio por encima de tu tope, te dice qué maestro te entrena y dónde; si te falta herramienta, cuál es y qué nivel de personaje pide. Al llegar al tope te avisa y pone la flecha al maestro.",
+  "Lupa › Oficios: «Siguiente paso» con tu tope real, el tier al que llegas, la herramienta que te falta y la maestría."
+ ],
+ "en": [
+  "Trees, ore veins, herbs, dive spots and dig mounds respawn after 5 seconds everywhere.",
+  "Tools need a lower character level: 25% less from power 5, and the Dawn ones 500 (Coralite), 520 (Nacrite) and 540 (Seastone).",
+  "Clear warnings: if you need a job level above your cap, it tells you which master trains you and where; if you need a tool, which one and its character level. When you reach the cap it warns you and points the arrow at the master.",
+  "Magnifier › Jobs: \"Next step\" with your real cap, the tier you reach, the tool you are missing and the mastery."
+ ]
+},
 {
  "v": "6.10",
  "b": 231,
