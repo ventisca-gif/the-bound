@@ -14,7 +14,7 @@ if not commits:
     commits = [log[-1], log[len(log) // 2]] if len(log) > 1 else log
 HOOK = r"""(() => { window.__E = []; const _es = window.errShow; window.errShow = function (e) { window.__E.push(String((e && e.message) || e)); try { return _es && _es.apply(this, arguments); } catch (x) {} };
   window.addEventListener('error', ev => window.__E.push(String((ev.error && ev.error.message) || ev.message))); return 1; })()"""
-OLD = """(lv)=>{ const P=G.P; while(P.lv<lv) gainXp(1e9); P.gold=123456; let n=0;
+OLD = """(lv)=>{ const P=G.P; for(let i=0;P.lv<lv&&i<1000;i++){ const before=P.lv; gainXp(1e9); if(P.lv===before) break; } P.gold=123456; let n=0;
   for(const id of Object.keys(ITEMS)){ const I=ITEMS[id]; if(n<60 && (I.t==='mat'||I.t==='use'||I.slot) && (n*7+id.length)%11===0){ giveItem(id, I.stack?5:1); n++; } }
   for(const k in JOBS) P.jobs[k]={lv:Math.min(75,10+(k.length*3)%60),xp:5};
   saveGame(true); const dump={}; for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(/^thebound\\./.test(k)) dump[k]=localStorage.getItem(k); }
@@ -32,12 +32,12 @@ with sync_playwright() as p, tempfile.TemporaryDirectory() as td:
         html = git('show', c + ':update/thebound.html')
         if not html: print(c, 'sin update/thebound.html'); continue
         f = os.path.join(td, c + '.html'); open(f, 'wb').write(html)
-        ctx = b.new_context(viewport={'width': 900, 'height': 500}); pg = ctx.new_page(); pe = []
+        ctx = b.new_context(viewport={'width': 900, 'height': 500}); ctx.route('https://raw.githubusercontent.com/**/update/version.json*', lambda route: route.abort()); pg = ctx.new_page(); pe = []
         pg.on('pageerror', lambda e: pe.append(str(e)[:200]))
         pg.goto('file://' + f); pg.wait_for_timeout(3000)
         pg.click('#tNew'); pg.wait_for_timeout(400); pg.fill('#ccName', 'Viejo'); pg.click('#ccGo'); pg.wait_for_timeout(1500); pg.click('#introOk'); pg.wait_for_timeout(500)
         old = pg.evaluate(OLD, 400); ctx.close()
-        ctx = b.new_context(viewport={'width': 900, 'height': 500}); pg = ctx.new_page(); pe2 = []
+        ctx = b.new_context(viewport={'width': 900, 'height': 500}); ctx.route('https://raw.githubusercontent.com/**/update/version.json*', lambda route: route.abort()); pg = ctx.new_page(); pe2 = []
         pg.on('pageerror', lambda e: pe2.append(str(e)[:200]))
         pg.goto(new); pg.wait_for_timeout(1500); pg.evaluate("(d)=>{ for(const k in d) localStorage.setItem(k,d[k]); return 1; }", old['dump'])
         pg.reload(); pg.wait_for_timeout(3000); pg.evaluate(HOOK)

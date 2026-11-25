@@ -1,26 +1,22 @@
 {
- "build": 235,
- "ver": "6.14",
+ "build": 236,
+ "ver": "6.15",
  "date": "2026-11-25",
  "file": "thebound.html",
- "size": 36066160,
- "sha256": "c680957e3852d70bca600341da90be22d5cb1c1737b693ece627eb0cc596b840",
+ "size": 36077161,
+ "sha256": "f6fda3a9c5f65acae3ca739a8d0a68d37649c1c33b9981f1b5c491fc85ab24fd",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Más fluido en celulares de gama baja y media: el juego ya no prepara en segundo plano los 2.300 dibujos de personajes y enemigos mientras juegas (frenaba cada imagen durante minutos al entrar). Los personajes fuera de pantalla gastan mucho menos.",
-   "Modo optimizado (Ajustes): además, menos multitud de fondo en las ciudades y la interfaz se refresca 15 veces por segundo.",
-   "Robo de vida (Sed de Sangre, armas de guerrero, vampiro…): cura como mucho un 5 % de tu vida por golpe y un 12 % por segundo. Antes, Juicio Final con Sed de Sangre llenaba toda la vida de una vez.",
-   "Inventario de 900 casillas (antes 200).",
-   "Familia: como mucho 30 familiares vivos; si llegas, no nacen más nietos hasta que haya hueco."
+   "Loguetown: nueva isla explorable en el Mar de Dawn, al este de Animales Raros y al norte de Conomi.",
+   "Puerto para desembarcar y volver al barco, arco de entrada, plaza de Roger y patíbulo, torre del reloj, armería, mercado y base de la Marina.",
+   "Primera etapa del mapa: edificios exteriores y caminos; los combates y la historia de Loguetown llegarán después."
   ],
   "en": [
-   "Smoother on low- and mid-range phones: the game no longer pre-builds the 2,300 character and enemy sprites in the background while you play (it slowed every frame for minutes after starting). Off-screen characters cost much less.",
-   "Optimized mode (Settings): also fewer background crowds in towns and the interface refreshes 15 times per second.",
-   "Life steal (Bloodthirst, warrior weapons, vampire…): heals at most 5% of your HP per hit and 12% per second. Before, Final Judgement with Bloodthirst refilled all your HP at once.",
-   "900-slot inventory (was 200).",
-   "Family: at most 30 living relatives; once you reach it, no more grandchildren are born until there is room."
+   "Loguetown: a new explorable island in the Dawn Sea, east of Rare Animals and north of Conomi.",
+   "Working harbor for landing and returning to your ship, entrance arch, Roger’s square and scaffold, clock tower, arms shop, market and Marine base.",
+   "First map stage: exterior buildings and paths; Loguetown battles and story will follow later."
   ]
  }
 }
