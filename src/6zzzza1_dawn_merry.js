@@ -5,7 +5,12 @@ DAWN_MERRY_IMAGE.src=DAWN_MERRY_BITMAP;
 function dawnMerrySprite(){
  const c=DAWN_MERRY_IMAGE;
  if(!c.naturalWidth)return null;
- return {c,ax:c.naturalWidth>>1,ay:Math.round(c.naturalHeight*.75)+16};
+ return spr('dawn:merry-wide',()=>{
+  const scaled=mkCanvas(Math.round(c.naturalWidth*1.34),Math.round(c.naturalHeight*1.14));
+  const g=scaled.getContext('2d');g.imageSmoothingEnabled=false;
+  g.drawImage(c,0,0,scaled.width,scaled.height);
+  return {c:scaled,ax:scaled.width>>1,ay:Math.round(scaled.height*.75)+16};
+ });
 }
 function dawnMerryBerth(M,P){
  if(P.dawnBoat?.h?.kind==='skiff')return P.dawnBoat;
@@ -51,7 +56,7 @@ DL_HOOKS.push((list,cx,cy)=>{
  }
  DAWN_CREW.forEach(([id],i)=>{
   if(!(mask&(1<<i)))return;
-  const dx=(merry?[-56,49,91,-90,18]:[-37,-16,37,13,55])[i]*side,dy=(merry?[7,11,6,11,4]:[7,12,6,9,2])[i];
+  const dx=(merry?[-65,54,122,-116,21]:[-37,-16,37,13,55])[i]*side,dy=(merry?[7,11,6,11,4]:[7,12,6,9,2])[i];
   const x=vessel.x+dx,y=vessel.y+dy;
   list.push({x,y,noShadow:true,type:'xdraw',draw:()=>{
    const A=npcAtlas(id),zoom=merry?.72:.62;

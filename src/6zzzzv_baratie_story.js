@@ -95,14 +95,14 @@ function baratieStart(stage,rematch=false){
  const m=spawnMob(stage,lv,x,y-16,0,null,true);
  Object.assign(m,{state:'fight',cd:1.6,hgt:68,barTurns:0});
  R.foes.push(m);
- for(const [id,offset,hp,def,reach,boost] of [
-  [SHELLS_CAST_IDS.luffy,-66,st.hp,st.def,st.reach,st.boost],
-  [BAR_SANJI,66,Math.round(st.hp*1.08),Math.round(st.def*1.05),60,st.boost]
- ]){
-  const e=baratieActor(M,id,x+offset,y+40,hp);
-  Object.assign(e,{shellsDefense:def,syrupBoost:boost,syrupReach:reach,nextAssist:G.t+.9,lv});
+ const support=DAWN_CREW.filter(([id],i)=>id!==ORANGE_NAMI&&id!==BAR_SANJI&&id!==SHELLS_CAST_IDS.luffy&&(dawnCrewMask(P)&(1<<i)));
+ const cast=[[SHELLS_CAST_IDS.luffy,st],[BAR_SANJI,{...st,hp:Math.round(st.hp*1.08),def:Math.round(st.def*1.05),reach:60}]];
+ if(support.length)cast.push([support[0][0],syrupCrewStats(P,support[0][0],lv)]);
+ cast.forEach(([id,stats],i)=>{
+  const e=baratieActor(M,id,x+[-66,66,0][i],y+(i===2?66:40),stats.hp);
+  Object.assign(e,{shellsDefense:stats.def,syrupBoost:stats.boost,syrupReach:stats.reach,nextAssist:G.t+.9+i*.31,lv:stats.lv});
   R.crew.push(e);
- }
+ });
  showBoss(m);sfx('boss');banner(m.name||BAR_FOES[stage].n,'Nivel '+lv);
 }
 const BAR_DUEL_BEATS=[
@@ -216,20 +216,7 @@ function baratieAssist(M,R,e,dt){
   shellsActorMove(M,e,e.x+Math.cos(angle)*75,e.y+Math.sin(angle)*75,dt*1.75);return;
  }
  const sanji=e.id===BAR_SANJI,reach=e.syrupReach;
- const damage=amount=>{
-  if(baratieLive(M,R)&&!m.dying&&e.hp>0&&m.hp>m.maxhp*.22)
-   hitMob(m,Math.min(amount*(e.barGuard?1.22:1)*e.syrupBoost,m.maxhp*.021),{summon:true});
- };
- if(d2(e,m)<reach**2&&G.t>=e.nextAssist){
-  if(!sanji){shellsAssistAttack(M,R,e,false,m,(map,run,target,amount)=>damage(amount));return;}
-  e.dir=dirFromVec(m.x-e.x,m.y-e.y);setAnim(e,'atk');
-  e.nextAssist=G.t+1.85;e.actionLength=.5;e.actionUntil=G.t+.5;
-  const [dx,dy]=DIRV[e.dir];
-  addFx({type:'baratieArc',x:e.x,y:e.y-17,ang:Math.atan2(dy,dx),r:47,col:'#ffd5a5',dur:.54,tick:.29,cbTick(f){
-   if(!f.fired&&d2(e,m)<(reach+14)**2){f.fired=true;damage(m.maxhp*.017);}
-  }});
-  return;
- }
+ if(crewTechniqueAttack(M,e,m,R.foes,()=>baratieLive(M,R),e.syrupBoost*(e.barGuard?1.15:1)))return;
  const a=Math.atan2(G.P.y-m.y,G.P.x-m.x)+(sanji?1.75:-1.35);
  shellsActorMove(M,e,m.x+Math.cos(a)*reach*.78,m.y+Math.sin(a)*reach*.78,dt);
 }
