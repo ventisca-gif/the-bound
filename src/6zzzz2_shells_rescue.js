@@ -42,7 +42,8 @@ EXTRA_SPR.shellsSwords=()=>spr('Shells:rescue:swords',()=>{
  }
  p.outline(C('#332b32'));return {c:p.canvas(),ax:19,ay:16};
 });
-const shellsRescueDone=P=>!!P?.bossKills?.[MORGAN_ID];
+SAVEKEYS.push('shellsRecall');
+const shellsRescueDone=P=>!!P?.bossKills?.[MORGAN_ID]&&!P.shellsRecall;
 {const old=makeDawn;makeDawn=function(){
  const M=old.apply(this,arguments);
  if(M.shellsRescue)return M;
@@ -288,7 +289,7 @@ function shellsCallMarines(M,R){
  const R=G.map?.shellsRescue?.run;
  const result=old.apply(this,arguments);
  if(m.mid===MORGAN_ID&&R?.morgan===m){
-  R.phase='done';
+  R.phase='done';delete G.P.shellsRecall;
   for(const marine of R.marines)if(!marine.dying)marine.remove=true;
   for(const ally of [R.luffy,R.zoro]){ally.hp=ally.maxhp;setAnim(ally,'idle');}
   shellsFreeDialogue(R.luffy,R.zoro);
@@ -336,3 +337,11 @@ GSIS.push(['shells_rescue',SHELLS_RESCUE_TITLE,()=>[
  L2('Desembarca en Shells Town con la Fruta del Diablo y sube al patio de la Base 153. Recoge al oeste las tres espadas y llévaselas a Luffy junto a la cruz.','Land at Shells Town with the Devil Fruit and go up to the 153rd Branch courtyard. Recover the three swords on the west side and take them to Luffy at the cross.'),
  L2('Luffy libera a Zoro. Enfréntate con ellos a Morgan de nivel 550. Esquiva el hacha y ocúpate de los refuerzos cuando los llame.','Luffy frees Zoro. Fight level-550 Morgan alongside them. Dodge his axe and handle the reinforcements when he calls them.')
 ],()=>({m:'dawn',loc:[makeDawn().shells.start+SHELLS_RESCUE_AT[0],SHELLS_RESCUE_AT[1]],t:SHELLS_RESCUE_TITLE})]);
+
+DLG_HOOKS.push((npc,opts)=>{
+ const M=G.map,P=G.P,R=M?.shellsRescue?.run;
+ if(R?.phase!=='done'||npc!==R.luffy||!P.bossKills?.[MORGAN_ID])return;
+ opts.push({label:L2('Revivir el rescate de Zoro','Replay Zoro’s rescue'),icon:['ways'],fn:()=>{
+  closeDialog();P.shellsRecall=true;shellsResetRescue(M);markDirty(true);
+ }});
+});

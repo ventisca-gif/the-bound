@@ -190,7 +190,7 @@ BOSS_EXTRA[SYRUP_CAPTAIN] = () => { const P = G.P; if (!P || !P.inv) return []; 
       else got = giveItem(id, 1, true);
       if (got) { delete P.kuroPity[id]; lootFx(m.x, m.y, kuroShow(id)); } else P.kuroPity[id] = cap; } markDirty(true); } catch (e) { } return r; }; }
 // revancha con Kuro después de la historia (para conseguir el botín)
-DLG_HOOKS.push((npc, opts) => { const P = G.P; if (!npc || npc.id !== SYRUP_KAYA || !P || !syrupWon(SYRUP_CAPTAIN, P) || !P.syrupUsopp) return; const M = G.map; if (!M || !M.syrup || M.syrup.run) return;
+DLG_HOOKS.push((npc, opts) => { const P = G.P; if (!npc || npc.id !== SYRUP_KAYA || !P || P.syrupRecall || !syrupWon(SYRUP_CAPTAIN, P) || !P.syrupUsopp) return; const M = G.map; if (!M || !M.syrup || M.syrup.run) return;
   opts.unshift({ label: '⚔ ' + L2('Kuro volvió a la terraza (revancha)', 'Kuro is back on the terrace (rematch)') + (kuroMissing(P).length ? ' · 🎁' : ''), icon: ['sword'], fn: () => { closeDialog(); const won = P.bossKills[SYRUP_CAPTAIN]; delete P.bossKills[SYRUP_CAPTAIN]; try { syrupStart('captain'); } finally { if (M.syrup.run) P.kuroRematch = won; else P.bossKills[SYRUP_CAPTAIN] = won; } } }); });
 // si la revancha termina sin vencerlo (sales, caes o abandonas), la historia sigue como estaba
 V33_TICKS.push(() => { const P = G.P; if (!P || !P.kuroRematch) return; const M = G.map, run = M && M.syrup && M.syrup.run; if (run && run.stage === 'captain' && !P.dead) return; if (!P.bossKills[SYRUP_CAPTAIN]) P.bossKills[SYRUP_CAPTAIN] = P.kuroRematch; P.kuroRematch = 0; markDirty(true); });

@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.06', GAME_BUILD = 227;
+const GAME_VER = '6.07', GAME_BUILD = 228;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.07",
+ "b": 228,
+ "d": "2026-11-24",
+ "es": [
+  "Islas Conomi después de Baratie. Explora Cocoyashi y Arlong Park y enfréntate a Arlong de nivel 605.",
+  "El hachazo de Luffy atraviesa cuatro pisos. Tras la victoria quedan las ruinas y se abren nuevos diálogos con la tripulación.",
+  "Puedes repetir los arcos del Mar de Dawn."
+ ],
+ "en": [
+  "Conomi Islands after Baratie. Explore Cocoyashi and Arlong Park and fight level 605 Arlong.",
+  "Luffy’s axe kick breaks through four floors. After the victory, revisit the ruins and talk to the crew for new dialogue.",
+  "Replay the Dawn Sea story arcs."
+ ]
+},
 {
  "v": "6.06",
  "b": 227,

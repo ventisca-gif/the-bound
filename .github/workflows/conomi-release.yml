@@ -1,0 +1,45 @@
+name: Package Conomi 6.07
+on:
+  pull_request:
+    branches: [main]
+    paths: ['src/6zzzzz4_conomi_finale.js']
+permissions:
+  contents: write
+jobs:
+  package:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'codex/conomi-607'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build and verify the updater package
+        run: |
+          mkdir -p tools/i18n/vendor
+          npm pack acorn@8.14.0
+          tar -xOzf acorn-8.14.0.tgz package/dist/acorn.js > tools/i18n/vendor/acorn.js
+          python3 tools/dev/release.py
+          python3 - <<'PY'
+          import hashlib, json, pathlib
+          folder = pathlib.Path('update')
+          manifest = json.loads((folder / 'version.json').read_text())
+          page = (folder / manifest['file']).read_bytes()
+          assert manifest['build'] == 228 and manifest['ver'] == '6.07'
+          assert len(page) == manifest['size']
+          assert hashlib.sha256(page).hexdigest() == manifest['sha256']
+          assert b'function conomiAxeTick' in page and b'CONOMI_AFTER_TALK' in page and b'const BAR_LOOT_PITY=10' in page
+          PY
+      - name: Commit verified package to the release branch
+        run: |
+          git fetch origin codex/conomi-607
+          test "$(git rev-parse FETCH_HEAD)" = "$(git rev-parse HEAD)"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add update/thebound.html update/version.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Package The Bound 6.07 for the internal updater'
+          git push origin HEAD:refs/heads/codex/conomi-607

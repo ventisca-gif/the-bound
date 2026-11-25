@@ -150,6 +150,11 @@ function mrTick(dt) { const P = G.P, M = G.map; if (!P || !M || P.dead || G.fadi
       if (d < 40 && !G.fading) { MR.boat = null; mrBoard(); return; } if (d > 900) { b.lost += dt; if (b.lost > 6) { MR.boat = null; toast(L2('Has dejado atrás al barco de la Marina.', 'You left the Navy ship behind.'), 'info', 4); } } else b.lost = 0;
       if (G.t - b.t > 90) { MR.boat = null; } } return; }
   if (MR.boat) MR.boat = null;
+  if(M.conomi&&(M.conomi.scene||M.conomi.run||
+   typeof conomiTile==='function'&&conomiTile((P.x>>4)-CONOMI_X,(P.y>>4)-CONOMI_Y)==='archive')){
+    if(MR.spy){MR.spy.remove=true;MR.spy=null;}
+    return;
+  }
   // en tierra: patrullas que preguntan por ti
   if (MR.hunt) { const alive = MR.hunt.mobs.filter(m => !m.dying && !m.remove && m.map === M.id); if (!alive.length) { const n = MR.hunt.mobs.length; MR.hunt = null; if (n) { banner('⚓ ' + L2('Patrulla derrotada', 'Patrol defeated'), L2('La Marina tardará en volver… y tu cartel sube.', 'The Navy will take a while to return… and your poster goes up.')); } } return; }
   if (MR.spy) { const e = MR.spy; if (e.remove) { MR.spy = null; return; } const d = Math.hypot(P.x - e.x, P.y - e.y); if (!e.asked) { if (d > 34) npcStep(e, P.x, P.y + 4, 40, dt); else { e.anim = 'idle'; e.dir = dirFromVec(P.x - e.x, P.y - e.y); if (!e.chatT || G.t - e.chatT > 6) { e.chat = L2('Oye… ¿has visto a este pirata?', 'Hey… have you seen this pirate?'); e.chatT = G.t; } } }

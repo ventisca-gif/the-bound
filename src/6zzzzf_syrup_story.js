@@ -1,6 +1,6 @@
 const SYRUP_SHAM='syrup_sham',SYRUP_BUCHI='syrup_buchi',SYRUP_JANGO='syrup_jango',SYRUP_CAPTAIN='syrup_kuro';
 const SYRUP_KAYA='syrup_kaya',SYRUP_MERRY='syrup_merry';
-SAVEKEYS.push('syrupClue','syrupManorWarned','syrupUsopp');
+SAVEKEYS.push('syrupClue','syrupManorWarned','syrupUsopp','syrupRecall');
 const SYRUP_BOSSES={
  [SYRUP_SHAM]:['Sham',572,SYRUP_NORTH,21,3.36,124,65],
  [SYRUP_BUCHI]:['Buchi',572,SYRUP_NORTH,24,3.57,63,79],
@@ -40,12 +40,13 @@ for(const [id,n,title,,line] of SYRUP_NPCS){
  NPCS[id]={n,title,look,lines:[line],atlas:style?undefined:()=>syrupAtlas(id)};
 }
 const syrupWon=(id,P=G.P)=>!!P?.bossKills?.[id];
-const syrupPairDone=P=>syrupWon(SYRUP_SHAM,P)&&syrupWon(SYRUP_BUCHI,P);
+const syrupArcWon=(id,P)=>P.syrupRecall?!!P.syrupRecall.wins[id]:syrupWon(id,P);
 function syrupStage(P){
- if(syrupWon(SYRUP_CAPTAIN,P))return P.syrupUsopp?'done':'recruit';
- if(syrupWon(SYRUP_JANGO,P))return 'captain';
- if(syrupPairDone(P))return 'forest';
- return P.syrupClue?P.syrupManorWarned?'slope':'manor':'village';
+ const story=P.syrupRecall||P;
+ if(syrupArcWon(SYRUP_CAPTAIN,P))return !P.syrupRecall&&P.syrupUsopp?'done':'recruit';
+ if(syrupArcWon(SYRUP_JANGO,P))return 'captain';
+ if(syrupArcWon(SYRUP_SHAM,P)&&syrupArcWon(SYRUP_BUCHI,P))return 'forest';
+ return story.syrupClue?story.syrupManorWarned?'slope':'manor':'village';
 }
 function syrupNext(P){
  switch(syrupStage(P)){
@@ -119,7 +120,7 @@ function syrupStart(stage){
  if(!M?.syrup||M.syrup.run||!D||P.dead||P.dawnHelm||syrupStage(P)!==stage)return;
  const [x,y]=dawnPx(D.at);
  syrupMoveScene(M,[D.at[0],D.at[1]+4]);
- const foes=D.foes.filter(id=>!syrupWon(id)).map((id,i)=>{
+ const foes=D.foes.filter(id=>!syrupArcWon(id,P)).map((id,i)=>{
   const [,,,,,,,height]=SYRUP_BOSSES[id],m=spawnMob(id,BOSSES[id].lv,x+(i?42:-22),y+3,0,null,true);
   Object.assign(m,{state:'fight',cd:1.3+i*.65,hgt:height,shR:17,syrupTurns:0});return m;
  });
@@ -174,19 +175,25 @@ DLG_HOOKS.push((npc,opts)=>{
  const M=G.map,P=G.P;
  if(!M?.syrup||!npc.syrupLocal||!P?.dawnCrewJoined||!P.rareDone||M.syrup.run)return;
  const stage=syrupStage(P);
+ if(stage==='done'&&npc.id===SYRUP_KAYA){
+  syrupAddOption(opts,L2('Revivir la historia de Villa Syrup','Replay Syrup Village’s story'),()=>{
+   P.syrupRecall={wins:{}};markDirty(true);closeDialog();
+   setWp({loc:SYRUP_VILLAGE,m:'dawn',t:SYRUP_NAME});
+  });
+ }
  if(stage==='village'&&npc.id===SYRUP_USOPP){
   syrupAddOption(opts,L2('Escuchar la advertencia','Hear the warning'),()=>showLines(SYRUP_SCENES.clue,()=>{
-   P.syrupClue=true;markDirty(true);closeDialog();setWp({loc:SYRUP_MANOR,m:'dawn',t:SYRUP_NAME});
+   (P.syrupRecall||P).syrupClue=true;markDirty(true);closeDialog();setWp({loc:SYRUP_MANOR,m:'dawn',t:SYRUP_NAME});
   }));return;
  }
  if(stage==='manor'&&npc.id===SYRUP_KAYA){
   syrupAddOption(opts,L2('Advertir a Kaya','Warn Kaya'),()=>showLines(SYRUP_SCENES.manor,()=>{
-   P.syrupManorWarned=true;markDirty(true);closeDialog();setWp({loc:SYRUP_NORTH,m:'dawn',t:SYRUP_NAME});
+   (P.syrupRecall||P).syrupManorWarned=true;markDirty(true);closeDialog();setWp({loc:SYRUP_NORTH,m:'dawn',t:SYRUP_NAME});
   }));return;
  }
  if(stage==='recruit'&&npc.id===SYRUP_USOPP){
   syrupAddOption(opts,L2('Reclutar a Usopp · nivel 580','Recruit Usopp · level 580'),()=>showLines(SYRUP_SCENES.recruit,()=>{
-   P.syrupUsopp=true;markDirty(true);closeDialog();sfx('quest');
+   P.syrupUsopp=true;delete P.syrupRecall;markDirty(true);closeDialog();sfx('quest');
    banner(L2('Usopp · nivel 580','Usopp · level 580'),L2('Tirador de la tripulación. Ya puedes elegirlo en el puesto del muelle.','Crew sharpshooter. You can now select him at the pier sign.'));
   }));return;
  }
@@ -201,7 +208,7 @@ function syrupLocals(M,P){
  for(const e of S.locals)e.remove=true;
  S.locals=[];S.lead=null;S.sceneStage=stage;S.sceneOwner=P;
  for(const [id,,,at] of SYRUP_NPCS){
-  if(id===SYRUP_USOPP&&P.syrupUsopp)continue;
+  if(id===SYRUP_USOPP&&P.syrupUsopp&&!P.syrupRecall)continue;
   if(id===SYRUP_USOPP&&stage==='recruit'){
    S.locals.push(spawnNPC(id,...dawnPx([950,742]),M.id,{syrupLocal:true,hgt:57}));continue;
   }
@@ -406,6 +413,7 @@ DL_HOOKS.push((list,cx,cy)=>{
  const M=G.map,R=M?.syrup?.run;
  const result=old.apply(this,arguments);
  if(!R?.foes.includes(m))return result;
+ if(G.P.syrupRecall){G.P.syrupRecall.wins[m.mid]=true;markDirty(true);}
  const next=R.foes.find(b=>b!==m&&!b.dying&&!b.remove&&b.hp>0);
  if(next){showBoss(next);return result;}
  const P=G.P,at=syrupNext(P);
