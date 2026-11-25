@@ -1,24 +1,18 @@
 {
- "build": 245,
- "ver": "6.23",
+ "build": 246,
+ "ver": "6.24",
  "date": "2026-11-25",
  "file": "thebound.html",
- "size": 37878030,
- "sha256": "2232246b5b26bfeebb7a211ef906f053f3b2bf05ddc6aee7cef9699855f18925",
+ "size": 37879198,
+ "sha256": "9159a6c8aa521d793843399c78770e5acaac5eb9d6eac3855ed6754faf22e731",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "12 estructuras de cuerpo nuevas. Hombre: Titán, Juvenil, Galán, Compacto y Larguirucho. Mujer: Alta, Guerrera, Chibi, Señorial, Llenita, Cintura y Avispa (las dos últimas con cintura marcada).",
-   "Forma de ojos a elegir aparte, con cualquier cuerpo: Chibi, Héroe, Afilados, Amables, Pestañas o Grandes (o la de tu estructura).",
-   "Toda la ropa, armaduras, cosméticos, peinados, armas, transformaciones, la clase Pez, nadar y los bailes se adaptan a las estructuras nuevas.",
-   "Arreglo: los sombreros altos ya no se salen por arriba en la estructura Atlética."
+   "Aura del Conquistador: a los enemigos muy débiles que tumba ahora les sale «¡KO!» en vez de un número gigante (como 1.810.944.828) que parecía daño real. El efecto no cambia."
   ],
   "en": [
-   "12 new body builds. Male: Titan, Youthful, Dashing, Stocky and Lanky. Female: Tall, Warrior, Chibi, Graceful, Plump, Waisted and Hourglass (the last two with a defined waist).",
-   "Choose your eye shape separately, with any body: Chibi, Hero, Sharp, Gentle, Lashes or Big (or your build's own).",
-   "All clothes, armor, cosmetics, hairstyles, weapons, transformations, the Fish class, swimming and dances fit the new builds.",
-   "Fix: tall hats no longer stick out of the top on the Athletic build."
+   "Conqueror's Aura: very weak enemies it knocks out now show “KO!” instead of a huge number (like 1,810,944,828) that looked like real damage. The effect is unchanged."
   ]
  }
 }
