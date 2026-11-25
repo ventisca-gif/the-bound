@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.11 · Oficios más claros</div>
+  <div class="tfoot">v6.12 · Preparado para crecer</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -674,6 +674,49 @@ const storage = {
   set(k, v) { try { localStorage.setItem(k, v); return true; } catch (e) { return false; } },
   del(k) { try { localStorage.removeItem(k); } catch (e) { } }
 };
+
+// ================= 6.12: GANCHOS (sin apilar más capas) =================
+// Hasta la 6.11 cada sistema nuevo envolvía una función global (`calcStats = function () { const r = _cs(...); ... }`).
+// Funciona, pero algunas ya tienen 40-70 capas y cada cambio es más fácil que rompa algo. Desde la 6.12 lo nuevo se
+// registra aquí y src/zz_hooks_fin.js instala UNA sola capa por función cuando ya ha cargado todo el juego, así que
+// se comporta igual que una envoltura más añadida al final (la más externa), pero sin crecer la pila.
+//
+//   hookBefore('hbGather', (job) => { ...; return HOOK_SKIP; })   // HOOK_SKIP: no se ejecuta la función ni lo demás
+//   hookAfter('calcStats', (S, P) => { S.atk *= 1.1; })            // recibe (resultado, ...argumentos); si devuelve
+//                                                                  // algo distinto de undefined, sustituye el resultado
+//   hookAround('pickFish', (next, hab) => Math.random() < .5 ? miPez() : next(hab))   // control total
+//
+// Orden: antes → alrededor (el primero registrado es el más externo) → función → después, en orden de registro.
+// Un gancho que falla no rompe el juego: se avisa una vez (errOnce) y se sigue con el resto.
+// Solo sirve para funciones globales declaradas con `function` (las `const f = () =>` no se pueden enganchar).
+const HOOK_SKIP = Object.freeze({ hookSkip: true });
+const HOOKS = {};
+let HOOKS_LIVE = false;
+function hookReg(kind, name, fn) {
+  if (typeof fn !== 'function') throw new Error('hook ' + name + ': falta la función');
+  const H = HOOKS[name] || (HOOKS[name] = { before: [], around: [], after: [], base: null });
+  H[kind].push(fn); if (HOOKS_LIVE && !H.base) hookInstall(name); return fn;
+}
+const hookBefore = (name, fn) => hookReg('before', name, fn);
+const hookAfter = (name, fn) => hookReg('after', name, fn);
+const hookAround = (name, fn) => hookReg('around', name, fn);
+function hookWarn(name, e) { try { if (typeof errOnce === 'function') errOnce('hook ' + name, e); else console.warn('hook ' + name, e); } catch (x) { } }
+function hookInstall(name) {
+  const H = HOOKS[name]; if (!H || H.base) return;
+  const base = globalThis[name]; if (typeof base !== 'function') { hookWarn(name, new Error('no es una función global')); return; }
+  H.base = base;
+  const disp = function () {
+    const self = this, a = arguments;
+    for (let i = 0; i < H.before.length; i++) { let v; try { v = H.before[i].apply(self, a); } catch (e) { hookWarn(name, e); } if (v === HOOK_SKIP) return undefined; }
+    let r;
+    if (!H.around.length) r = base.apply(self, a);
+    else { const call = (k, args) => k >= H.around.length ? base.apply(self, args) : (() => { try { return H.around[k].call(self, (...x) => call(k + 1, x), ...args); } catch (e) { hookWarn(name, e); return call(k + 1, args); } })(); r = call(0, Array.from(a)); }
+    for (let i = 0; i < H.after.length; i++) { try { const v = H.after[i].call(self, r, ...a); if (v !== undefined) r = v; } catch (e) { hookWarn(name, e); } }
+    return r;
+  };
+  disp.hookOf = name; globalThis[name] = disp;
+}
+function hooksInstallAll() { HOOKS_LIVE = true; for (const name in HOOKS) hookInstall(name); }
 
 // ================= WORLD GENERATION =================
 const WW = 384, WH = 240, SEED = 7331;
@@ -11836,7 +11879,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.11', GAME_BUILD = 232;
+const GAME_VER = '6.12', GAME_BUILD = 233;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11844,6 +11887,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.12",
+ "b": 233,
+ "d": "2026-11-25",
+ "es": [
+  "Mejoras por dentro para que el juego pueda seguir creciendo (más niveles y más crossovers) sin romperse: lo nuevo ya no se apila encima de lo anterior.",
+  "Revisión completa: más de 200 actividades y minijuegos probados en su sitio, partidas de versiones antiguas, 10 minutos de juego seguido y toda la Lupa, sin errores."
+ ],
+ "en": [
+  "Under-the-hood improvements so the game can keep growing (more levels and more crossovers) without breaking: new content no longer stacks on top of the old.",
+  "Full review: over 200 activities and minigames tested in place, saves from old versions, 10 minutes of continuous play and the whole Magnifier, with no errors."
+ ]
+},
 {
  "v": "6.11",
  "b": 232,
@@ -53471,10 +53527,10 @@ FISH_MAP.dawn = 'dawn';
   '• ' + L2(`Pez de Nácar y Pez Espada Rayado: Pesca ${RESLV[24]} y Caña de Nacarita.`, `Nacre Fish and Striped Swordfish: Fishing ${RESLV[24]} and Nacrite Rod.`),
   '• ' + L2(`Anguila de Piedra del Mar y Cría de Rey del Mar: Pesca ${RESLV[25]} y Caña de Piedra del Mar.`, `Seastone Eel and Sea King Hatchling: Fishing ${RESLV[25]} and Seastone Rod.`)]); } }
 // si puedes pescar alguno de Dawn, la mitad de las veces pica uno de Dawn (si no, se perderían entre más de 20 peces de mar)
-{ const _pf = pickFish; pickFish = function (hab) { if (hab === 'dawn' && Math.random() < 0.5) { const P = G.P, lv = P.jobs.pesca.lv, rod = bestTool('pesca');
+hookAround('pickFish', function (next, hab) { if (hab === 'dawn' && Math.random() < 0.5) { const P = G.P, lv = P.jobs.pesca.lv, rod = bestTool('pesca');
     const ok = FISH.filter(f => f[3].length === 1 && f[3][0] === 'dawn' && RESLV[f[2]] <= lv && toolNeed('pesca', f[2]) <= rod);
     if (ok.length) { const maxT = Math.max(...ok.map(f => f[2])); return choiceW(new RNG((Math.random() * 1e9) | 0), ok.map(f => ({ f, w: f[2] === maxT ? 1 : 2 }))).f; } }
-  return _pf.apply(this, arguments); }; }
+  return next(hab); });
 
 // «¿Qué hago ahora?» / guía de oficios: la flecha «Árbol/Veta para tu nivel» solo miraba el nivel de oficio y podía
 // llevarte a un recurso que tu herramienta no puede recoger. Ahora mira también la herramienta.
@@ -53526,34 +53582,33 @@ function ocAdvice(job) { const P = G.P, J = P.jobs[job] || { lv: 1 }, cap = jobC
   return { lines: out, wp }; }
 
 // ---------- 2) avisos al recolectar ----------
-{ const _hg = hbGather; hbGather = function (job) { try { const P = G.P;
+hookBefore('hbGather', function (job) { try { const P = G.P;
     if (P && !P.dead && !P.job && !P.fishing && (job === 'tala' || job === 'mineria') && eqTool(job)) { const o = hbFindRes(job);
       if (o) { const tier = job === 'tala' ? WOODT[o.sp] : o.tier, need = RESLV[tier] || 999, lv = (P.jobs[job] || { lv: 1 }).lv, cap = jobCap(job);
-        if (lv < need) { toast(L2('Requiere ', 'Requires ') + JOBS[job].n + L2(' nivel ', ' level ') + need + (need > cap ? ' · ' + L2(`tu tope es ${cap}: `, `your cap is ${cap}: `) + ocMasteryLine(job) : ''), 'warn', need > cap ? 6 : 3); return; }
+        if (lv < need) { toast(L2('Requiere ', 'Requires ') + JOBS[job].n + L2(' nivel ', ' level ') + need + (need > cap ? ' · ' + L2(`tu tope es ${cap}: `, `your cap is ${cap}: `) + ocMasteryLine(job) : ''), 'warn', need > cap ? 6 : 3); return HOOK_SKIP; }
         const nt = toolNeed(job, tier); if (bestTool(job) < nt) { const id = ocTool(job, nt), I = id && ITEMS[id];
-          toast(L2('Necesitas ', 'You need ') + (I ? I.n : L2('una herramienta mejor', 'a better tool')) + L2(` (potencia ${nt})`, ` (power ${nt})`) + (I && P.lv < (I.lv || 1) ? L2(`: pide nivel de personaje ${I.lv}`, `: needs character level ${I.lv}`) : I ? L2(': fabrícala en la Herrería', ': craft it at the Forge') : ''), 'warn', 4); return; } } } } catch (e) { }
-  return _hg.apply(this, arguments); }; }
+          toast(L2('Necesitas ', 'You need ') + (I ? I.n : L2('una herramienta mejor', 'a better tool')) + L2(` (potencia ${nt})`, ` (power ${nt})`) + (I && P.lv < (I.lv || 1) ? L2(`: pide nivel de personaje ${I.lv}`, `: needs character level ${I.lv}`) : I ? L2(': fabrícala en la Herrería', ': craft it at the Forge') : ''), 'warn', 4); return HOOK_SKIP; } } } } catch (e) { } });
 
 // ---------- 3) aviso al llegar al tope ----------
-{ const _gj = gainJobXp; gainJobXp = function (job) { const P = G.P, J = P && P.jobs && P.jobs[job], before = J ? J.lv : 0; const r = _gj.apply(this, arguments);
+hookAround('gainJobXp', function (next, job, ...rest) { const P = G.P, J = P && P.jobs && P.jobs[job], before = J ? J.lv : 0; const r = next(job, ...rest);
   try { if (J && OC_JOBS.includes(job) && J.lv > before && J.lv >= jobCap(job) && mastRank(job) < 3) { P.capWarn = P.capWarn || {}; const key = job + ':' + jobCap(job);
     if (!P.capWarn[key]) { P.capWarn[key] = 1; const M = ocMaster(job); toast('⭐ ' + JOBS[job].n + L2(`: tope ${jobCap(job)}. `, `: cap ${jobCap(job)}. `) + ocMasteryLine(job), 'quest', 8); if (M && M.wp && !P.wp) setWp(M.wp); markDirty(); } } } catch (e) { }
-  return r; }; }
+  return r; });
 SAVEKEYS.push('capWarn');
 
 // ---------- 4) Lupa › Oficios: siguiente paso y tope de verdad ----------
-{ const _gj = guiaJobs; guiaJobs = function () { const r = _gj.apply(this, arguments);
-  try { if (!GJOB || !OC_JOBS.includes(GJOB)) { if (GJOB && JOBS[GJOB]) { const h = $('.guia .gdet h4'); if (h) h.innerHTML = h.innerHTML.replace('/' + JOBMAX, '/' + jobCap(GJOB)); } return r; }
-    const det = $('.guia .gdet'); if (!det) return r; const h = det.querySelector('h4'); if (h) h.innerHTML = h.innerHTML.replace('/' + JOBMAX, '/' + jobCap(GJOB));
+hookAfter('guiaJobs', function () {
+  try { if (!GJOB || !OC_JOBS.includes(GJOB)) { if (GJOB && JOBS[GJOB]) { const h = $('.guia .gdet h4'); if (h) h.innerHTML = h.innerHTML.replace('/' + JOBMAX, '/' + jobCap(GJOB)); } return; }
+    const det = $('.guia .gdet'); if (!det) return; const h = det.querySelector('h4'); if (h) h.innerHTML = h.innerHTML.replace('/' + JOBMAX, '/' + jobCap(GJOB));
     const A = ocAdvice(GJOB); let html = `<div class="gsrc"><span>🧭 <b>${L2('Siguiente paso', 'Next step')}:</b><br>${A.lines.map(esc).join('<br>')}</span>${A.wp ? guiaFollowBtn(A.wp, A.wp.t) : ''}</div>`;
     if (A.wp) WP_M[Math.round(A.wp.loc[0] * 10) / 10 + ',' + Math.round(A.wp.loc[1] * 10) / 10] = 'world';
     const first = det.querySelector('.gsrc'); if (first) first.insertAdjacentHTML('afterend', html); else det.insertAdjacentHTML('beforeend', html);
     $$('.guia .gdet [data-wp]').forEach(b => b.onclick = () => { const [x, y] = b.dataset.wp.split(',').map(Number); setWp({ loc: [x, y], t: b.dataset.wl, m: WP_M[Math.round(x * 10) / 10 + ',' + Math.round(y * 10) / 10] || 'world' }); guiaJobs(); });
-  } catch (e) { } return r; }; }
+  } catch (e) { } });
 
 // Protección: archiTick (navegación del Archipiélago, también usada al remar/surfear en Trujillo) recorre M.camps y
 // M.bossAt; si algún mapa se marca archi sin ellos, daba un error en cada fotograma. Ahora se salta.
-{ const _at = archiTick; archiTick = function () { const M = G.map; if (M && M.archi && (!Array.isArray(M.bossAt) || !Array.isArray(M.camps))) return; return _at.apply(this, arguments); }; }
+hookBefore('archiTick', function () { const M = G.map; if (M && M.archi && (!Array.isArray(M.bossAt) || !Array.isArray(M.camps))) return HOOK_SKIP; });
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;
@@ -53632,6 +53687,11 @@ window.onAndroidBack = () => { if (!$('#modal').hidden && G.P) { closeModal(); r
 addEventListener('pagehide', () => { if (G.P && !G.P.ghost) saveGame(true); });
 window.addEventListener('error', e => { if (e.error) errShow(e.error); else { const el = document.getElementById('errlog'); if (el) { el.hidden = false; el.textContent = (LANG_EN ? "Error: " : 'Error: ') + (e.message || e.error); } } });
 (function start() { const go = () => { const h = window.claude && window.claude.hot; if (h && h.ready) { try { h.ready(d => boot(d || {})); return; } catch (e) { } } boot((h && h.data) || {}); }; if (typeof tbStart === 'function') tbStart(go); else go(); })();
+
+// ================= 6.12: instalar los ganchos (src/00h_hooks.js) =================
+// Este archivo va el último (orden alfabético de build.py): pone UNA capa por función enganchada, encima de todas
+// las envolturas antiguas. Los ganchos que se registren después (en tiempo de juego) se instalan al momento.
+hooksInstallAll();
 
 </script>
 </body></html>
