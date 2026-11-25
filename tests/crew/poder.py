@@ -43,6 +43,15 @@ with sync_playwright() as p:
     page.wait_for_timeout(1200)
     duel = js("()=>{const R=CREW_DUEL;return R&&{id:R.id,lv:R.m.lv,hp:R.m.maxhp,atk:R.m.atk,pow:R.pow,name:R.m.name,follow:G.map.rare.crew.filter(Boolean).map(e=>e.id),ashore:G.P.dawnCrewAshore}}")
     shot('3_duelo', 1500)
+    # animaciones: caminata al acercarse y pose de técnica de lado
+    anim = js("""async()=>{const m=CREW_DUEL.m,P=G.P;const seen={walk:0,atk:0,pose:0};
+      P.x=m.x+150;P.y=m.y;updateCamera(0,true);CREW_DUEL.next=G.t+99;
+      for(let i=0;i<30;i++){await new Promise(r=>setTimeout(r,50));if(m.anim==='walk')seen.walk++;}
+      P.x=m.x+60;P.y=m.y;P.hp=P.S.maxhp;CREW_DUEL.next=0;
+      for(let i=0;i<40;i++){await new Promise(r=>setTimeout(r,25));P.hp=P.S.maxhp;if(m.anim==='atk')seen.atk++;if(m.crewPose&&m.anim==='atk'&&G.t>m.crewPose.start+.16&&G.t<m.crewPose.end-.12&&(m.dir==='left'||m.dir==='right'))seen.pose++;if(seen.pose===3)break;}
+      return seen;}""")
+    shot('3b_pose')
+    print('ANIM', anim)
     page.wait_for_timeout(3000); shot('4_tecnica')
     # medir: cuánto quita al jugador en 20 s y cuántos golpes básicos aguanta
     meas = js("()=>{const P=G.P;return {php:P.S.maxhp,patk:P.S.atk,rivalHp:CREW_DUEL&&CREW_DUEL.m.maxhp}}")
@@ -75,9 +84,9 @@ with sync_playwright() as p:
     js("()=>{const P=G.P;P.x+=900;updateCamera(0,true)}"); page.wait_for_timeout(600)
     cancel = js("()=>({duel:!!CREW_DUEL,ashore:G.P.dawnCrewAshore,cd:G.P._cdAshore})")
     # 6) a bordo no se puede
-    out = {'grow': grow, 'follow': fol, 'opts': opts, 'duel': duel, 'meas': meas, 'win': win, 'usopp': namiOn, 'namiNo': namiNo, 'namiOpt': namiOpt, 'lose': lose, 'cancel': cancel, 'errors': errs}
+    out = {'grow': grow, 'anim': anim, 'follow': fol, 'opts': opts, 'duel': duel, 'meas': meas, 'win': win, 'usopp': namiOn, 'namiNo': namiNo, 'namiOpt': namiOpt, 'lose': lose, 'cancel': cancel, 'errors': errs}
     print(json.dumps(out, ensure_ascii=False, indent=1))
-    ok = grow[0][0] == 0 and grow[1][0] > 0 and grow[2][0] > grow[1][0] and grow[4][0] > grow[3][0] and grow[5][0] > grow[4][0] and len(opts) >= 2 and duel and \
+    ok = grow[0][0] == 0 and grow[1][0] > 0 and grow[2] == grow[1] and grow[4][0] > grow[3][0] and grow[5] == grow[4] and grow[6] == grow[4] and anim['walk'] and anim['pose'] and len(opts) >= 2 and duel and \
         not win['duel'] and win['xp'] == xp0 and win['rec']['zoro']['w'] == 1 and win['cd'] is None and namiNo and namiOn and not any('Desafiar' in t or 'Challenge' in t for t in namiOpt) and not lose['dead'] and not lose['duel'] and not cancel['duel'] and cancel['cd'] is None and not errs
     assert ok, out
     print('OK')

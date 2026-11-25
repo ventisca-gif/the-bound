@@ -3,21 +3,21 @@
  "ver": "6.20",
  "date": "2026-11-25",
  "file": "thebound.html",
- "size": 37847781,
- "sha256": "f1b68658d1eed51505145261cea2af52f14042c09fefd202775f18a1c6e04c36",
+ "size": 37849407,
+ "sha256": "8aeb6775e0f6b87571a6bb4fd8cc4222254560f37ba835cfe9fc1b88d92ad5e2",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "La tripulación se hace más fuerte con cada batalla de la historia del Mar de Dawn, también al repetir un arco. Antes solo contaba la primera victoria hasta Villa Syrup; ahora cuentan Baratie, Arlong Park y Loguetown.",
-   "Cada arco completado da +10 % de poder, cada repetición +4 % y cada batalla +1,2 % (hasta +150 %): más vida, defensa y daño en sus técnicas.",
-   "Nueva opción al hablar con Luffy, Zoro, Usopp o Sanji: «Desafiar» para un duelo con su poder actual. Nadie muere, no da XP ni botín y da oro la primera vez que ganas a cada poder nuevo. Nami no pelea.",
+   "La tripulación se hace más fuerte al completar cada arco del Mar de Dawn y al vencer por primera vez a cada jefe de la historia. Antes solo contaban los jefes hasta Villa Syrup; ahora también Baratie, Arlong Park y Loguetown. Repetir un arco no la sube.",
+   "Cada arco completado da +15 % de poder y cada jefe vencido +2 % (todo: +126 %): más vida, defensa y daño en sus técnicas.",
+   "Nueva opción al hablar con Luffy, Zoro, Usopp o Sanji: «Desafiar» para un duelo con su poder actual, con su caminata, sus ataques y sus técnicas de siempre. Nadie muere, no da XP ni botín y da oro la primera vez que ganas a cada poder nuevo. Nami no pelea.",
    "«Poder de la tripulación» al hablarles: arcos completados, batallas y el poder de cada uno."
   ],
   "en": [
-   "The crew grows stronger with every Dawn Sea story battle, replays included. Before, only the first win up to Syrup Village counted; now Baratie, Arlong Park and Loguetown count too.",
-   "Each completed arc gives +10 % power, each replay +4 % and each battle +1.2 % (up to +150 %): more HP, defense and technique damage.",
-   "New option when talking to Luffy, Zoro, Usopp or Sanji: “Challenge” for a duel at their current power. Nobody dies, it gives no XP or loot, and it pays gold the first time you beat each new power level. Nami doesn’t fight.",
+   "The crew grows stronger when you complete each Dawn Sea arc and the first time you beat each story boss. Before, only the bosses up to Syrup Village counted; now Baratie, Arlong Park and Loguetown do too. Replaying an arc does not raise it.",
+   "Each completed arc gives +15 % power and each boss beaten +2 % (everything: +126 %): more HP, defense and technique damage.",
+   "New option when talking to Luffy, Zoro, Usopp or Sanji: “Challenge” for a duel at their current power, with their usual walk, attacks and techniques. Nobody dies, it gives no XP or loot, and it pays gold the first time you beat each new power level. Nami doesn’t fight.",
    "“Crew power” when talking to them: completed arcs, battles and each member’s power."
   ]
  }

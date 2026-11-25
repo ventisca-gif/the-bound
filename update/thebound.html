@@ -11924,15 +11924,15 @@ const CHANGELOG = /*CL*/
  "b": 242,
  "d": "2026-11-25",
  "es": [
-  "La tripulación se hace más fuerte con cada batalla de la historia del Mar de Dawn, también al repetir un arco. Antes solo contaba la primera victoria hasta Villa Syrup; ahora cuentan Baratie, Arlong Park y Loguetown.",
-  "Cada arco completado da +10 % de poder, cada repetición +4 % y cada batalla +1,2 % (hasta +150 %): más vida, defensa y daño en sus técnicas.",
-  "Nueva opción al hablar con Luffy, Zoro, Usopp o Sanji: «Desafiar» para un duelo con su poder actual. Nadie muere, no da XP ni botín y da oro la primera vez que ganas a cada poder nuevo. Nami no pelea.",
+  "La tripulación se hace más fuerte al completar cada arco del Mar de Dawn y al vencer por primera vez a cada jefe de la historia. Antes solo contaban los jefes hasta Villa Syrup; ahora también Baratie, Arlong Park y Loguetown. Repetir un arco no la sube.",
+  "Cada arco completado da +15 % de poder y cada jefe vencido +2 % (todo: +126 %): más vida, defensa y daño en sus técnicas.",
+  "Nueva opción al hablar con Luffy, Zoro, Usopp o Sanji: «Desafiar» para un duelo con su poder actual, con su caminata, sus ataques y sus técnicas de siempre. Nadie muere, no da XP ni botín y da oro la primera vez que ganas a cada poder nuevo. Nami no pelea.",
   "«Poder de la tripulación» al hablarles: arcos completados, batallas y el poder de cada uno."
  ],
  "en": [
-  "The crew grows stronger with every Dawn Sea story battle, replays included. Before, only the first win up to Syrup Village counted; now Baratie, Arlong Park and Loguetown count too.",
-  "Each completed arc gives +10 % power, each replay +4 % and each battle +1.2 % (up to +150 %): more HP, defense and technique damage.",
-  "New option when talking to Luffy, Zoro, Usopp or Sanji: “Challenge” for a duel at their current power. Nobody dies, it gives no XP or loot, and it pays gold the first time you beat each new power level. Nami doesn’t fight.",
+  "The crew grows stronger when you complete each Dawn Sea arc and the first time you beat each story boss. Before, only the bosses up to Syrup Village counted; now Baratie, Arlong Park and Loguetown do too. Replaying an arc does not raise it.",
+  "Each completed arc gives +15 % power and each boss beaten +2 % (everything: +126 %): more HP, defense and technique damage.",
+  "New option when talking to Luffy, Zoro, Usopp or Sanji: “Challenge” for a duel at their current power, with their usual walk, attacks and techniques. Nobody dies, it gives no XP or loot, and it pays gold the first time you beat each new power level. Nami doesn’t fight.",
   "“Crew power” when talking to them: completed arcs, battles and each member’s power."
  ]
 },
@@ -55166,11 +55166,13 @@ GSIS.push(['fruta_forma', L2('Frutas del Diablo y transformaciones', 'Devil Frui
 ]]);
 
 // 6.20 · Poder de la tripulación y duelos con la tripulación (Sergio: «revisa que con cada batalla aumente su poder,
-// o sea si completas el arco una vez, y agrega una opción al hablarles para desafiarlos con su poder actual» + «no borres nada»).
+// o sea si completas el arco una vez, y agrega una opción al hablarles para desafiarlos con su poder actual» + «no borres nada»
+// + «que en las luchas amistosas salgan sus animaciones de caminata y de ataque que ya existen» + «repetir el arco no sube,
+// estaría muy OP»).
 // Antes: syrupCrewStats solo contaba la PRIMERA victoria sobre 7 jefes (Morgan … Kuro). Baratie, Arlong Park, Loguetown
 // y repetir un arco no los hacían más fuertes. Ahora:
-//  1) Cada batalla de la historia ganada (también al repetirla) y cada arco completado suben el poder de toda la
-//     tripulación (vida, defensa y daño de sus técnicas). Gancho sobre syrupCrewStats: lo usan todas las peleas.
+//  1) La PRIMERA victoria sobre cada jefe de la historia y la PRIMERA vez que completas cada arco suben el poder de toda
+//     la tripulación (vida, defensa y daño de sus técnicas). Repetir un arco no sube nada. Gancho sobre syrupCrewStats.
 //  2) Al hablar con Luffy, Zoro, Usopp o Sanji (Nami no pelea): «Desafiar» con su poder actual. Duelo amistoso en el sitio:
 //     nadie muere (al llegar a 0 el duelo termina), no da XP ni botín y no cuenta como batalla para el poder.
 //     Premio en oro solo la primera vez que le ganas con un poder nuevo (no se puede repetir para sacar oro).
@@ -55184,20 +55186,19 @@ const CREW_POW_ARCS = [
   ['conomi', 'Arlong Park', P => crewBk(P, 'con_arlong')],
   ['logue', 'Loguetown', P => P.logueArcN || 0]
 ];
-// jefes de la historia: cada victoria (también repetida) es una batalla
+// jefes de la historia: la primera victoria sobre cada uno cuenta una vez (repetir no suma)
 const CREW_POW_BOSSES = [MORGAN_ID, ORANGE_CABAJI, ORANGE_BUGGY, SYRUP_SHAM, SYRUP_BUCHI, SYRUP_JANGO, SYRUP_CAPTAIN,
   'baratie_pearl', 'baratie_gin', 'baratie_krieg', 'con_hatchan', 'con_kuroobi', 'con_chew', 'con_arlong',
   'logue_arc_smoker', 'logue_smuggler', 'logue_guard', 'logue_captain'];
-const CREW_POW = { arc1: 0.10, arcN: 0.04, battle: 0.012, max: 1.5, arcRunsMax: 25, battlesMax: 300 };
+const CREW_POW = { arc1: 0.15, battle: 0.02, max: 1.5 };
 function crewBk(P, id) { return Math.max(0, (P && P.bossKills && P.bossKills[id]) | 0); }
 function crewPowerInfo(P) {
   P = P || G.P;
   const arcs = CREW_POW_ARCS.map(([k, n, f]) => ({ k, n, runs: Math.max(0, f(P) | 0) }));
   const done = arcs.filter(a => a.runs > 0).length;
-  const repeats = Math.min(CREW_POW.arcRunsMax, arcs.reduce((s, a) => s + Math.max(0, a.runs - 1), 0));
-  const battles = Math.min(CREW_POW.battlesMax, CREW_POW_BOSSES.reduce((s, id) => s + crewBk(P, id), 0));
-  const bonus = Math.min(CREW_POW.max, done * CREW_POW.arc1 + repeats * CREW_POW.arcN + battles * CREW_POW.battle);
-  return { arcs, done, repeats, battles, bonus };
+  const battles = CREW_POW_BOSSES.filter(id => crewBk(P, id) > 0).length;
+  const bonus = Math.min(CREW_POW.max, done * CREW_POW.arc1 + battles * CREW_POW.battle);
+  return { arcs, done, battles, bonus };
 }
 // se suma a lo que ya daba la 5.96-6.04 (victorias de Morgan a Kuro y el nivel), sin quitar nada
 hookAfter('syrupCrewStats', (r, P, id) => {
@@ -55313,15 +55314,30 @@ V33_TICKS.push(() => { try {
   if (R.hit || G.t < R.next || m.stun > 0 || m.freeze > 0) return;
   const list = CREW_TECHNIQUES[R.id] || []; if (!list.length) { R.next = G.t + 3; return; }
   const dd = Math.sqrt(d2(P, m)), ok = list.filter(s => s[2] + 20 >= dd); if (!ok.length) { R.next = G.t + 0.5; return; }
-  const [es, en, , hits, power, cd, mode] = ok[(Math.random() * ok.length) | 0], col = CREW_TECH_COLORS[mode] || '#ffe08a';
+  const pick = ok[(Math.random() * ok.length) | 0], tech = list.indexOf(pick);
+  const [es, en, , hits, power, cd, mode] = pick, col = CREW_TECH_COLORS[mode] || '#ffe08a';
   const x = P.x, y = P.y, r = mode === 'sweep' || mode === 'powder' ? 46 : 34;
-  m.dir = dirFromVec(x - m.x, y - m.y); setAnim(m, 'atk'); floatText(m.x, m.y - 72, L2(es, en), col, true);
+  // misma animación de ataque que en las peleas de la historia: fotogramas de ataque del atlas y, de lado, la pose
+  // de la técnica (CREW_SIDE_POSES); el rival se queda quieto mientras la hace (gancho de updateBoss más abajo)
+  const dur = hits > 3 ? 0.83 : 0.64;
+  m.dir = dirFromVec(x - m.x, y - m.y); setAnim(m, 'atk', true); m.actionUntil = G.t + dur; m.actionLength = dur;
+  m.crewPose = { index: tech, start: G.t, end: G.t + dur }; floatText(m.x, m.y - 72, L2(es, en), col, true);
   addFx({ type: 'ring', x, y, r, dur: 0.6, col });
   for (let j = 0; j < Math.min(4, hits); j++) { const delay = 0.3 + j * 0.3 / hits;
-    addFx({ type: 'crewTechnique', x: m.x, y: m.y - 13, endX: x, endY: y - 12, angle: Math.atan2(y - m.y, x - m.x), mode, col, delay, j, tech: list.indexOf(ok[0]), hits, dur: delay + 0.25 }); }
+    addFx({ type: 'crewTechnique', x: m.x, y: m.y - 13, endX: x, endY: y - 12, angle: Math.atan2(y - m.y, x - m.x), mode, col, delay, j, tech, hits, dur: delay + 0.25 }); }
   R.hit = { at: G.t + 0.6, x, y, r, col, pow: 0.6 + power * 0.25 };
   R.next = G.t + Math.max(2.6, cd * 0.9) + Math.random();
 } catch (e) { if (typeof errOnce === 'function') errOnce('crewDuel', e); } });
+
+// mientras hace una técnica se queda quieto y avanza sus fotogramas de ataque (como baratiePose en la historia)
+hookBefore('updateBoss', m => { if (m && m.crewRival && m.actionUntil > G.t) { baratiePose(m); return HOOK_SKIP; } });
+// de lado, la pose de la técnica (la misma imagen que dibuja 6zzzzx1 para el NPC; allí se busca por e.id y el rival es un mob)
+hookAround('drawEnt', (next, e, cx, cy) => {
+  const pose = e && e.crewRival && e.crewPose, img = pose && typeof CREW_SIDE_POSES !== 'undefined' && CREW_SIDE_POSES[e.crewRival];
+  if (!pose || !img || !img.naturalWidth || e.anim !== 'atk' || G.t < pose.start + 0.16 || G.t > pose.end - 0.12 || (e.dir !== 'left' && e.dir !== 'right')) return next(e, cx, cy);
+  const w = 120, h = 80; ctx.save(); ctx.translate(Math.round(e.x - cx), Math.round(e.y - cy - (e.z || 0))); if (e.dir === 'left') ctx.scale(-1, 1);
+  ctx.drawImage(img, pose.index * 240, 0, 240, 160, -w / 2, -h + 2, w, h); ctx.restore();
+});
 
 // ---------- opción al hablarles ----------
 function crewIdOf(npc) {
@@ -55336,10 +55352,10 @@ function crewPowerSheet() {
     const rec = (P.crewDuel || {})[CREW_RIVAL[id].k];
     return [n + ' · ' + L2('Poder ', 'Power ') + crewPowerNum(P, id) + (rec ? ' · ' + rec.w + '-' + rec.l : ''), () => { closeModal(); crewDuelStart(id, null); }];
   });
-  const arcs = I.arcs.map(a => (a.runs ? '✅ ' : '⬜ ') + a.n + (a.runs > 1 ? ' ×' + a.runs : '')).join(' · ');
+  const arcs = I.arcs.map(a => (a.runs ? '✅ ' : '⬜ ') + a.n).join(' · ');
   xMsg(L2('Poder de la tripulación', 'Crew power'),
-    L2('Sube con cada batalla de la historia que ganáis (también al repetirla) y con cada arco completado: más vida, defensa y daño en sus técnicas. ',
-      'It rises with every story battle you win (replays too) and every arc you complete: more HP, defense and technique damage. ') +
+    L2('Sube la primera vez que vencéis a cada jefe de la historia y la primera vez que completáis cada arco (repetirlo no suma): más vida, defensa y daño en sus técnicas. ',
+      'It rises the first time you beat each story boss and the first time you complete each arc (replays don’t count): more HP, defense and technique damage. ') +
     L2('Batallas: ', 'Battles: ') + I.battles + ' · ' + L2('Arcos: ', 'Arcs: ') + I.done + '/' + CREW_POW_ARCS.length + ' · ' + L2('Extra: +', 'Bonus: +') + Math.round(I.bonus * 100) + ' %<br>' + arcs + '<br>' + L2('Toca a un tripulante para desafiarlo.', 'Tap a crew member to challenge them.'),
     rows);
 }
@@ -55352,8 +55368,8 @@ DLG_HOOKS.push((npc, opts) => { try {
 
 // ---------- Lupa ----------
 if (typeof GSIS !== 'undefined') GSIS.push(['crew_poder', L2('Poder de la tripulación y duelos', 'Crew power and duels'), () => [
-  L2('La tripulación (Luffy, Zoro, Nami, Usopp y Sanji) se hace más fuerte con cada batalla de la historia del Mar de Dawn que ganáis, también si repites el arco.', 'The crew (Luffy, Zoro, Nami, Usopp and Sanji) gets stronger with every Dawn Sea story battle you win, replays included.'),
-  L2('Completar un arco por primera vez da +10 %, cada repetición +4 % y cada batalla +1,2 % (máximo +150 %): más vida, defensa y daño en sus técnicas.', 'Completing an arc for the first time gives +10 %, each replay +4 % and each battle +1.2 % (up to +150 %): more HP, defense and technique damage.'),
+  L2('La tripulación (Luffy, Zoro, Nami, Usopp y Sanji) se hace más fuerte la primera vez que vencéis a cada jefe de la historia del Mar de Dawn y la primera vez que completáis cada arco. Repetir un arco no la sube.', 'The crew (Luffy, Zoro, Nami, Usopp and Sanji) gets stronger the first time you beat each Dawn Sea story boss and the first time you complete each arc. Replaying an arc does not raise it.'),
+  L2('Cada arco completado da +15 % y cada jefe vencido +2 % (los 6 arcos y los 18 jefes: +126 %): más vida, defensa y daño en sus técnicas.', 'Each completed arc gives +15 % and each boss beaten +2 % (all 6 arcs and 18 bosses: +126 %): more HP, defense and technique damage.'),
   L2('Habla con Luffy, Zoro, Usopp o Sanji en tierra y elige «Desafiar» para un duelo con su poder actual (Nami no pelea). Nadie muere; si ganas con un poder nuevo te llevas oro.', 'Talk to Luffy, Zoro, Usopp or Sanji ashore and choose “Challenge” for a duel at their current power (Nami doesn’t fight). Nobody dies; beating a new power level earns gold.')
 ]]);
 
