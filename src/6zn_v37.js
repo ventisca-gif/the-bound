@@ -36,9 +36,9 @@ NPCS.maestro_agricultura = { n: 'Teodoro Semilla', title: 'Maestro de Agricultur
 function mastRank(job) { const P = G.P; return (P && P.mast && P.mast[job]) || 0; }
 function mastHave(id) { return countItem(id); }
 function openMastery(job) {
-  const P = G.P, D = MAST[job], r = mastRank(job), J = P.jobs[job], cap = JOBMAX + 10 * r;
+  const P = G.P, D = MAST[job], r = mastRank(job), J = P.jobs[job], cap = JOBMAX + (typeof JOB_EXT !== 'undefined' && JOB_EXT[job] || 0) + 10 * r;
   const nxt = r < 3 ? r : null, mats = nxt !== null ? D.mats[nxt] : [], ok = nxt !== null && J.lv >= D.need[nxt] && P.gold >= D.gold[nxt] && mats.every(([id, n]) => mastHave(id) >= n);
-  const bonus = k => `+${k * 10} niveles de oficio (máx. ${JOBMAX + k * 10}) · +${k * 15}% experiencia de oficio · ${k * 8}% de probabilidad de recolección doble`;
+  const bonus = k => `+${k * 10} niveles de oficio (máx. ${JOBMAX + (typeof JOB_EXT !== 'undefined' && JOB_EXT[job] || 0) + k * 10}) · +${k * 15}% experiencia de oficio · ${k * 8}% de probabilidad de recolección doble`;
   openModal(`<h2>${iconHTML(['star', '#ffd040'], 22)} Maestría de ${esc(JOBS[job].n)}</h2>
     <p class="hint">Rango actual: <b>${MAST_RANK[r]}</b> · ${esc(JOBS[job].n)} nivel ${J.lv}/${cap}</p>
     ${r ? `<p class="hint">Ahora mismo: ${bonus(r)}</p>` : ''}
