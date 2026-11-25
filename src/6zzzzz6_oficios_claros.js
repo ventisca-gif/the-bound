@@ -40,31 +40,30 @@ function ocAdvice(job) { const P = G.P, J = P.jobs[job] || { lv: 1 }, cap = jobC
   return { lines: out, wp }; }
 
 // ---------- 2) avisos al recolectar ----------
-{ const _hg = hbGather; hbGather = function (job) { try { const P = G.P;
+hookBefore('hbGather', function (job) { try { const P = G.P;
     if (P && !P.dead && !P.job && !P.fishing && (job === 'tala' || job === 'mineria') && eqTool(job)) { const o = hbFindRes(job);
       if (o) { const tier = job === 'tala' ? WOODT[o.sp] : o.tier, need = RESLV[tier] || 999, lv = (P.jobs[job] || { lv: 1 }).lv, cap = jobCap(job);
-        if (lv < need) { toast(L2('Requiere ', 'Requires ') + JOBS[job].n + L2(' nivel ', ' level ') + need + (need > cap ? ' · ' + L2(`tu tope es ${cap}: `, `your cap is ${cap}: `) + ocMasteryLine(job) : ''), 'warn', need > cap ? 6 : 3); return; }
+        if (lv < need) { toast(L2('Requiere ', 'Requires ') + JOBS[job].n + L2(' nivel ', ' level ') + need + (need > cap ? ' · ' + L2(`tu tope es ${cap}: `, `your cap is ${cap}: `) + ocMasteryLine(job) : ''), 'warn', need > cap ? 6 : 3); return HOOK_SKIP; }
         const nt = toolNeed(job, tier); if (bestTool(job) < nt) { const id = ocTool(job, nt), I = id && ITEMS[id];
-          toast(L2('Necesitas ', 'You need ') + (I ? I.n : L2('una herramienta mejor', 'a better tool')) + L2(` (potencia ${nt})`, ` (power ${nt})`) + (I && P.lv < (I.lv || 1) ? L2(`: pide nivel de personaje ${I.lv}`, `: needs character level ${I.lv}`) : I ? L2(': fabrícala en la Herrería', ': craft it at the Forge') : ''), 'warn', 4); return; } } } } catch (e) { }
-  return _hg.apply(this, arguments); }; }
+          toast(L2('Necesitas ', 'You need ') + (I ? I.n : L2('una herramienta mejor', 'a better tool')) + L2(` (potencia ${nt})`, ` (power ${nt})`) + (I && P.lv < (I.lv || 1) ? L2(`: pide nivel de personaje ${I.lv}`, `: needs character level ${I.lv}`) : I ? L2(': fabrícala en la Herrería', ': craft it at the Forge') : ''), 'warn', 4); return HOOK_SKIP; } } } } catch (e) { } });
 
 // ---------- 3) aviso al llegar al tope ----------
-{ const _gj = gainJobXp; gainJobXp = function (job) { const P = G.P, J = P && P.jobs && P.jobs[job], before = J ? J.lv : 0; const r = _gj.apply(this, arguments);
+hookAround('gainJobXp', function (next, job, ...rest) { const P = G.P, J = P && P.jobs && P.jobs[job], before = J ? J.lv : 0; const r = next(job, ...rest);
   try { if (J && OC_JOBS.includes(job) && J.lv > before && J.lv >= jobCap(job) && mastRank(job) < 3) { P.capWarn = P.capWarn || {}; const key = job + ':' + jobCap(job);
     if (!P.capWarn[key]) { P.capWarn[key] = 1; const M = ocMaster(job); toast('⭐ ' + JOBS[job].n + L2(`: tope ${jobCap(job)}. `, `: cap ${jobCap(job)}. `) + ocMasteryLine(job), 'quest', 8); if (M && M.wp && !P.wp) setWp(M.wp); markDirty(); } } } catch (e) { }
-  return r; }; }
+  return r; });
 SAVEKEYS.push('capWarn');
 
 // ---------- 4) Lupa › Oficios: siguiente paso y tope de verdad ----------
-{ const _gj = guiaJobs; guiaJobs = function () { const r = _gj.apply(this, arguments);
-  try { if (!GJOB || !OC_JOBS.includes(GJOB)) { if (GJOB && JOBS[GJOB]) { const h = $('.guia .gdet h4'); if (h) h.innerHTML = h.innerHTML.replace('/' + JOBMAX, '/' + jobCap(GJOB)); } return r; }
-    const det = $('.guia .gdet'); if (!det) return r; const h = det.querySelector('h4'); if (h) h.innerHTML = h.innerHTML.replace('/' + JOBMAX, '/' + jobCap(GJOB));
+hookAfter('guiaJobs', function () {
+  try { if (!GJOB || !OC_JOBS.includes(GJOB)) { if (GJOB && JOBS[GJOB]) { const h = $('.guia .gdet h4'); if (h) h.innerHTML = h.innerHTML.replace('/' + JOBMAX, '/' + jobCap(GJOB)); } return; }
+    const det = $('.guia .gdet'); if (!det) return; const h = det.querySelector('h4'); if (h) h.innerHTML = h.innerHTML.replace('/' + JOBMAX, '/' + jobCap(GJOB));
     const A = ocAdvice(GJOB); let html = `<div class="gsrc"><span>🧭 <b>${L2('Siguiente paso', 'Next step')}:</b><br>${A.lines.map(esc).join('<br>')}</span>${A.wp ? guiaFollowBtn(A.wp, A.wp.t) : ''}</div>`;
     if (A.wp) WP_M[Math.round(A.wp.loc[0] * 10) / 10 + ',' + Math.round(A.wp.loc[1] * 10) / 10] = 'world';
     const first = det.querySelector('.gsrc'); if (first) first.insertAdjacentHTML('afterend', html); else det.insertAdjacentHTML('beforeend', html);
     $$('.guia .gdet [data-wp]').forEach(b => b.onclick = () => { const [x, y] = b.dataset.wp.split(',').map(Number); setWp({ loc: [x, y], t: b.dataset.wl, m: WP_M[Math.round(x * 10) / 10 + ',' + Math.round(y * 10) / 10] || 'world' }); guiaJobs(); });
-  } catch (e) { } return r; }; }
+  } catch (e) { } });
 
 // Protección: archiTick (navegación del Archipiélago, también usada al remar/surfear en Trujillo) recorre M.camps y
 // M.bossAt; si algún mapa se marca archi sin ellos, daba un error en cada fotograma. Ahora se salta.
-{ const _at = archiTick; archiTick = function () { const M = G.map; if (M && M.archi && (!Array.isArray(M.bossAt) || !Array.isArray(M.camps))) return; return _at.apply(this, arguments); }; }
+hookBefore('archiTick', function () { const M = G.map; if (M && M.archi && (!Array.isArray(M.bossAt) || !Array.isArray(M.camps))) return HOOK_SKIP; });
