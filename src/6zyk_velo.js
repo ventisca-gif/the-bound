@@ -5,7 +5,8 @@
 // Un arma por debajo de tu nivel pierde fuerza (ver WOG).
 // Con el equipo de tu nivel no cambia nada (el equilibrio contra monstruos y en PvP sigue igual).
 // v4.38: más estricto (desde 12 niveles por debajo, 2,5 % por nivel, como mucho 55 %) para que cada arma nueva se note.
-const WOG = { gap: 12, per: 0.025, max: 0.55 };
+// v6.08: Sergio pidió que un arma superada pierda como mucho un 10 % (antes 55 %), en todas las armas de nivel 1 a 700.
+const WOG = { gap: 12, per: 0.025, max: 0.10 };
 function wGapPen(plv, ilv) { const gap = plv - ilv - WOG.gap; return gap > 0 ? Math.min(WOG.max, gap * WOG.per) : 0; }
 function wOutgrown(P) { const e = P && P.equip && P.equip.weapon, it = e && ITEMS[e.id]; if (!it || !it.lv || it.t !== 'weapon') return 0; return wGapPen(P.lv, it.lv); }
 { const _cs = calcStats; calcStats = function (P, ...a) { const r = _cs(P, ...a); if (!P || !P.S) return r; const pen = wOutgrown(P); P.S.wpen = pen;

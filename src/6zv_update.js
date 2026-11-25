@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.07', GAME_BUILD = 228;
+const GAME_VER = '6.08', GAME_BUILD = 229;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,17 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.08",
+ "b": 229,
+ "d": "2026-11-25",
+ "es": [
+  "Las armas superadas pierden como mucho un 10 % de daño (antes 55 %), en todas las armas de nivel 1 a 700."
+ ],
+ "en": [
+  "Outgrown weapons lose at most 10% damage (was 55%), for every weapon from level 1 to 700."
+ ]
+},
 {
  "v": "6.07",
  "b": 228,
