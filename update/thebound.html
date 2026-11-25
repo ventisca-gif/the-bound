@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.12 · Preparado para crecer</div>
+  <div class="tfoot">v6.13 · Más rápido y en inglés</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -1467,14 +1467,22 @@ function prepPalettes(M) {
   const w = M.w, h = M.h, N = w * h, R = 4; const keys = REGIONS.map(r => r.k);
   const rgb = REGIONS.map(r => GRASSP[r.k] ? GRASSP[r.k].map(hexRGB) : GRASSP.valle.map(hexRGB));
   M.gpal = new Array(N); const cache = new Map();
-  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
-    const cnt = new Float32Array(REGIONS.length); let tot = 0;
-    for (let dy = -R; dy <= R; dy++) for (let dx = -R; dx <= R; dx++) { const xx = clamp(x + dx, 0, w - 1), yy = clamp(y + dy, 0, h - 1); const wt = 1 / (1 + dx * dx + dy * dy); let r = M.reg[yy * w + xx]; if (keys[r] === 'mar') r = M.reg[y * w + x]; cnt[r] += wt; tot += wt; }
-    let key = ''; for (let r = 0; r < cnt.length; r++) if (cnt[r] > 0) key += r + ':' + Math.round(cnt[r] / tot * 24) + ',';
+  // 6.13: mismo resultado bit a bit, mucho más rápido (México 0,9 s → ~0,1 s): pesos calculados una vez, un solo array
+  // reutilizado, sin clamp en el interior, sin repasar casillas «mar» y, si todo el mapa es una sola región, una sola mezcla.
+  const NR = REGIONS.length, cnt = new Float32Array(NR), WT = new Float64Array((2 * R + 1) * (2 * R + 1)), isMar = new Uint8Array(NR);
+  for (let dy = -R, k = 0; dy <= R; dy++) for (let dx = -R; dx <= R; dx++) WT[k++] = 1 / (1 + dx * dx + dy * dy);
+  for (let r = 0; r < NR; r++) isMar[r] = keys[r] === 'mar' ? 1 : 0;
+  const reg = M.reg; let uni = true; for (let i = 1; i < N; i++) if (reg[i] !== reg[0]) { uni = false; break; }
+  const mix = (x, y) => {
+    cnt.fill(0); let tot = 0, k = 0; const own = reg[y * w + x], inner = x >= R && y >= R && x < w - R && y < h - R;
+    for (let dy = -R; dy <= R; dy++) { const yy = inner ? y + dy : clamp(y + dy, 0, h - 1), row = yy * w;
+      for (let dx = -R; dx <= R; dx++) { const wt = WT[k++]; let r = reg[row + (inner ? x + dx : clamp(x + dx, 0, w - 1))]; if (isMar[r]) r = own; cnt[r] += wt; tot += wt; } }
+    let key = ''; for (let r = 0; r < NR; r++) if (cnt[r] > 0) key += r + ':' + Math.round(cnt[r] / tot * 24) + ',';
     let p = cache.get(key);
-    if (!p) { p = new Uint32Array(5); for (let s = 0; s < 5; s++) { let cr = 0, cg = 0, cb = 0; for (let r = 0; r < cnt.length; r++) if (cnt[r] > 0) { const f = cnt[r] / tot; cr += rgb[r][s][0] * f; cg += rgb[r][s][1] * f; cb += rgb[r][s][2] * f; } p[s] = rgbU(cr, cg, cb); } cache.set(key, p); }
-    M.gpal[y * w + x] = p;
-  }
+    if (!p) { p = new Uint32Array(5); for (let s = 0; s < 5; s++) { let cr = 0, cg = 0, cb = 0; for (let r = 0; r < NR; r++) if (cnt[r] > 0) { const f = cnt[r] / tot; cr += rgb[r][s][0] * f; cg += rgb[r][s][1] * f; cb += rgb[r][s][2] * f; } p[s] = rgbU(cr, cg, cb); } cache.set(key, p); }
+    return p; };
+  if (uni && N) { const p = mix(0, 0); M.gpal.fill(p); }
+  else for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) M.gpal[y * w + x] = mix(x, y);
   M.gpalF = new Uint32Array(N * 5); for (let i = 0; i < N; i++) M.gpalF.set(M.gpal[i], i * 5);
   const FC = t => t === T.FACE || t === T.FALL || t === T.STAIRS;
   M.ftop = new Int16Array(N); M.fbot = new Int16Array(N);
@@ -3908,7 +3916,7 @@ function mobAtlasFor(art) {
   });
 }
 const DIRI = { down: 0, left: 1, right: 2, up: 3 };
-function animN(e, a) { const frames = e.atlas?.frames?.[a]; if (frames) return frames; if (e.hum) return ANIMS[a] ? ANIMS[a][1] : 1; return MOBANIM[a] ? MOBANIM[a][1] : 1; }
+function animN(e, a) { const frames = (e._atlP ? null : e.atlas)?.frames?.[a]; /* 6.13: no genera el sprite de un NPC que aún no se ha dibujado */ if (frames) return frames; if (e.hum) return ANIMS[a] ? ANIMS[a][1] : 1; return MOBANIM[a] ? MOBANIM[a][1] : 1; }
 function setAnim(e, a, keep) { if (e.anim === a && keep) return; e.anim = a; e.af = 0; e.at = 0; }
 function stepAnim(e, dt, fps) { e.at += dt; const n = animN(e, e.anim); const per = 1 / (fps || 6); while (e.at >= per) { e.at -= per; e.af++; if (e.af >= n) e.af = e.loopAnim === false ? n - 1 : 0; } }
 // ---------- drawing ----------
@@ -4201,7 +4209,11 @@ function bossMove(m, mv) {
 }
 function d2(a, b) { return dist2(a.x, a.y, b.x, b.y); }
 // ---------- NPCs ----------
-function spawnNPC(id, x, y, mapId, o = {}) { const def = NPCS[id]; if (!def) return null; const e = Object.assign({ type: 'npc', id, def, x, y, L: o.L !== undefined ? o.L : 0, map: mapId, dir: o.face || 'down', anim: 'idle', af: 0, at: Math.random(), home: { x, y }, wander: o.wander || 0, st: Math.random() * 3, hum: true, shR: 6 }, o); e.atlas = npcAtlas(id); G.ents.push(e); return e; }
+function spawnNPC(id, x, y, mapId, o = {}) { const def = NPCS[id]; if (!def) return null; const e = Object.assign({ type: 'npc', id, def, x, y, L: o.L !== undefined ? o.L : 0, map: mapId, dir: o.face || 'down', anim: 'idle', af: 0, at: Math.random(), home: { x, y }, wander: o.wander || 0, st: Math.random() * 3, hum: true, shR: 6 }, o);
+  // 6.13: el sprite se genera la primera vez que se usa (al dibujarse), no al crear el mapa: Japón generaba ~190 de golpe.
+  let A0; Object.defineProperty(e, '_atlP', { value: true, writable: true, configurable: true, enumerable: false });
+  Object.defineProperty(e, 'atlas', { configurable: true, enumerable: true, get() { if (A0 === undefined) { A0 = npcAtlas(id); e._atlP = false; const n = A0 && A0.frames && A0.frames[e.anim]; if (n && e.af >= n) e.af = 0; } return A0; }, set(v) { A0 = v; e._atlP = false; } });
+  G.ents.push(e); return e; }
 function updateNPC(e, dt) {
   if (e.scene) return; if (e.follow && COMP && COMP.e === e) { compUpdate(e, dt); return; }
   if (e.life) { lifeUpdate(e, dt); return; }
@@ -5086,12 +5098,21 @@ let qAbandon = null;
 // ---------- bestiary ----------
 let bSel = null, bReg = 'all';
 const AI_N = { passive: (LANG_EN ? "Peaceful" : 'Pacífico'), aggro: (LANG_EN ? "Aggressive" : 'Agresivo'), ranged: (LANG_EN ? "Ranged" : 'A distancia'), charge: (LANG_EN ? "Charges" : 'Embiste') };
+const BEST_MINI = new Map(); let BEST_TOK = 0;
+// retratos que pinta otra capa con los dibujos de Sergio (r133 / r143): aquí no se tocan
+// trabajo por trozos: lo que cabe en 8 ms al momento y el resto en los fotogramas siguientes; devuelve una promesa
+function bestChunk(items, fn) { let i = 0; return new Promise(res => { const step = () => { const t0 = performance.now(); while (i < items.length && performance.now() - t0 < 8) { const it = items[i++]; if (!it || it.isConnected === false) continue; try { fn(it); } catch (e) { } } if (i < items.length) requestAnimationFrame(step); else res(); }; step(); }); }
+const BEST_OWN = id => (typeof R133_OF !== 'undefined' && R133_OF.has(id)) || (typeof R143_OF !== 'undefined' && R143_OF.has(id));
 function renderBestiary(B) {
   const P = G.P, best = P.best || {};
-  const regs = REGIONS.filter(R => R.k !== 'mar').concat([{ k: 'cueva', n: (LANG_EN ? "Caves" : 'Cuevas') }]);
+  // 6.13: 221 de 361 enemigos (fondo marino, Archipiélago, Cielo, Velo, países, portales, Mar de Dawn) solo salían en «Todos».
+  // Ahora hay pestañas por nivel (todos caen en una) y una del Mar de Dawn.
+  const regs = REGIONS.filter(R => R.k !== 'mar').concat([{ k: 'cueva', n: (LANG_EN ? "Caves" : 'Cuevas') }, { k: 'dawn', n: '🏴‍☠️ ' + L2('Mar de Dawn', 'Dawn Sea') }]).concat([0, 100, 200, 300, 400, 500, 600].map(l => ({ k: 'lv' + l, n: L2('Nv. ', 'Lv. ') + Math.max(1, l) + (l === 600 ? '+' : '-' + (l + 99)) })));
   const entries = []; for (const id in MOBS) entries.push({ id, def: MOBS[id], boss: false, kills: best[id] || 0 });
   for (const id in BOSSES) entries.push({ id: 'B_' + id, bid: id, def: BOSSES[id], boss: true, kills: best['B_' + id] || (P.bossKills[id] || 0) });
-  const inReg = e => bReg === 'all' || (bReg === 'cueva' && e.def.cave) || (e.boss ? bossRegion(e.bid) === bReg : (e.def.reg || []).includes(bReg));
+  const lv0 = e => Array.isArray(e.def.lv) ? e.def.lv[0] : (e.def.lv || 1);
+  const isDawn = e => { const id = e.boss ? e.bid : e.id; return /^(dawn_|shells_|orange_|syrup_|baratie_|con_|rare_|alvida)/.test(id) || (typeof DAWN_RETO !== 'undefined' && !!DAWN_RETO[id]); };
+  const inReg = e => bReg === 'all' || (bReg === 'cueva' && e.def.cave) || (bReg === 'dawn' && isDawn(e)) || (/^lv\d+$/.test(bReg) && (l => { const s = +bReg.slice(2); return s === 600 ? l >= 600 : l >= s && l < s + 100; })(lv0(e))) || (e.boss ? bossRegion(e.bid) === bReg : (e.def.reg || []).includes(bReg));
   const list = entries.filter(inReg).sort((a, b) => (a.boss - b.boss) || ((a.def.lv[0] || a.def.lv) - (b.def.lv[0] || b.def.lv)));
   const known = entries.filter(e => e.kills > 0).length;
   if (!bSel || !entries.find(e => e.id === bSel)) bSel = list[0] && list[0].id;
@@ -5111,7 +5132,12 @@ function renderBestiary(B) {
   $$('[data-br]', B).forEach(b => b.onclick = () => { bReg = b.dataset.br; bSel = null; sfx('ui'); renderPanel(); });
   $$('[data-b]', B).forEach(b => b.onclick = () => { bSel = b.dataset.b; sfx('ui'); renderPanel(); });
   const drawMob = (cv, e, big) => { const A = mobAtlasFor(e.def.art); const x = cv.getContext('2d'); x.imageSmoothingEnabled = false; const s = Math.min(cv.width / A.fw, cv.height / A.fh) * (big ? 1 : 1.1); x.clearRect(0, 0, cv.width, cv.height); if (!e.kills) x.filter = 'brightness(0)'; x.drawImage(A.img, A.idx.idle * A.fw, 0, A.fw, A.fh, (cv.width - A.fw * s) / 2, cv.height - A.fh * s, A.fw * s, A.fh * s); x.filter = 'none'; };
-  $$('[data-bc]', B).forEach(cv => { const e = entries.find(x => x.id === cv.dataset.bc); if (e) drawMob(cv, e); });
+  // 6.13: los retratos se dibujaban todos de golpe (~260 sprites, 2 s al abrir). Ahora se guardan ya dibujados (BEST_MINI)
+  // y se pintan poco a poco: lo que cabe en 8 ms al momento y el resto en los fotogramas siguientes, sin congelar la ventana.
+  const byId = new Map(entries.map(e => [e.id, e])), cvs = $$('[data-bc]', B), tok = ++BEST_TOK;
+  const drawMini = (cv, e) => { const key = e.id + (e.kills ? '' : ':?'); let c = BEST_MINI.get(key); if (!c) { c = document.createElement('canvas'); c.width = cv.width; c.height = cv.height; drawMob(c, e); BEST_MINI.set(key, c); } const x = cv.getContext('2d'); x.clearRect(0, 0, cv.width, cv.height); x.drawImage(c, 0, 0); };
+  let bi = 0; const step = () => { if (tok !== BEST_TOK) return; const t0 = performance.now(); while (bi < cvs.length && performance.now() - t0 < 8) { const cv = cvs[bi++]; const id = cv.dataset.bc, e = cv.isConnected && byId.get(id); if (e && !BEST_OWN(id)) drawMini(cv, e); } if (bi < cvs.length) requestAnimationFrame(step); };
+  step();
   const bb = $('#bBig'); if (bb && cur) drawMob(bb, cur, true);
 }
 function bossRegion(id) { const b = G.world.bosses.find(x => x.id === id); return b ? (regionAt(b.x, b.y) || {}).k : null; }
@@ -6477,7 +6503,7 @@ function npcWhere(id) {
   return typeof ROM_WHERE !== 'undefined' && ROM_WHERE[id] || (LANG_EN ? "Travels the world" : 'Viaja por el mundo');
 }
 function renderEncyclo(B) {
-  if (!ITEM_SRC) ITEM_SRC = buildItemSources();
+  if (!ITEM_SRC && encTab !== 'mobs') ITEM_SRC = buildItemSources();   // 6.13: la pestaña Enemigos no lo necesita (abría 0,5 s más lenta)
   const tabs = [['mobs', (LANG_EN ? "Enemies" : 'Enemigos')], ['armor', (LANG_EN ? "Armor" : 'Armaduras')], ['weapons', (LANG_EN ? "Weapons" : 'Armas')], ['tools', (LANG_EN ? "Tools" : 'Herramientas')], ['acc', (LANG_EN ? "Accessories" : 'Accesorios')], ['npcs', (LANG_EN ? "Characters" : 'Personajes')]];
   const head = `<div class="chips enctabs">${tabs.map(([k, n]) => `<button class="chip ${encTab === k ? 'on' : ''}" data-enc="${k}">${n}</button>`).join('')}</div>`;
   if (encTab === 'mobs') { B.innerHTML = head + '<div id="encMobs"></div>'; renderBestiary($('#encMobs')); bindEnc(B); return; }
@@ -11879,7 +11905,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.12', GAME_BUILD = 233;
+const GAME_VER = '6.13', GAME_BUILD = 234;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11887,6 +11913,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.13",
+ "b": 234,
+ "d": "2026-11-25",
+ "es": [
+  "La enciclopedia se abre al instante (antes 2 segundos) y tocar un enemigo ya no la congela. Los retratos se dibujan poco a poco sin parar la ventana.",
+  "Los mapas grandes cargan mucho más rápido: Japón, México, Lima y Trujillo unas 4 veces más rápido; España y Dawn, el doble.",
+  "Enciclopedia: pestañas por nivel (1-99 hasta 600+) y del Mar de Dawn, con Alvida, Buggy, Kuro, Baratie, Shanks y Arlong. Ahora todos los enemigos salen en alguna pestaña, no solo en «Todos».",
+  "Inglés: descripciones de todas las habilidades, ventajas de los oficios, recuerdos y trofeos de oficio y la ayuda de Misiones."
+ ],
+ "en": [
+  "The encyclopedia opens instantly (it took 2 seconds) and tapping an enemy no longer freezes it. Portraits are drawn bit by bit without stalling the window.",
+  "Big maps load much faster: Japan, Mexico, Lima and Trujillo about 4 times faster; Spain and Dawn, twice as fast.",
+  "Encyclopedia: level tabs (1-99 up to 600+) and a Dawn Sea tab with Alvida, Buggy, Kuro, Baratie, Shanks and Arlong. Every enemy now shows up in some tab, not only in \"All\".",
+  "English: descriptions of every skill, job perks, job keepsakes and trophies, and the Quests help."
+ ]
+},
 {
  "v": "6.12",
  "b": 233,
@@ -25889,7 +25932,7 @@ const AEV = [
   ['ae_kr', L2('Viajera de Corea', 'Traveller from Korea'), 'f', 0, 'negro', '안녕하세요! 일본에 가면 노래방에 갈 거예요!', L2('¡Hola! ¡Cuando llegue a Japón voy a ir al karaoke!', 'Hello! When I get to Japan I\'m going to karaoke!')],
   ['ae_ar', L2('Viajero de Argentina', 'Traveller from Argentina'), 'm', 1, 'castano', '¡Che! ¿Vos también vas a Japón? Dicen que hay que tener nivel 400 para aguantar el viaje.', L2('Dicen que hace falta nivel 400 para aguantar el viaje.', 'They say you need level 400 to endure the trip.')],
   ['ae_in', L2('Viajera de la India', 'Traveller from India'), 'f', 5, 'negro', 'Namaste! Este valle es precioso. En casa mi abuela me pedirá fotos de los cerezos.', L2('¡Namasté! Su abuela le pedirá fotos de los cerezos.', 'Namaste! Her grandma will ask for photos of the cherry trees.')],
-  ['ae_eg', L2('Viajero de Egipto', 'Traveller from Egypt'), 'm', 5, 'negro', 'Ahlan! En el desierto de Sahrim me siento como en casa. Aunque allí nadie vende helado.', L2('¡Hola! En Sahrim se siente como en casa.', 'Hello! He feels at home in Sahrim.')],
+  ['ae_eg', L2('Viajero de Egipto', 'Traveller from Egypt'), 'm', 5, 'negro', L2('Ahlan! En el desierto de Sahrim me siento como en casa. Aunque allí nadie vende helado.', 'Ahlan! In the Sahrim desert I feel at home. Though nobody there sells ice cream.'), L2('¡Hola! En Sahrim se siente como en casa.', 'Hello! He feels at home in Sahrim.')],
   ['ae_pe', L2('Viajera de Perú', 'Traveller from Peru'), 'f', 1, 'negro', '¡Hola, causa! Traje ceviche para el vuelo. Shhh, no se lo digas a la azafata.', L2('Lleva ceviche escondido para el vuelo.', 'She is hiding ceviche for the flight.')],
   ['ae_ca', L2('Viajero de Canadá', 'Traveller from Canada'), 'm', 0, 'cobre', 'Sorry! Is this the line for Tokyo? Oh, sorry, sorry, you were first.', L2('¡Perdón! ¿Es la fila para Tokio? Ay, perdón, perdón, usted iba primero.', 'Sorry! Is this the line for Tokyo? Oh, sorry, you were first.')],
 ];
@@ -29712,7 +29755,11 @@ function r133Cell(A,col,row){const key=A.r133+':'+col+':'+row+(A.r133Tint?':soul
 // Soul copies keep their existing blue appearance, animation and original combat values.
 {const prev=soulAtlas;soulAtlas=function(D){const A=mobAtlasFor(D.art);if(A.r133){const cols=A.img.width/A.fw;for(let row=0;row<4;row++)for(let col=0;col<cols;col++)r133Cell(A,col,row);}const B=prev.apply(this,arguments);if(A.r133){B.r133Tint=true;B.r133Done=new Set(A.r133Done);}return B;};}
 // The encyclopedia uses the same high-detail cells as the world, instead of enlarging a low-res thumbnail.
-{const prev=renderBestiary;renderBestiary=function(B){const r=prev.apply(this,arguments);function paint(cv,id){const S=R133_OF.get(id);if(!S||!cv)return;const A=r133Atlas(id),g=cv.getContext('2d'),s=Math.min(cv.width/A.fw,cv.height/A.fh);g.clearRect(0,0,cv.width,cv.height);g.imageSmoothingEnabled=false;const known=(G.P.best?.[id]||0)||(S.boss&&G.P.bossKills?.[id.slice(2)]);if(!known)g.filter='brightness(0)';atlasBlit(g,A,A.idx.idle||0,0,(cv.width-A.fw*s)/2,cv.height-A.fh*s,A.fw*s,A.fh*s);g.filter='none';}for(const cv of B.querySelectorAll('[data-bc]'))paint(cv,cv.dataset.bc);paint(B.querySelector('#bBig'),bSel);return r;};}
+const R133_PORT=new Map();
+{const prev=renderBestiary;renderBestiary=function(B){const r=prev.apply(this,arguments);function paint(cv,id){const S=R133_OF.get(id);if(!S||!cv)return;const known=(G.P.best?.[id]||0)||(S.boss&&G.P.bossKills?.[id.slice(2)]),key=id+(known?'':':?')+':'+cv.width+'x'+cv.height;
+ /* 6.13: retrato guardado ya pintado (antes se repintaban todos con filtro en cada toque de la lista) */let c=R133_PORT.get(key);
+ if(!c){const A=r133Atlas(id);c=document.createElement('canvas');c.width=cv.width;c.height=cv.height;const g=c.getContext('2d'),s=Math.min(cv.width/A.fw,cv.height/A.fh);g.imageSmoothingEnabled=false;if(!known)g.filter='brightness(0)';atlasBlit(g,A,A.idx.idle||0,0,(cv.width-A.fw*s)/2,cv.height-A.fh*s,A.fw*s,A.fh*s);g.filter='none';R133_PORT.set(key,c);}
+ const g=cv.getContext('2d');g.clearRect(0,0,cv.width,cv.height);g.drawImage(c,0,0);}paint(B.querySelector('#bBig'),bSel);/* 6.13: por trozos, sin congelar la ventana */bestChunk([...B.querySelectorAll('[data-bc]')].filter(cv=>R133_OF.has(cv.dataset.bc)),cv=>paint(cv,cv.dataset.bc));return r;};}
 
 // Attack VFX are a separate pixel layer. No damage callbacks, projectiles, timers or combat mutations.
 const R133_FX=new Map();
@@ -30122,7 +30169,7 @@ function apEquippedPreview(canvas,it,cls){const P=G.P,gear=Object.assign({},gear
 }
 {const prev=renderEncyclo;renderEncyclo=function(B){const old=apIconClass;apIconClass=encCls==='all'?(G.P?.cls||'guerrero'):encCls;
  try{const r=prev.apply(this,arguments);if(encTab==='armor'&&G.P){const list=encGearList('armor'),it=list.find(v=>v.id===encSel)||list[0],box=B.querySelector('.encdet');
-  if(it&&box){const section=document.createElement('div');section.className='ap-equipped';const h=document.createElement('h4');h.textContent=L2('Cómo queda puesta','Equipped appearance');const c=document.createElement('canvas');c.setAttribute('aria-label',L2('Frente, izquierda, derecha y espalda','Front, left, right and back'));section.append(h,c);box.append(section);apEquippedPreview(c,it,apIconClass);}}
+  if(it&&box){const section=document.createElement('div');section.className='ap-equipped';const h=document.createElement('h4');h.textContent=L2('Cómo queda puesta','Equipped appearance');const c=document.createElement('canvas');c.setAttribute('aria-label',L2('Frente, izquierda, derecha y espalda','Front, left, right and back'));section.append(h,c);box.append(section);const cl=apIconClass;/* 6.13: tras pintar la lista (generar el personaje tarda ~1 s la primera vez) */requestAnimationFrame(()=>requestAnimationFrame(()=>{if(c.isConnected)apEquippedPreview(c,it,cl);}));}}
  return r;}finally{apIconClass=old;}};}
 // La comprobación de ajuste cubre también los tiers intermedios, no solo una muestra de la progresión.
 {const previous=fitItems;fitItems=function(only){const out=previous.apply(this,arguments),seen=new Set(out.map(v=>v.id));
@@ -30506,7 +30553,12 @@ function r143BaseAtlas(A,source){if(A.r143BaseReady||A.r143Mirror)return;const c
 {const prev=atlasBlit;atlasBlit=function(c,A,col,row,x,y,w,h){if(!A?.r143)return prev.apply(this,arguments);if(A.r143Mirror)return prev.call(this,c,A.r143Old,col,row,x,y,w,h);const frame=r143Cell(A,col,row);if(frame){const pad=(A.r143PadX||0)*w/A.fw;c.save();c.imageSmoothingEnabled=false;c.drawImage(frame,x-pad,y,w+pad*2,h);c.restore();return;}return prev.call(this,c,A.r143Old,col,row,x,y,w,h);};}
 {const prev=soulAtlas;soulAtlas=function(D){const A=mobAtlasFor(D.art);if(A.r143&&!A.r143Mirror){const source=r143Source(R143_OF.get(A.r143));if(source.ready)r143BaseAtlas(A,source);}const B=prev.apply(this,arguments);if(A.r143){B.r143=A.r143;B.r143Tint=true;B.r143Mirror=A.r143Mirror;B.r143Old=A.r143Old;}return B;};}
 function r143PortraitLayout(A,w,h){const margin=Math.max(1,Math.min(w,h)*.04),S=R143_OF.get(A.r143);let vw=A.fw,vh=A.fh;if(!A.r143Mirror){const scale=Math.min((A.fw*1.75-6)/S.fit[0],(A.fh-6)/S.fit[1]);vw=S.fit[0]*scale;vh=S.fit[1]*scale;}const s=Math.min((w-margin*2)/vw,(h-margin*2)/vh);return{s,x:w/2-A.ax*s,y:h-margin-A.ay*s};}
-{const prev=renderBestiary;renderBestiary=function(B){const r=prev.apply(this,arguments),pending=[];for(const cv of B.querySelectorAll('[data-bc],#bBig')){const id=cv.dataset.bc||bSel,S=R143_OF.get(id);if(!S)continue;const A=r143Atlas(id);const paint=source=>{if(!cv.isConnected)return;const g=cv.getContext('2d'),L=r143PortraitLayout(A,cv.width,cv.height);g.imageSmoothingEnabled=false;g.clearRect(0,0,cv.width,cv.height);const known=(G.P.best?.[id]||0)||(S.boss&&G.P.bossKills?.[id.slice(2)]);g.filter=known?'none':'brightness(0)';const frame=!A.r143Mirror&&source?.ready?r143Cell(A,A.idx.idle||0,0,source):null;if(frame){const pad=A.r143PadX*L.s;g.drawImage(frame,L.x-pad,L.y,(A.fw+A.r143PadX*2)*L.s,A.fh*L.s);}else atlasBlit(g,A,A.idx.idle||0,0,L.x,L.y,A.fw*L.s,A.fh*L.s);g.filter='none';};paint();if(!A.r143Mirror)pending.push(r143Source(S).promise.then(paint).catch(()=>{}));}B.r143Ready=Promise.all(pending);return r;};}
+const R143_PORT=new Map();
+{const prev=renderBestiary;renderBestiary=function(B){const r=prev.apply(this,arguments),pending=[];const one=cv=>{const id=cv.dataset.bc||bSel,S=R143_OF.get(id);if(!S)return;const known=(G.P.best?.[id]||0)||(S.boss&&G.P.bossKills?.[id.slice(2)]),key=id+(known?'':':?')+':'+cv.width+'x'+cv.height,done=R143_PORT.get(key);
+ /* 6.13: retrato definitivo guardado (antes se repintaban todos en cada toque de la lista) */if(done){const g=cv.getContext('2d');g.clearRect(0,0,cv.width,cv.height);g.drawImage(done,0,0);return;}
+ const A=r143Atlas(id);const paint=source=>{if(!cv.isConnected)return;const g=cv.getContext('2d'),L=r143PortraitLayout(A,cv.width,cv.height);g.imageSmoothingEnabled=false;g.clearRect(0,0,cv.width,cv.height);g.filter=known?'none':'brightness(0)';const frame=!A.r143Mirror&&source?.ready?r143Cell(A,A.idx.idle||0,0,source):null;if(frame){const pad=A.r143PadX*L.s;g.drawImage(frame,L.x-pad,L.y,(A.fw+A.r143PadX*2)*L.s,A.fh*L.s);}else atlasBlit(g,A,A.idx.idle||0,0,L.x,L.y,A.fw*L.s,A.fh*L.s);g.filter='none';
+  if(frame||A.r143Mirror){const c=document.createElement('canvas');c.width=cv.width;c.height=cv.height;c.getContext('2d').drawImage(cv,0,0);R143_PORT.set(key,c);}};paint();if(!A.r143Mirror)pending.push(r143Source(S).promise.then(paint).catch(()=>{}));};
+ /* 6.13: por trozos; r143Ready sigue esperando a que estén todos */const cvs=[...B.querySelectorAll('[data-bc],#bBig')].filter(cv=>R143_OF.has(cv.dataset.bc||bSel));B.r143Ready=bestChunk(cvs,one).then(()=>Promise.all(pending));return r;};}
 
 // Separate, deterministic visual effects: never damage, projectiles, hitboxes or combat clocks.
 const R143_FX=new Map(),R143_FX_MAX=3*1024*1024;let r143FxBytes=0;
@@ -39126,7 +39178,7 @@ const JP_REW = { jardinero: [[15, 'fr', 'sakura'], [30, 'pet', 'kitsune'], [50, 
   mensajero: [[15, 'fr', 'neon'], [30, 'pet', 'shiba'], [50, 'fr', 'ryu']], takoyaki: [[15, 'fr', 'chochin'], [30, 'pet', 'tanuki'], [50, 'it', 'talisman_kirin']], hanabi: [[15, 'fr', 'hanabi'], [30, 'pet', 'maneki'], [50, 'fr', 'ryu']] };
 const jpRewTxt = ([lv, t, id]) => t === 'fr' ? '🖼 ' + L2('Marco ', 'Frame ') + BIT_FR[id][0] : t === 'pet' ? '🐾 ' + PETS[id].n : '🐎 ' + (ITEMS[id] ? ITEMS[id].n : id);
 function jpPerks(k) { const P8 = [[10, '+10 % de paga', '+10% pay', { ['v8' + k]: 10 }], [20, '+0,1 % de defensa', '+0.1% defense', { defP: 0.1 }], [40, '+0,1 % de crítico', '+0.1% crit', { crit: 0.1 }], [60, '+15 % de paga', '+15% pay', { ['v8' + k]: 15 }]].concat((JP_REW[k] || []).map(r => [r[0], jpRewTxt(r), jpRewTxt(r), {}])).sort((a, b) => a[0] - b[0]);
-  JOBP2[k] = P8; JOB_PERKS[k] = P8.map(([lv, es]) => [lv, es]); if (JOB_GUIDE[k]) { JOB_GUIDE[k].perks = P8.map(([lv, es, en]) => [lv, es, en]); JOB_GUIDE[k].ben = [L2('Oro, experiencia de oficio, +0,1 % de defensa y +0,1 % de crítico, y recompensas japonesas: marcos de retrato, mascotas y monturas.', 'Gold, job experience, +0.1% defense and +0.1% crit, and Japanese rewards: portrait frames, pets and mounts.'), '']; } }
+  JOBP2[k] = P8; JOB_PERKS[k] = P8.map(([lv, es, en]) => [lv, L2(es, en)]);  /* 6.13: antes solo español */ if (JOB_GUIDE[k]) { JOB_GUIDE[k].perks = P8.map(([lv, es, en]) => [lv, es, en]); JOB_GUIDE[k].ben = [L2('Oro, experiencia de oficio, +0,1 % de defensa y +0,1 % de crítico, y recompensas japonesas: marcos de retrato, mascotas y monturas.', 'Gold, job experience, +0.1% defense and +0.1% crit, and Japanese rewards: portrait frames, pets and mounts.'), '']; } }
 SAVEKEYS.push('jpRew');
 V33_TICKS.push(() => { const P = G.P; if (!P || !P.jobs) return; P.jpRew = P.jpRew || {}; for (const k in JP_REW) { const lv = (P.jobs[k] || { lv: 1 }).lv; for (const r of JP_REW[k]) { const key = k + ':' + r[0]; if (lv < r[0] || P.jpRew[key]) continue; P.jpRew[key] = 1;
   if (r[1] === 'fr') { const b = BIT(); if (!b.fr.includes(r[2])) b.fr.push(r[2]); } else if (r[1] === 'pet') givePet(r[2], true); else giveItem(r[2], 1, true);
@@ -53609,6 +53661,144 @@ hookAfter('guiaJobs', function () {
 // Protección: archiTick (navegación del Archipiélago, también usada al remar/surfear en Trujillo) recorre M.camps y
 // M.bossAt; si algún mapa se marca archi sin ellos, daba un error en cada fotograma. Ahora se salta.
 hookBefore('archiTick', function () { const M = G.map; if (M && M.archi && (!Array.isArray(M.bossAt) || !Array.isArray(M.camps))) return HOOK_SKIP; });
+
+// 6.13 · Arreglos del inglés (Sergio: «que todo esté traducido al inglés si escoges ese idioma: historia, diálogos…»).
+// Los recuerdos y trofeos de oficio (muebles bk_of_<oficio>_a/_b) se crean en src/6zz9zz4_oficios.js antes de que existan
+// los nombres de esos oficios en JOBS, así que llevaban el nombre en español («Keepsake: Maestro del té»). Aquí, con todo
+// ya cargado, se les pone el nombre del oficio traducido. Solo cambia el texto; los objetos y sus ids siguen igual.
+for (const key in (typeof OF_FURN !== 'undefined' ? OF_FURN : {})) {
+  const m = key.match(/^of_(.+)_(a|b)$/), job = OF_FURN[key][0], J = JOBS[job]; if (!m || !J || !BK[key]) continue;
+  const n = (m[2] === 'a' ? L2('Recuerdo de ', 'Keepsake: ') : L2('Trofeo de ', 'Trophy: ')) + J.n;
+  BK[key].n = n; if (ITEMS['bk_' + key]) ITEMS['bk_' + key].n = n;
+}
+
+// Textos que el traductor de build.py no puede tocar porque llevan { } o ; (los descarta para no traducir código):
+// descripciones de habilidades con {m}, {p}… y una línea de la guía. En inglés se sustituyen aquí.
+const EN_FIX = {
+"Un tajo amplio que golpea a todos los enemigos al frente con {m}% de ataque.": "A wide slash that hits every enemy in front for {m}% attack.",
+"Giras con la espada golpeando 4 veces alrededor ({m}% cada golpe).": "You spin with your sword, striking 4 times around you ({m}% per hit).",
+"Aumenta el ataque en {atkP}%.": "Increases attack by {atkP}%.",
+"Golpe devastador al suelo: {m}% de daño en área y aturde 1.5 s.": "A devastating ground strike: {m}% area damage and stuns for 1.5 s.",
+"Aumenta la defensa en {defP}%.": "Increases defense by {defP}%.",
+"Durante 12 s: +{atkP}% ataque y +{defP}% defensa.": "For 12 s: +{atkP}% attack and +{defP}% defense.",
+"Aumenta la vida máxima en {hpP}%.": "Increases max HP by {hpP}%.",
+"Un escudo que absorbe daño igual al {p}% de tu vida máxima (8 s).": "A shield that absorbs damage equal to {p}% of your max HP (8 s).",
+"Embistes hacia delante con {m}% de daño y aturdes 0.6 s.": "You charge forward for {m}% damage and stun for 0.6 s.",
+"Recuperas el {life}% del daño infligido como vida.": "You recover {life}% of the damage you deal as HP.",
+"Partes la tierra al frente: {m}% de daño y aturdes 1 s.": "You split the ground in front: {m}% damage and stun for 1 s.",
+"Durante 15 s: +{atkP}% ataque y +20% velocidad de ataque.": "For 15 s: +{atkP}% attack and +20% attack speed.",
+"Lanza una bola de fuego que explota: {m}% de daño en área y quema.": "Throws an exploding fireball: {m}% area damage and burns.",
+"Tus hechizos de fuego hacen +{fireP}% de daño.": "Your fire spells deal +{fireP}% damage.",
+"Caen 6 meteoros sobre la zona objetivo: {m}% de daño cada uno.": "6 meteors fall on the target area: {m}% damage each.",
+"Una explosión de fuego a tu alrededor: {m}% de daño y quema.": "A fire blast around you: {m}% damage and burns.",
+"Una lanza que atraviesa enemigos: {m}% de daño y ralentiza.": "A spear that pierces enemies: {m}% damage and slows.",
+"Congela a los enemigos cercanos 1.5 s con {m}% de daño.": "Freezes nearby enemies for 1.5 s with {m}% damage.",
+"Una ventisca de 8 golpes en la zona: {m}% por golpe y ralentiza.": "An 8-hit blizzard over the area: {m}% per hit and slows.",
+"Aumenta tu poder mágico (ataque) en {atkP}%.": "Increases your magic power (attack) by {atkP}%.",
+"Un escudo que absorbe el {p}% de tu vida máxima (10 s).": "A shield that absorbs {p}% of your max HP (10 s).",
+"Recuperas {mpReg} de maná por segundo.": "You recover {mpReg} mana per second.",
+"Una flecha potente que atraviesa: {m}% de daño.": "A powerful piercing arrow: {m}% damage.",
+"Aumenta la probabilidad de crítico en {crit}%.": "Increases critical chance by {crit}%.",
+"Un disparo letal con {m}% de daño y +50% de crítico.": "A lethal shot with {m}% damage and +50% crit chance.",
+"14 flechas caen del cielo: {m}% de daño cada una.": "14 arrows rain from the sky: {m}% damage each.",
+"{m}% de daño y envenena durante 4 s.": "{m}% damage and poisons for 4 s.",
+"Raíces atrapan a los enemigos cercanos 2.5 s con {m}% de daño.": "Roots trap nearby enemies for 2.5 s with {m}% damage.",
+"Recuperas el {p}% de tu vida máxima.": "You recover {p}% of your max HP.",
+"9 flechas caen sobre la zona: {m}% de daño cada una.": "9 arrows fall on the area: {m}% damage each.",
+"Disparas 5 flechas en abanico: {m}% de daño cada una.": "You fire 5 arrows in a fan: {m}% damage each.",
+"+{spdP}% velocidad de movimiento y +{aspdP}% velocidad de ataque.": "+{spdP}% movement speed and +{aspdP}% attack speed.",
+"Durante 12 s: +{aspdP}% velocidad de ataque y +20% de crítico.": "For 12 s: +{aspdP}% attack speed and +20% crit chance.",
+"Apareces tras el enemigo más cercano y lo golpeas con {m}%.": "You appear behind the nearest enemy and strike it for {m}%.",
+"+{critD}% de daño crítico y +{crit}% de crítico.": "+{critD}% critical damage and +{crit}% crit chance.",
+"Te vuelves invisible 5 s. Tu siguiente ataque hace +{ambush}%.": "You turn invisible for 5 s. Your next attack deals +{ambush}%.",
+"Marcas al enemigo: recibe +{p}% de daño 10 s y un golpe de {m}%.": "You mark an enemy: it takes +{p}% damage for 10 s and a {m}% hit.",
+"Una nube tóxica a tu alrededor: 8 golpes de {m}% y veneno.": "A toxic cloud around you: 8 hits of {m}% and poison.",
+"+{vsPoison}% de daño contra enemigos envenenados.": "+{vsPoison}% damage against poisoned enemies.",
+"Lanzas 4 dagas en abanico: {m}% de daño cada una.": "You throw 4 daggers in a fan: {m}% damage each.",
+"Giras cortando 6 veces a tu alrededor ({m}% cada golpe).": "You spin, slashing 6 times around you ({m}% per hit).",
+"{dodge}% de probabilidad de esquivar ataques.": "{dodge}% chance to dodge attacks.",
+"+{spdP}% velocidad de movimiento y +{aspdP}% de ataque.": "+{spdP}% movement speed and +{aspdP}% attack speed.",
+"Desatas 10 cortes veloces sobre el enemigo: {m}% cada uno.": "You unleash 10 swift cuts on the enemy: {m}% each.",
+"Un remolino de acero que golpea 8 veces a tu alrededor ({m}% cada golpe).": "A whirlwind of steel that hits 8 times around you ({m}% per hit).",
+"Un corte que parte el aire: {m}% de daño en un enorme arco frontal.": "A cut that splits the air: {m}% damage in a huge frontal arc.",
+"Durante 15 s: +{defP}% defensa y +{atkP}% ataque.": "For 15 s: +{defP}% defense and +{atkP}% attack.",
+"Un escudo divino que absorbe el {p}% de tu vida máxima (10 s).": "A divine shield that absorbs {p}% of your max HP (10 s).",
+"Saltas sobre el enemigo y golpeas el suelo: {m}% de daño en área y aturdes 1.5 s.": "You leap onto the enemy and smash the ground: {m}% area damage and stun for 1.5 s.",
+"Desatas la tierra misma: {m}% de daño a todo a tu alrededor y aturdes 2 s.": "You unleash the earth itself: {m}% damage to everything around you and stun for 2 s.",
+"Invocas un meteoro gigante: {m}% de daño en área y quemadura.": "You summon a giant meteor: {m}% area damage and burn.",
+"Una lluvia de 18 meteoros arrasa la zona ({m}% cada uno).": "A rain of 18 meteors ravages the area ({m}% each).",
+"Una tormenta de hielo enorme: {m}% de daño por pulso y ralentiza.": "A huge ice storm: {m}% damage per pulse and slows.",
+"Congelas todo a tu alrededor: {m}% de daño y congelas 3 s.": "You freeze everything around you: {m}% damage and freeze for 3 s.",
+"Un vórtice arcano atrae a los enemigos y los daña ({m}% por pulso).": "An arcane vortex pulls enemies in and damages them ({m}% per pulse).",
+"Nueve esferas arcanas perforantes ({m}% cada una).": "Nine piercing arcane orbs ({m}% each).",
+"Una flecha que atraviesa todo a su paso: {m}% de daño.": "An arrow that pierces everything in its path: {m}% damage.",
+"Marcas a tu presa: {m}% de daño y recibe +{p}% de daño 10 s.": "You mark your prey: {m}% damage and it takes +{p}% damage for 10 s.",
+"22 flechas caen del cielo ({m}% cada una).": "22 arrows rain from the sky ({m}% each).",
+"Raíces gigantes brotan: {m}% de daño y enraízan 3 s.": "Giant roots burst out: {m}% damage and root for 3 s.",
+"Disparas 11 flechas en abanico ({m}% cada una).": "You fire 11 arrows in a fan ({m}% each).",
+"Durante 15 s: +30% crítico, +{atkP}% ataque y +25% velocidad.": "For 15 s: +30% crit, +{atkP}% attack and +25% speed.",
+"Apareces tras tu objetivo y lo ejecutas: {m}% de daño.": "You appear behind your target and execute it: {m}% damage.",
+"18 cortes fulminantes entre las sombras ({m}% cada uno).": "18 lightning-fast cuts from the shadows ({m}% each).",
+"Una explosión tóxica: {m}% de daño y veneno potente.": "A toxic explosion: {m}% damage and strong poison.",
+"Una niebla venenosa enorme a tu alrededor ({m}% por pulso).": "A huge poison mist around you ({m}% per pulse).",
+"Atraviesas a los enemigos invulnerable: {m}% de daño en tu camino.": "You dash through enemies, invulnerable: {m}% damage along your path.",
+"Durante 15 s: +{atkP}% ataque, +25% crítico y +20% esquiva.": "For 15 s: +{atkP}% attack, +25% crit and +20% dodge.",
+"Una nota afilada que hiere a distancia: {m}% de daño.": "A sharp note that wounds at range: {m}% damage.",
+"Cinco notas en abanico ({m}% cada una).": "Five notes in a fan ({m}% each).",
+"Aumenta el poder musical (ataque) en {atkP}%.": "Increases musical power (attack) by {atkP}%.",
+"Una onda sonora a tu alrededor: {m}% de daño y aturde 1 s.": "A sound wave around you: {m}% damage and stuns for 1 s.",
+"Curas un {p}% de la vida máxima a ti y a tu grupo cercano.": "You heal {p}% of max HP for yourself and your nearby party.",
+"Durante 15 s, tú y tu grupo: +{defP}% defensa.": "For 15 s, you and your party: +{defP}% defense.",
+"Una gran curación: {p}% de la vida máxima para ti y tu grupo.": "A great heal: {p}% of max HP for you and your party.",
+"Un paso de baile veloz que golpea ({m}%).": "A swift dance step that strikes ({m}%).",
+"Aumenta la velocidad de ataque en {aspdP}%.": "Increases attack speed by {aspdP}%.",
+"Durante 15 s, tú y tu grupo: +{atkP}% ataque y +10% velocidad de ataque.": "For 15 s, you and your party: +{atkP}% attack and +10% attack speed.",
+"Durante 15 s, tú y tu grupo: +{atkP}% ataque y +25% velocidad de ataque.": "For 15 s, you and your party: +{atkP}% attack and +25% attack speed.",
+"Doce notas caen del cielo sobre la zona ({m}% cada una).": "Twelve notes fall from the sky on the area ({m}% each).",
+"Una tormenta de música: {m}% por pulso durante 6 s.": "A storm of music: {m}% per pulse for 6 s.",
+"Un escudo que absorbe el {p}% de tu vida; tu grupo recibe una curación igual.": "A shield that absorbs {p}% of your HP; your party receives an equal heal.",
+"Durante 20 s, tú y tu grupo: +{defP}% defensa y +{atkP}% ataque.": "For 20 s, you and your party: +{defP}% defense and +{atkP}% attack.",
+"El último acorde: {m}% de daño a todo a tu alrededor y aturde 2 s.": "The final chord: {m}% damage to everything around you and stuns for 2 s.",
+"Durante 8 s tocas sin parar: {m}% de daño por pulso en área y curas un 3% de vida al grupo con cada pulso.": "For 8 s you play non-stop: {m}% area damage per pulse and heal the party 3% HP with each pulse.",
+"Invoca tus almas vinculadas como espíritus azules (1 alma; 2 en rango 4; 3 en rango 8). Pegan con {m}% de tu ataque según su fuerza.": "Summons your bound souls as blue spirits (1 soul; 2 at rank 4; 3 at rank 8). They hit for {m}% of your attack depending on their strength.",
+"+{soulP}% de probabilidad de capturar almas.": "+{soulP}% chance to capture souls.",
+"Tus espíritus hacen +{sumP}% de daño.": "Your spirits deal +{sumP}% damage.",
+"Tus espíritus se enfurecen: +{p}% de daño y velocidad durante 12 s.": "Your spirits go into a frenzy: +{p}% damage and speed for 12 s.",
+"Un corte amplio de guadaña: {m}% de daño al frente.": "A wide scythe cut: {m}% damage in front.",
+"Giras la guadaña golpeando 5 veces ({m}% cada golpe).": "You spin your scythe, striking 5 times ({m}% per hit).",
+"Un tajo de la muerte: {m}% de daño (doble a enemigos con menos del 30% de vida).": "A deadly slash: {m}% damage (double against enemies below 30% HP).",
+"Un rayo de almas que roba vida: {m}% de daño y te curas el 30% del daño.": "A soul beam that steals life: {m}% damage and you heal 30% of the damage.",
+"Una niebla de muerte: {m}% por pulso y envenena.": "A mist of death: {m}% per pulse and poisons.",
+"Maldices a un enemigo: recibe +{p}% de daño durante 10 s.": "You curse an enemy: it takes +{p}% damage for 10 s.",
+"Tres sombras surgen junto a tu objetivo y lo golpean 4 veces cada una ({m}% por golpe en área). No ocupan huecos de invocación.": "Three shadows rise beside your target and strike it 4 times each ({m}% per hit in an area). They do not take summon slots.",
+"Invoca tu alma más poderosa (mejor si es de un jefe) a tamaño gigante durante 25 s ({m}% de tu ataque).": "Summons your most powerful soul (best if it is a boss) at giant size for 25 s ({m}% of your attack).",
+"Un torbellino de guadaña de 8 golpes ({m}% cada uno).": "An 8-hit scythe whirlwind ({m}% each).",
+"La guadaña siega todo a tu alrededor: {m}% de daño y aturde 1.5 s.": "Your scythe reaps everything around you: {m}% damage and stuns for 1.5 s.",
+"Fuego azul de almas: {m}% de daño a tu alrededor.": "Blue soul fire: {m}% damage around you.",
+"Abres un portal que atrae y daña a los enemigos ({m}% por pulso).": "You open a portal that pulls in and damages enemies ({m}% per pulse).",
+"Una espada de luz gigante cae del cielo: {m}% de daño en área y aturde.": "A giant sword of light falls from the sky: {m}% area damage and stuns.",
+"Catorce rayos de todos los colores golpean la zona ({m}% cada uno).": "Fourteen rays of every colour strike the area ({m}% each).",
+"Flechas de fuego con forma de fénix caen sobre la zona ({m}% cada una) y queman.": "Phoenix-shaped fire arrows fall on the area ({m}% each) and burn.",
+"Desapareces y asestas 22 cortes sombríos alrededor ({m}% cada uno).": "You vanish and deal 22 shadow cuts around you ({m}% each).",
+"Un mordisco feroz que hace {m}% de ataque a lo que tengas delante.": "A fierce bite that deals {m}% attack to whatever is in front of you.",
+"Una dentellada brutal: {m}% de daño en área y aturde 1.5 s.": "A brutal chomp: {m}% area damage and stuns for 1.5 s.",
+"Tus escamas aumentan la defensa en {defP}%.": "Your scales increase defense by {defP}%.",
+"Una burbuja que absorbe daño igual al {p}% de tu vida máxima (8 s).": "A bubble that absorbs damage equal to {p}% of your max HP (8 s).",
+"El agua te cura el {p}% de tu vida (y a tu grupo).": "The water heals {p}% of your HP (and your party's).",
+"Atrapas al enemigo más cercano, lo arrastras hacia ti ({m}%) y lo aturdes 1.2 s.": "You grab the nearest enemy, drag it to you ({m}%) and stun it for 1.2 s.",
+"Un remolino que atrae y golpea a los enemigos 6 veces ({m}% cada vez).": "A whirlpool that pulls in and hits enemies 6 times ({m}% each time).",
+"Giras mordiendo todo a tu alrededor 8 veces ({m}% cada mordisco).": "You spin, biting everything around you 8 times ({m}% per bite).",
+"Una dentellada gigante de agua: {m}% de daño en un enorme arco.": "A giant water chomp: {m}% damage in a huge arc.",
+"Una ola gigante: {m}% de daño a tu alrededor y aturde 1 s.": "A giant wave: {m}% damage around you and stuns for 1 s.",
+"Te lanzas como un tiburón: {m}% de daño y aturdes 1 s.": "You launch yourself like a shark: {m}% damage and stun for 1 s.",
+"Invocas un torbellino abisal enorme: 10 golpes de {m}%.": "You summon a huge abyssal whirlpool: 10 hits of {m}%.",
+"Un leviatán de agua cae sobre la zona: {m}% de daño en área y aturde.": "A water leviathan crashes onto the area: {m}% area damage and stuns.",
+"Si caes, reapareces en la última ciudad y pierdes un poco de oro. La partida se guarda sola; descansar en la posada también guarda.": "If you fall, you respawn in the last town and lose a little gold. The game saves itself; resting at the inn also saves."
+};
+if (LANG_EN) {
+  for (const id in SK) { const s = SK[id]; if (s && EN_FIX[s.d]) s.d = EN_FIX[s.d]; if (s && EN_FIX[s.desc]) s.desc = EN_FIX[s.desc]; }
+  if (typeof GUIDE !== 'undefined') for (const g of GUIDE) if (EN_FIX[g[1]]) g[1] = EN_FIX[g[1]];
+}
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;

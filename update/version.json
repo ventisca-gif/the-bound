@@ -1,20 +1,24 @@
 {
- "build": 233,
- "ver": "6.12",
+ "build": 234,
+ "ver": "6.13",
  "date": "2026-11-25",
  "file": "thebound.html",
- "size": 36037550,
- "sha256": "837f1a928ffa0be60220c42292fd30b62d79c9c5e597822e018049a10c26a83b",
+ "size": 36060328,
+ "sha256": "36925d20a7fe79f17a1575e086a64cad59284e6cfe087e600e4e0470296065a0",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Mejoras por dentro para que el juego pueda seguir creciendo (más niveles y más crossovers) sin romperse: lo nuevo ya no se apila encima de lo anterior.",
-   "Revisión completa: más de 200 actividades y minijuegos probados en su sitio, partidas de versiones antiguas, 10 minutos de juego seguido y toda la Lupa, sin errores."
+   "La enciclopedia se abre al instante (antes 2 segundos) y tocar un enemigo ya no la congela. Los retratos se dibujan poco a poco sin parar la ventana.",
+   "Los mapas grandes cargan mucho más rápido: Japón, México, Lima y Trujillo unas 4 veces más rápido; España y Dawn, el doble.",
+   "Enciclopedia: pestañas por nivel (1-99 hasta 600+) y del Mar de Dawn, con Alvida, Buggy, Kuro, Baratie, Shanks y Arlong. Ahora todos los enemigos salen en alguna pestaña, no solo en «Todos».",
+   "Inglés: descripciones de todas las habilidades, ventajas de los oficios, recuerdos y trofeos de oficio y la ayuda de Misiones."
   ],
   "en": [
-   "Under-the-hood improvements so the game can keep growing (more levels and more crossovers) without breaking: new content no longer stacks on top of the old.",
-   "Full review: over 200 activities and minigames tested in place, saves from old versions, 10 minutes of continuous play and the whole Magnifier, with no errors."
+   "The encyclopedia opens instantly (it took 2 seconds) and tapping an enemy no longer freezes it. Portraits are drawn bit by bit without stalling the window.",
+   "Big maps load much faster: Japan, Mexico, Lima and Trujillo about 4 times faster; Spain and Dawn, twice as fast.",
+   "Encyclopedia: level tabs (1-99 up to 600+) and a Dawn Sea tab with Alvida, Buggy, Kuro, Baratie, Shanks and Arlong. Every enemy now shows up in some tab, not only in \"All\".",
+   "English: descriptions of every skill, job perks, job keepsakes and trophies, and the Quests help."
   ]
  }
 }
