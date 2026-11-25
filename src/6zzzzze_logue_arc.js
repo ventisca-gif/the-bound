@@ -125,8 +125,7 @@ function logueSmokerStrike(A, m, mode, target) {
   telegraph({ shape: 'circle', x, y, r, dur: t, col: mode === 'humo' ? '#e8eef055' : '#c8d0d855' });
   addFx({ type: 'custom', x, y: y - 8, dur: t + 0.5, draw: (f, sx, sy, k) => {
     if (f.t < t) return; const q = (f.t - t) / 0.5;
-    ctx.fillStyle = `rgba(240,244,246,${(0.75 * (1 - q)).toFixed(2)})`;
-    for (let i = 0; i < 9; i++) { const an = i * 0.7 + q * 2, rr = r * (0.3 + q * 0.75) * (0.6 + (i % 3) * 0.2); ctx.beginPath(); ctx.arc(sx + Math.cos(an) * rr, sy + Math.sin(an) * rr * 0.6, 7 + q * 9, 0, 7); ctx.fill(); }
+    smokeCloud(smokeBlob(sx, sy, r * (0.5 + q * 0.6), r * 0.55 * (0.5 + q * 0.6), 9, 7 + q * 7, f.t, 2), 0.95 * (1 - q * q));
     if (!f.fired) { f.fired = true;
       if (!A || G.map.logueArc !== A || m.dying || m.remove) return;
       for (const e of [G.P, ...A.crew]) { if (!(e.hp > 0) || dist2(e.x, e.y, x, y) > r * r) continue;
@@ -224,7 +223,7 @@ function logueArcTick(M, A, dt) {
     const s = A.smoker, l = A.luffy;
     if (A.beat === 0) { A.beat++; logueSay(s, 'Ganaste la pelea… pero esta ciudad es mía.', 'You won the fight… but this town is mine.'); }
     if (A.beat === 1 && t > 2.2) { A.beat++; setAnim(s, 'atk'); logueSay(s, '¡Humo blanco!', 'White smoke!');
-      addFx({ type: 'custom', x: l.x, y: l.y - 10, dur: 1.2, draw: (f, x, y, k) => { ctx.fillStyle = `rgba(240,244,246,${(0.85 * (1 - k * 0.6)).toFixed(2)})`; for (let i = 0; i < 10; i++) { const an = i * 0.63 + k * 3; ctx.beginPath(); ctx.arc(x + Math.cos(an) * (10 + k * 14), y + Math.sin(an) * (6 + k * 8), 8 + k * 6, 0, 7); ctx.fill(); } } }); }
+      addFx({ type: 'custom', x: l.x, y: l.y - 10, dur: 1.2, draw: (f, x, y, k) => smokeCloud(smokeBlob(x, y, 14 + k * 16, 16 + k * 14, 10, 7 + k * 5, f.t, 3), 1 - k * 0.4) }); }
     if (A.beat === 2 && t > 3.6) { A.beat++;
       transition(() => {
         for (const e of A.crew) e.remove = true; A.crew = [];
