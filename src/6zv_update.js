@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.19', GAME_BUILD = 241;
+const GAME_VER = '6.20', GAME_BUILD = 242;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.20",
+ "b": 242,
+ "d": "2026-11-25",
+ "es": [
+  "La tripulación se hace más fuerte al completar cada arco del Mar de Dawn y al vencer por primera vez a cada jefe de la historia. Antes solo contaban los jefes hasta Villa Syrup; ahora también Baratie, Arlong Park y Loguetown. Repetir un arco no la sube.",
+  "Cada arco completado da +15 % de poder y cada jefe vencido +2 % (todo: +126 %): más vida, defensa y daño en sus técnicas.",
+  "Nueva opción al hablar con Luffy, Zoro, Usopp o Sanji: «Desafiar» para un duelo con su poder actual, con su caminata, sus ataques y sus técnicas de siempre. Nadie muere, no da XP ni botín y da oro la primera vez que ganas a cada poder nuevo. Nami no pelea.",
+  "«Poder de la tripulación» al hablarles: arcos completados, batallas y el poder de cada uno."
+ ],
+ "en": [
+  "The crew grows stronger when you complete each Dawn Sea arc and the first time you beat each story boss. Before, only the bosses up to Syrup Village counted; now Baratie, Arlong Park and Loguetown do too. Replaying an arc does not raise it.",
+  "Each completed arc gives +15 % power and each boss beaten +2 % (everything: +126 %): more HP, defense and technique damage.",
+  "New option when talking to Luffy, Zoro, Usopp or Sanji: “Challenge” for a duel at their current power, with their usual walk, attacks and techniques. Nobody dies, it gives no XP or loot, and it pays gold the first time you beat each new power level. Nami doesn’t fight.",
+  "“Crew power” when talking to them: completed arcs, battles and each member’s power."
+ ]
+},
 {
  "v": "6.19",
  "b": 241,
