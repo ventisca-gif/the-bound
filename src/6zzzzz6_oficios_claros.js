@@ -64,3 +64,7 @@ SAVEKEYS.push('capWarn');
     const first = det.querySelector('.gsrc'); if (first) first.insertAdjacentHTML('afterend', html); else det.insertAdjacentHTML('beforeend', html);
     $$('.guia .gdet [data-wp]').forEach(b => b.onclick = () => { const [x, y] = b.dataset.wp.split(',').map(Number); setWp({ loc: [x, y], t: b.dataset.wl, m: WP_M[Math.round(x * 10) / 10 + ',' + Math.round(y * 10) / 10] || 'world' }); guiaJobs(); });
   } catch (e) { } return r; }; }
+
+// Protección: archiTick (navegación del Archipiélago, también usada al remar/surfear en Trujillo) recorre M.camps y
+// M.bossAt; si algún mapa se marca archi sin ellos, daba un error en cada fotograma. Ahora se salta.
+{ const _at = archiTick; archiTick = function () { const M = G.map; if (M && M.archi && (!Array.isArray(M.bossAt) || !Array.isArray(M.camps))) return; return _at.apply(this, arguments); }; }
