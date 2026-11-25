@@ -1,24 +1,22 @@
 {
- "build": 243,
- "ver": "6.21",
+ "build": 244,
+ "ver": "6.22",
  "date": "2026-11-25",
  "file": "thebound.html",
- "size": 37855297,
- "sha256": "03d3f507e16c69c7274bf85e94054f371955d790602328a470dacaa304f30516",
+ "size": 37867554,
+ "sha256": "8f9bb784cbe83d65e07366ca01bd8ec8c1a56c47a3b03552d5246df9d592d864",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Se nota el poder al subir: contra monstruos y jefes de nivel más bajo que tú haces +1,5 % de daño por nivel de ventaja (hasta +75 %) y recibes −1 % por nivel (hasta −50 %). A nivel 500 con 60 niveles de ventaja: 6 golpes en vez de 17. A tu nivel o contra más fuertes no cambia; el PvP tampoco.",
-   "Ritmo de nivel alto: los monstruos normales desde nivel 450 tienen menos vida y algo menos de ataque (a nivel 500: unos 13 golpes en vez de 20, y aguantas 16 en vez de 12). Los jefes no cambian.",
-   "Inicio más limpio: hasta terminar «Despertar» ya no salen encima el sello de viaje, la prosperidad del pueblo, el pueblo del día ni «Historia nueva»; aparecen después, de uno en uno.",
-   "Arreglo: en una partida nueva salía abajo una barra roja de error (gearTiers)."
+   "Partida en la nube con un código corto: en el título toca «Nube» (o en Opciones › Partida, «Subir a la nube») y recibes un código de 8 letras, como K7QF-92MX.",
+   "En otro móvil: título › «Nube», escribe el código y «Bajar de la nube». Vuelven todos tus héroes, sin copiar textos largos.",
+   "Con código, la copia se actualiza sola cada 10 minutos de juego. Necesita internet; funciona en la app."
   ],
   "en": [
-   "You feel your power as you level: against monsters and bosses below your level you deal +1.5 % damage per level of advantage (up to +75 %) and take −1 % per level (up to −50 %). At level 500 with a 60-level lead: 6 hits instead of 17. At your level or against stronger foes nothing changes; PvP neither.",
-   "High-level pace: normal monsters from level 450 have less HP and slightly less attack (at level 500: about 13 hits instead of 20, and you survive 16 instead of 12). Bosses are unchanged.",
-   "Cleaner start: until you finish “Awakening”, the travel stamp, town prosperity, town of the day and “New story” no longer pile on top; they show up afterwards, one at a time.",
-   "Fix: a red error bar (gearTiers) showed at the bottom in a new game."
+   "Cloud save with a short code: on the title screen tap “Cloud” (or Options › Game, “Upload to cloud”) and you get an 8-letter code, like K7QF-92MX.",
+   "On another phone: title › “Cloud”, type the code and “Download from cloud”. All your heroes come back, no long text to copy.",
+   "Once you have a code, the backup updates itself every 10 minutes of play. Needs internet; works in the app."
   ]
  }
 }
