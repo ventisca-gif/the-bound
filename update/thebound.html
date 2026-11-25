@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.13 · Más rápido y en inglés</div>
+  <div class="tfoot">v6.14 · Gama baja, robo de vida e inventario 900</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -3168,7 +3168,7 @@ sk('g6', 'guerrero', 1, 1, (LANG_EN ? "War Cry" : 'Grito de Guerra'), 'act', 10,
 sk('g7', 'guerrero', 1, 2, (LANG_EN ? "Vitality" : 'Vitalidad'), 'pas', 18, 'g5', { icon: ['heart', '#e84050'], pas: { hpP: 4 }, d: 'Aumenta la vida máxima en {hpP}%.' });
 sk('g8', 'guerrero', 1, 3, (LANG_EN ? "Bastion" : 'Baluarte'), 'act', 35, 'g6', { mp: 30, cd: 30, icon: ['shield', '#ffd040'], eff: { k: 'shield', p: 20, pr: 3, dur: 8 }, d: 'Un escudo que absorbe daño igual al {p}% de tu vida máxima (8 s).' });
 sk('g9', 'guerrero', 2, 0, (LANG_EN ? "Charge" : 'Carga'), 'act', 5, null, { mp: 12, cd: 7, icon: ['dash', '#e8e8f0'], eff: { k: 'dash', dist: 96, m: 1.4, mr: 0.12, stun: 0.6 }, d: 'Embistes hacia delante con {m}% de daño y aturdes 0.6 s.' });
-sk('g10', 'guerrero', 2, 1, (LANG_EN ? "Bloodlust" : 'Sed de Sangre'), 'pas', 12, 'g9', { icon: ['drop', '#c02030'], pas: { life: 1 }, d: 'Recuperas el {life}% del daño infligido como vida.' });
+sk('g10', 'guerrero', 2, 1, (LANG_EN ? "Bloodlust" : 'Sed de Sangre'), 'pas', 12, 'g9', { icon: ['drop', '#c02030'], pas: { life: 1 }, d: 'Recuperas el {life}% del daño infligido como vida (como mucho un 5 % de tu vida por golpe y un 12 % por segundo).' });
 sk('g11', 'guerrero', 2, 2, (LANG_EN ? "Seismic Strike" : 'Golpe Sísmico'), 'act', 25, 'g9', { mp: 28, cd: 12, icon: ['slam', '#c8a060'], eff: { k: 'slam', m: 2.2, mr: 0.2, r: 50, stun: 1, front: 30 }, d: 'Partes la tierra al frente: {m}% de daño y aturdes 1 s.' });
 sk('g12', 'guerrero', 2, 3, (LANG_EN ? "War Avatar" : 'Avatar de Guerra'), 'act', 60, 'g11', { mp: 60, cd: 60, icon: ['star', '#ff4040'], eff: { k: 'buff', dur: 15, st: { atkP: 40, aspdP: 20 }, str: { atkP: 3 } }, d: 'Durante 15 s: +{atkP}% ataque y +20% velocidad de ataque.' });
 // mago
@@ -4029,6 +4029,12 @@ function explode(e) {
 }
 // ---------- combat core ----------
 function nearestMob(x, y, r, filter) { let best = null, bd = r * r; for (const m of G.ents) { if (m.type !== 'mob' || m.dying || m.map !== G.map.id) continue; if (filter && !filter(m)) continue; const d = dist2(m.x, m.y, x, y); if (d < bd) { bd = d; best = m; } } return best; }
+// 6.14: el robo de vida (Sed de Sangre, armas de guerrero, vampiro…) curaba por cada enemigo de un golpe en área: Juicio
+// Final con Sed de Sangre llenaba toda la vida de una vez. Ahora cura como mucho un 5 % de la vida máxima por golpe y un
+// 12 % por segundo en total. El daño no cambia.
+const LIFESTEAL_HIT = 0.05, LIFESTEAL_SEC = 0.12;
+function lifeStealAmt(P, h) { const max = P.S.maxhp || 1, W = P._lsW || (P._lsW = { t: -9, h: 0 }); if (G.t - W.t >= 1) { W.t = G.t; W.h = 0; }
+  const v = Math.max(0, Math.min(h, max * LIFESTEAL_HIT, max * LIFESTEAL_SEC - W.h)); W.h += v; return v; }
 function hitMob(m, base, src = {}) {
   const P = G.P, S = P.S; if (m.dying) return 0;
   let d = base * dmgRedM(m.df, m.lv) * (0.9 + Math.random() * 0.2);
@@ -4046,7 +4052,7 @@ function hitMob(m, base, src = {}) {
   if (src.slow) m.slow = Math.max(m.slow, src.slow); if (src.freeze) m.freeze = Math.max(m.freeze, src.freeze * (m.boss ? 0.3 : 1)); if (src.stun) m.stun = Math.max(m.stun, src.stun * (m.boss ? 0.3 : 1)); if (src.root) m.root = Math.max(m.root, src.root * (m.boss ? 0.3 : 1));
   if (src.burn) m.burn = 4, m.burnD = Math.round(P.S.atk * 0.15); if (src.poison || P.buff.poisonHit) { m.poison = Math.max(m.poison, src.poison || 4); m.poisonD = Math.round(P.S.atk * 0.12); }
   if (src.kb && !m.boss) { const a = Math.atan2(m.y - P.y, m.x - P.x); m.kbx = Math.cos(a) * src.kb; m.kby = Math.sin(a) * src.kb; }
-  if (S.life && !src.summon) P.hp = Math.min(P.S.maxhp, P.hp + d * S.life / 100);
+  if (S.life && !src.summon) P.hp = Math.min(P.S.maxhp, P.hp + lifeStealAmt(P, d * S.life / 100));
   if (src.drain) { P.hp = Math.min(P.S.maxhp, P.hp + d * src.drain / 100); }
   if (src.bard) bardNoteHit();
   if (m.state === 'idle' || m.state === 'return') { m.state = 'chase'; }
@@ -4224,7 +4230,7 @@ function updateNPC(e, dt) {
 }
 
 // ================= PLAYER, PROGRESSION, QUESTS, JOBS =================
-const INV_MAX = 200;
+const INV_MAX = 900;   // 6.14: antes 200 (Sergio: «que el inventario sea de 900 casillas»)
 function newPlayer(name, cls, app) {
   app = normApp(app);
   const C = CLASSES[cls]; const jobs = {}; for (const k in JOBS) jobs[k] = { lv: 1, xp: 0 };
@@ -4991,7 +4997,7 @@ function animPreview() { const c = $('#prev'); if (!c) return; const x = c.getCo
 function renderInv(B) {
   const P = G.P; const flt = { all: () => true, eq: it => it.slot || it.t === 'tool', mat: it => it.t === 'mat', cons: it => it.t === 'cons', quest: it => it.t === 'quest' }[invFilter];
   const chips = [['all', (LANG_EN ? "All" : 'Todo')], ['eq', (LANG_EN ? "Gear" : 'Equipo')], ['mat', (LANG_EN ? "Materials" : 'Materiales')], ['cons', (LANG_EN ? "Consumables" : 'Consumibles')], ['quest', (LANG_EN ? "Quest" : 'Misión')]].map(([k, n]) => `<button class="chip ${invFilter === k ? 'on' : ''}" data-f="${k}">${n}</button>`).join('');
-  let cells = ''; for (let i = 0; i < INV_MAX; i++) { const s = P.inv[i]; if (s && !flt(ITEMS[s.id])) continue; if (!s && invFilter !== 'all') continue; cells += s ? `<button class="slot r${ITEMS[s.id].rar || 0} ${invSel === i ? 'sel' : ''}" data-i="${i}">${iconHTML(ITEMS[s.id].icon, 32)}${s.q > 1 ? `<em>${s.q}</em>` : ''}${s.up ? `<em class="upl">+${s.up}</em>` : ''}${canEquip(s.id) === null && (ITEMS[s.id].slot) && betterThanEquipped(s.id) ? '<b class="up">▲</b>' : ''}</button>` : `<div class="slot empty"></div>`; }
+  let cells = ''; /* 6.14: con 900 casillas solo se dibujan las ocupadas y dos filas vacías */ const invShow = Math.min(INV_MAX, P.inv.length + 16 - (P.inv.length % 8)); for (let i = 0; i < invShow; i++) { const s = P.inv[i]; if (s && !flt(ITEMS[s.id])) continue; if (!s && invFilter !== 'all') continue; cells += s ? `<button class="slot r${ITEMS[s.id].rar || 0} ${invSel === i ? 'sel' : ''}" data-i="${i}">${iconHTML(ITEMS[s.id].icon, 32)}${s.q > 1 ? `<em>${s.q}</em>` : ''}${s.up ? `<em class="upl">+${s.up}</em>` : ''}${canEquip(s.id) === null && (ITEMS[s.id].slot) && betterThanEquipped(s.id) ? '<b class="up">▲</b>' : ''}</button>` : `<div class="slot empty"></div>`; }
   const s = P.inv[invSel], it = s ? ITEMS[s.id] : null;
   let det = (LANG_EN ? "<p class=\"hint\">Tap an item to see its details.</p>" : '<p class="hint">Toca un objeto para ver sus detalles.</p>');
   if (it) {
@@ -11905,7 +11911,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.13', GAME_BUILD = 234;
+const GAME_VER = '6.14', GAME_BUILD = 235;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11913,6 +11919,25 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.14",
+ "b": 235,
+ "d": "2026-11-25",
+ "es": [
+  "Más fluido en celulares de gama baja y media: el juego ya no prepara en segundo plano los 2.300 dibujos de personajes y enemigos mientras juegas (frenaba cada imagen durante minutos al entrar). Los personajes fuera de pantalla gastan mucho menos.",
+  "Modo optimizado (Ajustes): además, menos multitud de fondo en las ciudades y la interfaz se refresca 15 veces por segundo.",
+  "Robo de vida (Sed de Sangre, armas de guerrero, vampiro…): cura como mucho un 5 % de tu vida por golpe y un 12 % por segundo. Antes, Juicio Final con Sed de Sangre llenaba toda la vida de una vez.",
+  "Inventario de 900 casillas (antes 200).",
+  "Familia: como mucho 30 familiares vivos; si llegas, no nacen más nietos hasta que haya hueco."
+ ],
+ "en": [
+  "Smoother on low- and mid-range phones: the game no longer pre-builds the 2,300 character and enemy sprites in the background while you play (it slowed every frame for minutes after starting). Off-screen characters cost much less.",
+  "Optimized mode (Settings): also fewer background crowds in towns and the interface refreshes 15 times per second.",
+  "Life steal (Bloodthirst, warrior weapons, vampire…): heals at most 5% of your HP per hit and 12% per second. Before, Final Judgement with Bloodthirst refilled all your HP at once.",
+  "900-slot inventory (was 200).",
+  "Family: at most 30 living relatives; once you reach it, no more grandchildren are born until there is room."
+ ]
+},
 {
  "v": "6.13",
  "b": 234,
@@ -21216,9 +21241,13 @@ function legMatch(k) { const g = k.g === 'f' ? 'm' : 'f', C_ = [0, 1, 2].map(() 
     if (typeof pvLog === 'function') pvLog(L2('Boda: ', 'Wedding: ') + k.name + ' (' + L2('hijo/a de ', 'child of ') + P.name + ') ' + L2('y ', 'and ') + c.name + '.', c.town, 'good'); k.wedDay = calDay(); k.follow = false; markDirty(true); }); }
 // cada día: oficio de los hijos, nietos y pequeñas historias familiares
 { const _nd = newDay; newDay = function () { const r = _nd.apply(this, arguments); try { legDay(); } catch (e) { console.warn(e); } return r; }; }
+// 6.14: cada pareja tiene hasta 2 hijos y los nietos también se casan: sin tope la familia crecía sin parar (2, 4, 8, 16…)
+// más rápido de lo que la vejez la reduce. Con 30 familiares vivos ya no nacen más nietos hasta que haya hueco.
+const FAM_LIVE_MAX = 30;
+function famRoom() { const P = G.P; if (!P || !P.kids) return true; let n = P.kids.length; for (const k of P.kids) for (const g of k.gkids || []) if (!P.kids.some(x => x.id === g.id)) n++; return n < FAM_LIVE_MAX; }
 function legDay() { const P = G.P; if (!P || !P.kids) return; const o = P.leg = P.leg || {}; o.box = o.box || [];
   for (const k of P.kids) { if (!kidAdult(k)) continue; const J = LEG_JOBS.find(j => j[0] === k.ljob); if (J) o.box.push(J[2] ? [J[2], 1 + Math.floor(Math.random() * 3), k.name] : ['gold', Math.round(300 * (1 + P.lv / 30)), k.name]);
-    if (k.spouse && (k.gkids || []).length < 2 && calDay() - (k.wedDay || 0) >= 5 && Math.random() < 0.25) { k.gkids = k.gkids || []; const g = Math.random() < 0.5 ? 'f' : 'm', nm = pick(LEG_NAMES[g]); k.gkids.push({ id: 'g' + Date.now().toString(36) + k.gkids.length, name: nm, g, app: legMix(k.app, k.spouse.app, g), born: calDay() }); banner('👶 ' + L2('¡Eres abuelo/a!', 'You are a grandparent!'), k.name + L2(' ha tenido a ', ' had ') + nm); sfx('level'); } }
+    if (k.spouse && (k.gkids || []).length < 2 && famRoom() && calDay() - (k.wedDay || 0) >= 5 && Math.random() < 0.25) { k.gkids = k.gkids || []; const g = Math.random() < 0.5 ? 'f' : 'm', nm = pick(LEG_NAMES[g]); k.gkids.push({ id: 'g' + Date.now().toString(36) + k.gkids.length, name: nm, g, app: legMix(k.app, k.spouse.app, g), born: calDay() }); banner('👶 ' + L2('¡Eres abuelo/a!', 'You are a grandparent!'), k.name + L2(' ha tenido a ', ' had ') + nm); sfx('level'); } }
   o.box = o.box.slice(-30);
   if (!o.story && Math.random() < 0.35) legStory(); markDirty(); }
 // buzón: lo recoges al entrar en tu casa
@@ -53662,6 +53691,33 @@ hookAfter('guiaJobs', function () {
 // M.bossAt; si algún mapa se marca archi sin ellos, daba un error en cada fotograma. Ahora se salta.
 hookBefore('archiTick', function () { const M = G.map; if (M && M.archi && (!Array.isArray(M.bossAt) || !Array.isArray(M.camps))) return HOOK_SKIP; });
 
+// 6.14 · Celulares lentos: un NPC fuera de pantalla (más de 1,3 pantallas lejos) se actualiza 4 veces por segundo con el
+// tiempo acumulado, en vez de en cada fotograma (España tiene ~1.100 y cada uno pasa por ~15 capas). Se mueve igual; los
+// que te siguen, los de escenas y los que están cerca siguen igual que antes.
+hookAround('updateNPC', function (next, e, dt) {
+  const P = G.P; if (!P || e.follow || e.dawnCrew || e.crewReady || e.kidOf || e.scene || e.pet || e === (typeof COMP !== 'undefined' && COMP && COMP.e)) return next(e, dt);
+  const fx = (typeof VW !== 'undefined' ? VW : 480) * 1.3, fy = (typeof VH !== 'undefined' ? VH : 270) * 1.3;
+  if (Math.abs(e.x - P.x) < fx && Math.abs(e.y - P.y) < fy) { if (e._farDt) { const d = e._farDt; e._farDt = 0; return next(e, dt + d); } return next(e, dt); }
+  e._farDt = (e._farDt || 0) + dt; if (e._farDt < 0.25) return;
+  const d = Math.min(e._farDt, 1); e._farDt = 0; return next(e, d);
+});
+
+// 6.14 · interactTarget (49 capas) se pedía en cada fotograma para el botón «Hablar»: si el personaje no se ha movido y
+// han pasado menos de 100 ms, se reutiliza el resultado. Al tocar ⚔ / Hablar la posición es la misma, así que es igual.
+let IT_CACHE = null;
+hookAround('interactTarget', function (next, ...a) {
+  const P = G.P, M = G.map; if (!P || a.length) return next(...a);
+  const now = performance.now(), C = IT_CACHE;
+  if (C && C.map === M && C.x === P.x && C.y === P.y && C.dir === P.dir && now - C.t < 100 && !(C.r && (C.r.remove || (C.r.e && C.r.e.remove)))) return C.r;
+  const r = next(); IT_CACHE = { r, t: now, map: M, x: P.x, y: P.y, dir: P.dir }; return r;
+});
+// en modo optimizado la interfaz (barras, botones) se refresca 15 veces por segundo en vez de en cada fotograma
+let HUD_T = 0;
+hookBefore('updateHUD', function () { if (typeof OPT === 'undefined' || !OPT.on) return; const now = performance.now(); if (now - HUD_T < 66) return HOOK_SKIP; HUD_T = now; });
+// en modo optimizado sale un 45 % menos de multitud de fondo en las ciudades (solo los transeúntes que ya controla
+// v74Dens; se esconden lejos de ti, nunca delante; los NPC con nombre, de misiones o escenas no se tocan)
+hookAfter('v74Dens', function (d) { if (typeof OPT !== 'undefined' && OPT.on && typeof d === 'number') return d * 0.55; });
+
 // 6.13 · Arreglos del inglés (Sergio: «que todo esté traducido al inglés si escoges ese idioma: historia, diálogos…»).
 // Los recuerdos y trofeos de oficio (muebles bk_of_<oficio>_a/_b) se crean en src/6zz9zz4_oficios.js antes de que existan
 // los nombres de esos oficios en JOBS, así que llevaban el nombre en español («Keepsake: Maestro del té»). Aquí, con todo
@@ -53684,7 +53740,7 @@ const EN_FIX = {
 "Aumenta la vida máxima en {hpP}%.": "Increases max HP by {hpP}%.",
 "Un escudo que absorbe daño igual al {p}% de tu vida máxima (8 s).": "A shield that absorbs damage equal to {p}% of your max HP (8 s).",
 "Embistes hacia delante con {m}% de daño y aturdes 0.6 s.": "You charge forward for {m}% damage and stun for 0.6 s.",
-"Recuperas el {life}% del daño infligido como vida.": "You recover {life}% of the damage you deal as HP.",
+"Recuperas el {life}% del daño infligido como vida (como mucho un 5 % de tu vida por golpe y un 12 % por segundo).": "You recover {life}% of the damage you deal as HP (at most 5% of your HP per hit and 12% per second).",
 "Partes la tierra al frente: {m}% de daño y aturdes 1 s.": "You split the ground in front: {m}% damage and stun for 1 s.",
 "Durante 15 s: +{atkP}% ataque y +20% velocidad de ataque.": "For 15 s: +{atkP}% attack and +20% attack speed.",
 "Lanza una bola de fuego que explota: {m}% de daño en área y quema.": "Throws an exploding fireball: {m}% area damage and burns.",
@@ -53803,7 +53859,13 @@ if (LANG_EN) {
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;
 const warmQ = []; // sprite atlases built a few at a time so new mobs never cause a hitch
-function runWarm() { if (!warmQ.length) return; const t = performance.now(); while (warmQ.length && performance.now() - t < 4) { try { warmQ.shift()(); } catch (e) { } } }
+function runWarm() { if (!warmQ.length) return;
+  // 6.14: precalentar los ~2.300 sprites frenaba cada fotograma durante minutos en celulares lentos (un sprite tarda más que
+  // los 4 ms). Ahora solo en el título o si el juego va sobrado; en modo optimizado / poca memoria no se precalienta
+  // (cada sprite se genera al dibujarse).
+  const title = typeof titleMode !== 'undefined' && titleMode, O = typeof OPT !== 'undefined' ? OPT : null;
+  if (!title && O && (O.on || (typeof OPT_LOWMEM !== 'undefined' && OPT_LOWMEM) || O.ema > 20)) return;
+  const t = performance.now(); while (warmQ.length && performance.now() - t < 4) { try { warmQ.shift()(); } catch (e) { } } }
 function loading(msg, pct) { $('#loadmsg').textContent = msg; $('#loadbar i').style.width = pct + '%'; }
 const nextFrame = () => new Promise(r => setTimeout(r, 16));
 async function boot(hot) {

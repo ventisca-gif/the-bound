@@ -1,5 +1,5 @@
 // ================= PLAYER, PROGRESSION, QUESTS, JOBS =================
-const INV_MAX = 200;
+const INV_MAX = 900;   // 6.14: antes 200 (Sergio: «que el inventario sea de 900 casillas»)
 function newPlayer(name, cls, app) {
   app = normApp(app);
   const C = CLASSES[cls]; const jobs = {}; for (const k in JOBS) jobs[k] = { lv: 1, xp: 0 };

@@ -1,24 +1,26 @@
 {
- "build": 234,
- "ver": "6.13",
+ "build": 235,
+ "ver": "6.14",
  "date": "2026-11-25",
  "file": "thebound.html",
- "size": 36060328,
- "sha256": "36925d20a7fe79f17a1575e086a64cad59284e6cfe087e600e4e0470296065a0",
+ "size": 36066160,
+ "sha256": "c680957e3852d70bca600341da90be22d5cb1c1737b693ece627eb0cc596b840",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "La enciclopedia se abre al instante (antes 2 segundos) y tocar un enemigo ya no la congela. Los retratos se dibujan poco a poco sin parar la ventana.",
-   "Los mapas grandes cargan mucho más rápido: Japón, México, Lima y Trujillo unas 4 veces más rápido; España y Dawn, el doble.",
-   "Enciclopedia: pestañas por nivel (1-99 hasta 600+) y del Mar de Dawn, con Alvida, Buggy, Kuro, Baratie, Shanks y Arlong. Ahora todos los enemigos salen en alguna pestaña, no solo en «Todos».",
-   "Inglés: descripciones de todas las habilidades, ventajas de los oficios, recuerdos y trofeos de oficio y la ayuda de Misiones."
+   "Más fluido en celulares de gama baja y media: el juego ya no prepara en segundo plano los 2.300 dibujos de personajes y enemigos mientras juegas (frenaba cada imagen durante minutos al entrar). Los personajes fuera de pantalla gastan mucho menos.",
+   "Modo optimizado (Ajustes): además, menos multitud de fondo en las ciudades y la interfaz se refresca 15 veces por segundo.",
+   "Robo de vida (Sed de Sangre, armas de guerrero, vampiro…): cura como mucho un 5 % de tu vida por golpe y un 12 % por segundo. Antes, Juicio Final con Sed de Sangre llenaba toda la vida de una vez.",
+   "Inventario de 900 casillas (antes 200).",
+   "Familia: como mucho 30 familiares vivos; si llegas, no nacen más nietos hasta que haya hueco."
   ],
   "en": [
-   "The encyclopedia opens instantly (it took 2 seconds) and tapping an enemy no longer freezes it. Portraits are drawn bit by bit without stalling the window.",
-   "Big maps load much faster: Japan, Mexico, Lima and Trujillo about 4 times faster; Spain and Dawn, twice as fast.",
-   "Encyclopedia: level tabs (1-99 up to 600+) and a Dawn Sea tab with Alvida, Buggy, Kuro, Baratie, Shanks and Arlong. Every enemy now shows up in some tab, not only in \"All\".",
-   "English: descriptions of every skill, job perks, job keepsakes and trophies, and the Quests help."
+   "Smoother on low- and mid-range phones: the game no longer pre-builds the 2,300 character and enemy sprites in the background while you play (it slowed every frame for minutes after starting). Off-screen characters cost much less.",
+   "Optimized mode (Settings): also fewer background crowds in towns and the interface refreshes 15 times per second.",
+   "Life steal (Bloodthirst, warrior weapons, vampire…): heals at most 5% of your HP per hit and 12% per second. Before, Final Judgement with Bloodthirst refilled all your HP at once.",
+   "900-slot inventory (was 200).",
+   "Family: at most 30 living relatives; once you reach it, no more grandchildren are born until there is room."
   ]
  }
 }

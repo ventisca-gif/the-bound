@@ -129,6 +129,12 @@ function explode(e) {
 }
 // ---------- combat core ----------
 function nearestMob(x, y, r, filter) { let best = null, bd = r * r; for (const m of G.ents) { if (m.type !== 'mob' || m.dying || m.map !== G.map.id) continue; if (filter && !filter(m)) continue; const d = dist2(m.x, m.y, x, y); if (d < bd) { bd = d; best = m; } } return best; }
+// 6.14: el robo de vida (Sed de Sangre, armas de guerrero, vampiro…) curaba por cada enemigo de un golpe en área: Juicio
+// Final con Sed de Sangre llenaba toda la vida de una vez. Ahora cura como mucho un 5 % de la vida máxima por golpe y un
+// 12 % por segundo en total. El daño no cambia.
+const LIFESTEAL_HIT = 0.05, LIFESTEAL_SEC = 0.12;
+function lifeStealAmt(P, h) { const max = P.S.maxhp || 1, W = P._lsW || (P._lsW = { t: -9, h: 0 }); if (G.t - W.t >= 1) { W.t = G.t; W.h = 0; }
+  const v = Math.max(0, Math.min(h, max * LIFESTEAL_HIT, max * LIFESTEAL_SEC - W.h)); W.h += v; return v; }
 function hitMob(m, base, src = {}) {
   const P = G.P, S = P.S; if (m.dying) return 0;
   let d = base * dmgRedM(m.df, m.lv) * (0.9 + Math.random() * 0.2);
@@ -146,7 +152,7 @@ function hitMob(m, base, src = {}) {
   if (src.slow) m.slow = Math.max(m.slow, src.slow); if (src.freeze) m.freeze = Math.max(m.freeze, src.freeze * (m.boss ? 0.3 : 1)); if (src.stun) m.stun = Math.max(m.stun, src.stun * (m.boss ? 0.3 : 1)); if (src.root) m.root = Math.max(m.root, src.root * (m.boss ? 0.3 : 1));
   if (src.burn) m.burn = 4, m.burnD = Math.round(P.S.atk * 0.15); if (src.poison || P.buff.poisonHit) { m.poison = Math.max(m.poison, src.poison || 4); m.poisonD = Math.round(P.S.atk * 0.12); }
   if (src.kb && !m.boss) { const a = Math.atan2(m.y - P.y, m.x - P.x); m.kbx = Math.cos(a) * src.kb; m.kby = Math.sin(a) * src.kb; }
-  if (S.life && !src.summon) P.hp = Math.min(P.S.maxhp, P.hp + d * S.life / 100);
+  if (S.life && !src.summon) P.hp = Math.min(P.S.maxhp, P.hp + lifeStealAmt(P, d * S.life / 100));
   if (src.drain) { P.hp = Math.min(P.S.maxhp, P.hp + d * src.drain / 100); }
   if (src.bard) bardNoteHit();
   if (m.state === 'idle' || m.state === 'return') { m.state = 'chase'; }

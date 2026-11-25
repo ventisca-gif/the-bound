@@ -157,9 +157,13 @@ function legMatch(k) { const g = k.g === 'f' ? 'm' : 'f', C_ = [0, 1, 2].map(() 
     if (typeof pvLog === 'function') pvLog(L2('Boda: ', 'Wedding: ') + k.name + ' (' + L2('hijo/a de ', 'child of ') + P.name + ') ' + L2('y ', 'and ') + c.name + '.', c.town, 'good'); k.wedDay = calDay(); k.follow = false; markDirty(true); }); }
 // cada día: oficio de los hijos, nietos y pequeñas historias familiares
 { const _nd = newDay; newDay = function () { const r = _nd.apply(this, arguments); try { legDay(); } catch (e) { console.warn(e); } return r; }; }
+// 6.14: cada pareja tiene hasta 2 hijos y los nietos también se casan: sin tope la familia crecía sin parar (2, 4, 8, 16…)
+// más rápido de lo que la vejez la reduce. Con 30 familiares vivos ya no nacen más nietos hasta que haya hueco.
+const FAM_LIVE_MAX = 30;
+function famRoom() { const P = G.P; if (!P || !P.kids) return true; let n = P.kids.length; for (const k of P.kids) for (const g of k.gkids || []) if (!P.kids.some(x => x.id === g.id)) n++; return n < FAM_LIVE_MAX; }
 function legDay() { const P = G.P; if (!P || !P.kids) return; const o = P.leg = P.leg || {}; o.box = o.box || [];
   for (const k of P.kids) { if (!kidAdult(k)) continue; const J = LEG_JOBS.find(j => j[0] === k.ljob); if (J) o.box.push(J[2] ? [J[2], 1 + Math.floor(Math.random() * 3), k.name] : ['gold', Math.round(300 * (1 + P.lv / 30)), k.name]);
-    if (k.spouse && (k.gkids || []).length < 2 && calDay() - (k.wedDay || 0) >= 5 && Math.random() < 0.25) { k.gkids = k.gkids || []; const g = Math.random() < 0.5 ? 'f' : 'm', nm = pick(LEG_NAMES[g]); k.gkids.push({ id: 'g' + Date.now().toString(36) + k.gkids.length, name: nm, g, app: legMix(k.app, k.spouse.app, g), born: calDay() }); banner('👶 ' + L2('¡Eres abuelo/a!', 'You are a grandparent!'), k.name + L2(' ha tenido a ', ' had ') + nm); sfx('level'); } }
+    if (k.spouse && (k.gkids || []).length < 2 && famRoom() && calDay() - (k.wedDay || 0) >= 5 && Math.random() < 0.25) { k.gkids = k.gkids || []; const g = Math.random() < 0.5 ? 'f' : 'm', nm = pick(LEG_NAMES[g]); k.gkids.push({ id: 'g' + Date.now().toString(36) + k.gkids.length, name: nm, g, app: legMix(k.app, k.spouse.app, g), born: calDay() }); banner('👶 ' + L2('¡Eres abuelo/a!', 'You are a grandparent!'), k.name + L2(' ha tenido a ', ' had ') + nm); sfx('level'); } }
   o.box = o.box.slice(-30);
   if (!o.story && Math.random() < 0.35) legStory(); markDirty(); }
 // buzón: lo recoges al entrar en tu casa
