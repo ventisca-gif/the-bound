@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.20', GAME_BUILD = 242;
+const GAME_VER = '6.21', GAME_BUILD = 243;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.21",
+ "b": 243,
+ "d": "2026-11-25",
+ "es": [
+  "Se nota el poder al subir: contra monstruos y jefes de nivel más bajo que tú haces +1,5 % de daño por nivel de ventaja (hasta +75 %) y recibes −1 % por nivel (hasta −50 %). A nivel 500 con 60 niveles de ventaja: 6 golpes en vez de 17. A tu nivel o contra más fuertes no cambia; el PvP tampoco.",
+  "Ritmo de nivel alto: los monstruos normales desde nivel 450 tienen menos vida y algo menos de ataque (a nivel 500: unos 13 golpes en vez de 20, y aguantas 16 en vez de 12). Los jefes no cambian.",
+  "Inicio más limpio: hasta terminar «Despertar» ya no salen encima el sello de viaje, la prosperidad del pueblo, el pueblo del día ni «Historia nueva»; aparecen después, de uno en uno.",
+  "Arreglo: en una partida nueva salía abajo una barra roja de error (gearTiers)."
+ ],
+ "en": [
+  "You feel your power as you level: against monsters and bosses below your level you deal +1.5 % damage per level of advantage (up to +75 %) and take −1 % per level (up to −50 %). At level 500 with a 60-level lead: 6 hits instead of 17. At your level or against stronger foes nothing changes; PvP neither.",
+  "High-level pace: normal monsters from level 450 have less HP and slightly less attack (at level 500: about 13 hits instead of 20, and you survive 16 instead of 12). Bosses are unchanged.",
+  "Cleaner start: until you finish “Awakening”, the travel stamp, town prosperity, town of the day and “New story” no longer pile on top; they show up afterwards, one at a time.",
+  "Fix: a red error bar (gearTiers) showed at the bottom in a new game."
+ ]
+},
 {
  "v": "6.20",
  "b": 242,
