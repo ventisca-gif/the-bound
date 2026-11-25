@@ -22,7 +22,6 @@ function logueActorAtlas(id) {
   });
 }
 const LOGUE_CAST = {
-  logue_merchant: ['Ipponmatsu', 'merchant', 74, 163, 'Las cajas del puerto no llegaron a mi taller. ¿Puedes averiguar qué pasó?', 'The harbor crates never reached my workshop. Can you find out what happened?'],
   logue_alvida: ['Alvida', 'alvida', 124, 179, 'Hay mercancía desaparecida. No me interesa un cargamento vacío.', 'Cargo has gone missing. An empty shipment is no use to me.'],
   logue_bart: ['Bartolomeo', 'bart', 110, 133, 'Vi unas sombras cerca del mercado. Busca a los contrabandistas.', 'I saw shadows near the market. Look for the smugglers.'],
   logue_officer: ['Smoker', 'smoker', 146, 81, 'El puerto necesita orden. Si quieres ayudar, demuestra tu fuerza en el patio.', 'The harbor needs order. If you want to help, prove your strength in the yard.']

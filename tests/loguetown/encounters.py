@@ -25,7 +25,7 @@ with sync_playwright() as p:
     again = page.evaluate("()=>{const k='logue_info_'+LOGUE_PLAZA[0]+'_'+LOGUE_PLAZA[1];XACT[k][2]();const b=[...document.querySelectorAll('#modal button')].find(b=>/cinem|cutscene/i.test(b.textContent));b.click();const on=CINE.on;cineEnd(true);return on;}")
     assert cine['on'] and cine['n'] == 4 and cine['seen'] and not cine['npc'] and again, (cine, again)
     r = page.evaluate("""()=>{const S=G.map.logueActors,check=(v,s)=>{if(!v)throw Error(s);};
-      check(S&&S.cast.length===4,'cast');
+      check(S&&S.cast.length===3,'cast');
       const out={};for(const e of S.cast){const A=e.atlas;check(A&&A.dawnPixels,'sheet '+e.id);out[e.id]=[A.img.width,A.img.height];}
       check(Object.values(LOGUE_SHEETS).every(i=>i.naturalWidth>0),'sheets loaded');return out;}""")
     # Muestra: los cinco del puerto en la plaza
@@ -36,7 +36,7 @@ with sync_playwright() as p:
         page.evaluate("d=>{for(const e of G.map.logueActors.cast){e.dir=d;e.anim='walk';e.af=0;e.forceAnim=1;}}", d)
         page.wait_for_timeout(300); page.screenshot(path=str(OUT / f'camina_{d}.png'))
     # Cada uno en su sitio del mapa
-    for i, (eid, name) in enumerate([('logue_officer', 'smoker_base'), ('logue_merchant', 'ipponmatsu_armeria')]):
+    for i, (eid, name) in enumerate([('logue_officer', 'smoker_base')]):
         page.evaluate("""([eid])=>{const P=G.P,e=G.map.logueActors.cast.find(e=>e.id===eid),[x,y]=dawnPx(LOGUE_CAST[eid].slice(2,4).length?logueAt(LOGUE_CAST[eid][2],LOGUE_CAST[eid][3]):[0,0]);e.x=x;e.y=y;e.dir='down';e.anim='idle';P.x=x+40;P.y=y+40;P.dir='left';updateCamera(0,true);}""", [eid])
         page.wait_for_timeout(600); page.screenshot(path=str(OUT / f'{name}.png'))
     # Desafíos de Smoker

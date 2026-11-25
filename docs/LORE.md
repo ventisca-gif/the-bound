@@ -110,3 +110,5 @@ A petición de Sergio se prepara Villa Foosha de One Piece: Shanks y su tripulac
 
 
 **Loguetown (v6.15-6.16).** Isla del mismo escenario crossover. Gol D. Roger está muerto: **no** aparece como personaje en el mapa; su ejecución solo se cuenta en la cinemática del patíbulo (`logueRogerCine`, primera llegada a la plaza o desde el cartel de la plaza). En la isla viven Ipponmatsu, Alvida, Bartolomeo y Smoker (hojas de sprites de Sergio); Smoker da los tres desafíos del puerto. No toca CRON/ERAS ni la historia principal.
+
+**Arco de Loguetown (v6.17).** Repetible y aparte de la historia principal. Smoker intenta atrapar a Luffy; luego Luffy acaba en el patíbulo con Buggy, la tripulación aguanta a la Marina y un rayo lo salva. Dragon solo se ve un segundo, sin nombre ni diálogo (en el resumen Sanji habla de «alguien con una capa verde»). Tashigi está en la armería con Zoro e Ipponmatsu.
