@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.21', GAME_BUILD = 243;
+const GAME_VER = '6.22', GAME_BUILD = 244;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.22",
+ "b": 244,
+ "d": "2026-11-25",
+ "es": [
+  "Partida en la nube con un código corto: en el título toca «Nube» (o en Opciones › Partida, «Subir a la nube») y recibes un código de 8 letras, como K7QF-92MX.",
+  "En otro móvil: título › «Nube», escribe el código y «Bajar de la nube». Vuelven todos tus héroes, sin copiar textos largos.",
+  "Con código, la copia se actualiza sola cada 10 minutos de juego. Necesita internet; funciona en la app."
+ ],
+ "en": [
+  "Cloud save with a short code: on the title screen tap “Cloud” (or Options › Game, “Upload to cloud”) and you get an 8-letter code, like K7QF-92MX.",
+  "On another phone: title › “Cloud”, type the code and “Download from cloud”. All your heroes come back, no long text to copy.",
+  "Once you have a code, the backup updates itself every 10 minutes of play. Needs internet; works in the app."
+ ]
+},
 {
  "v": "6.21",
  "b": 243,
