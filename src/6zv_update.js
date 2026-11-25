@@ -25,6 +25,7 @@ const CHANGELOG = /*CL*/
   "Jitte de Piedra Marina (12 %, seguro a las 10): el arma más fuerte por ahora, para todas las clases. Barrido con humo y, cada cuarto golpe, una estocada que inmoviliza.",
   "Fruta Humo Humo (1 % de Smoker, segura a las 80; también aparece suelta por Dawn): Puño Blanco, Serpientes Blancas, Lanzador Blanco, Impulso Blanco (las piernas se vuelven humo) y Cuerpo de Humo (logia 10 s). Todo crece con tu nivel y tu ataque, y se combina con transformaciones.",
   "Humo nuevo, como en el anime: nubes infladas con luz, sombra y rizos en la fruta, el Jitte y Smoker.",
+  "Técnicas de Luffy redibujadas: brazos de goma con brillo, puños con nudillos, palmas abiertas en la Bazuca y el pie en el Hacha.",
   "PvP reequilibrado: todas las clases quedan igualadas."
  ],
  "en": [
@@ -33,6 +34,7 @@ const CHANGELOG = /*CL*/
   "Seastone Jitte (12%, guaranteed by 10): the strongest weapon so far, for every class. A smoky sweep and, every fourth hit, a thrust that pins enemies.",
   "Smoke-Smoke Fruit (1% from Smoker, guaranteed by 80; it also appears around Dawn): White Blow, White Snake, White Launcher, White Jet (your legs turn to smoke) and Smoke Body (10 s Logia). Everything grows with your level and attack, and stacks with transformations.",
   "New anime-style smoke: puffy clouds with light, shadow and curls on the fruit, the Jitte and Smoker.",
+  "Luffy’s techniques redrawn: shiny rubber arms, fists with knuckles, open palms on the Bazooka and the foot on the Axe.",
   "PvP rebalanced: every class is evened out."
  ]
 },

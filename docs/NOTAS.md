@@ -994,3 +994,4 @@ Sergio mandó su bestiario (17 filas × 7 vistas, en el orden de la hoja que le 
 - Botín (`SM_DROPS`, `P.smPity`, `BOSS_EXTRA.logue_arc_smoker`): Jitte 12 %/10, ropa 25 %/12, fruta 1 %/80. En Dawn, tras vencer a Smoker una vez, 3 % cada 45 s de que aparezca la fruta (`dfTrySpawn`).
 - PvP: `PVP_CLS` recalculado con `pvp.py --solve` (el guerrero salía 1,13).
 - Prueba: `python3 tests/loguetown/smoker618.py file://$PWD/dist/test.html [salida]`.
+- Técnicas de Luffy (`6zzzzx_dawn_techniques.js`): `rubberLimb`, `rubberFist`, `rubberPalm` (Bazuca, 2 palmas), `rubberFoot` (Hacha); el efecto `crewTechnique` lleva `tech` (índice de la técnica).
