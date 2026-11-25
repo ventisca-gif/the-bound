@@ -1,0 +1,22 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{const P=G.P;P.lv=620;P.fruit='moku';for(const id of DFS.moku)P.skills[id]=8;P.slots=['moku_serpiente','moku_puno',null,null];P.sr='vapor';P.srX=2000;calcStats(P);window._a0=P.S.atk;return P.S.atk})()
+js (()=>{const P=G.P;srSet(2);return [P.srF,P.slots.join(','), Math.round(P.S.atk/window._a0*100)]})()
+wait 500
+js [G.P.slots.join(','), !document.getElementById('bDfForm').hidden, document.getElementById('bDfForm').textContent]
+click #bDfForm
+wait 300
+js G.P.slots.join(',')
+click #bDfForm
+click #bDfForm
+wait 300
+js G.P.slots.join(',')
+js (()=>{const P=G.P;const m=spawnMob('dawn_marine',600,P.x+40,P.y,0,null,false);m.hp=m.maxhp=1e9;m.atk=0;window._d=0;const oh=hitMob;hitMob=function(t,b){if(t===m)window._d+=b;return oh.apply(this,arguments)};P.dir='right';P.mp=99999;P.cds={};useSkill(2);return P.slots[2]+':'+(P.cds[P.slots[2]]>0)})()
+wait 900
+js [window._d>0, Math.round(window._d)]
+js (()=>{const P=G.P;P.cds={};useSkill(0);return P.slots[0]+':'+(P.cds[P.slots[0]]>0)})()
+wait 400
+js (srSet(false), [G.P.slots.join(','), G.P.srF])
+js (()=>{const P=G.P;P.fruit='goma';for(const id of DFS.goma)P.skills[id]=5;srSet(1);return P.slots.join(',')})()
+js (()=>{const P=G.P;P.fruit=null;srSet(false);srSet(1);return P.slots.join(',')})()
+js (window._errs)
