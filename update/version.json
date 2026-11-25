@@ -1,22 +1,24 @@
 {
- "build": 244,
- "ver": "6.22",
+ "build": 245,
+ "ver": "6.23",
  "date": "2026-11-25",
  "file": "thebound.html",
- "size": 37867554,
- "sha256": "8f9bb784cbe83d65e07366ca01bd8ec8c1a56c47a3b03552d5246df9d592d864",
+ "size": 37878030,
+ "sha256": "2232246b5b26bfeebb7a211ef906f053f3b2bf05ddc6aee7cef9699855f18925",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Partida en la nube con un código corto: en el título toca «Nube» (o en Opciones › Partida, «Subir a la nube») y recibes un código de 8 letras, como K7QF-92MX.",
-   "En otro móvil: título › «Nube», escribe el código y «Bajar de la nube». Vuelven todos tus héroes, sin copiar textos largos.",
-   "Con código, la copia se actualiza sola cada 10 minutos de juego. Necesita internet; funciona en la app."
+   "12 estructuras de cuerpo nuevas. Hombre: Titán, Juvenil, Galán, Compacto y Larguirucho. Mujer: Alta, Guerrera, Chibi, Señorial, Llenita, Cintura y Avispa (las dos últimas con cintura marcada).",
+   "Forma de ojos a elegir aparte, con cualquier cuerpo: Chibi, Héroe, Afilados, Amables, Pestañas o Grandes (o la de tu estructura).",
+   "Toda la ropa, armaduras, cosméticos, peinados, armas, transformaciones, la clase Pez, nadar y los bailes se adaptan a las estructuras nuevas.",
+   "Arreglo: los sombreros altos ya no se salen por arriba en la estructura Atlética."
   ],
   "en": [
-   "Cloud save with a short code: on the title screen tap “Cloud” (or Options › Game, “Upload to cloud”) and you get an 8-letter code, like K7QF-92MX.",
-   "On another phone: title › “Cloud”, type the code and “Download from cloud”. All your heroes come back, no long text to copy.",
-   "Once you have a code, the backup updates itself every 10 minutes of play. Needs internet; works in the app."
+   "12 new body builds. Male: Titan, Youthful, Dashing, Stocky and Lanky. Female: Tall, Warrior, Chibi, Graceful, Plump, Waisted and Hourglass (the last two with a defined waist).",
+   "Choose your eye shape separately, with any body: Chibi, Hero, Sharp, Gentle, Lashes or Big (or your build's own).",
+   "All clothes, armor, cosmetics, hairstyles, weapons, transformations, the Fish class, swimming and dances fit the new builds.",
+   "Fix: tall hats no longer stick out of the top on the Athletic build."
   ]
  }
 }

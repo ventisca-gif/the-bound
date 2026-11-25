@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.22', GAME_BUILD = 244;
+const GAME_VER = '6.23', GAME_BUILD = 245;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.23",
+ "b": 245,
+ "d": "2026-11-25",
+ "es": [
+  "12 estructuras de cuerpo nuevas. Hombre: Titán, Juvenil, Galán, Compacto y Larguirucho. Mujer: Alta, Guerrera, Chibi, Señorial, Llenita, Cintura y Avispa (las dos últimas con cintura marcada).",
+  "Forma de ojos a elegir aparte, con cualquier cuerpo: Chibi, Héroe, Afilados, Amables, Pestañas o Grandes (o la de tu estructura).",
+  "Toda la ropa, armaduras, cosméticos, peinados, armas, transformaciones, la clase Pez, nadar y los bailes se adaptan a las estructuras nuevas.",
+  "Arreglo: los sombreros altos ya no se salen por arriba en la estructura Atlética."
+ ],
+ "en": [
+  "12 new body builds. Male: Titan, Youthful, Dashing, Stocky and Lanky. Female: Tall, Warrior, Chibi, Graceful, Plump, Waisted and Hourglass (the last two with a defined waist).",
+  "Choose your eye shape separately, with any body: Chibi, Hero, Sharp, Gentle, Lashes or Big (or your build's own).",
+  "All clothes, armor, cosmetics, hairstyles, weapons, transformations, the Fish class, swimming and dances fit the new builds.",
+  "Fix: tall hats no longer stick out of the top on the Athletic build."
+ ]
+},
 {
  "v": "6.22",
  "b": 244,
