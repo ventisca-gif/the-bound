@@ -1,18 +1,22 @@
 {
- "build": 229,
- "ver": "6.08",
+ "build": 230,
+ "ver": "6.09",
  "date": "2026-11-25",
  "file": "thebound.html",
- "size": 36005658,
- "sha256": "301ad74c643dcdf179dbbbf6511e63fc7697f01951fb90fa6b58548abf4ddbe4",
+ "size": 36018443,
+ "sha256": "5567ce263b7e1157b7501c7609ca3d6396350e63f999825ff1cf139711c52e86",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Las armas superadas pierden como mucho un 10 % de daño (antes 55 %), en todas las armas de nivel 1 a 700."
+   "Lupa › 🏴‍☠️ Crossovers (antes Mar de Dawn) y nueva sección Crossovers en Sistemas: todos los arcos en orden con cada jefe, Baratie y Arlong Park incluidos, y la flecha te lleva al siguiente paso.",
+   "Lista completa de armaduras de nivel 600 a 700 con sus materiales, y dónde minar y talar cada mineral y madera de Dawn.",
+   "Tala, Minería y Pesca llegan a nivel 130 (160 con Gran Maestro): ya se pueden recoger la Piedra del Mar y el Árbol Rey."
   ],
   "en": [
-   "Outgrown weapons lose at most 10% damage (was 55%), for every weapon from level 1 to 700."
+   "Magnifier › 🏴‍☠️ Crossovers (was Dawn Sea) and a new Crossovers section in Systems: every arc in order with each boss, Baratie and Arlong Park included, and the arrow takes you to the next step.",
+   "Full list of level 600-700 armours with their materials, and where to mine and chop each Dawn ore and wood.",
+   "Woodcutting, Mining and Fishing reach level 130 (160 as Grand Master): Seastone and King Tree can now be gathered."
   ]
  }
 }
