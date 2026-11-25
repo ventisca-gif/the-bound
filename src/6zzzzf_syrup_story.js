@@ -91,12 +91,14 @@ function syrupCrewStats(P,id,lv=580){
  const [hp,def,reach]=SYRUP_ALLIES[id];
  const wins=[MORGAN_ID,ORANGE_CABAJI,ORANGE_BUGGY,SYRUP_SHAM,SYRUP_BUCHI,SYRUP_JANGO,SYRUP_CAPTAIN].filter(key=>syrupWon(key,P)).length;
  const growth=wins*.058+Math.max(0,lv-550)*.003;
- return {hp:Math.round(hp*(1+growth)),def:Math.round(def*(1+growth*.63)),boost:1+growth*.52,reach,lv:id===SYRUP_USOPP?580:Math.min(580,550+wins*4)};
+ const baseline=id===SYRUP_USOPP||id===BAR_SANJI?580:550+wins*4;
+ const allyLevel=Math.max(baseline,Math.min(lv,P.lv||lv,700));
+ return {hp:Math.round(hp*(1+growth)),def:Math.round(def*(1+growth*.63)),boost:1+growth*.52,reach,lv:allyLevel};
 }
 const SYRUP_ENCOUNTERS={
  slope:{at:SYRUP_NORTH,foes:[SYRUP_SHAM,SYRUP_BUCHI],crew:[SHELLS_CAST_IDS.zoro],
   title:L2('Zoro y los hermanos felinos','Zoro and the Cat Brothers')},
- forest:{at:SYRUP_WOOD,foes:[SYRUP_JANGO],crew:[ORANGE_NAMI,SYRUP_USOPP],
+ forest:{at:SYRUP_WOOD,foes:[SYRUP_JANGO],crew:[SYRUP_USOPP],
   title:L2('Nami y Usopp protegen a Kaya','Nami and Usopp protect Kaya')},
  captain:{at:SYRUP_KURO,foes:[SYRUP_CAPTAIN],crew:[SHELLS_CAST_IDS.luffy],
   title:L2('Luffy y tú contra Kuro','Luffy and you versus Kuro')}
@@ -122,16 +124,19 @@ function syrupStart(stage){
   Object.assign(m,{state:'fight',cd:1.3+i*.65,hgt:height,shR:17,syrupTurns:0});return m;
  });
  const lv=foes[0].lv;
- const crew=D.crew.map((id,i)=>{
-  const a=syrupCrewStats(P,id,lv),e=spawnNPC(id,x+(i?63:-62),y+43,M.id,{face:'up',scene:true,noTalk:true,hgt:id===SYRUP_USOPP?57:63});
+ const chosen=DAWN_CREW.filter(([id],i)=>id!==ORANGE_NAMI&&(dawnCrewMask(P)&(1<<i))).map(([id])=>id);
+ const mandatory=P.kuroRematch&&chosen.length?[]:D.crew;
+ const roster=stage==='captain'?[...new Set([...mandatory,...chosen])].slice(0,3):D.crew;
+ const crew=roster.map((id,i)=>{
+  const a=syrupCrewStats(P,id,lv),e=spawnNPC(id,x+[-62,63,0][i],y+(i===2?69:43),M.id,{face:'up',scene:true,noTalk:true,hgt:id===SYRUP_USOPP?57:63});
   Object.assign(e,{hp:a.hp,maxhp:a.hp,shellsDefense:a.def,syrupBoost:a.boost,syrupReach:a.reach,lv:a.lv,nextAssist:G.t+.95+i*.6});
   return e;
  });
  const R=M.syrup.run={stage,foes,crew,at:D.at,owner:P};
  showBoss(foes[0]);sfx('boss');banner(D.title,'Nivel '+lv);
  if(stage==='slope')shellsRescueSpeak(crew[0],'Sham es rápido. Buchi no lo es, pero mira dónde va a caer.','Sham is quick. Buchi isn’t, but watch where he lands.');
- if(stage==='forest')shellsRescueSpeak(crew[1],'¡Nami, no mires el anillo! Voy a cortarle el paso.','Nami, don’t look at the ring! I’ll cut him off.');
- if(stage==='captain')shellsRescueSpeak(crew[0],'Yo lo saco de las sombras. Tú golpea cuando se pare.','I’ll draw him out of the shadows. You hit him when he stops.');
+ if(stage==='forest')shellsRescueSpeak(crew[0],'¡Nami, no mires el anillo! Voy a cortarle el paso.','Nami, don’t look at the ring! I’ll cut him off.');
+ if(stage==='captain'&&!P.kuroRematch)shellsRescueSpeak(crew[0],'Yo lo saco de las sombras. Tú golpea cuando se pare.','I’ll draw him out of the shadows. You hit him when he stops.');
 }
 const SYRUP_SCENES={
  manor:[
@@ -337,8 +342,9 @@ function syrupAllyTick(M,R,e,dt){
   e.dir=dirFromVec(dx,dy);moveEnt(M,e,dx/d*dt*112,dy/d*dt*112);setAnim(e,'walk',true);stepAnim(e,dt,12);
   return;
  }
+ if(crewTechniqueAttack(M,e,m,R.foes,()=>syrupRunning(M,R),e.syrupBoost,.27))return;
  const reach=e.syrupReach,zoro=e.id===SHELLS_CAST_IDS.zoro,luffy=e.id===SHELLS_CAST_IDS.luffy;
- if(d2(e,m)<reach**2&&G.t>=e.nextAssist){
+ if(!CREW_TECHNIQUES[e.id]&&d2(e,m)<reach**2&&G.t>=e.nextAssist){
   if(zoro||luffy)shellsAssistAttack(M,R,e,zoro,m,(M,R,target,base)=>syrupAssistHit(M,R,e,target,base));
   else syrupRangedAssist(M,R,e,m);
   return;
@@ -409,19 +415,6 @@ DL_HOOKS.push((list,cx,cy)=>{
   L2('Reúnete con Luffy en la terraza','Meet Luffy on the terrace'):L2('Habla con Usopp en el muelle','Speak to Usopp at the pier');
  banner(title,msg);return result;
 };}
-function syrupCoverPlayer(M,P){
- for(const e of M.rare?.crew||[]){
-  if(!e||e.id!==SYRUP_USOPP||e.remove)continue;
-  const mob=P.target;
-  if(!mob?.mid||mob.map!==M.id||mob.dying||mob.remove||mob.aggroR===0||d2(e,mob)>151**2)continue;
-  const st=syrupCrewStats(P,e.id,mob.lv);
-  if(G.t<(e.nextAssist||0)){
-   if(e.actionUntil>G.t){setAnim(e,'atk',true);e.af=clamp(Math.floor((1-(e.actionUntil-G.t)/e.actionLength)*4),0,3);}
-   continue;
-  }
-  syrupFirePellet(M,e,mob,174,boost=>hitMob(mob,Math.min(mob.maxhp*.028,3900*st.boost*boost),{summon:true}));
- }
-}
 function syrupClearLocals(M){
  if(!M?.syrup)return;
  syrupClear(M);for(const e of M.syrup.locals)e.remove=true;
@@ -447,7 +440,7 @@ V33_TICKS.push(dt=>{
    }
    for(const [i,e] of S.run.escort.entries())shellsActorMove(M,e,...dawnPx([1006+i,806]),dt);
   }
- }else if(!P.dead&&!P.dawnHelm&&P.syrupUsopp)syrupCoverPlayer(M,P);
+ }
 });
 {const old=setMap;setMap=function(M){
  const prev=G.map,r=old.apply(this,arguments);if(prev!==G.map)syrupClearLocals(prev);return r;

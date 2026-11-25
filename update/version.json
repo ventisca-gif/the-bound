@@ -1,20 +1,22 @@
 {
- "build": 226,
- "ver": "6.05",
+ "build": 227,
+ "ver": "6.06",
  "date": "2026-11-24",
  "file": "thebound.html",
- "size": 34881288,
- "sha256": "cb4ff8bc61b0081b05eb9c6007134b8f858e40f163482d78957cf0cf581e5223",
+ "size": 35113839,
+ "sha256": "f78049b99a879ae937003ceb60f7eea74dd4ee24c36118863bb7da535eeac819",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Pearl, Gin y Don Krieg sueltan 13 piezas para el Armario y cuatro armas de nivel 600–605 para todas las clases.",
-   "Cada pieza y arma tiene su propia garantía a las 10 victorias contra su jefe. Habla con Zeff para repetir los combates tras reclutar a Sanji."
+   "Cinco técnicas para Luffy, Zoro, Usopp y Sanji. Habla con ellos para elegir una técnica prioritaria.",
+   "El Going Merry tiene una cubierta más ancha y caminable. Nami puede mantener el rumbo mientras paseas.",
+   "Nuevas poses de ataque y diálogos. Usopp conserva la ropa de Villa Syrup."
   ],
   "en": [
-   "Pearl, Gin and Don Krieg drop 13 Wardrobe pieces and four level 600–605 weapons for all classes.",
-   "Each piece and weapon has its own guarantee after 10 wins against its boss. Talk to Zeff for rematches after recruiting Sanji."
+   "Five techniques each for Luffy, Zoro, Usopp and Sanji. Talk to them to select a preferred technique.",
+   "The Going Merry has a wider walkable deck. Nami can hold course while you explore.",
+   "New attack poses and dialogue. Usopp retains his Syrup Village outfit."
   ]
  }
 }

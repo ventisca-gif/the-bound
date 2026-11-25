@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.05', GAME_BUILD = 226;
+const GAME_VER = '6.06', GAME_BUILD = 227;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.06",
+ "b": 227,
+ "d": "2026-11-24",
+ "es": [
+  "Cinco técnicas para Luffy, Zoro, Usopp y Sanji. Habla con ellos para elegir una técnica prioritaria.",
+  "El Going Merry tiene una cubierta más ancha y caminable. Nami puede mantener el rumbo mientras paseas.",
+  "Nuevas poses de ataque y diálogos. Usopp conserva la ropa de Villa Syrup."
+ ],
+ "en": [
+  "Five techniques each for Luffy, Zoro, Usopp and Sanji. Talk to them to select a preferred technique.",
+  "The Going Merry has a wider walkable deck. Nami can hold course while you explore.",
+  "New attack poses and dialogue. Usopp retains his Syrup Village outfit."
+ ]
+},
 {
  "v": "6.05",
  "b": 226,

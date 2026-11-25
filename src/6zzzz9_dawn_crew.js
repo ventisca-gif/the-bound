@@ -8,11 +8,12 @@ const DAWN_CREW=[
  ['baratie_sanji','Sanji',L2('Cocinero','Cook')]
 ];
 const GAIMON_ID='rare_gaimon';
-const CREW_LANDING_LIMIT=7;
+const CREW_LANDING_LIMIT=3;
+const CREW_NAMI_BIT=1<<2;
 const dawnCrewAvailable=P=>P.baratieSanji?31:P.syrupUsopp?15:7;
 const dawnCrewCount=mask=>DAWN_CREW.reduce((n,_,i)=>n+Number(!!(mask&(1<<i))),0);
 SAVEKEYS.push('dawnCrewJoined','dawnCrewAshore','rareClue','rareChestMask','rareDone');
-const dawnCrewMask=P=>P.dawnCrewAshore==null?CREW_LANDING_LIMIT:P.dawnCrewAshore&dawnCrewAvailable(P);
+const dawnCrewMask=P=>P.dawnCrewAshore==null?CREW_LANDING_LIMIT:P.dawnCrewAshore&dawnCrewAvailable(P)&~CREW_NAMI_BIT;
 function dawnCrewLines(id,aboard=false){
  if(id==='baratie_sanji')return [
   aboard?L2('La cena está en la cocina. Si Luffy pregunta por el postre, dile que todavía se enfría.','Dinner is in the galley. If Luffy asks for dessert, tell him it is still cooling.'):
@@ -82,9 +83,9 @@ function dawnCrewMenu(){
  if(!P?.dawnCrewJoined||G.map?.id!=='dawn')return;
  const mask=dawnCrewMask(P);
  const labels=DAWN_CREW.slice(0,P.baratieSanji?5:P.syrupUsopp?4:3).map(([,name,role],i)=>[
-  name+' · '+((mask&(1<<i))?L2('A tierra','Ashore'):L2('A bordo','On board'))+' · '+role,
+  name+' · '+(i===2?L2('Al timón','At the helm'):(mask&(1<<i))?L2('A tierra','Ashore'):L2('A bordo','On board'))+' · '+role,
   ()=>{
-   if(G.P!==P||P.dead)return;
+   if(G.P!==P||P.dead||i===2)return;
    const next=dawnCrewMask(P)^(1<<i);
    if(dawnCrewCount(next)>3){
     toast(L2('Hay tres plazas en tierra. Envía a alguien a bordo primero.','There are three shore slots. Send someone aboard first.'),'info',4);return;
@@ -265,6 +266,13 @@ function dawnCrewFollow(M,P,dt){
   }
   const e=crew[i]||(crew[i]=spawnNPC(id,x,y,M.id,{scene:true,dawnCrew:true,hgt:57}));
   if(!e.crewReady){e.def={...e.def,title:role,lines:dawnCrewLines(id)};e.crewReady=true;}
+  if(e.actionUntil>G.t){baratiePose(e);return;}
+  const target=P.target;
+  if(CREW_TECHNIQUES[id]&&target?.mid&&target.map===M.id&&target.state!=='return'&&d2(P,target)<174**2){
+   const stats=syrupCrewStats(P,id,target.lv);
+   e.lv=stats.lv;
+   if(crewTechniqueAttack(M,e,target,[target],()=>G.map===M&&G.P===P&&!P.dead&&!P.dawnHelm,stats.boost,target.boss?.24:0))return;
+  }
   const dx=x-e.x,dy=y-e.y,d=Math.hypot(dx,dy);
   if(d<5){
    if((e.crewMovedAt||0)+.14<G.t){
