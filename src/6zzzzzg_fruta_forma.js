@@ -30,7 +30,7 @@ V33_TICKS.push(() => {
   if (dfFormMix(P) && !DFS[P.fruit].includes(P.slots[2]) && !DFS[P.fruit].includes(P.slots[3])) dfFormApply(P);
   if (!show) { if (b) b.hidden = true; return; }
   if (!b) { b = document.createElement('button'); b.id = 'bDfForm'; b.className = 'rb';
-    b.style.cssText = 'position:absolute;right:13.4em;bottom:1.6em;width:2.6em;height:2.6em;font-size:1em;z-index:6';
+    b.style.cssText = 'position:absolute;right:12.7em;bottom:5.9em;width:2.6em;height:2.6em;font-size:1em;z-index:6';
     b.onclick = e => { e.stopPropagation(); dfFormNext(); };
     (document.querySelector('.sk') ? document.querySelector('.sk').parentNode : document.body).appendChild(b); }
   b.hidden = false; const t = DFR[P.fruit].ic + '⇄';

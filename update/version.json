@@ -1,10 +1,10 @@
 {
- "build": 240,
+ "build": 241,
  "ver": "6.19",
  "date": "2026-11-25",
  "file": "thebound.html",
  "size": 37830941,
- "sha256": "7b418363062c994c4ecd2a038744f53f970c1fe7ebc1615621f75a6266590213",
+ "sha256": "9cfab0ddb456ac7d0c58dda9cd13effc6617c732d556e067ad549f9be6e76851",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
