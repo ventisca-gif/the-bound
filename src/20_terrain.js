@@ -217,14 +217,22 @@ function prepPalettes(M) {
   const w = M.w, h = M.h, N = w * h, R = 4; const keys = REGIONS.map(r => r.k);
   const rgb = REGIONS.map(r => GRASSP[r.k] ? GRASSP[r.k].map(hexRGB) : GRASSP.valle.map(hexRGB));
   M.gpal = new Array(N); const cache = new Map();
-  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
-    const cnt = new Float32Array(REGIONS.length); let tot = 0;
-    for (let dy = -R; dy <= R; dy++) for (let dx = -R; dx <= R; dx++) { const xx = clamp(x + dx, 0, w - 1), yy = clamp(y + dy, 0, h - 1); const wt = 1 / (1 + dx * dx + dy * dy); let r = M.reg[yy * w + xx]; if (keys[r] === 'mar') r = M.reg[y * w + x]; cnt[r] += wt; tot += wt; }
-    let key = ''; for (let r = 0; r < cnt.length; r++) if (cnt[r] > 0) key += r + ':' + Math.round(cnt[r] / tot * 24) + ',';
+  // 6.13: mismo resultado bit a bit, mucho más rápido (México 0,9 s → ~0,1 s): pesos calculados una vez, un solo array
+  // reutilizado, sin clamp en el interior, sin repasar casillas «mar» y, si todo el mapa es una sola región, una sola mezcla.
+  const NR = REGIONS.length, cnt = new Float32Array(NR), WT = new Float64Array((2 * R + 1) * (2 * R + 1)), isMar = new Uint8Array(NR);
+  for (let dy = -R, k = 0; dy <= R; dy++) for (let dx = -R; dx <= R; dx++) WT[k++] = 1 / (1 + dx * dx + dy * dy);
+  for (let r = 0; r < NR; r++) isMar[r] = keys[r] === 'mar' ? 1 : 0;
+  const reg = M.reg; let uni = true; for (let i = 1; i < N; i++) if (reg[i] !== reg[0]) { uni = false; break; }
+  const mix = (x, y) => {
+    cnt.fill(0); let tot = 0, k = 0; const own = reg[y * w + x], inner = x >= R && y >= R && x < w - R && y < h - R;
+    for (let dy = -R; dy <= R; dy++) { const yy = inner ? y + dy : clamp(y + dy, 0, h - 1), row = yy * w;
+      for (let dx = -R; dx <= R; dx++) { const wt = WT[k++]; let r = reg[row + (inner ? x + dx : clamp(x + dx, 0, w - 1))]; if (isMar[r]) r = own; cnt[r] += wt; tot += wt; } }
+    let key = ''; for (let r = 0; r < NR; r++) if (cnt[r] > 0) key += r + ':' + Math.round(cnt[r] / tot * 24) + ',';
     let p = cache.get(key);
-    if (!p) { p = new Uint32Array(5); for (let s = 0; s < 5; s++) { let cr = 0, cg = 0, cb = 0; for (let r = 0; r < cnt.length; r++) if (cnt[r] > 0) { const f = cnt[r] / tot; cr += rgb[r][s][0] * f; cg += rgb[r][s][1] * f; cb += rgb[r][s][2] * f; } p[s] = rgbU(cr, cg, cb); } cache.set(key, p); }
-    M.gpal[y * w + x] = p;
-  }
+    if (!p) { p = new Uint32Array(5); for (let s = 0; s < 5; s++) { let cr = 0, cg = 0, cb = 0; for (let r = 0; r < NR; r++) if (cnt[r] > 0) { const f = cnt[r] / tot; cr += rgb[r][s][0] * f; cg += rgb[r][s][1] * f; cb += rgb[r][s][2] * f; } p[s] = rgbU(cr, cg, cb); } cache.set(key, p); }
+    return p; };
+  if (uni && N) { const p = mix(0, 0); M.gpal.fill(p); }
+  else for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) M.gpal[y * w + x] = mix(x, y);
   M.gpalF = new Uint32Array(N * 5); for (let i = 0; i < N; i++) M.gpalF.set(M.gpal[i], i * 5);
   const FC = t => t === T.FACE || t === T.FALL || t === T.STAIRS;
   M.ftop = new Int16Array(N); M.fbot = new Int16Array(N);

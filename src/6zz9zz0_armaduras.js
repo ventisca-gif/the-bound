@@ -183,7 +183,7 @@ function apEquippedPreview(canvas,it,cls){const P=G.P,gear=Object.assign({},gear
 }
 {const prev=renderEncyclo;renderEncyclo=function(B){const old=apIconClass;apIconClass=encCls==='all'?(G.P?.cls||'guerrero'):encCls;
  try{const r=prev.apply(this,arguments);if(encTab==='armor'&&G.P){const list=encGearList('armor'),it=list.find(v=>v.id===encSel)||list[0],box=B.querySelector('.encdet');
-  if(it&&box){const section=document.createElement('div');section.className='ap-equipped';const h=document.createElement('h4');h.textContent=L2('Cómo queda puesta','Equipped appearance');const c=document.createElement('canvas');c.setAttribute('aria-label',L2('Frente, izquierda, derecha y espalda','Front, left, right and back'));section.append(h,c);box.append(section);apEquippedPreview(c,it,apIconClass);}}
+  if(it&&box){const section=document.createElement('div');section.className='ap-equipped';const h=document.createElement('h4');h.textContent=L2('Cómo queda puesta','Equipped appearance');const c=document.createElement('canvas');c.setAttribute('aria-label',L2('Frente, izquierda, derecha y espalda','Front, left, right and back'));section.append(h,c);box.append(section);const cl=apIconClass;/* 6.13: tras pintar la lista (generar el personaje tarda ~1 s la primera vez) */requestAnimationFrame(()=>requestAnimationFrame(()=>{if(c.isConnected)apEquippedPreview(c,it,cl);}));}}
  return r;}finally{apIconClass=old;}};}
 // La comprobación de ajuste cubre también los tiers intermedios, no solo una muestra de la progresión.
 {const previous=fitItems;fitItems=function(only){const out=previous.apply(this,arguments),seen=new Set(out.map(v=>v.id));

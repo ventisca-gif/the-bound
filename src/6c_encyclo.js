@@ -22,7 +22,7 @@ function npcWhere(id) {
   return typeof ROM_WHERE !== 'undefined' && ROM_WHERE[id] || 'Viaja por el mundo';
 }
 function renderEncyclo(B) {
-  if (!ITEM_SRC) ITEM_SRC = buildItemSources();
+  if (!ITEM_SRC && encTab !== 'mobs') ITEM_SRC = buildItemSources();   // 6.13: la pestaña Enemigos no lo necesita (abría 0,5 s más lenta)
   const tabs = [['mobs', 'Enemigos'], ['armor', 'Armaduras'], ['weapons', 'Armas'], ['tools', 'Herramientas'], ['acc', 'Accesorios'], ['npcs', 'Personajes']];
   const head = `<div class="chips enctabs">${tabs.map(([k, n]) => `<button class="chip ${encTab === k ? 'on' : ''}" data-enc="${k}">${n}</button>`).join('')}</div>`;
   if (encTab === 'mobs') { B.innerHTML = head + '<div id="encMobs"></div>'; renderBestiary($('#encMobs')); bindEnc(B); return; }
