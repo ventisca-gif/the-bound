@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.16', GAME_BUILD = 237;
+const GAME_VER = '6.17', GAME_BUILD = 238;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,25 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.17",
+ "b": 238,
+ "d": "2026-11-25",
+ "es": [
+  "Arco de Loguetown (nivel 612, repetible): habla con Luffy en la plaza. Tú y Luffy contra Smoker; luego Smoker sube a Luffy al patíbulo donde murió Roger, junto a Buggy.",
+  "Toda la tripulación (Zoro, Sanji, Usopp y Nami) aparece en la plaza: aguantad 2 minutos a la Marina mientras la ciudad mira la ejecución.",
+  "Tormenta, un rayo sobre el patíbulo y, por un segundo, un hombre con capa verde. Luffy sale libre. 150 000 de oro la primera vez y 40 000 al repetir.",
+  "Armería de Ipponmatsu por dentro: Zoro elige sus espadas (la Kitetsu maldita al aire) y Tashigi aparece con tus hojas de sprites.",
+  "Loguetown con vida: pescadores en el muelle, vendedores, vecinos, niños y piratas; Nami, Usopp y Sanji pasean por las tiendas y Luffy mira el patíbulo."
+ ],
+ "en": [
+  "Loguetown arc (level 612, repeatable): talk to Luffy in the square. You and Luffy versus Smoker; then Smoker takes Luffy up the scaffold where Roger died, with Buggy.",
+  "The whole crew (Zoro, Sanji, Usopp and Nami) shows up in the square: hold off the Navy for 2 minutes while the town watches the execution.",
+  "A storm, lightning on the scaffold and, for a second, a man in a green cloak. Luffy is free. 150,000 gold the first time and 40,000 on replays.",
+  "Ipponmatsu’s arms shop inside: Zoro picks his swords (the cursed Kitetsu in the air) and Tashigi appears with your sprite sheets.",
+  "Loguetown comes alive: fishermen on the pier, vendors, townsfolk, kids and pirates; Nami, Usopp and Sanji browse the shops and Luffy looks at the scaffold."
+ ]
+},
 {
  "v": "6.16",
  "b": 237,

@@ -6,35 +6,56 @@ Salida por personaje: tira 200×144 por celda (HD), pies en y=139, cuerpo centra
 import sys, io, base64, json, pathlib
 from PIL import Image
 import numpy as np
-SRC = {'alvida': 'alvida.png', 'merchant': 'ipponmatsu.png', 'smoker': 'smoker.png', 'smoker_atk': 'smoker_atk.png', 'roger': 'roger.png', 'bart': 'bartolomeo.png'}
-HGT = {'alvida': 120, 'merchant': 106, 'smoker': 116, 'roger': 120, 'bart': 114}
+SRC = {'alvida': 'alvida.png', 'merchant': 'ipponmatsu.png', 'smoker': 'smoker.png', 'smoker_atk': 'smoker_atk.png', 'roger': 'roger.png', 'bart': 'bartolomeo.png', 'tashigi': 'tashigi.png', 'dragon': 'dragon.png'}
+HGT = {'alvida': 120, 'merchant': 106, 'smoker': 116, 'roger': 120, 'bart': 114, 'tashigi': 110, 'dragon': 124}
+OPAQUE = {'tashigi', 'dragon'}   # fondo crema con sombra: se quita con relleno desde los bordes
 CW, CH, FOOT, CX = 240, 144, 139, 120
 
 def label(m):
     h, w = m.shape; lab = np.zeros((h, w), np.int32); comps = [None]; n = 0
     for y0, x0 in zip(*np.nonzero(m)):
         if lab[y0, x0]: continue
-        n += 1; st = [(y0, x0)]; lab[y0, x0] = n; s = 0; sx = 0
+        n += 1; st = [(y0, x0)]; lab[y0, x0] = n; s = 0; sx = 0; sy = 0
         while st:
-            y, x = st.pop(); s += 1; sx += x
+            y, x = st.pop(); s += 1; sx += x; sy += y
             for yy, xx in ((y+1, x), (y-1, x), (y, x+1), (y, x-1)):
                 if 0 <= yy < h and 0 <= xx < w and m[yy, xx] and not lab[yy, xx]: lab[yy, xx] = n; st.append((yy, xx))
-        comps.append((s, sx / s))
+        comps.append((s, sx / s, sy / s))
     return lab, comps
 
-def cells(path, cols):
-    """Etiqueta cada fila entera: una pieza (p. ej. la porra de Smoker) que invade la celda vecina
-    se queda con el personaje al que pertenece (su centro cae en la columna de ese personaje)."""
-    im = Image.open(path).convert('RGBA'); W, H = im.size; out = []
+def unbg(im):
+    """Quita un fondo liso (y la sombra gris bajo los pies) rellenando desde los bordes; el contorno oscuro lo detiene."""
+    a = np.array(im.convert('RGBA')).astype(np.int32); h, w = a.shape[:2]
+    bg = np.median(np.concatenate([a[0, :, :3], a[-1, :, :3], a[:, 0, :3], a[:, -1, :3]]), axis=0)
+    sh = np.array([150, 131, 128])
+    c = a[:, :, :3].astype(np.float64); d = sh - bg; t = np.clip(((c - bg) @ d) / (d @ d), 0, 1)
+    near = np.linalg.norm(c - (bg + t[..., None] * d), axis=2) < 24
+    seen = np.zeros((h, w), bool); st = [(y, x) for y in (0, h - 1) for x in range(w)] + [(y, x) for x in (0, w - 1) for y in range(h)]
+    while st:
+        y, x = st.pop()
+        if seen[y, x] or not near[y, x]: continue
+        seen[y, x] = True
+        if y > 0: st.append((y - 1, x))
+        if y < h - 1: st.append((y + 1, x))
+        if x > 0: st.append((y, x - 1))
+        if x < w - 1: st.append((y, x + 1))
+    a[:, :, 3] = np.where(seen, 0, 255)
+    return Image.fromarray(a.astype(np.uint8))
+
+def cells(path, cols, opaque=False):
+    """Etiqueta la hoja entera y reparte cada pieza a la celda donde cae su centro: una porra o un mechón
+    que invade la celda vecina se queda con su dueño."""
+    im = Image.open(path).convert('RGBA')
+    if opaque: im = unbg(im)
+    W, H = im.size; full = np.array(im)
+    lab, comps = label(full[:, :, 3] >= 128); big = max(c[0] for c in comps[1:])
+    out = []
     for r in range(4):
-        strip = np.array(im.crop((0, round(r*H/4), W, round((r+1)*H/4))))
-        lab, comps = label(strip[:, :, 3] >= 128); big = max(c[0] for c in comps[1:])
         row = []
         for c in range(cols):
-            lo, hi = c*W/cols, (c+1)*W/cols
-            keep = np.array([False] + [cs >= big*0.02 and lo <= cx < hi for cs, cx in comps[1:]])
-            a = strip.copy(); a[:, :, 3] = np.where(keep[lab], 255, 0)
-            # el ancla horizontal de la celda se mide relativa al inicio de su columna
+            lo, hi, top, bot = c*W/cols, (c+1)*W/cols, r*H/4, (r+1)*H/4
+            keep = np.array([False] + [cs >= big*0.02 and lo <= cx < hi and top <= cy < bot for cs, cx, cy in comps[1:]])
+            a = full.copy(); a[:, :, 3] = np.where(keep[lab], 255, 0)
             row.append((Image.fromarray(a), lo))
         out.append(row)
     return out
@@ -46,11 +67,11 @@ def pack(rows, scale):
         for c, (cl, lo) in enumerate(row):
             b = cl.getbbox()
             if not b: continue
-            sm = cl.crop((0, 0, cl.width, b[3])).convert('RGBa')
+            sm = cl.crop(b).convert('RGBa')
             sw, sh = max(1, round(sm.width*scale)), max(1, round(sm.height*scale))
             sm = sm.resize((sw, sh), Image.LANCZOS).convert('RGBA')
             a = np.array(sm); a[:, :, 3] = np.where(a[:, :, 3] >= 110, 255, 0); sm = Image.fromarray(a)
-            px, py = round(CX - (ax + lo)*scale), FOOT - sh
+            px, py = round(CX + (b[0] - ax - lo)*scale), FOOT - sh
             tile = Image.new('RGBA', (CW, CH)); tile.alpha_composite(sm, (max(0, px), max(0, py)), (max(0, -px), max(0, -py)))
             sheet.alpha_composite(tile, (c*CW, r*CH))
     return sheet
@@ -58,8 +79,8 @@ def pack(rows, scale):
 def main(folder, outjs, preview=None):
     folder = pathlib.Path(folder); data = {}; prev = []
     scales = {}
-    for k in ['alvida', 'merchant', 'smoker', 'roger', 'bart', 'smoker_atk']:
-        rows = cells(folder/SRC[k], 4 if k == 'smoker_atk' else 3)
+    for k in ['alvida', 'merchant', 'smoker', 'roger', 'bart', 'tashigi', 'dragon', 'smoker_atk']:
+        rows = cells(folder/SRC[k], 4 if k == 'smoker_atk' else 3, k in OPAQUE)
         if k == 'smoker_atk': s = scales['smoker'] * 1.0
         else:
             b = rows[0][0][0].getbbox(); s = HGT[k] / (b[3]-b[1])

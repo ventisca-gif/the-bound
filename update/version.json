@@ -1,24 +1,26 @@
 {
- "build": 237,
- "ver": "6.16",
+ "build": 238,
+ "ver": "6.17",
  "date": "2026-11-25",
  "file": "thebound.html",
- "size": 37390340,
- "sha256": "be9032e62d71f16692666f9ff190d9d036e710dad47f734820760ea1ad7f0234",
+ "size": 37786283,
+ "sha256": "a3328badc915ee40ee1088537ea0e790b699ee894a5076b821e3e0eb8d2cba9a",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Loguetown cobra vida: Ipponmatsu junto a su armería, Alvida en las calles del sur, Bartolomeo paseando por la avenida y Smoker en la base de la Marina.",
-   "Cinemática en el patíbulo: la primera vez que llegas a la plaza se cuenta cómo ejecutaron a Gol D. Roger y cómo empezó la Gran Era de la Piratería (el cartel de la plaza la repite).",
-   "Personajes con tus hojas de sprites: caminan en las cuatro direcciones y Smoker ataca con su porra.",
-   "Desafíos del puerto con Smoker (nivel 610, 612 y 615): contrabandista, vigía del muelle y el propio Smoker, con oro de premio; el progreso se guarda."
+   "Arco de Loguetown (nivel 612, repetible): habla con Luffy en la plaza. Tú y Luffy contra Smoker; luego Smoker sube a Luffy al patíbulo donde murió Roger, junto a Buggy.",
+   "Toda la tripulación (Zoro, Sanji, Usopp y Nami) aparece en la plaza: aguantad 2 minutos a la Marina mientras la ciudad mira la ejecución.",
+   "Tormenta, un rayo sobre el patíbulo y, por un segundo, un hombre con capa verde. Luffy sale libre. 150 000 de oro la primera vez y 40 000 al repetir.",
+   "Armería de Ipponmatsu por dentro: Zoro elige sus espadas (la Kitetsu maldita al aire) y Tashigi aparece con tus hojas de sprites.",
+   "Loguetown con vida: pescadores en el muelle, vendedores, vecinos, niños y piratas; Nami, Usopp y Sanji pasean por las tiendas y Luffy mira el patíbulo."
   ],
   "en": [
-   "Loguetown comes alive: Ipponmatsu by his arms shop, Alvida in the southern streets, Bartolomeo strolling the avenue and Smoker at the Navy base.",
-   "Scaffold cutscene: the first time you reach the square you see how Gol D. Roger was executed and how the Great Pirate Era began (the square sign replays it).",
-   "Characters from your sprite sheets: they walk in all four directions and Smoker attacks with his jitte.",
-   "Harbor challenges with Smoker (level 610, 612 and 615): smuggler, dock lookout and Smoker himself, with gold rewards; progress is saved."
+   "Loguetown arc (level 612, repeatable): talk to Luffy in the square. You and Luffy versus Smoker; then Smoker takes Luffy up the scaffold where Roger died, with Buggy.",
+   "The whole crew (Zoro, Sanji, Usopp and Nami) shows up in the square: hold off the Navy for 2 minutes while the town watches the execution.",
+   "A storm, lightning on the scaffold and, for a second, a man in a green cloak. Luffy is free. 150,000 gold the first time and 40,000 on replays.",
+   "Ipponmatsu’s arms shop inside: Zoro picks his swords (the cursed Kitetsu in the air) and Tashigi appears with your sprite sheets.",
+   "Loguetown comes alive: fishermen on the pier, vendors, townsfolk, kids and pirates; Nami, Usopp and Sanji browse the shops and Luffy looks at the scaffold."
   ]
  }
 }
