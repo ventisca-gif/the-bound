@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.18 · Smoker, el Jitte y la Fruta Humo Humo</div>
+  <div class="tfoot">v6.19 · Frutas y transformaciones juntas</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11911,7 +11911,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.18', GAME_BUILD = 239;
+const GAME_VER = '6.19', GAME_BUILD = 240;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11919,6 +11919,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.19",
+ "b": 240,
+ "d": "2026-11-25",
+ "es": [
+  "Frutas del Diablo y transformaciones juntas: transformado y con fruta, la barra lleva 2 técnicas de la forma y 2 de la fruta (antes la forma tapaba las 4 casillas y la fruta no se podía usar).",
+  "Botón de la fruta junto a la barra: cambia qué 2 técnicas de la fruta llevas sin salir de la forma.",
+  "Se suman: el daño de la fruta sale de tu ataque total, así que la transformación también la hace más fuerte."
+ ],
+ "en": [
+  "Devil Fruits and transformations together: transformed and with a fruit, the bar holds 2 form techniques and 2 fruit techniques (before, the form took all 4 slots and the fruit could not be used).",
+  "Fruit button next to the bar: changes which 2 fruit techniques you carry without leaving the form.",
+  "They stack: fruit damage comes from your total attack, so the transformation makes it stronger too."
+ ]
+},
 {
  "v": "6.18",
  "b": 239,
@@ -55089,6 +55104,49 @@ GSIS.push(['smoker618', L2('Smoker: logia, botín y Fruta Humo Humo', 'Smoker: L
   L2('Botín: Chaqueta, Vaquero y Botas del Cazador Blanco (25 % cada una, seguras a las 12), Jitte de Piedra Marina (12 %, seguro a las 10; el arma más fuerte, todas las clases) y la Fruta Humo Humo (1 %, segura a las 80). Se ve encima de su barra de vida.', 'Loot: White Hunter’s Jacket, Jeans and Boots (25% each, guaranteed by 12), Seastone Jitte (12%, guaranteed by 10; the strongest weapon, every class) and the Smoke-Smoke Fruit (1%, guaranteed by 80). Shown above his health bar.'),
   L2('Humo Humo: Puño Blanco, Serpientes Blancas, Lanzador Blanco y Cuerpo de Humo (10 s). Con el cuerpo de humo, el Puño hace un 30 % más y las serpientes sujetan el doble. Todo depende de tu nivel y tu ataque, así que se suma a transformaciones y despertares.', 'Smoke-Smoke: White Blow, White Snake, White Launcher and Smoke Body (10 s). With the smoke body, the Blow deals 30% more and the snakes hold twice as long. Everything depends on your level and attack, so it stacks with transformations and awakenings.')
 ], () => ({ loc: logueAt(104, 122), m: 'dawn', t: 'Loguetown' })]);
+
+// 6.19 · Frutas del Diablo + transformaciones (Sergio: «las otras transformaciones se suman con las frutas del diablo, ¿no?» y
+// «¿no serían más fáciles las batallas con tantas técnicas? Que te dé unas 2 de la fruta y otras 2 de la transformación»).
+// El daño de las técnicas de fruta ya usa tu ataque total (P.S.atk), que incluye la forma. Antes, al transformarte, las 4
+// casillas pasaban a las 4 técnicas de la forma (srSet) y la fruta no se podía usar. Ahora, con fruta y forma a la vez:
+// 2 técnicas de la forma + 2 de la fruta. El botón de la fruta junto a la barra cambia qué pareja de técnicas de fruta llevas.
+SAVEKEYS.push('srFruitPair');
+function dfFormFruitList(P) {
+  const all = (DFS[P.fruit] || []).filter(id => P.skills[id] > 0), out = [];
+  for (const id of P.srSlots || []) if (id && all.includes(id) && !out.includes(id)) out.push(id);   // primero las que llevabas puestas
+  for (const id of all) if (!out.includes(id)) out.push(id);
+  return out;
+}
+const dfFormMix = P => !!(P && P.srF && P.fruit && DFS[P.fruit] && SRSK[P.sr] && dfFormFruitList(P).length);
+function dfFormApply(P) {
+  if (!dfFormMix(P)) return;
+  const F = dfFormFruitList(P), n = Math.max(1, Math.ceil(F.length / 2)), k = ((P.srFruitPair || 0) % n) * 2;
+  P.slots = [SRSK[P.sr][0], SRSK[P.sr][1], F[k] || null, F[k + 1] || (F.length > 1 && F[0] !== F[k] ? F[0] : null)];
+  uiDirty.hud = true;
+}
+hookAfter('srSet', (r, on) => { const P = G.P; if (on && P && P.srF) dfFormApply(P); });
+function dfFormNext() {
+  const P = G.P; if (!dfFormMix(P)) return;
+  P.srFruitPair = (P.srFruitPair || 0) + 1; dfFormApply(P); markDirty(); sfx('ui');
+  toast(DFR[P.fruit].ic + ' ' + P.slots.slice(2).filter(Boolean).map(id => SK[id].n).join(' · '), 'info', 2.5);
+}
+V33_TICKS.push(() => {
+  const P = G.P; let b = document.getElementById('bDfForm');
+  const show = dfFormMix(P) && !P.dead && dfFormFruitList(P).length > 2;
+  // si la fruta se aprendió o cambió estando transformado, la barra se rehace
+  if (dfFormMix(P) && !DFS[P.fruit].includes(P.slots[2]) && !DFS[P.fruit].includes(P.slots[3])) dfFormApply(P);
+  if (!show) { if (b) b.hidden = true; return; }
+  if (!b) { b = document.createElement('button'); b.id = 'bDfForm'; b.className = 'rb';
+    b.style.cssText = 'position:absolute;right:13.4em;bottom:1.6em;width:2.6em;height:2.6em;font-size:1em;z-index:6';
+    b.onclick = e => { e.stopPropagation(); dfFormNext(); };
+    (document.querySelector('.sk') ? document.querySelector('.sk').parentNode : document.body).appendChild(b); }
+  b.hidden = false; const t = DFR[P.fruit].ic + '⇄';
+  if (b.textContent !== t) { b.textContent = t; b.title = L2('Cambiar las 2 técnicas de la fruta', 'Swap the 2 fruit techniques'); }
+});
+GSIS.push(['fruta_forma', L2('Frutas del Diablo y transformaciones', 'Devil Fruits and transformations'), () => [
+  L2('Se suman: el daño de cada técnica de fruta sale de tu ataque total, así que la transformación, los despertares y el equipo la hacen más fuerte.', 'They stack: every fruit technique’s damage comes from your total attack, so transformations, awakenings and gear make it stronger.'),
+  L2('Transformado y con fruta, la barra lleva 2 técnicas de la forma y 2 de la fruta. El botón de la fruta (junto a la barra) cambia qué 2 técnicas de fruta llevas.', 'Transformed and with a fruit, the bar holds 2 form techniques and 2 fruit techniques. The fruit button (next to the bar) changes which 2 fruit techniques you carry.')
+]]);
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;

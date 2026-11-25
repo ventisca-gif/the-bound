@@ -1,30 +1,22 @@
 {
- "build": 239,
- "ver": "6.18",
+ "build": 240,
+ "ver": "6.19",
  "date": "2026-11-25",
  "file": "thebound.html",
- "size": 37826542,
- "sha256": "3025b6ccb518e403e3f8a28224090b0d9999db23d1bc7c442414b06f649e41a0",
+ "size": 37830941,
+ "sha256": "7b418363062c994c4ecd2a038744f53f970c1fe7ebc1615621f75a6266590213",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Smoker es ahora el jefe más fuerte de su nivel (612). Al bajar al 66 % y al 33 % se vuelve humo 10 s: tus golpes lo atraviesan y suelta anillos de humo.",
-   "Botín de Smoker con pity: Chaqueta, Vaquero y Botas del Cazador Blanco (25 %, seguras a las 12), adaptadas a los 10 cuerpos.",
-   "Jitte de Piedra Marina (12 %, seguro a las 10): el arma más fuerte por ahora, para todas las clases. Barrido con humo y, cada cuarto golpe, una estocada que inmoviliza.",
-   "Fruta Humo Humo (1 % de Smoker, segura a las 80; también aparece suelta por Dawn): Puño Blanco, Serpientes Blancas, Lanzador Blanco, Impulso Blanco (las piernas se vuelven humo) y Cuerpo de Humo (logia 10 s). Todo crece con tu nivel y tu ataque, y se combina con transformaciones.",
-   "Humo nuevo, como en el anime: nubes infladas con luz, sombra y rizos en la fruta, el Jitte y Smoker.",
-   "Técnicas de Luffy redibujadas: brazos de goma con brillo, puños con nudillos, palmas abiertas en la Bazuca y el pie en el Hacha.",
-   "PvP reequilibrado: todas las clases quedan igualadas."
+   "Frutas del Diablo y transformaciones juntas: transformado y con fruta, la barra lleva 2 técnicas de la forma y 2 de la fruta (antes la forma tapaba las 4 casillas y la fruta no se podía usar).",
+   "Botón de la fruta junto a la barra: cambia qué 2 técnicas de la fruta llevas sin salir de la forma.",
+   "Se suman: el daño de la fruta sale de tu ataque total, así que la transformación también la hace más fuerte."
   ],
   "en": [
-   "Smoker is now the strongest boss of his level (612). At 66% and 33% he turns into smoke for 10 s: your hits pass through him and he releases smoke rings.",
-   "Smoker loot with pity: White Hunter’s Jacket, Jeans and Boots (25%, guaranteed by 12), fitted to all 10 bodies.",
-   "Seastone Jitte (12%, guaranteed by 10): the strongest weapon so far, for every class. A smoky sweep and, every fourth hit, a thrust that pins enemies.",
-   "Smoke-Smoke Fruit (1% from Smoker, guaranteed by 80; it also appears around Dawn): White Blow, White Snake, White Launcher, White Jet (your legs turn to smoke) and Smoke Body (10 s Logia). Everything grows with your level and attack, and stacks with transformations.",
-   "New anime-style smoke: puffy clouds with light, shadow and curls on the fruit, the Jitte and Smoker.",
-   "Luffy’s techniques redrawn: shiny rubber arms, fists with knuckles, open palms on the Bazooka and the foot on the Axe.",
-   "PvP rebalanced: every class is evened out."
+   "Devil Fruits and transformations together: transformed and with a fruit, the bar holds 2 form techniques and 2 fruit techniques (before, the form took all 4 slots and the fruit could not be used).",
+   "Fruit button next to the bar: changes which 2 fruit techniques you carry without leaving the form.",
+   "They stack: fruit damage comes from your total attack, so the transformation makes it stronger too."
   ]
  }
 }

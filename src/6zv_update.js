@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.18', GAME_BUILD = 239;
+const GAME_VER = '6.19', GAME_BUILD = 240;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.19",
+ "b": 240,
+ "d": "2026-11-25",
+ "es": [
+  "Frutas del Diablo y transformaciones juntas: transformado y con fruta, la barra lleva 2 técnicas de la forma y 2 de la fruta (antes la forma tapaba las 4 casillas y la fruta no se podía usar).",
+  "Botón de la fruta junto a la barra: cambia qué 2 técnicas de la fruta llevas sin salir de la forma.",
+  "Se suman: el daño de la fruta sale de tu ataque total, así que la transformación también la hace más fuerte."
+ ],
+ "en": [
+  "Devil Fruits and transformations together: transformed and with a fruit, the bar holds 2 form techniques and 2 fruit techniques (before, the form took all 4 slots and the fruit could not be used).",
+  "Fruit button next to the bar: changes which 2 fruit techniques you carry without leaving the form.",
+  "They stack: fruit damage comes from your total attack, so the transformation makes it stronger too."
+ ]
+},
 {
  "v": "6.18",
  "b": 239,
