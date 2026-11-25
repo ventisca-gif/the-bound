@@ -1,22 +1,24 @@
 {
- "build": 236,
- "ver": "6.15",
+ "build": 237,
+ "ver": "6.16",
  "date": "2026-11-25",
  "file": "thebound.html",
- "size": 36077161,
- "sha256": "f6fda3a9c5f65acae3ca739a8d0a68d37649c1c33b9981f1b5c491fc85ab24fd",
+ "size": 37390340,
+ "sha256": "be9032e62d71f16692666f9ff190d9d036e710dad47f734820760ea1ad7f0234",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Loguetown: nueva isla explorable en el Mar de Dawn, al este de Animales Raros y al norte de Conomi.",
-   "Puerto para desembarcar y volver al barco, arco de entrada, plaza de Roger y patíbulo, torre del reloj, armería, mercado y base de la Marina.",
-   "Primera etapa del mapa: edificios exteriores y caminos; los combates y la historia de Loguetown llegarán después."
+   "Loguetown cobra vida: Ipponmatsu junto a su armería, Alvida en las calles del sur, Bartolomeo paseando por la avenida y Smoker en la base de la Marina.",
+   "Cinemática en el patíbulo: la primera vez que llegas a la plaza se cuenta cómo ejecutaron a Gol D. Roger y cómo empezó la Gran Era de la Piratería (el cartel de la plaza la repite).",
+   "Personajes con tus hojas de sprites: caminan en las cuatro direcciones y Smoker ataca con su porra.",
+   "Desafíos del puerto con Smoker (nivel 610, 612 y 615): contrabandista, vigía del muelle y el propio Smoker, con oro de premio; el progreso se guarda."
   ],
   "en": [
-   "Loguetown: a new explorable island in the Dawn Sea, east of Rare Animals and north of Conomi.",
-   "Working harbor for landing and returning to your ship, entrance arch, Roger’s square and scaffold, clock tower, arms shop, market and Marine base.",
-   "First map stage: exterior buildings and paths; Loguetown battles and story will follow later."
+   "Loguetown comes alive: Ipponmatsu by his arms shop, Alvida in the southern streets, Bartolomeo strolling the avenue and Smoker at the Navy base.",
+   "Scaffold cutscene: the first time you reach the square you see how Gol D. Roger was executed and how the Great Pirate Era began (the square sign replays it).",
+   "Characters from your sprite sheets: they walk in all four directions and Smoker attacks with his jitte.",
+   "Harbor challenges with Smoker (level 610, 612 and 615): smuggler, dock lookout and Smoker himself, with gold rewards; progress is saved."
   ]
  }
 }

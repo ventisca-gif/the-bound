@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.15', GAME_BUILD = 236;
+const GAME_VER = '6.16', GAME_BUILD = 237;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.16",
+ "b": 237,
+ "d": "2026-11-25",
+ "es": [
+  "Loguetown cobra vida: Ipponmatsu junto a su armería, Alvida en las calles del sur, Bartolomeo paseando por la avenida y Smoker en la base de la Marina.",
+  "Cinemática en el patíbulo: la primera vez que llegas a la plaza se cuenta cómo ejecutaron a Gol D. Roger y cómo empezó la Gran Era de la Piratería (el cartel de la plaza la repite).",
+  "Personajes con tus hojas de sprites: caminan en las cuatro direcciones y Smoker ataca con su porra.",
+  "Desafíos del puerto con Smoker (nivel 610, 612 y 615): contrabandista, vigía del muelle y el propio Smoker, con oro de premio; el progreso se guarda."
+ ],
+ "en": [
+  "Loguetown comes alive: Ipponmatsu by his arms shop, Alvida in the southern streets, Bartolomeo strolling the avenue and Smoker at the Navy base.",
+  "Scaffold cutscene: the first time you reach the square you see how Gol D. Roger was executed and how the Great Pirate Era began (the square sign replays it).",
+  "Characters from your sprite sheets: they walk in all four directions and Smoker attacks with his jitte.",
+  "Harbor challenges with Smoker (level 610, 612 and 615): smuggler, dock lookout and Smoker himself, with gold rewards; progress is saved."
+ ]
+},
 {
  "v": "6.15",
  "b": 236,

@@ -4,7 +4,7 @@ from playwright.sync_api import sync_playwright
 ROOT=pathlib.Path(__file__).resolve().parents[2]
 OUT=ROOT/'tests/loguetown/out';OUT.mkdir(parents=True,exist_ok=True)
 with sync_playwright() as p:
-    browser=p.chromium.launch(executable_path='/usr/bin/chromium',args=['--allow-file-access-from-files'])
+    browser=p.chromium.launch(args=['--allow-file-access-from-files'])
     page=browser.new_page(viewport={'width':1280,'height':720})
     errors=[]
     page.on('pageerror',lambda e:errors.append(str(e)))
