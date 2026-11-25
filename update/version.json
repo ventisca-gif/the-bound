@@ -1,22 +1,24 @@
 {
- "build": 241,
- "ver": "6.19",
+ "build": 242,
+ "ver": "6.20",
  "date": "2026-11-25",
  "file": "thebound.html",
- "size": 37830941,
- "sha256": "9cfab0ddb456ac7d0c58dda9cd13effc6617c732d556e067ad549f9be6e76851",
+ "size": 37847781,
+ "sha256": "f1b68658d1eed51505145261cea2af52f14042c09fefd202775f18a1c6e04c36",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Frutas del Diablo y transformaciones juntas: transformado y con fruta, la barra lleva 2 técnicas de la forma y 2 de la fruta (antes la forma tapaba las 4 casillas y la fruta no se podía usar).",
-   "Botón de la fruta junto a la barra: cambia qué 2 técnicas de la fruta llevas sin salir de la forma.",
-   "Se suman: el daño de la fruta sale de tu ataque total, así que la transformación también la hace más fuerte."
+   "La tripulación se hace más fuerte con cada batalla de la historia del Mar de Dawn, también al repetir un arco. Antes solo contaba la primera victoria hasta Villa Syrup; ahora cuentan Baratie, Arlong Park y Loguetown.",
+   "Cada arco completado da +10 % de poder, cada repetición +4 % y cada batalla +1,2 % (hasta +150 %): más vida, defensa y daño en sus técnicas.",
+   "Nueva opción al hablar con Luffy, Zoro, Usopp o Sanji: «Desafiar» para un duelo con su poder actual. Nadie muere, no da XP ni botín y da oro la primera vez que ganas a cada poder nuevo. Nami no pelea.",
+   "«Poder de la tripulación» al hablarles: arcos completados, batallas y el poder de cada uno."
   ],
   "en": [
-   "Devil Fruits and transformations together: transformed and with a fruit, the bar holds 2 form techniques and 2 fruit techniques (before, the form took all 4 slots and the fruit could not be used).",
-   "Fruit button next to the bar: changes which 2 fruit techniques you carry without leaving the form.",
-   "They stack: fruit damage comes from your total attack, so the transformation makes it stronger too."
+   "The crew grows stronger with every Dawn Sea story battle, replays included. Before, only the first win up to Syrup Village counted; now Baratie, Arlong Park and Loguetown count too.",
+   "Each completed arc gives +10 % power, each replay +4 % and each battle +1.2 % (up to +150 %): more HP, defense and technique damage.",
+   "New option when talking to Luffy, Zoro, Usopp or Sanji: “Challenge” for a duel at their current power. Nobody dies, it gives no XP or loot, and it pays gold the first time you beat each new power level. Nami doesn’t fight.",
+   "“Crew power” when talking to them: completed arcs, battles and each member’s power."
   ]
  }
 }

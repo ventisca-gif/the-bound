@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.19', GAME_BUILD = 241;
+const GAME_VER = '6.20', GAME_BUILD = 242;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.20",
+ "b": 242,
+ "d": "2026-11-25",
+ "es": [
+  "La tripulación se hace más fuerte con cada batalla de la historia del Mar de Dawn, también al repetir un arco. Antes solo contaba la primera victoria hasta Villa Syrup; ahora cuentan Baratie, Arlong Park y Loguetown.",
+  "Cada arco completado da +10 % de poder, cada repetición +4 % y cada batalla +1,2 % (hasta +150 %): más vida, defensa y daño en sus técnicas.",
+  "Nueva opción al hablar con Luffy, Zoro, Usopp o Sanji: «Desafiar» para un duelo con su poder actual. Nadie muere, no da XP ni botín y da oro la primera vez que ganas a cada poder nuevo. Nami no pelea.",
+  "«Poder de la tripulación» al hablarles: arcos completados, batallas y el poder de cada uno."
+ ],
+ "en": [
+  "The crew grows stronger with every Dawn Sea story battle, replays included. Before, only the first win up to Syrup Village counted; now Baratie, Arlong Park and Loguetown count too.",
+  "Each completed arc gives +10 % power, each replay +4 % and each battle +1.2 % (up to +150 %): more HP, defense and technique damage.",
+  "New option when talking to Luffy, Zoro, Usopp or Sanji: “Challenge” for a duel at their current power. Nobody dies, it gives no XP or loot, and it pays gold the first time you beat each new power level. Nami doesn’t fight.",
+  "“Crew power” when talking to them: completed arcs, battles and each member’s power."
+ ]
+},
 {
  "v": "6.19",
  "b": 241,
