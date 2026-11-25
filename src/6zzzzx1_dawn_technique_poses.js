@@ -12,7 +12,7 @@ const CREW_SIDE_POSES=Object.fromEntries(Object.entries({
    (e.dir!=='left'&&e.dir!=='right'))return old.apply(this,arguments);
  const w=120,h=80;
  ctx.save();
- ctx.translate(Math.round(e.x-cx),Math.round(e.y-cy));
+ ctx.translate(Math.round(e.x-cx),Math.round(e.y-cy-(e.z||0)));
  if(e.dir==='left')ctx.scale(-1,1);
  ctx.drawImage(img,pose.index*240,0,240,160,-w/2,-h+2,w,h);
  ctx.restore();

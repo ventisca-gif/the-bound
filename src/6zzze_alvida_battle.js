@@ -41,18 +41,18 @@ function alvidaClearFight(M){
   M.alvidaRun=null;
   if(G.bossBar?.mid===ALVIDA_BOSS)showBoss(null);
 }
-function alvidaStart(M){
+function alvidaStart(M,replay=false){
   alvidaClearFight(M);
-  if(G.P.alvidaMace)return;
+  if(G.P.alvidaMace&&!replay)return;
   const crew=AD_CREW.map(([id,x,y])=>{
     const e=spawnMob(id,500,...dawnPx([x,y]),0,null,false);
     e.state='chase';return e;
   });
-  M.alvidaRun={crew,boss:null};
+  M.alvidaRun={crew,boss:null,replay};
 }
 V33_TICKS.push(()=>{
   const M=G.map,R=M?.alvidaRun;
-  if(M?.id!==AD_DECK||!R||R.boss||G.P.alvidaMace||G.P.dead||R.crew.some(e=>!e.dying&&!e.remove))return;
+  if(M?.id!==AD_DECK||!R||R.boss||G.P.alvidaMace&&!R.replay||G.P.dead||R.crew.some(e=>!e.dying&&!e.remove))return;
   R.boss=spawnMob(ALVIDA_BOSS,500,...dawnPx([22,11]),0,null,true);
   R.boss.state='fight';R.boss.cd=.55;
   showBoss(R.boss);sfx('boss');banner(BOSSES[ALVIDA_BOSS].n,L2('Esquiva el mazo cuando levante el brazo.','Dodge the mace as she raises her arm.'));
@@ -71,7 +71,7 @@ function alvidaClaim(){
   if(m.mid!==ALVIDA_BOSS)return previous.apply(this,arguments);
   if(!G.P.alvidaMace)G.P.alvidaMace=1;
   const result=previous.apply(this,arguments);
-  toast(L2('El mazo está en el cofre junto al timón.','The mace is in the chest by the helm.'),'quest',5);
+  if(G.P.alvidaMace===1)toast(L2('El mazo está en el cofre junto al timón.','The mace is in the chest by the helm.'),'quest',5);
   return result;
 };}
 {const previous=updateBoss;updateBoss=function(m,dt,d,dh,speed,moveTo){

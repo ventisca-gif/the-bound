@@ -12,7 +12,7 @@ const CREW_LANDING_LIMIT=3;
 const CREW_NAMI_BIT=1<<2;
 const dawnCrewAvailable=P=>P.baratieSanji?31:P.syrupUsopp?15:7;
 const dawnCrewCount=mask=>DAWN_CREW.reduce((n,_,i)=>n+Number(!!(mask&(1<<i))),0);
-SAVEKEYS.push('dawnCrewJoined','dawnCrewAshore','rareClue','rareChestMask','rareDone');
+SAVEKEYS.push('dawnCrewJoined','dawnCrewAshore','rareClue','rareChestMask','rareDone','rareRecall');
 const dawnCrewMask=P=>P.dawnCrewAshore==null?CREW_LANDING_LIMIT:P.dawnCrewAshore&dawnCrewAvailable(P)&~CREW_NAMI_BIT;
 function dawnCrewLines(id,aboard=false){
  if(id==='baratie_sanji')return [
@@ -119,7 +119,7 @@ function dawnNavigatorMark(){
  const quay=P.shellBerth?[M.shells.start+SHELL_PIER[0],SHELL_PIER[1]]:
   P.fooshaBerth?fooshaPier(M).map(n=>n>>4):ORANGE_QUAY;
  const quayName=P.shellBerth?'Shells Town':P.fooshaBerth?'Villa Foosha':ORANGE_NAME;
- const [loc,t]=baratieDestination(M,P,aboard)||typeof syrupCrewWaypoint==='function'&&syrupCrewWaypoint(M,P,aboard)|| (aboard?[P.rareDone?ORANGE_MOORING:RARE_MOORING,P.rareDone?ORANGE_NAME:RARE_NAME]:
+ const [loc,t]=conomiNavigate(M,P,aboard)||baratieDestination(M,P,aboard)||typeof syrupCrewWaypoint==='function'&&syrupCrewWaypoint(M,P,aboard)|| (aboard?[P.rareDone?ORANGE_MOORING:RARE_MOORING,P.rareDone?ORANGE_NAME:RARE_NAME]:
   rareLandHere(M,P)?[P.rareClue&&!P.rareDone&&P.rareChestMask!==31?RARE_TERRACE:RARE_CLEARING,RARE_NAME]:[quay,quayName]);
  setWp({loc,m:'dawn',t});
  typeText(aboard?L2('Te marqué el fondeadero. Busca la flecha dorada y acércate desde mar abierto.','I’ve marked the mooring. Follow the golden arrow and approach from open water.'):
@@ -135,16 +135,18 @@ function rareNearestChest(M,P){
  }
  return choice;
 }
+function rareProgress(P){return P.rareRecall||P;}
 function rareOpenChest(){
  const P=G.P,M=G.map;
+ const state=rareProgress(P);
  if(!M?.rare||P.dawnHelm||P.dead||!P.dawnCrewJoined)return;
  const o=rareNearestChest(M,P);
  if(!o)return;
- if(!P.rareClue){toast(L2('Habla antes con Gaimon en el claro del bosque.','Talk to Gaimon in the forest clearing first.'),'info',4);return;}
+ if(!state.rareClue){toast(L2('Habla antes con Gaimon en el claro del bosque.','Talk to Gaimon in the forest clearing first.'),'info',4);return;}
  const bit=1<<o.rareIndex;
- if(P.rareChestMask&bit){toast(L2('El cofre está vacío.','The chest is empty.'),'info',3);return;}
- P.rareChestMask=(P.rareChestMask||0)|bit;
- const count=RARE_CHESTS.reduce((sum,_,i)=>sum+Number(!!(P.rareChestMask&(1<<i))),0);
+ if(state.rareChestMask&bit){toast(L2('El cofre está vacío.','The chest is empty.'),'info',3);return;}
+ state.rareChestMask=(state.rareChestMask||0)|bit;
+ const count=RARE_CHESTS.reduce((sum,_,i)=>sum+Number(!!(state.rareChestMask&(1<<i))),0);
  sfx('quest');markDirty(true);
  banner(L2('Cofre vacío','Empty chest'),count===RARE_CHESTS.length
   ?L2('Revisaste los cinco. Vuelve con Gaimon.','You checked all five. Return to Gaimon.')
@@ -179,8 +181,12 @@ for(const [id,es,en] of RARE_ANIMALS)NPCS[id]={
 };
 function rareGaimonDialogue(npc,opts){
  if(npc.id!==GAIMON_ID)return;
- const P=G.P,end=P.rareChestMask===((1<<RARE_CHESTS.length)-1);
- if(P.rareDone){opts.unshift({label:L2('Hablar de los animales','Talk about the animals'),icon:['talk'],fn:()=>{
+ const P=G.P,state=rareProgress(P),end=state.rareChestMask===((1<<RARE_CHESTS.length)-1);
+ if(P.rareDone&&!P.rareRecall){
+ opts.push({label:L2('Revivir la historia de Gaimon','Replay Gaimon’s story'),icon:['ways'],fn:()=>{
+  P.rareRecall={rareClue:false,rareChestMask:0};markDirty(true);dialogMenu();
+ }});
+ opts.unshift({label:L2('Hablar de los animales','Talk about the animals'),icon:['talk'],fn:()=>{
   typeText(L2('La oferta de Luffy fue buena. Pero alguien tiene que quedarse a cuidar a todos estos tragones.','Luffy made a good offer. But someone has to stay and look after all these hungry mouths.'));
  }});return;}
  if(end){
@@ -189,26 +195,27 @@ function rareGaimonDialogue(npc,opts){
     L2('Gaimon: ¿Vacíos los cinco? Veinte años mirando esa cornisa… Supongo que estaba cuidando el tesoro equivocado.','Gaimon: All five empty? Twenty years staring at that ledge… Guess I was guarding the wrong treasure.'),
     L2('Luffy: ¡Ven con nosotros, entonces! Hay un montón de islas que ver.','Luffy: Come with us, then! There are loads of islands to see.'),
     L2('Gaimon: Gracias, chico. Pero en esta isla ya encontré a los míos. Cuídense en el mar.','Gaimon: Thanks, kid. But I’ve already found my family here. Take care out at sea.')
-   ],()=>{P.rareDone=true;markDirty(true);closeDialog();banner(RARE_NAME,L2('La historia de Gaimon está completa','Gaimon’s story is complete'));});
+   ],()=>{P.rareDone=true;delete P.rareRecall;markDirty(true);closeDialog();banner(RARE_NAME,L2('La historia de Gaimon está completa','Gaimon’s story is complete'));});
   }});return;
  }
- opts.unshift({label:P.rareClue?L2('Preguntar por la cornisa','Ask about the ledge'):L2('Buscar los cinco cofres','Look for the five chests'),icon:['bag'],fn:()=>{
-  P.rareClue=true;markDirty(true);
+ opts.unshift({label:state.rareClue?L2('Preguntar por la cornisa','Ask about the ledge'):L2('Buscar los cinco cofres','Look for the five chests'),icon:['bag'],fn:()=>{
+  state.rareClue=true;markDirty(true);
   typeText(L2('Sigan el camino de la derecha hasta la cornisa. Dejé cinco cofres arriba. Díganme qué hay dentro.','Follow the trail on the right to the ledge. I left five chests up there. Tell me what’s inside.'));
  }});
 }
 DLG_HOOKS.push((npc,opts)=>{
  const P=G.P;
  rareGaimonDialogue(npc,opts);
- if(npc.id===ORANGE_NAMI&&!npc.dawnCrew&&orangeWon(ORANGE_BUGGY)&&!P.dawnCrewJoined){
+ if(npc.id===ORANGE_NAMI&&!npc.dawnCrew&&orangeWon(ORANGE_BUGGY)&&(!P.dawnCrewJoined||P.orangeRecall===2)){
   opts.unshift({label:L2('Reunir a la tripulación','Gather the crew'),icon:['ways'],fn:()=>{
-   if(P.dawnCrewJoined||!orangeWon(ORANGE_BUGGY))return;
+   if(P.dawnCrewJoined&&P.orangeRecall!==2||!orangeWon(ORANGE_BUGGY))return;
    showLines([
     L2('Nami: Hay una isla de animales extraños al este de aquí. Si vamos juntos, yo marco el rumbo.','Nami: There’s an island of strange animals east of here. If we go together, I’ll chart the course.'),
     L2('Luffy: ¡Listo! Zoro, Nami y tú. ¡Nuestro próximo viaje es en el Going Merry!','Luffy: All right! Zoro, Nami and you. Our next trip is aboard the Going Merry!'),
     L2('Zoro: Yo llevo las espadas. Tú encárgate de que Luffy no se coma las provisiones.','Zoro: I’ll bring the swords. You keep Luffy from eating the supplies.')
    ],()=>{
-    P.dawnCrewJoined=true;P.dawnCrewAshore=CREW_LANDING_LIMIT;
+    if(!P.dawnCrewJoined)P.dawnCrewAshore=CREW_LANDING_LIMIT;
+    P.dawnCrewJoined=true;delete P.orangeRecall;
     for(const actor of G.ents)if(actor.map==='dawn'&&actor.id==='dawn_luffy')actor.remove=true;
     closeDialog();markDirty(true);sfx('quest');
     banner(L2('Tripulación reunida','Crew gathered'),L2('Going Merry · Nami se une como navegante','Going Merry · Nami joins as navigator'));
@@ -251,7 +258,7 @@ function dawnCrewFollow(M,P,dt){
  const orange=M.orange?.run,shells=M.shellsRescue?.run;
  DAWN_CREW.forEach(([id,,role],i)=>{
   const sceneLead=M.syrup?.lead;
-  const scripted=M.baratie?.run||activeSyrup||(sceneLead?.id===id&&d2(P,sceneLead)<180**2)||(id!==ORANGE_NAMI&&id!==SYRUP_USOPP&&(orange||shells));
+  const scripted=M.conomi?.run||M.conomi?.scene||M.baratie?.run||activeSyrup||(sceneLead?.id===id&&d2(P,sceneLead)<180**2)||(id!==ORANGE_NAMI&&id!==SYRUP_USOPP&&(orange||shells));
   if(!(mask&(1<<i))||scripted){
    if(crew[i])crew[i].remove=true;
    crew[i]=null;return;
@@ -305,7 +312,7 @@ V33_TICKS.push(dt=>{
  else if(S.crew){for(const e of S.crew)if(e)e.remove=true;S.crew=null;S.trail=null;}
  if(island&&dist2(P.x,P.y,...dawnPx(RARE_CLEARING))<1800**2){
   if(!S.gaimon&&rareArtworkReady())rareSpawnLocals(M);
-  if(P.rareDone&&S.gaimon&&!S.gaimon.rareAfter){
+  if(P.rareDone&&!P.rareRecall&&S.gaimon&&!S.gaimon.rareAfter){
    S.gaimon.rareAfter=true;
    S.gaimon.def={...S.gaimon.def,lines:[L2('Buen viaje, amigos. Si pasan otra vez, ya saben dónde encontrarme.','Safe travels, friends. If you come by again, you know where to find me.')]};
   }

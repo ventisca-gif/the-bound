@@ -91,7 +91,7 @@ for(const boss of Object.keys(BAR_LOOT))BOSS_EXTRA[boss]=()=>{
 };}
 DLG_HOOKS.push((npc,opts)=>{
  const P=G.P,M=G.map;
- if(npc?.id!=='baratie_zeff'||!P.baratieSanji||!baratieHere(M,P)||M.baratie.run)return;
+ if(npc?.id!=='baratie_zeff'||Number.isInteger(P.baratieRecall)||!P.baratieSanji||!baratieHere(M,P)||M.baratie.run)return;
  for(const id of Object.keys(BAR_FOES))opts.push({
   label:L2('Revancha · ','Rematch · ')+BAR_FOES[id].n,icon:['sword'],
   fn:()=>{closeDialog();baratieStart(id,true);}

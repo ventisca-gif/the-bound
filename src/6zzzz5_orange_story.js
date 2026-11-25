@@ -31,13 +31,18 @@ BOSSES[ORANGE_BUGGY]={n:'Buggy',lv:570,where:orangeBuggyWhere,art:['orange','bug
 };}
 
 const orangeWon=(id)=>!!G.P?.bossKills?.[id];
+SAVEKEYS.push('orangeRecall');
+function orangeArcWon(id){
+ const phase=G.P?.orangeRecall;
+ return phase==null?orangeWon(id):id===ORANGE_CABAJI?phase>=1:phase>=2;
+}
 const orangeChapterReady=()=>orangeWon(MORGAN_ID)||orangeWon(ORANGE_CABAJI)||orangeWon(ORANGE_BUGGY);
 function orangeNear(at,r){
  const P=G.P;
  return G.map?.orange&&P&&!P.dead&&!P.dawnHelm&&dfHas()&&dist2(P.x,P.y,...dawnPx(at))<r*r;
 }
 function orangeFindActors(M){
- const cabajiWon=orangeWon(ORANGE_CABAJI),buggyWon=orangeWon(ORANGE_BUGGY);
+ const cabajiWon=orangeArcWon(ORANGE_CABAJI),buggyWon=orangeArcWon(ORANGE_BUGGY);
  const [x,y]=cabajiWon?[628,516]:ORANGE_GATE;
  const luffy=spawnNPC(SHELLS_CAST_IDS.luffy,...dawnPx([x+1,y+1]),M.id,{scene:true,hgt:64});
  const zoro=spawnNPC(SHELLS_CAST_IDS.zoro,...dawnPx([x-1,y]),M.id,{scene:true,hgt:64});
@@ -83,6 +88,10 @@ function orangeTalkStart(npc,opts){
  if(!R||npc!==R.luffy&&npc!==R.zoro)return;
  const cabaji=orangeChapterReady()&&R.phase==='ready'&&orangeNear(ORANGE_GATE,65);
  const replay=R.phase==='done';
+ if(replay&&G.P.dawnCrewJoined&&G.P.orangeRecall==null)opts.push({label:L2('Revivir la historia de Orange Town','Replay Orange Town’s story'),icon:['ways'],fn:()=>{
+  closeDialog();G.P.orangeRecall=0;orangeClear(M);
+  [G.P.x,G.P.y]=dawnPx(ORANGE_GATE);updateCamera(0,true);markDirty(true);
+ }});
  const buggy=(R.phase==='captain'||replay)&&orangeNear(ORANGE_BUGGY_AT,140);
  if(!cabaji&&!buggy)return;
  opts.unshift({label:cabaji?L2('Acompañar a Zoro al duelo','Join Zoro’s duel'):replay?L2('Revancha con Buggy','Buggy rematch'):L2('Enfrentar a Buggy','Face Buggy'),icon:['sword'],fn:()=>{
@@ -370,10 +379,12 @@ function orangeClear(M){
  const result=old.apply(this,arguments);
  if(R?.boss!==m)return result;
  if(m.mid===ORANGE_CABAJI){
+  if(G.P.orangeRecall===0){G.P.orangeRecall=1;markDirty(true);}
   R.phase='walkToCaptain';R.walkUntil=G.t+2.35;
   shellsRescueSpeak(R.zoro,'Buena pelea. Ahora a la carpa, antes de que ese payaso se escape.','Good fight. To the big top, before that clown gets away.');
   banner(ORANGE_NAME,L2('Cabaji derrotado · Busca la carpa de Buggy','Cabaji defeated · Find Buggy’s Big Top'));
  }else if(m.mid===ORANGE_BUGGY){
+  if(G.P.orangeRecall===1){G.P.orangeRecall=2;markDirty(true);}
   R.phase='done';
   for(const ally of [R.zoro,R.luffy]){ally.noTalk=false;setAnim(ally,'idle');}
   R.luffy.def.lines=[L2('¡Lo mandamos a volar! Gracias por pelear aquí también.','We sent him flying! Thanks for fighting with us again.')];
@@ -394,10 +405,10 @@ function orangeClear(M){
 V33_TICKS.push(dt=>{
  const M=G.map,S=M?.orange,P=G.P;
  if(!S||!P)return;
- if(!P.dawnCrewJoined&&orangeNear(ORANGE_LOOKOUT,340)){
+ if((!P.dawnCrewJoined||P.orangeRecall===2)&&orangeNear(ORANGE_LOOKOUT,340)){
   S.nami=S.nami||spawnNPC(ORANGE_NAMI,...dawnPx(ORANGE_LOOKOUT),M.id,{wander:4,hgt:56});
  }else if(S.nami){S.nami.remove=true;S.nami=null;}
- const cabajiWon=orangeWon(ORANGE_CABAJI),R=S.run;
+ const cabajiWon=orangeArcWon(ORANGE_CABAJI),R=S.run;
  if(R?.phase==='walkToCaptain'){
   if(!P.dead&&G.t<R.walkUntil){
    for(const [ally,off] of [[R.zoro,0],[R.luffy,1]])shellsActorMove(M,ally,...dawnPx([614,495+off]),dt);

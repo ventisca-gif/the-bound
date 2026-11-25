@@ -26,7 +26,10 @@ for(const [id,b] of Object.entries(BAR_FOES)){
 {const old=mobAtlasFor;mobAtlasFor=function(art){return art[0]==='baratie'?baratieAtlas(art[1]):old.apply(this,arguments);};}
 {const old=bossWhere;bossWhere=function(id){return BAR_FOES[id]?{loc:BARATIE_ARENA,where:BARATIE_NAME,m:'dawn'}:old.apply(this,arguments);};}
 
+const BAR_RECALL=['welcome','duel',...Object.keys(BAR_FOES),'farewell'];
+SAVEKEYS.push('baratieRecall');
 function baratieStage(P){
+ if(Number.isInteger(P.baratieRecall)&&BAR_RECALL[P.baratieRecall])return BAR_RECALL[P.baratieRecall];
  if(!P.baratieServed)return 'welcome';
  if(!P.baratieDuelSeen)return 'duel';
  return Object.keys(BAR_FOES).find(id=>!syrupWon(id,P))||(P.baratieSanji?'done':'farewell');
@@ -44,7 +47,7 @@ function baratieCast(M,P,stage){
   const enemy=BAR_FOES[id];
   if(enemy&&id!==stage&&!(id==='baratie_gin'&&stage==='welcome'))continue;
   if(id===BAR_MIHAWK&&stage!=='duel')continue;
-  if(id===BAR_SANJI&&P.baratieSanji)continue;
+  if(id===BAR_SANJI&&P.baratieSanji&&!Number.isInteger(P.baratieRecall))continue;
   const pos=stage==='welcome'&&id==='baratie_gin'?barAt(40,9):barAt(x,y);
   const wander=['baratie_patty','baratie_carne','baratie_fullbody','baratie_zeff'].includes(id)?1:0;
   B.locals.push(spawnNPC(id,...dawnPx(pos),M.id,{face:'down',hgt:61,wander}));
@@ -118,7 +121,8 @@ const BAR_DUEL_BEATS=[
 function baratieDuelTick(M,R,dt){
  const [z]=R.crew,[hawk]=R.foes,t=G.t-R.start;
  if(t>=40){
-  G.P.baratieDuelSeen=true;
+  if(Number.isInteger(G.P.baratieRecall))G.P.baratieRecall++;
+  else G.P.baratieDuelSeen=true;
   baratieRunClear(M);markDirty(true);
   banner(L2('Mihawk gana el duelo','Mihawk wins the duel'),L2('Zoro queda al cuidado de Johnny y Yosaku. Sanji te espera en la otra cubierta.','Johnny and Yosaku take care of Zoro. Sanji is waiting on the other deck.'));
   setWp({loc:BARATIE_ARENA,m:'dawn',t:BARATIE_NAME});return;
@@ -253,6 +257,7 @@ V33_TICKS.push(dt=>{
  if(R?.foes.includes(m)){
   baratieRunClear(M);markDirty(true);
   if(R.rematch)return result;
+  if(Number.isInteger(P.baratieRecall)){P.baratieRecall++;markDirty(true);}
   const s=baratieStage(P);
   setWp({loc:BAR_FOES[s]?BARATIE_ARENA:BARATIE_GALLEY,m:'dawn',t:BARATIE_NAME});
   if(m.mid==='baratie_pearl')xMsg(L2('Gin rompe el escudo','Gin breaks the shield'),L2('Pearl levanta el escudo por última vez. Gin se lo parte con una de sus tonfas y se planta frente a Sanji.','Pearl raises his shield one last time. Gin shatters it with a tonfa and stands in front of Sanji.'));
@@ -268,9 +273,17 @@ DLG_HOOKS.push((npc,opts)=>{
  if(!npc||!M?.baratie||!P||!baratieReady(P)||!baratieHere(M,P)||M.baratie.run)return;
  const stage=baratieStage(P);
  const option=(label,icon,fn)=>opts.unshift({label,icon:[icon],fn:()=>{closeDialog();fn();}});
+ if(npc.id==='baratie_zeff'&&P.baratieSanji){
+  const replay=Number.isInteger(P.baratieRecall);
+  option(replay?L2('Cerrar el recuerdo','End the replay'):L2('Revivir la historia de Baratie','Replay Baratie’s story'),'ways',()=>{
+   if(replay)delete P.baratieRecall;else P.baratieRecall=0;
+   M.baratie.stage=null;markDirty(true);
+  });
+ }
  if(npc.id===BAR_SANJI&&stage==='welcome'){
   option(L2('Llevarle comida a Gin','Bring Gin a meal'),'food',()=>{
-   P.baratieServed=true;markDirty(true);
+   if(Number.isInteger(P.baratieRecall))P.baratieRecall++;else P.baratieServed=true;
+   markDirty(true);
    xMsg(L2('La cocina del Baratie','The Baratie galley'),[
     L2('Sanji deja un plato caliente delante de Gin. El pirata se come hasta la última miga.','Sanji sets a hot plate in front of Gin. The pirate eats down to the last crumb.'),
     L2('Gin: Me diste de comer sin preguntar de qué barco venía. Ojalá pudiera devolverte el favor.','Gin: You fed me without asking which ship I came from. I wish I could return the favor.'),
@@ -284,7 +297,7 @@ DLG_HOOKS.push((npc,opts)=>{
  if(BAR_FOES[stage]&&npc.id===stage)option(L2('Defender el Baratie','Defend the Baratie'),'sword',()=>baratieStart(stage));
  if(npc.id===BAR_SANJI&&stage==='farewell'){
   option(L2('Invitar a Sanji al Going Merry','Invite Sanji aboard the Going Merry'),'ways',()=>{
-   P.baratieSanji=true;markDirty(true);
+   P.baratieSanji=true;delete P.baratieRecall;markDirty(true);
    xMsg(L2('Sanji se une a la tripulación','Sanji joins the crew'),[
     L2('Zeff: Te guardé un cuchillo afilado y un sitio vacío en la cocina. Usa el primero. El segundo puede esperar.','Zeff: I kept a sharp knife and an empty place in the galley for you. Use the first. The second can wait.'),
     L2('Sanji: Gracias por todas las comidas, viejo. La primera que prepare en el Merry te la voy a dedicar.','Sanji: Thanks for every meal, old man. The first one I make on the Merry is for you.'),
