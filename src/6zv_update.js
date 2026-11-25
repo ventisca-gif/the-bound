@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.13', GAME_BUILD = 234;
+const GAME_VER = '6.14', GAME_BUILD = 235;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,25 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.14",
+ "b": 235,
+ "d": "2026-11-25",
+ "es": [
+  "Más fluido en celulares de gama baja y media: el juego ya no prepara en segundo plano los 2.300 dibujos de personajes y enemigos mientras juegas (frenaba cada imagen durante minutos al entrar). Los personajes fuera de pantalla gastan mucho menos.",
+  "Modo optimizado (Ajustes): además, menos multitud de fondo en las ciudades y la interfaz se refresca 15 veces por segundo.",
+  "Robo de vida (Sed de Sangre, armas de guerrero, vampiro…): cura como mucho un 5 % de tu vida por golpe y un 12 % por segundo. Antes, Juicio Final con Sed de Sangre llenaba toda la vida de una vez.",
+  "Inventario de 900 casillas (antes 200).",
+  "Familia: como mucho 30 familiares vivos; si llegas, no nacen más nietos hasta que haya hueco."
+ ],
+ "en": [
+  "Smoother on low- and mid-range phones: the game no longer pre-builds the 2,300 character and enemy sprites in the background while you play (it slowed every frame for minutes after starting). Off-screen characters cost much less.",
+  "Optimized mode (Settings): also fewer background crowds in towns and the interface refreshes 15 times per second.",
+  "Life steal (Bloodthirst, warrior weapons, vampire…): heals at most 5% of your HP per hit and 12% per second. Before, Final Judgement with Bloodthirst refilled all your HP at once.",
+  "900-slot inventory (was 200).",
+  "Family: at most 30 living relatives; once you reach it, no more grandchildren are born until there is room."
+ ]
+},
 {
  "v": "6.13",
  "b": 234,

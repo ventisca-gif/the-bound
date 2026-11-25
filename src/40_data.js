@@ -35,7 +35,7 @@ sk('g6', 'guerrero', 1, 1, 'Grito de Guerra', 'act', 10, 'g5', { mp: 20, cd: 25,
 sk('g7', 'guerrero', 1, 2, 'Vitalidad', 'pas', 18, 'g5', { icon: ['heart', '#e84050'], pas: { hpP: 4 }, d: 'Aumenta la vida máxima en {hpP}%.' });
 sk('g8', 'guerrero', 1, 3, 'Baluarte', 'act', 35, 'g6', { mp: 30, cd: 30, icon: ['shield', '#ffd040'], eff: { k: 'shield', p: 20, pr: 3, dur: 8 }, d: 'Un escudo que absorbe daño igual al {p}% de tu vida máxima (8 s).' });
 sk('g9', 'guerrero', 2, 0, 'Carga', 'act', 5, null, { mp: 12, cd: 7, icon: ['dash', '#e8e8f0'], eff: { k: 'dash', dist: 96, m: 1.4, mr: 0.12, stun: 0.6 }, d: 'Embistes hacia delante con {m}% de daño y aturdes 0.6 s.' });
-sk('g10', 'guerrero', 2, 1, 'Sed de Sangre', 'pas', 12, 'g9', { icon: ['drop', '#c02030'], pas: { life: 1 }, d: 'Recuperas el {life}% del daño infligido como vida.' });
+sk('g10', 'guerrero', 2, 1, 'Sed de Sangre', 'pas', 12, 'g9', { icon: ['drop', '#c02030'], pas: { life: 1 }, d: 'Recuperas el {life}% del daño infligido como vida (como mucho un 5 % de tu vida por golpe y un 12 % por segundo).' });
 sk('g11', 'guerrero', 2, 2, 'Golpe Sísmico', 'act', 25, 'g9', { mp: 28, cd: 12, icon: ['slam', '#c8a060'], eff: { k: 'slam', m: 2.2, mr: 0.2, r: 50, stun: 1, front: 30 }, d: 'Partes la tierra al frente: {m}% de daño y aturdes 1 s.' });
 sk('g12', 'guerrero', 2, 3, 'Avatar de Guerra', 'act', 60, 'g11', { mp: 60, cd: 60, icon: ['star', '#ff4040'], eff: { k: 'buff', dur: 15, st: { atkP: 40, aspdP: 20 }, str: { atkP: 3 } }, d: 'Durante 15 s: +{atkP}% ataque y +20% velocidad de ataque.' });
 // mago

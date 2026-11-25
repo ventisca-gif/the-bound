@@ -20,7 +20,7 @@ const EN_FIX = {
 "Aumenta la vida máxima en {hpP}%.": "Increases max HP by {hpP}%.",
 "Un escudo que absorbe daño igual al {p}% de tu vida máxima (8 s).": "A shield that absorbs damage equal to {p}% of your max HP (8 s).",
 "Embistes hacia delante con {m}% de daño y aturdes 0.6 s.": "You charge forward for {m}% damage and stun for 0.6 s.",
-"Recuperas el {life}% del daño infligido como vida.": "You recover {life}% of the damage you deal as HP.",
+"Recuperas el {life}% del daño infligido como vida (como mucho un 5 % de tu vida por golpe y un 12 % por segundo).": "You recover {life}% of the damage you deal as HP (at most 5% of your HP per hit and 12% per second).",
 "Partes la tierra al frente: {m}% de daño y aturdes 1 s.": "You split the ground in front: {m}% damage and stun for 1 s.",
 "Durante 15 s: +{atkP}% ataque y +20% velocidad de ataque.": "For 15 s: +{atkP}% attack and +20% attack speed.",
 "Lanza una bola de fuego que explota: {m}% de daño en área y quema.": "Throws an exploding fireball: {m}% area damage and burns.",

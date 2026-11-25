@@ -67,3 +67,30 @@ hookAfter('guiaJobs', function () {
 // Protección: archiTick (navegación del Archipiélago, también usada al remar/surfear en Trujillo) recorre M.camps y
 // M.bossAt; si algún mapa se marca archi sin ellos, daba un error en cada fotograma. Ahora se salta.
 hookBefore('archiTick', function () { const M = G.map; if (M && M.archi && (!Array.isArray(M.bossAt) || !Array.isArray(M.camps))) return HOOK_SKIP; });
+
+// 6.14 · Celulares lentos: un NPC fuera de pantalla (más de 1,3 pantallas lejos) se actualiza 4 veces por segundo con el
+// tiempo acumulado, en vez de en cada fotograma (España tiene ~1.100 y cada uno pasa por ~15 capas). Se mueve igual; los
+// que te siguen, los de escenas y los que están cerca siguen igual que antes.
+hookAround('updateNPC', function (next, e, dt) {
+  const P = G.P; if (!P || e.follow || e.dawnCrew || e.crewReady || e.kidOf || e.scene || e.pet || e === (typeof COMP !== 'undefined' && COMP && COMP.e)) return next(e, dt);
+  const fx = (typeof VW !== 'undefined' ? VW : 480) * 1.3, fy = (typeof VH !== 'undefined' ? VH : 270) * 1.3;
+  if (Math.abs(e.x - P.x) < fx && Math.abs(e.y - P.y) < fy) { if (e._farDt) { const d = e._farDt; e._farDt = 0; return next(e, dt + d); } return next(e, dt); }
+  e._farDt = (e._farDt || 0) + dt; if (e._farDt < 0.25) return;
+  const d = Math.min(e._farDt, 1); e._farDt = 0; return next(e, d);
+});
+
+// 6.14 · interactTarget (49 capas) se pedía en cada fotograma para el botón «Hablar»: si el personaje no se ha movido y
+// han pasado menos de 100 ms, se reutiliza el resultado. Al tocar ⚔ / Hablar la posición es la misma, así que es igual.
+let IT_CACHE = null;
+hookAround('interactTarget', function (next, ...a) {
+  const P = G.P, M = G.map; if (!P || a.length) return next(...a);
+  const now = performance.now(), C = IT_CACHE;
+  if (C && C.map === M && C.x === P.x && C.y === P.y && C.dir === P.dir && now - C.t < 100 && !(C.r && (C.r.remove || (C.r.e && C.r.e.remove)))) return C.r;
+  const r = next(); IT_CACHE = { r, t: now, map: M, x: P.x, y: P.y, dir: P.dir }; return r;
+});
+// en modo optimizado la interfaz (barras, botones) se refresca 15 veces por segundo en vez de en cada fotograma
+let HUD_T = 0;
+hookBefore('updateHUD', function () { if (typeof OPT === 'undefined' || !OPT.on) return; const now = performance.now(); if (now - HUD_T < 66) return HOOK_SKIP; HUD_T = now; });
+// en modo optimizado sale un 45 % menos de multitud de fondo en las ciudades (solo los transeúntes que ya controla
+// v74Dens; se esconden lejos de ti, nunca delante; los NPC con nombre, de misiones o escenas no se tocan)
+hookAfter('v74Dens', function (d) { if (typeof OPT !== 'undefined' && OPT.on && typeof d === 'number') return d * 0.55; });

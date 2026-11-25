@@ -1,7 +1,13 @@
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;
 const warmQ = []; // sprite atlases built a few at a time so new mobs never cause a hitch
-function runWarm() { if (!warmQ.length) return; const t = performance.now(); while (warmQ.length && performance.now() - t < 4) { try { warmQ.shift()(); } catch (e) { } } }
+function runWarm() { if (!warmQ.length) return;
+  // 6.14: precalentar los ~2.300 sprites frenaba cada fotograma durante minutos en celulares lentos (un sprite tarda más que
+  // los 4 ms). Ahora solo en el título o si el juego va sobrado; en modo optimizado / poca memoria no se precalienta
+  // (cada sprite se genera al dibujarse).
+  const title = typeof titleMode !== 'undefined' && titleMode, O = typeof OPT !== 'undefined' ? OPT : null;
+  if (!title && O && (O.on || (typeof OPT_LOWMEM !== 'undefined' && OPT_LOWMEM) || O.ema > 20)) return;
+  const t = performance.now(); while (warmQ.length && performance.now() - t < 4) { try { warmQ.shift()(); } catch (e) { } } }
 function loading(msg, pct) { $('#loadmsg').textContent = msg; $('#loadbar i').style.width = pct + '%'; }
 const nextFrame = () => new Promise(r => setTimeout(r, 16));
 async function boot(hot) {
