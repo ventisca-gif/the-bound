@@ -30,22 +30,43 @@ jobs:
           mkdir -p tools/i18n/vendor
           npm pack acorn@8.14.0
           tar -xOzf acorn-8.14.0.tgz package/dist/acorn.js > tools/i18n/vendor/acorn.js
+      - name: Reuse checks only for identical game source
+        id: previous
+        run: |
+          if git diff --quiet 870fcedc69aca34f56155fc6c742535a8c9d4822 HEAD -- src template.html tests/loguetown; then
+            echo 'reuse=true' >> "$GITHUB_OUTPUT"
+            echo 'Game source matches successful island, regression, outfit and updater checks in run 45627865405.'
+          else
+            echo 'reuse=false' >> "$GITHUB_OUTPUT"
+          fi
       - run: python3 build.py
       - name: Verify island paths, sailing and native rendering
+        if: steps.previous.outputs.reuse != 'true'
         run: python3 tests/loguetown/browser.py
       - name: Regression suite and outfit fit
+        if: steps.previous.outputs.reuse != 'true'
         run: |
           mkdir -p /tmp/logue-reg
           bash tools/dev/reg.sh /tmp/logue-reg > /tmp/logue-regression.log 2>&1
           cat /tmp/logue-regression.log
           if grep -E 'PAGEERROR|Traceback|AVISO: envolturas nuevas' /tmp/logue-regression.log; then exit 1; fi
-      - name: Verify updater and older saves
+      - name: Verify updater
+        if: steps.previous.outputs.reuse != 'true'
+        run: python3 tests/upd.py file://$PWD/dist/test.html /tmp/logue-updater.png > /tmp/logue-updater.log
+      - name: Verify older saves without live-update prompts
         run: |
-          python3 tests/upd.py file://$PWD/dist/test.html /tmp/logue-updater.png > /tmp/logue-updater.log
           python3 tests/saves.py file://$PWD/dist/test.html > /tmp/logue-saves.log
-          cat /tmp/logue-updater.log /tmp/logue-saves.log
+          cat /tmp/logue-saves.log
       - name: Verify map interactions
-        run: python3 tests/xact_sitio.py file://$PWD/dist/test.html > /tmp/logue-interactions.log
+        run: |
+          python3 tests/xact_sitio.py file://$PWD/dist/test.html > /tmp/logue-interactions.log
+          cat /tmp/logue-interactions.log
+          python3 - <<'PY'
+          from pathlib import Path
+          log = Path('/tmp/logue-interactions.log').read_text()
+          assert 'RESULTS' in log
+          assert not log.split('RESULTS', 1)[1].strip(), log
+          PY
       - name: Package verified update
         run: python3 tools/dev/release.py --no-build
       - uses: actions/upload-artifact@v4

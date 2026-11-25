@@ -32,12 +32,12 @@ with sync_playwright() as p, tempfile.TemporaryDirectory() as td:
         html = git('show', c + ':update/thebound.html')
         if not html: print(c, 'sin update/thebound.html'); continue
         f = os.path.join(td, c + '.html'); open(f, 'wb').write(html)
-        ctx = b.new_context(viewport={'width': 900, 'height': 500}); pg = ctx.new_page(); pe = []
+        ctx = b.new_context(viewport={'width': 900, 'height': 500}); ctx.route('https://raw.githubusercontent.com/**/update/version.json*', lambda route: route.abort()); pg = ctx.new_page(); pe = []
         pg.on('pageerror', lambda e: pe.append(str(e)[:200]))
         pg.goto('file://' + f); pg.wait_for_timeout(3000)
         pg.click('#tNew'); pg.wait_for_timeout(400); pg.fill('#ccName', 'Viejo'); pg.click('#ccGo'); pg.wait_for_timeout(1500); pg.click('#introOk'); pg.wait_for_timeout(500)
         old = pg.evaluate(OLD, 400); ctx.close()
-        ctx = b.new_context(viewport={'width': 900, 'height': 500}); pg = ctx.new_page(); pe2 = []
+        ctx = b.new_context(viewport={'width': 900, 'height': 500}); ctx.route('https://raw.githubusercontent.com/**/update/version.json*', lambda route: route.abort()); pg = ctx.new_page(); pe2 = []
         pg.on('pageerror', lambda e: pe2.append(str(e)[:200]))
         pg.goto(new); pg.wait_for_timeout(1500); pg.evaluate("(d)=>{ for(const k in d) localStorage.setItem(k,d[k]); return 1; }", old['dump'])
         pg.reload(); pg.wait_for_timeout(3000); pg.evaluate(HOOK)
