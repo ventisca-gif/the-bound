@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.17 · Arco de Loguetown · el patíbulo y el rayo</div>
+  <div class="tfoot">v6.18 · Smoker, el Jitte y la Fruta Humo Humo</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11911,7 +11911,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.17', GAME_BUILD = 238;
+const GAME_VER = '6.18', GAME_BUILD = 239;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11919,6 +11919,29 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.18",
+ "b": 239,
+ "d": "2026-11-25",
+ "es": [
+  "Smoker es ahora el jefe más fuerte de su nivel (612). Al bajar al 66 % y al 33 % se vuelve humo 10 s: tus golpes lo atraviesan y suelta anillos de humo.",
+  "Botín de Smoker con pity: Chaqueta, Vaquero y Botas del Cazador Blanco (25 %, seguras a las 12), adaptadas a los 10 cuerpos.",
+  "Jitte de Piedra Marina (12 %, seguro a las 10): el arma más fuerte por ahora, para todas las clases. Barrido con humo y, cada cuarto golpe, una estocada que inmoviliza.",
+  "Fruta Humo Humo (1 % de Smoker, segura a las 80; también aparece suelta por Dawn): Puño Blanco, Serpientes Blancas, Lanzador Blanco, Impulso Blanco (las piernas se vuelven humo) y Cuerpo de Humo (logia 10 s). Todo crece con tu nivel y tu ataque, y se combina con transformaciones.",
+  "Humo nuevo, como en el anime: nubes infladas con luz, sombra y rizos en la fruta, el Jitte y Smoker.",
+  "Técnicas de Luffy redibujadas: brazos de goma con brillo, puños con nudillos, palmas abiertas en la Bazuca y el pie en el Hacha.",
+  "PvP reequilibrado: todas las clases quedan igualadas."
+ ],
+ "en": [
+  "Smoker is now the strongest boss of his level (612). At 66% and 33% he turns into smoke for 10 s: your hits pass through him and he releases smoke rings.",
+  "Smoker loot with pity: White Hunter’s Jacket, Jeans and Boots (25%, guaranteed by 12), fitted to all 10 bodies.",
+  "Seastone Jitte (12%, guaranteed by 10): the strongest weapon so far, for every class. A smoky sweep and, every fourth hit, a thrust that pins enemies.",
+  "Smoke-Smoke Fruit (1% from Smoker, guaranteed by 80; it also appears around Dawn): White Blow, White Snake, White Launcher, White Jet (your legs turn to smoke) and Smoke Body (10 s Logia). Everything grows with your level and attack, and stacks with transformations.",
+  "New anime-style smoke: puffy clouds with light, shadow and curls on the fruit, the Jitte and Smoker.",
+  "Luffy’s techniques redrawn: shiny rubber arms, fists with knuckles, open palms on the Bazooka and the foot on the Axe.",
+  "PvP rebalanced: every class is evened out."
+ ]
+},
 {
  "v": "6.17",
  "b": 238,
@@ -16475,7 +16498,7 @@ function bufandinAtlas() {
 // - Multiplicador de daño PvP por clase (PVP_CLS) calculado con tools/dev/pvp.py --solve para que, a nivel máximo,
 //   todas las clases puedan hacerse frente.
 const PVP_HEAL = 0.4, PVP_WINDOW = 8, PVP_HEALC = { bardo: 0.12 };   // el Bardo cura muchísimo: en PvP sus curas cuentan menos que las del resto
-const PVP_CLS = { guerrero: 0.61, mago: 1.01, arquero: 1.15, asesino: 1.67, bardo: 0.6, invocador: 1.89, pez: 0.75 };   // tools/dev/pvp.py --solve (v5.78, nivel 600 con el equipo 37-43)
+const PVP_CLS = { guerrero: 0.56, mago: 1.06, arquero: 1.11, asesino: 1.65, bardo: 0.64, invocador: 1.98, pez: 0.72 };   // tools/dev/pvp.py --solve (v6.18, nivel 700; antes v5.78)
 function pvpActive() { const P = G.P; return !!(P && P.pvpT && G.t - P.pvpT < PVP_WINDOW); }
 { const _ph = pvpHit; pvpHit = function (r, dmg) { const P = G.P; if (P) P.pvpT = G.t; return _ph(r, dmg * (PVP_CLS[P && P.cls] || 1)); }; }
 { const _hp = hurtPlayer; hurtPlayer = function (base, src) { if (src && src.pvp && G.P) G.P.pvpT = G.t; return _hp(base, src); }; }
@@ -52809,7 +52832,7 @@ function crewTechniqueAttack(M,e,m,foes,live,boost=1,floor=.22){
  for(let j=0;j<hits;j++){
   const delay=.24+j*.49/hits;
   const x=e.x,y=e.y-13,endX=m.x,endY=m.y-12;
-  addFx({type:'crewTechnique',x,y,endX,endY,angle,mode,col,delay,j,dur:delay+.25,tick:delay,cbTick(f){
+  addFx({type:'crewTechnique',x,y,endX,endY,angle,mode,col,delay,j,tech:best,hits,dur:delay+.25,tick:delay,cbTick(f){
    if(f.fired||!live()||e.remove||e.hp===0||m.dying||m.remove)return;
    f.fired=true;
    if(d2(e,m)>(reach+18)**2)return;
@@ -52832,9 +52855,16 @@ function crewTechniqueAttack(M,e,m,foes,live,boost=1,floor=.22){
   ctx.fillRect(xx-2,yy-2,4,4);
   if(f.fired&&f.mode==='powder'){ctx.beginPath();ctx.arc(ex,ey,7+(f.t-f.delay)*65,0,Math.PI*2);ctx.stroke();}
  }else if(f.mode==='rubber'||f.mode==='axe'){
-  const z=f.mode==='axe',xx=lerp(x,ex,progress),yy=lerp(y,ey,progress)-Math.sin(progress*Math.PI)*(z?41:5)+Math.sin(f.j*2)*5;
-  ctx.lineWidth=z?7:4;ctx.beginPath();ctx.moveTo(x,y);ctx.quadraticCurveTo(lerp(x,xx,.5),z?yy-18:yy,xx,yy);ctx.stroke();
-  ctx.fillRect(xx-4,yy-4,8,8);
+  // 6.18: brazos y pierna de goma de verdad (Sergio: «esos puños se ven raros»): tubo de piel con contorno y brillo,
+  // puño con nudillos, palmas abiertas en la Bazuca, pie con sandalia en el Hacha y líneas de velocidad.
+  ctx.restore();ctx.save();ctx.globalAlpha=1-Math.max(0,f.t-f.delay)/.27;
+  const z=f.mode==='axe',tech=f.tech|0,gat=tech===1&&!z,baz=tech===2&&!z;
+  const side=baz?(f.j?4:-4):gat?Math.sin(f.j*2.7)*7:0,ang=Math.atan2(ey-y,ex-x),nx=-Math.sin(ang),ny=Math.cos(ang);
+  const x0=x+nx*side,y0=y+ny*side,xx=lerp(x0,ex+nx*side,progress),yy=lerp(y0,ey+ny*side,progress)-Math.sin(progress*Math.PI)*(z?41:5);
+  const cx1=lerp(x0,xx,.5),cy1=z?yy-22:yy-3,thick=z?6:gat?3:4;
+  rubberLimb(x0,y0,cx1,cy1,xx,yy,thick);
+  if(z)rubberFoot(xx,yy,ang);else if(baz)rubberPalm(xx,yy,ang);else rubberFist(xx,yy,ang,gat?3.6:tech===4?5.5:4.8);
+  if(progress>.35&&!z){ctx.strokeStyle='rgba(255,245,225,.8)';ctx.lineWidth=1;ctx.beginPath();for(let k=-1;k<=1;k++){const bx=xx-Math.cos(ang)*(9+Math.abs(k)*3)+nx*k*4,by=yy-Math.sin(ang)*(9+Math.abs(k)*3)+ny*k*4;ctx.moveTo(bx,by);ctx.lineTo(bx-Math.cos(ang)*8,by-Math.sin(ang)*8);}ctx.stroke();}
  }else{
   const a=f.angle+(progress-.5)*1.6+Math.sin(f.j*2)*.21,r=f.mode==='kick'?42:53;
   ctx.lineWidth=f.mode==='kick'?3:2;ctx.beginPath();ctx.ellipse(x,y,r,r*.6,a,a-1,a+.83);ctx.stroke();
@@ -52852,6 +52882,49 @@ DAWN_CREW_TOPICS[SHELLS_CAST_IDS.zoro].push(
  ['Cuándo cruzar las espadas','When to cross swords','Déjame sitio al entrar. Si el otro se aparta, sigo con un corte corto sin quedarme vendido.','Give me room on the way in. If they step aside I follow with a short cut to stay covered.']);
 DAWN_CREW_TOPICS[SYRUP_USOPP].push(
  ['Disparo de cobertura','Covering shot','Yo puedo tirar desde atrás mientras tú avanzas. Avísame si vas a cambiar de lado.','I can shoot from behind while you advance. Let me know if you’re changing sides.']);
+
+// ---------- 6.18: dibujo de goma de Luffy (brazos, puños, palmas y pie) ----------
+const RUB={line:'#3b2416',skin:'#f2c79a',shade:'#d0996a',light:'#fde4c4',sole:'#6a4426',strap:'#c8402e'};
+function rubberLimb(x0,y0,cx,cy,x1,y1,w){
+ const path=()=>{ctx.beginPath();ctx.moveTo(x0,y0);ctx.quadraticCurveTo(cx,cy,x1,y1);};
+ ctx.lineCap='round';path();ctx.strokeStyle=RUB.line;ctx.lineWidth=w+2;ctx.stroke();
+ path();ctx.strokeStyle=RUB.shade;ctx.lineWidth=w;ctx.stroke();
+ ctx.save();ctx.translate(-.6,-.8);path();ctx.strokeStyle=RUB.skin;ctx.lineWidth=Math.max(1,w-1.4);ctx.stroke();ctx.restore();
+ ctx.save();ctx.translate(-.8,-1.4);path();ctx.strokeStyle=RUB.light;ctx.lineWidth=1;ctx.stroke();ctx.restore();
+}
+function rubberFist(x,y,a,r){
+ ctx.save();ctx.translate(x,y);ctx.rotate(a);
+ ctx.fillStyle=RUB.line;ctx.beginPath();ctx.ellipse(0,0,r+1.2,r*.92+1.2,0,0,7);ctx.fill();
+ ctx.fillStyle=RUB.shade;ctx.beginPath();ctx.ellipse(0,0,r,r*.92,0,0,7);ctx.fill();
+ ctx.fillStyle=RUB.skin;ctx.beginPath();ctx.ellipse(-.5,-.7,r*.8,r*.72,0,0,7);ctx.fill();
+ // nudillos al frente y el pulgar doblado encima
+ ctx.fillStyle=RUB.line;for(let k=-1;k<=2;k++)ctx.fillRect(Math.round(r*.45),Math.round(-r*.75+k*r*.42),1,1);
+ ctx.strokeStyle=RUB.line;ctx.lineWidth=.8;ctx.beginPath();for(let k=0;k<3;k++){const yy=-r*.55+k*r*.42;ctx.moveTo(r*.05,yy);ctx.lineTo(r*.62,yy);}ctx.stroke();
+ ctx.fillStyle=RUB.skin;ctx.fillRect(-r*.4,-r*.95,r*.75,r*.32);ctx.strokeStyle=RUB.line;ctx.strokeRect(-r*.4,-r*.95,r*.75,r*.32);
+ ctx.fillStyle=RUB.light;ctx.fillRect(-r*.45,-r*.5,1.2,1.2);
+ ctx.restore();
+}
+function rubberPalm(x,y,a){
+ // palma abierta y redonda empujando hacia delante, con los cuatro dedos juntos y el pulgar arriba
+ ctx.save();ctx.translate(x,y);ctx.rotate(a);
+ ctx.fillStyle=RUB.line;ctx.beginPath();ctx.ellipse(0,0,5.6,6.4,0,0,7);ctx.fill();
+ for(let k=0;k<4;k++){ctx.beginPath();ctx.ellipse(5.2,-3.6+k*2.4,3.2,1.5,0,0,7);ctx.fill();}
+ ctx.beginPath();ctx.ellipse(1,-6.4,2.6,1.6,-.6,0,7);ctx.fill();
+ ctx.fillStyle=RUB.shade;ctx.beginPath();ctx.ellipse(0,0,4.6,5.4,0,0,7);ctx.fill();
+ ctx.fillStyle=RUB.skin;ctx.beginPath();ctx.ellipse(-.6,-.6,3.6,4.3,0,0,7);ctx.fill();
+ for(let k=0;k<4;k++){ctx.beginPath();ctx.ellipse(5,-3.8+k*2.4,2.4,.8,0,0,7);ctx.fill();}
+ ctx.beginPath();ctx.ellipse(1,-6.4,1.8,.9,-.6,0,7);ctx.fill();
+ ctx.fillStyle=RUB.light;ctx.fillRect(-2,-2.5,1.2,1.2);
+ ctx.restore();
+}
+function rubberFoot(x,y,a){
+ ctx.save();ctx.translate(x,y);
+ ctx.fillStyle=RUB.line;ctx.beginPath();ctx.ellipse(0,1,7.5,4.5,0,0,7);ctx.fill();
+ ctx.fillStyle=RUB.skin;ctx.beginPath();ctx.ellipse(-.5,0,6.2,3.4,0,0,7);ctx.fill();
+ ctx.fillStyle=RUB.sole;ctx.fillRect(-7,3.2,14,2);ctx.fillStyle=RUB.strap;ctx.fillRect(-2,-2.6,2,3.6);
+ ctx.fillStyle=RUB.line;for(let k=0;k<4;k++)ctx.fillRect(3+k*.9,-2.4+k*.4,.8,.8);
+ ctx.restore();
+}
 
 const MERRY_DECK_X=104,MERRY_DECK_MIN_Y=-1,MERRY_DECK_MAX_Y=21;
 function merryDeck(P=G.P){
@@ -53577,7 +53650,7 @@ const CX_SHANKS_AT = [527, 252];
     cxMark(P.baratieSanji) + L2('7. Baratie: duelo de Zoro con Mihawk y defensa del restaurante: ', '7. Baratie: Zoro’s duel with Mihawk and defence of the restaurant: ') + cxBoss('baratie_pearl') + ' → ' + cxBoss('baratie_gin') + ' → ' + cxBoss('baratie_krieg') + L2('. Sanji se une.', '. Sanji joins.'),
     cxMark(cxWon(SH_BOSS)) + L2('8. Nivel 600 · Villa Foosha: duelo con ', '8. Level 600 · Foosha Village: duel with ') + cxBoss(SH_BOSS) + L2(' (Engranaje 2, conjunto de Pirata de Paja y su ropa).', ' (Gear 2, Straw Pirate set and his clothes).'),
     cxMark(cxConomiDone(P)) + L2('9. Islas Conomi · Arlong Park: ', '9. Conomi Islands · Arlong Park: ') + cxBoss('con_hatchan') + L2(' (Zoro) → ', ' (Zoro) → ') + cxBoss('con_kuroobi') + L2(' (Sanji) → ', ' (Sanji) → ') + cxBoss('con_chew') + L2(' (Usopp) → ', ' (Usopp) → ') + cxBoss('con_arlong') + L2(' (tú y Luffy). Es el jefe más fuerte del Mar de Dawn.', ' (you and Luffy). The strongest boss of the Dawn Sea.'),
-    cxMark((P.logueArcN || 0) >= 1) + L2('10. Loguetown (612, repetible): habla con Luffy en la plaza (o con Smoker). Tú y Luffy contra Smoker → Smoker sube a Luffy al patíbulo con Buggy → aguanta 2 minutos a la Marina con la tripulación → el rayo. Zoro, Ipponmatsu y Tashigi están en la armería; Smoker también da 3 desafíos del puerto.', '10. Loguetown (612, repeatable): talk to Luffy in the square (or Smoker). You and Luffy versus Smoker → Smoker takes Luffy up the scaffold with Buggy → hold off the Navy for 2 minutes with the crew → the lightning. Zoro, Ipponmatsu and Tashigi are in the arms shop; Smoker also gives 3 harbor challenges.'),
+    cxMark((P.logueArcN || 0) >= 1) + L2('10. Loguetown (612, repetible): habla con Luffy en la plaza (o con Smoker). Tú y Luffy contra Smoker → Smoker sube a Luffy al patíbulo con Buggy → aguanta 2 minutos a la Marina con la tripulación → el rayo. Zoro, Ipponmatsu y Tashigi están en la armería; Smoker también da 3 desafíos del puerto. Botín de Smoker: su ropa (25 %), el Jitte de Piedra Marina (12 %) y la Fruta Humo Humo (1 %), todo con pity.', '10. Loguetown (612, repeatable): talk to Luffy in the square (or Smoker). You and Luffy versus Smoker → Smoker takes Luffy up the scaffold with Buggy → hold off the Navy for 2 minutes with the crew → the lightning. Zoro, Ipponmatsu and Tashigi are in the arms shop; Smoker also gives 3 harbor challenges. Smoker’s loot: his clothes (25%), the Seastone Jitte (12%) and the Smoke-Smoke Fruit (1%), all with pity.'),
     L2('Puedes repetir cada arco hablando con su personaje al terminarlo (por ejemplo, Nojiko en Cocoyashi).', 'You can replay each arc by talking to its character once it is done (for example, Nojiko in Cocoyashi).')]; };
   route[3] = () => { const P = G.P; if (!P) return null;
     if (!P.baratieSanji) return prevNext();
@@ -54344,8 +54417,7 @@ function logueSmokerStrike(A, m, mode, target) {
   telegraph({ shape: 'circle', x, y, r, dur: t, col: mode === 'humo' ? '#e8eef055' : '#c8d0d855' });
   addFx({ type: 'custom', x, y: y - 8, dur: t + 0.5, draw: (f, sx, sy, k) => {
     if (f.t < t) return; const q = (f.t - t) / 0.5;
-    ctx.fillStyle = `rgba(240,244,246,${(0.75 * (1 - q)).toFixed(2)})`;
-    for (let i = 0; i < 9; i++) { const an = i * 0.7 + q * 2, rr = r * (0.3 + q * 0.75) * (0.6 + (i % 3) * 0.2); ctx.beginPath(); ctx.arc(sx + Math.cos(an) * rr, sy + Math.sin(an) * rr * 0.6, 7 + q * 9, 0, 7); ctx.fill(); }
+    smokeCloud(smokeBlob(sx, sy, r * (0.5 + q * 0.6), r * 0.55 * (0.5 + q * 0.6), 9, 7 + q * 7, f.t, 2), 0.95 * (1 - q * q));
     if (!f.fired) { f.fired = true;
       if (!A || G.map.logueArc !== A || m.dying || m.remove) return;
       for (const e of [G.P, ...A.crew]) { if (!(e.hp > 0) || dist2(e.x, e.y, x, y) > r * r) continue;
@@ -54443,7 +54515,7 @@ function logueArcTick(M, A, dt) {
     const s = A.smoker, l = A.luffy;
     if (A.beat === 0) { A.beat++; logueSay(s, 'Ganaste la pelea… pero esta ciudad es mía.', 'You won the fight… but this town is mine.'); }
     if (A.beat === 1 && t > 2.2) { A.beat++; setAnim(s, 'atk'); logueSay(s, '¡Humo blanco!', 'White smoke!');
-      addFx({ type: 'custom', x: l.x, y: l.y - 10, dur: 1.2, draw: (f, x, y, k) => { ctx.fillStyle = `rgba(240,244,246,${(0.85 * (1 - k * 0.6)).toFixed(2)})`; for (let i = 0; i < 10; i++) { const an = i * 0.63 + k * 3; ctx.beginPath(); ctx.arc(x + Math.cos(an) * (10 + k * 14), y + Math.sin(an) * (6 + k * 8), 8 + k * 6, 0, 7); ctx.fill(); } } }); }
+      addFx({ type: 'custom', x: l.x, y: l.y - 10, dur: 1.2, draw: (f, x, y, k) => smokeCloud(smokeBlob(x, y, 14 + k * 16, 16 + k * 14, 10, 7 + k * 5, f.t, 3), 1 - k * 0.4) }); }
     if (A.beat === 2 && t > 3.6) { A.beat++;
       transition(() => {
         for (const e of A.crew) e.remove = true; A.crew = [];
@@ -54637,6 +54709,386 @@ hookAfter('updateCamera', () => {
   const [, sy] = logueScaffoldPx(), P = G.P;
   G.cam.y = Math.max(P.y + 22 - VH, Math.min(G.cam.y, sy - 205));
 });
+
+// 6.18 · Smoker más difícil, su botín y la Fruta Humo Humo.
+// Sergio: «Smoker debería ser el jefe más difícil con ese nivel y que tenga drops: parte de su ropa (adaptada a los
+// cuerpos), con pity y probabilidad; su arma (un bastón raro) la más fuerte por ahora, todas las clases con animación y
+// VFX; 1 % de su fruta (Humo Humo); en la pelea 10 s de logia; la fruta también sale por todo Dawn; 4 habilidades:
+// puño de humo, logia 10 s, el cuerpo de humo que hace daño, combinaciones… según tu nivel y tu poder».
+// Ropa: chaqueta blanca abierta con cuello y puños de pelo verde y guantes marrones, vaquero azul y botas altas de cordones.
+
+// ---------- humo dibujado como en el anime: nubes infladas en 4 pasadas (contorno, sombra, cuerpo y brillo) y rizos ----------
+// smokeCloud(bolas, alfa): cada bola [x, y, r] en pantalla. Se dibujan juntas para que el contorno solo quede por fuera.
+const SMK = { line: '#76829a', shade: '#a9b4c6', body: '#e6ebf1', light: '#ffffff', curl: '#b9c3d2' };
+function smokeCloud(balls, a, curls) {
+  if (!balls.length || a <= 0.01) return;
+  ctx.save(); ctx.globalAlpha = Math.min(1, a);
+  const pass = (col, dr, ox, oy, k) => { ctx.fillStyle = col; ctx.beginPath(); for (const [x, y, r] of balls) { const R = Math.max(0.5, r * k + dr); ctx.moveTo(x + ox + R, y + oy); ctx.arc(x + ox, y + oy, R, 0, 7); } ctx.fill(); };
+  pass(SMK.line, 1.2, 0, 0, 1); pass(SMK.shade, 0, 0.6, 0.9, 1); pass(SMK.body, 0, -0.4, -0.7, 0.86);
+  ctx.fillStyle = SMK.light; ctx.beginPath(); for (const [x, y, r] of balls) if (r > 3) { const R = r * 0.36; ctx.moveTo(x - r * 0.32 + R, y - r * 0.38); ctx.arc(x - r * 0.32, y - r * 0.38, R, 0, 7); } ctx.fill();
+  if (curls !== false) { ctx.strokeStyle = SMK.curl; ctx.lineWidth = 1; ctx.beginPath();
+    balls.forEach(([x, y, r], i) => { if (r < 6 || i % 2) return; const a0 = (i * 1.7) % 6.28; ctx.moveTo(x + Math.cos(a0) * r * 0.45, y + Math.sin(a0) * r * 0.45); ctx.arc(x, y + r * 0.08, r * 0.45, a0, a0 + 3.6); }); ctx.stroke(); }
+  ctx.restore();
+}
+// bolas de una nube que respira alrededor de (x, y): n bolas en un óvalo de ancho w y alto h
+function smokeBlob(x, y, w, h, n, r, t, seed) {
+  const out = []; seed = seed || 0;
+  for (let i = 0; i < n; i++) { const a = i / n * 6.283 + seed, wob = Math.sin(t * 2.4 + i * 1.3 + seed) * 0.12;
+    out.push([x + Math.cos(a) * w * (0.55 + 0.25 * Math.sin(i * 2.1 + seed)), y + Math.sin(a) * h * 0.55, r * (0.75 + 0.35 * ((i * 37 + seed * 11) % 7) / 7 + wob)]); }
+  out.push([x, y, r * 1.15]); return out;
+}
+// estela: bolas a lo largo de una línea (de (x0,y0) a (x1,y1)) que crecen hacia el final
+function smokeTrail(x0, y0, x1, y1, n, r0, r1, t, seed) {
+  const out = []; for (let i = 0; i <= n; i++) { const k = i / n, w = Math.sin(t * 5 + i * 1.7 + (seed || 0)) * 2.2;
+    out.push([x0 + (x1 - x0) * k - (y1 - y0) / Math.hypot(x1 - x0 || 1, y1 - y0) * w, y0 + (y1 - y0) * k + (x1 - x0) / Math.hypot(x1 - x0 || 1, y1 - y0) * w, r0 + (r1 - r0) * k]); }
+  return out;
+}
+function smokeFx(x, y, w, h, n, r, dur, o) {
+  o = o || {}; addFx({ type: 'custom', x, y, dur, ground: !!o.ground, draw: (f, sx, sy, k) => {
+    const grow = 0.6 + 0.6 * Math.min(1, k * 2.5), up = (o.rise || 0) * k;
+    smokeCloud(smokeBlob(sx, sy - up, w * grow, h * grow, n, r * grow, f.t, f.seed), (o.a || 0.95) * (1 - Math.max(0, (k - 0.55) / 0.45))); }, seed: Math.random() * 6 });
+}
+
+// ---------- 1) Smoker: el jefe más difícil de su nivel ----------
+// Arlong (605): vida 68, ataque 4,3, defensa 3,85, reto ×2,03. Shanks (600): 80 / 4,4 / 4,0.
+Object.assign(BOSSES.logue_arc_smoker, { hp: 84, atk: 4.5, def: 4.05, spd: 92 });
+if (typeof DAWN_RETO === 'object') DAWN_RETO.logue_arc_smoker = 2.15;
+const SM_LOGIA_S = 10;
+const smIsBoss = m => m && m.mid === 'logue_arc_smoker' && !m.dying;
+function smLogiaOn(m) { return smIsBoss(m) && (m.smLogiaUntil || 0) > G.t; }
+// al bajar al 66 % y al 33 % se vuelve humo 10 s: los golpes lo atraviesan y suelta anillos de humo
+hookBefore('updateBoss', (m) => {
+  if (!smIsBoss(m)) return;
+  const k = m.hp / m.maxhp;
+  if ((!m.smL1 && k < 0.66) || (!m.smL2 && k < 0.33)) {
+    if (k < 0.33) m.smL2 = 1; m.smL1 = 1; m.smLogiaUntil = G.t + SM_LOGIA_S; m.smRing = G.t + 1.2;
+    shellsRescueSpeak(m, '¡Logia! Mientras sea humo, no me tocas.', 'Logia! While I’m smoke, you can’t touch me.');
+    banner('💨 ' + L2('Smoker se vuelve humo', 'Smoker turns into smoke'), L2('10 s: los golpes lo atraviesan. ¡Aléjate de los anillos!', '10 s: attacks pass through him. Stay away from the rings!'));
+    burst(m.x, m.y - 20, 30, { sp: 90, up: 30, life: 0.7, c: ['#f0f4f6', '#c8d0d8', '#ffffff'] });
+  }
+  if (smLogiaOn(m) && G.t > (m.smRing || 0)) {
+    m.smRing = G.t + 1.6; const x = m.x, y = m.y, r = 74;
+    telegraph({ shape: 'circle', x, y, r, dur: 0.7, col: '#e8eef055' });
+    addFx({ type: 'custom', x, y: y - 6, dur: 1.2, draw: (f, sx, sy, k) => {
+      if (f.t < 0.7) return; const q = (f.t - 0.7) / 0.5;
+      const ring = []; for (let i = 0; i < 16; i++) { const an = i * 0.393 + q; ring.push([sx + Math.cos(an) * r * (0.55 + q * 0.45), sy + Math.sin(an) * r * 0.55 * (0.55 + q * 0.45), 7 + q * 5 + (i % 3) * 1.5]); }
+      smokeCloud(ring, 0.95 * (1 - q * q));
+      if (!f.fired) { f.fired = true; const P = G.P, A = G.map && G.map.logueArc; if (!A || m.dying || m.remove) return;
+        if (!P.dead && dist2(P.x, P.y, x, y) < r * r) hurtPlayer(m.atk * 0.8, { lv: m.lv, dawnReto: m });
+        for (const e of A.crew || []) if (e.hp > 0 && dist2(e.x, e.y, x, y) < r * r) shellsHurtAlly(e, m.atk * 0.5, m.lv); }
+    } });
+  }
+});
+hookBefore('hitMob', (m) => {
+  if (!smLogiaOn(m)) return;
+  if (!m.smMissT || G.t - m.smMissT > 0.5) { m.smMissT = G.t; floatText(m.x, m.y - 56, L2('LOGIA', 'LOGIA'), '#e8eef0'); burst(m.x, m.y - 24, 6, { sp: 50, up: 20, life: 0.4, c: ['#f0f4f6', '#c8d0d8'] }); }
+  return HOOK_SKIP;
+});
+// humo alrededor de Smoker mientras es logia
+DL_HOOKS.push((list, cx, cy) => {
+  const A = G.map && G.map.logueArc, m = A && A.boss; if (!smLogiaOn(m)) return;
+  list.push({ type: 'xdraw', x: m.x, y: m.y + 3, noShadow: true, draw: () => {
+    const x = m.x - cx, y = m.y - cy, left = Math.max(0, m.smLogiaUntil - G.t) / SM_LOGIA_S;
+    ctx.save();
+    smokeCloud(smokeBlob(x, y - 8, 26, 14, 9, 8, G.t, 1), 0.9);                       // las piernas son humo
+    smokeCloud(smokeBlob(x + Math.sin(G.t * 1.3) * 6, y - 40, 20, 26, 8, 6, G.t, 3), 0.42);   // el cuerpo humea
+    for (let i = 0; i < 3; i++) { const k = (G.t * 0.7 + i / 3) % 1; smokeCloud(smokeBlob(x + Math.sin(i * 2 + G.t) * 10, y - 56 - k * 40, 8 + k * 8, 6 + k * 6, 5, 4 + k * 4, G.t, i), 0.6 * (1 - k)); }
+    ctx.fillStyle = 'rgba(20,24,32,.6)'; ctx.fillRect(x - 15, y - 78, 30, 3); ctx.fillStyle = '#e8eef0'; ctx.fillRect(x - 15, y - 78, Math.round(30 * left), 3);
+    ctx.restore();
+  } });
+});
+
+// ---------- 2) ropa de Smoker (cosméticos que se adaptan a las 10 estructuras) ----------
+const SMR = {
+  blanco: P5(['#8e949c', '#bcc2c8', '#dfe3e6', '#f1f3f4', '#ffffff']),
+  pelo: [C('#1a3420'), C('#28492c'), C('#3a6340'), C('#527d52'), C('#6f9a68')],
+  forro: [C('#1c2850'), C('#2c3e76')],
+  guante: [C('#3a2614'), C('#5a3c22'), C('#7a5632')],
+  cinto: [C('#3a2416'), C('#5e3e24')], hebilla: C('#d8b860'),
+  puro: [C('#6a4426'), C('#94643a'), C('#e8e4dc')],
+  vaquero: P5(['#10182e', '#1a2748', '#253866', '#344c84', '#4c66a2']),
+  bota: P5(['#22170e', '#3a281a', '#523a26', '#6c5036', '#88684a']),
+  top: [C('#141c34'), C('#1e2a4c')]
+};
+const smSkin = (A, s) => { const S = (s && s.sk) || A.sk || SKINS[0]; return Array.from(S).map(c => typeof c === 'string' ? C(c) : c); };
+const smFur = (p, x, y, k) => p.set(x, y, SMR.pelo[1 + ((x * 3 + y + k) % 4 === 0 ? 2 : (x + y) % 3 === 0 ? 0 : 1)]);
+// --- chaqueta blanca abierta: pecho al aire (en mujer, un top azul), borde azul, cuello de pelo verde y cinturón ---
+fitKind('body', 'sm_chaqueta', (p, A, s) => {
+  const { tx0, tw, torsoTop: ty, th, cx, side, up, d, fem } = A, m = s.m, S = smSkin(A, s), R = tx0 + tw - 1, waist = ty + th - 1;
+  for (let y = ty + 1; y < waist; y++) { p.set(tx0, y, m[side ? 2 : 3]); p.set(R, y, m[1]); }
+  if (up) {
+    for (let y = ty + 2; y < waist - 1; y++) p.set(Math.round(cx - 0.5), y, m[2]);
+    for (let x = tx0 - 1; x <= R + 1; x++) { smFur(p, x, ty - 1, 0); smFur(p, x, ty, 1); }
+  } else if (side) {
+    const fx = Math.round(cx + d * (tw / 2 - 1));
+    for (let y = ty + 1; y < waist; y++) { p.set(fx, y, fem && y < ty + Math.round(th * 0.55) ? SMR.top[1] : S[y % 2 ? 2 : 1]); p.set(fx - d, y, SMR.forro[1]); }
+    p.set(fx, waist - 1, SMR.cinto[1]); p.set(fx - d, waist - 1, SMR.cinto[0]);
+    for (let k = 0; k < 4; k++) { smFur(p, cx - d * (k - 1), ty - 1, k); smFur(p, cx - d * (k - 1), ty, k + 1); }
+  } else {
+    const hw = Math.max(1, Math.round(tw * 0.17));
+    for (let y = ty + 1; y < waist; y++) {
+      for (let x = Math.round(cx - hw - 0.5); x <= Math.round(cx + hw - 0.5); x++) {
+        let c = S[2];
+        if (fem && y < ty + Math.round(th * 0.6)) c = SMR.top[(x + y) % 3 ? 1 : 0];
+        else if (!fem && y > ty + 2 && (y - ty) % 2 === 1) c = S[1];          // abdominales
+        else if (!fem && x === Math.round(cx - 0.5) && y > ty + 2) c = S[1];
+        p.set(x, y, c);
+      }
+      p.set(Math.round(cx - hw - 1.5), y, SMR.forro[1]); p.set(Math.round(cx + hw + 0.5), y, SMR.forro[0]);
+    }
+    // cinturón con hebilla dorada en el hueco
+    for (let x = Math.round(cx - hw - 0.5); x <= Math.round(cx + hw - 0.5); x++) p.set(x, waist - 1, SMR.cinto[x % 2]);
+    p.set(Math.round(cx - 0.5), waist - 1, SMR.hebilla);
+    // cuello de pelo verde, ancho y que baja por las solapas
+    for (let x = tx0 - 1; x <= R + 1; x++) { smFur(p, x, ty - 1, 0); smFur(p, x, ty, 1); }
+    for (let y = ty + 1; y < ty + Math.max(3, Math.round(th * 0.4)); y++) { smFur(p, Math.round(cx - hw - 2.5), y, 2); smFur(p, Math.round(cx + hw + 1.5), y, 3); }
+    // dobladillo blanco con un adorno oscuro a cada lado
+    p.set(tx0 + 1, waist, m[1]); p.set(R - 1, waist, m[1]);
+  }
+}, { skin: true });
+// --- vaquero azul que se mete en botas altas: las últimas filas de la pierna son la caña de la bota con cordones ---
+fitKind('legs', 'sm_vaquero', (p, A, s) => {
+  const { legTop, base } = A, m = s.m, cols = new Set(m), B = SMR.bota;
+  let last = -1; for (let y = legTop; y < base; y++) for (let x = 0; x < p.w; x++) if (cols.has(p.get(x, y))) last = y;
+  if (last < 0) return; const cuff = Math.max(legTop + 2, last - 2);
+  for (let y = legTop; y <= last; y++) for (let x = 0; x < p.w; x++) { const c = p.get(x, y); if (!cols.has(c)) continue; const k = m.indexOf(c);
+    if (y >= cuff) { p.set(x, y, y === cuff ? B[3] : ((x + y) % 2 ? B[2] : B[1])); continue; }
+    if (y === cuff - 1) p.set(x, y, m[Math.max(0, k - 1)]);    // vuelta del pantalón
+    else if ((x * 5 + y * 3) % 11 === 0) p.set(x, y, m[Math.min(4, k + 1)]);   // brillo del vaquero
+  }
+});
+// guantes marrones, puños de pelo verde y el cinturón de puros en el brazo izquierdo
+hookAfter('drawHero', (r, p, L) => {
+  const T = L && L.top; if (!T || T.k !== 'sm_chaqueta' || !p.t || !p.meta) return;
+  const A = p.meta, M = T.m, rows = {};
+  for (let i = 0; i < p.d.length; i++) if (p.t[i] === 3 && M.indexOf(p.d[i]) >= 0) { const y = (i / p.w) | 0; (rows[y] = rows[y] || []).push(i); }
+  const ys = Object.keys(rows).map(Number).sort((a, b) => b - a);
+  if (!ys.length) return;
+  ys.slice(0, 2).forEach((y, k) => { for (const i of rows[y]) p.d[i] = SMR.guante[k ? 2 : 1]; });
+  if (ys[2] !== undefined) for (const i of rows[ys[2]]) smFur(p, i % p.w, ys[2], 0);
+  if (!A.up) { const yb = A.torsoTop + 2;
+    for (const y of [yb, yb + 1]) for (const i of rows[y] || []) { const x = i % p.w; if (A.side ? true : x < A.cx) p.d[i] = y === yb ? SMR.puro[(x % 2)] : SMR.puro[2]; } }
+});
+hookAfter('heroLook', (L) => {
+  if (!L) return; const SK = Array.from(L.skin || SKINS[0]).map(c => typeof c === 'string' ? C(c) : c);
+  if (L.top && L.top.k === 'sm_chaqueta') L.top = Object.assign({}, L.top, { sk: SK });
+});
+const SM_SRC = L2('Smoker (arco de Loguetown, nivel 612): 25 % por victoria, segura a las 12', 'Smoker (Loguetown arc, level 612): 25% per win, guaranteed by the 12th');
+cosm('c_sm_chaqueta', L2('Chaqueta del Cazador Blanco', 'White Hunter’s Jacket'), 'body', () => ({ k: 'sm_chaqueta', m: SMR.blanco, s: SMR.blanco }), { src: SM_SRC });
+cosm('c_sm_vaquero', L2('Vaquero del Cazador Blanco', 'White Hunter’s Jeans'), 'legs', () => ({ k: 'sm_vaquero', m: SMR.vaquero, s: SMR.vaquero }), { src: SM_SRC });
+cosm('c_sm_botas', L2('Botas de Cordones del Cazador Blanco', 'White Hunter’s Laced Boots'), 'feet', () => ({ k: 'boots', m: SMR.bota }), { src: SM_SRC });
+const SM_COS = ['c_sm_chaqueta', 'c_sm_vaquero', 'c_sm_botas'];
+for (const id of SM_COS) it('cosi_' + id, { n: COSM[id].n, t: 'cos', cos: id, price: 45000, icon: ['hanger'], rar: 5, d: L2('Cosmético de la ropa de Smoker. ', 'Cosmetic from Smoker’s clothes. ') + SM_SRC + '.' });
+
+// ---------- 3) Jitte de Piedra Marina: el arma más fuerte (todas las clases) ----------
+const SM_JITTE = 'w_sm_jitte';
+const smJitteAtk = (() => { let best = 0; for (const it of Object.values(ITEMS)) if (it.t === 'weapon' && it.id !== SM_JITTE && Number.isFinite(it.atk)) best = Math.max(best, it.atk); return Math.round((best || 2361) * 1.05); })();
+it(SM_JITTE, { n: L2('Jitte de Piedra Marina', 'Seastone Jitte'), t: 'weapon', slot: 'weapon', lv: 612, tier: 44, atk: smJitteAtk, price: 90000, icon: ['sm_jitte'], rar: 5, buggyClaws: true, smJitte: true,
+  d: L2('Bastón largo de punta roma con una horquilla junto a la empuñadura. El arma más fuerte por ahora, para todas las clases (nivel 612). Cada golpe es un barrido con estela de humo; cada cuarto golpe, «Piedra Marina»: una estocada en línea (×1,9) que inmoviliza a los enemigos comunes.',
+    'A long blunt staff with a fork by the grip. The strongest weapon so far, for every class (level 612). Each attack is a sweep with a smoke trail; every fourth attack, “Seastone”: a line thrust (×1.9) that pins ordinary enemies.') });
+// icono (16 px) y arma en la mano (más larga)
+function smJittePix(n) {
+  const p = new Pix(n, n), S = [C('#5a6470'), C('#9aa6b0'), C('#d8e0e6'), C('#ffffff')], W = [C('#7a6a5a'), C('#cfc6b8')];
+  const L = n - 3; for (let i = 0; i < L; i++) { const x = 2 + i, y = n - 3 - i; p.set(x, y, S[1]); p.set(x + 1, y, S[2]); if (i % 5 === 0) p.set(x, y - 1, S[3]); }
+  for (let i = 0; i < Math.round(n * 0.25); i++) { const x = 2 + i, y = n - 3 - i; p.set(x, y, W[i % 2]); p.set(x + 1, y, W[(i + 1) % 2]); }   // mango con cinta
+  const f = Math.round(n * 0.3); for (let i = 0; i < Math.round(n * 0.32); i++) p.set(2 + f + i + 1, n - 3 - f + 1 - i + 2, S[2]);   // horquilla
+  p.set(n - 2, 1, S[3]); p.outline(OUTL, false); return p;
+}
+const SM_JITTE_ICON = smJittePix(16);   // drawSpriteRot solo lee sprites de 16 px
+hookAround('genIcon', (next, spec) => spec && spec[0] === 'sm_jitte' ? SM_JITTE_ICON : next(spec));
+hookAfter('gearTiers', (out, P) => { if (out && P && P.equip && P.equip.weapon && P.equip.weapon.id === SM_JITTE) { out.jit = 1; delete out.bcl; delete out.kcl; } });
+hookAfter('cleanGear', (out, g) => { if (out && g && g.jit === 1) out.jit = 1; });
+hookAfter('heroLook', (L, cls, app, gear) => { if (L && gear && gear.jit) L.weapon = { k: 'sm_jitte', tier: 44 }; });
+hookAround('drawWeapon', (next, p, W, hx, hy, ang, phase) => { if (!W || W.k !== 'sm_jitte') return next(p, W, hx, hy, ang, phase); drawSpriteRot(p, SM_JITTE_ICON, hx, hy, ang, [4, 12]); });
+function smSmokePuff(x, y, n, sp) { burst(x, y, Math.ceil(n / 2), { sp: sp || 40, up: 18, g: -10, life: 0.5, c: ['#eef2f4', '#c8d0d8', '#ffffff'] }); smokeFx(x, y, 7 + n, 5 + n / 2, 5, 3 + n / 3, 0.5, { rise: 10 }); }
+function smJitteBasic(P, ang) {
+  P.smJitN = (P.smJitN || 0) + 1; const M = G.map;
+  if (P.smJitN % 4) {
+    delayAct(0.07, () => { if (P.dead || G.map !== M) return;
+      hitArc(P.x, P.y, ang, 56, 1.7, P.S.atk * 1.02, { kb: 16 });
+      for (let i = -1; i <= 1; i++) addFx({ type: 'slash', x: P.x, y: P.y - 2 + i * 2, ang: ang + i * 0.1, arc: 1.7, r: 50 + i * 3, dur: 0.2, col: i ? 'rgba(232,238,242,0.75)' : '#dfe6ec' });
+      smSmokePuff(P.x + Math.cos(ang) * 40, P.y + Math.sin(ang) * 40 - 8, 6); sfx('slash'); });
+    return;
+  }
+  // Piedra Marina: estocada en línea que inmoviliza
+  const Ln = 92, dx = Math.cos(ang), dy = Math.sin(ang), ox = P.x, oy = P.y; P.busy = Math.max(P.busy || 0, 0.28);
+  floatText(P.x, P.y - 44, L2('Piedra Marina', 'Seastone'), '#dfe8ee'); sfx('swing');
+  addFx({ type: 'custom', x: ox, y: oy - 10, dur: 0.38, draw: (f, sx, sy, k) => { ctx.save(); ctx.translate(sx, sy); ctx.rotate(ang);
+    const len = Ln * Math.min(1, k * 2.4); ctx.fillStyle = `rgba(230,236,240,${(0.85 * (1 - k)).toFixed(2)})`; ctx.fillRect(6, -2, len, 4); ctx.fillStyle = `rgba(150,170,190,${(0.7 * (1 - k)).toFixed(2)})`; ctx.fillRect(6, -4, len * 0.9, 1); ctx.fillRect(6, 3, len * 0.9, 1); ctx.restore();
+    smokeCloud(smokeTrail(sx + dx * 8, sy + dy * 8, sx + dx * len, sy + dy * len, 6, 3, 7 + k * 4, f.t, 2), 0.85 * (1 - k)); } });
+  delayAct(0.1, () => { if (P.dead || G.map !== M) return; let n = 0;
+    for (const m of G.ents) { if (m.type !== 'mob' || m.dying || m.remove || m.map !== M.id) continue; const vx = m.x - ox, vy = m.y - oy, al = vx * dx + vy * dy, pr = Math.abs(-vx * dy + vy * dx);
+      if (al > -6 && al < Ln + 10 && pr < 16 + (m.rad || 8)) { hitMob(m, P.S.atk * 1.9, m.boss ? { kb: 30 } : { kb: 30, root: 1.0, stun: 0.45 }); addFx({ type: 'ring', x: m.x, y: m.y, r: 16, dur: 0.3, col: '#dfe8ee' }); smSmokePuff(m.x, m.y - 14, 8, 60); n++; } }
+    if (n) G.shake = Math.max(G.shake, 4); });
+}
+hookAround('buggyGloveBasic', (next, P, ang) => (P && P.equip && P.equip.weapon && P.equip.weapon.id === SM_JITTE) ? smJitteBasic(P, ang) : next(P, ang));
+
+// ---------- 4) Fruta Humo Humo (logia) ----------
+DAWN_FRUIT_PIXELS.df_moku = [['#f2f3f7', '#d6d9e3', '#bcc0cf', '#9ba1b3', '#878da0', '#6f7588', '#5a6072', '#000000', '#1c1e26', '#8acb4a', '#4f8a2a'],
+  '.....888........', '....8a9a8.888...', '....8a88.8a9a8..', '.....8a88a8.8a8.', '......8a98...88.', '....88243288....', '...8321111158...', '...8230312228...',
+  '..831133111148..', '..842100010348..', '..832200033258..', '..842201223458..', '...8433224458...', '....84444458....', '.....866568.....', '......8888......'];
+DFR.moku = { item: 'df_moku', n: L2('Humo Humo', 'Smoke-Smoke'), ic: '💨', rank: 3, colors: ['#9aa0b0', '#d6dae4', '#ffffff'],
+  desc: L2('Logia de humo. Puño de humo, serpientes que atrapan, un salto convertido en humo y 10 s de cuerpo de humo que atraviesa los golpes y quema a quien te toque. Todo crece con tu nivel y tu ataque, también con transformaciones.',
+    'Smoke Logia. A smoke fist, grabbing snakes, a dash as smoke and 10 s of a smoke body that lets hits pass through and hurts whoever touches you. Everything grows with your level and attack, transformations included.') };
+const MOKU_TECH = [
+  ['moku_puno', 'Puño Blanco', 'White Blow', 7, 24, 'slam', 2.9, 0.15, 'Un puño gigante de humo sale en línea y empuja. Con el cuerpo de humo activo hace un 30 % más.', 'A giant smoke fist flies in a line and pushes. With the smoke body active it deals 30% more.'],
+  ['moku_serpiente', 'Serpientes Blancas', 'White Snake', 12, 32, 'spin', 1.05, 0.055, 'Cuatro serpientes de humo atrapan a los enemigos alrededor del objetivo (los comunes quedan inmóviles). Con el cuerpo de humo, el agarre dura el doble.', 'Four smoke snakes grab enemies around the target (ordinary ones are pinned). With the smoke body, the hold lasts twice as long.'],
+  ['moku_lanzador', 'Lanzador Blanco', 'White Launcher', 16, 38, 'arrow', 3.6, 0.18, 'Te vuelves humo y sales disparado en línea: no te tocan y golpeas a todo lo que cruzas.', 'You turn into smoke and shoot forward in a line: you can’t be hit and you strike everything you cross.'],
+  ['moku_impulso', 'Impulso Blanco', 'White Jet', 14, 26, 'arrow', 0.9, 0.05, 'Tus piernas se vuelven una columna de humo que te impulsa: 4 s con un 85 % más de velocidad, y quien toques con el humo recibe daño cada 0,5 s. Con el cuerpo de humo activo dura el doble.', 'Your legs turn into a smoke column that propels you: 4 s with 85% more speed, and anyone your smoke touches takes damage every 0.5 s. With the smoke body active it lasts twice as long.'],
+  ['moku_logia', 'Cuerpo de Humo · Logia', 'Smoke Body · Logia', 30, 40, 'shield', 0.35, 0.02, 'Diez segundos. Los golpes físicos de monstruos comunes te atraviesan y los jefes te quitan un 30 % menos. Quien esté pegado a ti recibe daño de humo cada 0,6 s. El agua, el daño elemental y el PvP atraviesan la forma.', 'Ten seconds. Ordinary monsters’ physical hits pass through you and bosses deal 30% less. Anyone right next to you takes smoke damage every 0.6 s. Water, elemental damage and PvP pierce the form.']
+];
+DFS.moku = MOKU_TECH.map(([id, es, en, cd, mp, icon, m, mr, desc, text]) => {
+  DF_TECH_OWNER[id] = 'moku';
+  sk(id, 'fruta', 0, 0, L2(es, en), 'act', 500, null, { mp, cd, icon: [icon, '#d6dae4'], eff: { k: id, m, mr }, fruit: 1, max: 10, d: L2(desc, text) + ' ' + L2('Potencia: {m}% del ataque.', 'Power: {m}% of attack.') });
+  return id;
+});
+it('df_moku', { n: L2('Fruta ', 'Fruit: ') + DFR.moku.n, t: 'cons', stack: true, price: 0, icon: ['df_moku'], rar: 5, d: DFR.moku.desc });
+SAVEKEYS.push('smPity');
+const mokuLogia = P => P && P.fruit === 'moku' && (P.mokuUntil || 0) > G.t && dfNewCombatReady(P);
+function mokuSmoke(x, y, n, sp) { burst(x, y - 10, n, { sp: sp || 70, up: 22, g: -8, life: 0.55, c: DFR.moku.colors }); }
+function mokuCast(id) {
+  const P = G.P, M = G.map, s = SK[id], pw = s.eff, logia = mokuLogia(P), boost = id === 'moku_puno' && logia ? 1.3 : 1;
+  const damage = P.S.atk * (pw.m + pw.mr * (dfRank() - 1)) * (1 + (P.S.skillP || 0) / 100) * boost;
+  const mob = nearestMob(P.x, P.y, 180, m => dfNewMob(m, M)), [ax, ay] = DIRV[P.dir] || DIRV.down;
+  const ang = mob ? Math.atan2(mob.y - P.y, mob.x - P.x) : Math.atan2(ay, ax), dx = Math.cos(ang), dy = Math.sin(ang), x = P.x, y = P.y;
+  const tx = mob ? mob.x : x + dx * 86, ty = mob ? mob.y : y + dy * 86;
+  const valid = () => G.P === P && G.map === M && P.fruit === 'moku' && dfNewCombatReady(P);
+  const later = (t, fn) => delayAct(t, () => { if (valid()) fn(); });
+  setAnim(P, 'cast');
+  if (id === 'moku_puno') {
+    P.busy = 0.4;
+    addFx({ type: 'custom', x, y: y - 12, dur: 0.7, draw: (f, sx, sy, k) => { const d = 165 * Math.min(1, k * 1.8), a = 1 - Math.max(0, (k - 0.6) / 0.4), ex = sx + dx * d, ey = sy + dy * d;
+      // brazo de humo que se estira y un puño grande con nudillos al final
+      smokeCloud(smokeTrail(sx + dx * 6, sy + dy * 6, ex - dx * 10, ey - dy * 10, 9, 4, 9, f.t, 1), a * 0.95);
+      const fist = smokeBlob(ex, ey, 17, 15, 8, 9, f.t, 2); for (let i = -1; i <= 2; i++) fist.push([ex + dx * 12 - dy * i * 6, ey + dy * 12 + dx * i * 6, 5.5]);
+      smokeCloud(fist, a); } });
+    later(0.24, () => { dfNewSweep(M, x, y, dx, dy, 165, 24, damage, { kb: 140 }); mokuSmoke(x + dx * 150, y + dy * 150, 22, 110); sfx('boom'); });
+  } else if (id === 'moku_serpiente') {
+    P.busy = 0.45; const hold = logia ? 2.4 : 1.2;
+    addFx({ type: 'custom', x: tx, y: ty, dur: 1.6, draw: (f, sx, sy, k) => { const a = 1 - Math.max(0, (k - 0.7) / 0.3), reach = Math.min(1, k * 2.2), balls = [];
+      // cuatro serpientes de humo que salen desde fuera y se enroscan sobre el objetivo; la cabeza es más gorda
+      for (let j = 0; j < 4; j++) { const a0 = j * 1.571 + 0.4; for (let i = 0; i <= 12; i++) { const t = i / 12 * reach, rr = 64 * (1 - t);
+        balls.push([sx + Math.cos(a0 + t * 2.6) * rr, sy - 8 + Math.sin(a0 + t * 2.6) * rr * 0.55 + Math.sin(t * 10 + f.t * 7 + j) * 2, i === 12 ? 7.5 : 3 + i * 0.25]); } }
+      smokeCloud(balls, a); if (k > 0.35) smokeCloud(smokeBlob(sx, sy - 10, 14, 10, 7, 6, f.t, 4), a * 0.9); } });
+    for (let i = 0; i < 4; i++) later(0.3 + i * 0.3, () => { dfNewHitCircle(M, tx, ty, 60, damage, m => m.boss ? {} : { root: hold, slow: hold + 0.5 }); mokuSmoke(tx, ty, 8); });
+    sfx('swing');
+  } else if (id === 'moku_lanzador') {
+    P.busy = 0.42; P.ifr = Math.max(P.ifr || 0, 0.5); const L = 125, hit = new Set();
+    for (const m of G.ents) { if (!dfNewMob(m, M)) continue; const vx = m.x - x, vy = m.y - y, al = vx * dx + vy * dy, pr = Math.abs(-vx * dy + vy * dx); if (al > -6 && al < L + 12 && pr < 20 + (m.rad || 8)) hit.add(m); }
+    for (let k = 0; k < 8; k++) { const px = P.x, py = P.y; if (!moveEnt(M, P, dx * L / 8, dy * L / 8)) break; if (k % 2 === 0) smokeFx(px, py - 10, 12 + k, 9 + k / 2, 6, 6 + k * 0.5, 0.7, { rise: 8 }); }
+    later(0.06, () => { for (const m of hit) if (!m.dying) { hitMob(m, damage, { kb: 80 }); addFx({ type: 'ring', x: m.x, y: m.y, r: 18, dur: 0.3, col: '#eef2f4' }); } if (hit.size) G.shake = Math.max(G.shake, 4); });
+    floatText(P.x, P.y - 44, L2('Lanzador Blanco', 'White Launcher'), '#eef2f4'); sfx('swing');
+  } else if (id === 'moku_impulso') {
+    const dur = logia ? 8 : 4; P.mokuJetUntil = G.t + dur; P.mokuJetTick = G.t + 0.5; P.mokuJetDmg = damage; addBuff(P, 'moku_jet', { spdP: 85 }, dur);
+    smokeFx(x, y - 4, 22, 10, 9, 8, 0.8, { rise: 6 }); floatText(P.x, P.y - 48, L2('¡Impulso Blanco!', 'White Jet!'), '#eef2f4'); sfx('buff');
+  } else if (id === 'moku_logia') {
+    P.mokuUntil = G.t + 10; P.mokuTick = G.t + 0.6; P.mokuDmg = damage;
+    mokuSmoke(x, y, 26, 90); floatText(P.x, P.y - 48, L2('¡Cuerpo de humo!', 'Smoke body!'), '#eef2f4'); sfx('buff');
+  }
+  uiDirty.hud = true;
+}
+hookAround('dfCast', (next, id) => {
+  if (DF_TECH_OWNER[id] !== 'moku') return next(id);
+  if (G.P.fruit === 'moku' && dfNewCombatReady(G.P)) mokuCast(id);
+});
+// cuerpo de humo: los golpes comunes te atraviesan, los jefes quitan menos
+hookAround('hurtPlayer', (next, base, src) => {
+  const P = G.P; src = src || {};
+  if (!mokuLogia(P) || src.pvp || src.burn || src.poison || G.paused) return next(base, src);
+  const boss = !!(DAWN_RETO_SRC || src.boss || src.dawnReto);
+  if (!boss && src.dfPhysical) { if (!P.mokuMissT || G.t - P.mokuMissT > 0.4) { P.mokuMissT = G.t; floatText(P.x, P.y - 42, L2('HUMO', 'SMOKE'), '#eef2f4'); mokuSmoke(P.x, P.y, 7); } return; }
+  return next(boss ? base * 0.7 : base, src);
+});
+// daño de humo a quien esté pegado a ti mientras eres humo
+V33_TICKS.push(() => {
+  const P = G.P; if (!mokuLogia(P) || G.t < (P.mokuTick || 0)) return;
+  P.mokuTick = G.t + 0.6; let n = 0;
+  for (const m of G.ents) if (dfNewMob(m, G.map) && dist2(m.x, m.y, P.x, P.y) < 44 * 44) { hitMob(m, (P.mokuDmg || P.S.atk * 0.35), {}); n++; }
+  if (n) mokuSmoke(P.x, P.y, 6, 50);
+});
+const mokuJet = P => P && P.fruit === 'moku' && (P.mokuJetUntil || 0) > G.t && dfNewCombatReady(P);
+V33_TICKS.push(() => {
+  const P = G.P; if (!mokuJet(P) || G.t < (P.mokuJetTick || 0)) return;
+  P.mokuJetTick = G.t + 0.5; dfNewHitCircle(G.map, P.x, P.y, 30, P.mokuJetDmg || P.S.atk * 0.9, { kb: 40 });
+});
+hookAfter('setMap', () => { const P = G.P; if (P) { P.mokuUntil = 0; P.mokuJetUntil = 0; if (P.buffs) removeBuff(P, 'moku_jet'); } });
+hookBefore('playerDie', () => { const P = G.P; if (P) { P.mokuUntil = 0; P.mokuJetUntil = 0; } });
+// impulso: las piernas son una columna de humo que deja estela detrás
+DL_HOOKS.push((list, cx, cy) => {
+  const P = G.P; if (!mokuJet(P)) return;
+  const tr = P._mkTrail || (P._mkTrail = []); const last = tr[tr.length - 1];
+  if (!last || Math.hypot(last[0] - P.x, last[1] - P.y) > 6) { tr.push([P.x, P.y, G.t]); if (tr.length > 14) tr.shift(); }
+  list.push({ type: 'xdraw', x: P.x, y: P.y + 3, noShadow: true, draw: () => {
+    const x = P.x - cx, y = P.y - cy, balls = [];
+    for (const [tx, ty, t0] of tr) { const age = Math.min(1, (G.t - t0) / 0.9); if (age >= 1) continue; balls.push([tx - cx + Math.sin(t0 * 9) * 2, ty - cy - 6 - age * 6, 4 + age * 4]); }
+    smokeCloud(balls, 0.75, false);
+    smokeCloud(smokeBlob(x, y - 6, 12, 9, 7, 6, G.t * 1.6, 5).concat([[x - 3, y - 13, 5], [x + 3, y - 13, 5], [x, y + 1, 7]]), 0.97);
+  } });
+});
+// dibujo: con el cuerpo de humo, las piernas se deshacen en humo y sube una estela
+DL_HOOKS.push((list, cx, cy) => {
+  const P = G.P; if (!mokuLogia(P)) return;
+  list.push({ type: 'xdraw', x: P.x, y: P.y + 2, noShadow: true, draw: () => {
+    const x = P.x - cx, y = P.y - cy, left = (P.mokuUntil - G.t) / 10; ctx.save();
+    smokeCloud(smokeBlob(x, y - 6, 18, 10, 8, 6.5, G.t, 1), 0.92);                        // piernas de humo
+    smokeCloud(smokeBlob(x + Math.sin(G.t * 1.7) * 3, y - 26, 13, 18, 7, 4.5, G.t, 2), 0.35);  // el cuerpo se vuelve humo
+    for (let i = 0; i < 3; i++) { const k = (G.t * 0.8 + i / 3) % 1; smokeCloud(smokeBlob(x + Math.sin(i * 3 + G.t) * 6, y - 38 - k * 30, 5 + k * 6, 4 + k * 5, 5, 3 + k * 3, G.t, i), 0.55 * (1 - k)); }
+    ctx.fillStyle = 'rgba(20,24,32,.6)'; ctx.fillRect(x - 13, y - 62, 26, 3); ctx.fillStyle = '#eef2f4'; ctx.fillRect(x - 13, y - 62, Math.round(26 * left), 3);
+    ctx.restore();
+  } });
+});
+// también aparece suelta por el Mar de Dawn (después de vencer a Smoker una vez)
+hookAfter('dfTrySpawn', () => {
+  const P = G.P, M = G.map;
+  if (!P || !M || M.id !== 'dawn' || DF_SPAWN.f || DF_SPAWN.t !== G.t || !(P.logueArcN > 0) || !dfHas()) return;
+  if (P.fruit === 'moku' || countItem('df_moku') || Math.random() >= 0.03) return;
+  const site = dfNewDiscovery(P, M, 'moku'); if (site) { DF_SPAWN.f = site; dfAnnouncement(site); }
+});
+hookAround('dfTabHow', (next, kind) => {
+  if (kind !== 'moku') return next(kind);
+  const P = G.P, live = DF_SPAWN.f && DF_SPAWN.f.kind === 'moku' && G.t - DF_SPAWN.f.t < 240 ? DF_SPAWN.f : null;
+  return { where: L2('Smoker · nivel 612 · arco de Loguetown (Mar de Dawn); también aparece suelta en una isla de Dawn', 'Smoker · level 612 · Loguetown arc (Dawn Sea); it also appears on a Dawn island'),
+    chance: L2('1 % cada vez que vences a Smoker · segura a la victoria ', '1% each time you defeat Smoker · guaranteed by win ') + SM_FRUIT_PITY + L2(' · 3 % cada 45 s en Dawn después de vencerlo', ' · 3% every 45 s in Dawn after you defeat him'),
+    left: (P.fruit === 'moku' || countItem('df_moku')) ? 0 : Math.max(1, SM_FRUIT_PITY - ((P.smPity || {}).df_moku || 0)),
+    extra: L2('Logia: 4 técnicas que crecen con tu nivel y tu ataque. Shanks la quita con Voluntad 3 (o si ganaste su duelo).', 'Logia: 4 techniques that grow with your level and attack. Shanks removes it at Will rank 3 (or if you won his duel).'),
+    wp: live ? { loc: [live.x >> 4, live.y >> 4], m: 'dawn', t: ITEMS.df_moku.n } : { loc: logueAt(104, 122), m: 'dawn', t: 'Loguetown' }, live };
+});
+
+// ---------- 5) botín de Smoker con pity ----------
+const SM_FRUIT_PITY = 80;
+// [objeto, probabilidad, seguro a la victoria, ya lo tienes]
+const SM_DROPS = [
+  [SM_JITTE, 0.12, 10, P => (P.equip.weapon && P.equip.weapon.id === SM_JITTE) || countItem(SM_JITTE) > 0],
+  ...SM_COS.map(id => ['cosi_' + id, 0.25, 12, P => (P.wardrobe || []).includes(id) || countItem('cosi_' + id) > 0]),
+  ['df_moku', 0.01, SM_FRUIT_PITY, P => P.fruit === 'moku' || countItem('df_moku') > 0]
+];
+const smMissing = P => SM_DROPS.filter(r => !r[3](P));
+BOSS_EXTRA.logue_arc_smoker = () => { const P = G.P; if (!P || !P.inv) return []; return smMissing(P).map(([id, ch, cap]) => [id, ch, L2('seguro en ', 'sure in ') + Math.max(1, cap - ((P.smPity || {})[id] || 0))]); };
+hookAfter('bossKilled', (r, m) => {
+  const P = G.P; if (!P || !m || m.mid !== 'logue_arc_smoker') return;
+  try {
+    P.smPity = P.smPity && typeof P.smPity === 'object' ? P.smPity : {}; const mul = typeof dropEventMul === 'function' ? dropEventMul() : 1, got = [];
+    for (const [id, ch, cap] of smMissing(P)) {
+      const n = Math.min(cap, (P.smPity[id] || 0) + 1);
+      if (n < cap && Math.random() >= ch * mul) { P.smPity[id] = n; continue; }
+      let ok = false; const c = ITEMS[id] && ITEMS[id].cos;
+      if (c) { giveCosmetic(c, true); ok = true; } else ok = giveItem(id, 1, true);
+      if (ok) { delete P.smPity[id]; got.push(id); lootFx(m.x, m.y, id); } else P.smPity[id] = cap;
+    }
+    if (got.length) setTimeout(() => { for (const id of got) toast((id === 'df_moku' ? '💨 ' : id === SM_JITTE ? '⚔ ' : '🧥 ') + ITEMS[id].n, 'quest', 6); if (got.includes('df_moku')) banner('💨 ' + ITEMS.df_moku.n, L2('¡La fruta de Smoker! Cómela desde el inventario.', 'Smoker’s fruit! Eat it from the inventory.')); }, 3000);
+    markDirty(true);
+  } catch (e) { if (typeof errOnce === 'function') errOnce('smDrops', e); }
+});
+hookAround('itemSources', (next, id) => {
+  const k = String(id);
+  if (k === SM_JITTE || k === 'df_moku' || SM_COS.includes(k.replace(/^cosi_/, ''))) return [[SM_SRC.replace('25 %', k === SM_JITTE ? '12 %' : k === 'df_moku' ? '1 %' : '25 %').replace('25%', k === SM_JITTE ? '12%' : k === 'df_moku' ? '1%' : '25%'), { loc: logueAt(104, 122), m: 'dawn', t: 'Loguetown' }]];
+  return next(id);
+});
+GSIS.push(['smoker618', L2('Smoker: logia, botín y Fruta Humo Humo', 'Smoker: Logia, loot and Smoke-Smoke Fruit'), () => [
+  L2('Smoker (arco de Loguetown, nivel 612) es el jefe más fuerte de su nivel. Al bajar al 66 % y al 33 % se vuelve humo 10 s: tus golpes lo atraviesan y suelta anillos de humo. Aléjate y espera.', 'Smoker (Loguetown arc, level 612) is the strongest boss of his level. At 66% and 33% he turns into smoke for 10 s: your hits pass through him and he releases smoke rings. Back off and wait.'),
+  L2('Botín: Chaqueta, Vaquero y Botas del Cazador Blanco (25 % cada una, seguras a las 12), Jitte de Piedra Marina (12 %, seguro a las 10; el arma más fuerte, todas las clases) y la Fruta Humo Humo (1 %, segura a las 80). Se ve encima de su barra de vida.', 'Loot: White Hunter’s Jacket, Jeans and Boots (25% each, guaranteed by 12), Seastone Jitte (12%, guaranteed by 10; the strongest weapon, every class) and the Smoke-Smoke Fruit (1%, guaranteed by 80). Shown above his health bar.'),
+  L2('Humo Humo: Puño Blanco, Serpientes Blancas, Lanzador Blanco y Cuerpo de Humo (10 s). Con el cuerpo de humo, el Puño hace un 30 % más y las serpientes sujetan el doble. Todo depende de tu nivel y tu ataque, así que se suma a transformaciones y despertares.', 'Smoke-Smoke: White Blow, White Snake, White Launcher and Smoke Body (10 s). With the smoke body, the Blow deals 30% more and the snakes hold twice as long. Everything depends on your level and attack, so it stacks with transformations and awakenings.')
+], () => ({ loc: logueAt(104, 122), m: 'dawn', t: 'Loguetown' })]);
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;

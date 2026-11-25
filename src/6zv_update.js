@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.17', GAME_BUILD = 238;
+const GAME_VER = '6.18', GAME_BUILD = 239;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,29 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.18",
+ "b": 239,
+ "d": "2026-11-25",
+ "es": [
+  "Smoker es ahora el jefe más fuerte de su nivel (612). Al bajar al 66 % y al 33 % se vuelve humo 10 s: tus golpes lo atraviesan y suelta anillos de humo.",
+  "Botín de Smoker con pity: Chaqueta, Vaquero y Botas del Cazador Blanco (25 %, seguras a las 12), adaptadas a los 10 cuerpos.",
+  "Jitte de Piedra Marina (12 %, seguro a las 10): el arma más fuerte por ahora, para todas las clases. Barrido con humo y, cada cuarto golpe, una estocada que inmoviliza.",
+  "Fruta Humo Humo (1 % de Smoker, segura a las 80; también aparece suelta por Dawn): Puño Blanco, Serpientes Blancas, Lanzador Blanco, Impulso Blanco (las piernas se vuelven humo) y Cuerpo de Humo (logia 10 s). Todo crece con tu nivel y tu ataque, y se combina con transformaciones.",
+  "Humo nuevo, como en el anime: nubes infladas con luz, sombra y rizos en la fruta, el Jitte y Smoker.",
+  "Técnicas de Luffy redibujadas: brazos de goma con brillo, puños con nudillos, palmas abiertas en la Bazuca y el pie en el Hacha.",
+  "PvP reequilibrado: todas las clases quedan igualadas."
+ ],
+ "en": [
+  "Smoker is now the strongest boss of his level (612). At 66% and 33% he turns into smoke for 10 s: your hits pass through him and he releases smoke rings.",
+  "Smoker loot with pity: White Hunter’s Jacket, Jeans and Boots (25%, guaranteed by 12), fitted to all 10 bodies.",
+  "Seastone Jitte (12%, guaranteed by 10): the strongest weapon so far, for every class. A smoky sweep and, every fourth hit, a thrust that pins enemies.",
+  "Smoke-Smoke Fruit (1% from Smoker, guaranteed by 80; it also appears around Dawn): White Blow, White Snake, White Launcher, White Jet (your legs turn to smoke) and Smoke Body (10 s Logia). Everything grows with your level and attack, and stacks with transformations.",
+  "New anime-style smoke: puffy clouds with light, shadow and curls on the fruit, the Jitte and Smoker.",
+  "Luffy’s techniques redrawn: shiny rubber arms, fists with knuckles, open palms on the Bazooka and the foot on the Axe.",
+  "PvP rebalanced: every class is evened out."
+ ]
+},
 {
  "v": "6.17",
  "b": 238,

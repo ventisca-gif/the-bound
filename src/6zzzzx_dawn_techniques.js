@@ -78,7 +78,7 @@ function crewTechniqueAttack(M,e,m,foes,live,boost=1,floor=.22){
  for(let j=0;j<hits;j++){
   const delay=.24+j*.49/hits;
   const x=e.x,y=e.y-13,endX=m.x,endY=m.y-12;
-  addFx({type:'crewTechnique',x,y,endX,endY,angle,mode,col,delay,j,dur:delay+.25,tick:delay,cbTick(f){
+  addFx({type:'crewTechnique',x,y,endX,endY,angle,mode,col,delay,j,tech:best,hits,dur:delay+.25,tick:delay,cbTick(f){
    if(f.fired||!live()||e.remove||e.hp===0||m.dying||m.remove)return;
    f.fired=true;
    if(d2(e,m)>(reach+18)**2)return;
@@ -101,9 +101,16 @@ function crewTechniqueAttack(M,e,m,foes,live,boost=1,floor=.22){
   ctx.fillRect(xx-2,yy-2,4,4);
   if(f.fired&&f.mode==='powder'){ctx.beginPath();ctx.arc(ex,ey,7+(f.t-f.delay)*65,0,Math.PI*2);ctx.stroke();}
  }else if(f.mode==='rubber'||f.mode==='axe'){
-  const z=f.mode==='axe',xx=lerp(x,ex,progress),yy=lerp(y,ey,progress)-Math.sin(progress*Math.PI)*(z?41:5)+Math.sin(f.j*2)*5;
-  ctx.lineWidth=z?7:4;ctx.beginPath();ctx.moveTo(x,y);ctx.quadraticCurveTo(lerp(x,xx,.5),z?yy-18:yy,xx,yy);ctx.stroke();
-  ctx.fillRect(xx-4,yy-4,8,8);
+  // 6.18: brazos y pierna de goma de verdad (Sergio: «esos puños se ven raros»): tubo de piel con contorno y brillo,
+  // puño con nudillos, palmas abiertas en la Bazuca, pie con sandalia en el Hacha y líneas de velocidad.
+  ctx.restore();ctx.save();ctx.globalAlpha=1-Math.max(0,f.t-f.delay)/.27;
+  const z=f.mode==='axe',tech=f.tech|0,gat=tech===1&&!z,baz=tech===2&&!z;
+  const side=baz?(f.j?4:-4):gat?Math.sin(f.j*2.7)*7:0,ang=Math.atan2(ey-y,ex-x),nx=-Math.sin(ang),ny=Math.cos(ang);
+  const x0=x+nx*side,y0=y+ny*side,xx=lerp(x0,ex+nx*side,progress),yy=lerp(y0,ey+ny*side,progress)-Math.sin(progress*Math.PI)*(z?41:5);
+  const cx1=lerp(x0,xx,.5),cy1=z?yy-22:yy-3,thick=z?6:gat?3:4;
+  rubberLimb(x0,y0,cx1,cy1,xx,yy,thick);
+  if(z)rubberFoot(xx,yy,ang);else if(baz)rubberPalm(xx,yy,ang);else rubberFist(xx,yy,ang,gat?3.6:tech===4?5.5:4.8);
+  if(progress>.35&&!z){ctx.strokeStyle='rgba(255,245,225,.8)';ctx.lineWidth=1;ctx.beginPath();for(let k=-1;k<=1;k++){const bx=xx-Math.cos(ang)*(9+Math.abs(k)*3)+nx*k*4,by=yy-Math.sin(ang)*(9+Math.abs(k)*3)+ny*k*4;ctx.moveTo(bx,by);ctx.lineTo(bx-Math.cos(ang)*8,by-Math.sin(ang)*8);}ctx.stroke();}
  }else{
   const a=f.angle+(progress-.5)*1.6+Math.sin(f.j*2)*.21,r=f.mode==='kick'?42:53;
   ctx.lineWidth=f.mode==='kick'?3:2;ctx.beginPath();ctx.ellipse(x,y,r,r*.6,a,a-1,a+.83);ctx.stroke();
@@ -121,3 +128,46 @@ DAWN_CREW_TOPICS[SHELLS_CAST_IDS.zoro].push(
  ['Cuándo cruzar las espadas','When to cross swords','Déjame sitio al entrar. Si el otro se aparta, sigo con un corte corto sin quedarme vendido.','Give me room on the way in. If they step aside I follow with a short cut to stay covered.']);
 DAWN_CREW_TOPICS[SYRUP_USOPP].push(
  ['Disparo de cobertura','Covering shot','Yo puedo tirar desde atrás mientras tú avanzas. Avísame si vas a cambiar de lado.','I can shoot from behind while you advance. Let me know if you’re changing sides.']);
+
+// ---------- 6.18: dibujo de goma de Luffy (brazos, puños, palmas y pie) ----------
+const RUB={line:'#3b2416',skin:'#f2c79a',shade:'#d0996a',light:'#fde4c4',sole:'#6a4426',strap:'#c8402e'};
+function rubberLimb(x0,y0,cx,cy,x1,y1,w){
+ const path=()=>{ctx.beginPath();ctx.moveTo(x0,y0);ctx.quadraticCurveTo(cx,cy,x1,y1);};
+ ctx.lineCap='round';path();ctx.strokeStyle=RUB.line;ctx.lineWidth=w+2;ctx.stroke();
+ path();ctx.strokeStyle=RUB.shade;ctx.lineWidth=w;ctx.stroke();
+ ctx.save();ctx.translate(-.6,-.8);path();ctx.strokeStyle=RUB.skin;ctx.lineWidth=Math.max(1,w-1.4);ctx.stroke();ctx.restore();
+ ctx.save();ctx.translate(-.8,-1.4);path();ctx.strokeStyle=RUB.light;ctx.lineWidth=1;ctx.stroke();ctx.restore();
+}
+function rubberFist(x,y,a,r){
+ ctx.save();ctx.translate(x,y);ctx.rotate(a);
+ ctx.fillStyle=RUB.line;ctx.beginPath();ctx.ellipse(0,0,r+1.2,r*.92+1.2,0,0,7);ctx.fill();
+ ctx.fillStyle=RUB.shade;ctx.beginPath();ctx.ellipse(0,0,r,r*.92,0,0,7);ctx.fill();
+ ctx.fillStyle=RUB.skin;ctx.beginPath();ctx.ellipse(-.5,-.7,r*.8,r*.72,0,0,7);ctx.fill();
+ // nudillos al frente y el pulgar doblado encima
+ ctx.fillStyle=RUB.line;for(let k=-1;k<=2;k++)ctx.fillRect(Math.round(r*.45),Math.round(-r*.75+k*r*.42),1,1);
+ ctx.strokeStyle=RUB.line;ctx.lineWidth=.8;ctx.beginPath();for(let k=0;k<3;k++){const yy=-r*.55+k*r*.42;ctx.moveTo(r*.05,yy);ctx.lineTo(r*.62,yy);}ctx.stroke();
+ ctx.fillStyle=RUB.skin;ctx.fillRect(-r*.4,-r*.95,r*.75,r*.32);ctx.strokeStyle=RUB.line;ctx.strokeRect(-r*.4,-r*.95,r*.75,r*.32);
+ ctx.fillStyle=RUB.light;ctx.fillRect(-r*.45,-r*.5,1.2,1.2);
+ ctx.restore();
+}
+function rubberPalm(x,y,a){
+ // palma abierta y redonda empujando hacia delante, con los cuatro dedos juntos y el pulgar arriba
+ ctx.save();ctx.translate(x,y);ctx.rotate(a);
+ ctx.fillStyle=RUB.line;ctx.beginPath();ctx.ellipse(0,0,5.6,6.4,0,0,7);ctx.fill();
+ for(let k=0;k<4;k++){ctx.beginPath();ctx.ellipse(5.2,-3.6+k*2.4,3.2,1.5,0,0,7);ctx.fill();}
+ ctx.beginPath();ctx.ellipse(1,-6.4,2.6,1.6,-.6,0,7);ctx.fill();
+ ctx.fillStyle=RUB.shade;ctx.beginPath();ctx.ellipse(0,0,4.6,5.4,0,0,7);ctx.fill();
+ ctx.fillStyle=RUB.skin;ctx.beginPath();ctx.ellipse(-.6,-.6,3.6,4.3,0,0,7);ctx.fill();
+ for(let k=0;k<4;k++){ctx.beginPath();ctx.ellipse(5,-3.8+k*2.4,2.4,.8,0,0,7);ctx.fill();}
+ ctx.beginPath();ctx.ellipse(1,-6.4,1.8,.9,-.6,0,7);ctx.fill();
+ ctx.fillStyle=RUB.light;ctx.fillRect(-2,-2.5,1.2,1.2);
+ ctx.restore();
+}
+function rubberFoot(x,y,a){
+ ctx.save();ctx.translate(x,y);
+ ctx.fillStyle=RUB.line;ctx.beginPath();ctx.ellipse(0,1,7.5,4.5,0,0,7);ctx.fill();
+ ctx.fillStyle=RUB.skin;ctx.beginPath();ctx.ellipse(-.5,0,6.2,3.4,0,0,7);ctx.fill();
+ ctx.fillStyle=RUB.sole;ctx.fillRect(-7,3.2,14,2);ctx.fillStyle=RUB.strap;ctx.fillRect(-2,-2.6,2,3.6);
+ ctx.fillStyle=RUB.line;for(let k=0;k<4;k++)ctx.fillRect(3+k*.9,-2.4+k*.4,.8,.8);
+ ctx.restore();
+}
