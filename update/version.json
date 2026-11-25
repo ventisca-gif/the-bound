@@ -1,22 +1,18 @@
 {
- "build": 228,
- "ver": "6.07",
- "date": "2026-11-24",
+ "build": 229,
+ "ver": "6.08",
+ "date": "2026-11-25",
  "file": "thebound.html",
- "size": 36005243,
- "sha256": "22f657233de4c29ddb360108406b4cfe63816590fdab7373aaa7bbb9ea10c91b",
+ "size": 36005658,
+ "sha256": "301ad74c643dcdf179dbbbf6511e63fc7697f01951fb90fa6b58548abf4ddbe4",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Islas Conomi después de Baratie. Explora Cocoyashi y Arlong Park y enfréntate a Arlong de nivel 605.",
-   "El hachazo de Luffy atraviesa cuatro pisos. Tras la victoria quedan las ruinas y se abren nuevos diálogos con la tripulación.",
-   "Puedes repetir los arcos del Mar de Dawn."
+   "Las armas superadas pierden como mucho un 10 % de daño (antes 55 %), en todas las armas de nivel 1 a 700."
   ],
   "en": [
-   "Conomi Islands after Baratie. Explore Cocoyashi and Arlong Park and fight level 605 Arlong.",
-   "Luffy’s axe kick breaks through four floors. After the victory, revisit the ruins and talk to the crew for new dialogue.",
-   "Replay the Dawn Sea story arcs."
+   "Outgrown weapons lose at most 10% damage (was 55%), for every weapon from level 1 to 700."
   ]
  }
 }
