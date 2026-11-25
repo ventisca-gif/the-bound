@@ -1,22 +1,20 @@
 {
- "build": 230,
- "ver": "6.09",
+ "build": 231,
+ "ver": "6.10",
  "date": "2026-11-25",
  "file": "thebound.html",
- "size": 36018443,
- "sha256": "5567ce263b7e1157b7501c7609ca3d6396350e63f999825ff1cf139711c52e86",
+ "size": 36023835,
+ "sha256": "bce34b8a16811fe2cb9b59ef142f55ee61b4b692c9baf5faf31b72ce136211e4",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Lupa › 🏴‍☠️ Crossovers (antes Mar de Dawn) y nueva sección Crossovers en Sistemas: todos los arcos en orden con cada jefe, Baratie y Arlong Park incluidos, y la flecha te lleva al siguiente paso.",
-   "Lista completa de armaduras de nivel 600 a 700 con sus materiales, y dónde minar y talar cada mineral y madera de Dawn.",
-   "Tala, Minería y Pesca llegan a nivel 130 (160 con Gran Maestro): ya se pueden recoger la Piedra del Mar y el Árbol Rey."
+   "Peces del Mar de Dawn: se pesca en cualquier orilla de Dawn. Salen los peces de mar de siempre y seis nuevos: Pez Coralino y Barracuda del Este (caña de Coralita), Pez de Nácar y Pez Espada Rayado (caña de Nacarita), Anguila de Piedra del Mar y Cría de Rey del Mar (caña de Piedra del Mar).",
+   "Lupa › Crossovers › Minerales, maderas y dónde talar: ahora también dice dónde y con qué se pesca."
   ],
   "en": [
-   "Magnifier › 🏴‍☠️ Crossovers (was Dawn Sea) and a new Crossovers section in Systems: every arc in order with each boss, Baratie and Arlong Park included, and the arrow takes you to the next step.",
-   "Full list of level 600-700 armours with their materials, and where to mine and chop each Dawn ore and wood.",
-   "Woodcutting, Mining and Fishing reach level 130 (160 as Grand Master): Seastone and King Tree can now be gathered."
+   "Dawn Sea fish: you can fish from any Dawn shore. You get the usual sea fish and six new ones: Coral Fish and East Barracuda (Coralite rod), Nacre Fish and Striped Swordfish (Nacrite rod), Seastone Eel and Sea King Hatchling (Seastone rod).",
+   "Magnifier › Crossovers › Ores, woods and where to chop: now also says where and with what to fish."
   ]
  }
 }

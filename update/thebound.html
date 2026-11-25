@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.09 · Crossovers en la Lupa</div>
+  <div class="tfoot">v6.10 · Peces del Mar de Dawn</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11836,7 +11836,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.09', GAME_BUILD = 230;
+const GAME_VER = '6.10', GAME_BUILD = 231;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11844,6 +11844,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.10",
+ "b": 231,
+ "d": "2026-11-25",
+ "es": [
+  "Peces del Mar de Dawn: se pesca en cualquier orilla de Dawn. Salen los peces de mar de siempre y seis nuevos: Pez Coralino y Barracuda del Este (caña de Coralita), Pez de Nácar y Pez Espada Rayado (caña de Nacarita), Anguila de Piedra del Mar y Cría de Rey del Mar (caña de Piedra del Mar).",
+  "Lupa › Crossovers › Minerales, maderas y dónde talar: ahora también dice dónde y con qué se pesca."
+ ],
+ "en": [
+  "Dawn Sea fish: you can fish from any Dawn shore. You get the usual sea fish and six new ones: Coral Fish and East Barracuda (Coralite rod), Nacre Fish and Striped Swordfish (Nacrite rod), Seastone Eel and Sea King Hatchling (Seastone rod).",
+  "Magnifier › Crossovers › Ores, woods and where to chop: now also says where and with what to fish."
+ ]
+},
 {
  "v": "6.09",
  "b": 230,
@@ -53414,6 +53427,45 @@ if (typeof GSIS !== 'undefined') GSIS.unshift(['crossovers', '🏴‍☠️ ' + 
   return [L2('Todo el crossover del Mar de Dawn. También en 🔎 › 🏴‍☠️ Crossovers, con una página por arco.', 'The whole Dawn Sea crossover. Also in 🔎 › 🏴‍☠️ Crossovers, with one page per arc.')]
     .concat(sec('ruta'), sec('cx_armor'), sec('mares601'), sec('equipo'), sec('frutas')); },
   () => { const g = LUPA_DAWN.find(x => x[0] === 'ruta'); try { return g ? g[3]() : null; } catch (e) { return null; } }]);
+
+// 6.10 · Peces del Mar de Dawn (Sergio: «sí, añade peces de Dawn»). Las cañas de Coralita (620), Nacarita (650) y Piedra
+// del Mar (680) no pescaban nada nuevo porque no había peces de tier 23-25. Ahora se pesca en todo el mapa de Dawn:
+// los peces de mar de siempre para quien no tenga esas cañas y seis peces propios (2 por tier) para quien las tenga.
+// Requisitos como el resto: Pesca RESLV[t] (140 / 146 / 152) y caña toolNeed('pesca', t) (19 / 20 / 21).
+const DAWN_FISH = [
+  ['pz_dw_coralino', 'Pez Coralino', 'Coral Fish', 23, '#f0708a', 'clown', 'Nada entre los arrecifes de Foosha y Shells Town.', 'Swims among the reefs of Foosha and Shells Town.'],
+  ['pz_dw_barracuda', 'Barracuda del Este', 'East Barracuda', 23, '#8a9ab0', 'long', 'Caza en las aguas tranquilas del este de Dawn.', 'Hunts in the calm waters of Dawn’s eastern sea.'],
+  ['pz_dw_nacar', 'Pez de Nácar', 'Nacre Fish', 24, '#d8e8f8', 'round', 'Sus escamas brillan como la Nacarita.', 'Its scales shine like Nacrite.'],
+  ['pz_dw_espada', 'Pez Espada Rayado', 'Striped Swordfish', 24, '#3a6aa0', 'sword', 'Salta junto a los barcos que van a Baratie.', 'Leaps beside ships bound for Baratie.'],
+  ['pz_dw_marea', 'Anguila de Piedra del Mar', 'Seastone Eel', 25, '#3a8a8a', 'eel', 'Vive bajo las rocas de Piedra del Mar; dicen que debilita a quien la toca.', 'Lives under Seastone rocks; they say it weakens whoever touches it.'],
+  ['pz_dw_rey', 'Cría de Rey del Mar', 'Sea King Hatchling', 25, '#6a4a8a', 'dragon', 'Una cría de las bestias gigantes del mar. Muy rara.', 'A hatchling of the giant sea beasts. Very rare.']];
+for (const [id, es, en, t, col, shape, des, den] of DAWN_FISH) { const n = L2(es, en);
+  FISH.push([id, n, t, ['dawn'], col]);
+  it(id, { n, t: 'mat', fish: true, stack: true, tier: t, hab: ['dawn'], price: 6 * t * t + 4 + t * 20, icon: ['fish', col], rar: 5, d: L2(des + ' Se pesca en el Mar de Dawn.', den + ' Caught in the Dawn Sea.') });
+  if (typeof FX_SHAPE !== 'undefined') FX_SHAPE[id] = shape; }
+// los peces de mar de siempre también pican en Dawn
+for (const f of FISH) if (f[3] && f[3].includes('mar') && !f[3].includes('dawn')) f[3] = f[3].concat('dawn');
+FISH_MAP.dawn = 'dawn';
+
+// Lupa › Crossovers › materiales: dónde y con qué se pesca
+{ const g = LUPA_DAWN.find(x => x[0] === 'mares601'); if (g) { const f = g[2]; g[2] = () => f().concat([
+  '🎣 ' + L2('Pesca en Dawn (en cualquier orilla del mapa): los peces de mar de siempre y seis propios.', 'Fishing in Dawn (from any shore of the map): the usual sea fish and six of its own.'),
+  '• ' + L2(`Pez Coralino y Barracuda del Este: Pesca ${RESLV[23]} y Caña de Coralita.`, `Coral Fish and East Barracuda: Fishing ${RESLV[23]} and Coralite Rod.`),
+  '• ' + L2(`Pez de Nácar y Pez Espada Rayado: Pesca ${RESLV[24]} y Caña de Nacarita.`, `Nacre Fish and Striped Swordfish: Fishing ${RESLV[24]} and Nacrite Rod.`),
+  '• ' + L2(`Anguila de Piedra del Mar y Cría de Rey del Mar: Pesca ${RESLV[25]} y Caña de Piedra del Mar.`, `Seastone Eel and Sea King Hatchling: Fishing ${RESLV[25]} and Seastone Rod.`)]); } }
+// si puedes pescar alguno de Dawn, la mitad de las veces pica uno de Dawn (si no, se perderían entre más de 20 peces de mar)
+{ const _pf = pickFish; pickFish = function (hab) { if (hab === 'dawn' && Math.random() < 0.5) { const P = G.P, lv = P.jobs.pesca.lv, rod = bestTool('pesca');
+    const ok = FISH.filter(f => f[3].length === 1 && f[3][0] === 'dawn' && RESLV[f[2]] <= lv && toolNeed('pesca', f[2]) <= rod);
+    if (ok.length) { const maxT = Math.max(...ok.map(f => f[2])); return choiceW(new RNG((Math.random() * 1e9) | 0), ok.map(f => ({ f, w: f[2] === maxT ? 1 : 2 }))).f; } }
+  return _pf.apply(this, arguments); }; }
+
+// «¿Qué hago ahora?» / guía de oficios: la flecha «Árbol/Veta para tu nivel» solo miraba el nivel de oficio y podía
+// llevarte a un recurso que tu herramienta no puede recoger. Ahora mira también la herramienta.
+if (typeof JOB_GUIDE !== 'undefined') {
+  const can = (job, t) => { const b = bestTool(job) || 0; return b > 0 && toolNeed(job, t) <= b; };
+  if (JOB_GUIDE.tala) JOB_GUIDE.tala.find = () => oLoc(nearObj(['tree'], o => o.st !== 'stump' && RESLV[WOODT[o.sp] || 1] <= jlv('tala') && can('tala', WOODT[o.sp] || 1)), L2('Árbol para tu nivel', 'Tree for your level'));
+  if (JOB_GUIDE.mineria) JOB_GUIDE.mineria.find = () => oLoc(nearObj(['ore'], o => o.st !== 'dep' && RESLV[o.tier || 1] <= jlv('mineria') && can('mineria', o.tier || 1)), L2('Veta para tu nivel', 'Vein for your level'));
+}
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;
