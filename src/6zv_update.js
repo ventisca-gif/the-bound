@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.23', GAME_BUILD = 245;
+const GAME_VER = '6.24', GAME_BUILD = 246;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,17 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.24",
+ "b": 246,
+ "d": "2026-11-25",
+ "es": [
+  "Aura del Conquistador: a los enemigos muy débiles que tumba ahora les sale «¡KO!» en vez de un número gigante (como 1.810.944.828) que parecía daño real. El efecto no cambia."
+ ],
+ "en": [
+  "Conqueror's Aura: very weak enemies it knocks out now show “KO!” instead of a huge number (like 1,810,944,828) that looked like real damage. The effect is unchanged."
+ ]
+},
 {
  "v": "6.23",
  "b": 245,

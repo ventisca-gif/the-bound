@@ -47,3 +47,16 @@ hookAfter('mobStats', (s, def, lv, boss) => {
   s.hp = Math.max(1, Math.round(s.hp * (1 - (1 - HILV.hp) * k))); s.atk = Math.max(1, Math.round(s.atk * (1 - (1 - HILV.atk) * k)));
   return s;
 });
+
+// 5) Aura del Conquistador (6zzzy_v588_voluntad): a los muy débiles los «tumba» con hitMob(vida × 50 + 1e9), y salía
+//    ese número gigante («1810944828»), que parecía daño real. Es solo la forma de asegurar el KO: ahora sale «¡KO!».
+//    El efecto (quién cae, quién se aturde, jefes que resisten) no cambia.
+let KO_HIT = false;
+hookAround('hitMob', (next, m, base, src) => {
+  if (!(base >= 1e9) || !m) return next(m, base, src);
+  KO_HIT = true; let r;
+  try { r = next(m, base, src); } finally { KO_HIT = false; }
+  floatText(m.x, m.y - (m.hgt || 30), L2('¡KO!', 'KO!'), '#ffd23a', true);
+  return r;
+});
+hookBefore('floatText', (x, y, str) => { if (KO_HIT && /^\d+$/.test(String(str))) return HOOK_SKIP; });
