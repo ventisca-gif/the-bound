@@ -40,9 +40,9 @@ with sync_playwright() as p:
         assert page.evaluate("!G.P.dawnHelm&&G.P.dawnBoat.logue&&logueDockKey()==='logue_sail'")
         page.evaluate("XACT.logue_sail[2]()");page.wait_for_timeout(1500)
         assert page.evaluate("G.P.dawnHelm.kind")==kind
-    page.evaluate("()=>{G.P.dawnHelm=null;G.P.dawnBoat=null;[G.P.x,G.P.y]=dawnPx(LOGUE_PLAZA);G.P.y+=90;updateCamera(0,true);prewarm(G.map);}")
+    page.evaluate("()=>{G.P.dawnHelm=null;G.P.dawnBoat=null;[G.P.x,G.P.y]=dawnPx(LOGUE_PLAZA);G.P.y-=60;G.P.x-=110;updateCamera(0,true);prewarm(G.map);}")
     page.wait_for_timeout(1000);page.screenshot(path=str(OUT/'plaza.png'))
-    page.evaluate("()=>{[G.P.x,G.P.y]=dawnPx(LOGUE_GATE);G.P.y+=65;updateCamera(0,true);prewarm(G.map);}")
+    page.evaluate("()=>{[G.P.x,G.P.y]=dawnPx(LOGUE_GATE);G.P.y-=20;updateCamera(0,true);prewarm(G.map);}")
     page.wait_for_timeout(1000);page.screenshot(path=str(OUT/'entrada.png'))
     for at,name in [('LOGUE_PIER','puerto'),('logueAt(76,160)','armeria')]:
         page.evaluate("()=>{[G.P.x,G.P.y]=dawnPx("+at+");updateCamera(0,true);prewarm(G.map);}")

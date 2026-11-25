@@ -104,7 +104,7 @@ hookAfter('makeDawn',M=>{
   return addObj(M,'logue',...logueAt(x,y),{part,style,fp});
  };
  // Compact blocks leave continuous cross-streets and a generous central avenue.
- for(const y of [72,96,112,128,156,172,196,210])for(const x of [42,54,76,88,120,132,159,171]){
+ for(const y of [72,96,112,128,156,172,196,210])for(const x of [42,54,79,92,116,129,159,171]){
   if(y>=96&&y<=128&&x>=76&&x<=132||y===72&&x>=120&&x<=159||y===156&&x>=76&&x<=132)continue;
   const style=(Math.floor(x/12)+Math.floor(y/12)*3)%12;add('house',x,y,style);
  }
