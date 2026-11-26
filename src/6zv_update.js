@@ -27,6 +27,7 @@ const CHANGELOG = /*CL*/
   "Banquete de la tripulación: al terminar cada arco (y una vez al día) todos bailan en el comedor y Sanji sirve carne (bono de 20 min).",
   "Mapas de Nami: recorre todos los lugares de cada isla y Nami la dibuja (oro por isla y premio grande al completar el mar).",
   "Den Den Mushi: el caracol teléfono del Merry suena y te llaman Garp, Makino, Zeff, Johnny, Gaimon, Kaya o Smoker con encargos.",
+  "Romance con Nami, con sus propias frases y todo el sistema de pareja: coquetear, regalos, abrazo, beso, paseo de la mano, pareja, boda e hijos que mezclan tu pelo con el naranja de Nami.",
   "Todo en el menú del barco y en Lupa › Crossovers › Vida a bordo del Merry."
  ],
  "en": [
@@ -37,6 +38,7 @@ const CHANGELOG = /*CL*/
   "Crew feast: after clearing each arc (and once a day) everyone dances in the dining room and Sanji serves meat (20-min bonus).",
   "Nami’s maps: visit every place on each island and Nami draws it (gold per island and a big prize for completing the sea).",
   "Den Den Mushi: the Merry’s snail phone rings and Garp, Makino, Zeff, Johnny, Gaimon, Kaya or Smoker call with tasks.",
+  "Romance with Nami, with her own lines and the whole couple system: flirting, gifts, hug, kiss, hand-in-hand walk, partner, wedding and children who mix your hair with Nami’s orange.",
   "All in the ship menu and Lupa › Crossovers › Life aboard the Merry."
  ]
 },
