@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.33 · ¿Qué hago ahora? con flechas, armadura y oficios</div>
+  <div class="tfoot">v6.35 · Enemigos que pegan y armaduras con calidad</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11911,7 +11911,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.33', GAME_BUILD = 255;
+const GAME_VER = '6.35', GAME_BUILD = 257;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11919,6 +11919,38 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.35",
+ "b": 257,
+ "d": "2026-11-26",
+ "es": [
+  "Los enemigos de tu nivel ya hacen daño de verdad: monstruos ×1,6, jefes ×1,8 y súper jefes ×2,2 contra ti (no contra tus aliados ni en PvP). Sube poco a poco de nivel 15 a 60, así que el principio no cambia. Los jefes del Mar de Dawn ya tenían su reto y no suben más. Usa tus habilidades de cura, escudo y defensa, pociones y esquiva.",
+  "Calidad de armaduras: cada armadura que consigues (botín, Herrería, tienda, misión) puede salir Mala (12 %, −5 %), Normal (77 %), Buena (10 %, +8 %) o Excelente (1 %, +15 %) en defensa y vida. Se ve en el inventario con un puntito de color y en su detalle, te avisa al conseguirla y se conserva al equiparla. Las que ya tenías son Normales.",
+  "Revisadas todas las habilidades activas de las 7 clases: todas se lanzan y hacen lo que dicen."
+ ],
+ "en": [
+  "Enemies of your level now really hurt: monsters ×1.6, bosses ×1.8 and super bosses ×2.2 against you (not against allies or in PvP). It ramps up from level 15 to 60, so the start doesn’t change. Dawn Sea bosses already had their challenge and don’t go higher. Use your heal, shield and defence skills, potions and dodging.",
+  "Armour quality: every armour you get (loot, Forge, shop, quest) can be Poor (12%, −5%), Normal (77%), Good (10%, +8%) or Excellent (1%, +15%) in defence and HP. It shows in the bag with a coloured dot and in its details, you get a notice, and it’s kept when equipped. The ones you already had are Normal.",
+  "All active skills of the 7 classes checked: they all cast and do what they say."
+ ]
+},
+{
+ "v": "6.34",
+ "b": 256,
+ "d": "2026-11-26",
+ "es": [
+  "▦ Atajos › ☠ Objetos malditos (nuevo): cómo funcionan (la maldición solo cuenta mientras llevas el objeto puesto; se quita como cualquier equipo y puedes llevar los 3 a la vez), cómo salen (fantasmas, Niebla maldita y jefes: 2 %, jefes 8 %), cuántos tienes, cuáles llevas puestos y el arma maldita de tu clase con su pacto, cómo dominarla o purificarla.",
+  "El aviso «¡Un objeto maldito!» dice dónde mirarlo, y está también en Lupa › Sistemas.",
+  "Huerto: al tocar un bancal vacío eliges qué plantar. Cada semilla dice el nivel de Agricultura que pide (🔒 si te falta), cuánto tarda y si es de temporada.",
+  "Arreglo: «Dónde conseguir» de Coralita, Nacarita, Piedra del Mar y sus troncos daba error; ahora dice en qué islas del Mar de Dawn están."
+ ],
+ "en": [
+  "▦ Shortcuts › ☠ Cursed items (new): how they work (the curse only counts while you wear the item; take it off like any gear and you can wear all 3), how they drop (ghosts, Cursed Fog and bosses: 2%, bosses 8%), how many you have, which you wear, and your class’s cursed weapon with its pact and how to dominate or purify it.",
+  "The «A cursed item!» notice says where to look, and it’s also in Magnifier › Systems.",
+  "Garden: tapping an empty plot lets you choose what to plant. Each seed shows the Farming level it needs (🔒 if you lack it), how long it takes and whether it is in season.",
+  "Fix: «Where to get» for Coralite, Nacrite, Seastone and their logs gave an error; it now says which Dawn Sea islands they are on."
+ ]
+},
 {
  "v": "6.33",
  "b": 255,
@@ -43020,7 +43052,7 @@ try { for (const tk of ['puerto', 'albor']) if (Array.isArray(SHOPS.store[tk]) &
 
 // ---------- Lupa: dónde conseguir (con flecha) ----------
 { const _is = itemSources; itemSources = function (id) { const r = _is.apply(this, arguments); try {
-  const m = /^(ore|log)(\d+)$/.exec(id); if (m && +m[2] >= 12) { const R = NV_RES.find(x => x[0] === +m[2]), at = NV_AT[id], mapId = R[6], tl = m[1] === 'ore' ? L2('Minería (pico de potencia ', 'Mining (pickaxe power ') : L2('Tala (hacha de potencia ', 'Woodcutting (axe power ');
+  const m = /^(ore|log)(\d+)$/.exec(id); if (m && +m[2] >= 12 && NV_RES.some(x => x[0] === +m[2])) { const R = NV_RES.find(x => x[0] === +m[2]), at = NV_AT[id], mapId = R[6], tl = m[1] === 'ore' ? L2('Minería (pico de potencia ', 'Mining (pickaxe power ') : L2('Tala (hacha de potencia ', 'Woodcutting (axe power ');
     const loc = at ? at.loc : null; if (loc) wpKey(loc, at.m);
     const out = [[tl + toolNeed(m[1] === 'ore' ? 'mineria' : 'tala', +m[2]) + L2(', oficio nivel ', ', job level ') + RESLV[+m[2]] + '): ' + nvMapN(mapId) + (loc ? '' : L2(' (entra una vez en ese mapa y sale la flecha)', ' (enter that map once to get the arrow)')), loc ? { loc, t: ITEMS[id].n, m: at.m } : null]];
     return out.concat(r.filter(x => !/^(Minería|Mining|Tala|Woodcutting)/.test(x[0]))); }
@@ -58644,6 +58676,119 @@ if (typeof GSIS !== 'undefined') GSIS.unshift(['quehago633', '🧭 ' + L2('¿Qu�
   L2('⚔ Para subir de nivel: cuánta experiencia te falta, cuántos monstruos de tu nivel son y dónde están, con ➜ Llévame (flecha dorada).', '⚔ To level up: how much experience you need, how many monsters of your level that is and where they are, with ➜ Take me (golden arrow).'),
   L2('🛡 Tu armadura: la mejor que puedes forjar en la Herrería para tu nivel y clase en cada ranura, sus materiales (tienes / pide) y el oro, con flecha a la Herrería y al sitio del material que falta.', '🛡 Your armour: the best you can forge at the Forge for your level and class in each slot, its materials (have / need) and gold, with an arrow to the Forge and to where the missing material is.'),
   L2('⚒ Tala, Minería y Pesca: tope 130 y hasta 160 con las 3 maestrías; el recurso de tu nivel y el siguiente, qué herramienta falta, los árboles, vetas y peces del Mar de Dawn (tier 23-25) y un consejo.', '⚒ Woodcutting, Mining and Fishing: cap 130 and up to 160 with the 3 masteries; your level’s resource and the next, which tool is missing, the Dawn Sea trees, veins and fish (tier 23-25) and a tip.')
+], () => null]);
+
+// 6.34 · Objetos malditos explicados y huerto con selector de semillas (Sergio: «ese objeto maldito… verifica si es
+// permanente, cuántos puedes tener y cómo sale; agrega en Atajos una parte exclusiva» y «al plantar, que te deje escoger
+// qué plantar, porque pide más nivel y si tienes semillas que piden más nivel es confuso»).
+// Lo que hay en el código (sin cambiar cómo funcionan):
+// - 3 objetos malditos (6x_legacy): Anillo Maldito (accesorio, nv 60), Collar Sangriento (cuello, nv 80) y Yelmo del Vacío
+//   (casco, nv 120, armadura de tier 15). Caen al vencer fantasmas, espectros de la Niebla maldita o jefes: 2 % (jefes 8 %),
+//   uno de los tres al azar, y se pueden repetir. La maldición NO es permanente: solo cuenta mientras lo llevas puesto, se
+//   quita al desequiparlo y se pueden llevar los 3 a la vez (cada uno en su ranura).
+// - Armas malditas (6zp_combat, `wc_<clase>`, nv 140): desde nivel 120, jefes 5 % y fantasmas 0,4 %, solo de tu clase. Al
+//   equiparla ofrece un pacto; se domina con 200 enemigos o se purifica con el Oráculo Ysolde (50.000).
+// Atajos › ☠ abre `curseOpen()`; Lupa › Sistemas › Objetos malditos; el aviso al caer uno dice dónde mirarlo.
+// Huerto: `hookAround('farmAction')` abre un selector con cada semilla (nivel de Agricultura que pide, tiempo, temporada) si
+// el bancal está vacío y tienes más de un tipo (o la única está bloqueada; «Cosechar todo» resiembra sin preguntar); la elegida se planta con la función original viendo solo esa semilla.
+const CURSE_IT = [['anillo_maldito', L2('Accesorio', 'Accessory')], ['collar_sangriento', L2('Cuello', 'Neck')], ['yelmo_vacio', L2('Cabeza (armadura)', 'Head (armour)')]];
+function curseCount(id) { const P = G.P; let n = countItem(id); for (const s in (P.equip || {})) if (P.equip[s] && P.equip[s].id === id) n++; return n; }
+const curseWorn = id => { const P = G.P; return Object.values(P.equip || {}).some(e => e && e.id === id); };
+function curseOpen() { const P = G.P; if (!P) return; const wid = 'wc_' + P.cls, W = ITEMS[wid], w = P.equip && P.equip.weapon && P.equip.weapon.id === wid ? P.equip.weapon : null;
+  const rows = CURSE_IT.filter(([id]) => ITEMS[id]).map(([id, sl]) => { const I = ITEMS[id], n = curseCount(id), on = curseWorn(id);
+    return `<div class="gsrc"><span><b>${on ? '🟣' : n ? '🎒' : '▫'} ${esc(I.n)}</b> · ${esc(sl)} · ${L2('nivel ', 'level ')}${I.lv || 1}<br><small>${esc(I.curse || '')}</small><br><small>${L2('Tienes ', 'You have ')}${n}${on ? ' · ' + L2('puesto ahora: la maldición está activa', 'worn now: the curse is active') : n ? ' · ' + L2('no lo llevas puesto: no te afecta', 'not worn: it does not affect you') : ''}${n > 1 ? ' · ' + L2('los repetidos se venden por ', 'duplicates sell for ') + fmt(Math.max(1, Math.floor((I.price || 0) * 0.4))) + L2(' de oro', ' gold') : ''}</small></span></div>`; }).join('');
+  const wst = !W ? '' : !w ? (countItem(wid) ? L2('La tienes en la mochila: al equiparla te ofrecerá un pacto.', 'It is in your bag: when you equip it, it will offer a pact.') : L2('Aún no la tienes.', 'You don’t have it yet.'))
+    : w.pur ? L2('Purificada: +15 % de ataque, sin precio.', 'Purified: +15% attack, no price.') : w.dom ? L2('Dominada: +35 % de ataque, sin precio.', 'Dominated: +35% attack, no price.')
+    : w.pact && typeof PACTS !== 'undefined' && PACTS[w.pact] ? PACTS[w.pact][0] + ' · ' + PACTS[w.pact][1] + ' · ' + L2('dominada ', 'dominated ') + (w.domK || 0) + '/200' : L2('Equipada sin pacto.', 'Equipped with no pact.');
+  openModal(`<div class="frame"><h3>☠ ${L2('Objetos y armas malditas', 'Cursed items and weapons')}</h3>
+    <div class="gsrc"><span><b>❓ ${L2('Cómo funcionan', 'How they work')}</b><br><small>${L2('Dan mucho poder a cambio de un precio. La maldición NO es permanente: solo cuenta mientras llevas el objeto puesto. Quítatelo en Inventario (o pon otro en esa ranura) y desaparece. Puedes llevar los 3 a la vez, cada uno en su ranura, y sumar las 3 maldiciones.', 'They give great power for a price. The curse is NOT permanent: it only counts while you wear the item. Take it off in your Bag (or put another item in that slot) and it’s gone. You can wear all 3 at once, each in its slot, and stack the 3 curses.')}</small></span></div>
+    <div class="gsrc"><span><b>🎲 ${L2('Cómo salen', 'How they drop')}</b><br><small>${L2('Al vencer fantasmas, los espectros de la Niebla maldita (fenómeno del mundo) o cualquier jefe: 2 % de probabilidad (8 % los jefes). Sale uno de los tres al azar y se puede repetir. El yelmo es una armadura de cabeza de tier 15: cuenta como casco.', 'When you defeat ghosts, the Cursed Fog spectres (world phenomenon) or any boss: 2% chance (8% for bosses). One of the three at random, and it can repeat. The helmet is a tier-15 head armour: it counts as a helmet.')}</small></span></div>
+    ${rows}
+    ${W ? `<div class="gsrc"><span><b>⚔ ${esc(W.n)}</b> · ${L2('arma maldita de tu clase', 'cursed weapon of your class')} · ${L2('nivel ', 'level ')}${W.lv}<br><small>${L2('Desde nivel 120: la sueltan los jefes (5 %) y los fantasmas (0,4 %). Al equiparla te ofrece un pacto: Carne (+45 % ataque, −30 % defensa), Silencio (+40 % ataque y robo de vida, una habilidad sellada) o Ira (+50 % ataque, los enemigos te ven antes y pegan un 20 % más). Con 200 enemigos vencidos dominas la maldición (+35 % sin precio), o el Oráculo Ysolde la purifica por 50.000 de oro (+15 % sin precio).', 'From level 120: dropped by bosses (5%) and ghosts (0.4%). When equipped it offers a pact: Flesh (+45% attack, −30% defence), Silence (+40% attack and life steal, one skill sealed) or Wrath (+50% attack, enemies spot you earlier and hit 20% harder). After 200 defeated enemies you dominate the curse (+35% with no price), or the Oracle Ysolde purifies it for 50,000 gold (+15% with no price).')}</small><br><small>${L2('Tu arma: ', 'Your weapon: ')}${esc(wst)}</small></span>${W && !(w && (w.pur || w.dom)) ? `<button class="btn sm" id="cuOr">➜ ${L2('Oráculo Ysolde', 'Oracle Ysolde')}</button>` : ''}</div>` : ''}
+    <div class="row"><button class="btn" id="cuX">${L2('Cerrar', 'Close')}</button></div></div>`);
+  $('#cuX').onclick = closeModal; const o = $('#cuOr'); if (o) o.onclick = () => { if (typeof qGoNpc === 'function' && qGoNpc('oraculo')) closeModal(); }; }
+// botón ☠ en Atajos (pestaña de ayuda)
+V33_TICKS.push(() => { const row = $('#tr .trbtns'); if (!row || !G.P || $('#bCurse')) return; const b = document.createElement('button'); b.className = 'mini'; b.id = 'bCurse';
+  b.title = L2('Objetos malditos', 'Cursed items'); b.setAttribute('aria-label', b.title); b.textContent = '☠'; b.onclick = curseOpen; const q = $('#bQh'); if (q && q.nextSibling) row.insertBefore(b, q.nextSibling); else row.appendChild(b); });
+try { const I = TR_TABS.find(t => t[0] === 'info'); if (I && I[3] && !I[3].includes('bCurse')) I[3].push('bCurse'); } catch (e) { }
+// el aviso al caer uno dice dónde mirarlo
+hookBefore('toast', (msg, ...a) => { if (typeof msg === 'string' && /^¡Un objeto maldito!|^Un arma maldita|^A cursed weapon/.test(msg) && !msg.includes('☠')) return (toast(msg + L2(' · Mira ▦ Atajos › ☠', ' · See ▦ Shortcuts › ☠'), ...a), HOOK_SKIP); });
+if (typeof GSIS !== 'undefined') GSIS.unshift(['malditos634', '☠ ' + L2('Objetos malditos', 'Cursed items'), () => [
+  L2('Anillo Maldito (accesorio, +35 % ataque / −20 % vida), Collar Sangriento (cuello, +25 % crítico / pierdes vida en combate) y Yelmo del Vacío (casco, +60 % defensa / −15 % velocidad).', 'Cursed Ring (accessory, +35% attack / −20% HP), Bloody Necklace (neck, +25% crit / you lose HP in combat) and Void Helm (helmet, +60% defence / −15% speed).'),
+  L2('Salen al vencer fantasmas, espectros de la Niebla maldita o jefes (2 %, jefes 8 %). La maldición solo cuenta mientras los llevas puestos; se quitan como cualquier equipo y puedes llevar los 3 a la vez.', 'They drop from ghosts, Cursed Fog spectres or bosses (2%, bosses 8%). The curse only counts while worn; take them off like any gear, and you can wear all 3.'),
+  L2('Armas malditas de tu clase (nivel 140): desde nivel 120, jefes 5 % y fantasmas 0,4 %. Pacto al equiparla, se domina con 200 enemigos o la purifica el Oráculo Ysolde (50.000).', 'Cursed weapons of your class (level 140): from level 120, bosses 5% and ghosts 0.4%. A pact when equipped, dominated with 200 enemies or purified by the Oracle Ysolde (50,000).'),
+  L2('Todo en ▦ Atajos › ☠, con cuántos tienes y cuáles llevas puestos.', 'All in ▦ Shortcuts › ☠, with how many you have and which you wear.')
+], () => null]);
+
+// ---------- huerto: elegir qué plantar ----------
+let FARM_PICK = null;
+function farmSeedRows() { const P = G.P, lv = (P.jobs.agricultura || { lv: 1 }).lv, ids = [...new Set(P.inv.filter(s => s && ITEMS[s.id] && ITEMS[s.id].seed).map(s => s.id))], sn = typeof seasonNow === 'function' ? seasonNow() : -1;
+  return ids.map(id => { const I = ITEMS[id], need = RESLV[I.tier] || 1, sc = typeof V74_SCROP !== 'undefined' ? V74_SCROP[I.seed] : undefined;
+    const season = sc === undefined ? '' : sc === sn ? '🌸 ' + L2('de temporada: crece el doble de rápido y da una pieza más', 'in season: grows twice as fast and gives one more') : '🍂 ' + L2('fuera de temporada: crece a la mitad', 'out of season: grows at half speed');
+    return { id, I, need, ok: lv >= need, n: countItem(id), season }; }).sort((a, b) => (b.ok - a.ok) || (b.I.tier - a.I.tier)); }
+hookAround('farmAction', (next, o, ...a) => { const P = G.P; if (FARM_PICK || !P || !o) return next(o, ...a); let S; try { S = plotState(o); } catch (e) { return next(o, ...a); }
+  if (S.st !== 0 || (typeof V74_HV !== 'undefined' && V74_HV)) return next(o, ...a); const rows = farmSeedRows(); if (!rows.length || (rows.length === 1 && rows[0].ok)) return next(o, ...a);   // una sola semilla que puedes plantar, o «Cosechar todo» resembrando: directo
+  const lv = (P.jobs.agricultura || { lv: 1 }).lv;
+  openModal(`<div class="frame"><h3>🌱 ${L2('¿Qué plantas?', 'What do you plant?')}</h3><p class="hint">${L2('Agricultura nivel ', 'Farming level ')}${lv}. ${L2('Las que piden más nivel salen con 🔒: súbelo cosechando.', 'Those needing a higher level show 🔒: raise it by harvesting.')}</p><div class="slist">${rows.map(r => `<div class="srow">${iconHTML(r.I.icon, 24)}<div class="sn"><b>${esc(r.I.n)}</b> ×${r.n}<small>${r.ok ? '✅' : '🔒'} ${L2('Agricultura ', 'Farming ')}${r.need} · ⏱ ${fmtTime(r.I.grow || 120)}${r.season ? ' · ' + esc(r.season) : ''}</small></div><button class="btn sm ${r.ok ? 'gold' : ''}" data-fpk="${r.id}" ${r.ok ? '' : 'disabled'}>${r.ok ? L2('Plantar', 'Plant') : L2('Nivel ', 'Level ') + r.need}</button></div>`).join('')}</div><div class="row"><button class="btn" id="fpX">${L2('Cancelar', 'Cancel')}</button></div></div>`);
+  $('#fpX').onclick = closeModal;
+  $$('#modal [data-fpk]').forEach(b => b.onclick = () => { const id = b.dataset.fpk, real = P.inv, view = real.filter(s => s && s.id === id); closeModal(); FARM_PICK = id; P.inv = view;
+    try { next(o, ...a); } finally { P.inv = real; FARM_PICK = null; const left = new Set(view); for (let i = real.length - 1; i >= 0; i--) { const s = real[i]; if (s && s.id === id && (!left.has(s) || (s.q !== undefined && s.q <= 0))) real.splice(i, 1); } uiDirty.inv = true; } });
+  return undefined; });
+
+// ---------- arreglo: «Dónde conseguir» de los minerales y troncos del Mar de Dawn (tier 23-25) ----------
+// 6zzz5 buscaba su mapa en NV_RES (no los tiene) y rompía; ahora salen sus islas y, si el mapa de Dawn ya existe, la flecha.
+hookAfter('itemSources', (out, id) => { const m = /^(ore|log)(2[345])$/.exec(id || ''); if (!m || !Array.isArray(out)) return; const t = +m[2], ore = m[1] === 'ore';
+  let loc = null; try { const D = G.maps && G.maps.dawn, P = G.P; if (D && D.objs) { const os = D.objs.filter(o => o.dwRes && (ore ? o.k === 'ore' && (o.tier || 0) === t : o.k === 'tree' && WOODT[o.sp] === t)); if (os.length) { const o = os.sort((a, b) => dist2(a.x, a.y, P.x / 16, P.y / 16) - dist2(b.x, b.y, P.x / 16, P.y / 16))[0]; loc = [o.x, o.y]; } } } catch (e) { }
+  const txt = (ore ? L2('Minería', 'Mining') : L2('Tala', 'Woodcutting')) + ' ' + RESLV[t] + ' · ' + L2('Mar de Dawn: 8 por isla en Foosha, Shells Town, Orange Town, Isla de los Animales Raros y Villa Syrup (reaparecen a los 5 s)', 'Dawn Sea: 8 per island on Foosha, Shells Town, Orange Town, Rare Animals Island and Syrup Village (respawn in 5 s)');
+  const i = out.findIndex(s => s && s[1] && s[1].loc === null); const row = [txt, loc ? { loc, t: ITEMS[id] ? ITEMS[id].n : id, m: 'dawn' } : null]; if (i >= 0) out[i] = row; else out.unshift(row); return out; });
+
+// 6.35 · Los enemigos de tu nivel ya hacen daño y armaduras con calidad (Sergio, tras la prueba de daño de la 6.34:
+// «sube el daño de jefes, súper jefes y enemigos, es justo; seguimos siendo fuertes, pero ahora sí nos pueden hacer daño,
+// porque tenemos habilidades que nos recuperan vida» y «a todas las armaduras, 1 % o 10 % de que salga una mejor; en el
+// inventario buena, mala o normal; la buena da una ventaja pequeña, sin exagerar»).
+// 1) Daño AL JUGADOR (no a aliados, no PvP, no duelos de la tripulación): monstruos ×1,6, jefes ×1,8, súper jefes ×2,2.
+//    Sube poco a poco de nivel 15 a 60 para no endurecer el principio. Los jefes del Mar de Dawn ya tenían su reto
+//    (DAWN_RETO, ×1,7-2,2): no se les suma el de jefe. El origen es el monstruo que pega si llega en `src`; si no (golpes
+//    de patrón de jefe), el jefe vivo más cercano.
+// 2) Calidad de armadura (t 'armor'): al conseguir una (botín, Herrería, tienda, misión) se tira: Mala 12 % (−5 %),
+//    Normal 77 %, Buena 10 % (+8 %), Excelente 1 % (+15 %) a su defensa y vida. Se guarda en el objeto (`ql`), se ve en el
+//    inventario (color y etiqueta) y se conserva al equiparla. Las que ya tenías son Normales.
+const RETO = { mob: 0.6, boss: 0.8, sup: 1.2, lv0: 15, lv1: 60 };
+function retoRamp() { const L = (G.P && G.P.lv) || 1; return Math.max(0, Math.min(1, (L - RETO.lv0) / (RETO.lv1 - RETO.lv0))); }
+function retoSrcMob(s) { if (s && s.type === 'mob') return s; if (s && s.dawnReto && s.dawnReto.type === 'mob') return s.dawnReto;
+  const P = G.P, mid = (G.map && G.map.id) || 'world'; let b = null, bd = 450 * 450; for (const m of G.ents) if (m.type === 'mob' && m.boss && !m.dying && m.hp > 0 && (m.map || 'world') === mid) { const d = dist2(m.x, m.y, P.x, P.y); if (d < bd) { bd = d; b = m; } } return b; }
+function retoMul(src) { const s = src || {}; if (s.pvp || (typeof DUEL !== 'undefined' && DUEL) || (typeof CREW_DUEL !== 'undefined' && CREW_DUEL)) return 1;
+  const m = retoSrcMob(s); if (m && m.crewRival) return 1; const r = retoRamp(); if (!r) return 1;
+  if (m && m.boss) { if (typeof DAWN_RETO !== 'undefined' && DAWN_RETO[m.mid]) return 1; return 1 + r * (typeof isSuper === 'function' && isSuper(m) ? RETO.sup : RETO.boss); }
+  return 1 + r * RETO.mob; }
+hookAround('hurtPlayer', (next, base, src, ...a) => next(base * retoMul(src), src, ...a));
+
+// ---------- calidad de armadura ----------
+const ARMQ = [['mala', 0.12, 0.95, L2('Mala', 'Poor'), '#b07a6a'], ['normal', 0.77, 1, L2('Normal', 'Normal'), '#c8c0b0'], ['buena', 0.10, 1.08, L2('Buena', 'Good'), '#7ae07a'], ['exc', 0.01, 1.15, L2('Excelente', 'Excellent'), '#ffd040']];
+const armqOf = k => ARMQ.find(q => q[0] === k) || ARMQ[1];
+function armqRoll() { let r = Math.random(); for (const q of ARMQ) { if (r < q[1]) return q[0]; r -= q[1]; } return 'normal'; }
+const armqTag = k => { const q = armqOf(k); return q[0] === 'normal' ? '' : `<span class="arq" style="color:${q[4]}">${q[3]} ${q[2] > 1 ? '+' : ''}${Math.round((q[2] - 1) * 100)} %</span>`; };
+// al conseguir una armadura: las casillas nuevas sin calidad la reciben
+hookBefore('giveItem', (id) => { const it = ITEMS[id]; if (it && it.t === 'armor' && G.P) G.P.__arqN = G.P.inv.length; });
+hookAfter('giveItem', (r, id) => { const P = G.P, it = ITEMS[id]; if (!r || !it || it.t !== 'armor' || !P || P.__arqN === undefined) return; const from = P.__arqN; delete P.__arqN;
+  for (let i = from; i < P.inv.length; i++) { const s = P.inv[i]; if (s && s.id === id && !s.ql) { s.ql = armqRoll(); if (s.ql !== 'normal') { const q = armqOf(s.ql); toast((q[2] > 1 ? '✨ ' : '') + it.n + ' · ' + L2('calidad ', 'quality ') + q[3] + ' (' + (q[2] > 1 ? '+' : '') + Math.round((q[2] - 1) * 100) + ' %)', q[2] > 1 ? 'quest' : 'info', 4); } } } });
+// se conserva al equiparla (equipFromInv crea un objeto nuevo con id y up)
+hookAround('equipFromInv', (next, idx, ...a) => { const P = G.P, s = P && P.inv[idx], ql = s && s.ql, id = s && s.id, slot = s && ITEMS[s.id] && ITEMS[s.id].slot; const r = next(idx, ...a);
+  if (ql && slot && P.equip[slot] && P.equip[slot].id === id && !P.equip[slot].ql) { P.equip[slot].ql = ql; calcStats(P); } return r; });
+// efecto en las estadísticas
+hookAfter('calcStats', (r, P) => { if (!P || !P.S || !P.equip) return; let dd = 0, dh = 0;
+  for (const sl in P.equip) { const e = P.equip[sl]; if (!e || !e.ql || e.ql === 'normal') continue; const it = ITEMS[e.id]; if (!it || it.t !== 'armor') continue; const k = armqOf(e.ql)[2] - 1, up = 1 + 0.08 * (e.up || 0);
+    dd += (it.def || 0) * up * k; dh += (it.hpB || 0) * up * k; }
+  if (dd || dh) { P.S.def = Math.max(0, Math.round(P.S.def + dd)); P.S.maxhp = Math.max(1, Math.round(P.S.maxhp + dh)); if (P.hp > P.S.maxhp) P.hp = P.S.maxhp; } });
+// en el inventario: etiqueta en el detalle y puntito en la casilla
+// renderPanel guarda renderInv en una tabla al cargar, así que se decora después de renderPanel (pestaña inventario)
+hookAfter('renderPanel', () => { try { const P = G.P, B = typeof panelTab !== 'undefined' && panelTab === 'inv' ? $('#panel') : null; if (!B || !P) return;
+  for (const b of B.querySelectorAll('.slot[data-i]')) { const s = P.inv[+b.dataset.i]; if (s && s.ql && s.ql !== 'normal' && !b.querySelector('.arqd')) b.insertAdjacentHTML('beforeend', `<i class="arqd" style="background:${armqOf(s.ql)[4]}"></i>`); }
+  const s = P.inv[invSel], it = s && ITEMS[s.id]; if (it && it.t === 'armor') { const h = B.querySelector('.ihead small'); if (h && !h.querySelector('.arq')) h.insertAdjacentHTML('beforeend', ' · ' + (armqTag(s.ql || 'normal') || `<span class="arq">${L2('Calidad Normal', 'Normal quality')}</span>`)); } } catch (e) { } });
+{ const st = document.createElement('style'); st.textContent = '.slot{position:relative}.slot .arqd{position:absolute;left:3px;bottom:3px;width:.5em;height:.5em;border-radius:50%;box-shadow:0 0 0 1px #000}.arq{font-weight:bold}'; document.head.appendChild(st); }
+if (typeof GSIS !== 'undefined') GSIS.unshift(['reto635', '⚔ ' + L2('Daño de los enemigos y calidad de armaduras', 'Enemy damage and armour quality'), () => [
+  L2('Desde la 6.35 los enemigos de tu nivel sí hacen daño: monstruos ×1,6, jefes ×1,8 y súper jefes ×2,2 (sube poco a poco de nivel 15 a 60). Usa tus habilidades de cura, escudo y defensa, pociones y esquiva.', 'Since 6.35 enemies of your level really hurt: monsters ×1.6, bosses ×1.8 and super bosses ×2.2 (ramps up from level 15 to 60). Use your heal, shield and defence skills, potions and dodging.'),
+  L2('Cada armadura que consigues tiene calidad: Mala (12 %, −5 %), Normal (77 %), Buena (10 %, +8 %) o Excelente (1 %, +15 %) a su defensa y vida. Se ve en el inventario con un puntito de color y en su detalle.', 'Every armour you get has a quality: Poor (12%, −5%), Normal (77%), Good (10%, +8%) or Excellent (1%, +15%) to its defence and HP. It shows in the bag with a coloured dot and in its details.')
 ], () => null]);
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
