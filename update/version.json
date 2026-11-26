@@ -1,24 +1,26 @@
 {
- "build": 249,
- "ver": "6.27",
+ "build": 250,
+ "ver": "6.28",
  "date": "2026-11-26",
  "file": "thebound.html",
- "size": 37960790,
- "sha256": "17ed8a6499080f9cf69265ec38e4e182a3e21e196ddb92cc6f97400b3552bdfc",
+ "size": 37992382,
+ "sha256": "120fd8c1408f30f1d2b11e099ba471a03962d84531d23554d4ed5f823a3ed56b",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Misiones de la tripulación (pídeselas hablando con ellos): Luffy «El sombrero de paja», Zoro «La promesa de Kuina», Usopp «Una carta para Kaya», Sanji «El sueño del All Blue» y Nami «Los mandarinos de Bell-mère». La flecha dorada te lleva a cada isla.",
-   "Ataques combinados: al completar las misiones de Luffy, Zoro, Usopp y Sanji, el botón 🤝 (o la tecla C) lanza un gran golpe en área con ese tripulante cuando la barra está llena. La de Nami hace que el Merry navegue un 10 % más rápido y que las tormentas esquivadas paguen el doble.",
-   "Sanji ya tiene su cartel de recompensa, y Baratie, Arlong Park y Loguetown suben las recompensas de la tripulación.",
-   "Periódico: una gaviota mensajera lo trae una vez al día en el Mar de Dawn (Lupa › Crossovers › Periódico)."
+   "Alvida, revancha (muelle de Loguetown): ahora con la fruta Sube Sube; cuando brilla, los golpes resbalan, y tras embestir se marea. Premio: Espejo Sube Sube.",
+   "Nezumi vuelve al huerto de Nojiko con sus marines (Conomi, tras Arlong).",
+   "Johnny y Yosaku: 3 encargos de cazarrecompensas al día; la flecha te lleva al pirata buscado.",
+   "La Montaña del Revés (tras Loguetown, al noreste del mar): sube con el Merry, calma a Laboon a cañonazos y recibe el Log Pose.",
+   "La Isla del Barco de Guerra: escolta la balsa de Apis hundiendo 3 barcos de la Marina y conoce al dragón milenario."
   ],
   "en": [
-   "Crew quests (ask them by talking to them): Luffy “The straw hat”, Zoro “Kuina’s promise”, Usopp “A letter for Kaya”, Sanji “The All Blue dream” and Nami “Bell-mère’s tangerine trees”. The golden arrow takes you to each island.",
-   "Combined attacks: completing Luffy’s, Zoro’s, Usopp’s and Sanji’s quests lets the 🤝 button (or the C key) launch a big area hit with that crewmate when the bar is full. Nami’s makes the Merry sail 10 % faster and dodged storms pay double.",
-   "Sanji now has his bounty poster, and the Baratie, Arlong Park and Loguetown raise the crew’s bounties.",
-   "Newspaper: a News Coo brings it once a day in the Dawn Sea (Lupa › Crossovers › Newspaper)."
+   "Alvida rematch (Loguetown pier): now with the Slip-Slip Fruit; when she shines, hits slip off, and after charging she gets dizzy. Reward: Slip-Slip Mirror.",
+   "Nezumi returns to Nojiko’s grove with his marines (Conomi, after Arlong).",
+   "Johnny and Yosaku: 3 bounty hunting jobs a day; the arrow takes you to the wanted pirate.",
+   "Reverse Mountain (after Loguetown, north-east of the sea): climb it with the Merry, calm Laboon with cannon fire and get the Log Pose.",
+   "Warship Island: escort Apis’s raft by sinking 3 Navy ships and meet the thousand-year dragon."
   ]
  }
 }
