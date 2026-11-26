@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.33', GAME_BUILD = 255;
+const GAME_VER = '6.35', GAME_BUILD = 257;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,38 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.35",
+ "b": 257,
+ "d": "2026-11-26",
+ "es": [
+  "Los enemigos de tu nivel ya hacen daño de verdad: monstruos ×1,6, jefes ×1,8 y súper jefes ×2,2 contra ti (no contra tus aliados ni en PvP). Sube poco a poco de nivel 15 a 60, así que el principio no cambia. Los jefes del Mar de Dawn ya tenían su reto y no suben más. Usa tus habilidades de cura, escudo y defensa, pociones y esquiva.",
+  "Calidad de armaduras: cada armadura que consigues (botín, Herrería, tienda, misión) puede salir Mala (12 %, −5 %), Normal (77 %), Buena (10 %, +8 %) o Excelente (1 %, +15 %) en defensa y vida. Se ve en el inventario con un puntito de color y en su detalle, te avisa al conseguirla y se conserva al equiparla. Las que ya tenías son Normales.",
+  "Revisadas todas las habilidades activas de las 7 clases: todas se lanzan y hacen lo que dicen."
+ ],
+ "en": [
+  "Enemies of your level now really hurt: monsters ×1.6, bosses ×1.8 and super bosses ×2.2 against you (not against allies or in PvP). It ramps up from level 15 to 60, so the start doesn’t change. Dawn Sea bosses already had their challenge and don’t go higher. Use your heal, shield and defence skills, potions and dodging.",
+  "Armour quality: every armour you get (loot, Forge, shop, quest) can be Poor (12%, −5%), Normal (77%), Good (10%, +8%) or Excellent (1%, +15%) in defence and HP. It shows in the bag with a coloured dot and in its details, you get a notice, and it’s kept when equipped. The ones you already had are Normal.",
+  "All active skills of the 7 classes checked: they all cast and do what they say."
+ ]
+},
+{
+ "v": "6.34",
+ "b": 256,
+ "d": "2026-11-26",
+ "es": [
+  "▦ Atajos › ☠ Objetos malditos (nuevo): cómo funcionan (la maldición solo cuenta mientras llevas el objeto puesto; se quita como cualquier equipo y puedes llevar los 3 a la vez), cómo salen (fantasmas, Niebla maldita y jefes: 2 %, jefes 8 %), cuántos tienes, cuáles llevas puestos y el arma maldita de tu clase con su pacto, cómo dominarla o purificarla.",
+  "El aviso «¡Un objeto maldito!» dice dónde mirarlo, y está también en Lupa › Sistemas.",
+  "Huerto: al tocar un bancal vacío eliges qué plantar. Cada semilla dice el nivel de Agricultura que pide (🔒 si te falta), cuánto tarda y si es de temporada.",
+  "Arreglo: «Dónde conseguir» de Coralita, Nacarita, Piedra del Mar y sus troncos daba error; ahora dice en qué islas del Mar de Dawn están."
+ ],
+ "en": [
+  "▦ Shortcuts › ☠ Cursed items (new): how they work (the curse only counts while you wear the item; take it off like any gear and you can wear all 3), how they drop (ghosts, Cursed Fog and bosses: 2%, bosses 8%), how many you have, which you wear, and your class’s cursed weapon with its pact and how to dominate or purify it.",
+  "The «A cursed item!» notice says where to look, and it’s also in Magnifier › Systems.",
+  "Garden: tapping an empty plot lets you choose what to plant. Each seed shows the Farming level it needs (🔒 if you lack it), how long it takes and whether it is in season.",
+  "Fix: «Where to get» for Coralite, Nacrite, Seastone and their logs gave an error; it now says which Dawn Sea islands they are on."
+ ]
+},
 {
  "v": "6.33",
  "b": 255,
