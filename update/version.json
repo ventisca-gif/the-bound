@@ -1,26 +1,24 @@
 {
- "build": 250,
- "ver": "6.28",
+ "build": 251,
+ "ver": "6.29",
  "date": "2026-11-26",
  "file": "thebound.html",
- "size": 37992382,
- "sha256": "120fd8c1408f30f1d2b11e099ba471a03962d84531d23554d4ed5f823a3ed56b",
+ "size": 38012310,
+ "sha256": "c5d030f3a708c50174b0b763f069ec475b77513d724e120ab9856c2218bdf11d",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Alvida, revancha (muelle de Loguetown): ahora con la fruta Sube Sube; cuando brilla, los golpes resbalan, y tras embestir se marea. Premio: Espejo Sube Sube.",
-   "Nezumi vuelve al huerto de Nojiko con sus marines (Conomi, tras Arlong).",
-   "Johnny y Yosaku: 3 encargos de cazarrecompensas al día; la flecha te lleva al pirata buscado.",
-   "La Montaña del Revés (tras Loguetown, al noreste del mar): sube con el Merry, calma a Laboon a cañonazos y recibe el Log Pose.",
-   "La Isla del Barco de Guerra: escolta la balsa de Apis hundiendo 3 barcos de la Marina y conoce al dragón milenario."
+   "Mapas del tesoro de Buggy: los barcos piratas, los Reyes Marinos, los buscados de Johnny y Yosaku y los buques de guerra sueltan trozos. Nami los lee, la flecha te lleva a una isla, buscas la ✗ roja y cavas con la espada (6 toques) para abrir el cofre.",
+   "La Marina te persigue más fuerte: con recompensa de peligro 3 o más puede salir un buque de guerra de un vicealmirante (mucha vida, andanadas de 3 proyectiles). Hundirlo da mucho oro y dispara tu recompensa.",
+   "Asaltos semanales (pídeselos a Johnny o Yosaku): la venganza de Buggy en Orange Town (cuchillos voladores Bara Bara), la flota de Don Krieg junto al Baratie y Hatchan, Kuroobi y Chew a la vez en Conomi. Cambian cada semana; la primera victoria da 400.000 de oro, 2 trozos de mapa y un material raro.",
+   "Todo explicado en Lupa › Crossovers › Tesoros, buques y asaltos."
   ],
   "en": [
-   "Alvida rematch (Loguetown pier): now with the Slip-Slip Fruit; when she shines, hits slip off, and after charging she gets dizzy. Reward: Slip-Slip Mirror.",
-   "Nezumi returns to Nojiko’s grove with his marines (Conomi, after Arlong).",
-   "Johnny and Yosaku: 3 bounty hunting jobs a day; the arrow takes you to the wanted pirate.",
-   "Reverse Mountain (after Loguetown, north-east of the sea): climb it with the Merry, calm Laboon with cannon fire and get the Log Pose.",
-   "Warship Island: escort Apis’s raft by sinking 3 Navy ships and meet the thousand-year dragon."
+   "Buggy’s treasure maps: pirate ships, Sea Kings, Johnny and Yosaku’s wanted pirates and warships drop pieces. Nami reads them, the arrow takes you to an island, you find the red ✗ and dig with the sword (6 taps) to open the chest.",
+   "The Navy hunts you harder: with a bounty of danger 3 or more, a vice admiral’s warship may appear (lots of HP, 3-shot volleys). Sinking it gives lots of gold and sends your bounty soaring.",
+   "Weekly raids (ask Johnny or Yosaku): Buggy’s revenge in Orange Town (Chop-Chop flying knives), Don Krieg’s fleet by the Baratie, and Hatchan, Kuroobi and Chew at once in Conomi. They change every week; the first win gives 400,000 gold, 2 map pieces and a rare material.",
+   "Everything is explained in Lupa › Crossovers › Treasures, warships and raids."
   ]
  }
 }
