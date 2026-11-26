@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.27', GAME_BUILD = 249;
+const GAME_VER = '6.28', GAME_BUILD = 250;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,25 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.28",
+ "b": 250,
+ "d": "2026-11-26",
+ "es": [
+  "Alvida, revancha (muelle de Loguetown): ahora con la fruta Sube Sube; cuando brilla, los golpes resbalan, y tras embestir se marea. Premio: Espejo Sube Sube.",
+  "Nezumi vuelve al huerto de Nojiko con sus marines (Conomi, tras Arlong).",
+  "Johnny y Yosaku: 3 encargos de cazarrecompensas al día; la flecha te lleva al pirata buscado.",
+  "La Montaña del Revés (tras Loguetown, al noreste del mar): sube con el Merry, calma a Laboon a cañonazos y recibe el Log Pose.",
+  "La Isla del Barco de Guerra: escolta la balsa de Apis hundiendo 3 barcos de la Marina y conoce al dragón milenario."
+ ],
+ "en": [
+  "Alvida rematch (Loguetown pier): now with the Slip-Slip Fruit; when she shines, hits slip off, and after charging she gets dizzy. Reward: Slip-Slip Mirror.",
+  "Nezumi returns to Nojiko’s grove with his marines (Conomi, after Arlong).",
+  "Johnny and Yosaku: 3 bounty hunting jobs a day; the arrow takes you to the wanted pirate.",
+  "Reverse Mountain (after Loguetown, north-east of the sea): climb it with the Merry, calm Laboon with cannon fire and get the Log Pose.",
+  "Warship Island: escort Apis’s raft by sinking 3 Navy ships and meet the thousand-year dragon."
+ ]
+},
 {
  "v": "6.27",
  "b": 249,

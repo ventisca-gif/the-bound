@@ -115,3 +115,5 @@ A petición de Sergio se prepara Villa Foosha de One Piece: Shanks y su tripulac
 
 **Vida en el Going Merry y la tripulación (v6.25-6.27).** Mismo escenario crossover, sin CRON ni ERAS. Bajo cubierta del Merry (cocina de Sanji, comedor, salita), entrenamientos, batallas en el mar (Marina, piratas, Reyes Marinos y tormentas que avisa Nami), misiones personales que solo cuentan lo que ya sabe cada tripulante del canon de One Piece del East Blue (Makino y el sombrero de Shanks, Kuina y la Wadō, la carta a Kaya, Zeff y el All Blue, los mandarinos de Bell-mère) y un periódico diario con noticias sin spoilers del Grand Line.
 
+**Más arcos del Mar de Dawn (v6.28).** Mismo crossover. Alvida (con la fruta Sube Sube) pide la revancha en Loguetown; Nezumi vuelve a Cocoyashi; Johnny y Yosaku dan encargos de cazarrecompensas; la Montaña del Revés y Laboon (Crocus da el Log Pose) cierran el East Blue: **el Grand Line todavía no está pintado** (la Ventisca lo pintará más adelante, regla 10); la Isla del Barco de Guerra (Apis y Ryuji, el dragón milenario) es un arco de relleno del anime.
+
