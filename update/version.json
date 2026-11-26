@@ -1,22 +1,22 @@
 {
- "build": 257,
- "ver": "6.35",
+ "build": 258,
+ "ver": "6.36",
  "date": "2026-11-26",
  "file": "thebound.html",
- "size": 39258140,
- "sha256": "436fe0a862374cfa0bc2861d712532911064bf2e0fe3671f04b9cd81c1949e00",
+ "size": 39264567,
+ "sha256": "2fbd929351e759670809d5da0e34ba8ba7f4a6e463d7ec5dc077b2e4dd4f59f1",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Los enemigos de tu nivel ya hacen daño de verdad: monstruos ×1,6, jefes ×1,8 y súper jefes ×2,2 contra ti (no contra tus aliados ni en PvP). Sube poco a poco de nivel 15 a 60, así que el principio no cambia. Los jefes del Mar de Dawn ya tenían su reto y no suben más. Usa tus habilidades de cura, escudo y defensa, pociones y esquiva.",
-   "Calidad de armaduras: cada armadura que consigues (botín, Herrería, tienda, misión) puede salir Mala (12 %, −5 %), Normal (77 %), Buena (10 %, +8 %) o Excelente (1 %, +15 %) en defensa y vida. Se ve en el inventario con un puntito de color y en su detalle, te avisa al conseguirla y se conserva al equiparla. Las que ya tenías son Normales.",
-   "Revisadas todas las habilidades activas de las 7 clases: todas se lanzan y hacen lo que dicen."
+   "El maná importa: cada habilidad de tu clase cuesta lo de siempre o un % de tu maná máximo según su recarga (9 s ≈ 3 %, 30 s ≈ 11 %, 60 s ≈ 22 %). Antes el mago, el bardo y el invocador tenían maná casi infinito. Lanzarlas todas en cuanto salen gasta algo más de lo que recuperas en combate: hay que elegir.",
+   "La barra pone en gris las habilidades que no te alcanzan y la ficha de cada una dice su coste real.",
+   "Arquero: Espíritu del Bosque cura un 25 % (antes 20 %), se recarga en 24 s y da +20 % de defensa durante 8 s. Mago: Escudo Arcano absorbe un 30 % (antes 25 %) y Armadura de Escarcha da +30 % de defensa durante 25 s."
   ],
   "en": [
-   "Enemies of your level now really hurt: monsters ×1.6, bosses ×1.8 and super bosses ×2.2 against you (not against allies or in PvP). It ramps up from level 15 to 60, so the start doesn’t change. Dawn Sea bosses already had their challenge and don’t go higher. Use your heal, shield and defence skills, potions and dodging.",
-   "Armour quality: every armour you get (loot, Forge, shop, quest) can be Poor (12%, −5%), Normal (77%), Good (10%, +8%) or Excellent (1%, +15%) in defence and HP. It shows in the bag with a coloured dot and in its details, you get a notice, and it’s kept when equipped. The ones you already had are Normal.",
-   "All active skills of the 7 classes checked: they all cast and do what they say."
+   "Mana matters: each class skill costs its usual amount or a % of your max mana based on its cooldown (9 s ≈ 3%, 30 s ≈ 11%, 60 s ≈ 22%). Before, mages, bards and summoners had almost infinite mana. Casting them all as soon as they are ready costs a bit more than you regain in combat: you have to choose.",
+   "The bar greys out skills you can’t afford and each skill’s card shows its real cost.",
+   "Archer: Forest Spirit heals 25% (was 20%), recharges in 24 s and gives +20% defence for 8 s. Mage: Arcane Shield absorbs 30% (was 25%) and Frost Armour gives +30% defence for 25 s."
   ]
  }
 }
