@@ -1,0 +1,6 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (()=>{ const P=G.P; P.cls='mago'; P.lv=600; P.attr.int=3000; P.skills={m19:10,m11:10,m7:10}; calcStats(P); P.slots=['m19','m11','m7',null]; P.cds={}; P.busy=0; P.mp=P.S.maxmp; const m0=P.mp; useSkill(0); const spent=m0-P.mp; return {maxmp:P.S.maxmp, cost:skillMpCost('m19'), spent, base:SK.m19.mp, cd:SK.m19.cd, shield:SK.m11.eff.p}; })()
+js (()=>{ const P=G.P; P.cds={}; P.busy=0; P.mp=10; useSkill(1); return {cast:(P.cds.m11||0)>0, mp:P.mp}; })()
+wait 200
+js (()=>{ const P=G.P; P.mp=10; updateHUD(); return [...document.querySelectorAll('.sk')].slice(0,3).map(b=>b.classList.contains('nomp')); })()
+js (()=>{ const P=G.P; P.cls='arquero'; P.skills={a7:10}; calcStats(P); P.slots=['a7',null,null,null]; P.cds={}; P.busy=0; P.mp=P.S.maxmp; P.hp=1; useSkill(0); return {hp:P.hp, max:P.S.maxhp, buff:JSON.stringify(P.buff), cd:P.cds.a7}; })()
