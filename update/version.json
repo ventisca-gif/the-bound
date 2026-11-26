@@ -1,24 +1,28 @@
 {
- "build": 251,
- "ver": "6.29",
+ "build": 252,
+ "ver": "6.30",
  "date": "2026-11-26",
  "file": "thebound.html",
- "size": 38012310,
- "sha256": "c5d030f3a708c50174b0b763f069ec475b77513d724e120ab9856c2218bdf11d",
+ "size": 39156634,
+ "sha256": "f87ee05fcaefe0016fd1f699d21a4afe3029d739a69af0d81c009fe7817ad7c3",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Mapas del tesoro de Buggy: los barcos piratas, los Reyes Marinos, los buscados de Johnny y Yosaku y los buques de guerra sueltan trozos. Nami los lee, la flecha te lleva a una isla, buscas la ✗ roja y cavas con la espada (6 toques) para abrir el cofre.",
-   "La Marina te persigue más fuerte: con recompensa de peligro 3 o más puede salir un buque de guerra de un vicealmirante (mucha vida, andanadas de 3 proyectiles). Hundirlo da mucho oro y dispara tu recompensa.",
-   "Asaltos semanales (pídeselos a Johnny o Yosaku): la venganza de Buggy en Orange Town (cuchillos voladores Bara Bara), la flota de Don Krieg junto al Baratie y Hatchan, Kuroobi y Chew a la vez en Conomi. Cambian cada semana; la primera victoria da 400.000 de oro, 2 trozos de mapa y un material raro.",
-   "Todo explicado en Lupa › Crossovers › Tesoros, buques y asaltos."
+   "Casa de Dadan nueva en el Monte Colubo (Villa Foosha), igual que en el anime: casa larga de madera con tejas rojas, torre de vigía, tendedero y escaleras. No se puede entrar. Fuera están Dadan, Luffy, Ace y Sabo niños con los sprites de Sergio y su retrato en los diálogos.",
+   "Primera historia del Mar de Dawn (antes de Shanks): «Recuerdo de los hermanos». Cinemática de Garp, sigue a Ace hasta el Gray Terminal, conoce a Sabo, pelea con Porchemy, caza el Jabalí Gigante del Colubo, salva el Gray Terminal de Bluejam y la cinemática de las copas de sake. Luffy, Ace y Sabo niños pelean contigo. Se repite hablando con Dadan.",
+   "Ropa de los tres hermanos (14 prendas sueltas, para todos los cuerpos): sombrero de paja en la cabeza o colgado a la espalda, camiseta «56», ropa de Ace con su saco y la de Sabo con chistera, abrigo y tubo. La primera vez caen 3 prendas seguras; al repetir, 20 % por prenda y segura a las 8.",
+   "Isla nueva: Aldea Shimotsuki con el Dojo Isshin. Koshiro, alumnos con gi entrenando, Zoro niño y Kuina (con retrato). Entrenamiento, duelo con Zoro niño y duelo con Kuina (con la escena de la promesa).",
+   "Isla nueva: Cuartel General de la Marina, con su fortaleza y los dos arcos. Se entra al vestíbulo y Garp acepta un duelo de puños (nivel 700). En los costados, zonas restringidas con marines de élite de nivel 690-700.",
+   "Todo explicado en Lupa › Crossovers."
   ],
   "en": [
-   "Buggy’s treasure maps: pirate ships, Sea Kings, Johnny and Yosaku’s wanted pirates and warships drop pieces. Nami reads them, the arrow takes you to an island, you find the red ✗ and dig with the sword (6 taps) to open the chest.",
-   "The Navy hunts you harder: with a bounty of danger 3 or more, a vice admiral’s warship may appear (lots of HP, 3-shot volleys). Sinking it gives lots of gold and sends your bounty soaring.",
-   "Weekly raids (ask Johnny or Yosaku): Buggy’s revenge in Orange Town (Chop-Chop flying knives), Don Krieg’s fleet by the Baratie, and Hatchan, Kuroobi and Chew at once in Conomi. They change every week; the first win gives 400,000 gold, 2 map pieces and a rare material.",
-   "Everything is explained in Lupa › Crossovers › Treasures, warships and raids."
+   "New Dadan’s house on Mount Colubo (Foosha Village), just like the anime: a long wooden house with red tiles, a lookout tower, a clothesline and ladders. You can’t go in. Outside are Dadan and young Luffy, Ace and Sabo with Sergio’s sprites and their portraits in dialogue.",
+   "First Dawn Sea story (before Shanks): “Memory of the brothers”. Garp cutscene, follow Ace to the Gray Terminal, meet Sabo, fight Porchemy, hunt the Giant Colubo Boar, save the Gray Terminal from Bluejam and the sake cups cutscene. Young Luffy, Ace and Sabo fight alongside you. Replay it by talking to Dadan.",
+   "The three brothers’ clothes (14 separate pieces, for every body): straw hat on the head or hanging on the back, the “56” tank top, Ace’s clothes with his sack and Sabo’s with top hat, coat and pipe. The first time 3 pieces are guaranteed; on replays, 20% per piece and guaranteed by the 8th.",
+   "New island: Shimotsuki Village with the Isshin Dojo. Koshiro, students in gi training, young Zoro and Kuina (with portraits). Training, a duel with young Zoro and a duel with Kuina (with the promise scene).",
+   "New island: Navy Headquarters, with its fortress and the two arches. Go into the hall where Garp accepts a fist duel (level 700). On the sides, restricted zones with level 690-700 elite marines.",
+   "Everything is explained in Lupa › Crossovers."
   ]
  }
 }

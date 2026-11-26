@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.29', GAME_BUILD = 251;
+const GAME_VER = '6.30', GAME_BUILD = 252;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,27 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.30",
+ "b": 252,
+ "d": "2026-11-26",
+ "es": [
+  "Casa de Dadan nueva en el Monte Colubo (Villa Foosha), igual que en el anime: casa larga de madera con tejas rojas, torre de vigía, tendedero y escaleras. No se puede entrar. Fuera están Dadan, Luffy, Ace y Sabo niños con los sprites de Sergio y su retrato en los diálogos.",
+  "Primera historia del Mar de Dawn (antes de Shanks): «Recuerdo de los hermanos». Cinemática de Garp, sigue a Ace hasta el Gray Terminal, conoce a Sabo, pelea con Porchemy, caza el Jabalí Gigante del Colubo, salva el Gray Terminal de Bluejam y la cinemática de las copas de sake. Luffy, Ace y Sabo niños pelean contigo. Se repite hablando con Dadan.",
+  "Ropa de los tres hermanos (14 prendas sueltas, para todos los cuerpos): sombrero de paja en la cabeza o colgado a la espalda, camiseta «56», ropa de Ace con su saco y la de Sabo con chistera, abrigo y tubo. La primera vez caen 3 prendas seguras; al repetir, 20 % por prenda y segura a las 8.",
+  "Isla nueva: Aldea Shimotsuki con el Dojo Isshin. Koshiro, alumnos con gi entrenando, Zoro niño y Kuina (con retrato). Entrenamiento, duelo con Zoro niño y duelo con Kuina (con la escena de la promesa).",
+  "Isla nueva: Cuartel General de la Marina, con su fortaleza y los dos arcos. Se entra al vestíbulo y Garp acepta un duelo de puños (nivel 700). En los costados, zonas restringidas con marines de élite de nivel 690-700.",
+  "Todo explicado en Lupa › Crossovers."
+ ],
+ "en": [
+  "New Dadan’s house on Mount Colubo (Foosha Village), just like the anime: a long wooden house with red tiles, a lookout tower, a clothesline and ladders. You can’t go in. Outside are Dadan and young Luffy, Ace and Sabo with Sergio’s sprites and their portraits in dialogue.",
+  "First Dawn Sea story (before Shanks): “Memory of the brothers”. Garp cutscene, follow Ace to the Gray Terminal, meet Sabo, fight Porchemy, hunt the Giant Colubo Boar, save the Gray Terminal from Bluejam and the sake cups cutscene. Young Luffy, Ace and Sabo fight alongside you. Replay it by talking to Dadan.",
+  "The three brothers’ clothes (14 separate pieces, for every body): straw hat on the head or hanging on the back, the “56” tank top, Ace’s clothes with his sack and Sabo’s with top hat, coat and pipe. The first time 3 pieces are guaranteed; on replays, 20% per piece and guaranteed by the 8th.",
+  "New island: Shimotsuki Village with the Isshin Dojo. Koshiro, students in gi training, young Zoro and Kuina (with portraits). Training, a duel with young Zoro and a duel with Kuina (with the promise scene).",
+  "New island: Navy Headquarters, with its fortress and the two arches. Go into the hall where Garp accepts a fist duel (level 700). On the sides, restricted zones with level 690-700 elite marines.",
+  "Everything is explained in Lupa › Crossovers."
+ ]
+},
 {
  "v": "6.29",
  "b": 251,
