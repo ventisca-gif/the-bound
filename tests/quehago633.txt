@@ -1,0 +1,8 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (()=>{ const P=G.P; P.lv=120; P.xp=1000; calcStats(P); P.jobs.tala.lv=21; P.jobs.mineria.lv=18; qhOpen(); const M=document.querySelector('#modal'); return {lv:!!M.querySelector('[data-q3lvbox]'), lvBtn:!!M.querySelector('[data-q3lv]'), arm:!!M.querySelector('.q3arm'), forge:!!M.querySelector('[data-q3forge]'), dawn:M.querySelectorAll('.q3dw').length, jobs:M.querySelectorAll('.qhjob').length, txt:M.querySelector('.qhjobs').textContent.slice(0,300)}; })()
+wait 300
+shot
+js (()=>{ const b=document.querySelector('[data-q3lv]'); b.click(); return G.P.wp; })()
+js (()=>{ qhOpen(); const b=document.querySelector('[data-q3forge]'); if(b) b.click(); return G.P.wp; })()
+js (()=>{ qhOpen(); const b=document.querySelector('[data-q3mat]'); if(b) b.click(); return [!!b, G.P.wp]; })()
+js (()=>{ const P=G.P; P.lv=560; calcStats(P); P.jobs.tala.lv=130; qhOpen(); const M=document.querySelector('#modal'); const r={lv:M.querySelector('[data-q3lvbox]').textContent.slice(0,200), arm:(M.querySelector('.q3arm')||{}).textContent, jobs:M.querySelector('.qhjobs').textContent.slice(0,500)}; closeModal(); return r; })()
