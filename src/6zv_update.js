@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.24', GAME_BUILD = 246;
+const GAME_VER = '6.25', GAME_BUILD = 247;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.25",
+ "b": 247,
+ "d": "2026-11-26",
+ "es": [
+  "Bajo cubierta del Going Merry: navegando, habla con la tripulación y elige «Bajar a la cocina y el comedor». Cocina, comedor con la mesa verde y el mástil, y salita con bodega. Toda tu tripulación está abajo y la escalera te devuelve al timón.",
+  "Cocinar con Sanji: recoge 3 ingredientes por la cocina y pulsa ⚔ en el fogón cuando la llama esté en la zona verde. Carne (ataque), risotto (defensa) o postre de mandarina (velocidad) durante 20 min, y la tripulación pega más fuerte.",
+  "Entrenamientos en la salita: puntería con Usopp, cortes con Zoro y esquivar a Sanji (30 s, oro y un bono de 10 min).",
+  "Lupa › Crossovers: páginas nuevas del Going Merry y del poder y duelos de la tripulación."
+ ],
+ "en": [
+  "Going Merry below deck: while sailing, talk to the crew and choose “Go below to the galley and dining room”. Galley, dining room with the green table and the mast, and a lounge with the hold. Your whole crew is below and the ladder takes you back to the helm.",
+  "Cook with Sanji: pick up 3 ingredients around the galley and press ⚔ at the stove when the flame is in the green zone. Meat (attack), risotto (defense) or tangerine dessert (speed) for 20 min, and the crew hits harder.",
+  "Training in the lounge: aim with Usopp, cuts with Zoro and dodging Sanji (30 s, gold and a 10 min bonus).",
+  "Lupa › Crossovers: new pages for the Going Merry and for crew power and duels."
+ ]
+},
 {
  "v": "6.24",
  "b": 246,

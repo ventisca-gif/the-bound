@@ -1,18 +1,24 @@
 {
- "build": 246,
- "ver": "6.24",
- "date": "2026-11-25",
+ "build": 247,
+ "ver": "6.25",
+ "date": "2026-11-26",
  "file": "thebound.html",
- "size": 37879198,
- "sha256": "9159a6c8aa521d793843399c78770e5acaac5eb9d6eac3855ed6754faf22e731",
+ "size": 37913984,
+ "sha256": "f28cb67fad81b06d0e5910fd194d6c9815fb60f07c9ecbab260e954cf55ed844",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Aura del Conquistador: a los enemigos muy débiles que tumba ahora les sale «¡KO!» en vez de un número gigante (como 1.810.944.828) que parecía daño real. El efecto no cambia."
+   "Bajo cubierta del Going Merry: navegando, habla con la tripulación y elige «Bajar a la cocina y el comedor». Cocina, comedor con la mesa verde y el mástil, y salita con bodega. Toda tu tripulación está abajo y la escalera te devuelve al timón.",
+   "Cocinar con Sanji: recoge 3 ingredientes por la cocina y pulsa ⚔ en el fogón cuando la llama esté en la zona verde. Carne (ataque), risotto (defensa) o postre de mandarina (velocidad) durante 20 min, y la tripulación pega más fuerte.",
+   "Entrenamientos en la salita: puntería con Usopp, cortes con Zoro y esquivar a Sanji (30 s, oro y un bono de 10 min).",
+   "Lupa › Crossovers: páginas nuevas del Going Merry y del poder y duelos de la tripulación."
   ],
   "en": [
-   "Conqueror's Aura: very weak enemies it knocks out now show “KO!” instead of a huge number (like 1,810,944,828) that looked like real damage. The effect is unchanged."
+   "Going Merry below deck: while sailing, talk to the crew and choose “Go below to the galley and dining room”. Galley, dining room with the green table and the mast, and a lounge with the hold. Your whole crew is below and the ladder takes you back to the helm.",
+   "Cook with Sanji: pick up 3 ingredients around the galley and press ⚔ at the stove when the flame is in the green zone. Meat (attack), risotto (defense) or tangerine dessert (speed) for 20 min, and the crew hits harder.",
+   "Training in the lounge: aim with Usopp, cuts with Zoro and dodging Sanji (30 s, gold and a 10 min bonus).",
+   "Lupa › Crossovers: new pages for the Going Merry and for crew power and duels."
   ]
  }
 }
