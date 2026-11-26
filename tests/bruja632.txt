@@ -1,0 +1,5 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (()=>{ const P=G.P; P.gold=1e6; gothShop(); const btns=[...document.querySelectorAll('#modal [data-gs^="c_bc_"]')]; btns.forEach(b=>b.click()); closeModal(); const got=['c_bc_sombrero','c_bc_top','c_bc_falda','c_bc_botas','c_bc_capa'].filter(id=>P.wardrobe.includes(id)); P.cos={head:'c_bc_sombrero',body:'c_bc_top',legs:'c_bc_falda',feet:'c_bc_botas',back:'c_bc_capa'}; refreshLook(); return {btns:btns.length, got:got.length, gold:P.gold, atlas:!!P.atlas}; })()
+js (openPanel('wardrobe'), 1)
+wait 800
+shot

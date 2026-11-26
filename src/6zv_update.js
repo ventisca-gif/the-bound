@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.31', GAME_BUILD = 253;
+const GAME_VER = '6.32', GAME_BUILD = 254;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.32",
+ "b": 254,
+ "d": "2026-11-26",
+ "es": [
+  "Conjunto de la Bruja Carmesí en el Taller de Morwenna (Albor), por piezas: Sombrero Carmesí con Gafas, Top Doble de Hombro Caído (polera negra de cuello alto, blusa gris, collar con colgante y el hombro al aire), Falda de Capas Rasgada, Botas Altas de Cordones y Capa Rasgada Carmesí.",
+  "Cada pieza va a su ranura del Armario (Cabeza, Torso, Piernas, Pies y Espalda), se ajusta a todas las estructuras de hombre y mujer y se ve en las cuatro direcciones. El sombrero deja ver tu peinado por debajo del ala."
+ ],
+ "en": [
+  "Crimson Witch outfit at Morwenna’s Workshop (Albor), sold by pieces: Crimson Hat with Goggles, Off-Shoulder Double Top (black turtleneck, grey blouse, pendant necklace and a bare shoulder), Tattered Layered Skirt, Laced Thigh-High Boots and Tattered Crimson Cape.",
+  "Each piece goes to its Wardrobe slot (Head, Torso, Legs, Feet and Back), fits every male and female body type and shows in all four directions. The hat lets your hairstyle show under the brim."
+ ]
+},
 {
  "v": "6.31",
  "b": 253,
