@@ -1,28 +1,34 @@
 {
- "build": 252,
- "ver": "6.30",
+ "build": 253,
+ "ver": "6.31",
  "date": "2026-11-26",
  "file": "thebound.html",
- "size": 39156634,
- "sha256": "f87ee05fcaefe0016fd1f699d21a4afe3029d739a69af0d81c009fe7817ad7c3",
+ "size": 39205851,
+ "sha256": "24e546bd64ddbc1d80fe01fad52eda50303c4a10ae3010ced6b497778b6ad990",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Casa de Dadan nueva en el Monte Colubo (Villa Foosha), igual que en el anime: casa larga de madera con tejas rojas, torre de vigía, tendedero y escaleras. No se puede entrar. Fuera están Dadan, Luffy, Ace y Sabo niños con los sprites de Sergio y su retrato en los diálogos.",
-   "Primera historia del Mar de Dawn (antes de Shanks): «Recuerdo de los hermanos». Cinemática de Garp, sigue a Ace hasta el Gray Terminal, conoce a Sabo, pelea con Porchemy, caza el Jabalí Gigante del Colubo, salva el Gray Terminal de Bluejam y la cinemática de las copas de sake. Luffy, Ace y Sabo niños pelean contigo. Se repite hablando con Dadan.",
-   "Ropa de los tres hermanos (14 prendas sueltas, para todos los cuerpos): sombrero de paja en la cabeza o colgado a la espalda, camiseta «56», ropa de Ace con su saco y la de Sabo con chistera, abrigo y tubo. La primera vez caen 3 prendas seguras; al repetir, 20 % por prenda y segura a las 8.",
-   "Isla nueva: Aldea Shimotsuki con el Dojo Isshin. Koshiro, alumnos con gi entrenando, Zoro niño y Kuina (con retrato). Entrenamiento, duelo con Zoro niño y duelo con Kuina (con la escena de la promesa).",
-   "Isla nueva: Cuartel General de la Marina, con su fortaleza y los dos arcos. Se entra al vestíbulo y Garp acepta un duelo de puños (nivel 700). En los costados, zonas restringidas con marines de élite de nivel 690-700.",
-   "Todo explicado en Lupa › Crossovers."
+   "Día, tarde y noche en todo el Mar de Dawn, con la hora del reloj de arriba: amanecer rosado, tarde dorada y noche azul con las ventanas encendidas y faroles en el barco.",
+   "El mapa del Mar de Dawn ya cabe entero y se ven todas las islas; con + se arrastra con el dedo.",
+   "Pesca en la popa del Going Merry con Luffy y Usopp: 6 lances, pulsa ⚔ cuando pique el corcho. Peces de Dawn, botas viejas… y a veces un Rey Marino bebé.",
+   "Historias de Usopp: ¿verdad o mentira? Acierta y gana oro.",
+   "Banquete de la tripulación: al terminar cada arco (y una vez al día) todos bailan en el comedor y Sanji sirve carne (bono de 20 min).",
+   "Mapas de Nami: recorre todos los lugares de cada isla y Nami la dibuja (oro por isla y premio grande al completar el mar).",
+   "Den Den Mushi: el caracol teléfono del Merry suena y te llaman Garp, Makino, Zeff, Johnny, Gaimon, Kaya o Smoker con encargos.",
+   "Romance con Nami, con sus propias frases y todo el sistema de pareja: coquetear, regalos, abrazo, beso, paseo de la mano, pareja, boda e hijos que mezclan tu pelo con el naranja de Nami.",
+   "Todo en el menú del barco y en Lupa › Crossovers › Vida a bordo del Merry."
   ],
   "en": [
-   "New Dadan’s house on Mount Colubo (Foosha Village), just like the anime: a long wooden house with red tiles, a lookout tower, a clothesline and ladders. You can’t go in. Outside are Dadan and young Luffy, Ace and Sabo with Sergio’s sprites and their portraits in dialogue.",
-   "First Dawn Sea story (before Shanks): “Memory of the brothers”. Garp cutscene, follow Ace to the Gray Terminal, meet Sabo, fight Porchemy, hunt the Giant Colubo Boar, save the Gray Terminal from Bluejam and the sake cups cutscene. Young Luffy, Ace and Sabo fight alongside you. Replay it by talking to Dadan.",
-   "The three brothers’ clothes (14 separate pieces, for every body): straw hat on the head or hanging on the back, the “56” tank top, Ace’s clothes with his sack and Sabo’s with top hat, coat and pipe. The first time 3 pieces are guaranteed; on replays, 20% per piece and guaranteed by the 8th.",
-   "New island: Shimotsuki Village with the Isshin Dojo. Koshiro, students in gi training, young Zoro and Kuina (with portraits). Training, a duel with young Zoro and a duel with Kuina (with the promise scene).",
-   "New island: Navy Headquarters, with its fortress and the two arches. Go into the hall where Garp accepts a fist duel (level 700). On the sides, restricted zones with level 690-700 elite marines.",
-   "Everything is explained in Lupa › Crossovers."
+   "Day, afternoon and night across the whole Dawn Sea, following the clock at the top: pink dawn, golden afternoon and blue night with lit windows and ship lanterns.",
+   "The Dawn Sea map now fits entirely and shows every island; with + you can drag it with your finger.",
+   "Fishing off the Going Merry’s stern with Luffy and Usopp: 6 casts, press ⚔ when the float bites. Dawn fish, old boots… and sometimes a baby Sea King.",
+   "Usopp’s stories: true or lie? Guess right and win gold.",
+   "Crew feast: after clearing each arc (and once a day) everyone dances in the dining room and Sanji serves meat (20-min bonus).",
+   "Nami’s maps: visit every place on each island and Nami draws it (gold per island and a big prize for completing the sea).",
+   "Den Den Mushi: the Merry’s snail phone rings and Garp, Makino, Zeff, Johnny, Gaimon, Kaya or Smoker call with tasks.",
+   "Romance with Nami, with her own lines and the whole couple system: flirting, gifts, hug, kiss, hand-in-hand walk, partner, wedding and children who mix your hair with Nami’s orange.",
+   "All in the ship menu and Lupa › Crossovers › Life aboard the Merry."
   ]
  }
 }
