@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.40', GAME_BUILD = 262;
+const GAME_VER = '6.41', GAME_BUILD = 263;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.41",
+ "b": 263,
+ "d": "2026-11-26",
+ "es": [
+  "Oro equilibrado: la carrera de relevos, la carrera de dragones, los casos del Tren Misterio, el duelo de cocina y las esculturas de arena se podían repetir sin límite pagando 80.000-600.000 cada vez. Ahora pagan entero las 3 primeras veces de cada día, el 40 % de la 4.ª a la 6.ª y el 15 % después (avisa cuando baja).",
+  "Revisados los trabajos (100-2.000 por ronda) y los minijuegos de los pueblos: pagan en línea con el resto del juego."
+ ],
+ "en": [
+  "Balanced gold: the relay race, dragon race, Mystery Train cases, cooking duel and sand sculptures could be repeated endlessly paying 80,000-600,000 each time. They now pay in full the first 3 times each day, 40% from the 4th to the 6th and 15% after that (with a notice).",
+  "Jobs (100-2,000 per round) and town minigames checked: they pay in line with the rest of the game."
+ ]
+},
 {
  "v": "6.40",
  "b": 262,
