@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.36', GAME_BUILD = 258;
+const GAME_VER = '6.37', GAME_BUILD = 259;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.37",
+ "b": 259,
+ "d": "2026-11-26",
+ "es": [
+  "El maná se recupera más rápido: 1,45 % por segundo en combate (antes 1,2 %) y 4 % fuera de combate (antes 3 %). Con el coste nuevo de la 6.36, la barra baja al empezar la pelea y luego se mantiene.",
+  "No hace falta subir Inteligencia para lanzar más habilidades: el coste y la recuperación van en % de tu maná máximo."
+ ],
+ "en": [
+  "Mana regenerates faster: 1.45% per second in combat (was 1.2%) and 4% out of combat (was 3%). With the 6.36 cost, the bar drops at the start of a fight and then holds.",
+  "You don’t need Intelligence to cast more skills: cost and regen are a % of your max mana."
+ ]
+},
 {
  "v": "6.36",
  "b": 258,

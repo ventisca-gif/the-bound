@@ -32,3 +32,11 @@ if (typeof GSIS !== 'undefined') GSIS.unshift(['mana636', '🔷 ' + L2('Maná y 
   L2('La ficha de cada habilidad dice el coste real y la barra la pone en gris si no te llega.', 'Each skill’s card shows the real cost and the bar greys it out if you can’t afford it.'),
   L2('Arquero: Espíritu del Bosque cura más, se recarga antes y da +20 % de defensa 8 s. Mago: Escudo Arcano y Armadura de Escarcha protegen más.', 'Archer: Forest Spirit heals more, recharges sooner and gives +20% defence for 8 s. Mage: Arcane Shield and Frost Armour protect more.')
 ], () => null]);
+
+// 6.37 · El maná se recupera algo más rápido (Sergio: «que se recupere también algo más rápido»): en combate 1,2 → 1,45 %
+// del máximo por segundo y fuera de combate 3 → 4 %. Con el coste de la 6.36, lanzar las 4 habilidades en cuanto salen
+// gasta ~lo mismo que recuperas (×1,0): la barra baja al empezar la pelea y se mantiene. Como el coste y la recuperación
+// van en % del maná máximo, subir Inteligencia/maná en las estadísticas no hace falta (ni ayuda a lanzar más).
+hookAfter('updatePlayer', (r, dt) => { const P = G.P; if (!P || P.dead || !P.S || !(dt > 0) || P.mp >= P.S.maxmp || (typeof SCENE !== 'undefined' && SCENE)) return;
+  const ooc = G.t - (P.combatT || -99) > 6 && G.t - (P.lastHurt || -99) > 6; P.mp = Math.min(P.S.maxmp, P.mp + P.S.maxmp * (ooc ? 0.01 : 0.0025) * dt); });
+{ const i = typeof GSIS !== 'undefined' ? GSIS.findIndex(g => g[0] === 'mana636') : -1; if (i >= 0) { const f = GSIS[i][2]; GSIS[i][2] = () => f().concat([L2('Desde la 6.37 el maná se recupera más rápido: 1,45 % por segundo en combate y 4 % fuera. Como el coste y la recuperación van en % de tu maná máximo, no hace falta subir Inteligencia para lanzar más habilidades.', 'Since 6.37 mana regenerates faster: 1.45% per second in combat and 4% out of combat. As cost and regen are a % of your max mana, you don’t need Intelligence to cast more skills.')]); } }

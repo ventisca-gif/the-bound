@@ -4,3 +4,6 @@ js (()=>{ const P=G.P; P.cds={}; P.busy=0; P.mp=10; useSkill(1); return {cast:(P
 wait 200
 js (()=>{ const P=G.P; P.mp=10; updateHUD(); return [...document.querySelectorAll('.sk')].slice(0,3).map(b=>b.classList.contains('nomp')); })()
 js (()=>{ const P=G.P; P.cls='arquero'; P.skills={a7:10}; calcStats(P); P.slots=['a7',null,null,null]; P.cds={}; P.busy=0; P.mp=P.S.maxmp; P.hp=1; useSkill(0); return {hp:P.hp, max:P.S.maxhp, buff:JSON.stringify(P.buff), cd:P.cds.a7}; })()
+js (()=>{ const P=G.P; P.combatT=G.t; P.lastHurt=G.t; P.mp=0; return 1; })()
+wait 2000
+js (()=>{ const P=G.P; return {pct:+(P.mp/P.S.maxmp*100).toFixed(2)}; })()
