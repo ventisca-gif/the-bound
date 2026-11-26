@@ -1,5 +1,5 @@
 click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
-js (()=>{ const P=G.P; const k=Object.keys(ROM)[0]; P.partner=k; P.spouse=k; P.kids=[{id:'kq1',name:'Blake',g:'m',app:{g:'m',hair:'rojo',hs:2},born:0,parent:k}]; P.kids[0].ag0=calDay(); P.kids[0].agY=87; kidDie(P.kids[0]); window._k=k; return {k, fallen:P.fallen.length}; })()
+js (()=>{ const P=G.P; const k=Object.keys(ROM)[0]; P.partner=k; P.spouse=k; P.kids=[{id:'kq1',name:'Blake',g:'m',app:{g:'m',hair:'rojo',hs:2},born:0,parent:k}]; P.kids[0].ag0=calDay(); P.kids[0].agY=87; P.kids[0].born=0; kidDie(P.kids[0]); window._k=k; return {k, fallen:P.fallen.length}; })()
 wait 600
 js (()=>{ const P=G.P; cmSync(); const o=SA.famG.find(o=>!o.hidden); P.x=o.px+22; P.y=o.py+30; P.dir='up'; G.cam.x=P.x-VW/2; G.cam.y=P.y-VH/2; window._o=o; return [o.tx,o.ty]; })()
 wait 1500

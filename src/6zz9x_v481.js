@@ -276,7 +276,7 @@ XACT.cm_fam = [o => { const f = (G.P.fallen || [])[o.fi]; return f ? L2('Tumba d
 function cmSync() { const W = G.world, P = G.P; if (!W || !SA.famG || !P) return; const fl = P.fallen || [], n = SA.famG.length, start = Math.max(0, fl.length - n);
   SA.famG.forEach((o, k) => { const idx = start + k, on = idx < fl.length; o.hidden = !on; o.fi = idx; const i = W.I(o.tx, o.ty); W.solidO[i] = on ? 1 : 0; }); }
 let cmT = 0; V33_TICKS.push(dt => { cmT += dt || 0; if (cmT < 2) return; cmT = 0; cmSync(); });
-WORLD_DRAW.push((cx, cy) => { const M = G.map, P = G.P; if (!M || !M.isWorld || !SA.famG) return; for (const o of SA.famG) { if (o.hidden || dist2(o.px, o.py, P.x, P.y) > 70 * 70) continue; const f = (P.fallen || [])[o.fi]; if (!f) continue; const s = textSprite('† ' + f.name, '#e8e0ff'); ctx.drawImage(s, Math.round(o.px - cx - s.width / 2), Math.round(o.py - cy - 34)); } });
+WORLD_DRAW.push((cx, cy) => { const M = G.map, P = G.P; if (!M || !M.isWorld || !SA.famG) return; for (const o of SA.famG) { if (o.hidden || dist2(o.px, o.py, P.x, P.y) > 70 * 70) continue; const f = (P.fallen || [])[o.fi]; if (!f) continue; const s = textSprite('+ ' + f.name, '#e8e0ff'); ctx.drawImage(s, Math.round(o.px - cx - s.width / 2), Math.round(o.py - cy - 34)); } });
 
 // ---------- edad de la familia, jubilación, muerte y árbol genealógico ----------
 const AGE_PER_DAY = 0.9, AGE_RET = 65;

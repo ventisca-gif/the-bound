@@ -13,8 +13,13 @@ function lutoApp(f) { const a = Object.assign({}, f.app || {}); if (!a.g) a.g = 
 // ---------- en el juego: su cuerpo bajo la tierra, delante de la lápida (capa del suelo) ----------
 const LUTO_SPR = {};
 function lutoSprite(f) { const key = f.id + ':' + ((f.age || 0) >= 60 ? 'o' : 'y'); if (LUTO_SPR[key] !== undefined) return LUTO_SPR[key];
-  let c = null; try { const L = heroLook('guerrero', lutoApp(f), { weapon: 0 }, {}, {}); L.weapon = null; L.back = null; const A = buildHeroAtlas(L), cw = 34, ch = 44;
-    c = document.createElement('canvas'); c.width = ch; c.height = cw; const x = c.getContext('2d'); x.imageSmoothingEnabled = false; x.translate(ch / 2, cw / 2); x.rotate(-Math.PI / 2); x.drawImage(A.img, A.idx.idle * A.fw + 7, 2, cw, ch, -cw / 2, -ch / 2, cw, ch); } catch (e) { c = null; }
+  // se dibuja con drawHero (como el atlas) y se le cierran los ojos: piel encima de cada ojo (p.meta.eyes, FACE.ey) y una
+  // línea de pestañas en la fila de abajo; luego el contorno y se gira para que quede tumbado
+  let c = null; try { const L = heroLook('guerrero', lutoApp(f), { weapon: 0 }, {}, {}); L.weapon = null; L.back = null; const cw = 34, ch = 44, p = new Pix(48, 48);
+    drawHero(p, L, 'down', 'idle', 0); const m = p.meta || {}, SK = m.sk || L.skin || SKINS[0], ey = Math.round((m.hy || 0) + FACE.ey), eyes = m.eyes || [Math.round(m.hx) - 4, Math.round(m.hx) + 3], lash = C('#3a2626');
+    for (const ex of eyes) { for (let yy = ey; yy <= ey + 2; yy++) for (let xx = ex; xx <= ex + 1; xx++) p.set(xx, yy, SK[2]); p.set(ex, ey + 1, lash); p.set(ex + 1, ey + 1, lash); }
+    p.outline(OUTL, false); const src = p.canvas();
+    c = document.createElement('canvas'); c.width = ch; c.height = cw; const x = c.getContext('2d'); x.imageSmoothingEnabled = false; x.translate(ch / 2, cw / 2); x.rotate(-Math.PI / 2); x.drawImage(src, 7, 2, cw, ch, -cw / 2, -ch / 2, cw, ch); } catch (e) { c = null; }
   LUTO_SPR[key] = c; return c; }
 function lutoGround(cx, cy) { const W = G.world, P = G.P, M = G.map; if (!M || !M.isWorld || !W || typeof SA === 'undefined' || !SA.famG || !P) return;
   for (const o of SA.famG) { if (o.hidden) continue; const sx = Math.round(o.px - cx), sy = Math.round(o.py - cy); if (sx < -40 || sx > VW + 40 || sy < -40 || sy > VH + 60) continue; const f = (P.fallen || [])[o.fi]; if (!f) continue;
@@ -25,9 +30,13 @@ function lutoGround(cx, cy) { const W = G.world, P = G.P, M = G.map; if (!M || !
     if (P.cmFl && P.cmFl[f.id] === calDay()) for (const [dx, col] of [[-12, '#ff6a8a'], [-10, '#ffd040'], [10, '#ffffff'], [12, '#ff9ad8']]) { ctx.fillStyle = '#3e7a32'; ctx.fillRect(sx + dx, sy + 12, 1, 3); ctx.fillStyle = col; ctx.fillRect(sx + dx - 1, sy + 11, 3, 1); } } }
 // capa del suelo de 6zz9zzzzzz_oficios528 (V8_UNDER): se dibuja dentro de M.drawExtra, antes de las figuras, sin envolverlo otra vez
 if (typeof V8_UNDER !== 'undefined') V8_UNDER.push(lutoGround);
-// sus palabras: escritas sobre la tumba al acercarte (encima de su nombre)
-WORLD_DRAW.push((cx, cy) => { const M = G.map, P = G.P; if (!M || !M.isWorld || typeof SA === 'undefined' || !SA.famG || !P || !P.cmWords) return;
-  for (const o of SA.famG) { if (o.hidden || dist2(o.px, o.py, P.x, P.y) > 70 * 70) continue; const f = (P.fallen || [])[o.fi], w = f && P.cmWords[f.id]; if (!w) continue; const s = textSprite('«' + w.t + '»', '#fff4d0'); ctx.drawImage(s, Math.round(o.px - cx - s.width / 2), Math.round(o.py - cy - 46)); } });
+// al acercarte, sobre la tumba (encima de «+ nombre»; la letra del mapa no tiene ✦ ✝ « » † · ni comillas): fecha de nacimiento y de muerte, cuánto lleva fallecido y tus palabras
+function lutoDate(d) { try { const D = calDate(d); return D.day + ' ' + D.mon.slice(0, 3) + ' ' + D.y; } catch (e) { return L2('día ', 'day ') + d; } }
+function lutoAgo(f) { const n = Math.max(0, calDay() - (f.day || 0)); return n === 0 ? L2('falleció hoy', 'passed away today') : n === 1 ? L2('hace 1 día', '1 day ago') : L2('hace ', '') + n + L2(' días', ' days ago'); }
+WORLD_DRAW.push((cx, cy) => { const M = G.map, P = G.P; if (!M || !M.isWorld || typeof SA === 'undefined' || !SA.famG || !P) return;
+  for (const o of SA.famG) { if (o.hidden || dist2(o.px, o.py, P.x, P.y) > 70 * 70) continue; const f = (P.fallen || [])[o.fi]; if (!f) continue; const X = o.px - cx, Y = o.py - cy;
+    const s1 = textSprite(L2('Nació ', 'Born ') + lutoDate(f.born || 0) + ' - ' + L2('murió ', 'died ') + lutoDate(f.day || 0) + ' - ' + lutoAgo(f), '#d8d0f0'); ctx.drawImage(s1, Math.round(X - s1.width / 2), Math.round(Y - 46));
+    const w = P.cmWords && P.cmWords[f.id]; if (w) { const s2 = textSprite(w.t, '#fff4d0'); ctx.drawImage(s2, Math.round(X - s2.width / 2), Math.round(Y - 58)); } } });
 const LUTO_WORDS = [L2('Te echamos de menos cada día.', 'We miss you every day.'), L2('Gracias por todo lo que nos diste.', 'Thank you for everything you gave us.'), L2('Descansa, ya estás en casa.', 'Rest, you are home now.'), L2('Tu hilo sigue con nosotros.', 'Your thread is still with us.'), L2('Algún día volveremos a vernos.', 'Someday we will meet again.')];
 function lutoSay(f, t, o) { const P = G.P; t = String(t || '').trim().slice(0, 60); if (!t) return; P.cmWords = P.cmWords || {}; P.cmWords[f.id] = { t, day: calDay() }; P.chat = t; P.chatT = G.t;
   if (o) for (let q = 0; q < 10; q++) part(o.px + (Math.random() - 0.5) * 16, o.py - 10, { vz: 18, g: -8, life: 1.6, c: pick(['#fff4d0', '#c8b0ff', '#ffffff']) });
