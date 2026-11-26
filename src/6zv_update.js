@@ -21,11 +21,13 @@ const CHANGELOG = /*CL*/
  "d": "2026-11-26",
  "es": [
   "Oro equilibrado: la carrera de relevos, la carrera de dragones, los casos del Tren Misterio, el duelo de cocina y las esculturas de arena se podían repetir sin límite pagando 80.000-600.000 cada vez. Ahora pagan entero las 3 primeras veces de cada día, el 40 % de la 4.ª a la 6.ª y el 15 % después (avisa cuando baja).",
-  "Revisados los trabajos (100-2.000 por ronda) y los minijuegos de los pueblos: pagan en línea con el resto del juego."
+  "Revisados los trabajos (100-2.000 por ronda) y los minijuegos de los pueblos: pagan en línea con el resto del juego.",
+  "Árbol genealógico: los nietos y bisnietos cuyo padre o madre ya pasó al Memorial volvían a no salir; ahora salen. El Memorial guarda los 100 antepasados más recientes y los más antiguos se borran del todo, para que la partida no crezca (toda la familia ocupa unos 10-16 KB)."
  ],
  "en": [
   "Balanced gold: the relay race, dragon race, Mystery Train cases, cooking duel and sand sculptures could be repeated endlessly paying 80,000-600,000 each time. They now pay in full the first 3 times each day, 40% from the 4th to the 6th and 15% after that (with a notice).",
-  "Jobs (100-2,000 per round) and town minigames checked: they pay in line with the rest of the game."
+  "Jobs (100-2,000 per round) and town minigames checked: they pay in line with the rest of the game.",
+  "Family tree: grandchildren and great-grandchildren whose parent had moved to the Memorial didn’t show; now they do. The Memorial keeps the 100 most recent ancestors and older ones are deleted for good, so the save doesn’t grow (the whole family takes about 10-16 KB)."
  ]
 },
 {

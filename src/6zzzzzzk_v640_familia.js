@@ -4,7 +4,7 @@
 //    desconocido. Tu pareja (paseo de la mano) o tus hijos que te siguen se quedaban en la arena y se duplicaban: al empezar
 //    un duelo la pareja vuelve a casa y los hijos dejan de seguirte (avisa).
 // 2) Familia sin fin: cada generación muere de vieja. Solo las 12 últimas tumbas tienen cuerpo y datos; las más antiguas pasan
-//    al Memorial (`P.fallenOld`, nombre, generación, año de nacimiento y de muerte, hasta 300) que se lee en el monumento del
+//    al Memorial (`P.fallenOld`, nombre, generación, año de nacimiento y de muerte, hasta 100; los más antiguos se borran del todo) que se lee en el monumento del
 //    Camposanto («Rendir tributo»), así no se satura.
 // 3) Cementerio compartido en línea: tu presencia lleva tus 3 últimos fallecidos (nombre, fechas y aspecto) cuando estás en el
 //    mundo, y los de los demás jugadores ocupan hasta 4 de las 12 tumbas de tu Camposanto (con su nombre y el de su familia).
@@ -15,7 +15,7 @@ hookBefore('pwFx', pw => { if (typeof HN_PW === 'undefined' || !HN_PW[pw]) retur
 
 // ---------- 2) memorial: solo las 12 últimas tumbas; las antiguas, en el monumento ----------
 SAVEKEYS.push('fallenOld');
-const FAM_GRAVES = 12, FAM_OLD_MAX = 300;
+const FAM_GRAVES = 12, FAM_OLD_MAX = 100;   // 6.41: 100 nombres (antes 300) para que la partida no crezca
 function famPrune() { const P = G.P; if (!P || !P.fallen || P.fallen.length <= FAM_GRAVES) return; const old = P.fallen.splice(0, P.fallen.length - FAM_GRAVES); P.fallenOld = P.fallenOld || [];
   for (const f of old) { P.fallenOld.push({ n: f.name, g: f.g, gen: f.gen || 2, b: f.born || 0, d: f.day || 0, a: f.age || 0 }); if (P.cmWords) delete P.cmWords[f.id]; if (P.cmFl) delete P.cmFl[f.id]; }
   if (P.fallenOld.length > FAM_OLD_MAX) P.fallenOld.splice(0, P.fallenOld.length - FAM_OLD_MAX); markDirty(); }
@@ -47,3 +47,12 @@ if (typeof GSIS !== 'undefined') GSIS.unshift(['familia640', '🕯 ' + L2('Memor
   L2('Solo las 12 tumbas más recientes de tu familia tienen cuerpo y datos. Las generaciones más antiguas pasan al Memorial del monumento del Camposanto («Rendir tributo»): nombre, generación, año en que nacieron y en que murieron.', 'Only your family’s 12 most recent graves have a body and details. Older generations go to the Memorial on the Graveyard monument («Pay tribute»): name, generation, year born and year died.'),
   L2('En línea, los demás jugadores ven tus 3 últimos fallecidos y tú ves los de ellos: comparten hasta 4 tumbas de tu Camposanto, con su nombre y el de su familia.', 'Online, other players see your 3 latest departed and you see theirs: they share up to 4 graves in your Graveyard, with their name and their family’s.')
 ], () => null]);
+
+// ---------- 6.41 · árbol genealógico corto ----------
+// Los vivos cuyo padre o madre ya pasó al Memorial se quedaban sin rama (el árbol empieza por los que no tienen `gparent`
+// presente) y no salían: ahora cuelgan de la raíz con «(familia de <nombre del Memorial>)». Abajo, cuántos hay en el Memorial.
+hookAround('famTreeHTML', next => { const P = G.P; if (!P) return next(); const ids = new Set((P.kids || []).concat(P.fallen || []).map(k => k.id)), moved = [];
+  for (const k of (P.kids || []).concat(P.fallen || [])) if (k.gparent && !ids.has(k.gparent)) { moved.push([k, k.gparent, k.name]); k.gparent = null; }
+  let h; try { h = next(); } finally { for (const [k, g] of moved) k.gparent = g; }
+  const old = (P.fallenOld || []).length; if (old) h += `<p class="hint">📜 ${old} ${L2('antepasados más en el Memorial del Camposanto (monumento «Rendir tributo»).', 'more ancestors in the Graveyard Memorial (the «Pay tribute» monument).')}</p>`;
+  return h; });
