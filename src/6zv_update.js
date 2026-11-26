@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.30', GAME_BUILD = 252;
+const GAME_VER = '6.31', GAME_BUILD = 253;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,31 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.31",
+ "b": 253,
+ "d": "2026-11-26",
+ "es": [
+  "Día, tarde y noche en todo el Mar de Dawn, con la hora del reloj de arriba: amanecer rosado, tarde dorada y noche azul con las ventanas encendidas y faroles en el barco.",
+  "El mapa del Mar de Dawn ya cabe entero y se ven todas las islas; con + se arrastra con el dedo.",
+  "Pesca en la popa del Going Merry con Luffy y Usopp: 6 lances, pulsa ⚔ cuando pique el corcho. Peces de Dawn, botas viejas… y a veces un Rey Marino bebé.",
+  "Historias de Usopp: ¿verdad o mentira? Acierta y gana oro.",
+  "Banquete de la tripulación: al terminar cada arco (y una vez al día) todos bailan en el comedor y Sanji sirve carne (bono de 20 min).",
+  "Mapas de Nami: recorre todos los lugares de cada isla y Nami la dibuja (oro por isla y premio grande al completar el mar).",
+  "Den Den Mushi: el caracol teléfono del Merry suena y te llaman Garp, Makino, Zeff, Johnny, Gaimon, Kaya o Smoker con encargos.",
+  "Todo en el menú del barco y en Lupa › Crossovers › Vida a bordo del Merry."
+ ],
+ "en": [
+  "Day, afternoon and night across the whole Dawn Sea, following the clock at the top: pink dawn, golden afternoon and blue night with lit windows and ship lanterns.",
+  "The Dawn Sea map now fits entirely and shows every island; with + you can drag it with your finger.",
+  "Fishing off the Going Merry’s stern with Luffy and Usopp: 6 casts, press ⚔ when the float bites. Dawn fish, old boots… and sometimes a baby Sea King.",
+  "Usopp’s stories: true or lie? Guess right and win gold.",
+  "Crew feast: after clearing each arc (and once a day) everyone dances in the dining room and Sanji serves meat (20-min bonus).",
+  "Nami’s maps: visit every place on each island and Nami draws it (gold per island and a big prize for completing the sea).",
+  "Den Den Mushi: the Merry’s snail phone rings and Garp, Makino, Zeff, Johnny, Gaimon, Kaya or Smoker call with tasks.",
+  "All in the ship menu and Lupa › Crossovers › Life aboard the Merry."
+ ]
+},
 {
  "v": "6.30",
  "b": 252,
