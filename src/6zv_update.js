@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.28', GAME_BUILD = 250;
+const GAME_VER = '6.29', GAME_BUILD = 251;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.29",
+ "b": 251,
+ "d": "2026-11-26",
+ "es": [
+  "Mapas del tesoro de Buggy: los barcos piratas, los Reyes Marinos, los buscados de Johnny y Yosaku y los buques de guerra sueltan trozos. Nami los lee, la flecha te lleva a una isla, buscas la ✗ roja y cavas con la espada (6 toques) para abrir el cofre.",
+  "La Marina te persigue más fuerte: con recompensa de peligro 3 o más puede salir un buque de guerra de un vicealmirante (mucha vida, andanadas de 3 proyectiles). Hundirlo da mucho oro y dispara tu recompensa.",
+  "Asaltos semanales (pídeselos a Johnny o Yosaku): la venganza de Buggy en Orange Town (cuchillos voladores Bara Bara), la flota de Don Krieg junto al Baratie y Hatchan, Kuroobi y Chew a la vez en Conomi. Cambian cada semana; la primera victoria da 400.000 de oro, 2 trozos de mapa y un material raro.",
+  "Todo explicado en Lupa › Crossovers › Tesoros, buques y asaltos."
+ ],
+ "en": [
+  "Buggy’s treasure maps: pirate ships, Sea Kings, Johnny and Yosaku’s wanted pirates and warships drop pieces. Nami reads them, the arrow takes you to an island, you find the red ✗ and dig with the sword (6 taps) to open the chest.",
+  "The Navy hunts you harder: with a bounty of danger 3 or more, a vice admiral’s warship may appear (lots of HP, 3-shot volleys). Sinking it gives lots of gold and sends your bounty soaring.",
+  "Weekly raids (ask Johnny or Yosaku): Buggy’s revenge in Orange Town (Chop-Chop flying knives), Don Krieg’s fleet by the Baratie, and Hatchan, Kuroobi and Chew at once in Conomi. They change every week; the first win gives 400,000 gold, 2 map pieces and a rare material.",
+  "Everything is explained in Lupa › Crossovers › Treasures, warships and raids."
+ ]
+},
 {
  "v": "6.28",
  "b": 250,

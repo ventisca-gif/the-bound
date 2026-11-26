@@ -117,3 +117,4 @@ A petición de Sergio se prepara Villa Foosha de One Piece: Shanks y su tripulac
 
 **Más arcos del Mar de Dawn (v6.28).** Mismo crossover. Alvida (con la fruta Sube Sube) pide la revancha en Loguetown; Nezumi vuelve a Cocoyashi; Johnny y Yosaku dan encargos de cazarrecompensas; la Montaña del Revés y Laboon (Crocus da el Log Pose) cierran el East Blue: **el Grand Line todavía no está pintado** (la Ventisca lo pintará más adelante, regla 10); la Isla del Barco de Guerra (Apis y Ryuji, el dragón milenario) es un arco de relleno del anime.
 
+**Tesoros, buques y asaltos (v6.29).** Mismo crossover. Los trozos de mapa son del mapa del Grand Line que Buggy quería y que Nami ya le robó en Orange Town: aquí son mapas de alijos que Buggy escondió por el East Blue. Los asaltos semanales son revanchas fuera del canon (Buggy, lo que queda de la flota de Krieg y los tres oficiales de Arlong escapados); no cambian lo que pasó en sus arcos.
