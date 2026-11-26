@@ -1,24 +1,22 @@
 {
- "build": 262,
- "ver": "6.40",
+ "build": 263,
+ "ver": "6.41",
  "date": "2026-11-26",
  "file": "thebound.html",
- "size": 39295718,
- "sha256": "e2fd4717e1cc7caeaff2edd0cce22e35d57b594f643bd8e193b48df1bfe332df",
+ "size": 39300693,
+ "sha256": "b263dc6f5c95288de46e0f12d914ce0d39caa624e2a9dc9227c9929dfe5681e6",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Arreglo grave: «Cambiar pigmentos» de Tinta (Tierras sin Pintar) pagaba otra vez cada vez que pulsabas sin cerrar la conversación (oro infinito). Lo mismo en entregar paquetes del cartero, el regalo de la fiesta y los loquitos de las ciudades, el misterio de detective, la leyenda y la última campana del Velo: ahora solo pagan una vez.",
-   "Arreglo: el duelo de rivales dejaba la pantalla parada con un error rojo. Además tu pareja y tus hijos que te seguían se duplicaban en la arena: ahora vuelven a casa durante el duelo.",
-   "Camposanto: solo las 12 tumbas más recientes de tu familia tienen cuerpo y datos; las generaciones antiguas pasan al Memorial del monumento («Rendir tributo») con su nombre, generación y años, para que no se sature.",
-   "En línea, el cementerio se comparte: los demás ven tus 3 últimos fallecidos y tú ves los suyos en hasta 4 tumbas de tu Camposanto, con el nombre de su familia."
+   "Oro equilibrado: la carrera de relevos, la carrera de dragones, los casos del Tren Misterio, el duelo de cocina y las esculturas de arena se podían repetir sin límite pagando 80.000-600.000 cada vez. Ahora pagan entero las 3 primeras veces de cada día, el 40 % de la 4.ª a la 6.ª y el 15 % después (avisa cuando baja).",
+   "Revisados los trabajos (100-2.000 por ronda) y los minijuegos de los pueblos: pagan en línea con el resto del juego.",
+   "Árbol genealógico: los nietos y bisnietos cuyo padre o madre ya pasó al Memorial volvían a no salir; ahora salen. El Memorial guarda los 100 antepasados más recientes y los más antiguos se borran del todo, para que la partida no crezca (toda la familia ocupa unos 10-16 KB)."
   ],
   "en": [
-   "Serious fix: Tinta’s «Trade pigments» (Unpainted Lands) paid again every time you tapped without closing the conversation (infinite gold). Same for the postman’s parcels, the city festival gift and calmed nutters, the detective mystery, the legend and the Veil’s last bell: they now pay only once.",
-   "Fix: the rival duel froze the screen with a red error. Your partner and children following you also duplicated in the arena: they now go home during the duel.",
-   "Graveyard: only your family’s 12 most recent graves have a body and details; older generations move to the monument’s Memorial («Pay tribute») with their name, generation and years, so it doesn’t fill up.",
-   "Online, the graveyard is shared: others see your 3 latest departed and you see theirs in up to 4 graves of your Graveyard, with their family’s name."
+   "Balanced gold: the relay race, dragon race, Mystery Train cases, cooking duel and sand sculptures could be repeated endlessly paying 80,000-600,000 each time. They now pay in full the first 3 times each day, 40% from the 4th to the 6th and 15% after that (with a notice).",
+   "Jobs (100-2,000 per round) and town minigames checked: they pay in line with the rest of the game.",
+   "Family tree: grandchildren and great-grandchildren whose parent had moved to the Memorial didn’t show; now they do. The Memorial keeps the 100 most recent ancestors and older ones are deleted for good, so the save doesn’t grow (the whole family takes about 10-16 KB)."
   ]
  }
 }
