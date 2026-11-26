@@ -1,18 +1,24 @@
 {
- "build": 246,
- "ver": "6.24",
- "date": "2026-11-25",
+ "build": 248,
+ "ver": "6.26",
+ "date": "2026-11-26",
  "file": "thebound.html",
- "size": 37879198,
- "sha256": "9159a6c8aa521d793843399c78770e5acaac5eb9d6eac3855ed6754faf22e731",
+ "size": 37939072,
+ "sha256": "f050a81c081776be68bba6d660f3c776bb786033c44811f3ef1a0a6ff19ebc34",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Aura del Conquistador: a los enemigos muy débiles que tumba ahora les sale «¡KO!» en vez de un número gigante (como 1.810.944.828) que parecía daño real. El efecto no cambia."
+   "Batallas en el mar: al timón del Going Merry, el botón de la espada dispara los cañones. Hunde barcos piratas (restos de la flota de Krieg) y el barco de la Marina que te persigue (tu recompensa sube).",
+   "Reyes Marinos: Tiburón, Martillo y Kraken salen del agua, se sumergen y vuelven. Sueltan Carne de Rey Marino para el Festín del Rey Marino de Sanji.",
+   "Sus ataques marcan el agua en rojo: aparta el barco. El Merry tiene 100 de vida; Usopp lo repara y al atracar queda como nuevo. La cámara sigue al enemigo y unas flechas marcan los que no se ven.",
+   "Tormentas: Nami avisa hacia dónde girar. Dentro llueve, el viento te arrastra y caen rayos. Si la esquivas: oro y viento a favor."
   ],
   "en": [
-   "Conqueror's Aura: very weak enemies it knocks out now show “KO!” instead of a huge number (like 1,810,944,828) that looked like real damage. The effect is unchanged."
+   "Sea battles: at the Going Merry’s helm, the sword button fires the cannons. Sink pirate ships (Krieg’s fleet remnants) and the Navy ship chasing you (your bounty rises).",
+   "Sea Kings: Shark, Hammerhead and Kraken rise from the water, dive and come back. They drop Sea King meat for Sanji’s Sea King Feast.",
+   "Their attacks mark the water in red: move the ship. The Merry has 100 HP; Usopp repairs it and docking makes it as good as new. The camera follows the enemy and arrows mark those off screen.",
+   "Storms: Nami tells you which way to turn. Inside it rains, the wind drags you and lightning strikes. Dodge it: gold and a tailwind."
   ]
  }
 }
