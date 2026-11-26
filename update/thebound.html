@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.37 · El maná se recupera más rápido</div>
+  <div class="tfoot">v6.39 · La familia que se va</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11911,7 +11911,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.37', GAME_BUILD = 259;
+const GAME_VER = '6.39', GAME_BUILD = 261;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11919,6 +11919,38 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.39",
+ "b": 261,
+ "d": "2026-11-26",
+ "es": [
+  "En el Camposanto del Alba ves a tu familiar enterrado delante de su lápida: su cuerpo tumbado bajo la tierra, con su aspecto (con canas si se fue mayor) y tus flores alrededor.",
+  "Al acercarte ves sobre la tumba su nombre, el día en que nació, el día en que murió y cuánto lleva fallecido. Descansa con los ojos cerrados.",
+  "Acércate a su tumba y elige «Dejar unas palabras» (5 frases o las tuyas): tu personaje las dice y quedan escritas sobre la tumba.",
+  "Tu pareja, la madre o el padre de ese hijo, tiene frases nuevas: duelo los primeros días, luto después y recuerdos con el tiempo. En «Relación ♥» sale «Hablar de <nombre>» (un recuerdo cada vez) e «Ir juntos a su tumba» con la flecha dorada."
+ ],
+ "en": [
+  "In the Dawn Graveyard you see your relative buried in front of their headstone: their body lying under the earth, with their look (with grey hair if they left old) and your flowers around.",
+  "When you get close you see their name, the day they were born, the day they died and how long ago above the grave. They rest with their eyes closed.",
+  "Walk up to their grave and choose «Leave a few words» (5 phrases or your own): your character says them and they stay written above the grave.",
+  "Your partner, that child’s mother or father, has new lines: grief in the first days, mourning afterwards and memories over time. «Relationship ♥» shows «Talk about <name>» (a memory each time) and «Go to their grave together» with the golden arrow."
+ ]
+},
+{
+ "v": "6.38",
+ "b": 260,
+ "d": "2026-11-26",
+ "es": [
+  "Mapa › Tierras del Vínculo: nueva categoría «Camposanto del Alba» con la entrada y la tumba de cada familiar fallecido († nombre y edad). Tócala y la flecha dorada te lleva.",
+  "Cuando fallece un hijo o un nieto, la flecha dorada apunta sola a su tumba (al sur de Albor, cruzando la vía del tren).",
+  "Árbol genealógico: botón «🕯 Ir al Camposanto»."
+ ],
+ "en": [
+  "Map › Lands of the Bound: new «Dawn Graveyard» category with the entrance and the grave of each relative who passed away († name and age). Tap it and the golden arrow leads you there.",
+  "When a child or grandchild passes away, the golden arrow points to their grave by itself (south of Albor, across the railway).",
+  "Family tree: «🕯 Go to the Graveyard» button."
+ ]
+},
 {
  "v": "6.37",
  "b": 259,
@@ -26296,7 +26328,7 @@ XACT.cm_fam = [o => { const f = (G.P.fallen || [])[o.fi]; return f ? L2('Tumba d
 function cmSync() { const W = G.world, P = G.P; if (!W || !SA.famG || !P) return; const fl = P.fallen || [], n = SA.famG.length, start = Math.max(0, fl.length - n);
   SA.famG.forEach((o, k) => { const idx = start + k, on = idx < fl.length; o.hidden = !on; o.fi = idx; const i = W.I(o.tx, o.ty); W.solidO[i] = on ? 1 : 0; }); }
 let cmT = 0; V33_TICKS.push(dt => { cmT += dt || 0; if (cmT < 2) return; cmT = 0; cmSync(); });
-WORLD_DRAW.push((cx, cy) => { const M = G.map, P = G.P; if (!M || !M.isWorld || !SA.famG) return; for (const o of SA.famG) { if (o.hidden || dist2(o.px, o.py, P.x, P.y) > 70 * 70) continue; const f = (P.fallen || [])[o.fi]; if (!f) continue; const s = textSprite('† ' + f.name, '#e8e0ff'); ctx.drawImage(s, Math.round(o.px - cx - s.width / 2), Math.round(o.py - cy - 34)); } });
+WORLD_DRAW.push((cx, cy) => { const M = G.map, P = G.P; if (!M || !M.isWorld || !SA.famG) return; for (const o of SA.famG) { if (o.hidden || dist2(o.px, o.py, P.x, P.y) > 70 * 70) continue; const f = (P.fallen || [])[o.fi]; if (!f) continue; const s = textSprite('+ ' + f.name, '#e8e0ff'); ctx.drawImage(s, Math.round(o.px - cx - s.width / 2), Math.round(o.py - cy - 34)); } });
 
 // ---------- edad de la familia, jubilación, muerte y árbol genealógico ----------
 const AGE_PER_DAY = 0.9, AGE_RET = 65;
@@ -58861,6 +58893,98 @@ if (typeof GSIS !== 'undefined') GSIS.unshift(['mana636', '🔷 ' + L2('Maná y 
 hookAfter('updatePlayer', (r, dt) => { const P = G.P; if (!P || P.dead || !P.S || !(dt > 0) || P.mp >= P.S.maxmp || (typeof SCENE !== 'undefined' && SCENE)) return;
   const ooc = G.t - (P.combatT || -99) > 6 && G.t - (P.lastHurt || -99) > 6; P.mp = Math.min(P.S.maxmp, P.mp + P.S.maxmp * (ooc ? 0.01 : 0.0025) * dt); });
 { const i = typeof GSIS !== 'undefined' ? GSIS.findIndex(g => g[0] === 'mana636') : -1; if (i >= 0) { const f = GSIS[i][2]; GSIS[i][2] = () => f().concat([L2('Desde la 6.37 el maná se recupera más rápido: 1,45 % por segundo en combate y 4 % fuera. Como el coste y la recuperación van en % de tu maná máximo, no hace falta subir Inteligencia para lanzar más habilidades.', 'Since 6.37 mana regenerates faster: 1.45% per second in combat and 4% out of combat. As cost and regen are a % of your max mana, you don’t need Intelligence to cast more skills.')]); } }
+
+// 6.38 · Cómo llegar a la tumba de tus hijos (Sergio: «no sé cómo llegar a ver a mi hijo fallecido; en el mapa de las
+// Tierras del Vínculo debería haber un icono para ir»).
+// - Mapa: categoría «🕯 Camposanto» (MAPC.cem) con la entrada del Camposanto del Alba y la tumba de cada familiar fallecido
+//   († nombre, edad); al tocarla, la flecha dorada lleva allí como cualquier punto del mapa.
+// - Al fallecer un hijo o nieto, la flecha dorada apunta sola a su tumba y el aviso lo dice.
+// - Árbol genealógico: botón «🕯 Ir al Camposanto».
+MAPC.cem = [L2('Camposanto del Alba', 'Dawn Graveyard'), 'Dawn Graveyard', '#c8b0ff', 'star'];
+function cemGate() { return typeof SA !== 'undefined' && SA.cem ? [SA.cem.gate, SA.cem.y1 - 1] : null; }
+function cemGraveOf(f) { const P = G.P; if (typeof SA === 'undefined' || !SA.famG || !P) return null; try { cmSync(); } catch (e) { }
+  const i = (P.fallen || []).indexOf(f); const o = SA.famG.find(o => !o.hidden && o.fi === i); return o ? [o.tx, o.ty + 1] : null; }
+function cemGo(f) { const at = (f && cemGraveOf(f)) || cemGate(); if (!at) return false; setWp({ loc: at, m: 'world', t: f ? '🕯 ' + f.name : L2('Camposanto del Alba', 'Dawn Graveyard') }); return true; }
+hookAfter('worldPOI', out => { if (!Array.isArray(out)) return; const P = G.P, g = cemGate(); if (g) out.push({ c: 'cem', x: g[0], y: g[1], t: '🕯 ' + L2('Camposanto del Alba · tumbas de tu familia', 'Dawn Graveyard · your family’s graves') });
+  for (const f of (P && P.fallen) || []) { const at = cemGraveOf(f); if (at) out.push({ c: 'cem', x: at[0], y: at[1] - 1, t: '† ' + f.name + ' · ' + f.age + L2(' años', ' years') }); } });
+hookAfter('kidDie', () => { const P = G.P, f = P && P.fallen && P.fallen[P.fallen.length - 1]; if (!f) return; setTimeout(() => { if (cemGo(f)) toast('🕯 ' + L2('La flecha dorada te lleva a la tumba de ', 'The golden arrow leads to the grave of ') + f.name + L2(' (Camposanto del Alba, al sur de Albor). También está en el Mapa.', ' (Dawn Graveyard, south of Albor). It is also on the Map.'), 'info', 7); }, 1500); });
+hookAfter('famTree', () => { const M = $('#modal'), P = G.P; if (!M || !P || !(P.fallen || []).length || M.querySelector('#cemGo')) return; const row = M.querySelector('.row') || M;
+  row.insertAdjacentHTML('afterbegin', `<button class="btn gold" id="cemGo">🕯 ${L2('Ir al Camposanto', 'Go to the Graveyard')}</button>`); $('#cemGo').onclick = () => { if (cemGo(P.fallen[P.fallen.length - 1])) closeModal(); }; });
+{ const i = typeof GSIS !== 'undefined' ? GSIS.findIndex(g => g[0] === 'camposanto') : -1; if (i >= 0) { const f = GSIS[i][2]; GSIS[i][2] = () => f().concat([L2('En el Mapa (Tierras del Vínculo) sale la categoría «Camposanto del Alba» con la entrada y la tumba de cada familiar († nombre). Al fallecer alguien, la flecha dorada te lleva a su tumba; en el árbol genealógico tienes «Ir al Camposanto».', 'On the Map (Lands of the Bound) there is a «Dawn Graveyard» category with the entrance and each relative’s grave († name). When someone passes away, the golden arrow leads to their grave; the family tree has «Go to the Graveyard».')]); } }
+
+// 6.39 · La tumba por dentro y el luto de tu pareja (Sergio: «que veamos el cuerpo enterrado, y que tu esposa con la que
+// tuviste ese hijo tenga diálogos nuevos»).
+// - En el juego (no en una ventana; Sergio lo pidió así): delante de cada tumba de la familia hay una fosa de tierra y, a
+//   través de ella, su cuerpo tumbado, dibujado con el motor (drawHero de su aspecto; con canas si murió con 60+), en la capa
+//   del suelo (V8_UNDER, dentro de M.drawExtra, antes que las figuras).
+// - Al acercarte y tocar la tumba: «Dejar unas palabras» (5 frases o las tuyas, máx. 60): tu personaje las dice (bocadillo)
+//   y quedan escritas sobre la tumba, debajo de su nombre, cuando te acercas.
+// - Diálogos: el padre o la madre de un hijo fallecido (f.parent; en los nietos, la pareja de entonces es abuela/o) dice
+//   frases propias al abrir «Relación ♥»: duelo los 3 primeros días, luto hasta el día 14 y recuerdos después. Tiene la
+//   opción «Hablar de <nombre>» (recuerdo distinto cada vez, sube un poco la confianza una vez al día) e «Ir juntos a su
+//   tumba» (flecha dorada).
+function lutoApp(f) { const a = Object.assign({}, f.app || {}); if (!a.g) a.g = f.g === 'f' ? 'f' : 'm'; if ((f.age || 0) >= 60) { a.hair = 'blanco'; delete a.hair2; } return normApp(a); }
+// ---------- en el juego: su cuerpo bajo la tierra, delante de la lápida (capa del suelo) ----------
+const LUTO_SPR = {};
+function lutoSprite(f) { const key = f.id + ':' + ((f.age || 0) >= 60 ? 'o' : 'y'); if (LUTO_SPR[key] !== undefined) return LUTO_SPR[key];
+  // se dibuja con drawHero (como el atlas) y se le cierran los ojos: piel encima de cada ojo (p.meta.eyes, FACE.ey) y una
+  // línea de pestañas en la fila de abajo; luego el contorno y se gira para que quede tumbado
+  let c = null; try { const L = heroLook('guerrero', lutoApp(f), { weapon: 0 }, {}, {}); L.weapon = null; L.back = null; const cw = 34, ch = 44, p = new Pix(48, 48);
+    drawHero(p, L, 'down', 'idle', 0); const m = p.meta || {}, SK = m.sk || L.skin || SKINS[0], ey = Math.round((m.hy || 0) + FACE.ey), eyes = m.eyes || [Math.round(m.hx) - 4, Math.round(m.hx) + 3], lash = C('#3a2626');
+    for (const ex of eyes) { for (let yy = ey; yy <= ey + 2; yy++) for (let xx = ex; xx <= ex + 1; xx++) p.set(xx, yy, SK[2]); p.set(ex, ey + 1, lash); p.set(ex + 1, ey + 1, lash); }
+    p.outline(OUTL, false); const src = p.canvas();
+    c = document.createElement('canvas'); c.width = ch; c.height = cw; const x = c.getContext('2d'); x.imageSmoothingEnabled = false; x.translate(ch / 2, cw / 2); x.rotate(-Math.PI / 2); x.drawImage(src, 7, 2, cw, ch, -cw / 2, -ch / 2, cw, ch); } catch (e) { c = null; }
+  LUTO_SPR[key] = c; return c; }
+function lutoGround(cx, cy) { const W = G.world, P = G.P, M = G.map; if (!M || !M.isWorld || !W || typeof SA === 'undefined' || !SA.famG || !P) return;
+  for (const o of SA.famG) { if (o.hidden) continue; const sx = Math.round(o.px - cx), sy = Math.round(o.py - cy); if (sx < -40 || sx > VW + 40 || sy < -40 || sy > VH + 60) continue; const f = (P.fallen || [])[o.fi]; if (!f) continue;
+    ctx.fillStyle = '#4a321e'; ctx.fillRect(sx - 15, sy + 2, 30, 13); ctx.fillStyle = '#6a4a2e'; ctx.fillRect(sx - 14, sy + 3, 28, 11);
+    ctx.fillStyle = '#7a5a3a'; for (let i = 0; i < 6; i++) ctx.fillRect(sx - 12 + i * 5, sy + 4 + (i % 2) * 6, 1, 1);
+    const sp = lutoSprite(f); if (sp) { ctx.save(); ctx.globalAlpha = 0.62; ctx.drawImage(sp, sx - 14, sy - 3, 28, 22); ctx.restore(); }
+    ctx.fillStyle = 'rgba(74,50,30,.35)'; ctx.fillRect(sx - 14, sy + 3, 28, 11);
+    if (P.cmFl && P.cmFl[f.id] === calDay()) for (const [dx, col] of [[-12, '#ff6a8a'], [-10, '#ffd040'], [10, '#ffffff'], [12, '#ff9ad8']]) { ctx.fillStyle = '#3e7a32'; ctx.fillRect(sx + dx, sy + 12, 1, 3); ctx.fillStyle = col; ctx.fillRect(sx + dx - 1, sy + 11, 3, 1); } } }
+// capa del suelo de 6zz9zzzzzz_oficios528 (V8_UNDER): se dibuja dentro de M.drawExtra, antes de las figuras, sin envolverlo otra vez
+if (typeof V8_UNDER !== 'undefined') V8_UNDER.push(lutoGround);
+// al acercarte, sobre la tumba (encima de «+ nombre»; la letra del mapa no tiene ✦ ✝ « » † · ni comillas): fecha de nacimiento y de muerte, cuánto lleva fallecido y tus palabras
+function lutoDate(d) { try { const D = calDate(d); return D.day + ' ' + D.mon.slice(0, 3) + ' ' + D.y; } catch (e) { return L2('día ', 'day ') + d; } }
+function lutoAgo(f) { const n = Math.max(0, calDay() - (f.day || 0)); return n === 0 ? L2('falleció hoy', 'passed away today') : n === 1 ? L2('hace 1 día', '1 day ago') : L2('hace ', '') + n + L2(' días', ' days ago'); }
+WORLD_DRAW.push((cx, cy) => { const M = G.map, P = G.P; if (!M || !M.isWorld || typeof SA === 'undefined' || !SA.famG || !P) return;
+  for (const o of SA.famG) { if (o.hidden || dist2(o.px, o.py, P.x, P.y) > 70 * 70) continue; const f = (P.fallen || [])[o.fi]; if (!f) continue; const X = o.px - cx, Y = o.py - cy;
+    const s1 = textSprite(L2('Nació ', 'Born ') + lutoDate(f.born || 0) + ' - ' + L2('murió ', 'died ') + lutoDate(f.day || 0) + ' - ' + lutoAgo(f), '#d8d0f0'); ctx.drawImage(s1, Math.round(X - s1.width / 2), Math.round(Y - 46));
+    const w = P.cmWords && P.cmWords[f.id]; if (w) { const s2 = textSprite(w.t, '#fff4d0'); ctx.drawImage(s2, Math.round(X - s2.width / 2), Math.round(Y - 58)); } } });
+const LUTO_WORDS = [L2('Te echamos de menos cada día.', 'We miss you every day.'), L2('Gracias por todo lo que nos diste.', 'Thank you for everything you gave us.'), L2('Descansa, ya estás en casa.', 'Rest, you are home now.'), L2('Tu hilo sigue con nosotros.', 'Your thread is still with us.'), L2('Algún día volveremos a vernos.', 'Someday we will meet again.')];
+function lutoSay(f, t, o) { const P = G.P; t = String(t || '').trim().slice(0, 60); if (!t) return; P.cmWords = P.cmWords || {}; P.cmWords[f.id] = { t, day: calDay() }; P.chat = t; P.chatT = G.t;
+  if (o) for (let q = 0; q < 10; q++) part(o.px + (Math.random() - 0.5) * 16, o.py - 10, { vz: 18, g: -8, life: 1.6, c: pick(['#fff4d0', '#c8b0ff', '#ffffff']) });
+  const pk = f.parent || P.spouse || P.partner; if (pk && typeof nick === 'function' && ROM[pk]) setTimeout(() => toast('🕯 ' + nick(pk) + ': ' + L2('Seguro que te ha escuchado.', 'I’m sure they heard you.'), 'info', 4), 1600); markDirty(); }
+function lutoWords(f, o) { openModal(`<div class="frame"><h3>✍ ${L2('Unas palabras para ', 'A few words for ')}${esc(f.name)}</h3><div class="slist">${LUTO_WORDS.map((w, i) => `<button class="srow" data-lw="${i}"><div class="sn">${esc(w)}</div></button>`).join('')}</div>
+  <p class="hint">${L2('O escribe las tuyas (máx. 60 letras):', 'Or write your own (max 60 letters):')}</p><input id="lwT" maxlength="60" autocomplete="off" placeholder="${L2('Tus palabras…', 'Your words…')}"><div class="row"><button class="btn gold" id="lwOk">${L2('Decir', 'Say')}</button><button class="btn" id="lwX">${L2('Cancelar', 'Cancel')}</button></div></div>`);
+  $$('#modal [data-lw]').forEach(b => b.onclick = () => { closeModal(); lutoSay(f, LUTO_WORDS[+b.dataset.lw], o); }); $('#lwOk').onclick = () => { const t = $('#lwT').value; closeModal(); lutoSay(f, t, o); }; $('#lwX').onclick = closeModal; }
+{ const X = typeof XACT !== 'undefined' && XACT.cm_fam; if (X) { const run = X[2]; X[2] = o => { const r = run(o); try { const f = (G.P.fallen || [])[o.fi], M = $('#modal'); if (f && M) { const row = M.querySelector('.row');
+  if (row && !row.querySelector('#lwGo')) { row.insertAdjacentHTML('afterbegin', `<button class="btn gold" id="lwGo">✍ ${L2('Dejar unas palabras', 'Leave a few words')}</button>`); $('#lwGo').onclick = () => { closeModal(); lutoWords(f, o); }; } } } catch (e) { console.warn('luto', e); } return r; }; } }
+
+// ---------- diálogos de la pareja ----------
+function lutoOf(k) { const P = G.P; if (!P || !k) return []; const fl = P.fallen || [], kids = (P.kids || []).concat(fl);
+  return fl.filter(f => f.parent === k || (!f.parent && (f.gen || 2) === 2 && (P.spouse === k || P.partner === k)) || (f.gparent && (() => { const p = kids.find(q => q.id === f.gparent); return p && p.parent === k; })())); }
+const lutoRel = (f, me) => { const nieto = !!f.gparent, fem = f.g === 'f'; return nieto ? (fem ? L2('nuestra nieta', 'our granddaughter') : L2('nuestro nieto', 'our grandson')) : (fem ? L2('nuestra hija', 'our daughter') : L2('nuestro hijo', 'our son')); };
+function lutoLine(f) { const d = calDay() - (f.day || 0), n = f.name, rl = lutoRel(f), age = f.age || 0;
+  const A = [L2(`No dejo de pensar en ${n}… ${age} años y aún me parece que fue ayer cuando lo tuvimos en brazos.`, `I can’t stop thinking about ${n}… ${age} years, and it still feels like yesterday we held them.`),
+    L2(`Hoy no tengo fuerzas para mucho. ${n} era ${rl}… abrázame un momento.`, `I don’t have much strength today. ${n} was ${rl}… hold me for a moment.`),
+    L2(`Fui a llevarle flores a ${n} al Camposanto del Alba. ¿Vienes conmigo la próxima vez?`, `I took flowers to ${n} at the Dawn Graveyard. Will you come with me next time?`)];
+  const B = [L2(`La casa está muy callada sin ${n}. A veces pongo un plato de más sin darme cuenta.`, `The house is so quiet without ${n}. Sometimes I set an extra plate without noticing.`),
+    L2(`Encontré sus juguetes de cuando era pequeñ${f.g === 'f' ? 'a' : 'o'}. Los guardé en el baúl, junto a la cuna.`, `I found their toys from when they were little. I kept them in the chest, by the crib.`),
+    L2(`Odila cuida bien su tumba. Dice que siempre hay flores frescas para ${n}.`, `Odila takes good care of the grave. She says there are always fresh flowers for ${n}.`)];
+  const C = [L2(`¿Te acuerdas de cuando ${n} se escondía detrás de la cuna para asustarte? Se reía tanto…`, `Remember when ${n} hid behind the crib to scare you? They laughed so much…`),
+    L2(`Hoy soñé con ${n}. Estaba en el Telar, tranquil${f.g === 'f' ? 'a' : 'o'}, saludándonos.`, `I dreamt of ${n} today. They were at the Loom, at peace, waving at us.`),
+    L2(`${n} vivió ${age} años felices. Eso me consuela: lo hicimos bien, ¿verdad?`, `${n} lived ${age} happy years. That comforts me: we did well, didn’t we?`),
+    L2(`Cada vez que paso por la vía del tren miro hacia el Camposanto y le digo hola a ${n}.`, `Every time I pass the railway I look towards the Graveyard and say hello to ${n}.`)];
+  return pick(d <= 3 ? A : d <= 14 ? B : C); }
+let LUTO_K = null;
+hookAround('romanceMenu', (next, npc, msg, ...a) => { const k = npc && relKey(npc.id), L = lutoOf(k); if (!L.length) return next(npc, msg, ...a); const f = L.slice().sort((x, y) => (y.day || 0) - (x.day || 0))[0];
+  const P = G.P; P.lutoSeen = P.lutoSeen || {}; let m = msg; if (!m && P.lutoSeen[k] !== calDay() && calDay() - (f.day || 0) <= 14) { P.lutoSeen[k] = calDay(); m = '🕯 ' + lutoLine(f); }
+  LUTO_K = { k, npc, f, L }; try { return next(npc, m, ...a); } finally { LUTO_K = null; } });
+hookBefore('setOpts', opts => { const Z = LUTO_K; if (!Z || !Array.isArray(opts) || opts.some(o => o && o.luto)) return; const { npc, f, k } = Z, P = G.P;
+  opts.unshift({ luto: 1, label: '🕯 ' + L2('Hablar de ', 'Talk about ') + f.name, icon: ['heart', '#c8b0ff'], fn: () => { P.lutoTalk = P.lutoTalk || {}; if (P.lutoTalk[k] !== calDay()) { P.lutoTalk[k] = calDay(); try { addRel(k, 8, 4, npc.x, npc.y - 36); } catch (e) { } } romanceMenu(npc, lutoLine(f)); } },
+    { luto: 1, label: '🪦 ' + L2('Ir juntos a su tumba', 'Go to their grave together'), icon: ['ways'], fn: () => { closeDialog(); if (typeof cemGo === 'function') cemGo(f); toast(nick(k) + ': ' + L2('Vamos. Le llevaremos flores.', 'Let’s go. We’ll bring flowers.'), 'info', 4); } }); });
+if (typeof GSIS !== 'undefined') try { GSIS.unshift(['luto639', '🕯 ' + L2('Familia que se va', 'Family who pass away'), () => [L2('Tus hijos y nietos envejecen y se van de viejos. Descansan en el Camposanto del Alba: en su tumba ves su descanso bajo la tierra y puedes dejar flores. Tu pareja, su madre o padre, habla de ellos (duelo, luto y recuerdos) y puedes «Hablar de» él o ella o ir juntos a la tumba.', 'Your children and grandchildren grow old and pass away. They rest in the Dawn Graveyard: at their grave you see them resting under the earth and can leave flowers. Your partner, their mother or father, talks about them (grief, mourning and memories) and you can «Talk about» them or go to the grave together.')], () => null]); } catch (e) { }
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;
