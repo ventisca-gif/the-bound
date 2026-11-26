@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.35', GAME_BUILD = 257;
+const GAME_VER = '6.36', GAME_BUILD = 258;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.36",
+ "b": 258,
+ "d": "2026-11-26",
+ "es": [
+  "El maná importa: cada habilidad de tu clase cuesta lo de siempre o un % de tu maná máximo según su recarga (9 s ≈ 3 %, 30 s ≈ 11 %, 60 s ≈ 22 %). Antes el mago, el bardo y el invocador tenían maná casi infinito. Lanzarlas todas en cuanto salen gasta algo más de lo que recuperas en combate: hay que elegir.",
+  "La barra pone en gris las habilidades que no te alcanzan y la ficha de cada una dice su coste real.",
+  "Arquero: Espíritu del Bosque cura un 25 % (antes 20 %), se recarga en 24 s y da +20 % de defensa durante 8 s. Mago: Escudo Arcano absorbe un 30 % (antes 25 %) y Armadura de Escarcha da +30 % de defensa durante 25 s."
+ ],
+ "en": [
+  "Mana matters: each class skill costs its usual amount or a % of your max mana based on its cooldown (9 s ≈ 3%, 30 s ≈ 11%, 60 s ≈ 22%). Before, mages, bards and summoners had almost infinite mana. Casting them all as soon as they are ready costs a bit more than you regain in combat: you have to choose.",
+  "The bar greys out skills you can’t afford and each skill’s card shows its real cost.",
+  "Archer: Forest Spirit heals 25% (was 20%), recharges in 24 s and gives +20% defence for 8 s. Mage: Arcane Shield absorbs 30% (was 25%) and Frost Armour gives +30% defence for 25 s."
+ ]
+},
 {
  "v": "6.35",
  "b": 257,
