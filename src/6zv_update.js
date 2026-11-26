@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.38', GAME_BUILD = 260;
+const GAME_VER = '6.39', GAME_BUILD = 261;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.39",
+ "b": 261,
+ "d": "2026-11-26",
+ "es": [
+  "Al tocar la tumba de un familiar ves su descanso bajo la tierra: el ataúd abierto con su cuerpo, dibujado con su aspecto (con canas si se fue mayor), la lápida y tus flores encima.",
+  "Tu pareja, la madre o el padre de ese hijo, tiene frases nuevas: duelo los primeros días, luto después y recuerdos con el tiempo. En «Relación ♥» sale «Hablar de <nombre>» (un recuerdo cada vez) e «Ir juntos a su tumba» con la flecha dorada."
+ ],
+ "en": [
+  "When you touch a relative’s grave you see them resting beneath the earth: the open coffin with their body, drawn with their look (with grey hair if they left old), the headstone and your flowers on top.",
+  "Your partner, that child’s mother or father, has new lines: grief in the first days, mourning afterwards and memories over time. «Relationship ♥» shows «Talk about <name>» (a memory each time) and «Go to their grave together» with the golden arrow."
+ ]
+},
 {
  "v": "6.38",
  "b": 260,

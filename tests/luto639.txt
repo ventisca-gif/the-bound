@@ -1,0 +1,7 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (()=>{ const P=G.P; const k=Object.keys(ROM)[0]; P.partner=k; P.spouse=k; P.kids=[{id:'kq1',name:'Blake',g:'m',app:{g:'m',hair:'rojo',hs:2},born:0,parent:k}]; P.kids[0].ag0=calDay(); P.kids[0].agY=87; kidDie(P.kids[0]); window._k=k; return {k, fallen:P.fallen.length}; })()
+wait 600
+js (()=>{ const P=G.P; cmSync(); const o=SA.famG.find(o=>!o.hidden); XACT.cm_fam[2](o); return {canvas:!!document.querySelector('#modal canvas'), title:document.querySelector('#modal h2').textContent}; })()
+wait 300
+shot
+js (()=>{ closeModal(); const k=window._k; const npc={id:k,x:G.P.x,y:G.P.y}; openDialog&&0; romanceMenu(npc); const opts=[...document.querySelectorAll('#dialog button, #dopts button, .dopt')].map(b=>b.textContent).slice(0,4); return {opts, text:(document.querySelector('#dtext')||document.querySelector('#dialog')||{}).textContent.slice(0,200)}; })()
