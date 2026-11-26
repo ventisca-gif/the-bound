@@ -1,0 +1,2 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (()=>{ const r=[]; for(let i=0;i<8;i++) r.push(goldDim('qa')); return r; })()

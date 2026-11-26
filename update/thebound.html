@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.40 · Arreglos y memorial de la familia</div>
+  <div class="tfoot">v6.41 · Oro equilibrado</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11911,7 +11911,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.40', GAME_BUILD = 262;
+const GAME_VER = '6.41', GAME_BUILD = 263;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11919,6 +11919,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.41",
+ "b": 263,
+ "d": "2026-11-26",
+ "es": [
+  "Oro equilibrado: la carrera de relevos, la carrera de dragones, los casos del Tren Misterio, el duelo de cocina y las esculturas de arena se podían repetir sin límite pagando 80.000-600.000 cada vez. Ahora pagan entero las 3 primeras veces de cada día, el 40 % de la 4.ª a la 6.ª y el 15 % después (avisa cuando baja).",
+  "Revisados los trabajos (100-2.000 por ronda) y los minijuegos de los pueblos: pagan en línea con el resto del juego.",
+  "Árbol genealógico: los nietos y bisnietos cuyo padre o madre ya pasó al Memorial volvían a no salir; ahora salen. El Memorial guarda los 100 antepasados más recientes y los más antiguos se borran del todo, para que la partida no crezca (toda la familia ocupa unos 10-16 KB)."
+ ],
+ "en": [
+  "Balanced gold: the relay race, dragon race, Mystery Train cases, cooking duel and sand sculptures could be repeated endlessly paying 80,000-600,000 each time. They now pay in full the first 3 times each day, 40% from the 4th to the 6th and 15% after that (with a notice).",
+  "Jobs (100-2,000 per round) and town minigames checked: they pay in line with the rest of the game.",
+  "Family tree: grandchildren and great-grandchildren whose parent had moved to the Memorial didn’t show; now they do. The Memorial keeps the 100 most recent ancestors and older ones are deleted for good, so the save doesn’t grow (the whole family takes about 10-16 KB)."
+ ]
+},
 {
  "v": "6.40",
  "b": 262,
@@ -41134,7 +41149,7 @@ function raceStart() { const P = G.P; if (actBusy()) return; if (!raceOk()) { to
   const rings = Array.from({ length: 10 }, (_, i) => { const a = i / 10 * 6.28 + 0.4, r = (S.r + 6 + (i % 3) * 4) * 16; return { x: c0 + Math.cos(a) * r, y: c1 + Math.sin(a) * r * 0.75 }; });
   Object.assign(ACT, { k: 'race', rings, at: 0, t: 0, onAtk: () => true }); banner('🐉 ' + L2('¡Carrera de dragones!', 'Dragon race!'), L2('Pasa por los anillos en orden. Sigue la flecha.', 'Fly through the rings in order. Follow the arrow.')); sfx('quest'); }
 V33_TICKS.push(dt => { if (ACT.k !== 'race') return; const B = ACT, P = G.P; B.t += Math.min(0.05, dt || 0.016); if (G.map.id !== 'cielo' || !raceOk()) { actEnd(); toast(L2('Carrera cancelada', 'Race cancelled'), 'warn'); return; }
-  const R = B.rings[B.at]; if (Math.hypot(R.x - P.x, R.y - P.y) < 26) { B.at++; sfx('coin'); burst(R.x, R.y - 20, 14, { sp: 60, up: 40, life: 0.5, c: ['#ffd040', '#ff7a2a'] }); if (B.at >= 10) { const t = Math.round(B.t * 10) / 10, best = !P.raceBest || t < P.raceBest; if (best) P.raceBest = t; const g = Math.max(20000, Math.round(400000 - t * 3000)); P.gold += g;
+  const R = B.rings[B.at]; if (Math.hypot(R.x - P.x, R.y - P.y) < 26) { B.at++; sfx('coin'); burst(R.x, R.y - 20, 14, { sp: 60, up: 40, life: 0.5, c: ['#ffd040', '#ff7a2a'] }); if (B.at >= 10) { const t = Math.round(B.t * 10) / 10, best = !P.raceBest || t < P.raceBest; if (best) P.raceBest = t; const g = Math.round(Math.max(20000, Math.round(400000 - t * 3000)) * (typeof goldDim === 'function' ? goldDim('dragones') : 1)); P.gold += g;
       if (t <= 60 && !P.raceGot) { P.raceGot = 1; const b = BIT(); if (!b.fr.includes('carrera')) b.fr.push('carrera'); banner('🏆 ' + L2('¡Jinete del cielo!', 'Sky rider!'), L2('Marco «Jinete del cielo» por bajar de 60 s.', '«Sky rider» frame for finishing under 60 s.')); }
       else banner('🐉 ' + t + ' s' + (best ? ' · ' + L2('¡récord!', 'record!') : ''), '+' + fmt(g) + L2(' de oro', ' gold')); actEnd(); markDirty(true); return; } }
   mgHud(`🐉 ${B.at}/10 · ${B.t.toFixed(1)} s${P.raceBest ? ' · ' + L2('récord ', 'best ') + P.raceBest + ' s' : ''}`); });
@@ -41709,7 +41724,7 @@ function tmStart() { const P = G.P, M = G.map; if (actBusy() || !M || M.shinTr =
     .map(([k, txt], i) => { const x0 = M.cars[(i + 1) % M.cars.length]; return { k, txt, x: (x0 + 2 + R.int(0, 13)) * 16 + 8, y: [2, 5, 7][i] * 16 + 10, found: false }; });
   P.tmDay = calDay(); Object.assign(ACT, { k: 'tmis', mid: M.id, list, names, culprit, ents, clues, crime, asked: {} }); markDirty();
   banner('🔎 ' + L2('Misterio en el tren nocturno', 'Mystery on the night train'), crime[0] + ' ' + L2('Busca 3 pistas por los vagones y habla con los 4 pasajeros.', 'Find 3 clues in the carriages and talk to the 4 passengers.')); sfx('quest'); }
-function tmEnd(ok, msg) { const A = ACT, P = G.P; if (A.k !== 'tmis') return; actClean(); actEnd(); if (ok) { const g = 80000 + P.lv * 800; P.gold += g; P.tmSolved = (P.tmSolved || 0) + 1; banner('🔎 ' + L2('¡Caso resuelto!', 'Case solved!'), msg + ' · +' + fmt(g) + L2(' de oro · casos: ', ' gold · cases: ') + P.tmSolved); sfx('level'); if (P.tmSolved >= 3) { const b = BIT(); if (!b.fr.includes('detective')) b.fr.push('detective'); } } else { banner('🔎 ' + L2('Caso fallido', 'Case failed'), msg); sfx('hurt'); } markDirty(true); }
+function tmEnd(ok, msg) { const A = ACT, P = G.P; if (A.k !== 'tmis') return; actClean(); actEnd(); if (ok) { const g = Math.round((80000 + P.lv * 800) * (typeof goldDim === 'function' ? goldDim('tmis') : 1)); P.gold += g; P.tmSolved = (P.tmSolved || 0) + 1; banner('🔎 ' + L2('¡Caso resuelto!', 'Case solved!'), msg + ' · +' + fmt(g) + L2(' de oro · casos: ', ' gold · cases: ') + P.tmSolved); sfx('level'); if (P.tmSolved >= 3) { const b = BIT(); if (!b.fr.includes('detective')) b.fr.push('detective'); } } else { banner('🔎 ' + L2('Caso fallido', 'Case failed'), msg); sfx('hurt'); } markDirty(true); }
 V33_TICKS.push(() => { if (ACT.k !== 'tmis') return; const A = ACT; if (!G.map || G.map.id !== A.mid) { tmEnd(false, L2('Bajaste del tren: el revisor cierra el caso sin ti.', 'You got off the train: the conductor closes the case without you.')); return; } mgHud(`🔎 ${L2('Pistas ', 'Clues ')}${A.clues.filter(c => c.found).length}/3 · ${L2('pasajeros ', 'passengers ')}${Object.keys(A.asked).length}/4`); });
 { const _it = interactTarget; interactTarget = function () { const P = G.P; if (ACT.k === 'tmis' && G.map && G.map.id === ACT.mid && !P.dead) { const c = ACT.clues.find(q => !q.found && Math.hypot(q.x - P.x, q.y - P.y) < 24); if (c) return { kind: 'tmclue', label: '🔎 ' + L2('Examinar', 'Examine'), icon: 'eye', c }; } return _it.apply(this, arguments); }; }
 { const _di = doInteract; doInteract = function (it) { it = it || interactTarget(); if (it && it.kind === 'tmclue') { it.c.found = true; banner('🔎 ' + L2('Pista', 'Clue') + ' ' + ACT.clues.filter(c => c.found).length + '/3', it.c.txt); sfx('quest'); return; } return _di.apply(this, arguments); }; }
@@ -42096,7 +42111,7 @@ function rlBegin() { const P = G.P, T_ = RL7.team; if (!T_ || !T_.s) return; if 
 V33_TICKS.push(() => { if (ACT.k !== 'relevo') return; const A = ACT, P = G.P, T_ = RL7.team; if (!T_ || !T_.s) { actEnd(); return; } const now = Date.now();
   let teamDone = A.done; for (const r of G.remote.values()) if (r.rl && r.rl.L === T_.L && r.rl.d > teamDone) teamDone = r.rl.d; if (teamDone > A.done) A.done = teamDone;
   if (now < T_.s) { mgHud('🏇 ' + L2('Salida en ', 'Start in ') + Math.ceil((T_.s - now) / 1000) + ' s'); return; }
-  if (A.done >= 3) { const t = Math.round((now - T_.s) / 100) / 10; const best = !P.rlBest || t < P.rlBest; if (best) P.rlBest = t; const g = Math.max(30000, Math.round(600000 - t * 1500)); P.gold += g; actEnd(); RL7.team = null; netPresence(true); banner('🏁 ' + L2('¡Paquete entregado!', 'Parcel delivered!') + ' ' + t + ' s', (best ? L2('¡récord! · +', 'record! · +') : '+') + fmt(g) + L2(' de oro', ' gold')); sfx('level'); markDirty(true);
+  if (A.done >= 3) { const t = Math.round((now - T_.s) / 100) / 10; const best = !P.rlBest || t < P.rlBest; if (best) P.rlBest = t; const g = Math.round(Math.max(30000, Math.round(600000 - t * 1500)) * (typeof goldDim === 'function' ? goldDim('relevos') : 1)); P.gold += g; actEnd(); RL7.team = null; netPresence(true); banner('🏁 ' + L2('¡Paquete entregado!', 'Parcel delivered!') + ' ' + t + ' s', (best ? L2('¡récord! · +', 'record! · +') : '+') + fmt(g) + L2(' de oro', ' gold')); sfx('level'); markDirty(true);
     if (best && evNet()) clanReq('ev/rl/' + FW_WEEK() + '/' + evMe(), { m: 'PUT', b: { n: cleanStr(P.name, 20) || '?', t, t2: clanTs } }).catch(() => { }); return; }
   const leg = A.done; if (A.legs.includes(leg)) { const to = RL_CP[leg + 1]; if (A.cur !== leg) { A.cur = leg; banner('📦 ' + L2('¡Te toca!', 'Your turn!'), L2('Lleva el paquete a ', 'Take the parcel to ') + to.n); sfx('quest'); } if (G.map && G.map.isWorld && Math.hypot(P.x - to.x, P.y - to.y) < 48) { A.done = leg + 1; sfx('coin'); netPresence(true); toast('📦 ' + L2('¡Posta! ', 'Post! ') + to.n, 'quest'); } }
   mgHud(`🏇 ${L2('Tramo ', 'Leg ')}${Math.min(3, A.done + 1)}/3 · ${((now - T_.s) / 1000).toFixed(1)} s${A.legs.includes(leg) ? ' · 📦 → ' + RL_CP[leg + 1].n : ' · ' + L2('espera el relevo', 'wait for the handover')}`); });
@@ -42156,7 +42171,7 @@ function saDraw(g, grid, x, y, s, frame) { if (frame) { g.strokeStyle = 'rgba(12
 function saStart() { const P = G.P, A = SA7.at; if (actBusy() || !A) return; Object.assign(ACT, { k: 'arena', grid: new Array(SA_W * SA_H).fill(0), t: 90, onAtk: () => { const B = ACT, P = G.P, c = Math.floor((P.x - A.x) / 16), r = Math.floor((P.y - A.y) / 13); setAnim(P, 'dig'); if (c < 0 || r < 0 || c >= SA_W || r >= SA_H) { floatText(P.x, P.y - 40, L2('Ponte sobre la cuadrícula', 'Stand on the grid'), '#ffe08a'); return true; } const i = r * SA_W + c; B.grid[i] = (B.grid[i] + 1) % 4; sfx('hit'); part(P.x, P.y, { vz: 30, g: 80, life: 0.4, c: '#e8c890', s: 2 }); return true; } });
   banner('🏖 ' + L2('¡A esculpir!', 'Let\'s sculpt!'), L2('⚔ sobre una casilla: más arena (4 veces la deja plana). Tienes 90 s.', '⚔ on a square: more sand (4 times flattens it). You have 90 s.')); }
 V33_TICKS.push(dt => { if (ACT.k !== 'arena') return; const B = ACT, P = G.P, A = SA7.at; B.t -= Math.min(0.05, dt || 0.016); P.x = Math.max(A.x - 8, Math.min(A.x + SA_W * 16 + 8, P.x)); P.y = Math.max(A.y - 8, Math.min(A.y + SA_H * 13 + 10, P.y)); mgHud('🏖 ' + Math.ceil(B.t) + ' s · ' + B.grid.filter(Boolean).length + L2(' montones', ' piles'));
-  if (B.t <= 0) { const g = B.grid.join(''); SA7.mine = g; actEnd(); const gold = 5000 + B.grid.filter(Boolean).length * 800; P.gold += gold; banner('🏖 ' + L2('¡Escultura terminada!', 'Sculpture finished!'), '+' + fmt(gold) + L2(' de oro · entra en el concurso de la semana', ' gold · it enters this week\'s contest')); sfx('quest'); markDirty(true);
+  if (B.t <= 0) { const g = B.grid.join(''); SA7.mine = g; actEnd(); const gold = Math.round((5000 + B.grid.filter(Boolean).length * 800) * (typeof goldDim === 'function' ? goldDim('arena') : 1)); P.gold += gold; banner('🏖 ' + L2('¡Escultura terminada!', 'Sculpture finished!'), '+' + fmt(gold) + L2(' de oro · entra en el concurso de la semana', ' gold · it enters this week\'s contest')); sfx('quest'); markDirty(true);
     if (evNet()) clanReq('ev/sa/' + FW_WEEK() + '/' + evMe(), { m: 'PUT', b: { n: cleanStr(P.name, 20) || '?', g, t: clanTs } }).catch(() => { }); } });
 V8_UNDER.push((cx, cy) => { const A = SA7.at, M = G.map; if (!A || !M || !M.isWorld) return; const grid = ACT.k === 'arena' ? ACT.grid : SA7.mine; if (!grid) return; saDraw(ctx, grid, A.x - cx, A.y - cy + 10, 16, ACT.k === 'arena'); });
 function saOpen() { const P = G.P, w = FW_WEEK(); if (!evNet()) return toast(L2('El concurso necesita internet.', 'The contest needs internet.'), 'warn');
@@ -42219,7 +42234,7 @@ function cdAtk() { const A = ACT, P = G.P, M = G.map; if (Date.now() < A.s || A.
 V33_TICKS.push(dt => { if (ACT.k !== 'cdue') return; const A = ACT, P = G.P, M = G.map; if (!M || !M.cocina) { actEnd(); return; } if (Date.now() < A.s) { mgHud('🍳 ' + Math.ceil((A.s - Date.now()) / 1000) + ' s'); return; }
   if (A.step === 5) { if (Math.hypot(A.cookAt.px - P.x, A.cookAt.py + 14 - P.y) < 30) { A.cook += Math.min(0.05, dt || 0.016) / 3; if (Math.random() < 0.2) part(A.cookAt.px, A.cookAt.py - 30, { vz: 30, g: -20, life: 0.6, c: '#e8e8e8', s: 2 }); if (A.cook >= 1) { A.step = 6; sfx('coin'); floatText(P.x, P.y - 44, '🍲 ' + L2('¡Listo!', 'Ready!'), '#ffffff'); } } }
   if (A.fin) { let foeSc = A.bot; if (A.foe) { const r = [...G.remote.values()].find(q => q.id === A.foe); foeSc = r && r.cd && r.cd.s === A.s && r.cd.sc >= 0 ? r.cd.sc : null; } if (foeSc === null && Date.now() - A.finT < 60000) { mgHud('🍳 ' + A.score + ' · ' + L2('esperando al rival…', 'waiting for the rival…')); return; }
-    const win = foeSc === null || A.score > foeSc, tie = foeSc === A.score, g = win ? 120000 + P.lv * 500 : 30000; P.gold += g; if (win && !tie) { P.cdWins = (P.cdWins || 0) + 1; if (P.cdWins >= 3) v7Frame('chef', L2('Marco «Chef del duelo»', '«Duel chef» frame')); }
+    const win = foeSc === null || A.score > foeSc, tie = foeSc === A.score, g = Math.round((win ? 120000 + P.lv * 500 : 30000) * (typeof goldDim === 'function' ? goldDim('cocina') : 1)); P.gold += g; if (win && !tie) { P.cdWins = (P.cdWins || 0) + 1; if (P.cdWins >= 3) v7Frame('chef', L2('Marco «Chef del duelo»', '«Duel chef» frame')); }
     for (const e of G.ents) if (e.map === M.id && /^cd_juez/.test(e.id || '')) { e.chat = tie ? L2('¡Empate!', 'A tie!') : win ? L2('¡Gana ', 'The winner is ') + P.name + '!' : L2('Gana el rival', 'The rival wins'); e.chatT = G.t; }
     actEnd(); netPresence(true); banner('🍳 ' + (tie ? L2('¡Empate!', 'A tie!') : win ? L2('¡Ganaste el duelo!', 'You won the duel!') : L2('Perdiste el duelo', 'You lost the duel')), A.score + ' - ' + (foeSc === null ? '?' : foeSc) + ' · +' + fmt(g) + L2(' de oro', ' gold')); sfx(win ? 'level' : 'quest'); markDirty(true); return; }
   mgHud(`🍳 ${A.R.dish} · ${A.step < 4 ? L2('busca: ', 'find: ') + CD_ING[A.R.ids[A.step]][0] : A.step === 4 ? L2('al fogón', 'to the stove') : A.step === 5 ? '🔥 ' + Math.round(A.cook * 100) + '%' : L2('al jurado', 'to the jury')} · ✗ ${A.mist}`); });
@@ -59009,7 +59024,7 @@ if (typeof GSIS !== 'undefined') try { GSIS.unshift(['luto639', '🕯 ' + L2('Fa
 //    desconocido. Tu pareja (paseo de la mano) o tus hijos que te siguen se quedaban en la arena y se duplicaban: al empezar
 //    un duelo la pareja vuelve a casa y los hijos dejan de seguirte (avisa).
 // 2) Familia sin fin: cada generación muere de vieja. Solo las 12 últimas tumbas tienen cuerpo y datos; las más antiguas pasan
-//    al Memorial (`P.fallenOld`, nombre, generación, año de nacimiento y de muerte, hasta 300) que se lee en el monumento del
+//    al Memorial (`P.fallenOld`, nombre, generación, año de nacimiento y de muerte, hasta 100; los más antiguos se borran del todo) que se lee en el monumento del
 //    Camposanto («Rendir tributo»), así no se satura.
 // 3) Cementerio compartido en línea: tu presencia lleva tus 3 últimos fallecidos (nombre, fechas y aspecto) cuando estás en el
 //    mundo, y los de los demás jugadores ocupan hasta 4 de las 12 tumbas de tu Camposanto (con su nombre y el de su familia).
@@ -59020,7 +59035,7 @@ hookBefore('pwFx', pw => { if (typeof HN_PW === 'undefined' || !HN_PW[pw]) retur
 
 // ---------- 2) memorial: solo las 12 últimas tumbas; las antiguas, en el monumento ----------
 SAVEKEYS.push('fallenOld');
-const FAM_GRAVES = 12, FAM_OLD_MAX = 300;
+const FAM_GRAVES = 12, FAM_OLD_MAX = 100;   // 6.41: 100 nombres (antes 300) para que la partida no crezca
 function famPrune() { const P = G.P; if (!P || !P.fallen || P.fallen.length <= FAM_GRAVES) return; const old = P.fallen.splice(0, P.fallen.length - FAM_GRAVES); P.fallenOld = P.fallenOld || [];
   for (const f of old) { P.fallenOld.push({ n: f.name, g: f.g, gen: f.gen || 2, b: f.born || 0, d: f.day || 0, a: f.age || 0 }); if (P.cmWords) delete P.cmWords[f.id]; if (P.cmFl) delete P.cmFl[f.id]; }
   if (P.fallenOld.length > FAM_OLD_MAX) P.fallenOld.splice(0, P.fallenOld.length - FAM_OLD_MAX); markDirty(); }
@@ -59051,6 +59066,31 @@ WORLD_DRAW.push((cx, cy) => { const M = G.map, P = G.P; if (!M || !M.isWorld || 
 if (typeof GSIS !== 'undefined') GSIS.unshift(['familia640', '🕯 ' + L2('Memorial y cementerio compartido', 'Memorial and shared graveyard'), () => [
   L2('Solo las 12 tumbas más recientes de tu familia tienen cuerpo y datos. Las generaciones más antiguas pasan al Memorial del monumento del Camposanto («Rendir tributo»): nombre, generación, año en que nacieron y en que murieron.', 'Only your family’s 12 most recent graves have a body and details. Older generations go to the Memorial on the Graveyard monument («Pay tribute»): name, generation, year born and year died.'),
   L2('En línea, los demás jugadores ven tus 3 últimos fallecidos y tú ves los de ellos: comparten hasta 4 tumbas de tu Camposanto, con su nombre y el de su familia.', 'Online, other players see your 3 latest departed and you see theirs: they share up to 4 graves in your Graveyard, with their name and their family’s.')
+], () => null]);
+
+// ---------- 6.41 · árbol genealógico corto ----------
+// Los vivos cuyo padre o madre ya pasó al Memorial se quedaban sin rama (el árbol empieza por los que no tienen `gparent`
+// presente) y no salían: ahora cuelgan de la raíz con «(familia de <nombre del Memorial>)». Abajo, cuántos hay en el Memorial.
+hookAround('famTreeHTML', next => { const P = G.P; if (!P) return next(); const ids = new Set((P.kids || []).concat(P.fallen || []).map(k => k.id)), moved = [];
+  for (const k of (P.kids || []).concat(P.fallen || [])) if (k.gparent && !ids.has(k.gparent)) { moved.push([k, k.gparent, k.name]); k.gparent = null; }
+  let h; try { h = next(); } finally { for (const [k, g] of moved) k.gparent = g; }
+  const old = (P.fallenOld || []).length; if (old) h += `<p class="hint">📜 ${old} ${L2('antepasados más en el Memorial del Camposanto (monumento «Rendir tributo»).', 'more ancestors in the Graveyard Memorial (the «Pay tribute» monument).')}</p>`;
+  return h; });
+
+// 6.41 · Oro de minijuegos y trabajos (Sergio: «mide cuánto oro dan los minijuegos y trabajos»).
+// Medido (6.41, revisión de los 209 sitios que dan oro): los trabajos dan 100-2.000 por ronda (~1 min), los minijuegos de
+// pueblo 200-3.000, matar monstruos ~150 por monstruo a nivel 139 y ~660 a nivel 600. Los premios grandes van con marca por
+// día/semana/vez. Pero cinco actividades se podían repetir sin límite y pagaban fijo 80.000-600.000 por partida de 1-3
+// minutos, a cualquier nivel (50-100 veces lo demás): carrera de relevos (hasta 600.000), carrera de dragones (hasta
+// 400.000), casos del Tren Misterio (80.000 + 800/nivel), duelo de cocina (120.000 + 500/nivel) y esculturas de arena.
+// Ahora pagan entero las 3 primeras veces de cada día del calendario, el 40 % de la 4.ª a la 6.ª y el 15 % después.
+function goldDim(k) { const P = G.P; if (!P) return 1; const d = typeof calDay === 'function' ? calDay() : 0; if (!P.gdim || P.gdim.d !== d) P.gdim = { d, n: {} };
+  const n = (P.gdim.n[k] = (P.gdim.n[k] || 0) + 1), f = n <= 3 ? 1 : n <= 6 ? 0.4 : 0.15;
+  if (f < 1) setTimeout(() => toast('💰 ' + L2('Recompensa reducida (' + Math.round(f * 100) + ' %): ya lo hiciste ' + (n - 1) + ' veces hoy. Mañana vuelve a pagar entero.', 'Reduced reward (' + Math.round(f * 100) + '%): you already did it ' + (n - 1) + ' times today. Tomorrow it pays in full again.'), 'info', 5), 800);
+  markDirty(); return f; }
+SAVEKEYS.push('gdim');
+if (typeof GSIS !== 'undefined') GSIS.unshift(['oro641', '💰 ' + L2('Oro de los minijuegos', 'Minigame gold'), () => [
+  L2('La carrera de relevos, la carrera de dragones, los casos del Tren Misterio, el duelo de cocina y las esculturas de arena pagan entero las 3 primeras veces de cada día; de la 4.ª a la 6.ª el 40 % y después el 15 %. Al día siguiente vuelven a pagar entero.', 'The relay race, dragon race, Mystery Train cases, cooking duel and sand sculptures pay in full the first 3 times each day; the 4th to 6th pay 40% and after that 15%. The next day they pay in full again.')
 ], () => null]);
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
