@@ -1,0 +1,8 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (()=>{ const P=G.P; P.kids=[{id:'kq1',name:'Blake',g:'m',app:{},born:0}]; kidDie(P.kids[0]); return {fallen:P.fallen.length}; })()
+wait 1800
+js (()=>{ const P=G.P; const pois=worldPOI().filter(q=>q.c==='cem'); return {wp:P.wp, pois:pois.map(q=>[q.t,q.x,q.y])}; })()
+js (()=>{ openPanel('map'); return 1; })()
+wait 600
+shot
+js (()=>{ closePanel&&closePanel(); famTree(); const b=document.querySelector('#cemGo'); const r=!!b; if(b) b.click(); return [r, G.P.wp && G.P.wp.t]; })()

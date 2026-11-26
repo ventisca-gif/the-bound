@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.37', GAME_BUILD = 259;
+const GAME_VER = '6.38', GAME_BUILD = 260;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.38",
+ "b": 260,
+ "d": "2026-11-26",
+ "es": [
+  "Mapa › Tierras del Vínculo: nueva categoría «Camposanto del Alba» con la entrada y la tumba de cada familiar fallecido († nombre y edad). Tócala y la flecha dorada te lleva.",
+  "Cuando fallece un hijo o un nieto, la flecha dorada apunta sola a su tumba (al sur de Albor, cruzando la vía del tren).",
+  "Árbol genealógico: botón «🕯 Ir al Camposanto»."
+ ],
+ "en": [
+  "Map › Lands of the Bound: new «Dawn Graveyard» category with the entrance and the grave of each relative who passed away († name and age). Tap it and the golden arrow leads you there.",
+  "When a child or grandchild passes away, the golden arrow points to their grave by itself (south of Albor, across the railway).",
+  "Family tree: «🕯 Go to the Graveyard» button."
+ ]
+},
 {
  "v": "6.37",
  "b": 259,
