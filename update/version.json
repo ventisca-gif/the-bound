@@ -1,34 +1,20 @@
 {
- "build": 253,
- "ver": "6.31",
+ "build": 254,
+ "ver": "6.32",
  "date": "2026-11-26",
  "file": "thebound.html",
- "size": 39205851,
- "sha256": "24e546bd64ddbc1d80fe01fad52eda50303c4a10ae3010ced6b497778b6ad990",
+ "size": 39216946,
+ "sha256": "52e225bc1bfc6e81fd776dd8c0c15c4bede86bf89848bfe95534bb150f5ec14d",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Día, tarde y noche en todo el Mar de Dawn, con la hora del reloj de arriba: amanecer rosado, tarde dorada y noche azul con las ventanas encendidas y faroles en el barco.",
-   "El mapa del Mar de Dawn ya cabe entero y se ven todas las islas; con + se arrastra con el dedo.",
-   "Pesca en la popa del Going Merry con Luffy y Usopp: 6 lances, pulsa ⚔ cuando pique el corcho. Peces de Dawn, botas viejas… y a veces un Rey Marino bebé.",
-   "Historias de Usopp: ¿verdad o mentira? Acierta y gana oro.",
-   "Banquete de la tripulación: al terminar cada arco (y una vez al día) todos bailan en el comedor y Sanji sirve carne (bono de 20 min).",
-   "Mapas de Nami: recorre todos los lugares de cada isla y Nami la dibuja (oro por isla y premio grande al completar el mar).",
-   "Den Den Mushi: el caracol teléfono del Merry suena y te llaman Garp, Makino, Zeff, Johnny, Gaimon, Kaya o Smoker con encargos.",
-   "Romance con Nami, con sus propias frases y todo el sistema de pareja: coquetear, regalos, abrazo, beso, paseo de la mano, pareja, boda e hijos que mezclan tu pelo con el naranja de Nami.",
-   "Todo en el menú del barco y en Lupa › Crossovers › Vida a bordo del Merry."
+   "Conjunto de la Bruja Carmesí en el Taller de Morwenna (Albor), por piezas: Sombrero Carmesí con Gafas, Top Doble de Hombro Caído (polera negra de cuello alto, blusa gris, collar con colgante y el hombro al aire), Falda de Capas Rasgada, Botas Altas de Cordones y Capa Rasgada Carmesí.",
+   "Cada pieza va a su ranura del Armario (Cabeza, Torso, Piernas, Pies y Espalda), se ajusta a todas las estructuras de hombre y mujer y se ve en las cuatro direcciones. El sombrero deja ver tu peinado por debajo del ala."
   ],
   "en": [
-   "Day, afternoon and night across the whole Dawn Sea, following the clock at the top: pink dawn, golden afternoon and blue night with lit windows and ship lanterns.",
-   "The Dawn Sea map now fits entirely and shows every island; with + you can drag it with your finger.",
-   "Fishing off the Going Merry’s stern with Luffy and Usopp: 6 casts, press ⚔ when the float bites. Dawn fish, old boots… and sometimes a baby Sea King.",
-   "Usopp’s stories: true or lie? Guess right and win gold.",
-   "Crew feast: after clearing each arc (and once a day) everyone dances in the dining room and Sanji serves meat (20-min bonus).",
-   "Nami’s maps: visit every place on each island and Nami draws it (gold per island and a big prize for completing the sea).",
-   "Den Den Mushi: the Merry’s snail phone rings and Garp, Makino, Zeff, Johnny, Gaimon, Kaya or Smoker call with tasks.",
-   "Romance with Nami, with her own lines and the whole couple system: flirting, gifts, hug, kiss, hand-in-hand walk, partner, wedding and children who mix your hair with Nami’s orange.",
-   "All in the ship menu and Lupa › Crossovers › Life aboard the Merry."
+   "Crimson Witch outfit at Morwenna’s Workshop (Albor), sold by pieces: Crimson Hat with Goggles, Off-Shoulder Double Top (black turtleneck, grey blouse, pendant necklace and a bare shoulder), Tattered Layered Skirt, Laced Thigh-High Boots and Tattered Crimson Cape.",
+   "Each piece goes to its Wardrobe slot (Head, Torso, Legs, Feet and Back), fits every male and female body type and shows in all four directions. The hat lets your hairstyle show under the brim."
   ]
  }
 }
