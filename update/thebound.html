@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.39 · La familia que se va</div>
+  <div class="tfoot">v6.40 · Arreglos y memorial de la familia</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11911,7 +11911,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.39', GAME_BUILD = 261;
+const GAME_VER = '6.40', GAME_BUILD = 262;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11919,6 +11919,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.40",
+ "b": 262,
+ "d": "2026-11-26",
+ "es": [
+  "Arreglo grave: «Cambiar pigmentos» de Tinta (Tierras sin Pintar) pagaba otra vez cada vez que pulsabas sin cerrar la conversación (oro infinito). Lo mismo en entregar paquetes del cartero, el regalo de la fiesta y los loquitos de las ciudades, el misterio de detective, la leyenda y la última campana del Velo: ahora solo pagan una vez.",
+  "Arreglo: el duelo de rivales dejaba la pantalla parada con un error rojo. Además tu pareja y tus hijos que te seguían se duplicaban en la arena: ahora vuelven a casa durante el duelo.",
+  "Camposanto: solo las 12 tumbas más recientes de tu familia tienen cuerpo y datos; las generaciones antiguas pasan al Memorial del monumento («Rendir tributo») con su nombre, generación y años, para que no se sature.",
+  "En línea, el cementerio se comparte: los demás ven tus 3 últimos fallecidos y tú ves los suyos en hasta 4 tumbas de tu Camposanto, con el nombre de su familia."
+ ],
+ "en": [
+  "Serious fix: Tinta’s «Trade pigments» (Unpainted Lands) paid again every time you tapped without closing the conversation (infinite gold). Same for the postman’s parcels, the city festival gift and calmed nutters, the detective mystery, the legend and the Veil’s last bell: they now pay only once.",
+  "Fix: the rival duel froze the screen with a red error. Your partner and children following you also duplicated in the arena: they now go home during the duel.",
+  "Graveyard: only your family’s 12 most recent graves have a body and details; older generations move to the monument’s Memorial («Pay tribute») with their name, generation and years, so it doesn’t fill up.",
+  "Online, the graveyard is shared: others see your 3 latest departed and you see theirs in up to 4 graves of your Graveyard, with their family’s name."
+ ]
+},
 {
  "v": "6.39",
  "b": 261,
@@ -18331,8 +18348,8 @@ const ECL_SHOP = [['elixir_eclipse', 20000], ['campana_muda', 9000], ['frag_mapa
 DLG_HOOKS.push((npc, opts) => {
   if (npc.id === 'mercader_eclipse') { if (!isNight()) { opts.length = 0; opts.push({ label: L2('Vuelve de noche', 'Come back at night'), icon: ['talk'], fn: () => typeText(L2('El sol aún mira. Vuelve cuando caiga la noche.', 'The sun is still watching. Come back when night falls.')) }); return; }
     for (const [id, pr] of ECL_SHOP) opts.unshift({ label: L2('Comprar ', 'Buy ') + ITEMS[id].n + ' (' + fmt(pr) + ')', icon: ['coin'], fn: () => { if (G.P.gold < pr) { typeText(L2('No te alcanza.', 'Not enough.')); return; } G.P.gold -= pr; giveItem(id, 1); sfx('coin'); markDirty(); } }); }
-  if (npc.id === 'oren_campanero' && G.P.quests.done.vr3 && !G.P.vrChoice) { opts.unshift({ label: L2('Tocar la última campana', 'Ring the last bell'), icon: ['talk'], fn: () => { G.P.vrChoice = 1; giveItem('campana_muda', 2); typeText(L2('La campana suena… y los aldeanos dormidos sonríen en sueños. Oren llora de alegría.', 'The bell rings… and the sleeping villagers smile in their dreams. Oren weeps with joy.')); markDirty(); } });
-    opts.unshift({ label: L2('Romper la última campana', 'Break the last bell'), icon: ['sword:3'], fn: () => { G.P.vrChoice = 2; giveItem('cera_campana', 4); typeText(L2('El bronce se parte. Silencio. Oren asiente, triste: «Así ya nadie volverá a dormirse».', 'The bronze cracks. Silence. Oren nods, sad: "This way no one will fall asleep again."')); markDirty(); } }); }
+  if (npc.id === 'oren_campanero' && G.P.quests.done.vr3 && !G.P.vrChoice) { opts.unshift({ label: L2('Tocar la última campana', 'Ring the last bell'), icon: ['talk'], fn: () => { if (G.P.vrChoice) return; G.P.vrChoice = 1; giveItem('campana_muda', 2); typeText(L2('La campana suena… y los aldeanos dormidos sonríen en sueños. Oren llora de alegría.', 'The bell rings… and the sleeping villagers smile in their dreams. Oren weeps with joy.')); markDirty(); } });
+    opts.unshift({ label: L2('Romper la última campana', 'Break the last bell'), icon: ['sword:3'], fn: () => { if (G.P.vrChoice) return; G.P.vrChoice = 2; giveItem('cera_campana', 4); typeText(L2('El bronce se parte. Silencio. Oren asiente, triste: «Así ya nadie volverá a dormirse».', 'The bronze cracks. Silence. Oren nods, sad: "This way no one will fall asleep again."')); markDirty(); } }); }
 });
 V33_TICKS.push(() => { for (const e of G.ents) if (e.id === 'mercader_eclipse') { const n = isNight(); e.hidden = !n; e.noTalk = !n; } });
 { const _de = drawEnt; drawEnt = function (e, cx, cy) { if (e.id === 'mercader_eclipse' && !isNight()) return; return _de(e, cx, cy); }; }
@@ -33252,7 +33269,7 @@ function postStart(tk) { const P = G.P, O = ofx2(); if (O.post && O.post.list.so
   typeText(L2('Aquí tienes ', 'Here are ') + n + L2(' paquetes: ', ' parcels: ') + list.map(p => NPCS[p.npc].n).join(', ') + L2('. ¡Cuanto antes, más propina!', '. The sooner, the bigger the tip!')); bitAdd('postRound'); }
 DLG_HOOKS.push((npc, opts) => { const P = G.P, O = ofx2();
   if (/^correos_/.test(npc.id || '')) opts.unshift({ label: '📦 ' + L2('Repartir paquetes', 'Deliver parcels'), icon: ['paquete'], fn: () => postStart(npc.id.slice(8)) });
-  const pk = O.post && O.post.list.find(p => !p.done && p.npc === npc.id); if (pk) opts.unshift({ label: '📦 ' + L2('Entregar paquete', 'Deliver parcel'), icon: ['paquete'], fn: () => { pk.done = 1; const min = (Date.now() - O.post.t0) / 60000, lv = (P.jobs.cartero || { lv: 1 }).lv, tipP = (lv >= 30 ? 25 : lv >= 5 ? 10 : 0) + (lv >= 15 ? 0 : 0);
+  const pk = O.post && O.post.list.find(p => !p.done && p.npc === npc.id); if (pk) opts.unshift({ label: '📦 ' + L2('Entregar paquete', 'Deliver parcel'), icon: ['paquete'], fn: () => { if (pk.done) return; pk.done = 1; const min = (Date.now() - O.post.t0) / 60000, lv = (P.jobs.cartero || { lv: 1 }).lv, tipP = (lv >= 30 ? 25 : lv >= 5 ? 10 : 0) + (lv >= 15 ? 0 : 0);
     const base = 150 + P.lv * 6, tip = Math.round(base * Math.max(0, 1.5 - min / 6) * (1 + tipP / 100)); P.gold += base + tip; gainJobXp('cartero', 60 + P.lv); bitAdd('parcel'); sfx('coin'); floatText(P.x, P.y - 40, '+' + fmt(base + tip) + ' ' + L2('ORO', 'GOLD'), '#ffd040');
     typeText(L2('¡Mi paquete! Toma, ', 'My parcel! Here, ') + fmt(base) + (tip ? L2(' y ', ' and ') + fmt(tip) + L2(' de propina por la rapidez.', ' tip for being quick.') : '.'));
     const nx = O.post.list.find(p => !p.done); if (nx && typeof setWp === 'function') setTimeout(() => setWp({ loc: [nx.x, nx.y], t: '📦 ' + NPCS[nx.npc].n, m: 'world' }), 300); else { toast('📦 ' + L2('¡Reparto completado!', 'Round complete!'), 'quest'); P.wp = null; } markDirty(true); } }); });
@@ -41899,7 +41916,7 @@ let TINTA_AT = null;
 NPC_CAT.tinta_aprendiz = 'store';
 DLG_HOOKS.push((npc, opts) => { if (npc.id !== 'tinta_aprendiz') return; const P = G.P, n = countItem('pigmento_lienzo');
   opts.unshift({ label: '🎨 ' + L2('¿Dónde están las zonas sin color hoy?', 'Where are today\'s colourless zones?'), icon: ['map'], fn: () => { const S = colzSt(); typeText(colzToday().map(Z => (S.done.includes(Z.i) ? '✓ ' : '• ') + Z.n).join(' · ') + '. ' + L2('Camina por ellas hasta que vuelva el color.', 'Walk through them until the colour returns.')); } });
-  opts.unshift({ label: '💰 ' + L2('Cambiar pigmentos (', 'Trade pigments (') + n + ')', icon: ['coin'], fn: () => { if (!n) return typeText(L2('No tienes pigmentos. Repinta zonas sin color.', 'You have no pigments. Repaint colourless zones.')); takeItem('pigmento_lienzo', n); const g = n * 25000; P.gold += g; if (n >= 10 || (P.colN || 0) >= 10) v7Frame('lienzo', L2('Marco «Lienzo recuperado»', '«Restored canvas» frame')); sfx('coin'); markDirty(true); typeText(L2('Con esto Mael pintará un trozo de borde. Toma: ', 'With this Mael will paint a piece of the edge. Here: ') + fmt(g) + L2(' de oro.', ' gold.')); } }); });
+  opts.unshift({ label: '💰 ' + L2('Cambiar pigmentos (', 'Trade pigments (') + n + ')', icon: ['coin'], fn: () => { const n = countItem('pigmento_lienzo'); if (!n) return typeText(L2('No tienes pigmentos. Repinta zonas sin color.', 'You have no pigments. Repaint colourless zones.')); takeItem('pigmento_lienzo', n); const g = n * 25000;   /* 6.40: se cuenta al pulsar (antes valía el número de al abrir y se cobraba infinitas veces) */ P.gold += g; if (n >= 10 || (P.colN || 0) >= 10) v7Frame('lienzo', L2('Marco «Lienzo recuperado»', '«Restored canvas» frame')); sfx('coin'); markDirty(true); typeText(L2('Con esto Mael pintará un trozo de borde. Toma: ', 'With this Mael will paint a piece of the edge. Here: ') + fmt(g) + L2(' de oro.', ' gold.')); } }); });
 
 // =====================================================================================
 // 25) RECUERDO DEL VELO: el Velo guarda cómo era Albor recién fundada (hace 5.000 años). Ayudas a sus fundadores a
@@ -45330,7 +45347,7 @@ WORLD_DRAW.push((cx, cy) => { const M = v75Map(); if (!M) return; const F = v75F
   if (Math.random() < 0.25 && Math.abs(G.P.x - a.x) < 400 && Math.abs(G.P.y - a.y) < 300) part(G.P.x + (Math.random() - 0.5) * VW, G.P.y - VH / 2 + Math.random() * 40, { z: 40, vz: -20, life: 2.4, c: pick(F.col) }); });
 for (const F of V75_FEST) { NPCS['v75_fest_' + F.k] = { n: F.host, title: F.n, look: LK({ g: 'f', hairStyle: 'long', hair: HAIRS.negro, outfit: 'robe', main: pal([F.col[0], F.col[0], F.col[1], F.col[1], F.col[2] || F.col[0]].map(c => c)), sec: pal(['#ffd040', '#ffd040', '#ffe880', '#fff4c0', '#ffffff']) }), lines: [F.say[0], L2((LANG_EN ? "Happy " : '¡Feliz ') + F.n + '!', 'Happy ' + F.n + '!')], quests: [] }; if (typeof PE_SELL !== 'undefined') PE_SELL['v75_fest_' + F.k] = F.sell.filter(x => ITEMS[x]); }
 DLG_HOOKS.push((npc, opts) => { try { const F = V75_FEST.find(f => npc.id === 'v75_fest_' + f.k); if (!F) return; const S = V75(), key = F.k + ':' + calDay(); if (S.fest[F.k] === calDay()) return;
-  opts.unshift({ label: '🎁 ' + L2('Regalo de la fiesta', 'Festival gift'), cls: 'quest', icon: ['coin'], fn: () => { S.fest[F.k] = calDay(); const g = 300 + G.P.lv * 12; G.P.gold += g; const it_ = F.sell.find(x => ITEMS[x]); if (it_) giveItem(it_, 2); v75Rep(G.map.id, 1); markDirty(true); sfx('level'); burst(npc.x, npc.y - 20, 24, { sp: 60, up: 60, g: 40, life: 1, c: F.col }); typeText(L2((LANG_EN ? "Happy " : '¡Feliz ') + F.n + '! Toma ' + fmt(g) + ' de oro y algo rico para la fiesta.', 'Happy ' + F.n + '! Take ' + fmt(g) + ' gold and something tasty for the party.')); } }); void key; } catch (e) { } });
+  opts.unshift({ label: '🎁 ' + L2('Regalo de la fiesta', 'Festival gift'), cls: 'quest', icon: ['coin'], fn: () => { if (S.fest[F.k] === calDay()) return; S.fest[F.k] = calDay(); const g = 300 + G.P.lv * 12; G.P.gold += g; const it_ = F.sell.find(x => ITEMS[x]); if (it_) giveItem(it_, 2); v75Rep(G.map.id, 1); markDirty(true); sfx('level'); burst(npc.x, npc.y - 20, 24, { sp: 60, up: 60, g: 40, life: 1, c: F.col }); typeText(L2((LANG_EN ? "Happy " : '¡Feliz ') + F.n + '! Toma ' + fmt(g) + ' de oro y algo rico para la fiesta.', 'Happy ' + F.n + '! Take ' + fmt(g) + ' gold and something tasty for the party.')); } }); void key; } catch (e) { } });
 function v75Fest(M) { const a = v75Anchor(M); if (!a) return; for (const F of V75_FEST) if (F.maps.includes(M.id)) v75Temp(M, 'v75_fest_' + F.k, a.x - 36, a.y + 10, v75FestNow(M.id) === F && hourNow() >= 8, { wander: 1 });
   const F = v75FestNow(M.id); if (!F) return; const S = V75(); if (S._festT !== F.k + calDay()) { S._festT = F.k + calDay(); toast('🎉 ' + L2('¡Hoy es ' + F.n + (LANG_EN ? " in " : ' en ') + v75CityN(M.id) + '! Busca a ' + F.host + ' en la plaza.', 'Today is ' + F.n + ' in ' + v75CityN(M.id) + '! Find ' + F.host + ' in the square.'), 'quest', 5); } }
 
@@ -45421,7 +45438,7 @@ function v75Serenos(M, dt) { const C = V74_CITY[M.id], h = hourNow(), on = h >= 
 { const _un = updateNPC; updateNPC = function (e, dt) { if (e && e.v75s) return; return _un.apply(this, arguments); }; }
 WORLD_DRAW.push((cx, cy) => { const M = v75Map(); if (!M) return; for (const e of G.ents) { if (!e.v75s || e.map !== M.id) continue; const x = Math.round(e.x - cx), y = Math.round(e.y - cy); if (x < -30 || x > VW + 30 || y < -60 || y > VH + 30) continue; ctx.save(); ctx.globalAlpha = 0.35; ctx.drawImage(glowSprite(22, ['#fff4c0']), x + 6 - 22, y - 18 - 22); ctx.restore(); ctx.fillStyle = '#fff4c0'; ctx.fillRect(x + 6, y - 19, 3, 2); } });
 DLG_HOOKS.push((npc, opts) => { try { if (!npc.v75s) return; const S = V75(), n = Math.max(0, S.lq - (S.lqClaim || 0)); if (!n) return;
-  opts.unshift({ label: '🏅 ' + L2('Recompensa por ' + n + ' loquito' + (n > 1 ? 's' : '') + ' calmado' + (n > 1 ? 's' : ''), 'Reward for ' + n + ' nutter' + (n > 1 ? 's' : '') + ' calmed'), cls: 'quest', icon: ['coin'], fn: () => { const g = Math.min(n, 20) * (200 + G.P.lv * 8) * (G.P.pet === 'v75_firulais' ? 1.1 : 1) | 0; S.lqClaim = S.lq; G.P.gold += g; v75Rep(G.map.id, 1); markDirty(true); sfx('coin'); typeText(L2('Gracias por ayudarnos a mantener la calma. Toma ' + fmt(g) + ' de oro de la municipalidad.', 'Thanks for helping us keep the peace. Take ' + fmt(g) + ' gold from the council.')); } }); } catch (e) { } });
+  opts.unshift({ label: '🏅 ' + L2('Recompensa por ' + n + ' loquito' + (n > 1 ? 's' : '') + ' calmado' + (n > 1 ? 's' : ''), 'Reward for ' + n + ' nutter' + (n > 1 ? 's' : '') + ' calmed'), cls: 'quest', icon: ['coin'], fn: () => { const n = Math.max(0, S.lq - (S.lqClaim || 0)); if (!n) return; const g = Math.min(n, 20) * (200 + G.P.lv * 8) * (G.P.pet === 'v75_firulais' ? 1.1 : 1) | 0; S.lqClaim = S.lq; G.P.gold += g; v75Rep(G.map.id, 1); markDirty(true); sfx('coin'); typeText(L2('Gracias por ayudarnos a mantener la calma. Toma ' + fmt(g) + ' de oro de la municipalidad.', 'Thanks for helping us keep the peace. Take ' + fmt(g) + ' gold from the council.')); } }); } catch (e) { } });
 
 // =====================================================================================
 // 7) ADOPTAR AL ANIMAL DE LA CALLE
@@ -45951,7 +45968,7 @@ DLG_HOOKS.push((npc, opts) => { try { const M = G.map; if (!M || !V77_MYS[M.id])
   if (npc.id === 'v77_tes_' + c && st.st === 1 && !st.f[1]) opts.unshift({ label: '🔍 ' + L2('¿Qué viste?', 'What did you see?'), cls: 'quest', icon: ['talk'], fn: () => { v77MysClue(M, 1); typeText(st.notes[1]); } });
   const m = /^v77_sus_(pe|mx|es)(\d)$/.exec(npc.id); if (m && st.st === 1) { const i = +m[2], desc = D.tr[i].map(k => V77_TR[k][0]).join(', ');
     opts.unshift({ label: '👀 ' + L2('Fijarse en él/ella', 'Look closely'), icon: ['talk'], fn: () => typeText(L2('Ves ', 'You notice ') + desc + '.') });
-    if (st.f.every(Boolean)) opts.unshift({ label: '☝ ' + L2('¡Fuiste tú!', 'It was you!'), cls: 'quest', icon: ['book'], fn: () => { if (i === D.culp) { st.st = 2; const g = Math.round((4000 + G.P.lv * 40) / (st.tries ? 2 : 1)); G.P.gold += g; v75Rep(M.id, 5); const b = BIT(); if (!b.fr.includes('detective')) b.fr.push('detective'); markDirty(true); sfx('level');
+    if (st.f.every(Boolean)) opts.unshift({ label: '☝ ' + L2('¡Fuiste tú!', 'It was you!'), cls: 'quest', icon: ['book'], fn: () => { if (st.st !== 1) return; if (i === D.culp) { st.st = 2; const g = Math.round((4000 + G.P.lv * 40) / (st.tries ? 2 : 1)); G.P.gold += g; v75Rep(M.id, 5); const b = BIT(); if (!b.fr.includes('detective')) b.fr.push('detective'); markDirty(true); sfx('level');
       try { hlAdd('🔍', 'Resolví el misterio de ' + V77_MYS[M.id] + (LANG_EN ? " in " : ' en ') + v75CityN(M.id) + '.', 'I solved the mystery of ' + V77_MYS[M.id] + ' in ' + v75CityN(M.id) + '.'); } catch (e) { } typeText(L2('…Está bien, fui yo. ¡Lo devuelvo! (+' + fmt(g) + ' de oro, +5 de reputación y marco «Detective»)', '…Fine, it was me. I will give it back! (+' + fmt(g) + ' gold, +5 reputation and the «Detective» frame)')); P_noop(); }
       else { st.tries = (st.tries || 0) + 1; markDirty(); typeText(L2('¡¿Yo?! ¡Yo no fui! Mira bien las pistas… (la recompensa bajará a la mitad)', 'Me?! It was not me! Check the clues again… (the reward is halved)')); } } }); } } catch (e) { console.warn(e); } });
 function P_noop() { }
@@ -46017,7 +46034,7 @@ function v77LegTick(M) { const D = V77_LEG[M.id]; if (!D) return; const S = V77S
   const st = S.leg[D[0]]; if (st && st.x !== undefined && dist2(P.x, P.y, st.x, st.y) < 26 * 26 && !st.got) { st.got = 1; markDirty(); toast('👻 ' + L2('Encontraste ' + D[3] + '. Devuélvelo antes del amanecer.', 'You found ' + D[3] + '. Return it before dawn.'), 'quest'); setWp({ loc: [Math.round(e.x / 16), Math.round(e.y / 16)], t: D[1], m: M.id }); } }
 DLG_HOOKS.push((npc, opts) => { try { const mid = G.map && G.map.id, D = V77_LEG[mid]; if (!D || npc.id !== 'v77_leg_' + D[0]) return; const S = V77S(), st = S.leg[D[0]], P = G.P;
   if (!st || typeof st !== 'object') opts.unshift({ label: '👻 ' + L2('Te ayudo a buscarlo', 'I will help you look'), cls: 'quest', icon: ['book'], fn: () => { const a = Math.random() * 6.28, p = v76Spot(G.map, npc.x + Math.cos(a) * 280, npc.y + Math.sin(a) * 180, true); S.leg[D[0]] = { x: p.x, y: p.y, got: 0 }; markDirty(true); setWp({ loc: [Math.round(p.x / 16), Math.round(p.y / 16)], t: D[3], m: mid }); typeText(L2('Gracias… Lo perdí por allí. Date prisa, al amanecer me iré.', 'Thank you… I lost it over there. Hurry, at dawn I shall go.')); } });
-  else if (st.got) opts.unshift({ label: '👻 ' + L2('Devolver ' + D[3], 'Give back ' + D[3]), cls: 'quest', icon: ['heart', '#c8d8ff'], fn: () => { S.leg[D[0]] = 2; const g = 3000 + P.lv * 30; P.gold += g; markDirty(true); sfx('level'); burst(npc.x, npc.y - 30, 30, { sp: 40, up: 60, g: -20, life: 1.5, c: ['#c8d8ff', '#ffffff'] }); npc.remove = true; try { hlAdd('👻', 'Ayudé a ' + D[1] + ' a descansar en paz.', 'I helped ' + D[1] + ' rest in peace.'); } catch (e) { } toast('👻 ' + D[1] + L2(' por fin descansa. +' + fmt(g) + ' de oro.', ' finally rests. +' + fmt(g) + ' gold.'), 'quest', 5); closeDialog(); } }); } catch (e) { } });
+  else if (st.got) opts.unshift({ label: '👻 ' + L2('Devolver ' + D[3], 'Give back ' + D[3]), cls: 'quest', icon: ['heart', '#c8d8ff'], fn: () => { if (S.leg[D[0]] === 2) return; S.leg[D[0]] = 2; const g = 3000 + P.lv * 30; P.gold += g; markDirty(true); sfx('level'); burst(npc.x, npc.y - 30, 30, { sp: 40, up: 60, g: -20, life: 1.5, c: ['#c8d8ff', '#ffffff'] }); npc.remove = true; try { hlAdd('👻', 'Ayudé a ' + D[1] + ' a descansar en paz.', 'I helped ' + D[1] + ' rest in peace.'); } catch (e) { } toast('👻 ' + D[1] + L2(' por fin descansa. +' + fmt(g) + ' de oro.', ' finally rests. +' + fmt(g) + ' gold.'), 'quest', 5); closeDialog(); } }); } catch (e) { } });
 { const _de = drawEnt; drawEnt = function (e) { if (e && e.v77g) { const a = ctx.globalAlpha, z = e.z; ctx.globalAlpha = 0.5 + 0.15 * Math.sin(G.t * 3); e.z = 6 + Math.sin(G.t * 2) * 3; try { return _de.apply(this, arguments); } finally { ctx.globalAlpha = a; e.z = z; } } return _de.apply(this, arguments); }; }
 WORLD_DRAW.push((cx, cy) => { const M = G.map, D = M && V77_LEG[M.id]; if (!D) return; const st = G.P.v74 && G.P.v74.leg && G.P.v74.leg[D[0]]; if (!st || typeof st !== 'object' || st.got) return; const x = Math.round(st.x - cx), y = Math.round(st.y - cy); if (x < -20 || x > VW + 20 || y < -20 || y > VH + 20) return;
   ctx.save(); ctx.globalAlpha = 0.5 + 0.4 * Math.sin(G.t * 4); ctx.drawImage(glowSprite(12, ['#c8d8ff']), x - 12, y - 12); ctx.restore(); ctx.fillStyle = '#ffffff'; ctx.fillRect(x - 1, y - 1, 3, 3); });
@@ -58985,6 +59002,56 @@ hookBefore('setOpts', opts => { const Z = LUTO_K; if (!Z || !Array.isArray(opts)
   opts.unshift({ luto: 1, label: '🕯 ' + L2('Hablar de ', 'Talk about ') + f.name, icon: ['heart', '#c8b0ff'], fn: () => { P.lutoTalk = P.lutoTalk || {}; if (P.lutoTalk[k] !== calDay()) { P.lutoTalk[k] = calDay(); try { addRel(k, 8, 4, npc.x, npc.y - 36); } catch (e) { } } romanceMenu(npc, lutoLine(f)); } },
     { luto: 1, label: '🪦 ' + L2('Ir juntos a su tumba', 'Go to their grave together'), icon: ['ways'], fn: () => { closeDialog(); if (typeof cemGo === 'function') cemGo(f); toast(nick(k) + ': ' + L2('Vamos. Le llevaremos flores.', 'Let’s go. We’ll bring flowers.'), 'info', 4); } }); });
 if (typeof GSIS !== 'undefined') try { GSIS.unshift(['luto639', '🕯 ' + L2('Familia que se va', 'Family who pass away'), () => [L2('Tus hijos y nietos envejecen y se van de viejos. Descansan en el Camposanto del Alba: en su tumba ves su descanso bajo la tierra y puedes dejar flores. Tu pareja, su madre o padre, habla de ellos (duelo, luto y recuerdos) y puedes «Hablar de» él o ella o ir juntos a la tumba.', 'Your children and grandchildren grow old and pass away. They rest in the Dawn Graveyard: at their grave you see them resting under the earth and can leave flowers. Your partner, their mother or father, talks about them (grief, mourning and memories) and you can «Talk about» them or go to the grave together.')], () => null]); } catch (e) { }
+
+// 6.40 · Arreglos de Sergio y el cementerio de la familia a largo plazo.
+// 1) Duelo de rivales (amistades de 6zz9g_vida): el rival no tenía poder (`o.pw`) y el tick del duelo (6zyzw_v444) hacía
+//    `HN_PW[undefined][1]` cada 4,5 s: barra roja y la pantalla parada. Ahora recibe uno al azar y `pwFx` ignora un poder
+//    desconocido. Tu pareja (paseo de la mano) o tus hijos que te siguen se quedaban en la arena y se duplicaban: al empezar
+//    un duelo la pareja vuelve a casa y los hijos dejan de seguirte (avisa).
+// 2) Familia sin fin: cada generación muere de vieja. Solo las 12 últimas tumbas tienen cuerpo y datos; las más antiguas pasan
+//    al Memorial (`P.fallenOld`, nombre, generación, año de nacimiento y de muerte, hasta 300) que se lee en el monumento del
+//    Camposanto («Rendir tributo»), así no se satura.
+// 3) Cementerio compartido en línea: tu presencia lleva tus 3 últimos fallecidos (nombre, fechas y aspecto) cuando estás en el
+//    mundo, y los de los demás jugadores ocupan hasta 4 de las 12 tumbas de tu Camposanto (con su nombre y el de su familia).
+// ---------- 1) duelo de rivales ----------
+hookBefore('duelStart', o => { if (o && !(typeof HN_PW !== 'undefined' && HN_PW[o.pw])) o.pw = pick(Object.keys(HN_PW)); try { if (typeof COMP !== 'undefined' && COMP) { endComp(true); toast(L2('Tu pareja te espera en casa mientras luchas.', 'Your partner waits at home while you fight.'), 'info', 4); }
+  const P = G.P; let k = 0; for (const q of (P.kids || [])) if (q.follow) { q.follow = false; k++; } if (k) { if (typeof FOLLOW_KIDS !== 'undefined') { for (const e of FOLLOW_KIDS) if (e) e.remove = true; FOLLOW_KIDS = []; } toast(L2('Tus hijos vuelven a casa: el duelo es uno contra uno.', 'Your children go home: the duel is one on one.'), 'info', 4); } } catch (e) { } });
+hookBefore('pwFx', pw => { if (typeof HN_PW === 'undefined' || !HN_PW[pw]) return HOOK_SKIP; });
+
+// ---------- 2) memorial: solo las 12 últimas tumbas; las antiguas, en el monumento ----------
+SAVEKEYS.push('fallenOld');
+const FAM_GRAVES = 12, FAM_OLD_MAX = 300;
+function famPrune() { const P = G.P; if (!P || !P.fallen || P.fallen.length <= FAM_GRAVES) return; const old = P.fallen.splice(0, P.fallen.length - FAM_GRAVES); P.fallenOld = P.fallenOld || [];
+  for (const f of old) { P.fallenOld.push({ n: f.name, g: f.g, gen: f.gen || 2, b: f.born || 0, d: f.day || 0, a: f.age || 0 }); if (P.cmWords) delete P.cmWords[f.id]; if (P.cmFl) delete P.cmFl[f.id]; }
+  if (P.fallenOld.length > FAM_OLD_MAX) P.fallenOld.splice(0, P.fallenOld.length - FAM_OLD_MAX); markDirty(); }
+hookAfter('kidDie', () => famPrune());
+V33_TICKS.push(() => { try { famPrune(); } catch (e) { } });
+const famYear = d => { try { return calDate(d).y; } catch (e) { return 1; } };
+{ const X = typeof XACT !== 'undefined' && XACT.cm_tributo; if (X) { const run = X[2]; X[2] = o => { const r = run(o); try { const P = G.P, L = (P.fallenOld || []).slice().reverse(), M = $('#modal'); if (L.length && M) { const row = M.querySelector('.row');
+  const html = `<div class="famold"><b>📜 ${L2('Memorial de la familia', 'Family memorial')} (${L.length})</b><br><small>${L2('Las generaciones antiguas descansan aquí. Las 12 más recientes tienen su tumba.', 'Older generations rest here. The 12 most recent have their own grave.')}</small><div style="max-height:9.5em;overflow:auto;margin-top:.3em">${L.map(f => `<div>• <b>${esc(f.n)}</b> · ${esc(famGenName(f.gen))} · ${L2('nació el año ', 'born in year ')}${famYear(f.b)} · ${L2('murió el año ', 'died in year ')}${famYear(f.d)} (${f.a} ${L2('años', 'years')})</div>`).join('')}</div></div>`;
+  if (row) row.insertAdjacentHTML('beforebegin', html); } } catch (e) { console.warn('memorial', e); } return r; }; } }
+
+// ---------- 3) cementerio compartido en línea ----------
+const cmfApp = a => { const n = normApp(a || {}); return { g: n.g, hair: n.hair, hs: n.hs, skin: n.skin, eyes: n.eyes, bt: n.bt || 0 }; };
+hookAfter('extraPresence', (r, o) => { const P = G.P; if (!o || !P || P.map !== 'world' || !(P.fallen || []).length) return; o.cmf = P.fallen.slice(-3).map(f => [String(f.name || '').slice(0, 16), f.born || 0, f.day || 0, f.age || 0, f.g === 'f' ? 'f' : 'm', cmfApp(f.app)]); });
+hookAfter('extraRecv', (res, r, pr) => { if (!r) return; const a = pr && Array.isArray(pr.cmf) ? pr.cmf.slice(0, 3) : null;
+  r.cmf = a ? a.filter(x => Array.isArray(x) && typeof x[0] === 'string').map(x => ({ id: 'r:' + String(pr.n || '').slice(0, 16) + ':' + x[0], name: x[0].slice(0, 16), born: +x[1] || 0, day: +x[2] || 0, age: Math.min(150, +x[3] || 0), g: x[4] === 'f' ? 'f' : 'm', app: x[5] && typeof x[5] === 'object' ? x[5] : {}, owner: String(pr.n || '?').slice(0, 16) })) : null; });
+function cmRemoteList() { const out = []; for (const r of G.remote.values()) { if (!r.cmf || !r.cmf.length) continue; out.push(r.cmf[r.cmf.length - 1]); if (out.length >= 4) break; } return out; }
+hookAfter('cmSync', () => { const W = G.world, P = G.P; if (!W || typeof SA === 'undefined' || !SA.famG || !P) return; const rem = cmRemoteList(), fl = P.fallen || [], ownN = Math.min(fl.length, SA.famG.length - rem.length), start = fl.length - ownN;
+  SA.famG.forEach((o, k) => { let on = false; o.rf = null; if (k < ownN) { o.fi = start + k; on = true; } else if (k - ownN < rem.length) { o.fi = -1; o.rf = rem[k - ownN]; on = true; } o.hidden = !on; W.solidO[W.I(o.tx, o.ty)] = on ? 1 : 0; }); });
+// tumbas de otros jugadores: nombre y familia al acercarte, su cuerpo en la tierra y una ficha al tocarla
+const cmF = o => o && (o.rf || (G.P.fallen || [])[o.fi]);
+{ const X = typeof XACT !== 'undefined' && XACT.cm_fam; if (X) { const lab = X[0], run = X[2]; X[0] = o => o && o.rf ? L2('Tumba de ', 'Grave of ') + o.rf.name + ' (' + o.rf.owner + ')' : lab(o);
+  X[2] = o => { if (!o || !o.rf) return run(o); const f = o.rf; xMsg('🪦 ' + esc(f.name), `<b>${L2('Familia de ', 'Family of ')}${esc(f.owner)}</b><br>${L2('Nació el año ', 'Born in year ')}${famYear(f.born)} · ${L2('murió el año ', 'died in year ')}${famYear(f.day)} · ${f.age} ${L2('años', 'years')}<br><br><i>${L2('«Su hilo sigue en el Telar.»', '"Their thread remains in the Loom."')}</i>`,
+    [['💐 ' + L2('Dejar flores', 'Leave flowers'), () => { for (let q = 0; q < 14; q++) part(o.px + (Math.random() - 0.5) * 20, o.py - 8, { vz: 24, g: -6, life: 1.4, c: pick(['#ff6a8a', '#ffffff', '#ffd040']) }); toast(L2('Dejas flores en la tumba de ', 'You leave flowers on the grave of ') + f.name, 'info'); }]]); }; } }
+if (typeof V8_UNDER !== 'undefined') V8_UNDER.push((cx, cy) => { const M = G.map; if (!M || !M.isWorld || typeof SA === 'undefined' || !SA.famG) return; for (const o of SA.famG) { if (o.hidden || !o.rf) continue; const sx = Math.round(o.px - cx), sy = Math.round(o.py - cy); if (sx < -40 || sx > VW + 40 || sy < -40 || sy > VH + 60) continue;
+  ctx.fillStyle = '#4a321e'; ctx.fillRect(sx - 15, sy + 2, 30, 13); ctx.fillStyle = '#6a4a2e'; ctx.fillRect(sx - 14, sy + 3, 28, 11); const sp = typeof lutoSprite === 'function' ? lutoSprite(o.rf) : null; if (sp) { ctx.save(); ctx.globalAlpha = 0.62; ctx.drawImage(sp, sx - 14, sy - 3, 28, 22); ctx.restore(); } ctx.fillStyle = 'rgba(74,50,30,.35)'; ctx.fillRect(sx - 14, sy + 3, 28, 11); } });
+WORLD_DRAW.push((cx, cy) => { const M = G.map, P = G.P; if (!M || !M.isWorld || typeof SA === 'undefined' || !SA.famG || !P) return; for (const o of SA.famG) { if (o.hidden || !o.rf || dist2(o.px, o.py, P.x, P.y) > 70 * 70) continue; const f = o.rf, X = o.px - cx, Y = o.py - cy;
+  const a = textSprite('+ ' + f.name, '#e8e0ff'); ctx.drawImage(a, Math.round(X - a.width / 2), Math.round(Y - 34)); const b = textSprite(L2('Familia de ', 'Family of ') + f.owner + ' - ' + (typeof lutoAgo === 'function' ? lutoAgo(f) : ''), '#d8d0f0'); ctx.drawImage(b, Math.round(X - b.width / 2), Math.round(Y - 46)); } });
+if (typeof GSIS !== 'undefined') GSIS.unshift(['familia640', '🕯 ' + L2('Memorial y cementerio compartido', 'Memorial and shared graveyard'), () => [
+  L2('Solo las 12 tumbas más recientes de tu familia tienen cuerpo y datos. Las generaciones más antiguas pasan al Memorial del monumento del Camposanto («Rendir tributo»): nombre, generación, año en que nacieron y en que murieron.', 'Only your family’s 12 most recent graves have a body and details. Older generations go to the Memorial on the Graveyard monument («Pay tribute»): name, generation, year born and year died.'),
+  L2('En línea, los demás jugadores ven tus 3 últimos fallecidos y tú ves los de ellos: comparten hasta 4 tumbas de tu Camposanto, con su nombre y el de su familia.', 'Online, other players see your 3 latest departed and you see theirs: they share up to 4 graves in your Graveyard, with their name and their family’s.')
+], () => null]);
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;

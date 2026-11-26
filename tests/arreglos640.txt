@@ -1,0 +1,9 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (()=>{ const P=G.P; giveItem('pigmento_lienzo',3,true); const g0=P.gold; const npc=G.ents.find(e=>e.type==='npc'&&e.id==='tinta_aprendiz')||{id:'tinta_aprendiz',def:NPCS.tinta_aprendiz,x:P.x,y:P.y}; const opts=[]; for(const h of DLG_HOOKS) try{h(npc,opts)}catch(e){} const o=opts.find(o=>/pigment/i.test(o.label)); o.fn(); o.fn(); o.fn(); return {gained:P.gold-g0, left:countItem('pigmento_lienzo')}; })()
+js (()=>{ const P=G.P; let err=null; try { duelStart({ name:'Rival', lv:P.lv+2, look:NPCS.guardia_x1.look }); } catch(e){ err=e.message; } return {err, pw:DUEL&&DUEL.o.pw}; })()
+wait 6500
+js (()=>{ const ok=!!DUEL; try{ duelEnd(true); }catch(e){} return {ok, errs:[...ERR_SEEN].slice(-3)}; })()
+wait 1500
+js (()=>{ const P=G.P; P.kids=[]; P.fallen=[]; for(let i=0;i<20;i++) P.fallen.push({id:'f'+i,name:'Ancestro'+i,g:i%2?'f':'m',app:{},born:i,day:i+80,age:80+i,gen:2+(i%3)}); famPrune(); const r={fallen:P.fallen.length, old:P.fallenOld.length, first:P.fallenOld[0].n}; cmSync(); r.vis=SA.famG.filter(o=>!o.hidden).length; return r; })()
+js (()=>{ const P=G.P; G.remote.set('qa1',{type:'remote',peer:'qa1',n:'Ana',map:'world',x:0,y:0,cmf:[{id:'r:Ana:Lu',name:'Lu',born:1,day:90,age:88,g:'f',app:{g:'f',hair:'rubio'},owner:'Ana'}]}); P.fallen=P.fallen.slice(-12); cmSync(); const rem=SA.famG.filter(o=>o.rf); const o=rem[0]; const lab=XACT.cm_fam[0](o); XACT.cm_fam[2](o); const t=document.querySelector('#modal').innerText.slice(0,120); closeModal(); G.remote.delete('qa1'); return {rem:rem.length, own:SA.famG.filter(o=>!o.hidden&&!o.rf).length, lab, t}; })()
+js (()=>{ XACT.cm_tributo[2](); const t=document.querySelector('#modal .famold'); return t?t.innerText.slice(0,200):null; })()
