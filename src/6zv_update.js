@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.33', GAME_BUILD = 255;
+const GAME_VER = '6.34', GAME_BUILD = 256;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.34",
+ "b": 256,
+ "d": "2026-11-26",
+ "es": [
+  "▦ Atajos › ☠ Objetos malditos (nuevo): cómo funcionan (la maldición solo cuenta mientras llevas el objeto puesto; se quita como cualquier equipo y puedes llevar los 3 a la vez), cómo salen (fantasmas, Niebla maldita y jefes: 2 %, jefes 8 %), cuántos tienes, cuáles llevas puestos y el arma maldita de tu clase con su pacto, cómo dominarla o purificarla.",
+  "El aviso «¡Un objeto maldito!» dice dónde mirarlo, y está también en Lupa › Sistemas.",
+  "Huerto: al tocar un bancal vacío eliges qué plantar. Cada semilla dice el nivel de Agricultura que pide (🔒 si te falta), cuánto tarda y si es de temporada.",
+  "Arreglo: «Dónde conseguir» de Coralita, Nacarita, Piedra del Mar y sus troncos daba error; ahora dice en qué islas del Mar de Dawn están."
+ ],
+ "en": [
+  "▦ Shortcuts › ☠ Cursed items (new): how they work (the curse only counts while you wear the item; take it off like any gear and you can wear all 3), how they drop (ghosts, Cursed Fog and bosses: 2%, bosses 8%), how many you have, which you wear, and your class’s cursed weapon with its pact and how to dominate or purify it.",
+  "The «A cursed item!» notice says where to look, and it’s also in Magnifier › Systems.",
+  "Garden: tapping an empty plot lets you choose what to plant. Each seed shows the Farming level it needs (🔒 if you lack it), how long it takes and whether it is in season.",
+  "Fix: «Where to get» for Coralite, Nacrite, Seastone and their logs gave an error; it now says which Dawn Sea islands they are on."
+ ]
+},
 {
  "v": "6.33",
  "b": 255,

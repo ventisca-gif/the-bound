@@ -1,0 +1,9 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (()=>{ const P=G.P; P.lv=130; giveItem('yelmo_vacio',1,true); giveItem('anillo_maldito',2,true); const i=P.inv.findIndex(s=>s.id==='yelmo_vacio'); equipFromInv(i); calcStats(P); curseOpen(); const t=document.querySelector('#modal').textContent; return {worn:/puesto ahora/.test(t), dup:/repetidos/.test(t), btn:!!document.querySelector('#bCurse')||'tick'}; })()
+wait 300
+shot
+js (()=>{ closeModal(); toast('¡Un objeto maldito! prueba','quest'); return [...document.querySelectorAll('.toast,#toasts *')].map(e=>e.textContent).filter(t=>/maldito/.test(t)).slice(0,2); })()
+js (()=>{ const P=G.P; P.jobs.agricultura.lv=10; giveItem('sem_trigo',3,true); const hi=Object.keys(ITEMS).filter(k=>ITEMS[k].seed&&RESLV[ITEMS[k].tier]>40)[0]; giveItem(hi,2,true); const o=G.world.objs.find(o=>o.k==='plot'); if(!o) return 'noplot'; delete P.farm[o.pid]; farmAction(o); const rows=[...document.querySelectorAll('#modal [data-fpk]')].map(b=>[b.dataset.fpk,b.disabled]); return {rows, hi}; })()
+wait 300
+shot
+js (()=>{ const P=G.P, o=G.world.objs.find(o=>o.k==='plot'); const b=[...document.querySelectorAll('#modal [data-fpk]')].find(b=>!b.disabled); const id=b.dataset.fpk, n0=countItem(id); b.click(); return {id, n0, n1:countItem(id), farm:P.farm[o.pid], inv:P.inv.length}; })()

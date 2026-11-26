@@ -259,7 +259,7 @@ try { for (const tk of ['puerto', 'albor']) if (Array.isArray(SHOPS.store[tk]) &
 
 // ---------- Lupa: dónde conseguir (con flecha) ----------
 { const _is = itemSources; itemSources = function (id) { const r = _is.apply(this, arguments); try {
-  const m = /^(ore|log)(\d+)$/.exec(id); if (m && +m[2] >= 12) { const R = NV_RES.find(x => x[0] === +m[2]), at = NV_AT[id], mapId = R[6], tl = m[1] === 'ore' ? L2('Minería (pico de potencia ', 'Mining (pickaxe power ') : L2('Tala (hacha de potencia ', 'Woodcutting (axe power ');
+  const m = /^(ore|log)(\d+)$/.exec(id); if (m && +m[2] >= 12 && NV_RES.some(x => x[0] === +m[2])) { const R = NV_RES.find(x => x[0] === +m[2]), at = NV_AT[id], mapId = R[6], tl = m[1] === 'ore' ? L2('Minería (pico de potencia ', 'Mining (pickaxe power ') : L2('Tala (hacha de potencia ', 'Woodcutting (axe power ');
     const loc = at ? at.loc : null; if (loc) wpKey(loc, at.m);
     const out = [[tl + toolNeed(m[1] === 'ore' ? 'mineria' : 'tala', +m[2]) + L2(', oficio nivel ', ', job level ') + RESLV[+m[2]] + '): ' + nvMapN(mapId) + (loc ? '' : L2(' (entra una vez en ese mapa y sale la flecha)', ' (enter that map once to get the arrow)')), loc ? { loc, t: ITEMS[id].n, m: at.m } : null]];
     return out.concat(r.filter(x => !/^(Minería|Mining|Tala|Woodcutting)/.test(x[0]))); }

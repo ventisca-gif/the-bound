@@ -1,0 +1,63 @@
+// 6.34 · Objetos malditos explicados y huerto con selector de semillas (Sergio: «ese objeto maldito… verifica si es
+// permanente, cuántos puedes tener y cómo sale; agrega en Atajos una parte exclusiva» y «al plantar, que te deje escoger
+// qué plantar, porque pide más nivel y si tienes semillas que piden más nivel es confuso»).
+// Lo que hay en el código (sin cambiar cómo funcionan):
+// - 3 objetos malditos (6x_legacy): Anillo Maldito (accesorio, nv 60), Collar Sangriento (cuello, nv 80) y Yelmo del Vacío
+//   (casco, nv 120, armadura de tier 15). Caen al vencer fantasmas, espectros de la Niebla maldita o jefes: 2 % (jefes 8 %),
+//   uno de los tres al azar, y se pueden repetir. La maldición NO es permanente: solo cuenta mientras lo llevas puesto, se
+//   quita al desequiparlo y se pueden llevar los 3 a la vez (cada uno en su ranura).
+// - Armas malditas (6zp_combat, `wc_<clase>`, nv 140): desde nivel 120, jefes 5 % y fantasmas 0,4 %, solo de tu clase. Al
+//   equiparla ofrece un pacto; se domina con 200 enemigos o se purifica con el Oráculo Ysolde (50.000).
+// Atajos › ☠ abre `curseOpen()`; Lupa › Sistemas › Objetos malditos; el aviso al caer uno dice dónde mirarlo.
+// Huerto: `hookAround('farmAction')` abre un selector con cada semilla (nivel de Agricultura que pide, tiempo, temporada) si
+// el bancal está vacío; la elegida se planta con la función original viendo solo esa semilla.
+const CURSE_IT = [['anillo_maldito', L2('Accesorio', 'Accessory')], ['collar_sangriento', L2('Cuello', 'Neck')], ['yelmo_vacio', L2('Cabeza (armadura)', 'Head (armour)')]];
+function curseCount(id) { const P = G.P; let n = countItem(id); for (const s in (P.equip || {})) if (P.equip[s] && P.equip[s].id === id) n++; return n; }
+const curseWorn = id => { const P = G.P; return Object.values(P.equip || {}).some(e => e && e.id === id); };
+function curseOpen() { const P = G.P; if (!P) return; const wid = 'wc_' + P.cls, W = ITEMS[wid], w = P.equip && P.equip.weapon && P.equip.weapon.id === wid ? P.equip.weapon : null;
+  const rows = CURSE_IT.filter(([id]) => ITEMS[id]).map(([id, sl]) => { const I = ITEMS[id], n = curseCount(id), on = curseWorn(id);
+    return `<div class="gsrc"><span><b>${on ? '🟣' : n ? '🎒' : '▫'} ${esc(I.n)}</b> · ${esc(sl)} · ${L2('nivel ', 'level ')}${I.lv || 1}<br><small>${esc(I.curse || '')}</small><br><small>${L2('Tienes ', 'You have ')}${n}${on ? ' · ' + L2('puesto ahora: la maldición está activa', 'worn now: the curse is active') : n ? ' · ' + L2('no lo llevas puesto: no te afecta', 'not worn: it does not affect you') : ''}${n > 1 ? ' · ' + L2('los repetidos se venden por ', 'duplicates sell for ') + fmt(Math.max(1, Math.floor((I.price || 0) * 0.4))) + L2(' de oro', ' gold') : ''}</small></span></div>`; }).join('');
+  const wst = !W ? '' : !w ? (countItem(wid) ? L2('La tienes en la mochila: al equiparla te ofrecerá un pacto.', 'It is in your bag: when you equip it, it will offer a pact.') : L2('Aún no la tienes.', 'You don’t have it yet.'))
+    : w.pur ? L2('Purificada: +15 % de ataque, sin precio.', 'Purified: +15% attack, no price.') : w.dom ? L2('Dominada: +35 % de ataque, sin precio.', 'Dominated: +35% attack, no price.')
+    : w.pact && typeof PACTS !== 'undefined' && PACTS[w.pact] ? PACTS[w.pact][0] + ' · ' + PACTS[w.pact][1] + ' · ' + L2('dominada ', 'dominated ') + (w.domK || 0) + '/200' : L2('Equipada sin pacto.', 'Equipped with no pact.');
+  openModal(`<div class="frame"><h3>☠ ${L2('Objetos y armas malditas', 'Cursed items and weapons')}</h3>
+    <div class="gsrc"><span><b>❓ ${L2('Cómo funcionan', 'How they work')}</b><br><small>${L2('Dan mucho poder a cambio de un precio. La maldición NO es permanente: solo cuenta mientras llevas el objeto puesto. Quítatelo en Inventario (o pon otro en esa ranura) y desaparece. Puedes llevar los 3 a la vez, cada uno en su ranura, y sumar las 3 maldiciones.', 'They give great power for a price. The curse is NOT permanent: it only counts while you wear the item. Take it off in your Bag (or put another item in that slot) and it’s gone. You can wear all 3 at once, each in its slot, and stack the 3 curses.')}</small></span></div>
+    <div class="gsrc"><span><b>🎲 ${L2('Cómo salen', 'How they drop')}</b><br><small>${L2('Al vencer fantasmas, los espectros de la Niebla maldita (fenómeno del mundo) o cualquier jefe: 2 % de probabilidad (8 % los jefes). Sale uno de los tres al azar y se puede repetir. El yelmo es una armadura de cabeza de tier 15: cuenta como casco.', 'When you defeat ghosts, the Cursed Fog spectres (world phenomenon) or any boss: 2% chance (8% for bosses). One of the three at random, and it can repeat. The helmet is a tier-15 head armour: it counts as a helmet.')}</small></span></div>
+    ${rows}
+    ${W ? `<div class="gsrc"><span><b>⚔ ${esc(W.n)}</b> · ${L2('arma maldita de tu clase', 'cursed weapon of your class')} · ${L2('nivel ', 'level ')}${W.lv}<br><small>${L2('Desde nivel 120: la sueltan los jefes (5 %) y los fantasmas (0,4 %). Al equiparla te ofrece un pacto: Carne (+45 % ataque, −30 % defensa), Silencio (+40 % ataque y robo de vida, una habilidad sellada) o Ira (+50 % ataque, los enemigos te ven antes y pegan un 20 % más). Con 200 enemigos vencidos dominas la maldición (+35 % sin precio), o el Oráculo Ysolde la purifica por 50.000 de oro (+15 % sin precio).', 'From level 120: dropped by bosses (5%) and ghosts (0.4%). When equipped it offers a pact: Flesh (+45% attack, −30% defence), Silence (+40% attack and life steal, one skill sealed) or Wrath (+50% attack, enemies spot you earlier and hit 20% harder). After 200 defeated enemies you dominate the curse (+35% with no price), or the Oracle Ysolde purifies it for 50,000 gold (+15% with no price).')}</small><br><small>${L2('Tu arma: ', 'Your weapon: ')}${esc(wst)}</small></span>${W && !(w && (w.pur || w.dom)) ? `<button class="btn sm" id="cuOr">➜ ${L2('Oráculo Ysolde', 'Oracle Ysolde')}</button>` : ''}</div>` : ''}
+    <div class="row"><button class="btn" id="cuX">${L2('Cerrar', 'Close')}</button></div></div>`);
+  $('#cuX').onclick = closeModal; const o = $('#cuOr'); if (o) o.onclick = () => { if (typeof qGoNpc === 'function' && qGoNpc('oraculo')) closeModal(); }; }
+// botón ☠ en Atajos (pestaña de ayuda)
+V33_TICKS.push(() => { const row = $('#tr .trbtns'); if (!row || !G.P || $('#bCurse')) return; const b = document.createElement('button'); b.className = 'mini'; b.id = 'bCurse';
+  b.title = L2('Objetos malditos', 'Cursed items'); b.setAttribute('aria-label', b.title); b.textContent = '☠'; b.onclick = curseOpen; const q = $('#bQh'); if (q && q.nextSibling) row.insertBefore(b, q.nextSibling); else row.appendChild(b); });
+try { const I = TR_TABS.find(t => t[0] === 'info'); if (I && I[3] && !I[3].includes('bCurse')) I[3].push('bCurse'); } catch (e) { }
+// el aviso al caer uno dice dónde mirarlo
+hookBefore('toast', (msg, ...a) => { if (typeof msg === 'string' && /^¡Un objeto maldito!|^Un arma maldita|^A cursed weapon/.test(msg) && !msg.includes('☠')) return (toast(msg + L2(' · Mira ▦ Atajos › ☠', ' · See ▦ Shortcuts › ☠'), ...a), HOOK_SKIP); });
+if (typeof GSIS !== 'undefined') GSIS.unshift(['malditos634', '☠ ' + L2('Objetos malditos', 'Cursed items'), () => [
+  L2('Anillo Maldito (accesorio, +35 % ataque / −20 % vida), Collar Sangriento (cuello, +25 % crítico / pierdes vida en combate) y Yelmo del Vacío (casco, +60 % defensa / −15 % velocidad).', 'Cursed Ring (accessory, +35% attack / −20% HP), Bloody Necklace (neck, +25% crit / you lose HP in combat) and Void Helm (helmet, +60% defence / −15% speed).'),
+  L2('Salen al vencer fantasmas, espectros de la Niebla maldita o jefes (2 %, jefes 8 %). La maldición solo cuenta mientras los llevas puestos; se quitan como cualquier equipo y puedes llevar los 3 a la vez.', 'They drop from ghosts, Cursed Fog spectres or bosses (2%, bosses 8%). The curse only counts while worn; take them off like any gear, and you can wear all 3.'),
+  L2('Armas malditas de tu clase (nivel 140): desde nivel 120, jefes 5 % y fantasmas 0,4 %. Pacto al equiparla, se domina con 200 enemigos o la purifica el Oráculo Ysolde (50.000).', 'Cursed weapons of your class (level 140): from level 120, bosses 5% and ghosts 0.4%. A pact when equipped, dominated with 200 enemies or purified by the Oracle Ysolde (50,000).'),
+  L2('Todo en ▦ Atajos › ☠, con cuántos tienes y cuáles llevas puestos.', 'All in ▦ Shortcuts › ☠, with how many you have and which you wear.')
+], () => null]);
+
+// ---------- huerto: elegir qué plantar ----------
+let FARM_PICK = null;
+function farmSeedRows() { const P = G.P, lv = (P.jobs.agricultura || { lv: 1 }).lv, ids = [...new Set(P.inv.filter(s => s && ITEMS[s.id] && ITEMS[s.id].seed).map(s => s.id))], sn = typeof seasonNow === 'function' ? seasonNow() : -1;
+  return ids.map(id => { const I = ITEMS[id], need = RESLV[I.tier] || 1, sc = typeof V74_SCROP !== 'undefined' ? V74_SCROP[I.seed] : undefined;
+    const season = sc === undefined ? '' : sc === sn ? '🌸 ' + L2('de temporada: crece el doble de rápido y da una pieza más', 'in season: grows twice as fast and gives one more') : '🍂 ' + L2('fuera de temporada: crece a la mitad', 'out of season: grows at half speed');
+    return { id, I, need, ok: lv >= need, n: countItem(id), season }; }).sort((a, b) => (b.ok - a.ok) || (b.I.tier - a.I.tier)); }
+hookAround('farmAction', (next, o, ...a) => { const P = G.P; if (FARM_PICK || !P || !o) return next(o, ...a); let S; try { S = plotState(o); } catch (e) { return next(o, ...a); }
+  if (S.st !== 0) return next(o, ...a); const rows = farmSeedRows(); if (!rows.length) return next(o, ...a);
+  const lv = (P.jobs.agricultura || { lv: 1 }).lv;
+  openModal(`<div class="frame"><h3>🌱 ${L2('¿Qué plantas?', 'What do you plant?')}</h3><p class="hint">${L2('Agricultura nivel ', 'Farming level ')}${lv}. ${L2('Las que piden más nivel salen con 🔒: súbelo cosechando.', 'Those needing a higher level show 🔒: raise it by harvesting.')}</p><div class="slist">${rows.map(r => `<div class="srow">${iconHTML(r.I.icon, 24)}<div class="sn"><b>${esc(r.I.n)}</b> ×${r.n}<small>${r.ok ? '✅' : '🔒'} ${L2('Agricultura ', 'Farming ')}${r.need} · ⏱ ${fmtTime(r.I.grow || 120)}${r.season ? ' · ' + esc(r.season) : ''}</small></div><button class="btn sm ${r.ok ? 'gold' : ''}" data-fpk="${r.id}" ${r.ok ? '' : 'disabled'}>${r.ok ? L2('Plantar', 'Plant') : L2('Nivel ', 'Level ') + r.need}</button></div>`).join('')}</div><div class="row"><button class="btn" id="fpX">${L2('Cancelar', 'Cancel')}</button></div></div>`);
+  $('#fpX').onclick = closeModal;
+  $$('#modal [data-fpk]').forEach(b => b.onclick = () => { const id = b.dataset.fpk, real = P.inv, view = real.filter(s => s && s.id === id); closeModal(); FARM_PICK = id; P.inv = view;
+    try { next(o, ...a); } finally { P.inv = real; FARM_PICK = null; const left = new Set(view); for (let i = real.length - 1; i >= 0; i--) { const s = real[i]; if (s && s.id === id && (!left.has(s) || (s.q !== undefined && s.q <= 0))) real.splice(i, 1); } uiDirty.inv = true; } });
+  return undefined; });
+
+// ---------- arreglo: «Dónde conseguir» de los minerales y troncos del Mar de Dawn (tier 23-25) ----------
+// 6zzz5 buscaba su mapa en NV_RES (no los tiene) y rompía; ahora salen sus islas y, si el mapa de Dawn ya existe, la flecha.
+hookAfter('itemSources', (out, id) => { const m = /^(ore|log)(2[345])$/.exec(id || ''); if (!m || !Array.isArray(out)) return; const t = +m[2], ore = m[1] === 'ore';
+  let loc = null; try { const D = G.maps && G.maps.dawn, P = G.P; if (D && D.objs) { const os = D.objs.filter(o => o.dwRes && (ore ? o.k === 'ore' && (o.tier || 0) === t : o.k === 'tree' && WOODT[o.sp] === t)); if (os.length) { const o = os.sort((a, b) => dist2(a.x, a.y, P.x / 16, P.y / 16) - dist2(b.x, b.y, P.x / 16, P.y / 16))[0]; loc = [o.x, o.y]; } } } catch (e) { }
+  const txt = (ore ? L2('Minería', 'Mining') : L2('Tala', 'Woodcutting')) + ' ' + RESLV[t] + ' · ' + L2('Mar de Dawn: 8 por isla en Foosha, Shells Town, Orange Town, Isla de los Animales Raros y Villa Syrup (reaparecen a los 5 s)', 'Dawn Sea: 8 per island on Foosha, Shells Town, Orange Town, Rare Animals Island and Syrup Village (respawn in 5 s)');
+  const i = out.findIndex(s => s && s[1] && s[1].loc === null); const row = [txt, loc ? { loc, t: ITEMS[id] ? ITEMS[id].n : id, m: 'dawn' } : null]; if (i >= 0) out[i] = row; else out.unshift(row); return out; });
