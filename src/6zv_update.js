@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.39', GAME_BUILD = 261;
+const GAME_VER = '6.40', GAME_BUILD = 262;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.40",
+ "b": 262,
+ "d": "2026-11-26",
+ "es": [
+  "Arreglo grave: «Cambiar pigmentos» de Tinta (Tierras sin Pintar) pagaba otra vez cada vez que pulsabas sin cerrar la conversación (oro infinito). Lo mismo en entregar paquetes del cartero, el regalo de la fiesta y los loquitos de las ciudades, el misterio de detective, la leyenda y la última campana del Velo: ahora solo pagan una vez.",
+  "Arreglo: el duelo de rivales dejaba la pantalla parada con un error rojo. Además tu pareja y tus hijos que te seguían se duplicaban en la arena: ahora vuelven a casa durante el duelo.",
+  "Camposanto: solo las 12 tumbas más recientes de tu familia tienen cuerpo y datos; las generaciones antiguas pasan al Memorial del monumento («Rendir tributo») con su nombre, generación y años, para que no se sature.",
+  "En línea, el cementerio se comparte: los demás ven tus 3 últimos fallecidos y tú ves los suyos en hasta 4 tumbas de tu Camposanto, con el nombre de su familia."
+ ],
+ "en": [
+  "Serious fix: Tinta’s «Trade pigments» (Unpainted Lands) paid again every time you tapped without closing the conversation (infinite gold). Same for the postman’s parcels, the city festival gift and calmed nutters, the detective mystery, the legend and the Veil’s last bell: they now pay only once.",
+  "Fix: the rival duel froze the screen with a red error. Your partner and children following you also duplicated in the arena: they now go home during the duel.",
+  "Graveyard: only your family’s 12 most recent graves have a body and details; older generations move to the monument’s Memorial («Pay tribute») with their name, generation and years, so it doesn’t fill up.",
+  "Online, the graveyard is shared: others see your 3 latest departed and you see theirs in up to 4 graves of your Graveyard, with their family’s name."
+ ]
+},
 {
  "v": "6.39",
  "b": 261,
