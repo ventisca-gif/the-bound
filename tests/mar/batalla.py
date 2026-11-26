@@ -14,23 +14,23 @@ with sync_playwright() as p:
       P.dawnHelm=dawnHelm('skiff',{x:at[0],y:at[1]});setMap(M,at[0],at[1],'down');G.fading=false;NV.nextKing=G.t+999;NV.nextPir=G.t+999;NV.nextStorm=G.t+999;if(typeof MR!=='undefined'){MR.nextSea=G.t+999;MR.boat=null;}}""")
     pg.wait_for_timeout(1500)
     # barco pirata quieto cerca: disparar hasta hundirlo
-    js("()=>{nvSpawnPirate(G.map,G.P);const f=NV.foes.find(f=>f.k==='pirata');f.x=G.P.x+150;f.y=G.P.y;f.cd=99;f.ang=Math.PI;}")
+    js("()=>{nvSpawnPirate(G.map,G.P);const f=NV.foes.find(f=>f.k==='pirata');f.x=G.P.x+280;f.y=G.P.y;f.cd=99;f.ang=Math.PI;}")
     g0 = js("()=>G.P.gold")
     for i in range(40):
-        js("()=>{const f=NV.foes.find(f=>f.k==='pirata');if(f){f.x=G.P.x+150;f.y=G.P.y;f.vx=f.vy=0;f.cd=99;}basicAttack()}"); pg.wait_for_timeout(350)
+        js("()=>{const f=NV.foes.find(f=>f.k==='pirata');if(f){f.x=G.P.x+280;f.y=G.P.y;f.vx=f.vy=0;f.cd=99;}basicAttack()}"); pg.wait_for_timeout(350)
         if js("()=>!NV.foes.some(f=>f.k==='pirata')"): break
         if i == 3: pg.screenshot(path=str(OUT / '1_pirata.png'))
     pir = js("()=>({stats:G.P.nvStats,gold:G.P.gold})"); pir['g0'] = g0
     # Rey Marino
-    js("()=>{nvSpawnKing(G.map,G.P);const f=NV.foes.find(f=>f.k==='rey');f.x=G.P.x+120;f.y=G.P.y+10;f.ph='up';f.t=99;f.cd=99;}")
+    js("()=>{nvSpawnKing(G.map,G.P);const f=NV.foes.find(f=>f.k==='rey');f.x=G.P.x+260;f.y=G.P.y+10;f.ph='up';f.t=99;f.cd=99;}")
     pg.wait_for_timeout(500); pg.screenshot(path=str(OUT / '2_rey.png'))
     for i in range(60):
-        js("()=>{const f=NV.foes.find(f=>f.k==='rey');if(f){f.ph='up';f.t=99;f.cd=99;f.x=G.P.x+120;f.y=G.P.y+10;}basicAttack()}"); pg.wait_for_timeout(300)
+        js("()=>{const f=NV.foes.find(f=>f.k==='rey');if(f){f.ph='up';f.t=99;f.cd=99;f.x=G.P.x+260;f.y=G.P.y+10;}basicAttack()}"); pg.wait_for_timeout(300)
         if js("()=>!NV.foes.some(f=>f.k==='rey')"): break
     king = js("()=>({stats:G.P.nvStats,meat:(G.P.inv||[]).filter(s=>s&&s.id==='nv_carne_rey').reduce((a,s)=>a+(s.n||1),0)})")
     # aviso rojo: daño si te quedas, esquiva si te apartas
     js("()=>{G.P.merryHp=100;nvMark(G.P.x,G.P.y,30,0.4,15)}"); pg.wait_for_timeout(900); hit = js("()=>G.P.merryHp")
-    js("()=>{nvMark(G.P.x+200,G.P.y,30,0.4,15)}"); pg.wait_for_timeout(900); dodge = js("()=>G.P.merryHp")
+    js("()=>{nvMark(G.P.x+300,G.P.y,30,0.4,15)}"); pg.wait_for_timeout(900); dodge = js("()=>G.P.merryHp")
     pg.screenshot(path=str(OUT / '3_hud.png'))
     # tormenta encima: arrastra y cuenta como tocada; al acabar, sin premio
     js("()=>{nvStartStorm(G.map,G.P);NV.storm.x=G.P.x;NV.storm.y=G.P.y;NV.storm.wx=40;NV.storm.wy=0;}"); x0 = js("()=>G.P.x"); pg.wait_for_timeout(1500)

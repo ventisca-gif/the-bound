@@ -1,24 +1,24 @@
 {
- "build": 247,
- "ver": "6.25",
+ "build": 248,
+ "ver": "6.26",
  "date": "2026-11-26",
  "file": "thebound.html",
- "size": 37913984,
- "sha256": "f28cb67fad81b06d0e5910fd194d6c9815fb60f07c9ecbab260e954cf55ed844",
+ "size": 37939072,
+ "sha256": "f050a81c081776be68bba6d660f3c776bb786033c44811f3ef1a0a6ff19ebc34",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Bajo cubierta del Going Merry: navegando, habla con la tripulación y elige «Bajar a la cocina y el comedor». Cocina, comedor con la mesa verde y el mástil, y salita con bodega. Toda tu tripulación está abajo y la escalera te devuelve al timón.",
-   "Cocinar con Sanji: recoge 3 ingredientes por la cocina y pulsa ⚔ en el fogón cuando la llama esté en la zona verde. Carne (ataque), risotto (defensa) o postre de mandarina (velocidad) durante 20 min, y la tripulación pega más fuerte.",
-   "Entrenamientos en la salita: puntería con Usopp, cortes con Zoro y esquivar a Sanji (30 s, oro y un bono de 10 min).",
-   "Lupa › Crossovers: páginas nuevas del Going Merry y del poder y duelos de la tripulación."
+   "Batallas en el mar: al timón del Going Merry, el botón de la espada dispara los cañones. Hunde barcos piratas (restos de la flota de Krieg) y el barco de la Marina que te persigue (tu recompensa sube).",
+   "Reyes Marinos: Tiburón, Martillo y Kraken salen del agua, se sumergen y vuelven. Sueltan Carne de Rey Marino para el Festín del Rey Marino de Sanji.",
+   "Sus ataques marcan el agua en rojo: aparta el barco. El Merry tiene 100 de vida; Usopp lo repara y al atracar queda como nuevo. La cámara sigue al enemigo y unas flechas marcan los que no se ven.",
+   "Tormentas: Nami avisa hacia dónde girar. Dentro llueve, el viento te arrastra y caen rayos. Si la esquivas: oro y viento a favor."
   ],
   "en": [
-   "Going Merry below deck: while sailing, talk to the crew and choose “Go below to the galley and dining room”. Galley, dining room with the green table and the mast, and a lounge with the hold. Your whole crew is below and the ladder takes you back to the helm.",
-   "Cook with Sanji: pick up 3 ingredients around the galley and press ⚔ at the stove when the flame is in the green zone. Meat (attack), risotto (defense) or tangerine dessert (speed) for 20 min, and the crew hits harder.",
-   "Training in the lounge: aim with Usopp, cuts with Zoro and dodging Sanji (30 s, gold and a 10 min bonus).",
-   "Lupa › Crossovers: new pages for the Going Merry and for crew power and duels."
+   "Sea battles: at the Going Merry’s helm, the sword button fires the cannons. Sink pirate ships (Krieg’s fleet remnants) and the Navy ship chasing you (your bounty rises).",
+   "Sea Kings: Shark, Hammerhead and Kraken rise from the water, dive and come back. They drop Sea King meat for Sanji’s Sea King Feast.",
+   "Their attacks mark the water in red: move the ship. The Merry has 100 HP; Usopp repairs it and docking makes it as good as new. The camera follows the enemy and arrows mark those off screen.",
+   "Storms: Nami tells you which way to turn. Inside it rains, the wind drags you and lightning strikes. Dodge it: gold and a tailwind."
   ]
  }
 }

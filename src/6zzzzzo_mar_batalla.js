@@ -1,5 +1,5 @@
 // 6.26 · El mar del Mar de Dawn (ideas 1-3 que aprobó Sergio): combate naval, Reyes Marinos y tormentas.
-//  · Cañones: al timón del Going Merry (o del galeón), ⚔ dispara al enemigo más cercano (300 px). Con Usopp a bordo
+//  · Cañones: al timón del Going Merry (o del galeón), ⚔ dispara al enemigo más cercano (420 px). Con Usopp a bordo
 //    apunta adelantándose al movimiento y recarga antes. La bala tarda en llegar: si el blanco se aparta, falla.
 //  · Enemigos: el barco de la Marina que ya te perseguía (6zzzy_v588_voluntad, MR.boat) ahora se puede hundir; barcos
 //    piratas (tras el Baratie, restos de la flota de Don Krieg) y Reyes Marinos (dibujos marinos del juego, en grande,
@@ -28,7 +28,7 @@ function nvDamage(n, why) {
 function nvTargets() { const L = NV.foes.filter(f => !f.dead && f.ph !== 'under'); if (typeof MR !== 'undefined' && MR.boat) { const b = MR.boat; if (!(b.hp > 0)) b.hp = b.maxhp = 6 + Math.min(6, nvTier()); b.k = 'marina'; L.push(b); } return L; }
 function nvFire() {
   const P = G.P; if (NV.cd > 0) return;
-  const T = nvTargets().map(t => [t, Math.hypot(t.x - P.x, t.y - P.y)]).filter(([, d]) => d < 320).sort((a, b) => a[1] - b[1])[0];
+  const T = nvTargets().map(t => [t, Math.hypot(t.x - P.x, t.y - P.y)]).filter(([, d]) => d < 420).sort((a, b) => a[1] - b[1])[0];
   NV.cd = nvUsopp() ? 0.75 : 1.1;
   if (!T) { floatText(P.x, P.y - 50, L2('Nada a tiro', 'Nothing in range'), '#ffd0a0'); NV.cd = 0.3; return; }
   const [t, d] = T, fly = 0.35 + d / 700, lead = nvUsopp() ? 1 : 0.35;
@@ -40,14 +40,14 @@ hookBefore('basicAttack', () => { if (!nvOn() || (typeof merryDeck === 'function
 
 // ---------- enemigos ----------
 function nvFreeSpot(M, P, dmin, dmax) { for (let k = 0; k < 24; k++) { const a = Math.random() * 6.28, r = dmin + Math.random() * (dmax - dmin), x = P.x + Math.cos(a) * r, y = P.y + Math.sin(a) * r * 0.75; if (dawnSurface(M, x, y, 20)) return [x, y]; } return null; }
-function nvSpawnPirate(M, P) { const at = nvFreeSpot(M, P, 420, 560); if (!at) return; const t = nvTier(), krieg = !!crewBkSafe('baratie_krieg');
+function nvSpawnPirate(M, P) { const at = nvFreeSpot(M, P, 520, 640); if (!at) return; const t = nvTier(), krieg = !!crewBkSafe('baratie_krieg');
   NV.foes.push({ k: 'pirata', x: at[0], y: at[1], hp: 8 + t, maxhp: 8 + t, cd: 3, dir: 1, vx: 0, vy: 0, ang: Math.random() * 6.28, n: krieg ? L2('Barco de la flota de Krieg', 'Krieg fleet ship') : L2('Barco pirata', 'Pirate ship') });
-  toast('🏴‍☠️ ' + (krieg ? L2('¡Restos de la flota de Don Krieg a la vista! Pulsa ⚔ para disparar los cañones.', 'Remains of Don Krieg’s fleet in sight! Press ⚔ to fire the cannons.') : L2('¡Barco pirata a la vista! Pulsa ⚔ para disparar los cañones.', 'Pirate ship in sight! Press ⚔ to fire the cannons.')), 'warn', 6); }
+  toast('🏴‍☠️ ' + (krieg ? L2('¡Restos de la flota de Don Krieg a la vista! Pulsa el botón de la espada para disparar los cañones.', 'Remains of Don Krieg’s fleet in sight! Press the sword button to fire the cannons.') : L2('¡Barco pirata a la vista! Pulsa el botón de la espada para disparar los cañones.', 'Pirate ship in sight! Press the sword button to fire the cannons.')), 'warn', 6); }
 const crewBkSafe = id => { try { return crewBk(G.P, id); } catch (e) { return 0; } };
 const NV_KINGS = [['tiburon', 3.4, L2('Rey Marino Tiburón', 'Shark Sea King')], ['martillo', 3.2, L2('Rey Marino Martillo', 'Hammerhead Sea King')], ['kraken', 2.8, L2('Rey Marino Kraken', 'Kraken Sea King')]];
-function nvSpawnKing(M, P) { const at = nvFreeSpot(M, P, 140, 220); if (!at) return; const [kind, sc, n] = NV_KINGS[(Math.random() * 3) | 0];
+function nvSpawnKing(M, P) { const at = nvFreeSpot(M, P, 230, 300); if (!at) return; const [kind, sc, n] = NV_KINGS[(Math.random() * 3) | 0];
   NV.foes.push({ k: 'rey', kind, sc, n, x: at[0], y: at[1], hp: 14 + nvTier(), maxhp: 14 + nvTier(), ph: 'rise', t: 1.2, dives: 0, cd: 1.6, vx: 0, vy: 0 });
-  G.shake = 8; sfx('boss'); toast('🌊 ' + n + L2(' sale del agua! Dispárale con ⚔ y aparta el barco cuando marque el agua.', ' rises from the water! Shoot it with ⚔ and move the ship when the water is marked.'), 'warn', 6); }
+  G.shake = 8; sfx('boss'); toast('🌊 ' + n + L2(' sale del agua! Dispárale con el botón de la espada y aparta el barco cuando marque el agua.', ' rises from the water! Shoot it with the sword button and move the ship when the water is marked.'), 'warn', 6); }
 function nvMark(x, y, r, t, dmg, col) { NV.marks.push({ x, y, r, t, t0: t, dmg, col: col || 'rgba(255,60,60,' }); }
 function nvKill(f) {
   const P = G.P, t = nvTier(); P.nvStats = P.nvStats || {}; f.dead = 1; NV.lastFight = G.t;
@@ -64,7 +64,6 @@ function nvStartStorm(M, P) {
   const [hx, hy] = DIRV[P.dir] || DIRV.down, cx = P.x + hx * 520, cy = P.y + hy * 400;
   NV.storm = { x: cx, y: cy, r: 300, t: 70, hit: 0, warned: G.t, strike: 4, wx: (Math.random() - 0.5) * 60, wy: (Math.random() - 0.5) * 60 };
   const side = hx ? (hx > 0 ? L2('al norte o al sur', 'north or south') : L2('al norte o al sur', 'north or south')) : L2('al este o al oeste', 'east or west');
-  if (typeof shellsRescueSpeak === 'function') shellsRescueSpeak(P, 'Nami: ¡Tormenta delante! Gira ' + side + ' y no entres en las nubes.', 'Nami: Storm ahead! Turn ' + side + ' and stay out of the clouds.');
   toast('⛈ ' + L2('Nami: «¡Se acerca una tormenta! Gira ', 'Nami: “A storm is coming! Turn ') + side + L2(' y no entres en las nubes oscuras.»', ' and stay out of the dark clouds.”'), 'warn', 7);
 }
 const nvInStorm = () => { const S = NV.storm, P = G.P; return !!(S && Math.hypot(P.x - S.x, (P.y - S.y) / 0.75) < S.r); };
@@ -89,21 +88,21 @@ V33_TICKS.push(dt => { try {
     if (d > 1100) { f.dead = 1; f.gone = 1; continue; }
     f.cd -= dt;
     if (f.k === 'pirata') {   // se acerca hasta ~190 px y rodea el barco disparando
-      f.ang += dt * 0.35; const gx = P.x - Math.cos(f.ang) * 190, gy = P.y - Math.sin(f.ang) * 140, mx = gx - f.x, my = gy - f.y, md = Math.hypot(mx, my) || 1, sp = 150;
+      f.ang += dt * 0.35; const gx = P.x - Math.cos(f.ang) * 290, gy = P.y - Math.sin(f.ang) * 200, mx = gx - f.x, my = gy - f.y, md = Math.hypot(mx, my) || 1, sp = 150;
       const ox = f.x, oy = f.y, st = Math.min(md, sp * dt), nx = f.x + mx / md * st, ny = f.y + my / md * st;
       if (dawnSurface(M, nx, ny, 14)) { f.x = nx; f.y = ny; } f.vx = (f.x - ox) / dt; f.vy = (f.y - oy) / dt; f.dir = dx < 0 ? -1 : 1;
-      if (f.cd <= 0 && d < 320) { f.cd = 2.4; nvMark(P.x, P.y, 30, 1.1, 9 + nvTier()); }
+      if (f.cd <= 0 && d < 420) { f.cd = 2.4; nvMark(P.x, P.y, 30, 1.1, 9 + nvTier()); }
     } else if (f.k === 'rey') {
       f.t -= dt;
       if (f.ph === 'rise' && f.t <= 0) { f.ph = 'up'; f.t = 8; }
       else if (f.ph === 'up') { if (f.cd <= 0) { f.cd = 1.7; nvMark(P.x + (Math.random() - 0.5) * 20, P.y, 34, 0.95, 12 + nvTier()); } if (f.t <= 0) { f.ph = 'dive'; f.t = 1; } }
       else if (f.ph === 'dive' && f.t <= 0) { f.dives++; if (f.dives >= 3) { f.dead = 1; f.gone = 1; toast('🌊 ' + f.n + L2(' se hunde en las profundidades.', ' sinks back into the depths.'), 'info', 4); continue; }
         f.ph = 'under'; f.t = 2.2; }
-      else if (f.ph === 'under' && f.t <= 0) { const at = nvFreeSpot(M, P, 130, 210); if (at) { f.x = at[0]; f.y = at[1]; } f.ph = 'rise'; f.t = 1; G.shake = 6; }
+      else if (f.ph === 'under' && f.t <= 0) { const at = nvFreeSpot(M, P, 230, 300); if (at) { f.x = at[0]; f.y = at[1]; } f.ph = 'rise'; f.t = 1; G.shake = 6; }
     }
   }
   // el barco de la Marina también dispara mientras te persigue
-  if (typeof MR !== 'undefined' && MR.boat) { const b = MR.boat, d = Math.hypot(P.x - b.x, P.y - b.y); b.cdN = (b.cdN || 2.5) - dt; if (b.cdN <= 0 && d < 300 && d > 60) { b.cdN = 2.8; nvMark(P.x, P.y, 30, 1.1, 8 + nvTier()); } }
+  if (typeof MR !== 'undefined' && MR.boat) { const b = MR.boat, d = Math.hypot(P.x - b.x, P.y - b.y); b.cdN = (b.cdN || 2.5) - dt; if (b.cdN <= 0 && d < 420 && d > 60) { b.cdN = 2.8; nvMark(P.x, P.y, 30, 1.1, 8 + nvTier()); } }
   // balas propias
   for (const s of NV.shots) { s.t += dt; if (s.t >= s.dur && !s.done) { s.done = 1; const t = s.tgt, alive = t && !t.dead && (t.k !== 'marina' || MR.boat === t);
     if (alive && Math.hypot(t.x - s.tx, t.y - s.ty) < 38 && t.ph !== 'under') { t.hp--; NV.lastFight = G.t; floatText(t.x, t.y - 40, L2('¡Impacto!', 'Hit!'), '#ffd040'); burst(t.x, t.y - 10, 12, { sp: 90, up: 40, life: 0.5, c: ['#ffb040', '#ff6a2a', '#ffffff'] }); if (t.hp <= 0) nvKill(t); }
@@ -128,7 +127,7 @@ V33_TICKS.push(dt => { try {
   const foes = nvTargets(), fight = foes.length > 0 || NV.marks.length > 0 || nvInStorm();
   if (!ACT.k) { if (fight || nvHp() < NV_HP) { const hp = nvHp(), bar = '▮'.repeat(Math.ceil(hp / 10)) + '▯'.repeat(10 - Math.ceil(hp / 10));
       const tgt = foes.map(t => [t, Math.hypot(t.x - P.x, t.y - P.y)]).sort((a, b) => a[1] - b[1])[0];
-      mgHud('⛵ ' + bar + ' ' + hp + (tgt ? ' · ' + (tgt[0].n || L2('Marina', 'Navy')) + ' ' + Math.max(0, tgt[0].hp) + '/' + tgt[0].maxhp + (tgt[1] < 320 ? ' · ⚔ ' + (NV.cd > 0 ? '…' : L2('¡fuego!', 'fire!')) : ' · ' + L2('acércate', 'get closer')) : '') + (nvInStorm() ? ' · ⛈' : '')); NV.hud = 1; }
+      mgHud('⛵ ' + bar + ' ' + hp + (tgt ? ' · ' + (tgt[0].n || L2('Marina', 'Navy')) + ' ' + Math.max(0, tgt[0].hp) + '/' + tgt[0].maxhp + (tgt[1] < 420 ? ' · 💣 ' + (NV.cd > 0 ? '…' : L2('¡fuego!', 'fire!')) : ' · ' + L2('acércate', 'get closer')) : '') + (nvInStorm() ? ' · ⛈' : '')); NV.hud = 1; }
     else if (NV.hud) { NV.hud = 0; mgHud(null); } }
 } catch (e) { if (typeof errOnce === 'function') errOnce('nvTick', e); } });
 // con el barco roto, a media vela
@@ -143,7 +142,7 @@ function nvKingAtlas(f) { try { return mobAtlasFor(['sea', f.kind, f.sc]); } cat
 DL_HOOKS.push((list, cx, cy) => {
   const M = G.map; if (!M || !M.dawn) return;
   for (const f of NV.foes) { if (f.dead) continue;
-    if (f.k === 'pirata') list.push({ type: 'xdraw', x: f.x, y: f.y + 10, draw: (e, cx2, cy2) => { const s = spr('nv:pirata', XSPR.nv_pirata); ctx.save(); ctx.translate(Math.round(f.x - cx2), Math.round(f.y - cy2 + 10)); if (f.dir < 0) ctx.scale(-1, 1); ctx.drawImage(s.c, -s.ax, -s.ay); ctx.restore(); nvBar(f, cx2, cy2, 58); } });
+    if (f.k === 'pirata') list.push({ type: 'xdraw', x: f.x, y: f.y + 10, draw: (e, cx2, cy2) => { const s = spr('nv:pirata', XSPR.nv_pirata); ctx.save(); ctx.translate(Math.round(f.x - cx2), Math.round(f.y - cy2 + 10)); ctx.scale(f.dir < 0 ? -2.2 : 2.2, 2.2); ctx.imageSmoothingEnabled = false; ctx.drawImage(s.c, -s.ax, -s.ay); ctx.restore(); nvBar(f, cx2, cy2, 120); } });
     else if (f.ph !== 'under') list.push({ type: 'xdraw', x: f.x, y: f.y + 6, draw: (e, cx2, cy2) => { const A = nvKingAtlas(f); if (!A) return;
       const k = f.ph === 'rise' ? 1 - Math.max(0, f.t) / 1.2 : f.ph === 'dive' ? Math.max(0, f.t) : 1, fw = A.fw, fh = A.fh, sx = Math.round(f.x - cx2), sy = Math.round(f.y - cy2);
       const shown = Math.round(fh * (0.25 + 0.55 * k)); const col = (A.idx && (A.idx.idle != null) ? A.idx.idle : 0) + (Math.floor(G.t * 3) % 2);
@@ -176,10 +175,30 @@ hookBefore('mbCookStart', k => { const D = MB_DISH[k]; if (!D || !D.need) return
 if (typeof LUPA_DAWN !== 'undefined') LUPA_DAWN.push(['mar626', () => '🌊 ' + L2('Batallas en el mar', 'Sea battles'), () => {
   const P = G.P, s = (P && P.nvStats) || {};
   return [
-    L2('Al timón del Going Merry (o del galeón), ⚔ dispara los cañones al enemigo más cercano (hasta ~20 casillas). La bala tarda: si el blanco se mueve, falla. Con Usopp a bordo se apunta con ventaja y se recarga antes.', 'At the helm of the Going Merry (or the galleon), ⚔ fires the cannons at the nearest enemy (up to ~20 tiles). The ball takes time: if the target moves, it misses. With Usopp aboard you lead the target and reload faster.'),
+    L2('Al timón del Going Merry (o del galeón), el botón de la espada dispara los cañones al enemigo más cercano (hasta ~26 casillas). La bala tarda: si el blanco se mueve, falla. Con Usopp a bordo se apunta con ventaja y se recarga antes.', 'At the helm of the Going Merry (or the galleon), the sword button fires the cannons at the nearest enemy (up to ~26 tiles). The ball takes time: if the target moves, it misses. With Usopp aboard you lead the target and reload faster.'),
     L2('Enemigos: el barco de la Marina que te persigue según tu recompensa (ahora se puede hundir: +oro y tu recompensa sube), barcos piratas (tras el Baratie, restos de la flota de Don Krieg) y Reyes Marinos (Tiburón, Martillo y Kraken) que asoman del agua, se sumergen y vuelven.', 'Enemies: the Navy ship that chases you depending on your bounty (now it can be sunk: +gold and your bounty rises), pirate ships (after the Baratie, remains of Don Krieg’s fleet) and Sea Kings (Shark, Hammerhead and Kraken) that rise, dive and come back.'),
     L2('Sus ataques marcan el agua en rojo: aparta el barco antes de que caigan. Vida del Merry: 100. A 0 navegas a media vela; Usopp repara fuera de combate y al atracar queda como nuevo.', 'Their attacks mark the water in red: move the ship before they land. Merry HP: 100. At 0 you sail at half speed; Usopp repairs out of combat and docking fully repairs it.'),
     L2('Tormentas: Nami avisa hacia dónde girar. Dentro llueve, el viento te arrastra y caen rayos (marcados en amarillo). Si la esquivas entera: oro y viento a favor 3 min.', 'Storms: Nami tells you which way to turn. Inside it rains, the wind drags you and lightning strikes (marked in yellow). Dodge it entirely: gold and a tailwind for 3 min.'),
     L2('Los Reyes Marinos sueltan Carne de Rey Marino: Sanji la cocina en el Festín del Rey Marino (ataque, defensa y velocidad).', 'Sea Kings drop Sea King meat: Sanji cooks it into the Sea King Feast (attack, defense and speed).'),
     L2('Hundidos: ', 'Sunk: ') + L2('Marina ', 'Navy ') + (s.marina || 0) + ' · ' + L2('piratas ', 'pirates ') + (s.pirata || 0) + ' · ' + L2('Reyes Marinos ', 'Sea Kings ') + (s.rey || 0)
   ]; }, () => null]);
+
+// ---------- cámara: en combate se desplaza hacia el enemigo más cercano (el Merry ocupa casi toda la pantalla) ----------
+NV.cam = { x: 0, y: 0 };
+hookAround('updateCamera', (next, dt, snap) => {
+  const P = G.P, o = NV.cam; G.cam.x -= o.x; G.cam.y -= o.y;
+  const r = next(dt, snap);
+  let tx = 0, ty = 0;
+  if (nvOn() && !(typeof merryDeck === 'function' && merryDeck())) { const t = nvTargets().map(t => [t, Math.hypot(t.x - P.x, t.y - P.y)]).filter(([, d]) => d < 700).sort((a, b) => a[1] - b[1])[0];
+    if (t) { tx = clamp((t[0].x - P.x) * 0.6, -210, 210); ty = clamp((t[0].y - P.y) * 0.6, -110, 110); } }
+  const k = snap ? 1 : 1 - Math.pow(0.02, dt || 0.016); o.x += (tx - o.x) * k; o.y += (ty - o.y) * k;
+  G.cam.x += o.x; G.cam.y += o.y; return r;
+});
+// flechas en el borde de la pantalla hacia los enemigos que no se ven
+WORLD_DRAW.push((cx, cy) => {
+  if (!nvOn()) return;
+  for (const t of nvTargets()) { const x = t.x - cx, y = t.y - cy; if (x > 10 && x < VW - 10 && y > 10 && y < VH - 10) continue;
+    const ax = clamp(x, 14, VW - 14), ay = clamp(y, 40, VH - 40), a = Math.atan2(y - ay, x - ax);
+    ctx.save(); ctx.translate(ax, ay); ctx.rotate(a); ctx.fillStyle = t.k === 'rey' ? '#6ad0ff' : '#ff5a4a'; ctx.strokeStyle = '#1a1220'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(9, 0); ctx.lineTo(-6, -6); ctx.lineTo(-3, 0); ctx.lineTo(-6, 6); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.restore(); }
+});
