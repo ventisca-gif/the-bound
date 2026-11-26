@@ -10,7 +10,7 @@
 //   equiparla ofrece un pacto; se domina con 200 enemigos o se purifica con el Oráculo Ysolde (50.000).
 // Atajos › ☠ abre `curseOpen()`; Lupa › Sistemas › Objetos malditos; el aviso al caer uno dice dónde mirarlo.
 // Huerto: `hookAround('farmAction')` abre un selector con cada semilla (nivel de Agricultura que pide, tiempo, temporada) si
-// el bancal está vacío; la elegida se planta con la función original viendo solo esa semilla.
+// el bancal está vacío y tienes más de un tipo (o la única está bloqueada; «Cosechar todo» resiembra sin preguntar); la elegida se planta con la función original viendo solo esa semilla.
 const CURSE_IT = [['anillo_maldito', L2('Accesorio', 'Accessory')], ['collar_sangriento', L2('Cuello', 'Neck')], ['yelmo_vacio', L2('Cabeza (armadura)', 'Head (armour)')]];
 function curseCount(id) { const P = G.P; let n = countItem(id); for (const s in (P.equip || {})) if (P.equip[s] && P.equip[s].id === id) n++; return n; }
 const curseWorn = id => { const P = G.P; return Object.values(P.equip || {}).some(e => e && e.id === id); };
@@ -47,7 +47,7 @@ function farmSeedRows() { const P = G.P, lv = (P.jobs.agricultura || { lv: 1 }).
     const season = sc === undefined ? '' : sc === sn ? '🌸 ' + L2('de temporada: crece el doble de rápido y da una pieza más', 'in season: grows twice as fast and gives one more') : '🍂 ' + L2('fuera de temporada: crece a la mitad', 'out of season: grows at half speed');
     return { id, I, need, ok: lv >= need, n: countItem(id), season }; }).sort((a, b) => (b.ok - a.ok) || (b.I.tier - a.I.tier)); }
 hookAround('farmAction', (next, o, ...a) => { const P = G.P; if (FARM_PICK || !P || !o) return next(o, ...a); let S; try { S = plotState(o); } catch (e) { return next(o, ...a); }
-  if (S.st !== 0) return next(o, ...a); const rows = farmSeedRows(); if (!rows.length) return next(o, ...a);
+  if (S.st !== 0 || (typeof V74_HV !== 'undefined' && V74_HV)) return next(o, ...a); const rows = farmSeedRows(); if (!rows.length || (rows.length === 1 && rows[0].ok)) return next(o, ...a);   // una sola semilla que puedes plantar, o «Cosechar todo» resembrando: directo
   const lv = (P.jobs.agricultura || { lv: 1 }).lv;
   openModal(`<div class="frame"><h3>🌱 ${L2('¿Qué plantas?', 'What do you plant?')}</h3><p class="hint">${L2('Agricultura nivel ', 'Farming level ')}${lv}. ${L2('Las que piden más nivel salen con 🔒: súbelo cosechando.', 'Those needing a higher level show 🔒: raise it by harvesting.')}</p><div class="slist">${rows.map(r => `<div class="srow">${iconHTML(r.I.icon, 24)}<div class="sn"><b>${esc(r.I.n)}</b> ×${r.n}<small>${r.ok ? '✅' : '🔒'} ${L2('Agricultura ', 'Farming ')}${r.need} · ⏱ ${fmtTime(r.I.grow || 120)}${r.season ? ' · ' + esc(r.season) : ''}</small></div><button class="btn sm ${r.ok ? 'gold' : ''}" data-fpk="${r.id}" ${r.ok ? '' : 'disabled'}>${r.ok ? L2('Plantar', 'Plant') : L2('Nivel ', 'Level ') + r.need}</button></div>`).join('')}</div><div class="row"><button class="btn" id="fpX">${L2('Cancelar', 'Cancel')}</button></div></div>`);
   $('#fpX').onclick = closeModal;

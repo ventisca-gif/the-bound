@@ -32,7 +32,7 @@ function fight(base, lv, kit, secs) { // golpe cada 1,5 s; habilidades en cuanto
       cd[k.id] = t + k.s.cd; }
     if (Math.abs(t / 1.5 - Math.round(t / 1.5)) > 1e-6 || t === 0) continue;
     const b = {}; for (const a of act) if (a.end > t) for (const q in a.st) b[q] = (b[q] || 0) + a.st[q]; P.buff = b; calcStats(P);
-    P.dead = false; P.ifr = 0; P.shield = 0; P.hp = P.S.maxhp; const h0 = P.hp; hurtPlayer(base, { lv }); let d = Math.max(0, h0 - P.hp) * max0 / P.S.maxhp;
+    P.dead = false; P.ifr = 0; P.shield = 0; P.hp = P.S.maxhp; const h0 = P.hp; hurtPlayer(base, { lv, type: 'mob', boss: true, mid: 'qa_boss' }); let d = Math.max(0, h0 - P.hp) * max0 / P.S.maxhp;
     if (shT <= t) shield = 0; const ab = Math.min(shield, d); shield -= ab; d -= ab; hp -= d; taken += d; if (hp <= 0 && died === null) died = t; }
   P.buff = {}; calcStats(P); P.hp = P.S.maxhp; P.dead = false;
   return { pctMin: taken / max0 * 100 * 60 / secs, healPct: healed / max0 * 100 * 60 / secs, died, end: Math.max(0, hp / max0 * 100) }; }

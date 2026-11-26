@@ -20,26 +20,27 @@ function retoMul(src) { const s = src || {}; if (s.pvp || (typeof DUEL !== 'unde
 hookAround('hurtPlayer', (next, base, src, ...a) => next(base * retoMul(src), src, ...a));
 
 // ---------- calidad de armadura ----------
-const ARQ = [['mala', 0.12, 0.95, L2('Mala', 'Poor'), '#b07a6a'], ['normal', 0.77, 1, L2('Normal', 'Normal'), '#c8c0b0'], ['buena', 0.10, 1.08, L2('Buena', 'Good'), '#7ae07a'], ['exc', 0.01, 1.15, L2('Excelente', 'Excellent'), '#ffd040']];
-const arqOf = k => ARQ.find(q => q[0] === k) || ARQ[1];
-function arqRoll() { let r = Math.random(); for (const q of ARQ) { if (r < q[1]) return q[0]; r -= q[1]; } return 'normal'; }
-const arqTag = k => { const q = arqOf(k); return q[0] === 'normal' ? '' : `<span class="arq" style="color:${q[4]}">${q[3]} ${q[2] > 1 ? '+' : ''}${Math.round((q[2] - 1) * 100)} %</span>`; };
+const ARMQ = [['mala', 0.12, 0.95, L2('Mala', 'Poor'), '#b07a6a'], ['normal', 0.77, 1, L2('Normal', 'Normal'), '#c8c0b0'], ['buena', 0.10, 1.08, L2('Buena', 'Good'), '#7ae07a'], ['exc', 0.01, 1.15, L2('Excelente', 'Excellent'), '#ffd040']];
+const armqOf = k => ARMQ.find(q => q[0] === k) || ARMQ[1];
+function armqRoll() { let r = Math.random(); for (const q of ARMQ) { if (r < q[1]) return q[0]; r -= q[1]; } return 'normal'; }
+const armqTag = k => { const q = armqOf(k); return q[0] === 'normal' ? '' : `<span class="arq" style="color:${q[4]}">${q[3]} ${q[2] > 1 ? '+' : ''}${Math.round((q[2] - 1) * 100)} %</span>`; };
 // al conseguir una armadura: las casillas nuevas sin calidad la reciben
 hookBefore('giveItem', (id) => { const it = ITEMS[id]; if (it && it.t === 'armor' && G.P) G.P.__arqN = G.P.inv.length; });
 hookAfter('giveItem', (r, id) => { const P = G.P, it = ITEMS[id]; if (!r || !it || it.t !== 'armor' || !P || P.__arqN === undefined) return; const from = P.__arqN; delete P.__arqN;
-  for (let i = from; i < P.inv.length; i++) { const s = P.inv[i]; if (s && s.id === id && !s.ql) { s.ql = arqRoll(); if (s.ql !== 'normal') { const q = arqOf(s.ql); toast((q[2] > 1 ? '✨ ' : '') + it.n + ' · ' + L2('calidad ', 'quality ') + q[3] + ' (' + (q[2] > 1 ? '+' : '') + Math.round((q[2] - 1) * 100) + ' %)', q[2] > 1 ? 'quest' : 'info', 4); } } } });
+  for (let i = from; i < P.inv.length; i++) { const s = P.inv[i]; if (s && s.id === id && !s.ql) { s.ql = armqRoll(); if (s.ql !== 'normal') { const q = armqOf(s.ql); toast((q[2] > 1 ? '✨ ' : '') + it.n + ' · ' + L2('calidad ', 'quality ') + q[3] + ' (' + (q[2] > 1 ? '+' : '') + Math.round((q[2] - 1) * 100) + ' %)', q[2] > 1 ? 'quest' : 'info', 4); } } } });
 // se conserva al equiparla (equipFromInv crea un objeto nuevo con id y up)
 hookAround('equipFromInv', (next, idx, ...a) => { const P = G.P, s = P && P.inv[idx], ql = s && s.ql, id = s && s.id, slot = s && ITEMS[s.id] && ITEMS[s.id].slot; const r = next(idx, ...a);
   if (ql && slot && P.equip[slot] && P.equip[slot].id === id && !P.equip[slot].ql) { P.equip[slot].ql = ql; calcStats(P); } return r; });
 // efecto en las estadísticas
 hookAfter('calcStats', (r, P) => { if (!P || !P.S || !P.equip) return; let dd = 0, dh = 0;
-  for (const sl in P.equip) { const e = P.equip[sl]; if (!e || !e.ql || e.ql === 'normal') continue; const it = ITEMS[e.id]; if (!it || it.t !== 'armor') continue; const k = arqOf(e.ql)[2] - 1, up = 1 + 0.08 * (e.up || 0);
+  for (const sl in P.equip) { const e = P.equip[sl]; if (!e || !e.ql || e.ql === 'normal') continue; const it = ITEMS[e.id]; if (!it || it.t !== 'armor') continue; const k = armqOf(e.ql)[2] - 1, up = 1 + 0.08 * (e.up || 0);
     dd += (it.def || 0) * up * k; dh += (it.hpB || 0) * up * k; }
   if (dd || dh) { P.S.def = Math.max(0, Math.round(P.S.def + dd)); P.S.maxhp = Math.max(1, Math.round(P.S.maxhp + dh)); if (P.hp > P.S.maxhp) P.hp = P.S.maxhp; } });
 // en el inventario: etiqueta en el detalle y puntito en la casilla
-hookAfter('renderInv', (r, B) => { try { const P = G.P; if (!B) return;
-  for (const b of B.querySelectorAll('.slot[data-i]')) { const s = P.inv[+b.dataset.i]; if (s && s.ql && s.ql !== 'normal' && !b.querySelector('.arqd')) b.insertAdjacentHTML('beforeend', `<i class="arqd" style="background:${arqOf(s.ql)[4]}"></i>`); }
-  const s = P.inv[invSel], it = s && ITEMS[s.id]; if (it && it.t === 'armor') { const h = B.querySelector('.ihead small'); if (h && !h.querySelector('.arq')) h.insertAdjacentHTML('beforeend', ' · ' + (arqTag(s.ql || 'normal') || `<span class="arq">${L2('Calidad Normal', 'Normal quality')}</span>`)); } } catch (e) { } });
+// renderPanel guarda renderInv en una tabla al cargar, así que se decora después de renderPanel (pestaña inventario)
+hookAfter('renderPanel', () => { try { const P = G.P, B = typeof panelTab !== 'undefined' && panelTab === 'inv' ? $('#panel') : null; if (!B || !P) return;
+  for (const b of B.querySelectorAll('.slot[data-i]')) { const s = P.inv[+b.dataset.i]; if (s && s.ql && s.ql !== 'normal' && !b.querySelector('.arqd')) b.insertAdjacentHTML('beforeend', `<i class="arqd" style="background:${armqOf(s.ql)[4]}"></i>`); }
+  const s = P.inv[invSel], it = s && ITEMS[s.id]; if (it && it.t === 'armor') { const h = B.querySelector('.ihead small'); if (h && !h.querySelector('.arq')) h.insertAdjacentHTML('beforeend', ' · ' + (armqTag(s.ql || 'normal') || `<span class="arq">${L2('Calidad Normal', 'Normal quality')}</span>`)); } } catch (e) { } });
 { const st = document.createElement('style'); st.textContent = '.slot{position:relative}.slot .arqd{position:absolute;left:3px;bottom:3px;width:.5em;height:.5em;border-radius:50%;box-shadow:0 0 0 1px #000}.arq{font-weight:bold}'; document.head.appendChild(st); }
 if (typeof GSIS !== 'undefined') GSIS.unshift(['reto635', '⚔ ' + L2('Daño de los enemigos y calidad de armaduras', 'Enemy damage and armour quality'), () => [
   L2('Desde la 6.35 los enemigos de tu nivel sí hacen daño: monstruos ×1,6, jefes ×1,8 y súper jefes ×2,2 (sube poco a poco de nivel 15 a 60). Usa tus habilidades de cura, escudo y defensa, pociones y esquiva.', 'Since 6.35 enemies of your level really hurt: monsters ×1.6, bosses ×1.8 and super bosses ×2.2 (ramps up from level 15 to 60). Use your heal, shield and defence skills, potions and dodging.'),
