@@ -1,24 +1,24 @@
 {
- "build": 248,
- "ver": "6.26",
+ "build": 249,
+ "ver": "6.27",
  "date": "2026-11-26",
  "file": "thebound.html",
- "size": 37939072,
- "sha256": "f050a81c081776be68bba6d660f3c776bb786033c44811f3ef1a0a6ff19ebc34",
+ "size": 37960790,
+ "sha256": "17ed8a6499080f9cf69265ec38e4e182a3e21e196ddb92cc6f97400b3552bdfc",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Batallas en el mar: al timón del Going Merry, el botón de la espada dispara los cañones. Hunde barcos piratas (restos de la flota de Krieg) y el barco de la Marina que te persigue (tu recompensa sube).",
-   "Reyes Marinos: Tiburón, Martillo y Kraken salen del agua, se sumergen y vuelven. Sueltan Carne de Rey Marino para el Festín del Rey Marino de Sanji.",
-   "Sus ataques marcan el agua en rojo: aparta el barco. El Merry tiene 100 de vida; Usopp lo repara y al atracar queda como nuevo. La cámara sigue al enemigo y unas flechas marcan los que no se ven.",
-   "Tormentas: Nami avisa hacia dónde girar. Dentro llueve, el viento te arrastra y caen rayos. Si la esquivas: oro y viento a favor."
+   "Misiones de la tripulación (pídeselas hablando con ellos): Luffy «El sombrero de paja», Zoro «La promesa de Kuina», Usopp «Una carta para Kaya», Sanji «El sueño del All Blue» y Nami «Los mandarinos de Bell-mère». La flecha dorada te lleva a cada isla.",
+   "Ataques combinados: al completar las misiones de Luffy, Zoro, Usopp y Sanji, el botón 🤝 (o la tecla C) lanza un gran golpe en área con ese tripulante cuando la barra está llena. La de Nami hace que el Merry navegue un 10 % más rápido y que las tormentas esquivadas paguen el doble.",
+   "Sanji ya tiene su cartel de recompensa, y Baratie, Arlong Park y Loguetown suben las recompensas de la tripulación.",
+   "Periódico: una gaviota mensajera lo trae una vez al día en el Mar de Dawn (Lupa › Crossovers › Periódico)."
   ],
   "en": [
-   "Sea battles: at the Going Merry’s helm, the sword button fires the cannons. Sink pirate ships (Krieg’s fleet remnants) and the Navy ship chasing you (your bounty rises).",
-   "Sea Kings: Shark, Hammerhead and Kraken rise from the water, dive and come back. They drop Sea King meat for Sanji’s Sea King Feast.",
-   "Their attacks mark the water in red: move the ship. The Merry has 100 HP; Usopp repairs it and docking makes it as good as new. The camera follows the enemy and arrows mark those off screen.",
-   "Storms: Nami tells you which way to turn. Inside it rains, the wind drags you and lightning strikes. Dodge it: gold and a tailwind."
+   "Crew quests (ask them by talking to them): Luffy “The straw hat”, Zoro “Kuina’s promise”, Usopp “A letter for Kaya”, Sanji “The All Blue dream” and Nami “Bell-mère’s tangerine trees”. The golden arrow takes you to each island.",
+   "Combined attacks: completing Luffy’s, Zoro’s, Usopp’s and Sanji’s quests lets the 🤝 button (or the C key) launch a big area hit with that crewmate when the bar is full. Nami’s makes the Merry sail 10 % faster and dodged storms pay double.",
+   "Sanji now has his bounty poster, and the Baratie, Arlong Park and Loguetown raise the crew’s bounties.",
+   "Newspaper: a News Coo brings it once a day in the Dawn Sea (Lupa › Crossovers › Newspaper)."
   ]
  }
 }

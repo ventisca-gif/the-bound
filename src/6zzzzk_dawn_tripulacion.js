@@ -25,7 +25,7 @@ const CREW_BTY = [
 // quién pelea en cada jefe de la historia (los demás compañeros que ya tienes suben menos)
 const CREW_BTY_FIGHT = { [MORGAN_ID]: ['luffy', 'zoro'], [ORANGE_CABAJI]: ['zoro', 'luffy'], [ORANGE_BUGGY]: ['luffy', 'zoro'],
   [SYRUP_SHAM]: ['zoro'], [SYRUP_BUCHI]: ['zoro'], [SYRUP_JANGO]: ['nami', 'usopp'], [SYRUP_CAPTAIN]: ['luffy'] };
-const crewKey = id => ({ [SHELLS_CAST_IDS.luffy]: 'luffy', [SHELLS_CAST_IDS.zoro]: 'zoro', [ORANGE_NAMI]: 'nami', [SYRUP_USOPP]: 'usopp' })[id];
+const crewKey = id => ({ [SHELLS_CAST_IDS.luffy]: 'luffy', [SHELLS_CAST_IDS.zoro]: 'zoro', [ORANGE_NAMI]: 'nami', [SYRUP_USOPP]: 'usopp', [BAR_SANJI]: 'sanji' })[id];   // 6.27: + Sanji
 const crewMet = P => CREW_BTY.filter(c => c[2](P));
 const crewTier = n => { let t = 0; for (let i = 0; i < BNT_T.length; i++) if ((n || 0) >= BNT_T[i]) t = i; return t; };
 function crewBtyGain(key, n) { const P = G.P; if (!P || !(n > 0)) return; P.crewBty = P.crewBty || {}; P.crewBtyT = P.crewBtyT || {};
