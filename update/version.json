@@ -1,22 +1,24 @@
 {
- "build": 263,
- "ver": "6.41",
+ "build": 264,
+ "ver": "6.42",
  "date": "2026-11-26",
  "file": "thebound.html",
- "size": 39300693,
- "sha256": "b263dc6f5c95288de46e0f12d914ce0d39caa624e2a9dc9227c9929dfe5681e6",
+ "size": 39339582,
+ "sha256": "0342bd6d5cab45c6dbfdf44911bea481ccf62c14fc0521a92b9609d06c1992ba",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Oro equilibrado: la carrera de relevos, la carrera de dragones, los casos del Tren Misterio, el duelo de cocina y las esculturas de arena se podían repetir sin límite pagando 80.000-600.000 cada vez. Ahora pagan entero las 3 primeras veces de cada día, el 40 % de la 4.ª a la 6.ª y el 15 % después (avisa cuando baja).",
-   "Revisados los trabajos (100-2.000 por ronda) y los minijuegos de los pueblos: pagan en línea con el resto del juego.",
-   "Árbol genealógico: los nietos y bisnietos cuyo padre o madre ya pasó al Memorial volvían a no salir; ahora salen. El Memorial guarda los 100 antepasados más recientes y los más antiguos se borran del todo, para que la partida no crezca (toda la familia ocupa unos 10-16 KB)."
+   "Auras de transformación: cada forma y cada fusión tiene su aura animada detrás del personaje, solo mientras estás transformado. Despertar Dorado: llamas de luz en punta con el centro blanco y rayos. Alado Caído: aura angelical con alas de luz celeste. Fantasma: niebla de luna con fantasmitas. También Lobo, Vampiro, Dragón (y 2.0), Eco sin Pintar, Hielo (y Cristal 2.0), Engranaje 2, Tejedor Primordial, Dragón de Hielo, Boceto de Fuego y Ángel de Niebla.",
+   "Al transformarte sale un destello propio de cada forma que desaparece en menos de medio segundo.",
+   "Engranaje 2: al transformarte te agachas un momento (mano en la rodilla y el puño en el suelo) echando vapor.",
+   "🌀 Transformaciones › «Aura: sí / no» para apagar el aura si no te gusta (también la dejan de ver los demás en el online)."
   ],
   "en": [
-   "Balanced gold: the relay race, dragon race, Mystery Train cases, cooking duel and sand sculptures could be repeated endlessly paying 80,000-600,000 each time. They now pay in full the first 3 times each day, 40% from the 4th to the 6th and 15% after that (with a notice).",
-   "Jobs (100-2,000 per round) and town minigames checked: they pay in line with the rest of the game.",
-   "Family tree: grandchildren and great-grandchildren whose parent had moved to the Memorial didn’t show; now they do. The Memorial keeps the 100 most recent ancestors and older ones are deleted for good, so the save doesn’t grow (the whole family takes about 10-16 KB)."
+   "Transformation auras: every form and fusion has its own animated aura behind the character, only while transformed. Golden Awakening: spiky flames of light with a white core and lightning. Fallen Winged: an angelic aura with wings of sky-blue light. Ghost: moonlit mist with little ghosts. Also Wolf, Vampire, Dragon (and 2.0), Unpainted Echo, Ice (and Crystal 2.0), Gear 2, Primordial Weaver, Ice Dragon, Fire Sketch and Mist Angel.",
+   "When you transform, each form shows its own flash that fades in under half a second.",
+   "Gear 2: when you transform you crouch for a moment (hand on the knee and fist on the ground) letting off steam.",
+   "🌀 Transformations › «Aura: on / off» to turn the aura off if you don’t like it (other players online stop seeing it too)."
   ]
  }
 }

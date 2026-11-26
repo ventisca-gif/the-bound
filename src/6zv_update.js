@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.41', GAME_BUILD = 263;
+const GAME_VER = '6.42', GAME_BUILD = 264;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.42",
+ "b": 264,
+ "d": "2026-11-26",
+ "es": [
+  "Auras de transformación: cada forma y cada fusión tiene su aura animada detrás del personaje, solo mientras estás transformado. Despertar Dorado: llamas de luz en punta con el centro blanco y rayos. Alado Caído: aura angelical con alas de luz celeste. Fantasma: niebla de luna con fantasmitas. También Lobo, Vampiro, Dragón (y 2.0), Eco sin Pintar, Hielo (y Cristal 2.0), Engranaje 2, Tejedor Primordial, Dragón de Hielo, Boceto de Fuego y Ángel de Niebla.",
+  "Al transformarte sale un destello propio de cada forma que desaparece en menos de medio segundo.",
+  "Engranaje 2: al transformarte te agachas un momento (mano en la rodilla y el puño en el suelo) echando vapor.",
+  "🌀 Transformaciones › «Aura: sí / no» para apagar el aura si no te gusta (también la dejan de ver los demás en el online)."
+ ],
+ "en": [
+  "Transformation auras: every form and fusion has its own animated aura behind the character, only while transformed. Golden Awakening: spiky flames of light with a white core and lightning. Fallen Winged: an angelic aura with wings of sky-blue light. Ghost: moonlit mist with little ghosts. Also Wolf, Vampire, Dragon (and 2.0), Unpainted Echo, Ice (and Crystal 2.0), Gear 2, Primordial Weaver, Ice Dragon, Fire Sketch and Mist Angel.",
+  "When you transform, each form shows its own flash that fades in under half a second.",
+  "Gear 2: when you transform you crouch for a moment (hand on the knee and fist on the ground) letting off steam.",
+  "🌀 Transformations › «Aura: on / off» to turn the aura off if you don’t like it (other players online stop seeing it too)."
+ ]
+},
 {
  "v": "6.41",
  "b": 263,
