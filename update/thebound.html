@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.36 · El maná importa</div>
+  <div class="tfoot">v6.37 · El maná se recupera más rápido</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11911,7 +11911,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.36', GAME_BUILD = 258;
+const GAME_VER = '6.37', GAME_BUILD = 259;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11919,6 +11919,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.37",
+ "b": 259,
+ "d": "2026-11-26",
+ "es": [
+  "El maná se recupera más rápido: 1,45 % por segundo en combate (antes 1,2 %) y 4 % fuera de combate (antes 3 %). Con el coste nuevo de la 6.36, la barra baja al empezar la pelea y luego se mantiene.",
+  "No hace falta subir Inteligencia para lanzar más habilidades: el coste y la recuperación van en % de tu maná máximo."
+ ],
+ "en": [
+  "Mana regenerates faster: 1.45% per second in combat (was 1.2%) and 4% out of combat (was 3%). With the 6.36 cost, the bar drops at the start of a fight and then holds.",
+  "You don’t need Intelligence to cast more skills: cost and regen are a % of your max mana."
+ ]
+},
 {
  "v": "6.36",
  "b": 258,
@@ -58840,6 +58853,14 @@ if (typeof GSIS !== 'undefined') GSIS.unshift(['mana636', '🔷 ' + L2('Maná y 
   L2('La ficha de cada habilidad dice el coste real y la barra la pone en gris si no te llega.', 'Each skill’s card shows the real cost and the bar greys it out if you can’t afford it.'),
   L2('Arquero: Espíritu del Bosque cura más, se recarga antes y da +20 % de defensa 8 s. Mago: Escudo Arcano y Armadura de Escarcha protegen más.', 'Archer: Forest Spirit heals more, recharges sooner and gives +20% defence for 8 s. Mage: Arcane Shield and Frost Armour protect more.')
 ], () => null]);
+
+// 6.37 · El maná se recupera algo más rápido (Sergio: «que se recupere también algo más rápido»): en combate 1,2 → 1,45 %
+// del máximo por segundo y fuera de combate 3 → 4 %. Con el coste de la 6.36, lanzar las 4 habilidades en cuanto salen
+// gasta ~lo mismo que recuperas (×1,0): la barra baja al empezar la pelea y se mantiene. Como el coste y la recuperación
+// van en % del maná máximo, subir Inteligencia/maná en las estadísticas no hace falta (ni ayuda a lanzar más).
+hookAfter('updatePlayer', (r, dt) => { const P = G.P; if (!P || P.dead || !P.S || !(dt > 0) || P.mp >= P.S.maxmp || (typeof SCENE !== 'undefined' && SCENE)) return;
+  const ooc = G.t - (P.combatT || -99) > 6 && G.t - (P.lastHurt || -99) > 6; P.mp = Math.min(P.S.maxmp, P.mp + P.S.maxmp * (ooc ? 0.01 : 0.0025) * dt); });
+{ const i = typeof GSIS !== 'undefined' ? GSIS.findIndex(g => g[0] === 'mana636') : -1; if (i >= 0) { const f = GSIS[i][2]; GSIS[i][2] = () => f().concat([L2('Desde la 6.37 el maná se recupera más rápido: 1,45 % por segundo en combate y 4 % fuera. Como el coste y la recuperación van en % de tu maná máximo, no hace falta subir Inteligencia para lanzar más habilidades.', 'Since 6.37 mana regenerates faster: 1.45% per second in combat and 4% out of combat. As cost and regen are a % of your max mana, you don’t need Intelligence to cast more skills.')]); } }
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;

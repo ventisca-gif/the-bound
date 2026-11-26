@@ -1,22 +1,20 @@
 {
- "build": 258,
- "ver": "6.36",
+ "build": 259,
+ "ver": "6.37",
  "date": "2026-11-26",
  "file": "thebound.html",
- "size": 39264567,
- "sha256": "2fbd929351e759670809d5da0e34ba8ba7f4a6e463d7ec5dc077b2e4dd4f59f1",
+ "size": 39266648,
+ "sha256": "abcd625bc87f136ee3a73c694c7bf0470b2cbc67d99789ac364c7943d0af974e",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "El maná importa: cada habilidad de tu clase cuesta lo de siempre o un % de tu maná máximo según su recarga (9 s ≈ 3 %, 30 s ≈ 11 %, 60 s ≈ 22 %). Antes el mago, el bardo y el invocador tenían maná casi infinito. Lanzarlas todas en cuanto salen gasta algo más de lo que recuperas en combate: hay que elegir.",
-   "La barra pone en gris las habilidades que no te alcanzan y la ficha de cada una dice su coste real.",
-   "Arquero: Espíritu del Bosque cura un 25 % (antes 20 %), se recarga en 24 s y da +20 % de defensa durante 8 s. Mago: Escudo Arcano absorbe un 30 % (antes 25 %) y Armadura de Escarcha da +30 % de defensa durante 25 s."
+   "El maná se recupera más rápido: 1,45 % por segundo en combate (antes 1,2 %) y 4 % fuera de combate (antes 3 %). Con el coste nuevo de la 6.36, la barra baja al empezar la pelea y luego se mantiene.",
+   "No hace falta subir Inteligencia para lanzar más habilidades: el coste y la recuperación van en % de tu maná máximo."
   ],
   "en": [
-   "Mana matters: each class skill costs its usual amount or a % of your max mana based on its cooldown (9 s ≈ 3%, 30 s ≈ 11%, 60 s ≈ 22%). Before, mages, bards and summoners had almost infinite mana. Casting them all as soon as they are ready costs a bit more than you regain in combat: you have to choose.",
-   "The bar greys out skills you can’t afford and each skill’s card shows its real cost.",
-   "Archer: Forest Spirit heals 25% (was 20%), recharges in 24 s and gives +20% defence for 8 s. Mage: Arcane Shield absorbs 30% (was 25%) and Frost Armour gives +30% defence for 25 s."
+   "Mana regenerates faster: 1.45% per second in combat (was 1.2%) and 4% out of combat (was 3%). With the 6.36 cost, the bar drops at the start of a fight and then holds.",
+   "You don’t need Intelligence to cast more skills: cost and regen are a % of your max mana."
   ]
  }
 }
