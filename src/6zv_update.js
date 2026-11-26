@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.32', GAME_BUILD = 254;
+const GAME_VER = '6.33', GAME_BUILD = 255;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.33",
+ "b": 255,
+ "d": "2026-11-26",
+ "es": [
+  "▦ Atajos › ¿Qué hago ahora? más claro. ⚔ Para subir de nivel: barra de experiencia, cuánto te falta, cuántos monstruos de tu nivel son, cuáles y dónde están, con ➜ Llévame (flecha dorada).",
+  "🛡 Tu armadura (nuevo): por ranura, la mejor que puedes forjar en la Herrería para tu nivel y clase, si ya la llevas, sus materiales (tienes / pide) y el oro, con flecha a la Herrería y al sitio del material que falta.",
+  "⚒ Tala, Minería y Pesca: tope 130 y hasta 160 con las 3 maestrías, el árbol, veta o pez de tu nivel y el siguiente, qué herramienta te falta, los árboles, vetas y peces del Mar de Dawn (tier 23-25) con la herramienta que piden, y consejos."
+ ],
+ "en": [
+  "▦ Shortcuts › What do I do now? is clearer. ⚔ To level up: experience bar, how much you need, how many monsters of your level that is, which ones and where, with ➜ Take me (golden arrow).",
+  "🛡 Your armour (new): per slot, the best you can forge at the Forge for your level and class, whether you already wear it, its materials (have / need) and gold, with an arrow to the Forge and to where the missing material is.",
+  "⚒ Woodcutting, Mining and Fishing: cap 130 and up to 160 with the 3 masteries, your level’s tree, vein or fish and the next, which tool you lack, the Dawn Sea trees, veins and fish (tier 23-25) with the tool they need, and tips."
+ ]
+},
 {
  "v": "6.32",
  "b": 254,
