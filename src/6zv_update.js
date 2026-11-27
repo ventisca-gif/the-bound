@@ -15,1642 +15,1642 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
- {
-  "v": "6.63",
-  "b": 285,
-  "d": "2026-11-27",
-  "es": [
-   "Reverse Mountain y Cabos Gemelos dentro del mar de Dawn: canales navegables, dos faros, muelle y Crocus, con las texturas y los barcos originales. La zona ocupa una extensión libre al sureste, sin alterar Shells Town ni las demás islas.",
-   "Escenas con el Going Merry y los sprites de la tripulación y tu personaje. La promesa de Laboon conserva el progreso anterior y entrega el premio una sola vez, antes de la cinemática.",
-   "La primera isla del Grand Line llegará en otro mapa marítimo; la salida continúa cerrada. Se conservan Brasil y todas las actualizaciones anteriores."
-  ],
-  "en": [
-   "Reverse Mountain and Twin Cape in the Dawn Sea: navigable channels, two lighthouses, a pier and Crocus, using the original textures and ships. The area occupies an unused south-eastern extension without changing Shells Town or the other islands.",
-   "Scenes use the Going Merry and the original crew and player sprites. Laboon’s promise preserves previous progress and awards its reward once, before the cutscene.",
-   "The first Grand Line island will have its own sea map; the exit remains closed. Brazil and all previous updates are preserved."
-  ]
- },
- {
-  "v": "6.62",
-  "b": 284,
-  "d": "2026-11-27",
-  "es": [
-   "🇧🇷 ¡Brasil! Avión desde Albor, Lima, México o España (2.500 de oro). Río de Janeiro: Copacabana con edificios frente al mar, el calçadão de ondas y la playa llena de sombrillas; el Cristo Redentor en lo alto del Corcovado (la cámara sube para verlo entero); el morro con casas de ladrillo y tanques azules; la Escalera Selarón y los arcos de Lapa; la Lagoa con el hipódromo.",
-   "🚡 Teleférico al Pan de Azúcar. 🌈 Cataratas del Iguazú con pasarelas sobre el río, niebla y arcoíris; 🚤 pilota el bote contra la corriente hasta la niebla de la cascada y vuelve. 🧩 Devuelve los azulejos caídos a los escalones de su color en la Selarón.",
-   "🌿 Pasto tropical nuevo, más verde y con florecitas. Comida: feijoada, pan de queso, acaí, agua de coco, coxinha y brigadeiro. Todo en Lupa › Ciudades y vida y en el Mapa."
-  ],
-  "en": [
-   "🇧🇷 Brazil! Plane from Albor, Lima, Mexico or Spain (2,500 gold). Rio de Janeiro: Copacabana with seafront buildings, the wave calçadão and a beach full of umbrellas; Christ the Redeemer on top of Corcovado (the camera rises to see it whole); the morro with brick houses and blue tanks; the Selarón Steps and the Lapa arches; the Lagoa with the racecourse.",
-   "🚡 Cable car to the Sugarloaf. 🌈 Iguazu Falls with walkways over the river, mist and rainbow; 🚤 pilot the boat against the current to the falls' mist and back. 🧩 Put the fallen tiles back on the steps of their colour at the Selarón.",
-   "🌿 New tropical grass, greener and with little flowers. Food: feijoada, cheese bread, açaí, coconut water, coxinha and brigadeiro. All in Magnifier › Cities and life and on the Map."
-  ]
- },
- {
-  "v": "6.61",
-  "b": 283,
-  "d": "2026-11-27",
-  "es": [
-   "🏮 Mercado nocturno: ya no se compra desde el diálogo. Cinco pilluelos roban farolillos y huyen de ti entre los puestos; si los persigues mucho se cansan. Acorrálalos y atrápalos.",
-   "🛷 Trineo sobre el lago helado (ya no es una carrera cuesta abajo): elige carril, ⚔ para correr y empujar, suéltalo en la línea azul y barre el hielo con ⚔ para dejarlo en la diana. 3 trineos que chocan entre sí.",
-   "🌠 Con 5 fragmentos estelares, el astrónomo abre una lluvia de estrellas: botan y ruedan al caer; atrapa todas las que puedas. 🛡 En la defensa del pueblo, ⚔ junto al portón lo repara entre golpe y golpe.",
-   "💌 Se quitó la cápsula del tiempo: si enterraste oro, se te devuelve con el +50 % al entrar."
-  ],
-  "en": [
-   "🏮 Night market: no more buying from the dialog. Five rascals steal lanterns and run from you between the stalls; if you chase them long they get tired. Corner them and catch them.",
-   "🛷 Sled on the frozen lake (no longer a downhill race): pick a lane, ⚔ to run and push, let go at the blue line and sweep the ice with ⚔ to stop it on the target. 3 sleds that knock each other.",
-   "🌠 With 5 star fragments, the astronomer opens a meteor shower: the stars bounce and roll when they land; catch as many as you can. 🛡 In the village defence, ⚔ next to the gate repairs it between hits.",
-   "💌 The time capsule was removed: if you buried gold, you get it back with the +50% when you log in."
-  ]
- },
- {
-  "v": "6.60",
-  "b": 282,
-  "d": "2026-11-27",
-  "es": [
-   "🏰 Vael restaurado: tras vencer al Rey Vael, Ilda de Vael te espera al sur de las Ruinas. Cinco obras con troncos, piedra y oro (columnas y estandartes, torres del portón, jardín y fuente, mercado con vecinos y salón del trono) que cambian las ruinas en el mapa.",
-   "👑 Al terminar, el Velo devuelve el eco del rey, capítulo nuevo en el Libro, 300.000 de oro y el título «Restaurador de Vael». La revancha con el rey se pide a Ilda.",
-   "🌫 Isla Velada: un islote de Altavela que baja con la niebla (3 días de cada 7). La capitana del puerto de Puerto Coral te lleva; toca las 4 runas en el orden del mural para despertar el santuario de los Vientos: oro, Plumas de Alado y el título «Explorador de la niebla»."
-  ],
-  "en": [
-   "🏰 Vael restored: after defeating King Vael, Ilda of Vael waits south of the Ruins. Five works with logs, stone and gold (columns and banners, gate towers, garden and fountain, a market with neighbours and the throne hall) that change the ruins on the map.",
-   "👑 When finished, the Veil returns the king's echo, a new chapter in the Book, 300,000 gold and the title \"Restorer of Vael\". Ask Ilda for a rematch with the king.",
-   "🌫 Veiled Isle: an Altavela islet that comes down with the fog (3 days out of 7). The Puerto Coral harbour captain takes you there; touch the 4 runes in the order of the mural to awaken the shrine of the Winds: gold, Alado feathers and the title \"Fog explorer\"."
-  ]
- },
- {
-  "v": "6.59",
-  "b": 281,
-  "d": "2026-11-27",
-  "es": [
-   "🏮 Mercado nocturno en Albor (20:00-2:00): tres puestos con farolillos y ofertas al 60 % que cambian cada noche. 🥚 Búsqueda de huevos: 8 huevos por el valle con radar frío/tibio/caliente.",
-   "🏹 Tiro con arco al norte de Albor: dianas a 3 distancias, viento y una mira que va y viene. 🛷 Carrera de trineos en los Picos Helados: pista de nieve contra 3 rivales, hielo que acelera y troncos que saltas con ⚔.",
-   "🛡 Defensa del pueblo: 4 oleadas de monstruos van a por el portón sur de Albor. 🌀 Laberinto que cambia en el Bosque Susurrante: los muros se mueven cada 25 s.",
-   "🌠 Estrellas fugaces de noche: corre al brillo y coge el Fragmento estelar; el astrónomo de Albor cambia 5 por un deseo. 💌 Cápsula del tiempo: entierra oro y un mensaje, ábrela a los 7 días con +50 % y tu dibujo de aquel día.",
-   "Todo sale en el Mapa (🎪 Actividades) y en Lupa › Sistemas."
-  ],
-  "en": [
-   "🏮 Night market in Albor (20:00-2:00): three lantern-lit stalls with 60% offers that change every night. 🥚 Egg hunt: 8 eggs around the valley with a cold/warm/hot radar.",
-   "🏹 Archery north of Albor: targets at 3 distances, wind and a sweeping sight. 🛷 Sled race on the Frozen Peaks: snow track against 3 rivals, ice that speeds you up and logs you jump with ⚔.",
-   "🛡 Village defence: 4 waves of monsters go for Albor's south gate. 🌀 Shifting maze in the Whispering Forest: the walls move every 25 s.",
-   "🌠 Shooting stars at night: run to the glow and take the Star fragment; the Albor astronomer trades 5 for a wish. 💌 Time capsule: bury gold and a message, open it after 7 days with +50% and your drawing from that day.",
-   "Everything is on the Map (🎪 Activities) and in Magnifier › Systems."
-  ]
- },
- {
-  "v": "6.58",
-  "b": 280,
-  "d": "2026-11-27",
-  "es": [
-   "📔 Diario del héroe con dibujo: cada página nueva guarda cómo eras ese día (cuerpo, pelo, armadura y cosméticos) y el libro te dibuja junto a la hazaña.",
-   "🔮 Guardia arcana (mago) e 🌲 Instinto del bosque (arquero): desde nivel 200 reciben menos daño de monstruos y jefes (hasta −40 % y −50 % a nivel 700). No cuenta en PvP. Se ve en Personaje.",
-   "⚖ PvP: el mago había quedado un poco fuerte en duelo; las 7 clases vuelven a estar igualadas.",
-   "Arreglos: el nombre del NPC más cercano ya no se dibuja encima de otro; la Fruta Transparente dice bien dónde aparece."
-  ],
-  "en": [
-   "📔 Hero's diary with drawings: every new page saves how you looked that day (body, hair, armour and cosmetics) and the book draws you next to the deed.",
-   "🔮 Arcane guard (mage) and 🌲 Forest instinct (archer): from level 200 they take less damage from monsters and bosses (up to −40% and −50% at level 700). Not in PvP. Shown in Character.",
-   "⚖ PvP: the mage had become a bit strong in duels; all 7 classes are even again.",
-   "Fixes: the nearest NPC's name no longer draws over another; the Clear Fruit says correctly where it appears."
-  ]
- },
- {
-  "v": "6.57",
-  "b": 279,
-  "d": "2026-11-27",
-  "es": [
-   "📦 El juego pesa 3,6 MB menos (39,6 → 35,9 MB): las 564 imágenes de sprites, mapas y armas se recomprimieron sin pérdida. Los píxeles son exactamente los mismos; solo carga y se actualiza antes."
-  ],
-  "en": [
-   "📦 The game is 3.6 MB smaller (39.6 → 35.9 MB): the 564 sprite, map and weapon images were recompressed losslessly. The pixels are exactly the same; it just loads and updates faster."
-  ]
- },
- {
-  "v": "6.56",
-  "b": 278,
-  "d": "2026-11-27",
-  "es": [
-   "⚡ Más fluido en celulares sencillos: España ~17 % más rápida y la Aldea de Albor hasta ~20 % tras visitar ciudades (los NPC de la ciudad que dejas ya no se recorren desde otros mapas). La multitud lejana de las plazas llenas se dibuja sin el detalle HD fino y se libera memoria al cambiar de mapa.",
-   "📦 Actualizaciones ~40 % más pequeñas (descarga comprimida, con la normal de respaldo). Se quitó el límite de 40 MB que pronto habría impedido actualizar.",
-   "📱 Crear personaje en horizontal: el botón «Comenzar aventura» queda siempre a la vista y «Novedades» ya no tapa el título. Botones al tamaño del dedo en el título, crear personaje, menús y barra superior.",
-   "🗂 Pestañas del menú con iconos distintos (🦴 Mascotas, 🏅 Pase) y borde difuminado cuando hay más para deslizar. Mapa: botón para plegar la leyenda. Texto más legible sobre el atardecer de las ventanas.",
-   "💬 Los bocadillos de los NPC ya no se tapan entre sí ni con el clima. Postura ya no pisa a Bloquear. Las casillas «+» vacías solo salen si tienes una habilidad por colocar. Consejos de talar, minar y pescar al día (casillas 🪓 ⛏ 🎣). Números enormes en corto (3,07 mil M)."
-  ],
-  "en": [
-   "⚡ Smoother on low-end phones: Spain ~17% faster and Albor Village up to ~20% after visiting cities (NPCs of the city you leave are no longer processed from other maps). Far crowds in busy squares are drawn without fine HD detail and memory is freed when changing maps.",
-   "📦 Updates ~40% smaller (compressed download, with the normal one as backup). Removed the 40 MB limit that would soon have blocked updates.",
-   "📱 Character creation in landscape: the «Start adventure» button always stays in view and «What's New» no longer covers the title. Finger-sized buttons on the title, character creation, menus and top bar.",
-   "🗂 Menu tabs with distinct icons (🦴 Pets, 🏅 Pass) and a faded edge when there are more to swipe. Map: button to fold the legend. Easier to read text over the sunset of the windows.",
-   "💬 NPC speech bubbles no longer cover each other or the weather. Stance no longer overlaps Block. Empty «+» slots only show when you have a skill to place. Chopping, mining and fishing tips updated (🪓 ⛏ 🎣 slots). Huge numbers in short form (3.07B)."
-  ]
- },
- {
-  "v": "6.55",
-  "b": 277,
-  "d": "2026-11-27",
-  "es": [
-   "🎨 Tinte de ropa: en el Armario puedes teñir el cosmético de cada ranura (8 colores, 5.000 de oro). 👔 Perchas: guarda hasta 3 conjuntos y póntelos de un toque.",
-   "💃 Desfile de moda los sábados (16:00-20:00) en las plazas: cada semana un color de tema; compites contra 3 modelos por oro y reputación.",
-   "Torre Infinita: pisos especiales 💰 tesoro, 🛒 mercader (cambia piedras por una Pluma de Fénix) y ⚠ trampa; y cada 100 pisos sale 🪞 Tu Reflejo, un enemigo con tu mismo aspecto.",
-   "🍲 Devuelve la visita a tus vecinos: después de que te visiten, te esperan para cenar junto a la plaza de cualquier ciudad (18:00-21:00).",
-   "💀 Al caer, un aviso dice qué te derrotó; Bitácora › Caídas guarda las últimas 10 con un consejo. ⚖ En el inventario se ve cuánto cambia tu ataque, defensa y vida si te pones cada pieza."
-  ],
-  "en": [
-   "🎨 Clothes dye: in the Wardrobe you can dye the cosmetic in each slot (8 colours, 5,000 gold). 👔 Hangers: save up to 3 outfits and wear them with one tap.",
-   "💃 Fashion runway on Saturdays (16:00-20:00) in the squares: a colour theme each week; compete against 3 models for gold and reputation.",
-   "Infinite Tower: special floors 💰 treasure, 🛒 merchant (trades stones for a Phoenix Feather) and ⚠ trap; and every 100 floors 🪞 Your Reflection appears, an enemy with your own look.",
-   "🍲 Return your neighbours' visit: after they visit you, they wait for you for dinner by the square of any city (18:00-21:00).",
-   "💀 When you fall, a notice says what defeated you; Logbook › Falls keeps the last 10 with a tip. ⚖ In the inventory you see how much your attack, defence and HP change if you wear each piece."
-  ]
- },
- {
-  "v": "6.54",
-  "b": 276,
-  "d": "2026-11-27",
-  "es": [
-   "📅 Reto de la semana de la Torre Infinita con top en línea: la sala muestra los 5 mejores de la semana."
-  ],
-  "en": [
-   "📅 Infinite Tower weekly challenge with an online leaderboard: the hall shows the week's top 5."
-  ]
- },
- {
-  "v": "6.53",
-  "b": 275,
-  "d": "2026-11-27",
-  "es": [
-   "☕ Chocolatada navideña: en los días de Navidad, Doña Rosa reparte chocolate caliente y panetón junto a la plaza de Lima, Lima Norte, Trujillo y Cusco (una vez al día por ciudad). 🍇 Año Nuevo: las doce uvas de la suerte en la plaza de España.",
-   "🍳 Concurso de cocina los domingos (10:00-18:00) en cada ciudad: presenta tu mejor plato contra 3 cocineros y gana oro y reputación.",
-   "🐾 Tu mascota te ayuda en los oficios: al talar, minar, pescar o recoger a veces trae una unidad más.",
-   "📚 Códice de colecciones en la Bitácora: peces, flores y platos; cada página completa da oro y un título.",
-   "Prueba nueva que pulsa dos veces todos los premios de los diálogos de los 2.098 personajes para que no se repita el bug de los regalos infinitos: 0 fallos."
-  ],
-  "en": [
-   "☕ Christmas hot chocolate: on Christmas days, Doña Rosa hands out hot chocolate and panettone by the square of Lima, North Lima, Trujillo and Cusco (once a day per city). 🍇 New Year: the twelve lucky grapes in the square of Spain.",
-   "🍳 Cooking contest on Sundays (10:00-18:00) in each city: present your best dish against 3 cooks and win gold and reputation.",
-   "🐾 Your pet helps in your jobs: chopping, mining, fishing or gathering sometimes brings one more.",
-   "📚 Collections Codex in the Logbook: fish, flowers and dishes; each completed page gives gold and a title.",
-   "New test that double-taps every dialog reward of all 2,098 characters so the infinite gifts bug can't come back: 0 failures."
-  ]
- },
- {
-  "v": "6.52",
-  "b": 274,
-  "d": "2026-11-27",
-  "es": [
-   "Avisos más ordenados: los repetidos se juntan («×2»), los «+N objeto» del mismo objeto se suman, se ven 3 a la vez, ya no tapan la barra del jefe y quedan en Bitácora › 📜 Avisos.",
-   "Las barras de tu equipo ya no tapan la misión; el regalo diario espera a que termines de luchar. Opciones › Interfaz: HUD compacto y nombres de NPC solo cerca (los de misión siempre se ven).",
-   "📍 Marcadores propios en el mapa (hasta 12): toca «Marcar» y luego el mapa; con 🧭 la flecha te lleva.",
-   "Torre Infinita: 📣 avisos rápidos para el grupo (¡Ayuda!, ¡Aquí!, ¡A por el jefe!), 🪶 Pluma de Fénix (te levanta una vez por subida si nadie puede reanimarte), 📅 reto de la semana con la misma mecánica en todos los pisos, títulos y marcos por llegar a los pisos 25, 50, 100 y 200, récord del grupo en línea y el bardo reanima el doble de rápido y cura al equipo."
-  ],
-  "en": [
-   "Tidier notices: repeated ones are merged («×2»), «+N item» of the same item add up, 3 are shown at once, they no longer cover the boss bar and they are kept in Logbook › 📜 Notices.",
-   "Your team bars no longer cover the quest; the daily gift waits until you finish fighting. Options › Interface: compact HUD and NPC names only when near (quest NPCs always shown).",
-   "📍 Your own map markers (up to 12): tap «Mark» and then the map; with 🧭 the arrow takes you there.",
-   "Infinite Tower: 📣 quick calls for the group (Help!, Over here!, Go for the boss!), 🪶 Phoenix Feather (gets you up once per climb if nobody can revive you), 📅 weekly challenge with the same mechanic on every floor, titles and frames for reaching floors 25, 50, 100 and 200, online group record, and the bard revives twice as fast and heals the team."
-  ]
- },
- {
-  "v": "6.51",
-  "b": 273,
-  "d": "2026-11-27",
-  "es": [
-   "Vestuario de la Torre Infinita: 33 prendas cosméticas nuevas en 14 conjuntos (crop top y short de volantes, vestido salvia de mangas abullonadas, blazer de espiga con pañuelo, chaqueta utilitaria oliva, gabardina, blazer de cuadros, top halter con pantalón ancho blanco, suéter de rayas con minifalda vaquera y gorra, conjuntos de girasol, carácter fuerte y afilado, gótico de volantes, perlas, otoño y calabaza). Para todas las estructuras de cuerpo, de hombre y de mujer, en las cuatro direcciones.",
-   "Cómo se consiguen: cada 5 pisos superados de la Torre Infinita (en cualquier modo) recibes la siguiente prenda, y los jefes de la torre dan una prenda que te falte (15 %, segura a los 6 jefes). Lupa › Sistemas › 🧥 Vestuario de la Torre muestra lo que tienes y el siguiente premio."
-  ],
-  "en": [
-   "Infinite Tower wardrobe: 33 new cosmetic pieces in 14 sets (crop top and ruffle shorts, sage puff-sleeve dress, herringbone blazer with scarf, olive utility jacket, trench coat, plaid blazer, halter top with white wide-leg trousers, striped sweater with denim mini skirt and cap, sunflower, strong and sharp character, ruffled gothic, pearls, autumn and pumpkin sets). For every body structure, male and female, in all four directions.",
-   "How to get them: every 5 floors cleared in the Infinite Tower (any mode) gives you the next piece, and tower bosses drop a piece you are missing (15%, guaranteed by the 6th boss). Magnifier › Systems › 🧥 Tower wardrobe shows what you have and the next reward."
-  ]
- },
- {
-  "v": "6.50",
-  "b": 272,
-  "d": "2026-11-27",
-  "es": [
-   "Torre Infinita en línea (de 2 a 7 jugadores): si caes y queda otro jugador de tu grupo en el piso, quedas «Derribado» 18 segundos, como en el mundo normal. Tu amigo puede reanimarte con el botón de acción a tu lado. Si nadie llega o te rindes, tu subida termina como antes. Si tu grupo sube de piso mientras estás derribado, te levantas y vas con ellos.",
-   "Torre Infinita en equipo de 4 (con jugadores cazadores y cazadores de los portales): si caes y queda un compañero en pie, quedas «Derribado» y el compañero más cercano corre a levantarte. Tú también puedes reanimar a un compañero caído con el botón de acción a su lado. Si el equipo supera el piso mientras estás derribado, te levantas."
-  ],
-  "en": [
-   "Online Infinite Tower (2 to 7 players): if you fall and another player from your group is still on the floor, you are «Downed» for 18 seconds, like in the normal world. Your friend can revive you with the action button next to you. If nobody comes or you give up, your climb ends as before. If your group goes up a floor while you are downed, you get up and go with them.",
-   "Infinite Tower team of 4 (with player hunters and portal hunters): if you fall and a teammate is still standing, you are «Downed» and the closest teammate runs to get you up. You can also revive a fallen teammate with the action button next to them. If the team clears the floor while you are downed, you get up."
-  ]
- },
- {
-  "v": "6.49",
-  "b": 271,
-  "d": "2026-11-27",
-  "es": [
-   "Arreglo grave: los vecinos que te visitan en casa daban regalos infinitos si no cerrabas la ventana y seguías pulsando «Recibir su regalo». Ahora el botón desaparece en cuanto recibes el regalo.",
-   "Arreglo general de las conversaciones: al pulsar una opción del menú de un personaje, la lista se actualiza sola, así las recompensas de una sola vez (regalos, títulos, cobros) ya no se pueden repetir. Los botones viejos que quedaban en pantalla ya no hacen nada.",
-   "El botón ↩ (última ventana) ya no tapa el texto de la Bitácora: se coloca justo a su derecha."
-  ],
-  "en": [
-   "Major fix: neighbours visiting your home gave infinite gifts if you kept the window open and pressed «Accept the gift» again. Now the button disappears as soon as you get the gift.",
-   "General conversation fix: after choosing an option in a character's menu, the list refreshes by itself, so one-time rewards (gifts, titles, payouts) can no longer be repeated. Stale buttons left on screen no longer do anything.",
-   "The ↩ button (last window) no longer covers the Logbook text: it now sits right next to it."
-  ]
- },
- {
-  "v": "6.48",
-  "b": 270,
-  "d": "2026-11-27",
-  "es": [
-   "Arreglo de la fase de los sellos (Rey Vael y jefes del Velo Roto): a mitad de vida el jefe se vuelve inmune hasta que pisas 3 sellos dorados, pero los sellos podían salir dentro de columnas o muros y era imposible romper el escudo. Ahora salen siempre en suelo que se puede pisar, llevan el rótulo «SELLO» con una barra de progreso, el jefe avisa «INMUNE · pisa los sellos 1/3» y, si algo falla, el escudo se rompe solo a los 35 segundos.",
-   "Revisión general de errores a nivel 5, 150, 400 y 700 (todas las pestañas, botones de Atajos, la Lupa y todos los mapas): sin errores. Los jugadores cazadores ya no intentan aparecer en lugares que no son mapas jugables."
-  ],
-  "en": [
-   "Seal phase fix (King Vael and Broken Veil bosses): at half HP the boss becomes immune until you stand on 3 golden seals, but seals could appear inside pillars or walls and the shield was impossible to break. Now they always appear on walkable ground, have a “SEAL” label with a progress bar, the boss shows “IMMUNE · stand on the seals 1/3” and, if something goes wrong, the shield breaks on its own after 35 seconds.",
-   "General error check at level 5, 150, 400 and 700 (every tab, Shortcut button, the Magnifier and every map): no errors. Player hunters no longer try to appear in places that aren't playable maps."
-  ]
- },
- {
-  "v": "6.47",
-  "b": 269,
-  "d": "2026-11-27",
-  "es": [
-   "Arreglo: los ataques en área de enemigos y jefes te alcanzaban más lejos de lo que mostraba la zona roja (por encima y por debajo del enemigo, hasta un 40 % más). Ahora solo te golpean si estás dentro de la zona que se ve.",
-   "Devorador Carmesí (asedio de la Luna de Sangre): un anillo en el suelo marca siempre dónde están sus pies y hasta dónde llega su golpe, pega un 15 % menos y pisotea algo menos seguido.",
-   "Arreglo: los jugadores cazadores dejaban a los jefes con poca vida. Ahora sus golpes a un jefe no le quitan vida de verdad: el jefe está siempre entero para ti.",
-   "Torre Infinita: ya no sale el Muñeco de prueba (era inmortal). La torre no da experiencia, oro ni objetos: solo Piedras de Mejora y, desde el piso 30, Piedras de Mejora Superior (los jefes dan varias). Fuera de la torre los enemigos dan lo de siempre."
-  ],
-  "en": [
-   "Fix: enemy and boss area attacks reached farther than the red zone showed (above and below the enemy, up to 40% more). Now they only hit you if you are inside the zone you see.",
-   "Crimson Devourer (Blood Moon siege): a ring on the ground always shows where its feet are and how far its hit reaches, it hits 15% less and stomps a bit less often.",
-   "Fix: player hunters left bosses at low HP. Their hits on a boss no longer take real HP: the boss is always whole for you.",
-   "Infinite Tower: the Training dummy no longer appears (it was immortal). The tower gives no XP, gold or items: only Upgrade Stones and, from floor 30, Superior Upgrade Stones (bosses give several). Outside the tower enemies give the usual rewards."
-  ]
- },
- {
-  "v": "6.46",
-  "b": 268,
-  "d": "2026-11-27",
-  "es": [
-   "Arreglo de las armas malditas: al quitarte un arma maldita y volver a ponértela perdía su pacto, el progreso para dominarla, y si estaba dominada o purificada (¡50.000 de oro!), y te volvía a ofrecer el pacto. Ahora lo conserva todo.",
-   "Revisado: equipar y quitar objetos malditos (anillo, collar, yelmo y armas con cada pacto) y normales, uno o varios a la vez, no baja tus estadísticas para siempre. Al quitarlos vuelven exactamente igual, y dos malditos a la vez suman sus efectos como deben."
-  ],
-  "en": [
-   "Cursed weapon fix: taking off a cursed weapon and putting it back on lost its pact, the progress to dominate it, and whether it was dominated or purified (50,000 gold!), and offered the pact again. Now it keeps everything.",
-   "Checked: equipping and removing cursed items (ring, necklace, helm and weapons with each pact) and normal ones, one or several at once, doesn't lower your stats permanently. When removed they go back exactly the same, and two cursed items at once add up their effects as they should."
-  ]
- },
- {
-  "v": "6.45",
-  "b": 267,
-  "d": "2026-11-27",
-  "es": [
-   "Arreglo grave de la Torre Infinita en equipo: con un jugador cazador de compañero la vida salía «NaN», los enemigos se quedaban a 0 sin morir y se les seguía pegando sin fin (con lag). Ahora los compañeros tienen su vida y su ataque de verdad, los enemigos mueren y se sube de piso con normalidad. Además, si alguna vez aparece un número roto, el juego lo corrige solo.",
-   "Jugadores cazadores con instinto de supervivencia: esquivan con dash (más los ágiles), llevan sus propias pociones (las gastan y las recuperan con el tiempo) y, si se quedan sin pociones y con poca vida, huyen y se sientan a recuperarse antes de volver a pelear."
-  ],
-  "en": [
-   "Major fix for the Infinite Tower in a team: with a player hunter as a companion, HP showed “NaN”, enemies stayed at 0 without dying and kept being hit endlessly (with lag). Companions now have their real HP and attack, enemies die and floors go up normally. If a broken number ever appears, the game fixes it on its own.",
-   "Player hunters with survival instinct: they dodge with a dash (agile ones more), carry their own potions (they use them and get them back over time) and, when out of potions and low on HP, they run away and sit down to recover before fighting again."
-  ]
- },
- {
-  "v": "6.44",
-  "b": 266,
-  "d": "2026-11-27",
-  "es": [
-   "Torre Infinita, más fácil de encontrar: en la Torre de los Portales, la plataforma de teletransporte dorada junto a la entrada te lleva a la Sala de la Torre Infinita (portal, top y la guardiana Ilse).",
-   "Jugadores cazadores: su perfil es como tu ficha de personaje (equipo, estadísticas reales, atributos y su historia). Van a tu velocidad, usan dash y montura en los mapas abiertos y rodean los obstáculos. Los enemigos, jefes y súper jefes también los atacan: pueden caer y se levantan solos o los levanta otro. Pueden pelear contra jefes, pero nunca los rematan ni se meten si tú los estás peleando (y el jefe se recupera cuando se van).",
-   "Jugadores cazadores: así se llaman ahora (para no confundirlos con los cazadores de los portales). Viven su propia aventura, sin tu hilo: mejoran su equipo (+1 a +10), suben oficios, consiguen formas, vencen jefes, suben la Torre Infinita y viajan por todos los países y mapas. Míralo en su perfil (📖 Su historia).",
-   "Se transforman en combate con su aura y su destello, y cambian de forma en plena pelea si tienen varias. Tienen diálogos nuevos según dónde están y qué han hecho. No te pueden revivir.",
-   "Puedes atacar a un jugador cazador sin pedirle duelo: se defiende (y se transforma). Si gana o pierde, lo recuerda.",
-   "Torre Infinita · Equipo de 4: tú y 3 compañeros con IA (cazadores de los portales y jugadores cazadores de tu nivel), con récord de equipo.",
-   "Torre Infinita · En línea: con tu grupo, hasta 4 o hasta 7 jugadores, sin top (solo para ver cuánto aguantáis). Los enemigos que vence uno desaparecen para todos y subís juntos."
-  ],
-  "en": [
-   "Infinite Tower, easier to find: in the Portal Tower, the golden teleporter pad by the entrance takes you to the Infinite Tower Hall (portal, leaderboard and the warden Ilse).",
-   "Player hunters: their profile looks like your character sheet (gear, real stats, attributes and their story). They move at your speed, use dash and mounts on open maps and walk around obstacles. Enemies, bosses and super bosses attack them too: they can fall and get up on their own or another one helps them. They can fight bosses but never finish them or join if you are fighting them (and the boss recovers when they leave).",
-   "Player hunters: that's their name now (so they aren't confused with the portal hunters). They live their own adventure, without your thread: they upgrade gear (+1 to +10), raise jobs, get forms, defeat bosses, climb the Infinite Tower and travel across every country and map. See it in their profile (📖 Their story).",
-   "They transform in combat with their aura and flash, and switch forms mid-fight if they have several. They have new dialogue depending on where they are and what they've done. They can't revive you.",
-   "You can attack a player hunter without asking for a duel: they fight back (and transform). Win or lose, they remember it.",
-   "Infinite Tower · Team of 4: you and 3 AI companions (portal hunters and player hunters of your level), with a team record.",
-   "Infinite Tower · Online: with your group, up to 4 or up to 7 players, no leaderboard (just to see how long you last). Enemies one of you defeats vanish for everyone and you climb together."
-  ]
- },
- {
-  "v": "6.43",
-  "b": 265,
-  "d": "2026-11-27",
-  "es": [
-   "Torre Infinita: en la Torre de los Portales, el portal dorado del centro. Salas sin fin: cada piso los enemigos suben 5 niveles y entran 5 o más, y cada 10 pisos hay un jefe. Salen todos los enemigos del juego y los jefes de zona, continente, cueva y portal (sin súper jefes ni jefes de la historia), más 6 enemigos y 2 jefes nuevos propios de la torre, con mecánicas por piso (rápidos, acorazados, furiosos, enjambre, élite, oscuridad, se regeneran o explotan). Pueden pasar del nivel 700: es una prueba de resistencia con top en línea.",
-   "Si caes en la torre no mueres como siempre: la subida termina, vuelves a la entrada y tu mejor piso queda en el top. Puedes volver a empezar en el último múltiplo de 10 que superaste.",
-   "Cazadores por todo el mundo: en cada mapa abierto y en las ciudades hay 8-18 cazadores con nombre propio (Zack, Luna, Vale99…) que van y vienen por el mapa: farmean, viajan, talan, pican, pescan, saludan, charlan entre ellos, descansan y suben de nivel solos; no te ayudan ni comparten experiencia, y no te roban los monstruos ni tu zona de farmeo. Habla con ellos para ver su perfil o desafiarlos a un duelo.",
-   "Hay algo menos de gente por las calles de España y muy poco menos en Perú."
-  ],
-  "en": [
-   "Infinite Tower: in the Portal Tower, the golden portal in the middle. Endless rooms: each floor enemies gain 5 levels and 5 or more come in, and every 10 floors there is a boss. Every enemy in the game and the zone, continent, cave and portal bosses show up (no super bosses or story bosses), plus 6 enemies and 2 bosses of the tower’s own, with mechanics per floor (fast, armored, furious, swarm, elite, darkness, regenerating or exploding). They can go past level 700: it is an endurance test with an online leaderboard.",
-   "If you fall in the tower you don’t die as usual: the climb ends, you go back to the entrance and your best floor goes on the leaderboard. You can restart at the last multiple of 10 you cleared.",
-   "Hunters around the world: every open map and city has 8-18 hunters with their own names (Zack, Luna, Vale99…) who come and go across the map: they farm, travel, chop, mine, fish, wave, chat with each other, rest and level up on their own; they don’t help you or share XP, and they don’t steal your monsters or your farming zone. Talk to them to see their profile or challenge them to a duel.",
-   "Slightly fewer people on the streets of Spain and a little fewer in Peru."
-  ]
- },
- {
-  "v": "6.42",
-  "b": 264,
-  "d": "2026-11-26",
-  "es": [
-   "Auras de transformación: cada forma y cada fusión tiene su aura animada detrás del personaje, solo mientras estás transformado. Despertar Dorado: llamas de luz en punta con el centro blanco y rayos. Alado Caído: aura angelical con alas de luz celeste. Fantasma: niebla de luna con fantasmitas. También Lobo, Vampiro, Dragón (y 2.0), Eco sin Pintar, Hielo (y Cristal 2.0), Engranaje 2, Tejedor Primordial, Dragón de Hielo, Boceto de Fuego y Ángel de Niebla.",
-   "Al transformarte sale un destello propio de cada forma que desaparece en menos de medio segundo.",
-   "Engranaje 2: al transformarte te agachas un momento (mano en la rodilla y el puño en el suelo) echando vapor.",
-   "🌀 Transformaciones › «Aura: sí / no» para apagar el aura si no te gusta (también la dejan de ver los demás en el online)."
-  ],
-  "en": [
-   "Transformation auras: every form and fusion has its own animated aura behind the character, only while transformed. Golden Awakening: spiky flames of light with a white core and lightning. Fallen Winged: an angelic aura with wings of sky-blue light. Ghost: moonlit mist with little ghosts. Also Wolf, Vampire, Dragon (and 2.0), Unpainted Echo, Ice (and Crystal 2.0), Gear 2, Primordial Weaver, Ice Dragon, Fire Sketch and Mist Angel.",
-   "When you transform, each form shows its own flash that fades in under half a second.",
-   "Gear 2: when you transform you crouch for a moment (hand on the knee and fist on the ground) letting off steam.",
-   "🌀 Transformations › «Aura: on / off» to turn the aura off if you don’t like it (other players online stop seeing it too)."
-  ]
- },
- {
-  "v": "6.41",
-  "b": 263,
-  "d": "2026-11-26",
-  "es": [
-   "Oro equilibrado: la carrera de relevos, la carrera de dragones, los casos del Tren Misterio, el duelo de cocina y las esculturas de arena se podían repetir sin límite pagando 80.000-600.000 cada vez. Ahora pagan entero las 3 primeras veces de cada día, el 40 % de la 4.ª a la 6.ª y el 15 % después (avisa cuando baja).",
-   "Revisados los trabajos (100-2.000 por ronda) y los minijuegos de los pueblos: pagan en línea con el resto del juego.",
-   "Árbol genealógico: los nietos y bisnietos cuyo padre o madre ya pasó al Memorial volvían a no salir; ahora salen. El Memorial guarda los 100 antepasados más recientes y los más antiguos se borran del todo, para que la partida no crezca (toda la familia ocupa unos 10-16 KB)."
-  ],
-  "en": [
-   "Balanced gold: the relay race, dragon race, Mystery Train cases, cooking duel and sand sculptures could be repeated endlessly paying 80,000-600,000 each time. They now pay in full the first 3 times each day, 40% from the 4th to the 6th and 15% after that (with a notice).",
-   "Jobs (100-2,000 per round) and town minigames checked: they pay in line with the rest of the game.",
-   "Family tree: grandchildren and great-grandchildren whose parent had moved to the Memorial didn’t show; now they do. The Memorial keeps the 100 most recent ancestors and older ones are deleted for good, so the save doesn’t grow (the whole family takes about 10-16 KB)."
-  ]
- },
- {
-  "v": "6.40",
-  "b": 262,
-  "d": "2026-11-26",
-  "es": [
-   "Arreglo grave: «Cambiar pigmentos» de Tinta (Tierras sin Pintar) pagaba otra vez cada vez que pulsabas sin cerrar la conversación (oro infinito). Lo mismo en entregar paquetes del cartero, el regalo de la fiesta y los loquitos de las ciudades, el misterio de detective, la leyenda y la última campana del Velo: ahora solo pagan una vez.",
-   "Arreglo: el duelo de rivales dejaba la pantalla parada con un error rojo. Además tu pareja y tus hijos que te seguían se duplicaban en la arena: ahora vuelven a casa durante el duelo.",
-   "Camposanto: solo las 12 tumbas más recientes de tu familia tienen cuerpo y datos; las generaciones antiguas pasan al Memorial del monumento («Rendir tributo») con su nombre, generación y años, para que no se sature.",
-   "En línea, el cementerio se comparte: los demás ven tus 3 últimos fallecidos y tú ves los suyos en hasta 4 tumbas de tu Camposanto, con el nombre de su familia."
-  ],
-  "en": [
-   "Serious fix: Tinta’s «Trade pigments» (Unpainted Lands) paid again every time you tapped without closing the conversation (infinite gold). Same for the postman’s parcels, the city festival gift and calmed nutters, the detective mystery, the legend and the Veil’s last bell: they now pay only once.",
-   "Fix: the rival duel froze the screen with a red error. Your partner and children following you also duplicated in the arena: they now go home during the duel.",
-   "Graveyard: only your family’s 12 most recent graves have a body and details; older generations move to the monument’s Memorial («Pay tribute») with their name, generation and years, so it doesn’t fill up.",
-   "Online, the graveyard is shared: others see your 3 latest departed and you see theirs in up to 4 graves of your Graveyard, with their family’s name."
-  ]
- },
- {
-  "v": "6.39",
-  "b": 261,
-  "d": "2026-11-26",
-  "es": [
-   "En el Camposanto del Alba ves a tu familiar enterrado delante de su lápida: su cuerpo tumbado bajo la tierra, con su aspecto (con canas si se fue mayor) y tus flores alrededor.",
-   "Al acercarte ves sobre la tumba su nombre, el día en que nació, el día en que murió y cuánto lleva fallecido. Descansa con los ojos cerrados.",
-   "Acércate a su tumba y elige «Dejar unas palabras» (5 frases o las tuyas): tu personaje las dice y quedan escritas sobre la tumba.",
-   "Tu pareja, la madre o el padre de ese hijo, tiene frases nuevas: duelo los primeros días, luto después y recuerdos con el tiempo. En «Relación ♥» sale «Hablar de <nombre>» (un recuerdo cada vez) e «Ir juntos a su tumba» con la flecha dorada."
-  ],
-  "en": [
-   "In the Dawn Graveyard you see your relative buried in front of their headstone: their body lying under the earth, with their look (with grey hair if they left old) and your flowers around.",
-   "When you get close you see their name, the day they were born, the day they died and how long ago above the grave. They rest with their eyes closed.",
-   "Walk up to their grave and choose «Leave a few words» (5 phrases or your own): your character says them and they stay written above the grave.",
-   "Your partner, that child’s mother or father, has new lines: grief in the first days, mourning afterwards and memories over time. «Relationship ♥» shows «Talk about <name>» (a memory each time) and «Go to their grave together» with the golden arrow."
-  ]
- },
- {
-  "v": "6.38",
-  "b": 260,
-  "d": "2026-11-26",
-  "es": [
-   "Mapa › Tierras del Vínculo: nueva categoría «Camposanto del Alba» con la entrada y la tumba de cada familiar fallecido († nombre y edad). Tócala y la flecha dorada te lleva.",
-   "Cuando fallece un hijo o un nieto, la flecha dorada apunta sola a su tumba (al sur de Albor, cruzando la vía del tren).",
-   "Árbol genealógico: botón «🕯 Ir al Camposanto»."
-  ],
-  "en": [
-   "Map › Lands of the Bound: new «Dawn Graveyard» category with the entrance and the grave of each relative who passed away († name and age). Tap it and the golden arrow leads you there.",
-   "When a child or grandchild passes away, the golden arrow points to their grave by itself (south of Albor, across the railway).",
-   "Family tree: «🕯 Go to the Graveyard» button."
-  ]
- },
- {
-  "v": "6.37",
-  "b": 259,
-  "d": "2026-11-26",
-  "es": [
-   "El maná se recupera más rápido: 1,45 % por segundo en combate (antes 1,2 %) y 4 % fuera de combate (antes 3 %). Con el coste nuevo de la 6.36, la barra baja al empezar la pelea y luego se mantiene.",
-   "No hace falta subir Inteligencia para lanzar más habilidades: el coste y la recuperación van en % de tu maná máximo."
-  ],
-  "en": [
-   "Mana regenerates faster: 1.45% per second in combat (was 1.2%) and 4% out of combat (was 3%). With the 6.36 cost, the bar drops at the start of a fight and then holds.",
-   "You don’t need Intelligence to cast more skills: cost and regen are a % of your max mana."
-  ]
- },
- {
-  "v": "6.36",
-  "b": 258,
-  "d": "2026-11-26",
-  "es": [
-   "El maná importa: cada habilidad de tu clase cuesta lo de siempre o un % de tu maná máximo según su recarga (9 s ≈ 3 %, 30 s ≈ 11 %, 60 s ≈ 22 %). Antes el mago, el bardo y el invocador tenían maná casi infinito. Lanzarlas todas en cuanto salen gasta algo más de lo que recuperas en combate: hay que elegir.",
-   "La barra pone en gris las habilidades que no te alcanzan y la ficha de cada una dice su coste real.",
-   "Arquero: Espíritu del Bosque cura un 25 % (antes 20 %), se recarga en 24 s y da +20 % de defensa durante 8 s. Mago: Escudo Arcano absorbe un 30 % (antes 25 %) y Armadura de Escarcha da +30 % de defensa durante 25 s."
-  ],
-  "en": [
-   "Mana matters: each class skill costs its usual amount or a % of your max mana based on its cooldown (9 s ≈ 3%, 30 s ≈ 11%, 60 s ≈ 22%). Before, mages, bards and summoners had almost infinite mana. Casting them all as soon as they are ready costs a bit more than you regain in combat: you have to choose.",
-   "The bar greys out skills you can’t afford and each skill’s card shows its real cost.",
-   "Archer: Forest Spirit heals 25% (was 20%), recharges in 24 s and gives +20% defence for 8 s. Mage: Arcane Shield absorbs 30% (was 25%) and Frost Armour gives +30% defence for 25 s."
-  ]
- },
- {
-  "v": "6.35",
-  "b": 257,
-  "d": "2026-11-26",
-  "es": [
-   "Los enemigos de tu nivel ya hacen daño de verdad: monstruos ×1,6, jefes ×1,8 y súper jefes ×2,2 contra ti (no contra tus aliados ni en PvP). Sube poco a poco de nivel 15 a 60, así que el principio no cambia. Los jefes del Mar de Dawn ya tenían su reto y no suben más. Usa tus habilidades de cura, escudo y defensa, pociones y esquiva.",
-   "Calidad de armaduras: cada armadura que consigues (botín, Herrería, tienda, misión) puede salir Mala (12 %, −5 %), Normal (77 %), Buena (10 %, +8 %) o Excelente (1 %, +15 %) en defensa y vida. Se ve en el inventario con un puntito de color y en su detalle, te avisa al conseguirla y se conserva al equiparla. Las que ya tenías son Normales.",
-   "Revisadas todas las habilidades activas de las 7 clases: todas se lanzan y hacen lo que dicen."
-  ],
-  "en": [
-   "Enemies of your level now really hurt: monsters ×1.6, bosses ×1.8 and super bosses ×2.2 against you (not against allies or in PvP). It ramps up from level 15 to 60, so the start doesn’t change. Dawn Sea bosses already had their challenge and don’t go higher. Use your heal, shield and defence skills, potions and dodging.",
-   "Armour quality: every armour you get (loot, Forge, shop, quest) can be Poor (12%, −5%), Normal (77%), Good (10%, +8%) or Excellent (1%, +15%) in defence and HP. It shows in the bag with a coloured dot and in its details, you get a notice, and it’s kept when equipped. The ones you already had are Normal.",
-   "All active skills of the 7 classes checked: they all cast and do what they say."
-  ]
- },
- {
-  "v": "6.34",
-  "b": 256,
-  "d": "2026-11-26",
-  "es": [
-   "▦ Atajos › ☠ Objetos malditos (nuevo): cómo funcionan (la maldición solo cuenta mientras llevas el objeto puesto; se quita como cualquier equipo y puedes llevar los 3 a la vez), cómo salen (fantasmas, Niebla maldita y jefes: 2 %, jefes 8 %), cuántos tienes, cuáles llevas puestos y el arma maldita de tu clase con su pacto, cómo dominarla o purificarla.",
-   "El aviso «¡Un objeto maldito!» dice dónde mirarlo, y está también en Lupa › Sistemas.",
-   "Huerto: al tocar un bancal vacío eliges qué plantar. Cada semilla dice el nivel de Agricultura que pide (🔒 si te falta), cuánto tarda y si es de temporada.",
-   "Arreglo: «Dónde conseguir» de Coralita, Nacarita, Piedra del Mar y sus troncos daba error; ahora dice en qué islas del Mar de Dawn están."
-  ],
-  "en": [
-   "▦ Shortcuts › ☠ Cursed items (new): how they work (the curse only counts while you wear the item; take it off like any gear and you can wear all 3), how they drop (ghosts, Cursed Fog and bosses: 2%, bosses 8%), how many you have, which you wear, and your class’s cursed weapon with its pact and how to dominate or purify it.",
-   "The «A cursed item!» notice says where to look, and it’s also in Magnifier › Systems.",
-   "Garden: tapping an empty plot lets you choose what to plant. Each seed shows the Farming level it needs (🔒 if you lack it), how long it takes and whether it is in season.",
-   "Fix: «Where to get» for Coralite, Nacrite, Seastone and their logs gave an error; it now says which Dawn Sea islands they are on."
-  ]
- },
- {
-  "v": "6.33",
-  "b": 255,
-  "d": "2026-11-26",
-  "es": [
-   "▦ Atajos › ¿Qué hago ahora? más claro. ⚔ Para subir de nivel: barra de experiencia, cuánto te falta, cuántos monstruos de tu nivel son, cuáles y dónde están, con ➜ Llévame (flecha dorada).",
-   "🛡 Tu armadura (nuevo): por ranura, la mejor que puedes forjar en la Herrería para tu nivel y clase, si ya la llevas, sus materiales (tienes / pide) y el oro, con flecha a la Herrería y al sitio del material que falta.",
-   "⚒ Tala, Minería y Pesca: tope 130 y hasta 160 con las 3 maestrías, el árbol, veta o pez de tu nivel y el siguiente, qué herramienta te falta, los árboles, vetas y peces del Mar de Dawn (tier 23-25) con la herramienta que piden, y consejos."
-  ],
-  "en": [
-   "▦ Shortcuts › What do I do now? is clearer. ⚔ To level up: experience bar, how much you need, how many monsters of your level that is, which ones and where, with ➜ Take me (golden arrow).",
-   "🛡 Your armour (new): per slot, the best you can forge at the Forge for your level and class, whether you already wear it, its materials (have / need) and gold, with an arrow to the Forge and to where the missing material is.",
-   "⚒ Woodcutting, Mining and Fishing: cap 130 and up to 160 with the 3 masteries, your level’s tree, vein or fish and the next, which tool you lack, the Dawn Sea trees, veins and fish (tier 23-25) with the tool they need, and tips."
-  ]
- },
- {
-  "v": "6.32",
-  "b": 254,
-  "d": "2026-11-26",
-  "es": [
-   "Conjunto de la Bruja Carmesí en el Taller de Morwenna (Albor), por piezas: Sombrero Carmesí con Gafas, Top Doble de Hombro Caído (polera negra de cuello alto, blusa gris, collar con colgante y el hombro al aire), Falda de Capas Rasgada, Botas Altas de Cordones y Capa Rasgada Carmesí.",
-   "Cada pieza va a su ranura del Armario (Cabeza, Torso, Piernas, Pies y Espalda), se ajusta a todas las estructuras de hombre y mujer y se ve en las cuatro direcciones. El sombrero deja ver tu peinado por debajo del ala."
-  ],
-  "en": [
-   "Crimson Witch outfit at Morwenna’s Workshop (Albor), sold by pieces: Crimson Hat with Goggles, Off-Shoulder Double Top (black turtleneck, grey blouse, pendant necklace and a bare shoulder), Tattered Layered Skirt, Laced Thigh-High Boots and Tattered Crimson Cape.",
-   "Each piece goes to its Wardrobe slot (Head, Torso, Legs, Feet and Back), fits every male and female body type and shows in all four directions. The hat lets your hairstyle show under the brim."
-  ]
- },
- {
-  "v": "6.31",
-  "b": 253,
-  "d": "2026-11-26",
-  "es": [
-   "Día, tarde y noche en todo el Mar de Dawn, con la hora del reloj de arriba: amanecer rosado, tarde dorada y noche azul con las ventanas encendidas y faroles en el barco.",
-   "El mapa del Mar de Dawn ya cabe entero y se ven todas las islas; con + se arrastra con el dedo.",
-   "Pesca en la popa del Going Merry con Luffy y Usopp: 6 lances, pulsa ⚔ cuando pique el corcho. Peces de Dawn, botas viejas… y a veces un Rey Marino bebé.",
-   "Historias de Usopp: ¿verdad o mentira? Acierta y gana oro.",
-   "Banquete de la tripulación: al terminar cada arco (y una vez al día) todos bailan en el comedor y Sanji sirve carne (bono de 20 min).",
-   "Mapas de Nami: recorre todos los lugares de cada isla y Nami la dibuja (oro por isla y premio grande al completar el mar).",
-   "Den Den Mushi: el caracol teléfono del Merry suena y te llaman Garp, Makino, Zeff, Johnny, Gaimon, Kaya o Smoker con encargos.",
-   "Romance con Nami, con sus propias frases y todo el sistema de pareja: coquetear, regalos, abrazo, beso, paseo de la mano, pareja, boda e hijos que mezclan tu pelo con el naranja de Nami.",
-   "Todo en el menú del barco y en Lupa › Crossovers › Vida a bordo del Merry."
-  ],
-  "en": [
-   "Day, afternoon and night across the whole Dawn Sea, following the clock at the top: pink dawn, golden afternoon and blue night with lit windows and ship lanterns.",
-   "The Dawn Sea map now fits entirely and shows every island; with + you can drag it with your finger.",
-   "Fishing off the Going Merry’s stern with Luffy and Usopp: 6 casts, press ⚔ when the float bites. Dawn fish, old boots… and sometimes a baby Sea King.",
-   "Usopp’s stories: true or lie? Guess right and win gold.",
-   "Crew feast: after clearing each arc (and once a day) everyone dances in the dining room and Sanji serves meat (20-min bonus).",
-   "Nami’s maps: visit every place on each island and Nami draws it (gold per island and a big prize for completing the sea).",
-   "Den Den Mushi: the Merry’s snail phone rings and Garp, Makino, Zeff, Johnny, Gaimon, Kaya or Smoker call with tasks.",
-   "Romance with Nami, with her own lines and the whole couple system: flirting, gifts, hug, kiss, hand-in-hand walk, partner, wedding and children who mix your hair with Nami’s orange.",
-   "All in the ship menu and Lupa › Crossovers › Life aboard the Merry."
-  ]
- },
- {
-  "v": "6.30",
-  "b": 252,
-  "d": "2026-11-26",
-  "es": [
-   "Casa de Dadan nueva en el Monte Colubo (Villa Foosha), igual que en el anime: casa larga de madera con tejas rojas, torre de vigía, tendedero y escaleras. No se puede entrar. Fuera están Dadan, Luffy, Ace y Sabo niños con los sprites de Sergio y su retrato en los diálogos.",
-   "Primera historia del Mar de Dawn (antes de Shanks): «Recuerdo de los hermanos». Cinemática de Garp, sigue a Ace hasta el Gray Terminal, conoce a Sabo, pelea con Porchemy, caza el Jabalí Gigante del Colubo, salva el Gray Terminal de Bluejam y la cinemática de las copas de sake. Luffy, Ace y Sabo niños pelean contigo. Se repite hablando con Dadan.",
-   "Ropa de los tres hermanos (14 prendas sueltas, para todos los cuerpos): sombrero de paja en la cabeza o colgado a la espalda, camiseta «56», ropa de Ace con su saco y la de Sabo con chistera, abrigo y tubo. La primera vez caen 3 prendas seguras; al repetir, 20 % por prenda y segura a las 8.",
-   "Isla nueva: Aldea Shimotsuki con el Dojo Isshin. Koshiro, alumnos con gi entrenando, Zoro niño y Kuina (con retrato). Entrenamiento, duelo con Zoro niño y duelo con Kuina (con la escena de la promesa).",
-   "Isla nueva: Cuartel General de la Marina, con su fortaleza y los dos arcos. Se entra al vestíbulo y Garp acepta un duelo de puños (nivel 700). En los costados, zonas restringidas con marines de élite de nivel 690-700.",
-   "Todo explicado en Lupa › Crossovers."
-  ],
-  "en": [
-   "New Dadan’s house on Mount Colubo (Foosha Village), just like the anime: a long wooden house with red tiles, a lookout tower, a clothesline and ladders. You can’t go in. Outside are Dadan and young Luffy, Ace and Sabo with Sergio’s sprites and their portraits in dialogue.",
-   "First Dawn Sea story (before Shanks): “Memory of the brothers”. Garp cutscene, follow Ace to the Gray Terminal, meet Sabo, fight Porchemy, hunt the Giant Colubo Boar, save the Gray Terminal from Bluejam and the sake cups cutscene. Young Luffy, Ace and Sabo fight alongside you. Replay it by talking to Dadan.",
-   "The three brothers’ clothes (14 separate pieces, for every body): straw hat on the head or hanging on the back, the “56” tank top, Ace’s clothes with his sack and Sabo’s with top hat, coat and pipe. The first time 3 pieces are guaranteed; on replays, 20% per piece and guaranteed by the 8th.",
-   "New island: Shimotsuki Village with the Isshin Dojo. Koshiro, students in gi training, young Zoro and Kuina (with portraits). Training, a duel with young Zoro and a duel with Kuina (with the promise scene).",
-   "New island: Navy Headquarters, with its fortress and the two arches. Go into the hall where Garp accepts a fist duel (level 700). On the sides, restricted zones with level 690-700 elite marines.",
-   "Everything is explained in Lupa › Crossovers."
-  ]
- },
- {
-  "v": "6.29",
-  "b": 251,
-  "d": "2026-11-26",
-  "es": [
-   "Mapas del tesoro de Buggy: los barcos piratas, los Reyes Marinos, los buscados de Johnny y Yosaku y los buques de guerra sueltan trozos. Nami los lee, la flecha te lleva a una isla, buscas la ✗ roja y cavas con la espada (6 toques) para abrir el cofre.",
-   "La Marina te persigue más fuerte: con recompensa de peligro 3 o más puede salir un buque de guerra de un vicealmirante (mucha vida, andanadas de 3 proyectiles). Hundirlo da mucho oro y dispara tu recompensa.",
-   "Asaltos semanales (pídeselos a Johnny o Yosaku): la venganza de Buggy en Orange Town (cuchillos voladores Bara Bara), la flota de Don Krieg junto al Baratie y Hatchan, Kuroobi y Chew a la vez en Conomi. Cambian cada semana; la primera victoria da 400.000 de oro, 2 trozos de mapa y un material raro.",
-   "Todo explicado en Lupa › Crossovers › Tesoros, buques y asaltos."
-  ],
-  "en": [
-   "Buggy’s treasure maps: pirate ships, Sea Kings, Johnny and Yosaku’s wanted pirates and warships drop pieces. Nami reads them, the arrow takes you to an island, you find the red ✗ and dig with the sword (6 taps) to open the chest.",
-   "The Navy hunts you harder: with a bounty of danger 3 or more, a vice admiral’s warship may appear (lots of HP, 3-shot volleys). Sinking it gives lots of gold and sends your bounty soaring.",
-   "Weekly raids (ask Johnny or Yosaku): Buggy’s revenge in Orange Town (Chop-Chop flying knives), Don Krieg’s fleet by the Baratie, and Hatchan, Kuroobi and Chew at once in Conomi. They change every week; the first win gives 400,000 gold, 2 map pieces and a rare material.",
-   "Everything is explained in Lupa › Crossovers › Treasures, warships and raids."
-  ]
- },
- {
-  "v": "6.28",
-  "b": 250,
-  "d": "2026-11-26",
-  "es": [
-   "Alvida, revancha (muelle de Loguetown): ahora con la fruta Sube Sube; cuando brilla, los golpes resbalan, y tras embestir se marea. Premio: Espejo Sube Sube.",
-   "Nezumi vuelve al huerto de Nojiko con sus marines (Conomi, tras Arlong).",
-   "Johnny y Yosaku: 3 encargos de cazarrecompensas al día; la flecha te lleva al pirata buscado.",
-   "La Montaña del Revés (tras Loguetown, al noreste del mar): sube con el Merry, calma a Laboon a cañonazos y recibe el Log Pose.",
-   "La Isla del Barco de Guerra: escolta la balsa de Apis hundiendo 3 barcos de la Marina y conoce al dragón milenario."
-  ],
-  "en": [
-   "Alvida rematch (Loguetown pier): now with the Slip-Slip Fruit; when she shines, hits slip off, and after charging she gets dizzy. Reward: Slip-Slip Mirror.",
-   "Nezumi returns to Nojiko’s grove with his marines (Conomi, after Arlong).",
-   "Johnny and Yosaku: 3 bounty hunting jobs a day; the arrow takes you to the wanted pirate.",
-   "Reverse Mountain (after Loguetown, north-east of the sea): climb it with the Merry, calm Laboon with cannon fire and get the Log Pose.",
-   "Warship Island: escort Apis’s raft by sinking 3 Navy ships and meet the thousand-year dragon."
-  ]
- },
- {
-  "v": "6.27",
-  "b": 249,
-  "d": "2026-11-26",
-  "es": [
-   "Misiones de la tripulación (pídeselas hablando con ellos): Luffy «El sombrero de paja», Zoro «La promesa de Kuina», Usopp «Una carta para Kaya», Sanji «El sueño del All Blue» y Nami «Los mandarinos de Bell-mère». La flecha dorada te lleva a cada isla.",
-   "Ataques combinados: al completar las misiones de Luffy, Zoro, Usopp y Sanji, el botón 🤝 (o la tecla C) lanza un gran golpe en área con ese tripulante cuando la barra está llena. La de Nami hace que el Merry navegue un 10 % más rápido y que las tormentas esquivadas paguen el doble.",
-   "Sanji ya tiene su cartel de recompensa, y Baratie, Arlong Park y Loguetown suben las recompensas de la tripulación.",
-   "Periódico: una gaviota mensajera lo trae una vez al día en el Mar de Dawn (Lupa › Crossovers › Periódico)."
-  ],
-  "en": [
-   "Crew quests (ask them by talking to them): Luffy “The straw hat”, Zoro “Kuina’s promise”, Usopp “A letter for Kaya”, Sanji “The All Blue dream” and Nami “Bell-mère’s tangerine trees”. The golden arrow takes you to each island.",
-   "Combined attacks: completing Luffy’s, Zoro’s, Usopp’s and Sanji’s quests lets the 🤝 button (or the C key) launch a big area hit with that crewmate when the bar is full. Nami’s makes the Merry sail 10 % faster and dodged storms pay double.",
-   "Sanji now has his bounty poster, and the Baratie, Arlong Park and Loguetown raise the crew’s bounties.",
-   "Newspaper: a News Coo brings it once a day in the Dawn Sea (Lupa › Crossovers › Newspaper)."
-  ]
- },
- {
-  "v": "6.26",
-  "b": 248,
-  "d": "2026-11-26",
-  "es": [
-   "Batallas en el mar: al timón del Going Merry, el botón de la espada dispara los cañones. Hunde barcos piratas (restos de la flota de Krieg) y el barco de la Marina que te persigue (tu recompensa sube).",
-   "Reyes Marinos: Tiburón, Martillo y Kraken salen del agua, se sumergen y vuelven. Sueltan Carne de Rey Marino para el Festín del Rey Marino de Sanji.",
-   "Sus ataques marcan el agua en rojo: aparta el barco. El Merry tiene 100 de vida; Usopp lo repara y al atracar queda como nuevo. La cámara sigue al enemigo y unas flechas marcan los que no se ven.",
-   "Tormentas: Nami avisa hacia dónde girar. Dentro llueve, el viento te arrastra y caen rayos. Si la esquivas: oro y viento a favor."
-  ],
-  "en": [
-   "Sea battles: at the Going Merry’s helm, the sword button fires the cannons. Sink pirate ships (Krieg’s fleet remnants) and the Navy ship chasing you (your bounty rises).",
-   "Sea Kings: Shark, Hammerhead and Kraken rise from the water, dive and come back. They drop Sea King meat for Sanji’s Sea King Feast.",
-   "Their attacks mark the water in red: move the ship. The Merry has 100 HP; Usopp repairs it and docking makes it as good as new. The camera follows the enemy and arrows mark those off screen.",
-   "Storms: Nami tells you which way to turn. Inside it rains, the wind drags you and lightning strikes. Dodge it: gold and a tailwind."
-  ]
- },
- {
-  "v": "6.25",
-  "b": 247,
-  "d": "2026-11-26",
-  "es": [
-   "Bajo cubierta del Going Merry: navegando, habla con la tripulación y elige «Bajar a la cocina y el comedor». Cocina, comedor con la mesa verde y el mástil, y salita con bodega. Toda tu tripulación está abajo y la escalera te devuelve al timón.",
-   "Cocinar con Sanji: recoge 3 ingredientes por la cocina y pulsa ⚔ en el fogón cuando la llama esté en la zona verde. Carne (ataque), risotto (defensa) o postre de mandarina (velocidad) durante 20 min, y la tripulación pega más fuerte.",
-   "Entrenamientos en la salita: puntería con Usopp, cortes con Zoro y esquivar a Sanji (30 s, oro y un bono de 10 min).",
-   "Lupa › Crossovers: páginas nuevas del Going Merry y del poder y duelos de la tripulación."
-  ],
-  "en": [
-   "Going Merry below deck: while sailing, talk to the crew and choose “Go below to the galley and dining room”. Galley, dining room with the green table and the mast, and a lounge with the hold. Your whole crew is below and the ladder takes you back to the helm.",
-   "Cook with Sanji: pick up 3 ingredients around the galley and press ⚔ at the stove when the flame is in the green zone. Meat (attack), risotto (defense) or tangerine dessert (speed) for 20 min, and the crew hits harder.",
-   "Training in the lounge: aim with Usopp, cuts with Zoro and dodging Sanji (30 s, gold and a 10 min bonus).",
-   "Lupa › Crossovers: new pages for the Going Merry and for crew power and duels."
-  ]
- },
- {
-  "v": "6.24",
-  "b": 246,
-  "d": "2026-11-25",
-  "es": [
-   "Aura del Conquistador: a los enemigos muy débiles que tumba ahora les sale «¡KO!» en vez de un número gigante (como 1.810.944.828) que parecía daño real. El efecto no cambia."
-  ],
-  "en": [
-   "Conqueror's Aura: very weak enemies it knocks out now show “KO!” instead of a huge number (like 1,810,944,828) that looked like real damage. The effect is unchanged."
-  ]
- },
- {
-  "v": "6.23",
-  "b": 245,
-  "d": "2026-11-25",
-  "es": [
-   "12 estructuras de cuerpo nuevas. Hombre: Titán, Juvenil, Galán, Compacto y Larguirucho. Mujer: Alta, Guerrera, Chibi, Señorial, Llenita, Cintura y Avispa (las dos últimas con cintura marcada).",
-   "Forma de ojos a elegir aparte, con cualquier cuerpo: Chibi, Héroe, Afilados, Amables, Pestañas o Grandes (o la de tu estructura).",
-   "Toda la ropa, armaduras, cosméticos, peinados, armas, transformaciones, la clase Pez, nadar y los bailes se adaptan a las estructuras nuevas.",
-   "Arreglo: los sombreros altos ya no se salen por arriba en la estructura Atlética."
-  ],
-  "en": [
-   "12 new body builds. Male: Titan, Youthful, Dashing, Stocky and Lanky. Female: Tall, Warrior, Chibi, Graceful, Plump, Waisted and Hourglass (the last two with a defined waist).",
-   "Choose your eye shape separately, with any body: Chibi, Hero, Sharp, Gentle, Lashes or Big (or your build's own).",
-   "All clothes, armor, cosmetics, hairstyles, weapons, transformations, the Fish class, swimming and dances fit the new builds.",
-   "Fix: tall hats no longer stick out of the top on the Athletic build."
-  ]
- },
- {
-  "v": "6.22",
-  "b": 244,
-  "d": "2026-11-25",
-  "es": [
-   "Partida en la nube con un código corto: en el título toca «Nube» (o en Opciones › Partida, «Subir a la nube») y recibes un código de 8 letras, como K7QF-92MX.",
-   "En otro móvil: título › «Nube», escribe el código y «Bajar de la nube». Vuelven todos tus héroes, sin copiar textos largos.",
-   "Con código, la copia se actualiza sola cada 10 minutos de juego. Necesita internet; funciona en la app."
-  ],
-  "en": [
-   "Cloud save with a short code: on the title screen tap “Cloud” (or Options › Game, “Upload to cloud”) and you get an 8-letter code, like K7QF-92MX.",
-   "On another phone: title › “Cloud”, type the code and “Download from cloud”. All your heroes come back, no long text to copy.",
-   "Once you have a code, the backup updates itself every 10 minutes of play. Needs internet; works in the app."
-  ]
- },
- {
-  "v": "6.21",
-  "b": 243,
-  "d": "2026-11-25",
-  "es": [
-   "Se nota el poder al subir: contra monstruos y jefes de nivel más bajo que tú haces +1,5 % de daño por nivel de ventaja (hasta +75 %) y recibes −1 % por nivel (hasta −50 %). A nivel 500 con 60 niveles de ventaja: 6 golpes en vez de 17. A tu nivel o contra más fuertes no cambia; el PvP tampoco.",
-   "Ritmo de nivel alto: los monstruos normales desde nivel 450 tienen menos vida y algo menos de ataque (a nivel 500: unos 13 golpes en vez de 20, y aguantas 16 en vez de 12). Los jefes no cambian.",
-   "Inicio más limpio: hasta terminar «Despertar» ya no salen encima el sello de viaje, la prosperidad del pueblo, el pueblo del día ni «Historia nueva»; aparecen después, de uno en uno.",
-   "Arreglo: en una partida nueva salía abajo una barra roja de error (gearTiers)."
-  ],
-  "en": [
-   "You feel your power as you level: against monsters and bosses below your level you deal +1.5 % damage per level of advantage (up to +75 %) and take −1 % per level (up to −50 %). At level 500 with a 60-level lead: 6 hits instead of 17. At your level or against stronger foes nothing changes; PvP neither.",
-   "High-level pace: normal monsters from level 450 have less HP and slightly less attack (at level 500: about 13 hits instead of 20, and you survive 16 instead of 12). Bosses are unchanged.",
-   "Cleaner start: until you finish “Awakening”, the travel stamp, town prosperity, town of the day and “New story” no longer pile on top; they show up afterwards, one at a time.",
-   "Fix: a red error bar (gearTiers) showed at the bottom in a new game."
-  ]
- },
- {
-  "v": "6.20",
-  "b": 242,
-  "d": "2026-11-25",
-  "es": [
-   "La tripulación se hace más fuerte al completar cada arco del Mar de Dawn y al vencer por primera vez a cada jefe de la historia. Antes solo contaban los jefes hasta Villa Syrup; ahora también Baratie, Arlong Park y Loguetown. Repetir un arco no la sube.",
-   "Cada arco completado da +15 % de poder y cada jefe vencido +2 % (todo: +126 %): más vida, defensa y daño en sus técnicas.",
-   "Nueva opción al hablar con Luffy, Zoro, Usopp o Sanji: «Desafiar» para un duelo con su poder actual, con su caminata, sus ataques y sus técnicas de siempre. Nadie muere, no da XP ni botín y da oro la primera vez que ganas a cada poder nuevo. Nami no pelea.",
-   "«Poder de la tripulación» al hablarles: arcos completados, batallas y el poder de cada uno."
-  ],
-  "en": [
-   "The crew grows stronger when you complete each Dawn Sea arc and the first time you beat each story boss. Before, only the bosses up to Syrup Village counted; now Baratie, Arlong Park and Loguetown do too. Replaying an arc does not raise it.",
-   "Each completed arc gives +15 % power and each boss beaten +2 % (everything: +126 %): more HP, defense and technique damage.",
-   "New option when talking to Luffy, Zoro, Usopp or Sanji: “Challenge” for a duel at their current power, with their usual walk, attacks and techniques. Nobody dies, it gives no XP or loot, and it pays gold the first time you beat each new power level. Nami doesn’t fight.",
-   "“Crew power” when talking to them: completed arcs, battles and each member’s power."
-  ]
- },
- {
-  "v": "6.19",
-  "b": 241,
-  "d": "2026-11-25",
-  "es": [
-   "Frutas del Diablo y transformaciones juntas: transformado y con fruta, la barra lleva 2 técnicas de la forma y 2 de la fruta (antes la forma tapaba las 4 casillas y la fruta no se podía usar).",
-   "Botón de la fruta junto a la barra: cambia qué 2 técnicas de la fruta llevas sin salir de la forma.",
-   "Se suman: el daño de la fruta sale de tu ataque total, así que la transformación también la hace más fuerte."
-  ],
-  "en": [
-   "Devil Fruits and transformations together: transformed and with a fruit, the bar holds 2 form techniques and 2 fruit techniques (before, the form took all 4 slots and the fruit could not be used).",
-   "Fruit button next to the bar: changes which 2 fruit techniques you carry without leaving the form.",
-   "They stack: fruit damage comes from your total attack, so the transformation makes it stronger too."
-  ]
- },
- {
-  "v": "6.18",
-  "b": 239,
-  "d": "2026-11-25",
-  "es": [
-   "Smoker es ahora el jefe más fuerte de su nivel (612). Al bajar al 66 % y al 33 % se vuelve humo 10 s: tus golpes lo atraviesan y suelta anillos de humo.",
-   "Botín de Smoker con pity: Chaqueta, Vaquero y Botas del Cazador Blanco (25 %, seguras a las 12), adaptadas a los 10 cuerpos.",
-   "Jitte de Piedra Marina (12 %, seguro a las 10): el arma más fuerte por ahora, para todas las clases. Barrido con humo y, cada cuarto golpe, una estocada que inmoviliza.",
-   "Fruta Humo Humo (1 % de Smoker, segura a las 80; también aparece suelta por Dawn): Puño Blanco, Serpientes Blancas, Lanzador Blanco, Impulso Blanco (las piernas se vuelven humo) y Cuerpo de Humo (logia 10 s). Todo crece con tu nivel y tu ataque, y se combina con transformaciones.",
-   "Humo nuevo, como en el anime: nubes infladas con luz, sombra y rizos en la fruta, el Jitte y Smoker.",
-   "Técnicas de Luffy redibujadas: brazos de goma con brillo, puños con nudillos, palmas abiertas en la Bazuca y el pie en el Hacha.",
-   "PvP reequilibrado: todas las clases quedan igualadas."
-  ],
-  "en": [
-   "Smoker is now the strongest boss of his level (612). At 66% and 33% he turns into smoke for 10 s: your hits pass through him and he releases smoke rings.",
-   "Smoker loot with pity: White Hunter’s Jacket, Jeans and Boots (25%, guaranteed by 12), fitted to all 10 bodies.",
-   "Seastone Jitte (12%, guaranteed by 10): the strongest weapon so far, for every class. A smoky sweep and, every fourth hit, a thrust that pins enemies.",
-   "Smoke-Smoke Fruit (1% from Smoker, guaranteed by 80; it also appears around Dawn): White Blow, White Snake, White Launcher, White Jet (your legs turn to smoke) and Smoke Body (10 s Logia). Everything grows with your level and attack, and stacks with transformations.",
-   "New anime-style smoke: puffy clouds with light, shadow and curls on the fruit, the Jitte and Smoker.",
-   "Luffy’s techniques redrawn: shiny rubber arms, fists with knuckles, open palms on the Bazooka and the foot on the Axe.",
-   "PvP rebalanced: every class is evened out."
-  ]
- },
- {
-  "v": "6.17",
-  "b": 238,
-  "d": "2026-11-25",
-  "es": [
-   "Arco de Loguetown (nivel 612, repetible): habla con Luffy en la plaza. Tú y Luffy contra Smoker; luego Smoker sube a Luffy al patíbulo donde murió Roger, junto a Buggy.",
-   "Toda la tripulación (Zoro, Sanji, Usopp y Nami) aparece en la plaza: aguantad 2 minutos a la Marina mientras la ciudad mira la ejecución.",
-   "Tormenta, un rayo sobre el patíbulo y, por un segundo, un hombre con capa verde. Luffy sale libre. 150 000 de oro la primera vez y 40 000 al repetir.",
-   "Armería de Ipponmatsu por dentro: Zoro elige sus espadas (la Kitetsu maldita al aire) y Tashigi aparece con tus hojas de sprites.",
-   "Loguetown con vida: pescadores en el muelle, vendedores, vecinos, niños y piratas; Nami, Usopp y Sanji pasean por las tiendas y Luffy mira el patíbulo."
-  ],
-  "en": [
-   "Loguetown arc (level 612, repeatable): talk to Luffy in the square. You and Luffy versus Smoker; then Smoker takes Luffy up the scaffold where Roger died, with Buggy.",
-   "The whole crew (Zoro, Sanji, Usopp and Nami) shows up in the square: hold off the Navy for 2 minutes while the town watches the execution.",
-   "A storm, lightning on the scaffold and, for a second, a man in a green cloak. Luffy is free. 150,000 gold the first time and 40,000 on replays.",
-   "Ipponmatsu’s arms shop inside: Zoro picks his swords (the cursed Kitetsu in the air) and Tashigi appears with your sprite sheets.",
-   "Loguetown comes alive: fishermen on the pier, vendors, townsfolk, kids and pirates; Nami, Usopp and Sanji browse the shops and Luffy looks at the scaffold."
-  ]
- },
- {
-  "v": "6.16",
-  "b": 237,
-  "d": "2026-11-25",
-  "es": [
-   "Loguetown cobra vida: Ipponmatsu junto a su armería, Alvida en las calles del sur, Bartolomeo paseando por la avenida y Smoker en la base de la Marina.",
-   "Cinemática en el patíbulo: la primera vez que llegas a la plaza se cuenta cómo ejecutaron a Gol D. Roger y cómo empezó la Gran Era de la Piratería (el cartel de la plaza la repite).",
-   "Personajes con tus hojas de sprites: caminan en las cuatro direcciones y Smoker ataca con su porra.",
-   "Desafíos del puerto con Smoker (nivel 610, 612 y 615): contrabandista, vigía del muelle y el propio Smoker, con oro de premio; el progreso se guarda."
-  ],
-  "en": [
-   "Loguetown comes alive: Ipponmatsu by his arms shop, Alvida in the southern streets, Bartolomeo strolling the avenue and Smoker at the Navy base.",
-   "Scaffold cutscene: the first time you reach the square you see how Gol D. Roger was executed and how the Great Pirate Era began (the square sign replays it).",
-   "Characters from your sprite sheets: they walk in all four directions and Smoker attacks with his jitte.",
-   "Harbor challenges with Smoker (level 610, 612 and 615): smuggler, dock lookout and Smoker himself, with gold rewards; progress is saved."
-  ]
- },
- {
-  "v": "6.15",
-  "b": 236,
-  "d": "2026-11-25",
-  "es": [
-   "Loguetown: nueva isla explorable en el Mar de Dawn, al este de Animales Raros y al norte de Conomi.",
-   "Puerto para desembarcar y volver al barco, arco de entrada, plaza de Roger y patíbulo, torre del reloj, armería, mercado y base de la Marina.",
-   "Primera etapa del mapa: edificios exteriores y caminos; los combates y la historia de Loguetown llegarán después."
-  ],
-  "en": [
-   "Loguetown: a new explorable island in the Dawn Sea, east of Rare Animals and north of Conomi.",
-   "Working harbor for landing and returning to your ship, entrance arch, Roger’s square and scaffold, clock tower, arms shop, market and Marine base.",
-   "First map stage: exterior buildings and paths; Loguetown battles and story will follow later."
-  ]
- },
- {
-  "v": "6.14",
-  "b": 235,
-  "d": "2026-11-25",
-  "es": [
-   "Más fluido en celulares de gama baja y media: el juego ya no prepara en segundo plano los 2.300 dibujos de personajes y enemigos mientras juegas (frenaba cada imagen durante minutos al entrar). Los personajes fuera de pantalla gastan mucho menos.",
-   "Modo optimizado (Ajustes): además, menos multitud de fondo en las ciudades y la interfaz se refresca 15 veces por segundo.",
-   "Robo de vida (Sed de Sangre, armas de guerrero, vampiro…): cura como mucho un 5 % de tu vida por golpe y un 12 % por segundo. Antes, Juicio Final con Sed de Sangre llenaba toda la vida de una vez.",
-   "Inventario de 900 casillas (antes 200).",
-   "Familia: como mucho 30 familiares vivos; si llegas, no nacen más nietos hasta que haya hueco."
-  ],
-  "en": [
-   "Smoother on low- and mid-range phones: the game no longer pre-builds the 2,300 character and enemy sprites in the background while you play (it slowed every frame for minutes after starting). Off-screen characters cost much less.",
-   "Optimized mode (Settings): also fewer background crowds in towns and the interface refreshes 15 times per second.",
-   "Life steal (Bloodthirst, warrior weapons, vampire…): heals at most 5% of your HP per hit and 12% per second. Before, Final Judgement with Bloodthirst refilled all your HP at once.",
-   "900-slot inventory (was 200).",
-   "Family: at most 30 living relatives; once you reach it, no more grandchildren are born until there is room."
-  ]
- },
- {
-  "v": "6.13",
-  "b": 234,
-  "d": "2026-11-25",
-  "es": [
-   "La enciclopedia se abre al instante (antes 2 segundos) y tocar un enemigo ya no la congela. Los retratos se dibujan poco a poco sin parar la ventana.",
-   "Los mapas grandes cargan mucho más rápido: Japón, México, Lima y Trujillo unas 4 veces más rápido; España y Dawn, el doble.",
-   "Enciclopedia: pestañas por nivel (1-99 hasta 600+) y del Mar de Dawn, con Alvida, Buggy, Kuro, Baratie, Shanks y Arlong. Ahora todos los enemigos salen en alguna pestaña, no solo en «Todos».",
-   "Inglés: descripciones de todas las habilidades, ventajas de los oficios, recuerdos y trofeos de oficio y la ayuda de Misiones."
-  ],
-  "en": [
-   "The encyclopedia opens instantly (it took 2 seconds) and tapping an enemy no longer freezes it. Portraits are drawn bit by bit without stalling the window.",
-   "Big maps load much faster: Japan, Mexico, Lima and Trujillo about 4 times faster; Spain and Dawn, twice as fast.",
-   "Encyclopedia: level tabs (1-99 up to 600+) and a Dawn Sea tab with Alvida, Buggy, Kuro, Baratie, Shanks and Arlong. Every enemy now shows up in some tab, not only in \"All\".",
-   "English: descriptions of every skill, job perks, job keepsakes and trophies, and the Quests help."
-  ]
- },
- {
-  "v": "6.12",
-  "b": 233,
-  "d": "2026-11-25",
-  "es": [
-   "Mejoras por dentro para que el juego pueda seguir creciendo (más niveles y más crossovers) sin romperse: lo nuevo ya no se apila encima de lo anterior.",
-   "Revisión completa: más de 200 actividades y minijuegos probados en su sitio, partidas de versiones antiguas, 10 minutos de juego seguido y toda la Lupa, sin errores."
-  ],
-  "en": [
-   "Under-the-hood improvements so the game can keep growing (more levels and more crossovers) without breaking: new content no longer stacks on top of the old.",
-   "Full review: over 200 activities and minigames tested in place, saves from old versions, 10 minutes of continuous play and the whole Magnifier, with no errors."
-  ]
- },
- {
-  "v": "6.11",
-  "b": 232,
-  "d": "2026-11-25",
-  "es": [
-   "Árboles, vetas (rocas con mineral), hierbas, puntos de buceo y montículos reaparecen a los 5 segundos en todo el mundo.",
-   "Las herramientas piden menos nivel de personaje: un 25 % menos desde la potencia 5, y las de Dawn 500 (Coralita), 520 (Nacarita) y 540 (Piedra del Mar).",
-   "Avisos claros: si te falta nivel de oficio por encima de tu tope, te dice qué maestro te entrena y dónde; si te falta herramienta, cuál es y qué nivel de personaje pide. Al llegar al tope te avisa y pone la flecha al maestro.",
-   "Lupa › Oficios: «Siguiente paso» con tu tope real, el tier al que llegas, la herramienta que te falta y la maestría."
-  ],
-  "en": [
-   "Trees, ore veins, herbs, dive spots and dig mounds respawn after 5 seconds everywhere.",
-   "Tools need a lower character level: 25% less from power 5, and the Dawn ones 500 (Coralite), 520 (Nacrite) and 540 (Seastone).",
-   "Clear warnings: if you need a job level above your cap, it tells you which master trains you and where; if you need a tool, which one and its character level. When you reach the cap it warns you and points the arrow at the master.",
-   "Magnifier › Jobs: \"Next step\" with your real cap, the tier you reach, the tool you are missing and the mastery."
-  ]
- },
- {
-  "v": "6.10",
-  "b": 231,
-  "d": "2026-11-25",
-  "es": [
-   "Peces del Mar de Dawn: se pesca en cualquier orilla de Dawn. Salen los peces de mar de siempre y seis nuevos: Pez Coralino y Barracuda del Este (caña de Coralita), Pez de Nácar y Pez Espada Rayado (caña de Nacarita), Anguila de Piedra del Mar y Cría de Rey del Mar (caña de Piedra del Mar).",
-   "Lupa › Crossovers › Minerales, maderas y dónde talar: ahora también dice dónde y con qué se pesca."
-  ],
-  "en": [
-   "Dawn Sea fish: you can fish from any Dawn shore. You get the usual sea fish and six new ones: Coral Fish and East Barracuda (Coralite rod), Nacre Fish and Striped Swordfish (Nacrite rod), Seastone Eel and Sea King Hatchling (Seastone rod).",
-   "Magnifier › Crossovers › Ores, woods and where to chop: now also says where and with what to fish."
-  ]
- },
- {
-  "v": "6.09",
-  "b": 230,
-  "d": "2026-11-25",
-  "es": [
-   "Lupa › 🏴‍☠️ Crossovers (antes Mar de Dawn) y nueva sección Crossovers en Sistemas: todos los arcos en orden con cada jefe, Baratie y Arlong Park incluidos, y la flecha te lleva al siguiente paso.",
-   "Lista completa de armaduras de nivel 600 a 700 con sus materiales, y dónde minar y talar cada mineral y madera de Dawn.",
-   "Tala, Minería y Pesca llegan a nivel 130 (160 con Gran Maestro): ya se pueden recoger la Piedra del Mar y el Árbol Rey."
-  ],
-  "en": [
-   "Magnifier › 🏴‍☠️ Crossovers (was Dawn Sea) and a new Crossovers section in Systems: every arc in order with each boss, Baratie and Arlong Park included, and the arrow takes you to the next step.",
-   "Full list of level 600-700 armours with their materials, and where to mine and chop each Dawn ore and wood.",
-   "Woodcutting, Mining and Fishing reach level 130 (160 as Grand Master): Seastone and King Tree can now be gathered."
-  ]
- },
- {
-  "v": "6.08",
-  "b": 229,
-  "d": "2026-11-25",
-  "es": [
-   "Las armas superadas pierden como mucho un 10 % de daño (antes 55 %), en todas las armas de nivel 1 a 700."
-  ],
-  "en": [
-   "Outgrown weapons lose at most 10% damage (was 55%), for every weapon from level 1 to 700."
-  ]
- },
- {
-  "v": "6.07",
-  "b": 228,
-  "d": "2026-11-24",
-  "es": [
-   "Islas Conomi después de Baratie. Explora Cocoyashi y Arlong Park y enfréntate a Arlong de nivel 605.",
-   "El hachazo de Luffy atraviesa cuatro pisos. Tras la victoria quedan las ruinas y se abren nuevos diálogos con la tripulación.",
-   "Puedes repetir los arcos del Mar de Dawn."
-  ],
-  "en": [
-   "Conomi Islands after Baratie. Explore Cocoyashi and Arlong Park and fight level 605 Arlong.",
-   "Luffy’s axe kick breaks through four floors. After the victory, revisit the ruins and talk to the crew for new dialogue.",
-   "Replay the Dawn Sea story arcs."
-  ]
- },
- {
-  "v": "6.06",
-  "b": 227,
-  "d": "2026-11-24",
-  "es": [
-   "Cinco técnicas para Luffy, Zoro, Usopp y Sanji. Habla con ellos para elegir una técnica prioritaria.",
-   "El Going Merry tiene una cubierta más ancha y caminable. Nami puede mantener el rumbo mientras paseas.",
-   "Nuevas poses de ataque y diálogos. Usopp conserva la ropa de Villa Syrup."
-  ],
-  "en": [
-   "Five techniques each for Luffy, Zoro, Usopp and Sanji. Talk to them to select a preferred technique.",
-   "The Going Merry has a wider walkable deck. Nami can hold course while you explore.",
-   "New attack poses and dialogue. Usopp retains his Syrup Village outfit."
-  ]
- },
- {
-  "v": "6.05",
-  "b": 226,
-  "d": "2026-11-24",
-  "es": [
-   "Pearl, Gin y Don Krieg sueltan 13 piezas para el Armario y cuatro armas de nivel 600–605 para todas las clases.",
-   "Cada pieza y arma tiene su propia garantía a las 10 victorias contra su jefe. Habla con Zeff para repetir los combates tras reclutar a Sanji."
-  ],
-  "en": [
-   "Pearl, Gin and Don Krieg drop 13 Wardrobe pieces and four level 600–605 weapons for all classes.",
-   "Each piece and weapon has its own guarantee after 10 wins against its boss. Talk to Zeff for rematches after recruiting Sanji."
-  ]
- },
- {
-  "v": "6.04",
-  "b": 225,
-  "d": "2026-11-24",
-  "es": [
-   "Nuevo restaurante marítimo Baratie después de Villa Syrup. Defiende la cubierta contra Pearl (590), Gin (592) y Don Krieg (595), y recluta a Sanji.",
-   "Duelo de 40 segundos entre Zoro y Mihawk. Mihawk tiene un sprite de proporciones adultas, caminata en cuatro direcciones y ataques con cuchillo y espada."
-  ],
-  "en": [
-   "The Baratie floating restaurant opens after Syrup Village. Defend the deck against Pearl (590), Gin (592) and Don Krieg (595), then recruit Sanji.",
-   "Zoro and Mihawk’s 40-second duel. Mihawk has an adult-proportioned sprite, four-direction movement and dagger and sword attacks."
-  ]
- },
- {
-  "v": "6.03",
-  "b": 224,
-  "d": "2026-11-24",
-  "es": [
-   "Los 12 enemigos y los 5 jefes de los portales 400-600 de la Torre ya usan los dibujos nuevos del bestiario: en las 4 direcciones, andando y atacando.",
-   "Lupa › Sistemas: guía de los materiales y armaduras nuevas del nivel 700."
-  ],
-  "en": [
-   "The 12 enemies and 5 bosses of the Tower’s 400-600 portals now use the new bestiary drawings: in 4 directions, walking and attacking.",
-   "Magnifier › Systems: guide to the new level-700 materials and armours."
-  ]
- },
- {
-  "v": "6.02",
-  "b": 223,
-  "d": "2026-11-24",
-  "es": [
-   "Armadura de Clase de los Mares (nivel 700, la más fuerte): cada clase con su diseño — Vicealmirante del Mar Blanco, Navegante de Tormentas, Francotirador de Ultramar, Agente de la Sombra Blanca, Caballero del Barco Fantasma, Doctora del Invierno y Maestro del Karate Marino.",
-   "5 combinaciones de las armaduras de los mares (nivel 630-690): Pirata del Desierto, Emperatriz del Kimono, Capitán del Futuro, Bailarina del Rey del Mar y Serpiente del Futuro. Se forjan con la mitad de los materiales de los dos conjuntos que mezclan."
-  ],
-  "en": [
-   "Sea Class armour (level 700, the strongest): each class with its own design — White Sea Vice Admiral, Storm Navigator, Overseas Sharpshooter, White Shadow Agent, Ghost Ship Gentleman, Winter Doctor and Sea Karate Master.",
-   "5 sea armour combinations (level 630-690): Desert Pirate, Kimono Empress, Future Captain, Sea King’s Dancer and Future Serpent. Forged with half the materials of the two sets they mix."
-  ]
- },
- {
-  "v": "6.01",
-  "b": 222,
-  "d": "2026-11-24",
-  "es": [
-   "Nivel máximo 700.",
-   "Minerales y maderas nuevos en las islas del Mar de Dawn que reaparecen a los 5 segundos: Coralita y Palma de Coral, Nacarita y Árbol Frutal Raro, Piedra del Mar y Árbol Rey. Con sus picos, hachas y cañas (620-680).",
-   "5 armaduras de los mares para cualquier clase, en la Herrería con materiales de Dawn: Bailarina del Desierto (620), Emperatriz Serpiente (640), Capitán del Abrigo Negro (660), Kimono del Rey del Mar (680) y Traje del Futuro (700).",
-   "Ranking mundial: acepta niveles hasta 700 (antes el servidor rechazaba más de 500)."
-  ],
-  "en": [
-   "Level cap 700.",
-   "New ores and woods on the Dawn Sea islands that respawn after 5 seconds: Coralite and Coral Palm, Nacrite and Rare Fruit Tree, Seastone and King Tree. With their pickaxes, axes and rods (620-680).",
-   "5 sea armours for any class, at the Forge with Dawn materials: Desert Dancer (620), Serpent Empress (640), Black-Coat Captain (660), Sea King’s Kimono (680) and Future Suit (700).",
-   "World ranking: accepts levels up to 700 (the server used to reject anything above 500)."
-  ]
- },
- {
-  "v": "6.00",
-  "b": 221,
-  "d": "2026-11-24",
-  "es": [
-   "Cazadores de élite: van con su forma normal y se transforman en batalla (en las mazmorras cuando hay enemigos cerca, +15 % de ataque; en los duelos al bajar del 60 % de vida).",
-   "Valeria, Taro y Dorian llevaban formas que aún no se pueden conseguir (Despertar Dorado y Tejedor Primordial, sin estadísticas): ahora usan Mitad Dragón, Alado Caído y Eco sin Pintar."
-  ],
-  "en": [
-   "Elite hunters: they walk in their normal look and transform in battle (in dungeons when enemies are near, +15% attack; in duels below 60% HP).",
-   "Valeria, Taro and Dorian had forms that cannot be obtained yet (Golden Awakening and Primordial Weaver, no stats): they now use Half-Dragon, Fallen Winged and Unpainted Echo."
-  ]
- },
- {
-  "v": "5.99",
-  "b": 220,
-  "d": "2026-11-24",
-  "es": [
-   "Torre de los Portales: 5 portales nuevos de nivel alto con más enemigos — Fortaleza de Obsidiana (400), Jardín de Cristal Negro (450), Ciudad Hundida del Portal (500), Forja del Dios Caído (550) y Trono del Último Portal (600), con 12 enemigos y 5 jefes nuevos.",
-   "Las mazmorras ya no son todas la misma cueva: fortaleza de salas, anillo con cámara central, gran salón de columnas, catedral con capillas y sala del trono.",
-   "Los cazadores suben de nivel hasta el máximo: peleando contigo, al cerrar portales y entrenando solos cada día.",
-   "14 cazadores de élite (nivel 400-600) con armaduras de los tiers altos y transformaciones te esperan en la Antesala."
-  ],
-  "en": [
-   "Portal Tower: 5 new high-level portals with more enemies — Obsidian Fortress (400), Black Crystal Garden (450), Sunken Portal City (500), Fallen God’s Forge (550) and Throne of the Last Portal (600), with 12 new enemies and 5 new bosses.",
-   "Dungeons are no longer all the same cave: hall fortress, ring with a central chamber, pillared great hall, cathedral with chapels and throne room.",
-   "Hunters level up to the cap: fighting with you, closing portals and training on their own every day.",
-   "14 elite hunters (level 400-600) with high-tier armour and transformations wait in the Antechamber."
-  ]
- },
- {
-  "v": "5.98",
-  "b": 219,
-  "d": "2026-11-24",
-  "es": [
-   "Minijuegos: en todos los que se juegan con ⚔, mantenerlo pulsado ya no cuenta como muchos toques (igual que se arregló la pesca en el hielo).",
-   "Kuro suelta su botín: Garras del Gato (arma para todas las clases a nivel 580: dos zarpazos por golpe y cada cuarto golpe «Paso sin sonido», un tajo en línea sin recibir daño), sus gafas redondas y su frac, pantalón y zapatos. Revancha: habla con Kaya al terminar la historia.",
-   "Villa Syrup: todos sus personajes hablan del arco según el momento de la historia (antes, durante y después del ataque).",
-   "Merry vende la ropa de toda la isla por piezas como cosméticos: Dama de la Mansión, Hipnotista del Péndulo, Mayordomo Carnero, Gato Ligero, Gato Pesado y Piratas Pequeños (y el conjunto de Kuro cuando ya lo venciste). Gafas de corazón del hipnotista en Armario › 👓 Cara."
-  ],
-  "en": [
-   "Minigames: in every one played with ⚔, holding it no longer counts as many taps (like the ice fishing fix).",
-   "Kuro drops his loot: Cat Claws (all-class weapon at level 580: two swipes per attack and every fourth attack “Silent Step”, a line slash while untouchable), his round glasses and his tailcoat, trousers and shoes. Rematch: talk to Kaya after the story.",
-   "Syrup Village: every character talks about the arc depending on the story moment (before, during and after the attack).",
-   "Merry sells the whole island’s clothes piece by piece as cosmetics: Lady of the Manor, Pendulum Hypnotist, Ram Steward, Nimble Cat, Heavy Cat and Little Pirates (and Kuro’s set once you have beaten him). Hypnotist’s heart glasses in Wardrobe › 👓 Face."
-  ]
- },
- {
-  "v": "5.97",
-  "b": 218,
-  "d": "2026-11-24",
-  "es": [
-   "Arreglo: en la pesca en el hielo, mantener pulsado ⚔ retrasaba al pez para siempre («esperando…») y no se podía salir. Ahora cuenta un solo toque, el pez pica más tiempo con aviso y vibración, y moviendo el joystick dejas de pescar.",
-   "Arreglo: Zoltan el Errante se duplicaba cada 2 segundos durante el evento del mercader ambulante.",
-   "Goma + Engranaje 2: si tienes la fruta de goma y usas Engranaje 2, +12 % de crítico y +30 % de daño crítico.",
-   "Bara Bara: 4 técnicas nuevas (Cañón, Festival, Pies Saltarines y Cuchillas Voladoras): te partes en pedazos y tus pedazos atacan.",
-   "Fruta Transparente: 2 técnicas nuevas (Golpe Fantasma y Velo Espejo), 3 en total.",
-   "Destino de tu familia: cada hijo, nieto o bisnieto tiene el suyo. Unos nunca llegan al 500, otros aceptan su destino, otros encuentran la cura de la vejez (viven hasta 300 años) y otros te acompañan hasta el 500. Ninguno pasa del 500, y desde el 300 solo suben peleando contigo.",
-   "En el Mar de Dawn no puedes llamar a tu familia: te espera en casa."
-  ],
-  "en": [
-   "Fix: in ice fishing, holding ⚔ delayed the fish forever (“waiting…”) and you could not leave. Now it counts as one tap, the fish bites for longer with a notice and vibration, and moving the joystick ends fishing.",
-   "Fix: Zoltan the Wanderer duplicated every 2 seconds during the travelling merchant event.",
-   "Rubber + Gear 2: with the rubber fruit and Gear 2 active, +12% crit and +30% crit damage.",
-   "Chop-Chop: 4 new techniques (Cannon, Festival, Hopping Feet and Flying Blades): you split into pieces and your pieces attack.",
-   "Clear Fruit: 2 new techniques (Phantom Strike and Mirror Veil), 3 in total.",
-   "Your family’s fate: every child, grandchild or great-grandchild has their own. Some never reach 500, some accept their fate, some find the cure for old age (living up to 300 years) and some follow you to 500. None go past 500, and from 300 they only level up fighting with you.",
-   "You cannot call your family in the Dawn Sea: they wait at home."
-  ]
- },
- {
-  "v": "5.96",
-  "b": 217,
-  "d": "2026-11-24",
-  "es": [
-   "Tripulación: si Luffy, Zoro, Nami o Usopp caen en una pelea de la historia, se levantan a los 15 s con un tercio de su vida.",
-   "Recompensas de la tripulación: Luffy, Zoro, Nami y Usopp tienen su cartel de «se busca». Sube al vencer juntos a los jefes de la historia (más quien lleva la pelea) y con cada enemigo de Dawn si van contigo. Míralos en Habilidades › Voluntad o en tu cartel › 🏴‍☠️ Tripulación.",
-   "Lupa › 🏴‍☠️ Mar de Dawn: la ruta de la historia paso a paso con ✅ y flecha, la tripulación, las frutas y todo el crossover.",
-   "Arreglo: en Atajos, tocar las pestañas ⚔ 🌐 🔍 cerraba el panel y parecía que desaparecían los botones."
-  ],
-  "en": [
-   "Crew: if Luffy, Zoro, Nami or Usopp fall in a story fight, they get back up after 15 s with a third of their HP.",
-   "Crew bounties: Luffy, Zoro, Nami and Usopp have their own wanted posters. They rise when you beat the story bosses together (more for whoever leads the fight) and with every Dawn enemy while they sail with you. See them in Skills › Will or in your poster › 🏴‍☠️ Crew.",
-   "Magnifier › 🏴‍☠️ Dawn Sea: the story route step by step with ✅ and an arrow, the crew, the fruits and the whole crossover.",
-   "Fix: in Shortcuts, tapping the ⚔ 🌐 🔍 tabs closed the panel, so the buttons seemed to vanish."
-  ]
- },
- {
-  "v": "5.95",
-  "b": 216,
-  "d": "2026-11-24",
-  "es": [
-   "Nueva pestaña 🍇 Frutas en el menú: todas las Frutas del Diablo del juego (Goma, Transparente, Bara Bara, Mera Mera y Hana Hana) con su icono, su poder, sus técnicas, dónde aparecen, su probabilidad y cuántas victorias te faltan como mucho. Con «Marcar en el mapa» te lleva hasta ellas.",
-   "Arreglo: cuando una fruta del Mar de Dawn desaparecía a los 4 minutos, la flecha seguía apuntando a ese sitio."
-  ],
-  "en": [
-   "New 🍇 Fruits tab in the menu: every Devil Fruit in the game (Rubber, Clear, Chop-Chop, Flame-Flame and Flower-Flower) with its icon, power, techniques, where it appears, its chance and how many wins you need at most. “Mark on the map” guides you there.",
-   "Fix: when a Dawn Sea fruit vanished after 4 minutes, the arrow kept pointing at that spot."
-  ]
- },
- {
-  "v": "5.94",
-  "b": 215,
-  "d": "2026-11-24",
-  "es": [
-   "El inventario bloquea comer una segunda Fruta del Diablo mientras tienes un poder. La fruta permanece en tu bolsa. Shanks puede retirar el poder en Foosha.",
-   "Mera Mera y Hana Hana tienen sprites animados propios en sus nueve técnicas. El fuego, la Logia, los brazos y los pétalos se dibujan con fotogramas pixel art en el motor."
-  ],
-  "en": [
-   "The bag blocks eating a second Devil Fruit while you have a power. The fruit stays in your bag. Shanks can remove your power in Foosha.",
-   "Flame-Flame and Flower-Flower have custom animated sprites across all nine techniques. Fire, Logia, arms and petals use pixel art frames in the game engine."
-  ]
- },
- {
-  "v": "5.93",
-  "b": 214,
-  "d": "2026-11-24",
-  "es": [
-   "Mera Mera de Ace: Puño de Fuego, Pistolas de Fuego, Pilar de Fuego, Gran Entei y Cuerpo de Fuego. La Logia dura 6 segundos y evita hasta 3 golpes físicos de monstruos comunes.",
-   "Hana Hana de Robin: Clutch, Seis Fleur, Ochenta Fleur y Cien Fleur. Usa brazos a distancia, control de grupos y una barrera temporal. Las dos frutas usan la sección Habilidades › Fruta y progresan con el nivel.",
-   "Aparecen ocasionalmente en el Mar de Dawn. El aviso indica la isla y deja un marcador durante 4 minutos. Shanks retira Hana Hana con Voluntad 1 y Mera Mera con Voluntad 2, o cualquiera si ganaste su duelo."
-  ],
-  "en": [
-   "Ace’s Flame-Flame Fruit: Fire Fist, Fire Gun, Flame Pillar, Great Flame Emperor and Flame Body. Logia lasts 6 seconds and disperses up to 3 physical hits from ordinary monsters.",
-   "Robin’s Flower-Flower Fruit: Clutch, Seis Fleur, Ochenta Fleur and Cien Fleur. Use arms at a distance, crowd control and a temporary barrier. Both fruits use Skills › Fruit and scale with your level.",
-   "They occasionally appear in the Dawn Sea. The alert names the island and marks the spot for 4 minutes. Shanks removes Flower-Flower at Will rank 1 and Flame-Flame at Will rank 2, or either after you win his duel."
-  ]
- },
- {
-  "v": "5.92",
-  "b": 213,
-  "d": "2026-11-24",
-  "es": [
-   "Villa Syrup se conecta al sur del Mar de Dawn. Tras terminar la historia de Gaimon, desembarca, habla con Usopp y avisa a Kaya en su mansión.",
-   "Zoro te ayuda contra Sham y Buchi (nivel 572). Enfrenta a Jango (572) con Nami y Usopp, y a Kuro (580) con Luffy.",
-   "Recluta a Usopp como tirador de nivel 580. Nuevos sprites proporcionados a la referencia, con caminata y tirachinas en cuatro direcciones. Alterna proyectiles normales con la Estrella de Pólvora.",
-   "Habla con Luffy, Zoro, Nami y Usopp en tierra y en el Going Merry. Hay temas nuevos sobre su pasado, la navegación, el combate y lo que pasó en Villa Syrup."
-  ],
-  "en": [
-   "Syrup Village joins the southern Dawn Sea. Finish Gaimon’s story, go ashore, talk to Usopp and warn Kaya at her manor.",
-   "Zoro helps you fight Sham and Buchi (level 572). Face Jango (572) with Nami and Usopp, then fight Kuro (580) with Luffy.",
-   "Recruit Usopp as a level 580 sharpshooter. New reference-proportioned sprites with four-direction walking and slingshot attacks. He mixes regular projectiles with Gunpowder Star.",
-   "Talk to Luffy, Zoro, Nami and Usopp on land or aboard the Going Merry. New topics cover their past, navigation, combat and what happened at Syrup Village."
-  ]
- },
- {
-  "v": "5.91",
-  "b": 212,
-  "d": "2026-11-24",
-  "es": [
-   "Los jefes del Mar de Dawn ahora pegan de verdad: Alvida, Morgan, Cabaji, Buggy y Shanks hacen bastante más daño, incluso con despertares, transformación y oficios. Esquiva sus ataques marcados y lleva pociones.",
-   "Solo sube el daño que te hacen a ti: Luffy, Zoro y Nami, los piratas, la Marina, la vida de los jefes y los duelos PvP no cambian."
-  ],
-  "en": [
-   "Dawn Sea bosses now hit for real: Alvida, Morgan, Cabaji, Buggy and Shanks deal much more damage, even with awakenings, transformations and jobs. Dodge their marked attacks and bring potions.",
-   "Only the damage they deal to you goes up: Luffy, Zoro and Nami, pirates, the Navy, boss HP and PvP duels are unchanged."
-  ]
- },
- {
-  "v": "5.90",
-  "b": 211,
-  "d": "2026-11-24",
-  "es": [
-   "Tras derrotar a Morgan en Shells Town, navega a Orange Town y lucha junto a Luffy y Zoro contra Cabaji (nivel 567) y Buggy (nivel 570), en ese orden.",
-   "Buggy se divide en varios fragmentos que persiguen al grupo y vuelve a ensamblarse tras los cortes. Su botín incluye la Fruta Bara Bara, que da 10 % de probabilidad de esquivar ataques, las Garras de Buggy para todas las clases y su vestuario por piezas, con intentos garantizados.",
-   "Recluta a Nami tras vencer a Buggy y el bote se convierte en el Going Merry. Habla con la tripulación en tierra o a bordo y pídele a Nami que marque el rumbo.",
-   "Desembarca en la Isla de los Animales Raros, ayuda a Gaimon a buscar cinco cofres y elige a quién llevar contigo o dejar en el barco. Luffy, Zoro y Nami se quedan en el Mar de Dawn y tienen nuevos pasos de frente y de espaldas."
-  ],
-  "en": [
-   "After defeating Morgan in Shells Town, sail to Orange Town and fight alongside Luffy and Zoro against Cabaji (level 567) and Buggy (level 570), in that order.",
-   "Buggy splits into pieces that chase the party and reassembles after sword strikes. His drops include the Chop-Chop Fruit, which grants a 10% chance to dodge attacks, Buggy's Claws for all classes, and individual costume pieces, with guaranteed drops after enough attempts.",
-   "Recruit Nami after beating Buggy to turn the small boat into the Going Merry. Talk to the crew on land or aboard and ask Nami to set a waypoint.",
-   "Land on the Island of Rare Animals, help Gaimon search five chests, and choose who goes ashore or stays on the ship. Luffy, Zoro and Nami stay in the Dawn Sea and have new walking frames for facing forward and backward."
-  ]
- },
- {
-  "v": "5.89",
-  "b": 210,
-  "d": "2026-11-24",
-  "es": [
-   "Rescata a Zoro en el patio de la Base 153 de Shells Town y lucha con él y Luffy contra Morgan Mano de Hacha, jefe de nivel 550.",
-   "Luffy, Zoro y Morgan tienen sprites nuevos y caminatas en cuatro direcciones. Morgan llama a dos marines cuando le queda el 65 % de vida."
-  ],
-  "en": [
-   "Rescue Zoro in the courtyard of the 153rd Branch Base in Shells Town and fight alongside him and Luffy against Axe-Hand Morgan, a level 550 boss.",
-   "Luffy, Zoro and Morgan have new sprites and four-direction walking cycles. Morgan calls two marines at 65% health."
-  ]
- },
- {
-  "v": "5.88",
-  "b": 209,
-  "d": "2026-11-24",
-  "es": [
-   "👑 Voluntad: sube al vencer enemigos (+1, jefes +25) con 10 rangos. Con el rango 1 despiertas el Aura del Conquistador (ponla en una casilla en Habilidades): onda roja con rayos negros que desmaya a los enemigos según tu rango y tumba a los muy débiles. Los jefes aguantan hasta el rango 8.",
-   "😵 Shanks ahora usa su aura: si tu voluntad es menor que rango 6, te desmayas unos segundos en el duelo.",
-   "📜 Recompensa y carteles de búsqueda: sube al vencer cualquier enemigo; cada nivel de peligro saca un cartel «Se busca · vivo o muerto» con tu cara. Lo ves en Habilidades y en carteles de Foosha y La Tortuga Glotona.",
-   "⚓ La Marina en el Mar de Dawn: sus barcos te persiguen y, si te alcanzan, te abordan y peleas en su cubierta. En las islas un marine pregunta por ti: puedes mentir o pelear; con mucho peligro hay emboscadas. Si te derrotan pagas una multa.",
-   "🛠 Arreglo: el botón de nadar mostraba un texto raro en vez de «Nadar»."
-  ],
-  "en": [
-   "👑 Will: rises by defeating enemies (+1, bosses +25) with 10 ranks. At rank 1 you awaken the Conqueror's Aura (put it in a slot in Skills): a red wave with black lightning that knocks enemies out depending on your rank and drops very weak ones. Bosses resist until rank 8.",
-   "😵 Shanks now uses his aura: if your will is below rank 6, you faint for a few seconds in the duel.",
-   "📜 Bounty and wanted posters: it rises with any defeated enemy; each danger level brings a 'Wanted · dead or alive' poster with your face. See it in Skills and on posters in Foosha and the Gluttonous Turtle.",
-   "⚓ The Navy in the Dawn Sea: their ships chase you and, if they catch you, they board you and you fight on their deck. On the islands a marine asks about you: you can lie or fight; with high danger there are ambushes. If they beat you, you pay a fine.",
-   "🛠 Fix: the swim button showed odd text instead of 'Swim'."
-  ]
- },
- {
-  "v": "5.87",
-  "b": 208,
-  "d": "2026-11-24",
-  "es": [
-   "🛠 Arreglo: el mapa del Mar de Dawn daba un error rojo y no dejaba cambiar de mapa con las flechas (un punto de La Tortuga Glotona tenía una categoría que no existía). Ahora el mapa ignora cualquier punto así.",
-   "👕 Ropa de los mares (cosméticos por piezas) en La Tortuga Glotona: la Modista Marea, en la recepción, la vende y hay maniquíes con la ropa puesta.",
-   "🗡 Espadachín: pañuelo negro atado, camiseta de botones con faja verde (y pañuelo en el brazo), pantalón negro, botas negras y tres katanas al cinto. 🎯 Francotirador: pañuelo con gafas, peto marrón con faja blanca, correa y muñequera de rayas, pantalón y bolsa de lona.",
-   "🧭 Navegante: camiseta blanca de franjas azules, minifalda naranja y sandalias. 🍳 Cocinero: chaqueta negra cruzada con botones dorados, camisa celeste y corbata, pantalón de traje y zapatos negros. Todo se ve en las 10 estructuras de cuerpo."
-  ],
-  "en": [
-   "🛠 Fix: the Dawn Sea map showed a red error and the arrows stopped switching maps (a Gluttonous Turtle marker had a category that did not exist). The map now ignores any such marker.",
-   "👕 Sea clothes (cosmetics, piece by piece) at the Gluttonous Turtle: Marea the dressmaker sells them at the reception, with mannequins wearing them.",
-   "🗡 Swordsman: tied black headscarf, button tee with green belly band (and an arm scarf), black trousers, black boots and three katanas at the hip. 🎯 Sharpshooter: headscarf with goggles, brown bib with white sash, strap and striped wristband, trousers and canvas bag.",
-   "🧭 Navigator: white tee with blue stripes, orange miniskirt and sandals. 🍳 Cook: black double-breasted jacket with gold buttons, light blue shirt and tie, suit trousers and black shoes. Everything fits all 10 body builds."
-  ]
- },
- {
-  "v": "5.86",
-  "b": 207,
-  "d": "2026-11-23",
-  "es": [
-   "🐢 La Tortuga Glotona: restaurante flotante sobre una tortuga gigante, cerca de Foosha en el Mar de Dawn. Acércate con el bote al muelle de popa y sube (no hace falta la Fruta del Diablo).",
-   "🍽 Por dentro: Bar Pirata, Jardín del Caparazón con fuente, Terraza con sombrillas, Gran Comedor, Recepción con una vitrina de comida gigante y Cocina. Piratas y clientes comiendo, meseros que llevan platos a las mesas, cocineros y la chef Brígida.",
-   "🧑‍🍳 Turno de mesero con Madame Perla (90 s, dentro del mapa): coge platos en el pase con ⚔ y llévalos a las mesas que piden. Da oro, propinas y experiencia del oficio Restaurante. La chef sirve el plato del día (vida y maná al máximo).",
-   "🏊 Nadar en el Mar de Dawn: tírate al agua desde el bote (⚔) o desde la orilla. Vuelve a tu bote, sube a la tortuga o sal en la costa de Foosha (pide la Fruta del Diablo). Si comiste una fruta, el mar te hunde y te rescatan con un salvavidas."
-  ],
-  "en": [
-   "🐢 The Gluttonous Turtle: a floating restaurant on a giant turtle near Foosha in the Dawn Sea. Bring your boat to the stern dock and board (no Devil Fruit needed).",
-   "🍽 Inside: Pirate Bar, Shell Garden with a fountain, Terrace with parasols, Great Dining Room, Reception with a giant food showcase and Kitchen. Pirates and diners eating, waiters carrying plates to the tables, cooks and Chef Brígida.",
-   "🧑‍🍳 Waiter shift with Madame Perla (90 s, on the map): take plates at the pass with ⚔ and bring them to the tables ordering. Gives gold, tips and Restaurant job experience. The chef serves the dish of the day (full health and mana).",
-   "🏊 Swimming in the Dawn Sea: jump in from the boat (⚔) or from the shore. Get back to your boat, climb onto the turtle or come ashore on Foosha's coast (needs the Devil Fruit). If you ate a fruit, the sea drags you down and you get rescued with a lifebuoy."
-  ]
- },
- {
-  "v": "5.85",
-  "b": 206,
-  "d": "2026-11-23",
-  "es": [
-   "🧥 Ropa del Pelirrojo (cosméticos): Camisa Abierta con botones y mangas remangadas, Pantalón Corto malva con enredaderas y estrellas, y Capa Negra sobre los hombros con el cuello levantado. Se ven en las 5 estructuras de hombre y de mujer y en las 4 direcciones.",
-   "⚔ Caen al vencer a Shanks (duelo o revancha): 30 % por cada prenda que te falte, y cada una es segura a las 15 victorias sin ella. La barra de Shanks enseña cuántas faltan. Se ponen en el Armario."
-  ],
-  "en": [
-   "🧥 Red Hair's clothes (cosmetics): Open Shirt with buttons and rolled sleeves, mauve Knee Shorts with vines and stars, and a Black Cloak over the shoulders with a raised collar. They fit the 5 male and 5 female builds in all 4 directions.",
-   "⚔ They drop when you beat Shanks (duel or rematch): 30% for each piece you are missing, and each one is guaranteed by the 15th win without it. Shanks's bar shows how many are left. Wear them from the Wardrobe."
-  ]
- },
- {
-  "v": "5.84",
-  "b": 205,
-  "d": "2026-11-23",
-  "es": [
-   "👒 Conjunto de Pirata de Paja (tier 44, nivel 600, cualquier clase): sombrero de paja, chaleco rojo abierto sin mangas, faja amarilla, pantalón corto azul y sandalias. Un 5 % más fuerte que la Aurora Divina.",
-   "⚔ Es el premio del duelo con Shanks en Foosha: 10 % por victoria y seguro a las 15. Después del primer duelo puedes pedirle la revancha. La barra de Shanks enseña cuántas victorias faltan."
-  ],
-  "en": [
-   "👒 Straw Pirate set (tier 44, level 600, any class): straw hat, open sleeveless red vest, yellow sash, blue shorts and sandals. 5% stronger than the Divine Aurora.",
-   "⚔ It is the reward for the duel with Shanks in Foosha: 10% per win and guaranteed by the 15th. After the first duel you can ask him for a rematch. Shanks's bar shows how many wins are left."
-  ]
- },
- {
-  "v": "5.83",
-  "b": 204,
-  "d": "2026-11-23",
-  "es": [
-   "🍇 La Fruta del Diablo de Goma (Hilandera Muda: 5 %, segura a los 20 intentos) sigue abriendo las islas de Dawn y ahora se puede comer: cuerpo de goma con 5 técnicas animadas en Habilidades › Fruta (Pistola, Ametralladora, Hacha, Bazuca y Globo) y tus golpes cuerpo a cuerpo estiran el brazo con el arma.",
-   "🍐 Fruta Transparente: aparece a veces en las islas de Dawn con aviso y flecha. Comida: invisibilidad 6 s, los enemigos no te ven.",
-   "⚠ Con una fruta no puedes nadar (pierdes vida en el Fondo Marino y en Nerea). Solo puedes tener una: si te comes otra, mueres. Shanks te la puede quitar.",
-   "🎁 Todos los jefes enseñan encima de su barra de vida lo que sueltan y con qué probabilidad.",
-   "🔍 Lupa › Sistemas: Progresión crossover (Dawn, frutas y Engranaje 2)."
-  ],
-  "en": [
-   "🍇 The Rubber Devil Fruit (Mute Spinner: 5%, guaranteed by the 20th try) still opens the Dawn islands and can now be eaten: a rubber body with 5 animated techniques in Skills › Fruit (Pistol, Gatling, Axe, Bazooka and Balloon), and your melee hits stretch your arm with the weapon.",
-   "🍐 Clear Fruit: it sometimes appears on the Dawn islands with a warning and an arrow. Eaten: 6 s invisibility, enemies cannot see you.",
-   "⚠ With a fruit you cannot swim (you lose HP on the Seabed and in Nerea). You can only have one: eat another and you die. Shanks can remove it.",
-   "🎁 Every boss shows above its health bar what it drops and how likely it is.",
-   "🔍 Magnifier › Systems: Crossover progression (Dawn, fruits and Gear 2)."
-  ]
- },
- {
-  "v": "5.82",
-  "b": 203,
-  "d": "2026-11-23",
-  "es": [
-   "🍇 La Fruta del Diablo ya se puede conseguir: la suelta la Hilandera Muda (nivel 600, Tierras Tejidas) con un 10 %. No se come: llévala en la mochila.",
-   "⛵ Con la fruta puedes desembarcar en Foosha (muelle del puerto) y en Shells Town desde tu bote del Mar de Dawn. Little Garden aún no tiene desembarco.",
-   "♨ Así ya se llega a Shanks y a Engranaje 2: duelo en Foosha y luego el ritual."
-  ],
-  "en": [
-   "🍇 The Devil Fruit can now be obtained: the Mute Spinner (level 600, Woven Lands) drops it with a 10% chance. It is not eaten: carry it in your bag.",
-   "⛵ With the fruit you can land at Foosha (harbour pier) and Shells Town from your Dawn Sea boat. Little Garden has no landing yet.",
-   "♨ This opens the way to Shanks and Gear 2: a duel in Foosha and then the ritual."
-  ]
- },
- {
-  "v": "5.81",
-  "b": 202,
-  "d": "2026-11-23",
-  "es": [
-   "♨ Transformación nueva: Engranaje 2 (nivel 600). Piel roja pálida, vapor que sale de todo el cuerpo y estela al correr. Es la forma más fuerte, un poco por encima de las fusiones: +45 % de ataque y +25 % de velocidad. Con espada, dagas o guadaña el brazo se estira con el arma y golpea a distancia.",
-   "⚔ Se consigue con Shanks en Villa Foosha: te dice si estás listo (nivel 600 y haber vencido a la Rueca Desbocada) y te enfrentas a él, el enemigo más fuerte de momento. 🔒 Foosha sigue cerrada, así que por ahora no se puede conseguir.",
-   "Habilidades: Puño Hirviente, Paso de Vapor, Lluvia de Puños y Estallido Hirviente. Todo en la Lupa › Sistemas."
-  ],
-  "en": [
-   "♨ New transformation: Gear 2 (level 600). Pale red skin, steam rising from the whole body and an afterimage when running. The strongest form, just above the fusions: +45% attack and +25% speed. With a sword, daggers or scythe your arm stretches with the weapon and hits at range.",
-   "⚔ Obtained from Shanks in Foosha Village: he tells you if you are ready (level 600 and the Runaway Spinning Wheel defeated) and you fight him, the strongest enemy for now. 🔒 Foosha is still closed, so it can't be obtained yet.",
-   "Skills: Boiling Fist, Steam Step, Rain of Fists and Boiling Burst. All in the Magnifier › Systems."
-  ]
- },
- {
-  "v": "5.80",
-  "b": 201,
-  "d": "2026-11-23",
-  "es": [
-   "🐺 Transformaciones con las armaduras de nivel 505-600: orejas, cuernos, pelaje, escamas, alas y cristales siempre por encima de la armadura. Las capuchas nuevas ya no tapan el pelo de la forma (por ejemplo, el pelo dorado del Despertar Dorado)."
-  ],
-  "en": [
-   "🐺 Transformations with level 505-600 armour: ears, horns, fur, scales, wings and crystals always on top of the armour. The new hoods no longer hide the form's hair (for example, the Golden Awakening's golden hair)."
-  ]
- },
- {
-  "v": "5.79",
-  "b": 200,
-  "d": "2026-11-23",
-  "es": [
-   "🎨 Las 15 criaturas y los 4 jefes de las Tierras Tejidas tienen sus dibujos nuevos (las mismas mecánicas).",
-   "⚔ Las 49 armas de nivel 505 a 600 tienen sus dibujos nuevos, cada una con el tema de su tier.",
-   "🎵 Música propia en las Tierras Tejidas (caja de música) y otra para sus jefes.",
-   "🎣 Cuatro peces nuevos en los estanques de tinte: Pez Hilo, Carpa de Tinte, Anguila de Huso y Koi de Seda (cañas 15 a 18).",
-   "🧭 ▦ Atajos › ¿Qué hago ahora? › Tierras Tejidas: te dice qué pico, hacha o caña forjar, te lleva a la veta, árbol o estanque que ya puedes usar, al siguiente jefe y a la forja.",
-   "🔍 Lupa › Sistemas: Tierras Tejidas (jefes, recursos y herramientas, forja), cada uno con flecha."
-  ],
-  "en": [
-   "🎨 The 15 creatures and 4 bosses of the Woven Lands have their new artwork (same mechanics).",
-   "⚔ The 49 level 505-600 weapons have their new artwork, each matching its tier's theme.",
-   "🎵 Own music in the Woven Lands (music box) and another for its bosses.",
-   "🎣 Four new fish in the dye ponds: Thread Fish, Dye Carp, Spindle Eel and Silk Koi (rods 15 to 18).",
-   "🧭 ▦ Shortcuts › What do I do now? › Woven Lands: tells you which pickaxe, axe or rod to forge, takes you to the vein, tree or pond you can already use, to the next boss and to the forge.",
-   "🔍 Magnifier › Systems: Woven Lands (bosses, resources and tools, forge), each with an arrow."
-  ]
- },
- {
-  "v": "5.78",
-  "b": 199,
-  "d": "2026-11-23",
-  "es": [
-   "🧶 Las Tierras del Vínculo crecen: al sur de Sahrim y Yarakai (y al este de Nhar) hay una región nueva, las Tierras Tejidas, con un bioma nuevo de algodón rosado, ovillos gigantes, carretes y ciénagas de tinte. Se llega por los andenes de las estaciones Sahrim y Yarakai.",
-   "⬆ El nivel máximo sube a 600. Cuatro zonas: Pradera de Algodón, Bosque de Ovillos, Ciénaga de Tinte e Hilandería Rota (nivel 500 a 600).",
-   "👾 15 criaturas nuevas, cada una con su mecánica (se deshacen en ovillitos, se recosen, lanzan telarañas, aparecen a tu espalda, curan a las demás, te arrastran…) y 4 jefes: la Reina Polilla, el Nudo Ciego, la Rueca Desbocada y la Hilandera Muda.",
-   "🏕 Campamento de las Hebras con 6 NPCs: Ovidia, Maese Hilario (forja), Cora, Fray Lino, Pip y Brígida. Piedra de viaje nueva.",
-   "⛏ Minerales nuevos (Hebrita, Tintolita, Plata de Huso y Sedalita), cuatro maderas nuevas y picos, hachas y cañas 14 a 17.",
-   "🛡 7 tiers de equipo de nivel 505 a 600: armaduras con un diseño distinto para cada clase (49 aspectos) y 49 armas nuevas. Todo en la Lupa › Sistemas."
-  ],
-  "en": [
-   "🧶 The Lands of the Bound grow: south of Sahrim and Yarakai (and east of Nhar) there is a new region, the Woven Lands, with a new biome of pink cotton, giant yarnballs, spools and dye marshes. Reach it from the Sahrim and Yarakai station platforms.",
-   "⬆ The level cap rises to 600. Four zones: Cotton Meadow, Yarnball Wood, Dye Marsh and Broken Spinning Mill (level 500 to 600).",
-   "👾 15 new creatures, each with its own mechanic (they unravel into small yarnballs, sew themselves back up, shoot webs, appear behind you, heal the others, drag you…) and 4 bosses: the Moth Queen, the Blind Knot, the Runaway Spinning Wheel and the Mute Spinner.",
-   "🏕 Thread Camp with 6 NPCs: Ovidia, Master Hilario (forge), Cora, Brother Lino, Pip and Brígida. New waystone.",
-   "⛏ New ores (Threadite, Dyestone, Spindle Silver and Silkstone), four new woods and pickaxes, axes and rods 14 to 17.",
-   "🛡 7 tiers of level 505-600 gear: armour with a different design for each class (49 looks) and 49 new weapons. All in the Magnifier › Systems."
-  ]
- },
- {
-  "v": "5.77",
-  "b": 198,
-  "d": "2026-11-23",
-  "es": [
-   "▦ Atajos por páginas: los botones se acomodan en páginas con ◀ ▶ (o deslizando a los lados) y ya no se salen de la pantalla.",
-   "🚕 Taxi por app (▦ Atajos, solo dentro de una ciudad): eliges una zona, el taxi te recoge y te deja allí.",
-   "🎤 Conciertos en la plaza algunas noches (⚔ para bailar). 🚚 Vecinos nuevos que se mudan cada semana. 🪧 Huelgas de combis.",
-   "🗿 Con 25 de reputación el alcalde te nombra Vecino Ilustre: título y estatua de bronce en la plaza.",
-   "🔍 Un misterio en cada ciudad: pistas, testigo y sospechosos (marco «Detective»). 👻 Leyendas urbanas de madrugada: la Llorona, la Santa Compaña, el duende de Chan Chan…",
-   "📷 Álbum de fauna con el modo foto. 🍽 Tu fonda a la hora del almuerzo: sirve tus platos a los vecinos. 🐾 Michi y Firulais aprenden trucos (traer cosas y buscar tesoros)."
-  ],
-  "en": [
-   "▦ Shortcuts in pages: buttons are arranged in pages with ◀ ▶ (or swipe sideways) and no longer go off screen.",
-   "🚕 Taxi app (▦ Shortcuts, only inside a city): pick an area, the taxi picks you up and drops you there.",
-   "🎤 Concerts in the square some nights (⚔ to dance). 🚚 New neighbours moving in every week. 🪧 Combi strikes.",
-   "🗿 With 25 reputation the mayor names you Distinguished Neighbour: title and a bronze statue in the square.",
-   "🔍 A mystery in each city: clues, a witness and suspects («Detective» frame). 👻 Late-night urban legends: La Llorona, the Holy Company, the goblin of Chan Chan…",
-   "📷 Wildlife album with photo mode. 🍽 Your eatery at lunch time: serve your dishes to the neighbours. 🐾 Kitty and Firulais learn tricks (fetching and digging for treasure)."
-  ]
- },
- {
-  "v": "5.76",
-  "b": 197,
-  "d": "2026-11-23",
-  "es": [
-   "🔎 Lupa › 🏙 Ciudades y vida: nueva pestaña con todo lo de las ciudades, la familia y la vida diaria explicado, y «Hoy en las ciudades» (fiestas, mercado, cumpleaños, partidos, apagones y bodas de hoy).",
-   "🚐 Súbete a una combi en la calle (5 de oro): el cobrador vocea las paradas y bajas con ⚔ donde quieras. 👛 De día, carteristas: atrápalos antes de 40 s.",
-   "🏘 Barrios con personalidad: corredores al amanecer, pintores y músicos de noche, mariachis en el Zócalo, flamenco en Andalucía. Al almuerzo, colas y humito en los puestos de comida.",
-   "⚡ Apagones algunas noches (velas en las ventanas y más loquitos). ⚽ Partidos de la selección con goles en toda la ciudad y caravana si gana. 📰 Canillita con el periódico del día.",
-   "🏖 Bañistas en verano y chubascos de verano. 💒 Bodas y bautizos en la plaza. 🧺 Abre tu propio puesto en el mercado de los sábados.",
-   "🏫 Recreo en la escuela de Albor: ve a ver a tus hijos al patio. 🐓 Gallos al amanecer, grillos y luciérnagas de noche, mariposas de día."
-  ],
-  "en": [
-   "🔎 Magnifier › 🏙 Cities & life: a new tab explaining everything about cities, family and daily life, plus «Today in the cities» (today's festivals, market, birthdays, matches, power cuts and weddings).",
-   "🚐 Hop on a combi in the street (5 gold): the conductor shouts the stops and you get off with ⚔ wherever you like. 👛 Pickpockets by day: catch them within 40 s.",
-   "🏘 Neighbourhoods with character: dawn joggers, painters and musicians at night, mariachis in the Zócalo, flamenco in Andalusia. At lunch, queues and steam at the food stalls.",
-   "⚡ Power cuts some nights (candles in the windows and more nutters). ⚽ National team matches with goals across the city and a caravan if they win. 📰 Newspaper boy with the daily paper.",
-   "🏖 Summer beachgoers and summer showers. 💒 Weddings and christenings in the square. 🧺 Open your own stall at the Saturday market.",
-   "🏫 Break time at the Albor school: visit your children in the yard. 🐓 Roosters at dawn, crickets and fireflies at night, butterflies by day."
-  ]
- },
- {
-  "v": "5.75",
-  "b": 196,
-  "d": "2026-11-23",
-  "es": [
-   "▦ Atajos se desliza hacia abajo: ya se pueden tocar los últimos botones (un brillo abajo avisa de que hay más).",
-   "☔ Las ciudades tienen clima: con lluvia la gente se refugia y saca paraguas (en Lima es garúa). 🚗 Hora punta con combis voceando y calles vacías de madrugada.",
-   "🎉 Fiestas de cada país con guirnaldas, más gente y un regalo diario: Día de Muertos, Inti Raymi, Fiestas Patrias, Concurso de Marinera, San Fermín y Feria de Abril.",
-   "🗓 Vecinos con nombre y rutina (casa, trabajo, almuerzo en la plaza) y sus cumpleaños con fiesta. 👮 Serenos y policías de noche que te ayudan con los loquitos y te dan recompensa.",
-   "🔒 Los puestos cierran de noche (algunos abren 24 horas). 🌅 Surfistas y pescadores al amanecer. 🧺 Mercado de los sábados.",
-   "🐾 Adopta al gato o al perro de la calle que acaricias 3 días. 💼 Los hijos mayores trabajan en un oficio y te traen oro y materiales. 😊 Reputación por ciudad: te saludan por tu nombre y te hacen descuento."
-  ],
-  "en": [
-   "▦ Shortcuts now scroll down: the last buttons can be tapped (a glow at the bottom shows there is more).",
-   "☔ Cities have weather: when it rains people take shelter and open umbrellas (in Lima it is drizzle). 🚗 Rush hour with shouting combis and empty streets late at night.",
-   "🎉 Each country's festivals with garlands, more people and a daily gift: Day of the Dead, Inti Raymi, National Holidays, Marinera Contest, San Fermín and April Fair.",
-   "🗓 Named neighbours with a routine (home, work, lunch in the square) and birthday parties. 👮 Night watchmen and police who help you with the nutters and pay a reward.",
-   "🔒 Stalls close at night (some are open 24 hours). 🌅 Surfers and fishermen at dawn. 🧺 Saturday market.",
-   "🐾 Adopt the street cat or dog you pet on 3 days. 💼 Grown-up children work a job and bring you gold and materials. 😊 Reputation per city: people greet you by name and give you a discount."
-  ]
- },
- {
-  "v": "5.74",
-  "b": 195,
-  "d": "2026-11-23",
-  "es": [
-   "🌆 Lima, Lima Norte, Trujillo, Cusco, Machu Picchu, México y España siguen la hora: de día las calles están llenas, al anochecer la gente se va a casa y de madrugada casi no queda nadie. Los domingos sale todo el mundo; España tiene siesta y cena tarde.",
-   "🌙 Vendedores que solo abren de noche (anticuchos, picarones, emoliente, tacos, churros…) y, de 22:00 a 5:00, loquitos que buscan pleito. Su fuerza se adapta a la tuya.",
-   "👂 La gente comenta lo que de verdad has hecho («¿Qué se dice por aquí?») y a veces cuchichea cuando pasas. 🤝 Cada día un vecino te pide un favor, y a veces te visitan en casa con un regalo.",
-   "🐾 Gatos, perros y palomas por las calles: acarícialos con ⚔; las palomas vuelan si te acercas y el gato te sigue si le das pescado.",
-   "🌸 Huerto por estaciones: 8 cultivos de temporada. Al cosechar un huerto se cosechan todos los que están listos y se vuelven a sembrar.",
-   "🏡 Rutina de los hijos (escuela, jardín, cena y cama), cena en familia, diario de cada hijo y fotos de familia en la pared del salón.",
-   "🏠 Volver a casa (▦ Atajos), buscador y filtro de oficio en el inventario, 🧺 Vida diaria (lista de compra con flecha, Bolsa de rescate cuando la mochila está llena, favor del día y avisos) y temporizador de 3 s en el modo foto."
-  ],
-  "en": [
-   "🌆 Lima, North Lima, Trujillo, Cusco, Machu Picchu, Mexico and Spain follow the clock: streets are busy by day, people go home at dusk and hardly anyone is left late at night. On Sundays everyone is out; Spain has a siesta and late dinners.",
-   "🌙 Vendors who only open at night (anticuchos, picarones, emoliente, tacos, churros…) and, from 22:00 to 5:00, nutters looking for a fight. Their strength adapts to yours.",
-   "👂 People talk about what you have really done («What is the word around here?») and sometimes whisper as you pass. 🤝 Every day a neighbour asks you a favour, and sometimes they visit your house with a gift.",
-   "🐾 Cats, dogs and pigeons on the streets: pet them with ⚔; pigeons fly off if you get close and the cat follows you if you give it fish.",
-   "🌸 Seasonal garden: 8 seasonal crops. Harvesting one plot harvests every ripe plot and replants them.",
-   "🏡 Children's routine (school, garden, dinner and bed), family dinner, a diary for each child and family photos on the living room wall.",
-   "🏠 Go home (▦ Shortcuts), search and jobs filter in the bag, 🧺 Daily life (shopping list with arrow, Rescue bag when your bag is full, favour of the day and alerts) and a 3 s timer in photo mode."
-  ]
- },
- {
-  "v": "5.73",
-  "b": 194,
-  "d": "2026-11-21",
-  "es": [
-   "El desembarco en Foosha, Little Garden y Shells Town requiere una Fruta del Diablo, que aún no se puede conseguir.",
-   "Desde nivel 500 sigue disponible la navegación por el Mar de Dawn."
-  ],
-  "en": [
-   "Landing at Foosha, Little Garden and Shells Town requires a Devil Fruit, which cannot be obtained yet.",
-   "Sailing the Dawn Sea remains available from level 500."
-  ]
- },
- {
-  "v": "5.72",
-  "b": 193,
-  "d": "2026-11-21",
-  "es": [
-   "Shells Town abre al este de Little Garden, en el mismo Mar de Dawn de 1.648 × 360 casillas.",
-   "Desembarca en el muelle central y explora las calles de adoquín y el exterior de la Base 153. Puedes volver a tu embarcación desde el mismo muelle."
-  ],
-  "en": [
-   "Shells Town opens east of Little Garden on the same 1,648 × 360 tile Dawn Sea map.",
-   "Land at the central pier to explore the cobbled streets and the outside of the 153rd Branch Base. Return to your ship from the same pier."
-  ]
- },
- {
-  "v": "5.71",
-  "b": 192,
-  "d": "2026-11-21",
-  "es": [
-   "Luffy niño usa su nuevo sprite en Foosha y saluda cuando te acercas.",
-   "En Ajustes → Sprites de Dawn puedes alternar entre los dos sprites de Alvida."
-  ],
-  "en": [
-   "Young Luffy has a new sprite in Foosha and waves when you approach.",
-   "Switch between Alvida’s two sprites in Settings → Dawn sprites."
-  ]
- },
- {
-  "v": "5.70",
-  "b": 191,
-  "d": "2026-11-21",
-  "es": [
-   "Mar de Dawn ampliado a 1.168 × 360 casillas. Little Garden aparece en el mapa con el desembarco cerrado.",
-   "Desde nivel 500, Marina te da acceso a un bote que puedes manejar. Localiza el galeón, aborda y vence a la tripulación y a Alvida.",
-   "Gana el mazo de Alvida para guerrero, registra a la tripulación en el bestiario y toma el timón del galeón."
-  ],
-  "en": [
-   "The Dawn Sea covers 1,168 × 360 tiles. Little Garden is on the map with its landing closed.",
-   "At level 500, Marina grants access to a boat you can steer. Find the galleon, board and defeat the crew and Alvida.",
-   "Earn Alvida’s warrior mace, register the crew in the bestiary and take the galleon’s helm."
-  ]
- },
- {
-  "v": "5.69",
-  "b": 190,
-  "d": "2026-11-21",
-  "es": [
-   "🛠 Selva peruana: arreglado el error rojo «reading 'y'» al caminar, que congelaba el juego y parecía teletransportarte. El juego ya no se rompe en ningún mapa sin salida a pie."
-  ],
-  "en": [
-   "🛠 Peruvian jungle: fixed the red error «reading 'y'» while walking, which froze the game and looked like teleporting. The game no longer breaks on any map without a walk-out exit."
-  ]
- },
- {
-  "v": "5.68",
-  "b": 189,
-  "d": "2026-11-20",
-  "es": [
-   "Selva peruana de 720 × 360 casillas: río, bosque de lupunas, cascada, aguajal, cocha y dos comunidades conectadas por senderos.",
-   "Compra el billete de 10.000 de oro en Jorge Chávez, embarca por la Puerta 2 y regresa gratis con Daniela.",
-   "Aprende y practica shipibo-konibo y asháninka con Luz y Elena."
-  ],
-  "en": [
-   "720 × 360 Peruvian Amazon map: river, lupuna forest, waterfall, aguaje palms, oxbow lake and two communities connected by trails.",
-   "Buy the 10,000 gold ticket at Jorge Chávez, board at Gate 2 and fly back free with Daniela.",
-   "Learn and practice Shipibo-Konibo and Ashaninka with Luz and Elena."
-  ]
- },
- {
-  "v": "5.67",
-  "b": 188,
-  "d": "2026-11-20",
-  "es": [
-   "⚒ ▦ Atajos › ¿Qué hago ahora?: nueva sección de oficios. Primero Tala, Minería y Pesca (con tu herramienta equipada y sus casillas); al terminarlas te va mostrando el siguiente oficio, uno a uno, hasta los 68.",
-   "➜ «Llévame» pone la flecha dorada donde practicar y «Ver en la Lupa» abre la guía de ese oficio."
-  ],
-  "en": [
-   "⚒ ▦ Shortcuts › What do I do now?: new jobs section. First Woodcutting, Mining and Fishing (with your equipped tool and its slots); once done it shows the next job, one by one, up to all 68.",
-   "➜ «Take me» sets the golden arrow where to practise and «See in Magnifier» opens that job's guide."
-  ]
- },
- {
-  "v": "5.66",
-  "b": 187,
-  "d": "2026-11-20",
-  "es": [
-   "▦ Barra de abajo más limpia: se quitan la casilla ＋ y el libro. Quedan hacha, poción, pico, caña, mochila y tu arma.",
-   "💃 Bailes: los brazos se dibujan encima de la ropa con contorno y se aclaran con prendas negras, así se ve el movimiento con cualquier atuendo.",
-   "✦ Armario › Auras: 5 auras nuevas con oro: Escarcha cristalina, Pacto carmesí, Humo de sombra, Prisma arcoíris y Fuegos fatuos."
-  ],
-  "en": [
-   "▦ Cleaner bottom bar: the ＋ slot and the book are gone. Axe, potion, pickaxe, rod, bag and your weapon remain.",
-   "💃 Dances: arms are drawn over clothes with an outline and brightened on black outfits, so the movement shows with any outfit.",
-   "✦ Wardrobe › Auras: 5 new auras for gold: Crystal frost, Crimson pact, Shadow smoke, Rainbow prism and Will-o'-wisps."
-  ]
- },
- {
-  "v": "5.65",
-  "b": 186,
-  "d": "2026-11-20",
-  "es": [
-   "🐴 El botón de montura abre tus monturas compradas: elige la que quieras o cambia sin bajarte. En el online se ve la que llevas.",
-   "🧪 Curas equilibradas: pociones como mucho el 40 % de tu vida (elixir 60 %); platos y bebidas como mucho el 25 % y con 20 s de espera (antes se podían comer sin parar y curaban miles).",
-   "⛏ Las vetas y árboles nuevos de nivel alto vuelven a salir a los 3 s en el mismo sitio."
-  ],
-  "en": [
-   "🐴 The mount button opens your purchased mounts: pick any or switch without getting off. Online players see the one you ride.",
-   "🧪 Balanced healing: potions heal at most 40% of your HP (elixir 60%); dishes and drinks at most 25% with a 20 s cooldown (before they could be spammed for thousands).",
-   "⛏ The new high-level veins and trees grow back after 3 s in the same spot."
-  ]
- },
- {
-  "v": "5.64",
-  "b": 185,
-  "d": "2026-11-20",
-  "es": [
-   "🛠 Arreglado el error rojo «id is not defined» al usar el Tónico de Fuerza (y cualquier tónico).",
-   "🧪 Las pociones tienen 30 s de espera (curar, maná y tónicos por separado). La poción rápida puede ser cualquiera.",
-   "🪓 Hachas, picos y cañas ahora se equipan en el inventario (Equipar). Talar, picar y pescar ya no es automático con ⚔: se pulsa su casilla.",
-   "▦ Barra de abajo nueva: hacha · poción · pico · caña · ★ casilla libre (pon lo que quieras; mantén pulsado para cambiarla) · mochila · tu arma · misiones. La casilla brilla si tienes un árbol, una veta o agua al lado.",
-   "⛏ 7 minerales y 7 maderas nuevas de nivel alto en Celestia, Altavela, el Velo Roto, Lima Norte, Cusco (Vinicunca) y México, con su icono en el mapa.",
-   "⚒ 7 hachas, 7 picos y 7 cañas nuevas (nivel 170-450). Tala, Minería y Pesca suben hasta el nivel 120 (+30 con maestría).",
-   "🐟 40 peces nuevos (bestiario y acuario), también en Perú, México y Japón. 🎣 Don Anselmo, el cebero de Puerto Coral: lombrices y cebo dorado para pescar más rápido y peces por oro o lombrices.",
-   "🔎 Todo en la Lupa › Sistemas y en «Dónde conseguir» con flecha."
-  ],
-  "en": [
-   "🛠 Fixed the red error «id is not defined» when using the Strength Tonic (and any tonic).",
-   "🧪 Potions have a 30 s cooldown (healing, mana and tonics separately). The quick potion can be any of them.",
-   "🪓 Axes, pickaxes and rods are now equipped in the bag (Equip). Chopping, mining and fishing are no longer automatic with ⚔: tap their slot.",
-   "▦ New bottom bar: axe · potion · pickaxe · rod · ★ free slot (put anything; long-press to change) · bag · your weapon · quests. A slot glows when a tree, vein or water is next to you.",
-   "⛏ 7 new high-level ores and 7 woods in Celestia, Altavela, the Broken Veil, North Lima, Cusco (Vinicunca) and Mexico, with their map icon.",
-   "⚒ 7 new axes, 7 pickaxes and 7 rods (level 170-450). Woodcutting, Mining and Fishing go up to level 120 (+30 with mastery).",
-   "🐟 40 new fish (bestiary and aquarium), also in Peru, Mexico and Japan. 🎣 Old Anselmo, Puerto Coral's bait seller: worms and golden bait to fish faster, and fish for gold or worms.",
-   "🔎 Everything in Magnifier › Systems and «Where to get it» with an arrow."
-  ]
- },
- {
-  "v": "5.63",
-  "b": 184,
-  "d": "2026-11-20",
-  "es": [
-   "💃 Armario › Bailes: diez bailes nuevos con vista previa gratuita y compra permanente con el oro existente.",
-   "🎭 Se usan en el botón de gestos y bailes de siempre. Animación de 32 cuadros, diez cuerpos y cuatro direcciones; se ven online y conservan tu pelo, ropa y aura."
-  ],
-  "en": [
-   "💃 Wardrobe › Dances: ten new dances with free preview and permanent purchases using existing gold.",
-   "🎭 Use the existing gestures and dances button. 32-frame animation, ten bodies and four directions; visible online, preserving your hair, clothing and aura."
-  ]
- },
- {
-  "v": "5.62",
-  "b": 183,
-  "d": "2026-11-20",
-  "es": [
-   "⚓ Dawn / Villa Foosha: mapa de 720 × 360, pasto suave, molinos, Partys Bar, palmeras y tripulación de Shanks con cuerpos y animaciones nativas.",
-   "🔒 La Capitana Marina de Puerto Coral explica el futuro requisito de una fruta del diablo. Viaje todavía cerrado: no cobra oro ni consume objetos.",
-   "⚔ Piratas pendencieros de nivel 500 fuera del pueblo, con vida, EXP, oro y furia del equilibrio existente. Nivel máximo: 500. Escenario preparado para Romance Dawn; el capítulo completo llegará después."
-  ],
-  "en": [
-   "⚓ Dawn / Foosha Village: 720 × 360 map, soft grass, windmills, Partys Bar, coastal palms and Shanks’s crew with native bodies and animation.",
-   "🔒 Captain Marina in Puerto Coral explains the future Devil Fruit requirement. Voyage still closed: no gold charged or items consumed.",
-   "⚔ Level-500 brawling pirates outside the village, using existing health, XP, gold and fury balance. Level cap: 500. Romance Dawn setting prepared; the full chapter comes later."
-  ]
- },
+{
+ "v": "6.63",
+ "b": 285,
+ "d": "2026-11-27",
+ "es": [
+  "Reverse Mountain y Cabos Gemelos dentro del mar de Dawn: canales navegables, dos faros, muelle y Crocus, con las texturas y los barcos originales. La zona ocupa una extensión libre al sureste, sin alterar Shells Town ni las demás islas.",
+  "Escenas con el Going Merry y los sprites de la tripulación y tu personaje. La promesa de Laboon conserva el progreso anterior y entrega el premio una sola vez, antes de la cinemática.",
+  "La primera isla del Grand Line llegará en otro mapa marítimo; la salida continúa cerrada. Se conservan Brasil y todas las actualizaciones anteriores."
+ ],
+ "en": [
+  "Reverse Mountain and Twin Cape in the Dawn Sea: navigable channels, two lighthouses, a pier and Crocus, using the original textures and ships. The area occupies an unused south-eastern extension without changing Shells Town or the other islands.",
+  "Scenes use the Going Merry and the original crew and player sprites. Laboon’s promise preserves previous progress and awards its reward once, before the cutscene.",
+  "The first Grand Line island will have its own sea map; the exit remains closed. Brazil and all previous updates are preserved."
+ ]
+},
+{
+ "v": "6.62",
+ "b": 284,
+ "d": "2026-11-27",
+ "es": [
+  "🇧🇷 ¡Brasil! Avión desde Albor, Lima, México o España (2.500 de oro). Río de Janeiro: Copacabana con edificios frente al mar, el calçadão de ondas y la playa llena de sombrillas; el Cristo Redentor en lo alto del Corcovado (la cámara sube para verlo entero); el morro con casas de ladrillo y tanques azules; la Escalera Selarón y los arcos de Lapa; la Lagoa con el hipódromo.",
+  "🚡 Teleférico al Pan de Azúcar. 🌈 Cataratas del Iguazú con pasarelas sobre el río, niebla y arcoíris; 🚤 pilota el bote contra la corriente hasta la niebla de la cascada y vuelve. 🧩 Devuelve los azulejos caídos a los escalones de su color en la Selarón.",
+  "🌿 Pasto tropical nuevo, más verde y con florecitas. Comida: feijoada, pan de queso, acaí, agua de coco, coxinha y brigadeiro. Todo en Lupa › Ciudades y vida y en el Mapa."
+ ],
+ "en": [
+  "🇧🇷 Brazil! Plane from Albor, Lima, Mexico or Spain (2,500 gold). Rio de Janeiro: Copacabana with seafront buildings, the wave calçadão and a beach full of umbrellas; Christ the Redeemer on top of Corcovado (the camera rises to see it whole); the morro with brick houses and blue tanks; the Selarón Steps and the Lapa arches; the Lagoa with the racecourse.",
+  "🚡 Cable car to the Sugarloaf. 🌈 Iguazu Falls with walkways over the river, mist and rainbow; 🚤 pilot the boat against the current to the falls' mist and back. 🧩 Put the fallen tiles back on the steps of their colour at the Selarón.",
+  "🌿 New tropical grass, greener and with little flowers. Food: feijoada, cheese bread, açaí, coconut water, coxinha and brigadeiro. All in Magnifier › Cities and life and on the Map."
+ ]
+},
+{
+ "v": "6.61",
+ "b": 283,
+ "d": "2026-11-27",
+ "es": [
+  "🏮 Mercado nocturno: ya no se compra desde el diálogo. Cinco pilluelos roban farolillos y huyen de ti entre los puestos; si los persigues mucho se cansan. Acorrálalos y atrápalos.",
+  "🛷 Trineo sobre el lago helado (ya no es una carrera cuesta abajo): elige carril, ⚔ para correr y empujar, suéltalo en la línea azul y barre el hielo con ⚔ para dejarlo en la diana. 3 trineos que chocan entre sí.",
+  "🌠 Con 5 fragmentos estelares, el astrónomo abre una lluvia de estrellas: botan y ruedan al caer; atrapa todas las que puedas. 🛡 En la defensa del pueblo, ⚔ junto al portón lo repara entre golpe y golpe.",
+  "💌 Se quitó la cápsula del tiempo: si enterraste oro, se te devuelve con el +50 % al entrar."
+ ],
+ "en": [
+  "🏮 Night market: no more buying from the dialog. Five rascals steal lanterns and run from you between the stalls; if you chase them long they get tired. Corner them and catch them.",
+  "🛷 Sled on the frozen lake (no longer a downhill race): pick a lane, ⚔ to run and push, let go at the blue line and sweep the ice with ⚔ to stop it on the target. 3 sleds that knock each other.",
+  "🌠 With 5 star fragments, the astronomer opens a meteor shower: the stars bounce and roll when they land; catch as many as you can. 🛡 In the village defence, ⚔ next to the gate repairs it between hits.",
+  "💌 The time capsule was removed: if you buried gold, you get it back with the +50% when you log in."
+ ]
+},
+{
+ "v": "6.60",
+ "b": 282,
+ "d": "2026-11-27",
+ "es": [
+  "🏰 Vael restaurado: tras vencer al Rey Vael, Ilda de Vael te espera al sur de las Ruinas. Cinco obras con troncos, piedra y oro (columnas y estandartes, torres del portón, jardín y fuente, mercado con vecinos y salón del trono) que cambian las ruinas en el mapa.",
+  "👑 Al terminar, el Velo devuelve el eco del rey, capítulo nuevo en el Libro, 300.000 de oro y el título «Restaurador de Vael». La revancha con el rey se pide a Ilda.",
+  "🌫 Isla Velada: un islote de Altavela que baja con la niebla (3 días de cada 7). La capitana del puerto de Puerto Coral te lleva; toca las 4 runas en el orden del mural para despertar el santuario de los Vientos: oro, Plumas de Alado y el título «Explorador de la niebla»."
+ ],
+ "en": [
+  "🏰 Vael restored: after defeating King Vael, Ilda of Vael waits south of the Ruins. Five works with logs, stone and gold (columns and banners, gate towers, garden and fountain, a market with neighbours and the throne hall) that change the ruins on the map.",
+  "👑 When finished, the Veil returns the king's echo, a new chapter in the Book, 300,000 gold and the title \"Restorer of Vael\". Ask Ilda for a rematch with the king.",
+  "🌫 Veiled Isle: an Altavela islet that comes down with the fog (3 days out of 7). The Puerto Coral harbour captain takes you there; touch the 4 runes in the order of the mural to awaken the shrine of the Winds: gold, Alado feathers and the title \"Fog explorer\"."
+ ]
+},
+{
+ "v": "6.59",
+ "b": 281,
+ "d": "2026-11-27",
+ "es": [
+  "🏮 Mercado nocturno en Albor (20:00-2:00): tres puestos con farolillos y ofertas al 60 % que cambian cada noche. 🥚 Búsqueda de huevos: 8 huevos por el valle con radar frío/tibio/caliente.",
+  "🏹 Tiro con arco al norte de Albor: dianas a 3 distancias, viento y una mira que va y viene. 🛷 Carrera de trineos en los Picos Helados: pista de nieve contra 3 rivales, hielo que acelera y troncos que saltas con ⚔.",
+  "🛡 Defensa del pueblo: 4 oleadas de monstruos van a por el portón sur de Albor. 🌀 Laberinto que cambia en el Bosque Susurrante: los muros se mueven cada 25 s.",
+  "🌠 Estrellas fugaces de noche: corre al brillo y coge el Fragmento estelar; el astrónomo de Albor cambia 5 por un deseo. 💌 Cápsula del tiempo: entierra oro y un mensaje, ábrela a los 7 días con +50 % y tu dibujo de aquel día.",
+  "Todo sale en el Mapa (🎪 Actividades) y en Lupa › Sistemas."
+ ],
+ "en": [
+  "🏮 Night market in Albor (20:00-2:00): three lantern-lit stalls with 60% offers that change every night. 🥚 Egg hunt: 8 eggs around the valley with a cold/warm/hot radar.",
+  "🏹 Archery north of Albor: targets at 3 distances, wind and a sweeping sight. 🛷 Sled race on the Frozen Peaks: snow track against 3 rivals, ice that speeds you up and logs you jump with ⚔.",
+  "🛡 Village defence: 4 waves of monsters go for Albor's south gate. 🌀 Shifting maze in the Whispering Forest: the walls move every 25 s.",
+  "🌠 Shooting stars at night: run to the glow and take the Star fragment; the Albor astronomer trades 5 for a wish. 💌 Time capsule: bury gold and a message, open it after 7 days with +50% and your drawing from that day.",
+  "Everything is on the Map (🎪 Activities) and in Magnifier › Systems."
+ ]
+},
+{
+ "v": "6.58",
+ "b": 280,
+ "d": "2026-11-27",
+ "es": [
+  "📔 Diario del héroe con dibujo: cada página nueva guarda cómo eras ese día (cuerpo, pelo, armadura y cosméticos) y el libro te dibuja junto a la hazaña.",
+  "🔮 Guardia arcana (mago) e 🌲 Instinto del bosque (arquero): desde nivel 200 reciben menos daño de monstruos y jefes (hasta −40 % y −50 % a nivel 700). No cuenta en PvP. Se ve en Personaje.",
+  "⚖ PvP: el mago había quedado un poco fuerte en duelo; las 7 clases vuelven a estar igualadas.",
+  "Arreglos: el nombre del NPC más cercano ya no se dibuja encima de otro; la Fruta Transparente dice bien dónde aparece."
+ ],
+ "en": [
+  "📔 Hero's diary with drawings: every new page saves how you looked that day (body, hair, armour and cosmetics) and the book draws you next to the deed.",
+  "🔮 Arcane guard (mage) and 🌲 Forest instinct (archer): from level 200 they take less damage from monsters and bosses (up to −40% and −50% at level 700). Not in PvP. Shown in Character.",
+  "⚖ PvP: the mage had become a bit strong in duels; all 7 classes are even again.",
+  "Fixes: the nearest NPC's name no longer draws over another; the Clear Fruit says correctly where it appears."
+ ]
+},
+{
+ "v": "6.57",
+ "b": 279,
+ "d": "2026-11-27",
+ "es": [
+  "📦 El juego pesa 3,6 MB menos (39,6 → 35,9 MB): las 564 imágenes de sprites, mapas y armas se recomprimieron sin pérdida. Los píxeles son exactamente los mismos; solo carga y se actualiza antes."
+ ],
+ "en": [
+  "📦 The game is 3.6 MB smaller (39.6 → 35.9 MB): the 564 sprite, map and weapon images were recompressed losslessly. The pixels are exactly the same; it just loads and updates faster."
+ ]
+},
+{
+ "v": "6.56",
+ "b": 278,
+ "d": "2026-11-27",
+ "es": [
+  "⚡ Más fluido en celulares sencillos: España ~17 % más rápida y la Aldea de Albor hasta ~20 % tras visitar ciudades (los NPC de la ciudad que dejas ya no se recorren desde otros mapas). La multitud lejana de las plazas llenas se dibuja sin el detalle HD fino y se libera memoria al cambiar de mapa.",
+  "📦 Actualizaciones ~40 % más pequeñas (descarga comprimida, con la normal de respaldo). Se quitó el límite de 40 MB que pronto habría impedido actualizar.",
+  "📱 Crear personaje en horizontal: el botón «Comenzar aventura» queda siempre a la vista y «Novedades» ya no tapa el título. Botones al tamaño del dedo en el título, crear personaje, menús y barra superior.",
+  "🗂 Pestañas del menú con iconos distintos (🦴 Mascotas, 🏅 Pase) y borde difuminado cuando hay más para deslizar. Mapa: botón para plegar la leyenda. Texto más legible sobre el atardecer de las ventanas.",
+  "💬 Los bocadillos de los NPC ya no se tapan entre sí ni con el clima. Postura ya no pisa a Bloquear. Las casillas «+» vacías solo salen si tienes una habilidad por colocar. Consejos de talar, minar y pescar al día (casillas 🪓 ⛏ 🎣). Números enormes en corto (3,07 mil M)."
+ ],
+ "en": [
+  "⚡ Smoother on low-end phones: Spain ~17% faster and Albor Village up to ~20% after visiting cities (NPCs of the city you leave are no longer processed from other maps). Far crowds in busy squares are drawn without fine HD detail and memory is freed when changing maps.",
+  "📦 Updates ~40% smaller (compressed download, with the normal one as backup). Removed the 40 MB limit that would soon have blocked updates.",
+  "📱 Character creation in landscape: the «Start adventure» button always stays in view and «What's New» no longer covers the title. Finger-sized buttons on the title, character creation, menus and top bar.",
+  "🗂 Menu tabs with distinct icons (🦴 Pets, 🏅 Pass) and a faded edge when there are more to swipe. Map: button to fold the legend. Easier to read text over the sunset of the windows.",
+  "💬 NPC speech bubbles no longer cover each other or the weather. Stance no longer overlaps Block. Empty «+» slots only show when you have a skill to place. Chopping, mining and fishing tips updated (🪓 ⛏ 🎣 slots). Huge numbers in short form (3.07B)."
+ ]
+},
+{
+ "v": "6.55",
+ "b": 277,
+ "d": "2026-11-27",
+ "es": [
+  "🎨 Tinte de ropa: en el Armario puedes teñir el cosmético de cada ranura (8 colores, 5.000 de oro). 👔 Perchas: guarda hasta 3 conjuntos y póntelos de un toque.",
+  "💃 Desfile de moda los sábados (16:00-20:00) en las plazas: cada semana un color de tema; compites contra 3 modelos por oro y reputación.",
+  "Torre Infinita: pisos especiales 💰 tesoro, 🛒 mercader (cambia piedras por una Pluma de Fénix) y ⚠ trampa; y cada 100 pisos sale 🪞 Tu Reflejo, un enemigo con tu mismo aspecto.",
+  "🍲 Devuelve la visita a tus vecinos: después de que te visiten, te esperan para cenar junto a la plaza de cualquier ciudad (18:00-21:00).",
+  "💀 Al caer, un aviso dice qué te derrotó; Bitácora › Caídas guarda las últimas 10 con un consejo. ⚖ En el inventario se ve cuánto cambia tu ataque, defensa y vida si te pones cada pieza."
+ ],
+ "en": [
+  "🎨 Clothes dye: in the Wardrobe you can dye the cosmetic in each slot (8 colours, 5,000 gold). 👔 Hangers: save up to 3 outfits and wear them with one tap.",
+  "💃 Fashion runway on Saturdays (16:00-20:00) in the squares: a colour theme each week; compete against 3 models for gold and reputation.",
+  "Infinite Tower: special floors 💰 treasure, 🛒 merchant (trades stones for a Phoenix Feather) and ⚠ trap; and every 100 floors 🪞 Your Reflection appears, an enemy with your own look.",
+  "🍲 Return your neighbours' visit: after they visit you, they wait for you for dinner by the square of any city (18:00-21:00).",
+  "💀 When you fall, a notice says what defeated you; Logbook › Falls keeps the last 10 with a tip. ⚖ In the inventory you see how much your attack, defence and HP change if you wear each piece."
+ ]
+},
+{
+ "v": "6.54",
+ "b": 276,
+ "d": "2026-11-27",
+ "es": [
+  "📅 Reto de la semana de la Torre Infinita con top en línea: la sala muestra los 5 mejores de la semana."
+ ],
+ "en": [
+  "📅 Infinite Tower weekly challenge with an online leaderboard: the hall shows the week's top 5."
+ ]
+},
+{
+ "v": "6.53",
+ "b": 275,
+ "d": "2026-11-27",
+ "es": [
+  "☕ Chocolatada navideña: en los días de Navidad, Doña Rosa reparte chocolate caliente y panetón junto a la plaza de Lima, Lima Norte, Trujillo y Cusco (una vez al día por ciudad). 🍇 Año Nuevo: las doce uvas de la suerte en la plaza de España.",
+  "🍳 Concurso de cocina los domingos (10:00-18:00) en cada ciudad: presenta tu mejor plato contra 3 cocineros y gana oro y reputación.",
+  "🐾 Tu mascota te ayuda en los oficios: al talar, minar, pescar o recoger a veces trae una unidad más.",
+  "📚 Códice de colecciones en la Bitácora: peces, flores y platos; cada página completa da oro y un título.",
+  "Prueba nueva que pulsa dos veces todos los premios de los diálogos de los 2.098 personajes para que no se repita el bug de los regalos infinitos: 0 fallos."
+ ],
+ "en": [
+  "☕ Christmas hot chocolate: on Christmas days, Doña Rosa hands out hot chocolate and panettone by the square of Lima, North Lima, Trujillo and Cusco (once a day per city). 🍇 New Year: the twelve lucky grapes in the square of Spain.",
+  "🍳 Cooking contest on Sundays (10:00-18:00) in each city: present your best dish against 3 cooks and win gold and reputation.",
+  "🐾 Your pet helps in your jobs: chopping, mining, fishing or gathering sometimes brings one more.",
+  "📚 Collections Codex in the Logbook: fish, flowers and dishes; each completed page gives gold and a title.",
+  "New test that double-taps every dialog reward of all 2,098 characters so the infinite gifts bug can't come back: 0 failures."
+ ]
+},
+{
+ "v": "6.52",
+ "b": 274,
+ "d": "2026-11-27",
+ "es": [
+  "Avisos más ordenados: los repetidos se juntan («×2»), los «+N objeto» del mismo objeto se suman, se ven 3 a la vez, ya no tapan la barra del jefe y quedan en Bitácora › 📜 Avisos.",
+  "Las barras de tu equipo ya no tapan la misión; el regalo diario espera a que termines de luchar. Opciones › Interfaz: HUD compacto y nombres de NPC solo cerca (los de misión siempre se ven).",
+  "📍 Marcadores propios en el mapa (hasta 12): toca «Marcar» y luego el mapa; con 🧭 la flecha te lleva.",
+  "Torre Infinita: 📣 avisos rápidos para el grupo (¡Ayuda!, ¡Aquí!, ¡A por el jefe!), 🪶 Pluma de Fénix (te levanta una vez por subida si nadie puede reanimarte), 📅 reto de la semana con la misma mecánica en todos los pisos, títulos y marcos por llegar a los pisos 25, 50, 100 y 200, récord del grupo en línea y el bardo reanima el doble de rápido y cura al equipo."
+ ],
+ "en": [
+  "Tidier notices: repeated ones are merged («×2»), «+N item» of the same item add up, 3 are shown at once, they no longer cover the boss bar and they are kept in Logbook › 📜 Notices.",
+  "Your team bars no longer cover the quest; the daily gift waits until you finish fighting. Options › Interface: compact HUD and NPC names only when near (quest NPCs always shown).",
+  "📍 Your own map markers (up to 12): tap «Mark» and then the map; with 🧭 the arrow takes you there.",
+  "Infinite Tower: 📣 quick calls for the group (Help!, Over here!, Go for the boss!), 🪶 Phoenix Feather (gets you up once per climb if nobody can revive you), 📅 weekly challenge with the same mechanic on every floor, titles and frames for reaching floors 25, 50, 100 and 200, online group record, and the bard revives twice as fast and heals the team."
+ ]
+},
+{
+ "v": "6.51",
+ "b": 273,
+ "d": "2026-11-27",
+ "es": [
+  "Vestuario de la Torre Infinita: 33 prendas cosméticas nuevas en 14 conjuntos (crop top y short de volantes, vestido salvia de mangas abullonadas, blazer de espiga con pañuelo, chaqueta utilitaria oliva, gabardina, blazer de cuadros, top halter con pantalón ancho blanco, suéter de rayas con minifalda vaquera y gorra, conjuntos de girasol, carácter fuerte y afilado, gótico de volantes, perlas, otoño y calabaza). Para todas las estructuras de cuerpo, de hombre y de mujer, en las cuatro direcciones.",
+  "Cómo se consiguen: cada 5 pisos superados de la Torre Infinita (en cualquier modo) recibes la siguiente prenda, y los jefes de la torre dan una prenda que te falte (15 %, segura a los 6 jefes). Lupa › Sistemas › 🧥 Vestuario de la Torre muestra lo que tienes y el siguiente premio."
+ ],
+ "en": [
+  "Infinite Tower wardrobe: 33 new cosmetic pieces in 14 sets (crop top and ruffle shorts, sage puff-sleeve dress, herringbone blazer with scarf, olive utility jacket, trench coat, plaid blazer, halter top with white wide-leg trousers, striped sweater with denim mini skirt and cap, sunflower, strong and sharp character, ruffled gothic, pearls, autumn and pumpkin sets). For every body structure, male and female, in all four directions.",
+  "How to get them: every 5 floors cleared in the Infinite Tower (any mode) gives you the next piece, and tower bosses drop a piece you are missing (15%, guaranteed by the 6th boss). Magnifier › Systems › 🧥 Tower wardrobe shows what you have and the next reward."
+ ]
+},
+{
+ "v": "6.50",
+ "b": 272,
+ "d": "2026-11-27",
+ "es": [
+  "Torre Infinita en línea (de 2 a 7 jugadores): si caes y queda otro jugador de tu grupo en el piso, quedas «Derribado» 18 segundos, como en el mundo normal. Tu amigo puede reanimarte con el botón de acción a tu lado. Si nadie llega o te rindes, tu subida termina como antes. Si tu grupo sube de piso mientras estás derribado, te levantas y vas con ellos.",
+  "Torre Infinita en equipo de 4 (con jugadores cazadores y cazadores de los portales): si caes y queda un compañero en pie, quedas «Derribado» y el compañero más cercano corre a levantarte. Tú también puedes reanimar a un compañero caído con el botón de acción a su lado. Si el equipo supera el piso mientras estás derribado, te levantas."
+ ],
+ "en": [
+  "Online Infinite Tower (2 to 7 players): if you fall and another player from your group is still on the floor, you are «Downed» for 18 seconds, like in the normal world. Your friend can revive you with the action button next to you. If nobody comes or you give up, your climb ends as before. If your group goes up a floor while you are downed, you get up and go with them.",
+  "Infinite Tower team of 4 (with player hunters and portal hunters): if you fall and a teammate is still standing, you are «Downed» and the closest teammate runs to get you up. You can also revive a fallen teammate with the action button next to them. If the team clears the floor while you are downed, you get up."
+ ]
+},
+{
+ "v": "6.49",
+ "b": 271,
+ "d": "2026-11-27",
+ "es": [
+  "Arreglo grave: los vecinos que te visitan en casa daban regalos infinitos si no cerrabas la ventana y seguías pulsando «Recibir su regalo». Ahora el botón desaparece en cuanto recibes el regalo.",
+  "Arreglo general de las conversaciones: al pulsar una opción del menú de un personaje, la lista se actualiza sola, así las recompensas de una sola vez (regalos, títulos, cobros) ya no se pueden repetir. Los botones viejos que quedaban en pantalla ya no hacen nada.",
+  "El botón ↩ (última ventana) ya no tapa el texto de la Bitácora: se coloca justo a su derecha."
+ ],
+ "en": [
+  "Major fix: neighbours visiting your home gave infinite gifts if you kept the window open and pressed «Accept the gift» again. Now the button disappears as soon as you get the gift.",
+  "General conversation fix: after choosing an option in a character's menu, the list refreshes by itself, so one-time rewards (gifts, titles, payouts) can no longer be repeated. Stale buttons left on screen no longer do anything.",
+  "The ↩ button (last window) no longer covers the Logbook text: it now sits right next to it."
+ ]
+},
+{
+ "v": "6.48",
+ "b": 270,
+ "d": "2026-11-27",
+ "es": [
+  "Arreglo de la fase de los sellos (Rey Vael y jefes del Velo Roto): a mitad de vida el jefe se vuelve inmune hasta que pisas 3 sellos dorados, pero los sellos podían salir dentro de columnas o muros y era imposible romper el escudo. Ahora salen siempre en suelo que se puede pisar, llevan el rótulo «SELLO» con una barra de progreso, el jefe avisa «INMUNE · pisa los sellos 1/3» y, si algo falla, el escudo se rompe solo a los 35 segundos.",
+  "Revisión general de errores a nivel 5, 150, 400 y 700 (todas las pestañas, botones de Atajos, la Lupa y todos los mapas): sin errores. Los jugadores cazadores ya no intentan aparecer en lugares que no son mapas jugables."
+ ],
+ "en": [
+  "Seal phase fix (King Vael and Broken Veil bosses): at half HP the boss becomes immune until you stand on 3 golden seals, but seals could appear inside pillars or walls and the shield was impossible to break. Now they always appear on walkable ground, have a “SEAL” label with a progress bar, the boss shows “IMMUNE · stand on the seals 1/3” and, if something goes wrong, the shield breaks on its own after 35 seconds.",
+  "General error check at level 5, 150, 400 and 700 (every tab, Shortcut button, the Magnifier and every map): no errors. Player hunters no longer try to appear in places that aren't playable maps."
+ ]
+},
+{
+ "v": "6.47",
+ "b": 269,
+ "d": "2026-11-27",
+ "es": [
+  "Arreglo: los ataques en área de enemigos y jefes te alcanzaban más lejos de lo que mostraba la zona roja (por encima y por debajo del enemigo, hasta un 40 % más). Ahora solo te golpean si estás dentro de la zona que se ve.",
+  "Devorador Carmesí (asedio de la Luna de Sangre): un anillo en el suelo marca siempre dónde están sus pies y hasta dónde llega su golpe, pega un 15 % menos y pisotea algo menos seguido.",
+  "Arreglo: los jugadores cazadores dejaban a los jefes con poca vida. Ahora sus golpes a un jefe no le quitan vida de verdad: el jefe está siempre entero para ti.",
+  "Torre Infinita: ya no sale el Muñeco de prueba (era inmortal). La torre no da experiencia, oro ni objetos: solo Piedras de Mejora y, desde el piso 30, Piedras de Mejora Superior (los jefes dan varias). Fuera de la torre los enemigos dan lo de siempre."
+ ],
+ "en": [
+  "Fix: enemy and boss area attacks reached farther than the red zone showed (above and below the enemy, up to 40% more). Now they only hit you if you are inside the zone you see.",
+  "Crimson Devourer (Blood Moon siege): a ring on the ground always shows where its feet are and how far its hit reaches, it hits 15% less and stomps a bit less often.",
+  "Fix: player hunters left bosses at low HP. Their hits on a boss no longer take real HP: the boss is always whole for you.",
+  "Infinite Tower: the Training dummy no longer appears (it was immortal). The tower gives no XP, gold or items: only Upgrade Stones and, from floor 30, Superior Upgrade Stones (bosses give several). Outside the tower enemies give the usual rewards."
+ ]
+},
+{
+ "v": "6.46",
+ "b": 268,
+ "d": "2026-11-27",
+ "es": [
+  "Arreglo de las armas malditas: al quitarte un arma maldita y volver a ponértela perdía su pacto, el progreso para dominarla, y si estaba dominada o purificada (¡50.000 de oro!), y te volvía a ofrecer el pacto. Ahora lo conserva todo.",
+  "Revisado: equipar y quitar objetos malditos (anillo, collar, yelmo y armas con cada pacto) y normales, uno o varios a la vez, no baja tus estadísticas para siempre. Al quitarlos vuelven exactamente igual, y dos malditos a la vez suman sus efectos como deben."
+ ],
+ "en": [
+  "Cursed weapon fix: taking off a cursed weapon and putting it back on lost its pact, the progress to dominate it, and whether it was dominated or purified (50,000 gold!), and offered the pact again. Now it keeps everything.",
+  "Checked: equipping and removing cursed items (ring, necklace, helm and weapons with each pact) and normal ones, one or several at once, doesn't lower your stats permanently. When removed they go back exactly the same, and two cursed items at once add up their effects as they should."
+ ]
+},
+{
+ "v": "6.45",
+ "b": 267,
+ "d": "2026-11-27",
+ "es": [
+  "Arreglo grave de la Torre Infinita en equipo: con un jugador cazador de compañero la vida salía «NaN», los enemigos se quedaban a 0 sin morir y se les seguía pegando sin fin (con lag). Ahora los compañeros tienen su vida y su ataque de verdad, los enemigos mueren y se sube de piso con normalidad. Además, si alguna vez aparece un número roto, el juego lo corrige solo.",
+  "Jugadores cazadores con instinto de supervivencia: esquivan con dash (más los ágiles), llevan sus propias pociones (las gastan y las recuperan con el tiempo) y, si se quedan sin pociones y con poca vida, huyen y se sientan a recuperarse antes de volver a pelear."
+ ],
+ "en": [
+  "Major fix for the Infinite Tower in a team: with a player hunter as a companion, HP showed “NaN”, enemies stayed at 0 without dying and kept being hit endlessly (with lag). Companions now have their real HP and attack, enemies die and floors go up normally. If a broken number ever appears, the game fixes it on its own.",
+  "Player hunters with survival instinct: they dodge with a dash (agile ones more), carry their own potions (they use them and get them back over time) and, when out of potions and low on HP, they run away and sit down to recover before fighting again."
+ ]
+},
+{
+ "v": "6.44",
+ "b": 266,
+ "d": "2026-11-27",
+ "es": [
+  "Torre Infinita, más fácil de encontrar: en la Torre de los Portales, la plataforma de teletransporte dorada junto a la entrada te lleva a la Sala de la Torre Infinita (portal, top y la guardiana Ilse).",
+  "Jugadores cazadores: su perfil es como tu ficha de personaje (equipo, estadísticas reales, atributos y su historia). Van a tu velocidad, usan dash y montura en los mapas abiertos y rodean los obstáculos. Los enemigos, jefes y súper jefes también los atacan: pueden caer y se levantan solos o los levanta otro. Pueden pelear contra jefes, pero nunca los rematan ni se meten si tú los estás peleando (y el jefe se recupera cuando se van).",
+  "Jugadores cazadores: así se llaman ahora (para no confundirlos con los cazadores de los portales). Viven su propia aventura, sin tu hilo: mejoran su equipo (+1 a +10), suben oficios, consiguen formas, vencen jefes, suben la Torre Infinita y viajan por todos los países y mapas. Míralo en su perfil (📖 Su historia).",
+  "Se transforman en combate con su aura y su destello, y cambian de forma en plena pelea si tienen varias. Tienen diálogos nuevos según dónde están y qué han hecho. No te pueden revivir.",
+  "Puedes atacar a un jugador cazador sin pedirle duelo: se defiende (y se transforma). Si gana o pierde, lo recuerda.",
+  "Torre Infinita · Equipo de 4: tú y 3 compañeros con IA (cazadores de los portales y jugadores cazadores de tu nivel), con récord de equipo.",
+  "Torre Infinita · En línea: con tu grupo, hasta 4 o hasta 7 jugadores, sin top (solo para ver cuánto aguantáis). Los enemigos que vence uno desaparecen para todos y subís juntos."
+ ],
+ "en": [
+  "Infinite Tower, easier to find: in the Portal Tower, the golden teleporter pad by the entrance takes you to the Infinite Tower Hall (portal, leaderboard and the warden Ilse).",
+  "Player hunters: their profile looks like your character sheet (gear, real stats, attributes and their story). They move at your speed, use dash and mounts on open maps and walk around obstacles. Enemies, bosses and super bosses attack them too: they can fall and get up on their own or another one helps them. They can fight bosses but never finish them or join if you are fighting them (and the boss recovers when they leave).",
+  "Player hunters: that's their name now (so they aren't confused with the portal hunters). They live their own adventure, without your thread: they upgrade gear (+1 to +10), raise jobs, get forms, defeat bosses, climb the Infinite Tower and travel across every country and map. See it in their profile (📖 Their story).",
+  "They transform in combat with their aura and flash, and switch forms mid-fight if they have several. They have new dialogue depending on where they are and what they've done. They can't revive you.",
+  "You can attack a player hunter without asking for a duel: they fight back (and transform). Win or lose, they remember it.",
+  "Infinite Tower · Team of 4: you and 3 AI companions (portal hunters and player hunters of your level), with a team record.",
+  "Infinite Tower · Online: with your group, up to 4 or up to 7 players, no leaderboard (just to see how long you last). Enemies one of you defeats vanish for everyone and you climb together."
+ ]
+},
+{
+ "v": "6.43",
+ "b": 265,
+ "d": "2026-11-27",
+ "es": [
+  "Torre Infinita: en la Torre de los Portales, el portal dorado del centro. Salas sin fin: cada piso los enemigos suben 5 niveles y entran 5 o más, y cada 10 pisos hay un jefe. Salen todos los enemigos del juego y los jefes de zona, continente, cueva y portal (sin súper jefes ni jefes de la historia), más 6 enemigos y 2 jefes nuevos propios de la torre, con mecánicas por piso (rápidos, acorazados, furiosos, enjambre, élite, oscuridad, se regeneran o explotan). Pueden pasar del nivel 700: es una prueba de resistencia con top en línea.",
+  "Si caes en la torre no mueres como siempre: la subida termina, vuelves a la entrada y tu mejor piso queda en el top. Puedes volver a empezar en el último múltiplo de 10 que superaste.",
+  "Cazadores por todo el mundo: en cada mapa abierto y en las ciudades hay 8-18 cazadores con nombre propio (Zack, Luna, Vale99…) que van y vienen por el mapa: farmean, viajan, talan, pican, pescan, saludan, charlan entre ellos, descansan y suben de nivel solos; no te ayudan ni comparten experiencia, y no te roban los monstruos ni tu zona de farmeo. Habla con ellos para ver su perfil o desafiarlos a un duelo.",
+  "Hay algo menos de gente por las calles de España y muy poco menos en Perú."
+ ],
+ "en": [
+  "Infinite Tower: in the Portal Tower, the golden portal in the middle. Endless rooms: each floor enemies gain 5 levels and 5 or more come in, and every 10 floors there is a boss. Every enemy in the game and the zone, continent, cave and portal bosses show up (no super bosses or story bosses), plus 6 enemies and 2 bosses of the tower’s own, with mechanics per floor (fast, armored, furious, swarm, elite, darkness, regenerating or exploding). They can go past level 700: it is an endurance test with an online leaderboard.",
+  "If you fall in the tower you don’t die as usual: the climb ends, you go back to the entrance and your best floor goes on the leaderboard. You can restart at the last multiple of 10 you cleared.",
+  "Hunters around the world: every open map and city has 8-18 hunters with their own names (Zack, Luna, Vale99…) who come and go across the map: they farm, travel, chop, mine, fish, wave, chat with each other, rest and level up on their own; they don’t help you or share XP, and they don’t steal your monsters or your farming zone. Talk to them to see their profile or challenge them to a duel.",
+  "Slightly fewer people on the streets of Spain and a little fewer in Peru."
+ ]
+},
+{
+ "v": "6.42",
+ "b": 264,
+ "d": "2026-11-26",
+ "es": [
+  "Auras de transformación: cada forma y cada fusión tiene su aura animada detrás del personaje, solo mientras estás transformado. Despertar Dorado: llamas de luz en punta con el centro blanco y rayos. Alado Caído: aura angelical con alas de luz celeste. Fantasma: niebla de luna con fantasmitas. También Lobo, Vampiro, Dragón (y 2.0), Eco sin Pintar, Hielo (y Cristal 2.0), Engranaje 2, Tejedor Primordial, Dragón de Hielo, Boceto de Fuego y Ángel de Niebla.",
+  "Al transformarte sale un destello propio de cada forma que desaparece en menos de medio segundo.",
+  "Engranaje 2: al transformarte te agachas un momento (mano en la rodilla y el puño en el suelo) echando vapor.",
+  "🌀 Transformaciones › «Aura: sí / no» para apagar el aura si no te gusta (también la dejan de ver los demás en el online)."
+ ],
+ "en": [
+  "Transformation auras: every form and fusion has its own animated aura behind the character, only while transformed. Golden Awakening: spiky flames of light with a white core and lightning. Fallen Winged: an angelic aura with wings of sky-blue light. Ghost: moonlit mist with little ghosts. Also Wolf, Vampire, Dragon (and 2.0), Unpainted Echo, Ice (and Crystal 2.0), Gear 2, Primordial Weaver, Ice Dragon, Fire Sketch and Mist Angel.",
+  "When you transform, each form shows its own flash that fades in under half a second.",
+  "Gear 2: when you transform you crouch for a moment (hand on the knee and fist on the ground) letting off steam.",
+  "🌀 Transformations › «Aura: on / off» to turn the aura off if you don’t like it (other players online stop seeing it too)."
+ ]
+},
+{
+ "v": "6.41",
+ "b": 263,
+ "d": "2026-11-26",
+ "es": [
+  "Oro equilibrado: la carrera de relevos, la carrera de dragones, los casos del Tren Misterio, el duelo de cocina y las esculturas de arena se podían repetir sin límite pagando 80.000-600.000 cada vez. Ahora pagan entero las 3 primeras veces de cada día, el 40 % de la 4.ª a la 6.ª y el 15 % después (avisa cuando baja).",
+  "Revisados los trabajos (100-2.000 por ronda) y los minijuegos de los pueblos: pagan en línea con el resto del juego.",
+  "Árbol genealógico: los nietos y bisnietos cuyo padre o madre ya pasó al Memorial volvían a no salir; ahora salen. El Memorial guarda los 100 antepasados más recientes y los más antiguos se borran del todo, para que la partida no crezca (toda la familia ocupa unos 10-16 KB)."
+ ],
+ "en": [
+  "Balanced gold: the relay race, dragon race, Mystery Train cases, cooking duel and sand sculptures could be repeated endlessly paying 80,000-600,000 each time. They now pay in full the first 3 times each day, 40% from the 4th to the 6th and 15% after that (with a notice).",
+  "Jobs (100-2,000 per round) and town minigames checked: they pay in line with the rest of the game.",
+  "Family tree: grandchildren and great-grandchildren whose parent had moved to the Memorial didn’t show; now they do. The Memorial keeps the 100 most recent ancestors and older ones are deleted for good, so the save doesn’t grow (the whole family takes about 10-16 KB)."
+ ]
+},
+{
+ "v": "6.40",
+ "b": 262,
+ "d": "2026-11-26",
+ "es": [
+  "Arreglo grave: «Cambiar pigmentos» de Tinta (Tierras sin Pintar) pagaba otra vez cada vez que pulsabas sin cerrar la conversación (oro infinito). Lo mismo en entregar paquetes del cartero, el regalo de la fiesta y los loquitos de las ciudades, el misterio de detective, la leyenda y la última campana del Velo: ahora solo pagan una vez.",
+  "Arreglo: el duelo de rivales dejaba la pantalla parada con un error rojo. Además tu pareja y tus hijos que te seguían se duplicaban en la arena: ahora vuelven a casa durante el duelo.",
+  "Camposanto: solo las 12 tumbas más recientes de tu familia tienen cuerpo y datos; las generaciones antiguas pasan al Memorial del monumento («Rendir tributo») con su nombre, generación y años, para que no se sature.",
+  "En línea, el cementerio se comparte: los demás ven tus 3 últimos fallecidos y tú ves los suyos en hasta 4 tumbas de tu Camposanto, con el nombre de su familia."
+ ],
+ "en": [
+  "Serious fix: Tinta’s «Trade pigments» (Unpainted Lands) paid again every time you tapped without closing the conversation (infinite gold). Same for the postman’s parcels, the city festival gift and calmed nutters, the detective mystery, the legend and the Veil’s last bell: they now pay only once.",
+  "Fix: the rival duel froze the screen with a red error. Your partner and children following you also duplicated in the arena: they now go home during the duel.",
+  "Graveyard: only your family’s 12 most recent graves have a body and details; older generations move to the monument’s Memorial («Pay tribute») with their name, generation and years, so it doesn’t fill up.",
+  "Online, the graveyard is shared: others see your 3 latest departed and you see theirs in up to 4 graves of your Graveyard, with their family’s name."
+ ]
+},
+{
+ "v": "6.39",
+ "b": 261,
+ "d": "2026-11-26",
+ "es": [
+  "En el Camposanto del Alba ves a tu familiar enterrado delante de su lápida: su cuerpo tumbado bajo la tierra, con su aspecto (con canas si se fue mayor) y tus flores alrededor.",
+  "Al acercarte ves sobre la tumba su nombre, el día en que nació, el día en que murió y cuánto lleva fallecido. Descansa con los ojos cerrados.",
+  "Acércate a su tumba y elige «Dejar unas palabras» (5 frases o las tuyas): tu personaje las dice y quedan escritas sobre la tumba.",
+  "Tu pareja, la madre o el padre de ese hijo, tiene frases nuevas: duelo los primeros días, luto después y recuerdos con el tiempo. En «Relación ♥» sale «Hablar de <nombre>» (un recuerdo cada vez) e «Ir juntos a su tumba» con la flecha dorada."
+ ],
+ "en": [
+  "In the Dawn Graveyard you see your relative buried in front of their headstone: their body lying under the earth, with their look (with grey hair if they left old) and your flowers around.",
+  "When you get close you see their name, the day they were born, the day they died and how long ago above the grave. They rest with their eyes closed.",
+  "Walk up to their grave and choose «Leave a few words» (5 phrases or your own): your character says them and they stay written above the grave.",
+  "Your partner, that child’s mother or father, has new lines: grief in the first days, mourning afterwards and memories over time. «Relationship ♥» shows «Talk about <name>» (a memory each time) and «Go to their grave together» with the golden arrow."
+ ]
+},
+{
+ "v": "6.38",
+ "b": 260,
+ "d": "2026-11-26",
+ "es": [
+  "Mapa › Tierras del Vínculo: nueva categoría «Camposanto del Alba» con la entrada y la tumba de cada familiar fallecido († nombre y edad). Tócala y la flecha dorada te lleva.",
+  "Cuando fallece un hijo o un nieto, la flecha dorada apunta sola a su tumba (al sur de Albor, cruzando la vía del tren).",
+  "Árbol genealógico: botón «🕯 Ir al Camposanto»."
+ ],
+ "en": [
+  "Map › Lands of the Bound: new «Dawn Graveyard» category with the entrance and the grave of each relative who passed away († name and age). Tap it and the golden arrow leads you there.",
+  "When a child or grandchild passes away, the golden arrow points to their grave by itself (south of Albor, across the railway).",
+  "Family tree: «🕯 Go to the Graveyard» button."
+ ]
+},
+{
+ "v": "6.37",
+ "b": 259,
+ "d": "2026-11-26",
+ "es": [
+  "El maná se recupera más rápido: 1,45 % por segundo en combate (antes 1,2 %) y 4 % fuera de combate (antes 3 %). Con el coste nuevo de la 6.36, la barra baja al empezar la pelea y luego se mantiene.",
+  "No hace falta subir Inteligencia para lanzar más habilidades: el coste y la recuperación van en % de tu maná máximo."
+ ],
+ "en": [
+  "Mana regenerates faster: 1.45% per second in combat (was 1.2%) and 4% out of combat (was 3%). With the 6.36 cost, the bar drops at the start of a fight and then holds.",
+  "You don’t need Intelligence to cast more skills: cost and regen are a % of your max mana."
+ ]
+},
+{
+ "v": "6.36",
+ "b": 258,
+ "d": "2026-11-26",
+ "es": [
+  "El maná importa: cada habilidad de tu clase cuesta lo de siempre o un % de tu maná máximo según su recarga (9 s ≈ 3 %, 30 s ≈ 11 %, 60 s ≈ 22 %). Antes el mago, el bardo y el invocador tenían maná casi infinito. Lanzarlas todas en cuanto salen gasta algo más de lo que recuperas en combate: hay que elegir.",
+  "La barra pone en gris las habilidades que no te alcanzan y la ficha de cada una dice su coste real.",
+  "Arquero: Espíritu del Bosque cura un 25 % (antes 20 %), se recarga en 24 s y da +20 % de defensa durante 8 s. Mago: Escudo Arcano absorbe un 30 % (antes 25 %) y Armadura de Escarcha da +30 % de defensa durante 25 s."
+ ],
+ "en": [
+  "Mana matters: each class skill costs its usual amount or a % of your max mana based on its cooldown (9 s ≈ 3%, 30 s ≈ 11%, 60 s ≈ 22%). Before, mages, bards and summoners had almost infinite mana. Casting them all as soon as they are ready costs a bit more than you regain in combat: you have to choose.",
+  "The bar greys out skills you can’t afford and each skill’s card shows its real cost.",
+  "Archer: Forest Spirit heals 25% (was 20%), recharges in 24 s and gives +20% defence for 8 s. Mage: Arcane Shield absorbs 30% (was 25%) and Frost Armour gives +30% defence for 25 s."
+ ]
+},
+{
+ "v": "6.35",
+ "b": 257,
+ "d": "2026-11-26",
+ "es": [
+  "Los enemigos de tu nivel ya hacen daño de verdad: monstruos ×1,6, jefes ×1,8 y súper jefes ×2,2 contra ti (no contra tus aliados ni en PvP). Sube poco a poco de nivel 15 a 60, así que el principio no cambia. Los jefes del Mar de Dawn ya tenían su reto y no suben más. Usa tus habilidades de cura, escudo y defensa, pociones y esquiva.",
+  "Calidad de armaduras: cada armadura que consigues (botín, Herrería, tienda, misión) puede salir Mala (12 %, −5 %), Normal (77 %), Buena (10 %, +8 %) o Excelente (1 %, +15 %) en defensa y vida. Se ve en el inventario con un puntito de color y en su detalle, te avisa al conseguirla y se conserva al equiparla. Las que ya tenías son Normales.",
+  "Revisadas todas las habilidades activas de las 7 clases: todas se lanzan y hacen lo que dicen."
+ ],
+ "en": [
+  "Enemies of your level now really hurt: monsters ×1.6, bosses ×1.8 and super bosses ×2.2 against you (not against allies or in PvP). It ramps up from level 15 to 60, so the start doesn’t change. Dawn Sea bosses already had their challenge and don’t go higher. Use your heal, shield and defence skills, potions and dodging.",
+  "Armour quality: every armour you get (loot, Forge, shop, quest) can be Poor (12%, −5%), Normal (77%), Good (10%, +8%) or Excellent (1%, +15%) in defence and HP. It shows in the bag with a coloured dot and in its details, you get a notice, and it’s kept when equipped. The ones you already had are Normal.",
+  "All active skills of the 7 classes checked: they all cast and do what they say."
+ ]
+},
+{
+ "v": "6.34",
+ "b": 256,
+ "d": "2026-11-26",
+ "es": [
+  "▦ Atajos › ☠ Objetos malditos (nuevo): cómo funcionan (la maldición solo cuenta mientras llevas el objeto puesto; se quita como cualquier equipo y puedes llevar los 3 a la vez), cómo salen (fantasmas, Niebla maldita y jefes: 2 %, jefes 8 %), cuántos tienes, cuáles llevas puestos y el arma maldita de tu clase con su pacto, cómo dominarla o purificarla.",
+  "El aviso «¡Un objeto maldito!» dice dónde mirarlo, y está también en Lupa › Sistemas.",
+  "Huerto: al tocar un bancal vacío eliges qué plantar. Cada semilla dice el nivel de Agricultura que pide (🔒 si te falta), cuánto tarda y si es de temporada.",
+  "Arreglo: «Dónde conseguir» de Coralita, Nacarita, Piedra del Mar y sus troncos daba error; ahora dice en qué islas del Mar de Dawn están."
+ ],
+ "en": [
+  "▦ Shortcuts › ☠ Cursed items (new): how they work (the curse only counts while you wear the item; take it off like any gear and you can wear all 3), how they drop (ghosts, Cursed Fog and bosses: 2%, bosses 8%), how many you have, which you wear, and your class’s cursed weapon with its pact and how to dominate or purify it.",
+  "The «A cursed item!» notice says where to look, and it’s also in Magnifier › Systems.",
+  "Garden: tapping an empty plot lets you choose what to plant. Each seed shows the Farming level it needs (🔒 if you lack it), how long it takes and whether it is in season.",
+  "Fix: «Where to get» for Coralite, Nacrite, Seastone and their logs gave an error; it now says which Dawn Sea islands they are on."
+ ]
+},
+{
+ "v": "6.33",
+ "b": 255,
+ "d": "2026-11-26",
+ "es": [
+  "▦ Atajos › ¿Qué hago ahora? más claro. ⚔ Para subir de nivel: barra de experiencia, cuánto te falta, cuántos monstruos de tu nivel son, cuáles y dónde están, con ➜ Llévame (flecha dorada).",
+  "🛡 Tu armadura (nuevo): por ranura, la mejor que puedes forjar en la Herrería para tu nivel y clase, si ya la llevas, sus materiales (tienes / pide) y el oro, con flecha a la Herrería y al sitio del material que falta.",
+  "⚒ Tala, Minería y Pesca: tope 130 y hasta 160 con las 3 maestrías, el árbol, veta o pez de tu nivel y el siguiente, qué herramienta te falta, los árboles, vetas y peces del Mar de Dawn (tier 23-25) con la herramienta que piden, y consejos."
+ ],
+ "en": [
+  "▦ Shortcuts › What do I do now? is clearer. ⚔ To level up: experience bar, how much you need, how many monsters of your level that is, which ones and where, with ➜ Take me (golden arrow).",
+  "🛡 Your armour (new): per slot, the best you can forge at the Forge for your level and class, whether you already wear it, its materials (have / need) and gold, with an arrow to the Forge and to where the missing material is.",
+  "⚒ Woodcutting, Mining and Fishing: cap 130 and up to 160 with the 3 masteries, your level’s tree, vein or fish and the next, which tool you lack, the Dawn Sea trees, veins and fish (tier 23-25) with the tool they need, and tips."
+ ]
+},
+{
+ "v": "6.32",
+ "b": 254,
+ "d": "2026-11-26",
+ "es": [
+  "Conjunto de la Bruja Carmesí en el Taller de Morwenna (Albor), por piezas: Sombrero Carmesí con Gafas, Top Doble de Hombro Caído (polera negra de cuello alto, blusa gris, collar con colgante y el hombro al aire), Falda de Capas Rasgada, Botas Altas de Cordones y Capa Rasgada Carmesí.",
+  "Cada pieza va a su ranura del Armario (Cabeza, Torso, Piernas, Pies y Espalda), se ajusta a todas las estructuras de hombre y mujer y se ve en las cuatro direcciones. El sombrero deja ver tu peinado por debajo del ala."
+ ],
+ "en": [
+  "Crimson Witch outfit at Morwenna’s Workshop (Albor), sold by pieces: Crimson Hat with Goggles, Off-Shoulder Double Top (black turtleneck, grey blouse, pendant necklace and a bare shoulder), Tattered Layered Skirt, Laced Thigh-High Boots and Tattered Crimson Cape.",
+  "Each piece goes to its Wardrobe slot (Head, Torso, Legs, Feet and Back), fits every male and female body type and shows in all four directions. The hat lets your hairstyle show under the brim."
+ ]
+},
+{
+ "v": "6.31",
+ "b": 253,
+ "d": "2026-11-26",
+ "es": [
+  "Día, tarde y noche en todo el Mar de Dawn, con la hora del reloj de arriba: amanecer rosado, tarde dorada y noche azul con las ventanas encendidas y faroles en el barco.",
+  "El mapa del Mar de Dawn ya cabe entero y se ven todas las islas; con + se arrastra con el dedo.",
+  "Pesca en la popa del Going Merry con Luffy y Usopp: 6 lances, pulsa ⚔ cuando pique el corcho. Peces de Dawn, botas viejas… y a veces un Rey Marino bebé.",
+  "Historias de Usopp: ¿verdad o mentira? Acierta y gana oro.",
+  "Banquete de la tripulación: al terminar cada arco (y una vez al día) todos bailan en el comedor y Sanji sirve carne (bono de 20 min).",
+  "Mapas de Nami: recorre todos los lugares de cada isla y Nami la dibuja (oro por isla y premio grande al completar el mar).",
+  "Den Den Mushi: el caracol teléfono del Merry suena y te llaman Garp, Makino, Zeff, Johnny, Gaimon, Kaya o Smoker con encargos.",
+  "Romance con Nami, con sus propias frases y todo el sistema de pareja: coquetear, regalos, abrazo, beso, paseo de la mano, pareja, boda e hijos que mezclan tu pelo con el naranja de Nami.",
+  "Todo en el menú del barco y en Lupa › Crossovers › Vida a bordo del Merry."
+ ],
+ "en": [
+  "Day, afternoon and night across the whole Dawn Sea, following the clock at the top: pink dawn, golden afternoon and blue night with lit windows and ship lanterns.",
+  "The Dawn Sea map now fits entirely and shows every island; with + you can drag it with your finger.",
+  "Fishing off the Going Merry’s stern with Luffy and Usopp: 6 casts, press ⚔ when the float bites. Dawn fish, old boots… and sometimes a baby Sea King.",
+  "Usopp’s stories: true or lie? Guess right and win gold.",
+  "Crew feast: after clearing each arc (and once a day) everyone dances in the dining room and Sanji serves meat (20-min bonus).",
+  "Nami’s maps: visit every place on each island and Nami draws it (gold per island and a big prize for completing the sea).",
+  "Den Den Mushi: the Merry’s snail phone rings and Garp, Makino, Zeff, Johnny, Gaimon, Kaya or Smoker call with tasks.",
+  "Romance with Nami, with her own lines and the whole couple system: flirting, gifts, hug, kiss, hand-in-hand walk, partner, wedding and children who mix your hair with Nami’s orange.",
+  "All in the ship menu and Lupa › Crossovers › Life aboard the Merry."
+ ]
+},
+{
+ "v": "6.30",
+ "b": 252,
+ "d": "2026-11-26",
+ "es": [
+  "Casa de Dadan nueva en el Monte Colubo (Villa Foosha), igual que en el anime: casa larga de madera con tejas rojas, torre de vigía, tendedero y escaleras. No se puede entrar. Fuera están Dadan, Luffy, Ace y Sabo niños con los sprites de Sergio y su retrato en los diálogos.",
+  "Primera historia del Mar de Dawn (antes de Shanks): «Recuerdo de los hermanos». Cinemática de Garp, sigue a Ace hasta el Gray Terminal, conoce a Sabo, pelea con Porchemy, caza el Jabalí Gigante del Colubo, salva el Gray Terminal de Bluejam y la cinemática de las copas de sake. Luffy, Ace y Sabo niños pelean contigo. Se repite hablando con Dadan.",
+  "Ropa de los tres hermanos (14 prendas sueltas, para todos los cuerpos): sombrero de paja en la cabeza o colgado a la espalda, camiseta «56», ropa de Ace con su saco y la de Sabo con chistera, abrigo y tubo. La primera vez caen 3 prendas seguras; al repetir, 20 % por prenda y segura a las 8.",
+  "Isla nueva: Aldea Shimotsuki con el Dojo Isshin. Koshiro, alumnos con gi entrenando, Zoro niño y Kuina (con retrato). Entrenamiento, duelo con Zoro niño y duelo con Kuina (con la escena de la promesa).",
+  "Isla nueva: Cuartel General de la Marina, con su fortaleza y los dos arcos. Se entra al vestíbulo y Garp acepta un duelo de puños (nivel 700). En los costados, zonas restringidas con marines de élite de nivel 690-700.",
+  "Todo explicado en Lupa › Crossovers."
+ ],
+ "en": [
+  "New Dadan’s house on Mount Colubo (Foosha Village), just like the anime: a long wooden house with red tiles, a lookout tower, a clothesline and ladders. You can’t go in. Outside are Dadan and young Luffy, Ace and Sabo with Sergio’s sprites and their portraits in dialogue.",
+  "First Dawn Sea story (before Shanks): “Memory of the brothers”. Garp cutscene, follow Ace to the Gray Terminal, meet Sabo, fight Porchemy, hunt the Giant Colubo Boar, save the Gray Terminal from Bluejam and the sake cups cutscene. Young Luffy, Ace and Sabo fight alongside you. Replay it by talking to Dadan.",
+  "The three brothers’ clothes (14 separate pieces, for every body): straw hat on the head or hanging on the back, the “56” tank top, Ace’s clothes with his sack and Sabo’s with top hat, coat and pipe. The first time 3 pieces are guaranteed; on replays, 20% per piece and guaranteed by the 8th.",
+  "New island: Shimotsuki Village with the Isshin Dojo. Koshiro, students in gi training, young Zoro and Kuina (with portraits). Training, a duel with young Zoro and a duel with Kuina (with the promise scene).",
+  "New island: Navy Headquarters, with its fortress and the two arches. Go into the hall where Garp accepts a fist duel (level 700). On the sides, restricted zones with level 690-700 elite marines.",
+  "Everything is explained in Lupa › Crossovers."
+ ]
+},
+{
+ "v": "6.29",
+ "b": 251,
+ "d": "2026-11-26",
+ "es": [
+  "Mapas del tesoro de Buggy: los barcos piratas, los Reyes Marinos, los buscados de Johnny y Yosaku y los buques de guerra sueltan trozos. Nami los lee, la flecha te lleva a una isla, buscas la ✗ roja y cavas con la espada (6 toques) para abrir el cofre.",
+  "La Marina te persigue más fuerte: con recompensa de peligro 3 o más puede salir un buque de guerra de un vicealmirante (mucha vida, andanadas de 3 proyectiles). Hundirlo da mucho oro y dispara tu recompensa.",
+  "Asaltos semanales (pídeselos a Johnny o Yosaku): la venganza de Buggy en Orange Town (cuchillos voladores Bara Bara), la flota de Don Krieg junto al Baratie y Hatchan, Kuroobi y Chew a la vez en Conomi. Cambian cada semana; la primera victoria da 400.000 de oro, 2 trozos de mapa y un material raro.",
+  "Todo explicado en Lupa › Crossovers › Tesoros, buques y asaltos."
+ ],
+ "en": [
+  "Buggy’s treasure maps: pirate ships, Sea Kings, Johnny and Yosaku’s wanted pirates and warships drop pieces. Nami reads them, the arrow takes you to an island, you find the red ✗ and dig with the sword (6 taps) to open the chest.",
+  "The Navy hunts you harder: with a bounty of danger 3 or more, a vice admiral’s warship may appear (lots of HP, 3-shot volleys). Sinking it gives lots of gold and sends your bounty soaring.",
+  "Weekly raids (ask Johnny or Yosaku): Buggy’s revenge in Orange Town (Chop-Chop flying knives), Don Krieg’s fleet by the Baratie, and Hatchan, Kuroobi and Chew at once in Conomi. They change every week; the first win gives 400,000 gold, 2 map pieces and a rare material.",
+  "Everything is explained in Lupa › Crossovers › Treasures, warships and raids."
+ ]
+},
+{
+ "v": "6.28",
+ "b": 250,
+ "d": "2026-11-26",
+ "es": [
+  "Alvida, revancha (muelle de Loguetown): ahora con la fruta Sube Sube; cuando brilla, los golpes resbalan, y tras embestir se marea. Premio: Espejo Sube Sube.",
+  "Nezumi vuelve al huerto de Nojiko con sus marines (Conomi, tras Arlong).",
+  "Johnny y Yosaku: 3 encargos de cazarrecompensas al día; la flecha te lleva al pirata buscado.",
+  "La Montaña del Revés (tras Loguetown, al noreste del mar): sube con el Merry, calma a Laboon a cañonazos y recibe el Log Pose.",
+  "La Isla del Barco de Guerra: escolta la balsa de Apis hundiendo 3 barcos de la Marina y conoce al dragón milenario."
+ ],
+ "en": [
+  "Alvida rematch (Loguetown pier): now with the Slip-Slip Fruit; when she shines, hits slip off, and after charging she gets dizzy. Reward: Slip-Slip Mirror.",
+  "Nezumi returns to Nojiko’s grove with his marines (Conomi, after Arlong).",
+  "Johnny and Yosaku: 3 bounty hunting jobs a day; the arrow takes you to the wanted pirate.",
+  "Reverse Mountain (after Loguetown, north-east of the sea): climb it with the Merry, calm Laboon with cannon fire and get the Log Pose.",
+  "Warship Island: escort Apis’s raft by sinking 3 Navy ships and meet the thousand-year dragon."
+ ]
+},
+{
+ "v": "6.27",
+ "b": 249,
+ "d": "2026-11-26",
+ "es": [
+  "Misiones de la tripulación (pídeselas hablando con ellos): Luffy «El sombrero de paja», Zoro «La promesa de Kuina», Usopp «Una carta para Kaya», Sanji «El sueño del All Blue» y Nami «Los mandarinos de Bell-mère». La flecha dorada te lleva a cada isla.",
+  "Ataques combinados: al completar las misiones de Luffy, Zoro, Usopp y Sanji, el botón 🤝 (o la tecla C) lanza un gran golpe en área con ese tripulante cuando la barra está llena. La de Nami hace que el Merry navegue un 10 % más rápido y que las tormentas esquivadas paguen el doble.",
+  "Sanji ya tiene su cartel de recompensa, y Baratie, Arlong Park y Loguetown suben las recompensas de la tripulación.",
+  "Periódico: una gaviota mensajera lo trae una vez al día en el Mar de Dawn (Lupa › Crossovers › Periódico)."
+ ],
+ "en": [
+  "Crew quests (ask them by talking to them): Luffy “The straw hat”, Zoro “Kuina’s promise”, Usopp “A letter for Kaya”, Sanji “The All Blue dream” and Nami “Bell-mère’s tangerine trees”. The golden arrow takes you to each island.",
+  "Combined attacks: completing Luffy’s, Zoro’s, Usopp’s and Sanji’s quests lets the 🤝 button (or the C key) launch a big area hit with that crewmate when the bar is full. Nami’s makes the Merry sail 10 % faster and dodged storms pay double.",
+  "Sanji now has his bounty poster, and the Baratie, Arlong Park and Loguetown raise the crew’s bounties.",
+  "Newspaper: a News Coo brings it once a day in the Dawn Sea (Lupa › Crossovers › Newspaper)."
+ ]
+},
+{
+ "v": "6.26",
+ "b": 248,
+ "d": "2026-11-26",
+ "es": [
+  "Batallas en el mar: al timón del Going Merry, el botón de la espada dispara los cañones. Hunde barcos piratas (restos de la flota de Krieg) y el barco de la Marina que te persigue (tu recompensa sube).",
+  "Reyes Marinos: Tiburón, Martillo y Kraken salen del agua, se sumergen y vuelven. Sueltan Carne de Rey Marino para el Festín del Rey Marino de Sanji.",
+  "Sus ataques marcan el agua en rojo: aparta el barco. El Merry tiene 100 de vida; Usopp lo repara y al atracar queda como nuevo. La cámara sigue al enemigo y unas flechas marcan los que no se ven.",
+  "Tormentas: Nami avisa hacia dónde girar. Dentro llueve, el viento te arrastra y caen rayos. Si la esquivas: oro y viento a favor."
+ ],
+ "en": [
+  "Sea battles: at the Going Merry’s helm, the sword button fires the cannons. Sink pirate ships (Krieg’s fleet remnants) and the Navy ship chasing you (your bounty rises).",
+  "Sea Kings: Shark, Hammerhead and Kraken rise from the water, dive and come back. They drop Sea King meat for Sanji’s Sea King Feast.",
+  "Their attacks mark the water in red: move the ship. The Merry has 100 HP; Usopp repairs it and docking makes it as good as new. The camera follows the enemy and arrows mark those off screen.",
+  "Storms: Nami tells you which way to turn. Inside it rains, the wind drags you and lightning strikes. Dodge it: gold and a tailwind."
+ ]
+},
+{
+ "v": "6.25",
+ "b": 247,
+ "d": "2026-11-26",
+ "es": [
+  "Bajo cubierta del Going Merry: navegando, habla con la tripulación y elige «Bajar a la cocina y el comedor». Cocina, comedor con la mesa verde y el mástil, y salita con bodega. Toda tu tripulación está abajo y la escalera te devuelve al timón.",
+  "Cocinar con Sanji: recoge 3 ingredientes por la cocina y pulsa ⚔ en el fogón cuando la llama esté en la zona verde. Carne (ataque), risotto (defensa) o postre de mandarina (velocidad) durante 20 min, y la tripulación pega más fuerte.",
+  "Entrenamientos en la salita: puntería con Usopp, cortes con Zoro y esquivar a Sanji (30 s, oro y un bono de 10 min).",
+  "Lupa › Crossovers: páginas nuevas del Going Merry y del poder y duelos de la tripulación."
+ ],
+ "en": [
+  "Going Merry below deck: while sailing, talk to the crew and choose “Go below to the galley and dining room”. Galley, dining room with the green table and the mast, and a lounge with the hold. Your whole crew is below and the ladder takes you back to the helm.",
+  "Cook with Sanji: pick up 3 ingredients around the galley and press ⚔ at the stove when the flame is in the green zone. Meat (attack), risotto (defense) or tangerine dessert (speed) for 20 min, and the crew hits harder.",
+  "Training in the lounge: aim with Usopp, cuts with Zoro and dodging Sanji (30 s, gold and a 10 min bonus).",
+  "Lupa › Crossovers: new pages for the Going Merry and for crew power and duels."
+ ]
+},
+{
+ "v": "6.24",
+ "b": 246,
+ "d": "2026-11-25",
+ "es": [
+  "Aura del Conquistador: a los enemigos muy débiles que tumba ahora les sale «¡KO!» en vez de un número gigante (como 1.810.944.828) que parecía daño real. El efecto no cambia."
+ ],
+ "en": [
+  "Conqueror's Aura: very weak enemies it knocks out now show “KO!” instead of a huge number (like 1,810,944,828) that looked like real damage. The effect is unchanged."
+ ]
+},
+{
+ "v": "6.23",
+ "b": 245,
+ "d": "2026-11-25",
+ "es": [
+  "12 estructuras de cuerpo nuevas. Hombre: Titán, Juvenil, Galán, Compacto y Larguirucho. Mujer: Alta, Guerrera, Chibi, Señorial, Llenita, Cintura y Avispa (las dos últimas con cintura marcada).",
+  "Forma de ojos a elegir aparte, con cualquier cuerpo: Chibi, Héroe, Afilados, Amables, Pestañas o Grandes (o la de tu estructura).",
+  "Toda la ropa, armaduras, cosméticos, peinados, armas, transformaciones, la clase Pez, nadar y los bailes se adaptan a las estructuras nuevas.",
+  "Arreglo: los sombreros altos ya no se salen por arriba en la estructura Atlética."
+ ],
+ "en": [
+  "12 new body builds. Male: Titan, Youthful, Dashing, Stocky and Lanky. Female: Tall, Warrior, Chibi, Graceful, Plump, Waisted and Hourglass (the last two with a defined waist).",
+  "Choose your eye shape separately, with any body: Chibi, Hero, Sharp, Gentle, Lashes or Big (or your build's own).",
+  "All clothes, armor, cosmetics, hairstyles, weapons, transformations, the Fish class, swimming and dances fit the new builds.",
+  "Fix: tall hats no longer stick out of the top on the Athletic build."
+ ]
+},
+{
+ "v": "6.22",
+ "b": 244,
+ "d": "2026-11-25",
+ "es": [
+  "Partida en la nube con un código corto: en el título toca «Nube» (o en Opciones › Partida, «Subir a la nube») y recibes un código de 8 letras, como K7QF-92MX.",
+  "En otro móvil: título › «Nube», escribe el código y «Bajar de la nube». Vuelven todos tus héroes, sin copiar textos largos.",
+  "Con código, la copia se actualiza sola cada 10 minutos de juego. Necesita internet; funciona en la app."
+ ],
+ "en": [
+  "Cloud save with a short code: on the title screen tap “Cloud” (or Options › Game, “Upload to cloud”) and you get an 8-letter code, like K7QF-92MX.",
+  "On another phone: title › “Cloud”, type the code and “Download from cloud”. All your heroes come back, no long text to copy.",
+  "Once you have a code, the backup updates itself every 10 minutes of play. Needs internet; works in the app."
+ ]
+},
+{
+ "v": "6.21",
+ "b": 243,
+ "d": "2026-11-25",
+ "es": [
+  "Se nota el poder al subir: contra monstruos y jefes de nivel más bajo que tú haces +1,5 % de daño por nivel de ventaja (hasta +75 %) y recibes −1 % por nivel (hasta −50 %). A nivel 500 con 60 niveles de ventaja: 6 golpes en vez de 17. A tu nivel o contra más fuertes no cambia; el PvP tampoco.",
+  "Ritmo de nivel alto: los monstruos normales desde nivel 450 tienen menos vida y algo menos de ataque (a nivel 500: unos 13 golpes en vez de 20, y aguantas 16 en vez de 12). Los jefes no cambian.",
+  "Inicio más limpio: hasta terminar «Despertar» ya no salen encima el sello de viaje, la prosperidad del pueblo, el pueblo del día ni «Historia nueva»; aparecen después, de uno en uno.",
+  "Arreglo: en una partida nueva salía abajo una barra roja de error (gearTiers)."
+ ],
+ "en": [
+  "You feel your power as you level: against monsters and bosses below your level you deal +1.5 % damage per level of advantage (up to +75 %) and take −1 % per level (up to −50 %). At level 500 with a 60-level lead: 6 hits instead of 17. At your level or against stronger foes nothing changes; PvP neither.",
+  "High-level pace: normal monsters from level 450 have less HP and slightly less attack (at level 500: about 13 hits instead of 20, and you survive 16 instead of 12). Bosses are unchanged.",
+  "Cleaner start: until you finish “Awakening”, the travel stamp, town prosperity, town of the day and “New story” no longer pile on top; they show up afterwards, one at a time.",
+  "Fix: a red error bar (gearTiers) showed at the bottom in a new game."
+ ]
+},
+{
+ "v": "6.20",
+ "b": 242,
+ "d": "2026-11-25",
+ "es": [
+  "La tripulación se hace más fuerte al completar cada arco del Mar de Dawn y al vencer por primera vez a cada jefe de la historia. Antes solo contaban los jefes hasta Villa Syrup; ahora también Baratie, Arlong Park y Loguetown. Repetir un arco no la sube.",
+  "Cada arco completado da +15 % de poder y cada jefe vencido +2 % (todo: +126 %): más vida, defensa y daño en sus técnicas.",
+  "Nueva opción al hablar con Luffy, Zoro, Usopp o Sanji: «Desafiar» para un duelo con su poder actual, con su caminata, sus ataques y sus técnicas de siempre. Nadie muere, no da XP ni botín y da oro la primera vez que ganas a cada poder nuevo. Nami no pelea.",
+  "«Poder de la tripulación» al hablarles: arcos completados, batallas y el poder de cada uno."
+ ],
+ "en": [
+  "The crew grows stronger when you complete each Dawn Sea arc and the first time you beat each story boss. Before, only the bosses up to Syrup Village counted; now Baratie, Arlong Park and Loguetown do too. Replaying an arc does not raise it.",
+  "Each completed arc gives +15 % power and each boss beaten +2 % (everything: +126 %): more HP, defense and technique damage.",
+  "New option when talking to Luffy, Zoro, Usopp or Sanji: “Challenge” for a duel at their current power, with their usual walk, attacks and techniques. Nobody dies, it gives no XP or loot, and it pays gold the first time you beat each new power level. Nami doesn’t fight.",
+  "“Crew power” when talking to them: completed arcs, battles and each member’s power."
+ ]
+},
+{
+ "v": "6.19",
+ "b": 241,
+ "d": "2026-11-25",
+ "es": [
+  "Frutas del Diablo y transformaciones juntas: transformado y con fruta, la barra lleva 2 técnicas de la forma y 2 de la fruta (antes la forma tapaba las 4 casillas y la fruta no se podía usar).",
+  "Botón de la fruta junto a la barra: cambia qué 2 técnicas de la fruta llevas sin salir de la forma.",
+  "Se suman: el daño de la fruta sale de tu ataque total, así que la transformación también la hace más fuerte."
+ ],
+ "en": [
+  "Devil Fruits and transformations together: transformed and with a fruit, the bar holds 2 form techniques and 2 fruit techniques (before, the form took all 4 slots and the fruit could not be used).",
+  "Fruit button next to the bar: changes which 2 fruit techniques you carry without leaving the form.",
+  "They stack: fruit damage comes from your total attack, so the transformation makes it stronger too."
+ ]
+},
+{
+ "v": "6.18",
+ "b": 239,
+ "d": "2026-11-25",
+ "es": [
+  "Smoker es ahora el jefe más fuerte de su nivel (612). Al bajar al 66 % y al 33 % se vuelve humo 10 s: tus golpes lo atraviesan y suelta anillos de humo.",
+  "Botín de Smoker con pity: Chaqueta, Vaquero y Botas del Cazador Blanco (25 %, seguras a las 12), adaptadas a los 10 cuerpos.",
+  "Jitte de Piedra Marina (12 %, seguro a las 10): el arma más fuerte por ahora, para todas las clases. Barrido con humo y, cada cuarto golpe, una estocada que inmoviliza.",
+  "Fruta Humo Humo (1 % de Smoker, segura a las 80; también aparece suelta por Dawn): Puño Blanco, Serpientes Blancas, Lanzador Blanco, Impulso Blanco (las piernas se vuelven humo) y Cuerpo de Humo (logia 10 s). Todo crece con tu nivel y tu ataque, y se combina con transformaciones.",
+  "Humo nuevo, como en el anime: nubes infladas con luz, sombra y rizos en la fruta, el Jitte y Smoker.",
+  "Técnicas de Luffy redibujadas: brazos de goma con brillo, puños con nudillos, palmas abiertas en la Bazuca y el pie en el Hacha.",
+  "PvP reequilibrado: todas las clases quedan igualadas."
+ ],
+ "en": [
+  "Smoker is now the strongest boss of his level (612). At 66% and 33% he turns into smoke for 10 s: your hits pass through him and he releases smoke rings.",
+  "Smoker loot with pity: White Hunter’s Jacket, Jeans and Boots (25%, guaranteed by 12), fitted to all 10 bodies.",
+  "Seastone Jitte (12%, guaranteed by 10): the strongest weapon so far, for every class. A smoky sweep and, every fourth hit, a thrust that pins enemies.",
+  "Smoke-Smoke Fruit (1% from Smoker, guaranteed by 80; it also appears around Dawn): White Blow, White Snake, White Launcher, White Jet (your legs turn to smoke) and Smoke Body (10 s Logia). Everything grows with your level and attack, and stacks with transformations.",
+  "New anime-style smoke: puffy clouds with light, shadow and curls on the fruit, the Jitte and Smoker.",
+  "Luffy’s techniques redrawn: shiny rubber arms, fists with knuckles, open palms on the Bazooka and the foot on the Axe.",
+  "PvP rebalanced: every class is evened out."
+ ]
+},
+{
+ "v": "6.17",
+ "b": 238,
+ "d": "2026-11-25",
+ "es": [
+  "Arco de Loguetown (nivel 612, repetible): habla con Luffy en la plaza. Tú y Luffy contra Smoker; luego Smoker sube a Luffy al patíbulo donde murió Roger, junto a Buggy.",
+  "Toda la tripulación (Zoro, Sanji, Usopp y Nami) aparece en la plaza: aguantad 2 minutos a la Marina mientras la ciudad mira la ejecución.",
+  "Tormenta, un rayo sobre el patíbulo y, por un segundo, un hombre con capa verde. Luffy sale libre. 150 000 de oro la primera vez y 40 000 al repetir.",
+  "Armería de Ipponmatsu por dentro: Zoro elige sus espadas (la Kitetsu maldita al aire) y Tashigi aparece con tus hojas de sprites.",
+  "Loguetown con vida: pescadores en el muelle, vendedores, vecinos, niños y piratas; Nami, Usopp y Sanji pasean por las tiendas y Luffy mira el patíbulo."
+ ],
+ "en": [
+  "Loguetown arc (level 612, repeatable): talk to Luffy in the square. You and Luffy versus Smoker; then Smoker takes Luffy up the scaffold where Roger died, with Buggy.",
+  "The whole crew (Zoro, Sanji, Usopp and Nami) shows up in the square: hold off the Navy for 2 minutes while the town watches the execution.",
+  "A storm, lightning on the scaffold and, for a second, a man in a green cloak. Luffy is free. 150,000 gold the first time and 40,000 on replays.",
+  "Ipponmatsu’s arms shop inside: Zoro picks his swords (the cursed Kitetsu in the air) and Tashigi appears with your sprite sheets.",
+  "Loguetown comes alive: fishermen on the pier, vendors, townsfolk, kids and pirates; Nami, Usopp and Sanji browse the shops and Luffy looks at the scaffold."
+ ]
+},
+{
+ "v": "6.16",
+ "b": 237,
+ "d": "2026-11-25",
+ "es": [
+  "Loguetown cobra vida: Ipponmatsu junto a su armería, Alvida en las calles del sur, Bartolomeo paseando por la avenida y Smoker en la base de la Marina.",
+  "Cinemática en el patíbulo: la primera vez que llegas a la plaza se cuenta cómo ejecutaron a Gol D. Roger y cómo empezó la Gran Era de la Piratería (el cartel de la plaza la repite).",
+  "Personajes con tus hojas de sprites: caminan en las cuatro direcciones y Smoker ataca con su porra.",
+  "Desafíos del puerto con Smoker (nivel 610, 612 y 615): contrabandista, vigía del muelle y el propio Smoker, con oro de premio; el progreso se guarda."
+ ],
+ "en": [
+  "Loguetown comes alive: Ipponmatsu by his arms shop, Alvida in the southern streets, Bartolomeo strolling the avenue and Smoker at the Navy base.",
+  "Scaffold cutscene: the first time you reach the square you see how Gol D. Roger was executed and how the Great Pirate Era began (the square sign replays it).",
+  "Characters from your sprite sheets: they walk in all four directions and Smoker attacks with his jitte.",
+  "Harbor challenges with Smoker (level 610, 612 and 615): smuggler, dock lookout and Smoker himself, with gold rewards; progress is saved."
+ ]
+},
+{
+ "v": "6.15",
+ "b": 236,
+ "d": "2026-11-25",
+ "es": [
+  "Loguetown: nueva isla explorable en el Mar de Dawn, al este de Animales Raros y al norte de Conomi.",
+  "Puerto para desembarcar y volver al barco, arco de entrada, plaza de Roger y patíbulo, torre del reloj, armería, mercado y base de la Marina.",
+  "Primera etapa del mapa: edificios exteriores y caminos; los combates y la historia de Loguetown llegarán después."
+ ],
+ "en": [
+  "Loguetown: a new explorable island in the Dawn Sea, east of Rare Animals and north of Conomi.",
+  "Working harbor for landing and returning to your ship, entrance arch, Roger’s square and scaffold, clock tower, arms shop, market and Marine base.",
+  "First map stage: exterior buildings and paths; Loguetown battles and story will follow later."
+ ]
+},
+{
+ "v": "6.14",
+ "b": 235,
+ "d": "2026-11-25",
+ "es": [
+  "Más fluido en celulares de gama baja y media: el juego ya no prepara en segundo plano los 2.300 dibujos de personajes y enemigos mientras juegas (frenaba cada imagen durante minutos al entrar). Los personajes fuera de pantalla gastan mucho menos.",
+  "Modo optimizado (Ajustes): además, menos multitud de fondo en las ciudades y la interfaz se refresca 15 veces por segundo.",
+  "Robo de vida (Sed de Sangre, armas de guerrero, vampiro…): cura como mucho un 5 % de tu vida por golpe y un 12 % por segundo. Antes, Juicio Final con Sed de Sangre llenaba toda la vida de una vez.",
+  "Inventario de 900 casillas (antes 200).",
+  "Familia: como mucho 30 familiares vivos; si llegas, no nacen más nietos hasta que haya hueco."
+ ],
+ "en": [
+  "Smoother on low- and mid-range phones: the game no longer pre-builds the 2,300 character and enemy sprites in the background while you play (it slowed every frame for minutes after starting). Off-screen characters cost much less.",
+  "Optimized mode (Settings): also fewer background crowds in towns and the interface refreshes 15 times per second.",
+  "Life steal (Bloodthirst, warrior weapons, vampire…): heals at most 5% of your HP per hit and 12% per second. Before, Final Judgement with Bloodthirst refilled all your HP at once.",
+  "900-slot inventory (was 200).",
+  "Family: at most 30 living relatives; once you reach it, no more grandchildren are born until there is room."
+ ]
+},
+{
+ "v": "6.13",
+ "b": 234,
+ "d": "2026-11-25",
+ "es": [
+  "La enciclopedia se abre al instante (antes 2 segundos) y tocar un enemigo ya no la congela. Los retratos se dibujan poco a poco sin parar la ventana.",
+  "Los mapas grandes cargan mucho más rápido: Japón, México, Lima y Trujillo unas 4 veces más rápido; España y Dawn, el doble.",
+  "Enciclopedia: pestañas por nivel (1-99 hasta 600+) y del Mar de Dawn, con Alvida, Buggy, Kuro, Baratie, Shanks y Arlong. Ahora todos los enemigos salen en alguna pestaña, no solo en «Todos».",
+  "Inglés: descripciones de todas las habilidades, ventajas de los oficios, recuerdos y trofeos de oficio y la ayuda de Misiones."
+ ],
+ "en": [
+  "The encyclopedia opens instantly (it took 2 seconds) and tapping an enemy no longer freezes it. Portraits are drawn bit by bit without stalling the window.",
+  "Big maps load much faster: Japan, Mexico, Lima and Trujillo about 4 times faster; Spain and Dawn, twice as fast.",
+  "Encyclopedia: level tabs (1-99 up to 600+) and a Dawn Sea tab with Alvida, Buggy, Kuro, Baratie, Shanks and Arlong. Every enemy now shows up in some tab, not only in \"All\".",
+  "English: descriptions of every skill, job perks, job keepsakes and trophies, and the Quests help."
+ ]
+},
+{
+ "v": "6.12",
+ "b": 233,
+ "d": "2026-11-25",
+ "es": [
+  "Mejoras por dentro para que el juego pueda seguir creciendo (más niveles y más crossovers) sin romperse: lo nuevo ya no se apila encima de lo anterior.",
+  "Revisión completa: más de 200 actividades y minijuegos probados en su sitio, partidas de versiones antiguas, 10 minutos de juego seguido y toda la Lupa, sin errores."
+ ],
+ "en": [
+  "Under-the-hood improvements so the game can keep growing (more levels and more crossovers) without breaking: new content no longer stacks on top of the old.",
+  "Full review: over 200 activities and minigames tested in place, saves from old versions, 10 minutes of continuous play and the whole Magnifier, with no errors."
+ ]
+},
+{
+ "v": "6.11",
+ "b": 232,
+ "d": "2026-11-25",
+ "es": [
+  "Árboles, vetas (rocas con mineral), hierbas, puntos de buceo y montículos reaparecen a los 5 segundos en todo el mundo.",
+  "Las herramientas piden menos nivel de personaje: un 25 % menos desde la potencia 5, y las de Dawn 500 (Coralita), 520 (Nacarita) y 540 (Piedra del Mar).",
+  "Avisos claros: si te falta nivel de oficio por encima de tu tope, te dice qué maestro te entrena y dónde; si te falta herramienta, cuál es y qué nivel de personaje pide. Al llegar al tope te avisa y pone la flecha al maestro.",
+  "Lupa › Oficios: «Siguiente paso» con tu tope real, el tier al que llegas, la herramienta que te falta y la maestría."
+ ],
+ "en": [
+  "Trees, ore veins, herbs, dive spots and dig mounds respawn after 5 seconds everywhere.",
+  "Tools need a lower character level: 25% less from power 5, and the Dawn ones 500 (Coralite), 520 (Nacrite) and 540 (Seastone).",
+  "Clear warnings: if you need a job level above your cap, it tells you which master trains you and where; if you need a tool, which one and its character level. When you reach the cap it warns you and points the arrow at the master.",
+  "Magnifier › Jobs: \"Next step\" with your real cap, the tier you reach, the tool you are missing and the mastery."
+ ]
+},
+{
+ "v": "6.10",
+ "b": 231,
+ "d": "2026-11-25",
+ "es": [
+  "Peces del Mar de Dawn: se pesca en cualquier orilla de Dawn. Salen los peces de mar de siempre y seis nuevos: Pez Coralino y Barracuda del Este (caña de Coralita), Pez de Nácar y Pez Espada Rayado (caña de Nacarita), Anguila de Piedra del Mar y Cría de Rey del Mar (caña de Piedra del Mar).",
+  "Lupa › Crossovers › Minerales, maderas y dónde talar: ahora también dice dónde y con qué se pesca."
+ ],
+ "en": [
+  "Dawn Sea fish: you can fish from any Dawn shore. You get the usual sea fish and six new ones: Coral Fish and East Barracuda (Coralite rod), Nacre Fish and Striped Swordfish (Nacrite rod), Seastone Eel and Sea King Hatchling (Seastone rod).",
+  "Magnifier › Crossovers › Ores, woods and where to chop: now also says where and with what to fish."
+ ]
+},
+{
+ "v": "6.09",
+ "b": 230,
+ "d": "2026-11-25",
+ "es": [
+  "Lupa › 🏴‍☠️ Crossovers (antes Mar de Dawn) y nueva sección Crossovers en Sistemas: todos los arcos en orden con cada jefe, Baratie y Arlong Park incluidos, y la flecha te lleva al siguiente paso.",
+  "Lista completa de armaduras de nivel 600 a 700 con sus materiales, y dónde minar y talar cada mineral y madera de Dawn.",
+  "Tala, Minería y Pesca llegan a nivel 130 (160 con Gran Maestro): ya se pueden recoger la Piedra del Mar y el Árbol Rey."
+ ],
+ "en": [
+  "Magnifier › 🏴‍☠️ Crossovers (was Dawn Sea) and a new Crossovers section in Systems: every arc in order with each boss, Baratie and Arlong Park included, and the arrow takes you to the next step.",
+  "Full list of level 600-700 armours with their materials, and where to mine and chop each Dawn ore and wood.",
+  "Woodcutting, Mining and Fishing reach level 130 (160 as Grand Master): Seastone and King Tree can now be gathered."
+ ]
+},
+{
+ "v": "6.08",
+ "b": 229,
+ "d": "2026-11-25",
+ "es": [
+  "Las armas superadas pierden como mucho un 10 % de daño (antes 55 %), en todas las armas de nivel 1 a 700."
+ ],
+ "en": [
+  "Outgrown weapons lose at most 10% damage (was 55%), for every weapon from level 1 to 700."
+ ]
+},
+{
+ "v": "6.07",
+ "b": 228,
+ "d": "2026-11-24",
+ "es": [
+  "Islas Conomi después de Baratie. Explora Cocoyashi y Arlong Park y enfréntate a Arlong de nivel 605.",
+  "El hachazo de Luffy atraviesa cuatro pisos. Tras la victoria quedan las ruinas y se abren nuevos diálogos con la tripulación.",
+  "Puedes repetir los arcos del Mar de Dawn."
+ ],
+ "en": [
+  "Conomi Islands after Baratie. Explore Cocoyashi and Arlong Park and fight level 605 Arlong.",
+  "Luffy’s axe kick breaks through four floors. After the victory, revisit the ruins and talk to the crew for new dialogue.",
+  "Replay the Dawn Sea story arcs."
+ ]
+},
+{
+ "v": "6.06",
+ "b": 227,
+ "d": "2026-11-24",
+ "es": [
+  "Cinco técnicas para Luffy, Zoro, Usopp y Sanji. Habla con ellos para elegir una técnica prioritaria.",
+  "El Going Merry tiene una cubierta más ancha y caminable. Nami puede mantener el rumbo mientras paseas.",
+  "Nuevas poses de ataque y diálogos. Usopp conserva la ropa de Villa Syrup."
+ ],
+ "en": [
+  "Five techniques each for Luffy, Zoro, Usopp and Sanji. Talk to them to select a preferred technique.",
+  "The Going Merry has a wider walkable deck. Nami can hold course while you explore.",
+  "New attack poses and dialogue. Usopp retains his Syrup Village outfit."
+ ]
+},
+{
+ "v": "6.05",
+ "b": 226,
+ "d": "2026-11-24",
+ "es": [
+  "Pearl, Gin y Don Krieg sueltan 13 piezas para el Armario y cuatro armas de nivel 600–605 para todas las clases.",
+  "Cada pieza y arma tiene su propia garantía a las 10 victorias contra su jefe. Habla con Zeff para repetir los combates tras reclutar a Sanji."
+ ],
+ "en": [
+  "Pearl, Gin and Don Krieg drop 13 Wardrobe pieces and four level 600–605 weapons for all classes.",
+  "Each piece and weapon has its own guarantee after 10 wins against its boss. Talk to Zeff for rematches after recruiting Sanji."
+ ]
+},
+{
+ "v": "6.04",
+ "b": 225,
+ "d": "2026-11-24",
+ "es": [
+  "Nuevo restaurante marítimo Baratie después de Villa Syrup. Defiende la cubierta contra Pearl (590), Gin (592) y Don Krieg (595), y recluta a Sanji.",
+  "Duelo de 40 segundos entre Zoro y Mihawk. Mihawk tiene un sprite de proporciones adultas, caminata en cuatro direcciones y ataques con cuchillo y espada."
+ ],
+ "en": [
+  "The Baratie floating restaurant opens after Syrup Village. Defend the deck against Pearl (590), Gin (592) and Don Krieg (595), then recruit Sanji.",
+  "Zoro and Mihawk’s 40-second duel. Mihawk has an adult-proportioned sprite, four-direction movement and dagger and sword attacks."
+ ]
+},
+{
+ "v": "6.03",
+ "b": 224,
+ "d": "2026-11-24",
+ "es": [
+  "Los 12 enemigos y los 5 jefes de los portales 400-600 de la Torre ya usan los dibujos nuevos del bestiario: en las 4 direcciones, andando y atacando.",
+  "Lupa › Sistemas: guía de los materiales y armaduras nuevas del nivel 700."
+ ],
+ "en": [
+  "The 12 enemies and 5 bosses of the Tower’s 400-600 portals now use the new bestiary drawings: in 4 directions, walking and attacking.",
+  "Magnifier › Systems: guide to the new level-700 materials and armours."
+ ]
+},
+{
+ "v": "6.02",
+ "b": 223,
+ "d": "2026-11-24",
+ "es": [
+  "Armadura de Clase de los Mares (nivel 700, la más fuerte): cada clase con su diseño — Vicealmirante del Mar Blanco, Navegante de Tormentas, Francotirador de Ultramar, Agente de la Sombra Blanca, Caballero del Barco Fantasma, Doctora del Invierno y Maestro del Karate Marino.",
+  "5 combinaciones de las armaduras de los mares (nivel 630-690): Pirata del Desierto, Emperatriz del Kimono, Capitán del Futuro, Bailarina del Rey del Mar y Serpiente del Futuro. Se forjan con la mitad de los materiales de los dos conjuntos que mezclan."
+ ],
+ "en": [
+  "Sea Class armour (level 700, the strongest): each class with its own design — White Sea Vice Admiral, Storm Navigator, Overseas Sharpshooter, White Shadow Agent, Ghost Ship Gentleman, Winter Doctor and Sea Karate Master.",
+  "5 sea armour combinations (level 630-690): Desert Pirate, Kimono Empress, Future Captain, Sea King’s Dancer and Future Serpent. Forged with half the materials of the two sets they mix."
+ ]
+},
+{
+ "v": "6.01",
+ "b": 222,
+ "d": "2026-11-24",
+ "es": [
+  "Nivel máximo 700.",
+  "Minerales y maderas nuevos en las islas del Mar de Dawn que reaparecen a los 5 segundos: Coralita y Palma de Coral, Nacarita y Árbol Frutal Raro, Piedra del Mar y Árbol Rey. Con sus picos, hachas y cañas (620-680).",
+  "5 armaduras de los mares para cualquier clase, en la Herrería con materiales de Dawn: Bailarina del Desierto (620), Emperatriz Serpiente (640), Capitán del Abrigo Negro (660), Kimono del Rey del Mar (680) y Traje del Futuro (700).",
+  "Ranking mundial: acepta niveles hasta 700 (antes el servidor rechazaba más de 500)."
+ ],
+ "en": [
+  "Level cap 700.",
+  "New ores and woods on the Dawn Sea islands that respawn after 5 seconds: Coralite and Coral Palm, Nacrite and Rare Fruit Tree, Seastone and King Tree. With their pickaxes, axes and rods (620-680).",
+  "5 sea armours for any class, at the Forge with Dawn materials: Desert Dancer (620), Serpent Empress (640), Black-Coat Captain (660), Sea King’s Kimono (680) and Future Suit (700).",
+  "World ranking: accepts levels up to 700 (the server used to reject anything above 500)."
+ ]
+},
+{
+ "v": "6.00",
+ "b": 221,
+ "d": "2026-11-24",
+ "es": [
+  "Cazadores de élite: van con su forma normal y se transforman en batalla (en las mazmorras cuando hay enemigos cerca, +15 % de ataque; en los duelos al bajar del 60 % de vida).",
+  "Valeria, Taro y Dorian llevaban formas que aún no se pueden conseguir (Despertar Dorado y Tejedor Primordial, sin estadísticas): ahora usan Mitad Dragón, Alado Caído y Eco sin Pintar."
+ ],
+ "en": [
+  "Elite hunters: they walk in their normal look and transform in battle (in dungeons when enemies are near, +15% attack; in duels below 60% HP).",
+  "Valeria, Taro and Dorian had forms that cannot be obtained yet (Golden Awakening and Primordial Weaver, no stats): they now use Half-Dragon, Fallen Winged and Unpainted Echo."
+ ]
+},
+{
+ "v": "5.99",
+ "b": 220,
+ "d": "2026-11-24",
+ "es": [
+  "Torre de los Portales: 5 portales nuevos de nivel alto con más enemigos — Fortaleza de Obsidiana (400), Jardín de Cristal Negro (450), Ciudad Hundida del Portal (500), Forja del Dios Caído (550) y Trono del Último Portal (600), con 12 enemigos y 5 jefes nuevos.",
+  "Las mazmorras ya no son todas la misma cueva: fortaleza de salas, anillo con cámara central, gran salón de columnas, catedral con capillas y sala del trono.",
+  "Los cazadores suben de nivel hasta el máximo: peleando contigo, al cerrar portales y entrenando solos cada día.",
+  "14 cazadores de élite (nivel 400-600) con armaduras de los tiers altos y transformaciones te esperan en la Antesala."
+ ],
+ "en": [
+  "Portal Tower: 5 new high-level portals with more enemies — Obsidian Fortress (400), Black Crystal Garden (450), Sunken Portal City (500), Fallen God’s Forge (550) and Throne of the Last Portal (600), with 12 new enemies and 5 new bosses.",
+  "Dungeons are no longer all the same cave: hall fortress, ring with a central chamber, pillared great hall, cathedral with chapels and throne room.",
+  "Hunters level up to the cap: fighting with you, closing portals and training on their own every day.",
+  "14 elite hunters (level 400-600) with high-tier armour and transformations wait in the Antechamber."
+ ]
+},
+{
+ "v": "5.98",
+ "b": 219,
+ "d": "2026-11-24",
+ "es": [
+  "Minijuegos: en todos los que se juegan con ⚔, mantenerlo pulsado ya no cuenta como muchos toques (igual que se arregló la pesca en el hielo).",
+  "Kuro suelta su botín: Garras del Gato (arma para todas las clases a nivel 580: dos zarpazos por golpe y cada cuarto golpe «Paso sin sonido», un tajo en línea sin recibir daño), sus gafas redondas y su frac, pantalón y zapatos. Revancha: habla con Kaya al terminar la historia.",
+  "Villa Syrup: todos sus personajes hablan del arco según el momento de la historia (antes, durante y después del ataque).",
+  "Merry vende la ropa de toda la isla por piezas como cosméticos: Dama de la Mansión, Hipnotista del Péndulo, Mayordomo Carnero, Gato Ligero, Gato Pesado y Piratas Pequeños (y el conjunto de Kuro cuando ya lo venciste). Gafas de corazón del hipnotista en Armario › 👓 Cara."
+ ],
+ "en": [
+  "Minigames: in every one played with ⚔, holding it no longer counts as many taps (like the ice fishing fix).",
+  "Kuro drops his loot: Cat Claws (all-class weapon at level 580: two swipes per attack and every fourth attack “Silent Step”, a line slash while untouchable), his round glasses and his tailcoat, trousers and shoes. Rematch: talk to Kaya after the story.",
+  "Syrup Village: every character talks about the arc depending on the story moment (before, during and after the attack).",
+  "Merry sells the whole island’s clothes piece by piece as cosmetics: Lady of the Manor, Pendulum Hypnotist, Ram Steward, Nimble Cat, Heavy Cat and Little Pirates (and Kuro’s set once you have beaten him). Hypnotist’s heart glasses in Wardrobe › 👓 Face."
+ ]
+},
+{
+ "v": "5.97",
+ "b": 218,
+ "d": "2026-11-24",
+ "es": [
+  "Arreglo: en la pesca en el hielo, mantener pulsado ⚔ retrasaba al pez para siempre («esperando…») y no se podía salir. Ahora cuenta un solo toque, el pez pica más tiempo con aviso y vibración, y moviendo el joystick dejas de pescar.",
+  "Arreglo: Zoltan el Errante se duplicaba cada 2 segundos durante el evento del mercader ambulante.",
+  "Goma + Engranaje 2: si tienes la fruta de goma y usas Engranaje 2, +12 % de crítico y +30 % de daño crítico.",
+  "Bara Bara: 4 técnicas nuevas (Cañón, Festival, Pies Saltarines y Cuchillas Voladoras): te partes en pedazos y tus pedazos atacan.",
+  "Fruta Transparente: 2 técnicas nuevas (Golpe Fantasma y Velo Espejo), 3 en total.",
+  "Destino de tu familia: cada hijo, nieto o bisnieto tiene el suyo. Unos nunca llegan al 500, otros aceptan su destino, otros encuentran la cura de la vejez (viven hasta 300 años) y otros te acompañan hasta el 500. Ninguno pasa del 500, y desde el 300 solo suben peleando contigo.",
+  "En el Mar de Dawn no puedes llamar a tu familia: te espera en casa."
+ ],
+ "en": [
+  "Fix: in ice fishing, holding ⚔ delayed the fish forever (“waiting…”) and you could not leave. Now it counts as one tap, the fish bites for longer with a notice and vibration, and moving the joystick ends fishing.",
+  "Fix: Zoltan the Wanderer duplicated every 2 seconds during the travelling merchant event.",
+  "Rubber + Gear 2: with the rubber fruit and Gear 2 active, +12% crit and +30% crit damage.",
+  "Chop-Chop: 4 new techniques (Cannon, Festival, Hopping Feet and Flying Blades): you split into pieces and your pieces attack.",
+  "Clear Fruit: 2 new techniques (Phantom Strike and Mirror Veil), 3 in total.",
+  "Your family’s fate: every child, grandchild or great-grandchild has their own. Some never reach 500, some accept their fate, some find the cure for old age (living up to 300 years) and some follow you to 500. None go past 500, and from 300 they only level up fighting with you.",
+  "You cannot call your family in the Dawn Sea: they wait at home."
+ ]
+},
+{
+ "v": "5.96",
+ "b": 217,
+ "d": "2026-11-24",
+ "es": [
+  "Tripulación: si Luffy, Zoro, Nami o Usopp caen en una pelea de la historia, se levantan a los 15 s con un tercio de su vida.",
+  "Recompensas de la tripulación: Luffy, Zoro, Nami y Usopp tienen su cartel de «se busca». Sube al vencer juntos a los jefes de la historia (más quien lleva la pelea) y con cada enemigo de Dawn si van contigo. Míralos en Habilidades › Voluntad o en tu cartel › 🏴‍☠️ Tripulación.",
+  "Lupa › 🏴‍☠️ Mar de Dawn: la ruta de la historia paso a paso con ✅ y flecha, la tripulación, las frutas y todo el crossover.",
+  "Arreglo: en Atajos, tocar las pestañas ⚔ 🌐 🔍 cerraba el panel y parecía que desaparecían los botones."
+ ],
+ "en": [
+  "Crew: if Luffy, Zoro, Nami or Usopp fall in a story fight, they get back up after 15 s with a third of their HP.",
+  "Crew bounties: Luffy, Zoro, Nami and Usopp have their own wanted posters. They rise when you beat the story bosses together (more for whoever leads the fight) and with every Dawn enemy while they sail with you. See them in Skills › Will or in your poster › 🏴‍☠️ Crew.",
+  "Magnifier › 🏴‍☠️ Dawn Sea: the story route step by step with ✅ and an arrow, the crew, the fruits and the whole crossover.",
+  "Fix: in Shortcuts, tapping the ⚔ 🌐 🔍 tabs closed the panel, so the buttons seemed to vanish."
+ ]
+},
+{
+ "v": "5.95",
+ "b": 216,
+ "d": "2026-11-24",
+ "es": [
+  "Nueva pestaña 🍇 Frutas en el menú: todas las Frutas del Diablo del juego (Goma, Transparente, Bara Bara, Mera Mera y Hana Hana) con su icono, su poder, sus técnicas, dónde aparecen, su probabilidad y cuántas victorias te faltan como mucho. Con «Marcar en el mapa» te lleva hasta ellas.",
+  "Arreglo: cuando una fruta del Mar de Dawn desaparecía a los 4 minutos, la flecha seguía apuntando a ese sitio."
+ ],
+ "en": [
+  "New 🍇 Fruits tab in the menu: every Devil Fruit in the game (Rubber, Clear, Chop-Chop, Flame-Flame and Flower-Flower) with its icon, power, techniques, where it appears, its chance and how many wins you need at most. “Mark on the map” guides you there.",
+  "Fix: when a Dawn Sea fruit vanished after 4 minutes, the arrow kept pointing at that spot."
+ ]
+},
+{
+ "v": "5.94",
+ "b": 215,
+ "d": "2026-11-24",
+ "es": [
+  "El inventario bloquea comer una segunda Fruta del Diablo mientras tienes un poder. La fruta permanece en tu bolsa. Shanks puede retirar el poder en Foosha.",
+  "Mera Mera y Hana Hana tienen sprites animados propios en sus nueve técnicas. El fuego, la Logia, los brazos y los pétalos se dibujan con fotogramas pixel art en el motor."
+ ],
+ "en": [
+  "The bag blocks eating a second Devil Fruit while you have a power. The fruit stays in your bag. Shanks can remove your power in Foosha.",
+  "Flame-Flame and Flower-Flower have custom animated sprites across all nine techniques. Fire, Logia, arms and petals use pixel art frames in the game engine."
+ ]
+},
+{
+ "v": "5.93",
+ "b": 214,
+ "d": "2026-11-24",
+ "es": [
+  "Mera Mera de Ace: Puño de Fuego, Pistolas de Fuego, Pilar de Fuego, Gran Entei y Cuerpo de Fuego. La Logia dura 6 segundos y evita hasta 3 golpes físicos de monstruos comunes.",
+  "Hana Hana de Robin: Clutch, Seis Fleur, Ochenta Fleur y Cien Fleur. Usa brazos a distancia, control de grupos y una barrera temporal. Las dos frutas usan la sección Habilidades › Fruta y progresan con el nivel.",
+  "Aparecen ocasionalmente en el Mar de Dawn. El aviso indica la isla y deja un marcador durante 4 minutos. Shanks retira Hana Hana con Voluntad 1 y Mera Mera con Voluntad 2, o cualquiera si ganaste su duelo."
+ ],
+ "en": [
+  "Ace’s Flame-Flame Fruit: Fire Fist, Fire Gun, Flame Pillar, Great Flame Emperor and Flame Body. Logia lasts 6 seconds and disperses up to 3 physical hits from ordinary monsters.",
+  "Robin’s Flower-Flower Fruit: Clutch, Seis Fleur, Ochenta Fleur and Cien Fleur. Use arms at a distance, crowd control and a temporary barrier. Both fruits use Skills › Fruit and scale with your level.",
+  "They occasionally appear in the Dawn Sea. The alert names the island and marks the spot for 4 minutes. Shanks removes Flower-Flower at Will rank 1 and Flame-Flame at Will rank 2, or either after you win his duel."
+ ]
+},
+{
+ "v": "5.92",
+ "b": 213,
+ "d": "2026-11-24",
+ "es": [
+  "Villa Syrup se conecta al sur del Mar de Dawn. Tras terminar la historia de Gaimon, desembarca, habla con Usopp y avisa a Kaya en su mansión.",
+  "Zoro te ayuda contra Sham y Buchi (nivel 572). Enfrenta a Jango (572) con Nami y Usopp, y a Kuro (580) con Luffy.",
+  "Recluta a Usopp como tirador de nivel 580. Nuevos sprites proporcionados a la referencia, con caminata y tirachinas en cuatro direcciones. Alterna proyectiles normales con la Estrella de Pólvora.",
+  "Habla con Luffy, Zoro, Nami y Usopp en tierra y en el Going Merry. Hay temas nuevos sobre su pasado, la navegación, el combate y lo que pasó en Villa Syrup."
+ ],
+ "en": [
+  "Syrup Village joins the southern Dawn Sea. Finish Gaimon’s story, go ashore, talk to Usopp and warn Kaya at her manor.",
+  "Zoro helps you fight Sham and Buchi (level 572). Face Jango (572) with Nami and Usopp, then fight Kuro (580) with Luffy.",
+  "Recruit Usopp as a level 580 sharpshooter. New reference-proportioned sprites with four-direction walking and slingshot attacks. He mixes regular projectiles with Gunpowder Star.",
+  "Talk to Luffy, Zoro, Nami and Usopp on land or aboard the Going Merry. New topics cover their past, navigation, combat and what happened at Syrup Village."
+ ]
+},
+{
+ "v": "5.91",
+ "b": 212,
+ "d": "2026-11-24",
+ "es": [
+  "Los jefes del Mar de Dawn ahora pegan de verdad: Alvida, Morgan, Cabaji, Buggy y Shanks hacen bastante más daño, incluso con despertares, transformación y oficios. Esquiva sus ataques marcados y lleva pociones.",
+  "Solo sube el daño que te hacen a ti: Luffy, Zoro y Nami, los piratas, la Marina, la vida de los jefes y los duelos PvP no cambian."
+ ],
+ "en": [
+  "Dawn Sea bosses now hit for real: Alvida, Morgan, Cabaji, Buggy and Shanks deal much more damage, even with awakenings, transformations and jobs. Dodge their marked attacks and bring potions.",
+  "Only the damage they deal to you goes up: Luffy, Zoro and Nami, pirates, the Navy, boss HP and PvP duels are unchanged."
+ ]
+},
+{
+ "v": "5.90",
+ "b": 211,
+ "d": "2026-11-24",
+ "es": [
+  "Tras derrotar a Morgan en Shells Town, navega a Orange Town y lucha junto a Luffy y Zoro contra Cabaji (nivel 567) y Buggy (nivel 570), en ese orden.",
+  "Buggy se divide en varios fragmentos que persiguen al grupo y vuelve a ensamblarse tras los cortes. Su botín incluye la Fruta Bara Bara, que da 10 % de probabilidad de esquivar ataques, las Garras de Buggy para todas las clases y su vestuario por piezas, con intentos garantizados.",
+  "Recluta a Nami tras vencer a Buggy y el bote se convierte en el Going Merry. Habla con la tripulación en tierra o a bordo y pídele a Nami que marque el rumbo.",
+  "Desembarca en la Isla de los Animales Raros, ayuda a Gaimon a buscar cinco cofres y elige a quién llevar contigo o dejar en el barco. Luffy, Zoro y Nami se quedan en el Mar de Dawn y tienen nuevos pasos de frente y de espaldas."
+ ],
+ "en": [
+  "After defeating Morgan in Shells Town, sail to Orange Town and fight alongside Luffy and Zoro against Cabaji (level 567) and Buggy (level 570), in that order.",
+  "Buggy splits into pieces that chase the party and reassembles after sword strikes. His drops include the Chop-Chop Fruit, which grants a 10% chance to dodge attacks, Buggy's Claws for all classes, and individual costume pieces, with guaranteed drops after enough attempts.",
+  "Recruit Nami after beating Buggy to turn the small boat into the Going Merry. Talk to the crew on land or aboard and ask Nami to set a waypoint.",
+  "Land on the Island of Rare Animals, help Gaimon search five chests, and choose who goes ashore or stays on the ship. Luffy, Zoro and Nami stay in the Dawn Sea and have new walking frames for facing forward and backward."
+ ]
+},
+{
+ "v": "5.89",
+ "b": 210,
+ "d": "2026-11-24",
+ "es": [
+  "Rescata a Zoro en el patio de la Base 153 de Shells Town y lucha con él y Luffy contra Morgan Mano de Hacha, jefe de nivel 550.",
+  "Luffy, Zoro y Morgan tienen sprites nuevos y caminatas en cuatro direcciones. Morgan llama a dos marines cuando le queda el 65 % de vida."
+ ],
+ "en": [
+  "Rescue Zoro in the courtyard of the 153rd Branch Base in Shells Town and fight alongside him and Luffy against Axe-Hand Morgan, a level 550 boss.",
+  "Luffy, Zoro and Morgan have new sprites and four-direction walking cycles. Morgan calls two marines at 65% health."
+ ]
+},
+{
+ "v": "5.88",
+ "b": 209,
+ "d": "2026-11-24",
+ "es": [
+  "👑 Voluntad: sube al vencer enemigos (+1, jefes +25) con 10 rangos. Con el rango 1 despiertas el Aura del Conquistador (ponla en una casilla en Habilidades): onda roja con rayos negros que desmaya a los enemigos según tu rango y tumba a los muy débiles. Los jefes aguantan hasta el rango 8.",
+  "😵 Shanks ahora usa su aura: si tu voluntad es menor que rango 6, te desmayas unos segundos en el duelo.",
+  "📜 Recompensa y carteles de búsqueda: sube al vencer cualquier enemigo; cada nivel de peligro saca un cartel «Se busca · vivo o muerto» con tu cara. Lo ves en Habilidades y en carteles de Foosha y La Tortuga Glotona.",
+  "⚓ La Marina en el Mar de Dawn: sus barcos te persiguen y, si te alcanzan, te abordan y peleas en su cubierta. En las islas un marine pregunta por ti: puedes mentir o pelear; con mucho peligro hay emboscadas. Si te derrotan pagas una multa.",
+  "🛠 Arreglo: el botón de nadar mostraba un texto raro en vez de «Nadar»."
+ ],
+ "en": [
+  "👑 Will: rises by defeating enemies (+1, bosses +25) with 10 ranks. At rank 1 you awaken the Conqueror's Aura (put it in a slot in Skills): a red wave with black lightning that knocks enemies out depending on your rank and drops very weak ones. Bosses resist until rank 8.",
+  "😵 Shanks now uses his aura: if your will is below rank 6, you faint for a few seconds in the duel.",
+  "📜 Bounty and wanted posters: it rises with any defeated enemy; each danger level brings a 'Wanted · dead or alive' poster with your face. See it in Skills and on posters in Foosha and the Gluttonous Turtle.",
+  "⚓ The Navy in the Dawn Sea: their ships chase you and, if they catch you, they board you and you fight on their deck. On the islands a marine asks about you: you can lie or fight; with high danger there are ambushes. If they beat you, you pay a fine.",
+  "🛠 Fix: the swim button showed odd text instead of 'Swim'."
+ ]
+},
+{
+ "v": "5.87",
+ "b": 208,
+ "d": "2026-11-24",
+ "es": [
+  "🛠 Arreglo: el mapa del Mar de Dawn daba un error rojo y no dejaba cambiar de mapa con las flechas (un punto de La Tortuga Glotona tenía una categoría que no existía). Ahora el mapa ignora cualquier punto así.",
+  "👕 Ropa de los mares (cosméticos por piezas) en La Tortuga Glotona: la Modista Marea, en la recepción, la vende y hay maniquíes con la ropa puesta.",
+  "🗡 Espadachín: pañuelo negro atado, camiseta de botones con faja verde (y pañuelo en el brazo), pantalón negro, botas negras y tres katanas al cinto. 🎯 Francotirador: pañuelo con gafas, peto marrón con faja blanca, correa y muñequera de rayas, pantalón y bolsa de lona.",
+  "🧭 Navegante: camiseta blanca de franjas azules, minifalda naranja y sandalias. 🍳 Cocinero: chaqueta negra cruzada con botones dorados, camisa celeste y corbata, pantalón de traje y zapatos negros. Todo se ve en las 10 estructuras de cuerpo."
+ ],
+ "en": [
+  "🛠 Fix: the Dawn Sea map showed a red error and the arrows stopped switching maps (a Gluttonous Turtle marker had a category that did not exist). The map now ignores any such marker.",
+  "👕 Sea clothes (cosmetics, piece by piece) at the Gluttonous Turtle: Marea the dressmaker sells them at the reception, with mannequins wearing them.",
+  "🗡 Swordsman: tied black headscarf, button tee with green belly band (and an arm scarf), black trousers, black boots and three katanas at the hip. 🎯 Sharpshooter: headscarf with goggles, brown bib with white sash, strap and striped wristband, trousers and canvas bag.",
+  "🧭 Navigator: white tee with blue stripes, orange miniskirt and sandals. 🍳 Cook: black double-breasted jacket with gold buttons, light blue shirt and tie, suit trousers and black shoes. Everything fits all 10 body builds."
+ ]
+},
+{
+ "v": "5.86",
+ "b": 207,
+ "d": "2026-11-23",
+ "es": [
+  "🐢 La Tortuga Glotona: restaurante flotante sobre una tortuga gigante, cerca de Foosha en el Mar de Dawn. Acércate con el bote al muelle de popa y sube (no hace falta la Fruta del Diablo).",
+  "🍽 Por dentro: Bar Pirata, Jardín del Caparazón con fuente, Terraza con sombrillas, Gran Comedor, Recepción con una vitrina de comida gigante y Cocina. Piratas y clientes comiendo, meseros que llevan platos a las mesas, cocineros y la chef Brígida.",
+  "🧑‍🍳 Turno de mesero con Madame Perla (90 s, dentro del mapa): coge platos en el pase con ⚔ y llévalos a las mesas que piden. Da oro, propinas y experiencia del oficio Restaurante. La chef sirve el plato del día (vida y maná al máximo).",
+  "🏊 Nadar en el Mar de Dawn: tírate al agua desde el bote (⚔) o desde la orilla. Vuelve a tu bote, sube a la tortuga o sal en la costa de Foosha (pide la Fruta del Diablo). Si comiste una fruta, el mar te hunde y te rescatan con un salvavidas."
+ ],
+ "en": [
+  "🐢 The Gluttonous Turtle: a floating restaurant on a giant turtle near Foosha in the Dawn Sea. Bring your boat to the stern dock and board (no Devil Fruit needed).",
+  "🍽 Inside: Pirate Bar, Shell Garden with a fountain, Terrace with parasols, Great Dining Room, Reception with a giant food showcase and Kitchen. Pirates and diners eating, waiters carrying plates to the tables, cooks and Chef Brígida.",
+  "🧑‍🍳 Waiter shift with Madame Perla (90 s, on the map): take plates at the pass with ⚔ and bring them to the tables ordering. Gives gold, tips and Restaurant job experience. The chef serves the dish of the day (full health and mana).",
+  "🏊 Swimming in the Dawn Sea: jump in from the boat (⚔) or from the shore. Get back to your boat, climb onto the turtle or come ashore on Foosha's coast (needs the Devil Fruit). If you ate a fruit, the sea drags you down and you get rescued with a lifebuoy."
+ ]
+},
+{
+ "v": "5.85",
+ "b": 206,
+ "d": "2026-11-23",
+ "es": [
+  "🧥 Ropa del Pelirrojo (cosméticos): Camisa Abierta con botones y mangas remangadas, Pantalón Corto malva con enredaderas y estrellas, y Capa Negra sobre los hombros con el cuello levantado. Se ven en las 5 estructuras de hombre y de mujer y en las 4 direcciones.",
+  "⚔ Caen al vencer a Shanks (duelo o revancha): 30 % por cada prenda que te falte, y cada una es segura a las 15 victorias sin ella. La barra de Shanks enseña cuántas faltan. Se ponen en el Armario."
+ ],
+ "en": [
+  "🧥 Red Hair's clothes (cosmetics): Open Shirt with buttons and rolled sleeves, mauve Knee Shorts with vines and stars, and a Black Cloak over the shoulders with a raised collar. They fit the 5 male and 5 female builds in all 4 directions.",
+  "⚔ They drop when you beat Shanks (duel or rematch): 30% for each piece you are missing, and each one is guaranteed by the 15th win without it. Shanks's bar shows how many are left. Wear them from the Wardrobe."
+ ]
+},
+{
+ "v": "5.84",
+ "b": 205,
+ "d": "2026-11-23",
+ "es": [
+  "👒 Conjunto de Pirata de Paja (tier 44, nivel 600, cualquier clase): sombrero de paja, chaleco rojo abierto sin mangas, faja amarilla, pantalón corto azul y sandalias. Un 5 % más fuerte que la Aurora Divina.",
+  "⚔ Es el premio del duelo con Shanks en Foosha: 10 % por victoria y seguro a las 15. Después del primer duelo puedes pedirle la revancha. La barra de Shanks enseña cuántas victorias faltan."
+ ],
+ "en": [
+  "👒 Straw Pirate set (tier 44, level 600, any class): straw hat, open sleeveless red vest, yellow sash, blue shorts and sandals. 5% stronger than the Divine Aurora.",
+  "⚔ It is the reward for the duel with Shanks in Foosha: 10% per win and guaranteed by the 15th. After the first duel you can ask him for a rematch. Shanks's bar shows how many wins are left."
+ ]
+},
+{
+ "v": "5.83",
+ "b": 204,
+ "d": "2026-11-23",
+ "es": [
+  "🍇 La Fruta del Diablo de Goma (Hilandera Muda: 5 %, segura a los 20 intentos) sigue abriendo las islas de Dawn y ahora se puede comer: cuerpo de goma con 5 técnicas animadas en Habilidades › Fruta (Pistola, Ametralladora, Hacha, Bazuca y Globo) y tus golpes cuerpo a cuerpo estiran el brazo con el arma.",
+  "🍐 Fruta Transparente: aparece a veces en las islas de Dawn con aviso y flecha. Comida: invisibilidad 6 s, los enemigos no te ven.",
+  "⚠ Con una fruta no puedes nadar (pierdes vida en el Fondo Marino y en Nerea). Solo puedes tener una: si te comes otra, mueres. Shanks te la puede quitar.",
+  "🎁 Todos los jefes enseñan encima de su barra de vida lo que sueltan y con qué probabilidad.",
+  "🔍 Lupa › Sistemas: Progresión crossover (Dawn, frutas y Engranaje 2)."
+ ],
+ "en": [
+  "🍇 The Rubber Devil Fruit (Mute Spinner: 5%, guaranteed by the 20th try) still opens the Dawn islands and can now be eaten: a rubber body with 5 animated techniques in Skills › Fruit (Pistol, Gatling, Axe, Bazooka and Balloon), and your melee hits stretch your arm with the weapon.",
+  "🍐 Clear Fruit: it sometimes appears on the Dawn islands with a warning and an arrow. Eaten: 6 s invisibility, enemies cannot see you.",
+  "⚠ With a fruit you cannot swim (you lose HP on the Seabed and in Nerea). You can only have one: eat another and you die. Shanks can remove it.",
+  "🎁 Every boss shows above its health bar what it drops and how likely it is.",
+  "🔍 Magnifier › Systems: Crossover progression (Dawn, fruits and Gear 2)."
+ ]
+},
+{
+ "v": "5.82",
+ "b": 203,
+ "d": "2026-11-23",
+ "es": [
+  "🍇 La Fruta del Diablo ya se puede conseguir: la suelta la Hilandera Muda (nivel 600, Tierras Tejidas) con un 10 %. No se come: llévala en la mochila.",
+  "⛵ Con la fruta puedes desembarcar en Foosha (muelle del puerto) y en Shells Town desde tu bote del Mar de Dawn. Little Garden aún no tiene desembarco.",
+  "♨ Así ya se llega a Shanks y a Engranaje 2: duelo en Foosha y luego el ritual."
+ ],
+ "en": [
+  "🍇 The Devil Fruit can now be obtained: the Mute Spinner (level 600, Woven Lands) drops it with a 10% chance. It is not eaten: carry it in your bag.",
+  "⛵ With the fruit you can land at Foosha (harbour pier) and Shells Town from your Dawn Sea boat. Little Garden has no landing yet.",
+  "♨ This opens the way to Shanks and Gear 2: a duel in Foosha and then the ritual."
+ ]
+},
+{
+ "v": "5.81",
+ "b": 202,
+ "d": "2026-11-23",
+ "es": [
+  "♨ Transformación nueva: Engranaje 2 (nivel 600). Piel roja pálida, vapor que sale de todo el cuerpo y estela al correr. Es la forma más fuerte, un poco por encima de las fusiones: +45 % de ataque y +25 % de velocidad. Con espada, dagas o guadaña el brazo se estira con el arma y golpea a distancia.",
+  "⚔ Se consigue con Shanks en Villa Foosha: te dice si estás listo (nivel 600 y haber vencido a la Rueca Desbocada) y te enfrentas a él, el enemigo más fuerte de momento. 🔒 Foosha sigue cerrada, así que por ahora no se puede conseguir.",
+  "Habilidades: Puño Hirviente, Paso de Vapor, Lluvia de Puños y Estallido Hirviente. Todo en la Lupa › Sistemas."
+ ],
+ "en": [
+  "♨ New transformation: Gear 2 (level 600). Pale red skin, steam rising from the whole body and an afterimage when running. The strongest form, just above the fusions: +45% attack and +25% speed. With a sword, daggers or scythe your arm stretches with the weapon and hits at range.",
+  "⚔ Obtained from Shanks in Foosha Village: he tells you if you are ready (level 600 and the Runaway Spinning Wheel defeated) and you fight him, the strongest enemy for now. 🔒 Foosha is still closed, so it can't be obtained yet.",
+  "Skills: Boiling Fist, Steam Step, Rain of Fists and Boiling Burst. All in the Magnifier › Systems."
+ ]
+},
+{
+ "v": "5.80",
+ "b": 201,
+ "d": "2026-11-23",
+ "es": [
+  "🐺 Transformaciones con las armaduras de nivel 505-600: orejas, cuernos, pelaje, escamas, alas y cristales siempre por encima de la armadura. Las capuchas nuevas ya no tapan el pelo de la forma (por ejemplo, el pelo dorado del Despertar Dorado)."
+ ],
+ "en": [
+  "🐺 Transformations with level 505-600 armour: ears, horns, fur, scales, wings and crystals always on top of the armour. The new hoods no longer hide the form's hair (for example, the Golden Awakening's golden hair)."
+ ]
+},
+{
+ "v": "5.79",
+ "b": 200,
+ "d": "2026-11-23",
+ "es": [
+  "🎨 Las 15 criaturas y los 4 jefes de las Tierras Tejidas tienen sus dibujos nuevos (las mismas mecánicas).",
+  "⚔ Las 49 armas de nivel 505 a 600 tienen sus dibujos nuevos, cada una con el tema de su tier.",
+  "🎵 Música propia en las Tierras Tejidas (caja de música) y otra para sus jefes.",
+  "🎣 Cuatro peces nuevos en los estanques de tinte: Pez Hilo, Carpa de Tinte, Anguila de Huso y Koi de Seda (cañas 15 a 18).",
+  "🧭 ▦ Atajos › ¿Qué hago ahora? › Tierras Tejidas: te dice qué pico, hacha o caña forjar, te lleva a la veta, árbol o estanque que ya puedes usar, al siguiente jefe y a la forja.",
+  "🔍 Lupa › Sistemas: Tierras Tejidas (jefes, recursos y herramientas, forja), cada uno con flecha."
+ ],
+ "en": [
+  "🎨 The 15 creatures and 4 bosses of the Woven Lands have their new artwork (same mechanics).",
+  "⚔ The 49 level 505-600 weapons have their new artwork, each matching its tier's theme.",
+  "🎵 Own music in the Woven Lands (music box) and another for its bosses.",
+  "🎣 Four new fish in the dye ponds: Thread Fish, Dye Carp, Spindle Eel and Silk Koi (rods 15 to 18).",
+  "🧭 ▦ Shortcuts › What do I do now? › Woven Lands: tells you which pickaxe, axe or rod to forge, takes you to the vein, tree or pond you can already use, to the next boss and to the forge.",
+  "🔍 Magnifier › Systems: Woven Lands (bosses, resources and tools, forge), each with an arrow."
+ ]
+},
+{
+ "v": "5.78",
+ "b": 199,
+ "d": "2026-11-23",
+ "es": [
+  "🧶 Las Tierras del Vínculo crecen: al sur de Sahrim y Yarakai (y al este de Nhar) hay una región nueva, las Tierras Tejidas, con un bioma nuevo de algodón rosado, ovillos gigantes, carretes y ciénagas de tinte. Se llega por los andenes de las estaciones Sahrim y Yarakai.",
+  "⬆ El nivel máximo sube a 600. Cuatro zonas: Pradera de Algodón, Bosque de Ovillos, Ciénaga de Tinte e Hilandería Rota (nivel 500 a 600).",
+  "👾 15 criaturas nuevas, cada una con su mecánica (se deshacen en ovillitos, se recosen, lanzan telarañas, aparecen a tu espalda, curan a las demás, te arrastran…) y 4 jefes: la Reina Polilla, el Nudo Ciego, la Rueca Desbocada y la Hilandera Muda.",
+  "🏕 Campamento de las Hebras con 6 NPCs: Ovidia, Maese Hilario (forja), Cora, Fray Lino, Pip y Brígida. Piedra de viaje nueva.",
+  "⛏ Minerales nuevos (Hebrita, Tintolita, Plata de Huso y Sedalita), cuatro maderas nuevas y picos, hachas y cañas 14 a 17.",
+  "🛡 7 tiers de equipo de nivel 505 a 600: armaduras con un diseño distinto para cada clase (49 aspectos) y 49 armas nuevas. Todo en la Lupa › Sistemas."
+ ],
+ "en": [
+  "🧶 The Lands of the Bound grow: south of Sahrim and Yarakai (and east of Nhar) there is a new region, the Woven Lands, with a new biome of pink cotton, giant yarnballs, spools and dye marshes. Reach it from the Sahrim and Yarakai station platforms.",
+  "⬆ The level cap rises to 600. Four zones: Cotton Meadow, Yarnball Wood, Dye Marsh and Broken Spinning Mill (level 500 to 600).",
+  "👾 15 new creatures, each with its own mechanic (they unravel into small yarnballs, sew themselves back up, shoot webs, appear behind you, heal the others, drag you…) and 4 bosses: the Moth Queen, the Blind Knot, the Runaway Spinning Wheel and the Mute Spinner.",
+  "🏕 Thread Camp with 6 NPCs: Ovidia, Master Hilario (forge), Cora, Brother Lino, Pip and Brígida. New waystone.",
+  "⛏ New ores (Threadite, Dyestone, Spindle Silver and Silkstone), four new woods and pickaxes, axes and rods 14 to 17.",
+  "🛡 7 tiers of level 505-600 gear: armour with a different design for each class (49 looks) and 49 new weapons. All in the Magnifier › Systems."
+ ]
+},
+{
+ "v": "5.77",
+ "b": 198,
+ "d": "2026-11-23",
+ "es": [
+  "▦ Atajos por páginas: los botones se acomodan en páginas con ◀ ▶ (o deslizando a los lados) y ya no se salen de la pantalla.",
+  "🚕 Taxi por app (▦ Atajos, solo dentro de una ciudad): eliges una zona, el taxi te recoge y te deja allí.",
+  "🎤 Conciertos en la plaza algunas noches (⚔ para bailar). 🚚 Vecinos nuevos que se mudan cada semana. 🪧 Huelgas de combis.",
+  "🗿 Con 25 de reputación el alcalde te nombra Vecino Ilustre: título y estatua de bronce en la plaza.",
+  "🔍 Un misterio en cada ciudad: pistas, testigo y sospechosos (marco «Detective»). 👻 Leyendas urbanas de madrugada: la Llorona, la Santa Compaña, el duende de Chan Chan…",
+  "📷 Álbum de fauna con el modo foto. 🍽 Tu fonda a la hora del almuerzo: sirve tus platos a los vecinos. 🐾 Michi y Firulais aprenden trucos (traer cosas y buscar tesoros)."
+ ],
+ "en": [
+  "▦ Shortcuts in pages: buttons are arranged in pages with ◀ ▶ (or swipe sideways) and no longer go off screen.",
+  "🚕 Taxi app (▦ Shortcuts, only inside a city): pick an area, the taxi picks you up and drops you there.",
+  "🎤 Concerts in the square some nights (⚔ to dance). 🚚 New neighbours moving in every week. 🪧 Combi strikes.",
+  "🗿 With 25 reputation the mayor names you Distinguished Neighbour: title and a bronze statue in the square.",
+  "🔍 A mystery in each city: clues, a witness and suspects («Detective» frame). 👻 Late-night urban legends: La Llorona, the Holy Company, the goblin of Chan Chan…",
+  "📷 Wildlife album with photo mode. 🍽 Your eatery at lunch time: serve your dishes to the neighbours. 🐾 Kitty and Firulais learn tricks (fetching and digging for treasure)."
+ ]
+},
+{
+ "v": "5.76",
+ "b": 197,
+ "d": "2026-11-23",
+ "es": [
+  "🔎 Lupa › 🏙 Ciudades y vida: nueva pestaña con todo lo de las ciudades, la familia y la vida diaria explicado, y «Hoy en las ciudades» (fiestas, mercado, cumpleaños, partidos, apagones y bodas de hoy).",
+  "🚐 Súbete a una combi en la calle (5 de oro): el cobrador vocea las paradas y bajas con ⚔ donde quieras. 👛 De día, carteristas: atrápalos antes de 40 s.",
+  "🏘 Barrios con personalidad: corredores al amanecer, pintores y músicos de noche, mariachis en el Zócalo, flamenco en Andalucía. Al almuerzo, colas y humito en los puestos de comida.",
+  "⚡ Apagones algunas noches (velas en las ventanas y más loquitos). ⚽ Partidos de la selección con goles en toda la ciudad y caravana si gana. 📰 Canillita con el periódico del día.",
+  "🏖 Bañistas en verano y chubascos de verano. 💒 Bodas y bautizos en la plaza. 🧺 Abre tu propio puesto en el mercado de los sábados.",
+  "🏫 Recreo en la escuela de Albor: ve a ver a tus hijos al patio. 🐓 Gallos al amanecer, grillos y luciérnagas de noche, mariposas de día."
+ ],
+ "en": [
+  "🔎 Magnifier › 🏙 Cities & life: a new tab explaining everything about cities, family and daily life, plus «Today in the cities» (today's festivals, market, birthdays, matches, power cuts and weddings).",
+  "🚐 Hop on a combi in the street (5 gold): the conductor shouts the stops and you get off with ⚔ wherever you like. 👛 Pickpockets by day: catch them within 40 s.",
+  "🏘 Neighbourhoods with character: dawn joggers, painters and musicians at night, mariachis in the Zócalo, flamenco in Andalusia. At lunch, queues and steam at the food stalls.",
+  "⚡ Power cuts some nights (candles in the windows and more nutters). ⚽ National team matches with goals across the city and a caravan if they win. 📰 Newspaper boy with the daily paper.",
+  "🏖 Summer beachgoers and summer showers. 💒 Weddings and christenings in the square. 🧺 Open your own stall at the Saturday market.",
+  "🏫 Break time at the Albor school: visit your children in the yard. 🐓 Roosters at dawn, crickets and fireflies at night, butterflies by day."
+ ]
+},
+{
+ "v": "5.75",
+ "b": 196,
+ "d": "2026-11-23",
+ "es": [
+  "▦ Atajos se desliza hacia abajo: ya se pueden tocar los últimos botones (un brillo abajo avisa de que hay más).",
+  "☔ Las ciudades tienen clima: con lluvia la gente se refugia y saca paraguas (en Lima es garúa). 🚗 Hora punta con combis voceando y calles vacías de madrugada.",
+  "🎉 Fiestas de cada país con guirnaldas, más gente y un regalo diario: Día de Muertos, Inti Raymi, Fiestas Patrias, Concurso de Marinera, San Fermín y Feria de Abril.",
+  "🗓 Vecinos con nombre y rutina (casa, trabajo, almuerzo en la plaza) y sus cumpleaños con fiesta. 👮 Serenos y policías de noche que te ayudan con los loquitos y te dan recompensa.",
+  "🔒 Los puestos cierran de noche (algunos abren 24 horas). 🌅 Surfistas y pescadores al amanecer. 🧺 Mercado de los sábados.",
+  "🐾 Adopta al gato o al perro de la calle que acaricias 3 días. 💼 Los hijos mayores trabajan en un oficio y te traen oro y materiales. 😊 Reputación por ciudad: te saludan por tu nombre y te hacen descuento."
+ ],
+ "en": [
+  "▦ Shortcuts now scroll down: the last buttons can be tapped (a glow at the bottom shows there is more).",
+  "☔ Cities have weather: when it rains people take shelter and open umbrellas (in Lima it is drizzle). 🚗 Rush hour with shouting combis and empty streets late at night.",
+  "🎉 Each country's festivals with garlands, more people and a daily gift: Day of the Dead, Inti Raymi, National Holidays, Marinera Contest, San Fermín and April Fair.",
+  "🗓 Named neighbours with a routine (home, work, lunch in the square) and birthday parties. 👮 Night watchmen and police who help you with the nutters and pay a reward.",
+  "🔒 Stalls close at night (some are open 24 hours). 🌅 Surfers and fishermen at dawn. 🧺 Saturday market.",
+  "🐾 Adopt the street cat or dog you pet on 3 days. 💼 Grown-up children work a job and bring you gold and materials. 😊 Reputation per city: people greet you by name and give you a discount."
+ ]
+},
+{
+ "v": "5.74",
+ "b": 195,
+ "d": "2026-11-23",
+ "es": [
+  "🌆 Lima, Lima Norte, Trujillo, Cusco, Machu Picchu, México y España siguen la hora: de día las calles están llenas, al anochecer la gente se va a casa y de madrugada casi no queda nadie. Los domingos sale todo el mundo; España tiene siesta y cena tarde.",
+  "🌙 Vendedores que solo abren de noche (anticuchos, picarones, emoliente, tacos, churros…) y, de 22:00 a 5:00, loquitos que buscan pleito. Su fuerza se adapta a la tuya.",
+  "👂 La gente comenta lo que de verdad has hecho («¿Qué se dice por aquí?») y a veces cuchichea cuando pasas. 🤝 Cada día un vecino te pide un favor, y a veces te visitan en casa con un regalo.",
+  "🐾 Gatos, perros y palomas por las calles: acarícialos con ⚔; las palomas vuelan si te acercas y el gato te sigue si le das pescado.",
+  "🌸 Huerto por estaciones: 8 cultivos de temporada. Al cosechar un huerto se cosechan todos los que están listos y se vuelven a sembrar.",
+  "🏡 Rutina de los hijos (escuela, jardín, cena y cama), cena en familia, diario de cada hijo y fotos de familia en la pared del salón.",
+  "🏠 Volver a casa (▦ Atajos), buscador y filtro de oficio en el inventario, 🧺 Vida diaria (lista de compra con flecha, Bolsa de rescate cuando la mochila está llena, favor del día y avisos) y temporizador de 3 s en el modo foto."
+ ],
+ "en": [
+  "🌆 Lima, North Lima, Trujillo, Cusco, Machu Picchu, Mexico and Spain follow the clock: streets are busy by day, people go home at dusk and hardly anyone is left late at night. On Sundays everyone is out; Spain has a siesta and late dinners.",
+  "🌙 Vendors who only open at night (anticuchos, picarones, emoliente, tacos, churros…) and, from 22:00 to 5:00, nutters looking for a fight. Their strength adapts to yours.",
+  "👂 People talk about what you have really done («What is the word around here?») and sometimes whisper as you pass. 🤝 Every day a neighbour asks you a favour, and sometimes they visit your house with a gift.",
+  "🐾 Cats, dogs and pigeons on the streets: pet them with ⚔; pigeons fly off if you get close and the cat follows you if you give it fish.",
+  "🌸 Seasonal garden: 8 seasonal crops. Harvesting one plot harvests every ripe plot and replants them.",
+  "🏡 Children's routine (school, garden, dinner and bed), family dinner, a diary for each child and family photos on the living room wall.",
+  "🏠 Go home (▦ Shortcuts), search and jobs filter in the bag, 🧺 Daily life (shopping list with arrow, Rescue bag when your bag is full, favour of the day and alerts) and a 3 s timer in photo mode."
+ ]
+},
+{
+ "v": "5.73",
+ "b": 194,
+ "d": "2026-11-21",
+ "es": [
+  "El desembarco en Foosha, Little Garden y Shells Town requiere una Fruta del Diablo, que aún no se puede conseguir.",
+  "Desde nivel 500 sigue disponible la navegación por el Mar de Dawn."
+ ],
+ "en": [
+  "Landing at Foosha, Little Garden and Shells Town requires a Devil Fruit, which cannot be obtained yet.",
+  "Sailing the Dawn Sea remains available from level 500."
+ ]
+},
+{
+ "v": "5.72",
+ "b": 193,
+ "d": "2026-11-21",
+ "es": [
+  "Shells Town abre al este de Little Garden, en el mismo Mar de Dawn de 1.648 × 360 casillas.",
+  "Desembarca en el muelle central y explora las calles de adoquín y el exterior de la Base 153. Puedes volver a tu embarcación desde el mismo muelle."
+ ],
+ "en": [
+  "Shells Town opens east of Little Garden on the same 1,648 × 360 tile Dawn Sea map.",
+  "Land at the central pier to explore the cobbled streets and the outside of the 153rd Branch Base. Return to your ship from the same pier."
+ ]
+},
+{
+ "v": "5.71",
+ "b": 192,
+ "d": "2026-11-21",
+ "es": [
+  "Luffy niño usa su nuevo sprite en Foosha y saluda cuando te acercas.",
+  "En Ajustes → Sprites de Dawn puedes alternar entre los dos sprites de Alvida."
+ ],
+ "en": [
+  "Young Luffy has a new sprite in Foosha and waves when you approach.",
+  "Switch between Alvida’s two sprites in Settings → Dawn sprites."
+ ]
+},
+{
+ "v": "5.70",
+ "b": 191,
+ "d": "2026-11-21",
+ "es": [
+  "Mar de Dawn ampliado a 1.168 × 360 casillas. Little Garden aparece en el mapa con el desembarco cerrado.",
+  "Desde nivel 500, Marina te da acceso a un bote que puedes manejar. Localiza el galeón, aborda y vence a la tripulación y a Alvida.",
+  "Gana el mazo de Alvida para guerrero, registra a la tripulación en el bestiario y toma el timón del galeón."
+ ],
+ "en": [
+  "The Dawn Sea covers 1,168 × 360 tiles. Little Garden is on the map with its landing closed.",
+  "At level 500, Marina grants access to a boat you can steer. Find the galleon, board and defeat the crew and Alvida.",
+  "Earn Alvida’s warrior mace, register the crew in the bestiary and take the galleon’s helm."
+ ]
+},
+{
+ "v": "5.69",
+ "b": 190,
+ "d": "2026-11-21",
+ "es": [
+  "🛠 Selva peruana: arreglado el error rojo «reading 'y'» al caminar, que congelaba el juego y parecía teletransportarte. El juego ya no se rompe en ningún mapa sin salida a pie."
+ ],
+ "en": [
+  "🛠 Peruvian jungle: fixed the red error «reading 'y'» while walking, which froze the game and looked like teleporting. The game no longer breaks on any map without a walk-out exit."
+ ]
+},
+{
+ "v": "5.68",
+ "b": 189,
+ "d": "2026-11-20",
+ "es": [
+  "Selva peruana de 720 × 360 casillas: río, bosque de lupunas, cascada, aguajal, cocha y dos comunidades conectadas por senderos.",
+  "Compra el billete de 10.000 de oro en Jorge Chávez, embarca por la Puerta 2 y regresa gratis con Daniela.",
+  "Aprende y practica shipibo-konibo y asháninka con Luz y Elena."
+ ],
+ "en": [
+  "720 × 360 Peruvian Amazon map: river, lupuna forest, waterfall, aguaje palms, oxbow lake and two communities connected by trails.",
+  "Buy the 10,000 gold ticket at Jorge Chávez, board at Gate 2 and fly back free with Daniela.",
+  "Learn and practice Shipibo-Konibo and Ashaninka with Luz and Elena."
+ ]
+},
+{
+ "v": "5.67",
+ "b": 188,
+ "d": "2026-11-20",
+ "es": [
+  "⚒ ▦ Atajos › ¿Qué hago ahora?: nueva sección de oficios. Primero Tala, Minería y Pesca (con tu herramienta equipada y sus casillas); al terminarlas te va mostrando el siguiente oficio, uno a uno, hasta los 68.",
+  "➜ «Llévame» pone la flecha dorada donde practicar y «Ver en la Lupa» abre la guía de ese oficio."
+ ],
+ "en": [
+  "⚒ ▦ Shortcuts › What do I do now?: new jobs section. First Woodcutting, Mining and Fishing (with your equipped tool and its slots); once done it shows the next job, one by one, up to all 68.",
+  "➜ «Take me» sets the golden arrow where to practise and «See in Magnifier» opens that job's guide."
+ ]
+},
+{
+ "v": "5.66",
+ "b": 187,
+ "d": "2026-11-20",
+ "es": [
+  "▦ Barra de abajo más limpia: se quitan la casilla ＋ y el libro. Quedan hacha, poción, pico, caña, mochila y tu arma.",
+  "💃 Bailes: los brazos se dibujan encima de la ropa con contorno y se aclaran con prendas negras, así se ve el movimiento con cualquier atuendo.",
+  "✦ Armario › Auras: 5 auras nuevas con oro: Escarcha cristalina, Pacto carmesí, Humo de sombra, Prisma arcoíris y Fuegos fatuos."
+ ],
+ "en": [
+  "▦ Cleaner bottom bar: the ＋ slot and the book are gone. Axe, potion, pickaxe, rod, bag and your weapon remain.",
+  "💃 Dances: arms are drawn over clothes with an outline and brightened on black outfits, so the movement shows with any outfit.",
+  "✦ Wardrobe › Auras: 5 new auras for gold: Crystal frost, Crimson pact, Shadow smoke, Rainbow prism and Will-o'-wisps."
+ ]
+},
+{
+ "v": "5.65",
+ "b": 186,
+ "d": "2026-11-20",
+ "es": [
+  "🐴 El botón de montura abre tus monturas compradas: elige la que quieras o cambia sin bajarte. En el online se ve la que llevas.",
+  "🧪 Curas equilibradas: pociones como mucho el 40 % de tu vida (elixir 60 %); platos y bebidas como mucho el 25 % y con 20 s de espera (antes se podían comer sin parar y curaban miles).",
+  "⛏ Las vetas y árboles nuevos de nivel alto vuelven a salir a los 3 s en el mismo sitio."
+ ],
+ "en": [
+  "🐴 The mount button opens your purchased mounts: pick any or switch without getting off. Online players see the one you ride.",
+  "🧪 Balanced healing: potions heal at most 40% of your HP (elixir 60%); dishes and drinks at most 25% with a 20 s cooldown (before they could be spammed for thousands).",
+  "⛏ The new high-level veins and trees grow back after 3 s in the same spot."
+ ]
+},
+{
+ "v": "5.64",
+ "b": 185,
+ "d": "2026-11-20",
+ "es": [
+  "🛠 Arreglado el error rojo «id is not defined» al usar el Tónico de Fuerza (y cualquier tónico).",
+  "🧪 Las pociones tienen 30 s de espera (curar, maná y tónicos por separado). La poción rápida puede ser cualquiera.",
+  "🪓 Hachas, picos y cañas ahora se equipan en el inventario (Equipar). Talar, picar y pescar ya no es automático con ⚔: se pulsa su casilla.",
+  "▦ Barra de abajo nueva: hacha · poción · pico · caña · ★ casilla libre (pon lo que quieras; mantén pulsado para cambiarla) · mochila · tu arma · misiones. La casilla brilla si tienes un árbol, una veta o agua al lado.",
+  "⛏ 7 minerales y 7 maderas nuevas de nivel alto en Celestia, Altavela, el Velo Roto, Lima Norte, Cusco (Vinicunca) y México, con su icono en el mapa.",
+  "⚒ 7 hachas, 7 picos y 7 cañas nuevas (nivel 170-450). Tala, Minería y Pesca suben hasta el nivel 120 (+30 con maestría).",
+  "🐟 40 peces nuevos (bestiario y acuario), también en Perú, México y Japón. 🎣 Don Anselmo, el cebero de Puerto Coral: lombrices y cebo dorado para pescar más rápido y peces por oro o lombrices.",
+  "🔎 Todo en la Lupa › Sistemas y en «Dónde conseguir» con flecha."
+ ],
+ "en": [
+  "🛠 Fixed the red error «id is not defined» when using the Strength Tonic (and any tonic).",
+  "🧪 Potions have a 30 s cooldown (healing, mana and tonics separately). The quick potion can be any of them.",
+  "🪓 Axes, pickaxes and rods are now equipped in the bag (Equip). Chopping, mining and fishing are no longer automatic with ⚔: tap their slot.",
+  "▦ New bottom bar: axe · potion · pickaxe · rod · ★ free slot (put anything; long-press to change) · bag · your weapon · quests. A slot glows when a tree, vein or water is next to you.",
+  "⛏ 7 new high-level ores and 7 woods in Celestia, Altavela, the Broken Veil, North Lima, Cusco (Vinicunca) and Mexico, with their map icon.",
+  "⚒ 7 new axes, 7 pickaxes and 7 rods (level 170-450). Woodcutting, Mining and Fishing go up to level 120 (+30 with mastery).",
+  "🐟 40 new fish (bestiary and aquarium), also in Peru, Mexico and Japan. 🎣 Old Anselmo, Puerto Coral's bait seller: worms and golden bait to fish faster, and fish for gold or worms.",
+  "🔎 Everything in Magnifier › Systems and «Where to get it» with an arrow."
+ ]
+},
+{
+ "v": "5.63",
+ "b": 184,
+ "d": "2026-11-20",
+ "es": [
+  "💃 Armario › Bailes: diez bailes nuevos con vista previa gratuita y compra permanente con el oro existente.",
+  "🎭 Se usan en el botón de gestos y bailes de siempre. Animación de 32 cuadros, diez cuerpos y cuatro direcciones; se ven online y conservan tu pelo, ropa y aura."
+ ],
+ "en": [
+  "💃 Wardrobe › Dances: ten new dances with free preview and permanent purchases using existing gold.",
+  "🎭 Use the existing gestures and dances button. 32-frame animation, ten bodies and four directions; visible online, preserving your hair, clothing and aura."
+ ]
+},
+ {
+ "v": "5.62",
+ "b": 183,
+ "d": "2026-11-20",
+ "es": [
+  "⚓ Dawn / Villa Foosha: mapa de 720 × 360, pasto suave, molinos, Partys Bar, palmeras y tripulación de Shanks con cuerpos y animaciones nativas.",
+  "🔒 La Capitana Marina de Puerto Coral explica el futuro requisito de una fruta del diablo. Viaje todavía cerrado: no cobra oro ni consume objetos.",
+  "⚔ Piratas pendencieros de nivel 500 fuera del pueblo, con vida, EXP, oro y furia del equilibrio existente. Nivel máximo: 500. Escenario preparado para Romance Dawn; el capítulo completo llegará después."
+ ],
+ "en": [
+  "⚓ Dawn / Foosha Village: 720 × 360 map, soft grass, windmills, Partys Bar, coastal palms and Shanks’s crew with native bodies and animation.",
+  "🔒 Captain Marina in Puerto Coral explains the future Devil Fruit requirement. Voyage still closed: no gold charged or items consumed.",
+  "⚔ Level-500 brawling pirates outside the village, using existing health, XP, gold and fury balance. Level cap: 500. Romance Dawn setting prepared; the full chapter comes later."
+ ]
+},
  {
   "v": "5.61",
   "b": 182,
