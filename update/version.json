@@ -1,29 +1,25 @@
 {
- "build": 281,
- "ver": "6.59",
+ "build": 282,
+ "ver": "6.60",
  "date": "2026-11-27",
  "file": "thebound.html",
- "size": 36011833,
- "sha256": "3ce40a417b4367f610ef666b7b1f7c4ef7e033340af5b3cca98a366dd91dafaf",
+ "size": 36038309,
+ "sha256": "af010f31279e5fc17609a92b2b2eb48b7ad78ec74cd75153ffe00b69ccd6db51",
  "minApk": 24,
  "gz": "thebound.html.gz",
- "gzSize": 21921629,
- "gzSha256": "4d43ac961d0b568461c4ac67a1d86544212e021317b01cc3b09111f278c9fa37",
+ "gzSize": 21930829,
+ "gzSha256": "e5fc66880369f52777d8661bfc6870072df3a16bcd3aff567fce28a7a3da99bf",
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🏮 Mercado nocturno en Albor (20:00-2:00): tres puestos con farolillos y ofertas al 60 % que cambian cada noche. 🥚 Búsqueda de huevos: 8 huevos por el valle con radar frío/tibio/caliente.",
-   "🏹 Tiro con arco al norte de Albor: dianas a 3 distancias, viento y una mira que va y viene. 🛷 Carrera de trineos en los Picos Helados: pista de nieve contra 3 rivales, hielo que acelera y troncos que saltas con ⚔.",
-   "🛡 Defensa del pueblo: 4 oleadas de monstruos van a por el portón sur de Albor. 🌀 Laberinto que cambia en el Bosque Susurrante: los muros se mueven cada 25 s.",
-   "🌠 Estrellas fugaces de noche: corre al brillo y coge el Fragmento estelar; el astrónomo de Albor cambia 5 por un deseo. 💌 Cápsula del tiempo: entierra oro y un mensaje, ábrela a los 7 días con +50 % y tu dibujo de aquel día.",
-   "Todo sale en el Mapa (🎪 Actividades) y en Lupa › Sistemas."
+   "🏰 Vael restaurado: tras vencer al Rey Vael, Ilda de Vael te espera al sur de las Ruinas. Cinco obras con troncos, piedra y oro (columnas y estandartes, torres del portón, jardín y fuente, mercado con vecinos y salón del trono) que cambian las ruinas en el mapa.",
+   "👑 Al terminar, el Velo devuelve el eco del rey, capítulo nuevo en el Libro, 300.000 de oro y el título «Restaurador de Vael». La revancha con el rey se pide a Ilda.",
+   "🌫 Isla Velada: un islote de Altavela que baja con la niebla (3 días de cada 7). La capitana del puerto de Puerto Coral te lleva; toca las 4 runas en el orden del mural para despertar el santuario de los Vientos: oro, Plumas de Alado y el título «Explorador de la niebla»."
   ],
   "en": [
-   "🏮 Night market in Albor (20:00-2:00): three lantern-lit stalls with 60% offers that change every night. 🥚 Egg hunt: 8 eggs around the valley with a cold/warm/hot radar.",
-   "🏹 Archery north of Albor: targets at 3 distances, wind and a sweeping sight. 🛷 Sled race on the Frozen Peaks: snow track against 3 rivals, ice that speeds you up and logs you jump with ⚔.",
-   "🛡 Village defence: 4 waves of monsters go for Albor's south gate. 🌀 Shifting maze in the Whispering Forest: the walls move every 25 s.",
-   "🌠 Shooting stars at night: run to the glow and take the Star fragment; the Albor astronomer trades 5 for a wish. 💌 Time capsule: bury gold and a message, open it after 7 days with +50% and your drawing from that day.",
-   "Everything is on the Map (🎪 Activities) and in Magnifier › Systems."
+   "🏰 Vael restored: after defeating King Vael, Ilda of Vael waits south of the Ruins. Five works with logs, stone and gold (columns and banners, gate towers, garden and fountain, a market with neighbours and the throne hall) that change the ruins on the map.",
+   "👑 When finished, the Veil returns the king's echo, a new chapter in the Book, 300,000 gold and the title \"Restorer of Vael\". Ask Ilda for a rematch with the king.",
+   "🌫 Veiled Isle: an Altavela islet that comes down with the fog (3 days out of 7). The Puerto Coral harbour captain takes you there; touch the 4 runes in the order of the mural to awaken the shrine of the Winds: gold, Alado feathers and the title \"Fog explorer\"."
   ]
  }
 }
