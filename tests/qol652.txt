@@ -1,0 +1,16 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (toastQ.length=0, toast('+4 Trigo','loot'), toast('+4 Trigo','loot'), toast('+3 Tomate','loot'), toast('Hola','info'), toast('Hola','info'), toast('A'), toast('B'), [toastQ.length, toastQ.map(t=>t.msg)])
+js (()=>{ const m=G.ents.find(e=>e.type==='npc'); showBoss({name:'Jefe',lv:5}); return 1; })()
+wait 600
+js [$('#toasts').style.top, (()=>{ const a=$('#bossbar').getBoundingClientRect(), b=$('#toasts').getBoundingClientRect(); return [Math.round(a.bottom), Math.round(b.top)]; })()]
+js (showBoss(null), G.P.lv=5, G.P.stats=G.P.stats||{}, G.P.stats.kills=10, TI={floor:1}, closeModal(), dailyCheck(), [$('#modal').hidden])
+js (TI=null, dailyCheck(), [$('#modal').hidden])
+js (closeModal(), openBitacora('avisos'), $('#mbody').textContent.slice(0,120))
+js (closeModal(), openPanel('opts'), [!!$('#oHudC'), !!$('#oNpcN')])
+js ($('#oHudC').click(), [document.body.classList.contains('hudc')])
+shot
+js ($('#oHudC').click(), closePanel(), openPanel('map'), [!!$('#qmkAdd')])
+js ($('#qmkAdd').click(), (()=>{ const c=$('#wm'), r=c.getBoundingClientRect(); c.dispatchEvent(new MouseEvent('click',{clientX:r.left+r.width*0.5, clientY:r.top+r.height*0.5, bubbles:true})); return [G.P.mapMk.length, G.P.mapMk[0]]; })())
+js (()=>{ const b=document.querySelector('[data-mkg]'); b.click(); return [G.P.wp && G.P.wp.t, $('#panel').hidden]; })()
+js window._errs

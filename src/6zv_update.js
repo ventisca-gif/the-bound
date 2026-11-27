@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.51', GAME_BUILD = 273;
+const GAME_VER = '6.52', GAME_BUILD = 274;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.52",
+ "b": 274,
+ "d": "2026-11-27",
+ "es": [
+  "Avisos más ordenados: los repetidos se juntan («×2»), los «+N objeto» del mismo objeto se suman, se ven 3 a la vez, ya no tapan la barra del jefe y quedan en Bitácora › 📜 Avisos.",
+  "Las barras de tu equipo ya no tapan la misión; el regalo diario espera a que termines de luchar. Opciones › Interfaz: HUD compacto y nombres de NPC solo cerca (los de misión siempre se ven).",
+  "📍 Marcadores propios en el mapa (hasta 12): toca «Marcar» y luego el mapa; con 🧭 la flecha te lleva.",
+  "Torre Infinita: 📣 avisos rápidos para el grupo (¡Ayuda!, ¡Aquí!, ¡A por el jefe!), 🪶 Pluma de Fénix (te levanta una vez por subida si nadie puede reanimarte), 📅 reto de la semana con la misma mecánica en todos los pisos, títulos y marcos por llegar a los pisos 25, 50, 100 y 200, récord del grupo en línea y el bardo reanima el doble de rápido y cura al equipo."
+ ],
+ "en": [
+  "Tidier notices: repeated ones are merged («×2»), «+N item» of the same item add up, 3 are shown at once, they no longer cover the boss bar and they are kept in Logbook › 📜 Notices.",
+  "Your team bars no longer cover the quest; the daily gift waits until you finish fighting. Options › Interface: compact HUD and NPC names only when near (quest NPCs always shown).",
+  "📍 Your own map markers (up to 12): tap «Mark» and then the map; with 🧭 the arrow takes you there.",
+  "Infinite Tower: 📣 quick calls for the group (Help!, Over here!, Go for the boss!), 🪶 Phoenix Feather (gets you up once per climb if nobody can revive you), 📅 weekly challenge with the same mechanic on every floor, titles and frames for reaching floors 25, 50, 100 and 200, online group record, and the bard revives twice as fast and heals the team."
+ ]
+},
 {
  "v": "6.51",
  "b": 273,

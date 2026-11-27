@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.51 · Vestuario de la Torre</div>
+  <div class="tfoot">v6.52 · Calidad de vida y Torre</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11914,7 +11914,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.51', GAME_BUILD = 273;
+const GAME_VER = '6.52', GAME_BUILD = 274;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11922,6 +11922,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.52",
+ "b": 274,
+ "d": "2026-11-27",
+ "es": [
+  "Avisos más ordenados: los repetidos se juntan («×2»), los «+N objeto» del mismo objeto se suman, se ven 3 a la vez, ya no tapan la barra del jefe y quedan en Bitácora › 📜 Avisos.",
+  "Las barras de tu equipo ya no tapan la misión; el regalo diario espera a que termines de luchar. Opciones › Interfaz: HUD compacto y nombres de NPC solo cerca (los de misión siempre se ven).",
+  "📍 Marcadores propios en el mapa (hasta 12): toca «Marcar» y luego el mapa; con 🧭 la flecha te lleva.",
+  "Torre Infinita: 📣 avisos rápidos para el grupo (¡Ayuda!, ¡Aquí!, ¡A por el jefe!), 🪶 Pluma de Fénix (te levanta una vez por subida si nadie puede reanimarte), 📅 reto de la semana con la misma mecánica en todos los pisos, títulos y marcos por llegar a los pisos 25, 50, 100 y 200, récord del grupo en línea y el bardo reanima el doble de rápido y cura al equipo."
+ ],
+ "en": [
+  "Tidier notices: repeated ones are merged («×2»), «+N item» of the same item add up, 3 are shown at once, they no longer cover the boss bar and they are kept in Logbook › 📜 Notices.",
+  "Your team bars no longer cover the quest; the daily gift waits until you finish fighting. Options › Interface: compact HUD and NPC names only when near (quest NPCs always shown).",
+  "📍 Your own map markers (up to 12): tap «Mark» and then the map; with 🧭 the arrow takes you there.",
+  "Infinite Tower: 📣 quick calls for the group (Help!, Over here!, Go for the boss!), 🪶 Phoenix Feather (gets you up once per climb if nobody can revive you), 📅 weekly challenge with the same mechanic on every floor, titles and frames for reaching floors 25, 50, 100 and 200, online group record, and the bard revives twice as fast and heals the team."
+ ]
+},
 {
  "v": "6.51",
  "b": 273,
@@ -60479,6 +60496,145 @@ if (typeof GSIS !== 'undefined') GSIS.unshift(['n_torre_ropa', '🧥 ' + L2('Ves
   const W = (G.P && G.P.wardrobe) || [], have = TWR_IDS.filter(id => W.includes(id)).length;
   return [L2('Ropa cosmética (sin estadísticas) de la Torre Infinita, para todas las estructuras de cuerpo, de hombre y de mujer. Se pone en el Armario y se combina como quieras.', 'Cosmetic clothes (no stats) from the Infinite Tower, for every body structure, male and female. Wear it from the Wardrobe and mix as you like.'),
     TW_SRC + '.', '🧥 ' + have + '/' + TWR_IDS.length + ' · ' + twNext()].concat(Object.keys(TWR_SETS).map(k => { const ids = TWR.filter(r => r[5] === k); return (ids.every(r => W.includes(r[0])) ? '✅ ' : '⬜ ') + twSetN(k) + ': ' + ids.map(r => (W.includes(r[0]) ? '' : '· ') + L2(r[1], r[2])).join(', '); })); }, () => null]);
+
+// 6.52 · Calidad de vida de la interfaz (ideas que Sergio aprobó: «sí, haz todo eso»).
+//  1) Avisos ordenados: los repetidos se juntan («×2»), los «+N objeto» del mismo objeto se suman, se ven como mucho 3
+//     a la vez, nunca tapan la barra del jefe y quedan en un historial (Bitácora › 📜 Avisos, últimos 60).
+//  2) Los compañeros del equipo (barras de la Torre/cazadores) se colocan debajo de la Bitácora y no tapan la misión.
+//  3) El regalo diario espera a que no estés luchando (jefe, torre, duelo o enemigos persiguiéndote).
+//  4) Opciones › Interfaz: «HUD compacto» (botones más pequeños) y «Nombres de NPC solo cerca» (los que tienen misión
+//     siempre se ven).
+const TOAST_MAX = 3, TOAST_LOG = [];
+hookAround('toast', (next, msg, kind, rar) => {
+  if (typeof msg !== 'string' || !msg) return next(msg, kind, rar);
+  try { TOAST_LOG.push([Date.now(), msg, kind || '']); if (TOAST_LOG.length > 60) TOAST_LOG.shift(); } catch (e) { }
+  // mismo aviso todavía en pantalla: se junta
+  const base = s => String(s).replace(/ ×\d+$/, '');
+  let t = toastQ.find(q => base(q.msg) === msg && (q.kind || '') === (kind || ''));
+  if (t) { t.n = (t.n || 1) + 1; t.msg = msg + ' ×' + t.n; t.t = 0; renderToasts(); return; }
+  // «+N Objeto» del mismo objeto: se suman
+  const m = /^\+(\d+) (.+)$/.exec(msg);
+  if (m) { t = toastQ.find(q => { const k = /^\+(\d+) (.+)$/.exec(q.msg); return k && k[2] === m[2]; }); if (t) { const k = /^\+(\d+) (.+)$/.exec(t.msg); t.msg = '+' + (+k[1] + +m[1]) + ' ' + m[2]; t.t = 0; renderToasts(); return; } }
+  const r = next(msg, kind, rar);
+  while (toastQ.length > TOAST_MAX) toastQ.shift(); renderToasts(); return r;
+});
+// la columna de avisos baja si hay barra de jefe (antes la tapaba)
+V33_TICKS.push(() => { try { const tb = $('#toasts'), bb = $('#bossbar'); if (!tb || !bb) return; let v = ''; if (!bb.hidden) { const r = bb.getBoundingClientRect(), h = $('#hud').getBoundingClientRect(); if (r.height) v = Math.round(r.bottom - h.top + 4) + 'px'; } if (tb.style.top !== v) tb.style.top = v; } catch (e) { } });
+// Bitácora › 📜 Avisos
+if (typeof BIT_TABS !== 'undefined') { BIT_TABS.push(['avisos', '📜', L2('Avisos', 'Notices')]);
+  BIT_RENDER.avisos = () => { const hm = t => { const d = new Date(t); return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); };
+    return TOAST_LOG.length ? `<p class="hint">${L2('Los últimos avisos de esta sesión (lo más nuevo arriba).', 'The latest notices of this session (newest first).')}</p><div class="slist">${TOAST_LOG.slice().reverse().map(([t, m, k]) => `<div class="srow"><small style="opacity:.7;min-width:3em">${hm(t)}</small><div class="sn"><span class="${k === 'warn' ? 'bad' : k === 'quest' || k === 'loot' ? 'good' : ''}">${esc(m)}</span></div></div>`).join('')}</div>` : `<p class="hint">${L2('Todavía no hay avisos.', 'No notices yet.')}</p>`; }; }
+// barras de los compañeros del equipo: debajo de la Bitácora (y de ↩), como la lista del grupo
+V33_TICKS.push(() => { try { const hb = $('#huntBars'); if (!hb) return; const h = $('#hud').getBoundingClientRect(); let bot = 0; for (const id of ['bBit', 'bLast', 'tracker', 'secChip']) { const el = $('#' + id); if (el && !el.hidden) { const r = el.getBoundingClientRect(); if (r.height && r.left < h.left + h.width * 0.4) bot = Math.max(bot, r.bottom); } } if (!bot) return; const v = Math.round(bot - h.top + 6) + 'px'; if (hb.style.top !== v) hb.style.top = v; } catch (e) { } });
+// regalo diario: no en mitad de un combate
+function qolBusy() { const P = G.P; if (!P) return true; if (typeof TI !== 'undefined' && TI) return true; if (G.bossBar) return true; if (typeof DUEL !== 'undefined' && DUEL) return true; if (P.dead) return true;
+  for (const e of G.ents) if (e.type === 'mob' && !e.dying && e.map === P.map && e.state === 'chase' && dist2(e.x, e.y, P.x, P.y) < 220 * 220) return true; return false; }
+hookBefore('dailyCheck', () => { if (qolBusy()) return HOOK_SKIP; });
+// opciones de interfaz
+function qolApply() { document.body.classList.toggle('hudc', !!SETTINGS.hudC); }
+hookAfter('renderOpts', (_r, B) => { try { const box = B.querySelector('.opts'); if (!box || box.querySelector('#oHudC')) return; const h3 = [...box.querySelectorAll('h3')].find(h => /Partida|Save/.test(h.textContent)); const div = document.createElement('div');
+  div.innerHTML = `<h3>${L2('Interfaz', 'Interface')}</h3><label class="tg"><input type="checkbox" id="oHudC" ${SETTINGS.hudC ? 'checked' : ''}> ${L2('HUD compacto (botones más pequeños)', 'Compact HUD (smaller buttons)')}</label><label class="tg"><input type="checkbox" id="oNpcN" ${SETTINGS.npcNear ? 'checked' : ''}> ${L2('Nombres de NPC solo cerca (los que tienen misión siempre se ven)', 'NPC names only when near (quest NPCs always shown)')}</label>`;
+  if (h3) box.insertBefore(div, h3); else box.appendChild(div);
+  $('#oHudC').onchange = e => { SETTINGS.hudC = e.target.checked ? 1 : 0; saveSettings(); qolApply(); }; $('#oNpcN').onchange = e => { SETTINGS.npcNear = e.target.checked ? 1 : 0; saveSettings(); }; } catch (e) { if (typeof errOnce === 'function') errOnce('qolOpts', e); } });
+hookAround('drawEnt', (next, e, ...a) => { if (!SETTINGS.npcNear || !e || e.type !== 'npc' || e.noTag) return next(e, ...a); let mk = null; try { mk = npcMarker(e.id); } catch (er) { } if (mk) return next(e, ...a); e.noTag = 1; try { return next(e, ...a); } finally { e.noTag = undefined; } });
+{ const st = document.createElement('style'); st.textContent = 'body.hudc #acts{transform:scale(.84);transform-origin:100% 100%}body.hudc .hb{transform:scale(.88)}body.hudc #toasts{font-size:.85em}body.hudc #tracker{font-size:.88em}'; document.head.appendChild(st); }
+setTimeout(qolApply, 0);
+
+// 5) Marcadores propios en el mapa (máx. 12 por partida): «📍 Marcar» y toca el mapa; cada marcador se puede seguir con
+//    la flecha dorada o borrar. Funciona en cualquier mapa del selector (mundo, países y ciudades).
+SAVEKEYS.push('mapMk');
+let QOL_MK = false;
+function qolMapCur() { const Wd = typeof MAPW_LIST !== 'undefined' && MAPW_LIST[MAPW]; const id = Wd ? Wd.id : 'world'; const M = id === 'world' ? G.world : G.maps[id]; return M ? { id, M } : null; }
+function qolRegion(id, x, y) { try { if (id === 'world') { const R = REGIONS.filter(R => R.k !== 'mar').sort((a, b) => dist(a.c[0], a.c[1], x, y) - dist(b.c[0], b.c[1], x, y))[0]; if (R) return R.n; } } catch (e) { } const Wd = MAPW_LIST && MAPW_LIST[MAPW]; return (Wd && Wd.n) || L2('Mapa', 'Map'); }
+hookAfter('renderMap', () => { try {
+  const cvs = $('#wm'), C = qolMapCur(); if (!cvs || !C || !cvs.width) return; const P = G.P; P.mapMk = Array.isArray(P.mapMk) ? P.mapMk : [];
+  const sc = cvs.width / C.M.w, x = cvs.getContext('2d'), mine = P.mapMk.filter(k => k.m === C.id);
+  for (const k of mine) { const X = k.x * sc, Y = k.y * sc; x.fillStyle = '#ff5a8a'; x.strokeStyle = '#2a0a14'; x.lineWidth = 2; x.beginPath(); x.moveTo(X, Y); x.lineTo(X - 5, Y - 9); x.arc(X, Y - 10, 5, Math.PI, 0); x.lineTo(X, Y); x.closePath(); x.stroke(); x.fill(); x.fillStyle = '#fff'; x.beginPath(); x.arc(X, Y - 10, 2, 0, 7); x.fill(); }
+  const host = cvs.closest('.mapmain') || cvs.parentElement; if (!host || host.querySelector('.qolmk')) return;
+  const bar = document.createElement('div'); bar.className = 'qolmk row wrap'; bar.style.cssText = 'gap:.3em;margin-top:.3em;align-items:center';
+  bar.innerHTML = `<button class="btn sm ${QOL_MK ? 'gold' : ''}" id="qmkAdd">📍 ${QOL_MK ? L2('Toca el mapa…', 'Tap the map…') : L2('Marcar', 'Mark')} <small>(${P.mapMk.length}/12)</small></button>` + mine.map((k, i) => `<span class="chip" style="display:inline-flex;gap:.3em;align-items:center">📍 ${esc(k.n)} <button class="btn sm" data-mkg="${P.mapMk.indexOf(k)}">🧭</button><button class="btn sm" data-mkx="${P.mapMk.indexOf(k)}">✕</button></span>`).join('');
+  host.appendChild(bar);
+  $('#qmkAdd').onclick = () => { if (!QOL_MK && P.mapMk.length >= 12) { toast(L2('Máximo 12 marcadores: borra alguno.', 'Max 12 markers: remove one.'), 'warn'); return; } QOL_MK = !QOL_MK; renderPanel(); };
+  bar.querySelectorAll('[data-mkg]').forEach(b => b.onclick = () => { const k = P.mapMk[+b.dataset.mkg]; if (!k) return; setWp({ loc: [k.x, k.y], m: k.m, t: '📍 ' + k.n }); closePanel(); toast('🧭 ' + L2('Siguiendo: ', 'Following: ') + k.n, 'info'); });
+  bar.querySelectorAll('[data-mkx]').forEach(b => b.onclick = () => { P.mapMk.splice(+b.dataset.mkx, 1); markDirty(); renderPanel(); });
+  const old = cvs.onclick; cvs.onclick = e => { if (!QOL_MK) return old && old.call(cvs, e); const r = cvs.getBoundingClientRect(), mx = (e.clientX - r.left) * (cvs.width / r.width) / sc, my = (e.clientY - r.top) * (cvs.height / r.height) / sc;
+    QOL_MK = false; if (mx < 0 || my < 0 || mx > C.M.w || my > C.M.h) { renderPanel(); return; } const n = qolRegion(C.id, mx, my) + ' ' + (P.mapMk.filter(k => k.m === C.id).length + 1);
+    P.mapMk.push({ m: C.id, x: Math.round(mx * 10) / 10, y: Math.round(my * 10) / 10, n: cleanStr(n, 30) }); markDirty(); toast('📍 ' + L2('Marcador añadido: ', 'Marker added: ') + n, 'info'); renderPanel(); };
+} catch (e) { if (typeof errOnce === 'function') errOnce('qolMk', e); } });
+
+// 6.52 · Torre Infinita: lo que Sergio aprobó de las ideas («sí, haz todo eso»).
+//  1) 📣 Avisos rápidos en la torre en línea o en equipo: «¡Ayuda!», «¡Aquí!», «¡A por el jefe!» (sale encima de ti y en
+//     el chat del grupo; en equipo los compañeros con IA responden).
+//  2) 🪶 Pluma de Fénix: si caes en la torre y nadie puede reanimarte, la pluma te levanta con media vida (una por subida).
+//     Sale de los jefes de la torre desde el piso 20 (25 %) y cada 25 pisos de hito.
+//  3) 📅 Reto de la semana: subida en solitario con la misma mecánica en todos los pisos (cambia cada semana, igual para
+//     todos). Récord semanal propio (no cuenta para el top normal).
+//  4) 🏆 Hitos con título y marco del retrato (Bitácora › Logros): pisos 25, 50, 100 y 200 en cualquier modo.
+//  5) 🌐 Récord del grupo en línea (piso y con quién) en la sala de la torre.
+//  6) 🎵 Papel de apoyo: el bardo reanima el doble de rápido y, al superar un piso en equipo, cura a sus compañeros.
+it('pluma_fenix', { n: L2('Pluma de Fénix', 'Phoenix Feather'), t: 'mat', stack: true, price: 0, icon: ['wing', '#ff8a2a'], rar: 5, d: L2('Torre Infinita: si caes y nadie puede reanimarte, te levanta con media vida (una por subida). Sale de los jefes de la torre desde el piso 20 y cada 25 pisos.', 'Infinite Tower: if you fall and nobody can revive you, it gets you up with half HP (one per climb). Drops from tower bosses from floor 20 and every 25 floors.') });
+function ti2St() { const S = tiSave(); S.top = S.top | 0; if (!S.wk || typeof S.wk !== 'object') S.wk = { w: 0, best: 0 }; return S; }
+
+// ---------- 1) avisos rápidos ----------
+const TI_PING = [['🆘', L2('¡Ayuda!', 'Help!')], ['📍', L2('¡Aquí!', 'Over here!')], ['👑', L2('¡A por el jefe!', 'Go for the boss!')]];
+let TI_PINGT = 0;
+function tiPingBtn() { let b = $('#tiPing'); const on = typeof TI !== 'undefined' && TI && (TI.mode === 'online' || TI.mode === 'team') && G.map && G.map.id === TI_MAP;
+  if (!on) { if (b) b.hidden = true; const m = $('#tiPingM'); if (m) m.hidden = true; return; }
+  if (!b) { b = document.createElement('button'); b.id = 'tiPing'; b.className = 'bitbtn'; b.title = L2('Aviso rápido', 'Quick call'); b.innerHTML = '📣'; b.style.cssText = 'top:auto;bottom:calc(9.5em + env(safe-area-inset-bottom,0px));left:auto;right:calc(13.5em + env(safe-area-inset-right,0px));font-size:1.1em';
+    const m = document.createElement('div'); m.id = 'tiPingM'; m.hidden = true; m.style.cssText = 'position:absolute;bottom:calc(12em + env(safe-area-inset-bottom,0px));right:calc(10em + env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:.3em;z-index:9';
+    m.innerHTML = TI_PING.map(([ic, t], i) => `<button class="btn sm" data-tp="${i}">${ic} ${t}</button>`).join('');
+    $('#hud').appendChild(b); $('#hud').appendChild(m); b.onclick = () => { m.hidden = !m.hidden; sfx('ui'); };
+    m.querySelectorAll('[data-tp]').forEach(x => x.onclick = () => { m.hidden = true; tiPing(+x.dataset.tp); }); }
+  b.hidden = false; }
+function tiPing(i) { const P = G.P, [ic, t] = TI_PING[i] || TI_PING[0]; if (G.t - TI_PINGT < 1.5) return; TI_PINGT = G.t;
+  if (typeof netChat === 'function' && TI.mode === 'online') netChat(ic + ' ' + t); else { P.chat = ic + ' ' + t; P.chatT = G.t; }
+  addFx({ type: 'ring', x: P.x, y: P.y, r: 26, dur: 0.6, col: i === 0 ? '#ff5a5a' : i === 1 ? '#5ae0ff' : '#ffd040' }); sfx('ui');
+  if (TI.mode === 'team' && typeof HUNT !== 'undefined') { const a = HUNT.allies.find(q => !q.down && !q.remove); if (a) setTimeout(() => { a.chat = pick([L2('¡Voy!', 'On my way!'), L2('¡Entendido!', 'Got it!'), L2('¡Cuenta conmigo!', 'Count on me!')]); a.chatT = G.t; }, 500);
+    // «¡Aquí!»: el equipo se reagrupa a tu lado; «¡A por el jefe!»: todos usan su poder especial
+    if (i === 1) for (const q of HUNT.allies) if (!q.down && !q.remove && dist2(q.x, q.y, P.x, P.y) > 60 * 60) { q.x = P.x + (Math.random() - 0.5) * 30; q.y = P.y + 14; }
+    if (i === 2) for (const q of HUNT.allies) if (!q.down) q.pcd = Math.min(q.pcd || 0, 0.3); } }
+V33_TICKS.push(() => { try { tiPingBtn(); } catch (e) { } });
+
+// ---------- 2) Pluma de Fénix ----------
+hookBefore('tiEnd', why => { const P = G.P; if (why !== 'dead' || !TI || TI.fenix || !countItem('pluma_fenix')) return;
+  takeItem('pluma_fenix', 1);
+  TI.fenix = 1; P.downed = null; if (typeof downUI === 'function') downUI(true); P.dead = false; P.hp = Math.round(P.S.maxhp * 0.5); P.ifr = 3; setAnim(P, 'idle');
+  addFx({ type: 'ring', x: P.x, y: P.y, r: 40, dur: 0.9, col: '#ff8a2a' }); burst(P.x, P.y - 12, 40, { sp: 70, up: 90, g: -30, life: 1.2, c: ['#ff8a2a', '#ffd040', '#ffffff'] }); sfx('level');
+  banner('🪶 ' + L2('Pluma de Fénix', 'Phoenix Feather'), L2('¡Renaces de tus cenizas! (una por subida)', 'You rise from your ashes! (one per climb)')); markDirty(true); return HOOK_SKIP; });
+hookAfter('killMob', (r, m) => { try { if (!m || !m.ti || !m.boss || !TI || TI.floor < 20 || Math.random() >= 0.25) return; setTimeout(() => { giveItem('pluma_fenix', 1, true); toast('🪶 ' + L2('Pluma de Fénix', 'Phoenix Feather'), 'loot', 5); }, 0); } catch (e) { } });
+
+// ---------- 3) reto de la semana ----------
+const tiWkMod = () => TI_MOD_K[(typeof FW_WEEK === 'function' ? FW_WEEK() : Math.floor(Date.now() / 6048e5)) % TI_MOD_K.length];
+hookAfter('tiModFor', () => { if (typeof TI !== 'undefined' && TI && TI.mode === 'semana') return tiWkMod(); });
+hookAround('tiCleared', (next, ...a) => { if (!TI || TI.mode !== 'semana') return next(...a);
+  const S = ti2St(), b4 = S.best4, f = TI.floor; TI.mode = 'team'; try { next(...a); } finally { TI.mode = 'semana'; S.best4 = b4; }
+  const w = typeof FW_WEEK === 'function' ? FW_WEEK() : 0; if (S.wk.w !== w) S.wk = { w, best: 0 }; if (f > S.wk.best) { S.wk.best = f; toast('📅 ' + L2('Récord de la semana: piso ', 'Weekly record: floor ') + f, 'quest', 4); } markDirty(true); });
+
+// ---------- 4) hitos con título y marco ----------
+const TI_HITOS = [[25, 't_ti_promesa', L2('Promesa de la Torre', 'Tower Hopeful'), 'plata', null], [50, 't_ti_veterana', L2('Veterano de la Torre', 'Tower Veteran'), 'oro', 'torre'], [100, 't_ti_leyenda', L2('Leyenda de la Torre', 'Tower Legend'), 'arcoiris', 'abismo'], [200, 't_ti_cima', L2('Cima Infinita', 'Infinite Summit'), 'arcoiris', 'arcoiris']];
+if (typeof BIT_FR !== 'undefined') { BIT_FR.torre = [L2('Torre', 'Tower'), '#9a6ac8']; BIT_FR.abismo = [L2('Abismo', 'Abyss'), '#ff8a2a']; }
+if (typeof BIT_ACH !== 'undefined') for (const [f, tid, tn, st, fr] of TI_HITOS) {
+  const aid = 'a_ti_' + f, rew = { t: tid, g: f * 2000 }; if (fr) rew.fr = fr;
+  BIT_ACH.push([aid, '♾', L2('Torre Infinita: piso ', 'Infinite Tower: floor ') + f, L2('Supera el piso ', 'Clear floor ') + f + L2(' de la Torre Infinita (cualquier modo).', ' of the Infinite Tower (any mode).'), P => (P.ti && P.ti.top) || 0, f, rew]);
+  if (!TITLES.some(t => t[0] === tid)) TITLES.push([tid, tn, st, P => !!(P.bit && P.bit.got && P.bit.got[aid]), L2('Torre Infinita: piso ', 'Infinite Tower: floor ') + f]); TIT_ID[tid] = TITLES.find(t => t[0] === tid); }
+hookAfter('tiCleared', () => { try { if (!TI) return; const S = ti2St(), f = TI.floor; if (f > S.top) S.top = f;
+  if (f % 25 === 0 && !(S.fx || {})[f]) { S.fx = S.fx || {}; S.fx[f] = 1; giveItem('pluma_fenix', 1, true); toast('🪶 ' + L2('Pluma de Fénix por el piso ', 'Phoenix Feather for floor ') + f, 'loot', 5); }
+  if (typeof bitBadge !== 'undefined') bitBadge = true;
+  // 5) récord del grupo en línea
+  if (TI.mode === 'online') { const n = tioCount(); if (f > (S.bestOn || 0)) { S.bestOn = f; S.bestOnW = [G.P.name].concat(tioPeers().map(r => r.name || '?')).slice(0, 7).map(s => cleanStr(s, 16)); toast('🌐 ' + L2('Récord del grupo: piso ', 'Group record: floor ') + f + ' (' + n + ')', 'quest', 4); } }
+  // 6) el bardo cura al equipo al superar un piso
+  if (G.P.cls === 'bardo' && typeof HUNT !== 'undefined') for (const a of HUNT.allies) if (!a.remove) { if (a.down) { a.down = false; a.downT = 0; } a.hp = Math.min(a.maxhp, a.hp + Math.round(a.maxhp * 0.35)); floatText(a.x, a.y - 40, '♪ +35 %', '#8aff8a'); }
+  markDirty(true); } catch (e) { if (typeof errOnce === 'function') errOnce('ti2clr', e); } });
+// el bardo reanima el doble de rápido (amigos en línea y compañeros del equipo)
+V33_TICKS.push(() => { const P = G.P; if (!P || P.cls !== 'bardo') return; for (const R of [P.revive, P.tiRev]) if (R && !R.fast) { R.fast = 1; R.t = Math.min(R.t, 1); } });
+
+// ---------- la sala: reto semanal y récords ----------
+hookAfter('tiOpen', () => { try { const box = $('#mbody .frame'); if (!box || box.querySelector('#tiGoW')) return; const S = ti2St(), w = typeof FW_WEEK === 'function' ? FW_WEEK() : 0, mk = tiWkMod(), wb = S.wk.w === w ? S.wk.best : 0, have = countItem('pluma_fenix');
+  const d = document.createElement('div'); d.innerHTML = `<h4>📅 ${L2('Reto de la semana', 'Weekly challenge')}: ${esc(TI_MODS[mk][0])}</h4><p class="hint">${L2('Subida en solitario con esa mecánica en TODOS los pisos. Cambia cada semana. Récord de esta semana: piso ', 'Solo climb with that mechanic on EVERY floor. Changes every week. This week\'s record: floor ')}<b>${wb}</b> (${L2('no cuenta para el top', 'does not count for the leaderboard')}).</p><div class="row"><button class="btn" id="tiGoW">📅 ${L2('Empezar el reto', 'Start the challenge')}</button></div>
+    <p class="hint">🪶 ${L2('Plumas de Fénix', 'Phoenix Feathers')}: <b>${have}</b> · ♾ ${L2('mejor piso (cualquier modo)', 'best floor (any mode)')}: <b>${S.top || 0}</b>${S.bestOn ? ' · 🌐 ' + L2('récord del grupo: piso ', 'group record: floor ') + '<b>' + S.bestOn + '</b> (' + (S.bestOnW || []).map(esc).join(', ') + ')' : ''}</p>`;
+  const top = box.querySelector('#tiTop'); box.insertBefore(d, top ? top.previousElementSibling : null); $('#tiGoW').onclick = () => { closeModal(); tiStart(1, 'semana'); }; } catch (e) { if (typeof errOnce === 'function') errOnce('ti2open', e); } });
+// el reto se cuenta como en solitario para todo lo demás (caer, salir, premios)
+hookAfter('tiStart', () => { if (TI && TI.mode === 'semana') banner('📅 ' + L2('Reto de la semana', 'Weekly challenge'), TI_MODS[tiWkMod()][0]); });
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;
