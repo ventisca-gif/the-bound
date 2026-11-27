@@ -389,7 +389,7 @@ body.v656noslot #acts .sk.empty{visibility:hidden;pointer-events:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.63 · Reverse Mountain y Cabos Gemelos</div>
+  <div class="tfoot">v6.64 · Reverse Mountain y mar de Grand Line</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11969,7 +11969,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.63', GAME_BUILD = 285;
+const GAME_VER = '6.64', GAME_BUILD = 286;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11977,6 +11977,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.64",
+ "b": 286,
+ "d": "2026-11-27",
+ "es": [
+  "Reverse Mountain y Cabos Gemelos con el dibujo de la propuesta original: roca rojiza, espuma, corrientes, faros, casa, palmeras y Laboon. Se mantienen tu personaje y el Going Merry originales.",
+  "Nuevo mapa marítimo Grand Line, independiente y por ahora vacío: solo mar navegable y regreso a Cabos Gemelos. No se añade la primera isla.",
+  "Desembarco en ambos faros, recorrido de ida y vuelta por la montaña y guardado de ubicación y barco entre ambos mares. Las partidas de la 6.63 se recolocan en el nuevo muelle sin perder progreso."
+ ],
+ "en": [
+  "Reverse Mountain and Twin Cape use the original proposal artwork: red rock, foam, currents, lighthouses, cottage, palms and Laboon. Your original character and Going Merry remain.",
+  "New independent Grand Line sea map, empty for now: only navigable ocean and a return route to Twin Cape. No first island is added.",
+  "Land at either lighthouse, travel both ways through the mountain and save your location and ship across the seas. Version 6.63 saves move to the new pier without losing progress."
+ ]
+},
 {
  "v": "6.63",
  "b": 285,
@@ -50738,7 +50753,7 @@ DL_HOOKS.push((list,cx,cy)=>{
  if(H&&H.kind!=='swim'){vessel=P;kind=H.kind;}
  else if(B){
   vessel=B;kind=B.h?.kind;
-  if(!H&&(B.rare||B.orange||B.syrup||B.baratie||B.conomi||B.rmcape))mask&=~dawnCrewMask(P);
+  if(!H&&(B.rare||B.orange||B.syrup||B.baratie||B.conomi||B.rmcape||B.rmcapeEast))mask&=~dawnCrewMask(P);
  }else if(P.shellBerth&&M.shells){
   const [x,y]=shellsDockPoint(M,SHELL_MOORING);
   vessel={x,y,dir:'down'};kind=P.shellBerth.kind;
@@ -50748,6 +50763,7 @@ DL_HOOKS.push((list,cx,cy)=>{
   mask&=~dawnCrewMask(P);
  }
  if(!vessel||dist2(vessel.x,vessel.y,cx+VW/2,cy+VH/2)>(VW+VH+200)**2)return;
+ const rs=typeof rmaRegionalScale==='function'?rmaRegionalScale():1;
  const dir=vessel.dir||'down',merry=kind==='skiff',side=dir==='left'?-1:1;
  if(vessel===F&&merry){
   list.push({type:'xdraw',x:F.x,y:F.y-10,noShadow:true,draw:()=>{
@@ -50758,9 +50774,9 @@ DL_HOOKS.push((list,cx,cy)=>{
  DAWN_CREW.forEach(([id],i)=>{
   if(!(mask&(1<<i)))return;
   const dx=(merry?[-65,54,122,-116,21]:[-37,-16,37,13,55])[i]*side,dy=(merry?[7,11,6,11,4]:[7,12,6,9,2])[i];
-  const x=vessel.x+dx,y=vessel.y+dy;
+  const x=vessel.x+dx*rs,y=vessel.y+dy*rs;
   list.push({x,y,noShadow:true,type:'xdraw',draw:()=>{
-   const A=npcAtlas(id),zoom=merry?.72:.62;
+   const A=npcAtlas(id),zoom=(merry?.72:.62)*rs;
    atlasBlit(ctx,A,A.idx.idle+Math.floor(G.t*2+i)%2,DIRI[dir]||0,
     Math.round(x-cx-A.ax*zoom),Math.round(y-cy-A.ay*zoom),Math.round(A.fw*zoom),Math.round(A.fh*zoom));
   }});
@@ -56618,7 +56634,7 @@ function mbGoDown() {
   const P = G.P; if (!mbCanGoDown()) return;
   transition(() => {
     const h = P.dawnHelm; if (h) delete h.deck;
-    P._mbTrip = { h, x: P.x, y: P.y, dir: P.dir }; P.inside = 'merry_bajo';
+    P._mbTrip = { h, x: P.x, y: P.y, dir: P.dir, m: G.map.id }; P.inside = 'merry_bajo';
     const M = makeMerryBajo(); setMap(M, 19 * 16 + 8, 5 * 16 + 8, 'down'); mbSpawnCrew(M);
     banner(MB_NAME, L2('Cocina · Comedor · Salita y bodega', 'Galley · Dining room · Lounge and hold'));
   });
@@ -56626,7 +56642,7 @@ function mbGoDown() {
 function mbGoUp() {
   const P = G.P, S = P._mbTrip; if (G.fading || P.dead) return;
   transition(() => {
-    P.inside = null; P._mbTrip = null; const M = makeDawn();
+    P.inside = null; P._mbTrip = null; const M = S && S.m === 'grand_line' ? makeGrandLine() : makeDawn();
     if (S && S.h) { P.dawnHelm = S.h; setMap(M, S.x, S.y, S.dir || 'down'); }
     else { const [x, y] = dawnPx(ORANGE_QUAY); P.dawnHelm = dawnHelm('skiff', { x, y }); setMap(M, x, y, 'down'); }
     markDirty(true);
@@ -57288,7 +57304,7 @@ hookBefore('killMob', m => { if (!m || m !== ARC.jy) return; const P = G.P, J = 
   setTimeout(() => banner('📜 ' + J.n + ' ' + L2('capturado', 'captured'), '+' + fmt(J.prize) + ' ' + L2('oro · Johnny y Yosaku se quedan su parte', 'gold · Johnny and Yosaku keep their share')), 500); markDirty(true); });
 
 // ---------- 12) La Montaña del Revés y Laboon ----------
-const RM_AT = [1578, 1308];   // bahía de Cabos Gemelos (noreste); conserva rmDone de partidas anteriores
+const RM_AT = [1532, 1290];   // bahía de Cabos Gemelos (noreste); conserva rmDone de partidas anteriores
 XSPR.rm_montana = () => { const p = new Pix(160, 120);
   p.poly([[0, 118], [56, 10], [80, 2], [104, 10], [160, 118]], C('#8a2a1a')); p.poly([[20, 118], [62, 26], [80, 18], [98, 26], [140, 118]], C('#b83a22'));
   p.poly([[70, 118], [76, 20], [84, 20], [90, 118]], C('#4a9ae0')); for (let y = 24; y < 118; y += 6) p.hl(76 + ((y / 6) % 2), y, 8, C('#bfe6ff'));
@@ -57333,7 +57349,7 @@ function rmCalm(f) {
   // Commit reward and completion together before a skippable/interrupted scene.
   giveItem('rm_logpose', 1); P.gold += 250000; P.rmDone = 1; markDirty(true);
   cinePlay([{ s: 'rm_promesa', title: L2('Una promesa', 'A promise'), txt: L2('Luffy le pinta en la cabeza la bandera de su tripulación: «Cuando demos la vuelta al Grand Line, volveremos a pelear. Así que deja de golpear la montaña». Laboon llora… y espera.', 'Luffy paints his crew’s flag on its head: “When we sail around the Grand Line, we’ll come back to fight again. So stop hitting the mountain.” Laboon cries… and waits.') },
-    { s: 'rm_promesa', title: 'Log Pose', txt: L2('Crocus os da un Log Pose: en el Grand Line la brújula no sirve. Pero ese mar todavía está en blanco: la Ventisca aún no lo ha pintado.', 'Crocus gives you a Log Pose: in the Grand Line the compass is useless. But that sea is still blank: the Ventisca hasn’t painted it yet.') }],
+    { s: 'rm_promesa', title: 'Log Pose', txt: L2('Crocus os da un Log Pose: en el Grand Line la brújula no sirve. Ese mar ya se puede navegar y tiene una ruta de regreso, aunque sus primeras islas todavía están por llegar.', 'Crocus gives you a Log Pose: in the Grand Line the compass is useless. You can now sail that sea and return, although its first islands are still to come.') }],
     () => { const g = 250000; banner('🐋 ' + L2('Laboon espera vuestra vuelta', 'Laboon awaits your return'), '+' + fmt(g) + ' ' + L2('oro · Log Pose', 'gold · Log Pose')); markDirty(true); });
 }
 
@@ -57399,7 +57415,7 @@ if (typeof LUPA_DAWN !== 'undefined') LUPA_DAWN.push(['arcos628', () => '🗺 ' 
     ok(P.arcAlvida) + L2('Alvida, revancha (nv. 618): habla con Alvida en el muelle de Loguetown (tras vencerla en su galeón). Cuando brilla («Sube Sube»), el 70 % de los golpes resbala; tras embestir se marea 2,5 s y recibe un 50 % más. Primera vez: 150.000 de oro y el Espejo Sube Sube (accesorio).', 'Alvida rematch (lv. 618): talk to Alvida at the Loguetown pier (after beating her on her galleon). When she shines (“Slip-Slip”), 70 % of hits slip off; after charging she is dizzy for 2.5 s and takes 50 % more. First time: 150,000 gold and the Slip-Slip Mirror (accessory).'),
     ok(P.arcNezumi) + L2('Nezumi (nv. 606): habla con Nojiko en Conomi tras vencer a Arlong. Vence a sus marines y a Nezumi: 120.000 de oro y la recompensa de Nami sube.', 'Nezumi (lv. 606): talk to Nojiko in Conomi after beating Arlong. Defeat his marines and Nezumi: 120,000 gold and Nami’s bounty rises.'),
     '📜 ' + L2('Johnny y Yosaku (Baratie y Conomi): 3 encargos al día. La flecha te lleva a la isla del pirata buscado; al acercarte aparece. Oro según tu nivel.', 'Johnny and Yosaku (Baratie and Conomi): 3 jobs a day. The arrow takes you to the wanted pirate’s island; it appears when you get close. Gold by your level.') + (P.jyJob ? ' ▶ ' + P.jyJob.n + ' · ' + P.jyJob.isleN : ''),
-    ok(P.rmDone) + L2('La Montaña del Revés (tras el arco de Loguetown): navega con el Merry al extremo sureste del mar. Calma a Laboon a cañonazos. Premio: Log Pose y 250.000 de oro. El Grand Line todavía no está pintado.', 'Reverse Mountain (after the Loguetown arc): sail the Merry to the far south-east of the sea. Calm Laboon with cannon fire. Reward: Log Pose and 250,000 gold. The Grand Line isn’t painted yet.'),
+    ok(P.rmDone) + L2('La Montaña del Revés (tras el arco de Loguetown): navega con el Merry al extremo sureste del mar. Calma a Laboon a cañonazos. Premio: Log Pose y 250.000 de oro. El Grand Line ya tiene mar navegable y regreso, sin islas por ahora.', 'Reverse Mountain (after the Loguetown arc): sail the Merry to the far south-east of the sea. Calm Laboon with cannon fire. Reward: Log Pose and 250,000 gold. The Grand Line now has a navigable sea and a return route, with no islands yet.'),
     ok(P.wiDone) + L2('La Isla del Barco de Guerra (tras Arlong): navegando, a veces aparece la balsa de Apis perseguida por la Marina. Hunde 3 barcos sin que hundan la balsa. Premio: Escama del dragón milenario y 180.000 de oro.', 'Warship Island (after Arlong): while sailing, Apis’s raft sometimes appears, chased by the Navy. Sink 3 ships before they sink the raft. Reward: Thousand-year dragon scale and 180,000 gold.')
   ]; }, () => { const P = G.P; return P && !P.rmDone && (P.logueArcN || 0) >= 1 ? { m: 'dawn', loc: RM_AT.slice(), t: L2('Montaña del Revés', 'Reverse Mountain') } : null; }]);
 
@@ -61971,40 +61987,59 @@ if (typeof LUPA_CIU !== 'undefined') LUPA_CIU.push(['brasil662', '🇧🇷 ' + L
   L2('⛰ Corcovado: el camino sube por la selva hasta la plaza del Cristo Redentor (pedestal de granito, escaleras mecánicas, toldos verdes del mirador). 🏘 El morro: casas de ladrillo con tanques azules y callejones. 🧩 Lapa: la Escalera Selarón y sus arcos; ayuda al ceramista a devolver los azulejos.', '⛰ Corcovado: the path climbs through the jungle to the Christ the Redeemer square (granite pedestal, escalators, green viewpoint awnings). 🏘 The morro: brick houses with blue tanks and alleys. 🧩 Lapa: the Selarón Steps and the arches; help the ceramist put the tiles back.'),
   L2('🌈 Cataratas del Iguazú: pasarelas sobre el río hasta la Garganta, niebla y arcoíris. 🚤 El barquero te deja pilotar el bote: la corriente empuja hacia atrás; aguanta 3 s en la niebla y vuelve. 🐎 La Lagoa con el hipódromo. Comida: feijoada, brigadeiro, acaí, agua de coco.', '🌈 Iguazu Falls: walkways over the river to the Throat, mist and rainbow. 🚤 The boatman lets you pilot the boat: the current pushes back; hold 3 s in the mist and come back. 🐎 The Lagoa with the racecourse. Food: feijoada, brigadeiro, açaí, coconut water.')], () => null]);
 
-// Reverse Mountain / Twin Cape: native Dawn terrain, no replacement of hero or crew atlases.
-// All coordinates are in the existing 16px Dawn grid; Grand Line remains a separate future map.
-const RMC_Y=1040, rmcAt=([x,y])=>[x,y+RMC_Y];
-const RMC_BOX=[1440,12+RMC_Y,192,330], RMC_SUMMIT=rmcAt([1536,104]), RMC_PIER=rmcAt([1553,260]), RMC_MOOR=rmcAt([1558,260]), RMC_CROCUS=rmcAt([1528,251]), RMC_EXIT=rmcAt([1578,315]);
-const RMC_ROUTES=[
- [[1440,172],[1480,151],[1506,128],[1536,104]],
- [[1448,25],[1480,56],[1510,84],[1536,104]],
- [[1618,25],[1590,56],[1560,80],[1536,104]],
- [[1626,150],[1594,138],[1566,116],[1536,104]],
- [[1536,104],[1542,143],[1548,175],[1565,210],[1578,236]]
-].map(route=>route.map(rmcAt));
-function rmcSegment(x,y,a,b){
- const dx=b[0]-a[0],dy=b[1]-a[1],t=Math.max(0,Math.min(1,((x-a[0])*dx+(y-a[1])*dy)/(dx*dx+dy*dy)));
- return Math.hypot(x-a[0]-dx*t,y-a[1]-dy*t);
-}
+// Visual artwork ported from the user-approved original HTML proposal.
+// Cached once per scene; gameplay, player, crew and ship stay in the original engine.
+const RMA_ART=(()=>{
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));const rnd=(x,y,s=0)=>{let h=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s,1274126177);h=Math.imul(h^(h>>>13),1274126177);return ((h^(h>>>16))>>>0)/4294967296};
+function mk(w,h){let c=document.createElement('canvas');c.width=w;c.height=h;return c}function poly(c,pts,col){c.fillStyle=col;c.beginPath();pts.forEach(([x,y],i)=>i?c.lineTo(x|0,y|0):c.moveTo(x|0,y|0));c.closePath();c.fill()}function rect(c,x,y,w,h,col){c.fillStyle=col;c.fillRect(Math.round(x),Math.round(y),Math.round(w),Math.round(h))}function ell(c,x,y,rx,ry,col){c.fillStyle=col;c.beginPath();c.ellipse(Math.round(x),Math.round(y),rx,ry,0,0,Math.PI*2);c.fill()}function line(c,x,y,a,b,col,w=1){c.strokeStyle=col;c.lineWidth=w;c.beginPath();c.moveTo(x|0,y|0);c.lineTo(a|0,b|0);c.stroke()}function path(c,p,col,w){c.strokeStyle=col;c.lineWidth=w;c.lineJoin='round';c.lineCap='round';c.beginPath();p.forEach(([x,y],i)=>i?c.lineTo(x,y):c.moveTo(x,y));c.stroke()}
+const branches=[{name:'East Blue',p:[[30,710],[130,650],[208,558],[300,492],[360,410],[480,340]],w:61},{name:'North Blue',p:[[160,0],[188,88],[250,145],[345,227],[480,340]],w:53},{name:'West Blue',p:[[0,310],[119,290],[216,310],[350,330],[480,340]],w:48},{name:'South Blue',p:[[960,35],[800,105],[720,170],[620,240],[480,340]],w:55},{name:'Grand Line',p:[[480,340],[565,407],[650,475],[713,551],[805,614],[960,700]],w:75}];
+const maps=[{w:960,h:768,name:'Reverse Mountain',start:[48,696]},{w:960,h:720,name:'Cabos Gemelos',start:[480,58]}];
+function seg(x,y,a,b){let dx=b[0]-a[0],dy=b[1]-a[1],t=clamp(((x-a[0])*dx+(y-a[1])*dy)/(dx*dx+dy*dy),0,1);return Math.hypot(x-a[0]-t*dx,y-a[1]-t*dy)}function distance(p,x,y){let d=1e5;for(let i=1;i<p.length;i++)d=Math.min(d,seg(x,y,p[i-1],p[i]));return d}
+function mountainType(x,y){if(x<0||y<0||x>=960||y>=768)return 1;let edge=Math.hypot((x-7)*.9,y-755)<91||Math.hypot((x-960)*.9,y-738)<95;if(edge)return 0;for(let r of branches)if(distance(r.p,x,y)<r.w/2)return 0;return 1}
+function bank(y){return 57+Math.max(0,y-120)*.61+Math.sin(y*.043)*6+Math.sin(y*.13)*3}function bottom(x){return 315+36*Math.sin(x*.012)+14*Math.sin(x*.035)+((x<110||x>850)?-30:0)}
+function capeType(x,y){if(x<0||y<0||x>=960||y>=720)return 1;let b=bank(y),side=Math.abs(x-480)>b;if(!side||y>bottom(x)) {if((x>=251&&x<=279&&y>=302&&y<=393)||(x>=682&&x<=710&&y>=302&&y<=375))return 3;return 0}if(y>bottom(x)-85&&y>195)return 2;return 1}
+function type(x,y,id=scene){return id===0?mountainType(x,y):capeType(x,y)}
+const rock=['#75494a','#925653','#a76b61','#bd8273','#cf9a87','#dfae99','#e9c0a8'];const deep=['#30779a','#347ca4','#3c88ad','#4697b6'],foam=['#77bdc9','#a0d7d6','#d5e9df'];
+// Cached terrain: pixel-granular coloration with seeded angular rock cells and 16 px world tiles.
+function terrain(id){let m=maps[id],c=mk(m.w,m.h),a=c.getContext('2d'),im=a.createImageData(m.w,m.h),d=im.data;let colors=new Map();const rgb=s=>{if(!colors.has(s))colors.set(s,[parseInt(s.slice(1,3),16),parseInt(s.slice(3,5),16),parseInt(s.slice(5,7),16)]);return colors.get(s)};
+function base(x,y){let t=type(x,y,id);if(t===0){let shore=0;for(let [dx,dy] of [[-3,0],[3,0],[0,-3],[0,3]])if(type(x+dx,y+dy,id)!==0)shore++;if(shore)return (x+y)%5<2?foam[2]:foam[1];if(type(x-9,y,id)!==0||type(x+9,y,id)!==0||type(x,y-9,id)!==0||type(x,y+9,id)!==0)return foam[0];let v=Math.sin(y*.033+x*.008)+Math.sin(x*.023-y*.018);return deep[v>.9?2:v<-.9?0:1]}
+if(t===3)return y%7===0?'#6d4939':x%8===0?'#aa7a53':'#c19768';if(t===2){let n=rnd(x>>2,y>>2,32);return n<.09?'#b69b78':n>.92?'#d7c2a0':'#cbb08c'}
+let bx=Math.floor(x/34),by=Math.floor(y/26),best=1e9,second=1e9,xx=0,yy=0,cx=0,cy=0;for(let j=-1;j<=1;j++)for(let i=-1;i<=1;i++){let ix=bx+i,iy=by+j,px=(ix+.2+rnd(ix,iy,5)*.6)*34,py=(iy+.15+rnd(ix,iy,6)*.7)*26,ds=(x-px)**2+(y-py)**2;if(ds<best){second=best;best=ds;xx=ix;yy=iy;cx=px;cy=py}else if(ds<second)second=ds}let v=2+Math.floor(rnd(xx,yy,7)*3);if(second-best<60)v=0;else if(second-best<130)v=1;else if(y<cy-4)v++;else if(y>cy+7)v--;if(rnd(x>>1,y>>1,11)>.93)v--;if(id===0){const height=1-Math.hypot((x-480)/650,(y-340)/510);const ridge=Math.sin(x*.017+y*.012)+Math.sin(x*.031-y*.021);if(height>.48&&ridge>-.5)v++;if(ridge<-.9)v--;}if(id===1&&y>bottom(x)-103)v-=1;if(type(x,y+5,id)!==1)v=1;return rock[clamp(v,0,6)]}
+for(let y=0;y<m.h;y++)for(let x=0;x<m.w;x++){let col=rgb(base(x,y)),k=(y*m.w+x)*4;d[k]=col[0];d[k+1]=col[1];d[k+2]=col[2];d[k+3]=255}a.putImageData(im,0,0);return c}
+function wave(c,x,y,len,col){rect(c,x,y,len,1,col);rect(c,x+2,y-1,Math.max(2,len-5),1,col)}
+function stone(c,x,y,s){let pts=[[x-s,y],[x-s*.7,y-s*.6],[x+s*.2,y-s],[x+s,y-s*.45],[x+s*.8,y],[x+s*.2,y+s*.3]];poly(c,pts,'#72524b');poly(c,[[x-s+2,y-1],[x-s*.65,y-s*.6],[x+s*.2,y-s+2],[x+s*.7,y-s*.45],[x+s*.15,y]],'#c38d78');line(c,x-s*.5,y-s*.5,x+s*.2,y-s*.8,'#e1b29a',2)}
+function palm(c,x,y,s=1){ell(c,x+8*s,y,12*s,4*s,'#a28e6b');poly(c,[[x-3*s,y],[x+4*s,y],[x+7*s,y-32*s],[x+2*s,y-32*s]],'#8b6546');for(let i=0;i<5;i++)line(c,x,y-i*6*s,x+5*s,y-i*6*s-2,'#ba925f',2);let a=x+4*s,b=y-31*s;for(let i=0;i<7;i++){let an=i*Math.PI*2/7,dx=Math.cos(an)*21*s,dy=Math.sin(an)*12*s;poly(c,[[a,b],[a+dx*.55-dy*.2,b+dy*.5+dx*.18],[a+dx,b+dy+5*s],[a+dx*.7+dy*.3,b+dy*.3-dx*.17]],i%2?'#447c51':'#5f9957');line(c,a,b,a+dx*.75,b+dy*.7,'#94bb65')}}
+function lighthouse(c,x,y){ell(c,x+8,y+1,28,8,'#8e7965');rect(c,x-29,y-8,58,8,'#9e8d78');rect(c,x-24,y-13,48,5,'#d4c4a6');poly(c,[[x-18,y-13],[x-11,y-100],[x+11,y-100],[x+18,y-13]],'#d9d8c9');poly(c,[[x+6,y-100],[x+11,y-100],[x+18,y-13],[x+8,y-13]],'#a0aaa4');for(let h of [32,61,89]){let w=15-(h/20);rect(c,x-w,y-h,w*2,8,'#b46a5c');rect(c,x-4,y-h-12,8,10,'#516e75');rect(c,x-3,y-h-11,2,8,'#b6d0c9')}rect(c,x-18,y-106,36,7,'#727c79');rect(c,x-14,y-126,28,21,'#f5d993');for(let i=-13;i<15;i+=8)rect(c,x+i,y-126,3,21,'#576664');rect(c,x-19,y-130,38,5,'#555f61');poly(c,[[x-23,y-129],[x,y-149],[x+23,y-129]],'#a34d43');poly(c,[[x,y-149],[x+23,y-129],[x+7,y-129]],'#713e3e');line(c,x-20,y-130,x,y-147,'#d19072',2);rect(c,x-6,y-30,12,17,'#6f5544');rect(c,x-4,y-28,2,14,'#b48c62');rect(c,x-1,y-152,2,5,'#d6b56f')}
+function cottage(c,x,y){ell(c,x+7,y,48,9,'#a48d70');rect(c,x-43,y-50,86,49,'#d6c1a0');rect(c,x+31,y-50,12,49,'#ad9b82');poly(c,[[x-48,y-50],[x-36,y-76],[x+34,y-76],[x+48,y-50]],'#9a5146');for(let i=0;i<5;i++)line(c,x-36-i*2,y-74+i*5,x+34+i*2,y-74+i*5,'#bd7962',2);rect(c,x-6,y-28,14,28,'#6d5040');for(let k of [-27,24]){rect(c,x+k-6,y-39,12,15,'#68858c');rect(c,x+k-1,y-39,2,15,'#d7c8a7');rect(c,x+k-6,y-32,12,2,'#d7c8a7')}rect(c,x+24,y-85,9,19,'#a59684');rect(c,x+22,y-86,13,4,'#6f6459')}
+function crate(c,x,y){rect(c,x-7,y-9,14,10,'#79563b');rect(c,x-6,y-8,12,8,'#ba8c55');line(c,x-6,y-8,x+5,y-1,'#78543a');line(c,x-6,y-1,x+5,y-8,'#e1b77c')}
+// Laboon is original pixel artwork based on the supplied visual references; cached sprite.
+function makeWhale(){let c=mk(264,174),a=c.getContext('2d');ell(a,133,139,119,19,'#216a88');poly(a,[[210,111],[230,86],[259,65],[252,102],[264,119],[237,124],[212,128]],'#253d50');ell(a,144,113,99,41,'#203344');ell(a,143,106,98,39,'#385467');ell(a,86,85,64,68,'#203344');ell(a,82,80,60,64,'#435d71');ell(a,65,68,41,49,'#4b6679');ell(a,89,103,56,47,'#253b4e');ell(a,143,135,63,12,'#93acb3');poly(a,[[112,129],[144,149],[152,162],[121,152],[105,141]],'#203747');line(a,35,108,100,120,'#142736',3);ell(a,45,91,7,7,'#d9dfd4');ell(a,45,91,4,4,'#152633');rect(a,43,88,2,2,'#fff6e0');for(let k=0;k<13;k++){let x=39+rnd(k,0,8)*68,y=22+rnd(k,1,8)*44;line(a,x,y,x+9,y+12,'#9ca9a9',2);line(a,x+9,y+12,x+15,y+4,'#9ca9a9',1);line(a,x+9,y+12,x+6,y+18,'#86999e',1)}// Straw hat promise mark
+ell(a,77,37,18,13,'#e7e4d8');line(a,54,50,100,24,'#e7e4d8',4);line(a,55,24,100,50,'#e7e4d8',4);ell(a,71,36,4,5,'#293846');ell(a,83,36,4,5,'#293846');rect(a,74,43,6,3,'#293846');ell(a,77,23,23,5,'#d9b657');ell(a,77,20,13,7,'#e5c96c');rect(a,64,22,26,3,'#a84f47');return c}
+
+let scene=0;const terrainCache=[];
+const capeObjects=[{x:265,y:316,draw:lighthouse},{x:696,y:312,draw:lighthouse},{x:165,y:294,draw:cottage},{x:97,y:290,draw:palm},{x:324,y:266,draw:palm},{x:760,y:277,draw:palm},{x:819,y:293,draw:palm},{x:200,y:307,draw:crate},{x:217,y:309,draw:crate},{x:300,y:307,draw:crate}];
+function staticScene(id){if(terrainCache[id])return terrainCache[id];let c=terrain(id),a=c.getContext('2d');if(id===0){for(let k=0;k<95;k++){let x=rnd(k,2,3)*960,y=rnd(k,3,4)*768;if(type(x,y,id)===1&&type(x-20,y,id)===1&&type(x+20,y,id)===1)stone(a,x,y,7+rnd(k,4,5)*15)}// rugged ridges
+for(let k=0;k<40;k++){let x=rnd(k,5,8)*960,y=rnd(k,6,8)*768;if(type(x,y,id)===1&&type(x+20,y+15,id)===1&&type(x-20,y-15,id)===1){poly(a,[[x-18,y+8],[x-8,y-16],[x+6,y-23],[x+21,y+7]],'#ad786b');poly(a,[[x+6,y-23],[x+21,y+7],[x+2,y+11]],'#855354');line(a,x-8,y-16,x+6,y-23,'#dfab92',2)}}}else{for(let k=0;k<65;k++){let x=rnd(k,9,2)*960,y=190+rnd(k,8,3)*150;if(type(x,y,id)===2&&Math.abs(x-265)>30&&Math.abs(x-696)>30&&Math.abs(x-165)>50)stone(a,x,y,3+rnd(k,3,4)*5)}// paths on each rocky platform
+for(let x=110;x<303;x++){let y=bottom(x)-18;if(type(x,y,id)===2)rect(a,x,y-6,1,12,'#d9c5a0')}for(let x=680;x<840;x++){let y=bottom(x)-18;if(type(x,y,id)===2)rect(a,x,y-6,1,12,'#d9c5a0')}
+for(let o of capeObjects.slice().sort((a,b)=>a.y-b.y))o.draw(a,o.x,o.y);for(let x of [252,278,683,709])for(let y=313;y<375;y+=16){rect(a,x-2,y,4,7,'#78533d');rect(a,x-3,y-1,6,2,'#c7a172')}}terrainCache[id]=c;return c}
+
+return {scene:staticScene,type,branches,whale:makeWhale,maps};
+})();
+
+// 6.64: original proposal artwork integrated with Dawn's ship, player and save systems.
+const RMC_Y=1040,RMA_TOP=RMC_Y+12,RMA_CAPE_Y=RMA_TOP+154,RMA_SCALE=3.2;
+const rmcAt=([x,y])=>[x,y+RMC_Y];
+function rmaAt(scene,p){return [1440+p[0]/5,(scene?RMA_CAPE_Y:RMA_TOP)+p[1]/5];}
+const RMC_BOX=[1440,RMA_TOP,192,298],RMC_SUMMIT=rmaAt(0,[480,340]),RMC_PIER=rmaAt(1,[265,365]),RMC_MOOR=rmaAt(1,[265,404]),RMC_CROCUS=rmaAt(1,[215,318]),RMC_EXIT=rmaAt(1,[480,690]);
+const RMA_MOUNT_EXIT=rmaAt(0,[920,680]),RMA_MOUNT_RETURN=rmaAt(0,[870,650]),RMA_CAPE_ENTRY=rmaAt(1,[480,58]),RMA_CAPE_UP=rmaAt(1,[480,24]),RMA_LABOON=rmaAt(1,[700,612]);
+const RMC_ROUTES=RMA_ART.branches.map(r=>r.p.map(p=>rmaAt(0,[Math.max(10,Math.min(950,p[0])),Math.max(10,Math.min(758,p[1]))])));
 function rmcTile(x,y){
- y-=RMC_Y;
- if(x<1440||x>=1632||y<12||y>=342)return '';
- if(y>=258&&y<=262&&x>=1537&&x<=1553)return 'dock';
- const bank=Math.max(1-Math.hypot((x-1513)/39,(y-245)/38),1-Math.hypot((x-1620)/32,(y-245)/39));
- if(bank>0){
-  if(bank<.12)return 'shore';
-  if((Math.abs(y-251)<4&&x<1545)||(Math.abs(y-247)<4&&x>1590))return 'path';
-  return 'cape';
- }
- const d=1-Math.hypot((x-1536)/95,(y-108)/87)+Math.sin(x*.19+y*.11)*.018+Math.sin(y*.31)*.012;
- let rd=999;
- for(const route of RMC_ROUTES)for(let i=1;i<route.length;i++)rd=Math.min(rd,rmcSegment(x,y+RMC_Y,route[i-1],route[i]));
- if(rd<6.5&&d>-.23)return 'river';
- if(d>0)return d<.11||rd<8?'edge':'rock';
- return '';
+ if(x<1440||x>=1632||y<RMA_TOP||y>=RMA_CAPE_Y+144)return '';
+ const scene=y>=RMA_CAPE_Y?1:0,t=RMA_ART.type((x-1440+.5)*5,(y-(scene?RMA_CAPE_Y:RMA_TOP)+.5)*5,scene);
+ return t===0?'river':t===1?'rock':t===2?'cape':'dock';
 }
-const RMC_TERRAIN={rock:T.FACE,edge:T.FACE,river:T.DEEP,cape:T.STONE,shore:T.SAND,path:T.COBBLE,dock:T.BRIDGE};
-const RMC_POI=[[rmcAt([1454,166]),L2('Reverse Mountain · entrada','Reverse Mountain · entrance')],[RMC_SUMMIT,L2('Cima de las corrientes','Summit of the currents')],[RMC_PIER,L2('Cabos Gemelos · muelle','Twin Cape · dock')],[RMC_CROCUS,'Crocus'],[rmcAt([1578,283]),'Laboon'],[RMC_EXIT,L2('Grand Line · próxima ruta','Grand Line · future route')]];
+const RMC_TERRAIN={rock:T.FACE,river:T.DEEP,cape:T.SAND,dock:T.BRIDGE};
+const RMC_POI=[[rmaAt(0,[48,696]),L2('Reverse Mountain · East Blue','Reverse Mountain · East Blue')],[RMC_SUMMIT,L2('Cima de las corrientes','Summit of the currents')],[RMA_MOUNT_EXIT,L2('Descenso a Cabos Gemelos','Descent to Twin Cape')],[RMC_PIER,L2('Cabos Gemelos · muelle oeste','Twin Cape · west pier')],[rmaAt(1,[696,350]),L2('Faro este · muelle','East lighthouse · pier')],[RMC_CROCUS,'Crocus'],[RMA_LABOON,'Laboon'],[RMC_EXIT,L2('Entrada al Grand Line','Grand Line entrance')]];
 NPCS.rm_crocus={n:'Crocus',title:L2('Farero de Cabos Gemelos','Twin Cape lighthouse keeper'),look:LK({g:'m',hair:HAIRS.blanco,hairStyle:'short',eyes:'negro',skin:SKINS[1],outfit:'tunic',main:pal(['#493c43','#926c4e','#d4aa63','#e9d5a4','#f9edcd'])}),quests:[],lines:[L2('Laboon espera a sus amigos. Cuida el Log Pose: será tu guía cuando zarpes al Grand Line.','Laboon is waiting for his friends. Keep your Log Pose safe: it will guide you when you sail into the Grand Line.') ]};
 hookAfter('makeDawn',M=>{
  if(!M||M.rmCape)return;
@@ -62016,50 +62051,44 @@ hookAfter('makeDawn',M=>{
  }
  if(M.w<x0+w||M.h<y0+h){console.warn('Reverse Mountain: map bounds too small');return;}
  // Do not overwrite earlier islands or any existing objects.
- const cells=new Uint8Array(w*h),kinds=['','rock','edge','river','cape','shore','path','dock'];
+ const cells=new Uint8Array(w*h),kinds=['','rock','river','cape','dock'];
  for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++){
   const t=rmcTile(x,y);if(!t)continue;const i=M.I(x,y);
   if(M.ter[i]!==T.DEEP||(M.objAt&&M.objAt[i]>=0))continue;
   cells[(y-y0)*w+x-x0]=kinds.indexOf(t);M.ter[i]=RMC_TERRAIN[t];M.lvl[i]=0;
  }
  M.rmCape={cells,kinds};M.chunks.clear();
- const prop=(key,x,y,scale,fp)=>{
-  y+=RMC_Y;
-  if(!['cape','path','shore'].includes(rmcActual(M,x,y)))return;
-  addObj(M,'dawn',x,y,{dawnKey:key,dawnScale:scale,fp,solid:fp.length>0});
- };
- prop('lighthouse',1501,233,1.5,[[0,0],[-1,0],[1,0]]);
- prop('lighthouse',1616,233,1.5,[[0,0],[-1,0],[1,0]]);
- prop('house3',1516,242,1,[[0,0],[-1,0],[1,0],[0,-1]]);
- for(const [x,y] of [[1535,257],[1535,263],[1543,257],[1543,263]])if(rmcActual(M,x,y+RMC_Y))addObj(M,'lantern',x,y+RMC_Y,{kind:'wood',solid:false,fp:[]});
- if(rmcActual(M,...RMC_CROCUS))M.npcDefs.push({id:'rm_crocus',x:RMC_CROCUS[0],y:RMC_CROCUS[1],face:'down'});
+ // Scenery is painted from the original proposal; matching foot-level collision remains native.
+ for(const [sx,sy,rx,ry] of [[165,294,42,12],[265,316,20,12],[696,312,20,12]]){
+  const [tx,ty]=rmaAt(1,[sx,sy]);for(let y=Math.floor(ty-ry/5);y<=Math.floor(ty);y++)for(let x=Math.floor(tx-rx/5);x<=Math.floor(tx+rx/5);x++)if(rmcActual(M,x,y)==='cape')M.solidO[M.I(x,y)]=1;
+ }
+ M.npcDefs.push({id:'rm_crocus',x:RMC_CROCUS[0],y:RMC_CROCUS[1],face:'down'});
+ M.rmCape.visualV2=true;
 });
 function rmcActual(M,x,y){const S=M&&M.rmCape,[a,b,w,h]=RMC_BOX;if(!S||x<a||x>=a+w||y<b||y>=b+h)return '';return S.kinds[S.cells[(y-b)*w+x-a]]||'';}
-// Dawn uses its own rasterizer, so new terrain must also be painted from its native textures.
-let RMC_PAL=null;
+// The exact original proposal is cached at its own pixel resolution and projected into world chunks.
 function rmcPaint(c,M,cx,cy){
  if(!M?.rmCape)return;
  const [a,b,w,h]=RMC_BOX,ox=cx*CH,oy=cy*CH;
  if(ox+CH<=a||oy+CH<=b||ox>=a+w||oy>=b+h)return;
- if(!RMC_PAL)RMC_PAL={rock:pal(['#4c5046','#626c57','#858b6a','#a7ab80','#c7c69a']),sand:pal(['#b29259','#c6ab71','#dfc58d','#ead6a7','#f6e6be']),stone:pal(['#6d797c','#85918e','#9ea8a0','#bdc4b5','#d1d2be'])};
- const g=c.getContext('2d'),im=g.getImageData(0,0,c.width,c.height),buf=new Uint32Array(im.data.buffer);
- for(let y=0;y<CH;y++)for(let x=0;x<CH;x++){
-  const t=rmcActual(M,ox+x,oy+y);if(!t)continue;
-  const tex=t==='dock'?'plank':t==='rock'||t==='edge'?'rock':t==='shore'?'sand':'stone';
-  const P=tex==='plank'?WOOD:RMC_PAL[tex];
-  for(let dy=0;dy<16;dy++)for(let dx=0;dx<16;dx++){
-   const px=x*16+dx,py=y*16+dy,ti=(((oy*16+py)&127)*128)+((ox*16+px)&127);
-   buf[py*c.width+px]=t==='river'?C('#347ca4'):P[TEX[tex][ti]];
-  }
+ const g=c.getContext('2d');g.save();g.imageSmoothingEnabled=false;
+ for(let scene=0;scene<2;scene++){
+  const top=scene?RMA_CAPE_Y:RMA_TOP,src=RMA_ART.scene(scene);
+  g.drawImage(src,(a-ox)*16,(top-oy)*16,src.width*RMA_SCALE,src.height*RMA_SCALE);
  }
- g.putImageData(im,0,0);return c;
+ g.restore();return c;
 }
-hookAfter('renderChunk',rmcPaint);
-hookAfter('finishChunk',rmcPaint);
-hookAfter('orangeOverviewColor',(old,M,x,y)=>{const t=rmcActual(M,x,y);if(t)return C(t==='river'?'#347ca4':t==='rock'||t==='edge'?'#858b6a':t==='shore'?'#dfc58d':t==='dock'?'#986845':'#9ea8a0');});
+hookAfter('renderChunk',rmcPaint);hookAfter('finishChunk',rmcPaint);
+hookAfter('orangeOverviewColor',(old,M,x,y)=>{const t=rmcActual(M,x,y);if(t)return C(t==='river'?'#347ca4':t==='rock'?'#bd8273':t==='dock'?'#c19768':'#cbb08c');});
 hookAfter('otherPOI',(out,M)=>{if(M.rmCape)for(const [at,t] of RMC_POI)out.push({x:at[0],y:at[1],c:'inn',t});});
 function rmcDockKey(){
- const P=G.P,M=G.map;if(!P||!M?.rmCape||P.dead||G.fading||nvCalm()||ARC.rm)return null;
+ const P=G.P,M=G.map;if(!P||!M||P.dead||G.fading||nvCalm()||ARC.rm)return null;
+ if(M.grandLine)return P.dawnHelm?.kind==='skiff'&&conomiNear(P,GL_RETURN,120)?'rmc_return':null;
+ if(!M.rmCape)return null;
+ if(P.dawnHelm?.kind==='skiff'&&conomiNear(P,RMA_MOUNT_EXIT,90))return 'rmc_down';
+ if(P.dawnHelm?.kind==='skiff'&&conomiNear(P,RMA_CAPE_UP,65))return 'rmc_up';
+ if(P.dawnHelm?.kind==='skiff'&&conomiNear(P,RMA_EAST_MOOR,60))return P.rmDone?'rmc_east_land':'rmc_locked';
+ if(!P.dawnHelm&&P.dawnBoat?.rmcapeEast&&conomiNear(P,RMA_EAST_PIER,44))return 'rmc_east_sail';
  if(P.dawnHelm?.kind==='skiff'&&conomiNear(P,RMC_MOOR,60))return P.rmDone?'rmc_land':'rmc_locked';
  if(!P.dawnHelm&&P.dawnBoat?.rmcape&&conomiNear(P,RMC_PIER,44))return 'rmc_sail';
  if(P.dawnHelm?.kind==='skiff'&&P.rmDone&&conomiNear(P,RMC_EXIT,70))return 'rmc_exit';
@@ -62068,26 +62097,26 @@ function rmcDockKey(){
 XACT.rmc_land=[L2('Desembarcar en Cabos Gemelos','Land at Twin Cape'),'ways',()=>{if(rmcDockKey()==='rmc_land')dawnIslandDock(true,'rmcape',RMC_PIER,RMC_MOOR,L2('Cabos Gemelos','Twin Cape'),L2('Habla con Crocus y visita los faros.','Talk to Crocus and visit the lighthouses.'));}];
 XACT.rmc_locked=[L2('Completa el encuentro con Laboon','Complete the Laboon encounter'),'ways',()=>toast(L2('Completa primero la promesa con Laboon.','First complete the promise with Laboon.'),'info')];
 XACT.rmc_sail=[L2('Volver al Going Merry','Return to the Going Merry'),'ways',()=>{if(rmcDockKey()==='rmc_sail')dawnIslandDock(false,'rmcape',RMC_PIER,RMC_MOOR,'','');}];
-XACT.rmc_exit=[L2('Grand Line · próxima expedición','Grand Line · future expedition'),'ways',()=>toast(L2('La ruta al nuevo mar todavía no está abierta.','The route to the new sea is not open yet.'),'info',5)];
+XACT.rmc_exit=[L2('Navegar al Grand Line','Sail to the Grand Line'),'ways',()=>{if(rmcDockKey()==='rmc_exit')rmaSailTo('grand_line',GL_ARRIVE);}];
 hookAround('interactTarget',next=>{const k=rmcDockKey();return k?rareAction(k):next();});
 DL_HOOKS.push(list=>{
  const M=G.map,P=G.P;if(!M?.rmCape||!P?.rmDone)return;
- const [x,y]=dawnPx(rmcAt([1578,283]));if(Math.abs(x-P.x)>1200||Math.abs(y-P.y)>1000)return;
- list.push({type:'xdraw',x,y,draw:(e,cx,cy)=>{const s=spr('rm:laboon:peace',XSPR.rm_laboonp);ctx.save();ctx.imageSmoothingEnabled=false;ctx.translate(Math.round(x-cx),Math.round(y-cy+Math.sin(G.t*1.6)*3));ctx.scale(3,3);ctx.drawImage(s.c,-s.ax,-s.ay);ctx.restore();}});
+ const [x,y]=dawnPx(RMA_LABOON);if(Math.abs(x-P.x)>1200||Math.abs(y-P.y)>1000)return;
+ list.push({type:'xdraw',x,y,draw:(e,cx,cy)=>{const s=spr('rma:laboon',()=>({c:RMA_ART.whale(),ax:132,ay:150}));ctx.save();ctx.imageSmoothingEnabled=false;ctx.translate(Math.round(x-cx),Math.round(y-cy+Math.sin(G.t*1.6)*3));ctx.scale(RMA_SCALE,RMA_SCALE);ctx.drawImage(s.c,-s.ax,-s.ay);ctx.restore();}});
 });
 WORLD_DRAW.push((cx,cy)=>{
  const M=G.map,P=G.P;if(!M?.rmCape||!P)return;
- const px=P.x/16,py=P.y/16;if(px<1430||px>1640||py>245+RMC_Y||py<RMC_Y)return;
- // Flow lines are cheap and only drawn for visible river cells.
- ctx.save();ctx.fillStyle='rgba(216,249,250,.70)';
- for(let y=Math.max(12+RMC_Y,Math.floor((cy-16)/16));y<Math.min(242+RMC_Y,py+45);y+=2)for(let x=Math.max(1440,Math.floor((cx-16)/16));x<Math.min(1632,px+70);x+=2){
-  if(rmcActual(M,x,y)!=='river'||hash2(x,y,711)<.45)continue;
-  const f=(Math.floor(G.t*22)+y*5+x*3)%14;
-  ctx.fillRect(x*16+3-cx,y*16+f-cy,7,1);
- }
- ctx.restore();
+ const tx=P.x/16,ty=P.y/16;if(tx<1430||tx>1640||ty<RMA_TOP||ty>RMA_CAPE_Y+144)return;
+ ctx.save();ctx.strokeStyle='rgba(201,230,225,.7)';ctx.lineWidth=2;
+ if(ty<RMA_CAPE_Y){for(const route of RMC_ROUTES)for(let j=1;j<route.length;j++){
+  const a=dawnPx(route[j-1]),b=dawnPx(route[j]),dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy);
+  for(let k=0;k<len;k+=78){const f=(k+G.t*92)%len,x=a[0]+dx*f/len,y=a[1]+dy*f/len;
+   if(x<cx-20||x>cx+VW+20||y<cy-20||y>cy+VH+20)continue;
+   ctx.beginPath();ctx.moveTo(x-cx,y-cy);ctx.lineTo(x-cx+dx/len*22,y-cy+dy/len*22);ctx.stroke();
+  }
+ }}ctx.restore();
 });
-if(typeof LUPA_DAWN!=='undefined')LUPA_DAWN.push(['rmcape663',()=>L2('Reverse Mountain y Cabos Gemelos','Reverse Mountain and Twin Cape'),()=>[L2('Al sureste de Dawn: navega por las corrientes de la montaña, completa la promesa con Laboon y desembarca en el muelle de los faros.','South-east of Dawn: sail through the mountain currents, complete Laboon’s promise and land at the lighthouse pier.'),L2('El siguiente mar será un mapa independiente.','The next sea will be a separate map.')],()=>({m:'dawn',loc:RMC_PIER.slice(),t:L2('Cabos Gemelos','Twin Cape')})]);
+if(typeof LUPA_DAWN!=='undefined')LUPA_DAWN.push(['rmcape663',()=>L2('Reverse Mountain y Cabos Gemelos','Reverse Mountain and Twin Cape'),()=>[L2('Al sureste de Dawn: navega por las corrientes de la montaña, completa la promesa con Laboon y desembarca en el muelle de los faros.','South-east of Dawn: sail through the mountain currents, complete Laboon’s promise and land at the lighthouse pier.'),L2('En el extremo sur de los cabos puedes entrar al Grand Line: por ahora solo hay mar y una ruta de regreso.','At the southern end of the capes you can enter the Grand Line: for now it contains only sea and a return route.')],()=>({m:'dawn',loc:RMC_PIER.slice(),t:L2('Cabos Gemelos','Twin Cape')})]);
 
 // Use the same Merry bitmap and character atlases as gameplay in these scenes.
 function rmcCineNPC(g,id,x,y,t,scale=.42){
@@ -62107,8 +62136,8 @@ Object.assign(CN_SC,{
   // A cached miniature of the real terrain, using the original chunk renderer.
   const S=spr('rmc:terrain',()=>{const c=mkCanvas(192,208),x=c.getContext('2d');x.imageSmoothingEnabled=false;
    for(let cy=0;cy<Math.ceil(208/CH);cy++)for(let cx=0;cx<Math.ceil(192/CH);cx++){
-    const tx=Math.floor(1440/CH)+cx,ty=Math.floor(RMC_Y/CH)+cy;
-    const C=renderChunk(M,tx,ty);x.drawImage(C,(tx*CH-1440),ty*CH-RMC_Y,CH,CH);
+    const tx=Math.floor(1440/CH)+cx,ty=Math.floor(RMA_TOP/CH)+cy;
+    const C=renderChunk(M,tx,ty);x.drawImage(C,(tx*CH-1440),ty*CH-RMA_TOP,CH,CH);
    }return {c,ax:0,ay:0};});
   g.drawImage(S.c,32,0,192,144);rmcCineShip(g,120,123-k*70,t);
  },
@@ -62120,6 +62149,99 @@ Object.assign(CN_SC,{
   // The player's actual appearance, including equipped clothes.
   g.save();g.translate(187,122);g.scale(.42,.42);cnHero(g,0,0,t);g.restore();}
 });
+
+// 6.64: a separate, deliberately empty sea, sharing Dawn's sailing controls and original Merry.
+const GL_ID='grand_line',GL_RETURN=[40,360],GL_ARRIVE=[48,360];
+const RMA_EAST_PIER=rmaAt(1,[696,350]),RMA_EAST_MOOR=rmaAt(1,[696,389]);
+SAVEKEYS.push('rmVisual');
+function makeGrandLine(){
+ if(G.maps[GL_ID])return G.maps[GL_ID];
+ const w=960,h=720,N=w*h,M={id:GL_ID,w,h,I:(x,y)=>y*w+x,ter:new Uint8Array(N),lvl:new Uint8Array(N),reg:new Uint8Array(N),flags:new Uint8Array(N),chunks:new Map(),isWorld:false,dawn:1,grandLine:true,dark:0,music:'town',camps:[],bossAt:[],halos:[],temples:[],exit:{x:-9,y:-9},dawnData:{pois:[]}};
+ initMapObjs(M);M.drawExtra=(cx,cy)=>{const P=G.P;if(P.dawnHelm)dawnShipSprite(cx,cy,dawnSprite('boat'),P.x,P.y+16,P.dir);};
+ G.maps[GL_ID]=M;return M;
+}
+function rmaSailTo(id,at){
+ const P=G.P;if(!P||P.dead||G.fading||P.dawnHelm?.kind!=='skiff'||merryDeck())return;
+ transition(()=>{
+  const M=id===GL_ID?makeGrandLine():makeDawn();
+  const [x,y]=dawnPx(at);if(!dawnSurface(M,x,y,18))return;
+  P.inside=null;P.dawnBoat=null;delete P.dawnHelm.deck;
+  if(setMap(M,x,y,id===GL_ID?'right':'up')===false)return;
+  P.rmVisual=2;markDirty(true);banner(id===GL_ID?'Grand Line':L2('Cabos Gemelos','Twin Cape'),id===GL_ID?L2('Mar abierto · primera isla todavía sin construir','Open sea · first island not built yet'):L2('De vuelta en el mar de Dawn','Back in the Dawn Sea'));
+ });
+}
+function rmaShift(key,at){if(rmcDockKey()!==key)return;rmaSailTo('dawn',at);}
+XACT.rmc_return=[L2('Regresar a Cabos Gemelos · Dawn','Return to Twin Cape · Dawn'),'ways',()=>{if(rmcDockKey()==='rmc_return')rmaSailTo('dawn',rmaAt(1,[480,640]));}];
+XACT.rmc_down=[L2('Descender a Cabos Gemelos','Descend to Twin Cape'),'ways',()=>rmaShift('rmc_down',RMA_CAPE_ENTRY)];
+XACT.rmc_up=[L2('Volver a Reverse Mountain','Return to Reverse Mountain'),'ways',()=>rmaShift('rmc_up',RMA_MOUNT_RETURN)];
+XACT.rmc_east_land=[L2('Desembarcar en el faro este','Land at the east lighthouse'),'ways',()=>{if(rmcDockKey()==='rmc_east_land')dawnIslandDock(true,'rmcapeEast',RMA_EAST_PIER,RMA_EAST_MOOR,L2('Faro este','East lighthouse'),L2('Cabos Gemelos','Twin Cape'));}];
+XACT.rmc_east_sail=[L2('Volver al Going Merry','Return to the Going Merry'),'ways',()=>{if(rmcDockKey()==='rmc_east_sail')dawnIslandDock(false,'rmcapeEast',RMA_EAST_PIER,RMA_EAST_MOOR,'','');}];
+hookAround('makeInterior',(next,id)=>id===GL_ID?makeGrandLine():next(id));
+hookAround('otherPOI',(next,M)=>M?.grandLine?[{c:'ship',x:GL_RETURN[0],y:GL_RETURN[1],t:L2('Regreso a Cabos Gemelos','Return to Twin Cape')}]:next(M));
+hookAround('orangeOverviewColor',(next,M,x,y,i)=>M?.grandLine?C('#347ca4'):next(M,x,y,i));
+hookAround('renderChunk',(next,M,cx,cy)=>{
+ if(!M?.grandLine)return next(M,cx,cy);
+ const p=new Pix(CHP,CHP);for(let y=0;y<CHP;y++)for(let x=0;x<CHP;x++){
+  const px=cx*CHP+x,py=cy*CHP+y;p.set(x,y,dawnSouthernWaterPixel(px,py,false,(py&127)*128+(px&127)));
+ }return p.canvas();
+});
+// Disable Dawn encounters, island events and scheduled raids only while updating the empty new sea.
+// Rendering and sailing still see dawn=true, so no duplicate movement or ship systems are needed.
+hookAround('v33Tick',(next,dt)=>{
+ const M=G.map;if(!M?.grandLine)return next(dt);
+ const d=M.dawn;M.dawn=0;try{return next(dt);}finally{M.dawn=d;}
+});
+hookBefore('nvOn',()=>{if(G.map?.grandLine)return HOOK_SKIP;});
+hookBefore('rmCanStart',()=>{if(G.map?.grandLine)return HOOK_SKIP;});
+hookBefore('wiCanStart',()=>{if(G.map?.grandLine)return HOOK_SKIP;});
+hookBefore('mrTick',()=>{if(G.map?.grandLine){MR.boat=null;return HOOK_SKIP;}});
+hookAround('wpRoute',(next,wp)=>G.map?.grandLine&&wp.m!==GL_ID?GL_RETURN.slice():G.map?.rmCape&&wp.m===GL_ID?RMC_EXIT.slice():next(wp));
+function rmaRegionalScale(){const P=G.P;return G.map?.rmCape?.visualV2&&P&&P.x>=1440*16&&P.x<1632*16&&P.y>=RMA_TOP*16&&P.y<(RMA_CAPE_Y+144)*16&&!merryDeck() ? .42 : 1;}
+hookAfter('dawnMerrySprite',S=>{
+ if(!S||rmaRegionalScale()===1)return;
+ return spr('rma:merry:42',()=>{const c=mkCanvas(Math.round(S.c.width*.42),Math.round(S.c.height*.42)),g=c.getContext('2d');g.imageSmoothingEnabled=false;g.drawImage(S.c,0,0,c.width,c.height);return {c,ax:S.ax*.42,ay:S.ay*.42};});
+});
+// Explicit regional stay data: the base serializer otherwise intentionally returns a hero to world.
+hookAfter('serializeP',(save,P)=>{
+ const trip=P.map==='merry_bajo'&&P._mbTrip?.m===GL_ID?P._mbTrip:null;
+ if(P.map===GL_ID||P.map==='dawn'&&P.rmVisual===2&&P.x>=RMC_BOX[0]*16&&P.y>=RMC_BOX[1]*16||trip){
+  save.rmaStay={m:trip?GL_ID:P.map,x:trip?trip.x:P.x,y:trip?trip.y:P.y,h:trip?trip.h:P.dawnHelm,b:P.dawnBoat};
+ }return save;
+});
+hookAround('selvaRestoreStay',(next,P)=>{
+ const S=P.rmaStay;if(!S||!['dawn',GL_ID].includes(S.m))return next(P);
+ const M=S.m===GL_ID?makeGrandLine():makeDawn();P.dawnHelm=S.h||S.b?.h||dawnHelm('skiff',{x:P.retX,y:P.retY});
+ let [x,y]=[S.x,S.y];if(!Number.isFinite(x)||!Number.isFinite(y)||!dawnSurface(M,x,y,18)){
+  [x,y]=dawnPx(S.m===GL_ID?GL_ARRIVE:RMC_MOOR);
+ }
+ P.inside=null;P.dawnBoat=null;
+ if(!S.h&&S.b&&S.m==='dawn')P._rmaRestoreFoot={x:S.x,y:S.y,b:S.b};
+ return {map:M,x,y};
+});
+hookAfter('setMap',(_,M)=>{
+ const P=G.P;if(!P||G.map!==M)return;
+ if(M.grandLine){NV.foes=[];NV.shots=[];NV.marks=[];NV.storm=null;ARC.foes=[];ARC.rm=null;ARC.wi=null;MR.boat=null;return;}
+ if(!M.rmCape)return;
+ const inZone=P.x>=1440*16&&P.x<1632*16&&P.y>=RMA_TOP*16&&P.y<(RMA_CAPE_Y+144)*16;
+ if(P._rmaRestoreFoot){const S=P._rmaRestoreFoot;delete P._rmaRestoreFoot;P.dawnBoat=S.b;P.dawnHelm=null;
+  const at=rmcActual(M,S.x>>4,S.y>>4);[P.x,P.y]=['cape','dock'].includes(at)&&!M.solidO[M.I(S.x>>4,S.y>>4)]?[S.x,S.y]:dawnPx(RMC_PIER);
+ }
+ if(inZone&&P.rmVisual!==2){
+  if(!P.dawnHelm&&P.dawnBoat){const east=!!P.dawnBoat.rmcapeEast,[x,y]=dawnPx(east?RMA_EAST_MOOR:RMC_MOOR);P.dawnBoat.x=x;P.dawnBoat.y=y;[P.x,P.y]=dawnPx(east?RMA_EAST_PIER:RMC_PIER);}
+  else if(P.dawnHelm&&!dawnSurface(M,P.x,P.y,18))[P.x,P.y]=dawnPx(RMA_CAPE_ENTRY);
+  P.rmVisual=2;
+ }
+ if(!G.ents.some(e=>e.id==='rm_crocus'&&e.map==='dawn'&&!e.remove))spawnNPC('rm_crocus',RMC_CROCUS[0]*16+8,RMC_CROCUS[1]*16+12,'dawn',{face:'down'});
+ updateCamera(0,true);
+});
+WORLD_DRAW.push((cx,cy)=>{
+ if(!G.map?.grandLine)return;const [x,y]=dawnPx(GL_RETURN);
+ if(x<cx-100||x>cx+VW+100||y<cy-100||y>cy+VH+100)return;
+ ctx.save();ctx.strokeStyle='#e9d2a1';ctx.lineWidth=2;ctx.beginPath();ctx.arc(x-cx,y-cy,20+Math.sin(G.t*2)*2,0,Math.PI*2);ctx.stroke();ctx.fillStyle='#f5e4b8';ctx.font='12px "Pixelify Sans"';ctx.textAlign='center';ctx.fillText(L2('Regreso a Dawn','Return to Dawn'),x-cx,y-cy-30);ctx.restore();
+});
+MAPC.grand_line=['Grand Line','Grand Line','#4697b6','ship'];
+MAPW_LIST.push({id:GL_ID,n:'Grand Line',mk:makeGrandLine,how:L2('Navega desde el extremo sur de Cabos Gemelos. Por ahora solo hay mar y una ruta de regreso.','Sail from the southern end of Twin Cape. For now there is only sea and a return route.')});
+LUPA_DAWN.push(['grandline664',()=>L2('Grand Line · mar abierto','Grand Line · open sea'),()=>[L2('Desde Reverse Mountain, desciende a Cabos Gemelos. Tras la promesa de Laboon puedes navegar al Grand Line por el sur.','From Reverse Mountain, descend to Twin Cape. After Laboon’s promise you can sail into the Grand Line from the south.'),L2('Este mar está vacío: no hay islas, enemigos ni misiones nuevas. La señal de regreso lleva a Cabos Gemelos.','This sea is empty: there are no islands, enemies or new quests. The return marker leads back to Twin Cape.')],()=>({m:'dawn',loc:RMC_EXIT.slice(),t:'Grand Line'})]);
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;

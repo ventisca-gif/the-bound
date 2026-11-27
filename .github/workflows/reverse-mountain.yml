@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   validate:
-    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'chatgpt/reverse-mountain-663'
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'chatgpt/grand-line-664'
     runs-on: ubuntu-latest
     timeout-minutes: 50
     steps:
@@ -36,22 +36,14 @@ jobs:
       - name: Validate channels and native game integration
         run: |
           node tests/reverse_mountain.js
-          python3 tests/play.py file://$PWD/dist/test.html /tmp/reverse-qa/cape.png 900 500 @tests/reverse_mountain.txt > /tmp/reverse-qa/cape.log 2>&1
-          cat /tmp/reverse-qa/cape.log
-          if grep -E 'PAGEERROR|Traceback|FAIL|error:' /tmp/reverse-qa/cape.log | grep -vE 'error: Client: (Game: PhotonPeer\[_onError\] - Connection error: Event|Error: 2001 Game peer error|Error: 2004 Game peer timeout)$'; then exit 1; fi
-          grep -q 'PASS canales completos' /tmp/reverse-qa/cape.log
+          python3 -u tests/grandline664/browser.py file://$PWD/dist/test.html | tee /tmp/reverse-qa/grandline.log
       - name: Regression suite and outfit fit
         if: ${{ !cancelled() && steps.build.conclusion == 'success' }}
         run: |
-          # Compare every regression input. Version/changelog/footer may change without changing gameplay.
-          if python3 tools/dev/reverse_inputs.py 04f669379ce2e2deda8f70304092dc226ff5c35c; then
-            echo 'Regression and 2043-outfit fit reused from successful steps of run 46075604260; gameplay and regression inputs identical.'
-          else
-            bash tools/dev/reg.sh /tmp/reverse-qa > /tmp/reverse-qa/regression.log 2>&1
-            cat /tmp/reverse-qa/regression.log
-            if grep -E 'PAGEERROR|Traceback|AVISO: envolturas nuevas' /tmp/reverse-qa/regression.log; then exit 1; fi
-            python3 tools/dev/fitcheck.py file://$PWD/dist/test.html /tmp/reverse-qa/fit --strict
-          fi
+          bash tools/dev/reg.sh /tmp/reverse-qa > /tmp/reverse-qa/regression.log 2>&1
+          cat /tmp/reverse-qa/regression.log
+          if grep -E 'PAGEERROR|Traceback|AVISO: envolturas nuevas' /tmp/reverse-qa/regression.log; then exit 1; fi
+          python3 tools/dev/fitcheck.py file://$PWD/dist/test.html /tmp/reverse-qa/fit --strict
       - name: Verify internal updater
         if: ${{ !cancelled() && steps.build.conclusion == 'success' }}
         run: |
@@ -81,7 +73,7 @@ jobs:
           from pathlib import Path
           m=json.loads(Path('update/version.json').read_text())
           h=Path('update/thebound.html').read_bytes();z=Path('update/thebound.html.gz').read_bytes()
-          assert m['ver']=='6.63' and m['build']==285
+          assert m['ver']=='6.64' and m['build']==286
           assert len(h)==m['size'] and hashlib.sha256(h).hexdigest()==m['sha256']
           assert len(z)==m['gzSize'] and hashlib.sha256(z).hexdigest()==m['gzSha256']
           assert gzip.decompress(z)==h
@@ -97,10 +89,12 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add update/thebound.html update/thebound.html.gz update/version.json
           git diff --cached --quiet && exit 0
-          git commit -m 'Package verified Reverse Mountain 6.63 update'
+          git commit -m 'Package verified Reverse Mountain and Grand Line 6.64 update'
           git push origin "HEAD:refs/heads/$TARGET_BRANCH"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: reverse-mountain-validation
-          path: /tmp/reverse-qa/
+          path: |
+            /tmp/reverse-qa/
+            tests/grandline664/out/

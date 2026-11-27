@@ -159,7 +159,7 @@ function mbGoDown() {
   const P = G.P; if (!mbCanGoDown()) return;
   transition(() => {
     const h = P.dawnHelm; if (h) delete h.deck;
-    P._mbTrip = { h, x: P.x, y: P.y, dir: P.dir }; P.inside = 'merry_bajo';
+    P._mbTrip = { h, x: P.x, y: P.y, dir: P.dir, m: G.map.id }; P.inside = 'merry_bajo';
     const M = makeMerryBajo(); setMap(M, 19 * 16 + 8, 5 * 16 + 8, 'down'); mbSpawnCrew(M);
     banner(MB_NAME, L2('Cocina · Comedor · Salita y bodega', 'Galley · Dining room · Lounge and hold'));
   });
@@ -167,7 +167,7 @@ function mbGoDown() {
 function mbGoUp() {
   const P = G.P, S = P._mbTrip; if (G.fading || P.dead) return;
   transition(() => {
-    P.inside = null; P._mbTrip = null; const M = makeDawn();
+    P.inside = null; P._mbTrip = null; const M = S && S.m === 'grand_line' ? makeGrandLine() : makeDawn();
     if (S && S.h) { P.dawnHelm = S.h; setMap(M, S.x, S.y, S.dir || 'down'); }
     else { const [x, y] = dawnPx(ORANGE_QUAY); P.dawnHelm = dawnHelm('skiff', { x, y }); setMap(M, x, y, 'down'); }
     markDirty(true);
