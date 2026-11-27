@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.54 · Top semanal de la Torre</div>
+  <div class="tfoot">v6.55 · Moda y pisos especiales</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11914,7 +11914,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.54', GAME_BUILD = 276;
+const GAME_VER = '6.55', GAME_BUILD = 277;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11922,6 +11922,25 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.55",
+ "b": 277,
+ "d": "2026-11-27",
+ "es": [
+  "🎨 Tinte de ropa: en el Armario puedes teñir el cosmético de cada ranura (8 colores, 5.000 de oro). 👔 Perchas: guarda hasta 3 conjuntos y póntelos de un toque.",
+  "💃 Desfile de moda los sábados (16:00-20:00) en las plazas: cada semana un color de tema; compites contra 3 modelos por oro y reputación.",
+  "Torre Infinita: pisos especiales 💰 tesoro, 🛒 mercader (cambia piedras por una Pluma de Fénix) y ⚠ trampa; y cada 100 pisos sale 🪞 Tu Reflejo, un enemigo con tu mismo aspecto.",
+  "🍲 Devuelve la visita a tus vecinos: después de que te visiten, te esperan para cenar junto a la plaza de cualquier ciudad (18:00-21:00).",
+  "💀 Al caer, un aviso dice qué te derrotó; Bitácora › Caídas guarda las últimas 10 con un consejo. ⚖ En el inventario se ve cuánto cambia tu ataque, defensa y vida si te pones cada pieza."
+ ],
+ "en": [
+  "🎨 Clothes dye: in the Wardrobe you can dye the cosmetic in each slot (8 colours, 5,000 gold). 👔 Hangers: save up to 3 outfits and wear them with one tap.",
+  "💃 Fashion runway on Saturdays (16:00-20:00) in the squares: a colour theme each week; compete against 3 models for gold and reputation.",
+  "Infinite Tower: special floors 💰 treasure, 🛒 merchant (trades stones for a Phoenix Feather) and ⚠ trap; and every 100 floors 🪞 Your Reflection appears, an enemy with your own look.",
+  "🍲 Return your neighbours' visit: after they visit you, they wait for you for dinner by the square of any city (18:00-21:00).",
+  "💀 When you fall, a notice says what defeated you; Logbook › Falls keeps the last 10 with a tip. ⚖ In the inventory you see how much your attack, defence and HP change if you wear each piece."
+ ]
+},
 {
  "v": "6.54",
  "b": 276,
@@ -60746,6 +60765,152 @@ if (typeof LUPA_CIU !== 'undefined') { LUPA_CIU.push(['fiestas653', '🎄 ' + L2
     L2('🍳 Concurso de cocina: los domingos de 10:00 a 18:00 la jueza espera junto a la plaza de cada ciudad. Presenta tu mejor plato de la mochila contra 3 cocineros: 1.º, 2.º o 3.º puesto dan oro y reputación. Una vez por semana.', '🍳 Cooking contest: on Sundays 10:00-18:00 the judge waits by each city\'s square. Present your best dish from the bag against 3 cooks: 1st, 2nd or 3rd place give gold and reputation. Once a week.'),
     L2('🐾 Con tu mascota a tu lado, al talar, minar, pescar o recoger a veces trae una unidad más. 📚 Bitácora › Códice: peces, flores y platos.', '🐾 With your pet by your side, chopping, mining, fishing or gathering sometimes brings one more. 📚 Logbook › Codex: fish, flowers and dishes.')], () => null]);
   const hoy = LUPA_CIU.find(s => s[0] === 'hoy'); if (hoy) { const f = hoy[2]; hoy[2] = () => { const out = f(); try { if (v653Navidad()) out.push('☕ ' + L2('Chocolatada navideña en Lima, Lima Norte, Trujillo y Cusco (9:00-20:00).', 'Christmas hot chocolate in Lima, North Lima, Trujillo and Cusco (9:00-20:00).')); if (v653AnoNuevo()) out.push('🍇 ' + L2('Las doce uvas en la plaza de España.', 'The twelve grapes in the square of Spain.')); if (v653Domingo()) out.push('🍳 ' + L2('Concurso de cocina en las plazas (10:00-18:00).', 'Cooking contest in the squares (10:00-18:00).')); } catch (e) { } return out; }; } }
+
+// 6.55 · Moda (ideas aprobadas por Sergio; no existían): 🎨 tinte de ropa, 👔 3 perchas con conjuntos guardados y
+// 💃 desfile de moda semanal en las ciudades.
+//  - Tinte: en el Armario, la prenda cosmética puesta en cada ranura se puede teñir (8 tonos + original) por 5.000 de
+//    oro. Se guarda en P.cosTint {ranura: grados} y gira el tono de su paleta (m y s) sin tocar la piel. Solo se ve
+//    en tu personaje (los demás jugadores ven el color original).
+//  - Perchas: guardan los cosméticos puestos (y sus tintes) en P.cosSets[0..2] y se ponen de un toque.
+//  - Desfile: sábados de 16:00 a 20:00 junto a la plaza de cada ciudad. Tema de la semana (un color); la jueza mira
+//    las prendas que llevas (con tinte incluido) y compites contra 3 modelos. Una vez por semana: oro y reputación.
+SAVEKEYS.push('cosTint', 'cosSets', 'v655');
+const TINT_HUES = [0, 30, 60, 120, 180, 220, 270, 320], TINT_COST = 5000, TINT_SLOTS = { body: 'top', legs: 'bot', feet: 'feet', head: 'head', back: 'back' };
+function tintRGB(c, deg) { const a = uA(c); if (!a) return c; let r = uR(c) / 255, g = uG(c) / 255, b = uB(c) / 255; const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2; let h = 0, s = 0;
+  if (mx !== mn) { const d = mx - mn; s = l > 0.5 ? d / (2 - mx - mn) : d / (mx + mn); h = mx === r ? (g - b) / d + (g < b ? 6 : 0) : mx === g ? (b - r) / d + 2 : (r - g) / d + 4; h /= 6; }
+  // los colores casi grises (negro, blanco) toman algo de color al teñirse
+  if (s < 0.12) s = 0.35; h = (h + deg / 360) % 1;
+  const q = l < 0.5 ? l * (1 + s) : l + s - l * s, p = 2 * l - q, f = t => { t = (t + 1) % 1; return t < 1 / 6 ? p + (q - p) * 6 * t : t < 0.5 ? q : t < 2 / 3 ? p + (q - p) * (2 / 3 - t) * 6 : p; };
+  return rgbU(Math.round(f(h + 1 / 3) * 255), Math.round(f(h) * 255), Math.round(f(h - 1 / 3) * 255), a); }
+const tintPal = (m, deg) => Array.isArray(m) || (m && m.length && typeof m[0] === 'number') ? Array.from(m).map(c => typeof c === 'number' ? tintRGB(c, deg) : c) : m;
+// el tinte solo se aplica mientras se dibuja el atlas del jugador (o la vista previa del Armario)
+let TINT_CUR = null;
+hookAround('playerAtlas', (next, P, ...a) => { const t = P && P.cosTint && Object.keys(P.cosTint).length ? P.cosTint : null; if (!t) return next(P, ...a); const o = TINT_CUR; TINT_CUR = t; try { return next(P, ...a); } finally { TINT_CUR = o; } });
+hookAfter('heroKey', k => TINT_CUR ? k + '|T' + JSON.stringify(TINT_CUR) : k);
+hookAfter('heroLook', L => { if (!L || !TINT_CUR) return; for (const slot in TINT_CUR) { const f = TINT_SLOTS[slot], deg = +TINT_CUR[slot]; if (!f || !deg || !L[f] || typeof L[f] !== 'object') continue;
+  const o = Object.assign({}, L[f]); if (o.m) o.m = tintPal(o.m, deg); if (o.s) o.s = tintPal(o.s, deg); L[f] = o; } });
+// si cambias la prenda de una ranura, su tinte se quita (cada tinte es para la prenda que lo pagó)
+function tintCheck() { const P = G.P; if (!P || !P.cosTint) return; P.cosTintId = P.cosTintId || {}; for (const s in P.cosTint) if (!P.cos || P.cos[s] !== P.cosTintId[s]) { delete P.cosTint[s]; delete P.cosTintId[s]; } }
+hookAfter('renderWardrobe', (r, B) => { try { const P = G.P; tintCheck(); if (typeof wdMode !== 'undefined' && wdMode !== 'cos') return; const R = B.querySelector('.wdR'); if (!R || R.querySelector('.tintbox')) return;
+  P.cosTint = P.cosTint || {}; P.cosSets = Array.isArray(P.cosSets) ? P.cosSets : [null, null, null]; const cur = P.cos && P.cos[wdSlot], deg = +(P.cosTint[wdSlot] || 0);
+  const sw = d => { const c = tintRGB(C('#c84a4a'), d); return `rgb(${uR(c)},${uG(c)},${uB(c)})`; };
+  const d = document.createElement('div'); d.className = 'tintbox';
+  d.innerHTML = `<h4>🎨 ${L2('Tinte', 'Dye')} <small>(${fmt(TINT_COST)} ${L2('oro', 'gold')})</small></h4>` + (cur ? `<div class="row wrap" style="gap:.3em"><button class="btn sm ${deg ? '' : 'gold'}" data-tint="0">${L2('Original', 'Original')}</button>${TINT_HUES.slice(1).map(h => `<button class="btn sm ${deg === h ? 'gold' : ''}" data-tint="${h}" title="${h}°"><i style="display:inline-block;width:1em;height:1em;border-radius:50%;background:${sw(h)};vertical-align:middle"></i></button>`).join('')}</div>` : `<p class="hint">${L2('Ponte un cosmético en esta ranura para poder teñirlo.', 'Wear a cosmetic in this slot to dye it.')}</p>`)
+    + `<h4>👔 ${L2('Perchas', 'Hangers')}</h4><div class="row wrap" style="gap:.3em">${[0, 1, 2].map(i => { const S = P.cosSets[i]; return `<span class="chip" style="display:inline-flex;gap:.3em;align-items:center">${i + 1}: ${S ? Object.keys(S.cos || {}).length + ' ' + L2('prendas', 'pieces') : L2('vacía', 'empty')} <button class="btn sm" data-cssv="${i}">💾</button>${S ? `<button class="btn sm gold" data-csld="${i}">👕</button>` : ''}</span>`; }).join('')}</div>`;
+  R.appendChild(d);
+  d.querySelectorAll('[data-tint]').forEach(b => b.onclick = () => { const h = +b.dataset.tint; if (h === deg) return; if (h && P.gold < TINT_COST) { toast(L2('No tienes oro suficiente para el tinte.', 'Not enough gold for the dye.'), 'warn'); return; }
+    if (h) { P.gold -= TINT_COST; P.cosTint[wdSlot] = h; P.cosTintId = P.cosTintId || {}; P.cosTintId[wdSlot] = cur; sfx('coin'); } else { delete P.cosTint[wdSlot]; } refreshLook(); markDirty(true); renderPanel(); });
+  d.querySelectorAll('[data-cssv]').forEach(b => b.onclick = () => { const i = +b.dataset.cssv; P.cosSets[i] = { cos: Object.assign({}, P.cos || {}), tint: Object.assign({}, P.cosTint || {}), tid: Object.assign({}, P.cosTintId || {}) }; toast('👔 ' + L2('Conjunto guardado en la percha ', 'Outfit saved on hanger ') + (i + 1), 'info'); markDirty(true); renderPanel(); });
+  d.querySelectorAll('[data-csld]').forEach(b => b.onclick = () => { const S = P.cosSets[+b.dataset.csld]; if (!S) return; const W = P.wardrobe || [], cos = {}; for (const s in S.cos) if (W.includes(S.cos[s]) && COSM[S.cos[s]]) cos[s] = S.cos[s];
+    P.cos = cos; P.cosTint = Object.assign({}, S.tint || {}); P.cosTintId = Object.assign({}, S.tid || {}); tintCheck(); refreshLook(); markDirty(true); sfx('ui'); renderPanel(); });
+} catch (e) { if (typeof errOnce === 'function') errOnce('tintUI', e); } });
+
+// ---------- 💃 desfile de moda semanal ----------
+NPCS.v655_moda = { n: L2('Jueza de moda', 'Fashion judge'), title: L2('Desfile de los sábados', 'Saturday runway'), look: LK({ g: 'f', hairStyle: 'long', hair: HAIRS.negro, main: pal(['#2a0a2a', '#4a1448', '#6a2468', '#8a3a8a', '#b05ab0']) }), lines: [L2('La moda es contar quién eres sin decir nada.', 'Fashion is saying who you are without a word.'), L2('Los sábados por la tarde, ¡a la pasarela!', 'Saturday afternoons, to the runway!')], quests: [] };
+const MODA_TEMAS = [['negro', L2('Todo de negro', 'All black'), (h, s, l) => l < 0.22], ['blanco', L2('Blanco y claro', 'White and light'), (h, s, l) => l > 0.72], ['verde', L2('Verde natural', 'Natural green'), (h, s, l) => s > 0.15 && h >= 70 && h < 170],
+  ['rojo', L2('Rojo pasión', 'Passion red'), (h, s, l) => s > 0.25 && (h < 18 || h >= 335)], ['azul', L2('Azul cielo y mar', 'Sky and sea blue'), (h, s, l) => s > 0.15 && h >= 185 && h < 255], ['calido', L2('Tonos cálidos (naranja y amarillo)', 'Warm tones (orange and yellow)'), (h, s, l) => s > 0.25 && h >= 18 && h < 70], ['morado', L2('Morado y rosa', 'Purple and pink'), (h, s, l) => s > 0.15 && h >= 255 && h < 335]];
+const modaTema = () => MODA_TEMAS[Math.floor(calDay() / 7) % MODA_TEMAS.length];
+const modaSab = () => calDay() % 7 === 5;
+function modaHSL(c) { const r = uR(c) / 255, g = uG(c) / 255, b = uB(c) / 255, mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2; let h = 0, s = 0; if (mx !== mn) { const d = mx - mn; s = l > 0.5 ? d / (2 - mx - mn) : d / (mx + mn); h = mx === r ? (g - b) / d + (g < b ? 6 : 0) : mx === g ? (b - r) / d + 2 : (r - g) / d + 4; h *= 60; } return [h, s, l]; }
+function modaScore() { const P = G.P, T = modaTema(); let L = null; const o = TINT_CUR; TINT_CUR = P.cosTint && Object.keys(P.cosTint).length ? P.cosTint : null; try { L = heroLook(P.cls, normApp(P.app), gearTiers(P), P.cos || {}, {}); } finally { TINT_CUR = o; }
+  let hit = 0, worn = 0; for (const slot of ['body', 'legs', 'feet', 'head', 'back']) { if (!(P.cos || {})[slot]) continue; worn++; const f = L && L[TINT_SLOTS[slot]], m = f && f.m; if (!m || typeof m[2] !== 'number') continue; const [h, s, l] = modaHSL(m[2]); if (T[2](h, s, l)) hit++; }
+  return Math.round((hit * 2 + worn * 0.6 + Object.keys(P.cosTint || {}).length * 0.3) * 10) / 10; }
+let v655T = 0;
+V33_TICKS.push(dt => { v655T -= dt || 0.016; if (v655T > 0) return; v655T = 1; try { const M = G.map; if (!M || !V74_CITY[M.id] || M.id === 'machupicchu') return; const a = v75Anchor(M); if (!a) return; const h = hourNow(); v75Temp(M, 'v655_moda', a.x - 40, a.y + 44, modaSab() && h >= 16 && h < 20, { wander: 0 }); } catch (e) { if (typeof errOnce === 'function') errOnce('v655t', e); } });
+DLG_HOOKS.push((npc, opts) => { try { if (!npc || npc.id !== 'v655_moda') return; const P = G.P, S = P.v655 = P.v655 || {}, wk = Math.floor(calDay() / 7), T = modaTema(); if (S.moda === wk) return;
+  opts.unshift({ label: '💃 ' + L2('Desfilar · tema: ', 'Walk the runway · theme: ') + T[1], cls: 'quest', icon: ['hanger'], fn: () => { if (S.moda === wk) return; const M = G.map, me = modaScore();
+    if (!Object.keys(P.cos || {}).length) { typeText(L2('Ponte algún cosmético en el Armario y vuelve: hoy el tema es «', 'Wear some cosmetics from the Wardrobe and come back: today\'s theme is «') + T[1] + '».'); return; }
+    S.moda = wk; const rivals = [0, 1, 2].map(() => Math.round((2 + Math.random() * 6) * 10) / 10), place = 1 + rivals.filter(r => r > me).length, gold = [0, 3000 + P.lv * 30, 1500 + P.lv * 15, 600 + P.lv * 6, 200][place];
+    P.gold += gold; if (V74_CITY[M.id]) v75Rep(M.id, place === 1 ? 3 : place === 2 ? 1 : 0); markDirty(true); setAnim(P, 'idle'); burst(P.x, P.y - 20, place === 1 ? 30 : 10, { sp: 60, up: 70, g: 40, life: 1, c: ['#ff9ad0', '#ffd040', '#ffffff'] }); if (place === 1) sfx('questdone');
+    typeText(L2('Tu puntuación: ', 'Your score: ') + me + L2(' · modelos: ', ' · models: ') + rivals.join(', ') + '. ' + (place === 1 ? L2('¡Ganaste la pasarela! ', 'You won the runway! ') : L2('Puesto ', 'Place ') + place + '. ') + '+' + fmt(gold) + L2(' de oro. Consejo: viste prendas del color del tema (el tinte también cuenta).', ' gold. Tip: wear pieces in the theme colour (dye counts too).')); } }); } catch (e) { } });
+if (typeof LUPA_CIU !== 'undefined') { LUPA_CIU.push(['moda655', '💃 ' + L2('Desfile de moda, tinte y perchas', 'Fashion runway, dye and hangers'), () => [
+    L2('💃 Desfile: los sábados de 16:00 a 20:00 la jueza de moda espera junto a la plaza de cada ciudad (menos Machu Picchu). Cada semana hay un tema de color; cuantas más prendas cosméticas del color del tema lleves, más puntos. Compites contra 3 modelos: oro y reputación, una vez por semana.', '💃 Runway: on Saturdays 16:00-20:00 the fashion judge waits by each city\'s square (except Machu Picchu). Each week has a colour theme; the more cosmetic pieces of that colour you wear, the more points. You compete against 3 models: gold and reputation, once a week.'),
+    L2('🎨 Tinte: Armario › Cosméticos, elige la ranura y un color (5.000 de oro). Si cambias de prenda, el tinte se quita. Solo lo ves tú. 👔 Perchas: guarda hasta 3 conjuntos y póntelos de un toque.', '🎨 Dye: Wardrobe › Cosmetics, pick the slot and a colour (5,000 gold). If you change the piece, the dye goes away. Only you see it. 👔 Hangers: save up to 3 outfits and wear them with one tap.'),
+    () => '🎯 ' + L2('Tema de esta semana: ', 'This week\'s theme: ') + modaTema()[1]].map(x => typeof x === 'function' ? x() : x), () => null]);
+  const hoy = LUPA_CIU.find(s => s[0] === 'hoy'); if (hoy) { const f = hoy[2]; hoy[2] = () => { const out = f(); try { if (modaSab()) out.push('💃 ' + L2('Desfile de moda en las plazas (16:00-20:00) · tema: ', 'Fashion runway in the squares (16:00-20:00) · theme: ') + modaTema()[1]); } catch (e) { } return out; }; } }
+
+// 6.55 · Torre Infinita: pisos especiales y el jefe Reflejo (ideas aprobadas por Sergio; no existían).
+//  - Pisos especiales (12 % de los pisos que no son de jefe, desde el 6; no en línea, para que todos vean lo mismo):
+//    💰 tesoro (sin enemigos: Piedras de Mejora), 🛒 tienda (el mercader de la torre cambia piedras por una Pluma de
+//    Fénix o una Piedra Superior) y ⚠ trampa (15 s esquivando zonas que caen del techo, sin enemigos).
+//  - 🪞 Cada 100 pisos, además del jefe, sale «Tu Reflejo»: un enemigo con tu mismo aspecto.
+const TI_SP = { tesoro: ['💰', L2('Piso del tesoro', 'Treasure floor')], tienda: ['🛒', L2('Piso del mercader', 'Merchant floor')], trampa: ['⚠', L2('Piso trampa: ¡esquiva 15 s!', 'Trap floor: dodge for 15 s!')] };
+function tiSpecial(f) { if (!TI || TI.mode === 'online' || f < 6 || f % TI_BOSS === 0) return null; const R = new RNG(SEED * 7 + f * 104729 + 3); if (R.f() >= 0.12) return null; return ['tesoro', 'tienda', 'trampa'][R.int(0, 2)]; }
+NPCS.ti_tendero = { n: L2('Mercader de la Torre', 'Tower Merchant'), title: L2('Solo acepta piedras', 'Only takes stones'), look: LK({ g: 'm', hair: HAIRS.gris || HAIRS.negro, main: pal(['#1a1030', '#2a1a4a', '#3e2a6a', '#5a408a', '#7a5aaa']) }), lines: [L2('Aquí arriba el oro no vale nada. Las piedras, sí.', 'Up here gold is worthless. Stones are not.')], quests: [] };
+const tiShopClear = () => { for (const e of G.ents) if (e.type === 'npc' && e.id === 'ti_tendero') e.remove = true; };
+hookBefore('tiEnterFloor', () => { tiShopClear(); if (TI) TI.trap = 0; });
+hookBefore('tiEnd', () => { tiShopClear(); if (TI) TI.trap = 0; });
+hookBefore('tiSpawn', (M, f) => { const k = tiSpecial(f); if (!k || !TI || TI.spawned) return; TI.spawned = true; TI.sp = k; const P = G.P, cx = (M.w >> 1) * 16 + 8, cy = ((M.h >> 1) - 1) * 16 + 8;
+  banner(TI_SP[k][0] + ' ' + TI_SP[k][1], L2('Piso ', 'Floor ') + f); sfx('quest');
+  if (k === 'tesoro') { const n = 2 + Math.floor(f / 40), n2 = f >= 30 && Math.random() < 0.5 ? 1 : 0; giveItem('piedra1', n, true); if (n2) giveItem('piedra2', n2, true); addFx({ type: 'ring', x: cx, y: cy, r: 40, dur: 0.8, col: '#ffd040' }); burst(cx, cy, 30, { sp: 70, up: 80, g: 50, life: 1, c: ['#ffd040', '#ffffff'] }); toast('💰 +' + n + ' ' + ITEMS.piedra1.n + (n2 ? ' · +1 ' + ITEMS.piedra2.n : ''), 'loot', 4); }
+  if (k === 'tienda') { const e = spawnNPC('ti_tendero', cx, cy - 34, TI_MAP, { face: 'down', wander: 0 }); if (e) { e.chat = L2('¡Pasa, pasa! Cambio piedras.', 'Come in! I trade stones.'); e.chatT = G.t + 1; } TI.shop = {}; }
+  if (k === 'trampa') { TI.trap = G.t + 15; TI.trapT = 0; }
+  return HOOK_SKIP; });
+// trampa: el piso no se supera hasta que pasan los 15 s
+hookBefore('tiCleared', () => { if (TI && TI.trap && G.t < TI.trap) return HOOK_SKIP; });
+V33_TICKS.push(dt => { if (typeof TI === 'undefined' || !TI || !TI.trap || !G.map || G.map.id !== TI_MAP) return; const P = G.P; if (G.t >= TI.trap) { TI.trap = 0; return; } TI.trapT = (TI.trapT || 0) - (dt || 0.016); if (TI.trapT > 0) return; TI.trapT = Math.max(0.35, 0.8 - (TI.floor || 1) * 0.002);
+  const n = 1 + Math.min(3, Math.floor((TI.floor || 1) / 60)); for (let i = 0; i < n; i++) { const x = P.x + (Math.random() - 0.5) * 90, y = P.y + (Math.random() - 0.5) * 70, r = 22 + Math.random() * 10; telegraph({ shape: 'circle', x, y, r, dur: 0.9 });
+    setTimeout(() => { const Q = G.P; if (!TI || !TI.trap || Q.dead || G.map.id !== TI_MAP) return; addFx({ type: 'ring', x, y, r, dur: 0.3, col: '#ff6a3a' }); if (Math.hypot(Q.x - x, Q.y - y) < r && !(Q.ifr > 0)) { const d = Math.round(Q.S.maxhp * 0.1); Q.hp -= d; Q.flash = 0.15; floatText(Q.x, Q.y - 34, d, '#ff6a3a'); if (Q.hp <= 0) playerDie(); } }, 900); } });
+// tienda
+DLG_HOOKS.push((npc, opts) => { try { if (!npc || npc.id !== 'ti_tendero' || !TI || !TI.shop) return; const S = TI.shop;
+  const deal = (key, label, cost, give) => { if (S[key]) return; opts.unshift({ label: label + ' · ' + cost + ' ' + ITEMS.piedra1.n, cls: 'quest', icon: ['stone', '#8ad0ff'], fn: () => { if (S[key]) return; if (countItem('piedra1') < cost) { typeText(L2('Te faltan piedras. Vuelve cuando tengas más.', 'You need more stones. Come back with more.')); return; } takeItem('piedra1', cost); S[key] = 1; give(); sfx('coin'); typeText(L2('¡Trato hecho!', 'Deal!')); markDirty(true); } }); };
+  deal('fenix', '🪶 ' + ITEMS.pluma_fenix.n, 12, () => giveItem('pluma_fenix', 1, true));
+  if (ITEMS.piedra2) deal('sup', '💎 ' + ITEMS.piedra2.n, 6, () => giveItem('piedra2', 1, true)); } catch (e) { } });
+// 🪞 Tu Reflejo cada 100 pisos
+const TI_REF = 'ti_reflejo';
+if (!Object.prototype.hasOwnProperty.call(MOBS, TI_REF)) Object.defineProperty(MOBS, TI_REF, { value: { n: L2('Tu Reflejo', 'Your Reflection'), art: ['hum', 'espadachin_portal'], reg: ['x'], lv: [1, 100000], hp: 30, atk: 1.6, def: 1.3, spd: 70, ai: 'aggro', fam: 'reflejo', drops: [] }, enumerable: false, configurable: true, writable: true });
+hookAfter('tiSpawn', (r, M, f) => { try { if (!TI || f % 100 !== 0 || TI.refF === f) return; TI.refF = f; const P = G.P, cx = (M.w >> 1) * 16 + 8, cy = ((M.h >> 1) - 1) * 16 + 8;
+  const m = spawnMob(TI_REF, tiLvOf(f), cx + 40, cy - 10, 0, null, false); if (!m) return; m.map = TI_MAP; m.ti = 1; m.state = 'chase'; m.aggroR = 999; m.name = L2('Tu Reflejo', 'Your Reflection'); m.gold = 0; m.xp = 0; m.elite = 1;
+  const nOn = TI.mode === 'online' ? tioCount() : 1; m.tioI = 900 + f; if (nOn > 1) m.hp = m.maxhp = Math.round(m.maxhp * (1 + 0.35 * (nOn - 1)));
+  try { m.atlas = playerAtlas(P); } catch (e) { } addFx({ type: 'ring', x: m.x, y: m.y, r: 30, dur: 0.8, col: '#c8e0ff' }); m.chat = L2('¿Te reconoces?', 'Do you recognise yourself?'); m.chatT = G.t; toast('🪞 ' + L2('¡Tu Reflejo ha salido del espejo!', 'Your Reflection stepped out of the mirror!'), 'warn', 4); } catch (e) { if (typeof errOnce === 'function') errOnce('tiRef', e); } });
+// los jefes nombran la novedad en la Lupa de la torre
+if (typeof GSIS !== 'undefined') { const g = GSIS.find(x => x[0] === 'n_torre_inf'); if (g) { const f0 = g[2]; g[2] = () => f0().concat([L2('Pisos especiales (no en línea): 💰 tesoro (piedras sin luchar), 🛒 mercader (cambia piedras por una Pluma de Fénix o una Piedra Superior) y ⚠ trampa (esquiva 15 s). Cada 100 pisos, además del jefe, sale 🪞 Tu Reflejo, con tu mismo aspecto.', 'Special floors (not online): 💰 treasure (stones without fighting), 🛒 merchant (trades stones for a Phoenix Feather or a Superior Stone) and ⚠ trap (dodge for 15 s). Every 100 floors, besides the boss, 🪞 Your Reflection appears, with your own look.')]); } }
+
+// 6.55 · Vida y calidad de vida (ideas aprobadas por Sergio; no existían):
+//  - 🍲 Devolver la visita: cuando un vecino te visita en casa, en los 3 días siguientes puedes encontrarlo de 18:00 a
+//    21:00 junto a la plaza de cualquier ciudad y cenar en su casa: vida y maná llenos, +8 de amistad, +2 de reputación
+//    y algo de comer para llevar.
+//  - 💀 Registro de caídas: al caer, un aviso dice qué te derrotó y cuánto te quitó el último golpe; las últimas 10
+//    caídas quedan en Bitácora › 💀 Caídas con un consejo.
+//  - ⚖ Comparar equipo: en el inventario, al tocar una pieza se ven las diferencias reales (ataque, defensa, vida,
+//    maná, crítico) frente a lo que llevas puesto, en verde o rojo.
+SAVEKEYS.push('v655v', 'deaths');
+function v655v() { const P = G.P; return P.v655v && typeof P.v655v === 'object' ? P.v655v : (P.v655v = {}); }
+// ---------- 🍲 devolver la visita ----------
+DLG_HOOKS.push((npc, opts) => { try { if (!npc || !npc.v74vis) return; const S = v655v(); if (!S.vb || S.vb.d !== calDay()) { S.vb = { id: npc.id, d: calDay() }; markDirty(); } } catch (e) { } });
+const v655Pend = () => { const S = G.P && v655v(); return S && S.vb && calDay() > S.vb.d && calDay() <= S.vb.d + 3 ? S.vb : null; };
+let v655vT = 0;
+V33_TICKS.push(dt => { v655vT -= dt || 0.016; if (v655vT > 0) return; v655vT = 1; try { const M = G.map; if (!M || !V74_CITY[M.id] || M.id === 'machupicchu') return; const a = v75Anchor(M); if (!a) return; const h = hourNow(), vb = v655Pend();
+  for (const id of ['v74_vecina', 'v74_vecino']) { const e = v75Temp(M, id, a.x + 56, a.y + 30, !!(vb && vb.id === id && h >= 18 && h < 21), { wander: 0 }); if (e && vb && vb.id === id) e.v655 = 1; } } catch (e) { if (typeof errOnce === 'function') errOnce('v655v', e); } });
+DLG_HOOKS.push((npc, opts) => { try { const vb = v655Pend(); if (!npc || !vb || npc.id !== vb.id || npc.v74vis || G.map.home) return;
+  opts.unshift({ label: '🍲 ' + L2('Cenar en su casa', 'Have dinner at their place'), cls: 'quest', icon: ['food', 4], fn: () => { const S = v655v(), P = G.P; if (!S.vb || S.vb.id !== npc.id) return; S.vb = null;
+    P.hp = P.S.maxhp; if (P.S.maxmp) P.mp = P.S.maxmp; if (typeof frOf === 'function') { const f = frOf(npc.id); f.p = Math.min(100, (f.p || 0) + 8); } if (V74_CITY[G.map.id]) v75Rep(G.map.id, 2);
+    const g = pick((typeof V74_GIFT !== 'undefined' ? V74_GIFT : [['pan', 2]]).filter(x => ITEMS[x[0]])); if (g) giveItem(g[0], g[1]); sfx('quest'); burst(P.x, P.y - 20, 20, { sp: 50, up: 60, g: 40, life: 1, c: ['#ffd0a0', '#ffffff'] });
+    typeText(L2('¡Qué alegría que vinieras! Siéntate, que la sopa está calientita. Llévate esto para tu familia.', 'So glad you came! Sit down, the soup is hot. Take this for your family.')); markDirty(true); uiDirty.hud = true; } }); } catch (e) { } });
+if (typeof LUPA_CIU !== 'undefined') { LUPA_CIU.push(['visita655', '🍲 ' + L2('Devolver la visita', 'Return the visit'), () => [L2('Cuando la vecina Marta o el vecino Tomás te visitan en casa, en los 3 días siguientes te esperan de 18:00 a 21:00 junto a la plaza de cualquier ciudad. Habla con ellos y cena en su casa: vida y maná llenos, +8 de amistad, +2 de reputación y comida para llevar.', 'When neighbour Marta or Tomás visits you at home, for the next 3 days they wait for you 18:00-21:00 by the square of any city. Talk to them and have dinner at their place: full HP and mana, +8 friendship, +2 reputation and food to take home.'), (() => { const vb = G.P && v655Pend(); return vb ? '⏳ ' + L2('Tienes una visita pendiente: ', 'You have a pending visit: ') + (NPCS[vb.id] ? NPCS[vb.id].n : '?') : L2('Ahora no tienes visitas pendientes.', 'No pending visits right now.'); })()], () => null]);
+  const hoy = LUPA_CIU.find(s => s[0] === 'hoy'); if (hoy) { const f = hoy[2]; hoy[2] = () => { const out = f(); try { const vb = v655Pend(); if (vb) out.push('🍲 ' + (NPCS[vb.id] ? NPCS[vb.id].n : '') + L2(' te espera para cenar (18:00-21:00, junto a la plaza de cualquier ciudad).', ' is waiting for you for dinner (18:00-21:00, by the square of any city).')); } catch (e) { } return out; }; } }
+
+// ---------- 💀 registro de caídas ----------
+let V655_HIT = null;
+hookAround('hurtPlayer', (next, base, src, ...a) => { const P = G.P, h0 = P ? P.hp : 0; const r = next(base, src, ...a); try { const d = h0 - P.hp; if (d > 0) { const m = (src && src.name) ? src : (typeof CUR_MOB !== 'undefined' && CUR_MOB) || null; V655_HIT = { n: (m && m.name) || (src && src.n) || L2('un ataque', 'an attack'), lv: m && m.lv, boss: !!(m && m.boss), d: Math.round(d), t: G.t }; } } catch (e) { } return r; });
+hookBefore('playerDie', () => { try { const P = G.P; if (!P || P.dead || P.downed) return; const H = V655_HIT && G.t - V655_HIT.t < 6 ? V655_HIT : null, n = H ? H.n : L2('algo que no se vio venir', 'something you didn\'t see coming');
+  P.deaths = Array.isArray(P.deaths) ? P.deaths : []; P.deaths.unshift({ n: cleanStr(n, 40), lv: H && H.lv || 0, b: H && H.boss ? 1 : 0, d: H ? H.d : 0, m: (G.map && (G.map.name || G.map.id)) || '', pl: P.lv, t: Date.now() }); P.deaths.length = Math.min(P.deaths.length, 10);
+  toast('💀 ' + L2('Te derrotó: ', 'Defeated by: ') + n + (H ? ' · ' + L2('último golpe ', 'last hit ') + fmt(H.d) : ''), 'warn', 5); markDirty(); } catch (e) { } });
+function v655Tip(x) { if (x.b) return L2('Es un jefe: aléjate de las zonas rojas y lleva pociones.', 'It\'s a boss: stay out of red zones and bring potions.'); if (x.lv && x.lv > x.pl + 4) return L2('Era de más nivel que tú: sube de nivel o mejora tu equipo.', 'It was higher level than you: level up or improve your gear.'); if (x.d > 0) return L2('Mejora tu defensa (armadura, piedras de mejora) o esquiva con el corredor.', 'Improve your defence (armour, upgrade stones) or dodge with the runner.'); return L2('Revisa tu equipo en la herrería.', 'Check your gear at the smithy.'); }
+if (typeof BIT_TABS !== 'undefined') { BIT_TABS.push(['caidas', '💀', L2('Caídas', 'Falls')]);
+  BIT_RENDER.caidas = () => { const D = (G.P && G.P.deaths) || []; if (!D.length) return `<p class="hint">${L2('No has caído desde la versión 6.55. ¡Sigue así!', 'You haven\'t fallen since version 6.55. Keep it up!')}</p>`;
+    return `<p class="hint">${L2('Tus últimas 10 caídas: qué te derrotó y un consejo.', 'Your last 10 falls: what defeated you and a tip.')}</p><div class="slist">${D.map(x => { const dt = new Date(x.t); return `<div class="srow"><div class="sn"><b>💀 ${esc(x.n)}${x.lv ? ' · ' + L2('Nv. ', 'Lv. ') + x.lv : ''}</b><small>${dt.toLocaleDateString()} ${String(dt.getHours()).padStart(2, '0')}:${String(dt.getMinutes()).padStart(2, '0')} · ${esc(String(x.m))} · ${L2('tú: Nv. ', 'you: Lv. ')}${x.pl}${x.d ? ' · ' + L2('último golpe ', 'last hit ') + fmt(x.d) : ''}</small><small class="hint">💡 ${esc(v655Tip(x))}</small></div></div>`; }).join('')}</div>`; }; }
+
+// ---------- ⚖ comparar equipo ----------
+const V655_CMP = new Map();
+function v655Cmp(s, it) { const P = G.P, slot = it.slot; if (!slot || !(slot in P.equip)) return null; const key = s.id + ':' + (s.up || 0) + ':' + (s.q2 || '') + '|' + JSON.stringify(P.equip[slot] || null) + '|' + P.lv; if (V655_CMP.has(key)) return V655_CMP.get(key);
+  const keep = { hp: P.hp, mp: P.mp, eq: P.equip[slot], S: P.S }; let a = null, b = null;
+  try { b = Object.assign({}, P.S); P.equip[slot] = Object.assign({}, s); calcStats(P); a = Object.assign({}, P.S); } catch (e) { a = null; } finally { P.equip[slot] = keep.eq; try { calcStats(P); } catch (e) { } P.hp = Math.min(keep.hp, P.S.maxhp); P.mp = Math.min(keep.mp, P.S.maxmp || keep.mp); }
+  const out = a && b ? [['atk', L2('Ataque', 'Attack')], ['def', L2('Defensa', 'Defence')], ['maxhp', L2('Vida', 'HP')], ['maxmp', L2('Maná', 'Mana')], ['crit', L2('Crítico', 'Crit')]].map(([k, n]) => [n, Math.round(((+a[k] || 0) - (+b[k] || 0)) * 10) / 10]).filter(x => x[1]) : null;
+  if (V655_CMP.size > 60) V655_CMP.clear(); V655_CMP.set(key, out); return out; }
+hookAfter('renderInv', (r, B) => { try { const P = G.P, s = P.inv[invSel], it = s && ITEMS[s.id]; if (!it || !it.slot || (it.t !== 'weapon' && it.t !== 'armor' && it.t !== 'acc')) return; const root = B || document, box = root.querySelector('.invR .stats'); if (!box || root.querySelector('.v655cmp')) return;
+  const D = v655Cmp(s, it); if (!D) return; const html = D.length ? D.map(([n, v]) => `<span style="color:${v > 0 ? '#8aff8a' : '#ff7a7a'}">${v > 0 ? '▲ +' : '▼ '}${fmt(v)} ${n}</span>`).join(' · ') : `<span class="hint">${L2('Igual que lo que llevas', 'Same as what you wear')}</span>`;
+  box.insertAdjacentHTML('afterend', `<div class="v655cmp" style="font-size:.86em;margin:.2em 0">⚖ ${L2('Si te lo pones', 'If you wear it')}: ${html}</div>`); } catch (e) { if (typeof errOnce === 'function') errOnce('v655cmp', e); } });
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;

@@ -1,18 +1,26 @@
 {
- "build": 276,
- "ver": "6.54",
+ "build": 277,
+ "ver": "6.55",
  "date": "2026-11-27",
  "file": "thebound.html",
- "size": 39549804,
- "sha256": "7e473db05221d4c3de59dc4e7f733148daeb1e1ee6270811bf79498bb55e0b10",
+ "size": 39579223,
+ "sha256": "4bac01acb77169e65d4eafbd3caf105447ac85ebc050b1607de8773dca71e7f2",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "📅 Reto de la semana de la Torre Infinita con top en línea: la sala muestra los 5 mejores de la semana."
+   "🎨 Tinte de ropa: en el Armario puedes teñir el cosmético de cada ranura (8 colores, 5.000 de oro). 👔 Perchas: guarda hasta 3 conjuntos y póntelos de un toque.",
+   "💃 Desfile de moda los sábados (16:00-20:00) en las plazas: cada semana un color de tema; compites contra 3 modelos por oro y reputación.",
+   "Torre Infinita: pisos especiales 💰 tesoro, 🛒 mercader (cambia piedras por una Pluma de Fénix) y ⚠ trampa; y cada 100 pisos sale 🪞 Tu Reflejo, un enemigo con tu mismo aspecto.",
+   "🍲 Devuelve la visita a tus vecinos: después de que te visiten, te esperan para cenar junto a la plaza de cualquier ciudad (18:00-21:00).",
+   "💀 Al caer, un aviso dice qué te derrotó; Bitácora › Caídas guarda las últimas 10 con un consejo. ⚖ En el inventario se ve cuánto cambia tu ataque, defensa y vida si te pones cada pieza."
   ],
   "en": [
-   "📅 Infinite Tower weekly challenge with an online leaderboard: the hall shows the week's top 5."
+   "🎨 Clothes dye: in the Wardrobe you can dye the cosmetic in each slot (8 colours, 5,000 gold). 👔 Hangers: save up to 3 outfits and wear them with one tap.",
+   "💃 Fashion runway on Saturdays (16:00-20:00) in the squares: a colour theme each week; compete against 3 models for gold and reputation.",
+   "Infinite Tower: special floors 💰 treasure, 🛒 merchant (trades stones for a Phoenix Feather) and ⚠ trap; and every 100 floors 🪞 Your Reflection appears, an enemy with your own look.",
+   "🍲 Return your neighbours' visit: after they visit you, they wait for you for dinner by the square of any city (18:00-21:00).",
+   "💀 When you fall, a notice says what defeated you; Logbook › Falls keeps the last 10 with a tip. ⚖ In the inventory you see how much your attack, defence and HP change if you wear each piece."
   ]
  }
 }

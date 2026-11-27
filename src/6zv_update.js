@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.54', GAME_BUILD = 276;
+const GAME_VER = '6.55', GAME_BUILD = 277;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,25 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.55",
+ "b": 277,
+ "d": "2026-11-27",
+ "es": [
+  "🎨 Tinte de ropa: en el Armario puedes teñir el cosmético de cada ranura (8 colores, 5.000 de oro). 👔 Perchas: guarda hasta 3 conjuntos y póntelos de un toque.",
+  "💃 Desfile de moda los sábados (16:00-20:00) en las plazas: cada semana un color de tema; compites contra 3 modelos por oro y reputación.",
+  "Torre Infinita: pisos especiales 💰 tesoro, 🛒 mercader (cambia piedras por una Pluma de Fénix) y ⚠ trampa; y cada 100 pisos sale 🪞 Tu Reflejo, un enemigo con tu mismo aspecto.",
+  "🍲 Devuelve la visita a tus vecinos: después de que te visiten, te esperan para cenar junto a la plaza de cualquier ciudad (18:00-21:00).",
+  "💀 Al caer, un aviso dice qué te derrotó; Bitácora › Caídas guarda las últimas 10 con un consejo. ⚖ En el inventario se ve cuánto cambia tu ataque, defensa y vida si te pones cada pieza."
+ ],
+ "en": [
+  "🎨 Clothes dye: in the Wardrobe you can dye the cosmetic in each slot (8 colours, 5,000 gold). 👔 Hangers: save up to 3 outfits and wear them with one tap.",
+  "💃 Fashion runway on Saturdays (16:00-20:00) in the squares: a colour theme each week; compete against 3 models for gold and reputation.",
+  "Infinite Tower: special floors 💰 treasure, 🛒 merchant (trades stones for a Phoenix Feather) and ⚠ trap; and every 100 floors 🪞 Your Reflection appears, an enemy with your own look.",
+  "🍲 Return your neighbours' visit: after they visit you, they wait for you for dinner by the square of any city (18:00-21:00).",
+  "💀 When you fall, a notice says what defeated you; Logbook › Falls keeps the last 10 with a tip. ⚖ In the inventory you see how much your attack, defence and HP change if you wear each piece."
+ ]
+},
 {
  "v": "6.54",
  "b": 276,
