@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.63', GAME_BUILD = 285;
+const GAME_VER = '6.64', GAME_BUILD = 286;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.64",
+ "b": 286,
+ "d": "2026-11-27",
+ "es": [
+  "Reverse Mountain y Cabos Gemelos con el dibujo de la propuesta original: roca rojiza, espuma, corrientes, faros, casa, palmeras y Laboon. Se mantienen tu personaje y el Going Merry originales.",
+  "Nuevo mapa marítimo Grand Line, independiente y por ahora vacío: solo mar navegable y regreso a Cabos Gemelos. No se añade la primera isla.",
+  "Desembarco en ambos faros, recorrido de ida y vuelta por la montaña y guardado de ubicación y barco entre ambos mares. Las partidas de la 6.63 se recolocan en el nuevo muelle sin perder progreso."
+ ],
+ "en": [
+  "Reverse Mountain and Twin Cape use the original proposal artwork: red rock, foam, currents, lighthouses, cottage, palms and Laboon. Your original character and Going Merry remain.",
+  "New independent Grand Line sea map, empty for now: only navigable ocean and a return route to Twin Cape. No first island is added.",
+  "Land at either lighthouse, travel both ways through the mountain and save your location and ship across the seas. Version 6.63 saves move to the new pier without losing progress."
+ ]
+},
 {
  "v": "6.63",
  "b": 285,
