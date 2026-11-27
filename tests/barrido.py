@@ -28,7 +28,7 @@ with sync_playwright() as p:
           // Lupa › Sistemas: cada ficha
           if (typeof GSIS !== 'undefined') for (const g of GSIS) { T('lupa ' + g[0], () => { const a = g[2] && g[2](); if (g[3]) g[3](); return a; }); out.lupa++; }
           // todos los mapas del mapa del mundo
-          for (const D of MAPW_LIST) { if (!D.mk && D.id !== 'world') continue; let M = null; T('map ' + D.id + ' mk', () => { M = D.id === 'world' ? G.world : D.mk(); }); if (!M) continue;
+          for (const D of MAPW_LIST) { if (!D.mk && D.id !== 'world') continue; let M = null; T('map ' + D.id + ' mk', () => { M = D.id === 'world' ? G.world : D.mk(); }); if (!M || typeof M.I !== 'function' || !M.ter) continue; // Perú/México/España son la imagen para elegir ciudad, no mapas jugables
             T('map ' + D.id + ' set', () => { const c = (M.camps && M.camps[0]) ? [M.camps[0].x * 16 + 8, M.camps[0].y * 16 + 8] : [(M.w >> 1) * 16 + 8, (M.h >> 1) * 16 + 8]; setMap(M, c[0], c[1], 'down'); });
             await w(1800); ca(); out.maps.push(D.id + ':' + G.ents.filter(e => e.map === M.id).length); }
           clearInterval(god); out.errOnce = typeof ERR_SEEN !== 'undefined' ? [...ERR_SEEN].slice(0, 30) : []; return out; })(%d)""" % lv)

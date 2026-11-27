@@ -38,7 +38,7 @@ const AIH_SKIP = new Set(['espiritual', 'submarino', 'nerea', 'jardin_sonrisa'])
 const AIH_ATL = new Map(); let AIH_MAP = null, AIH_LIST = [], AIH_TK = 0, AIH_PF = { x: 0, y: 0, t: -99 };
 const aihHash = s => { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };
 // ¿hay cazadores en este mapa? cuántos
-function aihCount(M) { if (!M || !M.id || AIH_SKIP.has(M.id) || /^dawn|^mar_|^isla_|_dawn$/.test(M.id) || M.sea || M.sub || M.ti || M.tower || M.cave || (typeof CAVES !== 'undefined' && CAVES[M.id]) || (typeof HOUSES !== 'undefined' && HOUSES[M.id]) || M.home) return 0;
+function aihCount(M) { if (!M || !M.id || typeof M.I !== 'function' || !M.ter || !M.solidO || AIH_SKIP.has(M.id) || /^dawn|^mar_|^isla_|_dawn$/.test(M.id) || M.sea || M.sub || M.ti || M.tower || M.cave || (typeof CAVES !== 'undefined' && CAVES[M.id]) || (typeof HOUSES !== 'undefined' && HOUSES[M.id]) || M.home) return 0;
   const listed = typeof MAPW_LIST !== 'undefined' && MAPW_LIST.some(w => w.id === M.id), city = typeof V74_CITY !== 'undefined' && V74_CITY[M.id];
   if (!listed && !M.isWorld && !city) return 0; let n = M.id === 'world' ? 18 : city ? (V74_CITY[M.id].c === 'pe' ? 8 : 10) : 15; if (typeof OPT !== 'undefined' && OPT.on) n = Math.ceil(n / 2); return n; }
 function aihTier(lv) { let t = 1; for (let k = 1; TIER[k]; k++) if (TIER[k].lv <= lv) t = k; return t; }
