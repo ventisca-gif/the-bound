@@ -18,3 +18,6 @@ js ($('#tiPing').click(), $('#tiPingM [data-tp="1"]').click(), [G.P.chat])
 js (()=>{ const S=tiSave(); TI.floor=25; TI.cleared=false; tiCleared(); return [S.top, countItem('pluma_fenix'), bitReady().map(a=>a[0])]; })()
 js (bitClaim('a_ti_25'), [TITLES.some(t=>t[0]==='t_ti_promesa'), !!G.P.bit.got.a_ti_25])
 js window._errs
+js (closeModal(), tiEnd && TI && tiEnd('left'), 1)
+wait 2500
+js (closeModal(), tiOpen(), [!!$('#tiWkTop'), $('#tiWkTop') && $('#tiWkTop').textContent])
