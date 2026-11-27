@@ -1,0 +1,44 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], setInterval(()=>{ if(!$('#modal').hidden && /Bienvenido|Welcome/.test($('#mbody').textContent)) { const b=$('#dlOk'); if (b) b.click(); else closeModal(); } }, 150), window.addEventListener('error', e=>window._errs.push(e.message)), (()=>{ const ow=errOnce; errOnce=function(t,e){ window._errs.push(t+': '+(e&&e.message||e)); return ow.apply(this,arguments); }; })(), G.P.lv=300, calcStats(G.P), G.P.gold=500000, G.P.ifr=1e9, 1)
+wait 2000
+js (()=>{ const e=G.ents.find(q=>q.id==='ae_taquilla'); return !!e })()
+js (goBrasil(), 1)
+wait 2000
+js ['brasil', G.map.id, G.P.inside, G.ents.filter(e=>e.map==='brasil'&&/^br_\d+$/.test(e.id)).length, (brZoneAt(G.P.x,G.P.y)||{}).k]
+js (()=>{ const e=G.ents.find(q=>q.id==='br_vend_acai'&&q.map==='brasil'); openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/🛒/.test(b.textContent)); const g0=G.P.gold; b.click(); const r=[g0-G.P.gold, countItem('br_acai')+countItem('br_coco')]; closeDialog(); return r })()
+js (()=>{ const e=G.ents.find(q=>q.id==='br_tele'&&q.map==='brasil'); G.P.x=e.x; G.P.y=e.y+20; openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/🚡/.test(b.textContent)); b.click(); return ACT.k })()
+wait 8000
+js ['teleferico', ACT.k, Math.round(G.P.x/16), Math.round(G.P.y/16), brS().pao]
+shot
+js (()=>{ const e=G.ents.find(q=>q.id==='br_tele2'&&q.map==='brasil'); openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/🚡/.test(b.textContent)); b.click(); return ACT.k })()
+wait 8000
+js ['bajada', ACT.k, Math.round(G.P.y/16)]
+js (()=>{ const e=G.ents.find(q=>q.id==='br_barquero'&&q.map==='brasil'); G.P.x=e.x; G.P.y=e.y+10; openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/🚤/.test(b.textContent)); b.click(); return ACT.k })()
+wait 800
+js (()=>{ ACT.x=29*16; ACT.y=(BRZ.igu.r0+1)*16; ACT.vx=0; ACT.vy=0; window._bt=setInterval(()=>{ if(ACT.k==='brbote'&&!ACT.done){ ACT.y=(BRZ.igu.r0+1)*16; ACT.vy=0; } },50); return 1 })()
+wait 3800
+shot
+js (()=>{ clearInterval(window._bt); return [ACT.k, ACT.done] })()
+js (()=>{ ACT.x=BRZ.igu.dock[0]*16; ACT.y=BRZ.igu.dock[1]*16; ACT.vx=0; ACT.vy=0; return 1 })()
+wait 600
+js ['bote', ACT.k, brS().boteD===calDay(), brS().bote>0]
+js (()=>{ const e=G.ents.find(q=>q.id==='br_ceramista'&&q.map==='brasil'); G.P.x=e.x; G.P.y=e.y+10; openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/🧩/.test(b.textContent)); b.click(); return [ACT.k, ACT.tiles.length, ACT.slots.length] })()
+js (()=>{ const t=ACT.tiles[0]; G.P.x=t.x; G.P.y=t.y; return 1 })()
+wait 300
+js (()=>{ const wrong=ACT.slots.find(s=>s.c!==ACT.hold.c); G.P.x=wrong.x; G.P.y=wrong.y; return !!ACT.hold })()
+wait 300
+js ['no encaja', ACT.n, !!ACT.hold]
+js (()=>{ window._mos=setInterval(()=>{ if(ACT.k!=='brmos') return; if(!ACT.hold){ const t=ACT.tiles.find(t=>!t.got); if(t){ G.P.x=t.x; G.P.y=t.y; } } else { const s=ACT.slots.find(s=>!s.ok&&s.c===ACT.hold.c); if(s){ G.P.x=s.x; G.P.y=s.y; } } },120); return 1 })()
+wait 5000
+js (clearInterval(window._mos), ['mosaico', ACT.k, brS().mosD===calDay()])
+js (()=>{ G.P.x=BRZ.cris.stat[0]*16+8; G.P.y=(BRZ.cris.stat[1]+5)*16; return 1 })()
+wait 3500
+shot
+js ['camara cristo', Math.round(BR_CAM)]
+js (openPanel('map'), 1)
+wait 400
+js ['puntos', otherPOI(G.map).filter(q=>q.c==='br').length, MAPW_LIST.some(m=>m.id==='brasil'), LUPA_CIU.some(l=>l[0]==='brasil662')]
+js (closePanel(), (()=>{ const e=G.ents.find(q=>q.id==='br_taquilla'&&q.map==='brasil'); openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/Albor/.test(b.textContent)); b.click(); return 1 })())
+wait 9000
+js ['vuelta', G.map.id, G.P.inside]
+js window._errs

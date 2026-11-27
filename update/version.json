@@ -1,27 +1,25 @@
 {
- "build": 283,
- "ver": "6.61",
+ "build": 284,
+ "ver": "6.62",
  "date": "2026-11-27",
  "file": "thebound.html",
- "size": 36043533,
- "sha256": "72d6b1808e03970999db48458297be36ac54353ba56db48e294f7e460e355b75",
+ "size": 36092141,
+ "sha256": "a5aa240e31317143dac3e5ae698b8a7676758fbb051456347434a45d53845458",
  "minApk": 24,
  "gz": "thebound.html.gz",
- "gzSize": 21932158,
- "gzSha256": "4274143628158d359950782967e232462c416dfdff68ccc87afac833c9cf6e9d",
+ "gzSize": 21948873,
+ "gzSha256": "aa824702aa2f6fa93485c240ea589bf7760839264ac9a3956d7cec922a2fe055",
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🏮 Mercado nocturno: ya no se compra desde el diálogo. Cinco pilluelos roban farolillos y huyen de ti entre los puestos; si los persigues mucho se cansan. Acorrálalos y atrápalos.",
-   "🛷 Trineo sobre el lago helado (ya no es una carrera cuesta abajo): elige carril, ⚔ para correr y empujar, suéltalo en la línea azul y barre el hielo con ⚔ para dejarlo en la diana. 3 trineos que chocan entre sí.",
-   "🌠 Con 5 fragmentos estelares, el astrónomo abre una lluvia de estrellas: botan y ruedan al caer; atrapa todas las que puedas. 🛡 En la defensa del pueblo, ⚔ junto al portón lo repara entre golpe y golpe.",
-   "💌 Se quitó la cápsula del tiempo: si enterraste oro, se te devuelve con el +50 % al entrar."
+   "🇧🇷 ¡Brasil! Avión desde Albor, Lima, México o España (2.500 de oro). Río de Janeiro: Copacabana con edificios frente al mar, el calçadão de ondas y la playa llena de sombrillas; el Cristo Redentor en lo alto del Corcovado (la cámara sube para verlo entero); el morro con casas de ladrillo y tanques azules; la Escalera Selarón y los arcos de Lapa; la Lagoa con el hipódromo.",
+   "🚡 Teleférico al Pan de Azúcar. 🌈 Cataratas del Iguazú con pasarelas sobre el río, niebla y arcoíris; 🚤 pilota el bote contra la corriente hasta la niebla de la cascada y vuelve. 🧩 Devuelve los azulejos caídos a los escalones de su color en la Selarón.",
+   "🌿 Pasto tropical nuevo, más verde y con florecitas. Comida: feijoada, pan de queso, acaí, agua de coco, coxinha y brigadeiro. Todo en Lupa › Ciudades y vida y en el Mapa."
   ],
   "en": [
-   "🏮 Night market: no more buying from the dialog. Five rascals steal lanterns and run from you between the stalls; if you chase them long they get tired. Corner them and catch them.",
-   "🛷 Sled on the frozen lake (no longer a downhill race): pick a lane, ⚔ to run and push, let go at the blue line and sweep the ice with ⚔ to stop it on the target. 3 sleds that knock each other.",
-   "🌠 With 5 star fragments, the astronomer opens a meteor shower: the stars bounce and roll when they land; catch as many as you can. 🛡 In the village defence, ⚔ next to the gate repairs it between hits.",
-   "💌 The time capsule was removed: if you buried gold, you get it back with the +50% when you log in."
+   "🇧🇷 Brazil! Plane from Albor, Lima, Mexico or Spain (2,500 gold). Rio de Janeiro: Copacabana with seafront buildings, the wave calçadão and a beach full of umbrellas; Christ the Redeemer on top of Corcovado (the camera rises to see it whole); the morro with brick houses and blue tanks; the Selarón Steps and the Lapa arches; the Lagoa with the racecourse.",
+   "🚡 Cable car to the Sugarloaf. 🌈 Iguazu Falls with walkways over the river, mist and rainbow; 🚤 pilot the boat against the current to the falls' mist and back. 🧩 Put the fallen tiles back on the steps of their colour at the Selarón.",
+   "🌿 New tropical grass, greener and with little flowers. Food: feijoada, cheese bread, açaí, coconut water, coxinha and brigadeiro. All in Magnifier › Cities and life and on the Map."
   ]
  }
 }
