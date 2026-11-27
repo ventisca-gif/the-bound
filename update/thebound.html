@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.48 · Sellos de los jefes</div>
+  <div class="tfoot">v6.49 · Regalos de vecinos arreglados</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -5251,9 +5251,12 @@ function openDialog(npc) {
 function closeDialog() { if ($('#dialog').hidden) return; $('#dialog').hidden = true; dlg = null; G.paused = !$('#panel').hidden || !$('#modal').hidden; }
 let typeTimer = null;
 function typeText(s, cb) { const el = $('#dmsg'); clearInterval(typeTimer); let i = 0; el.textContent = ''; const full = s; el.onclick = () => { clearInterval(typeTimer); el.textContent = full; cb && cb(); el.onclick = null; }; typeTimer = setInterval(() => { i += 2; el.textContent = full.slice(0, i); if (i >= full.length) { clearInterval(typeTimer); el.onclick = null; cb && cb(); } }, 18); }
-function setOpts(opts) { $('#dopts').innerHTML = opts.map((o, i) => `<button class="dopt ${o.cls || ''}" data-i="${i}">${o.icon ? iconHTML(o.icon, 18) : ''}<span>${o.label}</span></button>`).join(''); $$('#dopts .dopt').forEach(b => b.onclick = () => { sfx('ui'); opts[+b.dataset.i].fn(); }); }
+// 6.49: tras pulsar una opcion del menu principal se vuelve a armar la lista (sin tocar el texto),
+// asi desaparecen las opciones de una sola vez (regalos, recompensas) y no se pueden repetir.
+let dlgOptGen = 0, dlgMenuGen = -1;
+function setOpts(opts) { const gen = ++dlgOptGen; $('#dopts').innerHTML = opts.map((o, i) => `<button class="dopt ${o.cls || ''}" data-i="${i}">${o.icon ? iconHTML(o.icon, 18) : ''}<span>${o.label}</span></button>`).join(''); $$('#dopts .dopt').forEach(b => b.onclick = () => { if (gen !== dlgOptGen) return; sfx('ui'); const d0 = dlg, o = opts[+b.dataset.i]; if (!o || typeof o.fn !== 'function') return; o.fn(); try { if (gen === dlgOptGen && dlgMenuGen === gen && dlg && dlg === d0 && !$('#dialog').hidden) dialogMenu(null, true); } catch (e) { } }); }
 function showLines(lines, done) { let k = 0; const next = () => { if (k >= lines.length) { done(); return; } const line = lines[k++]; setOpts([]); typeText(line, () => setOpts([{ label: k < lines.length ? (LANG_EN ? "Continue ›" : 'Continuar ›') : (LANG_EN ? "Continue ›" : 'Continuar ›'), fn: next }])); }; next(); }
-function dialogMenu(greet) {
+function dialogMenu(greet, keepText) {
   const P = G.P, npc = dlg.npc, def = npc.def, opts = [];
   for (const id in P.quests.active) { const Q = QD(id); if (!Q.board && questReady(id) && sameNpc(turnInNpc(Q), npc.id)) opts.push({ label: (LANG_EN ? "<b class=\"q\">?</b> Complete: " : '<b class="q">?</b> Completar: ') + esc(Q.n), cls: 'quest', fn: () => showLines(Q.done || [(LANG_EN ? "Well done!" : '¡Bien hecho!')], () => { completeQuest(id); dialogMenu(); }) }); }
   for (const id of (def.quests || [])) if (canOffer(id)) { const Q = QUESTS[id]; opts.push({ label: '<b class="q">!</b> ' + esc(Q.n) + (Q.main ? (LANG_EN ? " <i>(story)</i>" : ' <i>(historia)</i>') : ''), cls: 'quest', fn: () => showLines(Q.offer, () => offerQuest(id)) }); }
@@ -5276,7 +5279,7 @@ function dialogMenu(greet) {
   for (const h of DLG_HOOKS) h(npc, opts);
   opts.push({ label: (LANG_EN ? "Chat" : 'Charlar'), icon: ['talk'], fn: () => typeText(def.lines[Math.floor(Math.random() * def.lines.length)]) });
   opts.push({ label: (LANG_EN ? "Goodbye" : 'Adiós'), fn: closeDialog, cls: 'bye' });
-  setOpts(opts); if (greet) typeText(greet); else typeText((LANG_EN ? "Anything else?" : '¿Algo más?'));
+  setOpts(opts); dlgMenuGen = dlgOptGen; if (keepText) return; if (greet) typeText(greet); else typeText((LANG_EN ? "Anything else?" : '¿Algo más?'));
 }
 function rewardsHTML(R) { return `${R.xp ? `<span>${fmt(R.xp)} XP</span>` : ''}${R.gold ? `<span>${iconHTML(['coin'], 14)} ${fmt(R.gold)}</span>` : ''}${(R.items || []).map(([id, n]) => `<span>${iconHTML(ITEMS[id].icon, 16)} ${esc(ITEMS[id].n)}${n > 1 ? ' ×' + n : ''}</span>`).join('')}`; }
 function offerQuest(id) {
@@ -11911,7 +11914,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.48', GAME_BUILD = 270;
+const GAME_VER = '6.49', GAME_BUILD = 271;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11919,6 +11922,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.49",
+ "b": 271,
+ "d": "2026-11-27",
+ "es": [
+  "Arreglo grave: los vecinos que te visitan en casa daban regalos infinitos si no cerrabas la ventana y seguías pulsando «Recibir su regalo». Ahora el botón desaparece en cuanto recibes el regalo.",
+  "Arreglo general de las conversaciones: al pulsar una opción del menú de un personaje, la lista se actualiza sola, así las recompensas de una sola vez (regalos, títulos, cobros) ya no se pueden repetir. Los botones viejos que quedaban en pantalla ya no hacen nada.",
+  "El botón ↩ (última ventana) ya no tapa el texto de la Bitácora: se coloca justo a su derecha."
+ ],
+ "en": [
+  "Major fix: neighbours visiting your home gave infinite gifts if you kept the window open and pressed «Accept the gift» again. Now the button disappears as soon as you get the gift.",
+  "General conversation fix: after choosing an option in a character's menu, the list refreshes by itself, so one-time rewards (gifts, titles, payouts) can no longer be repeated. Stale buttons left on screen no longer do anything.",
+  "The ↩ button (last window) no longer covers the Logbook text: it now sits right next to it."
+ ]
+},
 {
  "v": "6.48",
  "b": 270,
@@ -32323,7 +32341,9 @@ V33_TICKS.push(dt => { bitHudT -= dt || 0; if (bitHudT > 0) return; bitHudT = 0.
   const d = $('#bBit .bdot'); if (d && bitBadge) { bitBadge = false; const b = BIT(), n = bitReady().length + b.mail.filter(m => !m.r).length + (b.px && Date.now() >= b.px.end ? 1 : 0); d.hidden = !n; d.textContent = n > 9 ? '9+' : n || ''; }
   try { const bb = $('#bBit'), tr = $('#tracker'), sc = $('#secChip'); if (bb) { let bot = 0; for (const el of [tr, sc]) if (el && !el.hidden) { const r = el.getBoundingClientRect(); if (r.height) bot = Math.max(bot, r.bottom); } const hr = $('#hud').getBoundingClientRect();
     const top = bot ? bot - hr.top + 6 : null; const v = top === null ? '' : top + 'px'; if (bb.style.top !== v) { bb.style.top = v; const lb = $('#bLast'); if (lb) lb.style.top = v; } const pt = $('#party'); if (pt) { const r2 = bb.getBoundingClientRect(), nv = (r2.bottom - hr.top + 6) + 'px'; if (pt.style.top !== nv) pt.style.top = nv; } } } catch (e) { }
-  const l = $('#bLast'); if (l) { const w = SETTINGS.lastW; l.hidden = !w; if (w && l.dataset.w !== w) { l.dataset.w = w; l.innerHTML = '↩ ' + (LASTW_IC[w.split(':')[1]] || '📖'); } } });
+  const l = $('#bLast'); if (l) { const w = SETTINGS.lastW; l.hidden = !w; if (w && l.dataset.w !== w) { l.dataset.w = w; l.innerHTML = '↩ ' + (LASTW_IC[w.split(':')[1]] || '📖'); }
+    // 6.49: ↩ va justo a la derecha de la Bitácora (antes tapaba su texto con letras anchas)
+    try { const bb = $('#bBit'); if (w && bb && !bb.hidden) { const hr = $('#hud').getBoundingClientRect(), r = bb.getBoundingClientRect(); if (r.width) { const v = Math.round(r.right - hr.left + 6) + 'px'; if (l.style.left !== v) l.style.left = v; } } } catch (e) { } } });
 setInterval(() => { bitBadge = true; }, 5000);
 // última ventana
 const LASTW_IC = { char: '🧍', inv: '🎒', skills: '⭐', jobs: '⚒', quest: '📜', map: '🗺', wardrobe: '👗', best: '🐾', rel: '❤', hoy: '📖', logros: '🏆', cartas: '🃏', album: '📷', mascota: '🐾', buzon: '✉', marcos: '🖼' };
@@ -45134,7 +45154,7 @@ NPCS.v74_vecino = { n: L2('Vecino Tomás', 'Neighbour Tomás'), title: L2('De vi
 const V74_GIFT = [['pan', 2], ['ensalada', 1], ['trigo', 4], ['zanahoria', 3], ['tomate', 3], ['pe_alfajor', 2]];
 function v74HomeVisit(M) { const S = V74(), d = calDay(), h = hourNow(); if (S.vis === d || h < 9 || h >= 19) return; S.vis = d; if (Math.random() > 0.55) return;
   const id = Math.random() < 0.5 ? 'v74_vecina' : 'v74_vecino', e = spawnNPC(id, 14 * 16 + 8 + (Math.random() < 0.5 ? -40 : 40), 19 * 16 + 8, M.id, { face: 'up', wander: 1, L: 0 }); if (!e) return; e.v74vis = 1; e.chat = L2('¡Hola, vecin' + (v74Fem() ? 'a' : 'o') + '!', 'Hello, neighbour!'); e.chatT = G.t + 1; }
-DLG_HOOKS.push((npc, opts) => { try { if (!npc.v74vis || npc.v74gave) return; opts.unshift({ label: '🎁 ' + L2('Recibir su regalo', 'Accept the gift'), cls: 'quest', icon: ['coin'], fn: () => { npc.v74gave = 1; const g = pick(V74_GIFT.filter(x => ITEMS[x[0]])); if (g) giveItem(g[0], g[1]); typeText(L2('¡Para ti! Que lo disfrutes con tu familia.', 'For you! Enjoy it with your family.')); } }); } catch (e) { } });
+DLG_HOOKS.push((npc, opts) => { try { if (!npc.v74vis || npc.v74gave) return; opts.unshift({ label: '🎁 ' + L2('Recibir su regalo', 'Accept the gift'), cls: 'quest', icon: ['coin'], fn: () => { if (npc.v74gave) { typeText(L2('Ya te di mi regalo de hoy.', 'I already gave you my gift today.')); return; } npc.v74gave = 1; const g = pick(V74_GIFT.filter(x => ITEMS[x[0]])); if (g) giveItem(g[0], g[1]); typeText(L2('¡Para ti! Que lo disfrutes con tu familia.', 'For you! Enjoy it with your family.')); } }); } catch (e) { } });
 
 // =====================================================================================
 // 4) ANIMALES SUELTOS: gatos, perros y palomas (llamas extra en Cusco)

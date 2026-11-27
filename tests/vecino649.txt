@@ -1,0 +1,13 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+js (()=>{ const M=G.map; const e=spawnNPC('v74_vecina', G.P.x+20, G.P.y, M.id, { face:'up', L:G.P.L||0 }); e.v74vis=1; window._vv=e; openDialog(e); return [...document.querySelectorAll('#dopts .dopt')].map(b=>b.textContent); })()
+js (()=>{ const n0=G.P.inv.reduce((a,s)=>a+(s.q||1),0); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/regalo/.test(b.textContent)); b.click(); const n1=G.P.inv.reduce((a,s)=>a+(s.q||1),0); const b2=[...document.querySelectorAll('#dopts .dopt')].find(b=>/regalo/.test(b.textContent)); if (b2) b2.click(); b.click(); const n2=G.P.inv.reduce((a,s)=>a+(s.q||1),0); return [n1-n0, n2-n1, !!b2, [...document.querySelectorAll('#dopts .dopt')].map(b=>b.textContent)]; })()
+wait 600
+shot
+js (()=>{ const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/Charlar/.test(b.textContent)); b.click(); return [document.querySelectorAll('#dopts .dopt').length]; })()
+js (closeDialog(), openDialog(window._vv), [...document.querySelectorAll('#dopts .dopt')].map(b=>b.textContent))
+js window._errs
+js (closeDialog(), SETTINGS.lastW='p:inv', bitHudT=0, 1)
+wait 1500
+js (()=>{ const a=$('#bBit').getBoundingClientRect(), b=$('#bLast').getBoundingClientRect(); return [Math.round(a.right), Math.round(b.left), !$('#bLast').hidden]; })()
+shot
