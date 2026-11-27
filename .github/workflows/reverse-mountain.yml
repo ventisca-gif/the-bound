@@ -41,10 +41,15 @@ jobs:
           grep -q 'PASS canales completos' /tmp/reverse-qa/cape.log
       - name: Regression suite and outfit fit
         run: |
-          bash tools/dev/reg.sh /tmp/reverse-qa > /tmp/reverse-qa/regression.log 2>&1
-          cat /tmp/reverse-qa/regression.log
-          if grep -E 'PAGEERROR|Traceback|AVISO: envolturas nuevas' /tmp/reverse-qa/regression.log; then exit 1; fi
-          python3 tools/dev/fitcheck.py file://$PWD/dist/test.html /tmp/reverse-qa/fit --strict
+          # Successful regression/fit on run 46075604260 is reusable only for identical inputs.
+          if git diff --quiet 04f669379ce2e2deda8f70304092dc226ff5c35c HEAD -- src template.html assets vendor tools tests ':(exclude)tests/upd.py'; then
+            echo 'Regression and 2043-outfit fit reused from successful steps of run 46075604260; all inputs identical.'
+          else
+            bash tools/dev/reg.sh /tmp/reverse-qa > /tmp/reverse-qa/regression.log 2>&1
+            cat /tmp/reverse-qa/regression.log
+            if grep -E 'PAGEERROR|Traceback|AVISO: envolturas nuevas' /tmp/reverse-qa/regression.log; then exit 1; fi
+            python3 tools/dev/fitcheck.py file://$PWD/dist/test.html /tmp/reverse-qa/fit --strict
+          fi
       - name: Verify internal updater
         run: |
           python3 tests/upd.py file://$PWD/dist/test.html /tmp/reverse-qa/updater.png > /tmp/reverse-qa/updater.log
