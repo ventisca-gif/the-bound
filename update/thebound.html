@@ -361,6 +361,8 @@ body.building #hotbar{display:none}
 @media (pointer:coarse){.tab{min-height:34px;min-width:34px}#create #ccBack{min-height:32px}#tLang .chip{min-width:34px}}
 /* casillas de habilidad vacías «+»: solo cuando hay algo que colocar */
 body.v656noslot #acts .sk.empty{visibility:hidden;pointer-events:none}
+/* 6.58: dibujo del héroe en cada página del diario */
+.hbic.v658ic{display:flex;align-items:flex-end;justify-content:center;gap:.25em}.v658pg{width:66px;height:81px;image-rendering:pixelated;filter:drop-shadow(0 3px 0 rgba(60,30,10,.35))}
 </style>
 <canvas id="game"></canvas>
 <div id="loading"><div class="logo"><span class="t1" style="font-size:clamp(34px,10vmin,72px)">The Bound</span></div><div id="loadbar"><i></i></div><div id="loadmsg">Cargando...</div></div>
@@ -387,7 +389,7 @@ body.v656noslot #acts .sk.empty{visibility:hidden;pointer-events:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.57 · Más ligero, mismos píxeles</div>
+  <div class="tfoot">v6.58 · Diario con dibujo</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11967,7 +11969,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.57', GAME_BUILD = 279;
+const GAME_VER = '6.58', GAME_BUILD = 280;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11975,6 +11977,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.58",
+ "b": 280,
+ "d": "2026-11-27",
+ "es": [
+  "📔 Diario del héroe con dibujo: cada página nueva guarda cómo eras ese día (cuerpo, pelo, armadura y cosméticos) y el libro te dibuja junto a la hazaña.",
+  "🔮 Guardia arcana (mago) e 🌲 Instinto del bosque (arquero): desde nivel 200 reciben menos daño de monstruos y jefes (hasta −40 % y −50 % a nivel 700). No cuenta en PvP. Se ve en Personaje.",
+  "⚖ PvP: el mago había quedado un poco fuerte en duelo; las 7 clases vuelven a estar igualadas.",
+  "Arreglos: el nombre del NPC más cercano ya no se dibuja encima de otro; la Fruta Transparente dice bien dónde aparece."
+ ],
+ "en": [
+  "📔 Hero's diary with drawings: every new page saves how you looked that day (body, hair, armour and cosmetics) and the book draws you next to the deed.",
+  "🔮 Arcane guard (mage) and 🌲 Forest instinct (archer): from level 200 they take less damage from monsters and bosses (up to −40% and −50% at level 700). Not in PvP. Shown in Character.",
+  "⚖ PvP: the mage had become a bit strong in duels; all 7 classes are even again.",
+  "Fixes: the nearest NPC's name no longer draws over another; the Clear Fruit says correctly where it appears."
+ ]
+},
 {
  "v": "6.57",
  "b": 279,
@@ -17202,7 +17221,7 @@ function bufandinAtlas() {
 // - Multiplicador de daño PvP por clase (PVP_CLS) calculado con tools/dev/pvp.py --solve para que, a nivel máximo,
 //   todas las clases puedan hacerse frente.
 const PVP_HEAL = 0.4, PVP_WINDOW = 8, PVP_HEALC = { bardo: 0.12 };   // el Bardo cura muchísimo: en PvP sus curas cuentan menos que las del resto
-const PVP_CLS = { guerrero: 0.56, mago: 1.06, arquero: 1.11, asesino: 1.65, bardo: 0.64, invocador: 1.98, pez: 0.72 };   // tools/dev/pvp.py --solve (v6.18, nivel 700; antes v5.78)
+const PVP_CLS = { guerrero: 0.57, mago: 0.98, arquero: 1.12, asesino: 1.68, bardo: 0.65, invocador: 1.98, pez: 0.74 };   // tools/dev/pvp.py --solve (v6.58, nivel 700: el mago había subido a 1,12; antes v6.18)
 function pvpActive() { const P = G.P; return !!(P && P.pvpT && G.t - P.pvpT < PVP_WINDOW); }
 { const _ph = pvpHit; pvpHit = function (r, dmg) { const P = G.P; if (P) P.pvpT = G.t; return _ph(r, dmg * (PVP_CLS[P && P.cls] || 1)); }; }
 { const _hp = hurtPlayer; hurtPlayer = function (base, src) { if (src && src.pvp && G.P) G.P.pvpT = G.t; return _hp(base, src); }; }
@@ -47443,7 +47462,7 @@ const DFR = { goma: { item: 'dawn_fruta_diablo', n: L2('Goma', 'Rubber'), ic: '�
 const dfrOf = id => Object.keys(DFR).find(k => DFR[k].item === id);
 // las frutas se comen desde el inventario
 ITEMS.dawn_fruta_diablo.t = 'cons'; ITEMS.dawn_fruta_diablo.n = L2('Fruta del Diablo de Goma', 'Rubber Devil Fruit');
-it('df_transparente', { n: L2('Fruta Transparente', 'Clear Fruit'), t: 'cons', stack: true, price: 0, icon: ['dfruit2'], rar: 5, d: L2('Pera verde agua que casi no se ve. Aparece a veces en las islas de Dawn (Foosha y Shells Town), con aviso. Si te la comes: invisibilidad unos segundos (los enemigos no te ven). No puedes tener dos frutas.', 'An aqua-green pear you can barely see. It sometimes appears on the Dawn islands (Foosha and Shells Town), with a warning. If you eat it: invisibility for a few seconds (enemies cannot see you). You cannot have two fruits.') });
+it('df_transparente', { n: L2('Fruta Transparente', 'Clear Fruit'), t: 'cons', stack: true, price: 0, icon: ['dfruit2'], rar: 5, d: L2('Pera verde agua que casi no se ve. Aparece a veces cerca de ti en cualquier isla de Dawn, con aviso. Si te la comes: invisibilidad unos segundos (los enemigos no te ven). No puedes tener dos frutas.', 'An aqua-green pear you can barely see. It sometimes appears near you on any Dawn island, with a warning. If you eat it: invisibility for a few seconds (enemies cannot see you). You cannot have two fruits.') });
 { const _gi = genIcon; genIcon = function (spec) { if (spec[0] !== 'dfruit2') return _gi.apply(this, arguments); const p = new Pix(16, 16), G_ = [C('#1a6a6a'), C('#2aa8a0'), C('#5ad8c8'), C('#a8f4e4'), C('#f0fff8')];
   for (let y = 3; y < 15; y++) { const t = (y - 3) / 11, w = t < 0.4 ? 2.4 + t * 4 : 4 + Math.sin((t - 0.4) / 0.6 * Math.PI) * 1.6; for (let x = Math.floor(8 - w); x <= Math.ceil(8 + w - 1); x++) { const e = (x + 0.5 - 8) / w; p.set(x, y, e < -0.55 ? G_[3] : e > 0.55 ? G_[1] : y % 4 === 1 && Math.abs(e) < 0.3 ? G_[1] : G_[2]); } }
   p.vl(5, 5, 4, G_[4]); p.vl(6, 10, 3, G_[4]); p.vl(8, 1, 3, C('#2a8a3a')); p.set(9, 1, C('#4ab04a')); p.outline(OUTL); return p; }; }
@@ -61160,6 +61179,81 @@ hookBefore('setMap', function (M) {
     }
     if (M._v656park) { const S = new Set(G.ents); for (const e of M._v656park) if (!e.remove && !S.has(e)) G.ents.push(e); M._v656park = null; }
   } catch (e) { errOnce('v656 park', e); }
+});
+
+// ================= 6.58 · Arreglos y diario del héroe con dibujo =================
+
+// 1) Nombres de NPC: el del NPC más cercano siempre se dibuja, pero si otro nombre se había dibujado antes en ese
+//    fotograma quedaban uno encima del otro. Ahora el sitio del más cercano se reserva al empezar el fotograma, así que
+//    los demás que lo pisarían no se dibujan (como ya pasaba entre nombres normales).
+hookBefore('drawOverhead', function (e, cx, cy) {
+  if (LBL.t === G.t) return; LBL.t = G.t; LBL.r = [];
+  try {
+    const n = lblNearNpc(); if (!n || !n.atlas || !n.def || n.map !== G.P.map) return;
+    if (n.noTag && dist2(n.x, n.y, G.P.x, G.P.y) >= 2500) return;
+    const A = n.atlas, top = Math.round(n.y - cy - A.ay + (A.fh - (n.hgt || 34)) - 6), x = Math.round(n.x - cx), s = textSprite(n.def.n, '#ffe8a0');
+    LBL.r.push([x - (s.width >> 1), top - 9, s.width]);
+  } catch (err) { }
+});
+
+// 2) Mago y arquero contra monstruos (Sergio aceptó reforzarlos). Medido con tools/dev/aguante.py: a nivel 500-600, aun
+//    con todo, caían en 16-40 s quietos ante un jefe de su nivel mientras guerrero, bardo y pez aguantaban el minuto.
+//    «Guardia arcana» (mago) e «Instinto del bosque» (arquero): desde nivel 200 reciben menos daño de monstruos y
+//    jefes, hasta un 40 % (mago) o 50 % (arquero, que solo tiene una cura) a nivel 700. No cuenta en PvP (golpes con src.pvp ni duelos), así que PVP_CLS no cambia.
+const V658_RES = { mago: 1, arquero: 1.25 };
+function v658Guard(P) {
+  if (!P || !V658_RES[P.cls]) return 0; const L = P.lv || 1; if (L < 200) return 0;
+  return V658_RES[P.cls] * Math.min(0.40, 0.30 * Math.min(1, (L - 200) / 300) + (L > 500 ? 0.10 * Math.min(1, (L - 500) / 200) : 0));
+}
+hookAround('hurtPlayer', function (next, base, src, ...a) {
+  const P = G.P, g = v658Guard(P);
+  if (!g || (src && (src.pvp || src.duel)) || (typeof PVP !== 'undefined' && PVP && PVP.duel)) return next(base, src, ...a);
+  return next(base * (1 - g), src, ...a);
+});
+
+// 3) La protección se ve en Personaje (debajo de las estadísticas).
+hookAfter('renderChar', function (r, B) {
+  try { const g = v658Guard(G.P); if (!g) return; const st = (B || document).querySelector('.stats'); if (!st || st.querySelector('.v658g')) return;
+    const n = G.P.cls === 'mago' ? L2('Guardia arcana', 'Arcane guard') : L2('Instinto del bosque', 'Forest instinct');
+    st.insertAdjacentHTML('beforeend', `<div class="st v658g" title="${L2('Menos daño de monstruos y jefes (no cuenta en PvP)', 'Less damage from monsters and bosses (not in PvP)')}"><span>${n}</span><b>−${Math.round(g * 100)}%</b></div>`);
+  } catch (e) { }
+});
+
+// 4) Diario del héroe con dibujo (idea pendiente de la 5.59): cada página nueva guarda cómo eras en ese momento (clase,
+//    cuerpo, pelo, equipo y cosméticos) y el diario lo dibuja con el motor (heroLook / buildHeroAtlas, el mismo atlas
+//    del juego, todas las estructuras de cuerpo). Los aspectos se guardan una sola vez en P.heroLooks (máx. 80) y la
+//    página solo apunta a su número (lk), así la partida casi no crece. Las páginas de antes de la 6.58 no tienen dibujo.
+SAVEKEYS.push('heroLooks');
+function v658LookNow() { const P = G.P; return { c: P.cls, a: normApp(P.app), g: gearTiers(P), s: P.cos || {}, h: P.hideHelm ? 1 : 0 }; }
+function v658LookKey(L) { return heroKey(L.c, L.a, L.g, L.s, L.h); }
+function v658LookIdx() {
+  const P = G.P; P.heroLooks = P.heroLooks || []; const L = v658LookNow(), k = v658LookKey(L);
+  let i = P.heroLooks.findIndex(q => q && v658LookKey(q) === k); if (i >= 0) return i;
+  P.heroLooks.push(JSON.parse(JSON.stringify(L)));
+  if (P.heroLooks.length > 80) { P.heroLooks.shift(); for (const pg of P.heroLog || []) if (pg.lk != null) pg.lk = pg.lk > 0 ? pg.lk - 1 : null; }
+  return P.heroLooks.length - 1;
+}
+hookAfter('hlAdd', function () { try { const P = G.P, L_ = P.heroLog; if (L_ && L_.length) L_[L_.length - 1].lk = v658LookIdx(); } catch (e) { errOnce('v658 diario', e); } });
+function v658LookAtlas(L) { return getAtlas(v658LookKey(L), () => buildHeroAtlas(heroLook(L.c, L.a, L.g, L.s, { hideHelm: !!L.h }))); }
+function v658DrawLook(cvs, L) {
+  const A = v658LookAtlas(L); if (!A) return; const x = cvs.getContext('2d'); x.imageSmoothingEnabled = false; x.clearRect(0, 0, cvs.width, cvs.height);
+  const hd = typeof HDS !== 'undefined' && HDS > 1 && A.hdL && typeof hdEnsure === 'function' && hdEnsure(A, 0, 0, true), src = hd ? A.hd : A.img, k = hd ? 2 : 1;
+  // recorta al contorno del personaje (el cuadro del atlas trae margen para armas y alas)
+  const W = A.fw * k, H = A.fh * k, t = document.createElement('canvas'); t.width = W; t.height = H; const g = t.getContext('2d'); g.drawImage(src, 0, 0, W, H, 0, 0, W, H);
+  const d = g.getImageData(0, 0, W, H).data; let x0 = W, y0 = H, x1 = -1, y1 = -1;
+  for (let yy = 0; yy < H; yy++) for (let xx = 0; xx < W; xx++) if (d[(yy * W + xx) * 4 + 3] > 8) { if (xx < x0) x0 = xx; if (xx > x1) x1 = xx; if (yy < y0) y0 = yy; if (yy > y1) y1 = yy; }
+  if (x1 < 0) return; const bw = x1 - x0 + 1, bh = y1 - y0 + 1, s = Math.min(cvs.width / bw, cvs.height / bh);
+  x.drawImage(t, x0, y0, bw, bh, Math.round((cvs.width - bw * s) / 2), Math.round(cvs.height - bh * s), Math.round(bw * s), Math.round(bh * s));
+}
+// El diario es un libro desde la 5.60 (hbPageHTML / hbRender, src/…_v561.js): en cada página con dibujo, el héroe
+// sale junto al icono de la hazaña. Las páginas de amigos online no traen aspecto (solo texto), así que no cambian.
+hookAfter('hbPageHTML', function (html, p) {
+  try { if (HB.owner || !p || !p.e || p.e.lk == null || !(G.P.heroLooks || [])[p.e.lk]) return;
+    return html.replace('<div class="hbic">', `<div class="hbic v658ic"><canvas class="v658pg" width="44" height="54" data-lk="${p.e.lk | 0}" title="${L2('Así eras ese día', 'This is how you looked that day')}"></canvas>`);
+  } catch (e) { }
+});
+hookAfter('hbRender', function () {
+  try { const L = G.P.heroLooks || []; document.querySelectorAll('#dyBook canvas.v658pg').forEach(c => { const lk = L[+c.dataset.lk]; if (lk) v658DrawLook(c, lk); }); } catch (e) { errOnce('v658 diario', e); }
 });
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================

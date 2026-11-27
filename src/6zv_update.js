@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.57', GAME_BUILD = 279;
+const GAME_VER = '6.58', GAME_BUILD = 280;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.58",
+ "b": 280,
+ "d": "2026-11-27",
+ "es": [
+  "📔 Diario del héroe con dibujo: cada página nueva guarda cómo eras ese día (cuerpo, pelo, armadura y cosméticos) y el libro te dibuja junto a la hazaña.",
+  "🔮 Guardia arcana (mago) e 🌲 Instinto del bosque (arquero): desde nivel 200 reciben menos daño de monstruos y jefes (hasta −40 % y −50 % a nivel 700). No cuenta en PvP. Se ve en Personaje.",
+  "⚖ PvP: el mago había quedado un poco fuerte en duelo; las 7 clases vuelven a estar igualadas.",
+  "Arreglos: el nombre del NPC más cercano ya no se dibuja encima de otro; la Fruta Transparente dice bien dónde aparece."
+ ],
+ "en": [
+  "📔 Hero's diary with drawings: every new page saves how you looked that day (body, hair, armour and cosmetics) and the book draws you next to the deed.",
+  "🔮 Arcane guard (mage) and 🌲 Forest instinct (archer): from level 200 they take less damage from monsters and bosses (up to −40% and −50% at level 700). Not in PvP. Shown in Character.",
+  "⚖ PvP: the mage had become a bit strong in duels; all 7 classes are even again.",
+  "Fixes: the nearest NPC's name no longer draws over another; the Clear Fruit says correctly where it appears."
+ ]
+},
 {
  "v": "6.57",
  "b": 279,

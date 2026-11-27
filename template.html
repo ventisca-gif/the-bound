@@ -361,6 +361,8 @@ body.building #hotbar{display:none}
 @media (pointer:coarse){.tab{min-height:34px;min-width:34px}#create #ccBack{min-height:32px}#tLang .chip{min-width:34px}}
 /* casillas de habilidad vacías «+»: solo cuando hay algo que colocar */
 body.v656noslot #acts .sk.empty{visibility:hidden;pointer-events:none}
+/* 6.58: dibujo del héroe en cada página del diario */
+.hbic.v658ic{display:flex;align-items:flex-end;justify-content:center;gap:.25em}.v658pg{width:66px;height:81px;image-rendering:pixelated;filter:drop-shadow(0 3px 0 rgba(60,30,10,.35))}
 </style>
 <canvas id="game"></canvas>
 <div id="loading"><div class="logo"><span class="t1" style="font-size:clamp(34px,10vmin,72px)">The Bound</span></div><div id="loadbar"><i></i></div><div id="loadmsg">Cargando...</div></div>
@@ -387,7 +389,7 @@ body.v656noslot #acts .sk.empty{visibility:hidden;pointer-events:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.57 · Más ligero, mismos píxeles</div>
+  <div class="tfoot">v6.58 · Diario con dibujo</div>
 </div>
 <div id="errlog" hidden></div>
 <!--__PHOTON__-->

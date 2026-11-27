@@ -20,6 +20,6 @@ js (()=>{const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/Qué se
 wait 1500
 js ($('#dmsg').textContent)
 js (closeDialog(), 1)
-js (()=>{G.time=10*60; V74().fav=null; v74FavTick(); const F=V74().fav; return F?[F.id,F.it,F.q,F.gold]:'nofav'})()
+js (()=>{G.time=10*60; V74().fav=null; { const C=v74City(), e=G.ents.find(q=>q.type==='npc'&&q.map===G.map.id&&C.re.test(q.id)); if(e){ G.P.x=e.x+120; G.P.y=e.y; } } v74FavTick(); const F=V74().fav; return F?[F.id,F.it,F.q,F.gold]:'nofav'})()
 js (()=>{const F=V74().fav; giveItem(F.it,F.q); const e=G.ents.find(q=>q.type==='npc'&&q.id===F.id); openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/Favor/.test(b.textContent)); b.click(); return [V74().fav.done, V74().favN]})()
 js (closeDialog(), window._errs)
