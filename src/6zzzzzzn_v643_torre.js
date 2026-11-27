@@ -185,8 +185,10 @@ function tiAllies(M) { if (typeof huntAlliesClear !== 'function') return; huntAl
   const hn = typeof huntPick === 'function' ? huntPick().slice(0, 2) : [];
   hn.forEach(h => { const rf = 0.8 + (typeof hnRank === 'function' ? hnRank(h) : 1) * 0.1; out.push({ type: 'hunter', h, id: h.id, def: NPCS[h.id], name: h.name, rf, atlas: npcAtlas(h.id) }); });
   if (typeof aihPop === 'function') { const pool = aihPop().slice().sort((a, b) => Math.abs(a.lv - P.lv) - Math.abs(b.lv - P.lv)).slice(0, 12); while (out.length < 3 && pool.length) { const jc = pool.splice(Math.floor(Math.random() * pool.length), 1)[0], pw = pick(Object.keys(HN_PW));
-    out.push({ type: 'hunter', h: { id: 'aih_' + aihHash(jc.k), name: jc.name, cls: jc.cls, pw, big: false }, id: 'aih_' + aihHash(jc.k), def: { n: jc.name, lines: [''] }, name: jc.name, rf: 0.9 + ((jc.W && jc.W.r) || 0) * 0.02, atlas: aihAtlas(jc) }); } }
-  out.slice(0, 3).forEach((a, i) => { Object.assign(a, { x: P.x + (i - 1) * 18, y: P.y + 14, L: P.L, map: M.id, dir: 'up', anim: 'idle', af: 0, at: 0, hum: true, cd: 0.5, pcd: 3 + i, scale: 1 }); a.maxhp = Math.round((P.S ? P.S.maxhp : 1000) * 0.85 * a.rf); a.hp = a.maxhp; G.ents.push(a); HUNT.allies.push(a); });
+    const St = aihStats(jc).S, cl = CLASSES[jc.cls] || CLASSES.guerrero; // 6.44b: el equipo calcula a los compañeros con datos de cazador de portal (hnStats); un jugador cazador no los tiene → vida NaN. Se le dan sus estadísticas de verdad.
+    out.push({ type: 'hunter', h: { id: 'aih_' + aihHash(jc.k), i: 'aih' + aihHash(jc.k), lv: jc.lv, name: jc.name, cls: jc.cls, pw, big: false, aih: 1 }, id: 'aih_' + aihHash(jc.k), def: { n: jc.name, lines: [''] }, name: jc.name, rf: 0.9 + ((jc.W && jc.W.r) || 0) * 0.02, atlas: aihAtlas(jc),
+      S0: 1, S: { lv: jc.lv, wm: 0, rk: 0, atk: Math.max(1, Math.round(St.atk * 0.55)), def: Math.max(1, Math.round(St.def)), maxhp: Math.max(100, Math.round(St.maxhp)), crit: +St.crit || 5, aspd: cl.aspd || 0.6 }, pots: 3 + Math.min(5, Math.floor(jc.lv / 100)), tcd: 2 + Math.random() * 3, hcd: 3 }); } }
+  out.slice(0, 3).forEach((a, i) => { Object.assign(a, { x: P.x + (i - 1) * 18, y: P.y + 14, L: P.L, map: M.id, dir: 'up', anim: 'idle', af: 0, at: 0, hum: true, cd: 0.5, pcd: 3 + i, scale: 1 }); a.maxhp = a.S && isFinite(a.S.maxhp) ? a.S.maxhp : Math.round((P.S ? P.S.maxhp : 1000) * 0.85 * a.rf); a.hp = a.maxhp; G.ents.push(a); HUNT.allies.push(a); });
   if (typeof huntBars === 'function') huntBars(); banner(L2('Equipo de 4', 'Team of 4'), HUNT.allies.map(a => a.name).join(' · ')); }
 // ---------- 6.44: en línea con tu grupo (2-7 jugadores, sin top) ----------
 // Cada uno juega su copia del piso (mismo piso y mismos enemigos: la semilla es la del piso); los enemigos que alguien
@@ -212,3 +214,10 @@ function tioRecv(rem) { const P = G.P, t = rem.tio;
   // enemigos que otro venció en este piso
   if (t.f === TI.floor && t.kd.length && G.map && G.map.id === TI_MAP) for (const m of G.ents) if (m.type === 'mob' && m.ti && !m.dying && t.kd.includes(m.tioI)) { m.hp = 0; m.dying = 0.001; setAnim(m, 'hurt'); if (!TIO.kd.includes(m.tioI)) TIO.kd.push(m.tioI); if (m.boss && typeof showBoss === 'function') try { showBoss(null); } catch (e) { } } }
 hookBefore('killMob', m => { if (m && m.ti && TIO && TI && TI.mode === 'online' && m.tioI !== undefined && !TIO.kd.includes(m.tioI)) TIO.kd.push(m.tioI); });
+
+// 6.44b: red de seguridad contra NaN (un golpe o una cura no numérica dejaba enemigos con vida NaN que nunca morían,
+// se les pegaba sin fin con lag, y el robo de vida contagiaba el NaN a tu vida)
+hookBefore('hitMob', (m, base) => { if (!m || !isFinite(base) || !isFinite(m.hp)) { if (m && !isFinite(m.hp) && !m.dying) { m.hp = 0; try { killMob(m); } catch (e) { m.remove = true; } } return HOOK_SKIP; } });
+V33_TICKS.push(() => { const P = G.P; if (!P || !P.S) return; if (!isFinite(P.hp)) P.hp = P.S.maxhp; if (!isFinite(P.mp)) P.mp = P.S.maxmp || 0;
+  if (typeof HUNT !== 'undefined') for (const a of HUNT.allies) { if (!isFinite(a.maxhp) || a.maxhp <= 0) a.maxhp = a.S && isFinite(a.S.maxhp) ? a.S.maxhp : Math.round(P.S.maxhp * 0.85); if (!isFinite(a.hp)) a.hp = a.maxhp; }
+  for (const m of G.ents) if (m.type === 'mob' && !m.dying && (!isFinite(m.hp) || !isFinite(m.maxhp))) { m.maxhp = isFinite(m.maxhp) && m.maxhp > 0 ? m.maxhp : 1; m.hp = 0; try { killMob(m); } catch (e) { m.remove = true; } } });
