@@ -1,0 +1,12 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], setInterval(()=>{ if(!$('#modal').hidden && /Bienvenido|Welcome/.test($('#mbody').textContent)) { const b=$('#dlOk'); if (b) b.click(); else closeModal(); } }, 150), window.addEventListener('error', e=>window._errs.push(e.message)), 1)
+wait 2500
+js (()=>{ const P=G.P, dish=[...v653Dishes()][3]; giveItem(dish,1,true); const g0=P.gold; const e=spawnNPC('v653_jueza',P.x+20,P.y,G.map.id,{face:'up'}); openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/mejor plato/.test(b.textContent)); b.click(); const after=[...document.querySelectorAll('#dopts .dopt')].some(b=>/mejor plato/.test(b.textContent)); return [dish, P.gold-g0, after, countItem(dish)]; })()
+wait 800
+js $('#dmsg').textContent
+js (()=>{ closeDialog(); const P=G.P, e=spawnNPC('v653_choco',P.x-20,P.y,G.map.id,{face:'up'}); openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/Chocolate/.test(b.textContent)); b.click(); return [countItem('chocolate_cal'), countItem('paneton'), [...document.querySelectorAll('#dopts .dopt')].length]; })()
+js (closeDialog(), giveItem('sardina',1,true), giveItem('flor_rojo',1,true), [Object.keys(v653().cx.f), Object.keys(v653().cx.fl)])
+js (()=>{ const P=G.P; P.pet=Object.keys(PETS)[0]; const r0=Math.random; Math.random=()=>0.01; const n0=countItem('sardina'); giveItem('sardina',1,true); gainJobXp('pesca',1); Math.random=r0; return [countItem('sardina')-n0]; })()
+js (openBitacora('codice'), $('#mbody').textContent.includes('Peces'))
+js (closeModal(), [LUPA_CIU.some(x=>x[0]==='fiestas653'), LUPA_CIU.find(x=>x[0]==='hoy')[2]().length>0])
+js window._errs

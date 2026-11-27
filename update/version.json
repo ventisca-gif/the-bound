@@ -1,24 +1,26 @@
 {
- "build": 274,
- "ver": "6.52",
+ "build": 275,
+ "ver": "6.53",
  "date": "2026-11-27",
  "file": "thebound.html",
- "size": 39533076,
- "sha256": "3686e895bde2652e41e769303f4e6611ca96e12ef4e42245c8e08d4fd0da47b4",
+ "size": 39547823,
+ "sha256": "fd03b8ff1d7b42b652c5ab4b8c9901284033b31c83b6a49f92505d8282912c10",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Avisos más ordenados: los repetidos se juntan («×2»), los «+N objeto» del mismo objeto se suman, se ven 3 a la vez, ya no tapan la barra del jefe y quedan en Bitácora › 📜 Avisos.",
-   "Las barras de tu equipo ya no tapan la misión; el regalo diario espera a que termines de luchar. Opciones › Interfaz: HUD compacto y nombres de NPC solo cerca (los de misión siempre se ven).",
-   "📍 Marcadores propios en el mapa (hasta 12): toca «Marcar» y luego el mapa; con 🧭 la flecha te lleva.",
-   "Torre Infinita: 📣 avisos rápidos para el grupo (¡Ayuda!, ¡Aquí!, ¡A por el jefe!), 🪶 Pluma de Fénix (te levanta una vez por subida si nadie puede reanimarte), 📅 reto de la semana con la misma mecánica en todos los pisos, títulos y marcos por llegar a los pisos 25, 50, 100 y 200, récord del grupo en línea y el bardo reanima el doble de rápido y cura al equipo."
+   "☕ Chocolatada navideña: en los días de Navidad, Doña Rosa reparte chocolate caliente y panetón junto a la plaza de Lima, Lima Norte, Trujillo y Cusco (una vez al día por ciudad). 🍇 Año Nuevo: las doce uvas de la suerte en la plaza de España.",
+   "🍳 Concurso de cocina los domingos (10:00-18:00) en cada ciudad: presenta tu mejor plato contra 3 cocineros y gana oro y reputación.",
+   "🐾 Tu mascota te ayuda en los oficios: al talar, minar, pescar o recoger a veces trae una unidad más.",
+   "📚 Códice de colecciones en la Bitácora: peces, flores y platos; cada página completa da oro y un título.",
+   "Prueba nueva que pulsa dos veces todos los premios de los diálogos de los 2.098 personajes para que no se repita el bug de los regalos infinitos: 0 fallos."
   ],
   "en": [
-   "Tidier notices: repeated ones are merged («×2»), «+N item» of the same item add up, 3 are shown at once, they no longer cover the boss bar and they are kept in Logbook › 📜 Notices.",
-   "Your team bars no longer cover the quest; the daily gift waits until you finish fighting. Options › Interface: compact HUD and NPC names only when near (quest NPCs always shown).",
-   "📍 Your own map markers (up to 12): tap «Mark» and then the map; with 🧭 the arrow takes you there.",
-   "Infinite Tower: 📣 quick calls for the group (Help!, Over here!, Go for the boss!), 🪶 Phoenix Feather (gets you up once per climb if nobody can revive you), 📅 weekly challenge with the same mechanic on every floor, titles and frames for reaching floors 25, 50, 100 and 200, online group record, and the bard revives twice as fast and heals the team."
+   "☕ Christmas hot chocolate: on Christmas days, Doña Rosa hands out hot chocolate and panettone by the square of Lima, North Lima, Trujillo and Cusco (once a day per city). 🍇 New Year: the twelve lucky grapes in the square of Spain.",
+   "🍳 Cooking contest on Sundays (10:00-18:00) in each city: present your best dish against 3 cooks and win gold and reputation.",
+   "🐾 Your pet helps in your jobs: chopping, mining, fishing or gathering sometimes brings one more.",
+   "📚 Collections Codex in the Logbook: fish, flowers and dishes; each completed page gives gold and a title.",
+   "New test that double-taps every dialog reward of all 2,098 characters so the infinite gifts bug can't come back: 0 failures."
   ]
  }
 }

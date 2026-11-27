@@ -4,3 +4,4 @@ for t in smoke flow guide skills2 skills3 jobs2 romance boss3 family world2 slot
 done
 echo "== fit"; python3 tools/dev/fitcheck.py "file://$PWD/dist/test.html" $1/fit --strict 2>&1 | head -4
 echo "== capas"; python3 tools/dev/capas.py | tail -3
+echo "== doble toque"; timeout 580 python3 tests/doble_toque.py "file://$PWD/dist/test.html" 2>&1 | grep -A3 "fallos\|errores" | head -12
