@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.49 · Regalos de vecinos arreglados</div>
+  <div class="tfoot">v6.50 · Reanimar en la Torre Infinita</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11914,7 +11914,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.49', GAME_BUILD = 271;
+const GAME_VER = '6.50', GAME_BUILD = 272;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11922,6 +11922,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.50",
+ "b": 272,
+ "d": "2026-11-27",
+ "es": [
+  "Torre Infinita en línea (de 2 a 7 jugadores): si caes y queda otro jugador de tu grupo en el piso, quedas «Derribado» 18 segundos, como en el mundo normal. Tu amigo puede reanimarte con el botón de acción a tu lado. Si nadie llega o te rindes, tu subida termina como antes. Si tu grupo sube de piso mientras estás derribado, te levantas y vas con ellos.",
+  "Torre Infinita en equipo de 4 (con jugadores cazadores y cazadores de los portales): si caes y queda un compañero en pie, quedas «Derribado» y el compañero más cercano corre a levantarte. Tú también puedes reanimar a un compañero caído con el botón de acción a su lado. Si el equipo supera el piso mientras estás derribado, te levantas."
+ ],
+ "en": [
+  "Online Infinite Tower (2 to 7 players): if you fall and another player from your group is still on the floor, you are «Downed» for 18 seconds, like in the normal world. Your friend can revive you with the action button next to you. If nobody comes or you give up, your climb ends as before. If your group goes up a floor while you are downed, you get up and go with them.",
+  "Infinite Tower team of 4 (with player hunters and portal hunters): if you fall and a teammate is still standing, you are «Downed» and the closest teammate runs to get you up. You can also revive a fallen teammate with the action button next to them. If the team clears the floor while you are downed, you get up."
+ ]
+},
 {
  "v": "6.49",
  "b": 271,
@@ -59619,7 +59632,8 @@ hookBefore('killMob', m => { if (!m || !m.ti || !TI) return; TI.kills++; if (m.t
 hookAfter('killMob', (r, m) => { if (m && m.ti && G.P.best) delete G.P.best[m.mid]; });
 hookBefore('bossKilled', m => { if (m && m.ti) return HOOK_SKIP; });
 // caer en la torre termina la subida (sin la muerte normal); salir por la puerta sur también
-hookBefore('playerDie', () => { if (TI && G.map && G.map.id === TI_MAP) { tiEnd('dead'); return HOOK_SKIP; } });
+// 6.49: en línea (con compañeros en el piso) y en equipo de 4 primero quedas «Derribado» y te pueden reanimar (ver tiCanDown)
+hookBefore('playerDie', () => { if (TI && G.map && G.map.id === TI_MAP) { const P = G.P; if (P.downed || P.dead) return HOOK_SKIP; if (tiCanDown()) { startDown(); return HOOK_SKIP; } tiEnd('dead'); return HOOK_SKIP; } });
 hookBefore('exitInterior', () => { if (G.map && G.map.id === TI_MAP) { if (TI && !confirm(L2('¿Salir de la Torre Infinita? La subida termina y tu récord se guarda.', 'Leave the Infinite Tower? The climb ends and your record is kept.'))) { const P = G.P; P.y -= 20; return HOOK_SKIP; } if (TI) tiEnd('left'); else { const T0 = tiSalaMake(); transition(() => setMap(T0, (T0.w >> 1) * 16 + 8, (T0.h - 3) * 16, 'down')); } return HOOK_SKIP; } if (G.map && G.map.id === TI_SALA) { tiFromSala(); return HOOK_SKIP; } });
 // si se guarda durante la subida, la partida queda donde entraste (el mapa de la torre se rehace al vuelo)
 hookAround('saveGame', (next, ...a) => { const P = G.P; if (P && P.map === TI_SALA && !TI) { const s0 = { m: P.map, x: P.x, y: P.y }, T0 = makeTower(), pad = T0.objs.find(o => o.xact === 'ti_tp'); P.map = 'torre_portales'; if (pad) { P.x = pad.px; P.y = pad.py + 20; } try { return next(...a); } finally { P.map = s0.m; P.x = s0.x; P.y = s0.y; } } if (!P || P.map !== TI_MAP || !TI) return next(...a); const s = { m: P.map, x: P.x, y: P.y, i: P.inside };
@@ -59628,7 +59642,7 @@ SAVEKEYS.push('ti');
 // Lupa › Sistemas
 if (typeof GSIS !== 'undefined') GSIS.unshift(['n_torre_inf', '♾ ' + L2('Torre Infinita', 'Infinite Tower'), () => [L2('En la Torre de los Portales, la plataforma de teletransporte dorada junto a la entrada te lleva a la Sala de la Torre Infinita (portal, top y la guardiana Ilse). Salas sin fin: cada piso los enemigos suben 5 niveles y entran 5 o más (uno más cada 25 pisos); cada 10 pisos hay un jefe y cada 50 uno de los jefes de la torre (El Arquitecto de la Torre, La Reina del Vértigo).', 'In the Portal Tower, the golden portal in the middle. Endless rooms: each floor enemies gain 5 levels and 5 or more come in (one more every 25 floors); every 10 floors there is a boss and every 50 one of the tower bosses (The Tower Architect, The Vertigo Queen).'),
   L2('Salen todos los enemigos del juego, los jefes de zona, continente, cueva y portal (no salen súper jefes ni jefes de la historia) y 6 enemigos propios de la torre, con mecánicas por piso: rápidos, acorazados, furiosos, enjambre, élite, oscuridad, se regeneran o explotan al morir. Pueden pasar del nivel 700: es una prueba de resistencia.', 'Every enemy in the game, the zone, continent, cave and portal bosses (no super bosses or story bosses) plus 6 tower-only enemies show up, with mechanics per floor: fast, armored, furious, swarm, elite, darkness, regenerating or exploding on death. They can go past level 700: it is an endurance test.'),
-  L2('No da experiencia, oro ni objetos: solo Piedras de Mejora y, desde el piso 30, Piedras de Mejora Superior (los jefes dan varias). Al superar un piso recuperas un poco (del todo tras un jefe). Si caes o sales, la subida termina sin la muerte normal y tu mejor piso va al top. Puedes volver a empezar en el último múltiplo de 10 que superaste.', 'It gives no XP, gold or items: only Upgrade Stones and, from floor 30, Superior Upgrade Stones (bosses give several). Clearing a floor heals you a little (fully after a boss). If you fall or leave, the climb ends without a normal death and your best floor goes to the leaderboard. You can restart at the last multiple of 10 you cleared.')], () => null]);
+  L2('No da experiencia, oro ni objetos: solo Piedras de Mejora y, desde el piso 30, Piedras de Mejora Superior (los jefes dan varias). Al superar un piso recuperas un poco (del todo tras un jefe). Si caes o sales, la subida termina sin la muerte normal y tu mejor piso va al top. En equipo de 4 o en línea con tu grupo, al caer quedas Derribado 18 s: un compañero (o tu amigo con el botón de acción) puede reanimarte, y tú también puedes levantar a un compañero caído del equipo. Puedes volver a empezar en el último múltiplo de 10 que superaste.', 'It gives no XP, gold or items: only Upgrade Stones and, from floor 30, Superior Upgrade Stones (bosses give several). Clearing a floor heals you a little (fully after a boss). If you fall or leave, the climb ends without a normal death and your best floor goes to the leaderboard. In a team of 4 or online with your group, when you fall you are Downed for 18 s: a teammate (or your friend with the action button) can revive you, and you can also get a fallen teammate back up. You can restart at the last multiple of 10 you cleared.')], () => null]);
 
 // ---------- 6.44: equipo de 4 (tú + 3 compañeros con IA: cazadores de los portales y jugadores cazadores) ----------
 function tiAllies(M) { if (typeof huntAlliesClear !== 'function') return; huntAlliesClear(); const P = G.P, out = [];
@@ -59687,6 +59701,48 @@ hookAround('killMob', (next, m, ...a) => { if (!m || !m.ti) return next(m, ...a)
     if (m.boss) { give('piedra1', 2 + Math.floor(Math.random() * 3) + Math.floor(f / 50)); if (f >= 20) give('piedra2', 1 + Math.floor(Math.random() * 2) + Math.floor(f / 100)); }
     else { if (Math.random() < Math.min(0.3, 0.12 + f * 0.0005)) give('piedra1', 1); if (f >= 30 && Math.random() < Math.min(0.1, 0.02 + f * 0.0002)) give('piedra2', 1); } } catch (e) { }
   return r; });
+
+// 6.49: Sergio: «en la Torre Infinita en línea mi amigo murió: que tenga la opción de revivirlo (derribado), como en el
+// mundo normal; en las torres en línea de 4 y 7 jugadores y en el equipo de 4 con IA (jugadores cazadores)».
+// Antes, caer en la torre terminaba la subida al instante (hookBefore('playerDie') → tiEnd). Ahora:
+//  - En línea, si hay otro jugador de tu partida en el piso, o en equipo, si queda un compañero en pie, quedas
+//    «Derribado» (startDown, 18 s). Tus amigos te reaniman con el botón de acción a tu lado (lo de siempre: r.dn en la
+//    presencia → «Reanimar»); en equipo un compañero con IA corre a levantarte (2,5 s). Si nadie llega o te rindes,
+//    la subida termina como antes (tiEnd 'dead'), nunca con la muerte normal.
+//  - Si tu grupo sube de piso o el equipo supera el piso mientras estás derribado, te levantas y sigues con ellos.
+//  - En equipo también puedes reanimar tú a un compañero caído (botón de acción a su lado, 2 s).
+function tiCanDown() { if (!TI) return false;
+  if (TI.mode === 'online') return tioPeers().length > 0;
+  if (TI.mode === 'team') return typeof HUNT !== 'undefined' && HUNT.allies.some(a => !a.down && !a.remove && a.map === TI_MAP);
+  return false; }
+function tiInTower() { return !!(TI && G.map && G.map.id === TI_MAP); }
+// rendirse o que se acabe el tiempo dentro de la torre: termina la subida (la muerte normal no)
+hookBefore('giveUpDown', () => { const P = G.P; if (!P.downed || !tiInTower()) return; P.downed = null; P.revive = null; P.tiRev = null; downUI(true); tiEnd('dead'); return HOOK_SKIP; });
+// al acabar la subida por cualquier motivo no te quedas derribado
+hookBefore('tiEnd', () => { const P = G.P; if (P.downed) { P.downed = null; downUI(true); } P.tiRev = null; if (typeof HUNT !== 'undefined') for (const a of HUNT.allies) a.tiRevT = 0; });
+hookAfter('downUI', (r, hide) => { const P = G.P; if (hide || !P.downed || !tiInTower() || !_downEl) return; const s = _downEl.querySelector('span'); if (s) s.textContent = Math.ceil(P.downed.t) + ' s · ' + (TI.mode === 'team' ? L2('un compañero viene a reanimarte', 'a teammate is coming to revive you') : L2('tus amigos pueden reanimarte (botón de acción a tu lado)', 'your friends can revive you (action button next to you)')); });
+// el equipo supera el piso / el grupo en línea sube: te levantas
+hookBefore('tiCleared', () => { const P = G.P; if (P.downed) reviveFromDown(); });
+hookBefore('tioRecv', rem => { const P = G.P, t = rem && rem.tio; if (P.downed && TI && TI.mode === 'online' && TIO && t && t.k === TIO.k && t.f > TI.floor) reviveFromDown(rem.name); });
+// compañeros con IA: el más cercano en pie corre a levantarte
+hookBefore('huntUpdate', (a, dt) => { const P = G.P; if (!P.downed || !tiInTower() || !a || a.down || a.remove) { if (a) a.tiRevT = 0; return; }
+  let best = null, bd = Infinity; for (const q of HUNT.allies) if (!q.down && !q.remove && q.map === P.map) { const d = dist2(q.x, q.y, P.x, P.y); if (d < bd) { bd = d; best = q; } }
+  if (best !== a) { a.tiRevT = 0; return; }
+  const dx = P.x - a.x, dy = P.y + 8 - a.y, L = Math.hypot(dx, dy);
+  if (L > 14) { a.tiRevT = 0; const sp = (P.S ? P.S.spd : 70) * 1.5; if (L > 300) { a.x = P.x; a.y = P.y + 10; } else if (!moveEnt(G.map, a, dx / L * sp * dt, dy / L * sp * dt)) { a.x += dx / L * sp * dt; a.y += dy / L * sp * dt; } a.dir = dirFromVec(dx, dy); setAnim(a, 'walk', true); stepAnim(a, dt, 9); return HOOK_SKIP; }
+  if (!a.tiRevT) { a.tiRevT = 2.5; a.chat = L2('¡Aguanta, te levanto!', 'Hang on, I\'ll get you up!'); a.chatT = G.t; }
+  a.tiRevT -= dt; a.dir = dirFromVec(P.x - a.x, P.y - a.y); setAnim(a, 'cast', true);
+  if (Math.random() < dt * 8) burst(P.x, P.y - 10, 2, { sp: 20, up: 40, g: -20, life: 0.6, c: ['#8aff6a', '#ffffff'] });
+  if (a.tiRevT <= 0) { a.tiRevT = 0; setAnim(a, 'idle'); reviveFromDown(a.name); }
+  return HOOK_SKIP; });
+// tú reanimas a un compañero caído del equipo
+function tiAllyRevTarget() { const P = G.P; if (!tiInTower() || TI.mode !== 'team' || P.dead || typeof HUNT === 'undefined') return null; for (const a of HUNT.allies) if (a.down && !a.remove && a.map === P.map && dist2(a.x, a.y, P.x, P.y) < 34 * 34) return a; return null; }
+hookAround('interactTarget', (next, ...args) => { const a = tiAllyRevTarget(); if (a) return { kind: 'tirev', a, label: L2('Reanimar', 'Revive'), icon: 'heart' }; return next(...args); });
+hookBefore('doInteract', () => { const P = G.P; if (P.tiRev) return HOOK_SKIP; const a = tiAllyRevTarget(); if (!a) return; P.tiRev = { a, t: 2 }; setAnim(P, 'gather'); toast(L2('Reanimando a ', 'Reviving ') + a.name + '…', 'info'); return HOOK_SKIP; });
+V33_TICKS.push(dt => { const P = G.P; if (!P || !P.tiRev) return; const R = P.tiRev, a = R.a; dt = dt || 0;
+  if (!tiInTower() || P.dead || !a || a.remove || !a.down || dist2(a.x, a.y, P.x, P.y) > 44 * 44) { P.tiRev = null; return; }
+  R.t -= dt; if (Math.random() < dt * 8) burst(a.x, a.y - 10, 2, { sp: 20, up: 40, g: -20, life: 0.6, c: ['#8aff6a', '#ffffff'] });
+  if (R.t <= 0) { P.tiRev = null; a.down = false; a.downT = 0; a.hp = Math.round(a.maxhp * 0.5); setAnim(P, 'idle'); setAnim(a, 'idle'); floatText(a.x, a.y - 40, L2('¡Gracias!', 'Thanks!'), '#8aff8a'); addFx({ type: 'ring', x: a.x, y: a.y, r: 26, dur: 0.6, col: '#8aff6a' }); sfx('level'); toast(L2('¡Has reanimado a ', 'You revived ') + a.name + '!', 'quest'); if (typeof passEvent === 'function') passEvent('revive', 1); } });
 
 // ================= 6.43-6.44: JUGADORES CAZADORES (IA) EN TODOS LOS MAPAS =================
 // 6.44: Sergio pidió llamarlos «Jugadores cazadores» (para no confundirlos con los cazadores de los portales), que mejoren

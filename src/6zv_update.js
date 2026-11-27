@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.49', GAME_BUILD = 271;
+const GAME_VER = '6.50', GAME_BUILD = 272;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.50",
+ "b": 272,
+ "d": "2026-11-27",
+ "es": [
+  "Torre Infinita en línea (de 2 a 7 jugadores): si caes y queda otro jugador de tu grupo en el piso, quedas «Derribado» 18 segundos, como en el mundo normal. Tu amigo puede reanimarte con el botón de acción a tu lado. Si nadie llega o te rindes, tu subida termina como antes. Si tu grupo sube de piso mientras estás derribado, te levantas y vas con ellos.",
+  "Torre Infinita en equipo de 4 (con jugadores cazadores y cazadores de los portales): si caes y queda un compañero en pie, quedas «Derribado» y el compañero más cercano corre a levantarte. Tú también puedes reanimar a un compañero caído con el botón de acción a su lado. Si el equipo supera el piso mientras estás derribado, te levantas."
+ ],
+ "en": [
+  "Online Infinite Tower (2 to 7 players): if you fall and another player from your group is still on the floor, you are «Downed» for 18 seconds, like in the normal world. Your friend can revive you with the action button next to you. If nobody comes or you give up, your climb ends as before. If your group goes up a floor while you are downed, you get up and go with them.",
+  "Infinite Tower team of 4 (with player hunters and portal hunters): if you fall and a teammate is still standing, you are «Downed» and the closest teammate runs to get you up. You can also revive a fallen teammate with the action button next to them. If the team clears the floor while you are downed, you get up."
+ ]
+},
 {
  "v": "6.49",
  "b": 271,

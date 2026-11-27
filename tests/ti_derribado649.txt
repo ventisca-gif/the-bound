@@ -1,0 +1,31 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], setInterval(()=>{ if(!$('#modal').hidden && /Bienvenido|Welcome/.test($('#mbody').textContent)) { const b=$('#dlOk'); if (b) b.click(); else closeModal(); } }, 150), window.addEventListener('error', e=>window._errs.push(e.message)), G.P.lv=300, calcStats(G.P), G.P.hp=G.P.S.maxhp, 1)
+wait 3000
+js ($('#dlOk')&&$('#dlOk').click(), closeModal(), tiStart(1,'team'), 1)
+wait 3500
+js [G.map.id, TI && TI.mode, HUNT.allies.length]
+js (()=>{ const P=G.P; for (const e of G.ents) if (e.type==='mob'&&e.ti) { e.atk=0; e.stun=999; } P.hp=0; playerDie(); return [!!P.downed, P.dead, !!TI, $('#downBar span').textContent]; })()
+wait 600
+shot
+wait 4500
+js (()=>{ const P=G.P; return [!!P.downed, P.dead, !!TI, Math.round(P.hp/P.S.maxhp*100)]; })()
+js (()=>{ const P=G.P, a=HUNT.allies[0]; a.hp=0; a.down=true; a.downT=99; a.x=P.x+10; a.y=P.y; P.dir='right'; const t=interactTarget(); doInteract(); return [t&&t.kind, !!P.tiRev]; })()
+wait 2600
+js (()=>{ const a=HUNT.allies[0]; return [a.down, a.hp>0]; })()
+js (()=>{ const P=G.P; for (const a of HUNT.allies){ a.hp=0; a.down=true; a.downT=99; } P.hp=0; playerDie(); return [!!P.downed, !!TI]; })()
+wait 2500
+js [!!G.P.downed, !!TI, G.map.id, G.P.dead]
+js (closeModal(), tiStart(1,'online'), TIO={k:'t1',host:'x',max:4,f:1,kd:[]}, 1)
+wait 3500
+js (()=>{ const P=G.P; G.remote.set('fr1',{id:'fr1',name:'Amigo',map:TI_MAP,x:P.x+20,y:P.y,tio:{k:'t1',f:1,kd:[]}}); P.hp=0; playerDie(); return [!!P.downed, !!TI, tioPeers().length]; })()
+js (()=>{ const P=G.P, r=G.remote.get('fr1'); r.tio={k:'t1',f:2,kd:[]}; tioRecv(r); return [!!P.downed, P.dead]; })()
+wait 2500
+js [TI&&TI.floor, G.P.dead]
+js (G.remote.delete('fr1'), G.P.hp=0, playerDie(), [!!G.P.downed, !!TI])
+wait 2000
+js (closeModal(), tiStart(1,'solo'), 1)
+wait 3000
+js (G.P.hp=0, playerDie(), [!!G.P.downed, !!TI])
+wait 2000
+js [G.map.id, G.P.dead]
+js window._errs
