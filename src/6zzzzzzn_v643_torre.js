@@ -227,10 +227,13 @@ V33_TICKS.push(() => { const P = G.P; if (!P || !P.S) return; if (!isFinite(P.hp
 // Piedras de Mejora (piedra1) y Piedras de Mejora Superior (piedra2). Solo afecta a los enemigos de la torre (m.ti); fuera
 // de la torre los enemigos originales siguen dando lo de siempre.
 const TI_OK_ITEMS = new Set(['piedra1', 'piedra2']);
-hookAround('killMob', (next, m, ...a) => { if (!m || !m.ti) return next(m, ...a); const P = G.P, g0 = P.gold, _gx = gainXp, _gi = giveItem, _ft = floatText;
-  m.xp = 0; m.gold = 0; gainXp = function () { }; floatText = function (x, y, t) { if (typeof t === 'string' && / XP$| ORO$| GOLD$/.test(t)) return; return _ft.apply(this, arguments); }; giveItem = function (id) { if (TI_OK_ITEMS.has(id)) return _gi.apply(this, arguments); return false; };
-  let r; try { r = next(m, ...a); } finally { gainXp = _gx; giveItem = _gi; floatText = _ft; P.gold = g0; }
-  try { const f = (TI && TI.floor) || 1, give = (id, n) => { if (n <= 0) return; _gi(id, n, true); lootFx(m.x, m.y, id); };
+let TI_MUTE = false;   // mientras muere un enemigo de la torre: sin experiencia, sin objetos (salvo piedras) y sin «+X XP/ORO»
+hookBefore('gainXp', () => { if (TI_MUTE) return HOOK_SKIP; });
+hookBefore('giveItem', id => { if (TI_MUTE && !TI_OK_ITEMS.has(id)) return HOOK_SKIP; });
+hookBefore('floatText', (x, y, t) => { if (TI_MUTE && typeof t === 'string' && / XP$| ORO$| GOLD$/.test(t)) return HOOK_SKIP; });
+hookAround('killMob', (next, m, ...a) => { if (!m || !m.ti) return next(m, ...a); const P = G.P, g0 = P.gold;
+  m.xp = 0; m.gold = 0; TI_MUTE = true; let r; try { r = next(m, ...a); } finally { TI_MUTE = false; P.gold = g0; }
+  try { const f = (TI && TI.floor) || 1, give = (id, n) => { if (n <= 0) return; giveItem(id, n, true); lootFx(m.x, m.y, id); };
     if (m.boss) { give('piedra1', 2 + Math.floor(Math.random() * 3) + Math.floor(f / 50)); if (f >= 20) give('piedra2', 1 + Math.floor(Math.random() * 2) + Math.floor(f / 100)); }
     else { if (Math.random() < Math.min(0.3, 0.12 + f * 0.0005)) give('piedra1', 1); if (f >= 30 && Math.random() < Math.min(0.1, 0.02 + f * 0.0002)) give('piedra2', 1); } } catch (e) { }
   return r; });
