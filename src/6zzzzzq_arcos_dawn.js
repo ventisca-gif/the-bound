@@ -95,7 +95,7 @@ hookBefore('killMob', m => { if (!m || m !== ARC.jy) return; const P = G.P, J = 
   setTimeout(() => banner('📜 ' + J.n + ' ' + L2('capturado', 'captured'), '+' + fmt(J.prize) + ' ' + L2('oro · Johnny y Yosaku se quedan su parte', 'gold · Johnny and Yosaku keep their share')), 500); markDirty(true); });
 
 // ---------- 12) La Montaña del Revés y Laboon ----------
-const RM_AT = [1600, 110];   // casilla del mar (noreste)
+const RM_AT = [1578, 1308];   // bahía de Cabos Gemelos (noreste); conserva rmDone de partidas anteriores
 XSPR.rm_montana = () => { const p = new Pix(160, 120);
   p.poly([[0, 118], [56, 10], [80, 2], [104, 10], [160, 118]], C('#8a2a1a')); p.poly([[20, 118], [62, 26], [80, 18], [98, 26], [140, 118]], C('#b83a22'));
   p.poly([[70, 118], [76, 20], [84, 20], [90, 118]], C('#4a9ae0')); for (let y = 24; y < 118; y += 6) p.hl(76 + ((y / 6) % 2), y, 8, C('#bfe6ff'));
@@ -111,7 +111,7 @@ const rmLaboonSpr = mark => () => { const p = new Pix(160, 76), B = pal(['#1e346
   else for (let k = 0; k < 6; k++) p.set(44 + k * 3, 14 + (k % 2) * 3, B[0]);   // cicatrices de golpear la montaña
   p.poly([[60, 52], [76, 66], [80, 54]], B[1]); p.outline(OUTL); return { c: p.canvas(), ax: 80, ay: 70 }; };
 XSPR.rm_laboon = rmLaboonSpr(false); XSPR.rm_laboonp = rmLaboonSpr(true);
-DL_HOOKS.push(list => { const M = G.map; if (!M || !M.dawn) return; const [x, y] = dawnPx(RM_AT);
+DL_HOOKS.push(list => { const M = G.map; if (!M || !M.dawn || M.rmCape) return; const [x, y] = dawnPx([1600, 110]);
   list.push({ type: 'xdraw', x, y, draw: (e, cx, cy) => { const s = spr('rm:montana', XSPR.rm_montana); ctx.save(); ctx.imageSmoothingEnabled = false; ctx.translate(Math.round(x - cx), Math.round(y - cy)); ctx.scale(3, 3); ctx.drawImage(s.c, -s.ax, -s.ay); ctx.restore(); } }); });
 const cnSpr = (x, k, X, Y, W, H) => { const d = spr('cn:' + k, XSPR[k]); x.imageSmoothingEnabled = false; x.drawImage(d.c, Math.round(X), Math.round(Y), Math.round(W), Math.round(H)); };
 Object.assign(CN_SC, {
@@ -124,7 +124,7 @@ Object.assign(CN_SC, {
     cnR(x, '#e8c040', 60, 20 + Math.sin(t * 4) * 2, 18, 5); cnR(x, '#c84a2a', 60, 24 + Math.sin(t * 4) * 2, 18, 2); cnR(x, '#f0c8a0', 64, 26 + Math.sin(t * 4) * 2, 10, 8); }   // Luffy sobre la cabeza
 });
 function rmCanStart(P) { return !!(P && !P.rmDone && P.dawnCrewJoined && (P.logueArcN || 0) >= 1 && P.dawnHelm && P.dawnHelm.kind === 'skiff' && !ARC.rm && !nvCalm()); }
-V33_TICKS.push(() => { const P = G.P, M = G.map; if (!P || !M || !M.dawn) return; const [x, y] = dawnPx(RM_AT);
+V33_TICKS.push(() => { const P = G.P, M = G.map; if (!P || !M || !M.dawn) return; const [x, y] = dawnPx(M.rmCape ? RM_AT : [1600, 110]);
   if (rmCanStart(P) && Math.hypot(P.x - x, P.y - y) < 520) {
     ARC.rm = { ph: 'cine' };
     cinePlay([
@@ -135,10 +135,13 @@ V33_TICKS.push(() => { const P = G.P, M = G.map; if (!P || !M || !M.dawn) return
       banner('🐋 Laboon', L2('Laboon embiste el Merry: dispárale con el botón de la espada para calmarlo y aparta el barco de sus golpes.', 'Laboon rams the Merry: fire with the sword button to calm it and move the ship away from its blows.')); });
   } });
 function rmCalm(f) {
-  const P = G.P; ARC.foes = ARC.foes.filter(x => x !== f); P.rmDone = 1; ARC.rm = null;
+  const P = G.P; if (!P || P.rmDone || !f || f.k !== 'laboon' || !ARC.foes.includes(f)) return;
+  ARC.foes = ARC.foes.filter(x => x !== f); ARC.rm = null;
+  // Commit reward and completion together before a skippable/interrupted scene.
+  giveItem('rm_logpose', 1); P.gold += 250000; P.rmDone = 1; markDirty(true);
   cinePlay([{ s: 'rm_promesa', title: L2('Una promesa', 'A promise'), txt: L2('Luffy le pinta en la cabeza la bandera de su tripulación: «Cuando demos la vuelta al Grand Line, volveremos a pelear. Así que deja de golpear la montaña». Laboon llora… y espera.', 'Luffy paints his crew’s flag on its head: “When we sail around the Grand Line, we’ll come back to fight again. So stop hitting the mountain.” Laboon cries… and waits.') },
     { s: 'rm_promesa', title: 'Log Pose', txt: L2('Crocus os da un Log Pose: en el Grand Line la brújula no sirve. Pero ese mar todavía está en blanco: la Ventisca aún no lo ha pintado.', 'Crocus gives you a Log Pose: in the Grand Line the compass is useless. But that sea is still blank: the Ventisca hasn’t painted it yet.') }],
-    () => { giveItem('rm_logpose', 1); const g = 250000; P.gold += g; banner('🐋 ' + L2('Laboon espera vuestra vuelta', 'Laboon awaits your return'), '+' + fmt(g) + ' ' + L2('oro · Log Pose', 'gold · Log Pose')); markDirty(true); });
+    () => { const g = 250000; banner('🐋 ' + L2('Laboon espera vuestra vuelta', 'Laboon awaits your return'), '+' + fmt(g) + ' ' + L2('oro · Log Pose', 'gold · Log Pose')); markDirty(true); });
 }
 
 // ---------- 13) La Isla del Barco de Guerra: escolta a Apis ----------
@@ -184,7 +187,7 @@ V33_TICKS.push(dt => { const P = G.P, M = G.map; if (!P || !M || !M.dawn) return
 // ---------- blancos, muerte y dibujo de estos enemigos en el combate naval ----------
 hookAfter('nvTargets', L => Array.isArray(L) ? L.concat(ARC.foes.filter(f => !f.dead)) : L);
 hookBefore('nvKill', f => { if (f && f.onKill) { f.dead = 1; burst(f.x, f.y - 10, 20, { sp: 120, up: 60, life: 0.8, c: ['#ffb040', '#ffffff', '#6aa8e0'] }); sfx('kill'); f.onKill(f); return HOOK_SKIP; } });
-V33_TICKS.push(dt => { dt = Math.min(0.05, dt || 0.016); const P = G.P, M = G.map; if (!P || !M || !M.dawn) { ARC.foes = []; return; }
+V33_TICKS.push(dt => { dt = Math.min(0.05, dt || 0.016); const P = G.P, M = G.map; if (!P || !M || !M.dawn) { ARC.foes = []; ARC.rm = null; return; }
   for (const f of ARC.foes) { if (f.k !== 'laboon') continue; const dx = P.x - f.x, dy = P.y - f.y, d = Math.hypot(dx, dy) || 1; f.cd -= dt;
     if (d > 300) { const nx = f.x + dx / d * 90 * dt, ny = f.y + dy / d * 90 * dt; if (dawnSurface(M, nx, ny, 30)) { f.x = nx; f.y = ny; } }
     if (f.cd <= 0) { f.cd = 2.2; nvMark(P.x, P.y, 40, 1.0, 10); } } });
@@ -203,6 +206,6 @@ if (typeof LUPA_DAWN !== 'undefined') LUPA_DAWN.push(['arcos628', () => '🗺 ' 
     ok(P.arcAlvida) + L2('Alvida, revancha (nv. 618): habla con Alvida en el muelle de Loguetown (tras vencerla en su galeón). Cuando brilla («Sube Sube»), el 70 % de los golpes resbala; tras embestir se marea 2,5 s y recibe un 50 % más. Primera vez: 150.000 de oro y el Espejo Sube Sube (accesorio).', 'Alvida rematch (lv. 618): talk to Alvida at the Loguetown pier (after beating her on her galleon). When she shines (“Slip-Slip”), 70 % of hits slip off; after charging she is dizzy for 2.5 s and takes 50 % more. First time: 150,000 gold and the Slip-Slip Mirror (accessory).'),
     ok(P.arcNezumi) + L2('Nezumi (nv. 606): habla con Nojiko en Conomi tras vencer a Arlong. Vence a sus marines y a Nezumi: 120.000 de oro y la recompensa de Nami sube.', 'Nezumi (lv. 606): talk to Nojiko in Conomi after beating Arlong. Defeat his marines and Nezumi: 120,000 gold and Nami’s bounty rises.'),
     '📜 ' + L2('Johnny y Yosaku (Baratie y Conomi): 3 encargos al día. La flecha te lleva a la isla del pirata buscado; al acercarte aparece. Oro según tu nivel.', 'Johnny and Yosaku (Baratie and Conomi): 3 jobs a day. The arrow takes you to the wanted pirate’s island; it appears when you get close. Gold by your level.') + (P.jyJob ? ' ▶ ' + P.jyJob.n + ' · ' + P.jyJob.isleN : ''),
-    ok(P.rmDone) + L2('La Montaña del Revés (tras el arco de Loguetown): navega con el Merry al extremo noreste del mar. Calma a Laboon a cañonazos. Premio: Log Pose y 250.000 de oro. El Grand Line todavía no está pintado.', 'Reverse Mountain (after the Loguetown arc): sail the Merry to the far north-east of the sea. Calm Laboon with cannon fire. Reward: Log Pose and 250,000 gold. The Grand Line isn’t painted yet.'),
+    ok(P.rmDone) + L2('La Montaña del Revés (tras el arco de Loguetown): navega con el Merry al extremo sureste del mar. Calma a Laboon a cañonazos. Premio: Log Pose y 250.000 de oro. El Grand Line todavía no está pintado.', 'Reverse Mountain (after the Loguetown arc): sail the Merry to the far south-east of the sea. Calm Laboon with cannon fire. Reward: Log Pose and 250,000 gold. The Grand Line isn’t painted yet.'),
     ok(P.wiDone) + L2('La Isla del Barco de Guerra (tras Arlong): navegando, a veces aparece la balsa de Apis perseguida por la Marina. Hunde 3 barcos sin que hundan la balsa. Premio: Escama del dragón milenario y 180.000 de oro.', 'Warship Island (after Arlong): while sailing, Apis’s raft sometimes appears, chased by the Navy. Sink 3 ships before they sink the raft. Reward: Thousand-year dragon scale and 180,000 gold.')
   ]; }, () => { const P = G.P; return P && !P.rmDone && (P.logueArcN || 0) >= 1 ? { m: 'dawn', loc: RM_AT.slice(), t: L2('Montaña del Revés', 'Reverse Mountain') } : null; }]);

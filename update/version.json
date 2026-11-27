@@ -1,25 +1,25 @@
 {
- "build": 284,
- "ver": "6.62",
+ "build": 285,
+ "ver": "6.63",
  "date": "2026-11-27",
  "file": "thebound.html",
- "size": 36092141,
- "sha256": "a5aa240e31317143dac3e5ae698b8a7676758fbb051456347434a45d53845458",
+ "size": 36104141,
+ "sha256": "bbc6508827ff83546ce5d5183b0cb14ed603314f3fcccc9e88ed120c0899323a",
  "minApk": 24,
  "gz": "thebound.html.gz",
- "gzSize": 21948873,
- "gzSha256": "aa824702aa2f6fa93485c240ea589bf7760839264ac9a3956d7cec922a2fe055",
+ "gzSize": 21954057,
+ "gzSha256": "a3a752eae611e3958a7633f9cfbef1bbee5078edde7595bace0cd73822a4d7af",
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🇧🇷 ¡Brasil! Avión desde Albor, Lima, México o España (2.500 de oro). Río de Janeiro: Copacabana con edificios frente al mar, el calçadão de ondas y la playa llena de sombrillas; el Cristo Redentor en lo alto del Corcovado (la cámara sube para verlo entero); el morro con casas de ladrillo y tanques azules; la Escalera Selarón y los arcos de Lapa; la Lagoa con el hipódromo.",
-   "🚡 Teleférico al Pan de Azúcar. 🌈 Cataratas del Iguazú con pasarelas sobre el río, niebla y arcoíris; 🚤 pilota el bote contra la corriente hasta la niebla de la cascada y vuelve. 🧩 Devuelve los azulejos caídos a los escalones de su color en la Selarón.",
-   "🌿 Pasto tropical nuevo, más verde y con florecitas. Comida: feijoada, pan de queso, acaí, agua de coco, coxinha y brigadeiro. Todo en Lupa › Ciudades y vida y en el Mapa."
+   "Reverse Mountain y Cabos Gemelos dentro del mar de Dawn: canales navegables, dos faros, muelle y Crocus, con las texturas y los barcos originales. La zona ocupa una extensión libre al sureste, sin alterar Shells Town ni las demás islas.",
+   "Escenas con el Going Merry y los sprites de la tripulación y tu personaje. La promesa de Laboon conserva el progreso anterior y entrega el premio una sola vez, antes de la cinemática.",
+   "La primera isla del Grand Line llegará en otro mapa marítimo; la salida continúa cerrada. Se conservan Brasil y todas las actualizaciones anteriores."
   ],
   "en": [
-   "🇧🇷 Brazil! Plane from Albor, Lima, Mexico or Spain (2,500 gold). Rio de Janeiro: Copacabana with seafront buildings, the wave calçadão and a beach full of umbrellas; Christ the Redeemer on top of Corcovado (the camera rises to see it whole); the morro with brick houses and blue tanks; the Selarón Steps and the Lapa arches; the Lagoa with the racecourse.",
-   "🚡 Cable car to the Sugarloaf. 🌈 Iguazu Falls with walkways over the river, mist and rainbow; 🚤 pilot the boat against the current to the falls' mist and back. 🧩 Put the fallen tiles back on the steps of their colour at the Selarón.",
-   "🌿 New tropical grass, greener and with little flowers. Food: feijoada, cheese bread, açaí, coconut water, coxinha and brigadeiro. All in Magnifier › Cities and life and on the Map."
+   "Reverse Mountain and Twin Cape in the Dawn Sea: navigable channels, two lighthouses, a pier and Crocus, using the original textures and ships. The area occupies an unused south-eastern extension without changing Shells Town or the other islands.",
+   "Scenes use the Going Merry and the original crew and player sprites. Laboon’s promise preserves previous progress and awards its reward once, before the cutscene.",
+   "The first Grand Line island will have its own sea map; the exit remains closed. Brazil and all previous updates are preserved."
   ]
  }
 }

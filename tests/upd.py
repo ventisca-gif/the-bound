@@ -64,7 +64,9 @@ with sync_playwright() as p:
     ctx = b.new_context(viewport={'width': 900, 'height': 500}, device_scale_factor=1, has_touch=True)
     pg = ctx.new_page(); errs = []
     pg.on('pageerror', lambda e: errs.append(str(e)))
-    make(NEW, '9.%d' % NEW)
+    # Keep the simulated server at the installed version while creating the save.
+    # Advertising NEW here races the title's automatic check and covers #ccGo.
+    make(cur, 'installed')
     # 1) partida nueva en la versión del APK
     pg.goto(U); pg.wait_for_timeout(2500)
     pg.evaluate("localStorage.setItem('thebound.seen', String(GAME_BUILD))")
@@ -76,6 +78,7 @@ with sync_playwright() as p:
     res['opts_has_upd'] = pg.evaluate("!!document.getElementById('oUpd')"); shot(pg)
     pg.evaluate("closePanel()")
     # 2) volver al título: busca solo y avisa
+    make(NEW, '9.%d' % NEW)
     pg.goto(U); pg.wait_for_timeout(5500)
     res['modal_after_check'] = pg.evaluate("!document.getElementById('modal').hidden && !!document.getElementById('updGo')")
     res['title_msg'] = pg.evaluate("document.getElementById('tUpdMsg').textContent"); shot(pg)

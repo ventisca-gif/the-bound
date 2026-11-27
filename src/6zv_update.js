@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.62', GAME_BUILD = 284;
+const GAME_VER = '6.63', GAME_BUILD = 285;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.63",
+ "b": 285,
+ "d": "2026-11-27",
+ "es": [
+  "Reverse Mountain y Cabos Gemelos dentro del mar de Dawn: canales navegables, dos faros, muelle y Crocus, con las texturas y los barcos originales. La zona ocupa una extensión libre al sureste, sin alterar Shells Town ni las demás islas.",
+  "Escenas con el Going Merry y los sprites de la tripulación y tu personaje. La promesa de Laboon conserva el progreso anterior y entrega el premio una sola vez, antes de la cinemática.",
+  "La primera isla del Grand Line llegará en otro mapa marítimo; la salida continúa cerrada. Se conservan Brasil y todas las actualizaciones anteriores."
+ ],
+ "en": [
+  "Reverse Mountain and Twin Cape in the Dawn Sea: navigable channels, two lighthouses, a pier and Crocus, using the original textures and ships. The area occupies an unused south-eastern extension without changing Shells Town or the other islands.",
+  "Scenes use the Going Merry and the original crew and player sprites. Laboon’s promise preserves previous progress and awards its reward once, before the cutscene.",
+  "The first Grand Line island will have its own sea map; the exit remains closed. Brazil and all previous updates are preserved."
+ ]
+},
 {
  "v": "6.62",
  "b": 284,
