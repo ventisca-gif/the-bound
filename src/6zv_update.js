@@ -22,12 +22,14 @@ const CHANGELOG = /*CL*/
  "es": [
   "Arreglo: los ataques en área de enemigos y jefes te alcanzaban más lejos de lo que mostraba la zona roja (por encima y por debajo del enemigo, hasta un 40 % más). Ahora solo te golpean si estás dentro de la zona que se ve.",
   "Devorador Carmesí (asedio de la Luna de Sangre): un anillo en el suelo marca siempre dónde están sus pies y hasta dónde llega su golpe, pega un 15 % menos y pisotea algo menos seguido.",
-  "Arreglo: los jugadores cazadores dejaban a los jefes con poca vida. Ahora sus golpes a un jefe no le quitan vida de verdad: el jefe está siempre entero para ti."
+  "Arreglo: los jugadores cazadores dejaban a los jefes con poca vida. Ahora sus golpes a un jefe no le quitan vida de verdad: el jefe está siempre entero para ti.",
+  "Torre Infinita: ya no sale el Muñeco de prueba (era inmortal). La torre no da experiencia, oro ni objetos: solo Piedras de Mejora y, desde el piso 30, Piedras de Mejora Superior (los jefes dan varias). Fuera de la torre los enemigos dan lo de siempre."
  ],
  "en": [
   "Fix: enemy and boss area attacks reached farther than the red zone showed (above and below the enemy, up to 40% more). Now they only hit you if you are inside the zone you see.",
   "Crimson Devourer (Blood Moon siege): a ring on the ground always shows where its feet are and how far its hit reaches, it hits 15% less and stomps a bit less often.",
-  "Fix: player hunters left bosses at low HP. Their hits on a boss no longer take real HP: the boss is always whole for you."
+  "Fix: player hunters left bosses at low HP. Their hits on a boss no longer take real HP: the boss is always whole for you.",
+  "Infinite Tower: the Training dummy no longer appears (it was immortal). The tower gives no XP, gold or items: only Upgrade Stones and, from floor 30, Superior Upgrade Stones (bosses give several). Outside the tower enemies give the usual rewards."
  ]
 },
 {
