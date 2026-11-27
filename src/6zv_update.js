@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.56', GAME_BUILD = 278;
+const GAME_VER = '6.57', GAME_BUILD = 279;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,17 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.57",
+ "b": 279,
+ "d": "2026-11-27",
+ "es": [
+  "📦 El juego pesa 3,6 MB menos (39,6 → 35,9 MB): las 564 imágenes de sprites, mapas y armas se recomprimieron sin pérdida. Los píxeles son exactamente los mismos; solo carga y se actualiza antes."
+ ],
+ "en": [
+  "📦 The game is 3.6 MB smaller (39.6 → 35.9 MB): the 564 sprite, map and weapon images were recompressed losslessly. The pixels are exactly the same; it just loads and updates faster."
+ ]
+},
 {
  "v": "6.56",
  "b": 278,
