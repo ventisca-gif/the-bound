@@ -20,6 +20,8 @@ const CHANGELOG = /*CL*/
  "b": 266,
  "d": "2026-11-27",
  "es": [
+  "Torre Infinita, más fácil de encontrar: en la Torre de los Portales, la plataforma de teletransporte dorada junto a la entrada te lleva a la Sala de la Torre Infinita (portal, top y la guardiana Ilse).",
+  "Jugadores cazadores: su perfil es como tu ficha de personaje (equipo, estadísticas reales, atributos y su historia). Van a tu velocidad, usan dash y montura en los mapas abiertos y rodean los obstáculos. Los enemigos, jefes y súper jefes también los atacan: pueden caer y se levantan solos o los levanta otro. Pueden pelear contra jefes, pero nunca los rematan ni se meten si tú los estás peleando (y el jefe se recupera cuando se van).",
   "Jugadores cazadores: así se llaman ahora (para no confundirlos con los cazadores de los portales). Viven su propia aventura, sin tu hilo: mejoran su equipo (+1 a +10), suben oficios, consiguen formas, vencen jefes, suben la Torre Infinita y viajan por todos los países y mapas. Míralo en su perfil (📖 Su historia).",
   "Se transforman en combate con su aura y su destello, y cambian de forma en plena pelea si tienen varias. Tienen diálogos nuevos según dónde están y qué han hecho. No te pueden revivir.",
   "Puedes atacar a un jugador cazador sin pedirle duelo: se defiende (y se transforma). Si gana o pierde, lo recuerda.",
@@ -27,6 +29,8 @@ const CHANGELOG = /*CL*/
   "Torre Infinita · En línea: con tu grupo, hasta 4 o hasta 7 jugadores, sin top (solo para ver cuánto aguantáis). Los enemigos que vence uno desaparecen para todos y subís juntos."
  ],
  "en": [
+  "Infinite Tower, easier to find: in the Portal Tower, the golden teleporter pad by the entrance takes you to the Infinite Tower Hall (portal, leaderboard and the warden Ilse).",
+  "Player hunters: their profile looks like your character sheet (gear, real stats, attributes and their story). They move at your speed, use dash and mounts on open maps and walk around obstacles. Enemies, bosses and super bosses attack them too: they can fall and get up on their own or another one helps them. They can fight bosses but never finish them or join if you are fighting them (and the boss recovers when they leave).",
   "Player hunters: that's their name now (so they aren't confused with the portal hunters). They live their own adventure, without your thread: they upgrade gear (+1 to +10), raise jobs, get forms, defeat bosses, climb the Infinite Tower and travel across every country and map. See it in their profile (📖 Their story).",
   "They transform in combat with their aura and flash, and switch forms mid-fight if they have several. They have new dialogue depending on where they are and what they've done. They can't revive you.",
   "You can attack a player hunter without asking for a duel: they fight back (and transform). Win or lose, they remember it.",
