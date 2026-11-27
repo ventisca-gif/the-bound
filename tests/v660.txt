@@ -1,0 +1,36 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], setInterval(()=>{ if(!$('#modal').hidden && /Bienvenido|Welcome/.test($('#mbody').textContent)) { const b=$('#dlOk'); if (b) b.click(); else closeModal(); } }, 150), window.addEventListener('error', e=>window._errs.push(e.message)), (()=>{ const ow=errOnce; errOnce=function(t,e){ window._errs.push(t+': '+(e&&e.message||e)); return ow.apply(this,arguments); }; })(), G.P.lv=300, calcStats(G.P), G.P.gold=2000000, G.P.ifr=1e9, 1)
+wait 2000
+js (()=>{ const P=G.P; P.bossKills=P.bossKills||{}; P.bossKills.vael=1; P.x=44*16+8; P.y=52*16; v660NT=0; giveItem('log1',150,true); giveItem('log2',150,true); giveItem('ore1',150,true); giveItem('ore2',150,true); return [v660Count('w'), v660Count('s')] })()
+wait 2500
+js (()=>{ const e=G.ents.find(q=>q.id==='v660_ilda'&&q.map==='world'); return e?[Math.round(e.x/16),Math.round(e.y/16)]:'sin Ilda' })()
+js (()=>{ const out=[]; for(let k=0;k<5;k++){ const e=G.ents.find(q=>q.id==='v660_ilda'&&q.map==='world'); openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/🏗/.test(b.textContent)); if(!b){ out.push('sin opcion'); break; } b.click(); out.push(V660().st); closeDialog(); } return [out, G.world.objs.filter(o=>o.v660).length, G.world.objs.filter(o=>o.k==='pillar'&&o.broken&&Math.hypot(o.tx-44,o.ty-34)<10).length] })()
+wait 4500
+js (()=>{ const sk=document.querySelector('#cineX'); if(sk) sk.click(); return !!sk })()
+wait 1500
+js (()=>{ const sk=document.querySelector('#cineX'); if(sk) sk.click(); G.P.x=44*16+8; G.P.y=40*16; v660NT=0; return 1 })()
+wait 2500
+js ['vael', V660().st, ['v660_eco','v660_vec0','v660_vec7'].map(id=>!!G.ents.find(q=>q.id===id&&q.map==='world')), (G.P.loreU||[]).includes(CH_V660)]
+shot
+js (()=>{ const e=G.ents.find(q=>q.id==='v660_eco'&&q.map==='world'); openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/👑/.test(b.textContent)); b.click(); closeDialog(); return 1 })()
+js (closeDialog(), v660Go(), 1)
+wait 1800
+js ['isla', G.map.id, G.map.objs.filter(o=>o.xact==='v660run').length, !!G.ents.find(q=>q.id==='v660_barq'&&q.map==='v660_isla')]
+shot
+js (()=>{ XACT.v660mural[2](); const ord=v660Order(), runs=G.map.objs.filter(o=>o.xact==='v660run'); const g0=G.P.gold; XACT.v660run[2](runs.find(o=>o.ri===ord[1])); const bad=V660_IS.step; for(const i of ord) XACT.v660run[2](runs.find(o=>o.ri===i)); return [bad, G.P.gold-g0>0, countItem('v660_pluma'), V660().isla] })()
+js (()=>{ const it=interactTarget(); return it?it.kind:null })()
+js (()=>{ const e=G.ents.find(q=>q.id==='v660_barq'&&q.map==='v660_isla'); openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/Volver|Back/.test(b.textContent)); b.click(); return 1 })()
+wait 1800
+js ['vuelta', G.map.id, G.P.inside, Math.round(G.P.x/16), Math.round(G.P.y/16)]
+js (()=>{ const e=G.ents.find(q=>q.id==='marina'&&q.map==='world'); if(!e) return 'sin capitana'; openDialog(e); const r=[...document.querySelectorAll('#dopts .dopt')].some(b=>/Isla Velada|Veiled Isle/.test(b.textContent)); closeDialog(); return r })()
+js (openPanel('map'), 1)
+wait 400
+js ['mapa', worldPOI().filter(q=>q.c==='v660').length]
+js (()=>{ closePanel(); const P=G.P; P.x=44*16+8; P.y=48*16; v660NT=0; return 1 })()
+wait 2500
+js ['sin jefe en la plaza', !G.ents.some(e=>e.mid==='vael'&&!e.dying), (G.world.camps||[]).filter(c=>Math.hypot(c.x-44,c.y-34)<=24).every(c=>c.n===0)]
+js (()=>{ const e=G.ents.find(q=>q.id==='v660_ilda'&&q.map==='world'); openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/Revancha|Rematch/.test(b.textContent)); b.click(); return V660_DUEL.on })()
+wait 1500
+js ['revancha', G.ents.some(e=>e.mid==='vael'&&!e.dying)]
+js (()=>{ const m=G.ents.find(e=>e.mid==='vael'&&!e.dying); if(m) killMob(m); return V660_DUEL.on })()
+js (closePanel(), window._errs)

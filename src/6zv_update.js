@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.59', GAME_BUILD = 281;
+const GAME_VER = '6.60', GAME_BUILD = 282;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.60",
+ "b": 282,
+ "d": "2026-11-27",
+ "es": [
+  "🏰 Vael restaurado: tras vencer al Rey Vael, Ilda de Vael te espera al sur de las Ruinas. Cinco obras con troncos, piedra y oro (columnas y estandartes, torres del portón, jardín y fuente, mercado con vecinos y salón del trono) que cambian las ruinas en el mapa.",
+  "👑 Al terminar, el Velo devuelve el eco del rey, capítulo nuevo en el Libro, 300.000 de oro y el título «Restaurador de Vael». La revancha con el rey se pide a Ilda.",
+  "🌫 Isla Velada: un islote de Altavela que baja con la niebla (3 días de cada 7). La capitana del puerto de Puerto Coral te lleva; toca las 4 runas en el orden del mural para despertar el santuario de los Vientos: oro, Plumas de Alado y el título «Explorador de la niebla»."
+ ],
+ "en": [
+  "🏰 Vael restored: after defeating King Vael, Ilda of Vael waits south of the Ruins. Five works with logs, stone and gold (columns and banners, gate towers, garden and fountain, a market with neighbours and the throne hall) that change the ruins on the map.",
+  "👑 When finished, the Veil returns the king's echo, a new chapter in the Book, 300,000 gold and the title \"Restorer of Vael\". Ask Ilda for a rematch with the king.",
+  "🌫 Veiled Isle: an Altavela islet that comes down with the fog (3 days out of 7). The Puerto Coral harbour captain takes you there; touch the 4 runes in the order of the mural to awaken the shrine of the Winds: gold, Alado feathers and the title \"Fog explorer\"."
+ ]
+},
 {
  "v": "6.59",
  "b": 281,
