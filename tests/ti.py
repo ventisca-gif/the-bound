@@ -16,7 +16,7 @@ with sync_playwright() as p:
     except Exception: pass
     res = pg.evaluate("""(async () => { const w = %s, P = G.P, out = {}; try { const closeAll = () => { try { closeModal(); closeDialog(); } catch (e) { } G.paused = false; };
       P.lv = 700; calcStats(P); P.hp = P.S.maxhp; closeAll(); window.__god = setInterval(() => { P.hp = P.S.maxhp; P.dead = false; P.ifr = 5; }, 30);
-      const T0 = makeTower(); out.door = !!T0.objs.find(o => o.xact === 'ti_open'); setMap(T0, (T0.w >> 1) * 16 + 8, (T0.h - 3) * 16, 'up');
+      const T0 = makeTower(); out.door = !!T0.objs.find(o => o.xact === 'ti_tp'); setMap(T0, (T0.w >> 1) * 16 + 8, (T0.h - 3) * 16, 'up');
       tiOpen(); out.modal = !!document.querySelector('#tiGo1'); closeAll();
       tiStart(1); await w(2600); closeAll(); out.f1 = { map: G.map.id, floor: TI && TI.floor, alive: tiAlive(), lv: G.ents.filter(e => e.ti && e.type === 'mob').map(e => e.lv) };
       const clear = async () => { for (const e of G.ents.slice()) if (e.type === 'mob' && e.ti && !e.dying) killMob(e); await w(700); closeAll(); };
