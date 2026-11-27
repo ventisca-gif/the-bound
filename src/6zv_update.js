@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.47', GAME_BUILD = 269;
+const GAME_VER = '6.48', GAME_BUILD = 270;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.48",
+ "b": 270,
+ "d": "2026-11-27",
+ "es": [
+  "Arreglo de la fase de los sellos (Rey Vael y jefes del Velo Roto): a mitad de vida el jefe se vuelve inmune hasta que pisas 3 sellos dorados, pero los sellos podían salir dentro de columnas o muros y era imposible romper el escudo. Ahora salen siempre en suelo que se puede pisar, llevan el rótulo «SELLO» con una barra de progreso, el jefe avisa «INMUNE · pisa los sellos 1/3» y, si algo falla, el escudo se rompe solo a los 35 segundos.",
+  "Revisión general de errores a nivel 5, 150, 400 y 700 (todas las pestañas, botones de Atajos, la Lupa y todos los mapas): sin errores. Los jugadores cazadores ya no intentan aparecer en lugares que no son mapas jugables."
+ ],
+ "en": [
+  "Seal phase fix (King Vael and Broken Veil bosses): at half HP the boss becomes immune until you stand on 3 golden seals, but seals could appear inside pillars or walls and the shield was impossible to break. Now they always appear on walkable ground, have a “SEAL” label with a progress bar, the boss shows “IMMUNE · stand on the seals 1/3” and, if something goes wrong, the shield breaks on its own after 35 seconds.",
+  "General error check at level 5, 150, 400 and 700 (every tab, Shortcut button, the Magnifier and every map): no errors. Player hunters no longer try to appear in places that aren't playable maps."
+ ]
+},
 {
  "v": "6.47",
  "b": 269,

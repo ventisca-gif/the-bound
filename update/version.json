@@ -1,24 +1,20 @@
 {
- "build": 269,
- "ver": "6.47",
+ "build": 270,
+ "ver": "6.48",
  "date": "2026-11-27",
  "file": "thebound.html",
- "size": 39452855,
- "sha256": "886d19798946ab33a4fcdeb6f2efcda71075105943dcfa803a5b028135eee741",
+ "size": 39458052,
+ "sha256": "63f4bc7030ab8380fa68d44d0a0b7aaf34e7b7b5bdd37e5512c81cc987d70c29",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Arreglo: los ataques en área de enemigos y jefes te alcanzaban más lejos de lo que mostraba la zona roja (por encima y por debajo del enemigo, hasta un 40 % más). Ahora solo te golpean si estás dentro de la zona que se ve.",
-   "Devorador Carmesí (asedio de la Luna de Sangre): un anillo en el suelo marca siempre dónde están sus pies y hasta dónde llega su golpe, pega un 15 % menos y pisotea algo menos seguido.",
-   "Arreglo: los jugadores cazadores dejaban a los jefes con poca vida. Ahora sus golpes a un jefe no le quitan vida de verdad: el jefe está siempre entero para ti.",
-   "Torre Infinita: ya no sale el Muñeco de prueba (era inmortal). La torre no da experiencia, oro ni objetos: solo Piedras de Mejora y, desde el piso 30, Piedras de Mejora Superior (los jefes dan varias). Fuera de la torre los enemigos dan lo de siempre."
+   "Arreglo de la fase de los sellos (Rey Vael y jefes del Velo Roto): a mitad de vida el jefe se vuelve inmune hasta que pisas 3 sellos dorados, pero los sellos podían salir dentro de columnas o muros y era imposible romper el escudo. Ahora salen siempre en suelo que se puede pisar, llevan el rótulo «SELLO» con una barra de progreso, el jefe avisa «INMUNE · pisa los sellos 1/3» y, si algo falla, el escudo se rompe solo a los 35 segundos.",
+   "Revisión general de errores a nivel 5, 150, 400 y 700 (todas las pestañas, botones de Atajos, la Lupa y todos los mapas): sin errores. Los jugadores cazadores ya no intentan aparecer en lugares que no son mapas jugables."
   ],
   "en": [
-   "Fix: enemy and boss area attacks reached farther than the red zone showed (above and below the enemy, up to 40% more). Now they only hit you if you are inside the zone you see.",
-   "Crimson Devourer (Blood Moon siege): a ring on the ground always shows where its feet are and how far its hit reaches, it hits 15% less and stomps a bit less often.",
-   "Fix: player hunters left bosses at low HP. Their hits on a boss no longer take real HP: the boss is always whole for you.",
-   "Infinite Tower: the Training dummy no longer appears (it was immortal). The tower gives no XP, gold or items: only Upgrade Stones and, from floor 30, Superior Upgrade Stones (bosses give several). Outside the tower enemies give the usual rewards."
+   "Seal phase fix (King Vael and Broken Veil bosses): at half HP the boss becomes immune until you stand on 3 golden seals, but seals could appear inside pillars or walls and the shield was impossible to break. Now they always appear on walkable ground, have a “SEAL” label with a progress bar, the boss shows “IMMUNE · stand on the seals 1/3” and, if something goes wrong, the shield breaks on its own after 35 seconds.",
+   "General error check at level 5, 150, 400 and 700 (every tab, Shortcut button, the Magnifier and every map): no errors. Player hunters no longer try to appear in places that aren't playable maps."
   ]
  }
 }
