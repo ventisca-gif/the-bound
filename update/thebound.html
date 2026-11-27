@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.42 · Auras de transformación</div>
+  <div class="tfoot">v6.43 · Torre Infinita</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11911,7 +11911,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.42', GAME_BUILD = 264;
+const GAME_VER = '6.43', GAME_BUILD = 265;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11919,6 +11919,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.43",
+ "b": 265,
+ "d": "2026-11-27",
+ "es": [
+  "Torre Infinita: en la Torre de los Portales, el portal dorado del centro. Salas sin fin: cada piso los enemigos suben 5 niveles y entran 5 o más, y cada 10 pisos hay un jefe. Salen todos los enemigos del juego y los jefes de zona, continente, cueva y portal (sin súper jefes ni jefes de la historia), más 6 enemigos y 2 jefes nuevos propios de la torre, con mecánicas por piso (rápidos, acorazados, furiosos, enjambre, élite, oscuridad, se regeneran o explotan). Pueden pasar del nivel 700: es una prueba de resistencia con top en línea.",
+  "Si caes en la torre no mueres como siempre: la subida termina, vuelves a la entrada y tu mejor piso queda en el top. Puedes volver a empezar en el último múltiplo de 10 que superaste.",
+  "Cazadores por todo el mundo: en cada mapa abierto y en las ciudades hay 8-18 cazadores con nombre propio (Zack, Luna, Vale99…) que van y vienen por el mapa: farmean, viajan, talan, pican, pescan, saludan, charlan entre ellos, descansan y suben de nivel solos; no te ayudan ni comparten experiencia, y no te roban los monstruos ni tu zona de farmeo. Habla con ellos para ver su perfil o desafiarlos a un duelo.",
+  "Hay algo menos de gente por las calles de España y muy poco menos en Perú."
+ ],
+ "en": [
+  "Infinite Tower: in the Portal Tower, the golden portal in the middle. Endless rooms: each floor enemies gain 5 levels and 5 or more come in, and every 10 floors there is a boss. Every enemy in the game and the zone, continent, cave and portal bosses show up (no super bosses or story bosses), plus 6 enemies and 2 bosses of the tower’s own, with mechanics per floor (fast, armored, furious, swarm, elite, darkness, regenerating or exploding). They can go past level 700: it is an endurance test with an online leaderboard.",
+  "If you fall in the tower you don’t die as usual: the climb ends, you go back to the entrance and your best floor goes on the leaderboard. You can restart at the last multiple of 10 you cleared.",
+  "Hunters around the world: every open map and city has 8-18 hunters with their own names (Zack, Luna, Vale99…) who come and go across the map: they farm, travel, chop, mine, fish, wave, chat with each other, rest and level up on their own; they don’t help you or share XP, and they don’t steal your monsters or your farming zone. Talk to them to see their profile or challenge them to a duel.",
+  "Slightly fewer people on the streets of Spain and a little fewer in Peru."
+ ]
+},
 {
  "v": "6.42",
  "b": 264,
@@ -59331,6 +59348,320 @@ hookAround('drawEnt', (next, e, cx, cy) => { if (!e || !(e._poseT > G.t) || !(e.
   const A0 = e.atlas, an0 = e.anim, f0 = e.af; try { e.atlas = stanceAtlasFor(e, 'g2'); e.anim = 'st_g2'; e.af = Math.floor(G.t * 6) % 2; return next(e, cx, cy); } catch (err) { if (typeof errOnce === 'function') errOnce('g2pose', err); return next(e, cx, cy); } finally { e.atlas = A0; e.anim = an0; e.af = f0; } });
 // Lupa › Sistemas
 if (typeof GSIS !== 'undefined') GSIS.unshift(['n_auras_tr', '✨ ' + L2('Auras de transformación', 'Transformation auras'), () => [L2('Cada forma y cada fusión tiene su aura animada detrás del personaje, solo mientras estás transformado, y un destello propio al transformarte que desaparece enseguida. El Engranaje 2 se agacha un momento echando vapor.', 'Every form and fusion has its own animated aura behind the character, only while transformed, and its own flash when you transform that fades right away. Gear 2 crouches for a moment letting off steam.'), L2('Si no te gusta, 🌀 Transformaciones › «Aura: sí / no» la apaga (los demás jugadores tampoco la ven).', 'If you don’t like it, 🌀 Transformations › «Aura: on / off» turns it off (other players won’t see it either).')], () => null]);
+
+// ================= 6.43: TORRE INFINITA (Torre de los Portales) =================
+// Sergio: un modo distinto dentro de la Torre de los Portales, «Torre Infinita», con salas sin fin; cada piso los enemigos
+// suben 5 niveles, entran 5 (más con los pisos), cada 10 pisos un jefe; salen TODOS los enemigos y jefes del juego (y unos
+// nuevos) combinados con mecánicas; pueden pasar del nivel 700 (600, 800, 1000…) porque solo es una prueba de resistencia
+// con un top. El nivel máximo del jugador sigue siendo 700 y NO se tocan las estadísticas de nadie: mobStats ya calcula la
+// fuerza con el nivel, así que un enemigo de nivel 1000 sale solo de la fórmula de siempre.
+// - Un solo mapa 'torre_infinita' que se rehace en cada piso (no pesa más por subir: el piso 1000 ocupa lo mismo que el 1).
+// - En la torre cada enemigo/jefe usa una COPIA de su ficha con id 'ti_<id>' (propiedad no enumerable de MOBS/BOSSES):
+//   no sale en el bestiario ni en la Lupa, no suelta botín de su ficha, no avanza historias ni misiones de jefes
+//   (bossKilled se salta) y la ficha original no cambia.
+// - Récord en P.ti (best, bestT, runs, lastF) y top en línea ev/ti/{jugador} {n, f, lv, t} (reglas en docs/firebase_rules.json).
+const TI_LV = 5, TI_N = 5, TI_BOSS = 10, TI_MAP = 'torre_infinita';
+let TI = null;   // partida en curso: { floor, start, t0, kills, ret, mod, cleared, spawned }
+const tiSave = () => { const P = G.P; P.ti = P.ti || { best: 0, bestT: 0, runs: 0 }; return P.ti; };
+const tiLvOf = f => f * TI_LV, tiCountOf = f => Math.min(9, TI_N + Math.floor(f / 25));
+// ---------- enemigos nuevos de la torre (familias del motor con paleta propia; solo salen aquí) ----------
+const TI_MOBS = {
+  eco_peldano: [L2('Eco del Peldaño', 'Step Echo'), ['bst', 'wisp', ['#140a24', '#3a1a6a', '#8a5ae0', '#f0e0ff'], 1.2], 1.1, 1.7, 1.0, 62, 'ranged'],
+  centinela_escalon: [L2('Centinela del Escalón', 'Stair Sentinel'), ['bst', 'golem', ['#2a2a34', '#7a7a8c', '#e4e4f0', '#c070ff'], 1.4, { core: '#e0a0ff' }], 2.2, 1.5, 2.0, 32, 'aggro'],
+  arana_vertigo: [L2('Araña del Vértigo', 'Vertigo Spider'), ['bst', 'spider2', ['#0a0806', '#2a2010', '#8a6a20', '#ffe070'], 1.1], 1.1, 1.7, 1.0, 74, 'aggro'],
+  lagarto_espiral: [L2('Lagarto Espiral', 'Spiral Lizard'), ['bst', 'lizard', ['#0a0a24', '#1a2a6a', '#2a8aa0', '#a0fff0'], 1.2], 1.4, 1.6, 1.3, 60, 'charge'],
+  arpia_cumbre: [L2('Arpía de la Cumbre', 'Summit Harpy'), ['bst', 'harpy', ['#1a1424', '#4a3a6a', '#b09ae0', '#fff4ff'], 1.2], 1.2, 1.8, 1.1, 78, 'ranged'],
+  escarabajo_reloj: [L2('Escarabajo de Reloj', 'Clockwork Beetle'), ['bst', 'beetle', ['#1a0e04', '#5a3a10', '#c08a2a', '#fff0a0'], 1.3], 1.8, 1.6, 2.1, 42, 'charge']
+};
+for (const id in TI_MOBS) { const [n, art, hp, atk, def, spd, ai] = TI_MOBS[id]; MOBS[id] = { n, art, reg: ['torre_inf'], lv: [5, 1000], hp, atk, def, spd, ai, fam: id, drops: [], ti: 1 }; }
+const TI_BOSSES = {
+  arquitecto_torre: [L2('El Arquitecto de la Torre', 'The Tower Architect'), ['bst', 'golem', ['#24242e', '#8a8a9c', '#f0f0fa', '#c070ff'], 3.8, { core: '#ffffff' }], ['slam', 'nova', 'summon', 'field', 'charge'], 'centinela_escalon'],
+  reina_vertigo: [L2('La Reina del Vértigo', 'The Vertigo Queen'), ['bst', 'harpy', ['#1a1030', '#5a3a8a', '#c0a0ff', '#fff8ff'], 3.0], ['volley', 'blink', 'rain', 'summon', 'nova'], 'arpia_cumbre']
+};
+for (const id in TI_BOSSES) { const [n, art, moves, minion] = TI_BOSSES[id]; BOSSES[id] = { n, lv: 50, art, hp: 30, atk: 2.4, def: 2.2, spd: 50, moves, minion, drops: [], r: 30, cave: 1, ti: 1 }; }
+// ---------- reservas de enemigos y jefes: todos los del juego que se pueden pelear ----------
+let TI_POOL = null, TI_BPOOL = null;
+function tiPools() { if (TI_POOL) return; TI_POOL = Object.keys(MOBS).filter(k => { const d = MOBS[k]; return d && Array.isArray(d.art) && !d.duel && d.fam !== 'duel' && d.ai !== 'passive' && d.hp > 0 && !/^duel_|^crew_rival/.test(k); });
+  TI_BPOOL = Object.keys(BOSSES).filter(k => { const d = BOSSES[k]; return d && Array.isArray(d.art) && Array.isArray(d.moves) && d.moves.length && !d.duel && !/^duel_|^crew_rival/.test(k) && !tiStoryBoss(k, d); }); }
+// Sergio: en la torre no salen súper jefes ni jefes de historia: SUPER_BOSS, los de los fragmentos y misiones de la historia
+// principal (frag/quest/reward), los que la historia pone en un sitio fijo (where sin cueva), los de Dawn y los Ecos de Nihil.
+const TI_STORY_RE = /^(dawn_|shells_|orange_|alvida|nezumi|jy_|inf_|shimo_|mhq_|crew_|eco_nihil|devorador_carmesi|coloso_telar)/;
+function tiStoryBoss(k, d) { return (typeof SUPER_BOSS !== 'undefined' && SUPER_BOSS[k] !== undefined) || d.frag || d.quest || d.reward || (d.where && !d.cave) || TI_STORY_RE.test(k); }
+// copia de la ficha (no enumerable: no aparece en listas, bestiario ni Lupa)
+function tiDef(id, boss) { const T_ = boss ? BOSSES : MOBS, key = 'ti_' + id; if (!Object.prototype.hasOwnProperty.call(T_, key)) { const src = T_[id]; if (!src) return null;
+  Object.defineProperty(T_, key, { value: Object.assign({}, src, { drops: [], ti: 1, minion: boss && src.minion && MOBS[src.minion] ? src.minion : src.minion }), enumerable: false, configurable: true, writable: true }); } return key; }
+// ---------- mecánicas por piso ----------
+const TI_MODS = {
+  rapidos: [L2('Enemigos rápidos', 'Fast enemies'), m => { m.spd = (m.spd || 40) * 1.35; }],
+  acorazados: [L2('Acorazados', 'Armored'), m => { m.df = Math.round(m.df * 1.6); }],
+  furiosos: [L2('Furiosos', 'Furious'), m => { m.atk = Math.round(m.atk * 1.25); m.hp = m.maxhp = Math.round(m.maxhp * 0.85); }],
+  enjambre: [L2('Enjambre', 'Swarm'), m => { m.hp = m.maxhp = Math.round(m.maxhp * 0.6); }],
+  elite: [L2('Con élite', 'With an elite'), null],
+  oscuridad: [L2('Oscuridad', 'Darkness'), null],
+  regeneran: [L2('Se regeneran', 'They regenerate'), m => { m.tiRegen = 1; }],
+  explosivos: [L2('Explotan al morir', 'Explode on death'), m => { m.tiBoom = 1; }]
+};
+const TI_MOD_K = Object.keys(TI_MODS);
+function tiRng(f) { return new RNG(SEED * 13 + f * 7919 + 17); }
+function tiModFor(f) { if (f < 5 || f % TI_BOSS === 0) return null; const R = tiRng(f); return R.f() < 0.25 ? null : TI_MOD_K[R.int(0, TI_MOD_K.length - 1)]; }
+// ---------- el mapa: una sala por piso, con 4 formas y 8 temas que cambian cada 10 pisos ----------
+const TI_THEME = [['#ecebf6', '#dcdaea', '#b48cff', 'mármol'], ['#2a2630', '#221e28', '#ff6a3a', 'obsidiana'], ['#d8efe2', '#c4e2d0', '#3ac08a', 'jade'], ['#dbe6f6', '#c8d6ee', '#4a8aff', 'zafiro'],
+  ['#f6ecd2', '#ecdcb6', '#e0a020', 'oro'], ['#c8c4c0', '#b4b0ac', '#7a7a8a', 'ceniza'], ['#f0d8d8', '#e2c0c0', '#e0304a', 'carmesí'], ['#1a1a2e', '#14142a', '#8a5aff', 'abismo']];
+function tiMake(f) { delete G.maps[TI_MAP]; const lay = ['circulo', 'columnas', 'cruz', 'anillo'][f % 4], w = 30, h = 26, N = w * h, I = (x, y) => y * w + x;
+  const M = { id: TI_MAP, w, h, ter: new Uint8Array(N).fill(T.FLOOR), lvl: new Uint8Array(N), reg: new Uint8Array(N), flags: new Uint8Array(N), isWorld: false, chunks: new Map(), dark: 0, music: 'cave', I, ti: 1, tiF: f, tiTheme: TI_THEME[Math.floor((f - 1) / 10) % TI_THEME.length] };
+  const wall = (x, y) => { if (x >= 0 && y >= 0 && x < w && y < h) M.ter[I(x, y)] = T.IWALL; };
+  for (let x = 0; x < w; x++) { wall(x, 0); wall(x, 1); wall(x, h - 1); } for (let y = 0; y < h; y++) { wall(0, y); wall(w - 1, y); }
+  const cx = w >> 1, cy = (h >> 1) + 1;
+  if (lay === 'circulo' || lay === 'anillo') for (let y = 2; y < h - 1; y++) for (let x = 1; x < w - 1; x++) { const d = Math.hypot((x - cx) / 13.5, (y - cy) / 11); if (d > 1) wall(x, y); }
+  if (lay === 'cruz') for (let y = 2; y < h - 1; y++) for (let x = 1; x < w - 1; x++) { const inV = Math.abs(x - cx) <= 4, inH = Math.abs(y - cy) <= 4; if (!inV && !inH && (Math.abs(x - cx) > 8 || Math.abs(y - cy) > 7)) wall(x, y); }
+  const ex = cx; M.ter[I(ex, h - 1)] = T.FLOOR; for (let y = h - 4; y < h; y++) M.ter[I(ex, y)] = T.FLOOR; M.exit = { x: ex, y: h - 1 };
+  prepPalettes(M); initMapObjs(M);
+  const pil = (x, y) => { if (M.ter[I(x, y)] === T.FLOOR && M.objAt[I(x, y)] < 0 && Math.abs(x - ex) + Math.abs(y - (h - 3)) > 4) addObj(M, 'crystal', x, y); };
+  if (lay === 'columnas') for (const [x, y] of [[cx - 7, cy - 5], [cx + 7, cy - 5], [cx - 7, cy + 4], [cx + 7, cy + 4], [cx - 11, cy], [cx + 11, cy]]) pil(x, y);
+  if (lay === 'anillo') for (let k = 0; k < 8; k++) { const a = k * Math.PI / 4; pil(Math.round(cx + Math.cos(a) * 5), Math.round(cy + Math.sin(a) * 4)); }
+  if (lay === 'cruz') for (const [x, y] of [[cx - 4, cy - 4], [cx + 4, cy - 4], [cx - 4, cy + 4], [cx + 4, cy + 4]]) pil(x, y);
+  for (const [x, y] of [[3, 3], [w - 4, 3]]) if (M.ter[I(x, y)] === T.FLOOR) addObj(M, 'lantern', x, y, { kind: 0 });
+  M.lights = []; G.maps[TI_MAP] = M; return M; }
+// suelo de la torre: baldosas del tema y un círculo de runas en el centro
+hookAfter('bldDrawFloors', (r, M, cx, cy) => { if (!M || !M.ti) return; const th = M.tiTheme, w = M.w, h = M.h;
+  for (let y = 1; y < h; y++) for (let x = 1; x < w - 1; x++) { if (M.ter[M.I(x, y)] !== T.FLOOR) continue; const sx = x * 16 - cx, sy = y * 16 - cy; if (sx < -16 || sy < -16 || sx > VW || sy > VH) continue;
+    ctx.fillStyle = (x + y) % 2 ? th[0] : th[1]; ctx.fillRect(sx, sy, 16, 16); ctx.fillStyle = 'rgba(0,0,0,.07)'; ctx.fillRect(sx, sy + 15, 16, 1); if ((x * 5 + y * 3) % 13 === 0) { ctx.fillStyle = th[2] + '40'; ctx.fillRect(sx + 4, sy + 6, 7, 1); } }
+  const ox = (w >> 1) * 16 + 8 - cx, oy = ((h >> 1) + 1) * 16 + 8 - cy; ctx.strokeStyle = th[2] + '66'; ctx.lineWidth = 1; for (const r of [34, 46]) { ctx.beginPath(); ctx.ellipse(ox, oy, r, r * 0.7, 0, 0, 7); ctx.stroke(); }
+  for (let k = 0; k < 12; k++) { const a = k * Math.PI / 6 + G.t * 0.2; ctx.fillStyle = th[2] + '99'; ctx.fillRect(Math.round(ox + Math.cos(a) * 40) - 1, Math.round(oy + Math.sin(a) * 28) - 1, 3, 2); } });
+// ---------- entrada en la Torre de los Portales ----------
+hookAfter('makeTower', M => { if (!M || M._tiDoor) return; M._tiDoor = 1; const ex = M.w >> 1;
+  const spots = [[ex, 16], [ex, 15], [ex - 3, 16], [ex + 3, 16]]; for (const [x, y] of spots) { const i = M.I(x, y); if (M.objAt[i] < 0 && !SOLID_T[M.ter[i]]) { addObj(M, 'furn', x, y, { f: 'tp_portal', fp: [[0, 0], [-1, 0], [1, 0]], xact: 'ti_open', tiDoor: 1 }); break; } } });
+WORLD_DRAW.push((cx, cy) => { const M = G.map; if (!M) return;
+  if (M.tower) for (const o of M.objs) { if (o.xact !== 'ti_open') continue; const x = o.px - cx, y = o.py - cy - 23; for (let k = 0; k < 8; k++) { const a = G.t * 2.6 + k * 0.785, r = 4 + k * 1.4; ctx.fillStyle = ['#ffe070', '#ffb020', '#ffffff', '#ff8a2a', '#fff0b0', '#ffd040', '#ffffff', '#ffa040'][k]; ctx.fillRect(Math.round(x + Math.cos(a) * r), Math.round(y + Math.sin(a) * r * 1.6), 2, 2); }
+    const s = textSprite(L2('TORRE INFINITA', 'INFINITE TOWER'), '#ffe070'); ctx.drawImage(s, Math.round(x - s.width / 2), y - 34); }
+  if (M.ti) { for (const o of M.objs) { if (o.xact !== 'ti_next' || o.hidden) continue; const x = o.px - cx, y = o.py - cy - 23; for (let k = 0; k < 8; k++) { const a = G.t * 3 + k * 0.785, r = 4 + k * 1.5; ctx.fillStyle = ['#c8a0ff', '#ffffff', '#8a5aff', '#e0d0ff'][k % 4]; ctx.fillRect(Math.round(x + Math.cos(a) * r), Math.round(y + Math.sin(a) * r * 1.6), 2, 2); } const s = textSprite(L2('PISO ', 'FLOOR ') + (M.tiF + 1), '#ffffff'); ctx.drawImage(s, Math.round(x - s.width / 2), y - 32); }
+    if (TI) { const s = textSprite(L2('Piso ', 'Floor ') + TI.floor + ' - ' + L2('Nv. ', 'Lv. ') + tiLvOf(TI.floor) + (TI.mod ? ' - ' + TI_MODS[TI.mod][0] : ''), '#ffe8a0'); ctx.drawImage(s, Math.round(VW / 2 - s.width / 2), 4); } } });
+XACT.ti_open = [L2('Torre Infinita', 'Infinite Tower'), 'talk', () => tiOpen()];
+XACT.ti_next = [L2('Subir al siguiente piso', 'Climb to the next floor'), 'door', () => tiNext()];
+// ---------- ventana de inicio y top ----------
+function tiOpen() { const P = G.P, S = tiSave(), cp = S.best >= 11 ? Math.floor((S.best - 1) / 10) * 10 + 1 : 0;
+  openModal(`<div class="frame"><h3>♾ ${L2('Torre Infinita', 'Infinite Tower')}</h3><p class="hint">${L2('Salas sin fin. Cada piso los enemigos suben 5 niveles y entran 5 o más; cada 10 pisos, un jefe. Salen todos los enemigos del mundo y los jefes de zona, cueva y portal (sin súper jefes ni jefes de la historia), mezclados con mecánicas. Llega lo más alto que puedas: si caes o sales, la subida termina y tu récord queda en el top.', 'Endless rooms. Each floor enemies gain 5 levels and 5 or more come in; every 10 floors, a boss. Every enemy in the world and the zone, cave and portal bosses show up (no super bosses or story bosses), mixed with mechanics. Climb as high as you can: if you fall or leave, the climb ends and your record goes on the leaderboard.')}</p>
+    <p>🏆 ${L2('Tu récord', 'Your record')}: <b>${S.best ? L2('piso ', 'floor ') + S.best + ' (' + L2('nivel ', 'level ') + tiLvOf(S.best) + ')' : '—'}</b> · ${L2('subidas', 'climbs')}: ${S.runs || 0}</p>
+    <div class="row"><button class="btn gold" id="tiGo1">${L2('Empezar en el piso 1', 'Start at floor 1')}</button>${cp ? `<button class="btn" id="tiGoCp">${L2('Empezar en el piso ', 'Start at floor ') + cp}</button>` : ''}<button class="btn" id="tiX">${L2('Cerrar', 'Close')}</button></div>
+    <h4>🌐 ${L2('Top de la Torre Infinita', 'Infinite Tower leaderboard')}</h4><div id="tiTop" class="hint">${L2('Cargando…', 'Loading…')}</div></div>`);
+  $('#tiGo1').onclick = () => { closeModal(); tiStart(1); }; const b = $('#tiGoCp'); if (b) b.onclick = () => { closeModal(); tiStart(cp); }; $('#tiX').onclick = () => closeModal();
+  tiTopShow(); }
+function tiTopShow() { const el = () => $('#tiTop'), P = G.P, S = tiSave(), me = typeof evMe === 'function' ? evMe() : '';
+  const local = `<p>1. ${esc(P.name)} · ${L2('piso ', 'floor ')}${S.best || 0}</p>`;
+  if (typeof evNet !== 'function' || !evNet() || typeof evTop !== 'function') { if (el()) el().innerHTML = local + `<p class="hint">${L2('Sin conexión: solo se ve tu récord.', 'Offline: only your record is shown.')}</p>`; return; }
+  evTop('ev/ti', 'f').then(rows => { if (!el()) return; if (!rows.length) { el().innerHTML = local; return; }
+    el().innerHTML = rows.slice(0, 10).map(([id, r], i) => `<p${id === me ? ' style="color:#ffe070"' : ''}>${i + 1}. ${esc(cleanStr(r.n, 20) || '?')} · ${L2('piso ', 'floor ')}${r.f | 0}${r.lv ? ' · ' + L2('Nv. ', 'Lv. ') + (r.lv | 0) : ''}</p>`).join(''); }).catch(() => { if (el()) el().innerHTML = local; }); }
+function tiPush() { const P = G.P, S = tiSave(); if (!S.best || typeof evNet !== 'function' || !evNet()) return; try { clanReq('ev/ti/' + evMe(), { m: 'PUT', b: { n: cleanStr(P.name, 20) || '?', f: Math.min(100000, S.best | 0), lv: clamp(P.lv | 0, 1, MAXLV), t: clanTs } }).catch(() => { }); } catch (e) { } }
+// ---------- la subida ----------
+function tiStart(f) { const P = G.P; if (TI || P.dead) return; const S = tiSave(); S.runs = (S.runs || 0) + 1; tiPools();
+  TI = { floor: f, start: f, t0: Date.now(), kills: 0, ret: { m: G.map.id, x: P.x, y: P.y, inside: P.inside }, mod: null, cleared: false, spawned: false };
+  tiEnterFloor(f, true); }
+function tiEnterFloor(f, first) { const P = G.P; TI.floor = f; TI.cleared = false; TI.spawned = false; TI.mod = tiModFor(f); const M = tiMake(f); if (TI.mod === 'oscuridad') M.dark = 0.72;
+  const go = () => { P.inside = null; setMap(M, M.exit.x * 16 + 8, (M.exit.y - 2) * 16 + 8, 'up'); const boss = f % TI_BOSS === 0;
+    banner(L2('Torre Infinita · Piso ', 'Infinite Tower · Floor ') + f, L2('Nivel ', 'Level ') + tiLvOf(f) + (boss ? ' · ' + L2('¡JEFE!', 'BOSS!') : '') + (TI.mod ? ' · ' + TI_MODS[TI.mod][0] : '')); sfx(boss ? 'boss' : 'door');
+    setTimeout(() => { if (TI && TI.floor === f && G.map === M) tiSpawn(M, f); }, 1100); };
+  transition(go); }
+function tiSpawn(M, f) { if (!TI || TI.spawned) return; TI.spawned = true; const R = tiRng(f), lv = tiLvOf(f), cx = (M.w >> 1) * 16 + 8, cy = ((M.h >> 1) - 1) * 16 + 8, P = G.P;
+  const free = () => { for (let t = 0; t < 60; t++) { const x = cx + (R.f() - 0.5) * 300, y = cy + (R.f() - 0.6) * 200, tx = Math.floor(x / 16), ty = Math.floor(y / 16); if (!blockedFor(M, tx, ty, 0) && Math.hypot(x - P.x, y - P.y) > 120) return [x, y]; } return [cx, cy]; };
+  const mk = (id, boss, x, y) => { const key = tiDef(id, boss); if (!key) return null; const m = spawnMob(key, lv, x, y, 0, null, boss); if (!m) return null; m.map = TI_MAP; m.ti = 1; m.state = 'chase'; m.aggroR = 999; m.gold = Math.round((m.gold || 0) * 0.5);
+    addFx({ type: 'ring', x, y, r: boss ? 40 : 18, dur: 0.6, col: boss ? '#ff5050' : '#c8a0ff' }); const mod = TI.mod && TI_MODS[TI.mod][1]; if (mod && !boss) try { mod(m); } catch (e) { } return m; };
+  if (f % TI_BOSS === 0) { const special = f % 50 === 0 ? (f % 100 === 0 ? 'reina_vertigo' : 'arquitecto_torre') : null, id = special || TI_BPOOL[R.int(0, TI_BPOOL.length - 1)];
+    const b = mk(id, true, cx, cy - 30); if (b) { b.tiBossF = f; if (typeof showBoss === 'function') try { showBoss(b); } catch (e) { } }
+    for (let k = 0; k < Math.min(4, 1 + Math.floor(f / 100)); k++) { const [x, y] = free(); mk(TI_POOL[R.int(0, TI_POOL.length - 1)], false, x, y); } return; }
+  const n = tiCountOf(f) + (TI.mod === 'enjambre' ? 3 : 0), newOnes = Object.keys(TI_MOBS);
+  for (let k = 0; k < n; k++) { const id = (k === 0 && R.f() < 0.35) ? newOnes[R.int(0, newOnes.length - 1)] : TI_POOL[R.int(0, TI_POOL.length - 1)], [x, y] = free(), m = mk(id, false, x, y);
+    if (m && TI.mod === 'elite' && k === 0) { m.elite = 1; m.hp = m.maxhp = Math.round(m.maxhp * 3.5); m.atk = Math.round(m.atk * 1.4); m.name = L2('Élite ', 'Elite ') + m.name; } } }
+function tiAlive() { let n = 0; for (const e of G.ents) if (e.type === 'mob' && e.ti && !e.dying && !e.remove && e.hp > 0 && e.map === TI_MAP) n++; return n; }
+function tiCleared() { const P = G.P, M = G.map, S = tiSave(), f = TI.floor; TI.cleared = true;
+  if (f > (S.best || 0)) { S.best = f; S.bestT = Date.now(); tiPush(); toast('🏆 ' + L2('¡Nuevo récord: piso ', 'New record: floor ') + f + '!', 'quest', 4); }
+  S.lastF = f; markDirty(true); const boss = f % TI_BOSS === 0;
+  P.hp = Math.min(P.S.maxhp, P.hp + Math.round(P.S.maxhp * (boss ? 1 : 0.2))); if (P.S.maxmp) P.mp = Math.min(P.S.maxmp, (P.mp || 0) + Math.round(P.S.maxmp * (boss ? 1 : 0.3)));
+  const cx = M.w >> 1, cy = (M.h >> 1) + 1; addObj(M, 'furn', cx, cy, { f: 'tp_portal', fp: [[0, 0], [-1, 0], [1, 0]], xact: 'ti_next' }); M.chunks.clear && M.chunks.clear();
+  banner(L2('¡Piso ', 'Floor ') + f + L2(' superado!', ' cleared!'), boss ? L2('Te recuperas del todo. Sigue por el portal.', 'You fully recover. Go on through the portal.') : L2('Recuperas un poco. Sigue por el portal del centro.', 'You recover a little. Go on through the central portal.')); sfx('questdone'); }
+function tiNext() { if (!TI || !TI.cleared) return; tiEnterFloor(TI.floor + 1); }
+function tiEnd(why) { if (!TI) return; const P = G.P, S = tiSave(), R = TI, reached = R.cleared ? R.floor : R.floor - 1, secs = Math.round((Date.now() - R.t0) / 1000); TI = null;
+  for (const e of G.ents) if (e.type === 'mob' && e.ti) e.remove = true; if (typeof showBoss === 'function') try { showBoss(null); } catch (e) { }
+  P.dead = false; P.hp = P.S.maxhp; if (P.S.maxmp) P.mp = P.S.maxmp; setAnim(P, 'idle');
+  transition(() => { const T0 = makeTower(), d = T0.objs.find(o => o.xact === 'ti_open'); P.inside = R.ret.m === 'torre_portales' ? R.ret.inside : P.inside; setMap(T0, d ? d.px : (T0.w >> 1) * 16 + 8, d ? d.py + 24 : (T0.h - 3) * 16, 'down');
+    openModal(`<div class="frame"><h3>♾ ${L2('Fin de la subida', 'Climb over')}</h3><p>${why === 'left' ? L2('Saliste de la torre.', 'You left the tower.') : L2('Caíste en la torre.', 'You fell in the tower.')}</p>
+      <p>${L2('Piso superado', 'Floor cleared')}: <b>${Math.max(0, reached)}</b> (${L2('empezaste en el ', 'you started at ')}${R.start}) · ${L2('enemigos', 'enemies')}: ${R.kills} · ${L2('tiempo', 'time')}: ${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}</p>
+      <p>🏆 ${L2('Récord', 'Record')}: <b>${L2('piso ', 'floor ')}${S.best || 0}</b></p><div class="row"><button class="btn gold" id="tiAgain">${L2('Ver el top', 'See the leaderboard')}</button><button class="btn" id="tiOk">OK</button></div></div>`);
+    $('#tiOk').onclick = () => closeModal(); $('#tiAgain').onclick = () => { closeModal(); tiOpen(); }; }); markDirty(true); }
+// tick: piso superado, regeneración, explosiones
+let TI_TK = 0;
+hookAfter('updateSpawns', () => { if (!TI || !G.map || G.map.id !== TI_MAP) return; const now = G.t;
+  if (TI.spawned && !TI.cleared && tiAlive() === 0) tiCleared();
+  if (now - TI_TK < 0.5) return; TI_TK = now; for (const m of G.ents) { if (m.type !== 'mob' || !m.ti || m.dying) continue; if (m.tiRegen && now - (m.lastHit || 0) > 3 && m.hp < m.maxhp) m.hp = Math.min(m.maxhp, m.hp + Math.round(m.maxhp * 0.01)); } });
+hookBefore('killMob', m => { if (!m || !m.ti || !TI) return; TI.kills++; if (m.tiBoom) { const x = m.x, y = m.y; telegraph({ shape: 'circle', x, y, r: 40, dur: 0.8 }); setTimeout(() => { const P = G.P; if (!TI || P.dead) return; addFx({ type: 'ring', x, y, r: 44, dur: 0.4, col: '#ff8a2a' }); if (Math.hypot(P.x - x, P.y - y) < 44 && !(P.ifr > 0)) { const d = Math.round(P.S.maxhp * 0.08); P.hp -= d; P.flash = 0.15; floatText(P.x, P.y - 34, d, '#ff8a2a'); if (P.hp <= 0) playerDie(); } }, 800); } });
+hookAfter('killMob', (r, m) => { if (m && m.ti && G.P.best) delete G.P.best[m.mid]; });
+hookBefore('bossKilled', m => { if (m && m.ti) return HOOK_SKIP; });
+// caer en la torre termina la subida (sin la muerte normal); salir por la puerta sur también
+hookBefore('playerDie', () => { if (TI && G.map && G.map.id === TI_MAP) { tiEnd('dead'); return HOOK_SKIP; } });
+hookBefore('exitInterior', () => { if (G.map && G.map.id === TI_MAP) { if (TI && !confirm(L2('¿Salir de la Torre Infinita? La subida termina y tu récord se guarda.', 'Leave the Infinite Tower? The climb ends and your record is kept.'))) { const P = G.P; P.y -= 20; return HOOK_SKIP; } if (TI) tiEnd('left'); else { const T0 = makeTower(); transition(() => setMap(T0, (T0.w >> 1) * 16 + 8, (T0.h - 3) * 16, 'down')); } return HOOK_SKIP; } });
+// si se guarda durante la subida, la partida queda donde entraste (el mapa de la torre se rehace al vuelo)
+hookAround('saveGame', (next, ...a) => { const P = G.P; if (!P || P.map !== TI_MAP || !TI) return next(...a); const s = { m: P.map, x: P.x, y: P.y, i: P.inside };
+  P.map = TI.ret.m; P.x = TI.ret.x; P.y = TI.ret.y; P.inside = TI.ret.inside; try { return next(...a); } finally { P.map = s.m; P.x = s.x; P.y = s.y; P.inside = s.i; } });
+SAVEKEYS.push('ti');
+// Lupa › Sistemas
+if (typeof GSIS !== 'undefined') GSIS.unshift(['n_torre_inf', '♾ ' + L2('Torre Infinita', 'Infinite Tower'), () => [L2('En la Torre de los Portales, el portal dorado del centro. Salas sin fin: cada piso los enemigos suben 5 niveles y entran 5 o más (uno más cada 25 pisos); cada 10 pisos hay un jefe y cada 50 uno de los jefes de la torre (El Arquitecto de la Torre, La Reina del Vértigo).', 'In the Portal Tower, the golden portal in the middle. Endless rooms: each floor enemies gain 5 levels and 5 or more come in (one more every 25 floors); every 10 floors there is a boss and every 50 one of the tower bosses (The Tower Architect, The Vertigo Queen).'),
+  L2('Salen todos los enemigos del juego, los jefes de zona, continente, cueva y portal (no salen súper jefes ni jefes de la historia) y 6 enemigos propios de la torre, con mecánicas por piso: rápidos, acorazados, furiosos, enjambre, élite, oscuridad, se regeneran o explotan al morir. Pueden pasar del nivel 700: es una prueba de resistencia.', 'Every enemy in the game, the zone, continent, cave and portal bosses (no super bosses or story bosses) plus 6 tower-only enemies show up, with mechanics per floor: fast, armored, furious, swarm, elite, darkness, regenerating or exploding on death. They can go past level 700: it is an endurance test.'),
+  L2('Al superar un piso recuperas un poco (del todo tras un jefe). Si caes o sales, la subida termina sin la muerte normal y tu mejor piso va al top. Puedes volver a empezar en el último múltiplo de 10 que superaste.', 'Clearing a floor heals you a little (fully after a boss). If you fall or leave, the climb ends without a normal death and your best floor goes to the leaderboard. You can restart at the last multiple of 10 you cleared.')], () => null]);
+
+// ================= 6.43: CAZADORES CON IA EN TODOS LOS MAPAS =================
+// Sergio: que el mundo se vea más vivo con «cazadores» con nombres como de jugador (Zack…), sin llamarlos jugadores; hacen lo
+// que haría cualquiera que juega (farmean, viajan, talan, pescan, saludan, charlan, descansan…): farmean nivel,
+// atacan enemigos, talan y pican, suben de nivel solos, de cualquier nivel; no nos ayudan ni compartimos experiencia;
+// solo podemos hablar con ellos y desafiarlos; que NO nos roben los enemigos cuando farmeamos una zona; unos 15-20 por mapa.
+// Menos ciudadanos de España y muy pocos menos en Perú (v74Dens), para que haya sitio.
+// - Una lista fija por mapa (semilla del mapa): nombre, clase, apariencia de jugador (heroLook + drawHero, todas las
+//   estructuras de cuerpo) y nivel; P.aihLv guarda lo que han subido (pequeño) y P.aihT la última vez (suben también
+//   mientras no juegas, un poco).
+// - Solo existen en el mapa en el que estás; en mapas grandes se recolocan fuera de la pantalla cerca de ti, en
+//   campamentos de su nivel, para que siempre veas a alguien farmeando. El sprite se crea al verlos y se libera lejos.
+// - Antirrobo (aihFree): nunca atacan tu objetivo, ni a un enemigo que te persigue o que golpeaste hace poco, ni nada
+//   dentro de la zona en la que estás farmeando (los últimos 25 s), ni lo que tienes al lado. Si golpeas a uno que
+//   estaban atacando, te lo dejan.
+// - Sus golpes no usan hitMob/killMob: no te dan experiencia ni oro, ni avanzan tus misiones.
+const AIH_NAMES = ['Zack', 'Luna', 'Rex', 'Nova', 'Kai', 'Mia', 'Leo', 'Ivy', 'Axel', 'Sky', 'Vex', 'Nyx', 'Lia', 'Dante', 'Echo', 'Yuki', 'Toto', 'Pablo_GG', 'xXSamXx', 'DarkLuz', 'ElTano', 'Vale99', 'Mateo_pro', 'Sofi.exe', 'NicoLV', 'Kenji', 'Aiko',
+  'Rafa', 'Cami', 'Thiago', (LANG_EN ? "April" : 'Abril'), 'Bruno', 'Zoe', 'Iker', 'Lola', 'Gael', 'Emma', 'Hugo', 'Alma', 'Enzo', 'Noa', 'Marco', 'Uma', 'Joaco', 'Sasha', 'Ryo', 'Hana', 'Milo', 'Kira', 'Oscar_RD', 'Tefi', 'JuanchoX', 'Pipe', 'Coni', 'Rocky', 'Kiwi', 'Ozzy',
+  'NightFox', 'SrPatata', 'LaMaga', 'Arquerita', 'TanqueRojo', 'ElPanadero', 'Chispa', 'Lobito', 'Neko', 'Mochi', 'Pixel', 'Bit', 'Byte', 'Turbo', 'Frodo_no', (LANG_EN ? "Shadow" : 'Sombra'), 'Rayo', 'Trueno', 'Brisa', (LANG_EN ? "Ash" : 'Ceniza'), (LANG_EN ? "Amber" : 'Ámbar'), 'Jade', 'Onyx', 'Cobalto',
+  'Vikingo', 'Samu', 'Lu', 'Fer', 'Andy', 'Charly', 'Dani', 'Gabo', 'Isa', 'Jose_mx', 'Kevo', 'Lalo', 'Memo', 'Nacho', 'Paco', 'Quique', 'Rulo', 'Santi', 'Tavo', 'Ulises', 'Vicky', 'Wendy', 'Ximena', 'Yaz', 'Zuri', 'MaxPower', 'Ana_lv',
+  'Kuro', 'Shiro', 'Ren', 'Sora', 'Tomo', 'Yui', 'Haru', 'Aoi', 'Kaze', 'Mizu', 'Tora', 'Sakura_s', 'Ricky', 'Gordo', 'Flaco', 'Chino', 'Negrita', 'Peque', 'Profe', 'Jefa', 'Capi', 'Doc', 'Mago_Supremo', 'Healer4u', 'NoobMaster', 'ProGamer'];
+const AIH_LINES = [
+  [L2('¿Alguien para el jefe del Velo? Busco grupo.', 'Anyone for the Veil boss? Looking for a group.'), L2('Estoy subiendo nivel, ¡suerte!', 'Leveling up here, good luck!'), L2('Esta zona da buena experiencia.', 'This zone gives good XP.'), L2('Me falta poco para subir.', 'Almost leveling up.')],
+  [L2('Vendo esencias de portal, pregúntame.', 'Selling portal essences, ask me.'), L2('¿Has probado la Torre Infinita? Yo voy por el piso ', 'Have you tried the Infinite Tower? I\'m on floor '), L2('Tranquilo, no te quito tus monstruos.', 'Relax, I won\'t steal your monsters.'), L2('Llevo toda la tarde aquí, jaja.', 'Been here all afternoon, haha.')],
+  [L2('¿Qué arma usas?', 'What weapon do you use?'), L2('Esa armadura te queda bien.', 'That armor looks good on you.'), L2('Hoy toca talar un rato.', 'Some woodcutting today.'), L2('Me voy a la siguiente zona cuando suba.', 'Moving to the next zone when I level.')]];
+const AIH_HI = [L2('¡Hola!', 'Hi!'), L2('¡Buenas!', 'Hey!'), L2('¿Qué tal?', 'How\'s it going?'), L2('Hola, ¿farmeando también?', 'Hi, farming too?'), 'o/'];
+const AIH_GO = [L2('Me voy a otra zona.', 'Heading to another zone.'), L2('Aquí ya no queda nada, me muevo.', 'Nothing left here, moving on.'), L2('Voy a probar más al norte.', 'Going to try further north.')];
+const AIH_TALK = [L2('¿Viste el jefe de esta zona?', 'Did you see this zone\'s boss?'), L2('Jaja, sí.', 'Haha, yeah.'), L2('Yo llevo el arco de la forja.', 'I have the forge bow.'), L2('Mañana subo la torre.', 'Climbing the tower tomorrow.'), L2('¿Me pasas una poción?', 'Can you spare a potion?'), L2('Toma.', 'Here.'), L2('Esa zona da más oro.', 'That zone gives more gold.'), L2('¿Hacemos un duelo luego?', 'Duel later?'), L2('Vale, nos vemos.', 'Ok, see you.')];
+const AIH_SKC = { guerrero: '#ff8a4a', mago: '#8ac8ff', arquero: '#c8f07a', asesino: '#c87aff', bardo: '#ffd07a', invocador: '#9aff9a', sacerdote: '#fff6b0', clerigo: '#fff6b0', paladin: '#ffe070', berserker: '#ff5050' };
+const AIH_CLS = () => Object.keys(CLASSES);
+const AIH_RANGED = new Set(['mago', 'arquero', 'bardo', 'invocador', 'sacerdote', 'clerigo']);
+const AIH_FORMS = ['lobo', 'fantasma', 'vampiro', 'dragon', 'alado', 'eco', 'hielo'];
+const AIH_SKIP = new Set(['espiritual', 'submarino', 'nerea', 'jardin_sonrisa']);
+const AIH_ATL = new Map(); let AIH_MAP = null, AIH_LIST = [], AIH_TK = 0, AIH_PF = { x: 0, y: 0, t: -99 };
+const aihHash = s => { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };
+// ¿hay cazadores en este mapa? cuántos
+function aihCount(M) { if (!M || !M.id || AIH_SKIP.has(M.id) || /^dawn|^mar_|^isla_|_dawn$/.test(M.id) || M.sea || M.sub || M.ti || M.tower || M.cave || (typeof CAVES !== 'undefined' && CAVES[M.id]) || (typeof HOUSES !== 'undefined' && HOUSES[M.id]) || M.home) return 0;
+  const listed = typeof MAPW_LIST !== 'undefined' && MAPW_LIST.some(w => w.id === M.id), city = typeof V74_CITY !== 'undefined' && V74_CITY[M.id];
+  if (!listed && !M.isWorld && !city) return 0; let n = M.id === 'world' ? 18 : city ? (V74_CITY[M.id].c === 'pe' ? 8 : 10) : 15; if (typeof OPT !== 'undefined' && OPT.on) n = Math.ceil(n / 2); return n; }
+function aihTier(lv) { let t = 1; for (let k = 1; TIER[k]; k++) if (TIER[k].lv <= lv) t = k; return t; }
+function aihCampLvs(M) { const c = (M.camps || []).map(c => c.lv).filter(v => v > 0); return c.length ? c : null; }
+// lista fija del mapa (con la semilla del mapa) + lo que han subido
+function aihRoster(M) { const n = aihCount(M); if (!n) return []; const P = G.P, R = new RNG(SEED * 7 + aihHash(M.id)), lvs = aihCampLvs(M), cls = AIH_CLS(); P.aihLv = P.aihLv || {};
+  const now = Date.now(), hrs = P.aihT ? Math.min(72, Math.max(0, (now - P.aihT) / 3.6e6)) : 0, used = new Set(), out = [];
+  for (let i = 0; i < n; i++) { let nm; do { nm = AIH_NAMES[R.int(0, AIH_NAMES.length - 1)]; if (R.f() < 0.25) nm += R.int(1, 99); } while (used.has(nm)); used.add(nm);
+    const g = R.f() < 0.5 ? 'f' : 'm', k = M.id + ':' + i; let lv = lvs && R.f() < 0.8 ? clamp(lvs[R.int(0, lvs.length - 1)] + R.int(-4, 10), 1, MAXLV) : R.int(5, Math.min(MAXLV, 650));
+    if (P.aihLv[k]) lv = P.aihLv[k]; if (hrs > 0.5) lv = Math.min(MAXLV, lv + Math.floor(hrs * (0.2 + R.f()))); P.aihLv[k] = lv;
+    const bts = BODY_T && BODY_T[g] ? BODY_T[g].length : 1, app = { g, skin: R.int(0, SKINS.length - 1), hair: pick(Object.keys(HAIRS).filter(h => !/^dz_|fus|^c_/.test(h))), hs: R.int(0, (g === 'm' ? HS_M : HS_F).length - 1), eyes: EYE_ORDER[R.int(0, EYE_ORDER.length - 1)], bt: R.f() < 0.5 ? 0 : R.int(0, bts - 1),
+      top: [R.int(0, TOPS.length - 1), pick(Object.keys(CLOTH))], bot: [R.int(0, BOTS.length - 1), pick(Object.keys(CLOTH))], shoe: [R.int(0, SHOES.length - 1), pick(Object.keys(CLOTH))] };
+    out.push({ k, i, name: nm, cls: cls[R.int(0, cls.length - 1)], app: normApp(app), lv, xp: 0, kills: 0, helm: R.f() < 0.6, sr: lv >= 250 && R.f() < 0.25 ? AIH_FORMS[R.int(0, AIH_FORMS.length - 1)] : null, chat: R.int(0, 2), seed: R.int(1, 1e6) }); }
+  P.aihT = now; return out; }
+function aihGear(h) { const t = aihTier(h.lv), g = { weapon: t, head: h.helm ? t : 0, body: t, legs: t, feet: t }; if (h.sr) { g.sr = h.sr; } return g; }
+function aihAtlas(h) { const t = aihTier(h.lv), key = h.k + ':' + t; let A = AIH_ATL.get(key); if (!A) { if (AIH_ATL.size > 40) AIH_ATL.delete(AIH_ATL.keys().next().value); A = buildAtlas(heroLook(h.cls, h.app, aihGear(h), {}, { hideHelm: !h.helm }), ['idle', 'walk', 'atk', 'cast', 'chop', 'mine', 'hurt', 'fish', 'wave', 'sit', 'dance', 'cheer'], drawHero); AIH_ATL.set(key, A); } return A; }
+function aihTitle(h) { return (CLASSES[h.cls] ? CLASSES[h.cls].n : h.cls) + ' · ' + L2('Nv. ', 'Lv. ') + h.lv; }
+// ---------- crear / quitar en el mapa ----------
+function aihFreeTile(M, x0, y0, r0, r1, R) { for (let t = 0; t < 50; t++) { const a = R() * 6.283, r = r0 + R() * (r1 - r0), tx = Math.floor(x0 / 16 + Math.cos(a) * r), ty = Math.floor(y0 / 16 + Math.sin(a) * r);
+  if (tx < 2 || ty < 2 || tx >= M.w - 2 || ty >= M.h - 2) continue; const i = M.I(tx, ty); if (SOLID_T[M.ter[i]] || M.solidO[i] || M.ter[i] === T.DEEP || M.ter[i] === T.WATER || M.ter[i] === T.FACE || M.ter[i] === T.STAIRS) continue; return [tx * 16 + 8, ty * 16 + 8, M.lvl[i] | 0]; } return null; }
+function aihSpot(M, h, near) { const P = G.P, rnd = Math.random; let best = null;
+  if (M.camps && M.camps.length) { const cs = M.camps.filter(c => Math.abs(c.x - P.x / 16) + Math.abs(c.y - P.y / 16) < (near ? 34 : 9999) && (!AIH_PF.t || G.t - AIH_PF.t > 25 || Math.hypot(c.x * 16 - AIH_PF.x, c.y * 16 - AIH_PF.y) > 180)).sort((a, b) => Math.abs(a.lv - h.lv) - Math.abs(b.lv - h.lv)).slice(0, 4);
+    if (cs.length) { const c = cs[Math.floor(rnd() * cs.length)]; best = aihFreeTile(M, c.x * 16, c.y * 16, 2, 5, rnd); } }
+  return best || aihFreeTile(M, P.x, P.y, near ? 10 : 6, near ? 26 : 30, rnd) || aihFreeTile(M, P.x, P.y, 3, 12, rnd); }
+function aihSpawn(M, h) { const p = aihSpot(M, h, true); if (!p) return null; const id = 'aih_' + aihHash(h.k);
+  if (!Object.prototype.hasOwnProperty.call(NPCS, id)) Object.defineProperty(NPCS, id, { value: { n: '', title: '', lines: [''], look: null, aih: 1 }, enumerable: false, configurable: true, writable: true });
+  const e = { type: 'npc', id, def: NPCS[id], aih: h, x: p[0], y: p[1], L: p[2] | 0, map: M.id, dir: pick(['down', 'left', 'right', 'up']), anim: 'idle', af: 0, at: Math.random(), home: { x: p[0], y: p[1] }, wander: 0, st: 1 + Math.random() * 2, hum: true, shR: 6, hw: 4, hh: 3, noTag: true,
+    ai: { st: 'idle', t: Math.random() * 2, tgt: null, cd: 0, hp: 1, o: null, seen: G.t } };
+  let A0 = null; Object.defineProperty(e, 'atlas', { configurable: true, enumerable: true, get() { if (!A0 || A0._aihT !== aihTier(h.lv)) { A0 = aihAtlas(h); A0._aihT = aihTier(h.lv); } e.ai.seen = G.t; return A0; }, set(v) { A0 = v; } });
+  Object.defineProperty(e, '_aihDrop', { value: () => { A0 = null; }, enumerable: false });
+  G.ents.push(e); return e; }
+function aihOnMap(M) { for (const e of AIH_LIST) e.remove = true; AIH_LIST = []; AIH_MAP = M ? M.id : null; if (!M || !G.P) return; const ros = aihRoster(M); for (const h of ros) { const e = aihSpawn(M, h); if (e) AIH_LIST.push(e); } }
+hookAfter('setMap', (r, M) => { try { aihOnMap(M); } catch (e) { if (typeof errOnce === 'function') errOnce('aihMap', e); } });
+// ---------- antirrobo ----------
+hookAfter('hitMob', (d, m) => { if (!m) return; m._pHitT = G.t; AIH_PF = { x: m.x, y: m.y, t: G.t }; if (m._aih) { const e = m._aih; m._aih = null; if (e.ai && e.ai.tgt === m) { e.ai.tgt = null; e.ai.st = 'idle'; e.ai.t = 1; if (Math.random() < 0.35) aihSay(e, pick([L2('¡Todo tuyo!', 'All yours!'), L2('Ah, era tuyo, perdona.', 'Oh, that was yours, sorry.'), L2('Te lo dejo.', 'It\'s yours.')])); } } });
+function aihFree(m, e) { const P = G.P; if (!m || m.dying || m.hp <= 0 || m.boss || m.duel || m.ti || m.ghost || m.summoned || m.remove || m.map !== e.map) return false;
+  if (P.target === m || (m.state && m.state !== 'idle')) return false; if (G.t - (m._pHitT || -99) < 12) return false;
+  if (G.t - AIH_PF.t < 25 && Math.hypot(m.x - AIH_PF.x, m.y - AIH_PF.y) < 150) return false; if (Math.hypot(m.x - P.x, m.y - P.y) < 90) return false;
+  if (m._aih && m._aih !== e && !m._aih.remove) return false; return true; }
+// ---------- cerebro ----------
+function aihSay(e, t) { e.chat = t; e.chatT = G.t; }
+function aihMove(e, tx, ty, sp, dt) { const dx = tx - e.x, dy = ty - e.y, L = Math.hypot(dx, dy); if (L < 3) return true; e.dir = dirFromVec(dx, dy); const M = G.map, ok = moveEnt(M, e, dx / L * sp * dt, dy / L * sp * dt); setAnim(e, 'walk', true); if (!ok) { e.ai.stuck = (e.ai.stuck || 0) + dt; if (e.ai.stuck > 1.2) { e.ai.stuck = 0; return true; } } else e.ai.stuck = 0; return false; }
+function aihGain(e, m) { const h = e.aih; h.kills++; if (m.lv < h.lv - 25) return; h.xp++; const need = 6 + Math.floor(h.lv * 0.4); if (h.xp < need || h.lv >= MAXLV) return; h.xp = 0; h.lv++; const P = G.P; P.aihLv = P.aihLv || {}; P.aihLv[h.k] = h.lv;
+  floatText(e.x, e.y - 40, L2('¡SUBE DE NIVEL!', 'LEVEL UP!'), '#ffe070'); addFx({ type: 'ring', x: e.x, y: e.y, r: 22, dur: 0.6, col: '#ffe070' }); if (Math.random() < 0.3) aihSay(e, pick([L2('¡Nivel ', 'Level ') + h.lv + '!', L2('¡Por fin!', 'Finally!'), 'GG'])); }
+function aihKill(m, e) { m.hp = 0; m.dying = 0.001; setAnim(m, 'hurt'); burst(m.x, m.y - 10, 10, { sp: 60, up: 36, g: 140, life: 0.5, c: ['#d8d0c8', '#a09890', '#ffffff'] }); if (m.camp && m.camp.dead) m.camp.dead.push(G.t + 28 + Math.random() * 20); if (G.P.target === m) G.P.target = null; m._aih = null; aihGain(e, m); }
+function aihFindMob(e) { const h = e.aih; let best = null, bd = 260 * 260; for (const m of G.ents) { if (m.type !== 'mob' || m.lv > h.lv + 8 || m.lv < Math.max(1, h.lv - 40) || (e.ai.skip && e.ai.skip.has(m)) || (m.L !== e.L && m.L >= 0 && e.L >= 0)) continue; const d = dist2(m.x, m.y, e.x, e.y); if (d < bd && aihFree(m, e)) { bd = d; best = m; } } return best; }
+function aihFindRes(e) { const M = G.map; if (!M.objs) return null; let best = null, bd = 180 * 180; for (const o of M.objs) { if (o.hidden || (o.k !== 'tree' && o.k !== 'ore')) continue; const d = dist2(o.px, o.py, e.x, e.y); if (d < bd) { bd = d; best = o; } } return best; }
+function aihUpdate(e, dt) { const h = e.aih, A = e.ai, P = G.P; if (!h) return; A.t -= dt; A.cd -= dt;
+  const near = dist2(e.x, e.y, P.x, P.y) < 40 * 40 && !A.tgt && A.st !== 'chat'; if (near && A.st !== 'gather' && A.st !== 'fish') { e.dir = dirFromVec(P.x - e.x, P.y - e.y); if (!A.hi) { A.hi = 1; if (Math.random() < 0.5) { aihSay(e, pick(AIH_HI)); setAnim(e, 'wave'); A.waveT = 1.5; } } A.waveT = (A.waveT || 0) - dt; setAnim(e, A.waveT > 0 ? 'wave' : 'idle', true); stepAnim(e, dt, 5); return; }
+  switch (A.st) {
+    case 'idle': setAnim(e, 'idle', true); if (A.t > 0) break; aihDecide(e); break;
+    case 'travel': if (aihMove(e, A.p[0], A.p[1], 58, dt)) { e.home = { x: e.x, y: e.y }; A.st = 'idle'; A.t = 0.5 + Math.random() * 2; } break;
+    case 'goFish': if (aihMove(e, A.p[0], A.p[1], 34, dt)) { A.st = 'fish'; A.t = 8 + Math.random() * 10; e.dir = A.p[2]; } break;
+    case 'fish': setAnim(e, 'fish', true); if (A.t <= 0) { A.st = 'idle'; A.t = 1; if (Math.random() < 0.6) floatText(e.x, e.y - 34, '+1 ' + L2('pez', 'fish'), '#8ad8ff'); } break;
+    case 'emote': setAnim(e, A.em, true); if (A.t <= 0) { A.st = 'idle'; A.t = 1 + Math.random() * 2; } break;
+    case 'rest': setAnim(e, 'sit', true); if (A.t <= 0) { A.hp = 1; A.st = 'idle'; A.t = 0.5; } break;
+    case 'chat': { const o = A.pal; if (!o || o.remove || !o.ai || o.ai.pal !== e || A.t <= 0) { A.st = 'idle'; A.t = 1 + Math.random() * 2; A.pal = null; break; }
+      const d = Math.hypot(o.x - e.x, o.y - e.y); if (d > 24 && A.lead) { aihMove(e, o.x + (e.x < o.x ? -18 : 18), o.y, 34, dt); break; } e.dir = dirFromVec(o.x - e.x, o.y - e.y); setAnim(e, 'idle', true);
+      A.ct = (A.ct || 0) - dt; if (A.ct <= 0) { A.ct = 3.2; if (A.lead === (Math.floor(A.t / 1.6) % 2 === 0)) aihSay(e, pick(AIH_TALK)); } break; }
+    case 'go': if (aihMove(e, A.p[0], A.p[1], 34, dt)) { A.st = 'idle'; A.t = 1 + Math.random() * 3; } break;
+    case 'goRes': { const o = A.o; if (!o || o.hidden) { A.st = 'idle'; A.t = 1; break; } if (aihMove(e, o.px + (e.x < o.px ? -12 : 12), o.py + 4, 34, dt)) { A.st = 'gather'; A.t = 4 + Math.random() * 4; e.dir = e.x < o.px ? 'right' : 'left'; } break; }
+    case 'gather': setAnim(e, A.o && A.o.k === 'ore' ? 'mine' : 'chop', true); if (A.t <= 0) { A.st = 'idle'; A.t = 1; if (Math.random() < 0.3) floatText(e.x, e.y - 34, '+1 ' + (A.o && A.o.k === 'ore' ? L2('mineral', 'ore') : L2('madera', 'wood')), '#c8e0a0'); } break;
+    case 'fight': { const m = A.tgt; if (!m || m.dying || m.remove || m.hp <= 0 || m._aih !== e || !aihFreeFight(m, e)) { if (m && m._aih === e) m._aih = null; A.tgt = null; A.st = 'idle'; A.t = 0.6 + Math.random(); break; }
+      const rng = AIH_RANGED.has(h.cls) ? 64 : 20, d = Math.hypot(m.x - e.x, m.y - e.y); if (d > rng) { A.ft = (A.ft || 0) + dt; m._aihT = G.t; if (A.ft > 6) { (A.skip = A.skip || new WeakSet()).add(m); m._aih = null; A.tgt = null; A.st = 'idle'; A.t = 0.5; break; } aihMove(e, m.x, m.y, 52, dt); break; } A.ft = 0;
+      e.dir = dirFromVec(m.x - e.x, m.y - e.y); if (A.cd > 0) { if (e.anim !== 'atk' && e.anim !== 'cast') setAnim(e, 'idle', true); break; }
+      A.cd = 0.8 + Math.random() * 0.4; const sk = Math.random() < 0.18; setAnim(e, sk || AIH_RANGED.has(h.cls) ? 'cast' : 'atk'); e.af = 0; m._aihT = G.t;
+      const k = clamp(0.14 + (h.lv - m.lv) * 0.012, 0.05, 0.7) * (sk ? 2.2 : 1), dmg = Math.max(1, Math.round(m.maxhp * k * (0.85 + Math.random() * 0.3)));
+      if (sk) { const col = AIH_SKC[h.cls] || '#ffffff'; burst(m.x, m.y - 14, 16, { sp: 80, up: 50, g: 60, life: 0.5, c: [col, '#ffffff'] }); addFx({ type: 'ring', x: m.x, y: m.y, r: 26, dur: 0.4, col }); A.cd += 0.6; }
+      if (AIH_RANGED.has(h.cls)) for (let s = 0; s < 4; s++) part(e.x + (m.x - e.x) * s / 4, e.y - 14 + (m.y - e.y) * s / 4, { vz: 0, g: 0, life: 0.25, c: h.cls === 'mago' ? '#8ac8ff' : '#e0d0a0', s: 1 });
+      m.hp -= dmg; m.flash = 0.12; floatText(m.x, m.y - (m.hgt || 30), dmg, '#b8b8c8'); if (m.hp <= 0) { aihKill(m, e); A.tgt = null; A.st = 'idle'; A.t = 0.4 + Math.random(); if (A.hp < 0.6 && Math.random() < 0.5) { A.st = 'rest'; A.t = 4 + Math.random() * 4; } }
+      else if (Math.random() < 0.4) { setAnim(m, 'atk'); m.dir = dirFromVec(e.x - m.x, e.y - m.y); A.hp -= 0.04 + Math.max(0, m.lv - h.lv) * 0.01; if (A.hp < 0.35) { A.hp = 1; floatText(e.x, e.y - 40, L2('poción', 'potion'), '#ff8a8a'); } } break; } }
+  stepAnim(e, dt, e.anim === 'walk' ? (A.st === 'travel' ? 11 : 8) : e.anim === 'atk' || e.anim === 'cast' ? 10 : e.anim === 'chop' || e.anim === 'mine' ? 6 : e.anim === 'dance' || e.anim === 'cheer' || e.anim === 'wave' ? 6 : 2); }
+// qué hace ahora: como cualquiera que juega (cada uno con su forma de ser: farmero, viajero, sociable o recolector)
+function aihDecide(e) { const h = e.aih, A = e.ai, pers = h.seed % 4, M = G.map, r = Math.random();
+  const m = aihFindMob(e); if (m && r < (pers === 0 ? 0.92 : pers === 3 ? 0.55 : 0.75)) { A.st = 'fight'; A.tgt = m; A.ft = 0; m._aih = e; m._aihT = G.t; return; }
+  const q = Math.random();
+  if (q < (pers === 3 ? 0.3 : 0.14)) { const o = aihFindRes(e); if (o) { A.st = 'goRes'; A.o = o; return; } }
+  if (q < (pers === 3 ? 0.42 : 0.24)) { const w = aihFindWater(e); if (w) { A.st = 'goFish'; A.p = w; return; } }
+  if (q < (pers === 1 ? 0.55 : 0.36)) { const p = aihFarSpot(e); if (p) { A.st = 'travel'; A.p = p; if (Math.random() < 0.2) aihSay(e, pick(AIH_GO)); return; } }
+  if (q < (pers === 2 ? 0.7 : 0.46)) { const o = AIH_LIST.find(x => x !== e && !x.remove && x.ai.st === 'idle' && dist2(x.x, x.y, e.x, e.y) < 150 * 150); if (o) { A.st = 'chat'; A.pal = o; A.lead = true; A.t = 7 + Math.random() * 5; A.ct = 0.5; o.ai.st = 'chat'; o.ai.pal = e; o.ai.lead = false; o.ai.t = A.t; o.ai.ct = 2; return; } }
+  if (q < 0.54) { A.st = 'emote'; A.em = pick(['wave', 'dance', 'cheer']); A.t = 2.5 + Math.random() * 2; return; }
+  if (q < 0.62) { A.st = 'rest'; A.t = 4 + Math.random() * 5; return; }
+  const p = aihFreeTile(M, e.home.x, e.home.y, 1, 6, Math.random); if (aihSameL(p, e)) { A.st = 'go'; A.p = p; } else A.t = 1.5; if (Math.random() < 0.06) aihSay(e, aihLine(e)); }
+function aihFindWater(e) { const M = G.map, x0 = Math.floor(e.x / 16), y0 = Math.floor(e.y / 16); for (let t = 0; t < 60; t++) { const tx = x0 + Math.round((Math.random() - 0.5) * 16), ty = y0 + Math.round((Math.random() - 0.5) * 16); const i = tileAt(M, tx, ty); if (i < 0 || M.ter[i] !== T.WATER) continue;
+  for (const [dx, dy, dir] of [[0, 1, 'up'], [0, -1, 'down'], [1, 0, 'left'], [-1, 0, 'right']]) { const j = tileAt(M, tx + dx, ty + dy); if (j >= 0 && !blockedFor(M, tx + dx, ty + dy, 0) && M.lvl[j] === 0) return [(tx + dx) * 16 + 8, (ty + dy) * 16 + 8, dir]; } } return null; }
+function aihFarSpot(e) { const M = G.map, h = e.aih; if (M.camps && M.camps.length > 1) { const cs = M.camps.filter(c => { const d = Math.abs(c.x * 16 - e.x) + Math.abs(c.y * 16 - e.y); const dp = Math.abs(c.x * 16 - G.P.x) + Math.abs(c.y * 16 - G.P.y); return d > 12 * 16 && d < 45 * 16 && dp < 28 * 16 && Math.abs(c.lv - h.lv) < 40 && !(G.t - AIH_PF.t < 25 && Math.hypot(c.x * 16 - AIH_PF.x, c.y * 16 - AIH_PF.y) < 180); }); if (cs.length) { const c = pick(cs); const p = aihFreeTile(M, c.x * 16, c.y * 16, 1, 4, Math.random); if (aihSameL(p, e)) return p; } }
+  for (let k = 0; k < 4; k++) { const p = aihFreeTile(M, e.x, e.y, 14, 32, Math.random); if (aihSameL(p, e)) return p; } return null; }
+function aihSameL(p, e) { return p && ((p[2] | 0) === (e.L | 0) || e.L < 0); }
+function aihFreeFight(m, e) { const P = G.P; if (P.target === m || (m.state && m.state !== 'idle') || G.t - (m._pHitT || -99) < 12) return false; return true; }
+function aihLine(e) { const L = AIH_LINES[e.aih.chat % AIH_LINES.length], t = L[Math.floor(Math.random() * L.length)]; return /piso $|floor $/.test(t) ? t + (10 + (e.aih.seed % 90)) + '.' : t; }
+hookBefore('updateNPC', (e, dt) => { if (e && e.aih) { aihUpdate(e, dt); return HOOK_SKIP; } });
+// el enemigo que pelea con un cazador se queda peleando con él (si no te persigue a ti)
+hookBefore('updateMob', (m, dt) => { if (!m || m.dying || !m._aih || m.state !== 'idle' || G.t - (m._aihT || -9) > 2.5) return; const e = m._aih; m.dir = dirFromVec(e.x - m.x, e.y - m.y); if (m.flash > 0) m.flash -= dt; stepAnim(m, dt, m.anim === 'atk' ? 8 : 3); if (m.anim === 'atk' && m.af === 0 && m.at > 0.4) setAnim(m, 'idle'); return HOOK_SKIP; });
+// recolocar a los que se quedan lejos (fuera de la pantalla) y liberar sprites
+V33_TICKS.push(() => { const M = G.map, P = G.P; if (!M || !P || AIH_MAP !== M.id) { if (M && P && AIH_MAP !== M.id) aihOnMap(M); return; } if (G.t - AIH_TK < 3) return; AIH_TK = G.t;
+  for (const e of AIH_LIST) { if (e.remove) continue; const d = Math.hypot(e.x - P.x, e.y - P.y), vis = Math.abs(e.x - P.x) < VW * 0.7 && Math.abs(e.y - P.y) < VH * 0.7;
+    if (G.t - e.ai.seen > 20 && e._aihDrop) e._aihDrop();
+    if (!vis && d > 50 * 16 && e.ai.st !== 'fight') { const p = aihSpot(M, e.aih, true); if (p && (Math.abs(p[0] - P.x) > VW * 0.6 || Math.abs(p[1] - P.y) > VH * 0.6)) { e.x = e.home.x = p[0]; e.y = e.home.y = p[1]; e.L = p[2] | 0; e.ai.st = 'idle'; e.ai.t = Math.random() * 2; } } } });
+// nombre y nivel en azul, como los jugadores
+hookAfter('drawEnt', (r, e, cx, cy) => { if (!e || !e.aih || e.hidden) return; const A = e.atlas, top = Math.round(e.y - cy) - (A ? A.fh - 10 : 40), x = Math.round(e.x - cx); const s = textSprite(e.aih.name + (LANG_EN ? " LV." : ' NV.') + e.aih.lv, '#8ae0ff'); ctx.drawImage(s, x - (s.width >> 1), top - 9); });
+// ---------- hablar y desafiar ----------
+hookAround('openDialog', (next, npc) => { if (!npc || !npc.aih) return next(npc); const h = npc.aih; npc.def.n = h.name; npc.def.title = aihTitle(h); npc.def.lines = [aihLine(npc)]; try { return next(npc); } finally { npc.def.n = ''; } });
+DLG_HOOKS.push((npc, opts) => { if (!npc || !npc.aih) return; const h = npc.aih;
+  opts.unshift({ label: '⚔ ' + L2('Desafiar a un duelo', 'Challenge to a duel'), icon: ['sword', 3], fn: () => { closeDialog(); aihDuel(npc); } });
+  opts.unshift({ label: '📊 ' + L2('Ver su perfil', 'See their profile'), icon: ['users'], fn: () => { closeDialog(); openModal(`<div class="frame"><h3>${esc(h.name)}</h3><p>${esc(aihTitle(h))}</p><p>${L2('Monstruos vencidos hoy', 'Monsters defeated today')}: ${h.kills}</p><p class="hint">${L2('Cazador que farmea por su cuenta. No comparte experiencia ni te quita tus monstruos.', 'A hunter farming on their own. They don\'t share XP or steal your monsters.')}</p><div class="row"><button class="btn" id="aihOk">OK</button></div></div>`); $('#aihOk').onclick = () => closeModal(); } }); });
+function aihDuel(e) { const h = e.aih; if (typeof duelStart !== 'function' || DUEL) return; const t = aihTier(h.lv);
+  duelStart({ name: h.name, lv: h.lv, look: LK({ hair: HAIRS[h.app.hair] || HAIRS.negro, armor: TIERP[clamp(Math.ceil(h.lv / 22), 1, 15)], weapon: { k: 'sword', tier: clamp(Math.ceil(h.lv / 18), 1, 15) } }) });
+  let n = 0; const fix = () => { n++; if (DUEL && DUEL.m && DUEL.o && DUEL.o.name === h.name) { try { DUEL.m.atlas = aihAtlas(h); } catch (er) { } return; } if (n < 40) setTimeout(fix, 100); }; setTimeout(fix, 100); }
+// menos ciudadanos: España bastante menos y Perú muy poco menos (los cazadores ocupan ese sitio)
+hookAfter('v74Dens', (d, h, c) => c === 'es' ? d * 0.72 : c === 'pe' ? d * 0.9 : d);
+SAVEKEYS.push('aihLv', 'aihT');
+// Lupa › Sistemas
+if (typeof GSIS !== 'undefined') GSIS.unshift(['n_cazadores_ia', '🧑‍🤝‍🧑 ' + L2('Cazadores por el mundo', 'Hunters around the world'), () => [L2('En todos los mapas abiertos y en las ciudades hay cazadores con nombre propio que van y vienen: farmean su nivel, usan habilidades, viajan de una zona a otra, talan, pican, pescan, saludan, charlan entre ellos, descansan y suben de nivel solos (también mientras no juegas, un poco). Llevan su nombre y nivel en azul.', 'In every open map and city there are hunters with their own names who come and go: they farm their level, use skills, travel between zones, chop, mine, fish, wave, chat with each other, rest and level up on their own (a little even while you are away). Their name and level show in blue.'),
+  L2('No te ayudan ni compartes experiencia con ellos, y no te roban: nunca atacan a tu objetivo, a lo que te persigue o golpeaste hace poco, ni a nada de la zona en la que estás farmeando. Si golpeas a uno que estaban atacando, te lo dejan.', 'They don\'t help you and you don\'t share XP, and they don\'t steal: they never attack your target, whatever is chasing you or that you hit recently, or anything in the zone you are farming. If you hit one they were fighting, they leave it to you.'),
+  L2('Habla con ellos para ver su perfil o desafiarlos a un duelo.', 'Talk to them to see their profile or challenge them to a duel.')], () => null]);
+// si un cazador está al lado de un NPC de verdad, «Hablar» elige siempre al NPC (misiones, tiendas…)
+hookAfter('interactTarget', r => { if (!r || r.kind !== 'npc' || !r.e || !r.e.aih) return; const P = G.P; let best = null, bd = 34 * 34;
+  for (const e of G.ents) if ((e.type === 'npc' || e.type === 'kid') && !e.aih && e.map === P.map) { const d = dist2(e.x, e.y, P.x, P.y); if (d < bd) { bd = d; best = e; } }
+  if (best) return { kind: 'npc', e: best, label: r.label, icon: r.icon }; });
 
 // ================= BOOT, TITLE, CHARACTER CREATION, LOOP =================
 let lastT = 0, titleMode = true, titleT = 0;
