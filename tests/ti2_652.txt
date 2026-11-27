@@ -1,0 +1,20 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], setInterval(()=>{ if(!$('#modal').hidden && /Bienvenido|Welcome/.test($('#mbody').textContent)) { const b=$('#dlOk'); if (b) b.click(); else closeModal(); } }, 150), window.addEventListener('error', e=>window._errs.push(e.message)), G.P.lv=300, calcStats(G.P), 1)
+wait 2500
+js (tiOpen(), [!!$('#tiGoW'), $('#mbody').textContent.includes('Reto de la semana')])
+js ($('#tiGoW').click(), 1)
+wait 3500
+js [TI.mode, TI.mod, tiWkMod()]
+js (()=>{ for (const e of G.ents) if (e.type==='mob'&&e.ti) { e.hp=0; killMob(e); } return 1; })()
+wait 1500
+js [TI.cleared, tiSave().wk, tiSave().best, tiSave().top]
+js (giveItem('pluma_fenix',1,true), G.P.hp=0, playerDie(), [!!TI, G.P.dead, Math.round(G.P.hp/G.P.S.maxhp*100), countItem('pluma_fenix')])
+js (G.P.hp=0, playerDie(), [!!TI])
+wait 2500
+js (closeModal(), tiStart(1,'team'), 1)
+wait 3500
+js [!$('#tiPing').hidden]
+js ($('#tiPing').click(), $('#tiPingM [data-tp="1"]').click(), [G.P.chat])
+js (()=>{ const S=tiSave(); TI.floor=25; TI.cleared=false; tiCleared(); return [S.top, countItem('pluma_fenix'), bitReady().map(a=>a[0])]; })()
+js (bitClaim('a_ti_25'), [TITLES.some(t=>t[0]==='t_ti_promesa'), !!G.P.bit.got.a_ti_25])
+js window._errs
