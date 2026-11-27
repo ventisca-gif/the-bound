@@ -37,7 +37,7 @@ DL_HOOKS.push((list,cx,cy)=>{
  if(H&&H.kind!=='swim'){vessel=P;kind=H.kind;}
  else if(B){
   vessel=B;kind=B.h?.kind;
-  if(!H&&(B.rare||B.orange||B.syrup||B.baratie||B.conomi))mask&=~dawnCrewMask(P);
+  if(!H&&(B.rare||B.orange||B.syrup||B.baratie||B.conomi||B.rmcape))mask&=~dawnCrewMask(P);
  }else if(P.shellBerth&&M.shells){
   const [x,y]=shellsDockPoint(M,SHELL_MOORING);
   vessel={x,y,dir:'down'};kind=P.shellBerth.kind;
