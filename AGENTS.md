@@ -76,6 +76,6 @@ The Bound es un RPG 2D de mundo abierto con movimiento en cuatro direcciones.
 
 ## Pruebas antes de publicar (desde 6.12)
 
-- `bash tools/dev/reg.sh out` (regresión, ropa y capas) y `python3 tests/upd.py file://$PWD/dist/test.html out.png`.
+- `bash tools/dev/reg.sh out` (regresión, ropa, capas y doble toque: `tests/doble_toque.py` busca recompensas de diálogo que se cobran dos veces) y `python3 tests/upd.py file://$PWD/dist/test.html out.png`.
 - Partidas antiguas: `python3 tests/saves.py file://$PWD/dist/test.html` carga partidas de versiones viejas (de `update/thebound.html` del historial) y comprueba que se juegan y se vuelven a guardar.
 - Acciones del mapa en su sitio: `python3 tests/xact_sitio.py file://$PWD/dist/test.html` va a cada objeto con acción de cada mapa y la usa.

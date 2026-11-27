@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.52', GAME_BUILD = 274;
+const GAME_VER = '6.53', GAME_BUILD = 275;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,25 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.53",
+ "b": 275,
+ "d": "2026-11-27",
+ "es": [
+  "☕ Chocolatada navideña: en los días de Navidad, Doña Rosa reparte chocolate caliente y panetón junto a la plaza de Lima, Lima Norte, Trujillo y Cusco (una vez al día por ciudad). 🍇 Año Nuevo: las doce uvas de la suerte en la plaza de España.",
+  "🍳 Concurso de cocina los domingos (10:00-18:00) en cada ciudad: presenta tu mejor plato contra 3 cocineros y gana oro y reputación.",
+  "🐾 Tu mascota te ayuda en los oficios: al talar, minar, pescar o recoger a veces trae una unidad más.",
+  "📚 Códice de colecciones en la Bitácora: peces, flores y platos; cada página completa da oro y un título.",
+  "Prueba nueva que pulsa dos veces todos los premios de los diálogos de los 2.098 personajes para que no se repita el bug de los regalos infinitos: 0 fallos."
+ ],
+ "en": [
+  "☕ Christmas hot chocolate: on Christmas days, Doña Rosa hands out hot chocolate and panettone by the square of Lima, North Lima, Trujillo and Cusco (once a day per city). 🍇 New Year: the twelve lucky grapes in the square of Spain.",
+  "🍳 Cooking contest on Sundays (10:00-18:00) in each city: present your best dish against 3 cooks and win gold and reputation.",
+  "🐾 Your pet helps in your jobs: chopping, mining, fishing or gathering sometimes brings one more.",
+  "📚 Collections Codex in the Logbook: fish, flowers and dishes; each completed page gives gold and a title.",
+  "New test that double-taps every dialog reward of all 2,098 characters so the infinite gifts bug can't come back: 0 failures."
+ ]
+},
 {
  "v": "6.52",
  "b": 274,
