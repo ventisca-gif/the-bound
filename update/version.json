@@ -1,26 +1,29 @@
 {
- "build": 277,
- "ver": "6.55",
+ "build": 278,
+ "ver": "6.56",
  "date": "2026-11-27",
  "file": "thebound.html",
- "size": 39579223,
- "sha256": "4bac01acb77169e65d4eafbd3caf105447ac85ebc050b1607de8773dca71e7f2",
+ "size": 39598246,
+ "sha256": "4a8a128ed6172a1923c8ee46ec43c212f83d63c4382e3ca38093326959af7035",
  "minApk": 24,
+ "gz": "thebound.html.gz",
+ "gzSize": 24571149,
+ "gzSha256": "463152b05365cf58fef23a395ea71f39d5f41a7f24c25340dafe920809486796",
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🎨 Tinte de ropa: en el Armario puedes teñir el cosmético de cada ranura (8 colores, 5.000 de oro). 👔 Perchas: guarda hasta 3 conjuntos y póntelos de un toque.",
-   "💃 Desfile de moda los sábados (16:00-20:00) en las plazas: cada semana un color de tema; compites contra 3 modelos por oro y reputación.",
-   "Torre Infinita: pisos especiales 💰 tesoro, 🛒 mercader (cambia piedras por una Pluma de Fénix) y ⚠ trampa; y cada 100 pisos sale 🪞 Tu Reflejo, un enemigo con tu mismo aspecto.",
-   "🍲 Devuelve la visita a tus vecinos: después de que te visiten, te esperan para cenar junto a la plaza de cualquier ciudad (18:00-21:00).",
-   "💀 Al caer, un aviso dice qué te derrotó; Bitácora › Caídas guarda las últimas 10 con un consejo. ⚖ En el inventario se ve cuánto cambia tu ataque, defensa y vida si te pones cada pieza."
+   "⚡ Más fluido en celulares sencillos: España ~17 % más rápida y la Aldea de Albor hasta ~20 % tras visitar ciudades (los NPC de la ciudad que dejas ya no se recorren desde otros mapas). La multitud lejana de las plazas llenas se dibuja sin el detalle HD fino y se libera memoria al cambiar de mapa.",
+   "📦 Actualizaciones ~40 % más pequeñas (descarga comprimida, con la normal de respaldo). Se quitó el límite de 40 MB que pronto habría impedido actualizar.",
+   "📱 Crear personaje en horizontal: el botón «Comenzar aventura» queda siempre a la vista y «Novedades» ya no tapa el título. Botones al tamaño del dedo en el título, crear personaje, menús y barra superior.",
+   "🗂 Pestañas del menú con iconos distintos (🦴 Mascotas, 🏅 Pase) y borde difuminado cuando hay más para deslizar. Mapa: botón para plegar la leyenda. Texto más legible sobre el atardecer de las ventanas.",
+   "💬 Los bocadillos de los NPC ya no se tapan entre sí ni con el clima. Postura ya no pisa a Bloquear. Las casillas «+» vacías solo salen si tienes una habilidad por colocar. Consejos de talar, minar y pescar al día (casillas 🪓 ⛏ 🎣). Números enormes en corto (3,07 mil M)."
   ],
   "en": [
-   "🎨 Clothes dye: in the Wardrobe you can dye the cosmetic in each slot (8 colours, 5,000 gold). 👔 Hangers: save up to 3 outfits and wear them with one tap.",
-   "💃 Fashion runway on Saturdays (16:00-20:00) in the squares: a colour theme each week; compete against 3 models for gold and reputation.",
-   "Infinite Tower: special floors 💰 treasure, 🛒 merchant (trades stones for a Phoenix Feather) and ⚠ trap; and every 100 floors 🪞 Your Reflection appears, an enemy with your own look.",
-   "🍲 Return your neighbours' visit: after they visit you, they wait for you for dinner by the square of any city (18:00-21:00).",
-   "💀 When you fall, a notice says what defeated you; Logbook › Falls keeps the last 10 with a tip. ⚖ In the inventory you see how much your attack, defence and HP change if you wear each piece."
+   "⚡ Smoother on low-end phones: Spain ~17% faster and Albor Village up to ~20% after visiting cities (NPCs of the city you leave are no longer processed from other maps). Far crowds in busy squares are drawn without fine HD detail and memory is freed when changing maps.",
+   "📦 Updates ~40% smaller (compressed download, with the normal one as backup). Removed the 40 MB limit that would soon have blocked updates.",
+   "📱 Character creation in landscape: the «Start adventure» button always stays in view and «What's New» no longer covers the title. Finger-sized buttons on the title, character creation, menus and top bar.",
+   "🗂 Menu tabs with distinct icons (🦴 Pets, 🏅 Pass) and a faded edge when there are more to swipe. Map: button to fold the legend. Easier to read text over the sunset of the windows.",
+   "💬 NPC speech bubbles no longer cover each other or the weather. Stance no longer overlaps Block. Empty «+» slots only show when you have a skill to place. Chopping, mining and fishing tips updated (🪓 ⛏ 🎣 slots). Huge numbers in short form (3.07B)."
   ]
  }
 }

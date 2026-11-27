@@ -317,6 +317,50 @@ body.building #hotbar{display:none}
 #bldBar .bbm.on,#bldBar .bbi.on{border-color:#ffd040;background:#3a2a14}
 #bldBar .bbi em{position:absolute;right:.15em;bottom:0;font-style:normal;font-size:.85em;color:#ffe9a0;text-shadow:0 1px 0 #000}
 #bldBar small{color:#c8b48a;padding:0 .5em;white-space:nowrap}
+/* ---------- 6.56: revisión de pantallas en el celular ---------- */
+/* crear personaje: «Novedades» y «Buscar actualización» ya no tapan el título */
+#title.creating #tupd{display:none}
+/* crear personaje con el celular en horizontal: la columna izquierda (vista, nombre, Comenzar) queda fija y solo se desliza la derecha */
+@media (orientation:landscape) and (max-height:560px){
+  #create{overflow:hidden;height:100%;max-height:100%;display:flex;flex-direction:column}
+  #create .cc{flex:1 1 auto;min-height:0;grid-template-rows:auto minmax(0,1fr);height:100%}
+  #create .ccL{display:flex;flex-direction:column;align-items:center;gap:.15em}
+  #create .ccL h2{font-size:1.05em}
+  #create #ccPrev{width:4.6em;height:4.6em}
+  #create .ccR{height:100%;overflow:auto;overscroll-behavior:contain;padding-right:.2em}
+  #create .ccA{align-self:end}
+}
+/* botones al tamaño del dedo (al menos 32 px) en pantallas táctiles */
+@media (pointer:coarse){
+  .btn.sm,.chip,.accBar .btn,#tupd .btn,#tTop,.mchip{min-height:32px}
+  #ccRotL,#ccRotR{min-width:38px}
+  #create .ccls{min-height:34px}
+  .swrow2 .sw{width:32px;height:32px}
+  #bHub,#bBit{min-height:32px}
+  .mini{min-width:32px;min-height:32px}
+}
+/* pestañas del menú: el borde con más pestañas se difumina (se puede deslizar) */
+#ptabs{scroll-behavior:smooth}
+#ptabs.mR{-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}
+#ptabs.mL{-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%);mask-image:linear-gradient(90deg,transparent,#000 12%)}
+#ptabs.mL.mR{-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+/* texto legible sobre el dibujo del atardecer del fondo de las ventanas */
+#pbody .frame.land,#mbody.frame.land{text-shadow:0 1px 0 #000,1px 0 0 #000,-1px 0 0 #000,0 -1px 0 #000,0 0 4px rgba(0,0,0,.8)}
+#pbody .mapmain canvas{background:#0e0a12}
+/* mapa: botón para plegar la leyenda (en horizontal ocupaba un tercio) */
+.mapwrap{position:relative}
+.v656leg{position:absolute;top:0;right:0;z-index:2}
+.mapwrap.legOff .mapregs{display:none}
+.mapwrap:not(.legOff) .mapregs{padding-top:2.6em}
+@media (orientation:landscape) and (max-height:560px){.mapregs{flex-basis:10.5em}.mapregs .mchip{font-size:.8em}}
+@media (max-aspect-ratio:1/1){.v656leg{position:static;align-self:flex-end}}
+/* Postura y Técnica pisaban el botón de Bloquear en el celular (sus «em» son más pequeñas) */
+#acts #bPos,#acts #bTec{right:19.2em}
+/* pestañas, ES/EN y «Volver» también al tamaño del dedo */
+#ptabs .tab{flex-shrink:0}
+@media (pointer:coarse){.tab{min-height:34px;min-width:34px}#create #ccBack{min-height:32px}#tLang .chip{min-width:34px}}
+/* casillas de habilidad vacías «+»: solo cuando hay algo que colocar */
+body.v656noslot #acts .sk.empty{visibility:hidden;pointer-events:none}
 </style>
 <canvas id="game"></canvas>
 <div id="loading"><div class="logo"><span class="t1" style="font-size:clamp(34px,10vmin,72px)">The Bound</span></div><div id="loadbar"><i></i></div><div id="loadmsg">Cargando...</div></div>
@@ -343,7 +387,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.55 · Moda y pisos especiales</div>
+  <div class="tfoot">v6.56 · Más fluido y cómodo en el celular</div>
 </div>
 <div id="errlog" hidden></div>
 <!--__PHOTON__-->

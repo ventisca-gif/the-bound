@@ -139,7 +139,16 @@ function textSprite(str, col = '#ffffff', out = '#1a1218', scale = 1) {
 const DIRS = ['down', 'left', 'right', 'up'];
 const DIRV = { down: [0, 1], left: [-1, 0], right: [1, 0], up: [0, -1] };
 function dirFromVec(dx, dy) { if (Math.abs(dx) > Math.abs(dy)) return dx < 0 ? 'left' : 'right'; return dy < 0 ? 'up' : 'down'; }
-function fmt(n) { n = Math.floor(n); return n.toLocaleString('en-US'); }
+function fmt(n) { n = Math.floor(n); if (n >= 1e9 || n <= -1e9) return fmtShort(n); return n.toLocaleString('en-US'); }
+// 6.56: números enormes en corto (niveles muy altos): 3,07 mil M / 1,25 B (billón) · en inglés 3.07B / 1.25T. Hasta
+// 999,999,999 se siguen escribiendo completos.
+function fmtShort(n) {
+  const en = typeof LANG_EN !== 'undefined' && LANG_EN, a = Math.abs(n), s = n < 0 ? '-' : '';
+  const [v, u] = a >= 1e15 ? [a / 1e15, en ? 'Q' : 'mil B'] : a >= 1e12 ? [a / 1e12, en ? 'T' : 'B'] : [a / 1e9, en ? 'B' : 'mil M'];
+  let t = v >= 100 ? String(Math.floor(v)) : v >= 10 ? (Math.floor(v * 10) / 10).toFixed(1) : (Math.floor(v * 100) / 100).toFixed(2);
+  t = t.replace(/\.?0+$/, ''); if (!en) t = t.replace('.', ',');
+  return s + t + (en ? '' : ' ') + u;
+}
 function choiceW(rng, arr) { let t = 0; for (const a of arr) t += a.w; let r = rng.f() * t; for (const a of arr) { r -= a.w; if (r <= 0) return a; } return arr[arr.length - 1]; }
 // binary heap for A*
 class Heap { constructor() { this.a = []; this.p = []; } push(v, pr) { const a = this.a, p = this.p; a.push(v); p.push(pr); let i = a.length - 1; while (i > 0) { const j = (i - 1) >> 1; if (p[j] <= p[i]) break;[a[i], a[j]] = [a[j], a[i]];[p[i], p[j]] = [p[j], p[i]]; i = j; } } pop() { const a = this.a, p = this.p; const top = a[0]; const lv = a.pop(), lp = p.pop(); if (a.length) { a[0] = lv; p[0] = lp; let i = 0; for (; ;) { const l = 2 * i + 1, r = l + 1; let m = i; if (l < a.length && p[l] < p[m]) m = l; if (r < a.length && p[r] < p[m]) m = r; if (m === i) break;[a[i], a[m]] = [a[m], a[i]];[p[i], p[m]] = [p[m], p[i]]; i = m; } } return top; } get size() { return this.a.length; } }
