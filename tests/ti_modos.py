@@ -22,6 +22,6 @@ with sync_playwright() as p:
       const p2=pres(1,[0,1]); p2.presence.m='torre_infinita'; upsertRemote(p2); await w(200); out.synced={alive:tiAlive(), kd:TIO.kd};
       const p3=pres(2,[]); p3.presence.m='torre_infinita'; upsertRemote(p3); await w(2800); ca(); out.follow={floor:TI.floor};
       const o={}; extraPresence(o); out.myPres=o.tio;
-      clearInterval(god); P.hp=1; playerDie(); await w(1500); out.die={ti:!!TI, tio:TIO, map:G.map.id, txt:(document.querySelector('#mbody')||{}).innerText.slice(0,200)};
+      clearInterval(god); P.hp=1; playerDie(); await w(600); out.downed=!!G.P.downed; giveUpDown(); await w(1500); out.die={ti:!!TI, tio:TIO, map:G.map.id, txt:(document.querySelector('#mbody')||{}).innerText.slice(0,200)};
       }catch(e){out.ERR=String(e.stack||e).slice(0,600);} return out; })()""")
     print(json.dumps(r,ensure_ascii=False,indent=1)); print('ERRS',errs[:8]); b.close()
