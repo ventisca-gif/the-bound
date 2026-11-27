@@ -197,7 +197,7 @@ function trKeyG(g) { if (!g || !g.sr) return null; if (g.sr === 'dragon' && g.fu
 function trAuraEnt(e, key, F, off, cx, cy) { const on = key && F > 0; if (on && e._trSeen && (!(e._trF > 0) || e._trK !== key) && TR_FLASH[key]) { e._trFl = G.t; if (key === 'vapor') e._poseT = G.t + TR_POSE_DUR; }
   e._trF = on ? F : 0; e._trK = key; e._trOff = off; e._trSeen = 1; if (!on || !e._trFl) return;
   const u = (G.t - e._trFl) / TRF_DUR; if (u < 0 || u > 1) { e._trFl = 0; return; } const x = trR(e.x - cx), y = trR(e.y - cy); if (x > -90 && y > -40 && x < VW + 90 && y < VH + 160) trFlashDraw(key, x, y, u); }
-hookBefore('drawEnt', (e, cx, cy) => { if (!e || !(e._trF > 0) || e._trOff || e.dead || e.invis || e._trAt === G.t || !TR_AURA[e._trK]) return; if (e !== G.P && e.type !== 'remote') return;
+hookBefore('drawEnt', (e, cx, cy) => { if (!e || !(e._trF > 0) || e._trOff || e.dead || e.invis || e._trAt === G.t || !TR_AURA[e._trK]) return; if (e !== G.P && e.type !== 'remote' && !e.aih && !e.aihSrc) return;
   const x = trR(e.x - cx), y = trR(e.y - cy); if (x < -90 || y < -40 || x > VW + 90 || y > VH + 160) return; e._trAt = G.t;
   try { ctx.save(); trAuraDraw(e._trK, x, y, G.t + (e.x || 0) * 0.01, e._trF); } finally { ctx.restore(); } });
 WORLD_DRAW.push((cx, cy) => { const P = G.P; if (!P) return; trAuraEnt(P, trKeyP(P), P.srF | 0, !!P.trAuraOff, cx, cy);

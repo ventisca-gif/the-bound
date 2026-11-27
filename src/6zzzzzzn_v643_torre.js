@@ -92,8 +92,10 @@ function tiOpen() { const P = G.P, S = tiSave(), cp = S.best >= 11 ? Math.floor(
   openModal(`<div class="frame"><h3>♾ ${L2('Torre Infinita', 'Infinite Tower')}</h3><p class="hint">${L2('Salas sin fin. Cada piso los enemigos suben 5 niveles y entran 5 o más; cada 10 pisos, un jefe. Salen todos los enemigos del mundo y los jefes de zona, cueva y portal (sin súper jefes ni jefes de la historia), mezclados con mecánicas. Llega lo más alto que puedas: si caes o sales, la subida termina y tu récord queda en el top.', 'Endless rooms. Each floor enemies gain 5 levels and 5 or more come in; every 10 floors, a boss. Every enemy in the world and the zone, cave and portal bosses show up (no super bosses or story bosses), mixed with mechanics. Climb as high as you can: if you fall or leave, the climb ends and your record goes on the leaderboard.')}</p>
     <p>🏆 ${L2('Tu récord', 'Your record')}: <b>${S.best ? L2('piso ', 'floor ') + S.best + ' (' + L2('nivel ', 'level ') + tiLvOf(S.best) + ')' : '—'}</b> · ${L2('subidas', 'climbs')}: ${S.runs || 0}</p>
     <div class="row"><button class="btn gold" id="tiGo1">${L2('Empezar en el piso 1', 'Start at floor 1')}</button>${cp ? `<button class="btn" id="tiGoCp">${L2('Empezar en el piso ', 'Start at floor ') + cp}</button>` : ''}<button class="btn" id="tiX">${L2('Cerrar', 'Close')}</button></div>
+    <h4>👥 ${L2('Equipo de 4', 'Team of 4')}</h4><p class="hint">${L2('Tú y 3 compañeros elegidos entre los cazadores de los portales y los jugadores cazadores de tu nivel. Récord del equipo: piso ', 'You and 3 companions chosen from the portal hunters and player hunters of your level. Team record: floor ')}${S.best4 || 0} (${L2('sin top', 'no leaderboard')}).</p><div class="row"><button class="btn" id="tiGoT">${L2('Subir en equipo', 'Climb as a team')}</button></div>
+    <h4>🌐 ${L2('En línea (solo jugadores)', 'Online (players only)')}</h4><p class="hint">${L2('Con tu grupo en línea, hasta 4 o hasta 7 jugadores. Sin top: solo es para ver cuánto aguantáis. Empieza el líder del grupo; los demás tienen que estar en la Torre de los Portales.', 'With your online group, up to 4 or up to 7 players. No leaderboard: just to see how long you last. The group leader starts; the others must be in the Portal Tower.')}</p><div class="row"><button class="btn" id="tiGoO4">${L2('En línea · máx. 4', 'Online · max 4')}</button><button class="btn" id="tiGoO7">${L2('En línea · máx. 7', 'Online · max 7')}</button></div>
     <h4>🌐 ${L2('Top de la Torre Infinita', 'Infinite Tower leaderboard')}</h4><div id="tiTop" class="hint">${L2('Cargando…', 'Loading…')}</div></div>`);
-  $('#tiGo1').onclick = () => { closeModal(); tiStart(1); }; const b = $('#tiGoCp'); if (b) b.onclick = () => { closeModal(); tiStart(cp); }; $('#tiX').onclick = () => closeModal();
+  $('#tiGo1').onclick = () => { closeModal(); tiStart(1); }; $('#tiGoT').onclick = () => { closeModal(); tiStart(1, 'team'); }; $('#tiGoO4').onclick = () => tioHost(4); $('#tiGoO7').onclick = () => tioHost(7); const b = $('#tiGoCp'); if (b) b.onclick = () => { closeModal(); tiStart(cp); }; $('#tiX').onclick = () => closeModal();
   tiTopShow(); }
 function tiTopShow() { const el = () => $('#tiTop'), P = G.P, S = tiSave(), me = typeof evMe === 'function' ? evMe() : '';
   const local = `<p>1. ${esc(P.name)} · ${L2('piso ', 'floor ')}${S.best || 0}</p>`;
@@ -102,17 +104,18 @@ function tiTopShow() { const el = () => $('#tiTop'), P = G.P, S = tiSave(), me =
     el().innerHTML = rows.slice(0, 10).map(([id, r], i) => `<p${id === me ? ' style="color:#ffe070"' : ''}>${i + 1}. ${esc(cleanStr(r.n, 20) || '?')} · ${L2('piso ', 'floor ')}${r.f | 0}${r.lv ? ' · ' + L2('Nv. ', 'Lv. ') + (r.lv | 0) : ''}</p>`).join(''); }).catch(() => { if (el()) el().innerHTML = local; }); }
 function tiPush() { const P = G.P, S = tiSave(); if (!S.best || typeof evNet !== 'function' || !evNet()) return; try { clanReq('ev/ti/' + evMe(), { m: 'PUT', b: { n: cleanStr(P.name, 20) || '?', f: Math.min(100000, S.best | 0), lv: clamp(P.lv | 0, 1, MAXLV), t: clanTs } }).catch(() => { }); } catch (e) { } }
 // ---------- la subida ----------
-function tiStart(f) { const P = G.P; if (TI || P.dead) return; const S = tiSave(); S.runs = (S.runs || 0) + 1; tiPools();
-  TI = { floor: f, start: f, t0: Date.now(), kills: 0, ret: { m: G.map.id, x: P.x, y: P.y, inside: P.inside }, mod: null, cleared: false, spawned: false };
+function tiStart(f, mode) { const P = G.P; if (TI || P.dead) return; const S = tiSave(); S.runs = (S.runs || 0) + 1; tiPools();
+  TI = { floor: f, start: f, t0: Date.now(), kills: 0, ret: { m: G.map.id, x: P.x, y: P.y, inside: P.inside }, mod: null, cleared: false, spawned: false, mode: mode || 'solo' };
   tiEnterFloor(f, true); }
 function tiEnterFloor(f, first) { const P = G.P; TI.floor = f; TI.cleared = false; TI.spawned = false; TI.mod = tiModFor(f); const M = tiMake(f); if (TI.mod === 'oscuridad') M.dark = 0.72;
-  const go = () => { P.inside = null; setMap(M, M.exit.x * 16 + 8, (M.exit.y - 2) * 16 + 8, 'up'); const boss = f % TI_BOSS === 0;
+  const go = () => { P.inside = null; setMap(M, M.exit.x * 16 + 8, (M.exit.y - 2) * 16 + 8, 'up'); const boss = f % TI_BOSS === 0; if (TI.mode === 'team' && !HUNT.allies.length) tiAllies(M); if (TI.mode === 'online' && TIO) { TIO.f = f; TIO.kd = []; }
     banner(L2('Torre Infinita · Piso ', 'Infinite Tower · Floor ') + f, L2('Nivel ', 'Level ') + tiLvOf(f) + (boss ? ' · ' + L2('¡JEFE!', 'BOSS!') : '') + (TI.mod ? ' · ' + TI_MODS[TI.mod][0] : '')); sfx(boss ? 'boss' : 'door');
     setTimeout(() => { if (TI && TI.floor === f && G.map === M) tiSpawn(M, f); }, 1100); };
   transition(go); }
 function tiSpawn(M, f) { if (!TI || TI.spawned) return; TI.spawned = true; const R = tiRng(f), lv = tiLvOf(f), cx = (M.w >> 1) * 16 + 8, cy = ((M.h >> 1) - 1) * 16 + 8, P = G.P;
   const free = () => { for (let t = 0; t < 60; t++) { const x = cx + (R.f() - 0.5) * 300, y = cy + (R.f() - 0.6) * 200, tx = Math.floor(x / 16), ty = Math.floor(y / 16); if (!blockedFor(M, tx, ty, 0) && Math.hypot(x - P.x, y - P.y) > 120) return [x, y]; } return [cx, cy]; };
-  const mk = (id, boss, x, y) => { const key = tiDef(id, boss); if (!key) return null; const m = spawnMob(key, lv, x, y, 0, null, boss); if (!m) return null; m.map = TI_MAP; m.ti = 1; m.state = 'chase'; m.aggroR = 999; m.gold = Math.round((m.gold || 0) * 0.5);
+  let idx = 0; const nOn = TI.mode === 'online' ? tioCount() : 1;
+  const mk = (id, boss, x, y) => { const key = tiDef(id, boss); if (!key) return null; const m = spawnMob(key, lv, x, y, 0, null, boss); if (!m) return null; m.map = TI_MAP; m.ti = 1; m.tioI = idx++; if (nOn > 1) { m.hp = m.maxhp = Math.round(m.maxhp * (1 + 0.35 * (nOn - 1))); } m.state = 'chase'; m.aggroR = 999; m.gold = Math.round((m.gold || 0) * 0.5);
     addFx({ type: 'ring', x, y, r: boss ? 40 : 18, dur: 0.6, col: boss ? '#ff5050' : '#c8a0ff' }); const mod = TI.mod && TI_MODS[TI.mod][1]; if (mod && !boss) try { mod(m); } catch (e) { } return m; };
   if (f % TI_BOSS === 0) { const special = f % 50 === 0 ? (f % 100 === 0 ? 'reina_vertigo' : 'arquitecto_torre') : null, id = special || TI_BPOOL[R.int(0, TI_BPOOL.length - 1)];
     const b = mk(id, true, cx, cy - 30); if (b) { b.tiBossF = f; if (typeof showBoss === 'function') try { showBoss(b); } catch (e) { } }
@@ -122,19 +125,19 @@ function tiSpawn(M, f) { if (!TI || TI.spawned) return; TI.spawned = true; const
     if (m && TI.mod === 'elite' && k === 0) { m.elite = 1; m.hp = m.maxhp = Math.round(m.maxhp * 3.5); m.atk = Math.round(m.atk * 1.4); m.name = L2('Élite ', 'Elite ') + m.name; } } }
 function tiAlive() { let n = 0; for (const e of G.ents) if (e.type === 'mob' && e.ti && !e.dying && !e.remove && e.hp > 0 && e.map === TI_MAP) n++; return n; }
 function tiCleared() { const P = G.P, M = G.map, S = tiSave(), f = TI.floor; TI.cleared = true;
-  if (f > (S.best || 0)) { S.best = f; S.bestT = Date.now(); tiPush(); toast('🏆 ' + L2('¡Nuevo récord: piso ', 'New record: floor ') + f + '!', 'quest', 4); }
+  if (TI.mode === 'team') { if (f > (S.best4 || 0)) S.best4 = f; } else if (TI.mode === 'online') { S.lastOn = f; } else if (f > (S.best || 0)) { S.best = f; S.bestT = Date.now(); tiPush(); toast('🏆 ' + L2('¡Nuevo récord: piso ', 'New record: floor ') + f + '!', 'quest', 4); }
   S.lastF = f; markDirty(true); const boss = f % TI_BOSS === 0;
   P.hp = Math.min(P.S.maxhp, P.hp + Math.round(P.S.maxhp * (boss ? 1 : 0.2))); if (P.S.maxmp) P.mp = Math.min(P.S.maxmp, (P.mp || 0) + Math.round(P.S.maxmp * (boss ? 1 : 0.3)));
   const cx = M.w >> 1, cy = (M.h >> 1) + 1; addObj(M, 'furn', cx, cy, { f: 'tp_portal', fp: [[0, 0], [-1, 0], [1, 0]], xact: 'ti_next' }); M.chunks.clear && M.chunks.clear();
   banner(L2('¡Piso ', 'Floor ') + f + L2(' superado!', ' cleared!'), boss ? L2('Te recuperas del todo. Sigue por el portal.', 'You fully recover. Go on through the portal.') : L2('Recuperas un poco. Sigue por el portal del centro.', 'You recover a little. Go on through the central portal.')); sfx('questdone'); }
 function tiNext() { if (!TI || !TI.cleared) return; tiEnterFloor(TI.floor + 1); }
-function tiEnd(why) { if (!TI) return; const P = G.P, S = tiSave(), R = TI, reached = R.cleared ? R.floor : R.floor - 1, secs = Math.round((Date.now() - R.t0) / 1000); TI = null;
+function tiEnd(why) { if (!TI) return; const P = G.P, S = tiSave(), R = TI, reached = R.cleared ? R.floor : R.floor - 1, secs = Math.round((Date.now() - R.t0) / 1000), nOn = R.mode === 'online' ? tioCount() : 0; TI = null; if (R.mode === 'team' && typeof huntAlliesClear === 'function') huntAlliesClear(); if (R.mode === 'online') { TIO = null; if (typeof netPresence === 'function') netPresence(true); }
   for (const e of G.ents) if (e.type === 'mob' && e.ti) e.remove = true; if (typeof showBoss === 'function') try { showBoss(null); } catch (e) { }
   P.dead = false; P.hp = P.S.maxhp; if (P.S.maxmp) P.mp = P.S.maxmp; setAnim(P, 'idle');
   transition(() => { const T0 = makeTower(), d = T0.objs.find(o => o.xact === 'ti_open'); P.inside = R.ret.m === 'torre_portales' ? R.ret.inside : P.inside; setMap(T0, d ? d.px : (T0.w >> 1) * 16 + 8, d ? d.py + 24 : (T0.h - 3) * 16, 'down');
     openModal(`<div class="frame"><h3>♾ ${L2('Fin de la subida', 'Climb over')}</h3><p>${why === 'left' ? L2('Saliste de la torre.', 'You left the tower.') : L2('Caíste en la torre.', 'You fell in the tower.')}</p>
       <p>${L2('Piso superado', 'Floor cleared')}: <b>${Math.max(0, reached)}</b> (${L2('empezaste en el ', 'you started at ')}${R.start}) · ${L2('enemigos', 'enemies')}: ${R.kills} · ${L2('tiempo', 'time')}: ${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}</p>
-      <p>🏆 ${L2('Récord', 'Record')}: <b>${L2('piso ', 'floor ')}${S.best || 0}</b></p><div class="row"><button class="btn gold" id="tiAgain">${L2('Ver el top', 'See the leaderboard')}</button><button class="btn" id="tiOk">OK</button></div></div>`);
+      ${R.mode === 'online' ? `<p>🌐 ${L2('En línea, con ', 'Online, with ')}${nOn} ${L2('jugadores. Sin top: solo para ver cuánto aguantáis.', 'players. No leaderboard: just to see how long you last.')}</p>` : R.mode === 'team' ? `<p>👥 ${L2('Equipo de 4 · récord del equipo: piso ', 'Team of 4 · team record: floor ')}<b>${S.best4 || 0}</b></p>` : `<p>🏆 ${L2('Récord', 'Record')}: <b>${L2('piso ', 'floor ')}${S.best || 0}</b></p>`}<div class="row"><button class="btn gold" id="tiAgain">${L2('Volver a la Torre Infinita', 'Back to the Infinite Tower')}</button><button class="btn" id="tiOk">OK</button></div></div>`);
     $('#tiOk').onclick = () => closeModal(); $('#tiAgain').onclick = () => { closeModal(); tiOpen(); }; }); markDirty(true); }
 // tick: piso superado, regeneración, explosiones
 let TI_TK = 0;
@@ -155,3 +158,36 @@ SAVEKEYS.push('ti');
 if (typeof GSIS !== 'undefined') GSIS.unshift(['n_torre_inf', '♾ ' + L2('Torre Infinita', 'Infinite Tower'), () => [L2('En la Torre de los Portales, el portal dorado del centro. Salas sin fin: cada piso los enemigos suben 5 niveles y entran 5 o más (uno más cada 25 pisos); cada 10 pisos hay un jefe y cada 50 uno de los jefes de la torre (El Arquitecto de la Torre, La Reina del Vértigo).', 'In the Portal Tower, the golden portal in the middle. Endless rooms: each floor enemies gain 5 levels and 5 or more come in (one more every 25 floors); every 10 floors there is a boss and every 50 one of the tower bosses (The Tower Architect, The Vertigo Queen).'),
   L2('Salen todos los enemigos del juego, los jefes de zona, continente, cueva y portal (no salen súper jefes ni jefes de la historia) y 6 enemigos propios de la torre, con mecánicas por piso: rápidos, acorazados, furiosos, enjambre, élite, oscuridad, se regeneran o explotan al morir. Pueden pasar del nivel 700: es una prueba de resistencia.', 'Every enemy in the game, the zone, continent, cave and portal bosses (no super bosses or story bosses) plus 6 tower-only enemies show up, with mechanics per floor: fast, armored, furious, swarm, elite, darkness, regenerating or exploding on death. They can go past level 700: it is an endurance test.'),
   L2('Al superar un piso recuperas un poco (del todo tras un jefe). Si caes o sales, la subida termina sin la muerte normal y tu mejor piso va al top. Puedes volver a empezar en el último múltiplo de 10 que superaste.', 'Clearing a floor heals you a little (fully after a boss). If you fall or leave, the climb ends without a normal death and your best floor goes to the leaderboard. You can restart at the last multiple of 10 you cleared.')], () => null]);
+
+// ---------- 6.44: equipo de 4 (tú + 3 compañeros con IA: cazadores de los portales y jugadores cazadores) ----------
+function tiAllies(M) { if (typeof huntAlliesClear !== 'function') return; huntAlliesClear(); const P = G.P, out = [];
+  const hn = typeof huntPick === 'function' ? huntPick().slice(0, 2) : [];
+  hn.forEach(h => { const rf = 0.8 + (typeof hnRank === 'function' ? hnRank(h) : 1) * 0.1; out.push({ type: 'hunter', h, id: h.id, def: NPCS[h.id], name: h.name, rf, atlas: npcAtlas(h.id) }); });
+  if (typeof aihPop === 'function') { const pool = aihPop().slice().sort((a, b) => Math.abs(a.lv - P.lv) - Math.abs(b.lv - P.lv)).slice(0, 12); while (out.length < 3 && pool.length) { const jc = pool.splice(Math.floor(Math.random() * pool.length), 1)[0], pw = pick(Object.keys(HN_PW));
+    out.push({ type: 'hunter', h: { id: 'aih_' + aihHash(jc.k), name: jc.name, cls: jc.cls, pw, big: false }, id: 'aih_' + aihHash(jc.k), def: { n: jc.name, lines: [''] }, name: jc.name, rf: 0.9 + ((jc.W && jc.W.r) || 0) * 0.02, atlas: aihAtlas(jc) }); } }
+  out.slice(0, 3).forEach((a, i) => { Object.assign(a, { x: P.x + (i - 1) * 18, y: P.y + 14, L: P.L, map: M.id, dir: 'up', anim: 'idle', af: 0, at: 0, hum: true, cd: 0.5, pcd: 3 + i, scale: 1 }); a.maxhp = Math.round((P.S ? P.S.maxhp : 1000) * 0.85 * a.rf); a.hp = a.maxhp; G.ents.push(a); HUNT.allies.push(a); });
+  if (typeof huntBars === 'function') huntBars(); banner(L2('Equipo de 4', 'Team of 4'), HUNT.allies.map(a => a.name).join(' · ')); }
+// ---------- 6.44: en línea con tu grupo (2-7 jugadores, sin top) ----------
+// Cada uno juega su copia del piso (mismo piso y mismos enemigos: la semilla es la del piso); los enemigos que alguien
+// vence desaparecen también para los demás (presencia «tio»: k = partida, f = piso, kd = índices vencidos) y cuando
+// alguien sube de piso, los demás le siguen. Si caes, sales tú; los demás siguen. Vida ×(1 + 0,35 por jugador extra).
+let TIO = null; const TIO_SEEN = {};
+function tioPeers() { const o = []; if (!TIO) return o; for (const r of G.remote.values()) if (r.tio && r.tio.k === TIO.k && r.map === TI_MAP) o.push(r); return o; }
+function tioCount() { return 1 + tioPeers().length; }
+function tioHost(max) { const P = G.P; if (typeof PARTY === 'undefined' || !PARTY.id) { toast(L2('Necesitas un grupo en línea (invita a alguien desde 🌐).', 'You need an online group (invite someone from 🌐).'), 'warn'); return; }
+  if (PARTY.id !== NET.myId) { toast(L2('Solo el líder del grupo puede empezar.', 'Only the group leader can start.'), 'warn'); return; }
+  closeModal(); TIO = { k: NET.myId + ':' + Date.now().toString(36), host: NET.myId, max, f: 1, kd: [] }; tiStart(1, 'online'); toast('🌐 ' + L2('Torre en línea: tu grupo recibirá la invitación (máx. ', 'Online tower: your group gets the invite (max ') + max + ').', 'info', 4); }
+hookAfter('extraPresence', (r, o) => { if (TIO && TI && TI.mode === 'online' && o) o.tio = { k: TIO.k, h: TIO.host, m: TIO.max, f: TI.floor, kd: TIO.kd.slice(0, 40) }; });
+hookAfter('extraRecv', (r, rem, pr) => { if (!rem) return; const t = pr && pr.tio; rem.tio = t && typeof t.k === 'string' && t.k.length < 60 ? { k: t.k, h: String(t.h || '').slice(0, 20), m: clamp(t.m | 0, 2, 7), f: clamp(t.f | 0, 1, 100000), kd: Array.isArray(t.kd) ? t.kd.slice(0, 40).map(x => x | 0) : [] } : null; if (rem.tio) try { tioRecv(rem); } catch (e) { if (typeof errOnce === 'function') errOnce('tio', e); } });
+function tioRecv(rem) { const P = G.P, t = rem.tio;
+  // invitación: el líder de tu grupo empezó y tú estás en la Torre de los Portales
+  if (!TI && !TIO_SEEN[t.k] && typeof PARTY !== 'undefined' && PARTY.id && rem.id === PARTY.id && t.h === rem.id && P.map === 'torre_portales' && !P.dead) { TIO_SEEN[t.k] = 1;
+    let n = 1; for (const r of G.remote.values()) if (r.tio && r.tio.k === t.k) n++; if (n >= t.m) { toast(L2('La torre en línea de tu grupo está llena.', 'Your group\'s online tower is full.'), 'warn'); return; }
+    openModal(`<div class="frame"><h3>🌐 ${L2('Torre Infinita en línea', 'Online Infinite Tower')}</h3><p>${esc(rem.name || '?')} ${L2('empezó la Torre Infinita con el grupo (máx. ', 'started the Infinite Tower with the group (max ')}${t.m}). ${L2('Va por el piso ', 'On floor ')}${t.f}.</p><div class="row"><button class="btn gold" id="tioJ">${L2('Unirme', 'Join')}</button><button class="btn" id="tioN">${L2('Ahora no', 'Not now')}</button></div></div>`);
+    $('#tioJ').onclick = () => { closeModal(); TIO = { k: t.k, host: t.h, max: t.m, f: t.f, kd: [] }; tiStart(t.f, 'online'); }; $('#tioN').onclick = () => closeModal(); return; }
+  if (!TI || TI.mode !== 'online' || !TIO || t.k !== TIO.k) return;
+  // alguien subió de piso: le seguimos
+  if (t.f > TI.floor && !P.dead && !G.fading) { tiEnterFloor(t.f); return; }
+  // enemigos que otro venció en este piso
+  if (t.f === TI.floor && t.kd.length && G.map && G.map.id === TI_MAP) for (const m of G.ents) if (m.type === 'mob' && m.ti && !m.dying && t.kd.includes(m.tioI)) { m.hp = 0; m.dying = 0.001; setAnim(m, 'hurt'); if (!TIO.kd.includes(m.tioI)) TIO.kd.push(m.tioI); if (m.boss && typeof showBoss === 'function') try { showBoss(null); } catch (e) { } } }
+hookBefore('killMob', m => { if (m && m.ti && TIO && TI && TI.mode === 'online' && m.tioI !== undefined && !TIO.kd.includes(m.tioI)) TIO.kd.push(m.tioI); });

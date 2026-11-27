@@ -1,4 +1,9 @@
-// ================= 6.43: CAZADORES CON IA EN TODOS LOS MAPAS =================
+// ================= 6.43-6.44: JUGADORES CAZADORES (IA) EN TODOS LOS MAPAS =================
+// 6.44: Sergio pidió llamarlos «Jugadores cazadores» (para no confundirlos con los cazadores de los portales), que mejoren
+// su equipo, trabajen y viajen por todos los países y mapas con su propia historia (sin el hilo del Vínculo), que usen
+// sus formas (y cambien en pleno combate, con aura y destello), diálogos nuevos y que se les pueda atacar sin pedir duelo.
+// Viven repartidos por el mundo: P.aihW[k] = { m: mapa donde están, r: refinado +0..10, j: [tala, minería, pesca],
+// f: formas conseguidas, s: su historia [[día, código, dato]], tb: mejor piso de la torre, w/l: duelos contra ti }.
 // Sergio: que el mundo se vea más vivo con «cazadores» con nombres como de jugador (Zack…), sin llamarlos jugadores; hacen lo
 // que haría cualquiera que juega (farmean, viajan, talan, pescan, saludan, charlan, descansan…): farmean nivel,
 // atacan enemigos, talan y pican, suben de nivel solos, de cualquier nivel; no nos ayudan ni compartimos experiencia;
@@ -38,19 +43,45 @@ function aihCount(M) { if (!M || !M.id || AIH_SKIP.has(M.id) || /^dawn|^mar_|^is
   if (!listed && !M.isWorld && !city) return 0; let n = M.id === 'world' ? 18 : city ? (V74_CITY[M.id].c === 'pe' ? 8 : 10) : 15; if (typeof OPT !== 'undefined' && OPT.on) n = Math.ceil(n / 2); return n; }
 function aihTier(lv) { let t = 1; for (let k = 1; TIER[k]; k++) if (TIER[k].lv <= lv) t = k; return t; }
 function aihCampLvs(M) { const c = (M.camps || []).map(c => c.lv).filter(v => v > 0); return c.length ? c : null; }
-// lista fija del mapa (con la semilla del mapa) + lo que han subido
-function aihRoster(M) { const n = aihCount(M); if (!n) return []; const P = G.P, R = new RNG(SEED * 7 + aihHash(M.id)), lvs = aihCampLvs(M), cls = AIH_CLS(); P.aihLv = P.aihLv || {};
-  const now = Date.now(), hrs = P.aihT ? Math.min(72, Math.max(0, (now - P.aihT) / 3.6e6)) : 0, used = new Set(), out = [];
+// población mundial: cada mapa abierto y ciudad tiene su gente (misma semilla que en la 6.43, así los niveles guardados siguen)
+const AIH_FORMS_ALL = ['lobo', 'fantasma', 'vampiro', 'dragon', 'alado', 'eco', 'hielo', 'vapor'];
+let AIH_POP = null, AIH_LIFE_T = 0;
+function aihCountId(id) { if (!id || AIH_SKIP.has(id) || /^dawn|^mar_|^isla_|_dawn$/.test(id)) return 0; const city = typeof V74_CITY !== 'undefined' && V74_CITY[id]; let n = id === 'world' ? 18 : city ? (V74_CITY[id].c === 'pe' ? 8 : 10) : 15; return n; }
+function aihHomes() { const ids = new Set(); if (typeof MAPW_LIST !== 'undefined') for (const w of MAPW_LIST) if (aihCountId(w.id)) ids.add(w.id); if (typeof V74_CITY !== 'undefined') for (const id in V74_CITY) if (aihCountId(id)) ids.add(id); ids.add('world'); return [...ids]; }
+function aihMakeHome(id) { const n = aihCountId(id), M = G.maps[id] || (id === 'world' ? G.world : null), R = new RNG(SEED * 7 + aihHash(id)), lvs = M ? aihCampLvs(M) : null, cls = AIH_CLS(), used = new Set(), out = [];
   for (let i = 0; i < n; i++) { let nm; do { nm = AIH_NAMES[R.int(0, AIH_NAMES.length - 1)]; if (R.f() < 0.25) nm += R.int(1, 99); } while (used.has(nm)); used.add(nm);
-    const g = R.f() < 0.5 ? 'f' : 'm', k = M.id + ':' + i; let lv = lvs && R.f() < 0.8 ? clamp(lvs[R.int(0, lvs.length - 1)] + R.int(-4, 10), 1, MAXLV) : R.int(5, Math.min(MAXLV, 650));
-    if (P.aihLv[k]) lv = P.aihLv[k]; if (hrs > 0.5) lv = Math.min(MAXLV, lv + Math.floor(hrs * (0.2 + R.f()))); P.aihLv[k] = lv;
+    const g = R.f() < 0.5 ? 'f' : 'm', k = id + ':' + i, lv0 = lvs && R.f() < 0.8 ? clamp(lvs[R.int(0, lvs.length - 1)] + R.int(-4, 10), 1, MAXLV) : R.int(5, Math.min(MAXLV, 650));
     const bts = BODY_T && BODY_T[g] ? BODY_T[g].length : 1, app = { g, skin: R.int(0, SKINS.length - 1), hair: pick(Object.keys(HAIRS).filter(h => !/^dz_|fus|^c_/.test(h))), hs: R.int(0, (g === 'm' ? HS_M : HS_F).length - 1), eyes: EYE_ORDER[R.int(0, EYE_ORDER.length - 1)], bt: R.f() < 0.5 ? 0 : R.int(0, bts - 1),
       top: [R.int(0, TOPS.length - 1), pick(Object.keys(CLOTH))], bot: [R.int(0, BOTS.length - 1), pick(Object.keys(CLOTH))], shoe: [R.int(0, SHOES.length - 1), pick(Object.keys(CLOTH))] };
-    out.push({ k, i, name: nm, cls: cls[R.int(0, cls.length - 1)], app: normApp(app), lv, xp: 0, kills: 0, helm: R.f() < 0.6, sr: lv >= 250 && R.f() < 0.25 ? AIH_FORMS[R.int(0, AIH_FORMS.length - 1)] : null, chat: R.int(0, 2), seed: R.int(1, 1e6) }); }
-  P.aihT = now; return out; }
-function aihGear(h) { const t = aihTier(h.lv), g = { weapon: t, head: h.helm ? t : 0, body: t, legs: t, feet: t }; if (h.sr) { g.sr = h.sr; } return g; }
-function aihAtlas(h) { const t = aihTier(h.lv), key = h.k + ':' + t; let A = AIH_ATL.get(key); if (!A) { if (AIH_ATL.size > 40) AIH_ATL.delete(AIH_ATL.keys().next().value); A = buildAtlas(heroLook(h.cls, h.app, aihGear(h), {}, { hideHelm: !h.helm }), ['idle', 'walk', 'atk', 'cast', 'chop', 'mine', 'hurt', 'fish', 'wave', 'sit', 'dance', 'cheer'], drawHero); AIH_ATL.set(key, A); } return A; }
-function aihTitle(h) { return (CLASSES[h.cls] ? CLASSES[h.cls].n : h.cls) + ' · ' + L2('Nv. ', 'Lv. ') + h.lv; }
+    const cl = cls[R.int(0, cls.length - 1)], helm = R.f() < 0.6, sr0 = lv0 >= 250 && R.f() < 0.25 ? AIH_FORMS[R.int(0, AIH_FORMS.length - 1)] : null, chat = R.int(0, 2), seed = R.int(1, 1e6);
+    out.push({ k, i, home: id, name: nm, cls: cl, app: normApp(app), lv0, lv: lv0, xp: 0, kills: 0, helm, sr0, chat, seed }); } return out; }
+function aihPop() { if (AIH_POP) return AIH_POP; const P = G.P; P.aihLv = P.aihLv || {}; P.aihW = P.aihW || {}; AIH_POP = [];
+  for (const id of aihHomes()) for (const h of aihMakeHome(id)) { h.lv = P.aihLv[h.k] || h.lv0; P.aihLv[h.k] = h.lv; const W = P.aihW[h.k] || (P.aihW[h.k] = { m: id, r: Math.min(10, Math.floor(h.lv / 70)), j: [1 + (h.seed % 30), 1 + (h.seed % 23), 1 + (h.seed % 17)], f: h.sr0 ? [h.sr0] : [], s: [] }); h.W = W; h.sr = W.f[W.fs | 0] || null; AIH_POP.push(h); }
+  const now = Date.now(), hrs = P.aihT ? Math.min(72, Math.max(0, (now - P.aihT) / 3.6e6)) : 0; if (hrs > 0.25) aihLife(hrs, true); P.aihT = now; AIH_LIFE_T = now; return AIH_POP; }
+// su propia historia (códigos cortos para no hacer grande la partida)
+const AIH_MAPN = id => { const w = typeof MAPW_LIST !== 'undefined' && MAPW_LIST.find(x => x.id === id); return w ? w.n : id === 'world' ? L2('las Tierras del Vínculo', 'the Lands of the Bound') : id; };
+function aihStory(h, c, a) { const W = h.W; W.s = W.s || []; W.s.push([typeof calDay === 'function' ? calDay() : 0, c, a]); if (W.s.length > 10) W.s.shift(); }
+function aihStoryText(e) { const [d, c, a] = e; const bn = id => (BOSSES[id] && BOSSES[id].n) || id, fn = k => (typeof SR !== 'undefined' && SR[k] ? SR[k].n : k), jn = [L2('Tala', 'Woodcutting'), L2('Minería', 'Mining'), L2('Pesca', 'Fishing')];
+  return c === 'v' ? L2('Viajó a ', 'Travelled to ') + AIH_MAPN(a) : c === 'n' ? L2('Llegó al nivel ', 'Reached level ') + a : c === 'r' ? L2('Mejoró su equipo a +', 'Upgraded their gear to +') + a : c === 'j' ? jn[a[0]] + L2(' nivel ', ' level ') + a[1] : c === 'f' ? L2('Consiguió la forma ', 'Obtained the form ') + fn(a) : c === 'b' ? L2('Venció a ', 'Defeated ') + bn(a) : c === 't' ? L2('Llegó al piso ', 'Reached floor ') + a + L2(' de la Torre Infinita', ' of the Infinite Tower') : c === 'w' ? L2('Te venció en combate', 'Beat you in a fight') : c === 'l' ? L2('Perdió contra ti en combate', 'Lost a fight against you') : c === 'h' ? L2('Empezó su aventura en ', 'Began their adventure in ') + AIH_MAPN(a) : ''; }
+// la vida sigue aunque no los veas: suben, mejoran, trabajan, viajan, consiguen formas, vencen jefes y suben la torre
+function aihLife(hrs, offline) { const P = G.P, homes = aihHomes(), bossOk = Object.keys(BOSSES).filter(k => { const d = BOSSES[k]; return d && !d.ti && !(typeof tiStoryBoss === 'function' && tiStoryBoss(k, d)) && d.lv; });
+  for (const h of AIH_POP) { const W = h.W, here = AIH_LIST.some(e => e.aih === h && !e.remove), R = () => Math.random(); if (!W.s.length) aihStory(h, 'h', h.home);
+    const lv0 = h.lv; h.lv = Math.min(MAXLV, h.lv + Math.floor(hrs * (0.2 + R()) + R())); if (Math.floor(h.lv / 50) > Math.floor(lv0 / 50)) aihStory(h, 'n', Math.floor(h.lv / 50) * 50); P.aihLv[h.k] = h.lv;
+    if (W.r < 10 && R() < 0.12 * hrs) { W.r++; if (W.r >= 5) aihStory(h, 'r', W.r); }
+    if (R() < 0.3 * hrs) { const j = Math.floor(R() * 3), was = W.j[j]; W.j[j] = Math.min(200, W.j[j] + 1 + Math.floor(R() * 3)); if (Math.floor(W.j[j] / 10) > Math.floor(was / 10)) aihStory(h, 'j', [j, Math.floor(W.j[j] / 10) * 10]); }
+    if (h.lv >= 250 && W.f.length < AIH_FORMS_ALL.length && R() < 0.035 * hrs) { const nf = AIH_FORMS_ALL.filter(k => !W.f.includes(k)); const k = pick(nf); W.f.push(k); aihStory(h, 'f', k); }
+    if (R() < 0.08 * hrs) { const ok = bossOk.filter(k => BOSSES[k].lv <= h.lv + 5 && BOSSES[k].lv >= h.lv - 120); if (ok.length) aihStory(h, 'b', pick(ok)); }
+    if (R() < 0.04 * hrs) { W.tb = (W.tb || 0) + 1 + Math.floor(R() * 4 * Math.max(1, h.lv / 100)); aihStory(h, 't', W.tb); }
+    if (!here && R() < 0.08 * hrs) { const to = pick(homes.filter(x => x !== W.m)); if (to) { W.m = to; aihStory(h, 'v', to); } }
+    if (W.f.length && R() < 0.2 * hrs) W.fs = Math.floor(R() * W.f.length); h.sr = W.f[W.fs | 0] || null; } }
+// gente que está ahora mismo en este mapa
+function aihRoster(M) { const n = aihCount(M); if (!n) return []; const pop = aihPop(); let here = pop.filter(h => h.W.m === M.id);
+  if (here.length > n + 4) { const R = new RNG(aihHash(M.id) + (typeof calDay === 'function' ? calDay() : 0)); here = here.map(h => [R.f(), h]).sort((a, b) => a[0] - b[0]).slice(0, n + 4).map(x => x[1]); }
+  if (typeof OPT !== 'undefined' && OPT.on) here = here.slice(0, n); return here; }
+function aihGear(h, sf) { const t = aihTier(h.lv), g = { weapon: t, head: h.helm ? t : 0, body: t, legs: t, feet: t }; const sr = h.tf || h.sr; if (sr) { g.sr = sr; if (sf || h.tf) g.sf = 1; } return g; }
+function aihAtlas(h) { const t = aihTier(h.lv), sr = h.tf || h.sr || '', key = h.k + ':' + t + ':' + sr + (h.tf ? ':T' : ''); let A = AIH_ATL.get(key); if (!A) { if (AIH_ATL.size > 40) AIH_ATL.delete(AIH_ATL.keys().next().value); A = buildAtlas(heroLook(h.cls, h.app, aihGear(h), {}, { hideHelm: !h.helm }), ['idle', 'walk', 'atk', 'cast', 'chop', 'mine', 'hurt', 'fish', 'wave', 'sit', 'dance', 'cheer'], drawHero); AIH_ATL.set(key, A); } A._aihK = key; return A; }
+function aihTitle(h) { return L2('Jugador cazador', 'Player hunter') + ' · ' + (CLASSES[h.cls] ? CLASSES[h.cls].n : h.cls) + ' · ' + L2('Nv. ', 'Lv. ') + h.lv + (h.W && h.W.r ? ' · +' + h.W.r : ''); }
+const aihPow = h => 1 + ((h.W && h.W.r) || 0) * 0.04 + (h.tf ? 0.2 : 0);
 // ---------- crear / quitar en el mapa ----------
 function aihFreeTile(M, x0, y0, r0, r1, R) { for (let t = 0; t < 50; t++) { const a = R() * 6.283, r = r0 + R() * (r1 - r0), tx = Math.floor(x0 / 16 + Math.cos(a) * r), ty = Math.floor(y0 / 16 + Math.sin(a) * r);
   if (tx < 2 || ty < 2 || tx >= M.w - 2 || ty >= M.h - 2) continue; const i = M.I(tx, ty); if (SOLID_T[M.ter[i]] || M.solidO[i] || M.ter[i] === T.DEEP || M.ter[i] === T.WATER || M.ter[i] === T.FACE || M.ter[i] === T.STAIRS) continue; return [tx * 16 + 8, ty * 16 + 8, M.lvl[i] | 0]; } return null; }
@@ -62,7 +93,7 @@ function aihSpawn(M, h) { const p = aihSpot(M, h, true); if (!p) return null; co
   if (!Object.prototype.hasOwnProperty.call(NPCS, id)) Object.defineProperty(NPCS, id, { value: { n: '', title: '', lines: [''], look: null, aih: 1 }, enumerable: false, configurable: true, writable: true });
   const e = { type: 'npc', id, def: NPCS[id], aih: h, x: p[0], y: p[1], L: p[2] | 0, map: M.id, dir: pick(['down', 'left', 'right', 'up']), anim: 'idle', af: 0, at: Math.random(), home: { x: p[0], y: p[1] }, wander: 0, st: 1 + Math.random() * 2, hum: true, shR: 6, hw: 4, hh: 3, noTag: true,
     ai: { st: 'idle', t: Math.random() * 2, tgt: null, cd: 0, hp: 1, o: null, seen: G.t } };
-  let A0 = null; Object.defineProperty(e, 'atlas', { configurable: true, enumerable: true, get() { if (!A0 || A0._aihT !== aihTier(h.lv)) { A0 = aihAtlas(h); A0._aihT = aihTier(h.lv); } e.ai.seen = G.t; return A0; }, set(v) { A0 = v; } });
+  let A0 = null; Object.defineProperty(e, 'atlas', { configurable: true, enumerable: true, get() { const want = h.k + ':' + aihTier(h.lv) + ':' + (h.tf || h.sr || '') + (h.tf ? ':T' : ''); if (!A0 || A0._aihK !== want) A0 = aihAtlas(h); e.ai.seen = G.t; return A0; }, set(v) { A0 = v; } });
   Object.defineProperty(e, '_aihDrop', { value: () => { A0 = null; }, enumerable: false });
   G.ents.push(e); return e; }
 function aihOnMap(M) { for (const e of AIH_LIST) e.remove = true; AIH_LIST = []; AIH_MAP = M ? M.id : null; if (!M || !G.P) return; const ros = aihRoster(M); for (const h of ros) { const e = aihSpawn(M, h); if (e) AIH_LIST.push(e); } }
@@ -76,12 +107,12 @@ function aihFree(m, e) { const P = G.P; if (!m || m.dying || m.hp <= 0 || m.boss
 // ---------- cerebro ----------
 function aihSay(e, t) { e.chat = t; e.chatT = G.t; }
 function aihMove(e, tx, ty, sp, dt) { const dx = tx - e.x, dy = ty - e.y, L = Math.hypot(dx, dy); if (L < 3) return true; e.dir = dirFromVec(dx, dy); const M = G.map, ok = moveEnt(M, e, dx / L * sp * dt, dy / L * sp * dt); setAnim(e, 'walk', true); if (!ok) { e.ai.stuck = (e.ai.stuck || 0) + dt; if (e.ai.stuck > 1.2) { e.ai.stuck = 0; return true; } } else e.ai.stuck = 0; return false; }
-function aihGain(e, m) { const h = e.aih; h.kills++; if (m.lv < h.lv - 25) return; h.xp++; const need = 6 + Math.floor(h.lv * 0.4); if (h.xp < need || h.lv >= MAXLV) return; h.xp = 0; h.lv++; const P = G.P; P.aihLv = P.aihLv || {}; P.aihLv[h.k] = h.lv;
+function aihGain(e, m) { const h = e.aih; h.kills++; if (m.lv < h.lv - 25) return; h.xp++; const need = 6 + Math.floor(h.lv * 0.4); if (h.xp < need || h.lv >= MAXLV) return; h.xp = 0; h.lv++; const P = G.P; P.aihLv = P.aihLv || {}; P.aihLv[h.k] = h.lv; if (h.W && h.lv % 50 === 0) aihStory(h, 'n', h.lv);
   floatText(e.x, e.y - 40, L2('¡SUBE DE NIVEL!', 'LEVEL UP!'), '#ffe070'); addFx({ type: 'ring', x: e.x, y: e.y, r: 22, dur: 0.6, col: '#ffe070' }); if (Math.random() < 0.3) aihSay(e, pick([L2('¡Nivel ', 'Level ') + h.lv + '!', L2('¡Por fin!', 'Finally!'), 'GG'])); }
 function aihKill(m, e) { m.hp = 0; m.dying = 0.001; setAnim(m, 'hurt'); burst(m.x, m.y - 10, 10, { sp: 60, up: 36, g: 140, life: 0.5, c: ['#d8d0c8', '#a09890', '#ffffff'] }); if (m.camp && m.camp.dead) m.camp.dead.push(G.t + 28 + Math.random() * 20); if (G.P.target === m) G.P.target = null; m._aih = null; aihGain(e, m); }
 function aihFindMob(e) { const h = e.aih; let best = null, bd = 260 * 260; for (const m of G.ents) { if (m.type !== 'mob' || m.lv > h.lv + 8 || m.lv < Math.max(1, h.lv - 40) || (e.ai.skip && e.ai.skip.has(m)) || (m.L !== e.L && m.L >= 0 && e.L >= 0)) continue; const d = dist2(m.x, m.y, e.x, e.y); if (d < bd && aihFree(m, e)) { bd = d; best = m; } } return best; }
 function aihFindRes(e) { const M = G.map; if (!M.objs) return null; let best = null, bd = 180 * 180; for (const o of M.objs) { if (o.hidden || (o.k !== 'tree' && o.k !== 'ore')) continue; const d = dist2(o.px, o.py, e.x, e.y); if (d < bd) { bd = d; best = o; } } return best; }
-function aihUpdate(e, dt) { const h = e.aih, A = e.ai, P = G.P; if (!h) return; A.t -= dt; A.cd -= dt;
+function aihUpdate(e, dt) { const h = e.aih, A = e.ai, P = G.P; if (!h || e.hidden) return; A.t -= dt; A.cd -= dt;
   const near = dist2(e.x, e.y, P.x, P.y) < 40 * 40 && !A.tgt && A.st !== 'chat'; if (near && A.st !== 'gather' && A.st !== 'fish') { e.dir = dirFromVec(P.x - e.x, P.y - e.y); if (!A.hi) { A.hi = 1; if (Math.random() < 0.5) { aihSay(e, pick(AIH_HI)); setAnim(e, 'wave'); A.waveT = 1.5; } } A.waveT = (A.waveT || 0) - dt; setAnim(e, A.waveT > 0 ? 'wave' : 'idle', true); stepAnim(e, dt, 5); return; }
   switch (A.st) {
     case 'idle': setAnim(e, 'idle', true); if (A.t > 0) break; aihDecide(e); break;
@@ -100,7 +131,7 @@ function aihUpdate(e, dt) { const h = e.aih, A = e.ai, P = G.P; if (!h) return; 
       const rng = AIH_RANGED.has(h.cls) ? 64 : 20, d = Math.hypot(m.x - e.x, m.y - e.y); if (d > rng) { A.ft = (A.ft || 0) + dt; m._aihT = G.t; if (A.ft > 6) { (A.skip = A.skip || new WeakSet()).add(m); m._aih = null; A.tgt = null; A.st = 'idle'; A.t = 0.5; break; } aihMove(e, m.x, m.y, 52, dt); break; } A.ft = 0;
       e.dir = dirFromVec(m.x - e.x, m.y - e.y); if (A.cd > 0) { if (e.anim !== 'atk' && e.anim !== 'cast') setAnim(e, 'idle', true); break; }
       A.cd = 0.8 + Math.random() * 0.4; const sk = Math.random() < 0.18; setAnim(e, sk || AIH_RANGED.has(h.cls) ? 'cast' : 'atk'); e.af = 0; m._aihT = G.t;
-      const k = clamp(0.14 + (h.lv - m.lv) * 0.012, 0.05, 0.7) * (sk ? 2.2 : 1), dmg = Math.max(1, Math.round(m.maxhp * k * (0.85 + Math.random() * 0.3)));
+      const k = clamp(0.14 + (h.lv - m.lv) * 0.012, 0.05, 0.7) * (sk ? 2.2 : 1) * aihPow(h), dmg = Math.max(1, Math.round(m.maxhp * k * (0.85 + Math.random() * 0.3)));
       if (sk) { const col = AIH_SKC[h.cls] || '#ffffff'; burst(m.x, m.y - 14, 16, { sp: 80, up: 50, g: 60, life: 0.5, c: [col, '#ffffff'] }); addFx({ type: 'ring', x: m.x, y: m.y, r: 26, dur: 0.4, col }); A.cd += 0.6; }
       if (AIH_RANGED.has(h.cls)) for (let s = 0; s < 4; s++) part(e.x + (m.x - e.x) * s / 4, e.y - 14 + (m.y - e.y) * s / 4, { vz: 0, g: 0, life: 0.25, c: h.cls === 'mago' ? '#8ac8ff' : '#e0d0a0', s: 1 });
       m.hp -= dmg; m.flash = 0.12; floatText(m.x, m.y - (m.hgt || 30), dmg, '#b8b8c8'); if (m.hp <= 0) { aihKill(m, e); A.tgt = null; A.st = 'idle'; A.t = 0.4 + Math.random(); if (A.hp < 0.6 && Math.random() < 0.5) { A.st = 'rest'; A.t = 4 + Math.random() * 4; } }
@@ -135,21 +166,69 @@ V33_TICKS.push(() => { const M = G.map, P = G.P; if (!M || !P || AIH_MAP !== M.i
 // nombre y nivel en azul, como los jugadores
 hookAfter('drawEnt', (r, e, cx, cy) => { if (!e || !e.aih || e.hidden) return; const A = e.atlas, top = Math.round(e.y - cy) - (A ? A.fh - 10 : 40), x = Math.round(e.x - cx); const s = textSprite(e.aih.name + ' NV.' + e.aih.lv, '#8ae0ff'); ctx.drawImage(s, x - (s.width >> 1), top - 9); });
 // ---------- hablar y desafiar ----------
-hookAround('openDialog', (next, npc) => { if (!npc || !npc.aih) return next(npc); const h = npc.aih; npc.def.n = h.name; npc.def.title = aihTitle(h); npc.def.lines = [aihLine(npc)]; try { return next(npc); } finally { npc.def.n = ''; } });
+hookAround('openDialog', (next, npc) => { if (!npc || !npc.aih) return next(npc); const h = npc.aih; npc.def.n = h.name; npc.def.title = aihTitle(h); npc.def.lines = [aihTalkLine(npc)]; try { return next(npc); } finally { npc.def.n = ''; } });
 DLG_HOOKS.push((npc, opts) => { if (!npc || !npc.aih) return; const h = npc.aih;
   opts.unshift({ label: '⚔ ' + L2('Desafiar a un duelo', 'Challenge to a duel'), icon: ['sword', 3], fn: () => { closeDialog(); aihDuel(npc); } });
-  opts.unshift({ label: '📊 ' + L2('Ver su perfil', 'See their profile'), icon: ['users'], fn: () => { closeDialog(); openModal(`<div class="frame"><h3>${esc(h.name)}</h3><p>${esc(aihTitle(h))}</p><p>${L2('Monstruos vencidos hoy', 'Monsters defeated today')}: ${h.kills}</p><p class="hint">${L2('Cazador que farmea por su cuenta. No comparte experiencia ni te quita tus monstruos.', 'A hunter farming on their own. They don\'t share XP or steal your monsters.')}</p><div class="row"><button class="btn" id="aihOk">OK</button></div></div>`); $('#aihOk').onclick = () => closeModal(); } }); });
+  opts.unshift({ label: '📖 ' + L2('Su perfil y su historia', 'Their profile and story'), icon: ['users'], fn: () => { closeDialog(); aihProfile(h); } }); });
+function aihProfile(h) { const W = h.W || { j: [0, 0, 0], f: [], s: [] }, fn = k => (typeof SR !== 'undefined' && SR[k] ? SR[k].ic + ' ' + SR[k].n : k);
+  openModal(`<div class="frame"><h3>${esc(h.name)}</h3><p>${esc(aihTitle(h))}</p>
+    <p>📍 ${L2('Ahora en', 'Now in')}: ${esc(AIH_MAPN(W.m || h.home))} · ${L2('De', 'From')}: ${esc(AIH_MAPN(h.home))}</p>
+    <p>🛡 ${L2('Equipo', 'Gear')} +${W.r || 0} · 🪓 ${L2('Tala', 'Woodcutting')} ${W.j[0]} · ⛏ ${L2('Minería', 'Mining')} ${W.j[1]} · 🎣 ${L2('Pesca', 'Fishing')} ${W.j[2]}</p>
+    <p>🌀 ${L2('Formas', 'Forms')}: ${W.f.length ? W.f.map(fn).join(', ') : '—'}${h.sr ? ' · ' + L2('usa', 'uses') + ' ' + esc(fn(h.sr)) : ''}</p>
+    <p>♾ ${L2('Torre Infinita', 'Infinite Tower')}: ${W.tb ? L2('piso ', 'floor ') + W.tb : '—'} · ⚔ ${L2('contra ti', 'against you')}: ${W.w || 0}-${W.l || 0}</p>
+    <h4>📖 ${L2('Su historia', 'Their story')}</h4>${(W.s || []).slice().reverse().map(e => `<p class="hint">${esc(aihStoryText(e))}</p>`).join('') || '<p class="hint">—</p>'}
+    <p class="hint">${L2('Jugador cazador: vive su propia aventura. No comparte experiencia, no te quita tus monstruos y no te puede revivir.', 'Player hunter: living their own adventure. They don\'t share XP, don\'t steal your monsters and can\'t revive you.')}</p><div class="row"><button class="btn" id="aihOk">OK</button></div></div>`); $('#aihOk').onclick = () => closeModal(); }
+// diálogos nuevos: según dónde está, qué hizo hace poco, su forma de ser y si ya os habéis peleado
+function aihTalkLine(e) { const h = e.aih, W = h.W || {}, last = (W.s || [])[W.s ? W.s.length - 1 : 0], pers = h.seed % 4, P = G.P;
+  const L = [];
+  if (last) { const t = aihStoryText(last); if (t) L.push(L2('¿Sabes qué? ', 'Guess what? ') + t.charAt(0).toLowerCase() + t.slice(1) + '.'); }
+  if (W.m && W.m !== h.home) L.push(L2('Soy de ', 'I\'m from ') + AIH_MAPN(h.home) + L2(', pero ahora ando por ', ', but now I\'m around ') + AIH_MAPN(W.m) + '.');
+  if (W.f && W.f.length > 1) L.push(L2('Tengo ', 'I have ') + W.f.length + L2(' formas y cambio según el enemigo.', ' forms and switch depending on the enemy.'));
+  if (W.r >= 7) L.push(L2('Mi equipo está a +', 'My gear is at +') + W.r + L2('. Me costó una fortuna.', '. Cost me a fortune.'));
+  if ((W.w || 0) > (W.l || 0)) L.push(L2('La última vez te gané, ¿la revancha?', 'I beat you last time, rematch?')); else if (W.l) L.push(L2('No te creas, la próxima te gano.', 'Don\'t get cocky, I\'ll win next time.'));
+  if (h.lv > P.lv + 50) L.push(L2('Cuando llegues a mi nivel te enseño una zona buena.', 'When you reach my level I\'ll show you a good zone.')); else if (h.lv < P.lv - 50) L.push(L2('¡Qué nivel tienes! ¿Cómo farmeas tan rápido?', 'What a level! How do you farm so fast?'));
+  L.push([L2('Hoy voy a farmear hasta tarde.', 'Farming till late today.'), L2('Me voy de viaje pronto, quiero ver otros países.', 'Going travelling soon, I want to see other countries.'), L2('Estoy juntando materiales para mejorar mi arma.', 'Gathering materials to upgrade my weapon.'), L2('Mi oficio favorito es pescar, relaja.', 'My favourite job is fishing, it\'s relaxing.')][pers]);
+  L.push(aihLine(e)); return pick(L); }
 function aihDuel(e) { const h = e.aih; if (typeof duelStart !== 'function' || DUEL) return; const t = aihTier(h.lv);
   duelStart({ name: h.name, lv: h.lv, look: LK({ hair: HAIRS[h.app.hair] || HAIRS.negro, armor: TIERP[clamp(Math.ceil(h.lv / 22), 1, 15)], weapon: { k: 'sword', tier: clamp(Math.ceil(h.lv / 18), 1, 15) } }) });
   let n = 0; const fix = () => { n++; if (DUEL && DUEL.m && DUEL.o && DUEL.o.name === h.name) { try { DUEL.m.atlas = aihAtlas(h); } catch (er) { } return; } if (n < 40) setTimeout(fix, 100); }; setTimeout(fix, 100); }
 // menos ciudadanos: España bastante menos y Perú muy poco menos (los cazadores ocupan ese sitio)
 hookAfter('v74Dens', (d, h, c) => c === 'es' ? d * 0.72 : c === 'pe' ? d * 0.9 : d);
-SAVEKEYS.push('aihLv', 'aihT');
+SAVEKEYS.push('aihLv', 'aihT', 'aihW');
 // Lupa › Sistemas
-if (typeof GSIS !== 'undefined') GSIS.unshift(['n_cazadores_ia', '🧑‍🤝‍🧑 ' + L2('Cazadores por el mundo', 'Hunters around the world'), () => [L2('En todos los mapas abiertos y en las ciudades hay cazadores con nombre propio que van y vienen: farmean su nivel, usan habilidades, viajan de una zona a otra, talan, pican, pescan, saludan, charlan entre ellos, descansan y suben de nivel solos (también mientras no juegas, un poco). Llevan su nombre y nivel en azul.', 'In every open map and city there are hunters with their own names who come and go: they farm their level, use skills, travel between zones, chop, mine, fish, wave, chat with each other, rest and level up on their own (a little even while you are away). Their name and level show in blue.'),
+if (typeof GSIS !== 'undefined') GSIS.unshift(['n_cazadores_ia', '🧑‍🤝‍🧑 ' + L2('Jugadores cazadores', 'Player hunters'), () => [L2('En todos los mapas abiertos y en las ciudades hay jugadores cazadores con nombre propio que van y vienen: farmean su nivel, usan habilidades, viajan de una zona a otra, talan, pican, pescan, saludan, charlan entre ellos, descansan y suben de nivel solos (también mientras no juegas, un poco). Llevan su nombre y nivel en azul.', 'In every open map and city there are player hunters with their own names who come and go: they farm their level, use skills, travel between zones, chop, mine, fish, wave, chat with each other, rest and level up on their own (a little even while you are away). Their name and level show in blue.'),
   L2('No te ayudan ni compartes experiencia con ellos, y no te roban: nunca atacan a tu objetivo, a lo que te persigue o golpeaste hace poco, ni a nada de la zona en la que estás farmeando. Si golpeas a uno que estaban atacando, te lo dejan.', 'They don\'t help you and you don\'t share XP, and they don\'t steal: they never attack your target, whatever is chasing you or that you hit recently, or anything in the zone you are farming. If you hit one they were fighting, they leave it to you.'),
-  L2('Habla con ellos para ver su perfil o desafiarlos a un duelo.', 'Talk to them to see their profile or challenge them to a duel.')], () => null]);
+  L2('Viven su propia aventura (no tienen tu hilo): mejoran su equipo, suben oficios, consiguen formas, viajan por todos los países y mapas y vencen jefes; lo ves en su perfil (📖). Se transforman en combate y cambian de forma si quieren. No te pueden revivir. Habla con ellos para ver su historia o desafiarlos, o atácalos sin más: se defienden.', 'They live their own adventure (they don\'t have your thread): they upgrade gear, raise jobs, get forms, travel across every country and map and defeat bosses; see it in their profile (📖). They transform in combat and switch forms when they want. They can\'t revive you. Talk to them to see their story or challenge them, or just attack them: they fight back.')], () => null]);
 // si un cazador está al lado de un NPC de verdad, «Hablar» elige siempre al NPC (misiones, tiendas…)
-hookAfter('interactTarget', r => { if (!r || r.kind !== 'npc' || !r.e || !r.e.aih) return; const P = G.P; let best = null, bd = 34 * 34;
+hookAfter('interactTarget', r => { if (!r || r.kind !== 'npc' || !r.e || !r.e.aih) return; if (r.e.hidden) return null; const P = G.P; let best = null, bd = 34 * 34;
   for (const e of G.ents) if ((e.type === 'npc' || e.type === 'kid') && !e.aih && e.map === P.map) { const d = dist2(e.x, e.y, P.x, P.y); if (d < bd) { bd = d; best = e; } }
   if (best) return { kind: 'npc', e: best, label: r.label, icon: r.icon }; });
+
+// ---------- 6.44: formas en combate (con aura y destello de la 6.42) y cambio de forma en plena pelea ----------
+function aihForm(e, on) { const h = e.aih, W = h.W; if (!W || !W.f.length) return; if (on) { const cur = h.tf, opts = W.f.filter(k => k !== cur); const k = !cur ? (h.sr && W.f.includes(h.sr) ? h.sr : pick(W.f)) : (opts.length ? pick(opts) : cur); if (k !== cur) { h.tf = k; e.tfT = G.t; if (Math.random() < 0.4) aihSay(e, (typeof SR !== 'undefined' && SR[k] ? SR[k].f : '') + '!'); } } else if (h.tf) { h.tf = null; } }
+V33_TICKS.push(() => { for (const e of AIH_LIST) { if (e.remove || !e.aih || !e.aih.W || !e.aih.W.f.length) continue; const A = e.ai, h = e.aih, m = A.tgt;
+  if (A.st === 'fight' && m && m.lv >= h.lv - 8) { if (!h.tf) aihForm(e, true); else if (e.aih.W.f.length > 1 && G.t - (e.tfT || 0) > 9 && Math.random() < 0.3) aihForm(e, true); A.lastF = G.t; }
+  else if (h.tf && G.t - (A.lastF || 0) > 6) aihForm(e, false); } });
+// su aura y su destello (el aura de la 6.42 ya acepta jugadores cazadores)
+WORLD_DRAW.push((cx, cy) => { if (typeof trAuraEnt !== 'function') return; for (const e of AIH_LIST) if (!e.remove && !e.hidden && e.aih) trAuraEnt(e, e.aih.tf || null, e.aih.tf ? 1 : 0, false, cx, cy);
+  for (const m of G.ents) if (m.type === 'mob' && m.aihSrc && !m.dying) trAuraEnt(m, m.aihSrc.aih.tf || null, m.aihSrc.aih.tf ? 1 : 0, false, cx, cy); });
+// ---------- 6.44: atacarlos sin pedir duelo ----------
+hookBefore('basicAttack', () => { const P = G.P; if (!P || P.dead || !G.map) return; const dv = DIRV[P.dir] || [0, 1], fx = P.x + dv[0] * 14, fy = P.y + dv[1] * 10;
+  for (const m of G.ents) if (m.type === 'mob' && !m.dying && m.map === P.map && dist2(m.x, m.y, P.x, P.y) < 46 * 46) return;
+  let best = null, bd = 30 * 30; for (const e of AIH_LIST) { if (e.remove || e.hidden || e.map !== P.map) continue; const d = Math.min(dist2(e.x, e.y, fx, fy), dist2(e.x, e.y, P.x, P.y)); if (d < bd) { bd = d; best = e; } }
+  if (best) aihHostile(best); });
+function aihHostile(e) { const h = e.aih, P = G.P, key = 'aihx_' + aihHash(h.k); if (e.hidden) return null;
+  if (!Object.prototype.hasOwnProperty.call(MOBS, key)) Object.defineProperty(MOBS, key, { value: { n: h.name, art: ['hum', 'espadachin_portal'], reg: ['x'], lv: [1, MAXLV], hp: 6, atk: 1.4, def: 1.2, spd: 66, ai: 'aggro', fam: 'aihx', drops: [], aihx: 1 }, enumerable: false, configurable: true, writable: true });
+  const m = spawnMob(key, h.lv, e.x, e.y, e.L, null, false); if (!m) return null; const pw = aihPow(h); m.map = P.map; m.aihSrc = e; m.name = h.name; m.state = 'chase'; m.aggroR = 420; m.hp = m.maxhp = Math.round(m.maxhp * (1 + ((h.W && h.W.r) || 0) * 0.05)); m.atk = Math.round(m.atk * pw); m.xp = Math.round(m.xp * 0.3); m.gold = 0; m.dir = e.dir;
+  try { m.atlas = aihAtlas(h); } catch (er) { } e.hidden = true; e.ai.st = 'hostile'; e.ai.tgt = null; P.target = m; aihSay(e, pick([L2('¿Ah, sí? ¡Pues vamos!', 'Oh yeah? Let\'s go!'), L2('¡Eh! ¿Qué haces?', 'Hey! What are you doing?'), L2('Mala idea…', 'Bad idea…')])); m.chat = e.chat; m.chatT = G.t; return m; }
+hookAfter('updateMob', (r, m) => { if (!m || !m.aihSrc || m.dying) return; const e = m.aihSrc, h = e.aih, P = G.P;
+  if (h.W && h.W.f.length) { if (!h.tf && m.hp < m.maxhp * 0.6) { aihForm(e, true); m.atk = Math.round(m.atk * 1.2); } else if (h.tf && h.W.f.length > 1 && G.t - (e.tfT || 0) > 9 && Math.random() < 0.01) aihForm(e, true); const want = aihAtlas(h); if (m.atlas !== want) m.atlas = want; }
+  if (P.dead || dist2(m.x, m.y, P.x, P.y) > 420 * 420 || P.map !== m.map) { if (P.dead && h.W) { h.W.w = (h.W.w || 0) + 1; aihStory(h, 'w', 1); } aihCalm(m, P.dead ? pick([L2('¡Gané!', 'I won!'), 'GG', L2('Otra vez será.', 'Better luck next time.')]) : L2('Bah, se fue.', 'Meh, they left.')); } });
+function aihCalm(m, say) { const e = m.aihSrc; m.remove = true; if (!e) return; e.x = m.x; e.y = m.y; e.hidden = false; e.ai.st = 'idle'; e.ai.t = 1; e.aih.tf = null; if (say) aihSay(e, say); }
+hookAfter('killMob', (r, m) => { if (!m || !m.aihSrc) return; const e = m.aihSrc, h = e.aih; if (G.P.best) delete G.P.best[m.mid]; if (h.W) { h.W.l = (h.W.l || 0) + 1; aihStory(h, 'l', 1); } h.tf = null;
+  e.ai.st = 'down'; e.hidden = true; setTimeout(() => { if (e.remove) return; const p = aihSpot(G.map, h, true); if (p) { e.x = p[0]; e.y = p[1]; e.L = p[2] | 0; } e.hidden = false; e.ai.st = 'idle'; e.ai.t = 1; }, 45000); });
+hookBefore('captureSoul', m => { if (m && (m.aihSrc || m.ti)) return HOOK_SKIP; });
+// la vida sigue cada 10 minutos de juego real
+V33_TICKS.push(() => { if (!AIH_POP || !G.P) return; const now = Date.now(); if (now - AIH_LIFE_T < 600000) return; aihLife((now - AIH_LIFE_T) / 3.6e6, false); AIH_LIFE_T = now; G.P.aihT = now; });
+// escondido (derrotado o peleando contra ti como enemigo): no se dibuja
+hookBefore('drawEnt', e => { if (e && e.aih && e.hidden) return HOOK_SKIP; });

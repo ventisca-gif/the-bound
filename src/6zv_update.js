@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.43', GAME_BUILD = 265;
+const GAME_VER = '6.44', GAME_BUILD = 266;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,25 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.44",
+ "b": 266,
+ "d": "2026-11-27",
+ "es": [
+  "Jugadores cazadores: así se llaman ahora (para no confundirlos con los cazadores de los portales). Viven su propia aventura, sin tu hilo: mejoran su equipo (+1 a +10), suben oficios, consiguen formas, vencen jefes, suben la Torre Infinita y viajan por todos los países y mapas. Míralo en su perfil (📖 Su historia).",
+  "Se transforman en combate con su aura y su destello, y cambian de forma en plena pelea si tienen varias. Tienen diálogos nuevos según dónde están y qué han hecho. No te pueden revivir.",
+  "Puedes atacar a un jugador cazador sin pedirle duelo: se defiende (y se transforma). Si gana o pierde, lo recuerda.",
+  "Torre Infinita · Equipo de 4: tú y 3 compañeros con IA (cazadores de los portales y jugadores cazadores de tu nivel), con récord de equipo.",
+  "Torre Infinita · En línea: con tu grupo, hasta 4 o hasta 7 jugadores, sin top (solo para ver cuánto aguantáis). Los enemigos que vence uno desaparecen para todos y subís juntos."
+ ],
+ "en": [
+  "Player hunters: that's their name now (so they aren't confused with the portal hunters). They live their own adventure, without your thread: they upgrade gear (+1 to +10), raise jobs, get forms, defeat bosses, climb the Infinite Tower and travel across every country and map. See it in their profile (📖 Their story).",
+  "They transform in combat with their aura and flash, and switch forms mid-fight if they have several. They have new dialogue depending on where they are and what they've done. They can't revive you.",
+  "You can attack a player hunter without asking for a duel: they fight back (and transform). Win or lose, they remember it.",
+  "Infinite Tower · Team of 4: you and 3 AI companions (portal hunters and player hunters of your level), with a team record.",
+  "Infinite Tower · Online: with your group, up to 4 or up to 7 players, no leaderboard (just to see how long you last). Enemies one of you defeats vanish for everyone and you climb together."
+ ]
+},
 {
  "v": "6.43",
  "b": 265,
