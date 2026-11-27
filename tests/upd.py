@@ -7,7 +7,7 @@ aviso en el título, descarga con verificación, reinicio en la versión nueva (
 novedades, botón atrás de Android, rollback si la versión descargada no arranca, descarga dañada y aviso de APK nuevo.
 Chromium se abre sin --allow-file-access-from-files, como el WebView de Android.
 """
-import hashlib, http.server, json, os, re, shutil, sys, tempfile, threading
+import gzip, hashlib, http.server, json, os, re, shutil, sys, tempfile, threading
 from playwright.sync_api import sync_playwright
 
 url, out = sys.argv[1], sys.argv[2]
@@ -19,7 +19,7 @@ srv_dir = os.path.join(tmp, 'srv'); os.makedirs(srv_dir)
 page = os.path.join(tmp, 'apk.html'); open(page, 'wb').write(base_html)
 
 
-def make(build, ver, broken=False, min_apk=0, bad_sha=False):
+def make(build, ver, broken=False, min_apk=0, bad_sha=False, gz=True, gz_bad=False):
     h = re.sub(rb"GAME_VER = '[^']+', GAME_BUILD = \d+", ("GAME_VER = '%s', GAME_BUILD = %d" % (ver, build)).encode(), base_html, 1)
     h = h.replace(b'<div class="tfoot">', b'<div class="tfoot">TEST ' + ver.encode() + b' | ', 1)
     if broken:   # nunca llega al título
@@ -29,6 +29,10 @@ def make(build, ver, broken=False, min_apk=0, bad_sha=False):
             'sha256': hashlib.sha256(h + (b'x' if bad_sha else b'')).hexdigest(), 'minApk': min_apk,
             'apk': 'https://github.com/ventisca-gif/the-bound/releases/latest',
             'notes': {'es': ['Novedad de prueba ' + ver, 'Otra novedad'], 'en': ['Test change ' + ver]}}
+    if gz:   # 6.56: copia comprimida
+        z = gzip.compress(h, 6, mtime=0)
+        open(os.path.join(srv_dir, 'thebound.html.gz'), 'wb').write(z)
+        info.update({'gz': 'thebound.html.gz', 'gzSize': len(z), 'gzSha256': hashlib.sha256(z + (b'x' if gz_bad else b'')).hexdigest()})
     open(os.path.join(srv_dir, 'version.json'), 'w').write(json.dumps(info))
 
 
@@ -36,8 +40,10 @@ class H(http.server.SimpleHTTPRequestHandler):
     def __init__(s, *a, **k): super().__init__(*a, directory=srv_dir, **k)
     def end_headers(s): s.send_header('Access-Control-Allow-Origin', '*'); s.send_header('Cache-Control', 'no-store'); super().end_headers()
     def log_message(s, *a): pass
+    def do_GET(s): REQ.append(s.path.split('?')[0]); return super().do_GET()
 
 
+REQ = []
 srv = http.server.ThreadingHTTPServer(('127.0.0.1', 0), H); port = srv.server_address[1]
 threading.Thread(target=srv.serve_forever, daemon=True).start()
 U = 'file://' + page + '?upd=' + 'http://127.0.0.1:%d/' % port
@@ -83,6 +89,7 @@ with sync_playwright() as p:
     res['child_footer'] = fr.evaluate("document.querySelector('.tfoot').textContent") if fr else None
     res['child_news_open'] = fr.evaluate("!document.getElementById('modal').hidden && !!document.querySelector('.newsm')") if fr else None
     res['meta'] = pg.evaluate("JSON.parse(localStorage.getItem('thebound.ota'))")
+    res['gz_used'] = '/thebound.html.gz' in REQ and '/thebound.html' not in REQ
     shot(pg)
     if fr:
         fr.evaluate("closeModal()")
@@ -131,6 +138,12 @@ with sync_playwright() as p:
     res['timeout_frame'] = pg.evaluate("!!document.getElementById('otaFrame')")
     res['timeout_title'] = pg.evaluate("!document.getElementById('title').hidden")
     res['timeout_meta'] = pg.evaluate("JSON.parse(localStorage.getItem('thebound.ota'))")
+    # 9) 6.56: copia comprimida dañada → descarga la normal y actualiza igual
+    REQ.clear(); make(NEW + 3, '9.%d' % (NEW + 3), gz_bad=True)
+    pg.evaluate("closeModal(); updRun(true)"); pg.wait_for_timeout(1500)
+    pg.click('#updGo'); pg.wait_for_timeout(5000)
+    res['gz_fallback'] = '/thebound.html.gz' in REQ and '/thebound.html' in REQ
+    res['gz_fallback_meta'] = pg.evaluate("JSON.parse(localStorage.getItem('thebound.ota'))")
     pg.screenshot(path=out)
     res['errs'] = [e for e in errs if 'roto' not in e]
     b.close()

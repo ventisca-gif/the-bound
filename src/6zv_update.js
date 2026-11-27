@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.55', GAME_BUILD = 277;
+const GAME_VER = '6.56', GAME_BUILD = 278;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,25 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.56",
+ "b": 278,
+ "d": "2026-11-27",
+ "es": [
+  "⚡ Más fluido en celulares sencillos: España ~17 % más rápida y la Aldea de Albor hasta ~20 % tras visitar ciudades (los NPC de la ciudad que dejas ya no se recorren desde otros mapas). La multitud lejana de las plazas llenas se dibuja sin el detalle HD fino y se libera memoria al cambiar de mapa.",
+  "📦 Actualizaciones ~40 % más pequeñas (descarga comprimida, con la normal de respaldo). Se quitó el límite de 40 MB que pronto habría impedido actualizar.",
+  "📱 Crear personaje en horizontal: el botón «Comenzar aventura» queda siempre a la vista y «Novedades» ya no tapa el título. Botones al tamaño del dedo en el título, crear personaje, menús y barra superior.",
+  "🗂 Pestañas del menú con iconos distintos (🦴 Mascotas, 🏅 Pase) y borde difuminado cuando hay más para deslizar. Mapa: botón para plegar la leyenda. Texto más legible sobre el atardecer de las ventanas.",
+  "💬 Los bocadillos de los NPC ya no se tapan entre sí ni con el clima. Postura ya no pisa a Bloquear. Las casillas «+» vacías solo salen si tienes una habilidad por colocar. Consejos de talar, minar y pescar al día (casillas 🪓 ⛏ 🎣). Números enormes en corto (3,07 mil M)."
+ ],
+ "en": [
+  "⚡ Smoother on low-end phones: Spain ~17% faster and Albor Village up to ~20% after visiting cities (NPCs of the city you leave are no longer processed from other maps). Far crowds in busy squares are drawn without fine HD detail and memory is freed when changing maps.",
+  "📦 Updates ~40% smaller (compressed download, with the normal one as backup). Removed the 40 MB limit that would soon have blocked updates.",
+  "📱 Character creation in landscape: the «Start adventure» button always stays in view and «What's New» no longer covers the title. Finger-sized buttons on the title, character creation, menus and top bar.",
+  "🗂 Menu tabs with distinct icons (🦴 Pets, 🏅 Pass) and a faded edge when there are more to swipe. Map: button to fold the legend. Easier to read text over the sunset of the windows.",
+  "💬 NPC speech bubbles no longer cover each other or the weather. Stance no longer overlaps Block. Empty «+» slots only show when you have a skill to place. Chopping, mining and fishing tips updated (🪓 ⛏ 🎣 slots). Huge numbers in short form (3.07B)."
+ ]
+},
 {
  "v": "6.55",
  "b": 277,
@@ -4500,10 +4519,13 @@ function updBootOk() { if (!window.__TB_OTA) return; try { if (window.parent && 
 function updValid(j) {
   if (!j || typeof j !== 'object') return null;
   const b = j.build | 0, size = +j.size;
-  if (!(b > 0) || typeof j.ver !== 'string' || j.ver.length > 12 || !/^[\w.-]{1,64}$/.test(j.file || '') || !(size > 1000 && size < 40e6) || !/^[0-9a-f]{64}$/.test(j.sha256 || '')) return null;
+  // 6.56: el límite era 40 MB y el juego ya pesaba 39,6 MB; ahora 150 MB
+  if (!(b > 0) || typeof j.ver !== 'string' || j.ver.length > 12 || !/^[\w.-]{1,64}$/.test(j.file || '') || !(size > 1000 && size < 150e6) || !/^[0-9a-f]{64}$/.test(j.sha256 || '')) return null;
   const notes = a => Array.isArray(a) ? a.filter(s => typeof s === 'string').slice(0, 20).map(s => s.slice(0, 700)) : [];
   const n = j.notes || {};
-  return { build: b, ver: j.ver, date: typeof j.date === 'string' ? j.date.slice(0, 10) : '', file: j.file, size, sha256: j.sha256, minApk: j.minApk | 0, apk: typeof j.apk === 'string' && /^https:\/\/github\.com\//.test(j.apk) ? j.apk : UPD_APK_PAGE, es: notes(n.es), en: notes(n.en) };
+  return { build: b, ver: j.ver, date: typeof j.date === 'string' ? j.date.slice(0, 10) : '', file: j.file, size, sha256: j.sha256, minApk: j.minApk | 0, apk: typeof j.apk === 'string' && /^https:\/\/github\.com\//.test(j.apk) ? j.apk : UPD_APK_PAGE, es: notes(n.es), en: notes(n.en),
+    // 6.56: copia comprimida (gzip) opcional: ~40 % menos de descarga
+    gz: /^[\w.-]{1,64}$/.test(j.gz || '') && +j.gzSize > 1000 && +j.gzSize < size && /^[0-9a-f]{64}$/.test(j.gzSha256 || '') ? j.gz : '', gzSize: +j.gzSize || 0, gzSha256: j.gzSha256 || '' };
 }
 async function updCheck() {
   if (!updEnabled()) throw new Error('noapp');
@@ -4514,19 +4536,35 @@ async function updCheck() {
 }
 const updNewer = j => !!(j && j.build > GAME_BUILD);
 const updNeedsApk = j => !!(j && j.minApk > APK_BUILD);
-async function updDownload(j, prog) {
-  const r = await fetch(UPD.base + j.file + '?b=' + j.build, { cache: 'no-store' });
+const updGzOk = j => !!(j && j.gz && typeof DecompressionStream === 'function' && typeof Response === 'function');
+async function updSha(buf) { return Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', buf)), x => x.toString(16).padStart(2, '0')).join(''); }
+async function updFetchBytes(url, size, prog) {
+  const r = await fetch(url, { cache: 'no-store' });
   if (!r.ok) throw new Error('HTTP ' + r.status);
   let buf;
   if (r.body && r.body.getReader) {
     const rd = r.body.getReader(), parts = []; let got = 0;
-    for (;;) { const { done, value } = await rd.read(); if (done) break; parts.push(value); got += value.length; if (got > j.size) throw new Error('size'); prog(got / j.size); }
+    for (;;) { const { done, value } = await rd.read(); if (done) break; parts.push(value); got += value.length; if (got > size) throw new Error('size'); prog(got / size); }
     buf = new Uint8Array(got); let o = 0; for (const p of parts) { buf.set(p, o); o += p.length; }
   } else buf = new Uint8Array(await r.arrayBuffer());
-  if (buf.length !== j.size) throw new Error('size');
+  if (buf.length !== size) throw new Error('size');
+  return buf;
+}
+async function updDownload(j, prog) {
+  let buf = null;
+  // 6.56: primero la copia comprimida (si el teléfono sabe descomprimir); si algo falla, la normal de siempre
+  if (updGzOk(j)) {
+    try {
+      const z = await updFetchBytes(UPD.base + j.gz + '?b=' + j.build, j.gzSize, prog);
+      if (window.crypto && crypto.subtle && await updSha(z) !== j.gzSha256) throw new Error('sha');
+      const out = new Uint8Array(await new Response(new Blob([z]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer());
+      if (out.length !== j.size) throw new Error('size');
+      buf = out;
+    } catch (e) { buf = null; }
+  }
+  if (!buf) buf = await updFetchBytes(UPD.base + j.file + '?b=' + j.build, j.size, prog);
   if (window.crypto && crypto.subtle) {
-    const h = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', buf)), x => x.toString(16).padStart(2, '0')).join('');
-    if (h !== j.sha256) throw new Error('sha');
+    if (await updSha(buf) !== j.sha256) throw new Error('sha');
   }
   const html = new TextDecoder().decode(buf);
   const mb = /GAME_BUILD\s*=\s*(\d+)/.exec(html);
@@ -4578,7 +4616,7 @@ function openUpdate(j) {
     $('#updCopy').onclick = () => { try { navigator.clipboard.writeText(j.apk).then(() => $('#updMsg').textContent = L2('Enlace copiado.', 'Link copied.'), () => $('#updMsg').textContent = L2('Mantén pulsado el enlace para copiarlo.', 'Long-press the link to copy it.')); } catch (e) { $('#updMsg').textContent = L2('Mantén pulsado el enlace para copiarlo.', 'Long-press the link to copy it.'); } };
     return;
   }
-  openModal(`<div class="updm"><h2>¡${L2('Nueva versión', 'New version')} ${esc(j.ver)}!</h2><p class="hint" style="text-align:center">${L2('Tienes la', 'You have')} ${esc(GAME_VER)} · ${L2('Descarga', 'Download')}: ${updFmtMB(j.size)}</p><ul>${updNotes(j).map(s => `<li>${esc(s)}</li>`).join('')}</ul><div class="updbar" id="updBar" hidden><i></i></div><p class="hint" id="updMsg">${L2('Tu partida se guarda antes de reiniciar.', 'Your game is saved before restarting.')}</p><div class="row"><button class="btn gold" id="updGo">${L2('Actualizar ahora', 'Update now')}</button><button class="btn" id="updLater">${L2('Más tarde', 'Later')}</button></div></div>`, 'updmodal');
+  openModal(`<div class="updm"><h2>¡${L2('Nueva versión', 'New version')} ${esc(j.ver)}!</h2><p class="hint" style="text-align:center">${L2('Tienes la', 'You have')} ${esc(GAME_VER)} · ${L2('Descarga', 'Download')}: ${updFmtMB(updGzOk(j) ? j.gzSize : j.size)}</p><ul>${updNotes(j).map(s => `<li>${esc(s)}</li>`).join('')}</ul><div class="updbar" id="updBar" hidden><i></i></div><p class="hint" id="updMsg">${L2('Tu partida se guarda antes de reiniciar.', 'Your game is saved before restarting.')}</p><div class="row"><button class="btn gold" id="updGo">${L2('Actualizar ahora', 'Update now')}</button><button class="btn" id="updLater">${L2('Más tarde', 'Later')}</button></div></div>`, 'updmodal');
   $('#updLater').onclick = () => { if (!UPD.busy) closeModal(); };
   $('#updGo').onclick = async () => {
     if (UPD.busy) return; UPD.busy = true; $('#updGo').disabled = true; $('#updLater').disabled = true;

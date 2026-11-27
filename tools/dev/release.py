@@ -11,7 +11,7 @@ Después hay que subir la carpeta update/ a la rama main de GitHub: los teléfon
 https://raw.githubusercontent.com/<repo>/main/update/version.json.
 El APK se compila aparte con tools/apk/build_apk.py y la clave de siempre.
 """
-import hashlib, json, os, re, subprocess, sys
+import gzip, hashlib, json, os, re, subprocess, sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 SRC = os.path.join(ROOT, 'src', '6zv_update.js')
@@ -42,14 +42,20 @@ def main():
         raise SystemExit('dist/test.html no tiene GAME_BUILD = %d: vuelve a compilar.' % build)
     os.makedirs(OUT, exist_ok=True)
     open(os.path.join(OUT, 'thebound.html'), 'wb').write(html)
+    # 6.56: copia comprimida para los teléfonos con 6.56 o más (descargan ~40 % menos). Los de antes siguen usando
+    # thebound.html, así que hay que subir los dos.
+    gz = gzip.compress(html, 9, mtime=0)
+    open(os.path.join(OUT, 'thebound.html.gz'), 'wb').write(gz)
     info = {
         'build': build, 'ver': ver, 'date': entry.get('d', ''), 'file': 'thebound.html',
         'size': len(html), 'sha256': hashlib.sha256(html).hexdigest(), 'minApk': min_apk,
+        'gz': 'thebound.html.gz', 'gzSize': len(gz), 'gzSha256': hashlib.sha256(gz).hexdigest(),
         'apk': 'https://github.com/ventisca-gif/the-bound/releases/latest',
         'notes': {'es': entry.get('es', []), 'en': entry.get('en', [])},
     }
     open(os.path.join(OUT, 'version.json'), 'w', encoding='utf-8').write(json.dumps(info, ensure_ascii=False, indent=1) + '\n')
-    print('update', ver, 'build', build, 'bytes', len(html), 'sha256', info['sha256'][:16] + '…')
+    print('update', ver, 'build', build, 'bytes', len(html), 'gz', len(gz), 'sha256', info['sha256'][:16] + '…')
+    if len(html) > 140e6: print('AVISO: más de 140 MB; el actualizador acepta hasta 150 MB')
 
 
 if __name__ == '__main__':
