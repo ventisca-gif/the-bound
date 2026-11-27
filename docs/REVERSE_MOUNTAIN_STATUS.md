@@ -1,22 +1,26 @@
-# Reverse Mountain / Cabos Gemelos — pendiente de publicación
+# Reverse Mountain y Cabos Gemelos — 6.63, build 285
 
-Base conservada: `main` 5ee9729 (6.62, build 284), incluidos Brasil y todas las novedades de Claude. Rama: `chatgpt/reverse-mountain-663`.
+La actualización conserva `main` 5ee9729 (6.62), incluidos Brasil, Río de Janeiro, Iguazú y todas las novedades anteriores de Claude.
 
-- La propuesta anterior coincidía con Shells Town. La zona se mueve a una extensión libre al sureste del mismo mapa Dawn (y=1052–1381), sin cambiar las islas existentes.
-- Canales transitables con el radio de colisión real del Merry; muelle, faros, casa y Crocus con recursos originales. Terreno dibujado con las texturas nativas de Dawn.
-- Las tres escenas usan el Merry y los atlas de los personajes y del jugador del motor original.
-- Laboon conserva `rmDone`; recompensa y progreso se registran antes de la cinemática y no se pueden cobrar dos veces. Un encuentro interrumpido al salir de Dawn se puede reintentar.
-- La primera isla del Grand Line no se añade. La futura salida solo informa de que el nuevo mar sigue cerrado.
+## Integración
 
-Validación del 27/11/2026:
+- Zona nativa en una extensión libre al sureste del mar de Dawn, y=1052–1381. La propuesta anterior coincidía con Shells Town; las islas existentes se conservan.
+- Canales navegables con el radio real de colisión del Going Merry; muelle, dos faros, casa y Crocus. Texturas y recursos del motor original.
+- Las escenas usan el Merry y los atlas originales de la tripulación y del personaje del jugador.
+- Se conserva `rmDone`. El Log Pose y el oro se registran junto con el progreso antes de la cinemática; el premio no se repite. Un encuentro interrumpido al abandonar Dawn se puede reintentar.
+- La primera isla del Grand Line no está incluida; tendrá otro mapa marítimo. La salida futura permanece cerrada.
 
-- `python3 build.py`: correcta (traducción con Acorn, SDK Photon presente).
-- `node --check` sobre las fuentes concatenadas: correcto.
-- `python3 tools/dev/capas.py`: 0 envolturas nuevas.
-- `node tests/reverse_mountain.js`: 1210 muestras de canales, muelle, Crocus, amarre, conservación de terreno y generación idempotente, correctos.
-- Navegador de vista previa: inicio y carga de partida correctos. Comprobación de canales, bloqueo/desbloqueo del desembarco, premio único, atlas de las tres escenas, guardado de `rmDone`, regreso al barco y salida futura cerrada: correctos.
-- El ejecutable Chromium de las pruebas Python no está instalado (`/usr/bin/google-chrome` ausente; el lanzador `/usr/bin/chromium` apunta a un binario ausente). No se han podido completar `reg.sh`, `upd.py`, `saves.py` ni `xact_sitio.py` con su ejecutor original. El ensayo alternativo de regresión en un iframe no equivale a esas pruebas y no cuenta como aprobado.
+## Validación completada el 27/11/2026
 
-**No publicar todavía**: no se modifica `update/`, `GAME_VER`, `GAME_BUILD` ni el pie de versión hasta pasar las pruebas pendientes. Antes de publicar, traer de nuevo `main`, resolver cualquier novedad de Claude sin sobrescribirla, repetir compilación/pruebas, elegir una versión libre y ejecutar `tools/dev/release.py`. Subir juntos HTML, gzip y manifest del actualizador.
+Ejecución: https://github.com/ventisca-gif/the-bound/actions/runs/46077026337
 
-Se añade `.github/workflows/reverse-mountain.yml` para ejecutar las comprobaciones completas en GitHub Actions. La ejecución no publica ni modifica el actualizador. Su resultado debe revisarse antes de fusionar.
+- Compilación, traducción y SDK Photon presentes.
+- 1210 muestras de canales, conservación del terreno anterior, Crocus, muelle, amarre e idempotencia correctos.
+- Escenas, recompensa única, guardado, bloqueo/desbloqueo del desembarco, regreso al barco y salida futura cerrada comprobados dentro del juego.
+- Regresión general y revisión estricta de 2043 prendas (1.329.900 dibujos), sin avisos de ajuste ni envolturas nuevas. Reutilización únicamente tras comprobar que sus entradas son idénticas, normalizando versión/novedades/pie de pantalla.
+- Actualizador: descarga gzip, conservación del oro de la partida, rechazo de SHA incorrecto, aviso de APK mínimo, rollback por arranque roto y por espera de 60 segundos, y alternativa HTML cuando falla el gzip. Sin errores de página inesperados.
+- Partidas de v4.3 y v5.31 migradas a v6.63 conservando nivel, oro y objetos, y guardadas de nuevo correctamente.
+- Acciones de todos los mapas: `RESULTS` vacío, sin errores.
+- HTML y gzip generados y comprobados por tamaño, SHA-256 y descompresión idéntica al HTML. `minApk` sigue en 24.
+
+La prueba del actualizador se corrigió para que la versión falsa se anuncie después de crear y guardar la partida; antes, su aviso podía tapar el botón de creación. Las pruebas específicas distinguen los mensajes conocidos de tiempo de espera del servidor externo de Photon de las excepciones del juego.
