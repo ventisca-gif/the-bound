@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.45', GAME_BUILD = 267;
+const GAME_VER = '6.46', GAME_BUILD = 268;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.46",
+ "b": 268,
+ "d": "2026-11-27",
+ "es": [
+  "Arreglo de las armas malditas: al quitarte un arma maldita y volver a ponértela perdía su pacto, el progreso para dominarla, y si estaba dominada o purificada (¡50.000 de oro!), y te volvía a ofrecer el pacto. Ahora lo conserva todo.",
+  "Revisado: equipar y quitar objetos malditos (anillo, collar, yelmo y armas con cada pacto) y normales, uno o varios a la vez, no baja tus estadísticas para siempre. Al quitarlos vuelven exactamente igual, y dos malditos a la vez suman sus efectos como deben."
+ ],
+ "en": [
+  "Cursed weapon fix: taking off a cursed weapon and putting it back on lost its pact, the progress to dominate it, and whether it was dominated or purified (50,000 gold!), and offered the pact again. Now it keeps everything.",
+  "Checked: equipping and removing cursed items (ring, necklace, helm and weapons with each pact) and normal ones, one or several at once, doesn't lower your stats permanently. When removed they go back exactly the same, and two cursed items at once add up their effects as they should."
+ ]
+},
 {
  "v": "6.45",
  "b": 267,
