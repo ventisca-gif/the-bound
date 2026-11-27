@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.50', GAME_BUILD = 272;
+const GAME_VER = '6.51', GAME_BUILD = 273;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.51",
+ "b": 273,
+ "d": "2026-11-27",
+ "es": [
+  "Vestuario de la Torre Infinita: 33 prendas cosméticas nuevas en 14 conjuntos (crop top y short de volantes, vestido salvia de mangas abullonadas, blazer de espiga con pañuelo, chaqueta utilitaria oliva, gabardina, blazer de cuadros, top halter con pantalón ancho blanco, suéter de rayas con minifalda vaquera y gorra, conjuntos de girasol, carácter fuerte y afilado, gótico de volantes, perlas, otoño y calabaza). Para todas las estructuras de cuerpo, de hombre y de mujer, en las cuatro direcciones.",
+  "Cómo se consiguen: cada 5 pisos superados de la Torre Infinita (en cualquier modo) recibes la siguiente prenda, y los jefes de la torre dan una prenda que te falte (15 %, segura a los 6 jefes). Lupa › Sistemas › 🧥 Vestuario de la Torre muestra lo que tienes y el siguiente premio."
+ ],
+ "en": [
+  "Infinite Tower wardrobe: 33 new cosmetic pieces in 14 sets (crop top and ruffle shorts, sage puff-sleeve dress, herringbone blazer with scarf, olive utility jacket, trench coat, plaid blazer, halter top with white wide-leg trousers, striped sweater with denim mini skirt and cap, sunflower, strong and sharp character, ruffled gothic, pearls, autumn and pumpkin sets). For every body structure, male and female, in all four directions.",
+  "How to get them: every 5 floors cleared in the Infinite Tower (any mode) gives you the next piece, and tower bosses drop a piece you are missing (15%, guaranteed by the 6th boss). Magnifier › Systems › 🧥 Tower wardrobe shows what you have and the next reward."
+ ]
+},
 {
  "v": "6.50",
  "b": 272,

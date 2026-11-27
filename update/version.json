@@ -1,20 +1,20 @@
 {
- "build": 272,
- "ver": "6.50",
+ "build": 273,
+ "ver": "6.51",
  "date": "2026-11-27",
  "file": "thebound.html",
- "size": 39467869,
- "sha256": "b32ddbb100b4bf7ce16ffddcc99501e7fbf3eeb7e79c872758a78b2d83b3d21b",
+ "size": 39511711,
+ "sha256": "fccf1dde1dc6d2fed1b1046ed6eb59116f5e422ae496e7e293140c50ea9422c2",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Torre Infinita en línea (de 2 a 7 jugadores): si caes y queda otro jugador de tu grupo en el piso, quedas «Derribado» 18 segundos, como en el mundo normal. Tu amigo puede reanimarte con el botón de acción a tu lado. Si nadie llega o te rindes, tu subida termina como antes. Si tu grupo sube de piso mientras estás derribado, te levantas y vas con ellos.",
-   "Torre Infinita en equipo de 4 (con jugadores cazadores y cazadores de los portales): si caes y queda un compañero en pie, quedas «Derribado» y el compañero más cercano corre a levantarte. Tú también puedes reanimar a un compañero caído con el botón de acción a su lado. Si el equipo supera el piso mientras estás derribado, te levantas."
+   "Vestuario de la Torre Infinita: 33 prendas cosméticas nuevas en 14 conjuntos (crop top y short de volantes, vestido salvia de mangas abullonadas, blazer de espiga con pañuelo, chaqueta utilitaria oliva, gabardina, blazer de cuadros, top halter con pantalón ancho blanco, suéter de rayas con minifalda vaquera y gorra, conjuntos de girasol, carácter fuerte y afilado, gótico de volantes, perlas, otoño y calabaza). Para todas las estructuras de cuerpo, de hombre y de mujer, en las cuatro direcciones.",
+   "Cómo se consiguen: cada 5 pisos superados de la Torre Infinita (en cualquier modo) recibes la siguiente prenda, y los jefes de la torre dan una prenda que te falte (15 %, segura a los 6 jefes). Lupa › Sistemas › 🧥 Vestuario de la Torre muestra lo que tienes y el siguiente premio."
   ],
   "en": [
-   "Online Infinite Tower (2 to 7 players): if you fall and another player from your group is still on the floor, you are «Downed» for 18 seconds, like in the normal world. Your friend can revive you with the action button next to you. If nobody comes or you give up, your climb ends as before. If your group goes up a floor while you are downed, you get up and go with them.",
-   "Infinite Tower team of 4 (with player hunters and portal hunters): if you fall and a teammate is still standing, you are «Downed» and the closest teammate runs to get you up. You can also revive a fallen teammate with the action button next to them. If the team clears the floor while you are downed, you get up."
+   "Infinite Tower wardrobe: 33 new cosmetic pieces in 14 sets (crop top and ruffle shorts, sage puff-sleeve dress, herringbone blazer with scarf, olive utility jacket, trench coat, plaid blazer, halter top with white wide-leg trousers, striped sweater with denim mini skirt and cap, sunflower, strong and sharp character, ruffled gothic, pearls, autumn and pumpkin sets). For every body structure, male and female, in all four directions.",
+   "How to get them: every 5 floors cleared in the Infinite Tower (any mode) gives you the next piece, and tower bosses drop a piece you are missing (15%, guaranteed by the 6th boss). Magnifier › Systems › 🧥 Tower wardrobe shows what you have and the next reward."
   ]
  }
 }
