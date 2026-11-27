@@ -95,7 +95,7 @@ hookBefore('killMob', m => { if (!m || m !== ARC.jy) return; const P = G.P, J = 
   setTimeout(() => banner('📜 ' + J.n + ' ' + L2('capturado', 'captured'), '+' + fmt(J.prize) + ' ' + L2('oro · Johnny y Yosaku se quedan su parte', 'gold · Johnny and Yosaku keep their share')), 500); markDirty(true); });
 
 // ---------- 12) La Montaña del Revés y Laboon ----------
-const RM_AT = [1600, 110];   // casilla del mar (noreste)
+const RM_AT = [1578, 268];   // bahía de Cabos Gemelos (noreste); conserva rmDone de partidas anteriores
 XSPR.rm_montana = () => { const p = new Pix(160, 120);
   p.poly([[0, 118], [56, 10], [80, 2], [104, 10], [160, 118]], C('#8a2a1a')); p.poly([[20, 118], [62, 26], [80, 18], [98, 26], [140, 118]], C('#b83a22'));
   p.poly([[70, 118], [76, 20], [84, 20], [90, 118]], C('#4a9ae0')); for (let y = 24; y < 118; y += 6) p.hl(76 + ((y / 6) % 2), y, 8, C('#bfe6ff'));
@@ -111,7 +111,7 @@ const rmLaboonSpr = mark => () => { const p = new Pix(160, 76), B = pal(['#1e346
   else for (let k = 0; k < 6; k++) p.set(44 + k * 3, 14 + (k % 2) * 3, B[0]);   // cicatrices de golpear la montaña
   p.poly([[60, 52], [76, 66], [80, 54]], B[1]); p.outline(OUTL); return { c: p.canvas(), ax: 80, ay: 70 }; };
 XSPR.rm_laboon = rmLaboonSpr(false); XSPR.rm_laboonp = rmLaboonSpr(true);
-DL_HOOKS.push(list => { const M = G.map; if (!M || !M.dawn) return; const [x, y] = dawnPx(RM_AT);
+DL_HOOKS.push(list => { const M = G.map; if (!M || !M.dawn || M.rmCape) return; const [x, y] = dawnPx([1600, 110]);
   list.push({ type: 'xdraw', x, y, draw: (e, cx, cy) => { const s = spr('rm:montana', XSPR.rm_montana); ctx.save(); ctx.imageSmoothingEnabled = false; ctx.translate(Math.round(x - cx), Math.round(y - cy)); ctx.scale(3, 3); ctx.drawImage(s.c, -s.ax, -s.ay); ctx.restore(); } }); });
 const cnSpr = (x, k, X, Y, W, H) => { const d = spr('cn:' + k, XSPR[k]); x.imageSmoothingEnabled = false; x.drawImage(d.c, Math.round(X), Math.round(Y), Math.round(W), Math.round(H)); };
 Object.assign(CN_SC, {
@@ -124,7 +124,7 @@ Object.assign(CN_SC, {
     cnR(x, '#e8c040', 60, 20 + Math.sin(t * 4) * 2, 18, 5); cnR(x, '#c84a2a', 60, 24 + Math.sin(t * 4) * 2, 18, 2); cnR(x, '#f0c8a0', 64, 26 + Math.sin(t * 4) * 2, 10, 8); }   // Luffy sobre la cabeza
 });
 function rmCanStart(P) { return !!(P && !P.rmDone && P.dawnCrewJoined && (P.logueArcN || 0) >= 1 && P.dawnHelm && P.dawnHelm.kind === 'skiff' && !ARC.rm && !nvCalm()); }
-V33_TICKS.push(() => { const P = G.P, M = G.map; if (!P || !M || !M.dawn) return; const [x, y] = dawnPx(RM_AT);
+V33_TICKS.push(() => { const P = G.P, M = G.map; if (!P || !M || !M.dawn) return; const [x, y] = dawnPx(M.rmCape ? RM_AT : [1600, 110]);
   if (rmCanStart(P) && Math.hypot(P.x - x, P.y - y) < 520) {
     ARC.rm = { ph: 'cine' };
     cinePlay([
