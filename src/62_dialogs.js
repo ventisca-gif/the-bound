@@ -11,9 +11,12 @@ function openDialog(npc) {
 function closeDialog() { if ($('#dialog').hidden) return; $('#dialog').hidden = true; dlg = null; G.paused = !$('#panel').hidden || !$('#modal').hidden; }
 let typeTimer = null;
 function typeText(s, cb) { const el = $('#dmsg'); clearInterval(typeTimer); let i = 0; el.textContent = ''; const full = s; el.onclick = () => { clearInterval(typeTimer); el.textContent = full; cb && cb(); el.onclick = null; }; typeTimer = setInterval(() => { i += 2; el.textContent = full.slice(0, i); if (i >= full.length) { clearInterval(typeTimer); el.onclick = null; cb && cb(); } }, 18); }
-function setOpts(opts) { $('#dopts').innerHTML = opts.map((o, i) => `<button class="dopt ${o.cls || ''}" data-i="${i}">${o.icon ? iconHTML(o.icon, 18) : ''}<span>${o.label}</span></button>`).join(''); $$('#dopts .dopt').forEach(b => b.onclick = () => { sfx('ui'); opts[+b.dataset.i].fn(); }); }
+// 6.49: tras pulsar una opcion del menu principal se vuelve a armar la lista (sin tocar el texto),
+// asi desaparecen las opciones de una sola vez (regalos, recompensas) y no se pueden repetir.
+let dlgOptGen = 0, dlgMenuGen = -1;
+function setOpts(opts) { const gen = ++dlgOptGen; $('#dopts').innerHTML = opts.map((o, i) => `<button class="dopt ${o.cls || ''}" data-i="${i}">${o.icon ? iconHTML(o.icon, 18) : ''}<span>${o.label}</span></button>`).join(''); $$('#dopts .dopt').forEach(b => b.onclick = () => { if (gen !== dlgOptGen) return; sfx('ui'); const d0 = dlg, o = opts[+b.dataset.i]; if (!o || typeof o.fn !== 'function') return; o.fn(); try { if (gen === dlgOptGen && dlgMenuGen === gen && dlg && dlg === d0 && !$('#dialog').hidden) dialogMenu(null, true); } catch (e) { } }); }
 function showLines(lines, done) { let k = 0; const next = () => { if (k >= lines.length) { done(); return; } const line = lines[k++]; setOpts([]); typeText(line, () => setOpts([{ label: k < lines.length ? 'Continuar ›' : 'Continuar ›', fn: next }])); }; next(); }
-function dialogMenu(greet) {
+function dialogMenu(greet, keepText) {
   const P = G.P, npc = dlg.npc, def = npc.def, opts = [];
   for (const id in P.quests.active) { const Q = QD(id); if (!Q.board && questReady(id) && sameNpc(turnInNpc(Q), npc.id)) opts.push({ label: '<b class="q">?</b> Completar: ' + esc(Q.n), cls: 'quest', fn: () => showLines(Q.done || ['¡Bien hecho!'], () => { completeQuest(id); dialogMenu(); }) }); }
   for (const id of (def.quests || [])) if (canOffer(id)) { const Q = QUESTS[id]; opts.push({ label: '<b class="q">!</b> ' + esc(Q.n) + (Q.main ? ' <i>(historia)</i>' : ''), cls: 'quest', fn: () => showLines(Q.offer, () => offerQuest(id)) }); }
@@ -36,7 +39,7 @@ function dialogMenu(greet) {
   for (const h of DLG_HOOKS) h(npc, opts);
   opts.push({ label: 'Charlar', icon: ['talk'], fn: () => typeText(def.lines[Math.floor(Math.random() * def.lines.length)]) });
   opts.push({ label: 'Adiós', fn: closeDialog, cls: 'bye' });
-  setOpts(opts); if (greet) typeText(greet); else typeText('¿Algo más?');
+  setOpts(opts); dlgMenuGen = dlgOptGen; if (keepText) return; if (greet) typeText(greet); else typeText('¿Algo más?');
 }
 function rewardsHTML(R) { return `${R.xp ? `<span>${fmt(R.xp)} XP</span>` : ''}${R.gold ? `<span>${iconHTML(['coin'], 14)} ${fmt(R.gold)}</span>` : ''}${(R.items || []).map(([id, n]) => `<span>${iconHTML(ITEMS[id].icon, 16)} ${esc(ITEMS[id].n)}${n > 1 ? ' ×' + n : ''}</span>`).join('')}`; }
 function offerQuest(id) {

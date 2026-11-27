@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.48', GAME_BUILD = 270;
+const GAME_VER = '6.49', GAME_BUILD = 271;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.49",
+ "b": 271,
+ "d": "2026-11-27",
+ "es": [
+  "Arreglo grave: los vecinos que te visitan en casa daban regalos infinitos si no cerrabas la ventana y seguías pulsando «Recibir su regalo». Ahora el botón desaparece en cuanto recibes el regalo.",
+  "Arreglo general de las conversaciones: al pulsar una opción del menú de un personaje, la lista se actualiza sola, así las recompensas de una sola vez (regalos, títulos, cobros) ya no se pueden repetir. Los botones viejos que quedaban en pantalla ya no hacen nada.",
+  "El botón ↩ (última ventana) ya no tapa el texto de la Bitácora: se coloca justo a su derecha."
+ ],
+ "en": [
+  "Major fix: neighbours visiting your home gave infinite gifts if you kept the window open and pressed «Accept the gift» again. Now the button disappears as soon as you get the gift.",
+  "General conversation fix: after choosing an option in a character's menu, the list refreshes by itself, so one-time rewards (gifts, titles, payouts) can no longer be repeated. Stale buttons left on screen no longer do anything.",
+  "The ↩ button (last window) no longer covers the Logbook text: it now sits right next to it."
+ ]
+},
 {
  "v": "6.48",
  "b": 270,

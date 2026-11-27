@@ -104,7 +104,9 @@ V33_TICKS.push(dt => { bitHudT -= dt || 0; if (bitHudT > 0) return; bitHudT = 0.
   const d = $('#bBit .bdot'); if (d && bitBadge) { bitBadge = false; const b = BIT(), n = bitReady().length + b.mail.filter(m => !m.r).length + (b.px && Date.now() >= b.px.end ? 1 : 0); d.hidden = !n; d.textContent = n > 9 ? '9+' : n || ''; }
   try { const bb = $('#bBit'), tr = $('#tracker'), sc = $('#secChip'); if (bb) { let bot = 0; for (const el of [tr, sc]) if (el && !el.hidden) { const r = el.getBoundingClientRect(); if (r.height) bot = Math.max(bot, r.bottom); } const hr = $('#hud').getBoundingClientRect();
     const top = bot ? bot - hr.top + 6 : null; const v = top === null ? '' : top + 'px'; if (bb.style.top !== v) { bb.style.top = v; const lb = $('#bLast'); if (lb) lb.style.top = v; } const pt = $('#party'); if (pt) { const r2 = bb.getBoundingClientRect(), nv = (r2.bottom - hr.top + 6) + 'px'; if (pt.style.top !== nv) pt.style.top = nv; } } } catch (e) { }
-  const l = $('#bLast'); if (l) { const w = SETTINGS.lastW; l.hidden = !w; if (w && l.dataset.w !== w) { l.dataset.w = w; l.innerHTML = '↩ ' + (LASTW_IC[w.split(':')[1]] || '📖'); } } });
+  const l = $('#bLast'); if (l) { const w = SETTINGS.lastW; l.hidden = !w; if (w && l.dataset.w !== w) { l.dataset.w = w; l.innerHTML = '↩ ' + (LASTW_IC[w.split(':')[1]] || '📖'); }
+    // 6.49: ↩ va justo a la derecha de la Bitácora (antes tapaba su texto con letras anchas)
+    try { const bb = $('#bBit'); if (w && bb && !bb.hidden) { const hr = $('#hud').getBoundingClientRect(), r = bb.getBoundingClientRect(); if (r.width) { const v = Math.round(r.right - hr.left + 6) + 'px'; if (l.style.left !== v) l.style.left = v; } } } catch (e) { } } });
 setInterval(() => { bitBadge = true; }, 5000);
 // última ventana
 const LASTW_IC = { char: '🧍', inv: '🎒', skills: '⭐', jobs: '⚒', quest: '📜', map: '🗺', wardrobe: '👗', best: '🐾', rel: '❤', hoy: '📖', logros: '🏆', cartas: '🃏', album: '📷', mascota: '🐾', buzon: '✉', marcos: '🖼' };

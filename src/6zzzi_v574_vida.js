@@ -156,7 +156,7 @@ NPCS.v74_vecino = { n: L2('Vecino Tomás', 'Neighbour Tomás'), title: L2('De vi
 const V74_GIFT = [['pan', 2], ['ensalada', 1], ['trigo', 4], ['zanahoria', 3], ['tomate', 3], ['pe_alfajor', 2]];
 function v74HomeVisit(M) { const S = V74(), d = calDay(), h = hourNow(); if (S.vis === d || h < 9 || h >= 19) return; S.vis = d; if (Math.random() > 0.55) return;
   const id = Math.random() < 0.5 ? 'v74_vecina' : 'v74_vecino', e = spawnNPC(id, 14 * 16 + 8 + (Math.random() < 0.5 ? -40 : 40), 19 * 16 + 8, M.id, { face: 'up', wander: 1, L: 0 }); if (!e) return; e.v74vis = 1; e.chat = L2('¡Hola, vecin' + (v74Fem() ? 'a' : 'o') + '!', 'Hello, neighbour!'); e.chatT = G.t + 1; }
-DLG_HOOKS.push((npc, opts) => { try { if (!npc.v74vis || npc.v74gave) return; opts.unshift({ label: '🎁 ' + L2('Recibir su regalo', 'Accept the gift'), cls: 'quest', icon: ['coin'], fn: () => { npc.v74gave = 1; const g = pick(V74_GIFT.filter(x => ITEMS[x[0]])); if (g) giveItem(g[0], g[1]); typeText(L2('¡Para ti! Que lo disfrutes con tu familia.', 'For you! Enjoy it with your family.')); } }); } catch (e) { } });
+DLG_HOOKS.push((npc, opts) => { try { if (!npc.v74vis || npc.v74gave) return; opts.unshift({ label: '🎁 ' + L2('Recibir su regalo', 'Accept the gift'), cls: 'quest', icon: ['coin'], fn: () => { if (npc.v74gave) { typeText(L2('Ya te di mi regalo de hoy.', 'I already gave you my gift today.')); return; } npc.v74gave = 1; const g = pick(V74_GIFT.filter(x => ITEMS[x[0]])); if (g) giveItem(g[0], g[1]); typeText(L2('¡Para ti! Que lo disfrutes con tu familia.', 'For you! Enjoy it with your family.')); } }); } catch (e) { } });
 
 // =====================================================================================
 // 4) ANIMALES SUELTOS: gatos, perros y palomas (llamas extra en Cusco)
