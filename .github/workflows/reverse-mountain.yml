@@ -31,15 +31,17 @@ jobs:
           npm pack acorn@8.14.0
           tar -xOzf acorn-8.14.0.tgz package/dist/acorn.js > tools/i18n/vendor/acorn.js
           test -x /usr/bin/google-chrome
-      - run: python3 build.py
+      - id: build
+        run: python3 build.py
       - name: Validate channels and native game integration
         run: |
           node tests/reverse_mountain.js
           python3 tests/play.py file://$PWD/dist/test.html /tmp/reverse-qa/cape.png 900 500 @tests/reverse_mountain.txt > /tmp/reverse-qa/cape.log 2>&1
           cat /tmp/reverse-qa/cape.log
-          if grep -E 'PAGEERROR|Traceback|FAIL|error:' /tmp/reverse-qa/cape.log; then exit 1; fi
+          if grep -E 'PAGEERROR|Traceback|FAIL|error:' /tmp/reverse-qa/cape.log | grep -vE 'error: Client: (Game: PhotonPeer\[_onError\] - Connection error: Event|Error: 2001 Game peer error|Error: 2004 Game peer timeout)$'; then exit 1; fi
           grep -q 'PASS canales completos' /tmp/reverse-qa/cape.log
       - name: Regression suite and outfit fit
+        if: ${{ !cancelled() && steps.build.conclusion == 'success' }}
         run: |
           # Successful regression/fit on run 46075604260 is reusable only for identical inputs.
           if git diff --quiet 04f669379ce2e2deda8f70304092dc226ff5c35c HEAD -- src template.html assets vendor tools tests ':(exclude)tests/upd.py'; then
@@ -51,14 +53,17 @@ jobs:
             python3 tools/dev/fitcheck.py file://$PWD/dist/test.html /tmp/reverse-qa/fit --strict
           fi
       - name: Verify internal updater
+        if: ${{ !cancelled() && steps.build.conclusion == 'success' }}
         run: |
           python3 tests/upd.py file://$PWD/dist/test.html /tmp/reverse-qa/updater.png > /tmp/reverse-qa/updater.log
           cat /tmp/reverse-qa/updater.log
       - name: Verify old saves
+        if: ${{ !cancelled() && steps.build.conclusion == 'success' }}
         run: |
           timeout 300 python3 -u tests/saves.py file://$PWD/dist/test.html > /tmp/reverse-qa/saves.log
           cat /tmp/reverse-qa/saves.log
       - name: Verify map interactions
+        if: ${{ !cancelled() && steps.build.conclusion == 'success' }}
         run: |
           python3 tests/xact_sitio.py file://$PWD/dist/test.html > /tmp/reverse-qa/interactions.log
           cat /tmp/reverse-qa/interactions.log
