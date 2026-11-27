@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.61', GAME_BUILD = 283;
+const GAME_VER = '6.62', GAME_BUILD = 284;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,21 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.62",
+ "b": 284,
+ "d": "2026-11-27",
+ "es": [
+  "🇧🇷 ¡Brasil! Avión desde Albor, Lima, México o España (2.500 de oro). Río de Janeiro: Copacabana con edificios frente al mar, el calçadão de ondas y la playa llena de sombrillas; el Cristo Redentor en lo alto del Corcovado (la cámara sube para verlo entero); el morro con casas de ladrillo y tanques azules; la Escalera Selarón y los arcos de Lapa; la Lagoa con el hipódromo.",
+  "🚡 Teleférico al Pan de Azúcar. 🌈 Cataratas del Iguazú con pasarelas sobre el río, niebla y arcoíris; 🚤 pilota el bote contra la corriente hasta la niebla de la cascada y vuelve. 🧩 Devuelve los azulejos caídos a los escalones de su color en la Selarón.",
+  "🌿 Pasto tropical nuevo, más verde y con florecitas. Comida: feijoada, pan de queso, acaí, agua de coco, coxinha y brigadeiro. Todo en Lupa › Ciudades y vida y en el Mapa."
+ ],
+ "en": [
+  "🇧🇷 Brazil! Plane from Albor, Lima, Mexico or Spain (2,500 gold). Rio de Janeiro: Copacabana with seafront buildings, the wave calçadão and a beach full of umbrellas; Christ the Redeemer on top of Corcovado (the camera rises to see it whole); the morro with brick houses and blue tanks; the Selarón Steps and the Lapa arches; the Lagoa with the racecourse.",
+  "🚡 Cable car to the Sugarloaf. 🌈 Iguazu Falls with walkways over the river, mist and rainbow; 🚤 pilot the boat against the current to the falls' mist and back. 🧩 Put the fallen tiles back on the steps of their colour at the Selarón.",
+  "🌿 New tropical grass, greener and with little flowers. Food: feijoada, cheese bread, açaí, coconut water, coxinha and brigadeiro. All in Magnifier › Cities and life and on the Map."
+ ]
+},
 {
  "v": "6.61",
  "b": 283,
