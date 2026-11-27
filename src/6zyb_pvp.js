@@ -5,7 +5,7 @@
 // - Multiplicador de daño PvP por clase (PVP_CLS) calculado con tools/dev/pvp.py --solve para que, a nivel máximo,
 //   todas las clases puedan hacerse frente.
 const PVP_HEAL = 0.4, PVP_WINDOW = 8, PVP_HEALC = { bardo: 0.12 };   // el Bardo cura muchísimo: en PvP sus curas cuentan menos que las del resto
-const PVP_CLS = { guerrero: 0.56, mago: 1.06, arquero: 1.11, asesino: 1.65, bardo: 0.64, invocador: 1.98, pez: 0.72 };   // tools/dev/pvp.py --solve (v6.18, nivel 700; antes v5.78)
+const PVP_CLS = { guerrero: 0.57, mago: 0.98, arquero: 1.12, asesino: 1.68, bardo: 0.65, invocador: 1.98, pez: 0.74 };   // tools/dev/pvp.py --solve (v6.58, nivel 700: el mago había subido a 1,12; antes v6.18)
 function pvpActive() { const P = G.P; return !!(P && P.pvpT && G.t - P.pvpT < PVP_WINDOW); }
 { const _ph = pvpHit; pvpHit = function (r, dmg) { const P = G.P; if (P) P.pvpT = G.t; return _ph(r, dmg * (PVP_CLS[P && P.cls] || 1)); }; }
 { const _hp = hurtPlayer; hurtPlayer = function (base, src) { if (src && src.pvp && G.P) G.P.pvpT = G.t; return _hp(base, src); }; }

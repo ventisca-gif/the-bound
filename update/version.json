@@ -1,21 +1,27 @@
 {
- "build": 279,
- "ver": "6.57",
+ "build": 280,
+ "ver": "6.58",
  "date": "2026-11-27",
  "file": "thebound.html",
- "size": 35957695,
- "sha256": "b44b27ecfba56f56de5fa045d13a17670e390e8b24f240ba789f85c9798276c9",
+ "size": 35965307,
+ "sha256": "710d613f447e97d1d00aef484c1ff55ef6683980e32b1cb2a7b7349d53cb1b5f",
  "minApk": 24,
  "gz": "thebound.html.gz",
- "gzSize": 21902148,
- "gzSha256": "ded178330704e825172b71f3a9c03aee5e8bc90c7416a4537494551fe680e448",
+ "gzSize": 21905460,
+ "gzSha256": "024c1016237b95caca1da38d15a288516ebca2190e9b774a2b6f5840efba24e8",
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "📦 El juego pesa 3,6 MB menos (39,6 → 35,9 MB): las 564 imágenes de sprites, mapas y armas se recomprimieron sin pérdida. Los píxeles son exactamente los mismos; solo carga y se actualiza antes."
+   "📔 Diario del héroe con dibujo: cada página nueva guarda cómo eras ese día (cuerpo, pelo, armadura y cosméticos) y el libro te dibuja junto a la hazaña.",
+   "🔮 Guardia arcana (mago) e 🌲 Instinto del bosque (arquero): desde nivel 200 reciben menos daño de monstruos y jefes (hasta −40 % y −50 % a nivel 700). No cuenta en PvP. Se ve en Personaje.",
+   "⚖ PvP: el mago había quedado un poco fuerte en duelo; las 7 clases vuelven a estar igualadas.",
+   "Arreglos: el nombre del NPC más cercano ya no se dibuja encima de otro; la Fruta Transparente dice bien dónde aparece."
   ],
   "en": [
-   "📦 The game is 3.6 MB smaller (39.6 → 35.9 MB): the 564 sprite, map and weapon images were recompressed losslessly. The pixels are exactly the same; it just loads and updates faster."
+   "📔 Hero's diary with drawings: every new page saves how you looked that day (body, hair, armour and cosmetics) and the book draws you next to the deed.",
+   "🔮 Arcane guard (mage) and 🌲 Forest instinct (archer): from level 200 they take less damage from monsters and bosses (up to −40% and −50% at level 700). Not in PvP. Shown in Character.",
+   "⚖ PvP: the mage had become a bit strong in duels; all 7 classes are even again.",
+   "Fixes: the nearest NPC's name no longer draws over another; the Clear Fruit says correctly where it appears."
   ]
  }
 }
