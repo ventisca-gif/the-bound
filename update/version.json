@@ -1,20 +1,20 @@
 {
- "build": 267,
- "ver": "6.45",
+ "build": 268,
+ "ver": "6.46",
  "date": "2026-11-27",
  "file": "thebound.html",
- "size": 39443600,
- "sha256": "acdecf229e8b21bda5ea9c54b5eeec0a116e1d0ed3d83b76947384de5f38217f",
+ "size": 39446233,
+ "sha256": "780dcf97db0a57aa74df3f4142f83cb3980431bb7d08d2941c16542a679a16e6",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Arreglo grave de la Torre Infinita en equipo: con un jugador cazador de compañero la vida salía «NaN», los enemigos se quedaban a 0 sin morir y se les seguía pegando sin fin (con lag). Ahora los compañeros tienen su vida y su ataque de verdad, los enemigos mueren y se sube de piso con normalidad. Además, si alguna vez aparece un número roto, el juego lo corrige solo.",
-   "Jugadores cazadores con instinto de supervivencia: esquivan con dash (más los ágiles), llevan sus propias pociones (las gastan y las recuperan con el tiempo) y, si se quedan sin pociones y con poca vida, huyen y se sientan a recuperarse antes de volver a pelear."
+   "Arreglo de las armas malditas: al quitarte un arma maldita y volver a ponértela perdía su pacto, el progreso para dominarla, y si estaba dominada o purificada (¡50.000 de oro!), y te volvía a ofrecer el pacto. Ahora lo conserva todo.",
+   "Revisado: equipar y quitar objetos malditos (anillo, collar, yelmo y armas con cada pacto) y normales, uno o varios a la vez, no baja tus estadísticas para siempre. Al quitarlos vuelven exactamente igual, y dos malditos a la vez suman sus efectos como deben."
   ],
   "en": [
-   "Major fix for the Infinite Tower in a team: with a player hunter as a companion, HP showed “NaN”, enemies stayed at 0 without dying and kept being hit endlessly (with lag). Companions now have their real HP and attack, enemies die and floors go up normally. If a broken number ever appears, the game fixes it on its own.",
-   "Player hunters with survival instinct: they dodge with a dash (agile ones more), carry their own potions (they use them and get them back over time) and, when out of potions and low on HP, they run away and sit down to recover before fighting again."
+   "Cursed weapon fix: taking off a cursed weapon and putting it back on lost its pact, the progress to dominate it, and whether it was dominated or purified (50,000 gold!), and offered the pact again. Now it keeps everything.",
+   "Checked: equipping and removing cursed items (ring, necklace, helm and weapons with each pact) and normal ones, one or several at once, doesn't lower your stats permanently. When removed they go back exactly the same, and two cursed items at once add up their effects as they should."
   ]
  }
 }
