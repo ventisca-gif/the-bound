@@ -1,0 +1,20 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], setInterval(()=>{ if(!$('#modal').hidden && /Bienvenido|Welcome/.test($('#mbody').textContent)) { const b=$('#dlOk'); if (b) b.click(); else closeModal(); } }, 150), window.addEventListener('error', e=>window._errs.push(e.message)), G.P.lv=300, calcStats(G.P), 1)
+wait 2500
+js (tiStart(5,'solo'), 1)
+wait 3500
+js (()=>{ for (const e of G.ents) if (e.type==='mob'&&e.ti) { e.hp=0; killMob(e); } return 1; })()
+wait 2500
+js [TI && TI.cleared, G.P.twWard, (G.P.wardrobe||[]).filter(x=>/^c_tw_/.test(x))]
+js (()=>{ const P=G.P; TI.floor=10; TI.cleared=false; P.twWard.pity=5; const b=G.ents.find(e=>e.type==='mob'&&e.ti&&e.boss); const m=spawnMob(tiDef(TI_BPOOL[0],true),50,P.x+40,P.y,0,null,true); m.map=TI_MAP; m.ti=1; m.hp=0; killMob(m); return (P.wardrobe||[]).filter(x=>/^c_tw_/.test(x)).length; })()
+wait 1500
+js (()=>{ const P=G.P; tiEnd('left'); return 1; })()
+wait 2500
+js (closeModal(), G.P.cos={body:'c_tw_trench',legs:'c_tw_chino',back:'c_tw_mochila'}, refreshLook(), 1)
+wait 800
+shot
+js (G.P.app.g='f', G.P.cos={body:'c_tw_halter',legs:'c_tw_wide',feet:'c_tw_sandalias',head:'c_tw_gafas',back:'c_tw_mimbre'}, refreshLook(), 1)
+wait 800
+shot
+js (()=>{ const g=GSIS.find(x=>x[0]==='n_torre_ropa'); return g[2]().slice(2,4); })()
+js window._errs
