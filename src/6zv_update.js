@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.42', GAME_BUILD = 264;
+const GAME_VER = '6.43', GAME_BUILD = 265;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.43",
+ "b": 265,
+ "d": "2026-11-27",
+ "es": [
+  "Torre Infinita: en la Torre de los Portales, el portal dorado del centro. Salas sin fin: cada piso los enemigos suben 5 niveles y entran 5 o más, y cada 10 pisos hay un jefe. Salen todos los enemigos y jefes del juego, y 6 enemigos y 2 jefes nuevos propios de la torre, con mecánicas por piso (rápidos, acorazados, furiosos, enjambre, élite, oscuridad, se regeneran o explotan). Pueden pasar del nivel 700: es una prueba de resistencia con top en línea.",
+  "Si caes en la torre no mueres como siempre: la subida termina, vuelves a la entrada y tu mejor piso queda en el top. Puedes volver a empezar en el último múltiplo de 10 que superaste.",
+  "Cazadores por todo el mundo: en cada mapa abierto y en las ciudades hay 8-18 cazadores que juegan como jugadores (Zack, Luna, Vale99…). Farmean, talan, pican y suben de nivel solos; no te ayudan ni comparten experiencia, y no te roban los monstruos ni tu zona de farmeo. Habla con ellos para ver su perfil o desafiarlos a un duelo.",
+  "Hay algo menos de gente por las calles de España y muy poco menos en Perú."
+ ],
+ "en": [
+  "Infinite Tower: in the Portal Tower, the golden portal in the middle. Endless rooms: each floor enemies gain 5 levels and 5 or more come in, and every 10 floors there is a boss. Every enemy and boss in the game shows up, plus 6 enemies and 2 bosses of the tower’s own, with mechanics per floor (fast, armored, furious, swarm, elite, darkness, regenerating or exploding). They can go past level 700: it is an endurance test with an online leaderboard.",
+  "If you fall in the tower you don’t die as usual: the climb ends, you go back to the entrance and your best floor goes on the leaderboard. You can restart at the last multiple of 10 you cleared.",
+  "Hunters around the world: every open map and city has 8-18 hunters who play like players (Zack, Luna, Vale99…). They farm, chop, mine and level up on their own; they don’t help you or share XP, and they don’t steal your monsters or your farming zone. Talk to them to see their profile or challenge them to a duel.",
+  "Slightly fewer people on the streets of Spain and a little fewer in Peru."
+ ]
+},
 {
  "v": "6.42",
  "b": 264,
