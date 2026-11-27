@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.44', GAME_BUILD = 266;
+const GAME_VER = '6.45', GAME_BUILD = 267;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,19 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.45",
+ "b": 267,
+ "d": "2026-11-27",
+ "es": [
+  "Arreglo grave de la Torre Infinita en equipo: con un jugador cazador de compañero la vida salía «NaN», los enemigos se quedaban a 0 sin morir y se les seguía pegando sin fin (con lag). Ahora los compañeros tienen su vida y su ataque de verdad, los enemigos mueren y se sube de piso con normalidad. Además, si alguna vez aparece un número roto, el juego lo corrige solo.",
+  "Jugadores cazadores con instinto de supervivencia: esquivan con dash (más los ágiles), llevan sus propias pociones (las gastan y las recuperan con el tiempo) y, si se quedan sin pociones y con poca vida, huyen y se sientan a recuperarse antes de volver a pelear."
+ ],
+ "en": [
+  "Major fix for the Infinite Tower in a team: with a player hunter as a companion, HP showed “NaN”, enemies stayed at 0 without dying and kept being hit endlessly (with lag). Companions now have their real HP and attack, enemies die and floors go up normally. If a broken number ever appears, the game fixes it on its own.",
+  "Player hunters with survival instinct: they dodge with a dash (agile ones more), carry their own potions (they use them and get them back over time) and, when out of potions and low on HP, they run away and sit down to recover before fighting again."
+ ]
+},
 {
  "v": "6.44",
  "b": 266,

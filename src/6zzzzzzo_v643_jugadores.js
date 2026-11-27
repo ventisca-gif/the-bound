@@ -134,9 +134,11 @@ function aihKill(m, e) { m.hp = 0; m.dying = 0.001; setAnim(m, 'hurt'); burst(m.
 function aihFindMob(e) { const h = e.aih; let best = null, bd = 260 * 260; for (const m of G.ents) { if (m.type !== 'mob' || m.lv > h.lv + 8 || m.lv < Math.max(1, h.lv - 40) || (e.ai.skip && e.ai.skip.has(m)) || (m.L !== e.L && m.L >= 0 && e.L >= 0)) continue; const d = dist2(m.x, m.y, e.x, e.y); if (d < bd && aihFree(m, e)) { bd = d; best = m; } } return best; }
 function aihFindRes(e) { const M = G.map; if (!M.objs) return null; let best = null, bd = 180 * 180; for (const o of M.objs) { if (o.hidden || (o.k !== 'tree' && o.k !== 'ore')) continue; const d = dist2(o.px, o.py, e.x, e.y); if (d < bd) { bd = d; best = o; } } return best; }
 function aihUpdate(e, dt) { const h = e.aih, A = e.ai, P = G.P; if (!h || e.hidden) return; A.t -= dt; A.cd -= dt;
-  const near = dist2(e.x, e.y, P.x, P.y) < 40 * 40 && !A.tgt && A.st !== 'chat'; if (near && A.st !== 'gather' && A.st !== 'fish' && A.st !== 'down' && A.st !== 'revive') { e.dir = dirFromVec(P.x - e.x, P.y - e.y); if (!A.hi) { A.hi = 1; if (Math.random() < 0.5) { aihSay(e, pick(AIH_HI)); setAnim(e, 'wave'); A.waveT = 1.5; } } A.waveT = (A.waveT || 0) - dt; setAnim(e, A.waveT > 0 ? 'wave' : 'idle', true); stepAnim(e, dt, 5); return; }
+  const near = dist2(e.x, e.y, P.x, P.y) < 40 * 40 && !A.tgt && A.st !== 'chat'; if (near && A.st !== 'gather' && A.st !== 'fish' && A.st !== 'down' && A.st !== 'revive' && A.st !== 'flee' && A.st !== 'heal') { e.dir = dirFromVec(P.x - e.x, P.y - e.y); if (!A.hi) { A.hi = 1; if (Math.random() < 0.5) { aihSay(e, pick(AIH_HI)); setAnim(e, 'wave'); A.waveT = 1.5; } } A.waveT = (A.waveT || 0) - dt; setAnim(e, A.waveT > 0 ? 'wave' : 'idle', true); stepAnim(e, dt, 5); return; }
   switch (A.st) {
     case 'idle': setAnim(e, 'idle', true); if (A.t > 0) break; aihDecide(e); break;
+    case 'flee': { const f = A.from || { x: e.x + 1, y: e.y }, ax = e.x - f.x, ay = e.y - f.y, L = Math.hypot(ax, ay) || 1; if (A.dashCd <= 0 && Math.random() < 0.05) { A.dashT = 0.22; A.dashCd = 3; } aihMove(e, e.x + ax / L * 60, e.y + ay / L * 60, 60, dt); if (A.t <= 0 || L > 200) { A.st = 'heal'; A.t = 8 + Math.random() * 6; } break; }
+    case 'heal': { setAnim(e, 'sit', true); const mh = aihStats(h).S.maxhp; A.hpN = Math.min(mh, (A.hpN || 0) + mh * 0.06 * dt); A.hp = A.hpN / mh; if (A.hp >= 0.85 || A.t <= 0) { A.st = 'idle'; A.t = 0.5; } break; }
     case 'down': setAnim(e, 'dead', true); e.mt = null; if (G.t - A.downT > A.selfT) { aihRevive(e, 0.4); aihSay(e, pick([L2('Uf… me levanto solo.', 'Phew… getting up on my own.'), L2('Poción de emergencia, ¡vamos!', 'Emergency potion, let\'s go!')])); } break;
     case 'revive': { const o = A.rv; if (!o || o.remove || !o.ai || o.ai.st !== 'down') { A.st = 'idle'; A.t = 0.5; A.rv = null; break; } if (Math.hypot(o.x - e.x, o.y - e.y) > 20) { aihMove(e, o.x + 14, o.y, 60, dt); A.rvT = 0; break; }
       e.dir = dirFromVec(o.x - e.x, o.y - e.y); setAnim(e, 'cast', true); A.rvT = (A.rvT || 0) + dt; if (A.rvT > 3) { aihRevive(o, 0.5); aihSay(e, pick([L2('¡Arriba!', 'Up you go!'), L2('Te tengo.', 'Got you.')])); aihSay(o, pick([L2('¡Gracias!', 'Thanks!'), L2('Te debo una.', 'I owe you one.')])); A.st = 'idle'; A.t = 1; A.rv = null; } break; }
@@ -166,7 +168,7 @@ function aihUpdate(e, dt) { const h = e.aih, A = e.ai, P = G.P; if (!h || e.hidd
 function aihDecide(e) { const h = e.aih, A = e.ai, pers = h.seed % 4, M = G.map, r = Math.random();
   const dn = AIH_LIST.find(x => x !== e && !x.remove && x.ai.st === 'down' && !AIH_LIST.some(y => y.ai.rv === x) && dist2(x.x, x.y, e.x, e.y) < 240 * 240); if (dn && (pers === 2 || r < 0.7)) { A.st = 'revive'; A.rv = dn; A.rvT = 0; return; }
   const bs = aihFindBoss(e); if (bs && r < 0.5) { A.st = 'fight'; A.tgt = bs; A.ft = 0; bs._aih = e; bs._aihT = G.t; if (Math.random() < 0.5) aihSay(e, L2('¡A por el jefe!', 'Go for the boss!')); return; }
-  const m = aihFindMob(e); if (m && r < (pers === 0 ? 0.92 : pers === 3 ? 0.55 : 0.75)) { A.st = 'fight'; A.tgt = m; A.ft = 0; m._aih = e; m._aihT = G.t; return; }
+  if (A.hp < 0.5 && !A.pots) { A.st = 'heal'; A.t = 6; return; } const m = aihFindMob(e); if (m && r < (pers === 0 ? 0.92 : pers === 3 ? 0.55 : 0.75)) { A.st = 'fight'; A.tgt = m; A.ft = 0; m._aih = e; m._aihT = G.t; return; }
   const q = Math.random();
   if (q < (pers === 3 ? 0.3 : 0.14)) { const o = aihFindRes(e); if (o) { A.st = 'goRes'; A.o = o; return; } }
   if (q < (pers === 3 ? 0.42 : 0.24)) { const w = aihFindWater(e); if (w) { A.st = 'goFish'; A.p = w; return; } }
@@ -183,9 +185,17 @@ function aihSameL(p, e) { return p && ((p[2] | 0) === (e.L | 0) || e.L < 0); }
 function aihFreeFight(m, e) { const P = G.P; if (P.target === m || G.t - (m._pHitT || -99) < 12) return false; if (m.boss) return !aihBossMine(m); if (m.state && m.state !== 'idle') return false; return true; }
 const aihBossMine = b => { const P = G.P; return P.target === b || G.t - (b._pHitT || -99) < 25 || (b.map === P.map && dist2(b.x, b.y, P.x, P.y) < 220 * 220) || (typeof BOSS_UI !== 'undefined' && BOSS_UI === b); };
 function aihFindBoss(e) { const h = e.aih; for (const m of G.ents) { if (m.type !== 'mob' || !m.boss || m.dying || m.ti || m.duel || m.map !== e.map || (e.ai.skip && e.ai.skip.has(m))) continue; if (h.lv < (m.lv || 1) - 10 || m.hp <= m.maxhp * 0.3 || aihBossMine(m)) continue; if (dist2(m.x, m.y, e.x, e.y) < 300 * 300 && (m.L === e.L || m.L < 0 || e.L < 0)) return m; } return null; }
-function aihHurt(e, d) { const A = e.ai, mh = aihStats(e.aih).S.maxhp; if (A.st === 'down') return; A.hpN = (A.hpN === undefined ? mh : A.hpN) - d; floatText(e.x, e.y - 34, d, '#ff9a9a'); e.flash = 0.12;
-  if (A.hpN < mh * 0.3 && G.t > A.potT) { A.potT = G.t + 18; A.hpN = Math.min(mh, A.hpN + mh * 0.45); floatText(e.x, e.y - 44, L2('poción', 'potion'), '#ff8a8a'); }
-  A.hp = Math.max(0, A.hpN / mh); if (A.hpN <= 0) aihDown(e); }
+// 6.44b: instinto de supervivencia: esquivan (con dash, según su destreza y clase), llevan pociones propias (las gastan y las
+// recuperan con el tiempo), y si están mal y sin pociones huyen y se sientan a recuperarse.
+const aihPots = h => 3 + Math.min(5, Math.floor(h.lv / 100));
+function aihDodge(e, src) { const h = e.aih, A = e.ai, t = aihStats(h), dex = (t.attr && t.attr.dex) || 5, ch = Math.min(0.35, 0.08 + dex / Math.max(400, h.lv * 12) + (h.cls === 'asesino' || h.cls === 'arquero' ? 0.08 : 0) + (A.hp < 0.5 ? 0.06 : 0));
+  if ((A.dashCd || 0) > 0 || Math.random() > ch) return false; A.dashCd = 2.5 + Math.random() * 2; A.dashT = 0.22; const ax = src ? e.x - src.x : Math.random() - 0.5, ay = src ? e.y - src.y : Math.random() - 0.5, L = Math.hypot(ax, ay) || 1, side = Math.random() < 0.5 ? 1 : -1;
+  moveEnt(G.map, e, (ax / L * 0.6 - ay / L * side * 0.8) * 22, (ay / L * 0.6 + ax / L * side * 0.8) * 22); burst(e.x, e.y - 4, 8, { sp: 40, up: 12, g: 60, life: 0.35, c: ['#c8b898', '#e8dcc0'] }); setAnim(e, 'dash'); floatText(e.x, e.y - 34, L2('ESQUIVA', 'DODGE'), '#a0e0ff'); return true; }
+function aihHurt(e, d, src) { const A = e.ai, h = e.aih, mh = aihStats(h).S.maxhp; if (A.st === 'down' || !isFinite(d)) return; if (aihDodge(e, src)) return; A.pots = A.pots === undefined ? aihPots(h) : A.pots;
+  A.hpN = (A.hpN === undefined || !isFinite(A.hpN) ? mh : A.hpN) - d; floatText(e.x, e.y - 34, d, '#ff9a9a'); e.flash = 0.12; A.lastHurt = G.t;
+  if (A.hpN < mh * 0.35 && A.pots > 0 && G.t > A.potT) { A.pots--; A.potT = G.t + 6; A.hpN = Math.min(mh, A.hpN + mh * 0.45); floatText(e.x, e.y - 44, L2('poción', 'potion') + ' (' + A.pots + ')', '#ff8a8a'); }
+  A.hp = Math.max(0, A.hpN / mh); if (A.hpN <= 0) { aihDown(e); return; }
+  if (A.hp < 0.3 && !A.pots && A.st !== 'flee' && A.st !== 'down') { const m = A.tgt; if (m && m._aih === e) m._aih = null; A.tgt = null; A.st = 'flee'; A.from = src ? { x: src.x, y: src.y } : { x: e.x + 1, y: e.y }; A.t = 3.5; aihSay(e, pick([L2('¡Me retiro!', 'Falling back!'), L2('Sin pociones, ¡a correr!', 'Out of potions, run!'), L2('Esto se pone feo…', 'This is getting ugly…')])); } }
 function aihDown(e) { const A = e.ai; if (A.tgt && A.tgt._aih === e) A.tgt._aih = null; A.tgt = null; A.st = 'down'; A.downT = G.t; A.selfT = 25 + Math.random() * 20; A.hpN = 0; e.aih.tf = null; e.mt = null; setAnim(e, 'dead'); aihSay(e, pick([L2('¡Ayuda!', 'Help!'), L2('Me han tumbado…', 'I\'m down…'), L2('¡Me caí!', 'I fell!')])); }
 function aihRevive(e, f) { const A = e.ai, mh = aihStats(e.aih).S.maxhp; A.hpN = Math.round(mh * f); A.hp = f; A.st = 'idle'; A.t = 1.5; addFx({ type: 'ring', x: e.x, y: e.y, r: 20, dur: 0.5, col: '#8aff8a' }); setAnim(e, 'idle'); }
 function aihLine(e) { const L = AIH_LINES[e.aih.chat % AIH_LINES.length], t = L[Math.floor(Math.random() * L.length)]; return /piso $|floor $/.test(t) ? t + (10 + (e.aih.seed % 90)) + '.' : t; }
@@ -198,7 +208,7 @@ hookBefore('updateMob', (m, dt) => { if (!m || m.dying || m.ghost || m.duel || m
   if (!e) return; if (G.t - (m._aihT || -9) > 6 && Math.hypot(e.x - m.x, e.y - m.y) > 160) { m._aih = null; return; } m._aihT = Math.max(m._aihT || 0, G.t - 5);
   const d = Math.hypot(e.x - m.x, e.y - m.y), rng = (m.range || 15) + 8; m.dir = dirFromVec(e.x - m.x, e.y - m.y); if (m.flash > 0) m.flash -= dt;
   if (d > rng) { const sp = (m.spd || 40) * (m.slow > 0 ? 0.5 : 1) * (m.root > 0 ? 0 : 0.9); moveEnt(G.map, m, (e.x - m.x) / d * sp * dt, (e.y - m.y) / d * sp * dt); setAnim(m, 'walk', true); stepAnim(m, dt, 8); return HOOK_SKIP; }
-  m.cdH = (m.cdH || 0) - dt; if (m.cdH <= 0) { m.cdH = m.boss ? 2 : 1.4; setAnim(m, 'atk'); const S = aihStats(e.aih).S, dmg = Math.max(1, Math.round(m.atk * dmgRedP(S.def, m.lv) * (0.9 + Math.random() * 0.2) * (m.boss ? 1.6 : 1))); aihHurt(e, dmg); if (m.boss) addFx({ type: 'ring', x: e.x, y: e.y, r: 24, dur: 0.35, col: '#ff6a4a' }); }
+  m.cdH = (m.cdH || 0) - dt; if (m.cdH <= 0) { m.cdH = m.boss ? 2 : 1.4; setAnim(m, 'atk'); const S = aihStats(e.aih).S, dmg = Math.max(1, Math.round(m.atk * dmgRedP(S.def, m.lv) * (0.9 + Math.random() * 0.2) * (m.boss ? 1.6 : 1))); aihHurt(e, dmg, m); if (m.boss) addFx({ type: 'ring', x: e.x, y: e.y, r: 24, dur: 0.35, col: '#ff6a4a' }); }
   if (m.anim === 'atk' && m.af >= animN(m, 'atk') - 1) setAnim(m, 'idle'); stepAnim(m, dt, m.anim === 'atk' ? 8 : 3); return HOOK_SKIP; });
 // un jefe que pelearon los cazadores se recupera del todo cuando se van (así no te lo dejan a medias para robártelo)
 hookAfter('updateMob', (r, m) => { if (m && m.boss && m._aihHurt && !m.dying && G.t - m._aihHurt > 15 && G.t - (m._pHitT || -99) > 15 && !m._aih) { m.hp = m.maxhp; m._aihHurt = 0; } });
@@ -278,6 +288,7 @@ hookAfter('killMob', (r, m) => { if (!m || !m.aihSrc) return; const e = m.aihSrc
   e.ai.st = 'down'; e.hidden = true; setTimeout(() => { if (e.remove) return; const p = aihSpot(G.map, h, true); if (p) { e.x = p[0]; e.y = p[1]; e.L = p[2] | 0; } e.hidden = false; e.ai.st = 'idle'; e.ai.t = 1; }, 45000); });
 hookBefore('captureSoul', m => { if (m && (m.aihSrc || m.ti)) return HOOK_SKIP; });
 // la vida sigue cada 10 minutos de juego real
+V33_TICKS.push(() => { for (const e of AIH_LIST) { if (e.remove || !e.aih) continue; const A = e.ai, h = e.aih; A.pots = A.pots === undefined ? aihPots(h) : A.pots; if (G.t - (A.lastHurt || -99) > 8 && A.st !== 'down') { if (A.pots < aihPots(h) && G.t - (A.potR || 0) > 45) { A.pots++; A.potR = G.t; } if (A.hp < 1 && A.hpN !== undefined) { const mh = aihStats(h).S.maxhp; A.hpN = Math.min(mh, A.hpN + mh * 0.01); A.hp = A.hpN / mh; } } } });
 V33_TICKS.push(() => { if (!AIH_POP || !G.P) return; const now = Date.now(); if (now - AIH_LIFE_T < 600000) return; aihLife((now - AIH_LIFE_T) / 3.6e6, false); AIH_LIFE_T = now; G.P.aihT = now; });
 // escondido (derrotado o peleando contra ti como enemigo): no se dibuja
 hookBefore('drawEnt', e => { if (e && e.aih && e.hidden) return HOOK_SKIP; });
