@@ -18,3 +18,5 @@ Validación del 27/11/2026:
 - El ejecutable Chromium de las pruebas Python no está instalado (`/usr/bin/google-chrome` ausente; el lanzador `/usr/bin/chromium` apunta a un binario ausente). No se han podido completar `reg.sh`, `upd.py`, `saves.py` ni `xact_sitio.py` con su ejecutor original. El ensayo alternativo de regresión en un iframe no equivale a esas pruebas y no cuenta como aprobado.
 
 **No publicar todavía**: no se modifica `update/`, `GAME_VER`, `GAME_BUILD` ni el pie de versión hasta pasar las pruebas pendientes. Antes de publicar, traer de nuevo `main`, resolver cualquier novedad de Claude sin sobrescribirla, repetir compilación/pruebas, elegir una versión libre y ejecutar `tools/dev/release.py`. Subir juntos HTML, gzip y manifest del actualizador.
+
+Se añade `.github/workflows/reverse-mountain.yml` para ejecutar las comprobaciones completas en GitHub Actions. La ejecución no publica ni modifica el actualizador. Su resultado debe revisarse antes de fusionar.

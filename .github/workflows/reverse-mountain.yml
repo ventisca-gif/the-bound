@@ -1,0 +1,70 @@
+name: Validate Reverse Mountain and Twin Cape
+on:
+  pull_request:
+    branches: [main]
+    paths: ['src/**', 'template.html', 'tests/**', '.github/workflows/reverse-mountain.yml']
+permissions:
+  contents: read
+concurrency:
+  group: reverse-mountain-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'chatgpt/reverse-mountain-663'
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install build dependencies
+        run: |
+          pip install playwright pillow
+          mkdir -p tools/i18n/vendor /tmp/reverse-qa
+          npm pack acorn@8.14.0
+          tar -xOzf acorn-8.14.0.tgz package/dist/acorn.js > tools/i18n/vendor/acorn.js
+          test -x /usr/bin/google-chrome
+      - run: python3 build.py
+      - name: Validate channels and native game integration
+        run: |
+          node tests/reverse_mountain.js
+          python3 tests/play.py file://$PWD/dist/test.html /tmp/reverse-qa/cape.png 900 500 @tests/reverse_mountain.txt > /tmp/reverse-qa/cape.log 2>&1
+          cat /tmp/reverse-qa/cape.log
+          if grep -E 'PAGEERROR|Traceback|FAIL|error:' /tmp/reverse-qa/cape.log; then exit 1; fi
+          grep -q 'PASS canales completos' /tmp/reverse-qa/cape.log
+      - name: Regression suite and outfit fit
+        run: |
+          bash tools/dev/reg.sh /tmp/reverse-qa > /tmp/reverse-qa/regression.log 2>&1
+          cat /tmp/reverse-qa/regression.log
+          if grep -E 'PAGEERROR|Traceback|AVISO: envolturas nuevas' /tmp/reverse-qa/regression.log; then exit 1; fi
+          python3 tools/dev/fitcheck.py file://$PWD/dist/test.html /tmp/reverse-qa/fit --strict
+      - name: Verify internal updater
+        run: |
+          python3 tests/upd.py file://$PWD/dist/test.html /tmp/reverse-qa/updater.png > /tmp/reverse-qa/updater.log
+          cat /tmp/reverse-qa/updater.log
+      - name: Verify old saves
+        run: |
+          timeout 300 python3 -u tests/saves.py file://$PWD/dist/test.html > /tmp/reverse-qa/saves.log
+          cat /tmp/reverse-qa/saves.log
+      - name: Verify map interactions
+        run: |
+          python3 tests/xact_sitio.py file://$PWD/dist/test.html > /tmp/reverse-qa/interactions.log
+          cat /tmp/reverse-qa/interactions.log
+          python3 - <<'PY'
+          from pathlib import Path
+          log = Path('/tmp/reverse-qa/interactions.log').read_text()
+          assert 'RESULTS' in log
+          assert not log.split('RESULTS', 1)[1].strip(), log
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reverse-mountain-validation
+          path: /tmp/reverse-qa/
