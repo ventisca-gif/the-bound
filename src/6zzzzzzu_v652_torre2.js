@@ -71,3 +71,14 @@ hookAfter('tiOpen', () => { try { const box = $('#mbody .frame'); if (!box || bo
   const top = box.querySelector('#tiTop'); box.insertBefore(d, top ? top.previousElementSibling : null); $('#tiGoW').onclick = () => { closeModal(); tiStart(1, 'semana'); }; } catch (e) { if (typeof errOnce === 'function') errOnce('ti2open', e); } });
 // el reto se cuenta como en solitario para todo lo demás (caer, salir, premios)
 hookAfter('tiStart', () => { if (TI && TI.mode === 'semana') banner('📅 ' + L2('Reto de la semana', 'Weekly challenge'), TI_MODS[tiWkMod()][0]); });
+
+// 6.54: top en línea del reto de la semana (ev/tiw/{semana}/{jugador} {n, f, lv, t}; reglas en docs/firebase_rules.json)
+function tiWkPush() { const P = G.P, S = ti2St(), w = typeof FW_WEEK === 'function' ? FW_WEEK() : 0; if (S.wk.w !== w || !S.wk.best || typeof evNet !== 'function' || !evNet()) return;
+  try { clanReq('ev/tiw/' + w + '/' + evMe(), { m: 'PUT', b: { n: cleanStr(P.name, 20) || '?', f: Math.min(100000, S.wk.best | 0), lv: clamp(P.lv | 0, 1, MAXLV), t: clanTs } }).catch(() => { }); } catch (e) { } }
+hookAfter('tiCleared', () => { if (TI && TI.mode === 'semana') tiWkPush(); });
+hookAfter('tiOpen', () => { try { const box = $('#tiGoW'); if (!box || $('#tiWkTop')) return; const d = document.createElement('div'); d.id = 'tiWkTop'; d.className = 'hint'; box.parentElement.after(d);
+  const w = typeof FW_WEEK === 'function' ? FW_WEEK() : 0, me = typeof evMe === 'function' ? evMe() : '';
+  if (typeof evNet !== 'function' || !evNet() || typeof evTop !== 'function') { d.textContent = L2('Top semanal: sin conexión.', 'Weekly top: offline.'); return; }
+  d.textContent = L2('Top semanal: cargando…', 'Weekly top: loading…');
+  evTop('ev/tiw/' + w, 'f').then(rows => { if (!rows.length) { d.textContent = L2('Top semanal: todavía nadie. ¡Sé el primero!', 'Weekly top: nobody yet. Be the first!'); return; }
+    d.innerHTML = '📅 ' + L2('Top de la semana', 'Weekly top') + ': ' + rows.slice(0, 5).map(([id, r], i) => `<span${id === me ? ' style="color:#ffe070"' : ''}>${i + 1}. ${esc(cleanStr(r.n, 20) || '?')} (${r.f | 0})</span>`).join(' · '); }).catch(() => { d.textContent = L2('Top semanal: sin conexión.', 'Weekly top: offline.'); }); } catch (e) { } });

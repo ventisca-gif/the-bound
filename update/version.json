@@ -1,26 +1,18 @@
 {
- "build": 275,
- "ver": "6.53",
+ "build": 276,
+ "ver": "6.54",
  "date": "2026-11-27",
  "file": "thebound.html",
- "size": 39547823,
- "sha256": "fd03b8ff1d7b42b652c5ab4b8c9901284033b31c83b6a49f92505d8282912c10",
+ "size": 39549804,
+ "sha256": "7e473db05221d4c3de59dc4e7f733148daeb1e1ee6270811bf79498bb55e0b10",
  "minApk": 24,
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "☕ Chocolatada navideña: en los días de Navidad, Doña Rosa reparte chocolate caliente y panetón junto a la plaza de Lima, Lima Norte, Trujillo y Cusco (una vez al día por ciudad). 🍇 Año Nuevo: las doce uvas de la suerte en la plaza de España.",
-   "🍳 Concurso de cocina los domingos (10:00-18:00) en cada ciudad: presenta tu mejor plato contra 3 cocineros y gana oro y reputación.",
-   "🐾 Tu mascota te ayuda en los oficios: al talar, minar, pescar o recoger a veces trae una unidad más.",
-   "📚 Códice de colecciones en la Bitácora: peces, flores y platos; cada página completa da oro y un título.",
-   "Prueba nueva que pulsa dos veces todos los premios de los diálogos de los 2.098 personajes para que no se repita el bug de los regalos infinitos: 0 fallos."
+   "📅 Reto de la semana de la Torre Infinita con top en línea: la sala muestra los 5 mejores de la semana."
   ],
   "en": [
-   "☕ Christmas hot chocolate: on Christmas days, Doña Rosa hands out hot chocolate and panettone by the square of Lima, North Lima, Trujillo and Cusco (once a day per city). 🍇 New Year: the twelve lucky grapes in the square of Spain.",
-   "🍳 Cooking contest on Sundays (10:00-18:00) in each city: present your best dish against 3 cooks and win gold and reputation.",
-   "🐾 Your pet helps in your jobs: chopping, mining, fishing or gathering sometimes brings one more.",
-   "📚 Collections Codex in the Logbook: fish, flowers and dishes; each completed page gives gold and a title.",
-   "New test that double-taps every dialog reward of all 2,098 characters so the infinite gifts bug can't come back: 0 failures."
+   "📅 Infinite Tower weekly challenge with an online leaderboard: the hall shows the week's top 5."
   ]
  }
 }

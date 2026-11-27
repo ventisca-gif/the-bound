@@ -464,6 +464,32 @@
             ".validate": false
           }
         }
+      },
+      "tiw": {
+        "$w": {
+          ".indexOn": [
+            "f"
+          ],
+          "$pid": {
+            ".write": "$w.length <= 8 && $pid.length <= 48",
+            ".validate": "newData.hasChildren(['n', 'f'])",
+            "n": {
+              ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 20"
+            },
+            "f": {
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100000"
+            },
+            "lv": {
+              ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 1000"
+            },
+            "t": {
+              ".validate": "newData.val() == now"
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        }
       }
     },
     "ml": {

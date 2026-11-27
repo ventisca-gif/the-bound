@@ -343,7 +343,7 @@ body.building #hotbar{display:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.53 · Chocolatada y Códice</div>
+  <div class="tfoot">v6.54 · Top semanal de la Torre</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11914,7 +11914,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.53', GAME_BUILD = 275;
+const GAME_VER = '6.54', GAME_BUILD = 276;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11922,6 +11922,17 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.54",
+ "b": 276,
+ "d": "2026-11-27",
+ "es": [
+  "📅 Reto de la semana de la Torre Infinita con top en línea: la sala muestra los 5 mejores de la semana."
+ ],
+ "en": [
+  "📅 Infinite Tower weekly challenge with an online leaderboard: the hall shows the week's top 5."
+ ]
+},
 {
  "v": "6.53",
  "b": 275,
@@ -60654,6 +60665,17 @@ hookAfter('tiOpen', () => { try { const box = $('#mbody .frame'); if (!box || bo
   const top = box.querySelector('#tiTop'); box.insertBefore(d, top ? top.previousElementSibling : null); $('#tiGoW').onclick = () => { closeModal(); tiStart(1, 'semana'); }; } catch (e) { if (typeof errOnce === 'function') errOnce('ti2open', e); } });
 // el reto se cuenta como en solitario para todo lo demás (caer, salir, premios)
 hookAfter('tiStart', () => { if (TI && TI.mode === 'semana') banner('📅 ' + L2('Reto de la semana', 'Weekly challenge'), TI_MODS[tiWkMod()][0]); });
+
+// 6.54: top en línea del reto de la semana (ev/tiw/{semana}/{jugador} {n, f, lv, t}; reglas en docs/firebase_rules.json)
+function tiWkPush() { const P = G.P, S = ti2St(), w = typeof FW_WEEK === 'function' ? FW_WEEK() : 0; if (S.wk.w !== w || !S.wk.best || typeof evNet !== 'function' || !evNet()) return;
+  try { clanReq('ev/tiw/' + w + '/' + evMe(), { m: 'PUT', b: { n: cleanStr(P.name, 20) || '?', f: Math.min(100000, S.wk.best | 0), lv: clamp(P.lv | 0, 1, MAXLV), t: clanTs } }).catch(() => { }); } catch (e) { } }
+hookAfter('tiCleared', () => { if (TI && TI.mode === 'semana') tiWkPush(); });
+hookAfter('tiOpen', () => { try { const box = $('#tiGoW'); if (!box || $('#tiWkTop')) return; const d = document.createElement('div'); d.id = 'tiWkTop'; d.className = 'hint'; box.parentElement.after(d);
+  const w = typeof FW_WEEK === 'function' ? FW_WEEK() : 0, me = typeof evMe === 'function' ? evMe() : '';
+  if (typeof evNet !== 'function' || !evNet() || typeof evTop !== 'function') { d.textContent = L2('Top semanal: sin conexión.', 'Weekly top: offline.'); return; }
+  d.textContent = L2('Top semanal: cargando…', 'Weekly top: loading…');
+  evTop('ev/tiw/' + w, 'f').then(rows => { if (!rows.length) { d.textContent = L2('Top semanal: todavía nadie. ¡Sé el primero!', 'Weekly top: nobody yet. Be the first!'); return; }
+    d.innerHTML = '📅 ' + L2('Top de la semana', 'Weekly top') + ': ' + rows.slice(0, 5).map(([id, r], i) => `<span${id === me ? ' style="color:#ffe070"' : ''}>${i + 1}. ${esc(cleanStr(r.n, 20) || '?')} (${r.f | 0})</span>`).join(' · '); }).catch(() => { d.textContent = L2('Top semanal: sin conexión.', 'Weekly top: offline.'); }); } catch (e) { } });
 
 // 6.53 · Contenido nuevo de la lista de ideas que Sergio aprobó («sí, haz todo eso»). Ya existían y no se repiten: la
 // Navidad con nieve, árbol y regalo diario (4.45-4.46), visitas, favores y amistad de los vecinos (5.74-5.77), visitar la
