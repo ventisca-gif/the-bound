@@ -30,7 +30,7 @@ const TI_BOSSES = {
 for (const id in TI_BOSSES) { const [n, art, moves, minion] = TI_BOSSES[id]; BOSSES[id] = { n, lv: 50, art, hp: 30, atk: 2.4, def: 2.2, spd: 50, moves, minion, drops: [], r: 30, cave: 1, ti: 1 }; }
 // ---------- reservas de enemigos y jefes: todos los del juego que se pueden pelear ----------
 let TI_POOL = null, TI_BPOOL = null;
-function tiPools() { if (TI_POOL) return; TI_POOL = Object.keys(MOBS).filter(k => { const d = MOBS[k]; return d && Array.isArray(d.art) && !d.duel && d.fam !== 'duel' && d.ai !== 'passive' && d.hp > 0 && !/^duel_|^crew_rival/.test(k); });
+function tiPools() { if (TI_POOL) return; TI_POOL = Object.keys(MOBS).filter(k => { const d = MOBS[k]; return d && Array.isArray(d.art) && !d.duel && d.fam !== 'duel' && d.ai !== 'passive' && d.ai !== 'none' && d.hp > 0 && d.hp <= 50 && (d.atk || 0) >= 0.2 && !/^duel_|^crew_rival|dummy/.test(k); });
   TI_BPOOL = Object.keys(BOSSES).filter(k => { const d = BOSSES[k]; return d && Array.isArray(d.art) && Array.isArray(d.moves) && d.moves.length && !d.duel && !/^duel_|^crew_rival/.test(k) && !tiStoryBoss(k, d); }); }
 // Sergio: en la torre no salen súper jefes ni jefes de historia: SUPER_BOSS, los de los fragmentos y misiones de la historia
 // principal (frag/quest/reward), los que la historia pone en un sitio fijo (where sin cueva), los de Dawn y los Ecos de Nihil.
@@ -178,7 +178,7 @@ SAVEKEYS.push('ti');
 // Lupa › Sistemas
 if (typeof GSIS !== 'undefined') GSIS.unshift(['n_torre_inf', '♾ ' + L2('Torre Infinita', 'Infinite Tower'), () => [L2('En la Torre de los Portales, la plataforma de teletransporte dorada junto a la entrada te lleva a la Sala de la Torre Infinita (portal, top y la guardiana Ilse). Salas sin fin: cada piso los enemigos suben 5 niveles y entran 5 o más (uno más cada 25 pisos); cada 10 pisos hay un jefe y cada 50 uno de los jefes de la torre (El Arquitecto de la Torre, La Reina del Vértigo).', 'In the Portal Tower, the golden portal in the middle. Endless rooms: each floor enemies gain 5 levels and 5 or more come in (one more every 25 floors); every 10 floors there is a boss and every 50 one of the tower bosses (The Tower Architect, The Vertigo Queen).'),
   L2('Salen todos los enemigos del juego, los jefes de zona, continente, cueva y portal (no salen súper jefes ni jefes de la historia) y 6 enemigos propios de la torre, con mecánicas por piso: rápidos, acorazados, furiosos, enjambre, élite, oscuridad, se regeneran o explotan al morir. Pueden pasar del nivel 700: es una prueba de resistencia.', 'Every enemy in the game, the zone, continent, cave and portal bosses (no super bosses or story bosses) plus 6 tower-only enemies show up, with mechanics per floor: fast, armored, furious, swarm, elite, darkness, regenerating or exploding on death. They can go past level 700: it is an endurance test.'),
-  L2('Al superar un piso recuperas un poco (del todo tras un jefe). Si caes o sales, la subida termina sin la muerte normal y tu mejor piso va al top. Puedes volver a empezar en el último múltiplo de 10 que superaste.', 'Clearing a floor heals you a little (fully after a boss). If you fall or leave, the climb ends without a normal death and your best floor goes to the leaderboard. You can restart at the last multiple of 10 you cleared.')], () => null]);
+  L2('No da experiencia, oro ni objetos: solo Piedras de Mejora y, desde el piso 30, Piedras de Mejora Superior (los jefes dan varias). Al superar un piso recuperas un poco (del todo tras un jefe). Si caes o sales, la subida termina sin la muerte normal y tu mejor piso va al top. Puedes volver a empezar en el último múltiplo de 10 que superaste.', 'It gives no XP, gold or items: only Upgrade Stones and, from floor 30, Superior Upgrade Stones (bosses give several). Clearing a floor heals you a little (fully after a boss). If you fall or leave, the climb ends without a normal death and your best floor goes to the leaderboard. You can restart at the last multiple of 10 you cleared.')], () => null]);
 
 // ---------- 6.44: equipo de 4 (tú + 3 compañeros con IA: cazadores de los portales y jugadores cazadores) ----------
 function tiAllies(M) { if (typeof huntAlliesClear !== 'function') return; huntAlliesClear(); const P = G.P, out = [];
@@ -221,3 +221,16 @@ hookBefore('hitMob', (m, base) => { if (!m || !isFinite(base) || !isFinite(m.hp)
 V33_TICKS.push(() => { const P = G.P; if (!P || !P.S) return; if (!isFinite(P.hp)) P.hp = P.S.maxhp; if (!isFinite(P.mp)) P.mp = P.S.maxmp || 0;
   if (typeof HUNT !== 'undefined') for (const a of HUNT.allies) { if (!isFinite(a.maxhp) || a.maxhp <= 0) a.maxhp = a.S && isFinite(a.S.maxhp) ? a.S.maxhp : Math.round(P.S.maxhp * 0.85); if (!isFinite(a.hp)) a.hp = a.maxhp; }
   for (const m of G.ents) if (m.type === 'mob' && !m.dying && (!isFinite(m.hp) || !isFinite(m.maxhp))) { m.maxhp = isFinite(m.maxhp) && m.maxhp > 0 ? m.maxhp : 1; m.hp = 0; try { killMob(m); } catch (e) { m.remove = true; } } });
+
+// 6.48: Sergio: en la torre no debe salir el «Muñeco de prueba» (tp_dummy, inmortal: vida ×1.000.000 y ai 'none'; ahora se
+// excluyen los que no atacan o tienen vida desmesurada) y la torre no da experiencia, ni oro, ni armaduras ni nada: solo
+// Piedras de Mejora (piedra1) y Piedras de Mejora Superior (piedra2). Solo afecta a los enemigos de la torre (m.ti); fuera
+// de la torre los enemigos originales siguen dando lo de siempre.
+const TI_OK_ITEMS = new Set(['piedra1', 'piedra2']);
+hookAround('killMob', (next, m, ...a) => { if (!m || !m.ti) return next(m, ...a); const P = G.P, g0 = P.gold, _gx = gainXp, _gi = giveItem, _ft = floatText;
+  m.xp = 0; m.gold = 0; gainXp = function () { }; floatText = function (x, y, t) { if (typeof t === 'string' && / XP$| ORO$| GOLD$/.test(t)) return; return _ft.apply(this, arguments); }; giveItem = function (id) { if (TI_OK_ITEMS.has(id)) return _gi.apply(this, arguments); return false; };
+  let r; try { r = next(m, ...a); } finally { gainXp = _gx; giveItem = _gi; floatText = _ft; P.gold = g0; }
+  try { const f = (TI && TI.floor) || 1, give = (id, n) => { if (n <= 0) return; _gi(id, n, true); lootFx(m.x, m.y, id); };
+    if (m.boss) { give('piedra1', 2 + Math.floor(Math.random() * 3) + Math.floor(f / 50)); if (f >= 20) give('piedra2', 1 + Math.floor(Math.random() * 2) + Math.floor(f / 100)); }
+    else { if (Math.random() < Math.min(0.3, 0.12 + f * 0.0005)) give('piedra1', 1); if (f >= 30 && Math.random() < Math.min(0.1, 0.02 + f * 0.0002)) give('piedra2', 1); } } catch (e) { }
+  return r; });
