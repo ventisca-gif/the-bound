@@ -1,10 +1,27 @@
 click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
 js (window._errs=[], window._hk=[], setInterval(()=>{ if(!$('#modal').hidden && /Bienvenido|Welcome/.test($('#mbody').textContent)) { const b=$('#dlOk'); if (b) b.click(); else closeModal(); } }, 150), window.addEventListener('error', e=>window._errs.push(e.message)), (()=>{ const ow=errOnce; errOnce=function(t,e){ window._errs.push(t+': '+(e&&e.message||e)); return ow.apply(this,arguments); }; })(), G.P.lv=300, calcStats(G.P), G.P.gold=500000, 1)
 wait 2500
-js (()=>{ const go=(id)=>{ const e=G.ents.find(q=>q.id===id&&q.map==='world'); return e; }; return ['v659_huevos','v659_arco','v659_trineo','v659_defensa','v659_lab','v659_capsula'].map(id=>!!go(id)); })()
+js (()=>{ const go=(id)=>{ const e=G.ents.find(q=>q.id===id&&q.map==='world'); return e; }; return ['v659_huevos','v659_arco','v659_trineo','v659_defensa','v659_lab'].map(id=>!!go(id)); })()
 js (()=>{ G.time=21*60; v659NT=0; return 1 })()
 wait 1500
-js (()=>{ const e=G.ents.find(q=>q.id==='v659_mn0'&&q.map==='world'); if(!e) return 'sin puesto'; const g0=G.P.gold; openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/🏮/.test(b.textContent)); if(!b) return 'sin oferta'; b.click(); const r=[b.textContent.slice(0,40), g0-G.P.gold>0]; closeDialog(); return r; })()
+js (()=>{ const e=G.ents.find(q=>q.id==='v659_mn0'&&q.map==='world'); if(!e) return 'sin puesto'; openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/🏮/.test(b.textContent)); if(!b) return 'sin opcion'; b.click(); return [ACT.k, ACT.list.length] })()
+wait 600
+js (()=>{ const q=ACT.list.find(q=>!q.got); const x0=q.e.x; return [Math.round(Math.hypot(q.e.x-G.P.x,q.e.y-G.P.y))] })()
+js (()=>{ const q=ACT.list.find(q=>!q.got); window._px=[q.e.x,q.e.y]; G.P.x=q.e.x-50; G.P.y=q.e.y; return 1 })()
+wait 500
+js ['pilluelo huye', (()=>{ const q=ACT.list.find(q=>!q.got&&Math.hypot(q.e.x-window._px[0],q.e.y-window._px[1])>0); return !!q })()]
+js (()=>{ const q=ACT.list.find(q=>!q.got); if(!q) return ACT.k; G.P.x=q.e.x; G.P.y=q.e.y; return ACT.n })()
+wait 300
+js (()=>{ const q=ACT.list.find(q=>!q.got); if(!q) return ACT.k; G.P.x=q.e.x; G.P.y=q.e.y; return ACT.n })()
+wait 300
+js (()=>{ const q=ACT.list.find(q=>!q.got); if(!q) return ACT.k; G.P.x=q.e.x; G.P.y=q.e.y; return ACT.n })()
+wait 300
+js (()=>{ const q=ACT.list.find(q=>!q.got); if(!q) return ACT.k; G.P.x=q.e.x; G.P.y=q.e.y; return ACT.n })()
+wait 300
+js (()=>{ const q=ACT.list.find(q=>!q.got); if(!q) return ACT.k; G.P.x=q.e.x; G.P.y=q.e.y; return ACT.n })()
+wait 300
+wait 500
+js ['pilluelos', ACT.k, V659().pilD===calDay(), G.ents.filter(e=>/^v659_pil/.test(e.id)).length]
 js (closeDialog(), v659EggStart(), [ACT.k, ACT.eggs.length])
 js (()=>{ window._eg=0; return 1 })()
 js (()=>{ const e=ACT.eggs[0]; G.P.x=e.x; G.P.y=e.y; return 1 })()
@@ -51,17 +68,75 @@ wait 900
 js ['arco', ACT.k, V659().arcoBest]
 js (()=>{ const c=v659Px('trineo'); G.P.x=c.x; G.P.y=c.y+24; v659TrStart(); return 1 })()
 wait 1800
-js ['trineo en pista', G.map.id, ACT.k, ACT.riv&&ACT.riv.length]
-wait 1500
+js ['lago', G.map.id, ACT.k, ACT.ph]
+js (v659TrAtk(), 1)
+wait 150
+js (v659TrAtk(), 1)
+wait 100
+js (v659TrAtk(), 1)
+wait 100
+js (v659TrAtk(), 1)
+wait 100
+js (v659TrAtk(), 1)
+wait 100
+js (v659TrAtk(), 1)
+wait 100
+js (v659TrAtk(), 1)
+wait 100
+js (v659TrAtk(), 1)
+wait 100
+wait 1800
+js (v659TrAtk(), v659TrAtk(), 1)
+wait 3500
+js [ACT.ph, ACT.left, ACT.sleds&&ACT.sleds.length]
+js (v659TrAtk(), 1)
+wait 150
+js (v659TrAtk(), 1)
+wait 100
+js (v659TrAtk(), 1)
+wait 100
+js (v659TrAtk(), 1)
+wait 100
+js (v659TrAtk(), 1)
+wait 100
+js (v659TrAtk(), 1)
+wait 100
+js (v659TrAtk(), 1)
+wait 100
+js (v659TrAtk(), 1)
+wait 100
+wait 1800
+js (v659TrAtk(), v659TrAtk(), 1)
+wait 3500
+js [ACT.ph, ACT.left, ACT.sleds&&ACT.sleds.length]
+js (v659TrAtk(), 1)
+wait 150
+js (v659TrAtk(), 1)
+wait 100
+js (v659TrAtk(), 1)
+wait 100
+js (v659TrAtk(), 1)
+wait 100
+js (v659TrAtk(), 1)
+wait 100
+js (v659TrAtk(), 1)
+wait 100
+js (v659TrAtk(), 1)
+wait 100
+js (v659TrAtk(), 1)
+wait 100
+wait 1800
+js (v659TrAtk(), v659TrAtk(), 1)
+wait 3500
+js [ACT.ph, ACT.left, ACT.sleds&&ACT.sleds.length]
 shot
-js (()=>{ ACT.vz=150; return G.P.y })()
-wait 600
-js (()=>{ G.P.y=(V659_TR.fin-1)*16; return 1 })()
-wait 3800
-js ['trineo fin', G.map.id, ACT.k, V659().trD===calDay()]
+wait 2500
+js ['lago fin', G.map.id, ACT.k, V659().trD===calDay(), V659().trBest>=0]
 js (()=>{ const c=v659Px('defensa'); G.P.x=c.x; G.P.y=c.y+10; v659DefStart(); return ACT.k })()
 wait 4000
 js ['defensa ola', ACT.wave, G.ents.filter(e=>e.v659def&&!e.dying).length]
+js (()=>{ ACT.hp=50; const g=v659Gate(); for (const m of G.ents.filter(e=>e.v659def&&!e.dying)) killMob(m); G.P.x=g.x; G.P.y=g.y+20; return 1 })()
+js (v659DefAtk(), v659DefAtk(), ['repara', ACT.hp])
 shot
 js (()=>{ for (const m of G.ents.filter(e=>e.v659def&&!e.dying)) killMob(m); return ACT.wave })()
 wait 5000
@@ -90,9 +165,16 @@ wait 400
 js ['fragmento', countItem('v659_frag')]
 js (()=>{ giveItem('v659_frag',5,true); v659NT=0; return 1 })()
 wait 1500
-js (()=>{ const e=G.ents.find(q=>q.id==='v659_astro'&&q.map==='world'); if(!e) return 'sin astronomo'; const g0=G.P.gold; openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/fortuna|fortune/.test(b.textContent)); b.click(); const r=[G.P.gold-g0>0, countItem('v659_frag')]; closeDialog(); return r })()
-js (()=>{ const e=G.ents.find(q=>q.id==='v659_capsula'&&q.map==='world'); const g0=G.P.gold; openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/10,000|10\.000/.test(b.textContent)); b.click(); const m=[...document.querySelectorAll('#dopts .dopt')].find(b=>/✉/.test(b.textContent)); m.click(); const r=[g0-G.P.gold, !!V659().cap]; closeDialog(); return r })()
-js (()=>{ V659().cap.open=calDay(); const e=G.ents.find(q=>q.id==='v659_capsula'&&q.map==='world'); const g0=G.P.gold; openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/Abrir|Open/.test(b.textContent)); b.click(); const r=[G.P.gold-g0, V659().cap, document.querySelector('#dmsg').textContent.slice(0,60)]; return r })()
+js (()=>{ const e=G.ents.find(q=>q.id==='v659_astro'&&q.map==='world'); if(!e) return 'sin astronomo'; openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/lluvia|shower/.test(b.textContent)); b.click(); return [ACT.k, countItem('v659_frag')] })()
+wait 4000
+js ['lluvia estrellas', ACT.stars.length, ACT.stars.some(s=>s.f>=1&&(s.vx||s.vy))]
+js (()=>{ const s=ACT.stars.find(s=>s.f>=1&&!s.got&&!s.dead); if(!s) return 0; G.P.x=s.x; G.P.y=s.y; return 1 })()
+wait 300
+js ['estrella cogida', ACT.n]
+shot
+js (ACT.t=45, 1)
+wait 1500
+js ['lluvia fin', ACT.k]
 js (closeDialog(), openPanel('map'), 1)
 wait 500
 js ['mapa', [...document.querySelectorAll('.mchip')].some(b=>/Actividades|Activities/.test(b.textContent))]

@@ -1,25 +1,27 @@
 {
- "build": 282,
- "ver": "6.60",
+ "build": 283,
+ "ver": "6.61",
  "date": "2026-11-27",
  "file": "thebound.html",
- "size": 36038309,
- "sha256": "af010f31279e5fc17609a92b2b2eb48b7ad78ec74cd75153ffe00b69ccd6db51",
+ "size": 36043533,
+ "sha256": "72d6b1808e03970999db48458297be36ac54353ba56db48e294f7e460e355b75",
  "minApk": 24,
  "gz": "thebound.html.gz",
- "gzSize": 21930829,
- "gzSha256": "e5fc66880369f52777d8661bfc6870072df3a16bcd3aff567fce28a7a3da99bf",
+ "gzSize": 21932158,
+ "gzSha256": "4274143628158d359950782967e232462c416dfdff68ccc87afac833c9cf6e9d",
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "🏰 Vael restaurado: tras vencer al Rey Vael, Ilda de Vael te espera al sur de las Ruinas. Cinco obras con troncos, piedra y oro (columnas y estandartes, torres del portón, jardín y fuente, mercado con vecinos y salón del trono) que cambian las ruinas en el mapa.",
-   "👑 Al terminar, el Velo devuelve el eco del rey, capítulo nuevo en el Libro, 300.000 de oro y el título «Restaurador de Vael». La revancha con el rey se pide a Ilda.",
-   "🌫 Isla Velada: un islote de Altavela que baja con la niebla (3 días de cada 7). La capitana del puerto de Puerto Coral te lleva; toca las 4 runas en el orden del mural para despertar el santuario de los Vientos: oro, Plumas de Alado y el título «Explorador de la niebla»."
+   "🏮 Mercado nocturno: ya no se compra desde el diálogo. Cinco pilluelos roban farolillos y huyen de ti entre los puestos; si los persigues mucho se cansan. Acorrálalos y atrápalos.",
+   "🛷 Trineo sobre el lago helado (ya no es una carrera cuesta abajo): elige carril, ⚔ para correr y empujar, suéltalo en la línea azul y barre el hielo con ⚔ para dejarlo en la diana. 3 trineos que chocan entre sí.",
+   "🌠 Con 5 fragmentos estelares, el astrónomo abre una lluvia de estrellas: botan y ruedan al caer; atrapa todas las que puedas. 🛡 En la defensa del pueblo, ⚔ junto al portón lo repara entre golpe y golpe.",
+   "💌 Se quitó la cápsula del tiempo: si enterraste oro, se te devuelve con el +50 % al entrar."
   ],
   "en": [
-   "🏰 Vael restored: after defeating King Vael, Ilda of Vael waits south of the Ruins. Five works with logs, stone and gold (columns and banners, gate towers, garden and fountain, a market with neighbours and the throne hall) that change the ruins on the map.",
-   "👑 When finished, the Veil returns the king's echo, a new chapter in the Book, 300,000 gold and the title \"Restorer of Vael\". Ask Ilda for a rematch with the king.",
-   "🌫 Veiled Isle: an Altavela islet that comes down with the fog (3 days out of 7). The Puerto Coral harbour captain takes you there; touch the 4 runes in the order of the mural to awaken the shrine of the Winds: gold, Alado feathers and the title \"Fog explorer\"."
+   "🏮 Night market: no more buying from the dialog. Five rascals steal lanterns and run from you between the stalls; if you chase them long they get tired. Corner them and catch them.",
+   "🛷 Sled on the frozen lake (no longer a downhill race): pick a lane, ⚔ to run and push, let go at the blue line and sweep the ice with ⚔ to stop it on the target. 3 sleds that knock each other.",
+   "🌠 With 5 star fragments, the astronomer opens a meteor shower: the stars bounce and roll when they land; catch as many as you can. 🛡 In the village defence, ⚔ next to the gate repairs it between hits.",
+   "💌 The time capsule was removed: if you buried gold, you get it back with the +50% when you log in."
   ]
  }
 }

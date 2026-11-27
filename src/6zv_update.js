@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.60', GAME_BUILD = 282;
+const GAME_VER = '6.61', GAME_BUILD = 283;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,23 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.61",
+ "b": 283,
+ "d": "2026-11-27",
+ "es": [
+  "🏮 Mercado nocturno: ya no se compra desde el diálogo. Cinco pilluelos roban farolillos y huyen de ti entre los puestos; si los persigues mucho se cansan. Acorrálalos y atrápalos.",
+  "🛷 Trineo sobre el lago helado (ya no es una carrera cuesta abajo): elige carril, ⚔ para correr y empujar, suéltalo en la línea azul y barre el hielo con ⚔ para dejarlo en la diana. 3 trineos que chocan entre sí.",
+  "🌠 Con 5 fragmentos estelares, el astrónomo abre una lluvia de estrellas: botan y ruedan al caer; atrapa todas las que puedas. 🛡 En la defensa del pueblo, ⚔ junto al portón lo repara entre golpe y golpe.",
+  "💌 Se quitó la cápsula del tiempo: si enterraste oro, se te devuelve con el +50 % al entrar."
+ ],
+ "en": [
+  "🏮 Night market: no more buying from the dialog. Five rascals steal lanterns and run from you between the stalls; if you chase them long they get tired. Corner them and catch them.",
+  "🛷 Sled on the frozen lake (no longer a downhill race): pick a lane, ⚔ to run and push, let go at the blue line and sweep the ice with ⚔ to stop it on the target. 3 sleds that knock each other.",
+  "🌠 With 5 star fragments, the astronomer opens a meteor shower: the stars bounce and roll when they land; catch as many as you can. 🛡 In the village defence, ⚔ next to the gate repairs it between hits.",
+  "💌 The time capsule was removed: if you buried gold, you get it back with the +50% when you log in."
+ ]
+},
 {
  "v": "6.60",
  "b": 282,
