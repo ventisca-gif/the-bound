@@ -1,27 +1,29 @@
 {
- "build": 280,
- "ver": "6.58",
+ "build": 281,
+ "ver": "6.59",
  "date": "2026-11-27",
  "file": "thebound.html",
- "size": 35965307,
- "sha256": "710d613f447e97d1d00aef484c1ff55ef6683980e32b1cb2a7b7349d53cb1b5f",
+ "size": 36011833,
+ "sha256": "3ce40a417b4367f610ef666b7b1f7c4ef7e033340af5b3cca98a366dd91dafaf",
  "minApk": 24,
  "gz": "thebound.html.gz",
- "gzSize": 21905460,
- "gzSha256": "024c1016237b95caca1da38d15a288516ebca2190e9b774a2b6f5840efba24e8",
+ "gzSize": 21921629,
+ "gzSha256": "4d43ac961d0b568461c4ac67a1d86544212e021317b01cc3b09111f278c9fa37",
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "📔 Diario del héroe con dibujo: cada página nueva guarda cómo eras ese día (cuerpo, pelo, armadura y cosméticos) y el libro te dibuja junto a la hazaña.",
-   "🔮 Guardia arcana (mago) e 🌲 Instinto del bosque (arquero): desde nivel 200 reciben menos daño de monstruos y jefes (hasta −40 % y −50 % a nivel 700). No cuenta en PvP. Se ve en Personaje.",
-   "⚖ PvP: el mago había quedado un poco fuerte en duelo; las 7 clases vuelven a estar igualadas.",
-   "Arreglos: el nombre del NPC más cercano ya no se dibuja encima de otro; la Fruta Transparente dice bien dónde aparece."
+   "🏮 Mercado nocturno en Albor (20:00-2:00): tres puestos con farolillos y ofertas al 60 % que cambian cada noche. 🥚 Búsqueda de huevos: 8 huevos por el valle con radar frío/tibio/caliente.",
+   "🏹 Tiro con arco al norte de Albor: dianas a 3 distancias, viento y una mira que va y viene. 🛷 Carrera de trineos en los Picos Helados: pista de nieve contra 3 rivales, hielo que acelera y troncos que saltas con ⚔.",
+   "🛡 Defensa del pueblo: 4 oleadas de monstruos van a por el portón sur de Albor. 🌀 Laberinto que cambia en el Bosque Susurrante: los muros se mueven cada 25 s.",
+   "🌠 Estrellas fugaces de noche: corre al brillo y coge el Fragmento estelar; el astrónomo de Albor cambia 5 por un deseo. 💌 Cápsula del tiempo: entierra oro y un mensaje, ábrela a los 7 días con +50 % y tu dibujo de aquel día.",
+   "Todo sale en el Mapa (🎪 Actividades) y en Lupa › Sistemas."
   ],
   "en": [
-   "📔 Hero's diary with drawings: every new page saves how you looked that day (body, hair, armour and cosmetics) and the book draws you next to the deed.",
-   "🔮 Arcane guard (mage) and 🌲 Forest instinct (archer): from level 200 they take less damage from monsters and bosses (up to −40% and −50% at level 700). Not in PvP. Shown in Character.",
-   "⚖ PvP: the mage had become a bit strong in duels; all 7 classes are even again.",
-   "Fixes: the nearest NPC's name no longer draws over another; the Clear Fruit says correctly where it appears."
+   "🏮 Night market in Albor (20:00-2:00): three lantern-lit stalls with 60% offers that change every night. 🥚 Egg hunt: 8 eggs around the valley with a cold/warm/hot radar.",
+   "🏹 Archery north of Albor: targets at 3 distances, wind and a sweeping sight. 🛷 Sled race on the Frozen Peaks: snow track against 3 rivals, ice that speeds you up and logs you jump with ⚔.",
+   "🛡 Village defence: 4 waves of monsters go for Albor's south gate. 🌀 Shifting maze in the Whispering Forest: the walls move every 25 s.",
+   "🌠 Shooting stars at night: run to the glow and take the Star fragment; the Albor astronomer trades 5 for a wish. 💌 Time capsule: bury gold and a message, open it after 7 days with +50% and your drawing from that day.",
+   "Everything is on the Map (🎪 Activities) and in Magnifier › Systems."
   ]
  }
 }

@@ -1,0 +1,99 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], window._hk=[], setInterval(()=>{ if(!$('#modal').hidden && /Bienvenido|Welcome/.test($('#mbody').textContent)) { const b=$('#dlOk'); if (b) b.click(); else closeModal(); } }, 150), window.addEventListener('error', e=>window._errs.push(e.message)), (()=>{ const ow=errOnce; errOnce=function(t,e){ window._errs.push(t+': '+(e&&e.message||e)); return ow.apply(this,arguments); }; })(), G.P.lv=300, calcStats(G.P), G.P.gold=500000, 1)
+wait 2500
+js (()=>{ const go=(id)=>{ const e=G.ents.find(q=>q.id===id&&q.map==='world'); return e; }; return ['v659_huevos','v659_arco','v659_trineo','v659_defensa','v659_lab','v659_capsula'].map(id=>!!go(id)); })()
+js (()=>{ G.time=21*60; v659NT=0; return 1 })()
+wait 1500
+js (()=>{ const e=G.ents.find(q=>q.id==='v659_mn0'&&q.map==='world'); if(!e) return 'sin puesto'; const g0=G.P.gold; openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/🏮/.test(b.textContent)); if(!b) return 'sin oferta'; b.click(); const r=[b.textContent.slice(0,40), g0-G.P.gold>0]; closeDialog(); return r; })()
+js (closeDialog(), v659EggStart(), [ACT.k, ACT.eggs.length])
+js (()=>{ window._eg=0; return 1 })()
+js (()=>{ const e=ACT.eggs[0]; G.P.x=e.x; G.P.y=e.y; return 1 })()
+wait 300
+js (()=>{ for (const e of ACT.eggs) if(!e.got){ G.P.x=e.x; G.P.y=e.y; break; } return ACT.n })()
+wait 300
+js (()=>{ for (const e of ACT.eggs) if(!e.got){ G.P.x=e.x; G.P.y=e.y; break; } return ACT.n })()
+wait 300
+js (()=>{ for (const e of ACT.eggs) if(!e.got){ G.P.x=e.x; G.P.y=e.y; break; } return ACT.n })()
+wait 300
+js (()=>{ for (const e of ACT.eggs) if(!e.got){ G.P.x=e.x; G.P.y=e.y; break; } return ACT.n })()
+wait 300
+js (()=>{ for (const e of ACT.eggs) if(!e.got){ G.P.x=e.x; G.P.y=e.y; break; } return ACT.n })()
+wait 300
+js (()=>{ for (const e of ACT.eggs) if(!e.got){ G.P.x=e.x; G.P.y=e.y; break; } return ACT.n })()
+wait 300
+js (()=>{ if (ACT.k==='huevos') for (const e of ACT.eggs) if(!e.got){ G.P.x=e.x; G.P.y=e.y; break; } return ACT.k })()
+wait 600
+js ['huevos', ACT.k, V659().egg===calDay(), countItem('v659_huevo'), countItem('v659_huevo_oro')]
+js (()=>{ const c=v659Px('arco'); G.P.x=c.x; G.P.y=c.y+30; v659ArcoStart(); return [ACT.k, ACT.left] })()
+wait 400
+shot
+js (()=>{ const A=ACT, R=V659_ROWS[A.row]; A.aim=Math.max(-1,Math.min(1,(v659TargetX(A,A.row)-A.ax-A.wind*R.d*0.12)/70)); A.aimV=0; v659ArcoShoot(); return 1 })()
+wait 700
+js ['arco apuntado', ACT.score]
+js (ACT.aimV=1, v659ArcoShoot(), 1)
+wait 700
+js (v659ArcoShoot(), 1)
+wait 700
+js (v659ArcoShoot(), 1)
+wait 700
+js (v659ArcoShoot(), 1)
+wait 700
+js (v659ArcoShoot(), 1)
+wait 700
+js (v659ArcoShoot(), 1)
+wait 700
+js (v659ArcoShoot(), 1)
+wait 700
+js (v659ArcoShoot(), 1)
+wait 700
+js (v659ArcoShoot(), 1)
+wait 900
+js ['arco', ACT.k, V659().arcoBest]
+js (()=>{ const c=v659Px('trineo'); G.P.x=c.x; G.P.y=c.y+24; v659TrStart(); return 1 })()
+wait 1800
+js ['trineo en pista', G.map.id, ACT.k, ACT.riv&&ACT.riv.length]
+wait 1500
+shot
+js (()=>{ ACT.vz=150; return G.P.y })()
+wait 600
+js (()=>{ G.P.y=(V659_TR.fin-1)*16; return 1 })()
+wait 3800
+js ['trineo fin', G.map.id, ACT.k, V659().trD===calDay()]
+js (()=>{ const c=v659Px('defensa'); G.P.x=c.x; G.P.y=c.y+10; v659DefStart(); return ACT.k })()
+wait 4000
+js ['defensa ola', ACT.wave, G.ents.filter(e=>e.v659def&&!e.dying).length]
+shot
+js (()=>{ for (const m of G.ents.filter(e=>e.v659def&&!e.dying)) killMob(m); return ACT.wave })()
+wait 5000
+js (()=>{ for (const m of G.ents.filter(e=>e.v659def&&!e.dying)) killMob(m); return ACT.wave })()
+wait 5000
+js (()=>{ for (const m of G.ents.filter(e=>e.v659def&&!e.dying)) killMob(m); return ACT.wave })()
+wait 5000
+js (()=>{ for (const m of G.ents.filter(e=>e.v659def&&!e.dying)) killMob(m); return ACT.wave })()
+wait 1500
+js ['defensa fin', ACT.k, V659().defD===calDay()]
+js (()=>{ const c=v659Px('laberinto'); G.P.x=c.x; G.P.y=c.y+24; v659LabStart(); return 1 })()
+wait 1800
+js ['lab', G.map.id, ACT.k, G.map.ter.filter(t=>t===T.IWALL).length]
+shot
+js (()=>{ const w0=G.map.ter.join(''); ACT.sh=0; window._w0=w0; return 1 })()
+wait 400
+js ['lab cambia', G.map.ter.join('')!==window._w0, blockedFor(G.map, Math.floor(G.P.x/16), Math.floor(G.P.y/16), 0)]
+js (()=>{ const c=(V659_LB-1)/2*16+8; G.P.x=c; G.P.y=c; return 1 })()
+wait 3000
+js ['lab fin', G.map.id, ACT.k, V659().labD===calDay()]
+js (()=>{ G.time=23*60; V659_ST.next=0; V659_ST.frag=null; V659_ST.star=null; G.P.inside=null; return isNight() })()
+wait 2500
+js ['estrella', !!V659_ST.frag]
+js (()=>{ const f=V659_ST.frag; if(!f) return 'sin fragmento'; G.P.x=f.x; G.P.y=f.y; return 1 })()
+wait 400
+js ['fragmento', countItem('v659_frag')]
+js (()=>{ giveItem('v659_frag',5,true); v659NT=0; return 1 })()
+wait 1500
+js (()=>{ const e=G.ents.find(q=>q.id==='v659_astro'&&q.map==='world'); if(!e) return 'sin astronomo'; const g0=G.P.gold; openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/fortuna|fortune/.test(b.textContent)); b.click(); const r=[G.P.gold-g0>0, countItem('v659_frag')]; closeDialog(); return r })()
+js (()=>{ const e=G.ents.find(q=>q.id==='v659_capsula'&&q.map==='world'); const g0=G.P.gold; openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/10,000|10\.000/.test(b.textContent)); b.click(); const m=[...document.querySelectorAll('#dopts .dopt')].find(b=>/✉/.test(b.textContent)); m.click(); const r=[g0-G.P.gold, !!V659().cap]; closeDialog(); return r })()
+js (()=>{ V659().cap.open=calDay(); const e=G.ents.find(q=>q.id==='v659_capsula'&&q.map==='world'); const g0=G.P.gold; openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/Abrir|Open/.test(b.textContent)); b.click(); const r=[G.P.gold-g0, V659().cap, document.querySelector('#dmsg').textContent.slice(0,60)]; return r })()
+js (closeDialog(), openPanel('map'), 1)
+wait 500
+js ['mapa', [...document.querySelectorAll('.mchip')].some(b=>/Actividades|Activities/.test(b.textContent))]
+js (closePanel(), window._errs)

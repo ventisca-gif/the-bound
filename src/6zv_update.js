@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.58', GAME_BUILD = 280;
+const GAME_VER = '6.59', GAME_BUILD = 281;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,25 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.59",
+ "b": 281,
+ "d": "2026-11-27",
+ "es": [
+  "🏮 Mercado nocturno en Albor (20:00-2:00): tres puestos con farolillos y ofertas al 60 % que cambian cada noche. 🥚 Búsqueda de huevos: 8 huevos por el valle con radar frío/tibio/caliente.",
+  "🏹 Tiro con arco al norte de Albor: dianas a 3 distancias, viento y una mira que va y viene. 🛷 Carrera de trineos en los Picos Helados: pista de nieve contra 3 rivales, hielo que acelera y troncos que saltas con ⚔.",
+  "🛡 Defensa del pueblo: 4 oleadas de monstruos van a por el portón sur de Albor. 🌀 Laberinto que cambia en el Bosque Susurrante: los muros se mueven cada 25 s.",
+  "🌠 Estrellas fugaces de noche: corre al brillo y coge el Fragmento estelar; el astrónomo de Albor cambia 5 por un deseo. 💌 Cápsula del tiempo: entierra oro y un mensaje, ábrela a los 7 días con +50 % y tu dibujo de aquel día.",
+  "Todo sale en el Mapa (🎪 Actividades) y en Lupa › Sistemas."
+ ],
+ "en": [
+  "🏮 Night market in Albor (20:00-2:00): three lantern-lit stalls with 60% offers that change every night. 🥚 Egg hunt: 8 eggs around the valley with a cold/warm/hot radar.",
+  "🏹 Archery north of Albor: targets at 3 distances, wind and a sweeping sight. 🛷 Sled race on the Frozen Peaks: snow track against 3 rivals, ice that speeds you up and logs you jump with ⚔.",
+  "🛡 Village defence: 4 waves of monsters go for Albor's south gate. 🌀 Shifting maze in the Whispering Forest: the walls move every 25 s.",
+  "🌠 Shooting stars at night: run to the glow and take the Star fragment; the Albor astronomer trades 5 for a wish. 💌 Time capsule: bury gold and a message, open it after 7 days with +50% and your drawing from that day.",
+  "Everything is on the Map (🎪 Activities) and in Magnifier › Systems."
+ ]
+},
 {
  "v": "6.58",
  "b": 280,
