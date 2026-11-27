@@ -1,0 +1,36 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 300
+js (window._errs=[], setInterval(()=>{ if(!$('#modal').hidden && /Bienvenido|Welcome/.test($('#mbody').textContent)) { const b=$('#dlOk'); if (b) b.click(); else closeModal(); } }, 150), window.addEventListener('error', e=>window._errs.push(e.message)), G.P.lv=300, calcStats(G.P), G.P.gold=100000, 1)
+wait 2500
+js (()=>{ const w=Object.keys(ITEMS).find(k=>ITEMS[k].t==='weapon'&&ITEMS[k].cls===G.P.cls&&(ITEMS[k].lv||1)>20&&(ITEMS[k].lv||1)<60); giveItem(w,1,true); invSel=G.P.inv.findIndex(s=>s.id===w); openPanel('inv'); const c=document.querySelector('.v655cmp'); const r=[w, c && c.textContent]; closePanel(); return r; })()
+js (giveCosmetic('c_tw_crop',true), giveCosmetic('c_tw_ruffshort',true), G.P.cos={body:'c_tw_crop',legs:'c_tw_ruffshort'}, refreshLook(), wdMode='cos', wdSlot='body', openPanel('wardrobe'), [!!document.querySelector('.tintbox'), document.querySelectorAll('[data-tint]').length])
+js (document.querySelector('[data-tint="120"]').click(), [G.P.cosTint, G.P.gold, heroKey('a',{},{},{}).includes('|T') ])
+js (()=>{ const a=playerAtlas(G.P); G.P.cosTint={}; const b=playerAtlas(G.P); G.P.cosTint={body:120}; G.P.cosTintId={body:'c_tw_crop'}; return [a!==b]; })()
+js (document.querySelector('[data-cssv="0"]').click(), G.P.cos={}, renderPanel(), document.querySelector('[data-csld="0"]').click(), [G.P.cos, G.P.cosTint])
+js (closePanel(), [modaScore(), modaTema()[0]])
+js (()=>{ const e=spawnNPC('v655_moda',G.P.x+20,G.P.y,G.map.id,{face:'up'}); const g0=G.P.gold; openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/Desfilar/.test(b.textContent)); b.click(); return [G.P.gold-g0>0, [...document.querySelectorAll('#dopts .dopt')].some(b=>/Desfilar/.test(b.textContent))]; })()
+js (closeDialog(), (()=>{ for (let f=6; f<400; f++) if (tiSpecial && TI===null) {} return 1; })())
+js (tiStart(1,'solo'), 1)
+wait 3000
+js (()=>{ const out={}; for (let f=6; f<300; f++){ const k=tiSpecial(f); if(k) out[k]=(out[k]||0)+1; } return out; })()
+js (()=>{ let f=6; while(tiSpecial(f)!=='tienda') f++; TI.floor=f; G.ents=G.ents.filter(e=>!(e.type==='mob'&&e.ti)); TI.spawned=false; tiSpawn(G.map,f); return [f, TI.sp, !!G.ents.find(e=>e.id==='ti_tendero')]; })()
+wait 800
+js [TI.cleared]
+js (()=>{ giveItem('piedra1',20,true); const e=G.ents.find(e=>e.id==='ti_tendero'); openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/Fénix/.test(b.textContent)); b.click(); b.click(); return [countItem('pluma_fenix'), countItem('piedra1')]; })()
+js (closeDialog(), (()=>{ let f=6; while(tiSpecial(f)!=='trampa') f++; tiEnterFloor(f); return f; })())
+wait 3500
+js [TI.sp, TI.trap>G.t, TI.cleared, !G.ents.find(e=>e.id==='ti_tendero'&&!e.remove)]
+wait 16000
+js [TI.cleared]
+js (window._god=setInterval(()=>{G.P.ifr=5; G.P.hp=G.P.S.maxhp;},100), TI.floor=99, TI.cleared=true, tiNext(), 1)
+wait 3500
+js [G.ents.filter(e=>e.type==='mob'&&e.ti).some(e=>e.name==='Tu Reflejo')]
+js (clearInterval(window._god), 1)
+js (tiEnd('left'), 1)
+wait 2500
+js (closeModal(), G.P.hp=0, (V655_HIT={n:'Lobo',lv:5,boss:false,d:120,t:G.t}), playerDie(), [G.P.deaths && G.P.deaths[0] && G.P.deaths[0].n])
+wait 300
+js (G.P.downed && giveUpDown(), 1)
+wait 3000
+js (BIT_RENDER.caidas().includes('Lobo'))
+js (closeDialog(), (()=>{ const S=v655v(); S.vb={id:'v74_vecina', d:calDay()-1}; const e=spawnNPC('v74_vecina',G.P.x+20,G.P.y,G.map.id,{face:'up'}); openDialog(e); const b=[...document.querySelectorAll('#dopts .dopt')].find(b=>/Cenar/.test(b.textContent)); if(!b) return 'sin opcion'; b.click(); return [v655v().vb, frOf('v74_vecina').p]; })())
+js window._errs
