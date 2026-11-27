@@ -4,7 +4,7 @@ on:
     branches: [main]
     paths: ['src/**', 'template.html', 'tests/**', '.github/workflows/reverse-mountain.yml']
 permissions:
-  contents: read
+  contents: write
 concurrency:
   group: reverse-mountain-${{ github.event.pull_request.number }}
   cancel-in-progress: true
@@ -43,9 +43,9 @@ jobs:
       - name: Regression suite and outfit fit
         if: ${{ !cancelled() && steps.build.conclusion == 'success' }}
         run: |
-          # Successful regression/fit on run 46075604260 is reusable only for identical inputs.
-          if git diff --quiet 04f669379ce2e2deda8f70304092dc226ff5c35c HEAD -- src template.html assets vendor tools tests ':(exclude)tests/upd.py'; then
-            echo 'Regression and 2043-outfit fit reused from successful steps of run 46075604260; all inputs identical.'
+          # Compare every regression input. Version/changelog/footer may change without changing gameplay.
+          if python3 tools/dev/reverse_inputs.py 04f669379ce2e2deda8f70304092dc226ff5c35c; then
+            echo 'Regression and 2043-outfit fit reused from successful steps of run 46075604260; gameplay and regression inputs identical.'
           else
             bash tools/dev/reg.sh /tmp/reverse-qa > /tmp/reverse-qa/regression.log 2>&1
             cat /tmp/reverse-qa/regression.log
@@ -73,6 +73,32 @@ jobs:
           assert 'RESULTS' in log
           assert not log.split('RESULTS', 1)[1].strip(), log
           PY
+      - name: Package verified internal update
+        run: |
+          python3 tools/dev/release.py --no-build
+          python3 - <<'PYCODE'
+          import gzip,hashlib,json
+          from pathlib import Path
+          m=json.loads(Path('update/version.json').read_text())
+          h=Path('update/thebound.html').read_bytes();z=Path('update/thebound.html.gz').read_bytes()
+          assert m['ver']=='6.63' and m['build']==285
+          assert len(h)==m['size'] and hashlib.sha256(h).hexdigest()==m['sha256']
+          assert len(z)==m['gzSize'] and hashlib.sha256(z).hexdigest()==m['gzSha256']
+          assert gzip.decompress(z)==h
+          PYCODE
+      - name: Commit verified package to the feature branch
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
+          TARGET_BRANCH: ${{ github.event.pull_request.head.ref }}
+        run: |
+          git fetch origin "$TARGET_BRANCH"
+          test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_HEAD"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add update/thebound.html update/thebound.html.gz update/version.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Package verified Reverse Mountain 6.63 update'
+          git push origin "HEAD:refs/heads/$TARGET_BRANCH"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
