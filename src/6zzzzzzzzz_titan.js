@@ -143,14 +143,20 @@ function ttFistArt(skin, view, W, H) {
     if (edge) { px(i, j, OUT); continue; }
     const t = (i / W) * 0.45 + (j / fh) * 0.55;                                   // light from the top-left
     let col = t < 0.22 ? S3 : t < 0.42 ? S2 : t < 0.74 ? S1 : S0;
-    if (view === 'front' && j < fh * 0.6) {                                        // four rounded fingers, each with its own outline and shine
-      const fwK = (fw - 4) / 4, k = Math.min(3, Math.max(0, Math.floor((i - 2) / fwK))), fx0 = 2 + k * fwK, fr = Math.round(fwK * 0.48);
-      const inF = (ii, jj) => rr(ii, jj, Math.round(fx0), 1, Math.round(fwK), Math.round(fh * 0.66), fr);
-      if (!inF(i, j)) col = OUT;
-      else if (!inF(i - 2, j) || !inF(i + 2, j) || !inF(i, j - 2)) col = OUT;
-      else { const u = (i - fx0) / fwK, v = j / (fh * 0.6); col = v < 0.22 && u > 0.2 && u < 0.6 ? S3 : u > 0.72 ? S0 : v < 0.45 ? S2 : S1; }
+    if (view === 'front' && j < fh * 0.64) {                                       // knuckles to the viewer: 4 rounded knuckles, folded fingers below
+      const fwK = (fw - 4) / 4, k = Math.min(3, Math.max(0, Math.floor((i - 2) / fwK))), fx0 = 2 + k * fwK, kh = Math.round(fh * 0.36);
+      const kn = (ii, jj) => rr(ii, jj, Math.round(fx0), 1, Math.round(fwK), kh, Math.round(fwK * 0.5));
+      if (j < kh) {
+        const u = clamp((i - fx0) / fwK, 0, 1), yTop = 1 + (1 - Math.sin(u * Math.PI)) * kh * 0.42;
+        if (j < yTop) col = null;                                                      // scalloped top: one curve per knuckle
+        else if (j < yTop + 2 || (k > 0 && u < 0.07)) col = OUT;
+        else { const v = (j - yTop) / (kh - yTop + 0.01); col = v < 0.3 && u > 0.22 && u < 0.62 ? S3 : v < 0.65 ? S2 : u > 0.78 ? S0 : S1; }
+      } else {
+        const gap = (i - 2) - k * fwK; col = j < kh + 2 ? OUT : (k > 0 && gap < 1.6) ? OUT : gap > fwK - 3 ? S0 : j < kh + 5 ? S2 : S1;
+      }
     }
     if (view === 'side') { const kn = i > W * 0.86 && (Math.floor(j / (fh / 5)) % 2 === 0); if (kn) col = S2; if (j > fh * 0.3 && j < fh * 0.85 && (j % Math.round(fh / 4) === 0) && i > W * 0.3) col = S0; }
+    if (col === null) continue;
     if (view === 'back' && (i % Math.round(W / 5) === 0) && j > fh * 0.15 && j < fh * 0.6) col = S2;   // tendons on the back of the hand
     px(i, j, col);
   }
@@ -170,16 +176,17 @@ function ttArmLine(x0, y0, x1, y1, skin, w) {
 // Where each giant fist sits this frame (world offsets from the player's feet).
 function ttFistLayout(P) {
   const st = P.titanOn, two = st === 2, dir = P.dir, anim = P.anim, f = P.af | 0, atk = anim === 'atk' || anim === 'slam';
-  const bob = anim === 'walk' ? (f % 2 ? 1 : -1) : anim === 'idle' ? (f % 2) * 0.5 : 0;
+  const walk = anim === 'walk', ph = G.t * (walk ? 9 : 2.6);
+  const bob = walk ? Math.sin(ph) * 3 : Math.sin(ph) * 1.5, sw = walk ? Math.sin(ph) * 4 : Math.sin(ph * 0.7) * 1;   // float in idle, swing when walking
   const punchR = atk && (f % 2 === 0 || !two), punchL = atk && two && f % 2 === 1;
-  const W = two ? 30 : 34, H = Math.round(W * 0.88), out = [];
+  const W = two ? 27 : 30, H = Math.round(W * 0.88), out = [];
   if (dir === 'left' || dir === 'right') {
     const d = dir === 'right' ? 1 : -1;
-    if (two) out.push({ x: d * (punchL ? 26 : 8), y: -22 - bob, w: W * 0.85, h: H * 0.85, view: 'side', d, behind: true, sx: -d * 1, sy: -20 });
-    out.push({ x: d * (punchR ? 30 : 14), y: -14 + bob, w: W, h: H, view: 'side', d, behind: false, sx: d * 2, sy: -19 });
+    if (two) out.push({ x: d * (punchL ? 30 : 14 - sw), y: -16 + bob, w: W * 0.85, h: H * 0.85, view: 'side', d, behind: true, sx: -d, sy: -19 });
+    out.push({ x: d * (punchR ? 34 : 22 + sw), y: -10 - bob, w: W, h: H, view: 'side', d, behind: false, sx: d * 2, sy: -18 });
   } else {
     const up = dir === 'up', sideR = up ? -1 : 1;
-    const one = (sg, punch, b) => ({ x: punch ? sg * 6 : sg * 21, y: punch ? (up ? -34 : -6) : -16 + b, w: W + (punch ? 4 : 0), h: H + (punch ? 4 : 0), view: up ? 'back' : 'front', d: -sg, behind: up && punch, sx: sg * 5, sy: -20 });
+    const one = (sg, punch, b) => ({ x: punch ? sg * 10 : sg * 27, y: punch ? (up ? -30 : -2) : -10 + b, w: W + (punch ? 4 : 0), h: H + (punch ? 4 : 0), view: 'front', d: -sg, behind: up && punch, sx: sg * 6, sy: -19 });
     if (two) out.push(one(-sideR, punchL, -bob));
     out.push(one(sideR, punchR, bob));
   }
