@@ -1,0 +1,32 @@
+name: Test Grand Line port
+on:
+  pull_request:
+    branches: [main]
+    paths: ['src/6zzzzzzz_v66*_*.js', 'tests/grandline664/**', '.github/workflows/grand-line-port.yml']
+permissions:
+  contents: read
+jobs:
+  native-map:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install build and test dependencies
+        run: |
+          pip install playwright
+          mkdir -p tools/i18n/vendor
+          npm pack acorn@8.14.0
+          tar -xOzf acorn-8.14.0.tgz package/dist/acorn.js > tools/i18n/vendor/acorn.js
+      - run: python3 build.py
+      - run: python3 -u tests/grandline664/browser.py "file://$PWD/dist/test.html"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: grand-line-gameplay
+          path: tests/grandline664/out/*.png
