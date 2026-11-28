@@ -1,21 +1,21 @@
 {
- "build": 293,
- "ver": "6.71",
+ "build": 294,
+ "ver": "6.72",
  "date": "2026-11-27",
  "file": "thebound.html",
- "size": 38146895,
- "sha256": "0d11becd9b92574f58605d833a75af83a76e6778f51ec42005c4f34b373ac1a1",
+ "size": 38171371,
+ "sha256": "7a72fed2d38615b315469e2c40642950baca74e1b8e8b30d55dc3c5a9998f6a5",
  "minApk": 24,
  "gz": "thebound.html.gz",
- "gzSize": 23459257,
- "gzSha256": "a93ecb46f6993f9aac0a76210f5b131c0a8ebdbe2278c35eba525cbbb6005e5e",
+ "gzSize": 23467713,
+ "gzSha256": "f32d03a132f62a7bc6c38ea61527bdc81dbc2f0a23d7b92346d548c7c638d88a",
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Titán Astral, quinta forma del Transmutador en el brazalete. Es un gigante cósmico con Pisotón estelar, Rayo de la corona, Lluvia de estrellas y Supernova."
+   "Despertar Titánico: los puños gigantes se unen al final de los brazos, a la altura de las manos. La cara queda despejada en reposo y al caminar en las cuatro direcciones."
   ],
   "en": [
-   "Astral Titan is the fifth Transmuter form on the bracelet. This cosmic giant uses Star Stomp, Crown Beam, Star Shower, and Supernova."
+   "Titanic Awakening: giant fists attach at the ends of the arms, at hand height. The face stays clear while idle and walking in all four directions."
   ]
  }
 }
