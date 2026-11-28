@@ -1,0 +1,22 @@
+click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
+js (G.P.lv=250,calcStats(G.P),G.P.gold=300000,giveItem('titan_frag',8),1)
+js (useItem(G.P.inv.findIndex(s=>s.id==='titan_frag')),[G.P.titanOwn, G.P.gold, G.P.inv.filter(s=>s.id==='titan_frag').length])
+wait 400
+js (ttToggle(),[G.P.titanOn, G.P.titanT, G.P.S.atk])
+wait 200
+js (G.P.busy=0,G.P.atkCd=0,basicAttack(),1)
+wait 120
+shot
+js (G.P.titanM=45,ttToggle(),G.P.busy=0,G.P.atkCd=0,basicAttack(),G.P.titanOn)
+wait 250
+shot
+js (G.P.mp=G.P.S.maxmp,G.P.busy=0,ttAttack(G.P,0),1)
+wait 380
+shot
+js (G.P.mp=G.P.S.maxmp,G.P.busy=0,G.P.cds.tt_3=0,ttAttack(G.P,3),1)
+wait 450
+shot
+js (G.P.titanT=0.05,1)
+wait 500
+js [G.P.titanOn, Math.round(G.P.titanCd), G.P.buffs.map(b=>b.id)]
+js (()=>{const s={cls:'transmutador'};const P=G.P;const c=P.cls;P.cls='transmutador';const r=[ttCan(P)];P.cls=c;return r})()
