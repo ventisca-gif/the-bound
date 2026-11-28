@@ -1,5 +1,5 @@
 click #tNew;;wait 400;;type #ccName|Sergio;;click #ccGo;;wait 1500;;click #introOk;;wait 500
-js (G.P.lv=250,calcStats(G.P),G.P.gold=300000,giveItem('titan_frag',8),1)
+js (G.P.lv=620,calcStats(G.P),G.P.gold=600000,giveItem('titan_frag',8),1)
 js (useItem(G.P.inv.findIndex(s=>s.id==='titan_frag')),[G.P.titanOwn, G.P.gold, G.P.inv.filter(s=>s.id==='titan_frag').length])
 wait 400
 js (ttToggle(),[G.P.titanOn, G.P.titanT, G.P.S.atk])
