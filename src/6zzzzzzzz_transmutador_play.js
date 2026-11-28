@@ -146,6 +146,7 @@ function tmLook(P, form) {
   } else {
     // Bigger body: the widest structure of the player's gender (Titán / Guerrera).
     const bt = app.g === 'f' ? 6 : 5; if (BODY_T[app.g === 'f' ? 'f' : 'm'][bt]) { L.bt = bt; L.btS = BODY_T[app.g === 'f' ? 'f' : 'm'][bt]; }
+    L.hs = { ...L.hs, cap: 'bald', bang: 'none', tail: null, back: 0, side: 0, r8HD: null, r8Base: null }; L.hair2 = null;
     L.top = { k: 'plate', m: C5.m, s: C5.s, t: 10 + stage }; L.bot = { k: 'baggy', m: P5(['#0e0e14', '#1a1a24', '#262634', '#363648', '#4a4a60']) }; L.feet = { k: 'boots', m: C5.m };
   }
   L.tmDevice = false; L.tmForm = form; L.tmStage = stage; L.mirror = false;
@@ -155,9 +156,10 @@ function tmOpaque(p, x, y) { return x >= 0 && y >= 0 && x < p.w && y < p.h && (p
 function tmHairTop(p, x, maxY) { for (let y = 0; y < Math.min(p.h, maxY); y++) if (tmOpaque(p, x, y)) return y; return -1; }
 function tmDrawFlames(p, A, stage, fr) {
   const cols = [C('#f06a12'), C('#ffb83a'), C('#fff2a6')];
-  for (let x = Math.round(A.hx) - 6; x <= Math.round(A.hx) + 6; x++) {
+  // Head of living flame: tall tongues over the whole head (any hairstyle, any body).
+  for (let x = Math.round(A.hx) - 7; x <= Math.round(A.hx) + 7; x++) {
     const y0 = tmHairTop(p, x, A.torsoTop); if (y0 < 1) continue;
-    const edge = Math.abs(x - A.hx) / 6, n = tmHash(x * 3 + 1, fr), h = Math.max(0, Math.round((2 + stage * 0.8) * (1 - edge * 0.65) + n * 2.4 - 0.6));
+    const edge = Math.abs(x - A.hx) / 7, n = tmHash(x * 3 + 1, fr), h = Math.max(0, Math.round((4.5 + stage) * (1 - edge * 0.6) + n * 3 - 0.8));
     for (let k = 1; k <= h && y0 - k >= 0; k++) { const t = k / (h + 0.5); p.set(x, y0 - k, cols[t < 0.35 ? 0 : t < 0.75 ? 1 : 2]); }
   }
   if (stage >= 2) for (let i = 0; i < stage; i++) {
@@ -220,6 +222,18 @@ function tmDrawArms(p, A, L) {
   if (!A.side) { arm(A.tx0 - aw - 1, -(ps.rax || 0), ps.ray, A.up); arm(A.tx0 + A.tw + 1, -(ps.lax || 0), ps.lay, A.up); }
   else { arm(Math.round(A.cx - 1 + A.d * 2), ps.rax, ps.ray, true); arm(Math.round(A.cx - 2 - A.d), ps.lax, ps.lay, false); }
 }
+function tmDrawHorns(p, A) {
+  // Coloso: two curved ivory horns and a gold war mark on the forehead (bald head).
+  const hx = Math.round(A.hx), ivory = [C('#8a7a5a'), C('#d8ccaa'), C('#fff6dc')], gold = C('#ffcf5a'), goldD = C('#b08a2a'), out = C('#1a0606');
+  let top = -1; for (let y = 0; y < A.torsoTop; y++) if (tmOpaque(p, hx, y)) { top = y; break; } if (top < 0) return;
+  const horn = (x0, dir) => { const pts = [[0, 0], [dir, -1], [dir * 2, -2], [dir * 2, -3], [dir * 3, -4]];
+    pts.forEach(([ox, oy], i) => { const x = x0 + ox, y = top + 3 + oy; p.set(x, y, ivory[i < 2 ? 0 : i < 4 ? 1 : 2]); if (i < 3) p.set(x + dir, y, ivory[1]); if (!tmOpaque(p, x, y - 1)) p.set(x, y - 1, out); }); };
+  if (!A.side) { horn(hx - 5, -1); horn(hx + 5, 1); }
+  else horn(hx - A.d * 2, -A.d);
+  if (!A.up) { const fx = A.side ? hx + A.d * 2 : hx, fy = top + 2;
+    if (A.side) { p.set(fx, fy, gold); p.set(fx, fy + 1, goldD); }
+    else { p.set(fx - 1, fy, gold); p.set(fx + 1, fy, gold); p.set(fx, fy + 1, gold); p.set(fx, fy + 2, goldD); } }
+}
 hookAround('drawHero', (next, p, L, ...a) => {
   if (!L.tmForm) return next(p, L, ...a);
   if (!p.t) p.t = new Uint8Array(p.w * p.h);
@@ -229,7 +243,7 @@ hookAround('drawHero', (next, p, L, ...a) => {
   if (L.tmForm === 'ascua') tmDrawFlames(p, A, L.tmStage, fr);
   else if (L.tmForm === 'prisma') tmDrawShards(p, A, L.tmStage);
   else if (L.tmForm === 'cefiro') tmDrawStorm(p, A, L.tmStage, fr);
-  else tmDrawArms(p, A, L);
+  else { tmDrawArms(p, A, L); tmDrawHorns(p, A); }
   p.tg = tg;
   return r;
 });
