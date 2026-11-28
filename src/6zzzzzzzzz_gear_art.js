@@ -91,9 +91,12 @@ function rubberGearFour(P, atlas, dir, anim, frame) {
    const col=atlas.idx[anim]+frame;
    atlasBlit(h,atlas,col,DIRI[dir],0,0,atlas.fw,atlas.fh);
    c.imageSmoothingEnabled=false;
-   const top=5, bottom=29;
-   c.drawImage(h.canvas,0,top,atlas.fw,bottom-top,64-atlas.ax*1.22,12,atlas.fw*1.22,22);
-   if(dir==='down'){box('#302036',57,27,3,1);box('#302036',67,27,3,1);}
+   const look = atlas.hdL;
+   const body = BODYP.normal;
+   const pose = heroPose(dir, anim, frame, look);
+   const neck = Math.round(atlas.ay - (pose.jump || 0) - body.lh - body.th + pose.crouch + pose.bob);
+   // Keep the native head scale on both axes and place the neck on the new torso.
+   c.drawImage(h.canvas, 0, 0, atlas.fw, neck, 64 - atlas.ax, 34 - neck, atlas.fw, neck);
    // Quantize edge transparency to a hard pixel boundary before enlarging.
    const pixels=c.getImageData(0,0,128,118);
    for(let i=3;i<pixels.data.length;i+=4)pixels.data[i]=pixels.data[i]>=128?255:0;
@@ -135,3 +138,23 @@ function rubberGearThree(P, atlas, dir, anim, frame) {
   }
   return canvas;
 }
+
+// Mark only exposed face pixels at the native eye anchors, keeping hair and pupils intact.
+hookAfter('drawHero', (_, p, look) => {
+  const m = p.meta;
+  if (!look.rubberEyeMarks || !m || m.up) return;
+  const eyeY = Math.round(m.hy) + FACE.ey;
+  const eyeGap = look.btS?.eg || 0;
+  const eyes = m.side ? [[m.hx + (m.d < 0 ? -5 : 3), m.d]]
+    : [[m.hx - 4 - eyeGap, -1], [m.hx + 3 + eyeGap, 1]];
+  const layer = p.tg;
+  p.tg = 3;
+  for (const [x, outward] of eyes) {
+    const edge = x + (outward < 0 ? -1 : 2);
+    for (const [px, py] of [[x, eyeY + 3], [x + 1, eyeY + 3],
+      [edge, eyeY + 1], [edge, eyeY + 2], [edge + outward, eyeY + 2]]) {
+      if (m.sk.includes(p.get(px, py))) p.set(px, py, C('#0b080f'));
+    }
+  }
+  p.tg = layer;
+});

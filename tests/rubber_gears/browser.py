@@ -43,6 +43,8 @@ with sync_playwright() as playwright:
     assert page.evaluate('RUBBER_GEARS.every(g => g.techniques.length === 4)')
     for index in range(4):
         cards.locator(f'[data-rubber-demo="{index}"]').click()
+    cards.locator('summary').click()
+    page.wait_for_function('document.querySelector("#rubberGearCards details img")?.naturalWidth > 0')
     assert original == page.evaluate('JSON.stringify([G.P.S, G.P.slots, G.P.skills, G.P.srF])')
     page.evaluate('closeModal(); G.P.fruit = null')
     page.wait_for_function('document.querySelector("#bRubberGear").style.display === "none"')
@@ -56,7 +58,7 @@ with sync_playwright() as playwright:
         if (!cache.has(key)) {
           const P = {...e, app: {...e.app, g: shot.sex, hair: shot.sex === 'f' ? 'rojo' : 'negro'}};
           const draw = shot.form === 3 ? rubberGearThree : rubberGearFour;
-          cache.set(key, draw(P, rubberGearPreviewAtlas(P), shot.dir, shot.anim, shot.frame));
+          cache.set(key, draw(P, rubberGearPreviewAtlas(P, shot.form), shot.dir, shot.anim, shot.frame));
         }
         const size = shot.form === 3 ? 1 : .74;
         ctx.save();
@@ -71,7 +73,7 @@ with sync_playwright() as playwright:
             for direction in ('down', 'up', 'left', 'right'):
                 assert page.evaluate("""([form, sex, dir]) => {
                   const P = {...G.P, app: {...G.P.app, g: sex}};
-                  const A = rubberGearPreviewAtlas(P);
+                  const A = rubberGearPreviewAtlas(P, form);
                   const draw = form === 3 ? rubberGearThree : rubberGearFour;
                   const pixels = (anim, f) => draw(P, A, dir, anim, f).getContext('2d')
                     .getImageData(0,0,128,118).data;
