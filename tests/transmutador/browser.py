@@ -93,5 +93,21 @@ with sync_playwright() as playwright:
     page.wait_for_function('!tmActive(G.P)')
     assert page.evaluate('G.P.equip.weapon.id') == human
     assert page.evaluate('serializeP(G.P).cls') == 'transmutador'
+    assert page.evaluate("""() => {
+      for (const titanOn of [1, 2]) for (const dir of DIRS) {
+        const idle = ttFistLayout({titanOn, dir, anim: 'idle', af: 0});
+        const walk = ttFistLayout({titanOn, dir, anim: 'walk', af: 1});
+        if ([idle, walk].some(fists => fists.length !== titanOn ||
+            fists.some(f => f.y < -11 || f.sy > -10 || f.sy < -11))) return false;
+        for (const af of [0, 1]) {
+          const fists = ttFistLayout({titanOn, dir, anim: 'atk', af});
+          const axis = dir === 'left' || dir === 'right' ? 'x' : 'y';
+          const sign = dir === 'left' || dir === 'up' ? -1 : 1;
+          if (titanOn === 1 && af === 1) continue;
+          if (!fists.some((f, i) => sign * (f[axis] - idle[i][axis]) > 3)) return false;
+        }
+      }
+      return true;
+    }"""), 'Titanic fist alignment and punches in four directions'
     assert not errors, errors
     print('PASS: creation, return to human after spending points while busy, native HD, portrait, scale, four-direction touch joystick and idle for all forms, five skill controls, basic punch and human equipment')
