@@ -1,21 +1,21 @@
 {
- "build": 294,
- "ver": "6.72",
- "date": "2026-11-27",
+ "build": 295,
+ "ver": "6.73",
+ "date": "2026-11-28",
  "file": "thebound.html",
- "size": 38171371,
- "sha256": "7a72fed2d38615b315469e2c40642950baca74e1b8e8b30d55dc3c5a9998f6a5",
+ "size": 38181666,
+ "sha256": "de7d9b691cc98b65292a9c88c04c864acaa9d1a19575548455498a4817a56c32",
  "minApk": 24,
  "gz": "thebound.html.gz",
- "gzSize": 23467713,
- "gzSha256": "f32d03a132f62a7bc6c38ea61527bdc81dbc2f0a23d7b92346d548c7c638d88a",
+ "gzSize": 23472606,
+ "gzSha256": "32a509aec41510a05a180c0748ecea379947e09a62b1de956a44af97b5666cfe",
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Despertar Titánico: los puños gigantes se unen al final de los brazos, a la altura de las manos. La cara queda despejada en reposo y al caminar en las cuatro direcciones."
+   "Grand Line: desembarca en Puerto de las Campanas desde el nivel 620. Investiga el banquete con Naira y desafía a Varda y Mástil Gris."
   ],
   "en": [
-   "Titanic Awakening: giant fists attach at the ends of the arms, at hand height. The face stays clear while idle and walking in all four directions."
+   "Grand Line: land at Bellhaven from level 620. Investigate the banquet with Naira and challenge Varda and Grey Mast."
   ]
  }
 }
