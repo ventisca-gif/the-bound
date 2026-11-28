@@ -244,8 +244,8 @@ function rareClearActors(M){
  for(const e of [S.gaimon,...S.animals,...(S.crew||[])])if(e)e.remove=true;
  S.animals=[];S.gaimon=null;S.crew=null;S.trail=null;S.lastTrail=0;S.crewOwner=null;
 }
-function dawnCrewFollow(M,P,dt){
- const S=M.rare,mask=dawnCrewMask(P);
+function dawnCrewFollow(M,P,dt,S=M.rare,blockedIds=null,encounterTarget=null){
+ const mask=dawnCrewMask(P);
  const points=S.trail||(S.lastTrail=G.t,S.trail=[[P.x,P.y]]);
  if(dist2(P.x,P.y,...points[0])>=8**2){
   points.unshift([P.x,P.y]);S.lastTrail=G.t;
@@ -259,7 +259,7 @@ function dawnCrewFollow(M,P,dt){
  DAWN_CREW.forEach(([id,,role],i)=>{
   const sceneLead=M.syrup?.lead;
   const scripted=M.conomi?.run||M.conomi?.scene||M.baratie?.run||activeSyrup||(sceneLead?.id===id&&d2(P,sceneLead)<180**2)||(id!==ORANGE_NAMI&&id!==SYRUP_USOPP&&(orange||shells));
-  if(!(mask&(1<<i))||scripted){
+  if(!(mask&(1<<i))||scripted||blockedIds?.has(id)){
    if(crew[i])crew[i].remove=true;
    crew[i]=null;return;
   }
@@ -274,7 +274,7 @@ function dawnCrewFollow(M,P,dt){
   const e=crew[i]||(crew[i]=spawnNPC(id,x,y,M.id,{scene:true,dawnCrew:true,hgt:57}));
   if(!e.crewReady){e.def={...e.def,title:role,lines:dawnCrewLines(id)};e.crewReady=true;}
   if(e.actionUntil>G.t){baratiePose(e);return;}
-  const target=P.target;
+  const target=encounterTarget||P.target;
   if(CREW_TECHNIQUES[id]&&target?.mid&&target.map===M.id&&target.state!=='return'&&d2(P,target)<174**2){
    const stats=syrupCrewStats(P,id,target.lv);
    e.lv=stats.lv;

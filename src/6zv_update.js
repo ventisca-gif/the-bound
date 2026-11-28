@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.73', GAME_BUILD = 295;
+const GAME_VER = '6.74', GAME_BUILD = 296;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,17 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.74",
+ "b": 296,
+ "d": "2026-11-28",
+ "es": [
+  "Puerto de las Campanas: duelo de la plaza, tripulación de apoyo sin duplicados y arco repetible. La primera victoria aumenta el poder permanente de la tripulación. El terreno se muestra mientras cargan las texturas."
+ ],
+ "en": [
+  "Bellhaven: square duel, crew support without duplicate actors, and a replayable chapter. The first clear increases permanent crew power. Terrain stays visible while textures load."
+ ]
+},
 {
  "v": "6.73",
  "b": 295,

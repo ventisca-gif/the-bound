@@ -1,21 +1,21 @@
 {
- "build": 295,
- "ver": "6.73",
+ "build": 296,
+ "ver": "6.74",
  "date": "2026-11-28",
  "file": "thebound.html",
- "size": 38181666,
- "sha256": "de7d9b691cc98b65292a9c88c04c864acaa9d1a19575548455498a4817a56c32",
+ "size": 38268493,
+ "sha256": "f3e02ed20ee39ae01a8145a395c51a6ceb19d7ecd237b7a17457f200498d0fa4",
  "minApk": 24,
  "gz": "thebound.html.gz",
- "gzSize": 23472606,
- "gzSha256": "32a509aec41510a05a180c0748ecea379947e09a62b1de956a44af97b5666cfe",
+ "gzSize": 23535307,
+ "gzSha256": "da89767e2e9583b108b54c933a2f7491530ac165e5efa0aa99127fa827fcbc04",
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Grand Line: desembarca en Puerto de las Campanas desde el nivel 620. Investiga el banquete con Naira y desafía a Varda y Mástil Gris."
+   "Puerto de las Campanas: duelo de la plaza, tripulación de apoyo sin duplicados y arco repetible. La primera victoria aumenta el poder permanente de la tripulación. El terreno se muestra mientras cargan las texturas."
   ],
   "en": [
-   "Grand Line: land at Bellhaven from level 620. Investigate the banquet with Naira and challenge Varda and Grey Mast."
+   "Bellhaven: square duel, crew support without duplicate actors, and a replayable chapter. The first clear increases permanent crew power. Terrain stays visible while textures load."
   ]
  }
 }

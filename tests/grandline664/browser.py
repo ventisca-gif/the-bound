@@ -47,6 +47,12 @@ with sync_playwright() as p:
  check("Array.from({length:26},(_,i)=>385+i).every(y=>dawnSurface(G.map,...dawnPx([178,y]),18))",'channel is clear for the native ship')
  act()
  check("glpOnFoot()&&G.P.dawnBoat.h.kind==='skiff'&&G.map.overviewMinimap",'native landing retains the ship and shows the regional minimap')
+ check("""(()=>{const M=G.map,[x,y]=GL_PORT_BELL,cx=x>>3,cy=y>>3;
+   const g=mkCanvas(CHP,CHP).getContext('2d');
+   M.drawMissingChunk(g,cx,cy,cx*CHP,cy*CHP);
+   const p=g.getImageData((x%CH)*16,(y%CH)*16,1,1).data;
+   return p[0]===137&&p[1]===135&&p[2]===124&&p[3]===255;
+ })()""",'uncached campanario tiles show cobblestone rather than brown')
  page.screenshot(path=str(OUT/'05_campanas_muelle.png'))
  js("openPanel('map');1");page.wait_for_timeout(500)
  page.screenshot(path=str(OUT/'06_campanas_mapa.png'))
@@ -70,6 +76,20 @@ with sync_playwright() as p:
  check("glpOnFoot()&&G.P.map===GL_ID&&G.P.glPortQuest.clues===3",'restore keeps the player ashore with both clues')
  js('[G.P.x,G.P.y]=dawnPx(GL_PORT_PLAZA);updateCamera(0,true);1');page.wait_for_timeout(500)
  page.screenshot(path=str(OUT/'04_campanas_plaza.png'))
+ js('[G.P.x,G.P.y]=dawnPx(GL_PORT_DUEL);updateCamera(0,true);1')
+ page.wait_for_function("interactTarget()?.o?.xact==='glp_duel'",timeout=10000)
+ page.wait_for_function("G.ents.some(e=>e.dawnCrew&&e.id===SHELLS_CAST_IDS.luffy&&e.map===GL_ID&&!e.remove)")
+ js('doInteract(interactTarget());1')
+ check("G.ents.filter(e=>e.id===SHELLS_CAST_IDS.luffy&&e.map===GL_ID&&!e.remove).length===1",'crew members are never duplicated in the cutscene')
+ check("glpDuel?.actors.length===9&&GLP_ARC_IDS.every(id=>glpDuel.actors.some(e=>e.id===id&&e.atlas.img.width))",'six illustrated guests and the native Straw Hat cast appear')
+ js('glpDuel.started=G.t-21.01;glpTickDuel();1')
+ check("glpDuel.actors[0].anim==='atk'&&glpDuel.actors[1].anim==='hurt'",'Luffy uses his native attack atlas')
+ js('glpDuel.started=G.t-22.11;glpTickDuel();1')
+ check("glpDuel.actors[1].anim==='atk'&&glpDuel.actors[0].anim==='hurt'",'Zoro counters using his native attack atlas')
+ js("document.querySelector('#banner').classList.remove('show');1")
+ page.screenshot(path=str(OUT/'08_campanas_duelo.png'))
+ js('glpDuel.started=G.t-28.3;glpTickDuel();1')
+ check("!glpDuel&&G.P.glPortQuest.duelSeen&&G.P.glPortQuest.clues===3",'duel cleans up and keeps the island mission intact')
  js('[G.P.x,G.P.y]=dawnPx(GL_PORT_BELL);updateCamera(0,true);1')
  for boss in ['glp_broker','glp_warden']:
   page.wait_for_function("interactTarget()?.o?.xact==='glp_bell'",timeout=5000)
@@ -79,6 +99,20 @@ with sync_playwright() as p:
   page.screenshot(path=str(OUT/f'07_campanas_{boss}.png'))
   js(f"killMob(G.ents.find(e=>e.mid==='{boss}'&&e.hp>0));1")
  check('G.P.glPortQuest.done&&G.P.glPortQuest.beaten===3','port chapter resolves after both fights')
+ check("crewPowerInfo(G.P).arcs.find(a=>a.k==='bellhaven').runs===1",'first chapter clear awards native crew power')
+ js('window.__crewPower=crewPowerInfo(G.P).bonus;IT_CACHE=null;1')
+ page.wait_for_function("interactTarget()?.o?.xact==='glp_replay'")
+ js('doInteract(interactTarget());1')
+ check('G.P.glPortQuest.replay&&G.P.glPortQuest.clues===0&&G.P.glPortQuest.beaten===0','replay resets the clues and battles')
+ for key, spot in [('glp_ledger','GL_PORT_PLAZA'),('glp_tides','GL_PORT_ARCHIVE')]:
+  js(f'[G.P.x,G.P.y]=dawnPx({spot});IT_CACHE=null;1')
+  page.wait_for_function(f"interactTarget()?.o?.xact==='{key}'")
+  js('doInteract(interactTarget());1')
+ js('[G.P.x,G.P.y]=dawnPx(GL_PORT_BELL);IT_CACHE=null;1')
+ for boss in ['glp_broker','glp_warden']:
+  js('doInteract(interactTarget());1')
+  js(f"killMob(G.ents.find(e=>e.mid==='{boss}'&&e.hp>0));1")
+ check('G.P.glPortQuest.runs===2&&!G.P.glPortQuest.replay&&crewPowerInfo(G.P).bonus===window.__crewPower','second clear does not award any more crew power')
  result=js("(()=>{const P=G.P;[P.x,P.y]=dawnPx(GL_PORT_PIER);IT_CACHE=null;return [glpDockAction(),interactTarget()?.o?.xact,P.map,P.dead,!!G.fading,P.dawnHelm?.kind,P.dawnBoat?.bellhaven,P.hp];})()")
  assert result[1]=='glp_sail', result
  act()
