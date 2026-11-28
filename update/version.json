@@ -1,21 +1,21 @@
 {
- "build": 289,
- "ver": "6.67",
- "date": "2026-11-28",
+ "build": 292,
+ "ver": "6.70",
+ "date": "2026-11-27",
  "file": "thebound.html",
- "size": 36273041,
- "sha256": "88f144c81bcda902bda82bd98270866431ae43fd68332976ff1a1d9cc9ab50f8",
+ "size": 38137482,
+ "sha256": "79b137ca8d221a2291ee8cdac3dae51e44ce9f3dab8b59a76c3c134cf3ab52d7",
  "minApk": 24,
  "gz": "thebound.html.gz",
- "gzSize": 22049990,
- "gzSha256": "b37d112044a7b2ffc1871d47d477b690202695aac94dc7b4877559810552a58f",
+ "gzSize": 23457116,
+ "gzSha256": "0e5946c9a09d9951625f73b64f02939944b8fd07f03b98950a4c66bb10fdc3fc",
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Arreglado el error rojo «flt is not a function» que salía en el inventario después de tocar los botones del Transmutador."
+   "Activar Gráficos HD manualmente desactiva el modo optimizado y guarda tu elección para que el juego no lo reactive por su cuenta."
   ],
   "en": [
-   "Fixed the red “flt is not a function” error in the inventory after tapping the Transmuter buttons."
+   "Manually enabling HD graphics turns off optimized mode and saves your choice so the game does not turn it back on automatically."
   ]
  }
 }

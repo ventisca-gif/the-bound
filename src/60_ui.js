@@ -81,7 +81,7 @@ function updateHUD(dt) {
   if (mmT > 0.15) { mmT = 0; drawMinimap(); }
   updateToasts(dt);
 }
-function drawPortrait(cvs, A) { const x = cvs.getContext('2d'); x.imageSmoothingEnabled = false; x.clearRect(0, 0, cvs.width, cvs.height); const fw = A.fw; const s = cvs.width / 26; x.drawImage(A.img, 0, 0, fw, fw, Math.round(-(fw / 2 - 13) * s), Math.round(-(fw * 0.22) * s), fw * s, fw * s); }
+function drawPortrait(cvs, A) { if (A.drawPortrait) return A.drawPortrait(cvs); const x = cvs.getContext('2d'); x.imageSmoothingEnabled = false; x.clearRect(0, 0, cvs.width, cvs.height); const fw = A.fw; const s = cvs.width / 26; x.drawImage(A.img, 0, 0, fw, fw, Math.round(-(fw / 2 - 13) * s), Math.round(-(fw * 0.22) * s), fw * s, fw * s); }
 function updateTracker() {
   const P = G.P; const id = P.track && P.quests.active[P.track] ? P.track : Object.keys(P.quests.active)[0]; const el = $('#tracker');
   if (!id) { const avail = Object.keys(QUESTS).find(k => canOffer(k) && QUESTS[k].main); if (avail) { el.hidden = false; $('#trT').textContent = 'Siguiente: ' + QUESTS[avail].n; $('#trD').textContent = 'Habla con ' + NPCS[QUESTS[avail].giver].n + ' (!)'; } else el.hidden = true; return; }

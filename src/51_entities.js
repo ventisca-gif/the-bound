@@ -24,7 +24,7 @@ function stepAnim(e, dt, fps) { e.at += dt; const n = animN(e, e.anim); const pe
 // 5.26: solo el NPC más cercano (a menos de 40 px) se salta el control de nombres encimados; antes lo hacían todos los
 // cercanos, y en la procesión o entre la multitud los nombres se montaban unos sobre otros
 function lblNearNpc() { if (LBL.nt === G.t) return LBL.ne; LBL.nt = G.t; let b = null, bd = 1600; const P = G.P; for (const o of G.ents) { if (o.type !== 'npc' || o.map !== P.map) continue; const d = dist2(o.x, o.y, P.x, P.y); if (d < bd) { bd = d; b = o; } } LBL.ne = b; return b; }
-function atlasBlit(c, A, col, row, x, y, w, h) { if (HDS > 1 && A.hdL && typeof hdEnsure === 'function' && hdEnsure(A, col, row)) { c.drawImage(A.hd, col * A.fw * 2, row * A.fh * 2, A.fw * 2, A.fh * 2, x, y, w, h); return; } c.drawImage(A.img, col * A.fw, row * A.fh, A.fw, A.fh, x, y, w, h); }
+function atlasBlit(c, A, col, row, x, y, w, h) { if (HDS > 1 && A.blitHD) return A.blitHD(c, col, row, x, y, w, h); if (HDS > 1 && A.hdL && typeof hdEnsure === 'function' && hdEnsure(A, col, row)) { c.drawImage(A.hd, col * A.fw * 2, row * A.fh * 2, A.fw * 2, A.fh * 2, x, y, w, h); return; } c.drawImage(A.img, col * A.fw, row * A.fh, A.fw, A.fh, x, y, w, h); }
 function drawEnt(e, cx, cy) {
   if (e.type === 'proj') return drawProj(e, cx, cy);
   if (e.type === 'deco') return drawDeco(e, cx, cy);
