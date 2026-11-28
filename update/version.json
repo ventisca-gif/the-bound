@@ -1,21 +1,25 @@
 {
- "build": 287,
- "ver": "6.65",
- "date": "2026-11-27",
+ "build": 288,
+ "ver": "6.66",
+ "date": "2026-11-28",
  "file": "thebound.html",
- "size": 36226972,
- "sha256": "28fe46dec939ca91a50ed13a94675ee91b1457df73b62b229933d7e165a7651c",
+ "size": 36269083,
+ "sha256": "c4278644613e62fec00af3db29988fffed0502852b45742e476ef84c01db70cd",
  "minApk": 24,
  "gz": "thebound.html.gz",
- "gzSize": 22036768,
- "gzSha256": "5b0574d10bb8baa378009fca2382f13cd525462ed36964ff047309329715e747",
+ "gzSize": 22049152,
+ "gzSha256": "9bb28575c434d1bcde6c822903eea52f1e2da2991b41aa40e231362bd96edab2",
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Nueva clase Transmutador con atuendo personalizable y forma de Fuego. Usa puños y cinco técnicas de fuego cuyo daño escala con tu nivel y ataque."
+   "Transmutador: Brazalete de núcleos con selector de cuatro formas desde el nivel 1: Ascua (fuego), Prisma (cristal resistente), Céfiro (velocidad de tormenta) y Coloso (cuatro brazos, el más fuerte). Cada forma tiene sus técnicas y su puño, y se hace más fuerte con tu nivel hasta el máximo.",
+   "Efectos de fuego, cristal, rayo y terremoto nuevos en todas las técnicas. Las armaduras dan un extra de defensa y vida en las formas, y el Transmutador puede llevar anillos y amuletos de cualquier clase.",
+   "Arreglado: volver a forma humana después de repartir puntos, el botón de transformar en el móvil y «Mostrar mi ropa base» con el atuendo del Transmutador. Duelos PvP reajustados con la clase nueva."
   ],
   "en": [
-   "New Transmuter class with customizable outfit and a Fire form. Use unarmed attacks and five fire techniques that scale with level and attack."
+   "Transmuter: Core Bracelet with a four-form selector from level 1: Ember (fire), Prism (tough crystal), Zephyr (storm speed) and Colossus (four arms, the strongest). Each form has its own techniques and punch, and grows stronger with your level up to the maximum.",
+   "New fire, crystal, lightning and quake effects on every technique. Armour gives extra defence and life in the forms, and the Transmuter can wear rings and amulets of any class.",
+   "Fixed: returning to human form after spending points, the transform button on phones and “Show my base clothes” with the Transmuter outfit. PvP duels rebalanced with the new class."
   ]
  }
 }
