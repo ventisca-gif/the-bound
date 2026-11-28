@@ -182,11 +182,12 @@ function ttFistLayout(P) {
   const W = two ? 27 : 30, H = Math.round(W * 0.88), out = [];
   if (dir === 'left' || dir === 'right') {
     const d = dir === 'right' ? 1 : -1;
-    if (two) out.push({ x: d * (punchL ? 30 : 14 - sw), y: -16 + bob, w: W * 0.85, h: H * 0.85, view: 'side', d, behind: true, sx: -d, sy: -19 });
-    out.push({ x: d * (punchR ? 34 : 22 + sw), y: -10 - bob, w: W, h: H, view: 'side', d, behind: false, sx: d * 2, sy: -18 });
+    // at the end of the arms: hand height, below the face
+    if (two) out.push({ x: d * (punchL ? 28 : 10 - sw), y: -7 + bob, w: W * 0.85, h: H * 0.85, view: 'side', d, behind: true, sx: -d, sy: -11 });
+    out.push({ x: d * (punchR ? 30 : 17 + sw), y: -3 - bob, w: W, h: H, view: 'side', d, behind: false, sx: d * 3, sy: -10 });
   } else {
     const up = dir === 'up', sideR = up ? -1 : 1;
-    const one = (sg, punch, b) => ({ x: punch ? sg * 10 : sg * 27, y: punch ? (up ? -30 : -2) : -10 + b, w: W + (punch ? 4 : 0), h: H + (punch ? 4 : 0), view: 'front', d: -sg, behind: up && punch, sx: sg * 6, sy: -19 });
+    const one = (sg, punch, b) => ({ x: punch ? sg * 9 : sg * 22, y: punch ? (up ? -24 : 4) : -3 + b, w: W + (punch ? 4 : 0), h: H + (punch ? 4 : 0), view: 'front', d: -sg, behind: up && punch, sx: sg * 7, sy: -10 });
     if (two) out.push(one(-sideR, punchL, -bob));
     out.push(one(sideR, punchR, bob));
   }
