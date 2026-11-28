@@ -389,7 +389,7 @@ body.v656noslot #acts .sk.empty{visibility:hidden;pointer-events:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.72 · Brazalete de núcleos</div>
+  <div class="tfoot">v6.73 · Brazalete de núcleos</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11972,7 +11972,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.72', GAME_BUILD = 294;
+const GAME_VER = '6.73', GAME_BUILD = 295;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11980,6 +11980,17 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.73",
+ "b": 295,
+ "d": "2026-11-28",
+ "es": [
+  "Grand Line: desembarca en Puerto de las Campanas desde el nivel 620. Investiga el banquete con Naira y desafía a Varda y Mástil Gris."
+ ],
+ "en": [
+  "Grand Line: land at Bellhaven from level 620. Investigate the banquet with Naira and challenge Varda and Grey Mast."
+ ]
+},
 {
  "v": "6.72",
  "b": 294,
@@ -43276,7 +43287,7 @@ function dawnLandingNotice(){return L2('Para desembarcar en Foosha, Little Garde
 function dawnMarinaTalk(){return dawnLandingNotice()+' '+L2('Puedes navegar por el Mar de Dawn desde nivel 500.','You can sail the Dawn Sea at level 500.');}
 DLG_HOOKS.push((npc,opts)=>{if(npc.id==='marina')opts.push({label:L2('Islas de Dawn · Fruta del Diablo','Dawn islands · Devil Fruit'),icon:['ways'],fn:()=>typeText(dawnMarinaTalk())});if(npc.id==='dawn_shanks')opts.push({label:L2('Romance Dawn · el comienzo','Romance Dawn · the beginning'),icon:['talk'],fn:()=>typeText(L2('Esta es la primera escala de nuestra historia: Foosha, Makino, los molinos y el sueño de Luffy. Cuando se abra el viaje, nos encontrarás aquí.','This is the first stop in our story: Foosha, Makino, the windmills and Luffy’s dream. When the voyage opens, you will find us here.'))});});
 // One hard gate shared by every public arrival path: inventory or map browsing never bypasses it.
-{const old=setMap;setMap=function(M,x,y,dir){if(M?.dawn&&!DAWN_TRAVEL_OPEN&&!G.P?.dawnHelm){toast(dawnLandingNotice(),'info',5);return false;}return old.apply(this,arguments);};}
+{const old=setMap;setMap=function(M,x,y,dir){if(M?.dawn&&!DAWN_TRAVEL_OPEN&&!G.P?.dawnHelm&&!(M.grandLine&&G.P?.dawnBoat?.bellhaven)){toast(dawnLandingNotice(),'info',5);return false;}return old.apply(this,arguments);};}
 function dawnSpawnPeople(M){
  for(const d of M.npcDefs){
   if(d.id==='dawn_luffy'&&G.P.dawnCrewJoined)continue;
@@ -62213,14 +62224,14 @@ Object.assign(CN_SC,{
   g.save();g.translate(187,122);g.scale(.42,.42);cnHero(g,0,0,t);g.restore();}
 });
 
-// 6.64: a separate, deliberately empty sea, sharing Dawn's sailing controls and original Merry.
+// 6.64: a separate sea, sharing Dawn's sailing controls and original Merry.
 const GL_ID='grand_line',GL_RETURN=[40,360],GL_ARRIVE=[48,360];
 const RMA_EAST_PIER=rmaAt(1,[696,350]),RMA_EAST_MOOR=rmaAt(1,[696,389]);
 SAVEKEYS.push('rmVisual');
 function makeGrandLine(){
  if(G.maps[GL_ID])return G.maps[GL_ID];
- const w=960,h=720,N=w*h,M={id:GL_ID,w,h,I:(x,y)=>y*w+x,ter:new Uint8Array(N),lvl:new Uint8Array(N),reg:new Uint8Array(N),flags:new Uint8Array(N),chunks:new Map(),isWorld:false,dawn:1,grandLine:true,dark:0,music:'town',camps:[],bossAt:[],halos:[],temples:[],exit:{x:-9,y:-9},dawnData:{pois:[]}};
- initMapObjs(M);M.drawExtra=(cx,cy)=>{const P=G.P;if(P.dawnHelm)dawnShipSprite(cx,cy,dawnSprite('boat'),P.x,P.y+16,P.dir);};
+ const w=960,h=720,N=w*h,M={id:GL_ID,w,h,I:(x,y)=>y*w+x,ter:new Uint8Array(N),lvl:new Uint8Array(N),reg:new Uint8Array(N),flags:new Uint8Array(N),chunks:new Map(),isWorld:false,dawn:1,grandLine:true,overviewMinimap:true,dark:0,music:'town',camps:[],bossAt:[],halos:[],temples:[],exit:{x:-9,y:-9},dawnData:{pois:[]}};
+ initMapObjs(M);populateGrandLinePort(M);M.drawExtra=(cx,cy)=>{const P=G.P;if(P.dawnHelm)dawnShipSprite(cx,cy,dawnSprite('boat'),P.x,P.y+16,P.dir);};
  G.maps[GL_ID]=M;return M;
 }
 function rmaSailTo(id,at){
@@ -62230,7 +62241,7 @@ function rmaSailTo(id,at){
   const [x,y]=dawnPx(at);if(!dawnSurface(M,x,y,18))return;
   P.inside=null;P.dawnBoat=null;delete P.dawnHelm.deck;
   if(setMap(M,x,y,id===GL_ID?'right':'up')===false)return;
-  P.rmVisual=2;markDirty(true);banner(id===GL_ID?'Grand Line':L2('Cabos Gemelos','Twin Cape'),id===GL_ID?L2('Mar abierto · primera isla todavía sin construir','Open sea · first island not built yet'):L2('De vuelta en el mar de Dawn','Back in the Dawn Sea'));
+  P.rmVisual=2;markDirty(true);banner(id===GL_ID?'Grand Line':L2('Cabos Gemelos','Twin Cape'),id===GL_ID?L2('Primera escala: Puerto de las Campanas','First stop: Bellhaven'):L2('De vuelta en el mar de Dawn','Back in the Dawn Sea'));
  });
 }
 function rmaShift(key,at){if(rmcDockKey()!==key)return;rmaSailTo('dawn',at);}
@@ -62240,10 +62251,12 @@ XACT.rmc_up=[L2('Volver a Reverse Mountain','Return to Reverse Mountain'),'ways'
 XACT.rmc_east_land=[L2('Desembarcar en el faro este','Land at the east lighthouse'),'ways',()=>{if(rmcDockKey()==='rmc_east_land')dawnIslandDock(true,'rmcapeEast',RMA_EAST_PIER,RMA_EAST_MOOR,L2('Faro este','East lighthouse'),L2('Cabos Gemelos','Twin Cape'));}];
 XACT.rmc_east_sail=[L2('Volver al Going Merry','Return to the Going Merry'),'ways',()=>{if(rmcDockKey()==='rmc_east_sail')dawnIslandDock(false,'rmcapeEast',RMA_EAST_PIER,RMA_EAST_MOOR,'','');}];
 hookAround('makeInterior',(next,id)=>id===GL_ID?makeGrandLine():next(id));
-hookAround('otherPOI',(next,M)=>M?.grandLine?[{c:'ship',x:GL_RETURN[0],y:GL_RETURN[1],t:L2('Regreso a Cabos Gemelos','Return to Twin Cape')}]:next(M));
-hookAround('orangeOverviewColor',(next,M,x,y,i)=>M?.grandLine?C('#347ca4'):next(M,x,y,i));
+hookAround('otherPOI',(next,M)=>M?.grandLine?[{c:'ship',x:GL_RETURN[0],y:GL_RETURN[1],t:L2('Regreso a Cabos Gemelos','Return to Twin Cape')},{c:'ship',x:GL_PORT_MOOR[0],y:GL_PORT_MOOR[1],t:GL_PORT},{c:'inn',x:GL_PORT_PLAZA[0],y:GL_PORT_PLAZA[1],t:L2('Plaza del banquete','Banquet square')},{c:'ship',x:GL_PORT_BELL[0],y:GL_PORT_BELL[1],t:L2('Campana de mareas','Tide bell')}]:next(M));
+hookAround('orangeOverviewColor',(next,M,x,y,i)=>M?.grandLine&&M.ter[i]===T.DEEP?C('#347ca4'):next(M,x,y,i));
 hookAround('renderChunk',(next,M,cx,cy)=>{
  if(!M?.grandLine)return next(M,cx,cy);
+ const left=cx*CH,top=cy*CH;
+ if(left<234&&left+CH>123&&top<409&&top+CH>316)return finishChunk(M,cx,cy,chunkPixels(mapData(M),cx,cy));
  const p=new Pix(CHP,CHP);for(let y=0;y<CHP;y++)for(let x=0;x<CHP;x++){
   const px=cx*CHP+x,py=cy*CHP+y;p.set(x,y,dawnSouthernWaterPixel(px,py,false,(py&127)*128+(px&127)));
  }return p.canvas();
@@ -62273,7 +62286,14 @@ hookAfter('serializeP',(save,P)=>{
 });
 hookAround('selvaRestoreStay',(next,P)=>{
  const S=P.rmaStay;if(!S||!['dawn',GL_ID].includes(S.m))return next(P);
- const M=S.m===GL_ID?makeGrandLine():makeDawn();P.dawnHelm=S.h||S.b?.h||dawnHelm('skiff',{x:P.retX,y:P.retY});
+ const M=S.m===GL_ID?makeGrandLine():makeDawn();
+ if(S.m===GL_ID&&!S.h&&S.b?.bellhaven&&S.b.h){
+  const tx=Math.floor(S.x/16),ty=Math.floor(S.y/16);
+  const i=tileAt(M,tx,ty);
+  const [x,y]=i>=0&&!SOLID_T[M.ter[i]]&&!M.solidO[i]?[S.x,S.y]:dawnPx(GL_PORT_PIER);
+  P.inside=null;P.dawnHelm=null;P.dawnBoat=S.b;return {map:M,x,y};
+ }
+ P.dawnHelm=S.h||S.b?.h||dawnHelm('skiff',{x:P.retX,y:P.retY});
  let [x,y]=[S.x,S.y];if(!Number.isFinite(x)||!Number.isFinite(y)||!dawnSurface(M,x,y,18)){
   [x,y]=dawnPx(S.m===GL_ID?GL_ARRIVE:RMC_MOOR);
  }
@@ -62303,8 +62323,208 @@ WORLD_DRAW.push((cx,cy)=>{
  ctx.save();ctx.strokeStyle='#e9d2a1';ctx.lineWidth=2;ctx.beginPath();ctx.arc(x-cx,y-cy,20+Math.sin(G.t*2)*2,0,Math.PI*2);ctx.stroke();ctx.fillStyle='#f5e4b8';ctx.font='12px "Pixelify Sans"';ctx.textAlign='center';ctx.fillText(L2('Regreso a Dawn','Return to Dawn'),x-cx,y-cy-30);ctx.restore();
 });
 MAPC.grand_line=['Grand Line','Grand Line','#4697b6','ship'];
-MAPW_LIST.push({id:GL_ID,n:'Grand Line',mk:makeGrandLine,how:L2('Navega desde el extremo sur de Cabos Gemelos. Por ahora solo hay mar y una ruta de regreso.','Sail from the southern end of Twin Cape. For now there is only sea and a return route.')});
-LUPA_DAWN.push(['grandline664',()=>L2('Grand Line · mar abierto','Grand Line · open sea'),()=>[L2('Desde Reverse Mountain, desciende a Cabos Gemelos. Tras la promesa de Laboon puedes navegar al Grand Line por el sur.','From Reverse Mountain, descend to Twin Cape. After Laboon’s promise you can sail into the Grand Line from the south.'),L2('Este mar está vacío: no hay islas, enemigos ni misiones nuevas. La señal de regreso lleva a Cabos Gemelos.','This sea is empty: there are no islands, enemies or new quests. The return marker leads back to Twin Cape.')],()=>({m:'dawn',loc:RMC_EXIT.slice(),t:'Grand Line'})]);
+MAPW_LIST.push({id:GL_ID,n:'Grand Line',mk:makeGrandLine,how:L2('Navega desde el extremo sur de Cabos Gemelos. Sigue hacia el este para llegar al Puerto de las Campanas (nivel 620).','Sail from the southern end of Twin Cape. Head east to Bellhaven (level 620).')});
+LUPA_DAWN.push(['grandline664',()=>L2('Grand Line · mar abierto','Grand Line · open sea'),()=>[L2('Desde Reverse Mountain, desciende a Cabos Gemelos. Tras la promesa de Laboon puedes navegar al Grand Line por el sur.','From Reverse Mountain, descend to Twin Cape. After Laboon’s promise you can sail into the Grand Line from the south.'),L2('La primera escala es el Puerto de las Campanas (nivel 620). Puedes volver a Cabos Gemelos por la señal de regreso.','The first stop is Bellhaven (level 620). The return marker leads back to Twin Cape.')],()=>({m:'dawn',loc:RMC_EXIT.slice(),t:'Grand Line'})]);
+
+// Native Grand Line chapter: Puerto de las Campanas.
+const GL_PORT = L2('Puerto de las Campanas', 'Bellhaven');
+const GL_PORT_PIER = [169, 385], GL_PORT_MOOR = [178, 385];
+const GL_PORT_PLAZA = [151, 368], GL_PORT_ARCHIVE = [205, 361], GL_PORT_BELL = [177, 337];
+const GL_PORT_LEVEL = 620;
+const GL_PORT_FOES = [
+  ['glp_broker', 620, [173, 337], 76, 4.45, ['charge', 'slam']],
+  ['glp_warden', 622, [181, 337], 80, 4.6, ['volley', 'nova']]
+];
+SAVEKEYS.push('glPortQuest');
+
+const glpPal = (...colors) => P5(colors);
+NPCS.glp_cartographer = {
+  n: 'Naira', title: L2('Cartógrafa de mareas', 'Tide cartographer'),
+  look: LK({skin:SKINS[2], hair:HAIRS.negro, hairStyle:'short', outfit:'tunic',
+    main:glpPal('#57351e','#805128','#ad7733','#ce9b47','#e9ba64')}),
+  lines: [L2('Si la campana suena dos veces, mira las puertas, no el cielo.',
+    'If the bell rings twice, watch the doors, not the sky.')]
+};
+NPCS.glp_keeper = {
+  n: 'Oriel', title: L2('Farolero del puerto','Harbor lamplighter'),
+  look: LK({skin:SKINS[1], hair:HAIRS.gris, beard:HAIRS.gris, outfit:'elder',
+    main:glpPal('#253533','#324a45','#487068','#619183','#a0c9b0')}),
+  lines: [L2('Antes, la campana servía para avisar a los barcos cuando subía la marea.',
+    'The bell used to warn ships of the rising tide.')]
+};
+NPCS.glp_broker = {
+  n: L2('Varda, la Remachadora','Varda the Riveter'),
+  look: LK({skin:SKINS[2], hair:HAIRS.rojo, outfit:'guard',
+    main:glpPal('#411d2b','#642536','#8b3c49','#b65657','#db7770'),
+    weapon:{k:'hammer',tier:5}})
+};
+NPCS.glp_warden = {
+  n: L2('Mástil Gris','Grey Mast'),
+  look: LK({outfit:'guard', hat:'hood',
+    main:glpPal('#1e263c','#32405a','#4d617b','#647e97','#8da5af'),
+    weapon:{k:'spear',tier:5}})
+};
+for (const [id, lv, , hp, atk, moves] of GL_PORT_FOES) {
+  BOSSES[id] = {n:NPCS[id].n, lv, hp, atk, moves, def:3.95, spd:88, r:32,
+    where:GL_PORT, art:['glp_actor', id], drops:[]};
+}
+hookAround('mobAtlasFor', (next, art) => {
+  if (art[0] !== 'glp_actor') return next(art);
+  const id = art[1];
+  return getAtlas('glp:' + id, () => buildAtlas(NPCS[id].look, ['idle','walk','atk','hurt']));
+});
+
+function glpTile(x, y) {
+  const edge = Math.hypot((x - 178) / 55, (y - 362) / 46);
+  if (edge > 1) return T.DEEP;
+  const channel = 178 + Math.sin((y - 385) / 11) * 2;
+  if (y >= 350 && Math.abs(x - channel) < 8 + Math.max(0, y - 380) * 0.23) return T.DEEP;
+  if (edge > .94 || (y >= 349 && Math.abs(x - channel) < 10 + Math.max(0, y - 380) * .23)) return T.SAND;
+  return edge > .77 ? T.GRASS : T.DIRT;
+}
+function populateGrandLinePort(M) {
+  for (let y = 316; y <= 408; y++) for (let x = 123; x <= 233; x++) {
+    const terrain = glpTile(x, y);
+    if (terrain === T.DEEP) continue;
+    const i = M.I(x, y);
+    M.ter[i] = terrain;
+    M.lvl[i] = GL_PORT_LEVEL;
+  }
+  rectTer(M, 149, 367, 164, 383, T.COBBLE, 1);
+  rectTer(M, 158, 381, 169, 386, T.COBBLE, 1);
+  rectTer(M, 165, 384, 172, 386, T.PLANK, 1);
+  rectTer(M, 146, 344, 151, 371, T.COBBLE, 1);
+  rectTer(M, 149, 338, 207, 346, T.COBBLE, 1);
+  rectTer(M, 202, 344, 207, 373, T.COBBLE, 1);
+  rectTer(M, 168, 333, 186, 342, T.COBBLE, 1);
+
+  const homes = [[138,354],[155,355],[158,362],[138,372],[151,388],
+    [190,350],[211,357],[190,365],[211,369],[194,379],[198,328],[158,328]];
+  homes.forEach(([x,y],i) => addBuilding(M,x,y,i % 3 === 0 ? 7 : 6,4,
+    {style:'puerto', roof:i % 3 === 0 ? 'slate' : 'blue', awning:i % 2 ? '#775e8e' : '#356e72', box:true}));
+  addBuilding(M, 173, 327, 9, 5, {style:'smith', roof:'slate', sign:'smith', big:true});
+  for (const [x,y] of [[151,374],[162,378],[173,334],[183,334],[204,349],[208,362],[195,371],[148,347]]) {
+    addObj(M, 'lantern', x, y, {kind:'wood', solid:false});
+  }
+  for (const [x,y] of [[147,366],[154,372],[156,371],[193,361],[196,361],[167,383],[140,371]]) {
+    addObj(M, (x + y) % 2 ? 'barrel' : 'crate', x, y);
+  }
+  for (let y = 320; y < 405; y += 3) for (let x = 128; x < 229; x += 3) {
+    if (M.ter[M.I(x,y)] === T.GRASS && M.objAt[M.I(x,y)] < 0 && hash2(x,y,67) > .82) {
+      addObj(M, 'cactus', x, y, {solid:false});
+    }
+  }
+  addObj(M, 'sign', ...GL_PORT_PLAZA, {xact:'glp_ledger', solid:false});
+  addObj(M, 'sign', ...GL_PORT_ARCHIVE, {xact:'glp_tides', solid:false});
+  addObj(M, 'glp_bell', ...GL_PORT_BELL, {xact:'glp_bell', solid:false});
+}
+
+// Bell and stone frame, drawn through the map's native sprite cache.
+hookAround('objSprite', (next, o) => {
+  if (o.k !== 'glp_bell') return next(o);
+  return spr('glp:bell', () => {
+    const p = new Pix(54, 60);
+    p.rect(4, 8, 8, 50, C('#7d7267'));
+    p.rect(42, 8, 8, 50, C('#7d7267'));
+    p.rect(5, 9, 3, 47, C('#b1a08b'));
+    p.rect(43, 9, 3, 47, C('#b1a08b'));
+    p.rect(3, 6, 48, 8, C('#c4b198'));
+    p.rect(10, 1, 34, 6, C('#e0cdb1'));
+    p.rect(26, 12, 3, 9, C('#5b3f31'));
+    p.poly([[23,19],[32,19],[35,25],[37,41],[42,47],[14,47],[19,41],[20,25]], C('#a86536'));
+    p.poly([[24,21],[29,21],[29,42],[19,43]], C('#eac479'));
+    p.rect(14, 44, 28, 4, C('#f3cd7d'));
+    p.rect(25, 48, 5, 5, C('#805327'));
+    p.outline(C('#302b35'),false);
+    return {c:p.canvas(), ax:27, ay:58};
+  });
+});
+
+function glpState(P) {
+  return P.glPortQuest || (P.glPortQuest = {clues:0, beaten:0, done:false});
+}
+function glpOnFoot(P = G.P) {
+  return !!(P && !P.dead && G.map?.grandLine && !P.dawnHelm && P.dawnBoat?.bellhaven);
+}
+function glpDockAction() {
+  const P = G.P;
+  if (!P || P.dead || G.fading || !G.map?.grandLine) return null;
+  if (P.dawnHelm && P.dawnHelm.kind !== 'swim' && conomiNear(P, GL_PORT_MOOR, 44)) {
+    return P.lv >= GL_PORT_LEVEL ? 'glp_land' : 'glp_locked';
+  }
+  if (glpOnFoot(P) && conomiNear(P, GL_PORT_PIER, 40)) return 'glp_sail';
+  return null;
+}
+function glpClue(bit, message) {
+  if (!glpOnFoot()) return;
+  const q = glpState(G.P);
+  if (!(q.clues & bit)) {
+    q.clues |= bit;
+    markDirty(true);
+  }
+  toast(message, 'info', 5);
+}
+XACT.glp_land = [L2('Desembarcar en Puerto de las Campanas','Land at Bellhaven'),'ways',()=>{
+  if (glpDockAction() === 'glp_land') dawnIslandDock(true,'bellhaven',GL_PORT_PIER,GL_PORT_MOOR,GL_PORT,L2('Primera isla · nivel 620','First island · level 620'));
+}];
+XACT.glp_sail = [L2('Volver al barco','Return to your ship'),'ways',()=>{
+  if (glpDockAction() === 'glp_sail') dawnIslandDock(false,'bellhaven',GL_PORT_PIER,GL_PORT_MOOR,GL_PORT,'');
+}];
+XACT.glp_locked = [L2('Desembarco · nivel 620','Landing · level 620'),'ways',()=>{
+  toast(L2('Necesitas nivel 620 para desembarcar.','You need level 620 to land.'),'info');
+}];
+XACT.glp_ledger = [L2('Leer el registro del banquete','Read the banquet ledger'),'talk',()=>glpClue(1,
+  L2('La lista de invitados tiene el nombre de tu barco y un precio al lado.','The guest list has your ship’s name with a price beside it.'))];
+XACT.glp_tides = [L2('Revisar las tablas de mareas','Check the tide tables'),'talk',()=>glpClue(2,
+  L2('Los Remachadores van a cerrar el canal al segundo toque. Naira marcó la salida con tinta dorada.',
+  'The Riveters will close the channel at the second bell. Naira marked the way out in gold.'))];
+XACT.glp_bell = [L2('Investigar la campana','Investigate the bell'),'talk',()=>{
+  if (!glpOnFoot()) return;
+  const P = G.P, q = glpState(P);
+  if (q.done) return toast(L2('La campana vuelve a marcar la marea.','The bell marks the tides again.'),'info');
+  if (q.clues !== 3) return toast(L2('Busca el registro en la plaza y las tablas de mareas en el barrio este.',
+    'Find the ledger in the square and the tide tables in the east quarter.'),'info',5);
+  const next = GL_PORT_FOES.findIndex((_,i)=>(q.beaten & (1 << i)) === 0);
+  const [id, lv, at] = GL_PORT_FOES[next];
+  if (G.ents.some(e=>e.map===GL_ID && e.mid===id && e.hp>0 && !e.remove)) return;
+  banner(L2('La campana de doble toque','The double bell'),
+    next === 0 ? L2('Naira investigaba el rescate de barcos para los Vigías del Alba.',
+      'Naira was investigating ship ransoms for the Dawn Watch.') : NPCS[id].n);
+  showBoss(spawnMob(id, lv, ...dawnPx(at), P.L, null, true));
+}];
+hookAround('interactTarget',(next)=>{
+  const key = glpDockAction();
+  if (key) return rareAction(key);
+  if (glpOnFoot()) {
+    for (const [spot, action] of [[GL_PORT_PLAZA,'glp_ledger'],[GL_PORT_ARCHIVE,'glp_tides'],[GL_PORT_BELL,'glp_bell']]) {
+      if (conomiNear(G.P, spot, 24)) return rareAction(action);
+    }
+  }
+  return next();
+});
+hookAfter('setMap',(_,M)=>{
+  if (!M.grandLine) return;
+  for (const [id, at] of [['glp_cartographer',[151,370]],['glp_keeper',[205,364]]]) {
+    if (!G.ents.some(e=>e.map===GL_ID && e.id===id && !e.remove)) spawnNPC(id,...dawnPx(at),GL_ID);
+  }
+});
+hookAfter('killMob',(_,m)=>{
+  if (!glpOnFoot() || m.map !== GL_ID) return;
+  const i = GL_PORT_FOES.findIndex(([id])=>id === m.mid);
+  if (i < 0) return;
+  const P = G.P, q = glpState(P);
+  q.beaten |= 1 << i;
+  if (q.beaten === 3 && !q.done) {
+    q.done = true;
+    P.gold += 15000;
+    uiDirty.hud = true;
+    banner(L2('Canal liberado','Channel freed'),L2('Naira recuperó las cartas de navegación · 15 000 oro',
+      'Naira recovered the navigation charts · 15,000 gold'));
+  } else {
+    toast(L2('La segunda guardia espera junto a la campana.','The second guard waits at the bell.'),'info');
+  }
+  markDirty(true);
+});
 
 // Transmutador starter attire and wrist device.
 (()=>{

@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.72', GAME_BUILD = 294;
+const GAME_VER = '6.73', GAME_BUILD = 295;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,17 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.73",
+ "b": 295,
+ "d": "2026-11-28",
+ "es": [
+  "Grand Line: desembarca en Puerto de las Campanas desde el nivel 620. Investiga el banquete con Naira y desafía a Varda y Mástil Gris."
+ ],
+ "en": [
+  "Grand Line: land at Bellhaven from level 620. Investigate the banquet with Naira and challenge Varda and Grey Mast."
+ ]
+},
 {
  "v": "6.72",
  "b": 294,
