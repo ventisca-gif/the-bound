@@ -123,9 +123,9 @@ hookAfter('calcStats', (S, P) => {
 const TM_PAL = {
   ascua: { skin: pal(['#8a3410', '#d0702a', '#eda05a', '#ffd49a']), hair: pal(['#5e0e06', '#a8200c', '#e04812', '#ff9a2a']), eyes: 'blanco',
     m: P5(['#0d0a0c', '#1d1619', '#2f2428', '#463539', '#5f4a4c']), s: P5(['#6a1404', '#b8320a', '#f06a12', '#ffb43a', '#fff0a0']), cape: P5(['#8a1806', '#d2400c', '#f87a1a', '#ffb83a', '#fff0a0']) },
-  prisma: { skin: pal(['#1e5a86', '#3a96c8', '#7ccbec', '#d4f4ff']), hair: pal(['#0e3a5e', '#1e6ea0', '#4aaee0', '#bfeeff']), eyes: 'blanco',
-    m: P5(['#08141e', '#102636', '#1a3a52', '#285678', '#3a76a0']), s: P5(['#1a6a9a', '#3aa0d8', '#7cd8ff', '#c8f2ff', '#ffffff']) },
-  cefiro: { skin: pal(['#5a6a86', '#98a8c4', '#c8d4e8', '#f2f6ff']), hair: pal(['#8a6a08', '#d0a818', '#ffe14a', '#fffbd0']), eyes: 'celeste',
+  prisma: { skin: pal(['#1e6a58', '#3aa88a', '#7ad8b8', '#d0fff0']), hair: pal(['#0e4a3c', '#1e8a6c', '#4ac8a0', '#bff8e4']), eyes: 'blanco',
+    m: P5(['#0a1416', '#142428', '#1e363a', '#2c4e52', '#3e6a6c']), s: P5(['#1e8a6c', '#3aa88a', '#7ad8b8', '#d0fff0', '#ffffff']) },
+  cefiro: { skin: pal(['#1a5a7a', '#2e8ab0', '#5ab8d8', '#a8e4f4']), hair: pal(['#06080e', '#10141e', '#1c2232', '#2e5a78']), eyes: 'dorado',
     m: P5(['#0a0e1e', '#141c36', '#22305a', '#34488a', '#4a64b4']), s: P5(['#8a6a08', '#c89a10', '#ffd630', '#fff0a0', '#ffffff']), scarf: P5(['#8a6a08', '#c89a10', '#ffd630', '#fff0a0', '#ffffff']) },
   coloso: { skin: pal(['#5a0e0a', '#9a2216', '#cc3e28', '#f07a52']), hair: pal(['#6a6a78', '#a8a8b8', '#d8d8e4', '#ffffff']), eyes: 'dorado',
     m: P5(['#3a1e08', '#6a3a12', '#9a5a20', '#c8843a', '#eab868']), s: P5(['#6a4a14', '#b08a2a', '#dcbc4a', '#f8e48a', '#ffffff']) }
@@ -142,7 +142,7 @@ function tmLook(P, form) {
   } else if (form === 'prisma') {
     L.top = { k: 'plate', m: C5.m, s: C5.s, t: 8 + stage * 2 }; L.bot = { k: 'greaves', m: C5.m, s: C5.s }; L.feet = { k: 'sabatons', m: C5.m };
   } else if (form === 'cefiro') {
-    L.top = { k: 'tunic', m: C5.m, s: C5.s }; L.bot = { k: 'pants', m: C5.m }; L.feet = { k: 'boots', m: C5.s }; L.scarf = C5.scarf;
+    L.top = { k: 'tunic', m: C5.m, s: P5(['#1a5a7a', '#2e8ab0', '#5ab8d8', '#a8e4f4', '#ffffff']) }; L.bot = { k: 'pants', m: C5.m }; L.feet = { k: 'boots', m: P5(['#1a5a7a', '#2e8ab0', '#5ab8d8', '#a8e4f4', '#ffffff']) }; L.scarf = C5.scarf;
   } else {
     // Bigger body: the widest structure of the player's gender (Titán / Guerrera).
     const bt = app.g === 'f' ? 6 : 5; if (BODY_T[app.g === 'f' ? 'f' : 'm'][bt]) { L.bt = bt; L.btS = BODY_T[app.g === 'f' ? 'f' : 'm'][bt]; }
@@ -167,7 +167,7 @@ function tmDrawFlames(p, A, stage, fr) {
 }
 function tmDrawShards(p, A, stage) {
   // Angular sky-blue crystals growing from the head and the shoulders.
-  const dark = C('#0e4a76'), mid = C('#3aa0d8'), lite = C('#bfeeff'), glint = C('#ffffff');
+  const dark = C('#0e4a3c'), mid = C('#3aa88a'), lite = C('#bff8e4'), glint = C('#ffffff');
   const spike = (x, y0, h, lean) => { h = Math.max(2, Math.round(h)); for (let k = 0; k < h; k++) { const w = Math.max(0, Math.round((h - k) / h * 1.6)), xx = Math.round(x + lean * k * 0.35);
     for (let i = -w; i <= w; i++) if (y0 - k >= 0) p.set(xx + i, y0 - k, i < 0 ? dark : i === 0 ? lite : mid); }
     if (y0 - h >= 0) p.set(Math.round(x + lean * h * 0.35), y0 - h + 1, glint); };
@@ -179,7 +179,22 @@ function tmDrawShards(p, A, stage) {
   if (!A.side) for (const sx of [A.tx0 - 1, A.tx0 + A.tw]) spike(sx, A.torsoTop + 1, 3 + Math.min(2, stage), sx < A.cx ? -1 : 1);
   else spike(Math.round(A.cx - A.d * 2), A.torsoTop + 1, 3 + Math.min(2, stage), -A.d);
 }
+function tmDrawTail(p, A, fr) {
+  // Lightning tail: one solid sky-blue tail ending in a yellow bolt, swaying with the walk.
+  const base = C('#2e8ab0'), lite = C('#5ab8d8'), dark = C('#1a5a7a'), bolt = C('#ffe14a'), out = C('#06080e');
+  const sway = Math.sin((A.f || 0) * 1.6) * 1.5, y0 = A.legTop - 1;
+  const pts = []; let x, y;
+  if (A.side) { x = Math.round(A.cx - A.d * 4); y = y0; for (let k = 0; k < 9; k++) pts.push([x - A.d * k, Math.round(y + Math.sin(k * 0.7) * 1.2 - k * 0.45 + sway * (k / 9))]); }
+  else if (A.up) { x = Math.round(A.cx); y = y0; for (let k = 0; k < 8; k++) pts.push([Math.round(x + Math.sin(k * 0.8 + sway) * 1.6), y + k]); }
+  else { x = Math.round(A.tx0 + A.tw + 1); y = y0 + 2; for (let k = 0; k < 6; k++) pts.push([x + Math.round(k * 0.6), Math.round(y + Math.sin(k * 0.9 + sway) * 1.1 - k * 0.3)]); }
+  pts.forEach(([px, py], i) => { if (!A.up && !A.side && tmOpaque(p, px, py)) return; const w = i < 3 ? 1 : 0;
+    for (let j = -w; j <= w + 1; j++) { const yy = py + j; if (tmOpaque(p, px, yy) && !(A.up || A.side)) continue; p.set(px, yy, j === -w ? lite : j === w + 1 ? dark : base); }
+    p.set(px, py - w - 1, out); p.set(px, py + w + 2, out); });
+  const [tx, ty] = pts[pts.length - 1], dx = A.side ? -A.d : 1;
+  [[0, 0], [dx, -1], [0, -2], [dx, -3], [dx * 2, -2]].forEach(([ox, oy]) => p.set(tx + ox, ty + oy, bolt));
+}
 function tmDrawStorm(p, A, stage, fr) {
+  tmDrawTail(p, A, fr);
   // Electric streaks crossing the hair; they jump between frames.
   const bolt = C('#fffbd0'), glow = C('#ffe14a');
   for (let j = 0; j < 2 + Math.min(2, stage); j++) {
@@ -460,7 +475,7 @@ hookAround('drawFx', (next, f, cx, cy) => {
       break;
     }
     case 'tmspikes': {
-      const grow = Math.sin(Math.min(1, k * 2.2) * Math.PI * 0.5) * (k > 0.7 ? (1 - k) / 0.3 : 1), cols = ['#0e4a76', '#4aaee0', '#ffffff'];
+      const grow = Math.sin(Math.min(1, k * 2.2) * Math.PI * 0.5) * (k > 0.7 ? (1 - k) / 0.3 : 1), cols = ['#0e4a3c', '#4ac8a0', '#ffffff'];
       ctx.fillStyle = `rgba(10,30,50,${0.3 * fade})`; ctx.beginPath(); ctx.ellipse(x, y, f.r, f.r * 0.5, 0, 0, 7); ctx.fill();
       const n = f.ring ? 12 : 4;
       for (let j = 0; j < n; j++) { const a = f.ring ? j / n * Math.PI * 2 : (j - 1.5) * 0.9, rr = f.ring ? f.r * 0.85 : f.r * 0.45 * (j % 2 ? 1 : 0.5);
