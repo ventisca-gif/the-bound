@@ -1,21 +1,21 @@
 {
- "build": 292,
- "ver": "6.70",
+ "build": 293,
+ "ver": "6.71",
  "date": "2026-11-27",
  "file": "thebound.html",
- "size": 38137482,
- "sha256": "79b137ca8d221a2291ee8cdac3dae51e44ce9f3dab8b59a76c3c134cf3ab52d7",
+ "size": 38146895,
+ "sha256": "0d11becd9b92574f58605d833a75af83a76e6778f51ec42005c4f34b373ac1a1",
  "minApk": 24,
  "gz": "thebound.html.gz",
- "gzSize": 23457116,
- "gzSha256": "0e5946c9a09d9951625f73b64f02939944b8fd07f03b98950a4c66bb10fdc3fc",
+ "gzSize": 23459257,
+ "gzSha256": "a93ecb46f6993f9aac0a76210f5b131c0a8ebdbe2278c35eba525cbbb6005e5e",
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Activar Gráficos HD manualmente desactiva el modo optimizado y guarda tu elección para que el juego no lo reactive por su cuenta."
+   "Titán Astral, quinta forma del Transmutador en el brazalete. Es un gigante cósmico con Pisotón estelar, Rayo de la corona, Lluvia de estrellas y Supernova."
   ],
   "en": [
-   "Manually enabling HD graphics turns off optimized mode and saves your choice so the game does not turn it back on automatically."
+   "Astral Titan is the fifth Transmuter form on the bracelet. This cosmic giant uses Star Stomp, Crown Beam, Star Shower, and Supernova."
   ]
  }
 }

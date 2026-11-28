@@ -389,7 +389,7 @@ body.v656noslot #acts .sk.empty{visibility:hidden;pointer-events:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.70 · Brazalete de núcleos</div>
+  <div class="tfoot">v6.71 · Brazalete de núcleos</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11972,7 +11972,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.70', GAME_BUILD = 292;
+const GAME_VER = '6.71', GAME_BUILD = 293;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11980,6 +11980,17 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.71",
+ "b": 293,
+ "d": "2026-11-27",
+ "es": [
+  "Titán Astral, quinta forma del Transmutador en el brazalete. Es un gigante cósmico con Pisotón estelar, Rayo de la corona, Lluvia de estrellas y Supernova."
+ ],
+ "en": [
+  "Astral Titan is the fifth Transmuter form on the bracelet. This cosmic giant uses Star Stomp, Crown Beam, Star Shower, and Supernova."
+ ]
+},
 {
  "v": "6.70",
  "b": 292,
@@ -62459,6 +62470,17 @@ const TM_FORMS = {
       { n: ['Salto titánico', 'Titan leap'], icon: '⛰️', cd: 10, mp: 0.1, m: 3.0, sim: { k: 'leap', hits: 1, f: 0.8 }, run: c => c.colosoLeap() },
       { n: ['Lluvia de peñascos', 'Boulder rain'], icon: '☄️', cd: 18, mp: 0.12, m: 0.8, sim: { k: 'rain', hits: 3, f: 0.6, atkP: 25, dur: 7 }, run: c => c.colosoRoar() }
     ]
+  },
+  astral: {
+    n: ['Titán Astral', 'Astral Titan'], role: ['Gigante cósmico', 'Cosmic giant'], gem: ['#3a2c8a', '#ffd85a'], col: '#8a7ee6', giant: 2,
+    buff: g => ({ atk: tmLerp(0.10, 0.28, g), def: tmLerp(0.15, 0.35, g), hp: tmLerp(0.20, 0.40, g), spd: -0.15, aspd: -0.18 }), armor: 0.25,
+    punch: 1.3, swipe: ['#3a2c8a', '#ffd85a', '#ffffff'],
+    techs: [
+      { n: ['Pisotón estelar', 'Star stomp'], icon: '👣', cd: 6, mp: 0.07, m: 1.9, sim: { k: 'slam', hits: 1, f: 0.85 }, run: c => c.astralStomp() },
+      { n: ['Rayo de la corona', 'Crown beam'], icon: '🔆', cd: 8, mp: 0.09, m: 2.4, sim: { k: 'dash', hits: 1, f: 0.8 }, run: c => c.astralBeam() },
+      { n: [(LANG_EN ? "Meteor shower" : 'Lluvia de estrellas'), 'Star shower'], icon: '🌠', cd: 12, mp: 0.11, m: 0.9, sim: { k: 'rain', hits: 3, f: 0.55 }, run: c => c.astralRain() },
+      { n: ['Supernova', 'Supernova'], icon: '💥', cd: 18, mp: 0.14, m: 2.8, sim: { k: 'nova', hits: 1, f: 0.9 }, run: c => c.astralNova() }
+    ]
   }
 };
 const TM_FORM_IDS = Object.keys(TM_FORMS);
@@ -62484,10 +62506,12 @@ hookAfter('calcStats', (S, P) => {
 const TM_PAL = {
   ascua: { skin: pal(['#8a3410', '#d0702a', '#eda05a', '#ffd49a']), hair: pal(['#5e0e06', '#a8200c', '#e04812', '#ff9a2a']), eyes: 'blanco',
     m: P5(['#0d0a0c', '#1d1619', '#2f2428', '#463539', '#5f4a4c']), s: P5(['#6a1404', '#b8320a', '#f06a12', '#ffb43a', '#fff0a0']), cape: P5(['#8a1806', '#d2400c', '#f87a1a', '#ffb83a', '#fff0a0']) },
-  prisma: { skin: pal(['#1e5a86', '#3a96c8', '#7ccbec', '#d4f4ff']), hair: pal(['#0e3a5e', '#1e6ea0', '#4aaee0', '#bfeeff']), eyes: 'blanco',
-    m: P5(['#08141e', '#102636', '#1a3a52', '#285678', '#3a76a0']), s: P5(['#1a6a9a', '#3aa0d8', '#7cd8ff', '#c8f2ff', '#ffffff']) },
-  cefiro: { skin: pal(['#5a6a86', '#98a8c4', '#c8d4e8', '#f2f6ff']), hair: pal(['#8a6a08', '#d0a818', '#ffe14a', '#fffbd0']), eyes: 'celeste',
+  prisma: { skin: pal(['#1e6a58', '#3aa88a', '#7ad8b8', '#d0fff0']), hair: pal(['#0e4a3c', '#1e8a6c', '#4ac8a0', '#bff8e4']), eyes: 'blanco',
+    m: P5(['#0a1416', '#142428', '#1e363a', '#2c4e52', '#3e6a6c']), s: P5(['#1e8a6c', '#3aa88a', '#7ad8b8', '#d0fff0', '#ffffff']) },
+  cefiro: { skin: pal(['#1a5a7a', '#2e8ab0', '#5ab8d8', '#a8e4f4']), hair: pal(['#06080e', '#10141e', '#1c2232', '#2e5a78']), eyes: 'dorado',
     m: P5(['#0a0e1e', '#141c36', '#22305a', '#34488a', '#4a64b4']), s: P5(['#8a6a08', '#c89a10', '#ffd630', '#fff0a0', '#ffffff']), scarf: P5(['#8a6a08', '#c89a10', '#ffd630', '#fff0a0', '#ffffff']) },
+  astral: { skin: pal(['#3a2c8a', '#5a4cc0', '#8a7ee6', '#d2caff']), hair: pal(['#3a2c8a', '#5a4cc0', '#8a7ee6', '#d2caff']), eyes: 'dorado',
+    m: P5(['#160a2a', '#2a1648', '#42246a', '#603a92', '#8a5cc0']), s: P5(['#6a4a14', '#b08a2a', '#dcbc4a', '#f8e48a', '#ffffff']) },
   coloso: { skin: pal(['#5a0e0a', '#9a2216', '#cc3e28', '#f07a52']), hair: pal(['#6a6a78', '#a8a8b8', '#d8d8e4', '#ffffff']), eyes: 'dorado',
     m: P5(['#3a1e08', '#6a3a12', '#9a5a20', '#c8843a', '#eab868']), s: P5(['#6a4a14', '#b08a2a', '#dcbc4a', '#f8e48a', '#ffffff']) }
 };
@@ -62503,10 +62527,16 @@ function tmLook(P, form) {
   } else if (form === 'prisma') {
     L.top = { k: 'plate', m: C5.m, s: C5.s, t: 8 + stage * 2 }; L.bot = { k: 'greaves', m: C5.m, s: C5.s }; L.feet = { k: 'sabatons', m: C5.m };
   } else if (form === 'cefiro') {
-    L.top = { k: 'tunic', m: C5.m, s: C5.s }; L.bot = { k: 'pants', m: C5.m }; L.feet = { k: 'boots', m: C5.s }; L.scarf = C5.scarf;
+    L.top = { k: 'tunic', m: C5.m, s: P5(['#1a5a7a', '#2e8ab0', '#5ab8d8', '#a8e4f4', '#ffffff']) }; L.bot = { k: 'pants', m: C5.m }; L.feet = { k: 'boots', m: P5(['#1a5a7a', '#2e8ab0', '#5ab8d8', '#a8e4f4', '#ffffff']) }; L.scarf = C5.scarf;
+  } else if (form === 'astral') {
+    // Titán Astral (draft): cosmic giant, bald with a floating crown of light; drawn 2× in the world.
+    L.hs = { ...L.hs, cap: 'bald', bang: 'none', tail: null, back: 0, side: 0, r8HD: null, r8Base: null };
+    L.top = { k: 'plate', m: C5.m, s: C5.s, t: 12 + stage }; L.bot = { k: 'greaves', m: C5.m, s: C5.s }; L.feet = { k: 'sabatons', m: C5.m };
+    L.back = { k: 'cape', o: P5(['#0a0620', '#1a1240', '#2a1e60', '#3e2c86', '#5a44b0']), i: C5.m, tr: C5.s };
   } else {
     // Bigger body: the widest structure of the player's gender (Titán / Guerrera).
     const bt = app.g === 'f' ? 6 : 5; if (BODY_T[app.g === 'f' ? 'f' : 'm'][bt]) { L.bt = bt; L.btS = BODY_T[app.g === 'f' ? 'f' : 'm'][bt]; }
+    L.hs = { ...L.hs, cap: 'bald', bang: 'none', tail: null, back: 0, side: 0, r8HD: null, r8Base: null }; L.hair2 = null;
     L.top = { k: 'plate', m: C5.m, s: C5.s, t: 10 + stage }; L.bot = { k: 'baggy', m: P5(['#0e0e14', '#1a1a24', '#262634', '#363648', '#4a4a60']) }; L.feet = { k: 'boots', m: C5.m };
   }
   L.tmDevice = false; L.tmForm = form; L.tmStage = stage; L.mirror = false;
@@ -62516,9 +62546,10 @@ function tmOpaque(p, x, y) { return x >= 0 && y >= 0 && x < p.w && y < p.h && (p
 function tmHairTop(p, x, maxY) { for (let y = 0; y < Math.min(p.h, maxY); y++) if (tmOpaque(p, x, y)) return y; return -1; }
 function tmDrawFlames(p, A, stage, fr) {
   const cols = [C('#f06a12'), C('#ffb83a'), C('#fff2a6')];
-  for (let x = Math.round(A.hx) - 6; x <= Math.round(A.hx) + 6; x++) {
+  // Head of living flame: tall tongues over the whole head (any hairstyle, any body).
+  for (let x = Math.round(A.hx) - 7; x <= Math.round(A.hx) + 7; x++) {
     const y0 = tmHairTop(p, x, A.torsoTop); if (y0 < 1) continue;
-    const edge = Math.abs(x - A.hx) / 6, n = tmHash(x * 3 + 1, fr), h = Math.max(0, Math.round((2 + stage * 0.8) * (1 - edge * 0.65) + n * 2.4 - 0.6));
+    const edge = Math.abs(x - A.hx) / 7, n = tmHash(x * 3 + 1, fr), h = Math.max(0, Math.round((4.5 + stage) * (1 - edge * 0.6) + n * 3 - 0.8));
     for (let k = 1; k <= h && y0 - k >= 0; k++) { const t = k / (h + 0.5); p.set(x, y0 - k, cols[t < 0.35 ? 0 : t < 0.75 ? 1 : 2]); }
   }
   if (stage >= 2) for (let i = 0; i < stage; i++) {
@@ -62528,7 +62559,7 @@ function tmDrawFlames(p, A, stage, fr) {
 }
 function tmDrawShards(p, A, stage) {
   // Angular sky-blue crystals growing from the head and the shoulders.
-  const dark = C('#0e4a76'), mid = C('#3aa0d8'), lite = C('#bfeeff'), glint = C('#ffffff');
+  const dark = C('#0e4a3c'), mid = C('#3aa88a'), lite = C('#bff8e4'), glint = C('#ffffff');
   const spike = (x, y0, h, lean) => { h = Math.max(2, Math.round(h)); for (let k = 0; k < h; k++) { const w = Math.max(0, Math.round((h - k) / h * 1.6)), xx = Math.round(x + lean * k * 0.35);
     for (let i = -w; i <= w; i++) if (y0 - k >= 0) p.set(xx + i, y0 - k, i < 0 ? dark : i === 0 ? lite : mid); }
     if (y0 - h >= 0) p.set(Math.round(x + lean * h * 0.35), y0 - h + 1, glint); };
@@ -62540,7 +62571,22 @@ function tmDrawShards(p, A, stage) {
   if (!A.side) for (const sx of [A.tx0 - 1, A.tx0 + A.tw]) spike(sx, A.torsoTop + 1, 3 + Math.min(2, stage), sx < A.cx ? -1 : 1);
   else spike(Math.round(A.cx - A.d * 2), A.torsoTop + 1, 3 + Math.min(2, stage), -A.d);
 }
+function tmDrawTail(p, A, fr) {
+  // Lightning tail: one solid sky-blue tail ending in a yellow bolt, swaying with the walk.
+  const base = C('#2e8ab0'), lite = C('#5ab8d8'), dark = C('#1a5a7a'), bolt = C('#ffe14a'), out = C('#06080e');
+  const sway = Math.sin((A.f || 0) * 1.6) * 1.5, y0 = A.legTop - 1;
+  const pts = []; let x, y;
+  if (A.side) { x = Math.round(A.cx - A.d * 4); y = y0; for (let k = 0; k < 9; k++) pts.push([x - A.d * k, Math.round(y + Math.sin(k * 0.7) * 1.2 - k * 0.45 + sway * (k / 9))]); }
+  else if (A.up) { x = Math.round(A.cx); y = y0; for (let k = 0; k < 8; k++) pts.push([Math.round(x + Math.sin(k * 0.8 + sway) * 1.6), y + k]); }
+  else { x = Math.round(A.tx0 + A.tw + 1); y = y0 + 2; for (let k = 0; k < 6; k++) pts.push([x + Math.round(k * 0.6), Math.round(y + Math.sin(k * 0.9 + sway) * 1.1 - k * 0.3)]); }
+  pts.forEach(([px, py], i) => { if (!A.up && !A.side && tmOpaque(p, px, py)) return; const w = i < 3 ? 1 : 0;
+    for (let j = -w; j <= w + 1; j++) { const yy = py + j; if (tmOpaque(p, px, yy) && !(A.up || A.side)) continue; p.set(px, yy, j === -w ? lite : j === w + 1 ? dark : base); }
+    p.set(px, py - w - 1, out); p.set(px, py + w + 2, out); });
+  const [tx, ty] = pts[pts.length - 1], dx = A.side ? -A.d : 1;
+  [[0, 0], [dx, -1], [0, -2], [dx, -3], [dx * 2, -2]].forEach(([ox, oy]) => p.set(tx + ox, ty + oy, bolt));
+}
 function tmDrawStorm(p, A, stage, fr) {
+  tmDrawTail(p, A, fr);
   // Electric streaks crossing the hair; they jump between frames.
   const bolt = C('#fffbd0'), glow = C('#ffe14a');
   for (let j = 0; j < 2 + Math.min(2, stage); j++) {
@@ -62566,6 +62612,28 @@ function tmDrawArms(p, A, L) {
   if (!A.side) { arm(A.tx0 - aw - 1, -(ps.rax || 0), ps.ray, A.up); arm(A.tx0 + A.tw + 1, -(ps.lax || 0), ps.lay, A.up); }
   else { arm(Math.round(A.cx - 1 + A.d * 2), ps.rax, ps.ray, true); arm(Math.round(A.cx - 2 - A.d), ps.lax, ps.lay, false); }
 }
+function tmDrawAstral(p, A, fr) {
+  // Stars twinkling on the skin and armour, and a floating crown of light above the head.
+  const star = [C('#fff6c0'), C('#ffffff'), C('#c8b8ff')], gold = C('#ffd85a'), glow = C('#fff2b0');
+  for (let i = 0; i < 9; i++) { const x = Math.round(A.tx0 - 2 + tmHash(i, 11) * (A.tw + 4)), y = Math.round(A.hy - 4 + tmHash(11, i) * (A.base - A.hy));
+    if (tmOpaque(p, x, y) && tmHash(i, fr) > 0.35) p.set(x, y, star[i % 3]); }
+  const hx = Math.round(A.hx); let top = -1; for (let y = 0; y < A.torsoTop; y++) if (tmOpaque(p, hx, y)) { top = y; break; } if (top < 4) return;
+  const cy = top - 3 - ((A.f || 0) % 2), w = A.side ? 3 : 5;
+  for (let dx = -w; dx <= w; dx++) p.set(hx + dx, cy, Math.abs(dx) === w ? gold : glow);
+  for (const dx of A.side ? [-2, 0, 2] : [-4, -2, 0, 2, 4]) p.set(hx + dx, cy - 1 - (dx === 0 ? 1 : 0), gold);
+}
+function tmDrawHorns(p, A) {
+  // Coloso: two curved ivory horns and a gold war mark on the forehead (bald head).
+  const hx = Math.round(A.hx), ivory = [C('#8a7a5a'), C('#d8ccaa'), C('#fff6dc')], gold = C('#ffcf5a'), goldD = C('#b08a2a'), out = C('#1a0606');
+  let top = -1; for (let y = 0; y < A.torsoTop; y++) if (tmOpaque(p, hx, y)) { top = y; break; } if (top < 0) return;
+  const horn = (x0, dir) => { const pts = [[0, 0], [dir, -1], [dir * 2, -2], [dir * 2, -3], [dir * 3, -4]];
+    pts.forEach(([ox, oy], i) => { const x = x0 + ox, y = top + 3 + oy; p.set(x, y, ivory[i < 2 ? 0 : i < 4 ? 1 : 2]); if (i < 3) p.set(x + dir, y, ivory[1]); if (!tmOpaque(p, x, y - 1)) p.set(x, y - 1, out); }); };
+  if (!A.side) { horn(hx - 5, -1); horn(hx + 5, 1); }
+  else horn(hx - A.d * 2, -A.d);
+  if (!A.up) { const fx = A.side ? hx + A.d * 2 : hx, fy = top + 2;
+    if (A.side) { p.set(fx, fy, gold); p.set(fx, fy + 1, goldD); }
+    else { p.set(fx - 1, fy, gold); p.set(fx + 1, fy, gold); p.set(fx, fy + 1, gold); p.set(fx, fy + 2, goldD); } }
+}
 hookAround('drawHero', (next, p, L, ...a) => {
   if (!L.tmForm) return next(p, L, ...a);
   if (!p.t) p.t = new Uint8Array(p.w * p.h);
@@ -62575,7 +62643,8 @@ hookAround('drawHero', (next, p, L, ...a) => {
   if (L.tmForm === 'ascua') tmDrawFlames(p, A, L.tmStage, fr);
   else if (L.tmForm === 'prisma') tmDrawShards(p, A, L.tmStage);
   else if (L.tmForm === 'cefiro') tmDrawStorm(p, A, L.tmStage, fr);
-  else tmDrawArms(p, A, L);
+  else if (L.tmForm === 'astral') tmDrawAstral(p, A, fr);
+  else { tmDrawArms(p, A, L); tmDrawHorns(p, A); }
   p.tg = tg;
   return r;
 });
@@ -62652,7 +62721,8 @@ function tmBuildPoseAtlas(form) {
 }
 function tmAtlas(P = G.P) {
   const form = tmFormId(P);
-  if (TM_POSE_SHEET.naturalWidth) return getAtlas('tm:poses:' + form, () => tmBuildPoseAtlas(form));
+  // Forms without a pose sheet (Titán Astral) are drawn with the engine on the player's body.
+  if (TM_POSE_SHEET.naturalWidth && TM_POSE_FRAMES[form]) return getAtlas('tm:poses:' + form, () => tmBuildPoseAtlas(form));
   const app = normApp(P.app), stage = tmStage(P);
   return getAtlas('tm:' + form + ':' + heroKey(P.cls, app, {}, {}, 0) + ':' + stage, () => buildHeroAtlas(tmLook(P, form)));
 }
@@ -62749,6 +62819,15 @@ function tmAttack(P, i) {
       addFx({ type: 'tele', shape: 'circle', x: P.x + Math.cos(a) * d, y: P.y + Math.sin(a) * d, r: 40 * grow, dur: 0.3, col: 'rgba(255,90,58,0.18)' });
       for (let j = 1; j <= steps; j++) later(j * 0.035, () => moveEnt(G.map, P, Math.cos(a) * d / steps, Math.sin(a) * d / steps));
       later(steps * 0.035 + 0.02, () => { setAnim(P, 'slam'); hitCircle(P.x, P.y, 40 * grow, damage, { stun: 0.8 }); addFx({ type: 'tmslam', x: P.x, y: P.y, r: 40 * grow, dur: 0.6, light: 90 }); addFx({ type: 'tmrockspikes', x: P.x, y: P.y, r: 36 * grow, dur: 0.8, seed: 3 }); G.shake = Math.max(G.shake || 0, 5); }); },
+    // Titán Astral (giant: longer reach)
+    astralStomp: () => later(0.18, () => { const r = 52 * grow; hitCircle(P.x, P.y, r, damage, { stun: 0.6, kb: 40 }); addFx({ type: 'tmslam', x: P.x, y: P.y, r, dur: 0.6, light: 90 }); addFx({ type: 'tmsupernova', x: P.x, y: P.y, r: r * 0.8, dur: 0.4, small: 1 }); G.shake = Math.max(G.shake || 0, 4); }),
+    astralBeam: () => later(0.2, () => { const len = 150 + stage * 15, x0 = P.x, y0 = P.y - 40;
+      for (let j = 1; j <= 6; j++) { const t = j / 6; hitCircle(x0 + dx * len * t, P.y + dy * len * t, 18 * grow, damage / 3, {}); }
+      addFx({ type: 'tmbeam', x: x0, y: y0, x2: x0 + dx * len, y2: P.y + dy * len - 6, dur: 0.45, light: 100 }); }),
+    astralRain: () => [[0, 0], [-26, 12], [24, -10], [-12, -22], [18, 20]].slice(0, 3 + Math.min(2, stage)).forEach(([ox, oy], j) => {
+      later(0.1 + j * 0.12, () => addFx({ type: 'tmmeteor', x: ex + ox, y: ey + oy, dur: 0.32, s: grow, pal: ['#5a4cc0', '#8a7ee6', '#fff6c0', '#ffffff'] }));
+      later(0.42 + j * 0.12, () => { hitCircle(ex + ox, ey + oy, 24 * grow, damage, {}); addFx({ type: 'tmsupernova', x: ex + ox, y: ey + oy, r: 22 * grow, dur: 0.4, small: 1 }); }); }),
+    astralNova: () => later(0.25, () => { const r = 75 * grow; hitCircle(P.x, P.y, r, damage, { kb: 60 }); addFx({ type: 'tmsupernova', x: P.x, y: P.y - 10, r, dur: 0.8, light: 160 }); G.shake = Math.max(G.shake || 0, 5); }),
     colosoRoar: () => { addBuff(P, 'tm_coloso_roar', { atkP: 25 }, 7); addFx({ type: 'tmroar', x: P.x, y: P.y - 14, r: 50 * grow, dur: 0.6 });
       const spots = [[0, 0], [-24, 10], [22, -8], [-10, -20], [16, 18]].slice(0, 3 + Math.min(2, stage));
       spots.forEach(([ox, oy], j) => { later(0.1 + j * 0.12, () => addFx({ type: 'tmboulder', x: ex + ox, y: ey + oy, dur: 0.34, s: grow }));
@@ -62869,7 +62948,7 @@ hookAround('drawFx', (next, f, cx, cy) => {
       const sc = f.s || 1, hgt = 110 * (1 - k), mx = x - hgt * 0.45, my = y - hgt;
       ctx.fillStyle = `rgba(0,0,0,${0.25 * k})`; ctx.beginPath(); ctx.ellipse(x, y, 6 * sc * k + 2, 3 * sc * k + 1, 0, 0, 7); ctx.fill();
       ctx.globalCompositeOperation = 'lighter';
-      for (let j = 8; j >= 0; j--) { ctx.globalAlpha = 1 - j * 0.1; ctx.fillStyle = TM_FIREC[j > 5 ? 0 : j > 2 ? 1 : 2]; ctx.beginPath(); ctx.arc(mx - j * 2.4 * sc, my - j * 2.7 * sc, (5 - j * 0.45) * sc, 0, 7); ctx.fill(); }
+      const MC = f.pal || TM_FIREC; for (let j = 8; j >= 0; j--) { ctx.globalAlpha = 1 - j * 0.1; ctx.fillStyle = MC[j > 5 ? 0 : j > 2 ? 1 : 2]; ctx.beginPath(); ctx.arc(mx - j * 2.4 * sc, my - j * 2.7 * sc, (5 - j * 0.45) * sc, 0, 7); ctx.fill(); }
       ctx.globalAlpha = 1; tmGlow(mx, my, 14 * sc, 0.6);
       ctx.globalCompositeOperation = 'source-over';
       ctx.fillStyle = '#3a2420'; ctx.beginPath(); ctx.arc(mx, my, 3.2 * sc, 0, 7); ctx.fill();
@@ -62894,7 +62973,7 @@ hookAround('drawFx', (next, f, cx, cy) => {
       break;
     }
     case 'tmspikes': {
-      const grow = Math.sin(Math.min(1, k * 2.2) * Math.PI * 0.5) * (k > 0.7 ? (1 - k) / 0.3 : 1), cols = ['#0e4a76', '#4aaee0', '#ffffff'];
+      const grow = Math.sin(Math.min(1, k * 2.2) * Math.PI * 0.5) * (k > 0.7 ? (1 - k) / 0.3 : 1), cols = ['#0e4a3c', '#4ac8a0', '#ffffff'];
       ctx.fillStyle = `rgba(10,30,50,${0.3 * fade})`; ctx.beginPath(); ctx.ellipse(x, y, f.r, f.r * 0.5, 0, 0, 7); ctx.fill();
       const n = f.ring ? 12 : 4;
       for (let j = 0; j < n; j++) { const a = f.ring ? j / n * Math.PI * 2 : (j - 1.5) * 0.9, rr = f.ring ? f.r * 0.85 : f.r * 0.45 * (j % 2 ? 1 : 0.5);
@@ -62967,6 +63046,24 @@ hookAround('drawFx', (next, f, cx, cy) => {
       ctx.closePath(); ctx.fill(); ctx.fillStyle = '#8a705a'; ctx.fillRect(-r * 0.5, -r * 0.6, r * 0.7, r * 0.45); ctx.restore();
       break;
     }
+    case 'tmbeam': { // beam of light from the crown
+      ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
+      const x2 = f.x2 - cx, y2 = f.y2 - cy, w = Math.sin(Math.min(1, k * 3) * Math.PI * 0.5) * fade;
+      [[14, 'rgba(90,76,192,', 0.45], [8, 'rgba(138,126,230,', 0.7], [4, 'rgba(255,246,192,', 0.95], [1.6, 'rgba(255,255,255,', 1]].forEach(([lw, c0, a]) => {
+        ctx.strokeStyle = c0 + (a * w) + ')'; ctx.lineWidth = lw * (0.6 + w * 0.4); ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x2, y2); ctx.stroke(); });
+      tmGlow(x, y, 18, 0.7 * fade, '#ffd85a'); tmGlow(x2, y2, 22, 0.6 * fade, '#8a7ee6');
+      for (let j = 0; j < 3; j++) if (Math.random() < 0.5) { const t = Math.random(); part(f.x + (f.x2 - f.x) * t, f.y + 30 + (f.y2 - f.y - 30) * t, { z: 20, vz: 20, life: 0.4, c: '#fff6c0' }); }
+      break;
+    }
+    case 'tmsupernova': { // star burst: white core, violet ring and rays
+      ctx.globalCompositeOperation = 'lighter';
+      const r = f.r * (0.3 + 0.7 * Math.min(1, k * 1.8));
+      tmGlow(x, y, r * 1.1, (f.small ? 0.6 : 0.9) * fade, '#8a7ee6');
+      ctx.strokeStyle = `rgba(255,216,90,${fade})`; ctx.lineWidth = f.small ? 2 : 3; ctx.beginPath(); ctx.ellipse(x, y, r, r * 0.6, 0, 0, 7); ctx.stroke();
+      const n = f.small ? 6 : 12; ctx.strokeStyle = `rgba(255,255,255,${0.8 * fade})`; ctx.lineWidth = 1.5;
+      for (let j = 0; j < n; j++) { const a = j / n * Math.PI * 2 + k; ctx.beginPath(); ctx.moveTo(x + Math.cos(a) * r * 0.3, y + Math.sin(a) * r * 0.18); ctx.lineTo(x + Math.cos(a) * r * 1.15, y + Math.sin(a) * r * 0.7); ctx.stroke(); }
+      break;
+    }
     case 'tmroar': {
       ctx.globalCompositeOperation = 'lighter';
       for (let j = 0; j < 3; j++) { const kk = clamp(k * 1.3 - j * 0.15, 0, 1), r = f.r * kk; if (kk <= 0) continue;
@@ -62977,6 +63074,13 @@ hookAround('drawFx', (next, f, cx, cy) => {
   ctx.restore();
 });
 // Form aura while transformed (drawn over the world, never baked into the sprite).
+hookAround('drawEnt', (next, e, cx, cy) => {
+  const P = G.P, k = e === P && tmActive(P) && !P.dead ? TM_FORMS[tmFormId(P)].giant : 0;
+  if (!k) return next(e, cx, cy);
+  const fx = Math.round(P.x - cx), fy = Math.round(P.y - cy);
+  ctx.save(); ctx.translate(fx, fy); ctx.scale(k, k); ctx.translate(-fx, -fy);
+  try { return next(e, cx, cy); } finally { ctx.restore(); }
+});
 hookAfter('drawEnt', (_, e, cx, cy) => {
   const P = G.P;
   if (e !== P || !tmActive(P) || P.dead) return;
@@ -62994,7 +63098,7 @@ hookAfter('drawEnt', (_, e, cx, cy) => {
 hookAfter('updatePlayer', dt => {
   const P = G.P;
   if (!tmActive(P) || P.dead || !dt) return;
-  const form = tmFormId(P), rate = { ascua: 5, prisma: 1.5, cefiro: 3, coloso: 0.8 }[form] + tmStage(P) * (form === 'ascua' ? 3 : 1);
+  const form = tmFormId(P), rate = ({ ascua: 5, prisma: 1.5, cefiro: 3, coloso: 0.8, astral: 2 }[form] || 1) + tmStage(P) * (form === 'ascua' ? 3 : 1);
   P._tmMove = Math.abs(P.x - (P._tmLX ?? P.x)) + Math.abs(P.y - (P._tmLY ?? P.y)) > 0.2; P._tmLX = P.x; P._tmLY = P.y;
   P._tmEmb = (P._tmEmb || 0) + dt * rate;
   const F = TM_FORMS[form], cols = form === 'ascua' ? TM_FIREC.slice(1) : [F.gem[0], F.col, F.gem[1]];
