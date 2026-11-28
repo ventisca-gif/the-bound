@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.69', GAME_BUILD = 291;
+const GAME_VER = '6.70', GAME_BUILD = 292;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,17 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.70",
+ "b": 292,
+ "d": "2026-11-27",
+ "es": [
+  "Activar Gráficos HD manualmente desactiva el modo optimizado y guarda tu elección para que el juego no lo reactive por su cuenta."
+ ],
+ "en": [
+  "Manually enabling HD graphics turns off optimized mode and saves your choice so the game does not turn it back on automatically."
+ ]
+},
 {
  "v": "6.69",
  "b": 291,
