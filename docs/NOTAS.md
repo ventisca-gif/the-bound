@@ -6,6 +6,15 @@ Versión actual: **6.67 (build 289)** · arreglo del filtro del inventario (ver 
 
 
 
+
+## Titán Astral (quinta forma del Transmutador, en `main`, sin publicar)
+
+- `TM_FORMS.astral` en `src/6zzzzzzzz_transmutador_play.js`: gigante cósmico original (piel índigo con estrellas, calvo con corona de luz flotante, armadura violeta y dorada, capa de cielo nocturno), dibujado con el motor (`tmLook`, `tmDrawAstral`) porque no tiene hoja en `TM_POSE_FRAMES`; `tmAtlas` usa la hoja de poses solo si existe para esa forma.
+- `giant: 2`: en el mapa se dibuja al doble (escala entera, sin desenfoque; gancho `drawEnt`).
+- Técnicas: Pisotón estelar, Rayo de la corona (`tmbeam`), Lluvia de estrellas (`tmmeteor` con `pal`) y Supernova (`tmsupernova`). Lento y resistente.
+- PvP (`pvp.py`): Transmutador 0,96, todas las clases entre 0,96 y 1,03; `PVP_CLS` sin cambios.
+- Claude no publicó el actualizador para esta forma: el juego muestra las hojas de Ben 10 en las otras cuatro formas. Hay que subir `GAME_VER` y pasar `release.py` para que llegue a los teléfonos.
+
 ## 6.67 · Arreglo del inventario
 
 - `renderInv` (`src/61_menus.js`) asignaba el clic de filtro a todos los `.chip` del documento, también a los botones del HUD (Transmutador): al tocarlos, `invFilter` quedaba `undefined` y salía «flt is not a function». Ahora solo `.chip[data-f]`, y un filtro desconocido vuelve a «Todo». Botones nuevos del HUD con clase `chip` ya no se ven afectados.
