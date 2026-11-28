@@ -30,7 +30,7 @@ hookAround('orangeOverviewColor',(next,M,x,y,i)=>M?.grandLine&&M.ter[i]===T.DEEP
 hookAround('renderChunk',(next,M,cx,cy)=>{
  if(!M?.grandLine)return next(M,cx,cy);
  const left=cx*CH,top=cy*CH;
- if(left<234&&left+CH>123&&top<409&&top+CH>316)return next(M,cx,cy);
+ if(left<234&&left+CH>123&&top<409&&top+CH>316)return finishChunk(M,cx,cy,chunkPixels(mapData(M),cx,cy));
  const p=new Pix(CHP,CHP);for(let y=0;y<CHP;y++)for(let x=0;x<CHP;x++){
   const px=cx*CHP+x,py=cy*CHP+y;p.set(x,y,dawnSouthernWaterPixel(px,py,false,(py&127)*128+(px&127)));
  }return p.canvas();

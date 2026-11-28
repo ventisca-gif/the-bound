@@ -62,7 +62,7 @@ function dawnLandingNotice(){return L2('Para desembarcar en Foosha, Little Garde
 function dawnMarinaTalk(){return dawnLandingNotice()+' '+L2('Puedes navegar por el Mar de Dawn desde nivel 500.','You can sail the Dawn Sea at level 500.');}
 DLG_HOOKS.push((npc,opts)=>{if(npc.id==='marina')opts.push({label:L2('Islas de Dawn · Fruta del Diablo','Dawn islands · Devil Fruit'),icon:['ways'],fn:()=>typeText(dawnMarinaTalk())});if(npc.id==='dawn_shanks')opts.push({label:L2('Romance Dawn · el comienzo','Romance Dawn · the beginning'),icon:['talk'],fn:()=>typeText(L2('Esta es la primera escala de nuestra historia: Foosha, Makino, los molinos y el sueño de Luffy. Cuando se abra el viaje, nos encontrarás aquí.','This is the first stop in our story: Foosha, Makino, the windmills and Luffy’s dream. When the voyage opens, you will find us here.'))});});
 // One hard gate shared by every public arrival path: inventory or map browsing never bypasses it.
-{const old=setMap;setMap=function(M,x,y,dir){if(M?.dawn&&!DAWN_TRAVEL_OPEN&&!G.P?.dawnHelm){toast(dawnLandingNotice(),'info',5);return false;}return old.apply(this,arguments);};}
+{const old=setMap;setMap=function(M,x,y,dir){if(M?.dawn&&!DAWN_TRAVEL_OPEN&&!G.P?.dawnHelm&&!(M.grandLine&&G.P?.dawnBoat?.bellhaven)){toast(dawnLandingNotice(),'info',5);return false;}return old.apply(this,arguments);};}
 function dawnSpawnPeople(M){
  for(const d of M.npcDefs){
   if(d.id==='dawn_luffy'&&G.P.dawnCrewJoined)continue;

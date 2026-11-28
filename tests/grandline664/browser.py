@@ -63,7 +63,7 @@ with sync_playwright() as p:
   act()
  check('G.P.glPortQuest.clues===3','both clues recorded')
  js("window.__port=serializeP(G.P);startGame(window.__port,false);1");page.wait_for_timeout(1600)
- check("glpOnFoot()&&G.P.glPortQuest.clues===3",'restore keeps the player ashore with both clues')
+ check("glpOnFoot()&&G.P.map===GL_ID&&G.P.glPortQuest.clues===3",'restore keeps the player ashore with both clues')
  js('[G.P.x,G.P.y]=dawnPx(GL_PORT_PLAZA);updateCamera(0,true);1');page.wait_for_timeout(500)
  page.screenshot(path=str(OUT/'04_campanas_plaza.png'))
  js('[G.P.x,G.P.y]=dawnPx(GL_PORT_BELL);updateCamera(0,true);1')
@@ -84,4 +84,5 @@ with sync_playwright() as p:
  js("G.P.rmVisual=0;G.P.dawnHelm=null;G.P.dawnBoat={h:dawnHelm('skiff',{x:1800,y:2400}),rmcape:true};setMap(makeDawn(),1553*16+8,1300*16+8,'down');1")
  check("G.P.rmVisual===2&&!G.P.dawnHelm&&Math.hypot(G.P.x-dawnPx(RMC_PIER)[0],G.P.y-dawnPx(RMC_PIER)[1])<20",'6.63 dock saves migrate to the new west pier')
  assert not errors,errors;assert not warnings,warnings
+ assert not js("localStorage.getItem('thebound.lasterr')"),js("localStorage.getItem('thebound.lasterr')")
  print(json.dumps({'page_errors':errors,'hook_warnings':warnings,'result':'PASS'},ensure_ascii=False),flush=True);b.close()
