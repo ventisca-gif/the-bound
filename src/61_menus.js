@@ -39,7 +39,7 @@ function renderChar(B) {
 function animPreview() { const c = $('#prev'); if (!c) return; const x = c.getContext('2d'); x.imageSmoothingEnabled = false; const A = G.P.atlas; const dir = Math.floor(previewT / 1.6) % 4, f = Math.floor(previewT * 7) % 4; x.clearRect(0, 0, 48, 48); x.drawImage(A.img, (A.idx.walk + f) * A.fw, [0, 1, 3, 2][dir] * A.fh, A.fw, A.fh, (48 - A.fw) / 2, 48 - A.fh, A.fw, A.fh); }
 // ---------- inventory ----------
 function renderInv(B) {
-  const P = G.P; const flt = { all: () => true, eq: it => it.slot || it.t === 'tool', mat: it => it.t === 'mat', cons: it => it.t === 'cons', quest: it => it.t === 'quest' }[invFilter];
+  const P = G.P; const flt = { all: () => true, eq: it => it.slot || it.t === 'tool', mat: it => it.t === 'mat', cons: it => it.t === 'cons', quest: it => it.t === 'quest' }[invFilter] || (invFilter = 'all', () => true);
   const chips = [['all', 'Todo'], ['eq', 'Equipo'], ['mat', 'Materiales'], ['cons', 'Consumibles'], ['quest', 'Misión']].map(([k, n]) => `<button class="chip ${invFilter === k ? 'on' : ''}" data-f="${k}">${n}</button>`).join('');
   let cells = ''; /* 6.14: con 900 casillas solo se dibujan las ocupadas y dos filas vacías */ const invShow = Math.min(INV_MAX, P.inv.length + 16 - (P.inv.length % 8)); for (let i = 0; i < invShow; i++) { const s = P.inv[i]; if (s && !flt(ITEMS[s.id])) continue; if (!s && invFilter !== 'all') continue; cells += s ? `<button class="slot r${ITEMS[s.id].rar || 0} ${invSel === i ? 'sel' : ''}" data-i="${i}">${iconHTML(ITEMS[s.id].icon, 32)}${s.q > 1 ? `<em>${s.q}</em>` : ''}${s.up ? `<em class="upl">+${s.up}</em>` : ''}${canEquip(s.id) === null && (ITEMS[s.id].slot) && betterThanEquipped(s.id) ? '<b class="up">▲</b>' : ''}</button>` : `<div class="slot empty"></div>`; }
   const s = P.inv[invSel], it = s ? ITEMS[s.id] : null;
@@ -51,7 +51,7 @@ function renderInv(B) {
     ${it.t !== 'quest' ? `<button class="btn danger" id="idrop">${dropConfirm === invSel ? '¿Seguro? Tirar' : 'Tirar'}</button>` : ''}</div><p class="val">${iconHTML(['coin'], 14)} Valor: ${fmt(Math.floor(it.price * 0.4))} oro</p>`;
   }
   B.innerHTML = `<div class="invwrap"><div class="frame invL"><div class="chips">${chips}</div><div class="grid">${cells}</div><div class="goldline">${iconHTML(['coin'], 18)} ${fmt(P.gold)} oro · ${P.inv.length}/${INV_MAX}</div></div><div class="frame invR">${det}</div></div>`;
-  $$('.chip').forEach(b => b.onclick = () => { invFilter = b.dataset.f; invSel = -1; renderPanel(); });
+  $$('.chip[data-f]').forEach(b => b.onclick = () => { invFilter = b.dataset.f; invSel = -1; renderPanel(); });
   $$('.slot[data-i]').forEach(b => b.onclick = () => { invSel = +b.dataset.i; dropConfirm = -1; renderPanel(); sfx('ui'); });
   const u = $('#iuse'); if (u) u.onclick = () => { useItem(invSel); invSel = -1; renderPanel(); };
   const pq = $('#ipot'); if (pq) pq.onclick = () => { P.potion = s.id; toast('Poción rápida: ' + it.n); renderPanel(); uiDirty.hud = true; };

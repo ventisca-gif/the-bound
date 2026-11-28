@@ -1,25 +1,21 @@
 {
- "build": 288,
- "ver": "6.66",
+ "build": 289,
+ "ver": "6.67",
  "date": "2026-11-28",
  "file": "thebound.html",
- "size": 36272712,
- "sha256": "4f297bb4b6751f3bf6cd1ebec57a3966fb0c2f8cf19b232773104e73a59e21f9",
+ "size": 36273041,
+ "sha256": "88f144c81bcda902bda82bd98270866431ae43fd68332976ff1a1d9cc9ab50f8",
  "minApk": 24,
  "gz": "thebound.html.gz",
- "gzSize": 22049932,
- "gzSha256": "72d8e8a7d92188efe69d7d08cc426d79be56247d064fe291a32622cd28cba498",
+ "gzSize": 22049990,
+ "gzSha256": "b37d112044a7b2ffc1871d47d477b690202695aac94dc7b4877559810552a58f",
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Transmutador: Brazalete de núcleos con selector de cuatro formas desde el nivel 1: Ascua (fuego), Prisma (cristal celeste resistente), Céfiro (velocidad de tormenta) y Coloso (gigante rojo de cuatro brazos que lanza rocas, el más fuerte). Cada forma tiene sus técnicas y su puño, y se hace más fuerte con tu nivel hasta el máximo.",
-   "Efectos de fuego, cristal, rayo, rocas y terremoto nuevos en todas las técnicas. Las armaduras dan un extra de defensa y vida en las formas, y el Transmutador puede llevar anillos y amuletos de cualquier clase.",
-   "Arreglado: volver a forma humana después de repartir puntos, el botón de transformar en el móvil y «Mostrar mi ropa base» con el atuendo del Transmutador. Duelos PvP reajustados con la clase nueva."
+   "Arreglado el error rojo «flt is not a function» que salía en el inventario después de tocar los botones del Transmutador."
   ],
   "en": [
-   "Transmuter: Core Bracelet with a four-form selector from level 1: Ember (fire), Prism (tough sky-blue crystal), Zephyr (storm speed) and Colossus (red four-armed giant that hurls rocks, the strongest). Each form has its own techniques and punch, and grows stronger with your level up to the maximum.",
-   "New fire, crystal, lightning, rock and quake effects on every technique. Armour gives extra defence and life in the forms, and the Transmuter can wear rings and amulets of any class.",
-   "Fixed: returning to human form after spending points, the transform button on phones and “Show my base clothes” with the Transmuter outfit. PvP duels rebalanced with the new class."
+   "Fixed the red “flt is not a function” error in the inventory after tapping the Transmuter buttons."
   ]
  }
 }
