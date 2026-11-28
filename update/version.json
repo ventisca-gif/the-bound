@@ -1,21 +1,23 @@
 {
- "build": 296,
- "ver": "6.74",
+ "build": 297,
+ "ver": "6.75",
  "date": "2026-11-28",
  "file": "thebound.html",
- "size": 38268493,
- "sha256": "f3e02ed20ee39ae01a8145a395c51a6ceb19d7ecd237b7a17457f200498d0fa4",
+ "size": 38283782,
+ "sha256": "d3f686e54d87922fba5365f69a1952a8c21715d3f7f5d72efa34829aa81d4d57",
  "minApk": 24,
  "gz": "thebound.html.gz",
- "gzSize": 23535307,
- "gzSha256": "da89767e2e9583b108b54c933a2f7491530ac165e5efa0aa99127fa827fcbc04",
+ "gzSize": 23540504,
+ "gzSha256": "8b1267ed5f334003c7ab911b7a5b0449c39b4e3644ce735d4e38fe6557f21cf0",
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Puerto de las Campanas: duelo de la plaza, tripulación de apoyo sin duplicados y arco repetible. La primera victoria aumenta el poder permanente de la tripulación. El terreno se muestra mientras cargan las texturas."
+   "Gear 3 y Gear 4 en Transformaciones como adelantos bloqueados de la fruta Goma Goma.",
+   "Gear 4: hombros unidos al torso de perfil y demostraciones visuales de sus cuatro técnicas."
   ],
   "en": [
-   "Bellhaven: square duel, crew support without duplicate actors, and a replayable chapter. The first clear increases permanent crew power. Terrain stays visible while textures load."
+   "Locked Gear 3 and Gear 4 previews in Transformations for the Rubber Fruit.",
+   "Gear 4: fixed shoulder alignment in side views and added visual demos for all four techniques."
   ]
  }
 }
