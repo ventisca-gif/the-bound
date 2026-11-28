@@ -100,13 +100,12 @@ function ttAttack(P, i) {
   const fist = (x, y, a, size, dur, drop) => addFx({ type: 'ttfist', x, y, ang: a, s: size, dur, skin, drop });
   setAnim(P, t && i === 3 ? 'slam' : 'atk'); P.loopAnim = false; P.busy = 0.3; P.combatT = G.t;
   const ex = target?.x ?? P.x + dx * 60, ey = target?.y ?? P.y + dy * 50;
-  if (!t) { // basic punch: one giant fist (stage 1) or both (stage 2)
+  if (!t) { // basic punch: the giant fist on the sprite punches; here only the impact
     const side = (P._ttSide = !P._ttSide) ? 1 : -1, d = ttDmg(P, st === 2 ? 0.75 : 1.1);
-    later(0.05, () => { const px = -dy * 6 * side, py = dx * 4 * side;
-      fist(P.x + dx * 26 + px, P.y + dy * 20 + py - 10, ang, st === 2 ? 1 : 1.15, 0.28);
-      hitArc(P.x, P.y, ang, 46, 1.4, d, { kb: 26 }); G.shake = Math.max(G.shake || 0, 1.5); });
-    if (st === 2) later(0.16, () => { const px = dy * 6 * side, py = -dx * 4 * side;
-      fist(P.x + dx * 26 + px, P.y + dy * 20 + py - 10, ang, 1, 0.28); hitArc(P.x, P.y, ang, 46, 1.4, d, { kb: 26 }); });
+    later(0.06, () => { const x = P.x + dx * 30 - dy * 5 * side, y = P.y + dy * 22 + dx * 3 * side;
+      hitArc(P.x, P.y, ang, 46, 1.4, d, { kb: 26 }); addFx({ type: 'ttwave', x, y, r: 22, dur: 0.3 }); burst(x, y - 8, 6, { sp: 70, up: 30, life: 0.3, c: ['#fff2b0', '#ffb43a'] }); G.shake = Math.max(G.shake || 0, 1.5); });
+    if (st === 2) later(0.18, () => { setAnim(P, 'atk'); const x = P.x + dx * 30 + dy * 5 * side, y = P.y + dy * 22 - dx * 3 * side;
+      hitArc(P.x, P.y, ang, 46, 1.4, d, { kb: 26 }); addFx({ type: 'ttwave', x, y, r: 22, dur: 0.3 }); });
   } else if (i === 0) { // giant fist falls from above
     later(0.1, () => fist(ex, ey - 10, Math.PI / 2, 1.8, 0.42, 1));
     later(0.42, () => { hitCircle(ex, ey, 46, ttDmg(P, t.m), { stun: 0.8 }); addFx({ type: 'ttwave', x: ex, y: ey, r: 52, dur: 0.6, light: 90 }); G.shake = Math.max(G.shake || 0, 5); });
@@ -124,6 +123,46 @@ function ttAttack(P, i) {
   sfx('hit');
 }
 hookBefore('basicAttack', () => { const P = G.P; if (P?.titanOn && !(typeof tmActive === 'function' && tmActive(P))) { ttAttack(P, -1); return HOOK_SKIP; } });
+// ---------- sprite: giant arm(s) drawn on the player's own body, every frame and direction ----------
+function ttDrawArm(p, A, L, sx, dx, dy, back) {
+  const SK = L.skin, out = C('#2a1614'), shY = A.torsoTop + 1, side = A.side;
+  const fwd = A.anim === 'atk' || A.anim === 'slam' ? 3 : 0, [vx, vy] = DIRV[A.dir] || [0, 1];
+  const hx = Math.round(sx + 1 + dx * 1.2 + vx * fwd), hy = Math.round(shY + 7 + dy * 1.1 + Math.max(0, vy) * fwd - (vy < 0 ? fwd : 0));
+  const put = (x, y, c) => { if (x < 0 || y < 0 || x >= p.w || y >= p.h) return; if (back && tmOpaqueTT(p, x, y)) return; p.set(x, y, c); };
+  // upper arm (bicep) and forearm: thick, outlined, shaded
+  const ex = Math.round((sx + 1 + hx) / 2), ey = Math.round((shY + hy) / 2);
+  const seg = (x0, y0, x1, y1, w) => { const n = Math.max(1, Math.abs(x1 - x0), Math.abs(y1 - y0));
+    for (let k = 0; k <= n; k++) { const x = Math.round(x0 + (x1 - x0) * k / n), y = Math.round(y0 + (y1 - y0) * k / n);
+      for (let i = -1; i <= w; i++) put(x - (w >> 1) + i, y, i < 0 || i === w ? out : SK[back ? 0 : i === 0 ? 2 : i === w - 1 ? 0 : 1]); } };
+  seg(sx + 1, shY, ex, ey, 4); seg(ex, ey, hx, hy - 2, 5);
+  if (!back) { put(ex - 1, ey - 1, SK[3]); put(ex, ey - 2, SK[3]); }   // bicep highlight
+  // big fist 8x7 with knuckles, fingers and thumb
+  const fx = hx - 4, fy = hy - 2, front = !A.up;
+  for (let y = -1; y <= 7; y++) for (let x = -1; x <= 8; x++) {
+    const edge = x < 0 || x > 7 || y < 0 || y > 6; if (edge) { if (!((x < 0 || x > 7) && (y < 0 || y > 6))) put(fx + x, fy + y, out); continue; }
+    let c = SK[back ? 0 : 1]; if (!back) { if (y <= 1) c = SK[2]; if (y === 0 && x % 2 === 1) c = SK[3]; if (x === 0 || y === 6) c = SK[0]; }
+    put(fx + x, fy + y, c);
+  }
+  if (front && !back) { for (const x of side ? [] : [2, 4, 6]) for (let y = 2; y <= 4; y++) put(fx + x, fy + y, SK[0]);
+    if (side) { const kx = A.d > 0 ? fx + 7 : fx; for (let y = 1; y <= 5; y += 2) put(kx, fy + y, SK[0]); }
+    const tx = side ? (A.d > 0 ? fx + 1 : fx + 4) : fx + 1; put(tx, fy + 5, SK[2]); put(tx + 1, fy + 5, SK[2]); put(tx + 2, fy + 5, SK[3]); }
+}
+function tmOpaqueTT(p, x, y) { return x >= 0 && y >= 0 && x < p.w && y < p.h && (p.d[y * p.w + x] >>> 24) > 0; }
+hookAround('drawHero', (next, p, L, ...a) => {
+  const r = next(p, L, ...a), A = p.meta; if (!L.ttArms || !A) return r;
+  const ps = heroPose(A.dir, A.anim, A.f, L), tg = p.tg; p.tg = 3;
+  const shL = A.side ? A.cx - 1 : A.tx0 - 3, shR = A.side ? A.cx - 1 : A.tx0 + A.tw;
+  // engine convention: the "r" arm is at shR in front view, shL in back view and the near arm in profile
+  if (A.side) { if (L.ttArms === 2) ttDrawArm(p, A, L, A.cx - 1 - A.d, ps.lax, ps.lay, true); ttDrawArm(p, A, L, A.cx - 2, ps.rax, ps.ray, false); }
+  else if (A.up) { ttDrawArm(p, A, L, shL, ps.rax, ps.ray, false); if (L.ttArms === 2) ttDrawArm(p, A, L, shR, ps.lax, ps.lay, false); }
+  else { ttDrawArm(p, A, L, shR, ps.rax, ps.ray, false); if (L.ttArms === 2) ttDrawArm(p, A, L, shL, ps.lax, ps.lay, false); }
+  p.tg = tg; return r;
+});
+hookAround('playerAtlas', (next, P) => {
+  const st = P?.titanOn; if (!st || (typeof tmActive === 'function' && tmActive(P))) return next(P);
+  const app = normApp(P.app), gear = gearTiers(P), cos = P.cos || {};
+  return getAtlas(heroKey(P.cls, app, gear, cos, P.hideHelm) + '|tt' + st, () => { const L = heroLook(P.cls, app, gear, cos, { hideHelm: P.hideHelm }); L.ttArms = st; L.weapon = { k: 'none', tier: 1 }; return buildHeroAtlas(L); });
+});
 // ---------- VFX: giant fist and shockwave (separate layer from the sprite) ----------
 function ttRR(x, y, w, h, r) { if (ctx.roundRect) ctx.roundRect(x, y, w, h, r); else { ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); } }
 function ttDrawFist(x, y, a, s, k, skin, drop) {
