@@ -1,23 +1,23 @@
 {
- "build": 297,
- "ver": "6.75",
+ "build": 298,
+ "ver": "6.76",
  "date": "2026-11-28",
  "file": "thebound.html",
- "size": 38283782,
- "sha256": "d3f686e54d87922fba5365f69a1952a8c21715d3f7f5d72efa34829aa81d4d57",
+ "size": 38464533,
+ "sha256": "f5c8645b5766eb48f7a1d274508a626d7013298a71afc788501b4087befd4c14",
  "minApk": 24,
  "gz": "thebound.html.gz",
- "gzSize": 23540504,
- "gzSha256": "8b1267ed5f334003c7ab911b7a5b0449c39b4e3644ce735d4e38fe6557f21cf0",
+ "gzSize": 23677838,
+ "gzSha256": "19bca2bdd493f161318f4fe3844567fa97a5a7b9082261b670dac441219cbbde",
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Gear 3 y Gear 4 en Transformaciones como adelantos bloqueados de la fruta Goma Goma.",
-   "Gear 4: hombros unidos al torso de perfil y demostraciones visuales de sus cuatro técnicas."
+   "Gear 4 conserva las proporciones de la cabeza y añade ojeras negras de frente y de perfil.",
+   "Nuevas estelas y destellos en las demostraciones, con una lámina pixel art de las cuatro técnicas."
   ],
   "en": [
-   "Locked Gear 3 and Gear 4 previews in Transformations for the Rubber Fruit.",
-   "Gear 4: fixed shoulder alignment in side views and added visual demos for all four techniques."
+   "Gear 4 preserves native head proportions and adds dark eye markings to front and side views.",
+   "New trails and flashes in the visual demos, plus a pixel-art storyboard of the four techniques."
   ]
  }
 }

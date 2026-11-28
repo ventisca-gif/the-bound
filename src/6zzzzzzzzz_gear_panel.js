@@ -12,11 +12,12 @@ const RUBBER_GEARS = [
     ['Ráfaga Carmesí', 'Crimson Flurry'], ['Impacto Comprimido', 'Compressed Impact']] },
 ];
 
-function rubberGearPreviewAtlas(P) {
+function rubberGearPreviewAtlas(P, gear = 3) {
   const app = normApp(P.app);
-  const key = heroKey(P.cls, app, {}, {}, true) + '|rubber-preview';
+  const key = heroKey(P.cls, app, {}, {}, true) + '|rubber-preview-' + gear;
   return getAtlas(key, () => {
     const look = heroLook(P.cls, app, {}, {}, { hideHelm: true });
+    look.rubberEyeMarks = gear === 4;
     look.weapon = { k: 'none', tier: 1 };
     return buildHeroAtlas(look);
   });
@@ -40,7 +41,7 @@ hookAfter('transOpen', () => {
     title.innerHTML = `<b>🔒 Gear ${form.id}</b><br><small>${esc(requirement)}</small><br>
       <small>${esc(L2('Técnicas bloqueadas', 'Locked techniques'))} · ${form.techniques.map(names => esc(L2(...names))).join(' · ')}</small>`;
     const draw = form.id === 3 ? rubberGearThree : rubberGearFour;
-    const preview = draw(P, atlas, 'down', 'idle', 0);
+    const preview = draw(P, form.id === 4 ? rubberGearPreviewAtlas(P, 4) : atlas, 'down', 'idle', 0);
     preview.style.cssText = 'width:6em;height:auto;image-rendering:pixelated;flex:none';
     preview.setAttribute('aria-label', 'Gear ' + form.id);
     card.append(title, preview);
@@ -61,7 +62,7 @@ hookAfter('transOpen', () => {
     const title = L2(...RUBBER_GEARS[1].techniques[index]);
     label.textContent = title + ' · ' + L2(...RUBBER_DEMOS[index]);
     preview.setAttribute('aria-label', title);
-    frames ||= Array.from({length: 4}, (_, i) => rubberGearFour(P, atlas, 'right', 'atk', i));
+    frames ||= Array.from({length: 4}, (_, i) => rubberGearFour(P, rubberGearPreviewAtlas(P, 4), 'right', 'atk', i));
     const context = preview.getContext('2d');
     function render(now) {
       if (!preview.isConnected || token !== cue) return;
@@ -83,7 +84,19 @@ hookAfter('transOpen', () => {
     button.onclick = () => play(index);
     demoButtons.append(button);
   }
-  demos.append(heading, preview, label, demoButtons);
+  const concept = document.createElement('details');
+  const summary = document.createElement('summary');
+  summary.textContent = L2('Ver las cuatro técnicas en pixel art', 'See all four techniques in pixel art');
+  concept.append(summary);
+  concept.addEventListener('toggle', () => {
+    if (!concept.open || concept.querySelector('img')) return;
+    const art = document.createElement('img');
+    art.src = RUBBER_GEAR_STORYBOARD;
+    art.alt = RUBBER_GEARS[1].techniques.map(names => L2(...names)).join(' · ');
+    art.style.cssText = 'display:block;width:100%;height:auto;margin-top:.5em';
+    concept.append(art);
+  });
+  demos.append(heading, preview, label, demoButtons, concept);
   section.append(demos);
   play(2);
   close.closest('.row').before(section);
