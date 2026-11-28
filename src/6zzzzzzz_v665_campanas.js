@@ -161,7 +161,13 @@ XACT.glp_bell = [L2('Investigar la campana','Investigate the bell'),'talk',()=>{
 }];
 hookAround('interactTarget',(next)=>{
   const key = glpDockAction();
-  return key ? rareAction(key) : next();
+  if (key) return rareAction(key);
+  if (glpOnFoot()) {
+    for (const [spot, action] of [[GL_PORT_PLAZA,'glp_ledger'],[GL_PORT_ARCHIVE,'glp_tides'],[GL_PORT_BELL,'glp_bell']]) {
+      if (conomiNear(G.P, spot, 24)) return rareAction(action);
+    }
+  }
+  return next();
 });
 hookAfter('setMap',(_,M)=>{
   if (!M.grandLine) return;

@@ -42,8 +42,9 @@ with sync_playwright() as p:
  js('mbGoUp();1');page.wait_for_timeout(1400);check("G.map.id==='grand_line'",'leaving Merry interior returns to correct sea')
  js('[G.P.x,G.P.y]=dawnPx(GL_PORT_MOOR);G.P.lv=619;1')
  check("interactTarget()?.o?.xact==='glp_locked'",'port entry requires level 620')
- js('G.P.lv=620;calcStats(G.P);G.P.hp=G.P.S.maxhp;1')
- check("interactTarget()?.o?.xact==='glp_land'",'port can be reached from the channel')
+ result=js("(()=>{const P=G.P;P.lv=620;calcStats(P);P.hp=P.S.maxhp;[P.x,P.y]=dawnPx(GL_PORT_MOOR);return [interactTarget()?.o?.xact,glpDockAction(),P.lv,P.dawnHelm?.kind,!!G.fading];})()")
+ assert result[0]=='glp_land', result
+ print('PASS port can be reached from the channel',flush=True)
  act()
  check("glpOnFoot()&&G.P.dawnBoat.h.kind==='skiff'",'native landing retains the ship')
  check("""(()=>{const M=G.map,Q=[GL_PORT_PIER],seen=new Set();
