@@ -67,9 +67,9 @@ const TM_FORMS = {
     ]
   },
   prisma: {
-    n: ['Prisma', 'Prism'], role: ['Cristal resistente', 'Tough crystal'], gem: ['#6a3ab0', '#d8c0ff'], col: '#b48cff',
+    n: ['Prisma', 'Prism'], role: ['Cristal resistente', 'Tough crystal'], gem: ['#1a6a9a', '#c8f2ff'], col: '#6ad4ff',
     buff: g => ({ atk: tmLerp(0, 0.06, g), def: tmLerp(0.20, 0.45, g), hp: tmLerp(0.10, 0.30, g) }), armor: 0.35,
-    punch: 0.85, swipe: ['#6a3ab0', '#b48cff', '#f0e6ff'],
+    punch: 0.85, swipe: ['#1a6a9a', '#6ad4ff', '#effbff'],
     techs: [
       { n: ['Lanza de cristal', 'Crystal lance'], icon: '💎', cd: 3, mp: 0.05, m: 1.8, sim: { k: 'proj', hits: 1, f: 0.85 }, run: c => c.prismaLance() },
       { n: ['Muralla prismática', 'Prism wall'], icon: '🛡️', cd: 14, mp: 0.12, m: 0.8, sim: { k: 'nova', hits: 1, f: 0.9, shield: 22, defP: 30, dur: 6 }, run: c => c.prismaWall() },
@@ -89,14 +89,14 @@ const TM_FORMS = {
     ]
   },
   coloso: {
-    n: ['Coloso', 'Colossus'], role: ['Fuerza de cuatro brazos', 'Four-armed strength'], gem: ['#1c7a6a', '#7cf0d8'], col: '#3fc7b0',
+    n: ['Coloso', 'Colossus'], role: ['Fuerza de cuatro brazos', 'Four-armed strength'], gem: ['#8a1a10', '#ff8a5a'], col: '#ff5a3a',
     buff: g => ({ atk: tmLerp(0.18, 0.40, g), def: tmLerp(0.08, 0.18, g), hp: tmLerp(0.10, 0.25, g), spd: -0.08, aspd: -0.12 }), armor: 0.20,
-    punch: 1.25, swipe: ['#1c7a6a', '#ffcf5a', '#ffffff'],
+    punch: 1.25, swipe: ['#8a1a10', '#ffcf5a', '#ffffff'],
     techs: [
-      { n: ['Aplauso sísmico', 'Seismic clap'], icon: '👏', cd: 5, mp: 0.06, m: 2.0, sim: { k: 'slash', hits: 1, f: 0.9 }, run: c => c.colosoClap() },
+      { n: ['Aplauso de rocas', 'Rock clap'], icon: '🪨', cd: 5, mp: 0.06, m: 2.0, sim: { k: 'slash', hits: 1, f: 0.9 }, run: c => c.colosoClap() },
       { n: ['Cuádruple golpe', 'Quad strike'], icon: '✊', cd: 7, mp: 0.08, m: 0.9, sim: { k: 'flurry', hits: 4, f: 0.9 }, run: c => c.colosoQuad() },
       { n: ['Salto titánico', 'Titan leap'], icon: '⛰️', cd: 10, mp: 0.1, m: 3.0, sim: { k: 'leap', hits: 1, f: 0.8 }, run: c => c.colosoLeap() },
-      { n: ['Rugido del coloso', 'Colossus roar'], icon: '🦁', cd: 18, mp: 0.12, m: 0.8, sim: { k: 'nova', hits: 1, f: 0.9, atkP: 25, dur: 7 }, run: c => c.colosoRoar() }
+      { n: ['Lluvia de peñascos', 'Boulder rain'], icon: '☄️', cd: 18, mp: 0.12, m: 0.8, sim: { k: 'rain', hits: 3, f: 0.6, atkP: 25, dur: 7 }, run: c => c.colosoRoar() }
     ]
   }
 };
@@ -123,11 +123,11 @@ hookAfter('calcStats', (S, P) => {
 const TM_PAL = {
   ascua: { skin: pal(['#8a3410', '#d0702a', '#eda05a', '#ffd49a']), hair: pal(['#5e0e06', '#a8200c', '#e04812', '#ff9a2a']), eyes: 'blanco',
     m: P5(['#0d0a0c', '#1d1619', '#2f2428', '#463539', '#5f4a4c']), s: P5(['#6a1404', '#b8320a', '#f06a12', '#ffb43a', '#fff0a0']), cape: P5(['#8a1806', '#d2400c', '#f87a1a', '#ffb83a', '#fff0a0']) },
-  prisma: { skin: pal(['#4a2a7a', '#7a5ac0', '#a98ce8', '#e2d4ff']), hair: pal(['#2e1458', '#5a2ea0', '#8e62dc', '#d2bcff']), eyes: 'hielo',
-    m: P5(['#140a24', '#26163e', '#3a2460', '#583a8a', '#7a5ab0']), s: P5(['#1a5a7a', '#2a8ab0', '#5ac0e0', '#a8ecff', '#ffffff']) },
+  prisma: { skin: pal(['#1e5a86', '#3a96c8', '#7ccbec', '#d4f4ff']), hair: pal(['#0e3a5e', '#1e6ea0', '#4aaee0', '#bfeeff']), eyes: 'blanco',
+    m: P5(['#08141e', '#102636', '#1a3a52', '#285678', '#3a76a0']), s: P5(['#1a6a9a', '#3aa0d8', '#7cd8ff', '#c8f2ff', '#ffffff']) },
   cefiro: { skin: pal(['#5a6a86', '#98a8c4', '#c8d4e8', '#f2f6ff']), hair: pal(['#8a6a08', '#d0a818', '#ffe14a', '#fffbd0']), eyes: 'celeste',
     m: P5(['#0a0e1e', '#141c36', '#22305a', '#34488a', '#4a64b4']), s: P5(['#8a6a08', '#c89a10', '#ffd630', '#fff0a0', '#ffffff']), scarf: P5(['#8a6a08', '#c89a10', '#ffd630', '#fff0a0', '#ffffff']) },
-  coloso: { skin: pal(['#183640', '#2a5c68', '#428894', '#72b8bc']), hair: pal(['#6a6a78', '#a8a8b8', '#d8d8e4', '#ffffff']), eyes: 'dorado',
+  coloso: { skin: pal(['#5a0e0a', '#9a2216', '#cc3e28', '#f07a52']), hair: pal(['#6a6a78', '#a8a8b8', '#d8d8e4', '#ffffff']), eyes: 'dorado',
     m: P5(['#3a1e08', '#6a3a12', '#9a5a20', '#c8843a', '#eab868']), s: P5(['#6a4a14', '#b08a2a', '#dcbc4a', '#f8e48a', '#ffffff']) }
 };
 function tmLook(P, form) {
@@ -144,6 +144,8 @@ function tmLook(P, form) {
   } else if (form === 'cefiro') {
     L.top = { k: 'tunic', m: C5.m, s: C5.s }; L.bot = { k: 'pants', m: C5.m }; L.feet = { k: 'boots', m: C5.s }; L.scarf = C5.scarf;
   } else {
+    // Bigger body: the widest structure of the player's gender (Titán / Guerrera).
+    const bt = app.g === 'f' ? 6 : 5; if (BODY_T[app.g === 'f' ? 'f' : 'm'][bt]) { L.bt = bt; L.btS = BODY_T[app.g === 'f' ? 'f' : 'm'][bt]; }
     L.top = { k: 'plate', m: C5.m, s: C5.s, t: 10 + stage }; L.bot = { k: 'baggy', m: P5(['#0e0e14', '#1a1a24', '#262634', '#363648', '#4a4a60']) }; L.feet = { k: 'boots', m: C5.m };
   }
   L.tmDevice = false; L.tmForm = form; L.tmStage = stage; L.mirror = false;
@@ -164,8 +166,8 @@ function tmDrawFlames(p, A, stage, fr) {
   }
 }
 function tmDrawShards(p, A, stage) {
-  // Angular amethyst crystals growing from the head and the shoulders.
-  const dark = C('#3a1a6a'), mid = C('#8e62dc'), lite = C('#d8c0ff'), glint = C('#ffffff');
+  // Angular sky-blue crystals growing from the head and the shoulders.
+  const dark = C('#0e4a76'), mid = C('#3aa0d8'), lite = C('#bfeeff'), glint = C('#ffffff');
   const spike = (x, y0, h, lean) => { h = Math.max(2, Math.round(h)); for (let k = 0; k < h; k++) { const w = Math.max(0, Math.round((h - k) / h * 1.6)), xx = Math.round(x + lean * k * 0.35);
     for (let i = -w; i <= w; i++) if (y0 - k >= 0) p.set(xx + i, y0 - k, i < 0 ? dark : i === 0 ? lite : mid); }
     if (y0 - h >= 0) p.set(Math.round(x + lean * h * 0.35), y0 - h + 1, glint); };
@@ -190,7 +192,7 @@ function tmDrawStorm(p, A, stage, fr) {
 function tmDrawArms(p, A, L) {
   // Second pair of arms below the first (counter-phase swing), placed from the torso anchors of each body structure.
   const ps = heroPose(A.dir, A.anim, A.f, L), SK = L.skin, aw = 3, al = Math.max(5, Math.round(A.th * 0.8)), y0 = A.torsoTop + Math.max(3, Math.round(A.th * 0.35));
-  const outl = C('#0a161a'), band = C('#dcbc4a'), bandD = C('#8a6a1a');
+  const outl = C('#1a0606'), band = C('#dcbc4a'), bandD = C('#8a6a1a');
   const arm = (sx, dx, dy, back) => {
     dx = clamp(dx || 0, -2, 2); dy = clamp(dy || 0, -2, 2);
     for (let k = 0; k <= al; k++) { const t = k / al, x = Math.round(sx + dx * t), y = Math.round(y0 + k + dy * t);
@@ -274,7 +276,7 @@ function tmAttack(P, i) {
   const later = (s, fn) => delayAct(s, () => { if (G.P === P && G.map === map && !P.dead && tmActive(P) && tmFormId(P) === formId) fn(); });
   const ex = target?.x ?? P.x + dx * 62, ey = target?.y ?? P.y + dy * 62;
   const blast = (x, y, r, src, col) => { hitCircle(x, y, r, damage, src); addFx({ type: 'tmblast', x, y, r, dur: 0.45, light: r * 2, pal: col }); };
-  const fire = { fire: 1, burn: 1 }, ST = ['#3a8aff', '#ffe14a', '#ffffff'], CO = ['#1c7a6a', '#ffcf5a', '#ffffff'];
+  const fire = { fire: 1, burn: 1 }, ST = ['#3a8aff', '#ffe14a', '#ffffff'], CO = ['#8a1a10', '#ffcf5a', '#ffffff'];
   const c = {
     // Ascua
     ascuaComet: () => later(0.08, () => spawnProj('p', P.x + dx * 6, P.y - 6, angle, { ...fire, spd: 230, dmg: damage, art: 'tmfire', tmS: 1 + stage * 0.15, ex: Math.round(19 * grow), life: 0.8, glow: 18, glowC: 'rgb(255,140,40)' })),
@@ -286,7 +288,7 @@ function tmAttack(P, i) {
       later(0.1 + j * 0.12, () => addFx({ type: 'tmmeteor', x: ex + ox, y: ey + oy, dur: 0.32, s: grow }));
       later(0.42 + j * 0.12, () => blast(ex + ox, ey + oy, Math.round(23 * grow), fire)); }),
     // Prisma
-    prismaLance: () => later(0.1, () => spawnProj('p', P.x + dx * 6, P.y - 7, angle, { spd: 260, dmg: damage, art: 'tmshard', tmS: 1 + stage * 0.12, pierce: true, life: 0.75, glow: 14, glowC: 'rgb(190,150,255)' })),
+    prismaLance: () => later(0.1, () => spawnProj('p', P.x + dx * 6, P.y - 7, angle, { spd: 260, dmg: damage, art: 'tmshard', tmS: 1 + stage * 0.12, pierce: true, life: 0.75, glow: 14, glowC: 'rgb(120,210,255)' })),
     prismaWall: () => { const sp = 22 + 8 * tmGrowth(P); P.shield = P.S.maxhp * sp / 100; P.shieldT = 6; addBuff(P, 'tm_prisma_wall', { defP: 30 }, 6);
       later(0.1, () => { hitCircle(P.x, P.y, 34 * grow, damage, { kb: 40 }); addFx({ type: 'tmdome', x: P.x, y: P.y, r: 30 * grow, dur: 0.8, light: 80 }); }); },
     prismaErupt: () => { const n = 5 + Math.min(2, stage); for (let j = 0; j < n; j++) later(0.1 + j * 0.07, () => { const x = P.x + dx * (18 + j * 15), y = P.y + dy * (14 + j * 12);
@@ -305,14 +307,18 @@ function tmAttack(P, i) {
     cefiroOverdrive: () => { addBuff(P, 'tm_cefiro_over', { aspdP: 40, spdP: 30, crit: 10 }, 6); addFx({ type: 'tmpillar', x: P.x, y: P.y, dur: 0.5, col: '#ffe14a', light: 60 });
       burst(P.x, P.y - 10, 22, { sp: 110, up: 20, life: 0.4, c: ST }); },
     // Coloso
-    colosoClap: () => later(0.15, () => { hitArc(P.x, P.y, angle, 62 * grow, 1.2, damage, { kb: 50 }); addFx({ type: 'tmquake', x: P.x, y: P.y, ang: angle, r: 62 * grow, dur: 0.5, light: 70 }); G.shake = Math.max(G.shake || 0, 3); }),
+    colosoClap: () => later(0.15, () => { hitArc(P.x, P.y, angle, 46 * grow, 1.2, damage * 0.6, { kb: 50 }); addFx({ type: 'tmquake', x: P.x, y: P.y, ang: angle, r: 52 * grow, dur: 0.5, light: 70 }); G.shake = Math.max(G.shake || 0, 3);
+      [-0.25, 0, 0.25].forEach(o => spawnProj('p', P.x + dx * 8, P.y - 8, angle + o, { spd: 210, dmg: damage * 0.6, art: 'tmrock', tmS: 1 + stage * 0.12, life: 0.6, kb: 30 })); }),
     colosoQuad: () => { for (let j = 0; j < 4; j++) later(0.08 + j * 0.13, () => { setAnim(P, 'atk'); const x = P.x + dx * 18, y = P.y + dy * 14; hitCircle(x, y, 20 * grow, damage, j === 3 ? { kb: 45 } : {});
-      addFx({ type: 'tmblast', x: x + (j % 2 ? 5 : -5), y, r: 12 * grow, dur: 0.3, pal: CO }); G.shake = Math.max(G.shake || 0, 1.5); }); },
+      addFx({ type: 'tmblast', x: x + (j % 2 ? 5 : -5), y, r: 12 * grow, dur: 0.3, pal: CO }); burst(x, y - 4, 6, { sp: 70, up: 40, g: 160, life: 0.5, c: ['#6a5040', '#8a705a', '#4a3a30'], s: 2 }); G.shake = Math.max(G.shake || 0, 1.5); }); },
     colosoLeap: () => { const d = Math.min(90, Math.hypot(ex - P.x, ey - P.y)), a = Math.atan2(ey - P.y, ex - P.x), steps = 8;
-      addFx({ type: 'tele', shape: 'circle', x: P.x + Math.cos(a) * d, y: P.y + Math.sin(a) * d, r: 40 * grow, dur: 0.3, col: 'rgba(60,200,180,0.18)' });
+      addFx({ type: 'tele', shape: 'circle', x: P.x + Math.cos(a) * d, y: P.y + Math.sin(a) * d, r: 40 * grow, dur: 0.3, col: 'rgba(255,90,58,0.18)' });
       for (let j = 1; j <= steps; j++) later(j * 0.035, () => moveEnt(G.map, P, Math.cos(a) * d / steps, Math.sin(a) * d / steps));
-      later(steps * 0.035 + 0.02, () => { setAnim(P, 'slam'); hitCircle(P.x, P.y, 40 * grow, damage, { stun: 0.8 }); addFx({ type: 'tmslam', x: P.x, y: P.y, r: 40 * grow, dur: 0.6, light: 90 }); G.shake = Math.max(G.shake || 0, 5); }); },
-    colosoRoar: () => { addBuff(P, 'tm_coloso_roar', { atkP: 25 }, 7); later(0.1, () => { hitCircle(P.x, P.y, 50 * grow, damage, { stun: 1 }); addFx({ type: 'tmroar', x: P.x, y: P.y - 14, r: 60 * grow, dur: 0.7, light: 60 }); G.shake = Math.max(G.shake || 0, 3); }); }
+      later(steps * 0.035 + 0.02, () => { setAnim(P, 'slam'); hitCircle(P.x, P.y, 40 * grow, damage, { stun: 0.8 }); addFx({ type: 'tmslam', x: P.x, y: P.y, r: 40 * grow, dur: 0.6, light: 90 }); addFx({ type: 'tmrockspikes', x: P.x, y: P.y, r: 36 * grow, dur: 0.8, seed: 3 }); G.shake = Math.max(G.shake || 0, 5); }); },
+    colosoRoar: () => { addBuff(P, 'tm_coloso_roar', { atkP: 25 }, 7); addFx({ type: 'tmroar', x: P.x, y: P.y - 14, r: 50 * grow, dur: 0.6 });
+      const spots = [[0, 0], [-24, 10], [22, -8], [-10, -20], [16, 18]].slice(0, 3 + Math.min(2, stage));
+      spots.forEach(([ox, oy], j) => { later(0.1 + j * 0.12, () => addFx({ type: 'tmboulder', x: ex + ox, y: ey + oy, dur: 0.34, s: grow }));
+        later(0.44 + j * 0.12, () => { hitCircle(ex + ox, ey + oy, 24 * grow, damage, { stun: 0.5 }); addFx({ type: 'tmrockspikes', x: ex + ox, y: ey + oy, r: 18 * grow, dur: 0.6, seed: j }); G.shake = Math.max(G.shake || 0, 2.5); }); }); }
   };
   if (tech) tech.run(c);
   else later(0.06, () => {
@@ -351,17 +357,26 @@ function tmCrystal(x, y, h, w, lean, cols) {
   ctx.strokeStyle = cols[2]; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(tx, ty); ctx.stroke();
 }
 hookAround('drawProj', (next, e, cx, cy) => {
-  if (e.art !== 'tmfire' && e.art !== 'tmshard') return next(e, cx, cy);
+  if (e.art !== 'tmfire' && e.art !== 'tmshard' && e.art !== 'tmrock') return next(e, cx, cy);
   const x = Math.round(e.x - cx), y = Math.round(e.y - cy - e.z), c = Math.cos(e.ang), s = Math.sin(e.ang), sc = e.tmS || 1;
+  if (e.art === 'tmrock') { // tumbling boulder with dust
+    const r = 4.5 * sc, rot = e.t * 14;
+    ctx.fillStyle = 'rgba(0,0,0,0.25)'; ctx.beginPath(); ctx.ellipse(x, y + e.z, r, r * 0.45, 0, 0, 7); ctx.fill();
+    ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.fillStyle = '#5a4434'; ctx.beginPath();
+    for (let q = 0; q < 7; q++) { const a = q / 7 * Math.PI * 2, rr = r * (0.8 + tmHash(q, 5) * 0.35); q ? ctx.lineTo(Math.cos(a) * rr, Math.sin(a) * rr) : ctx.moveTo(Math.cos(a) * rr, Math.sin(a) * rr); }
+    ctx.closePath(); ctx.fill(); ctx.fillStyle = '#8a705a'; ctx.fillRect(-r * 0.5, -r * 0.6, r * 0.7, r * 0.5); ctx.fillStyle = '#2e221a'; ctx.fillRect(0, r * 0.2, r * 0.6, r * 0.35); ctx.restore();
+    if (Math.random() < 0.5) part(e.x - c * 5, e.y - s * 5, { z: e.z, vz: 8, life: 0.4, c: '#a89078', s: 2 });
+    return;
+  }
   if (e.art === 'tmshard') {
-    ctx.save(); ctx.globalCompositeOperation = 'lighter'; tmGlow(x, y, 11 * sc, 0.45, '#b48cff');
-    for (let k = 1; k < 5; k++) { ctx.globalAlpha = 0.5 - k * 0.1; ctx.fillStyle = '#b48cff'; ctx.fillRect(Math.round(x - c * k * 4 * sc), Math.round(y - s * k * 4 * sc), 2, 2); }
+    ctx.save(); ctx.globalCompositeOperation = 'lighter'; tmGlow(x, y, 11 * sc, 0.45, '#6ad4ff');
+    for (let k = 1; k < 5; k++) { ctx.globalAlpha = 0.5 - k * 0.1; ctx.fillStyle = '#6ad4ff'; ctx.fillRect(Math.round(x - c * k * 4 * sc), Math.round(y - s * k * 4 * sc), 2, 2); }
     ctx.restore();
     ctx.save(); ctx.translate(x, y); ctx.rotate(e.ang); const L = 8 * sc, W = 2.6 * sc;
-    ctx.fillStyle = '#5a2ea0'; ctx.beginPath(); ctx.moveTo(L, 0); ctx.lineTo(-L * 0.6, -W); ctx.lineTo(-L, 0); ctx.closePath(); ctx.fill();
-    ctx.fillStyle = '#b48cff'; ctx.beginPath(); ctx.moveTo(L, 0); ctx.lineTo(-L * 0.6, W); ctx.lineTo(-L, 0); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = '#1e6ea0'; ctx.beginPath(); ctx.moveTo(L, 0); ctx.lineTo(-L * 0.6, -W); ctx.lineTo(-L, 0); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = '#7cd8ff'; ctx.beginPath(); ctx.moveTo(L, 0); ctx.lineTo(-L * 0.6, W); ctx.lineTo(-L, 0); ctx.closePath(); ctx.fill();
     ctx.fillStyle = '#ffffff'; ctx.fillRect(Math.round(L * 0.3), -1, 3, 1); ctx.restore();
-    if (Math.random() < 0.4) part(e.x, e.y, { z: e.z, vz: 6, life: 0.35, c: Math.random() < 0.5 ? '#d8c0ff' : '#ffffff' });
+    if (Math.random() < 0.4) part(e.x, e.y, { z: e.z, vz: 6, life: 0.35, c: Math.random() < 0.5 ? '#bfeeff' : '#ffffff' });
     return;
   }
   ctx.save(); ctx.globalCompositeOperation = 'lighter';
@@ -445,22 +460,22 @@ hookAround('drawFx', (next, f, cx, cy) => {
       break;
     }
     case 'tmspikes': {
-      const grow = Math.sin(Math.min(1, k * 2.2) * Math.PI * 0.5) * (k > 0.7 ? (1 - k) / 0.3 : 1), cols = ['#3a1a6a', '#8e62dc', '#ffffff'];
-      ctx.fillStyle = `rgba(30,10,50,${0.3 * fade})`; ctx.beginPath(); ctx.ellipse(x, y, f.r, f.r * 0.5, 0, 0, 7); ctx.fill();
+      const grow = Math.sin(Math.min(1, k * 2.2) * Math.PI * 0.5) * (k > 0.7 ? (1 - k) / 0.3 : 1), cols = ['#0e4a76', '#4aaee0', '#ffffff'];
+      ctx.fillStyle = `rgba(10,30,50,${0.3 * fade})`; ctx.beginPath(); ctx.ellipse(x, y, f.r, f.r * 0.5, 0, 0, 7); ctx.fill();
       const n = f.ring ? 12 : 4;
       for (let j = 0; j < n; j++) { const a = f.ring ? j / n * Math.PI * 2 : (j - 1.5) * 0.9, rr = f.ring ? f.r * 0.85 : f.r * 0.45 * (j % 2 ? 1 : 0.5);
         const px = x + Math.cos(a) * rr, py = y + Math.sin(a) * rr * 0.5, h = (10 + tmHash(j, f.seed || 0) * 10) * grow * (f.ring ? 1 : 1.2);
         tmCrystal(px, py, h, 3, (tmHash(f.seed || 0, j) - 0.5) * 6, cols); }
-      ctx.globalCompositeOperation = 'lighter'; tmGlow(x, y - 6, f.r * 1.1, 0.4 * fade, '#b48cff');
+      ctx.globalCompositeOperation = 'lighter'; tmGlow(x, y - 6, f.r * 1.1, 0.4 * fade, '#6ad4ff');
       break;
     }
     case 'tmdome': {
       const r = f.r * (0.6 + 0.4 * Math.min(1, k * 3));
-      ctx.globalAlpha = 0.35 * fade; ctx.fillStyle = '#b48cff'; ctx.beginPath(); ctx.ellipse(x, y - r * 0.4, r, r * 0.9, 0, Math.PI, 0); ctx.fill(); ctx.globalAlpha = 1;
-      ctx.strokeStyle = `rgba(240,230,255,${fade})`; ctx.lineWidth = 1.5;
+      ctx.globalAlpha = 0.35 * fade; ctx.fillStyle = '#6ad4ff'; ctx.beginPath(); ctx.ellipse(x, y - r * 0.4, r, r * 0.9, 0, Math.PI, 0); ctx.fill(); ctx.globalAlpha = 1;
+      ctx.strokeStyle = `rgba(225,248,255,${fade})`; ctx.lineWidth = 1.5;
       for (let j = 0; j < 6; j++) { const a = Math.PI + j / 5 * Math.PI; ctx.beginPath(); ctx.moveTo(x, y - r * 1.3); ctx.lineTo(x + Math.cos(a) * r, y - r * 0.4 + Math.sin(a) * r * 0.9 + r * 0.4); ctx.stroke(); }
       ctx.beginPath(); ctx.ellipse(x, y - r * 0.4, r, r * 0.9, 0, Math.PI, 0); ctx.stroke();
-      ctx.globalCompositeOperation = 'lighter'; tmGlow(x, y - r * 0.5, r, 0.35 * fade, '#b48cff');
+      ctx.globalCompositeOperation = 'lighter'; tmGlow(x, y - r * 0.5, r, 0.35 * fade, '#6ad4ff');
       break;
     }
     case 'tmdash': {
@@ -485,7 +500,7 @@ hookAround('drawFx', (next, f, cx, cy) => {
       const r = f.r * (0.3 + 0.7 * Math.min(1, k * 1.6));
       ctx.fillStyle = `rgba(40,30,20,${0.3 * fade})`; ctx.beginPath(); ctx.moveTo(x, y); ctx.arc(x, y, r, f.ang - 0.6, f.ang + 0.6); ctx.closePath(); ctx.fill();
       ctx.globalCompositeOperation = 'lighter';
-      for (let j = 0; j < 3; j++) { const rr = r * (0.6 + j * 0.2); ctx.strokeStyle = `rgba(124,240,216,${(0.8 - j * 0.2) * fade})`; ctx.lineWidth = 3 - j; ctx.beginPath(); ctx.arc(x, y, rr, f.ang - 0.6, f.ang + 0.6); ctx.stroke(); }
+      for (let j = 0; j < 3; j++) { const rr = r * (0.6 + j * 0.2); ctx.strokeStyle = `rgba(255,140,90,${(0.8 - j * 0.2) * fade})`; ctx.lineWidth = 3 - j; ctx.beginPath(); ctx.arc(x, y, rr, f.ang - 0.6, f.ang + 0.6); ctx.stroke(); }
       ctx.globalCompositeOperation = 'source-over'; ctx.fillStyle = '#6a5a48';
       for (let j = 0; j < 8; j++) { const a = f.ang + (tmHash(j, 4) - 0.5) * 1.2, d = r * tmHash(4, j), hh = Math.sin(k * Math.PI) * 10 * tmHash(j, j); ctx.fillRect(Math.round(x + Math.cos(a) * d), Math.round(y + Math.sin(a) * d * 0.6 - hh), 2, 2); }
       break;
@@ -497,13 +512,31 @@ hookAround('drawFx', (next, f, cx, cy) => {
       for (let j = 0; j < 9; j++) { const a = j / 9 * Math.PI * 2, l = f.r * (0.6 + tmHash(j, 2) * 0.5); ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + Math.cos(a + 0.2) * l * 0.5, y + Math.sin(a + 0.2) * l * 0.28); ctx.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l * 0.55); ctx.stroke(); }
       ctx.fillStyle = `rgba(200,190,170,${0.45 * fade})`;
       for (let j = 0; j < 14; j++) { const a = j / 14 * Math.PI * 2; ctx.beginPath(); ctx.arc(x + Math.cos(a) * r, y + Math.sin(a) * r * 0.55 - 3, 4 + tmHash(j, 1) * 3, 0, 7); ctx.fill(); }
-      ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = `rgba(124,240,216,${fade})`; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.ellipse(x, y, r, r * 0.55, 0, 0, 7); ctx.stroke();
+      ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = `rgba(255,140,90,${fade})`; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.ellipse(x, y, r, r * 0.55, 0, 0, 7); ctx.stroke();
+      break;
+    }
+    case 'tmrockspikes': { // stone pillars bursting from the ground
+      const grow = Math.sin(Math.min(1, k * 2.4) * Math.PI * 0.5) * (k > 0.7 ? (1 - k) / 0.3 : 1), n = 7;
+      ctx.fillStyle = `rgba(40,28,20,${0.35 * fade})`; ctx.beginPath(); ctx.ellipse(x, y, f.r, f.r * 0.5, 0, 0, 7); ctx.fill();
+      for (let j = 0; j < n; j++) { const a = j / n * Math.PI * 2 + (f.seed || 0), rr = f.r * (0.45 + tmHash(j, f.seed || 0) * 0.45), px = x + Math.cos(a) * rr, py = y + Math.sin(a) * rr * 0.5, h = (8 + tmHash(f.seed || 0, j) * 10) * grow;
+        tmCrystal(px, py, h, 3.4, (tmHash(j, 8) - 0.5) * 4, ['#4a3828', '#8a705a', '#c8b098']); }
+      break;
+    }
+    case 'tmboulder': { // falling boulder with a burning trail
+      const sc = f.s || 1, hgt = 110 * (1 - k), mx = x - hgt * 0.3, my = y - hgt, r = 6 * sc;
+      ctx.fillStyle = `rgba(0,0,0,${0.3 * k})`; ctx.beginPath(); ctx.ellipse(x, y, r * k + 2, r * 0.5 * k + 1, 0, 0, 7); ctx.fill();
+      ctx.save(); ctx.globalCompositeOperation = 'lighter';
+      for (let j = 6; j >= 1; j--) { ctx.globalAlpha = 0.6 - j * 0.08; ctx.fillStyle = j > 3 ? '#ff5a3a' : '#ffb54a'; ctx.beginPath(); ctx.arc(mx - j * 1.6 * sc, my - j * 3.2 * sc, (r - j * 0.6) * 0.8, 0, 7); ctx.fill(); }
+      ctx.restore();
+      ctx.save(); ctx.translate(mx, my); ctx.rotate(G.t * 6); ctx.fillStyle = '#5a4434'; ctx.beginPath();
+      for (let q = 0; q < 8; q++) { const a = q / 8 * Math.PI * 2, rr = r * (0.8 + tmHash(q, 2) * 0.3); q ? ctx.lineTo(Math.cos(a) * rr, Math.sin(a) * rr) : ctx.moveTo(Math.cos(a) * rr, Math.sin(a) * rr); }
+      ctx.closePath(); ctx.fill(); ctx.fillStyle = '#8a705a'; ctx.fillRect(-r * 0.5, -r * 0.6, r * 0.7, r * 0.45); ctx.restore();
       break;
     }
     case 'tmroar': {
       ctx.globalCompositeOperation = 'lighter';
       for (let j = 0; j < 3; j++) { const kk = clamp(k * 1.3 - j * 0.15, 0, 1), r = f.r * kk; if (kk <= 0) continue;
-        ctx.strokeStyle = `rgba(${j === 1 ? '255,207,90' : '124,240,216'},${(1 - kk) * 0.9})`; ctx.lineWidth = 3 - j * 0.6; ctx.beginPath(); ctx.ellipse(x, y, r, r * 0.6, 0, 0, 7); ctx.stroke(); }
+        ctx.strokeStyle = `rgba(${j === 1 ? '255,207,90' : '255,110,70'},${(1 - kk) * 0.9})`; ctx.lineWidth = 3 - j * 0.6; ctx.beginPath(); ctx.ellipse(x, y, r, r * 0.6, 0, 0, 7); ctx.stroke(); }
       break;
     }
   }
