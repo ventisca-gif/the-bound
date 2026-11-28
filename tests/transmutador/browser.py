@@ -75,12 +75,15 @@ with sync_playwright() as playwright:
         page.locator(f'#tmControls [data-tmt="{i}"]').click()
         assert page.evaluate('(i) => G.P.cds["tm_ascua_" + i] > 0', i)
     # The other forms: switch from the bracelet selector, use the four techniques of each.
-    for form in ['prisma', 'cefiro', 'coloso']:
+    for form in ['prisma', 'cefiro', 'coloso', 'astral']:
         page.evaluate('G.P.busy = 0')
         page.locator('#tmControls [data-tm-swap]').click()
         page.locator(f'[data-tmf="{form}"]').click()
         page.wait_for_function('(f) => tmFormId(G.P) === f && tmActive(G.P) && G.P.atlas === tmAtlas()', arg=form)
-        check_joystick(form)
+        if form == 'astral':
+            assert page.evaluate('tmForm(G.P).giant === 2')
+        else:
+            check_joystick(form)
         for i in range(4):
             page.evaluate('G.P.busy = 0; G.P.mp = G.P.S.maxmp')
             page.locator(f'#tmControls [data-tmt="{i}"]').click()
@@ -94,4 +97,4 @@ with sync_playwright() as playwright:
     assert page.evaluate('G.P.equip.weapon.id') == human
     assert page.evaluate('serializeP(G.P).cls') == 'transmutador'
     assert not errors, errors
-    print('PASS: creation, return to human after spending points while busy, native HD, portrait, scale, four-direction touch joystick and idle for all forms, five skill controls, basic punch and human equipment')
+    print('PASS: creation, return to human after spending points while busy, Astral Titan and its four techniques, native HD, portrait, scale, four-direction touch joystick and idle for all forms, five skill controls, basic punch and human equipment')
