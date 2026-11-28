@@ -73,8 +73,9 @@ with sync_playwright() as p:
   check(f"G.ents.some(e=>e.mid==='{boss}'&&e.hp>0&&e.atlas.idx.atk!==undefined)",'correct boss with attack frames')
   js(f"killMob(G.ents.find(e=>e.mid==='{boss}'&&e.hp>0));1")
  check('G.P.glPortQuest.done&&G.P.glPortQuest.beaten===3','port chapter resolves after both fights')
- js('[G.P.x,G.P.y]=dawnPx(GL_PORT_PIER);1')
- page.wait_for_function("interactTarget()?.o?.xact==='glp_sail'",timeout=5000);act()
+ result=js("(()=>{const P=G.P;[P.x,P.y]=dawnPx(GL_PORT_PIER);IT_CACHE=null;return [glpDockAction(),interactTarget()?.o?.xact,P.map,P.dead,!!G.fading,P.dawnHelm?.kind,P.dawnBoat?.bellhaven,P.hp];})()")
+ assert result[1]=='glp_sail', result
+ act()
  check("G.P.dawnHelm?.kind==='skiff'&&G.P.glPortQuest.done",'departure preserves chapter completion')
  js('window.__gold=G.P.gold;1')
  js('[G.P.x,G.P.y]=dawnPx(GL_RETURN);1');check("interactTarget()?.o?.xact==='rmc_return'",'return action in Grand Line');act()
