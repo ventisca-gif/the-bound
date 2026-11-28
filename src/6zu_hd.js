@@ -178,7 +178,10 @@ if (COSM.c_heraldo_torso) { const _v = COSM.c_heraldo_torso.vis; COSM.c_heraldo_
 function setHD(on) { HDS = on ? 2 : 1; try { localStorage.setItem('thebound.hd', on ? '1' : '0'); } catch (e) { } if (!on) { for (const A of HD_LIVE) { A.hd = null; A.hdX = null; A.hdDone = null; } HD_LIVE.length = 0; } resize(); }
 { const _ro = renderOpts; renderOpts = function (B) { _ro(B); const q = $('#oQ'); if (!q || $('#oHD')) return; const lb = q.closest('label');
   lb.insertAdjacentHTML('afterend', `<label class="tg"><input type="checkbox" id="oHD" ${HDS > 1 ? 'checked' : ''}> ${L2('Gráficos HD: ropa y armaduras con detalle fino (desactiva si va lento)', 'HD graphics: fine detail on clothes and armor (turn off if slow)')}</label>`);
-  $('#oHD').onchange = e => setHD(e.target.checked); }; }
+  // 6.68: activar HD a mano quita el modo optimizado (que lo bloqueaba) y el juego ya no lo vuelve a activar solo.
+  $('#oHD').onchange = e => { const on = e.target.checked;
+    if (on && typeof OPT !== 'undefined' && OPT.on) { optManual(); optApply(false, false); }
+    setHD(on); if (typeof renderPanel === 'function' && !$('#panel').hidden) renderPanel(); }; }; }
 // ---------- tu pareja te atiende aunque seas criminal en su pueblo ----------
 function partnerServes() { const P = G.P; if (!P || !P.partner) return false; const k = P.partner; if (typeof dlg !== 'undefined' && dlg && dlg.npc && relKey(dlg.npc.id) === k) return true; return !!(P.inside && typeof INT_NPC !== 'undefined' && relKey(INT_NPC[P.inside] || '') === k); }
 { const _os = openShop; openShop = function (kind, town) { if (!partnerServes()) return _os(kind, town); const _rs = repStatus; repStatus = function (tk) { const r = _rs(tk); return r && r.n === 'Criminal' ? Object.assign({}, r, { n: 'Neutral' }) : r; };

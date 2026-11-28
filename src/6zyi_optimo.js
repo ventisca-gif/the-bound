@@ -5,7 +5,9 @@
 // - Memoria: los dibujos de personajes (atlas) ya no se acumulan toda la sesión: se borran los que nadie usa.
 //   Antes, tras horas de juego (ropa probada, jugadores, atuendos de aldeanos), el celular podía cerrar el juego.
 const OPT = { on: false, auto: false, lastIn: performance.now(), ema: 16, lagT: 0, bootT: performance.now(), prev: null };
-try { OPT.on = localStorage.getItem('thebound.opt') === '1'; } catch (e) { }
+try { OPT.on = localStorage.getItem('thebound.opt') === '1'; OPT.manual = localStorage.getItem('thebound.optManual') === '1'; } catch (e) { }
+// 6.68: si el jugador quita el modo optimizado o activa el HD a mano, el detector de lag ya no lo vuelve a encender solo.
+function optManual() { OPT.manual = true; try { localStorage.setItem('thebound.optManual', '1'); } catch (e) { } }
 const OPT_LOWMEM = (navigator.deviceMemory && navigator.deviceMemory <= 4) || /Android [4-8]\b/.test(navigator.userAgent);
 function optApply(on, auto) {
   OPT.on = !!on; OPT.auto = !!auto; try { localStorage.setItem('thebound.opt', on ? '1' : '0'); } catch (e) { }
@@ -21,7 +23,7 @@ function optFpsCap(now) {
   const cap = optFpsCap(ts);
   if (cap && lastT && ts - lastT < 1000 / cap - 2) { requestAnimationFrame(loop); return; }
   if (lastT && !cap) { const d = ts - lastT; if (d < 250) OPT.ema = OPT.ema * 0.95 + d * 0.05;   // lag: media de los últimos fotogramas
-    if (!OPT.on && ts - OPT.bootT > 20000 && !document.hidden) { OPT.lagT = OPT.ema > 45 ? OPT.lagT + d : 0; if (OPT.lagT > 8000) { optApply(true, true); OPT.lagT = 0; try { toast(L2('Se activó el modo optimizado porque el juego iba lento. Puedes quitarlo en Ajustes.', 'Optimized mode turned on because the game was lagging. You can turn it off in Settings.'), 'info', 6); } catch (e) { } } } }
+    if (!OPT.on && !OPT.manual && ts - OPT.bootT > 20000 && !document.hidden) { OPT.lagT = OPT.ema > 45 ? OPT.lagT + d : 0; if (OPT.lagT > 8000) { optApply(true, true); OPT.lagT = 0; try { toast(L2('Se activó el modo optimizado porque el juego iba lento. Puedes quitarlo en Ajustes.', 'Optimized mode turned on because the game was lagging. You can turn it off in Settings.'), 'info', 6); } catch (e) { } } } }
   _lp(ts);
 }; }
 // menos partículas en modo optimizado
@@ -49,7 +51,7 @@ V33_TICKS.push(dt => { OPT_GCT += dt; if (OPT_GCT > 25) { OPT_GCT = 0; optGC(fal
 // ---- Ajustes: casilla del modo optimizado ----
 { const _ro = renderOpts; renderOpts = function (B) { _ro(B); const q = $('#oQ'); if (!q || $('#oOpt')) return; const lb = q.closest('label');
   lb.insertAdjacentHTML('beforebegin', `<label class="tg"><input type="checkbox" id="oOpt" ${OPT.on ? 'checked' : ''}> ${L2('Modo optimizado: para celulares de pocos recursos o con lag (sin clima ni lluvia, efectos simples, sin HD, 30 imágenes por segundo)', 'Optimized mode: for low-end phones or lag (no weather or rain, simple effects, no HD, 30 frames per second)')}</label>`);
-  $('#oOpt').onchange = e => { optApply(e.target.checked, false); renderPanel(); }; }; }
+  $('#oOpt').onchange = e => { if (!e.target.checked) optManual(); optApply(e.target.checked, false); renderPanel(); }; }; }
 if (OPT.on) { try { SETTINGS.quality = 0; SETTINGS.weather = false; } catch (e) { } }
 { const _ls = loadSettings; loadSettings = function () { _ls(); if (OPT.on) { SETTINGS.quality = 0; SETTINGS.weather = false; G.quality = 0; } }; }
 { const _sh = setHD; setHD = function (on) { if (on && OPT.on) on = false; return _sh(on); }; }
