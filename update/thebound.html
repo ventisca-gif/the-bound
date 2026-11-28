@@ -389,7 +389,7 @@ body.v656noslot #acts .sk.empty{visibility:hidden;pointer-events:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.69 · Brazalete de núcleos</div>
+  <div class="tfoot">v6.70 · Brazalete de núcleos</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -11954,7 +11954,10 @@ if (COSM.c_heraldo_torso) { const _v = COSM.c_heraldo_torso.vis; COSM.c_heraldo_
 function setHD(on) { HDS = on ? 2 : 1; try { localStorage.setItem('thebound.hd', on ? '1' : '0'); } catch (e) { } if (!on) { for (const A of HD_LIVE) { A.hd = null; A.hdX = null; A.hdDone = null; } HD_LIVE.length = 0; } resize(); }
 { const _ro = renderOpts; renderOpts = function (B) { _ro(B); const q = $('#oQ'); if (!q || $('#oHD')) return; const lb = q.closest('label');
   lb.insertAdjacentHTML('afterend', `<label class="tg"><input type="checkbox" id="oHD" ${HDS > 1 ? 'checked' : ''}> ${L2('Gráficos HD: ropa y armaduras con detalle fino (desactiva si va lento)', 'HD graphics: fine detail on clothes and armor (turn off if slow)')}</label>`);
-  $('#oHD').onchange = e => setHD(e.target.checked); }; }
+  // 6.68: activar HD a mano quita el modo optimizado (que lo bloqueaba) y el juego ya no lo vuelve a activar solo.
+  $('#oHD').onchange = e => { const on = e.target.checked;
+    if (on && typeof OPT !== 'undefined' && OPT.on) { optManual(); optApply(false, false); }
+    setHD(on); if (typeof renderPanel === 'function' && !$('#panel').hidden) renderPanel(); }; }; }
 // ---------- tu pareja te atiende aunque seas criminal en su pueblo ----------
 function partnerServes() { const P = G.P; if (!P || !P.partner) return false; const k = P.partner; if (typeof dlg !== 'undefined' && dlg && dlg.npc && relKey(dlg.npc.id) === k) return true; return !!(P.inside && typeof INT_NPC !== 'undefined' && relKey(INT_NPC[P.inside] || '') === k); }
 { const _os = openShop; openShop = function (kind, town) { if (!partnerServes()) return _os(kind, town); const _rs = repStatus; repStatus = function (tk) { const r = _rs(tk); return r && r.n === 'Criminal' ? Object.assign({}, r, { n: 'Neutral' }) : r; };
@@ -11969,7 +11972,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.69', GAME_BUILD = 291;
+const GAME_VER = '6.70', GAME_BUILD = 292;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11977,6 +11980,17 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.70",
+ "b": 292,
+ "d": "2026-11-27",
+ "es": [
+  "Activar Gráficos HD manualmente desactiva el modo optimizado y guarda tu elección para que el juego no lo reactive por su cuenta."
+ ],
+ "en": [
+  "Manually enabling HD graphics turns off optimized mode and saves your choice so the game does not turn it back on automatically."
+ ]
+},
 {
  "v": "6.69",
  "b": 291,
@@ -17716,7 +17730,9 @@ cleanGear = function (g) { const o = {}; for (const k of ['weapon', 'head', 'bod
 // - Memoria: los dibujos de personajes (atlas) ya no se acumulan toda la sesión: se borran los que nadie usa.
 //   Antes, tras horas de juego (ropa probada, jugadores, atuendos de aldeanos), el celular podía cerrar el juego.
 const OPT = { on: false, auto: false, lastIn: performance.now(), ema: 16, lagT: 0, bootT: performance.now(), prev: null };
-try { OPT.on = localStorage.getItem('thebound.opt') === '1'; } catch (e) { }
+try { OPT.on = localStorage.getItem('thebound.opt') === '1'; OPT.manual = localStorage.getItem('thebound.optManual') === '1'; } catch (e) { }
+// 6.68: si el jugador quita el modo optimizado o activa el HD a mano, el detector de lag ya no lo vuelve a encender solo.
+function optManual() { OPT.manual = true; try { localStorage.setItem('thebound.optManual', '1'); } catch (e) { } }
 const OPT_LOWMEM = (navigator.deviceMemory && navigator.deviceMemory <= 4) || /Android [4-8]\b/.test(navigator.userAgent);
 function optApply(on, auto) {
   OPT.on = !!on; OPT.auto = !!auto; try { localStorage.setItem('thebound.opt', on ? '1' : '0'); } catch (e) { }
@@ -17732,7 +17748,7 @@ function optFpsCap(now) {
   const cap = optFpsCap(ts);
   if (cap && lastT && ts - lastT < 1000 / cap - 2) { requestAnimationFrame(loop); return; }
   if (lastT && !cap) { const d = ts - lastT; if (d < 250) OPT.ema = OPT.ema * 0.95 + d * 0.05;   // lag: media de los últimos fotogramas
-    if (!OPT.on && ts - OPT.bootT > 20000 && !document.hidden) { OPT.lagT = OPT.ema > 45 ? OPT.lagT + d : 0; if (OPT.lagT > 8000) { optApply(true, true); OPT.lagT = 0; try { toast(L2('Se activó el modo optimizado porque el juego iba lento. Puedes quitarlo en Ajustes.', 'Optimized mode turned on because the game was lagging. You can turn it off in Settings.'), 'info', 6); } catch (e) { } } } }
+    if (!OPT.on && !OPT.manual && ts - OPT.bootT > 20000 && !document.hidden) { OPT.lagT = OPT.ema > 45 ? OPT.lagT + d : 0; if (OPT.lagT > 8000) { optApply(true, true); OPT.lagT = 0; try { toast(L2('Se activó el modo optimizado porque el juego iba lento. Puedes quitarlo en Ajustes.', 'Optimized mode turned on because the game was lagging. You can turn it off in Settings.'), 'info', 6); } catch (e) { } } } }
   _lp(ts);
 }; }
 // menos partículas en modo optimizado
@@ -17760,7 +17776,7 @@ V33_TICKS.push(dt => { OPT_GCT += dt; if (OPT_GCT > 25) { OPT_GCT = 0; optGC(fal
 // ---- Ajustes: casilla del modo optimizado ----
 { const _ro = renderOpts; renderOpts = function (B) { _ro(B); const q = $('#oQ'); if (!q || $('#oOpt')) return; const lb = q.closest('label');
   lb.insertAdjacentHTML('beforebegin', `<label class="tg"><input type="checkbox" id="oOpt" ${OPT.on ? 'checked' : ''}> ${L2('Modo optimizado: para celulares de pocos recursos o con lag (sin clima ni lluvia, efectos simples, sin HD, 30 imágenes por segundo)', 'Optimized mode: for low-end phones or lag (no weather or rain, simple effects, no HD, 30 frames per second)')}</label>`);
-  $('#oOpt').onchange = e => { optApply(e.target.checked, false); renderPanel(); }; }; }
+  $('#oOpt').onchange = e => { if (!e.target.checked) optManual(); optApply(e.target.checked, false); renderPanel(); }; }; }
 if (OPT.on) { try { SETTINGS.quality = 0; SETTINGS.weather = false; } catch (e) { } }
 { const _ls = loadSettings; loadSettings = function () { _ls(); if (OPT.on) { SETTINGS.quality = 0; SETTINGS.weather = false; G.quality = 0; } }; }
 { const _sh = setHD; setHD = function (on) { if (on && OPT.on) on = false; return _sh(on); }; }

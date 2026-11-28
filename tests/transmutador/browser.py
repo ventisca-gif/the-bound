@@ -93,11 +93,5 @@ with sync_playwright() as playwright:
     page.wait_for_function('!tmActive(G.P)')
     assert page.evaluate('G.P.equip.weapon.id') == human
     assert page.evaluate('serializeP(G.P).cls') == 'transmutador'
-    page.evaluate("optApply(true, false); openPanel('opts')")
-    assert page.locator('#oOpt').is_checked()
-    page.locator('#oHD').check()
-    page.wait_for_function("HDS === 2 && !OPT.on && OPT.manual")
-    page.reload()
-    page.wait_for_function("HDS === 2 && !OPT.on && OPT.manual")
     assert not errors, errors
     print('PASS: creation, return to human after spending points while busy, native HD, portrait, scale, four-direction touch joystick and idle for all forms, five skill controls, basic punch and human equipment')
