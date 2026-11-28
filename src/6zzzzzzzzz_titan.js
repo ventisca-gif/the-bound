@@ -124,39 +124,84 @@ function ttAttack(P, i) {
 }
 hookBefore('basicAttack', () => { const P = G.P; if (P?.titanOn && !(typeof tmActive === 'function' && tmActive(P))) { ttAttack(P, -1); return HOOK_SKIP; } });
 // ---------- sprite: giant arm(s) drawn on the player's own body, every frame and direction ----------
-function ttDrawArm(p, A, L, sx, dx, dy, back) {
-  const SK = L.skin, out = C('#2a1614'), shY = A.torsoTop + 1, side = A.side;
-  const fwd = A.anim === 'atk' || A.anim === 'slam' ? 3 : 0, [vx, vy] = DIRV[A.dir] || [0, 1];
-  const hx = Math.round(sx + 1 + dx * 1.2 + vx * fwd), hy = Math.round(shY + 7 + dy * 1.1 + Math.max(0, vy) * fwd - (vy < 0 ? fwd : 0));
-  const put = (x, y, c) => { if (x < 0 || y < 0 || x >= p.w || y >= p.h) return; if (back && tmOpaqueTT(p, x, y)) return; p.set(x, y, c); };
-  // upper arm (bicep) and forearm: thick, outlined, shaded
-  const ex = Math.round((sx + 1 + hx) / 2), ey = Math.round((shY + hy) / 2);
-  const seg = (x0, y0, x1, y1, w) => { const n = Math.max(1, Math.abs(x1 - x0), Math.abs(y1 - y0));
-    for (let k = 0; k <= n; k++) { const x = Math.round(x0 + (x1 - x0) * k / n), y = Math.round(y0 + (y1 - y0) * k / n);
-      for (let i = -1; i <= w; i++) put(x - (w >> 1) + i, y, i < 0 || i === w ? out : SK[back ? 0 : i === 0 ? 2 : i === w - 1 ? 0 : 1]); } };
-  seg(sx + 1, shY, ex, ey, 4); seg(ex, ey, hx, hy - 2, 5);
-  if (!back) { put(ex - 1, ey - 1, SK[3]); put(ex, ey - 2, SK[3]); }   // bicep highlight
-  // big fist 8x7 with knuckles, fingers and thumb
-  const fx = hx - 4, fy = hy - 2, front = !A.up;
-  for (let y = -1; y <= 7; y++) for (let x = -1; x <= 8; x++) {
-    const edge = x < 0 || x > 7 || y < 0 || y > 6; if (edge) { if (!((x < 0 || x > 7) && (y < 0 || y > 6))) put(fx + x, fy + y, out); continue; }
-    let c = SK[back ? 0 : 1]; if (!back) { if (y <= 1) c = SK[2]; if (y === 0 && x % 2 === 1) c = SK[3]; if (x === 0 || y === 6) c = SK[0]; }
-    put(fx + x, fy + y, c);
+// ---------- giant fists: a pixel layer next to the player, bigger than the character ----------
+// Drawn at 2× resolution (crisp with the HD screen). view: 'front' (knuckles to the viewer), 'back' or 'side' (facing right).
+const TT_FIST = new Map();
+function ttFistArt(skin, view, W, H) {
+  const key = skin.join() + view + W + 'x' + H; let c = TT_FIST.get(key); if (c) return c;
+  c = mkCanvas(W, H); const x = c.getContext('2d');
+  const OUT = '#2a1614', [S0, S1, S2] = skin, S3 = '#fff0e0', G0 = '#8a6a1a', G1 = '#dcbc4a', G2 = '#fff0a0';
+  const px = (i, j, col) => { x.fillStyle = col; x.fillRect(i, j, 1, 1); };
+  const rr = (i, j, x0, y0, w, h, r) => { const dx = i < x0 + r ? x0 + r - i : i > x0 + w - 1 - r ? i - (x0 + w - 1 - r) : 0, dy = j < y0 + r ? y0 + r - j : j > y0 + h - 1 - r ? j - (y0 + h - 1 - r) : 0; return i >= x0 && j >= y0 && i < x0 + w && j < y0 + h && dx * dx + dy * dy <= r * r; };
+  const fw = W, fh = Math.round(H * 0.82), R = Math.round(fh * 0.3);          // fist body; the bracer goes below / behind
+  const body = (i, j) => view === 'side' ? rr(i, j, Math.round(W * 0.16), 0, Math.round(W * 0.84), fh, R) : rr(i, j, 0, 0, fw, fh, R);
+  const thumb = (i, j) => view === 'front' ? rr(i, j, Math.round(W * 0.06), Math.round(fh * 0.56), Math.round(W * 0.56), Math.round(fh * 0.24), Math.round(fh * 0.12))
+    : view === 'side' ? rr(i, j, Math.round(W * 0.42), Math.round(fh * 0.04), Math.round(W * 0.46), Math.round(fh * 0.2), Math.round(fh * 0.1)) : false;
+  for (let j = 0; j < H; j++) for (let i = 0; i < W; i++) {
+    if (!body(i, j)) continue;
+    const edge = !body(i - 2, j) || !body(i + 2, j) || !body(i, j - 2) || !body(i, j + 2);
+    if (edge) { px(i, j, OUT); continue; }
+    const t = (i / W) * 0.45 + (j / fh) * 0.55;                                   // light from the top-left
+    let col = t < 0.22 ? S3 : t < 0.42 ? S2 : t < 0.74 ? S1 : S0;
+    if (view === 'front' && j < fh * 0.6) {                                        // four rounded fingers, each with its own outline and shine
+      const fwK = (fw - 4) / 4, k = Math.min(3, Math.max(0, Math.floor((i - 2) / fwK))), fx0 = 2 + k * fwK, fr = Math.round(fwK * 0.48);
+      const inF = (ii, jj) => rr(ii, jj, Math.round(fx0), 1, Math.round(fwK), Math.round(fh * 0.66), fr);
+      if (!inF(i, j)) col = OUT;
+      else if (!inF(i - 2, j) || !inF(i + 2, j) || !inF(i, j - 2)) col = OUT;
+      else { const u = (i - fx0) / fwK, v = j / (fh * 0.6); col = v < 0.22 && u > 0.2 && u < 0.6 ? S3 : u > 0.72 ? S0 : v < 0.45 ? S2 : S1; }
+    }
+    if (view === 'side') { const kn = i > W * 0.86 && (Math.floor(j / (fh / 5)) % 2 === 0); if (kn) col = S2; if (j > fh * 0.3 && j < fh * 0.85 && (j % Math.round(fh / 4) === 0) && i > W * 0.3) col = S0; }
+    if (view === 'back' && (i % Math.round(W / 5) === 0) && j > fh * 0.15 && j < fh * 0.6) col = S2;   // tendons on the back of the hand
+    px(i, j, col);
   }
-  if (front && !back) { for (const x of side ? [] : [2, 4, 6]) for (let y = 2; y <= 4; y++) put(fx + x, fy + y, SK[0]);
-    if (side) { const kx = A.d > 0 ? fx + 7 : fx; for (let y = 1; y <= 5; y += 2) put(kx, fy + y, SK[0]); }
-    const tx = side ? (A.d > 0 ? fx + 1 : fx + 4) : fx + 1; put(tx, fy + 5, SK[2]); put(tx + 1, fy + 5, SK[2]); put(tx + 2, fy + 5, SK[3]); }
+  for (let j = 0; j < H; j++) for (let i = 0; i < W; i++) {                      // thumb on top, with its own outline
+    if (!thumb(i, j)) continue; const edge = !thumb(i - 2, j) || !thumb(i + 2, j) || !thumb(i, j - 2) || !thumb(i, j + 2);
+    px(i, j, edge ? OUT : j < fh * (view === 'side' ? 0.1 : 0.62) ? S3 : S2);
+  }
+  // golden bracer
+  if (view === 'side') { for (let j = Math.round(fh * 0.18); j < Math.round(fh * 0.82); j++) for (let i = 0; i < Math.round(W * 0.18); i++) px(i, j, i < 2 || i > W * 0.18 - 3 || j < fh * 0.18 + 2 || j > fh * 0.82 - 3 ? OUT : j < fh * 0.35 ? G2 : j < fh * 0.6 ? G1 : G0); }
+  else { const bx = Math.round(W * 0.22), bw = Math.round(W * 0.56); for (let j = fh - 2; j < H; j++) for (let i = bx; i < bx + bw; i++) px(i, j, i < bx + 2 || i >= bx + bw - 2 || j >= H - 2 ? OUT : j < fh + 2 ? G2 : j < fh + (H - fh) * 0.6 ? G1 : G0); }
+  TT_FIST.set(key, c); return c;
 }
-function tmOpaqueTT(p, x, y) { return x >= 0 && y >= 0 && x < p.w && y < p.h && (p.d[y * p.w + x] >>> 24) > 0; }
-hookAround('drawHero', (next, p, L, ...a) => {
-  const r = next(p, L, ...a), A = p.meta; if (!L.ttArms || !A) return r;
-  const ps = heroPose(A.dir, A.anim, A.f, L), tg = p.tg; p.tg = 3;
-  const shL = A.side ? A.cx - 1 : A.tx0 - 3, shR = A.side ? A.cx - 1 : A.tx0 + A.tw;
-  // engine convention: the "r" arm is at shR in front view, shL in back view and the near arm in profile
-  if (A.side) { if (L.ttArms === 2) ttDrawArm(p, A, L, A.cx - 1 - A.d, ps.lax, ps.lay, true); ttDrawArm(p, A, L, A.cx - 2, ps.rax, ps.ray, false); }
-  else if (A.up) { ttDrawArm(p, A, L, shL, ps.rax, ps.ray, false); if (L.ttArms === 2) ttDrawArm(p, A, L, shR, ps.lax, ps.lay, false); }
-  else { ttDrawArm(p, A, L, shR, ps.rax, ps.ray, false); if (L.ttArms === 2) ttDrawArm(p, A, L, shL, ps.lax, ps.lay, false); }
-  p.tg = tg; return r;
+function ttArmLine(x0, y0, x1, y1, skin, w) {
+  ctx.lineCap = 'round';
+  [[w + 2, '#2a1614'], [w, skin[1]], [Math.max(1, w * 0.35), skin[2]]].forEach(([lw, col], k) => { ctx.strokeStyle = col; ctx.lineWidth = lw; ctx.beginPath(); ctx.moveTo(x0 + (k === 2 ? -0.6 : 0), y0 + (k === 2 ? -0.6 : 0)); ctx.lineTo(x1, y1); ctx.stroke(); });
+}
+// Where each giant fist sits this frame (world offsets from the player's feet).
+function ttFistLayout(P) {
+  const st = P.titanOn, two = st === 2, dir = P.dir, anim = P.anim, f = P.af | 0, atk = anim === 'atk' || anim === 'slam';
+  const bob = anim === 'walk' ? (f % 2 ? 1 : -1) : anim === 'idle' ? (f % 2) * 0.5 : 0;
+  const punchR = atk && (f % 2 === 0 || !two), punchL = atk && two && f % 2 === 1;
+  const W = two ? 30 : 34, H = Math.round(W * 0.88), out = [];
+  if (dir === 'left' || dir === 'right') {
+    const d = dir === 'right' ? 1 : -1;
+    if (two) out.push({ x: d * (punchL ? 26 : 8), y: -22 - bob, w: W * 0.85, h: H * 0.85, view: 'side', d, behind: true, sx: -d * 1, sy: -20 });
+    out.push({ x: d * (punchR ? 30 : 14), y: -14 + bob, w: W, h: H, view: 'side', d, behind: false, sx: d * 2, sy: -19 });
+  } else {
+    const up = dir === 'up', sideR = up ? -1 : 1;
+    const one = (sg, punch, b) => ({ x: punch ? sg * 6 : sg * 21, y: punch ? (up ? -34 : -6) : -16 + b, w: W + (punch ? 4 : 0), h: H + (punch ? 4 : 0), view: up ? 'back' : 'front', d: -sg, behind: up && punch, sx: sg * 5, sy: -20 });
+    if (two) out.push(one(-sideR, punchL, -bob));
+    out.push(one(sideR, punchR, bob));
+  }
+  return out;
+}
+function ttDrawFists(P, cx, cy, behind) {
+  const skin = ttSkin(P), px = Math.round(P.x - cx), py = Math.round(P.y - cy);
+  for (const L of ttFistLayout(P)) {
+    if (!!L.behind !== behind) continue;
+    const fx = px + L.x, fy = py + L.y, w = Math.round(L.w), h = Math.round(L.h);
+    ttArmLine(px + L.sx, py + L.sy, fx - (L.view === 'side' ? L.d * w * 0.35 : 0), fy + (L.view === 'side' ? 0 : h * 0.3), skin, 5);
+    const art = ttFistArt(skin, L.view, w * 2, h * 2);
+    ctx.save(); ctx.imageSmoothingEnabled = false; ctx.translate(fx, fy);
+    if (L.view === 'side' ? L.d < 0 : L.d > 0) ctx.scale(-1, 1);
+    ctx.drawImage(art, -w / 2, -h / 2, w, h); ctx.restore();
+  }
+}
+// Battle stance while awakened: slightly lower, feet apart.
+hookAfter('heroPose', (ps, dir, anim, f, L) => { if (L && L.ttArms && ps && (anim === 'idle' || anim === 'walk')) ps.crouch = (ps.crouch || 0) + 1; });
+hookAround('drawEnt', (next, e, cx, cy) => {
+  const P = G.P; if (e !== P || !P.titanOn || P.dead || P.riding) return next(e, cx, cy);
+  ttDrawFists(P, cx, cy, true); const r = next(e, cx, cy); ttDrawFists(P, cx, cy, false); return r;
 });
 hookAround('playerAtlas', (next, P) => {
   const st = P?.titanOn; if (!st || (typeof tmActive === 'function' && tmActive(P))) return next(P);
