@@ -198,11 +198,11 @@ XACT.glp_duel = [L2('Ver el duelo de la plaza','Watch the square duel'),'talk',(
   const actors = [
     logueActor(G.map,SHELLS_CAST_IDS.luffy,x-25,y-27,'right'),
     logueActor(G.map,SHELLS_CAST_IDS.zoro,x+25,y-27,'left'),
-    logueActor(G.map,ORANGE_NAMI,x,y-64,'down'),
+    logueActor(G.map,ORANGE_NAMI,x,y-61,'down',{noTag:true}),
     ...GLP_ARC_IDS.map((id,i)=>{
-      const offsets = [[-62,-30],[-53,-92],[-88,-78],[0,-116],[57,-91],[84,-69]];
+      const offsets = [[-65,-6],[-75,-57],[-44,-53],[44,-53],[76,-53],[78,10]];
       const [dx,dy] = offsets[i];
-      return logueActor(G.map,id,x+dx,y+dy,'down',{noTag:false});
+      return logueActor(G.map,id,x+dx,y+dy,'down',{noTag:true});
     })
   ];
   glpDuel = {actors, player:G.P, started:G.t, beat:0};
@@ -219,6 +219,7 @@ function glpTickDuel() {
   while (run.beat < GLP_DUEL_BEATS.length && GLP_DUEL_BEATS[run.beat].at <= elapsed) {
     const beat = GLP_DUEL_BEATS[run.beat++];
     const actor = run.actors[beat.who];
+    for (const castMember of run.actors) castMember.chat = null;
     if (beat.line) shellsRescueSpeak(actor,...beat.line);
     if (beat.swing) {
       const rival = run.actors[1-beat.who];

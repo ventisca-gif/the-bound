@@ -78,6 +78,7 @@ with sync_playwright() as p:
  check("glpDuel.actors[0].anim==='atk'&&glpDuel.actors[1].anim==='hurt'",'Luffy uses his native attack atlas')
  js('glpDuel.started=G.t-22.11;glpTickDuel();1')
  check("glpDuel.actors[1].anim==='atk'&&glpDuel.actors[0].anim==='hurt'",'Zoro counters using his native attack atlas')
+ js("document.querySelector('#banner').classList.remove('show');1")
  page.screenshot(path=str(OUT/'08_campanas_duelo.png'))
  js('glpDuel.started=G.t-28.3;glpTickDuel();1')
  check("!glpDuel&&G.P.glPortQuest.duelSeen&&G.P.glPortQuest.clues===3",'duel cleans up and keeps the island mission intact')
