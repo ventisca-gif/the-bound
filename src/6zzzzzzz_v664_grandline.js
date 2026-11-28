@@ -4,7 +4,7 @@ const RMA_EAST_PIER=rmaAt(1,[696,350]),RMA_EAST_MOOR=rmaAt(1,[696,389]);
 SAVEKEYS.push('rmVisual');
 function makeGrandLine(){
  if(G.maps[GL_ID])return G.maps[GL_ID];
- const w=960,h=720,N=w*h,M={id:GL_ID,w,h,I:(x,y)=>y*w+x,ter:new Uint8Array(N),lvl:new Uint8Array(N),reg:new Uint8Array(N),flags:new Uint8Array(N),chunks:new Map(),isWorld:false,dawn:1,grandLine:true,dark:0,music:'town',camps:[],bossAt:[],halos:[],temples:[],exit:{x:-9,y:-9},dawnData:{pois:[]}};
+ const w=960,h=720,N=w*h,M={id:GL_ID,w,h,I:(x,y)=>y*w+x,ter:new Uint8Array(N),lvl:new Uint8Array(N),reg:new Uint8Array(N),flags:new Uint8Array(N),chunks:new Map(),isWorld:false,dawn:1,grandLine:true,overviewMinimap:true,dark:0,music:'town',camps:[],bossAt:[],halos:[],temples:[],exit:{x:-9,y:-9},dawnData:{pois:[]}};
  initMapObjs(M);populateGrandLinePort(M);M.drawExtra=(cx,cy)=>{const P=G.P;if(P.dawnHelm)dawnShipSprite(cx,cy,dawnSprite('boat'),P.x,P.y+16,P.dir);};
  G.maps[GL_ID]=M;return M;
 }

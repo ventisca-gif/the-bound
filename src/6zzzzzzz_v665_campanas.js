@@ -81,6 +81,11 @@ function populateGrandLinePort(M) {
   for (const [x,y] of [[147,366],[154,372],[156,371],[193,361],[196,361],[167,383],[140,371]]) {
     addObj(M, (x + y) % 2 ? 'barrel' : 'crate', x, y);
   }
+  for (let y = 320; y < 405; y += 3) for (let x = 128; x < 229; x += 3) {
+    if (M.ter[M.I(x,y)] === T.GRASS && M.objAt[M.I(x,y)] < 0 && hash2(x,y,67) > .82) {
+      addObj(M, 'cactus', x, y, {solid:false});
+    }
+  }
   addObj(M, 'sign', ...GL_PORT_PLAZA, {xact:'glp_ledger', solid:false});
   addObj(M, 'sign', ...GL_PORT_ARCHIVE, {xact:'glp_tides', solid:false});
   addObj(M, 'glp_bell', ...GL_PORT_BELL, {xact:'glp_bell', solid:false});

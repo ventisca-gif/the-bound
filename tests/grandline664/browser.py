@@ -46,7 +46,8 @@ with sync_playwright() as p:
  page.wait_for_function("interactTarget()?.o?.xact==='glp_land'",timeout=5000)
  check("Array.from({length:26},(_,i)=>385+i).every(y=>dawnSurface(G.map,...dawnPx([178,y]),18))",'channel is clear for the native ship')
  act()
- check("glpOnFoot()&&G.P.dawnBoat.h.kind==='skiff'",'native landing retains the ship')
+ check("glpOnFoot()&&G.P.dawnBoat.h.kind==='skiff'&&G.map.overviewMinimap",'native landing retains the ship and shows the regional minimap')
+ page.screenshot(path=str(OUT/'05_campanas_muelle.png'))
  check("""(()=>{const M=G.map,Q=[GL_PORT_PIER],seen=new Set();
    for(let i=0;i<Q.length;i++){const [x,y]=Q[i];if(x<123||x>233||y<316||y>408)continue;
      const k=M.I(x,y);if(seen.has(k)||SOLID_T[M.ter[k]]||M.solidO[k])continue;
