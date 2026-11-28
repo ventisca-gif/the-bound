@@ -1,25 +1,21 @@
 {
- "build": 286,
- "ver": "6.64",
+ "build": 287,
+ "ver": "6.65",
  "date": "2026-11-27",
  "file": "thebound.html",
- "size": 36122186,
- "sha256": "eaf5ae1302ac13a38d9054e2c8708f852f7d42639b6fb9ff613f9c09a56fb0e9",
+ "size": 36226972,
+ "sha256": "28fe46dec939ca91a50ed13a94675ee91b1457df73b62b229933d7e165a7651c",
  "minApk": 24,
  "gz": "thebound.html.gz",
- "gzSize": 21960420,
- "gzSha256": "d801939e6a22d387c6ef4dd51da7b352de1c9e6ca72030238d24a80bcad35f46",
+ "gzSize": 22036768,
+ "gzSha256": "5b0574d10bb8baa378009fca2382f13cd525462ed36964ff047309329715e747",
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Reverse Mountain y Cabos Gemelos con el dibujo de la propuesta original: roca rojiza, espuma, corrientes, faros, casa, palmeras y Laboon. Se mantienen tu personaje y el Going Merry originales.",
-   "Nuevo mapa marítimo Grand Line, independiente y por ahora vacío: solo mar navegable y regreso a Cabos Gemelos. No se añade la primera isla.",
-   "Desembarco en ambos faros, recorrido de ida y vuelta por la montaña y guardado de ubicación y barco entre ambos mares. Las partidas de la 6.63 se recolocan en el nuevo muelle sin perder progreso."
+   "Nueva clase Transmutador con atuendo personalizable y forma de Fuego. Usa puños y cinco técnicas de fuego cuyo daño escala con tu nivel y ataque."
   ],
   "en": [
-   "Reverse Mountain and Twin Cape use the original proposal artwork: red rock, foam, currents, lighthouses, cottage, palms and Laboon. Your original character and Going Merry remain.",
-   "New independent Grand Line sea map, empty for now: only navigable ocean and a return route to Twin Cape. No first island is added.",
-   "Land at either lighthouse, travel both ways through the mountain and save your location and ship across the seas. Version 6.63 saves move to the new pier without losing progress."
+   "New Transmuter class with customizable outfit and a Fire form. Use unarmed attacks and five fire techniques that scale with level and attack."
   ]
  }
 }
