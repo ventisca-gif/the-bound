@@ -3,6 +3,7 @@ const GL_PORT = L2('Puerto de las Campanas', 'Bellhaven');
 const GL_PORT_PIER = [169, 385], GL_PORT_MOOR = [178, 385];
 const GL_PORT_PLAZA = [151, 368], GL_PORT_ARCHIVE = [205, 361], GL_PORT_BELL = [177, 337];
 const GL_PORT_LEVEL = 620;
+const GL_PORT_DUEL = [157, 376];
 const GL_PORT_FOES = [
   ['glp_broker', 620, [173, 337], 76, 4.45, ['charge', 'slam']],
   ['glp_warden', 622, [181, 337], 80, 4.6, ['volley', 'nova']]
@@ -88,6 +89,7 @@ function populateGrandLinePort(M) {
   }
   addObj(M, 'sign', ...GL_PORT_PLAZA, {xact:'glp_ledger', solid:false});
   addObj(M, 'sign', ...GL_PORT_ARCHIVE, {xact:'glp_tides', solid:false});
+  addObj(M, 'sign', ...GL_PORT_DUEL, {solid:false});
   addObj(M, 'glp_bell', ...GL_PORT_BELL, {xact:'glp_bell', solid:false});
 }
 
@@ -164,10 +166,80 @@ XACT.glp_bell = [L2('Investigar la campana','Investigate the bell'),'talk',()=>{
       'Naira was investigating ship ransoms for the Dawn Watch.') : NPCS[id].n);
   showBoss(spawnMob(id, lv, ...dawnPx(at), P.L, null, true));
 }];
+const GLP_DUEL_BEATS = [
+  {at:0, who:6, line:['Bienvenidos. La plaza está lista para el banquete.','Welcome. The square is ready for the banquet.']},
+  {at:2.6, who:3, line:['¡Zoro! Si quieres salir de la plaza, tendrás que pasar por mí.','Zoro! If you want out of the square, you’ll have to get past me.']},
+  {at:5.2, who:5, line:['Vivi, ponte detrás de mí. Alguien avisó a los agentes.','Vivi, get behind me. Someone tipped off the agents.']},
+  {at:7.8, who:7, line:['Se acabó la fiesta. Sabemos a quién están escondiendo.','The party is over. We know whom you’re hiding.']},
+  {at:10.4, who:8, line:['Desde el canal veremos si alguien intenta salir.','We’ll see anyone trying to leave from the channel.']},
+  {at:13, who:4, line:['Me llaman Miss Wednesday aquí. Soy Vivi, de Alabasta.','They call me Miss Wednesday here. I am Vivi, from Alabasta.']},
+  {at:15.7, who:0, line:['Zoro, ¿qué pasó con la gente del banquete?','Zoro, what happened to the people at the banquet?']},
+  {at:18.4, who:1, line:['Mira las marcas de las puertas. Cerraron las salidas.','Look at the door marks. They sealed the exits.']},
+  {at:21, who:0, swing:true},
+  {at:22.1, who:1, swing:true},
+  {at:23.2, who:0, swing:true},
+  {at:24.4, who:2, line:['¡Basta! Lean el registro. El canal es lo que quieren cerrar.',
+    'Enough! Read the ledger. It’s the channel they want to close.']}
+];
+let glpDuel = null;
+function glpEndDuel(finished) {
+  if (!glpDuel) return;
+  const {actors, player} = glpDuel;
+  actors.forEach(actor=>{actor.remove = true;});
+  glpDuel = null;
+  if (!finished || G.P !== player) return;
+  glpState(player).duelSeen = true;
+  markDirty(true);
+  toast(L2('La tripulación vuelve a la investigación.','The crew returns to the investigation.'),'info');
+}
+XACT.glp_duel = [L2('Ver el duelo de la plaza','Watch the square duel'),'talk',()=>{
+  if (!glpOnFoot() || glpState(G.P).clues !== 3 || glpDuel || !glpCastSheet.naturalWidth) return;
+  const [x,y] = dawnPx(GL_PORT_DUEL);
+  const actors = [
+    logueActor(G.map,SHELLS_CAST_IDS.luffy,x-25,y-27,'right'),
+    logueActor(G.map,SHELLS_CAST_IDS.zoro,x+25,y-27,'left'),
+    logueActor(G.map,ORANGE_NAMI,x,y-64,'down'),
+    ...GLP_ARC_IDS.map((id,i)=>{
+      const offsets = [[-62,-30],[-53,-92],[-88,-78],[0,-116],[57,-91],[84,-69]];
+      const [dx,dy] = offsets[i];
+      return logueActor(G.map,id,x+dx,y+dy,'down',{noTag:false});
+    })
+  ];
+  glpDuel = {actors, player:G.P, started:G.t, beat:0};
+  banner(L2('Un malentendido en la plaza','A misunderstanding in the square'),GL_PORT);
+}];
+function glpTickDuel() {
+  if (!glpDuel) return;
+  const run = glpDuel;
+  if (!glpOnFoot() || G.P !== run.player || !conomiNear(G.P,GL_PORT_DUEL,240)) {
+    glpEndDuel(false);
+    return;
+  }
+  const elapsed = G.t - run.started;
+  while (run.beat < GLP_DUEL_BEATS.length && GLP_DUEL_BEATS[run.beat].at <= elapsed) {
+    const beat = GLP_DUEL_BEATS[run.beat++];
+    const actor = run.actors[beat.who];
+    if (beat.line) shellsRescueSpeak(actor,...beat.line);
+    if (beat.swing) {
+      const rival = run.actors[1-beat.who];
+      setAnim(actor,'atk');actor.actionLength=.72;actor.actionUntil=G.t+.72;
+      setAnim(rival,'hurt');rival.actionLength=.5;rival.actionUntil=G.t+.5;
+      addFx({type:'baratieArc',x:actor.x,y:actor.y-16,ang:beat.who ? Math.PI : 0,
+        r:48,col:beat.who ? '#b9ffdb' : '#ffcf87',dur:.5});
+    }
+  }
+  for (const actor of run.actors) {
+    if (actor.actionUntil > G.t) baratiePose(actor);
+    else setAnim(actor,'idle',true);
+  }
+  if (elapsed >= 28.2) glpEndDuel(true);
+}
+V33_TICKS.push(glpTickDuel);
 hookAround('interactTarget',(next)=>{
   const key = glpDockAction();
   if (key) return rareAction(key);
   if (glpOnFoot()) {
+    if (!glpDuel && glpCastSheet.naturalWidth && glpState(G.P).clues === 3 && conomiNear(G.P,GL_PORT_DUEL,25)) return rareAction('glp_duel');
     for (const [spot, action] of [[GL_PORT_PLAZA,'glp_ledger'],[GL_PORT_ARCHIVE,'glp_tides'],[GL_PORT_BELL,'glp_bell']]) {
       if (conomiNear(G.P, spot, 24)) return rareAction(action);
     }
