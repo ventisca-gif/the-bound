@@ -1,0 +1,101 @@
+name: Validate and package Transmutador
+on:
+  pull_request:
+    branches: [main]
+    paths: ['src/**', 'template.html', 'tests/**', '.github/workflows/transmutador.yml']
+permissions:
+  contents: write
+concurrency:
+  group: transmutador-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'chatgpt/transmutador-preview'
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install build dependencies
+        run: |
+          pip install playwright pillow
+          mkdir -p tools/i18n/vendor /tmp/reverse-qa
+          npm pack acorn@8.14.0
+          tar -xOzf acorn-8.14.0.tgz package/dist/acorn.js > tools/i18n/vendor/acorn.js
+          test -x /usr/bin/google-chrome
+      - id: build
+        run: python3 build.py
+      - name: Validate channels and native game integration
+        run: |
+          python3 -u tests/transmutador/browser.py file://$PWD/dist/test.html
+          node tests/reverse_mountain.js
+          python3 -u tests/grandline664/browser.py file://$PWD/dist/test.html | tee /tmp/reverse-qa/grandline.log
+      - name: Regression suite and outfit fit
+        if: ${{ !cancelled() && steps.build.conclusion == 'success' }}
+        run: |
+          bash tools/dev/reg.sh /tmp/reverse-qa > /tmp/reverse-qa/regression.log 2>&1
+          cat /tmp/reverse-qa/regression.log
+          if grep -E 'PAGEERROR|Traceback|AVISO: envolturas nuevas' /tmp/reverse-qa/regression.log; then exit 1; fi
+          python3 tools/dev/fitcheck.py file://$PWD/dist/test.html /tmp/reverse-qa/fit --strict
+      - name: Verify internal updater
+        if: ${{ !cancelled() && steps.build.conclusion == 'success' }}
+        run: |
+          python3 tests/upd.py file://$PWD/dist/test.html /tmp/reverse-qa/updater.png > /tmp/reverse-qa/updater.log
+          cat /tmp/reverse-qa/updater.log
+      - name: Verify old saves
+        if: ${{ !cancelled() && steps.build.conclusion == 'success' }}
+        run: |
+          timeout 300 python3 -u tests/saves.py file://$PWD/dist/test.html > /tmp/reverse-qa/saves.log
+          cat /tmp/reverse-qa/saves.log
+      - name: Verify map interactions
+        if: ${{ !cancelled() && steps.build.conclusion == 'success' }}
+        run: |
+          python3 tests/xact_sitio.py file://$PWD/dist/test.html > /tmp/reverse-qa/interactions.log
+          cat /tmp/reverse-qa/interactions.log
+          python3 - <<'PY'
+          from pathlib import Path
+          log = Path('/tmp/reverse-qa/interactions.log').read_text()
+          assert 'RESULTS' in log
+          assert not log.split('RESULTS', 1)[1].strip(), log
+          PY
+      - name: Package verified internal update
+        run: |
+          python3 tools/dev/release.py --no-build
+          python3 - <<'PYCODE'
+          import gzip,hashlib,json
+          from pathlib import Path
+          m=json.loads(Path('update/version.json').read_text())
+          h=Path('update/thebound.html').read_bytes();z=Path('update/thebound.html.gz').read_bytes()
+          assert m['ver']=='6.65' and m['build']==287
+          assert len(h)==m['size'] and hashlib.sha256(h).hexdigest()==m['sha256']
+          assert len(z)==m['gzSize'] and hashlib.sha256(z).hexdigest()==m['gzSha256']
+          assert gzip.decompress(z)==h
+          PYCODE
+      - name: Commit verified package to the feature branch
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
+          TARGET_BRANCH: ${{ github.event.pull_request.head.ref }}
+        run: |
+          git fetch origin "$TARGET_BRANCH"
+          test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_HEAD"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add update/thebound.html update/thebound.html.gz update/version.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Package verified Transmutador 6.65 update'
+          git push origin "HEAD:refs/heads/$TARGET_BRANCH"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reverse-mountain-validation
+          path: |
+            /tmp/reverse-qa/
+            tests/grandline664/out/
