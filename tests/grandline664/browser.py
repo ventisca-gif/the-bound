@@ -42,9 +42,9 @@ with sync_playwright() as p:
  js('mbGoUp();1');page.wait_for_timeout(1400);check("G.map.id==='grand_line'",'leaving Merry interior returns to correct sea')
  js('[G.P.x,G.P.y]=dawnPx(GL_PORT_MOOR);G.P.lv=619;1')
  check("interactTarget()?.o?.xact==='glp_locked'",'port entry requires level 620')
- result=js("(()=>{const P=G.P;P.lv=620;calcStats(P);P.hp=P.S.maxhp;[P.x,P.y]=dawnPx(GL_PORT_MOOR);return [interactTarget()?.o?.xact,glpDockAction(),P.lv,P.dawnHelm?.kind,!!G.fading];})()")
- assert result[0]=='glp_land', result
- print('PASS port can be reached from the channel',flush=True)
+ js('G.P.lv=620;calcStats(G.P);G.P.hp=G.P.S.maxhp;[G.P.x,G.P.y]=dawnPx(GL_PORT_MOOR);1')
+ page.wait_for_function("interactTarget()?.o?.xact==='glp_land'",timeout=5000)
+ check("Array.from({length:26},(_,i)=>385+i).every(y=>dawnSurface(G.map,...dawnPx([178,y]),18))",'channel is clear for the native ship')
  act()
  check("glpOnFoot()&&G.P.dawnBoat.h.kind==='skiff'",'native landing retains the ship')
  check("""(()=>{const M=G.map,Q=[GL_PORT_PIER],seen=new Set();
@@ -59,7 +59,7 @@ with sync_playwright() as p:
  })""",'both bosses are stronger than Alvida level 618')
  for key, spot in [('glp_ledger','GL_PORT_PLAZA'),('glp_tides','GL_PORT_ARCHIVE')]:
   js(f'[G.P.x,G.P.y]=dawnPx({spot});updateCamera(0,true);1')
-  check(f"interactTarget()?.o?.xact==='{key}'",'clues use the normal action button')
+  page.wait_for_function(f"interactTarget()?.o?.xact==='{key}'",timeout=5000)
   act()
  check('G.P.glPortQuest.clues===3','both clues recorded')
  js("window.__port=serializeP(G.P);startGame(window.__port,false);1");page.wait_for_timeout(1600)
@@ -68,12 +68,13 @@ with sync_playwright() as p:
  page.screenshot(path=str(OUT/'04_campanas_plaza.png'))
  js('[G.P.x,G.P.y]=dawnPx(GL_PORT_BELL);updateCamera(0,true);1')
  for boss in ['glp_broker','glp_warden']:
-  check("interactTarget()?.o?.xact==='glp_bell'",'bell investigation action')
+  page.wait_for_function("interactTarget()?.o?.xact==='glp_bell'",timeout=5000)
   js('doInteract(interactTarget());1')
   check(f"G.ents.some(e=>e.mid==='{boss}'&&e.hp>0&&e.atlas.idx.atk!==undefined)",'correct boss with attack frames')
   js(f"killMob(G.ents.find(e=>e.mid==='{boss}'&&e.hp>0));1")
  check('G.P.glPortQuest.done&&G.P.glPortQuest.beaten===3','port chapter resolves after both fights')
- js('[G.P.x,G.P.y]=dawnPx(GL_PORT_PIER);1');act()
+ js('[G.P.x,G.P.y]=dawnPx(GL_PORT_PIER);1')
+ page.wait_for_function("interactTarget()?.o?.xact==='glp_sail'",timeout=5000);act()
  check("G.P.dawnHelm?.kind==='skiff'&&G.P.glPortQuest.done",'departure preserves chapter completion')
  js('window.__gold=G.P.gold;1')
  js('[G.P.x,G.P.y]=dawnPx(GL_RETURN);1');check("interactTarget()?.o?.xact==='rmc_return'",'return action in Grand Line');act()
