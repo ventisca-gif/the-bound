@@ -24,24 +24,31 @@ const best = (pred, score) => Object.values(ITEMS).filter(i => pred(i) && (i.lv 
 const HITF = { slash: 0.9, spin: 0.9, slam: 0.85, dash: 0.8, leap: 0.8, proj: 0.85, rain: 0.5, nova: 0.9, field: 0.6, shadow: 0.9, mark: 0.9, flurry: 0.9, meteor: 0.7, vortex: 0.6, concert: 0.75, skyfall: 0.85, beams: 0.4, grab: 0.85 };
 const SPREAD = { spin: 0.11, flurry: 0.08, rain: 0.12, field: 0.5, vortex: 0.3, concert: 0.5, beams: 0.12, skyfall: 0.3 };
 for (const cls of CLS) {
+  // Transmutador: sus técnicas viven en las formas (tmPvpSim); se mide cada forma y cuenta la más fuerte.
+  const FORMS = cls === 'transmutador' && typeof tmPvpSim === 'function' ? Object.keys(TM_FORMS) : [null];
+  let bestO = null;
+  for (const form of FORMS) {
   const C = CLASSES[cls], attr = {}; for (const k in C.base) attr[k] = Math.floor(C.base[k] + C.grow[k] * (L - 1)); attr[C.main] += 3 * (L - 1);
   const eq = {}; const w = best(i => i.slot === 'weapon' && i.cls === cls && !i.leg && !i.curse, i => i.atk || 0); if (w) eq.weapon = { id: w.id, up: 10 };
   for (const s of ['head', 'body', 'legs', 'feet']) { const a = best(i => i.slot === s && i.t === 'armor', i => (i.def || 0) + (i.hpB || 0) / 10); if (a) eq[s] = { id: a.id, up: 10 }; }
   for (const s of ['acc', 'neck']) { const a = best(i => i.slot === s && (!i.cls || i.cls === cls), i => (i.atk || 0) * 2 + (i.def || 0) * 1.5 + (i.hpB || 0) / 10); if (a) eq[s] = { id: a.id }; }
   const skills = {}; for (const id in SK) { const s = SK[id]; if (s.cls === cls && s.req <= L) skills[id] = s.max || 10; }
   const app = Object.assign({}, normApp(G.P.app), { asc: 1, evo: cls });
-  const P = { cls, lv: L, attr, equip: eq, skills, buff: {}, buffs: [], app, hp: 1, mp: 1 };
+  if (form) app.tmForm = form;
+  const P = { cls, lv: L, attr, equip: eq, skills, buff: {}, buffs: [], app, hp: 1, mp: 1, tmFire: !!form };
   const S = calcStats(P), critMul = 1 + Math.min(70, S.crit) / 100 * (S.critD / 100 - 1);
   // buffs propios (promedio por tiempo activo)
   let atkB = 0, defB = 0, aspdB = 0, dodgeB = 0, critB = 0;
-  const acts = Object.keys(skills).map(id => SK[id]).filter(s => s.type === 'act' && s.eff);
-  for (const s of acts) { const e = s.eff; if (e.k !== 'buff') continue; const v = skillVal(s.id, skills[s.id]), up = Math.min(1, e.dur / s.cd);
+  const TMS = form ? tmPvpSim(P, S, form) : null;
+  const acts = TMS ? TMS.acts : Object.keys(skills).map(id => SK[id]).filter(s => s.type === 'act' && s.eff);
+  for (const s of acts) { const e = s.eff; if (e.k !== 'buff' && !(s.sim && e.dur)) continue; const v = s.sim || skillVal(s.id, skills[s.id]), up = Math.min(1, e.dur / s.cd);
     atkB += (v.atkP || 0) * up; defB += (v.defP || 0) * up; aspdB += (v.aspdP || 0) * up; dodgeB += (v.dodge || 0) * up; critB += (v.crit || 0) * up; }
   const atk = S.atk * (1 + atkB / 100), aspd = S.aspd / (1 + aspdB / 100), cm = 1 + Math.min(70, S.crit + critB) / 100 * (S.critD / 100 - 1);
   // rotación de habilidades
   let mpUse = 0, busy = 0, hits = 0, dmg = 0, heal = 0, shield = 0; const det = [];
-  for (const s of acts) { const e = s.eff, v = skillVal(s.id, skills[s.id]), m = (v.m || 100) / 100 * (1 + (S.skillP || 0) / 100), per = 1 / s.cd;
+  for (const s of acts) { const e = s.eff, v = s.sim || skillVal(s.id, skills[s.id]), m = (v.m || 100) / 100 * (1 + (S.skillP || 0) / 100), per = 1 / s.cd;
     mpUse += s.mp * per; busy += 0.35 * per;
+    if (s.sim && s.sim.p) shield += S.maxhp * s.sim.p / 100 * per;
     if (e.k === 'heal') { heal += S.maxhp * (v.p || e.p || 0) / 100 * per; continue; }
     if (e.k === 'shield') { shield += S.maxhp * (v.p || e.p || 0) / 100 * per; continue; }
     if (e.k === 'buff' || e.k === 'blink' || e.k === 'sumbuff') continue;
@@ -53,10 +60,14 @@ for (const cls of CLS) {
   const mpRegen = (S.mpReg || 0) + S.maxmp * 0.012, manaF = Math.min(1, mpRegen / Math.max(1, mpUse));
   dmg *= manaF; heal *= manaF; shield *= manaF; hits *= manaF;
   const hf = RAW || typeof PVP_HEAL === 'undefined' ? 1 : (PVP_HEALC[cls] !== undefined ? PVP_HEALC[cls] : PVP_HEAL); heal = heal * hf + S.maxhp * 0.002; shield *= hf;   // curas de habilidad reducidas en PvP + regeneración en combate
-  const basicT = Math.max(0.2, 1 - busy * manaF), basic = atk * cm / aspd * basicT, basicH = basicT / aspd;
+  const basicT = Math.max(0.2, 1 - busy * manaF), basic = atk * cm / aspd * basicT * (TMS ? TMS.basic : 1), basicH = basicT / aspd;
   let dps = dmg + basic, hps = hits + basicH; if (hps > 1 / 0.22) dps *= (1 / 0.22) / hps;
   const pv = MUL ? (MUL[cls] || 1) : RAW || typeof PVP_CLS === 'undefined' ? 1 : (PVP_CLS[cls] || 1);
-  out[cls] = { atk: S.atk, def: Math.round(S.def * (1 + defB / 100)), hp: S.maxhp, crit: S.crit, dodge: Math.min(40, S.dodge + dodgeB), dps: dps * pv, heal, shield, manaF, basicShare: basic / (dmg + basic), det };
+  const o = { atk: S.atk, def: Math.round(S.def * (1 + defB / 100)), hp: S.maxhp, crit: S.crit, dodge: Math.min(40, S.dodge + dodgeB), dps: dps * pv, heal, shield, manaF, basicShare: basic / (dmg + basic), det, form };
+  o.score = o.dps * (o.hp + 6 * (heal + shield)) / dmgRedP(o.def, L);
+  if (!bestO || o.score > bestO.score) bestO = o;
+  }
+  out[cls] = bestO;
 }
 // duelos
 const res = {}, red = (d) => dmgRedP(d, L);

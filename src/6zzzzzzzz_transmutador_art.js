@@ -33,9 +33,10 @@
  });
  hookAfter('heroLook',(L,cls,app,gear={},cos={})=>{
   if(cls!=='transmutador')return;
-  if(app?.tmOutfit !== false){if(!gear.body&&!cos.body)L.top={k:'tm_classic',m:WHITE,s:BLACK};if(!gear.legs&&!cos.legs)L.bot={k:'tm_cargo',m:OLIVE,s:OLIVE};if(!gear.feet&&!cos.feet)L.feet={k:'tm_sneakers',m:SHOE};}
+  if(app?.tmOutfit !== false){const base=sl=>cos[sl]==='base'||(!gear[sl]&&!cos[sl]);// «Mostrar mi ropa base» = the editor outfit
+   if(base('body'))L.top={k:'tm_classic',m:WHITE,s:BLACK};if(base('legs'))L.bot={k:'tm_cargo',m:OLIVE,s:OLIVE};if(base('feet'))L.feet={k:'tm_sneakers',m:SHOE};}
   if(L.head?.k==='of_bucket'&&!L.head.s)L.head={...L.head,s:L.head.m};
-  L.tmDevice=true;L.mirror=false;L.back=cos.back?L.back:null;return L;
+  L.tmDevice=true;L.tmGem=typeof TM_FORMS!=='undefined'&&TM_FORMS[app?.tmForm]?TM_FORMS[app.tmForm].gem:['#c8420c','#ffb43a'];L.mirror=false;L.back=cos.back?L.back:null;return L;
  });
  function wrist(A,L){const ps=heroPose(A.dir,A.anim,A.f,L),aw=A.aw;
   if(!A.side)return {x:(A.up?A.shL:A.shR)+aw/2+ps.lax,y:A.shY+A.al+ps.lay-2};
@@ -46,7 +47,8 @@
   const set=(dx,dy,c)=>{const xx=x+dx,yy=y+dy,k=yy*p.w+xx;if(xx<0||yy<0||xx>=p.w||yy>=p.h)return;const tag=p.t?.[k];if(tag&&tag!==3)return;p.set(xx,yy,c);};
   for(let dy=-r;dy<=r;dy++)for(let dx=-r-1;dx<=r+1;dx++){if(Math.abs(dx)===r+1&&Math.abs(dy)===r)continue;set(dx,dy,C(Math.abs(dy)===r?'#999f96':Math.abs(dx)>=r?'#363e36':'#111811'));}
   for(let dx=-r;dx<=r;dx++){set(dx,-r+1,C('#d0d3c5'));set(dx,r-1,C('#aeb5a6'));}
-  if(scale===1){set(0,0,C('#82d638'));set(1,0,C('#c4f86b'));}else{for(let yy=-1;yy<=1;yy++)for(let xx=-1;xx<=1;xx++)set(xx,yy,C(xx<0?'#5fae25':'#a4ec40'));set(-2,-2,C('#b4bda8'));set(2,2,C('#76826e'));}
+  const gm=L.tmGem||['#c8420c','#ffb43a'];// Core Bracelet: the gem shows the colour of the chosen form
+  if(scale===1){set(0,0,C(gm[0]));set(1,0,C(gm[1]));}else{for(let yy=-1;yy<=1;yy++)for(let xx=-1;xx<=1;xx++)set(xx,yy,C(xx<0?gm[0]:gm[1]));set(-2,-2,C('#b4bda8'));set(2,2,C('#76826e'));}
   p.tg=tg;
  }
  hookAround('drawHero',(next,p,L,...a)=>{

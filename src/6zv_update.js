@@ -7,7 +7,7 @@
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.65', GAME_BUILD = 287;
+const GAME_VER = '6.66', GAME_BUILD = 288;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -15,6 +15,7 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{"v":"6.66","b":288,"d":"2026-11-28","es":["Transmutador: Brazalete de núcleos con selector de cuatro formas desde el nivel 1: Ascua (fuego), Prisma (cristal celeste resistente), Céfiro (velocidad de tormenta) y Coloso (gigante rojo de cuatro brazos que lanza rocas, el más fuerte). Cada forma tiene sus técnicas y su puño, y se hace más fuerte con tu nivel hasta el máximo.","Efectos de fuego, cristal, rayo, rocas y terremoto nuevos en todas las técnicas. Las armaduras dan un extra de defensa y vida en las formas, y el Transmutador puede llevar anillos y amuletos de cualquier clase.","Arreglado: volver a forma humana después de repartir puntos, el botón de transformar en el móvil y «Mostrar mi ropa base» con el atuendo del Transmutador. Duelos PvP reajustados con la clase nueva."],"en":["Transmuter: Core Bracelet with a four-form selector from level 1: Ember (fire), Prism (tough sky-blue crystal), Zephyr (storm speed) and Colossus (red four-armed giant that hurls rocks, the strongest). Each form has its own techniques and punch, and grows stronger with your level up to the maximum.","New fire, crystal, lightning, rock and quake effects on every technique. Armour gives extra defence and life in the forms, and the Transmuter can wear rings and amulets of any class.","Fixed: returning to human form after spending points, the transform button on phones and “Show my base clothes” with the Transmuter outfit. PvP duels rebalanced with the new class."]},
 {"v":"6.65","b":287,"d":"2026-11-27","es":["Nueva clase Transmutador con atuendo personalizable y forma de Fuego. Usa puños y cinco técnicas de fuego cuyo daño escala con tu nivel y ataque."],"en":["New Transmuter class with customizable outfit and a Fire form. Use unarmed attacks and five fire techniques that scale with level and attack."]},
 {
  "v": "6.64",
