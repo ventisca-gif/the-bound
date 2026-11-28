@@ -4,13 +4,16 @@ on:
     branches: [main]
     paths: ['src/6zzzzzzz_v66*_*.js', 'tests/grandline664/**', '.github/workflows/grand-line-port.yml']
 permissions:
-  contents: read
+  contents: write
 jobs:
   native-map:
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 2
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -30,3 +33,19 @@ jobs:
         with:
           name: grand-line-gameplay
           path: tests/grandline664/out/*.png
+
+      - name: Test the internal updater
+        if: github.event.pull_request.head.ref == 'codex/puerto-de-las-campanas' && github.event.pull_request.head.repo.full_name == github.repository
+        run: python3 tests/upd.py "file://$PWD/dist/test.html" /tmp/updater.png
+      - name: Save verified update on the release branch
+        if: github.event.pull_request.head.ref == 'codex/puerto-de-las-campanas' && github.event.pull_request.head.repo.full_name == github.repository
+        run: |
+          python3 tools/dev/release.py --no-build
+          git fetch --depth 1 origin main
+          test "$(git rev-parse FETCH_HEAD)" = ad9127c0a51c211453e321ace3afa6967f490636
+          git restore --source=HEAD^ --staged --worktree .github/workflows/grand-line-port.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add update/thebound.html update/thebound.html.gz update/version.json
+          git commit -m 'Package verified Bellhaven update'
+          git push origin HEAD:refs/heads/codex/puerto-de-las-campanas

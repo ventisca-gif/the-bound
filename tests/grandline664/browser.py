@@ -48,6 +48,9 @@ with sync_playwright() as p:
  act()
  check("glpOnFoot()&&G.P.dawnBoat.h.kind==='skiff'&&G.map.overviewMinimap",'native landing retains the ship and shows the regional minimap')
  page.screenshot(path=str(OUT/'05_campanas_muelle.png'))
+ js("openPanel('map');1");page.wait_for_timeout(500)
+ page.screenshot(path=str(OUT/'06_campanas_mapa.png'))
+ js("closePanel();1")
  check("""(()=>{const M=G.map,Q=[GL_PORT_PIER],seen=new Set();
    for(let i=0;i<Q.length;i++){const [x,y]=Q[i];if(x<123||x>233||y<316||y>408)continue;
      const k=M.I(x,y);if(seen.has(k)||SOLID_T[M.ter[k]]||M.solidO[k])continue;
@@ -72,6 +75,8 @@ with sync_playwright() as p:
   page.wait_for_function("interactTarget()?.o?.xact==='glp_bell'",timeout=5000)
   js('doInteract(interactTarget());1')
   check(f"G.ents.some(e=>e.mid==='{boss}'&&e.hp>0&&e.atlas.idx.atk!==undefined)",'correct boss with attack frames')
+  js('G.P.ifr=10;1')
+  page.screenshot(path=str(OUT/f'07_campanas_{boss}.png'))
   js(f"killMob(G.ents.find(e=>e.mid==='{boss}'&&e.hp>0));1")
  check('G.P.glPortQuest.done&&G.P.glPortQuest.beaten===3','port chapter resolves after both fights')
  result=js("(()=>{const P=G.P;[P.x,P.y]=dawnPx(GL_PORT_PIER);IT_CACHE=null;return [glpDockAction(),interactTarget()?.o?.xact,P.map,P.dead,!!G.fading,P.dawnHelm?.kind,P.dawnBoat?.bellhaven,P.hp];})()")
