@@ -19,6 +19,29 @@ with sync_playwright() as playwright:
     touch = page.context.new_cdp_session(page)
     def check_joystick(form):
         page.wait_for_function('TM_POSE_SHEET.naturalWidth && G.P.atlas.fw === 80')
+        assert page.evaluate("""form => {
+          const A = G.P.atlas, w = A.fw, h = A.fh, col = A.idx.idle, row = DIRI.down;
+          const hd = mkCanvas(w * 2, h * 2).getContext('2d');
+          const lo = mkCanvas(w * 2, h * 2).getContext('2d');
+          hd.imageSmoothingEnabled = lo.imageSmoothingEnabled = false;
+          atlasBlit(hd, A, col, row, 0, 0, w * 2, h * 2);
+          lo.drawImage(A.img, col * w, row * h, w, h, 0, 0, w * 2, h * 2);
+          const pixels = hd.getImageData(0, 0, w * 2, h * 2).data;
+          const legacy = lo.getImageData(0, 0, w * 2, h * 2).data;
+          let top = h * 2, bottom = 0;
+          for (let i = 3; i < pixels.length; i += 4) if (pixels[i] > 128) {
+            const y = Math.floor(i / (w * 8));
+            top = Math.min(top, y);
+            bottom = Math.max(bottom, y);
+          }
+          const expected = {ascua: 36, prisma: 48, cefiro: 37, coloso: 43}[form];
+          const portrait = mkCanvas(52, 52);
+          drawPortrait(portrait, A);
+          const portraitPixels = portrait.getContext('2d').getImageData(0, 0, 52, 52).data;
+          return Math.abs((bottom - top + 1) - expected * 2) <= 3 &&
+            pixels.some((pixel, i) => pixel !== legacy[i]) && !hd.imageSmoothingEnabled &&
+            portraitPixels.some((pixel, i) => i % 4 === 3 && pixel === 255);
+        }""", form), form
         joy = page.locator('#joy').bounding_box()
         x, y = joy['x'] + joy['width'] / 2, joy['y'] + joy['height'] / 2
         r = joy['width'] * 0.3
@@ -71,4 +94,4 @@ with sync_playwright() as playwright:
     assert page.evaluate('G.P.equip.weapon.id') == human
     assert page.evaluate('serializeP(G.P).cls') == 'transmutador'
     assert not errors, errors
-    print('PASS: creation, return to human after spending points while busy, four-direction touch joystick and idle for all forms, five skill controls, basic punch and human equipment')
+    print('PASS: creation, return to human after spending points while busy, native HD, portrait, scale, four-direction touch joystick and idle for all forms, five skill controls, basic punch and human equipment')

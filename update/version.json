@@ -1,21 +1,21 @@
 {
- "build": 290,
- "ver": "6.68",
+ "build": 291,
+ "ver": "6.69",
  "date": "2026-11-27",
  "file": "thebound.html",
- "size": 38135127,
- "sha256": "626879742669fa5a5ac22c4761000ac9052ac671632ad946b1a7953776438ccc",
+ "size": 38136474,
+ "sha256": "f0ffb441a3a881a46d4f5bbfb3e1cbc5e334c3fbc260b607303b9654cdb03fcb",
  "minApk": 24,
  "gz": "thebound.html.gz",
- "gzSize": 23456791,
- "gzSha256": "b8f7404a1f0942c359bb3e0a98fb0ef291fa48dbe205a887180c81a3b406a722",
+ "gzSize": 23457051,
+ "gzSha256": "3ac8023d06f71caf1d0ec67740db3bf81fcd9dedd7c21137436709552c668be1",
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Transmutador: sprites nuevos de reposo y caminata en cuatro direcciones para Ascua, Prisma, Céfiro y Coloso."
+   "Prisma es más grande. Los cuatro sprites del Transmutador conservan más detalle en HD y se ven completos en el retrato."
   ],
   "en": [
-   "Transmuter: new idle and four-direction walk sprites for Ascua, Prisma, Céfiro and Coloso."
+   "Prism is larger. All four Transmuter sprites retain more detail in HD and have properly framed portraits."
   ]
  }
 }

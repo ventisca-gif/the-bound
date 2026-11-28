@@ -389,7 +389,7 @@ body.v656noslot #acts .sk.empty{visibility:hidden;pointer-events:none}
   <div class="chain">◆</div>
   <div id="tmain"><div id="tslots"></div><button class="tbtn" id="tNew">Nueva partida<small>Crea tu héroe</small></button></div>
   <div id="create" class="frame" hidden><div class="cc"><div class="ccL"><h2>Crea tu héroe</h2><canvas id="ccPrev" width="48" height="48"></canvas><div class="ccRot"><button class="btn sm" id="ccRotL" aria-label="Girar a la izquierda">⟲</button><button class="btn sm" id="ccAnim">Caminar</button><button class="btn sm" id="ccRotR" aria-label="Girar a la derecha">⟳</button></div><input id="ccName" maxlength="14" placeholder="Nombre" autocomplete="off" enterkeyhint="done"></div><div class="ccR"><div class="cclasses" id="ccClasses"></div><div id="ccEd"></div></div><div class="ccA"><p id="ccMsg"></p><button class="btn gold big" id="ccGo">Comenzar aventura</button><button class="btn" id="ccBack">Volver</button></div></div></div>
-  <div class="tfoot">v6.68 · Brazalete de núcleos</div>
+  <div class="tfoot">v6.69 · Brazalete de núcleos</div>
 </div>
 <div id="errlog" hidden></div>
 <script>var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;$jscomp.ISOLATE_POLYFILLS=!1;$jscomp.FORCE_POLYFILL_PROMISE=!1;$jscomp.FORCE_POLYFILL_PROMISE_WHEN_NO_UNHANDLED_REJECTION=!1;$jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(g,d,p){if(g==Array.prototype||g==Object.prototype)return g;g[d]=p.value;return g};
@@ -3979,7 +3979,7 @@ function stepAnim(e, dt, fps) { e.at += dt; const n = animN(e, e.anim); const pe
 // 5.26: solo el NPC más cercano (a menos de 40 px) se salta el control de nombres encimados; antes lo hacían todos los
 // cercanos, y en la procesión o entre la multitud los nombres se montaban unos sobre otros
 function lblNearNpc() { if (LBL.nt === G.t) return LBL.ne; LBL.nt = G.t; let b = null, bd = 1600; const P = G.P; for (const o of G.ents) { if (o.type !== 'npc' || o.map !== P.map) continue; const d = dist2(o.x, o.y, P.x, P.y); if (d < bd) { bd = d; b = o; } } LBL.ne = b; return b; }
-function atlasBlit(c, A, col, row, x, y, w, h) { if (HDS > 1 && A.hdL && typeof hdEnsure === 'function' && hdEnsure(A, col, row)) { c.drawImage(A.hd, col * A.fw * 2, row * A.fh * 2, A.fw * 2, A.fh * 2, x, y, w, h); return; } c.drawImage(A.img, col * A.fw, row * A.fh, A.fw, A.fh, x, y, w, h); }
+function atlasBlit(c, A, col, row, x, y, w, h) { if (HDS > 1 && A.blitHD) return A.blitHD(c, col, row, x, y, w, h); if (HDS > 1 && A.hdL && typeof hdEnsure === 'function' && hdEnsure(A, col, row)) { c.drawImage(A.hd, col * A.fw * 2, row * A.fh * 2, A.fw * 2, A.fh * 2, x, y, w, h); return; } c.drawImage(A.img, col * A.fw, row * A.fh, A.fw, A.fh, x, y, w, h); }
 function drawEnt(e, cx, cy) {
   if (e.type === 'proj') return drawProj(e, cx, cy);
   if (e.type === 'deco') return drawDeco(e, cx, cy);
@@ -4927,7 +4927,7 @@ function updateHUD(dt) {
   if (mmT > 0.15) { mmT = 0; drawMinimap(); }
   updateToasts(dt);
 }
-function drawPortrait(cvs, A) { const x = cvs.getContext('2d'); x.imageSmoothingEnabled = false; x.clearRect(0, 0, cvs.width, cvs.height); const fw = A.fw; const s = cvs.width / 26; x.drawImage(A.img, 0, 0, fw, fw, Math.round(-(fw / 2 - 13) * s), Math.round(-(fw * 0.22) * s), fw * s, fw * s); }
+function drawPortrait(cvs, A) { if (A.drawPortrait) return A.drawPortrait(cvs); const x = cvs.getContext('2d'); x.imageSmoothingEnabled = false; x.clearRect(0, 0, cvs.width, cvs.height); const fw = A.fw; const s = cvs.width / 26; x.drawImage(A.img, 0, 0, fw, fw, Math.round(-(fw / 2 - 13) * s), Math.round(-(fw * 0.22) * s), fw * s, fw * s); }
 function updateTracker() {
   const P = G.P; const id = P.track && P.quests.active[P.track] ? P.track : Object.keys(P.quests.active)[0]; const el = $('#tracker');
   if (!id) { const avail = Object.keys(QUESTS).find(k => canOffer(k) && QUESTS[k].main); if (avail) { el.hidden = false; $('#trT').textContent = (LANG_EN ? "Next: " : 'Siguiente: ') + QUESTS[avail].n; $('#trD').textContent = (LANG_EN ? "Talk to " : 'Habla con ') + NPCS[QUESTS[avail].giver].n + ' (!)'; } else el.hidden = true; return; }
@@ -11969,7 +11969,7 @@ function partnerServes() { const P = G.P; if (!P || !P.partner) return false; co
 // seguidas (o en 60 s), se marca como mala y se vuelve a la versión del APK.
 // Publicar una versión nueva: subir GAME_VER/GAME_BUILD, añadir su entrada al principio de CHANGELOG y ejecutar
 // python3 tools/dev/release.py (escribe update/thebound.html y update/version.json). Luego subirlo a la rama main.
-const GAME_VER = '6.68', GAME_BUILD = 290;
+const GAME_VER = '6.69', GAME_BUILD = 291;
 const UPD_MIN_APK = 24;   // primer APK con actualizador; súbelo solo si cambia la parte Android (tools/apk)
 const UPD_REPO = 'ventisca-gif/the-bound';
 const UPD_BASE_DEF = 'https://raw.githubusercontent.com/' + UPD_REPO + '/main/update/';
@@ -11977,6 +11977,17 @@ const UPD_APK_PAGE = 'https://github.com/' + UPD_REPO + '/releases/latest';
 // Novedades: la más nueva primero. JSON estricto entre las marcas (tools/dev/release.py lo lee).
 const CHANGELOG = /*CL*/
 [
+{
+ "v": "6.69",
+ "b": 291,
+ "d": "2026-11-27",
+ "es": [
+  "Prisma es más grande. Los cuatro sprites del Transmutador conservan más detalle en HD y se ven completos en el retrato."
+ ],
+ "en": [
+  "Prism is larger. All four Transmuter sprites retain more detail in HD and have properly framed portraits."
+ ]
+},
 {
  "v": "6.68",
  "b": 290,
@@ -62552,7 +62563,23 @@ hookAround('drawHero', (next, p, L, ...a) => {
   p.tg = tg;
   return r;
 });
-// Use the normal entity atlas and direction rows, including for touch input.
+// Draw directly from the supplied sheet at the destination resolution.
+function tmPaintPose(c, frame, x, y, scaleX, scaleY) {
+  const { source, w, h, ax, ay, dead } = frame;
+  c.save();
+  c.imageSmoothingEnabled = true;
+  c.translate(x, y);
+  c.scale(scaleX, scaleY);
+  if (dead) {
+    c.translate(ax - h / 2, ay - w / 2);
+    c.rotate(Math.PI / 2);
+    c.drawImage(TM_POSE_SHEET, ...source, -w / 2, -h, w, h);
+  } else {
+    c.drawImage(TM_POSE_SHEET, ...source, ax - Math.floor(w / 2), ay - h, w, h);
+  }
+  c.restore();
+}
+
 function tmBuildPoseAtlas(form) {
   const fw = 80, fh = 72, ax = fw >> 1, ay = fh - 4;
   const idx = {};
@@ -62563,10 +62590,10 @@ function tmBuildPoseAtlas(form) {
   }
   const img = mkCanvas(fw * columns, fh * DIRS.length);
   const c = img.getContext('2d');
-  c.imageSmoothingEnabled = false;
+  const frames = DIRS.map(() => []);
   const sourceRow = { down: 0, up: 1, left: 2, right: 3 };
   const walk = [1, 2, 3, 2];
-  const height = { ascua: 36, prisma: 38, cefiro: 37, coloso: 43 }[form];
+  const height = { ascua: 36, prisma: 48, cefiro: 37, coloso: 43 }[form];
   for (const dir of DIRS) {
     const row = DIRI[dir];
     const poses = TM_POSE_FRAMES[form][sourceRow[dir]];
@@ -62576,25 +62603,36 @@ function tmBuildPoseAtlas(form) {
         if (anim === 'walk' || anim === 'carryw') pose = walk[f % walk.length];
         else if (anim === 'dash') pose = form === 'cefiro' ? 5 : walk[f % walk.length];
         else if (['atk', 'cast', 'slam'].includes(anim) && f < ANIMS[anim][1] - 1) pose = 4;
-        const [sx, sy, sw, sh] = poses[pose];
+        const source = poses[pose];
         const h = pose === 4 && form === 'coloso' ? 54 : height;
-        const w = Math.round(sw * h / sh);
-        const x = (idx[anim] + f) * fw + ax;
-        const frontPrismStep = form === 'prisma' && dir === 'down' && pose > 0 && pose < 4;
-        const y = row * fh + ay - (frontPrismStep && pose !== 2 ? 1 : 0);
-        if (anim === 'dead') {
-          c.save();
-          c.translate(x - h / 2, y - w / 2);
-          c.rotate(Math.PI / 2);
-          c.drawImage(TM_POSE_SHEET, sx, sy, sw, sh, -w / 2, -h, w, h);
-          c.restore();
-        } else {
-          c.drawImage(TM_POSE_SHEET, sx, sy, sw, sh, x - (w >> 1), y - h, w, h);
-        }
+        const w = source[2] * h / source[3];
+        const col = idx[anim] + f;
+        const frontPrismStep = form === 'prisma' && dir === 'down' && (pose === 1 || pose === 3);
+        const frame = { source, w, h, ax, ay: ay - Number(frontPrismStep), dead: anim === 'dead' };
+        frames[row][col] = frame;
+        tmPaintPose(c, frame, col * fw, row * fh, 1, 1);
       }
     }
   }
-  return { img, fw, fh, ax, ay, idx };
+  return {
+    img, fw, fh, ax, ay, idx,
+    blitHD(c, col, row, x, y, w, h) {
+      tmPaintPose(c, frames[row][col], x, y, w / fw, h / fh);
+    },
+    drawPortrait(canvas) {
+      const c = canvas.getContext('2d');
+      const [sx, sy, sw, sh] = frames[DIRI.down][idx.idle].source;
+      const cropH = Math.min(sh, Math.round(Math.max(sw, sh * 0.42)));
+      const scale = Math.min(canvas.width / sw, canvas.height / cropH) * 0.92;
+      c.clearRect(0, 0, canvas.width, canvas.height);
+      c.save();
+      c.imageSmoothingEnabled = true;
+      c.drawImage(TM_POSE_SHEET, sx, sy, sw, cropH,
+        (canvas.width - sw * scale) / 2, (canvas.height - cropH * scale) / 2,
+        sw * scale, cropH * scale);
+      c.restore();
+    }
+  };
 }
 function tmAtlas(P = G.P) {
   const form = tmFormId(P);

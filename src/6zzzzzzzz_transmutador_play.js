@@ -218,7 +218,23 @@ hookAround('drawHero', (next, p, L, ...a) => {
   p.tg = tg;
   return r;
 });
-// Use the normal entity atlas and direction rows, including for touch input.
+// Draw directly from the supplied sheet at the destination resolution.
+function tmPaintPose(c, frame, x, y, scaleX, scaleY) {
+  const { source, w, h, ax, ay, dead } = frame;
+  c.save();
+  c.imageSmoothingEnabled = true;
+  c.translate(x, y);
+  c.scale(scaleX, scaleY);
+  if (dead) {
+    c.translate(ax - h / 2, ay - w / 2);
+    c.rotate(Math.PI / 2);
+    c.drawImage(TM_POSE_SHEET, ...source, -w / 2, -h, w, h);
+  } else {
+    c.drawImage(TM_POSE_SHEET, ...source, ax - Math.floor(w / 2), ay - h, w, h);
+  }
+  c.restore();
+}
+
 function tmBuildPoseAtlas(form) {
   const fw = 80, fh = 72, ax = fw >> 1, ay = fh - 4;
   const idx = {};
@@ -229,10 +245,10 @@ function tmBuildPoseAtlas(form) {
   }
   const img = mkCanvas(fw * columns, fh * DIRS.length);
   const c = img.getContext('2d');
-  c.imageSmoothingEnabled = false;
+  const frames = DIRS.map(() => []);
   const sourceRow = { down: 0, up: 1, left: 2, right: 3 };
   const walk = [1, 2, 3, 2];
-  const height = { ascua: 36, prisma: 38, cefiro: 37, coloso: 43 }[form];
+  const height = { ascua: 36, prisma: 48, cefiro: 37, coloso: 43 }[form];
   for (const dir of DIRS) {
     const row = DIRI[dir];
     const poses = TM_POSE_FRAMES[form][sourceRow[dir]];
@@ -242,25 +258,36 @@ function tmBuildPoseAtlas(form) {
         if (anim === 'walk' || anim === 'carryw') pose = walk[f % walk.length];
         else if (anim === 'dash') pose = form === 'cefiro' ? 5 : walk[f % walk.length];
         else if (['atk', 'cast', 'slam'].includes(anim) && f < ANIMS[anim][1] - 1) pose = 4;
-        const [sx, sy, sw, sh] = poses[pose];
+        const source = poses[pose];
         const h = pose === 4 && form === 'coloso' ? 54 : height;
-        const w = Math.round(sw * h / sh);
-        const x = (idx[anim] + f) * fw + ax;
-        const frontPrismStep = form === 'prisma' && dir === 'down' && pose > 0 && pose < 4;
-        const y = row * fh + ay - (frontPrismStep && pose !== 2 ? 1 : 0);
-        if (anim === 'dead') {
-          c.save();
-          c.translate(x - h / 2, y - w / 2);
-          c.rotate(Math.PI / 2);
-          c.drawImage(TM_POSE_SHEET, sx, sy, sw, sh, -w / 2, -h, w, h);
-          c.restore();
-        } else {
-          c.drawImage(TM_POSE_SHEET, sx, sy, sw, sh, x - (w >> 1), y - h, w, h);
-        }
+        const w = source[2] * h / source[3];
+        const col = idx[anim] + f;
+        const frontPrismStep = form === 'prisma' && dir === 'down' && (pose === 1 || pose === 3);
+        const frame = { source, w, h, ax, ay: ay - Number(frontPrismStep), dead: anim === 'dead' };
+        frames[row][col] = frame;
+        tmPaintPose(c, frame, col * fw, row * fh, 1, 1);
       }
     }
   }
-  return { img, fw, fh, ax, ay, idx };
+  return {
+    img, fw, fh, ax, ay, idx,
+    blitHD(c, col, row, x, y, w, h) {
+      tmPaintPose(c, frames[row][col], x, y, w / fw, h / fh);
+    },
+    drawPortrait(canvas) {
+      const c = canvas.getContext('2d');
+      const [sx, sy, sw, sh] = frames[DIRI.down][idx.idle].source;
+      const cropH = Math.min(sh, Math.round(Math.max(sw, sh * 0.42)));
+      const scale = Math.min(canvas.width / sw, canvas.height / cropH) * 0.92;
+      c.clearRect(0, 0, canvas.width, canvas.height);
+      c.save();
+      c.imageSmoothingEnabled = true;
+      c.drawImage(TM_POSE_SHEET, sx, sy, sw, cropH,
+        (canvas.width - sw * scale) / 2, (canvas.height - cropH * scale) / 2,
+        sw * scale, cropH * scale);
+      c.restore();
+    }
+  };
 }
 function tmAtlas(P = G.P) {
   const form = tmFormId(P);
