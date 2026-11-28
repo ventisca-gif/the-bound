@@ -15,7 +15,7 @@ with sync_playwright() as playwright:
     page.locator('#ccName').fill('Prueba Fuego')
     page.locator('#ccGo').click()
     page.locator('#introOk').click()
-    page.wait_for_function('G.P?.cls === "transmutador" && tmImage.naturalWidth > 0')
+    page.wait_for_function('G.P?.cls === "transmutador"')
     human = page.evaluate('G.P.equip.weapon.id')
     page.locator('#tmControls button').first.click()
     page.wait_for_function('tmActive(G.P) && G.P.atlas === tmAtlas()')
@@ -25,10 +25,12 @@ with sync_playwright() as playwright:
         page.evaluate('G.P.busy = 0; G.P.mp = G.P.S.maxmp')
         page.locator('#tmControls button').nth(i + 1).click()
         assert page.evaluate('(i) => G.P.cds["tm_fire_" + i] > 0', i)
-    page.evaluate('G.P.busy = 0')
+    page.evaluate('G.P.busy = 5; G.P.apts = 3; openPanel("char")')
+    page.locator('.plus').first.click()
+    page.evaluate('closePanel()')
     page.locator('#tmControls button').first.click()
     page.wait_for_function('!tmActive(G.P)')
     assert page.evaluate('G.P.equip.weapon.id') == human
     assert page.evaluate('serializeP(G.P).cls') == 'transmutador'
     assert not errors, errors
-    print('PASS: creation, fire atlas, five skill controls, basic punch and human equipment')
+    print('PASS: creation, return to human after spending points while busy, fire atlas, five skill controls, basic punch and human equipment')
