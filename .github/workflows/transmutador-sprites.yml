@@ -1,0 +1,41 @@
+name: Package Transmutador sprites
+on:
+  pull_request:
+    branches: [main]
+    paths: ['src/6zzzzzzzz_transmutador_poses.js']
+permissions:
+  contents: write
+jobs:
+  package:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'codex/transmutador-sprites'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          pip install playwright pillow
+          mkdir -p tools/i18n/vendor
+          npm pack acorn@8.14.0
+          tar -xOzf acorn-8.14.0.tgz package/dist/acorn.js > tools/i18n/vendor/acorn.js
+      - run: python3 build.py
+      - run: python3 tests/transmutador/browser.py "file://$PWD/dist/test.html"
+      - run: python3 tests/upd.py "file://$PWD/dist/test.html" /tmp/updater.png
+      - run: python3 tools/dev/release.py --no-build
+      - name: Save package together with source
+        env:
+          TARGET: ${{ github.event.pull_request.head.ref }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add update/thebound.html update/thebound.html.gz update/version.json
+          git commit -m 'Package verified Transmutador sprites'
+          git push origin "HEAD:refs/heads/$TARGET"

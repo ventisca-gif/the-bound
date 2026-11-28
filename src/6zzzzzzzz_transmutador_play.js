@@ -218,8 +218,54 @@ hookAround('drawHero', (next, p, L, ...a) => {
   p.tg = tg;
   return r;
 });
+// Use the normal entity atlas and direction rows, including for touch input.
+function tmBuildPoseAtlas(form) {
+  const fw = 80, fh = 72, ax = fw >> 1, ay = fh - 4;
+  const idx = {};
+  let columns = 0;
+  for (const anim of HERO_ANIMS) {
+    idx[anim] = columns;
+    columns += ANIMS[anim][1];
+  }
+  const img = mkCanvas(fw * columns, fh * DIRS.length);
+  const c = img.getContext('2d');
+  c.imageSmoothingEnabled = false;
+  const sourceRow = { down: 0, up: 1, left: 2, right: 3 };
+  const walk = [1, 2, 3, 2];
+  const height = { ascua: 36, prisma: 38, cefiro: 37, coloso: 43 }[form];
+  for (const dir of DIRS) {
+    const row = DIRI[dir];
+    const poses = TM_POSE_FRAMES[form][sourceRow[dir]];
+    for (const anim of HERO_ANIMS) {
+      for (let f = 0; f < ANIMS[anim][1]; f++) {
+        let pose = 0;
+        if (anim === 'walk' || anim === 'carryw') pose = walk[f % walk.length];
+        else if (anim === 'dash') pose = form === 'cefiro' ? 5 : walk[f % walk.length];
+        else if (['atk', 'cast', 'slam'].includes(anim) && f < ANIMS[anim][1] - 1) pose = 4;
+        const [sx, sy, sw, sh] = poses[pose];
+        const h = pose === 4 && form === 'coloso' ? 54 : height;
+        const w = Math.round(sw * h / sh);
+        const x = (idx[anim] + f) * fw + ax;
+        const frontPrismStep = form === 'prisma' && dir === 'down' && pose > 0 && pose < 4;
+        const y = row * fh + ay - (frontPrismStep && pose !== 2 ? 1 : 0);
+        if (anim === 'dead') {
+          c.save();
+          c.translate(x - h / 2, y - w / 2);
+          c.rotate(Math.PI / 2);
+          c.drawImage(TM_POSE_SHEET, sx, sy, sw, sh, -w / 2, -h, w, h);
+          c.restore();
+        } else {
+          c.drawImage(TM_POSE_SHEET, sx, sy, sw, sh, x - (w >> 1), y - h, w, h);
+        }
+      }
+    }
+  }
+  return { img, fw, fh, ax, ay, idx };
+}
 function tmAtlas(P = G.P) {
-  const app = normApp(P.app), stage = tmStage(P), form = tmFormId(P);
+  const form = tmFormId(P);
+  if (TM_POSE_SHEET.naturalWidth) return getAtlas('tm:poses:' + form, () => tmBuildPoseAtlas(form));
+  const app = normApp(P.app), stage = tmStage(P);
   return getAtlas('tm:' + form + ':' + heroKey(P.cls, app, {}, {}, 0) + ':' + stage, () => buildHeroAtlas(tmLook(P, form)));
 }
 hookAround('playerAtlas', (next, P) => tmActive(P) ? tmAtlas(P) : next(P));

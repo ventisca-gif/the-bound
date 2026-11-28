@@ -1,21 +1,21 @@
 {
- "build": 289,
- "ver": "6.67",
- "date": "2026-11-28",
+ "build": 290,
+ "ver": "6.68",
+ "date": "2026-11-27",
  "file": "thebound.html",
- "size": 36273041,
- "sha256": "88f144c81bcda902bda82bd98270866431ae43fd68332976ff1a1d9cc9ab50f8",
+ "size": 38135127,
+ "sha256": "626879742669fa5a5ac22c4761000ac9052ac671632ad946b1a7953776438ccc",
  "minApk": 24,
  "gz": "thebound.html.gz",
- "gzSize": 22049990,
- "gzSha256": "b37d112044a7b2ffc1871d47d477b690202695aac94dc7b4877559810552a58f",
+ "gzSize": 23456791,
+ "gzSha256": "b8f7404a1f0942c359bb3e0a98fb0ef291fa48dbe205a887180c81a3b406a722",
  "apk": "https://github.com/ventisca-gif/the-bound/releases/latest",
  "notes": {
   "es": [
-   "Arreglado el error rojo «flt is not a function» que salía en el inventario después de tocar los botones del Transmutador."
+   "Transmutador: sprites nuevos de reposo y caminata en cuatro direcciones para Ascua, Prisma, Céfiro y Coloso."
   ],
   "en": [
-   "Fixed the red “flt is not a function” error in the inventory after tapping the Transmuter buttons."
+   "Transmuter: new idle and four-direction walk sprites for Ascua, Prisma, Céfiro and Coloso."
   ]
  }
 }
