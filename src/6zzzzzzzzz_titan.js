@@ -1,11 +1,11 @@
 // Despertar Titánico (original): the strongest transformation for now. Any class except the Transmutador.
 // Etapa 1 «Puño Titán»: each punch lands as a giant fist. Etapa 2 «Doble Titán» (mastery 40+): both fists giant.
 // Lasts 2 minutes and then leaves you exhausted, unless you master it (mastery 100 = no limit). Disabled in PvP duels.
-// How to get it: level 200 + 8 Fragmentos titánicos (bosses of level 150+ drop them) + 250 000 gold → use a fragment.
+// How to get it: level 610 + 8 Fragmentos titánicos (bosses of level 500+ drop them) + 500 000 gold → use a fragment.
 SAVEKEYS.push('titanOwn', 'titanM');
-const TT = { lv: 200, frags: 8, gold: 250000, dur: 120, cd: 90, tired: 20, stage2: 40, drop: 0.35, bossLv: 150 };
+const TT = { lv: 610, frags: 8, gold: 500000, dur: 120, cd: 90, tired: 20, stage2: 40, drop: 0.35, bossLv: 500 };
 it('titan_frag', { n: 'Fragmento titánico', t: 'cons', stack: true, price: 5000, rar: 4, icon: ['star', '#ffb43a'],
-  d: L2('Late como un puño cerrado. Con 8, nivel 200 y 250 000 de oro, úsalo para el Despertar Titánico.', 'It throbs like a clenched fist. With 8, level 200 and 250,000 gold, use it for the Titanic Awakening.') });
+  d: L2('Late como un puño cerrado. Con 8, nivel 610 y 500 000 de oro, úsalo para el Despertar Titánico.', 'It throbs like a clenched fist. With 8, level 610 and 500,000 gold, use it for the Titanic Awakening.') });
 function ttCan(P) { return !!P && P.cls !== 'transmutador'; }
 function ttPvp() { return typeof pvpOn === 'function' && pvpOn(); }
 function ttMastered(P) { return (P.titanM || 0) >= 100; }

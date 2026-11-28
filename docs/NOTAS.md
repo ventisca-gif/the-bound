@@ -12,7 +12,7 @@ Versión actual: **6.67 (build 289)** · arreglo del filtro del inventario (ver 
 
 - `src/6zzzzzzzzz_titan.js`: transformación original, la más fuerte por ahora, para todas las clases menos el Transmutador. Etapa 1 «Puño Titán» (cada golpe sale como un puño gigante) y etapa 2 «Doble Titán» (los dos puños; se desbloquea con maestría 40). Botón 🥊 junto al mapa (`#bTitan`): apagado → etapa 1 → etapa 2 → apagado.
 - Dura 2 minutos; al acabarse quedas agotado (`tt_tired`: −20 % de velocidad y −10 % de ataque, 20 s) y no se puede repetir en 90 s. La maestría (`P.titanM`, +0,5 por enemigo y +5 por jefe derrotados transformado) llega a 100 y entonces no tiene límite. Buff en `calcStats`: +30 % de ataque (etapa 2: +45 %, +10 % de velocidad de ataque) + hasta +15 % por maestría.
-- Cómo se consigue: nivel 200, 8 `titan_frag` (los sueltan jefes de nivel 150+, 35 %) y 250 000 de oro; se usa un fragmento desde el inventario. Se guarda `titanOwn` y `titanM` (`SAVEKEYS`).
+- Cómo se consigue: nivel 610, 8 `titan_frag` (los sueltan jefes de nivel 500+, 35 %) y 500 000 de oro; se usa un fragmento desde el inventario. Se guarda `titanOwn` y `titanM` (`SAVEKEYS`).
 - 4 técnicas (`TT_TECH`, botones `#ttControls`): Martillo titánico, Ráfaga titánica, Embestida titánica e Impacto final. VFX `ttfist` (puño gigante con el color de piel del jugador) y `ttwave`, en capa aparte.
 - No se puede usar en duelos PvP (como las formas de `SR`), así que no cambia `PVP_CLS`.
 - El Transmutador no puede comer frutas (`dfEat`) ni usar las transformaciones `SR` (`srToggle`): «Tu cuerpo ya está ligado al Brazalete de núcleos».
