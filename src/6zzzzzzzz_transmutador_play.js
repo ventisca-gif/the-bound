@@ -127,6 +127,8 @@ const TM_PAL = {
     m: P5(['#0a1416', '#142428', '#1e363a', '#2c4e52', '#3e6a6c']), s: P5(['#1e8a6c', '#3aa88a', '#7ad8b8', '#d0fff0', '#ffffff']) },
   cefiro: { skin: pal(['#1a5a7a', '#2e8ab0', '#5ab8d8', '#a8e4f4']), hair: pal(['#06080e', '#10141e', '#1c2232', '#2e5a78']), eyes: 'dorado',
     m: P5(['#0a0e1e', '#141c36', '#22305a', '#34488a', '#4a64b4']), s: P5(['#8a6a08', '#c89a10', '#ffd630', '#fff0a0', '#ffffff']), scarf: P5(['#8a6a08', '#c89a10', '#ffd630', '#fff0a0', '#ffffff']) },
+  astral: { skin: pal(['#3a2c8a', '#5a4cc0', '#8a7ee6', '#d2caff']), hair: pal(['#3a2c8a', '#5a4cc0', '#8a7ee6', '#d2caff']), eyes: 'dorado',
+    m: P5(['#160a2a', '#2a1648', '#42246a', '#603a92', '#8a5cc0']), s: P5(['#6a4a14', '#b08a2a', '#dcbc4a', '#f8e48a', '#ffffff']) },
   coloso: { skin: pal(['#5a0e0a', '#9a2216', '#cc3e28', '#f07a52']), hair: pal(['#6a6a78', '#a8a8b8', '#d8d8e4', '#ffffff']), eyes: 'dorado',
     m: P5(['#3a1e08', '#6a3a12', '#9a5a20', '#c8843a', '#eab868']), s: P5(['#6a4a14', '#b08a2a', '#dcbc4a', '#f8e48a', '#ffffff']) }
 };
@@ -143,6 +145,11 @@ function tmLook(P, form) {
     L.top = { k: 'plate', m: C5.m, s: C5.s, t: 8 + stage * 2 }; L.bot = { k: 'greaves', m: C5.m, s: C5.s }; L.feet = { k: 'sabatons', m: C5.m };
   } else if (form === 'cefiro') {
     L.top = { k: 'tunic', m: C5.m, s: P5(['#1a5a7a', '#2e8ab0', '#5ab8d8', '#a8e4f4', '#ffffff']) }; L.bot = { k: 'pants', m: C5.m }; L.feet = { k: 'boots', m: P5(['#1a5a7a', '#2e8ab0', '#5ab8d8', '#a8e4f4', '#ffffff']) }; L.scarf = C5.scarf;
+  } else if (form === 'astral') {
+    // Titán Astral (draft): cosmic giant, bald with a floating crown of light; drawn 2× in the world.
+    L.hs = { ...L.hs, cap: 'bald', bang: 'none', tail: null, back: 0, side: 0, r8HD: null, r8Base: null };
+    L.top = { k: 'plate', m: C5.m, s: C5.s, t: 12 + stage }; L.bot = { k: 'greaves', m: C5.m, s: C5.s }; L.feet = { k: 'sabatons', m: C5.m };
+    L.back = { k: 'cape', o: P5(['#0a0620', '#1a1240', '#2a1e60', '#3e2c86', '#5a44b0']), i: C5.m, tr: C5.s };
   } else {
     // Bigger body: the widest structure of the player's gender (Titán / Guerrera).
     const bt = app.g === 'f' ? 6 : 5; if (BODY_T[app.g === 'f' ? 'f' : 'm'][bt]) { L.bt = bt; L.btS = BODY_T[app.g === 'f' ? 'f' : 'm'][bt]; }
@@ -222,6 +229,16 @@ function tmDrawArms(p, A, L) {
   if (!A.side) { arm(A.tx0 - aw - 1, -(ps.rax || 0), ps.ray, A.up); arm(A.tx0 + A.tw + 1, -(ps.lax || 0), ps.lay, A.up); }
   else { arm(Math.round(A.cx - 1 + A.d * 2), ps.rax, ps.ray, true); arm(Math.round(A.cx - 2 - A.d), ps.lax, ps.lay, false); }
 }
+function tmDrawAstral(p, A, fr) {
+  // Stars twinkling on the skin and armour, and a floating crown of light above the head.
+  const star = [C('#fff6c0'), C('#ffffff'), C('#c8b8ff')], gold = C('#ffd85a'), glow = C('#fff2b0');
+  for (let i = 0; i < 9; i++) { const x = Math.round(A.tx0 - 2 + tmHash(i, 11) * (A.tw + 4)), y = Math.round(A.hy - 4 + tmHash(11, i) * (A.base - A.hy));
+    if (tmOpaque(p, x, y) && tmHash(i, fr) > 0.35) p.set(x, y, star[i % 3]); }
+  const hx = Math.round(A.hx); let top = -1; for (let y = 0; y < A.torsoTop; y++) if (tmOpaque(p, hx, y)) { top = y; break; } if (top < 4) return;
+  const cy = top - 3 - ((A.f || 0) % 2), w = A.side ? 3 : 5;
+  for (let dx = -w; dx <= w; dx++) p.set(hx + dx, cy, Math.abs(dx) === w ? gold : glow);
+  for (const dx of A.side ? [-2, 0, 2] : [-4, -2, 0, 2, 4]) p.set(hx + dx, cy - 1 - (dx === 0 ? 1 : 0), gold);
+}
 function tmDrawHorns(p, A) {
   // Coloso: two curved ivory horns and a gold war mark on the forehead (bald head).
   const hx = Math.round(A.hx), ivory = [C('#8a7a5a'), C('#d8ccaa'), C('#fff6dc')], gold = C('#ffcf5a'), goldD = C('#b08a2a'), out = C('#1a0606');
@@ -243,6 +260,7 @@ hookAround('drawHero', (next, p, L, ...a) => {
   if (L.tmForm === 'ascua') tmDrawFlames(p, A, L.tmStage, fr);
   else if (L.tmForm === 'prisma') tmDrawShards(p, A, L.tmStage);
   else if (L.tmForm === 'cefiro') tmDrawStorm(p, A, L.tmStage, fr);
+  else if (L.tmForm === 'astral') tmDrawAstral(p, A, fr);
   else { tmDrawArms(p, A, L); tmDrawHorns(p, A); }
   p.tg = tg;
   return r;
