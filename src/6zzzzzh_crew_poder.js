@@ -17,7 +17,8 @@ const CREW_POW_ARCS = [
   ['syrup', L2('Villa Syrup', 'Syrup Village'), P => crewBk(P, SYRUP_CAPTAIN)],
   ['baratie', 'Baratie', P => crewBk(P, 'baratie_krieg')],
   ['conomi', 'Arlong Park', P => crewBk(P, 'con_arlong')],
-  ['logue', 'Loguetown', P => P.logueArcN || 0]
+  ['logue', 'Loguetown', P => P.logueArcN || 0],
+  ['bellhaven', L2('Puerto de las Campanas','Bellhaven'), P => P.glPortQuest?.done ? Math.max(1,P.glPortQuest.runs || 0) : 0]
 ];
 // jefes de la historia: la primera victoria sobre cada uno cuenta una vez (repetir no suma)
 const CREW_POW_BOSSES = [MORGAN_ID, ORANGE_CABAJI, ORANGE_BUGGY, SYRUP_SHAM, SYRUP_BUCHI, SYRUP_JANGO, SYRUP_CAPTAIN,

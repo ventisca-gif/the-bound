@@ -5,7 +5,7 @@ SAVEKEYS.push('rmVisual');
 function makeGrandLine(){
  if(G.maps[GL_ID])return G.maps[GL_ID];
  const w=960,h=720,N=w*h,M={id:GL_ID,w,h,I:(x,y)=>y*w+x,ter:new Uint8Array(N),lvl:new Uint8Array(N),reg:new Uint8Array(N),flags:new Uint8Array(N),chunks:new Map(),isWorld:false,dawn:1,grandLine:true,overviewMinimap:true,dark:0,music:'town',camps:[],bossAt:[],halos:[],temples:[],exit:{x:-9,y:-9},dawnData:{pois:[]}};
- initMapObjs(M);populateGrandLinePort(M);M.drawExtra=(cx,cy)=>{const P=G.P;if(P.dawnHelm)dawnShipSprite(cx,cy,dawnSprite('boat'),P.x,P.y+16,P.dir);};
+ initMapObjs(M);populateGrandLinePort(M);M.drawMissingChunk=(g,cx,cy,ox,oy)=>glpDrawMissingChunk(M,g,cx,cy,ox,oy);M.drawExtra=(cx,cy)=>{const P=G.P;if(P.dawnHelm)dawnShipSprite(cx,cy,dawnSprite('boat'),P.x,P.y+16,P.dir);};
  G.maps[GL_ID]=M;return M;
 }
 function rmaSailTo(id,at){

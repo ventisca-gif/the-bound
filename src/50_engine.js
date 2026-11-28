@@ -141,7 +141,7 @@ function render() {
   ctx.fillStyle = M.isWorld ? '#1e4479' : '#0c0a10'; ctx.fillRect(0, 0, VW, VH);
   // ground
   const c0 = Math.floor(cx / CHP), r0 = Math.floor(cy / CHP), c1 = Math.floor((cx + VW) / CHP), r1 = Math.floor((cy + VH) / CHP);
-  for (let ry = r0; ry <= r1; ry++) for (let rx = c0; rx <= c1; rx++) { const ch = getChunk(M, rx, ry); if (ch) ctx.drawImage(ch, rx * CHP - cx, ry * CHP - cy); else if (rx >= 0 && ry >= 0 && rx < M.cw && ry < M.chh) { ctx.fillStyle = M.isWorld ? '#3d7a33' : '#3a2a1e'; ctx.fillRect(rx * CHP - cx, ry * CHP - cy, CHP, CHP); } }
+  for (let ry = r0; ry <= r1; ry++) for (let rx = c0; rx <= c1; rx++) { const ch = getChunk(M, rx, ry); if (ch) ctx.drawImage(ch, rx * CHP - cx, ry * CHP - cy); else if (rx >= 0 && ry >= 0 && rx < M.cw && ry < M.chh) { if (M.drawMissingChunk) { M.drawMissingChunk(ctx, rx, ry, cx, cy); continue; } ctx.fillStyle = M.isWorld ? '#3d7a33' : '#3a2a1e'; ctx.fillRect(rx * CHP - cx, ry * CHP - cy, CHP, CHP); } }
   // animated water/falls/lava
   if (M.isWorld && G.quality) {
     const tx0 = Math.max(0, Math.floor(cx / 16)), ty0 = Math.max(0, Math.floor(cy / 16)), tx1 = Math.min(M.w - 1, Math.floor((cx + VW) / 16)), ty1 = Math.min(M.h - 1, Math.floor((cy + VH) / 16));
