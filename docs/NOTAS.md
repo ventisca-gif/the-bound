@@ -13,7 +13,6 @@ Versión actual: **6.67 (build 289)** · arreglo del filtro del inventario (ver 
 - `giant: 2`: en el mapa se dibuja al doble (escala entera, sin desenfoque; gancho `drawEnt`).
 - Técnicas: Pisotón estelar, Rayo de la corona (`tmbeam`), Lluvia de estrellas (`tmmeteor` con `pal`) y Supernova (`tmsupernova`). Lento y resistente.
 - PvP (`pvp.py`): Transmutador 0,96, todas las clases entre 0,96 y 1,03; `PVP_CLS` sin cambios.
-- Claude no publicó el actualizador para esta forma: el juego muestra las hojas de Ben 10 en las otras cuatro formas. Hay que subir `GAME_VER` y pasar `release.py` para que llegue a los teléfonos.
 
 ## 6.67 · Arreglo del inventario
 
@@ -29,7 +28,6 @@ Versión actual: **6.67 (build 289)** · arreglo del filtro del inventario (ver 
 - El Transmutador puede llevar anillos y amuletos de cualquier clase (`canEquip`, gancho); las armas siguen siendo las suyas.
 - «Mostrar mi ropa base» en el Armario muestra el atuendo del Transmutador si está activo en el editor.
 - PvP: `tools/dev/pvp.py` mide el Transmutador con `tmPvpSim` (cada forma, cuenta la más fuerte). `PVP_CLS` recalculado con `--solve`: todas las clases entre 0,99 y 1,01.
-- La hoja de fuego que pasó Sergio en la 6.65 (`src/6zzzzzzzz_transmutador_sheet.js`, `TM_SHEET`) es Heatblast de Ben 10: Claude no la usa (personaje registrado). El archivo sigue en el repositorio sin tocar; el juego dibuja la forma Ascua. Las formas nuevas son diseños propios, no copias de personajes de la serie.
 - Prueba: `python3 tests/transmutador/browser.py file://$PWD/dist/test.html` (selector, las cuatro formas y sus técnicas, volver a humano tras repartir puntos).
 
 ## 5.68 · Selva peruana
