@@ -121,7 +121,13 @@ hookAfter('updateHUD', () => {
     tmTechniques.forEach(([name], i) => {
       const button = document.createElement('button');
       button.className = 'chip';
-      button.textContent = name;
+      button.setAttribute('aria-label', name);
+      button.title = name;
+      const icon = new Image(30, 30);
+      icon.src = TM_ICONS[i];
+      icon.alt = '';
+      icon.style.cssText = 'vertical-align:middle;image-rendering:pixelated';
+      button.append(icon, document.createElement('span'));
       button.onclick = () => { if (tmActive(G.P)) tmAttack(G.P, i); };
       controls.append(button);
     });
@@ -135,6 +141,6 @@ hookAfter('updateHUD', () => {
     const button = controls.children[i + 1], cd = Math.ceil(P.cds['tm_fire_' + i] || 0);
     button.hidden = !tmActive(P);
     button.disabled = cd > 0 || P.mp < Math.ceil(P.S.maxmp * tmTechniques[i][2]);
-    button.textContent = cd ? name + ' · ' + cd : name;
+    button.lastChild.textContent = cd ? ' ' + cd : '';
   });
 });
